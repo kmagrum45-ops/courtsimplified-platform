@@ -2146,8 +2146,9 @@ const SPECIAL: CaseStage[] = [
  * site owner 2026-10-13): motions, admitting the claim and proposing terms of
  * payment, the trial management conference (O. Reg. 3/25), offers to settle,
  * and enforcement from both sides. Every rule is quoted from the saved
- * Small Claims Rules (citations.ts). Their timing rules are quoted; counted
- * deadlines for them need date questions that do not exist yet.
+ * Small Claims Rules (citations.ts). Their deadlines count from dates the
+ * case page already asks (the motion hearing date, the trial date, the day
+ * the claim or the defence was served).
  */
 const LAW_MAP_STAGES: CaseStage[] = [
   {
@@ -2163,7 +2164,35 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "defendant:noted-in-default", by: "whether the motion is to set aside a noting in default, which has its own step, or for another order" },
     ],
     rules: [C.R_15_01_MOTION_FORM, C.R_15_01_SERVE_FILE, C.R_15_02_HEARING, C.R_3_02_EXTEND],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:sc-motion-serve-7-days",
+        what: "Serve the notice of motion and supporting affidavit on every party who filed a claim and any defendant not noted in default",
+        qualifier: "Get a hearing date from the clerk before you serve. Earlier is fine.",
+        countFrom: "the hearing date, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 7 },
+        direction: "before",
+        regime: "small-claims-rules",
+        rule: C.R_15_01_SERVE_FILE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [],
+      },
+      {
+        id: "deadline:sc-motion-file-3-days",
+        what: "File the notice of motion and supporting affidavit, with proof of service",
+        countFrom: "the hearing date, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 3 },
+        direction: "before",
+        regime: "small-claims-rules",
+        rule: C.R_15_01_SERVE_FILE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [],
+      },
+    ],
   },
   {
     id: "both:responding-to-a-motion",
@@ -2177,7 +2206,22 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "both:bringing-a-motion", by: "whether the person was served with the motion or is bringing it" },
     ],
     rules: [C.R_15_01_RESPONSE, C.R_15_01_SERVE_FILE, C.R_15_02_HEARING],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:sc-motion-response-2-days",
+        what: "If you prepare an affidavit in response (Form 15B), serve it on every party who filed a claim or defence and file it, with proof of service",
+        qualifier: "A response affidavit is optional. Earlier is fine.",
+        countFrom: "the hearing date, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 2 },
+        direction: "before",
+        regime: "small-claims-rules",
+        rule: C.R_15_01_RESPONSE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [],
+      },
+    ],
   },
   {
     id: "defendant:admitted-and-proposed-terms",
@@ -2192,7 +2236,21 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "plaintiff:defendant-proposed-terms", by: "which side the person is on: the defendant proposing the terms or the plaintiff receiving them" },
     ],
     rules: [C.R_9_03_ADMIT_PROPOSE, C.R_9_03_NO_DISPUTE, C.R_9_03_DISPUTE, C.R_9_03_FINANCIAL_FORM, C.R_9_01_DEFENCE],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:sc-defence-with-proposal-20-days",
+        what: "Serve your defence, with the admission and proposed terms of payment, on every other party and file it with proof of service",
+        qualifier: "The parties can lengthen the time by filing their consent, and the court can lengthen it.",
+        countFrom: "the day of being served with the claim",
+        countFromEvent: "served-with-claim",
+        length: { unit: "days", count: 20 },
+        regime: "small-claims-rules",
+        rule: C.R_9_01_DEFENCE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_3_02_EXTEND, C.R_3_02_CONSENT, C.R_8_03_EFFECTIVE, C.R_8_03_SIGNATURE],
+      },
+    ],
   },
   {
     id: "plaintiff:defendant-proposed-terms",
@@ -2207,7 +2265,21 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "defendant:admitted-and-proposed-terms", by: "which side the person is on: the plaintiff receiving the proposal or the defendant making it" },
     ],
     rules: [C.R_9_03_DISPUTE, C.R_9_03_NO_DISPUTE, C.R_9_03_ADMIT_PROPOSE],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:sc-dispute-proposal-20-days",
+        what: "If you dispute the proposed terms of payment, file and serve a request to clerk (Form 9B) for a terms of payment hearing",
+        qualifier: "If you do not dispute it in time, the defendant pays as the proposal says, as if it were a court order.",
+        countFrom: "the day the defence was served",
+        countFromEvent: "defence-served",
+        length: { unit: "days", count: 20 },
+        regime: "small-claims-rules",
+        rule: C.R_9_03_DISPUTE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [],
+      },
+    ],
   },
   {
     id: "both:trial-management-conference",
@@ -2236,7 +2308,22 @@ const LAW_MAP_STAGES: CaseStage[] = [
       { stage: "plaintiff:awaiting-settlement-conference", by: "whether the parties are exchanging written offers or attending the court's settlement conference" },
     ],
     rules: [C.R_14_01_1_FORMS, C.R_14_02_ANY_TIME, C.R_14_03_WITHDRAW, C.R_14_05_ACCEPT, C.R_14_06_BREACH, C.R_14_07_PLAINTIFF_OFFER, C.R_14_07_DEFENDANT_OFFER],
-    deadlines: [],
+    deadlines: [
+      {
+        id: "deadline:sc-offer-7-days-before-trial",
+        what: "For the costs consequences in rule 14.07 to apply, serve the offer on the party it is made to",
+        qualifier: "An offer may be made at any time; this date only matters for costs. The offer must also not be withdrawn or expire before the trial.",
+        countFrom: "the first day of trial, counting backwards",
+        countFromEvent: "trial-date",
+        length: { unit: "days", count: 7 },
+        direction: "before",
+        regime: "small-claims-rules",
+        rule: C.R_14_02_COSTS_7_DAYS,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [],
+      },
+    ],
   },
   {
     id: "plaintiff:debtor-examination",
