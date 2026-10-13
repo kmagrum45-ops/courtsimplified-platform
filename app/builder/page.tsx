@@ -1651,6 +1651,16 @@ function BuilderPageContent() {
                   location={confirmedLocation}
                   initialStory={homeStory}
                   onComplete={handleGuidedComplete}
+                  // Coming back to a saved case: start from what it holds,
+                  // so nothing already answered is asked again (Step 2A).
+                  previous={
+                    queryCaseId && Array.isArray(asRecord(existingMasterResult).intakeAnswers)
+                      ? {
+                          answers: asRecord(existingMasterResult).intakeAnswers as { questionId: string; answerText: string }[],
+                          facts: asRecord(asRecord(existingMasterResult).intakeFacts),
+                        }
+                      : undefined
+                  }
                 />
                 {guidedAnalyzing ? (
                   <AnalyzingNote />

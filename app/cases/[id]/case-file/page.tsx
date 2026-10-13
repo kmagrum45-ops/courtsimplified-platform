@@ -66,7 +66,7 @@ function whenText(event: EventRow): string {
 }
 
 export default function CaseFileSection() {
-  const { caseRecord, position, stepId } = useCaseHome();
+  const { caseRecord, position, stepId, record } = useCaseHome();
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
   const intake = (master.intakeData ?? {}) as { facts?: string; goal?: string; yourName?: string; otherParty?: string };
   const drafts = readCaseDrafts(master);
@@ -172,9 +172,11 @@ export default function CaseFileSection() {
         </FileSection>
 
         <FileSection title="What happened, in your words">
-          {intake.yourName || intake.otherParty ? (
+          {/* Names from the one case record (Step 2A, 2026-10-12): civil keeps
+              them in civilInput, so reading intakeData alone left them blank. */}
+          {record.yourName || record.otherParty ? (
             <p className="mb-2">
-              {[intake.yourName && `You: ${intake.yourName}`, intake.otherParty && `Other side: ${intake.otherParty}`].filter(Boolean).join(" · ")}
+              {[record.yourName && `You: ${record.yourName}`, record.otherParty && `Other side: ${record.otherParty}`].filter(Boolean).join(" · ")}
             </p>
           ) : null}
           <p className="whitespace-pre-line">{userStory(intake) || "Not recorded."}</p>

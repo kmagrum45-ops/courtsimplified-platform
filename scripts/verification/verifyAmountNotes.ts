@@ -73,7 +73,10 @@ check("nothing recorded", recordedAmountOf({ facts: "Court path: Civil" }) === "
 
 const root = path.resolve(__dirname, "../..");
 for (const file of ["app/builder/page.tsx", "app/cases/[id]/page.tsx"]) {
-  check(`${file} passes the recorded amount`, readFileSync(path.join(root, file), "utf8").includes("recordedAmount={recordedAmountOf("));
+  // Either read directly, or from the one case record, whose `amount` is
+  // recordedAmountOf(intake) (caseRecord.ts; Step 2A, 2026-10-12).
+  const source = readFileSync(path.join(root, file), "utf8");
+  check(`${file} passes the recorded amount`, source.includes("recordedAmount={recordedAmountOf(") || source.includes("recordedAmount={record.amount}"));
 }
 
 if (failures > 0) {

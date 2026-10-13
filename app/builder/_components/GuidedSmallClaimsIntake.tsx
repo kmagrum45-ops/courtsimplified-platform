@@ -16,6 +16,7 @@ import type {
 } from "@/src/lib/case-system/intake/storyAnswerProposals";
 
 import { supabase } from "../../../src/lib/supabase/client";
+import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/questionBank";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { SourcedQuestionsCard, sourcedAnswersText, useSourcedQuestions } from "./SourcedQuestions";
@@ -430,11 +431,39 @@ type Props = {
   initialStory: string;
   /** Called once, when the conversation reports intakeComplete. See GuidedIntakeCompletionResult's own comment for why this isn't SmallClaimsIntake.tsx's onComplete shape. */
   onComplete?: (result: GuidedIntakeCompletionResult) => void;
+  /**
+   * What this case already holds from an earlier guided conversation
+   * (master_result.intakeAnswers and intakeFacts), when the person comes back
+   * through "Update your story". The conversation starts from it instead of
+   * from nothing, so nothing already answered is asked again (build order
+   * Step 2A, 2026-10-12; it used to start from scratch on every visit).
+   */
+  previous?: { answers: ConfirmedStoryAnswer[]; facts: Record<string, unknown> };
 };
 
-export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Props) {
-  const [facts, setFacts] = useState<IntakeFacts>({});
-  const [answeredIds, setAnsweredIds] = useState<string[]>([]);
+const BANK_IDS = new Set(QUESTION_BANK.map((question) => question.id));
+const KNOWN_FACTS = new Set<string>(KNOWN_FACT_FIELDS);
+
+/** Earlier facts the guided turn accepts (known fields, plain values only). */
+function previousFacts(previous: Props["previous"]): IntakeFacts {
+  const out: Record<string, string | number | boolean> = {};
+  for (const [key, value] of Object.entries(previous?.facts ?? {})) {
+    if (!KNOWN_FACTS.has(key)) continue;
+    if (typeof value === "boolean" || typeof value === "number") out[key] = value;
+    else if (typeof value === "string" && value.length <= 1200) out[key] = value; // the turn's own limit
+  }
+  return out;
+}
+
+/** Earlier answered question ids from the bank, newest kept (the turn takes at most 50). */
+function previousAnsweredIds(previous: Props["previous"]): string[] {
+  const ids = (previous?.answers ?? []).map((answer) => answer.questionId).filter((id) => BANK_IDS.has(id));
+  return Array.from(new Set(ids)).slice(-50);
+}
+
+export default function GuidedSmallClaimsIntake({ initialStory, onComplete, previous }: Props) {
+  const [facts, setFacts] = useState<IntakeFacts>(() => previousFacts(previous));
+  const [answeredIds, setAnsweredIds] = useState<string[]>(() => previousAnsweredIds(previous));
   const [currentQuestion, setCurrentQuestion] = useState<IntakeQuestion | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   // Sticky once set: the notice answers a question the user asked, and it
@@ -505,7 +534,17 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // unticked, sent with each answer so the next questions are checked against
   // the whole conversation, not only the opening story. Live run: the date
   // given to "when did it happen?" was asked for again as the injury date.
-  const [earlierAnswers, setEarlierAnswers] = useState<ConfirmedStoryAnswer[]>([]);
+  const [earlierAnswers, setEarlierAnswers] = useState<ConfirmedStoryAnswer[]>(() => (previous?.answers ?? []).slice(-200));
+  // The saved case can finish loading after this mounts; take its earlier
+  // answers then too, as long as the conversation hasn't started.
+  const previousTaken = useRef(Boolean(previous));
+  useEffect(() => {
+    if (!previous || previousTaken.current || started) return;
+    previousTaken.current = true;
+    setFacts(previousFacts(previous));
+    setAnsweredIds(previousAnsweredIds(previous));
+    setEarlierAnswers(previous.answers.slice(-200));
+  }, [previous, started]);
   const [declinedIds, setDeclinedIds] = useState<string[]>([]);
 
   async function sendTurn(
