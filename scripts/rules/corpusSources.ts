@@ -149,6 +149,7 @@ import { FORUM_CHECK_SOURCES } from "./forumCheckSources";
 import { CIVIL_PROCEDURE_SOURCES } from "./civilProcedureSources";
 import { FAMILY_LAW_SOURCES } from "./familyLawSources";
 import { CROWN_AND_VICTIM_SOURCES } from "./crownAndVictimSources";
+import { LAW_MAP_SOURCES } from "./lawMapSources";
 
 const LEGISLATION_SOURCES: CorpusSource[] = [
   {
@@ -287,6 +288,7 @@ export const CORPUS_SOURCES: CorpusSource[] = [
   ...CIVIL_PROCEDURE_SOURCES,
   ...FAMILY_LAW_SOURCES,
   ...CROWN_AND_VICTIM_SOURCES,
+  ...LAW_MAP_SOURCES,
   // Added by the source-request workflow (requestedSources.ts).
   ...REQUESTED_SOURCES,
 ];
