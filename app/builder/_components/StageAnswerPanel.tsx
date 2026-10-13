@@ -157,7 +157,7 @@ function NextStepCard({
   /** The person's side, so an "either side" step leads with their own limit ("If you are responding ..."). */
   responding?: boolean;
 }) {
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding);
+  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   const firstParagraph = forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {
@@ -212,7 +212,7 @@ function NextStepCard({
       {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the

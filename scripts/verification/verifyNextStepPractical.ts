@@ -196,5 +196,18 @@ console.log("\n7. A Small Claims step with no fee says so (2026-10-13)");
   check("a step with a fee shows the fee, not the no-fee note", Boolean(claim?.fees.length) && claim?.feeNotes.length === 0);
 }
 
+console.log("\nNotices narrowed to the person's words");
+// Property, not today's list: narrowing never leaves a step with no notice
+// rule, and a story that names one public body shows that body's notice.
+const STORIES = ["", "i slipped on ice on the sidewalk on queen street in toronto and want to sue the city", "my car hit a pothole on a city road in ottawa", "i fell on ice in a store parking lot", "the province's ministry was negligent", "a newspaper wrote lies about me", "something happened"];
+const emptied = ALL_STAGES.flatMap((stage) => {
+  const court = pathwayOf(stage) as PracticalCourt;
+  const full = practicalFor(stage.id, court)?.also.length ?? 0;
+  return full === 0 ? [] : STORIES.filter((story) => (practicalFor(stage.id, court, "Toronto", false, story)?.also.length ?? 0) === 0).map((story) => `${stage.id}: "${story}"`);
+});
+check("narrowing a step's notices to the story never leaves it with none", emptied.length === 0, emptied.join("; "));
+const toronto = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1])?.also.map((cite) => cite.sourceId) ?? [];
+check("a fall on a Toronto sidewalk shows the City of Toronto notice and not the Crown's", toronto.includes("city-of-toronto-act-2006") && !toronto.includes("crown-liability-and-proceedings-act-2019"), toronto.join(", "));
+
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;

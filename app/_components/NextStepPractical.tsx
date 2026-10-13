@@ -41,14 +41,17 @@ export default function NextStepPractical({
   court,
   city = "",
   responding = false,
+  story = "",
 }: {
   stepId: string;
   court: string;
   city?: string;
   responding?: boolean;
+  /** The person's own words, used only to narrow a step's notice rules to the ones that fit. */
+  story?: string;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city, responding);
+  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story);
   if (!view) return null;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">
