@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-134 documented, 28 without a header.
+136 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -62,6 +62,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:glossary` | **Every glossary definition is the law's own words, and every explanation**<br>says only what the definitions support. |
 | `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
+| `npm run test:guided-form-chat` | **One question at a time for family and civil (GuidedFormChat, build order**<br>Step 2C, 2026-10-12). |
 | `npm run test:guided-stage-by-role` | **Guided intake must not hand a user the OTHER side's next steps.**<br>mapGuidedIntakeToSmallClaimsInput() picks the case stage, and the stage picks a next-step block (src/lib/content-library/nextSteps.ts) that is written for one side. Until 2026-09-27 the stage was inferred from filed documents alone, and the case-review batch c |
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |
 | `npm run test:held-back-cases` | **The ten held-back finish-line cases stay held back**<br>(tests/browser/walkthrough/heldBackPersonas.ts; master plan decision log, 2026-10-08). |
@@ -123,10 +124,11 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:stage-answers` | **Can the pipeline's output be trusted?**<br>The run log says every sentence was verified and every quote was found. This suite does not take its word for it. It re-reads each quote out of the vendored corpus, now, on this machine — because the run log is a record of what happened on one afternoon agains |
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
 | `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |
+| `npm run test:stage-sequence` | **test:stage-sequence -- every step leads to the next by a rule**<br>(stage-map/stageSequence.ts, site owner 2026-10-12: "every step and every procedure is governed by the last"). |
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
-| `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: it must be off unless STRATEGY=on, and the page must not show it unless NEXT_PUBLIC_STRATEGY=on; - the route answering someone not signed in, or a m |
+| `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |

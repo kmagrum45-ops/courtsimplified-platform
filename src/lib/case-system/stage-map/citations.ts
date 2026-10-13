@@ -419,6 +419,18 @@ export const R_20_10_ORDER_AS_TO_PAYMENT = scc(
   "After the examination or if the debtor's consent is filed, the court may make an order as to payment.",
 );
 
+/** How an unpaid money order is enforced (stageSequence.ts: judgment, then enforcement). */
+export const R_20_03_ENFORCEMENT = scc(
+  "r. 20.03",
+  "In addition to any other method of enforcement provided by law, (a) an order for the payment or recovery of money may be enforced by, (i) a writ of seizure and sale of personal property (Form 20C) under rule 20.06, (ii) a writ of seizure and sale of land (Form 20D) under rule 20.07, and (iii) garnishment under rule 20.08; and (b) a further order as to payment may be made under subrule 20.10 (7).",
+);
+
+/** Restoring an action the clerk dismissed for delay, on everyone's consent (stageSequence.ts). */
+export const R_11_2_01_RESTORE_ON_CONSENT = scc(
+  "r. 11.2.01 (1)",
+  "The clerk shall, on the filing of a request for clerk's order on consent (Form 11.2A), make an order granting the relief sought, including costs, if the following conditions are satisfied: 1. The relief sought is, ... iv. restoring a matter that was dismissed under rule 11.1 to the list",
+);
+
 export const S_CJA_31_APPEAL: RuleCitation = {
   sourceId: "cja-courts-of-justice-act",
   pinpoint: "s. 31",
