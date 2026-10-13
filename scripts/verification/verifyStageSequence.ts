@@ -33,9 +33,12 @@ function check(name: string, ok: boolean, detail = "") {
 
 const stages = new Map<string, CaseStage>(ALL_STAGES.filter((stage) => !isSpecialStage(stage.id)).map((stage) => [stage.id, stage]));
 const sequenced = [...stages.values()].filter(isSequenced);
-const verifiedQuotes = new Set(
-  Object.values(CITATIONS).filter((value): value is CITATIONS.RuleCitation => !!value && typeof value === "object" && "quote" in value).map((citation) => citation.quote),
-);
+// Verified quotes: every citation in citations.ts and every rule a stage
+// carries; test:stage-map checks each of those word for word.
+const verifiedQuotes = new Set([
+  ...Object.values(CITATIONS).filter((value): value is CITATIONS.RuleCitation => !!value && typeof value === "object" && "quote" in value).map((citation) => citation.quote),
+  ...ALL_STAGES.flatMap((stage) => [...stage.rules, ...stage.deadlines.map((deadline) => deadline.rule)]).map((rule) => rule.quote),
+]);
 
 console.log("\n1. Moves join real steps, each by a verified rule");
 const unknown = STAGE_MOVES.flatMap((m) => [m.from, m.to].filter((id) => !stages.has(id)).map((id) => `${m.from} -> ${m.to}: ${id}`));
@@ -43,7 +46,7 @@ check("every move's steps exist", unknown.length === 0, unknown.join("\n      ")
 const unruled = STAGE_MOVES.filter((m) => m.rules.length === 0).map((m) => `${m.from} -> ${m.to}`);
 check("every move cites at least one rule", unruled.length === 0, unruled.join(", "));
 const unverified = [...STAGE_MOVES.flatMap((m) => m.rules), ...FINAL_STEPS.flatMap((f) => f.rules)].filter((rule) => !verifiedQuotes.has(rule.quote)).map((rule) => `${rule.sourceId} ${rule.pinpoint}`);
-check("every rule is a verified quote from citations.ts", unverified.length === 0, unverified.join(", "));
+check("every rule is a verified quote (citations.ts or a stage's own rules)", unverified.length === 0, unverified.join(", "));
 const duplicate = STAGE_MOVES.map((m) => `${m.from} -> ${m.to}`).filter((key, i, all) => all.indexOf(key) !== i);
 check("no move is listed twice", duplicate.length === 0, duplicate.join(", "));
 

@@ -605,6 +605,8 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   // ---- Civil: plaintiff
   "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: null, also: [CIV_START] },
   "civil:plaintiff:claim-issued-not-served": { forms: ["16B", "14D"], fees: [], files: true, serve: "originating" },
+  // A motion on notice; how it is served on the Crown is in s. 15 of the Crown Liability and Proceedings Act, quoted in the step's own rules.
+  "civil:plaintiff:crown-misfeasance-leave-needed": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: null, also: [CIV_MOTION] },
   "civil:plaintiff:service-attempted-failed": { forms: ["37A", "16B"], fees: ["civ-motion"], files: true, serve: "originating", also: [CIV_MOTION] },
   "civil:plaintiff:served-awaiting-defence": NOTHING,
   "civil:plaintiff:defence-period-expired-no-defence": { forms: ["19D", "19A"], fees: ["civ-default"], files: true, serve: null },
