@@ -224,6 +224,7 @@ export default function CaseOverviewPage() {
               caseId={caseId}
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}
+              initialService={position.service}
               suggestedDates={suggestedDates}
               storyHints={storyHintsForDates([record.story, intake?.timeline].filter(Boolean).join("\n"))}
               storyText={[record.story, intake?.goal, intake?.urgent].filter(Boolean).join("\n")}

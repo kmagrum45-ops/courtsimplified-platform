@@ -2,6 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { isServiceDateQuestion } from "@/src/lib/case-system/casePosition";
+import {
+  effectiveServiceDate,
+  serviceRulesFor,
+  type ServiceCourt,
+  type ServiceMethod,
+} from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
+
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
@@ -400,6 +408,7 @@ export default function StageAnswerPanel({
   caseId = null,
   initialStepId = null,
   initialDateAnswers = {},
+  initialService = {},
   suggestedDates = {},
   storyHints = {},
   noticeStepId = null,
@@ -422,6 +431,8 @@ export default function StageAnswerPanel({
   /** The step this user picked before, from the case. Wins over the suggestion. */
   initialStepId?: string | null;
   initialDateAnswers?: Record<string, string>;
+  /** How service dates were served, as saved (position.service; Step 2D). */
+  initialService?: Record<string, { method: ServiceMethod; enteredOn: string }>;
   /** Exact dates the user recorded elsewhere, offered — never applied — as answers. */
   suggestedDates?: Record<string, SuggestedDate>;
   /** Sentences from the user's story about each moment, quoted beside its question. */
@@ -475,6 +486,13 @@ export default function StageAnswerPanel({
   const [failed, setFailed] = useState(false);
   const [dateAnswers, setDateAnswers] = useState<Record<string, string>>(initialDateAnswers);
   const [dateDraft, setDateDraft] = useState<Record<string, string>>(initialDateAnswers);
+  // How the papers were served, per service date (Step 2D, 2026-10-12): the
+  // deadline counts from the day service is effective, not the day typed.
+  const [serviceMethod, setServiceMethod] = useState<Record<string, ServiceMethod>>(() =>
+    Object.fromEntries(Object.entries(initialService).map(([id, entry]) => [id, entry.method])),
+  );
+  const [serviceSaved, setServiceSaved] = useState<Record<string, { method: ServiceMethod; enteredOn: string }>>(initialService);
+  const serviceCourt: ServiceCourt | null = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
   /*
    * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,
@@ -562,6 +580,28 @@ export default function StageAnswerPanel({
     const asked = Object.fromEntries(
       (result.dateQuestions ?? []).map((question) => [question.id, draft[question.id] ?? ""]),
     );
+    // A service date counts from the day service is effective under the
+    // court's rules for how it was served (serviceEffectiveDate.ts).
+    const servicePatch: Record<string, { method: ServiceMethod; enteredOn: string } | null> = {};
+    for (const question of result.dateQuestions ?? []) {
+      const typed = asked[question.id];
+      const method = serviceMethod[question.id];
+      if (!serviceCourt || !isServiceDateQuestion(question.id, question.question)) continue;
+      if (typed && method) {
+        asked[question.id] = effectiveServiceDate(serviceCourt, method, typed).date;
+        servicePatch[question.id] = { method, enteredOn: typed };
+      } else {
+        servicePatch[question.id] = null;
+      }
+    }
+    setServiceSaved((current) => {
+      const out = { ...current };
+      for (const [id, entry] of Object.entries(servicePatch)) {
+        if (entry) out[id] = entry;
+        else delete out[id];
+      }
+      return out;
+    });
     const next = { ...dateAnswers };
     for (const [key, value] of Object.entries(asked)) {
       if (value) next[key] = value;
@@ -579,7 +619,11 @@ export default function StageAnswerPanel({
     // The step is saved with the dates: counting a deadline at the suggested
     // step is the user acting on it, and the case file needs the step to show
     // the counted date (page review, 2026-10-06).
-    const saved = await savePosition(caseId, { dateAnswers: asked, stepId: stageId || null });
+    const saved = await savePosition(caseId, {
+      dateAnswers: asked,
+      stepId: stageId || null,
+      ...(Object.keys(servicePatch).length ? { service: servicePatch } : {}),
+    });
     setDateStatus(saved ? "saved" : "not-saved");
   }
 
@@ -756,6 +800,21 @@ export default function StageAnswerPanel({
                     <p className="text-sm text-[#16302b]">
                       <span className="font-semibold">{shortLabel(question.question)}:</span> {formatIso(saved || fromStory!.value)}
                     </p>
+                    {saved && serviceCourt && serviceSaved[question.id] ? (
+                      (() => {
+                        const entry = serviceSaved[question.id];
+                        const how = serviceRulesFor(serviceCourt).find((rule) => rule.method === entry.method);
+                        const effective = effectiveServiceDate(serviceCourt, entry.method, entry.enteredOn);
+                        return (
+                          <p data-testid={`stage-answer-service-${question.id}`} className="text-xs text-[#16302b]">
+                            {how?.label ?? entry.method}, {formatIso(entry.enteredOn)}.{" "}
+                            {effective.date !== entry.enteredOn ? `Service counts from ${formatIso(effective.date)}` : "Service counts from that day"}
+                            {effective.rules.length ? ` (${effective.rules.join("; ")})` : ""}.
+                            {effective.confirm ? ` ${effective.confirm}` : ""}
+                          </p>
+                        );
+                      })()
+                    ) : null}
                     <p className="text-xs text-[#4d675f]">
                       {saved
                         ? keptFromStory[question.id]
@@ -785,6 +844,8 @@ export default function StageAnswerPanel({
                         data-testid={`stage-answer-date-change-${question.id}`}
                         onClick={() => {
                           setEditing({ ...editing, [question.id]: true });
+                          // Edit the day they typed, not the day service counts from.
+                          if (serviceSaved[question.id]) setDateDraft({ ...dateDraft, [question.id]: serviceSaved[question.id].enteredOn });
                           if (fromStory) {
                             const dropped = { ...rejected, [question.id]: true };
                             setRejected(dropped);
@@ -801,8 +862,35 @@ export default function StageAnswerPanel({
               }
               return (
                 <div key={question.id}>
+                  {serviceCourt && isServiceDateQuestion(question.id, question.question) ? (
+                    <label className="mb-2 block">
+                      <span className="text-sm font-semibold text-[#16302b]">How were the papers served?</span>
+                      <span className="block text-xs text-[#4d675f]">
+                        The rules count service from a different day depending on how it was done.
+                      </span>
+                      <select
+                        data-testid={`stage-answer-service-method-${question.id}`}
+                        value={serviceMethod[question.id] ?? ""}
+                        onChange={(event) =>
+                          setServiceMethod({ ...serviceMethod, [question.id]: event.target.value as ServiceMethod })
+                        }
+                        className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
+                      >
+                        <option value="">Choose how</option>
+                        {serviceRulesFor(serviceCourt).map((rule) => (
+                          <option key={rule.method} value={rule.method}>
+                            {rule.label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ) : null}
                   <label className="block">
-                    <span className="text-sm font-semibold text-[#16302b]">{question.question}</span>
+                    <span className="text-sm font-semibold text-[#16302b]">
+                      {serviceCourt && serviceMethod[question.id]
+                        ? `Enter ${serviceRulesFor(serviceCourt).find((rule) => rule.method === serviceMethod[question.id])?.dateToEnter ?? "the date"}`
+                        : question.question}
+                    </span>
                     <span className="block text-xs text-[#4d675f]">Used for: {question.sets.join("; ")}</span>
                     <input
                       type="date"
