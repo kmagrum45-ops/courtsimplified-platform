@@ -1,7 +1,7 @@
 /**
  * POST /api/cases/position: records where the user says their case is.
  *
- * In:  { caseId, confirmedStage?, stepId?, dateAnswers? }
+ * In:  { caseId, confirmedStage?, stepId?, dateAnswers?, service? }
  * Out: { position } or { error }
  *
  * Writes `master_result.position` and nothing else in master_result. Every
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
   const current = readCasePosition(ownedCase.master_result, ownedCase.court_path);
   const result = applyPositionPatch(
     current,
-    { confirmedStage: body.confirmedStage, stepId: body.stepId, dateAnswers: body.dateAnswers },
+    { confirmedStage: body.confirmedStage, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service },
     ownedCase.court_path,
     new Date(),
   );

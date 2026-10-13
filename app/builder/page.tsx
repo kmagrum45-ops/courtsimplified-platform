@@ -1833,6 +1833,7 @@ function BuilderPageContent() {
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}
+                initialService={savedPosition.service}
                 onSaved={(saved) =>
                   setPositionThisVisit((current) => ({
                     stepId: saved.stepId !== undefined ? saved.stepId : current.stepId,

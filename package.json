@@ -83,6 +83,7 @@
     "test:help-at-limits": "node --import tsx scripts/verification/verifyHelpAtLimits.ts",
     "test:held-back-cases": "node --import tsx scripts/verification/verifyHeldBackCases.ts",
     "test:guided-form-chat": "node --import tsx scripts/verification/verifyGuidedFormChat.ts",
+    "test:service-dates": "node --import tsx scripts/verification/verifyServiceDates.ts",
     "test:case-reader": "node --import tsx scripts/verification/verifyCaseReader.ts",
     "test:presumed-limitation": "node --import tsx scripts/verification/verifyPresumedLimitation.ts",
     "test:narrative-prefill": "node --import tsx scripts/verification/verifyNarrativePrefill.ts",

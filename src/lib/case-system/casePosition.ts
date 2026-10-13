@@ -23,6 +23,7 @@
  * Pure: no I/O. The route that writes it is app/api/cases/position.
  */
 
+import { serviceRulesFor, type ServiceCourt, type ServiceMethod } from "./deadlines/serviceEffectiveDate";
 import {
   DEADLINE_EVENTS,
   parseUserDate,
@@ -54,6 +55,13 @@ export type CasePosition = {
   stepChosenAt: string | null;
   /** Keyed by date-question id (e.g. "sc-date-claim-served"); ISO dates only. */
   dateAnswers: Record<string, string>;
+  /**
+   * For a service date: how the papers were served and the day the person
+   * typed (build order Step 2D, 2026-10-12). The matching dateAnswers entry
+   * holds the day service counts from (serviceEffectiveDate.ts), which is
+   * what every deadline is counted from.
+   */
+  service?: Record<string, { method: ServiceMethod; enteredOn: string }>;
 };
 
 export const EMPTY_POSITION: CasePosition = {
@@ -113,7 +121,28 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
     stepId: stepValid ? (raw.stepId as string) : null,
     stepChosenAt: stepValid && typeof raw.stepChosenAt === "string" ? raw.stepChosenAt : null,
     dateAnswers,
+    service: readService(raw.service, courtPath),
   };
+}
+
+function serviceCourtOf(courtPath: string | null | undefined): ServiceCourt | null {
+  return courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
+}
+
+function isMethodFor(method: unknown, courtPath: string | null | undefined): method is ServiceMethod {
+  const court = serviceCourtOf(courtPath);
+  const courts = court ? [court] : (["small-claims", "civil", "family"] as const);
+  return typeof method === "string" && courts.some((one) => serviceRulesFor(one).some((rule) => rule.method === method));
+}
+
+function readService(value: unknown, courtPath?: string | null): Record<string, { method: ServiceMethod; enteredOn: string }> {
+  const out: Record<string, { method: ServiceMethod; enteredOn: string }> = {};
+  for (const [key, entry] of Object.entries(asRecord(value))) {
+    const record = asRecord(entry);
+    const enteredOn = typeof record.enteredOn === "string" ? parseUserDate(record.enteredOn) : null;
+    if (isDateQuestionId(key) && isMethodFor(record.method, courtPath) && enteredOn) out[key] = { method: record.method, enteredOn };
+  }
+  return out;
 }
 
 export type PositionPatch = {
@@ -121,6 +150,8 @@ export type PositionPatch = {
   stepId?: unknown;
   /** A value of "" removes that answer. */
   dateAnswers?: unknown;
+  /** By date-question id: { method, enteredOn }, or null to remove. */
+  service?: unknown;
 };
 
 export type PositionPatchResult =
@@ -137,7 +168,7 @@ export function applyPositionPatch(
   courtPath: string | null | undefined,
   now: Date,
 ): PositionPatchResult {
-  const next: CasePosition = { ...current, dateAnswers: { ...current.dateAnswers } };
+  const next: CasePosition = { ...current, dateAnswers: { ...current.dateAnswers }, service: { ...(current.service ?? {}) } };
   const stamp = now.toISOString();
 
   if (patch.confirmedStage !== undefined) {
@@ -175,6 +206,26 @@ export function applyPositionPatch(
       next.dateAnswers[key] = parseUserDate(value) as string;
     }
   }
+
+  if (patch.service !== undefined) {
+    const entries = asRecord(patch.service);
+    if (Object.keys(entries).length > 20) return { ok: false, error: "Too many service details." };
+    for (const [key, entry] of Object.entries(entries)) {
+      if (!isDateQuestionId(key)) return { ok: false, error: `Unknown date question: ${key}` };
+      if (entry === null || entry === "") {
+        delete next.service![key];
+        continue;
+      }
+      const record = asRecord(entry);
+      const enteredOn = typeof record.enteredOn === "string" && record.enteredOn.length <= 32 ? parseUserDate(record.enteredOn) : null;
+      if (!isMethodFor(record.method, courtPath) || !enteredOn) {
+        return { ok: false, error: "How the papers were served could not be read." };
+      }
+      next.service![key] = { method: record.method, enteredOn };
+    }
+  }
+  // A removed date takes its service details with it.
+  for (const key of Object.keys(next.service ?? {})) if (!next.dateAnswers[key]) delete next.service![key];
 
   return { ok: true, position: next };
 }
@@ -458,6 +509,11 @@ const MOMENT_WORDS: Record<string, RegExp> = {
   upcoming: /\b(served|filed|issued|received|got)\b/i,
   other: /\b(served|filed|issued|hearing|conference|trial|mediation|scheduled)\b/i,
 };
+
+/** Whether a date question asks when something was served (so how it was served matters). */
+export function isServiceDateQuestion(questionId: string, question: string): boolean {
+  return momentOf(questionId, question) === "served";
+}
 
 function momentOf(questionId: string, question: string): keyof typeof MOMENT_WORDS {
   if (UPCOMING_QUESTIONS.has(questionId) || /scheduled|will it be heard|first day of trial/i.test(question)) return "upcoming";
