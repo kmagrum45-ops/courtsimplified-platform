@@ -898,7 +898,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   {getPathLabel(path)}
                 </span>
                 <span className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-4 py-2 font-semibold">
-                  {stats.total} official form(s)
+                  {/* Not "0" while the list is still loading (walkthrough, 2026-10-13: read as "no forms"). */}
+                  {loading ? "Loading official forms…" : `${stats.total} official form(s)`}
                 </span>
               </div>
             </div>
@@ -906,7 +907,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5 text-sm">
               <p className="font-bold text-[#10231f]">Forms for this case</p>
               <p className="mt-2 text-[#4f685f]">
-                Available official forms: {stats.total}
+                {loading ? "Loading the official forms…" : `Available official forms: ${stats.total}`}
               </p>
               {/* Page review 2026-10-07: "Checked against your case: 0" sat
                   beside the form the step names, reading as a contradiction. */}
