@@ -97,6 +97,29 @@ check(
   suggestApplicability([{ field_path: "formApplicability.smallClaims.respondingToPlaintiffsClaim", choices: [{ value: "yes" }] }], defendant, {}).length === 0,
 );
 
+// Firm answers (Step 2B, 2026-10-12): what the person entered or chose is kept
+// without asking again; what is read from the story stays a suggestion.
+{
+  check("a recorded side is a firm answer", responding[0]?.firm === true);
+  const remedy = [{ field_path: "formApplicability.smallClaims.requestedRemedyType", choices: [{ value: "ordinary-money-claim" }, { value: "ordinary-property-claim" }, { value: "not-sure" }] }];
+  const withAmount = readCaseRecord({ intakeData: { extra: { amountClaimed: "$5,200" } } }, "small-claims");
+  const typed = suggestApplicability(remedy, withAmount, {});
+  check("an amount they typed is a firm money claim", typed[0]?.value === "ordinary-money-claim" && typed[0]?.firm === true);
+  const storyOnly = readCaseRecord({ intakeData: { facts: "The dog bit me and I want them to pay for it.", extra: { story: "The dog bit me and I want them to pay for it." } } }, "small-claims");
+  const fromStory = suggestApplicability(remedy, storyOnly, {});
+  check("money read from the story is offered, not kept", fromStory[0]?.value === "ordinary-money-claim" && !fromStory[0]?.firm);
+  const posture = [{ field_path: "formApplicability.civil.pleadingPosture", choices: [{ value: "defence-to-counterclaim" }, { value: "crossclaim" }] }];
+  const counterclaimed = { position: { stepId: "civil:plaintiff:served-with-counterclaim" }, intakeData: { courtPath: "civil" } };
+  const pleading = suggestApplicability(posture, readCaseRecord(counterclaimed, "civil"), counterclaimed);
+  check("the step they picked settles the pleading", pleading[0]?.value === "defence-to-counterclaim" && pleading[0]?.firm === true);
+  const mortgage = [{ field_path: "formApplicability.civil.isMortgageForeclosure", choices: yesNo }];
+  const noMention = readCaseRecord({ intakeData: { courtPath: "civil", extra: { civilInput: { facts: "I sued my business partner." } } } }, "civil");
+  check("what the story doesn't mention stays a suggestion", suggestApplicability(mortgage, noMention, {})[0]?.firm !== true);
+  const forms = readFileSync(path.join(process.cwd(), "app/forms/FormsWorkspace.tsx"), "utf8");
+  check("the forms page keeps only firm answers without asking", /suggestion\.firm &&/.test(forms) && /void saveApplicability\(patch, reasons\)/.test(forms));
+  check("a kept answer shows where it came from, with Change", /From your case: \{keptFromCase\[question\.field_path\]\}/.test(forms));
+}
+
 {
   // Held-back walkthrough, 2026-10-09: the Forms page asked what the recorded
   // money claim and the described lawsuit already answered.
