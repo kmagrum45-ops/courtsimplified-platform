@@ -47,6 +47,16 @@ for (const role of ["Plaintiff / claimant", "plaintiff", "applicant", "not-sure"
 check("a confirmed 'responding' stage is the responding side", userIsResponding({ confirmedStage: "responding", caseData: null, intakeFacts: null }));
 check("the guided intake's defendant role is the responding side", userIsResponding({ confirmedStage: null, caseData: null, intakeFacts: { role: "defendant" } }));
 check("starting a case is not the responding side", !userIsResponding({ confirmedStage: "starting-case", caseData: null, intakeFacts: { role: "plaintiff" } }));
+// Civil keeps the role in extra.civilInput; the old rule never read it, so a
+// civil defendant was treated as starting the case (Step 2A, 2026-10-12).
+check(
+  "a civil defendant (civilInput.yourRole) is the responding side",
+  userIsResponding({
+    confirmedStage: null,
+    caseData: ({ extra: { civilInput: { yourRole: "defendant" } } }) as unknown as Parameters<typeof userIsResponding>[0]["caseData"],
+    intakeFacts: null,
+  }),
+);
 
 const page = readFileSync(path.join(process.cwd(), "app/builder/page.tsx"), "utf8");
 // Each button's render condition: the text between the last "{COURT_DOCUMENT_DRAFTING_ENABLED"

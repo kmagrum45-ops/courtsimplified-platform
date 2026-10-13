@@ -77,12 +77,22 @@ export function documentsOf(intake: unknown): unknown[] {
 const RESPONDING = /defendant|respondent|responding/i;
 const STARTING = /plaintiff|claimant|applicant|moving/i;
 
-function sideOf(master: Record<string, unknown>, position: CasePosition): RecordedFact<Side> | null {
-  if (position.confirmedStage === "responding") return { value: "responding", source: "confirmed" };
-  const facts = asRecord(master.intakeFacts);
+/**
+ * THE one rule for which side the person is on (build order Step 2A,
+ * 2026-10-12). The builder and the case pages used a second rule
+ * (respondingSide.userIsResponding) that never read civilInput.yourRole, so a
+ * civil defendant could be treated as starting the case. Both now call this.
+ */
+export function sideFromParts(parts: {
+  confirmedStage: string | null | undefined;
+  intakeData: unknown;
+  intakeFacts: unknown;
+}): RecordedFact<Side> | null {
+  if (parts.confirmedStage === "responding") return { value: "responding", source: "confirmed" };
+  const facts = asRecord(parts.intakeFacts);
   if (facts.role === "defendant") return { value: "responding", source: "guided" };
   if (facts.role === "plaintiff") return { value: "starting", source: "guided" };
-  const intake = asRecord(master.intakeData);
+  const intake = asRecord(parts.intakeData);
   const extra = asRecord(intake.extra);
   const civil = asRecord(extra.civilInput);
   for (const role of [extra.yourRole, civil.yourRole, intake.yourRole]) {
@@ -90,8 +100,16 @@ function sideOf(master: Record<string, unknown>, position: CasePosition): Record
     if (RESPONDING.test(value)) return { value: "responding", source: "intake" };
     if (STARTING.test(value)) return { value: "starting", source: "intake" };
   }
-  if (position.confirmedStage === "starting-case") return { value: "starting", source: "confirmed" };
+  if (parts.confirmedStage === "starting-case") return { value: "starting", source: "confirmed" };
   return null;
+}
+
+function sideOf(master: Record<string, unknown>, position: CasePosition): RecordedFact<Side> | null {
+  return sideFromParts({
+    confirmedStage: position.confirmedStage,
+    intakeData: master.intakeData,
+    intakeFacts: master.intakeFacts,
+  });
 }
 
 type Answer = { questionId: string; answerText: string };

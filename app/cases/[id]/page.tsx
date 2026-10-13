@@ -14,7 +14,6 @@
  */
 
 import { readStoredPicture } from "@/src/lib/case-system/intake/caseReader";
-import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
@@ -34,7 +33,6 @@ import {
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
-import { userStory } from "@/src/lib/case-system/userStory";
 import { suggestedNoticeStep } from "@/src/lib/case-system/claim-types/noticeStep";
 
 type EventsResponse = {
@@ -63,7 +61,7 @@ function asConfirmable(value: unknown): UniversalStage | null {
 }
 
 export default function CaseOverviewPage() {
-  const { caseRecord, position, courtPath, responding, reload } = useCaseHome();
+  const { caseRecord, position, courtPath, responding, reload, record } = useCaseHome();
   const caseId = caseRecord.id;
   const base = `/cases/${encodeURIComponent(caseId)}`;
   const master = asRecord(caseRecord.master_result);
@@ -227,22 +225,22 @@ export default function CaseOverviewPage() {
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}
               suggestedDates={suggestedDates}
-              storyHints={storyHintsForDates([userStory(intake), intake?.timeline].filter(Boolean).join("\n"))}
-              storyText={[userStory(intake), intake?.goal, intake?.urgent].filter(Boolean).join("\n")}
+              storyHints={storyHintsForDates([record.story, intake?.timeline].filter(Boolean).join("\n"))}
+              storyText={[record.story, intake?.goal, intake?.urgent].filter(Boolean).join("\n")}
               userWords={userWordsOf(intake)}
-              recordedAmount={recordedAmountOf(intake)}
-              // The city the case recorded picks the filing portal (Toronto region or not).
-              city={typeof (intake?.extra as Record<string, unknown> | undefined)?.yourCity === "string" ? ((intake?.extra as Record<string, unknown>).yourCity as string) : ""}
+              // Amount, city, claim type and story from the one case record
+              // (build order Step 2A, 2026-10-12). The city used to be read
+              // from extra.yourCity only, so a civil case (civilInput.city)
+              // lost its city and could be shown the wrong filing portal.
+              recordedAmount={record.amount}
+              city={record.city}
               picture={readStoredPicture(master.casePicture)}
               // The notice step the builder suggested, here too (page review,
               // 2026-10-07: the case page silently dropped the snow-and-ice
               // notice step and its deadline).
               noticeStepId={suggestedNoticeStep({
-                claimTypeId:
-                  typeof asRecord(intake?.extra).confirmedClaimTypeId === "string"
-                    ? (asRecord(intake?.extra).confirmedClaimTypeId as string)
-                    : null,
-                story: userStory(intake),
+                claimTypeId: record.claimTypeId,
+                story: record.story,
                 courtPath,
               })}
             />
