@@ -26,7 +26,7 @@
  */
 
 import type { RuleCitation } from "../case-system/stage-map/citations";
-import { R_15_01_MOTION_FORM } from "../case-system/stage-map/citations";
+import { R_15_01_MOTION_FORM, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
 
 export type PracticalCourt = "small-claims" | "civil" | "family";
 
@@ -654,7 +654,9 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
 
   // ---- Civil: before filing
   "civil:before-filing:deciding-whether-to-sue": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: null, also: [CIV_START] },
-  "civil:before-filing:notice-required-before-suing": NOTHING,
+  // Done outside court: the notice itself. The step's own deadlines say which applies and count it;
+  // the card shows each notice rule so the person sees what the notice must say and who gets it.
+  "civil:before-filing:notice-required-before-suing": { forms: [], fees: [], files: false, serve: null, also: [MUNICIPAL_NOTICE, TORONTO_NOTICE, SNOW_ICE_NOTICE, S_CLPA_18_1_NOTICE] },
   "civil:before-filing:limitation-period-may-have-passed": NOTHING,
   // ---- Civil: plaintiff
   "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: "originating", also: [CIV_START, CIV_SERVE_IN_SIX_MONTHS] },
