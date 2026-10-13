@@ -465,6 +465,8 @@ const CIV_START = rcp(
   "r. 14.03 (1), (2)",
   "The originating process for the commencement of an action is a statement of claim (Form 14A (general) or 14B (mortgage actions)) ... Where there is insufficient time to prepare a statement of claim, an action may be commenced by the issuing of a notice of action (Form 14C) that contains a short statement of the nature of the claim.",
 );
+/** Once issued, the claim is served within six months (2026-10-13: the card for a drafted claim said nothing about serving it). */
+const CIV_SERVE_IN_SIX_MONTHS = rcp("r. 14.08 (1)", "Where an action is commenced by a statement of claim, the statement of claim shall be served within six months after it is issued.");
 const CIV_MOTION = rcp(
   "r. 37.01",
   "A motion shall be made by a notice of motion (in Form 37A) unless the nature of the motion or the circumstances make a notice of motion unnecessary or these rules provide otherwise.",
@@ -580,7 +582,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:before-filing:notice-required-before-suing": NOTHING,
   "civil:before-filing:limitation-period-may-have-passed": NOTHING,
   // ---- Civil: plaintiff
-  "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: null, also: [CIV_START] },
+  "civil:plaintiff:claim-drafted-not-issued": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: "originating", also: [CIV_START, CIV_SERVE_IN_SIX_MONTHS] },
   "civil:plaintiff:claim-issued-not-served": { forms: ["16B", "14D"], fees: [], files: true, serve: "originating" },
   "civil:plaintiff:service-attempted-failed": { forms: ["37A", "16B"], fees: ["civ-motion"], files: true, serve: "originating", also: [CIV_MOTION] },
   "civil:plaintiff:served-awaiting-defence": NOTHING,
