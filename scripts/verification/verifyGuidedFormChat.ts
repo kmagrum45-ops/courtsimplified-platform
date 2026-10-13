@@ -19,6 +19,7 @@ import path from "node:path";
 import { acknowledgement, isAnswered, pendingFields, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
 import { civilGuidedFields, familyGuidedFields } from "../../app/builder/_components/guidedFields";
 import { amountFromStory, childrenFromStory, civilRoleFromStory, familyRoleFromStory, goalFromStory } from "../../app/builder/_components/storyAnswers";
+import { cardLabel, confirmedDrafts, dayOf, sameDayAs } from "../../app/builder/_components/proposalCard";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");
@@ -111,6 +112,35 @@ console.log("\n6. What the story already says is offered for one click, not aske
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("the chat shows the story's words and asks 'Is that right?'", /From what you told us: &ldquo;/.test(chat) && /Is that right\?/.test(chat));
   check("'No' asks the question plainly instead", /setNotFromStory/.test(chat) && /No, let me answer/.test(chat));
+}
+
+console.log("\n7. Small Claims 'Here's what I understood' states answers once (2026-10-13)");
+{
+  check("the side is stated, not asked", cardLabel("sc-orient-role", "Are you the person or business bringing this claim, or the one responding to a claim?") === "Your side");
+  check("an unlisted question keeps its own words", cardLabel("sc-x", "Some question?") === "Some question?");
+  check("'January 13, 2025, at 2 pm' is that day", dayOf("January 13, 2025, at 2 pm") === "2025-01-13");
+  check("'Sept 3rd 2026' is that day", dayOf("Sept 3rd 2026") === "2026-09-03");
+  check("a month and year alone is not a day", dayOf("July 2026") === null);
+  const drafts = [
+    { questionId: "sc-orient-when-happened", answer: "January 13, 2025, at 2 pm", keep: true },
+    { questionId: "sc-orient-role", answer: "Bringing the claim (plaintiff)", keep: true },
+    { questionId: "sc-date-injury", answer: "January 13, 2025", keep: true },
+  ];
+  const shown = sameDayAs(drafts);
+  check("the injury date naming the same day is shown with 'when it happened'", shown[2] === 0 && shown[0] === -1 && shown[1] === -1, JSON.stringify(shown));
+  const differentDay = sameDayAs([drafts[0], { ...drafts[2], answer: "January 14, 2025" }]);
+  check("a different day keeps its own row", differentDay[1] === -1);
+  const originals = drafts.map((draft) => draft.answer);
+  const unticked = confirmedDrafts([{ ...drafts[0], keep: false }, drafts[1], drafts[2]], shown, originals);
+  check("unticking the shown date unticks the one shown with it", unticked[2].keep === false);
+  const edited = confirmedDrafts([{ ...drafts[0], answer: "January 12, 2025" }, drafts[1], drafts[2]], shown, originals);
+  check("changing the shown date changes the one shown with it", edited[2].answer === "January 12, 2025");
+  const untouched = confirmedDrafts(drafts, shown, originals);
+  check("left alone, each question keeps its own answer", untouched[2].answer === "January 13, 2025" && untouched[2].keep);
+  const intake = read("app/builder/_components/GuidedSmallClaimsIntake.tsx");
+  check("the card shows statement labels", /cardLabel\(draft\.questionId, draft\.questionText\)/.test(intake));
+  check("the card hides a row shown with another, and says so", /sameDayAs\(proposalDrafts\)\[index\] >= 0 \? null/.test(intake) && /Also kept as/.test(intake));
+  check("both confirm buttons resolve shown-together rows first", (intake.match(/const drafts = resolvedDrafts\(proposalDrafts\)/g) ?? []).length === 2);
 }
 
 console.log("\n5. The walkthrough plays it");

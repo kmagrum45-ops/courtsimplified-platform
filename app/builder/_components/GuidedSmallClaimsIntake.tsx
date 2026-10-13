@@ -19,6 +19,7 @@ import { supabase } from "../../../src/lib/supabase/client";
 import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/questionBank";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
+import { cardLabel, confirmedDrafts, sameDayAs } from "./proposalCard";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 
 type IntakeFacts = Record<string, string | number | boolean>;
@@ -121,16 +122,27 @@ type GuidedTurnResult = {
 };
 
 /** One proposal as the user is reviewing it. */
-type ProposalDraft = StoryAnswerProposal & { keep: boolean };
+type ProposalDraft = StoryAnswerProposal & { keep: boolean; original: string };
 
 /**
  * What was confirmed, listed, so the conversation shows what was recorded
  * (page review, 2026-10-06: "Confirmed 4 answers from my story" hid every
  * answer, so a wrong one could not be spotted afterwards).
  */
+/** The drafts as confirmed: a date shown with another takes that row's tick and edit. */
+function resolvedDrafts(drafts: readonly ProposalDraft[]): ProposalDraft[] {
+  return confirmedDrafts(drafts, sameDayAs(drafts), drafts.map((draft) => draft.original));
+}
+
+/** Only the rows the card showed, so a date confirmed twice is listed once. */
+function shownRows(drafts: readonly ProposalDraft[]): ProposalDraft[] {
+  const shownWith = sameDayAs(drafts);
+  return drafts.filter((_, index) => shownWith[index] < 0);
+}
+
 function confirmedSummary(drafts: readonly ProposalDraft[], from: string): string {
   const kept = drafts.filter((draft) => draft.keep && draft.answer.trim());
-  return [`Confirmed from ${from}:`, ...kept.map((draft) => `• ${draft.questionText} ${draft.answer.trim()}`)].join("\n");
+  return [`Confirmed from ${from}:`, ...kept.map((draft) => `• ${cardLabel(draft.questionId, draft.questionText)}: ${draft.answer.trim()}`)].join("\n");
 }
 
 type ChatMessage = {
@@ -645,7 +657,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
       // question is asked. Nothing is applied until the user confirms; what
       // they untick is simply asked as normal.
       if (result.storyProposals && result.storyProposals.length > 0) {
-        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: true })));
+        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: true, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
@@ -918,7 +930,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
       // newspapers). Confirming happens in handleConfirmDepthProposals.
       if (result.proposals && result.proposals.length > 0) {
         setProposalMode("depth");
-        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: true })));
+        setProposalDrafts(result.proposals.map((proposal) => ({ ...proposal, keep: true, original: proposal.answer })));
         setMessages((current) => [
           ...current,
           {
@@ -1064,10 +1076,11 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
 
   function handleConfirmDepthProposals() {
     if (!proposalDrafts || !completionPayload?.matchedClaimType) return;
-    const confirmed: ConfirmedStoryAnswer[] = proposalDrafts
+    const drafts = resolvedDrafts(proposalDrafts);
+    const confirmed: ConfirmedStoryAnswer[] = drafts
       .filter((draft) => draft.keep && draft.answer.trim())
       .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
-    const unticked = proposalDrafts.filter((draft) => !draft.keep).map((draft) => draft.questionId);
+    const unticked = drafts.filter((draft) => !draft.keep).map((draft) => draft.questionId);
     if (unticked.length) setDeclinedIds((current) => [...current, ...unticked]);
     if (confirmed.length) setEarlierAnswers((current) => [...current, ...confirmed]);
     setProposalDrafts(null);
@@ -1078,7 +1091,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
         from: "user",
         text:
           confirmed.length > 0
-            ? confirmedSummary(proposalDrafts, "what I've told you")
+            ? confirmedSummary(shownRows(drafts), "what I've told you")
             : "None of those were right.",
       },
     ]);
@@ -1137,7 +1150,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
       return;
     }
     if (!proposalDrafts) return;
-    const confirmed: ConfirmedStoryAnswer[] = proposalDrafts
+    const drafts = resolvedDrafts(proposalDrafts);
+    const confirmed: ConfirmedStoryAnswer[] = drafts
       .filter((draft) => draft.keep && draft.answer.trim())
       .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
     setProposalDrafts(null);
@@ -1147,7 +1161,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
         from: "user",
         text:
           confirmed.length > 0
-            ? confirmedSummary(proposalDrafts, "my story")
+            ? confirmedSummary(shownRows(drafts), "my story")
             : "None of those were right.",
       },
     ]);
@@ -1226,8 +1240,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
             Suggested by AI from your own words. Nothing is saved until you confirm.
           </p>
           <div className="mt-3 space-y-3">
-            {proposalDrafts.map((draft, index) => (
-              <div key={draft.questionId} className="rounded-xl border border-[#d8e6df] p-3">
+            {proposalDrafts.map((draft, index) => (sameDayAs(proposalDrafts)[index] >= 0 ? null : (
+              <div key={draft.questionId} data-testid="story-proposal-row" className="rounded-xl border border-[#d8e6df] p-3">
                 <label className="flex items-start gap-2">
                   <input
                     type="checkbox"
@@ -1235,7 +1249,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
                     onChange={(event) => updateProposalDraft(index, { keep: event.target.checked })}
                     className="mt-1"
                   />
-                  <span className="font-semibold">{draft.questionText}</span>
+                  <span className="font-semibold">{cardLabel(draft.questionId, draft.questionText)}</span>
                 </label>
                 {draft.choices && draft.choices.length > 0 ? (
                   <select
@@ -1260,8 +1274,18 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
                   />
                 )}
                 <p className="mt-1 text-xs text-[#6b8078]">From your story: &ldquo;{draft.storyQuote}&rdquo;</p>
+                {proposalDrafts.some((_, other) => sameDayAs(proposalDrafts)[other] === index) ? (
+                  <p data-testid="story-proposal-also" className="mt-1 text-xs text-[#6b8078]">
+                    Also kept as{" "}
+                    {proposalDrafts
+                      .filter((_, other) => sameDayAs(proposalDrafts)[other] === index)
+                      .map((other) => cardLabel(other.questionId, other.questionText).toLowerCase())
+                      .join(" and ")}
+                    .
+                  </p>
+                ) : null}
               </div>
-            ))}
+            )))}
           </div>
           <button
             type="button"

@@ -323,8 +323,13 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
       );
 
       return NextResponse.json({ ok: true, result, authenticated });
-    } catch {
-      console.error("Guided intake turn route failed.");
+    } catch (error) {
+      // The error's kind and where it was thrown, never its message (which can
+      // carry the person's words) or anything secret.
+      console.error("Guided intake turn route failed.", {
+        errorName: error instanceof Error ? error.name : "unknown",
+        at: error instanceof Error ? (error.stack ?? "").split("\n").slice(1, 4).map((line) => line.trim()) : [],
+      });
       return errorResponse("CourtSimplified could not process this intake turn right now.", 500);
     }
   };
