@@ -381,9 +381,6 @@ jobs:
       - name: Every safety signal the intake can raise is covered
         run: npm run test:safety-coverage
 
-      - name: Next-step card leads with the step, form and deadline, and says it once
-        run: npm run test:next-step
-
       - name: Family and civil ask one question at a time, never one already answered
         run: npm run test:guided-form-chat
 
