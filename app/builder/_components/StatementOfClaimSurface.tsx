@@ -229,6 +229,11 @@ export default function StatementOfClaimSurface({
               <span>
                 <span className="block text-sm font-semibold text-[#10231f]">{remedy.title}</span>
                 <span className="block text-sm text-[#4d675f]">{remedy.plainExplanation}</span>
+                {remedy.source ? (
+                  <a href={remedy.source.url} target="_blank" rel="noreferrer" className="mt-1 block text-xs font-semibold text-[#2f7d67] underline">
+                    Source: {remedy.source.name}
+                  </a>
+                ) : null}
               </span>
             </label>
           ))}

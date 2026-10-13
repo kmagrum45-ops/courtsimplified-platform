@@ -1,8 +1,16 @@
 {
   "before-filing:deciding-whether-to-sue": [
     {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "what happened that led to the lawsuit"
+    },
+    {
       "sourceId": "limitations-act-2002",
       "pinpoint": "s. 5 (1)"
+    },
+    {
+      "sourceId": "ontario-suing-someone-small-claims",
+      "pinpoint": "What you can sue for"
     },
     {
       "sourceId": "residential-tenancies-act-2006",
@@ -57,6 +65,10 @@
       "pinpoint": "r. 7.01 (1)"
     },
     {
+      "sourceId": "ontario-fee-waiver",
+      "pinpoint": "Have your court fees waived"
+    },
+    {
       "sourceId": "limitations-act-2002",
       "pinpoint": "s. 4"
     },
@@ -81,6 +93,18 @@
   ],
   "before-filing:claim-exceeds-small-claims-limit": [
     {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "what happened that led to the lawsuit"
+    },
+    {
+      "sourceId": "ontario-suing-someone-small-claims",
+      "pinpoint": "Small claims court: suing someone"
+    },
+    {
+      "sourceId": "scj-steps-to-a-civil-case",
+      "pinpoint": "Finding Legal Help and Representation"
+    },
+    {
       "sourceId": "limitations-act-2002",
       "pinpoint": "s. 4"
     },
@@ -95,11 +119,31 @@
       "pinpoint": "s. 5 (1)"
     },
     {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "What happens next with the plaintiff's claim"
+    },
+    {
+      "sourceId": "ontario-file-small-claims-online",
+      "pinpoint": "Overview"
+    },
+    {
+      "sourceId": "ontario-fees-small-claims",
+      "pinpoint": "If you cannot afford to pay the fees"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 7.02 (1)"
     }
   ],
   "plaintiff:claim-issued-not-served": [
+    {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "What happens next with the plaintiff's claim"
+    },
+    {
+      "sourceId": "guide-serving-documents",
+      "pinpoint": "How long the plaintiff has to serve the claim"
+    },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 8.02"
@@ -115,6 +159,18 @@
   ],
   "plaintiff:service-attempted-failed": [
     {
+      "sourceId": "guide-serving-documents",
+      "pinpoint": "Personal service and alternatives to personal service"
+    },
+    {
+      "sourceId": "guide-motions-and-clerks-orders",
+      "pinpoint": "How to make a motion"
+    },
+    {
+      "sourceId": "ontario-fees-small-claims",
+      "pinpoint": "Fees payable to the clerk"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 8.03 (2)"
     },
@@ -124,6 +180,22 @@
     }
   ],
   "plaintiff:six-month-service-window-expired": [
+    {
+      "sourceId": "guide-serving-documents",
+      "pinpoint": "How long the plaintiff has to serve the claim"
+    },
+    {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "Proving the claim was served"
+    },
+    {
+      "sourceId": "guide-motions-and-clerks-orders",
+      "pinpoint": "How to make a motion"
+    },
+    {
+      "sourceId": "ontario-fees-small-claims",
+      "pinpoint": "Fees payable to the clerk"
+    },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 15.03 (1)"
@@ -147,8 +219,18 @@
       "pinpoint": "r. 1.02 (1)"
     },
     {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "How long the defendant has to file a defence"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 9.03 (3)"
+    }
+  ],
+  "plaintiff:defence-period-expired-no-defence": [
+    {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "How long the defendant has to file a defence"
     }
   ],
   "plaintiff:defendant-noted-in-default": [
@@ -159,9 +241,31 @@
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 11.06"
+    },
+    {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "Consequences of noting a defendant in default"
+    },
+    {
+      "sourceId": "ontario-file-small-claims-online",
+      "pinpoint": "$108 for filing a claim"
+    }
+  ],
+  "plaintiff:assessment-of-damages-needed": [
+    {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "Non-liquidated claim"
+    },
+    {
+      "sourceId": "guide-motions-and-clerks-orders",
+      "pinpoint": "Checklist: Motion in writing for assessment of damages"
     }
   ],
   "plaintiff:default-judgment-signed": [
+    {
+      "sourceId": "guide-after-judgment",
+      "pinpoint": "After judgment"
+    },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 20.03"
@@ -199,6 +303,10 @@
       "pinpoint": "s. 1 (1)-(2)"
     },
     {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "How long the defendant to a defendant's claim has to file a defence"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 11.05 (1)"
     },
@@ -217,6 +325,10 @@
       "pinpoint": "r. 13.08"
     },
     {
+      "sourceId": "guide-getting-ready-for-court",
+      "pinpoint": "If you cannot attend on the date set for a settlement conference"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 2 (2)-(5)"
     },
@@ -231,11 +343,19 @@
       "pinpoint": "r. 13.08"
     },
     {
+      "sourceId": "guide-getting-ready-for-court",
+      "pinpoint": "Settling the case after the settlement conference"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 16.1.01 (1)"
     }
   ],
   "plaintiff:trial-date-set": [
+    {
+      "sourceId": "guide-getting-ready-for-court",
+      "pinpoint": "Trial"
+    },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 17.02 (1)"
@@ -247,17 +367,33 @@
   ],
   "plaintiff:judgment-in-my-favour-unpaid": [
     {
+      "sourceId": "guide-after-judgment",
+      "pinpoint": "After judgment"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 20.08 (7)"
     }
   ],
   "plaintiff:action-dismissed-for-delay": [
     {
+      "sourceId": "guide-making-a-claim",
+      "pinpoint": "a motion in writing for an assessment of damages has not been filed"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 15.01 (1)"
+    },
+    {
+      "sourceId": "ontario-fees-small-claims",
+      "pinpoint": "Fees payable to the clerk"
     }
   ],
   "defendant:served-defence-period-running": [
+    {
+      "sourceId": "guide-replying-to-a-claim",
+      "pinpoint": "Definition of a defence"
+    },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 9.02 (1)"
@@ -273,6 +409,10 @@
   ],
   "defendant:defence-period-expired-not-yet-noted": [
     {
+      "sourceId": "guide-replying-to-a-claim",
+      "pinpoint": "How much time you have to file a defence"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 11.05 (1)"
     }
@@ -281,16 +421,36 @@
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 11.05 (1)"
+    },
+    {
+      "sourceId": "guide-replying-to-a-claim",
+      "pinpoint": "What happens if you are noted in default"
+    },
+    {
+      "sourceId": "ontario-fees-small-claims",
+      "pinpoint": "Fees payable to the clerk"
     }
   ],
   "defendant:default-judgment-against-me": [
+    {
+      "sourceId": "guide-replying-to-a-claim",
+      "pinpoint": "What happens if you are noted in default"
+    },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 8.01 (4)"
     },
     {
+      "sourceId": "guide-after-judgment",
+      "pinpoint": "Collecting money following a judgment in a Small Claims Court action"
+    },
+    {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 20.02 (1)"
+    },
+    {
+      "sourceId": "ontario-fees-small-claims",
+      "pinpoint": "Fees payable to the clerk"
     }
   ],
   "defendant:defence-filed": [
@@ -301,6 +461,10 @@
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 13.02 (2)"
+    },
+    {
+      "sourceId": "guide-getting-ready-for-court",
+      "pinpoint": "If you cannot attend on the date set for a settlement conference"
     },
     {
       "sourceId": "oreg-258-98-small-claims-rules",
@@ -353,6 +517,10 @@
     {
       "sourceId": "oreg-258-98-small-claims-rules",
       "pinpoint": "r. 20.11 (1)"
+    },
+    {
+      "sourceId": "guide-after-judgment",
+      "pinpoint": "Collecting money following a judgment in a Small Claims Court action"
     }
   ],
   "both:missed-settlement-conference": [
@@ -365,12 +533,20 @@
     {
       "sourceId": "oreg-332-16-small-claims-fees",
       "pinpoint": "s. 1 (1)-(2)"
+    },
+    {
+      "sourceId": "guide-motions-and-clerks-orders",
+      "pinpoint": "Responding to a motion"
     }
   ],
   "both:filed-in-wrong-place": [
     {
       "sourceId": "cja-courts-of-justice-act",
       "pinpoint": "s. 23 (1)"
+    },
+    {
+      "sourceId": "ontario-suing-someone-small-claims",
+      "pinpoint": "Small claims court: suing someone"
     },
     {
       "sourceId": "oreg-258-98-small-claims-rules",

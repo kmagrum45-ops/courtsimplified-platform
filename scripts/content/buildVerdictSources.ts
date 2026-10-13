@@ -75,9 +75,17 @@ export function pinpointForQuote(sourceId: string, quote: string): string | null
   // A table row ("LIBEL AND SLANDER ACT |SECTION 6 |") is a schedule, which
   // the passage cut files under the last numbered section. Never placed.
   if (first.length < 20 || /\|/.test(quote)) return null;
-  const found = chunksOf(sourceId).filter((chunk) => chunk.pinpoint && chunk.text.includes(first));
-  const pinpoints = new Set(found.map((chunk) => chunk.pinpoint));
-  if (pinpoints.size !== 1) return null;
+  const found = chunksOf(sourceId).filter((chunk) => chunk.text.includes(first));
+  // A web page has no section numbers; its heading is where the words are
+  // ("Documents you cannot file online"). 2026-10-13: "Court staff review
+  // online filings within 3 business days" was proved from the ontario.ca
+  // filing page but not listed.
+  if (found.length && found.every((chunk) => !chunk.pinpoint)) {
+    const headings = new Set(found.map((chunk) => chunk.heading.trim()).filter(Boolean));
+    return headings.size === 1 ? [...headings][0] : null;
+  }
+  const pinpoints = new Set(found.filter((chunk) => chunk.pinpoint).map((chunk) => chunk.pinpoint));
+  if (pinpoints.size !== 1 || found.some((chunk) => !chunk.pinpoint)) return null;
   return narrowed(found[0].pinpoint, rawText(sourceId), first);
 }
 
@@ -120,6 +128,8 @@ export function buildVerdictSources(): VerdictSources {
   const out: VerdictSources = {};
   for (const block of published.blocks) {
     const cited = new Set(block.citations.map((citation) => `${citation.sourceId}|${ruleOf(citation.pinpoint)}`));
+    // A web page the answer already cites is listed once, whatever part of it.
+    const citedPages = new Set(block.citations.filter((citation) => !/^[rs]\.\s/.test(citation.pinpoint)).map((citation) => citation.sourceId));
     const added: { sourceId: string; pinpoint: string }[] = [];
     for (const verdict of block.verification?.verdicts ?? []) {
       if (!verdict.supported || !verdict.quoteFound || !verdict.quote || !verdict.sourceId) continue;
@@ -127,6 +137,10 @@ export function buildVerdictSources(): VerdictSources {
       if (!pinpoint) continue;
       const key = `${verdict.sourceId}|${ruleOf(pinpoint)}`;
       if (cited.has(key)) continue;
+      if (!/^[rs]\.\s/.test(pinpoint)) {
+        if (citedPages.has(verdict.sourceId)) continue;
+        citedPages.add(verdict.sourceId);
+      }
       cited.add(key);
       added.push({ sourceId: verdict.sourceId, pinpoint });
     }

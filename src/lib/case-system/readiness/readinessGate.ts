@@ -91,6 +91,8 @@ export type RemedyOption = {
   id: string;
   title: string;
   plainExplanation: string;
+  /** Where it says so (2026-10-13: shown without a source, the walkthrough flagged it as unsourced). */
+  source: { name: string; url: string } | null;
 };
 
 export type ReadinessGateInput = {
@@ -254,6 +256,7 @@ function buildRemedyOptions(claimType: ClaimType): RemedyOption[] {
       id: remedy.id,
       title: remedy.title,
       plainExplanation: remedy.plainExplanation,
+      source: remedy.citations[0] ? { name: remedy.citations[0].sourceName, url: remedy.citations[0].officialUrl } : null,
     }));
 }
 

@@ -55,5 +55,13 @@ console.log("\n3. The answer's source list shows them");
   check("no provision is listed twice", new Set((answer?.sources ?? []).map((source) => `${source.name}|${source.pinpoint}`)).size === listed.length);
 }
 
+console.log("\n4. A web page an answer was proved from is listed once");
+{
+  const answer = renderStageAnswer("plaintiff:claim-drafted-not-filed");
+  const names = (answer?.sources ?? []).map((source) => source.name);
+  check("the online-filing page backs 'Court staff review online filings within 3 business days'", names.some((name) => /File Small Claims Court documents online/.test(name)), names.join(" | "));
+  check("each page appears once", new Set(names.filter((name) => /^ontario\.ca/.test(name))).size === names.filter((name) => /^ontario\.ca/.test(name)).length);
+}
+
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;
