@@ -28,6 +28,8 @@ import {
 } from "../../../src/lib/case-system/evidence/evidenceReference";
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
+import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
+import { familyGuidedFields } from "./guidedFields";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
   consumeNarrativePrefill,
@@ -287,6 +289,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
   // Read once: what the saved case holds wins over a fresh story hand-off.
   const [saved] = useState(() => savedFamilyValues(storedIntake));
   const [editingStory, setEditingStory] = useState(false);
+  // One question at a time by default (Step 2C, 2026-10-12); the whole form
+  // is one click away and holds exactly the same answers.
+  const [mode, setMode] = useState<"chat" | "form">("chat");
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({
       courtPath: "family",
@@ -736,6 +741,34 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
     }
   }
 
+  const guidedFields = familyGuidedFields({ issues: issueOptions, filed: filedOptions });
+  const guidedValues: GuidedValues = {
+    facts,
+    yourRole,
+    issues,
+    filedDocuments,
+    childrenInfo,
+    upcomingCourtDate,
+    goal,
+    otherParty,
+    urgent,
+  };
+  function answerGuided(key: string, value: string | string[]) {
+    const list = Array.isArray(value) ? value : [value];
+    const one = Array.isArray(value) ? value.join(", ") : value;
+    switch (key) {
+      case "facts": setFacts(one); void sourced.start(one, yourRole !== "not-sure" ? yourRole : undefined); break;
+      case "yourRole": setYourRole(one === "applicant" || one === "respondent" ? one : "not-sure"); break;
+      case "issues": setIssues(list.filter((item): item is FamilyIssue => issueOptions.some((option) => option.value === item))); break;
+      case "filedDocuments": setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
+      case "childrenInfo": setChildrenInfo(one); break;
+      case "upcomingCourtDate": setUpcomingCourtDate(one); break;
+      case "goal": setGoal(one); break;
+      case "otherParty": setOtherParty(one); break;
+      case "urgent": setUrgent(one); break;
+    }
+  }
+
   return (
     <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <h2 className="text-2xl font-bold text-[#10231f]">Family Intake</h2>
@@ -829,6 +862,21 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
       )}
 
       <div className="mt-6 grid gap-5">
+        {mode === "chat" ? (
+          <GuidedFormChat
+            fields={guidedFields}
+            values={guidedValues}
+            onAnswer={answerGuided}
+            onDone={handleAnalyze}
+            onShowForm={() => setMode("form")}
+            busy={isAnalyzing || sourced.state === "loading"}
+          />
+        ) : (
+          <button type="button" onClick={() => setMode("chat")} className="justify-self-start text-sm font-semibold text-[#2f7d67] underline">
+            Answer one question at a time instead
+          </button>
+        )}
+        <div hidden={mode === "chat"} className="grid gap-5">
         <div className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">Location confirmed on Home</h3>
           <p className="mt-2 text-sm text-[#4d675f]">Location: {city}, {province}.</p>
@@ -1144,6 +1192,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
           />
         </label>
 
+        </div>
+
         <SourcedQuestionsCard
           state={sourced.state}
           questions={sourced.questions}
@@ -1174,6 +1224,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
             </button>
           </p>
         ) : null}
+        {/* In the one-at-a-time view, its own Continue is the one to press. */}
+        {mode === "form" ? (
         <button
           type="button"
           onClick={handleAnalyze}
@@ -1182,6 +1234,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
         >
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Finding questions for your situation…" : "Continue to your next steps"}
         </button>
+        ) : null}
       </div>
     </section>
   );
