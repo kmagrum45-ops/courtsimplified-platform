@@ -965,13 +965,19 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                 {applicabilityQuestions.map((question) => {
                   const answer = answerFor(question);
                   const selectedValue = question.choices.find((choice) => choice.value === answer)?.value;
-                  if (keptFromCase[question.field_path] && !changingKept[question.field_path] && savedAnswerFor(question) !== undefined) {
-                    const chosen = question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(savedAnswerFor(question)));
+                  // Shown as known straight away, while it is being kept: the
+                  // walkthrough (2026-10-13) read the moment before the save
+                  // as the page asking again.
+                  const firmNow = suggestionFor(question)?.firm ? suggestionFor(question) : undefined;
+                  const keptReason = keptFromCase[question.field_path] ?? firmNow?.reason;
+                  const keptValue = savedAnswerFor(question) ?? firmNow?.value;
+                  if (keptReason && keptValue !== undefined && !changingKept[question.field_path]) {
+                    const chosen = question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(keptValue));
                     return (
                       <div key={question.field_path} data-testid="forms-kept-from-case" className="block">
                         <p className="font-semibold">{question.question}</p>
-                        <p className="mt-1 text-[#16302b]">{chosen?.label ?? String(savedAnswerFor(question))}</p>
-                        <p className="mt-1 font-normal text-[#2f7d67]">From your case: {keptFromCase[question.field_path]} Saved to your case.</p>
+                        <p className="mt-1 text-[#16302b]">{chosen?.label ?? String(keptValue)}</p>
+                        <p className="mt-1 font-normal text-[#2f7d67]">From your case: {keptReason} Saved to your case.</p>
                         <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
                           Change
                         </button>

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { isServiceDateQuestion } from "@/src/lib/case-system/casePosition";
 import {
   effectiveServiceDate,
+  serviceMethodFromStory,
   serviceRulesFor,
   type ServiceCourt,
   type ServiceMethod,
@@ -15,6 +16,7 @@ import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-syst
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
 import GetHelp from "../../_components/GetHelp";
+import { savePositionQueued } from "./positionSave";
 import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
 import { limitNotesFor, practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
@@ -358,25 +360,9 @@ function AnswerView({
   );
 }
 
-/** Saves the user's own choice to the case. Never called for a suggestion they have not acted on. */
-async function savePosition(caseId: string, patch: Record<string, unknown>): Promise<boolean> {
-  try {
-    // Imported on use: verifyRespondingSide imports this module's pure helpers,
-    // and the Supabase client must not be constructed just to read them.
-    const { supabase } = await import("@/src/lib/supabase/client");
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (!session?.access_token) return false;
-    const response = await fetch("/api/cases/position", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-      body: JSON.stringify({ caseId, ...patch }),
-    });
-    return response.ok;
-  } catch {
-    return false;
-  }
+/** Saves the user's own choice to the case, one save at a time (positionSave.ts). */
+function savePosition(caseId: string, patch: Record<string, unknown>): Promise<boolean> {
+  return savePositionQueued(caseId, patch);
 }
 
 /**
@@ -481,7 +467,11 @@ export default function StageAnswerPanel({
    */
   picture?: CasePicture | null;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called before the save to the case. */
-  onSaved?: (saved: { stepId?: string | null; dateAnswers?: Record<string, string> }) => void;
+  onSaved?: (saved: {
+    stepId?: string | null;
+    dateAnswers?: Record<string, string>;
+    service?: Record<string, { method: ServiceMethod; enteredOn: string } | null>;
+  }) => void;
 }) {
   const options = stagesForPathway(courtPath).map((stage) => ({
     id: stage.id,
@@ -514,6 +504,9 @@ export default function StageAnswerPanel({
   const [serviceMethod, setServiceMethod] = useState<Record<string, ServiceMethod>>(() =>
     Object.fromEntries(Object.entries(initialService).map(([id, entry]) => [id, entry.method])),
   );
+  // What the story says about how the papers came, pre-selected (Step 2D).
+  const storyServiceMethod =
+    courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? serviceMethodFromStory(courtPath, storyText ?? "") : null;
   const [serviceSaved, setServiceSaved] = useState<Record<string, { method: ServiceMethod; enteredOn: string }>>(initialService);
   const serviceCourt: ServiceCourt | null = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
@@ -608,7 +601,7 @@ export default function StageAnswerPanel({
     const servicePatch: Record<string, { method: ServiceMethod; enteredOn: string } | null> = {};
     for (const question of result.dateQuestions ?? []) {
       const typed = asked[question.id];
-      const method = serviceMethod[question.id];
+      const method = serviceMethod[question.id] ?? storyServiceMethod ?? undefined;
       if (!serviceCourt || !isServiceDateQuestion(question.id, question.question)) continue;
       if (typed && method) {
         asked[question.id] = effectiveServiceDate(serviceCourt, method, typed).date;
@@ -636,7 +629,7 @@ export default function StageAnswerPanel({
     // save below succeeds, so Back and Forward show the counted date again
     // (walkthrough, 2026-10-08: it was kept only after a successful save, and
     // two runs lost it on returning to the results).
-    onSaved?.({ dateAnswers: next, stepId: stageId || null });
+    onSaved?.({ dateAnswers: next, stepId: stageId || null, ...(Object.keys(servicePatch).length ? { service: servicePatch } : {}) });
     if (!caseId) return;
     setDateStatus("saving");
     // The step is saved with the dates: counting a deadline at the suggested
@@ -678,13 +671,25 @@ export default function StageAnswerPanel({
     autoKeptFor.current = key;
     setKeptFromStory((current) => ({ ...current, ...bases }));
     setDateDraft((current) => ({ ...current, ...fill }));
-    const next = { ...dateAnswers, ...fill };
+    // A service date with the way it was served from the story counts from
+    // the day service is effective, like a date typed in (Step 2D).
+    const keptService: Record<string, { method: ServiceMethod; enteredOn: string }> = {};
+    const counted = { ...fill };
+    for (const question of result.dateQuestions ?? []) {
+      if (!fill[question.id] || !serviceCourt || !storyServiceMethod || !isServiceDateQuestion(question.id, question.question)) continue;
+      keptService[question.id] = { method: storyServiceMethod, enteredOn: fill[question.id] };
+      counted[question.id] = effectiveServiceDate(serviceCourt, storyServiceMethod, fill[question.id]).date;
+    }
+    if (Object.keys(keptService).length) setServiceSaved((current) => ({ ...current, ...keptService }));
+    const next = { ...dateAnswers, ...counted };
     setDateAnswers(next);
-    onSaved?.({ dateAnswers: next });
+    onSaved?.({ dateAnswers: next, ...(Object.keys(keptService).length ? { service: keptService } : {}) });
     if (!caseId) return;
     // Only the dates: the step is saved when the person acts on it, never
     // because a date was kept (case position stores only what they chose).
-    void savePosition(caseId, { dateAnswers: fill }).then((saved) => setDateStatus(saved ? "saved" : "not-saved"));
+    void savePosition(caseId, { dateAnswers: counted, ...(Object.keys(keptService).length ? { service: keptService } : {}) }).then((saved) =>
+      setDateStatus(saved ? "saved" : "not-saved"),
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, storyDates, stageId]);
 
@@ -893,7 +898,7 @@ export default function StageAnswerPanel({
                       </span>
                       <select
                         data-testid={`stage-answer-service-method-${question.id}`}
-                        value={serviceMethod[question.id] ?? ""}
+                        value={serviceMethod[question.id] ?? storyServiceMethod ?? ""}
                         onChange={(event) =>
                           setServiceMethod({ ...serviceMethod, [question.id]: event.target.value as ServiceMethod })
                         }

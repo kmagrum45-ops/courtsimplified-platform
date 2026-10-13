@@ -19,6 +19,8 @@ import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
 } from "./_components/GuidedSmallClaimsIntake";
 import { readSourcedAnswers } from "./_components/SourcedQuestions";
+import { savePositionQueued } from "./_components/positionSave";
+import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
 import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
@@ -366,7 +368,11 @@ function BuilderPageContent() {
   const [casePicture, setCasePicture] = useState<CasePicture | null>(null);
   // A press of "Try saving again" re-runs the case save below.
   const [saveAttempt, setSaveAttempt] = useState(0);
-  const [positionThisVisit, setPositionThisVisit] = useState<{ stepId?: string | null; dateAnswers?: Record<string, string> }>({});
+  const [positionThisVisit, setPositionThisVisit] = useState<{
+    stepId?: string | null;
+    dateAnswers?: Record<string, string>;
+    service?: Record<string, { method: ServiceMethod; enteredOn: string } | null>;
+  }>({});
 
   /*
    * Picking a mode is an internal state change, not a URL change, so
@@ -1206,20 +1212,40 @@ function BuilderPageContent() {
   };
 
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
-    try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!session?.access_token) return;
-      await fetch("/api/cases/position", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-        body: JSON.stringify({ caseId, confirmedStage: stage }),
-      });
-    } catch {
-      // The stage still applies on this page; the case page will ask again.
-    }
+    // One save at a time with the deadline box's own saves (positionSave.ts).
+    await savePositionQueued(caseId, { confirmedStage: stage });
   }
+
+
+  /*
+   * WHAT WAS DECIDED ON THIS PAGE REACHES THE CASE, WHENEVER THE CASE EXISTS
+   * (2026-10-13, walkthrough: 17 of 17 cases failed "never asks twice"; the
+   * commonest cause was the case page asking again for the stage and dates
+   * confirmed here). A stage confirmed, a step picked or a date given while
+   * the case was still being saved (or the case reader was still reading)
+   * was kept only on this page, because there was no saved case id to send it
+   * to yet. Once the case is saved, anything not yet on it is sent now. Only
+   * what the person chose here is sent (/api/cases/position validates it).
+   */
+  const sentPositionRef = useRef("");
+  useEffect(() => {
+    if (!canonicalIntakeSaved) return;
+    const caseId = savedCaseId();
+    if (!caseId) return;
+    const patch: Record<string, unknown> = {};
+    if (confirmedStage) patch.confirmedStage = confirmedStage;
+    if (positionThisVisit.stepId !== undefined) patch.stepId = positionThisVisit.stepId;
+    if (positionThisVisit.dateAnswers && Object.keys(positionThisVisit.dateAnswers).length) patch.dateAnswers = positionThisVisit.dateAnswers;
+    if (positionThisVisit.service && Object.keys(positionThisVisit.service).length) patch.service = positionThisVisit.service;
+    if (Object.keys(patch).length === 0) return;
+    const key = JSON.stringify({ caseId, ...patch });
+    if (sentPositionRef.current === key) return;
+    sentPositionRef.current = key;
+    void savePositionQueued(caseId, patch).then((ok) => {
+      if (!ok) sentPositionRef.current = "";
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canonicalIntakeSaved, confirmedStage, positionThisVisit, masterCaseId]);
 
   function createSmallClaimsClaimDraft() {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
@@ -1838,6 +1864,7 @@ function BuilderPageContent() {
                   setPositionThisVisit((current) => ({
                     stepId: saved.stepId !== undefined ? saved.stepId : current.stepId,
                     dateAnswers: saved.dateAnswers ? { ...(current.dateAnswers ?? {}), ...saved.dateAnswers } : current.dateAnswers,
+                    service: saved.service ? { ...(current.service ?? {}), ...saved.service } : current.service,
                   }))
                 }
                 storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}

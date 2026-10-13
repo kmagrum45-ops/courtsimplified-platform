@@ -117,7 +117,7 @@ check(
   check("what the story doesn't mention stays a suggestion", suggestApplicability(mortgage, noMention, {})[0]?.firm !== true);
   const forms = readFileSync(path.join(process.cwd(), "app/forms/FormsWorkspace.tsx"), "utf8");
   check("the forms page keeps only firm answers without asking", /suggestion\.firm &&/.test(forms) && /void saveApplicability\(patch, reasons\)/.test(forms));
-  check("a kept answer shows where it came from, with Change", /From your case: \{keptFromCase\[question\.field_path\]\}/.test(forms));
+  check("a kept answer shows where it came from, with Change", /From your case: \{keptReason\}/.test(forms) && /firmNow/.test(forms));
 }
 
 {

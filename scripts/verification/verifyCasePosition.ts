@@ -209,8 +209,8 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
   // step -- and a date with no year never reaches storyDates.
   {
     const panel = readFileSync(path.resolve(__dirname, "../../app/builder/_components/StageAnswerPanel.tsx"), "utf8");
-    check("full story dates are kept with the case without a click", /autoKeptFor/.test(panel) && /savePosition\(caseId, \{ dateAnswers: fill \}\)/.test(panel));
-    check("keeping a story date never saves the step", !/savePosition\(caseId, \{ dateAnswers: fill, stepId/.test(panel));
+    check("full story dates are kept with the case without a click", /autoKeptFor/.test(panel) && /savePosition\(caseId, \{ dateAnswers: counted/.test(panel));
+    check("keeping a story date never saves the step", !/savePosition\(caseId, \{ dateAnswers: counted, stepId/.test(panel));
     check("a story date with no year is never kept or counted", /if \(hint\.value && !hint\.yearAssumed\) out\[id\]/.test(panel));
     check("the kept date still shows the words it came from, with Change", /keptFromStory\[question\.id\]/.test(panel));
   }
@@ -291,6 +291,15 @@ function personsDatesWin(source: string): boolean {
     "the position route writes only for the authenticated owner, through applyPositionPatch",
     /getAuthenticatedUser\(/.test(route) && /getAuthenticatedOwnedCase\(/.test(route) && /applyPositionPatch\(/.test(route) && /\.eq\("user_id", user\.id\)/.test(route),
   );
+  // 2026-10-13: two saves at once erased each other (a confirmed stage lost to
+  // a date save). The route writes only if the case is unchanged since it
+  // read it, and the pages send one save at a time.
+  check("the position route writes only if nothing else wrote since it read", /write = write\.eq\("updated_at", fresh\.updated_at\)/.test(route) && /attempt < 3/.test(route));
+  for (const file of ["app/builder/page.tsx", "app/builder/_components/StageAnswerPanel.tsx", "app/cases/[id]/page.tsx"]) {
+    const source = read(file);
+    check(`${file} saves the position one save at a time`, /savePositionQueued\(/.test(source) && !/fetch\("\/api\/cases\/position"/.test(source));
+  }
+  check("the builder sends what was decided on the page once the case exists", /sentPositionRef/.test(read("app/builder/page.tsx")));
 }
 
 if (failures > 0) {

@@ -283,3 +283,23 @@ export function effectiveServiceDate(court: ServiceCourt, method: ServiceMethod,
   }
   return { date, rules, ...(confirm ? { confirm } : {}) };
 }
+
+/**
+ * How the papers were served, when the person's own words say so plainly
+ * ("handed me the claim at my door", "came in the mail"), as a pre-selected
+ * answer they can change -- never applied without being shown (2026-10-13,
+ * walkthrough: "How were the papers served?" was asked after the story said
+ * the claim was handed over at the door). Null when the words don't say, or
+ * say more than one way.
+ */
+export function serviceMethodFromStory(court: ServiceCourt, story: string): ServiceMethod | null {
+  const text = story.toLowerCase();
+  const found = new Set<ServiceMethod>();
+  if (/\b(?:handed (?:me|it|them|the)|gave (?:me )?(?:the )?(?:papers|claim|application)|at my door|in person|served me personally|personally served)\b/.test(text)) found.add("personal");
+  if (/\b(?:registered mail|signed for)\b/.test(text)) found.add(court === "small-claims" ? "registered-mail-signature" : "mail");
+  else if (/\b(?:in the mail|by mail|mailed|came in the post)\b/.test(text)) found.add("mail");
+  if (/\b(?:by email|emailed|in an email|an email with)\b/.test(text)) found.add("email");
+  if (found.size !== 1) return null;
+  const method = [...found][0];
+  return SERVICE_RULES[court].some((rule) => rule.method === method) ? method : null;
+}

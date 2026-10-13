@@ -19,6 +19,7 @@ import {
   FAMILY_CLOSED_DAY_RULE,
   SERVICE_RULES,
   effectiveServiceDate,
+  serviceMethodFromStory,
   type ServiceCourt,
 } from "../../src/lib/case-system/deadlines/serviceEffectiveDate";
 
@@ -119,6 +120,14 @@ console.log("\n3. Saved with the case");
   check("the deadline counts from the day service is effective", /asked\[question\.id\] = effectiveServiceDate\(serviceCourt, method, typed\)\.date/.test(panel));
   check("the saved date shows how it was served and the rule", /Service counts from/.test(panel) && /effective\.rules\.join/.test(panel));
 }
+
+console.log("\n4. How it was served, from the story (pre-selected, not applied unseen)");
+check("'handed me the plaintiffs claim at my door' is in person", serviceMethodFromStory("small-claims", "someone handed me the plaintiffs claim at my door on october 1") === "personal");
+check("'got the plaintiffs claim in the mail' is mail", serviceMethodFromStory("small-claims", "i got the plaintiffs claim in the mail on september 28") === "mail");
+check("Small Claims registered mail signed for is its own method", serviceMethodFromStory("small-claims", "it came by registered mail and i signed for it") === "registered-mail-signature");
+check("a story that says nothing gives nothing", serviceMethodFromStory("civil", "i got served a statement of claim") === null);
+check("a story naming two ways gives nothing", serviceMethodFromStory("family", "they emailed it and then handed me the papers") === null);
+check("the deadline box uses it, shown and changeable", /serviceMethod\[question\.id\] \?\? storyServiceMethod/.test(readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8")));
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;
