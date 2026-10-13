@@ -1,0 +1,477 @@
+ Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center) - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)
+ /scc-csc/scc-csc/fr/item/15471/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)
+ Collection
+ Supreme Court Judgments
+ Date
+ 2015-07-23
+ Neutral citation
+ 2015 SCC 39
+ Report
+ [2015] 2 SCR 789
+ Case number
+ 35625
+ Judges
+ McLachlin, Beverley; Abella, Rosalie Silberman; Rothstein, Marshall; Cromwell, Thomas Albert; Karakatsanis, Andromache; Wagner, Richard; Côté, Suzanne
+ On appeal from
+ Quebec
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/35625/] 35625
+ [LINK /scc-csc/scc-csc/en/15471/1/document.do] 
+Decision Content
+ SUPREME COURT OF CANADA
+ Citation: Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center), 2015 SCC 39, [2015] 2 S.C.R. 789
+ Date: 20150723 Docket: 35625
+ Between:
+ Commission des droits de la personne et des droits de la jeunesse
+ Appellant
+ <p class="SCCLsocVersus" align="center" style="margin-bottom:0in;margin-bottom:
+.0001pt;text-align:center">and
+ Bombardier Inc. (Bombardier Aerospace Training Center) and Javed Latif
+ Respondents
+ <p class="SCCLsocSubfileSeparator" style="margin-bottom:0in;margin-bottom:.0001pt;
+text-align:justify">And Between:
+ Javed Latif
+ Appellant
+ <p class="SCCLsocVersus" align="center" style="margin-bottom:0in;margin-bottom:
+.0001pt;text-align:center">and
+ Bombardier Inc. (Bombardier Aerospace Training Center) and Commission des droits de la personne et des droits de la jeunesse
+ Respondents
+ <p class="SCCLsocOtherPartySeparator" align="center" style="margin-bottom:0in;
+margin-bottom:.0001pt;text-align:center">- and -
+ Canadian Civil Liberties Association, Canadian Human Rights Commission, Center for Research-Action on Race Relations, National Council of Canadian Muslims, Canadian Muslim Lawyers Association and South Asian Legal Clinic of Ontario
+ Interveners
+ Official English Translation
+ Coram: McLachlin C.J. and Abella, Rothstein, Cromwell, Karakatsanis, Wagner and Côté JJ.
+ Joint Reasons for Judgment: (paras. 1 to 107)
+ Wagner and Côté JJ. (McLachlin C.J. and Abella, Rothstein, Cromwell and Karakatsanis JJ. concurring)
+ Quebec (<span style="font-weight:
+normal">Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center), 2015 SCC 39, [2015] 2 S.C.R. 789
+ Commission des droits de la personne et des droits de la jeunesse Appellant
+ v.
+ Bombardier Inc. (Bombardier Aerospace Training Center) and
+ Javed Latif Respondents
+ ‑ and ‑
+ Javed Latif Appellant
+ v.
+ Bombardier Inc. (Bombardier Aerospace Training Center) and
+ Commission des droits de la personne et des droits de la jeunesse Respondents
+ and
+ Canadian Civil Liberties Association,
+ Canadian Human Rights Commission,
+ Center for Research‑Action on Race Relations,
+ National Council of Canadian Muslims,
+ Canadian Muslim Lawyers Association and
+ South Asian Legal Clinic of Ontario<span style="font-weight:
+normal"> Interveners
+ Indexed as: Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)
+ 2015 SCC 39
+ File No.: 35625.
+ 2015: January 23; 2015: July 23.
+ Present: McLachlin C.J. and Abella, Rothstein, Cromwell, Karakatsanis, Wagner and Côté JJ.
+ on appeal from the court of appeal for quebec
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Human rights — Right to equality — Discrimination based on national or ethnic origin — Evidence — Canadian company denying request for pilot training made by Canadian citizen of Pakistani origin on basis of decision of U.S. authorities to prohibit training of pilot in question in United States — Two-step process for discrimination complaint under s. 10 of Quebec Charter — Definition of prima facie discrimination, and degree of proof required in order to establish it — Whether prima facie discrimination has been proven in this case — Charter of human rights and freedoms, CQLR, c. C‑12, s. 10.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> B operates two centres, in Montréal and Dallas, at which pilots are trained on the types of aircraft it produces. This training is offered to pilots holding licences issued by various authorities, including Canada and the United States. L, a Canadian citizen born in Pakistan, held Canadian and U.S. pilot’s licences. In 2004, L registered for training at B’s Dallas centre under his U.S. licence. A security clearance from the U.S. authorities was requested for L in accordance with enhanced aviation security measures that had been implemented by the United States in the wake of the terrorist attacks of September 11, 2001. This request was denied. As a result, L could not receive the training from B under his U.S. licence. B also refused to train him at its Montréal centre under his Canadian licence. Being of the view that B’s refusal constituted discrimination against him, L filed a complaint with the Commission des droits de la personne et des droits de la jeunesse (“Commission”). After investigating, the Commission initiated proceedings in the Human Rights Tribunal in which it alleged that B had impaired L’s right to avail himself of services ordinarily offered to the public and his right to the safeguard of his dignity and reputation without discrimination based on ethnic or national origin, contrary to ss. 4, 10 and 12 of the Quebec Charter of human rights and freedoms.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The Tribunal agreed with the Commission, ordering B to pay damages to L. It also ordered B to cease applying or considering the standards and decisions of the U.S. authorities in national security matters when dealing with applications for the training of pilots under Canadian pilot’s licences. The Court of Appeal set aside the Tribunal’s decision on the basis that the Tribunal could not find that B had discriminated against L without proof that the U.S. authorities’ decision was itself based on a ground that is prohibited under the Charter.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Held: The appeals should be dismissed.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> An application with respect to a complaint under the Charter involves a two‑step process that successively imposes separate burdens of proof on the plaintiff and the defendant. Whatever form discrimination takes, this two‑step analysis does not change. The fact that racial profiling is recognized as a prohibited form of discrimination does not therefore change this process. At the first step, s. 10 of the Charter requires that the plaintiff prove three elements: (1) a distinction, exclusion or preference, (2) based on one of the grounds listed in the first paragraph of s. 10, and (3) which has the effect of nullifying or impairing the right to full and equal recognition and exercise of a human right or freedom. If these three elements are established, there is “prima facie discrimination”. At the second step, the defendant can justify his or her decision or conduct on the basis of the exemptions provided for in the applicable human rights legislation or those developed by the courts. If the defendant fails to do so, discrimination will then be found to have occurred.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The first element of prima facie discrimination is not problematic: the plaintiff must prove the existence of differential treatment, that is, that a decision, a measure or conduct affects him or her differently from others to whom it may apply. As regards the second element, the plaintiff has the burden of showing that there is a connection between a prohibited ground of discrimination and the distinction, exclusion or preference of which he or she complains or, in other words, that the ground in question was a factor in the distinction, exclusion or preference. It is not essential that this connection be an exclusive one: for a particular decision or action to be considered discriminatory, the prohibited ground need only have contributed to it. Lastly, as to the third element, the plaintiff must show that the distinction, exclusion or preference affects the full and equal exercise of a right or freedom guaranteed to him or her by the Charter. The Quebec Charter, unlike the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms , does not protect the right to equality per se; this right is protected only in the exercise of the other rights and freedoms guaranteed by the Charter. The right to non‑discrimination cannot therefore serve as a basis for an application on its own and must necessarily be attached to another human right or freedom recognized by law.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The plaintiff must prove the three elements of prima facie discrimination in accordance with the standard of proof that normally applies in the civil law, namely that of proof on a balance of probabilities. In a discrimination context, the expression “prima facie” refers only to the first step of the process and does not alter the applicable degree of proof. The use of this expression can be explained quite simply on the basis of the two‑step test for complaints of discrimination under the Charter, and it concerns only the three elements that must be proven by the plaintiff at the first step. If no justification is established by the defendant, proof of these three elements on a balance of probabilities will be sufficient for the tribunal to find that s. 10 of the Charter has been violated. If, on the other hand, the defendant succeeds in justifying his or her decision or conduct, also in accordance with <span style="line-height:
+200%">the standard of proof on a balance of probabilities, there will have been no violation, not even if prima facie discrimination is found to have occurred. The defendant can therefore either present evidence to refute the allegation of prima facie discrimination, put forward a defence justifying the discrimination, or do both.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Because the Tribunal’s decision in this case was not supported by the evidence in the record, it was unreasonable and must be set aside. The Commission had to show that B’s decision was discriminatory by establishing on a balance of probabilities that there was a connection between the decision and L’s ethnic or national origin. Because B’s decision to deny L’s request for training was based solely on the U.S. authorities’ refusal to issue him a security clearance, proof of a connection between the U.S. authorities’ decision and a prohibited ground of discrimination would have satisfied the requirements of the second element of the test for prima facie discrimination. However, the Commission did not adduce sufficient evidence — either direct or circumstantial — to show that L’s ethnic or national origin had played any role in the U.S. authorities’ unfavourable reply to his security screening request. It cannot be presumed solely on the basis of a social context of discrimination against a group that a specific decision against a member of that group is necessarily based on a prohibited ground under the Charter. In practice, this would amount to reversing the burden of proof in discrimination matters. Evidence of discrimination, even if it is circumstantial, must be tangibly related to the impugned decision or conduct. As a result, it was not open to the Tribunal in this case to conclude that B’s decision constituted prima facie discrimination under the Charter. The conclusion in this case does not mean that a company can blindly comply with a discriminatory decision of a foreign authority without exposing itself to liability under the Charter. This conclusion flows from the fact that there is simply no evidence of a connection between a prohibited ground and the foreign decision in question.
+ Cases Cited
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Referred to: Béliveau St‑Jacques v. Fédération des employées et employés de services publics inc., [1996] 2 S.C.R. 345; Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montréal (City), 2000 SCC 27, [2000] 1 S.C.R. 665; de Montigny v. Brossard (Succession), 2010 SCC 51, [2010] 3 S.C.R. 64; New Brunswick (Human Rights Commission) v. Potash Corporation of Saskatchewan Inc., 2008 SCC 45, [2008] 2 S.C.R. 604; Ontario Human Rights Commission v. Simpsons‑Sears Ltd., [1985] 2 S.C.R. 536; Commission scolaire régionale de Chambly v. Bergevin, [1994] 2 S.C.R. 525; Forget v. Quebec (Attorney General), [1988] 2 S.C.R. 90; Ford v. Quebec (Attorney General), [1988] 2 S.C.R. 712; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114; Devine v. Quebec (Attorney General), [1988] 2 S.C.R. 790; McGill University Health Centre (Montreal General Hospital) v. Syndicat des employés de l’Hôpital général de Montréal, 2007 SCC 4, [2007] 1 S.C.R. 161; Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360; British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3; Gaz métropolitain inc. v. Commission des droits de la personne et des droits de la jeunesse, 2011 QCCA 1201, aff’g in part 2008 QCTDP 24; Andrews v. Law Society of British Columbia, [1989] 1 S.C.R. 143; Commission des droits de la personne du Québec v. Ville de Québec, [1989] R.J.Q. 831, leave to appeal refused, [1989] 2 S.C.R. vi; Peel Law Assn. v. Pieters, 2013 ONCA 396, 116 O.R. (3d) 80; Ruel v. Marois, [2001] R.J.Q. 2590; Velk v. McGill University, 2011 QCCA 578; Banque Canadienne Nationale v. Mastracchio, [1962] S.C.R. 53; Rousseau v. Bennett, [1956] S.C.R. 89; Parent v. Lapointe, [1952] 1 S.C.R. 376; Université du Québec à Trois‑Rivières v. Larocque, [1993] 1 S.C.R. 471; Mouvement laïque québécois v. Saguenay (City), 2015 SCC 16, [2015] 2 S.C.R. 3; Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Communauté urbaine de Montréal, 2004 SCC 30, [2004] 1 S.C.R. 789; Doucet‑Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3.
+ Statutes and Regulations Cited
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Act respecting administrative justice, CQLR, c. J‑3, ss. 9 to 12.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Aviation and Transportation Security Act, Pub. L. 107‑71, § 113, 115 Stat. 597 (2001).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">[LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms .
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Charter of human rights and freedoms, CQLR, c. C‑12, ss. 4, 10, 12, 20, 52, 53, 71, 80, 123.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Civil Code of Québec, art. 2804.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Flight Training for Aliens and Other Designated Individuals; Security Awareness Training for Flight School Employees, 69 Fed. Reg. 56324 (2004).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Screening of Aliens and Other Designated Individuals Seeking Flight Training, 68 Fed. Reg. 7313 (2003).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Vision 100 — Century of Aviation Reauthorization Act, Pub. L. 108‑176, § 612(a), (c), 117 Stat. 2490 (2003).
+ Authors Cited
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Baudouin, Jean‑Louis, Patrice Deslauriers et Benoît Moore. La responsabilité civile, 8e éd. Cowansville, Que.: Yvon Blais, 2014.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Garant, Patrice, avec la collaboration de Philippe Garant et Jérôme Garant. Droit administratif, 6e éd. Cowansville, Que.: Yvon Blais, 2010.
+ <p class="SCCNormalDoubleSpacing" align="left" style="margin-top:0in;margin-right:
+0in;margin-bottom:12.0pt;margin-left:27.35pt;text-align:left;text-indent:-27.35pt;
+line-height:normal">Ontario. Ontario Human Rights Commission. Policy and guidelines on racism and racial discrimination, 2005 (online: www.ohrc.on.ca/sites/default/files/attachments/Policy_and_guidelines_on_racism_and_racial_discrimination.pdf).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Proulx, Daniel. “La discrimination fondée sur le handicap: étude comparée de la Charte québécoise” (1996), 56 R. du B. 317.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Quebec. Commission des droits de la personne et des droits de la jeunesse. Racial Profiling: Context and Definition, by Michèle Turenne. Cat. 2.120‑1.25.1, 2005 (online: www.cdpdj.qc.ca/Publications/racial_profiling_definition.pdf).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:12.0pt;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Robitaille, David. “Non‑indépendance et autonomie de la norme d’égalité québécoise: des concepts ‘fondateurs’ qui méritent d’être mieux connus” (2004), 35 R.D.U.S. 103.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Royer, Jean‑Claude, et Sophie Lavallée. La preuve civile, 4e éd. Cowansville, Que.: Yvon Blais, 2008.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> APPEALS from a judgment of the Quebec Court of Appeal (Fournier and St‑Pierre JJ.A. and Viens J. (ad hoc)), 2013 QCCA 1650, [2013] R.J.Q. 1541, [2013] AZ‑51004481, [2013] J.Q. no 12486 (QL), 2013 CarswellQue 9362 (WL Can.), setting aside a decision of the Quebec Human Rights Tribunal, 2010 QCTDP 16, [2011] R.J.Q. 225, [2010] AZ‑50698315, [2010] Q.H.R.T.J. No. 16 (QL), 2010 CarswellQue 15544 (WL Can.). Appeals dismissed.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Athanassia Bitzakidis and Christian Baillargeon, for the appellant/respondent Commission des droits de la personne et des droits de la jeunesse.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Mathieu Bouchard and Catherine Elizabeth McKenzie, for the respondent/appellant Javed Latif.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Michel Sylvestre, Andres Garin and Sébastien Beauregard, for the respondent Bombardier Inc. (Bombardier Aerospace Training Center).
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Andrew K. Lokan and Jean‑Claude Killey, for the intervener the Canadian Civil Liberties Association.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Philippe Dufresne and Sheila Osborne‑Brown, for the intervener the Canadian Human Rights Commission.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Selwyn Pieters and Aymar Missakila, for the intervener the Center for Research‑Action on Race Relations.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Faisal Bhabha, Khalid M. Elgazzar and Faisal Mirza, for the interveners the National Council of Canadian Muslims and the Canadian Muslim Lawyers Association.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Ranjan K. Agarwal and Preet K. Bell, for the intervener the South Asian Legal Clinic of Ontario.
+ <span style="font-variant:
+normal !important"> English version of the judgment of the Court delivered by
+ Wagner and Côté JJ. —
+ <p class="Title1LevelTitre1Niveau-AltL" style="margin-left:21.55pt;text-indent:
+-21.55pt">I. Introduction
+ [1] Discrimination can take a variety of forms. Although some of them are easy to identify, others are less obvious, such as those that result from unconscious prejudices and stereotypes or from standards that are neutral on their face but have adverse effects on certain persons. The Charter of human rights and freedoms, CQLR, c. C‑12 (“Charter”), prohibits the various forms of discrimination and creates a remedy for victims of discrimination.
+ [2] The case at bar gives the Court its first opportunity to consider a form of discrimination allegedly arising out of a decision of a foreign authority. In this case, a Canadian company refused to provide pilot training to an individual on the basis of a decision by U.S. authorities. It is argued that the U.S. authorities’ decision was the result of racial profiling and that the company discriminated against the individual in question by relying on that decision.
+ [3] In our opinion, the context of this case and the fact that racial profiling is recognized as a prohibited form of discrimination do not change the two‑step process that applies in the context of a complaint under the Charter. Under s. 10 of the Charter, a plaintiff must establish three elements, including a connection between a prohibited ground of discrimination and the distinction, exclusion or preference of which he or she complains. A plaintiff who successfully establishes these elements will be said to have proven a prima facie case of discrimination or to have made prima facie proof of discrimination. In such a case, it will then be open to the defendant to try to justify a seemingly discriminatory measure, and if the defendant succeeds in doing so, the tribunal will find no violation under s. 10. Although this process successively imposes separate burdens of proof on the plaintiff and the defendant, and the onus on the plaintiff is simply to prove a “connection” between a prohibited ground of discrimination and the differential treatment he or she receives, it does not create an exception to the standard of proof — proof on a balance of probabilities — that normally applies in the civil law. The plaintiff must therefore establish prima facie discrimination on the basis of that standard.
+ [4] In this case, it has not been shown on a balance of probabilities that there is a connection between a prohibited ground of discrimination and the company’s decision to deny the individual’s training request. The company’s liability has therefore not been proven under s. 10 of the Charter. We would accordingly dismiss the appeals. 
+ <p class="Title1LevelTitre1Niveau-AltL" style="margin-left:21.55pt;text-indent:
+-21.55pt">II. Facts
+ [5] The aerospace division of Bombardier Inc. (“Bombardier”), through the Bombardier Aerospace Training Center, operates two centres, in Montréal and Dallas, at which pilots are trained on the types of aircraft produced by Bombardier. This training is offered to pilots holding licences issued by various <span style="letter-spacing:
+-.1pt">— national or international — authorities, including Canada and the United States. Bombardier holds a training certificate from the U.S. Federal Aviation Administration (“FAA”) under which it is authorized to provide the necessary training to pilots holding U.S. licences. 
+ [6] In the wake of the terrorist attacks of September 11, 2001, the United States implemented enhanced security measures, including in the aviation field. In November 2001, the U.S. Congress passed the Aviation and Transportation Security Act, Pub. L. 107‑71, 115 Stat. 597 (2001), s. 113 of which (adding 49 U.S.C. § 44939), required that any organization wishing to provide pilot training to an individual who was not a U.S. citizen <span style="line-height:
+200%">submit the individual’s name to the responsible authorities for security screening: <span style="line-height:
+200%">Screening of Aliens and Other Designated Individuals Seeking Flight Training, 68 Fed. Reg. 7313 (2003); U.S. Department of Transportation, FAA Notice N 8700.21, Screening of Aliens and Other Designated Individuals Seeking Flight Training, Exhibit P‑29, A.R. (Commission), vol. XII, at pp. 107‑9. That security screening was carried out by the U.S. Department of Justice (“DOJ”) until the end of September 2004.
+ [7] An American statute passed in December 2003, the Vision 100 — Century of Aviation Reauthorization Act, Pub. L. 108‑176, 117 Stat. 2490 (2003) (“Vision 100 Act”), established stricter security screening requirements and transferred control over security screening to the Department of Homeland Security (“DHS”), or more specifically to the Transportation Security Administration (“TSA”). DHS promulgated a rule to implement these stricter requirements in September 2004: Flight Training for Aliens and Other Designated Individuals; Security Awareness Training for Flight School Employees, 69 Fed. Reg. 56324 (2004). This rule also established TSA’s security screening program, known as the Alien Flight Student Program (“AFSP”).
+ [8] No similar measure was adopted by Canada with respect to the training of pilots holding Canadian licences.
+ [9] Javed Latif, a Canadian citizen born in Pakistan, has been flying planes since 1964. He has held a U.S. pilot’s licence since 1991. Under that licence, he has taken many initial and recurrent training courses from Bombardier among others. He obtained his Canadian pilot’s licence in 2004. His unblemished career record is described in greater detail in the decision at first instance.
+ [10] In 2003, Mid East Jet offered Mr. Latif work flying a Boeing 737 under his U.S. licence. To obtain that contract, Mr. Latif registered for initial training on that aircraft. In October 2003, DOJ issued him a security clearance. He then took his training in the United States with a company called Alteon and obtained his certification in December 2003. Unfortunately, the job opportunity with Mid East Jet fell through.
+ [11] In January 2004, Mr. Latif, who was unemployed at the time, accepted a friend’s offer to go to Pakistan to participate in a real estate project. In March 2004, while he was still in Pakistan, he received an offer from <span style="letter-spacing:
+-.1pt">ACASS Canada Ltd. (“ACASS”) to pilot a Bombardier Challenger 604 (“CL604”) aircraft.
+ [12] Mr. Latif initially registered for recurrent training on the CL604 under his U.S. licence at Bombardier’s Dallas training centre. A request for the required security clearance was submitted to DOJ while he was in Pakistan in early March 2004. Because of a delay in receiving that clearance and because he did not want to lose the job opportunity, Mr. Latif asked <span style="letter-spacing:
+-.1pt">ACASS to register him for recurrent training on the CL604 under his Canadian licence, given that it would also be possible for him to obtain the contract as a pilot under that licence.
+ [13] In April 2004, ACASS informed Mr. Latif that Bombardier had received an unfavourable reply to his security screening request from the U.S. authorities, which meant that he could not receive the training from Bombardier under his U.S. licence. No explanation for the U.S. authorities’ refusal was provided at that time. Mr. Latif was surprised and thought that the refusal was due to an identification error.
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in;text-autospace:
+none">[14] He contacted Steven Gignac, the manager responsible for quality standards at Bombardier, to follow up on his request for training under his Canadian licence, which he believed was not subject to security screening by the U.S. authorities. After first telling Mr. Latif that he had to check with Transport Canada, Mr. Gignac eventually informed him that Bombardier could not train him under his Canadian licence. Mr. Gignac also informed ACASS in a letter dated May 12, 2004 that the reasons for the U.S. authorities’ refusal to authorize the training had not been disclosed to Bombardier but that, because of the training certificate issued by the FAA, Bombardier had to comply with DOJ’s denial for all types of pilot training.
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-indent:0in;text-autospace:
+none">[15] The parties agreed that Bombardier’s refusal to provide training to Mr. Latif under his Canadian licence was based solely on the fact that DOJ had not issued him a security clearance. This case arises out of that refusal by Bombardier to train Mr. Latif under his Canadian licence. 
+ [16] As a result of Bombardier’s refusal to give him the training he wished to receive, Mr. Latif asked the U.S. authorities to review his file. He received the following reply:
+ In October 2003, we based our decision to allow you to train based on the information we had at that time. In March 2004, we again based our decision on all the data we collected, which included new information. In your opinion the circumstances had not changed in six months; we disagree. The denial decision was made after extensive analysis of the data received. This process is in place to protect the national security of the U.S. There is no appeals process for non‑U.S. citizens. [Emphasis added.]
+ (Correspondence with U.S. authorities, Exhibit JL‑14, A.R. (Commission), vol. XVI, at p. 72)
+ [17] In spite of that reply, Mr. Latif made other requests to the U.S. authorities to have his file reviewed, but he was unsuccessful each time. He also made other requests under his U.S. licence for training on various types of aircraft, but they were all denied on the ground that he posed a threat to aviation or national security in the United States, except his last request in 2008, which was finally accepted.
+ [18] Being of the view that Bombardier had discriminated against him, Mr. Latif filed a complaint with the Commission des droits de la personne et des droits de la jeunesse (“Commission”). After investigating, the Commission initiated proceedings in the Human Rights Tribunal (“Tribunal”) in which it alleged that Bombardier [translation] “[had] impair[ed] the right of the complainant, Javed Latif, to avail himself of services ordinarily offered to the public without discrimination based on ethnic or national origin by denying him pilot training for a Canadian licence, contrary to sections 10 and 12 of the Charter”: A.R. (Commission), vol. I, at p. 155. The Commission further alleged that, in so doing, Bombardier had “impair[ed] the complainant’s right to the safeguard of his dignity and reputation without distinction or exclusion based on ethnic or national origin, contrary to sections 4 and 10 of the Charter”: ibid.
+ [19] In July 2008, while the application to the Tribunal was pending, the U.S. authorities finally lifted the prohibition on Mr. Latif’s training without providing any details or explanation.
+ <p class="Title1LevelTitre1Niveau-AltL" style="margin-left:21.55pt;text-indent:
+-21.55pt">III. Judicial History
+ A. Human Rights Tribunal, 2010 QCTDP 16
+ [20] The Tribunal noted that the burden was on the Commission to establish discrimination under s. 10 of the Charter on a balance of probabilities, and that to do so, it had to prove three elements: [translation] “(1) a ‘distinction, exclusion or preference’, (2) based on one of the grounds listed in the first paragraph, (3) which ‘has the effect of nullifying or impairing’ the right to full and equal recognition and exercise of a human right or freedom” (paras. 231-32 (CanLII)).
+ [21] The Tribunal found first that in this case, [translation] “the refusal to train Mr. Latif under his Canadian licence did not depend directly on his Pakistani origin, but on the refusal of the US authorities to give him security clearance”: para. 284.
+ [22] To determine whether, as the Commission maintained, the measures put in place by the United States had directly targeted or mainly affected Arabs and Muslims, the Tribunal continued its analysis by referring to an expert report that had been filed by the Commission. The report had been prepared by Professor Reem Anne Bahdi, whom the Tribunal had qualified as an expert in racial profiling for the purposes of the case. According to the Tribunal, Ms. Bahdi’s report and testimony showed that, since September 11, 2001, several U.S. administrative agencies had engaged in racial profiling against people of Arab origin, Muslims or people from Muslim countries. The Tribunal held that the U.S. authorities’ decision with respect to Mr. Latif’s request had been made in that context.
+ [23] The Tribunal found that Bombardier’s denial of Mr. Latif’s request had thus had the effect of creating, in his regard, a distinction based on one of the prohibited grounds of discrimination, namely ethnic or national origin, which had in turn had the effect of impairing his right to full and equal recognition and exercise of his rights guaranteed by the Charter. It concluded on this basis that the Commission had [translation] “discharged its burden of adducing prima facie proof of discrimination”: para. 315.
+ [24] The Tribunal then rejected the two justifications advanced by Bombardier, the first being that it had refused to train Mr. Latif for security reasons, while the second was based on the financial consequences that could result from revocation of the training certificate issued to Bombardier by the FAA.
+ [25] As a result, the Tribunal ordered Bombardier to pay Mr. Latif $25,000 in moral damages and $309,798.72 in U.S. currency in damages for material prejudice, from which $66,639 in Canadian currency was to be subtracted. It also ordered Bombardier to pay Mr. Latif $50,000 in punitive damages on the ground that Mr. Gignac had acted intentionally and unlawfully and had had Bombardier’s full consent in acting as he did. Finally, the Tribunal ordered Bombardier to [translation] “cease applying or considering the standards and decisions of the US authorities in ‘national security’ matters when dealing with applications for the training of pilots under Canadian pilot’s licences”: p. 81 (CanLII).
+ B. Quebec Court of Appeal, 2013 QCCA 1650, [2013] R.J.Q. 1541
+ [26] The Court of Appeal proceeded on the assumption that the exclusion of Mr. Latif had in fact occurred, but it held that the Commission had not shown a causal connection between the exclusion and a prohibited ground. The Court of Appeal acknowledged that such a connection can be proven by way of circumstantial evidence or of presumptions, but it found that there was no such proof in this case.
+ [27] In the Court of Appeal’s opinion, because Bombardier’s decision had been based solely on the decision of the U.S. authorities, the Tribunal could not find that Bombardier had discriminated against Mr. Latif without proof that the decision in question was itself based on a ground that is prohibited under the Charter. Finding that there was no such proof, the Court of Appeal set aside the Tribunal’s decision.
+ <p class="Title1LevelTitre1Niveau-AltL" style="margin-left:21.55pt;text-indent:
+-21.55pt">IV. Issues
+ [28] This case raises the following questions:
+ <p class="Citation-AltC" style="margin-top:0in;margin-right:0in;margin-bottom:
+24.0pt;margin-left:.5in;text-indent:-.5in;line-height:200%">1. What is “prima facie” discrimination, and what degree of proof is required in order to establish it?
+ <p class="Citation-AltC" style="margin-top:0in;margin-right:0in;margin-bottom:
+24.0pt;margin-left:.5in;text-indent:-.5in;line-height:200%">2. Has prima facie discrimination on Bombardier’s part been proven?
+ <p class="Citation-AltCCxSpLast" style="margin-left:.5in;text-indent:-.5in;
+line-height:200%">3. Was the mandatory order against Bombardier justified?
+ <p class="Title1LevelTitre1Niveau-AltL" style="margin-left:21.55pt;text-indent:
+-21.55pt">V. Analysis
+ A. What Is “Prima Facie” Discrimination, and What Degree of Proof Is Required in Order to Establish It?
+ [29] It will be helpful to begin by recalling the Charter’s place in Quebec’s legislative hierarchy and the principles of interpretation that flow from it.
+ [30] This Court has confirmed that the Charter, like the human rights legislation of the other provinces, has a special quasi‑constitutional status: Béliveau St‑Jacques v. Fédération des employées et employés de services publics inc., [1996] 2 S.C.R. 345, at p. 402, reproduced in Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montréal (City), 2000 SCC 27, [2000] 1 S.C.R. 665 (“City of Montréal”), at para. 28; see also de Montigny v. Brossard (Succession), 2010 SCC 51, [2010] 3 S.C.R. 64, at para. 45. Indeed, unless otherwise provided, ss. 1 to 38 of the Charter prevail over other Quebec statutes: s. 52 of the Charter. Furthermore, s. 53 of the Charter provides that, “[i]f any doubt arises in the interpretation of a provision of the Act, it shall be resolved in keeping with the intent of the Charter.”
+ [31] The Charter must therefore be given a liberal, contextual and purposive interpretation: see, inter alia, Béliveau St‑Jacques, at p. 402. The Court also favours a consistent interpretation of the various provincial human rights statutes unless a legislature intends otherwise: New Brunswick (Human Rights Commission) v. Potash Corporation of Saskatchewan Inc., 2008 SCC 45, [2008] 2 S.C.R. 604, at para. 68; City of Montréal, at para. 45. Finally, although the Charter’s provisions need not necessarily mirror those of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms (“[LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter ”), they must be interpreted in light of the latter: City of Montréal, at para. 42.
+ [32] For more than 30 years, the Court has recognized that discrimination can take various forms, including “adverse effect” or “indirect” discrimination: Ontario Human Rights Commission v. Simpsons‑Sears Ltd., [1985] 2 S.C.R. 536 (“O’Malley”), at p. 551. It has found that adverse effect discrimination comes within the purview of the Charter on the basis of the language of s. 10, which provides, inter alia: “Discrimination exists where such a distinction, exclusion or preference has the effect of nullifying or impairing [the right to equality]” (<span style="letter-spacing:
+-.15pt">Commission scolaire régionale de Chambly v. Bergevin, [1994] 2 S.C.R. 525, at p. 540; see also Forget v. Quebec (Attorney General), [1988] 2 S.C.R. 90; Ford v. Quebec (Attorney General), [1988] 2 S.C.R. 712). The Court has also held that discrimination can be systemic: Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114.
+ [33] The Commission submits that in the case at bar, Mr. Latif was a victim of racial profiling. The concept of racial profiling was originally developed in the context of proceedings brought against the police for abuse of power, but it has since been extended to other situations:
+ Racial profiling is any action taken by one or more people in authority with respect to a person or group of persons, for reasons of safety, security or public order, that is based on actual or presumed membership in a group defined by race, colour, ethnic or national origin or religion, without factual grounds or reasonable suspicion, that results in the person or group being exposed to differential treatment or scrutiny.
+ Racial profiling includes any action by a person in a situation of authority who applies a measure in a disproportionate way to certain segments of the population on the basis, in particular, of their racial, ethnic, national or religious background, whether actual or presumed. [Emphasis added.]
+ (Commission des droits de la personne et des droits de la jeunesse, Racial Profiling: Context and Definition (2005) (online), at p. 13; see also Ontario Human Rights Commission, Policy and guidelines on racism and racial discrimination (2005) (online), at p. 19.)
+ [34] The language of the Charter permits the courts to take note of new forms of discrimination as they emerge in our society. This being said, whatever form discrimination takes, the two‑step analysis applicable to a complaint under the Charter does not change.
+ [35] First, s. 10 requires that the plaintiff prove three elements: “(1) a ‘distinction, exclusion or preference’, (2) based on one of the grounds listed in the first paragraph, and (3) which ‘has the effect of nullifying or impairing’ the right to full and equal recognition and exercise of a human right or freedom” (Forget, at p. 98; Ford, at pp. 783‑84; Devine v. Quebec (Attorney General), [1988] 2 S.C.R. 790, at p. 817; Bergevin, at p. 538).
+ [36] If these three elements are established in accordance with the degree of proof we will specify below, there is “prima facie discrimination”. This is the first step of the analysis.
+ [37] Second, the defendant can then, also in accordance with the degree of proof we will indicate below, justify his or her decision or conduct on the basis of the exemptions provided for in the applicable human rights legislation or those developed by the courts. If the defendant fails to do so, discrimination will then be found to have occurred: McGill University Health Centre (Montreal General Hospital) v. Syndicat des employés de l’Hôpital général de Montréal, 2007 SCC 4, [2007] 1 S.C.R. 161 (“McGill”), at para. 50; see also Moore v. British Columbia (Education), 2012 SCC 61, [2012] 3 S.C.R. 360 (decided under British Columbia’s human rights code), at para. 33. This is the second step of the analysis.
+ [38] For example, s. 20 of the Charter provides that a distinction, exclusion or preference based on the aptitudes required for an employment is deemed to be non‑discriminatory. This is referred to as the “bona fide occupational requirement” (“BFOR”) defence, which can be found in one form or another in all human rights legislation in Canada. In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), at para. 54, this Court developed an approach for determining whether a prima facie discriminatory standard or practice is a BFOR in the context of British Columbia’s human rights code. The principles from that case were subsequently applied to s. 20 of the Charter: Gaz métropolitain inc. v. Commission des droits de la personne et des droits de la jeunesse, 2011 QCCA 1201, at paras. 39‑42 (CanLII); see also McGill.
+ [39] In light of our conclusion on the issue of prima facie discrimination in the instant case, we need not dwell any further on the second step of the analysis. However, we will now discuss the first step.
+ (1) Elements of Prima Facie Discrimination
+ [40] Before we consider the three elements of discrimination, we believe it will be helpful to point out that under both Canadian law and Quebec law, the plaintiff is not required to prove that the defendant intended to discriminate against him or her:
+ <p class="Citation-AltC" style="margin-top:0in;margin-right:0in;margin-bottom:
+12.0pt;margin-left:59.75pt;text-indent:-59.75pt"> To . . . hold that intent is a required element of discrimination under the Code would seem to me to place a virtually insuperable barrier in the way of a complainant seeking a remedy. It would be extremely difficult in most circumstances to prove motive, and motive would be easy to cloak in the formation of rules which, though imposing equal standards, could create . . . injustice and discrimination by the equal treatment of those who are unequal . . . . [Citations omitted; O’Malley, at p. 549.]
+ (See also Andrews v. Law Society of British Columbia, [1989] 1 S.C.R. 143, at p. 173; City of Montréal, at para. 35; Commission des droits de la personne du Québec v. Ville de Québec, [1989] R.J.Q. 831 (C.A.), at pp. 840‑41, leave to appeal refused, [1989] 2 S.C.R. vi.)
+ [41] Not requiring proof of intention applies logically to the recognition of various forms of discrimination, since some discriminatory conduct involves multiple factors or is unconscious.
+ [42] The first element of discrimination is not problematic. The plaintiff must prove the existence of differential treatment, that is, that a decision, a measure or conduct “affects [him or her] differently from others to whom it may apply”: <span style="letter-spacing:
+-.15pt">O’Malley, at p. 551. This might be the case, for example, of obligations, penalties or restrictive conditions that are not imposed on others: ibid.; see also Andrews<span style="letter-spacing:
+-.15pt">, at pp. 173‑74.
+ [43] As we will see below, the second element is central to the dispute in the instant case. The plaintiff must establish that the distinction, exclusion or preference in question is “based” on one of the grounds listed in s. 10 of the Charter: City of Montréal, at para. 84; McGill, at paras. 45 and 49‑50. This element presupposes a connection between the differential treatment and a prohibited ground. Given that there is no consensus regarding the nature of this connection, it needs to be clarified.
+ [44] In the case at bar, the Tribunal held that it is not necessary for the prohibited ground being relied on by a plaintiff to be the sole cause of the impugned act, as that act may be explained by a variety of reasons. The Tribunal found that as long as any one of those reasons is connected with a prohibited ground, it can be concluded that discrimination within the meaning of s. 10 has occurred. As for the Court of Appeal, it required a [translation] “causal connection” between a prohibited ground and the distinction, exclusion or preference at issue: para. 100.
+ [45] The Commission argues that it will suffice, in determining whether a person is liable for his or her decision or conduct, if the prohibited ground played a role in that decision or conduct. As for Bombardier, it maintains in its factum that a “causal connection” is essential to a finding of discrimination, although it acknowledges that [translation] “[t]he courts use various expressions to refer to this indispensable requirement”: R.F., at para. 31. At the hearing, however, it agreed that “connection” is the appropriate term and that it is not essential that the connection between the prohibited ground of discrimination and the impugned decision be an exclusive one.
+ [46] In our opinion, the latter position must prevail.
+ [47] This Court has used the expression “causal connection” at least once, in City of Montréal: para. 84. However, it is important to consider the context in which the expression was used. In that case, the Court noted that the employer had acknowledged the existence of a “causal connection”. But in setting out the elements of prima facie discrimination, the Court had required proof of only a “connection” between the prohibited ground of discrimination and the impugned decision or conduct: para. 65.
+ [48] In that case, this Court found, as did the Tribunal in the case at bar, that the decision or action of the person responsible for the distinction, exclusion or preference need not be based solely on the prohibited ground; it is enough if that decision or action is based in part on such a ground: City of Montréal, at para. 67, per L’Heureux‑Dubé J., quoting with approval D. Proulx, “La discrimination fondée sur le handicap: étude comparée de la Charte québécoise” (1996), 56 R. du B. 317, at p. 420. In other words, for a particular decision or action to be considered discriminatory, the prohibited ground need only have contributed to it: see, inter alia, Commission des droits de la personne et des droits de la jeunesse v. Gaz métropolitain inc., 2008 QCTDP 24 (decision reversed by the Court of Appeal, but only as regards the award of punitive damages), at para. 415 (CanLII).
+ [49] In a recent decision concerning the Human Rights Code, R.S.O. 1990, c. H.19, the Ontario Court of Appeal found that it is preferable to use the terms commonly used by the courts in dealing with discrimination, such as “connection” and “factor”: Peel Law Assn. v. Pieters, 2013 ONCA 396, 116 O.R. (3d) 80, at para. 59. In that court’s opinion, the use of the modifier “causal” elevates the test beyond what is required, since human rights jurisprudence focuses on the discriminatory effects of conduct rather than on the existence of an intention to discriminate or of direct causes: para. 60. We agree with the Ontario Court of Appeal’s reasoning on this point. Moreover, this Court used the term “factor” in a recent decision concerning British Columbia’s human rights code: Moore, at para. 33.
+ [50] It is more appropriate to use the terms “connection” and “factor” in relation to discrimination, especially since the expression “lien causal” has a specific meaning in the civil law of Quebec. In civil liability matters, the plaintiff must establish on a balance of probabilities that there is a causal relationship between the defendant’s fault and the injury suffered by the plaintiff: J.‑C. Royer and S. Lavallée, La preuve civile (4th ed. 2008), at para. 158. The Quebec courts have defined this causal relationship as requiring that the damage be a logical, direct and immediate consequence of the fault. This rule therefore means that the cause must have a [translation] “close” relationship with the injury suffered by the victim: J.‑L. Baudouin, P. Deslauriers and B. Moore, La responsabilité civile (8th ed. 2014), at para. 1‑683.
+ [51] A close relationship is not required in a discrimination case under the Charter, however. To hold otherwise would be to disregard the fact that, since there may be many different reasons for a defendant’s acts, proof of such a relationship could impose too heavy a burden on the plaintiff. Some of those reasons may, of course, provide a justification for the defendant’s acts, but the burden is on the defendant to prove this. It is therefore neither appropriate nor accurate to use the expression “causal connection” in the discrimination context.
+ [52] In short, as regards the second element of prima facie discrimination, the plaintiff has the burden of showing that there is a connection between a prohibited ground of discrimination and the distinction, exclusion or preference of which he or she complains or, in other words, that the ground in question was a factor in the distinction, exclusion or preference. Finally, it should be noted that the list of prohibited grounds in s. 10 of the Charter is exhaustive, unlike the one in the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter : City of Montréal, at para. 69.
+ [53] Lastly, the plaintiff must show that the distinction, exclusion or preference affects the full and equal exercise of a right or freedom guaranteed to him or her by the Charter. The Charter, unlike the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter , does not protect the right to equality per se; this right is protected only in the exercise of the other rights and freedoms guaranteed by the Charter: see, inter alia, Ruel v. Marois, [2001] R.J.Q. 2590 (C.A.), at para. 129; Velk v. McGill University, 2011 QCCA 578, at para. 42 (CanLII); see also <span style="letter-spacing:
+-.15pt">Ford, at pp. 786‑87.
+ [54] This means that the right to non‑discrimination cannot serve as a basis for an application on its own and that it must necessarily be attached to another human right or freedom recognized by law. However, this requirement should not be confused with the independent scope of the right to equality; the Charter does not require a “double violation” (right to equality and, for example, freedom of religion), which would make s. 10 redundant: see, inter alia, D. Robitaille, “Non‑indépendance et autonomie de la norme d’égalité québécoise: des concepts ‘fondateurs’ qui méritent d’être mieux connus” (2004), 35 R.D.U.S. 103.
+ (2) Applicable Degree of Proof
+ [55] As we mentioned above, an application under the Charter involves a two‑step process that successively imposes separate burdens of proof on the plaintiff and the defendant. However, this Court has never clearly enunciated the degree of proof associated with the plaintiff’s burden. It must also be acknowledged that the use of the expressions “prima facie discrimination” and “prima facie case of discrimination” may have caused some confusion about the scope of the degree of proof.
+ [56] In our opinion, even though the plaintiff and the defendant have separate burdens of proof in an application under the Charter, and even though the proof required of the plaintiff is of a simple “connection” or “factor” rather than of a “causal connection”, he or she must nonetheless prove the three elements of discrimination on a balance of probabilities. This means that the “connection” or “factor” must be proven on a balance of probabilities.
+ [57] In its factum, the Commission supports its arguments on this point by citing to passages from O’Malley and Moore that deal with prima facie discrimination, but the conclusions it draws from those passages about the degree of proof required of the plaintiff are ambiguous. At the hearing, the Commission defined a prima facie case as [translation] “sufficient proof absent an answer that a discriminatory ground was a factor in the occurrence of the adverse effect<span style="line-height:
+200%">”: transcript, at pp. 11‑12. It submitted that “the prima facie test must be flexible and must take account of the context” and that “[t]he context therefore influences the articulation of a plaintiff’s burden and the required degree of proof”: ibid., at p. 16. In the Commission’s view, “there will be a low threshold of proof for the circumstantial evidence that must be produced by the plaintiff”: ibid., at p. 18. The Commission added that prima facie discrimination does not therefore have to be established in accordance with the standard of proof on a balance of probabilities, and that it is only where the defendant adduces evidence to the contrary — thus providing an explanation for his or her decision — that the Tribunal is required to apply that standard. In essence, the Commission’s argument is that the concept of prima facie discrimination lowers the required degree of proof.
+ [58] Bombardier counters that the proof required by the concept of a prima facie case of discrimination is not [translation] “approximate” proof of discrimination, but “proof [that] in itself, where no contradiction is shown, is complete and sufficient . . . to establish, on a balance of probabilities, a connection between the decision whose basis is challenged and the prohibited . . . ground of discrimination”: transcript, at p. 89. In Bombardier’s view, the Tribunal must determine whether, having regard to the evidence as a whole, the plaintiff has established discrimination on a balance of probabilities. If the Tribunal finds that the plaintiff has done so, the defendant can still present a defence of justification, which he or she must then establish.
+ [59] In our opinion, Bombardier is right that the standard of proof that normally applies in the civil law, namely that of proof on a balance of probabilities, applies in this case. In a discrimination context, the expression “prima facie” refers only to the first step of the process and does not alter the applicable degree of proof. This conclusion is inescapable in light of this Court’s past decisions. 
+ [60] The Court made the following comment in O’Malley:
+ The complainant in proceedings before human rights tribunals must show a prima facie case of discrimination. A prima facie case in this context is one which covers the allegations made and which, if they are believed, is complete and sufficient to justify a verdict in the complainant’s favour in the absence of an answer from the respondent‑employer. [Emphasis added; p. 558.]
+ [61] In Meiorin, the Court stated that, “[i]f a prima facie case of either form of discrimination is established, the burden shifts to the employer to justify it”: para. 19.
+ [62] In City of Montréal, which dealt with the Charter, the Court wrote the following, at para. 65:
+ . . . the Charter contemplates a two‑step process . . . . The first step, set out in s. 10, attempts to eliminate discrimination and requires that the applicant produce prima facie evidence of the discrimination. At this stage, the burden on the applicant is limited to showing prejudice and its connection to a prohibited ground of discrimination.
+ [63] Finally, in Moore, a more recent case, Abella J. wrote the following for the Court:
+ . . . to demonstrate prima facie discrimination, complainants are required to show that they have a characteristic protected from discrimination under the Code; that they experienced an adverse impact with respect to the service; and that the protected characteristic was a factor in the adverse impact. Once a prima facie case has been established, the burden shifts to the respondent to justify the conduct or practice, within the framework of the exemptions available under human rights statutes. If it cannot be justified, discrimination will be found to occur. [Emphasis added; para. 33.]
+ (See also McGill, at paras. 49-50.)
+ [64] This brief review of the case law shows that the use of the expression “prima facie discrimination” can be explained quite simply on the basis of the two‑step test for complaints of discrimination under the Charter. This expression concerns only the three elements that must be proven by the plaintiff at the first step. If no justification is established by the defendant, proof of these three elements on a balance of probabilities will be sufficient for the tribunal to find that s. 10 of the Charter has been violated. If, on the other hand, the defendant succeeds in justifying his or her decision or conduct, there will have been no violation, not even if prima facie discrimination is found to have occurred. In practical terms, this means that the defendant can either present evidence to refute the allegation of prima facie discrimination, put forward a defence justifying the discrimination, or do both.
+ [65] Thus, the use of the expression “prima facie discrimination” must not be regarded as a relaxation of the plaintiff’s obligation to satisfy the tribunal in accordance with the standard of proof on a balance of probabilities, which he or she must still meet. This conclusion is in fact supported by the passage from O’Malley quoted above, in which the Court stated that the case must be “complete and sufficient”, that is, it must correspond to the degree of proof required in the civil law. Absent an exception provided by law, there is in Quebec law only one degree of proof in civil matters, namely proof on a balance of probabilities: art. 2804 of the Civil Code of Québec; see also Banque Canadienne Nationale v. Mastracchio, [1962] S.C.R. 53, at p. 57; Rousseau v. Bennett, [1956] S.C.R. 89, at pp. 92‑93; Parent v. Lapointe, [1952] 1 S.C.R. 376, at p. 380. In the instant case, neither s. 10 of the Charter nor the Charter’s other provisions create such an exception.
+ [66] At the hearing, the Commission cited s. 123 of the Charter in support of its argument that the degree of proof is different in a discrimination case. In our opinion, s. 123 of the Charter applies to an entirely different situation. It reads as follows:
+ The Tribunal, though bound by the general principles of justice, may admit any evidence useful and relevant to the application submitted to it and allow any means of proof.
+ The Tribunal is not bound by the special rules of evidence applicable in civil matters, except to the extent determined in this Part.
+ [67] In essence, the purpose of this section is to relax the rules governing the admissibility and presentation of evidence, not to lower the usual civil standard of proof. In practice, this means that the Tribunal may accept any means of proof — writings, presumptions, testimony, admissions or the production of real evidence. Since it is not bound by the specific rules of evidence applicable in civil matters, it could, for example, admit hearsay evidence on certain conditions. That being said, the Tribunal must nevertheless, after hearing all the evidence, be satisfied on a balance of probabilities that the plaintiff has been discriminated against before it can decide in the plaintiff’s favour.
+ [68] This relaxation of the rules of evidence is not unique to the Tribunal or to the application of the Charter; it can in fact be found in the enabling legislation of other quasi‑judicial tribunals. This choice can be explained by a legislative intent to favour the resolution of certain types of disputes in a more expeditious and less costly manner, and in more accessible and less formalistic forums in which plaintiffs are often not represented by counsel: see, inter alia, P. Garant, Droit administratif (6th ed. 2010), at p. 105. Subject to the principles of natural justice and to the specific rules set out in their enabling legislation, administrative tribunals therefore have full authority over their procedure and over the admission of evidence: see, inter alia, ss. 9 to 12 of the Act respecting administrative justice, CQLR, c. J‑3; Université du Québec à Trois‑Rivières v. Larocque, [1993] 1 S.C.R. 471, at p. 485.
+ [69] We wish to be clear that the application of a given legal test must be based on the same elements and the same degree of proof in every case. This is necessary in order to maintain the uniformity, integrity and predictability of the law. We therefore fail to see how the flexibility that the Commission says must characterize the prima facie discrimination test can affect the process aside from making it possible to take the circumstances of each case, and in particular the ground of discrimination being alleged, into account. Thus, although the nature of the evidence that is presented may vary from case to case, the “legal test” does not change. What can vary are the circumstances that might make it possible to meet the requirements of the various elements of the analysis, and the courts must adopt an approach that takes the context into account.
+ B. Has Prima Facie Discrimination on Bombardier’s Part Been Proven?
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-align:justify;
+text-justify:kashida;text-kashida:0%;text-indent:0in">[70] In a recent case, Mouvement laïque québécois v. Saguenay (City), 2015 SCC 16, [2015] 2 S.C.R. 3 (“City of Saguenay”), this Court confirmed that the Tribunal is an administrative tribunal and that the applicable standard of review is determined on the basis of administrative law principles, regardless of whether the review is conducted in the context of an application for judicial review or of a statutory appeal: paras. 38‑44. Because the decision in that case was rendered after the hearing in the case at bar, some of the parties’ arguments have already been decided by this Court and do not require further comment here.
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-align:justify;
+text-justify:kashida;text-kashida:0%;text-indent:0in">[71] Mr. Latif argues that, because the Court of Appeal held that the Tribunal had correctly identified the test for complaints of discrimination under the Charter, his appeal concerns only the application of that test to the facts of this case. In his view, the Court of Appeal erred in applying the palpable and overriding error standard to this question of mixed fact and law and in substituting its own assessment of the facts for that of the Tribunal. He submits that the standard applicable to such a question, namely reasonableness, requires greater deference to the Tribunal’s decision.
+ <p class="ParaNoNdepar-AltN" style="margin-left:0in;text-align:justify;
+text-justify:kashida;text-kashida:0%;text-indent:0in">[72] Bombardier contends that, where questions of fact and questions of mixed fact and law are concerned, the tests for intervention by an appellate court or a reviewing court are the same. It adds, however, that the Tribunal’s decision must be set aside even if the applicable standard is reasonableness. Bombardier maintains that a decision is unreasonable if support for its conclusions cannot be found in the evidence, arguing that the decision in this case was in fact unreasonable because there was no evidence to support the Tribunal’s conclusion that there was a connection between Mr. Latif’s ethnic or national origin and the U.S. authorities’ refusal. Bombardier also argues that the Court of Appeal did not reassess the expert evidence submitted to the Tribunal but found, rather, that there was no evidence of a causal connection. 
+ [73] For the reasons that follow, we are of the opinion that because the Tribunal’s decision was not supported by the evidence in the record, it was unreasonable and must therefore be set aside.
+ [74] The parties agreed that Bombardier’s decision to deny Mr. Latif’s request for training under his Canadian licence was based solely on the fact that Mr. Latif had not received a security clearance from DOJ to receive training under his U.S. licence. But the Commission had to show that Bombardier’s decision was discriminatory by establishing on a balance of probabilities that there was a connection between the decision and Mr. Latif’s ethnic or national origin. The Commission argues that Mr. Latif was a victim of racial profiling on the part of the U.S. authorities and that Bombardier acted as a conduit for their decision. More specifically, the Commission submits that the measures implemented by the U.S. authorities at the relevant time in order to counter and prevent terrorism directly targeted Arab or Muslim people or, more broadly, people from Muslim countries, including Pakistan. Because Mr. Latif was born in the latter country, the U.S. authorities’ decision concerning him stemmed from those measures.
+ [75] The Tribunal accepted that syllogism and concluded that Bombardier’s decision was based on Mr. Latif’s ethnic or national origin.
+ [76] Although the Court of Appeal found that the Tribunal had correctly identified the elements of discrimination, it held that the evidence in the record did not support a conclusion that the U.S. authorities’ decision was based on Mr. Latif’s ethnic or national origin and that Bombardier’s decision was therefore discriminatory.
+ [77] Bombardier agrees with the Court of Appeal that the inference drawn by the Tribunal was based solely on the expert report of Ms. Bahdi that had been filed by the Commission. In Bombardier’s view, because that report dealt only with the Islamophobic social context in the United States and with government programs other than the AFSP, it could not support the Tribunal’s inference. In fact, according to Bombardier, the Court of Appeal set aside the Tribunal’s decision for that reason alone.
+ [78] The Commission and Mr. Latif argue that the Tribunal’s conclusion was reasonable and that it was supported by several pieces of circumstantial evidence, and not only by Ms. Bahdi’s expert report.
+ [79] In our opinion, the Commission and Mr. Latif are wrong.
+ [80] Because Bombardier’s decision to deny Mr. Latif’s request for training was based solely on DOJ’s refusal to issue him a security clearance, it is common ground that proof of a connection between the U.S. authorities’ decision and a prohibited ground of discrimination would have satisfied the requirements of the second element of the test for prima facie discrimination. However, the Commission did not adduce sufficient evidence to show that Mr. Latif’s ethnic or national origin played any role in DOJ’s unfavourable reply to his security screening request.
+ [81] As for the circumstantial evidence, we do not agree with the Court of Appeal that the inference drawn by the Tribunal was based solely on Ms. Bahdi’s expert report. The Tribunal based its finding on all the evidence in the record. In our opinion, however, that evidence was not sufficient to support an inference of a connection between Mr. Latif’s ethnic or national origin and his exclusion. It follows that the Tribunal’s finding of fact was clearly unreasonable.
+ [82] The parties do not know why DOJ refused to issue a security clearance for Mr. Latif in 2004. Indeed, the Tribunal wrote, at para. 310: [translation] “We do not know the process, criteria or objective reasons that resulted in the refusal by the US authorities to give Mr. Latif security clearance. . . .”
+ [83] Surprisingly, the only direct evidence concerning the reasons for DOJ’s decision comes from Mr. Latif’s own testimony. According to him, he was denied a security clearance as a result of an identification error, which he says was confirmed to him by telephone by a TSA official. Bombardier argues that it was this identification error, and not Mr. Latif’s ethnic or national origin, that led to the refusal by the U.S. authorities. However, the Tribunal rejected that theory, adding that even if DOJ’s decision had resulted from such an error, that error had, on a balance of probabilities, been caused by discriminatory programs and racial profiling, given that the security screening process could lead to [translation] “false positives”: para. 310.
+ [84] It is therefore apparent that the Commission failed to satisfy the Tribunal that there was direct evidence concerning the real reason for the U.S. decision. For its conclusion that Mr. Latif had been discriminated against to be reasonable, therefore, the Tribunal had to be able to rely on circumstantial evidence. In our opinion, that evidence was insufficient in this case. Let us explain.
+ (1) Ms. Bahdi’s Expert Report
+ [85] The Commission’s case is based in large part on the report of Ms. Bahdi, who was qualified for the purposes of this case as an expert in racial profiling, more specifically in the context of the application of anti‑terrorism measures and programs related to national security in the United States after September 11, 2001. The Tribunal relied on that report to conclude, by way of presumption, that Bombardier’s decision to deny Mr. Latif’s training request had been based on his ethnic or national origin.
+ [86] Ms. Bahdi’s expert report has three main parts: a description of the use of racial profiling in certain national security-related programs of U.S. authorities, a discussion of the attitudinal biases, stereotyping and general discrimination faced by Arabs and Muslims in the United States, and the author’s opinion that racial profiling is ineffective for national security purposes.
+ [87] The Court of Appeal found that the expert report did not refer to the only program <span style="letter-spacing:
+-.1pt">— the AFSP —<span style="letter-spacing:
+-.1pt"> at issue in this case. As well, most of the programs described in the report were terminated before 2004. At best, the report showed that, at the time, there was a social climate in which racial profiling was generalized for national security purposes as a result of the terrorist attacks on September 11, 2001, and that racial profiling was practised in certain U.S. government programs.
+ [88] It cannot be presumed solely on the basis of a social context of discrimination against a group that a specific decision against a member of that group is necessarily based on a prohibited ground under the Charter. In practice, this would amount to reversing the burden of proof in discrimination matters. Evidence of discrimination, even if it is circumstantial, must nonetheless be tangibly related to the impugned decision or conduct.
+ [89] In this case, the expert evidence in question was not sufficiently related to the facts of the case to establish a connection between the decision of the U.S. authorities on which Bombardier relied and Mr. Latif’s ethnic or national origin.
+ (2) Other Evidence
+ [90] The Commission argues that even without Ms. Bahdi’s expert report, there were several pieces of evidence that could have led the Tribunal to find that a prima facie case of discrimination had been made out. The Commission submits that the Court of Appeal disregarded this circumstantial evidence and that in so doing it required “the elimination of every conceivable possibility before an inference of discrimination may be made”, which is an error of law in articulating the prima facie burden of proof: A.F. (Commission), at para. 89, quoting Pieters, at para. 92.
+ [91] For example, the Commission argues, the fact that Mr. Latif had already received a security clearance from DOJ in 2003 shows that the subsequent refusal is attributable to his being a native of Pakistan. This argument must fail.
+ [92] In its correspondence with Mr. Latif in 2004, DOJ acknowledged that it had previously cleared him, but said that the information available to it had since changed. In addition, Mr. Latif’s country of origin was known to DOJ in 2003, so the past clearance from DOJ sheds no light on the reasons for its subsequent refusal.
+ [93] Next, the Commission adds that the transfer of responsibility from DOJ to TSA, accompanied by the tightening of rules provided for in the Vision 100 Act, is what explains the sudden denial by the U.S. authorities of Mr. Latif’s request for training on the CL604 aircraft: § 612(a). However, although the Vision 100 Act was passed on December 12, 2003, it provided that the tightening of rules and the transfer of responsibility would not be effective until DHS promulgated an “interim final rule”: § 612(c). The promulgation of that rule did not take place until September 2004, that is, after the decision concerning Mr. Latif was made in April 2004. This means that the provisions of the Vision 100 Act cannot be the cause of the U.S. authorities’ refusal to issue Mr. Latif’s security clearance. Indeed, that refusal came from DOJ and not from TSA, and the evidence in the record concerns the correspondence between Mr. Latif and DOJ during the months following the refusal. Not until October 2004 does the evidence show a first exchange with DHS, TSA’s parent organization.
+ [94] Furthermore, Mr. Latif points out that four of the five candidates <span style="letter-spacing:
+-.1pt">— himself included — who were unable to train at Bombardier’s centre in Montréal because of a refusal by the U.S. authorities were from Arab or Muslim countries. The Tribunal did not consider this argument in its decision. In any event, we are of the opinion that, in light of the evidence as a whole, this fact is insufficient to infer that there was a connection between Mr. Latif’s ethnic or national origin and DOJ’s refusal. We also note that Bombardier submitted a list of 30 candidates native to such countries — although two of them were U.S. citizens — who received clearances from DOJ or TSA.
+ [95] The Commission adds that Mr. Latif’s spotless record is incompatible with the conclusion that he posed a threat to aviation or national security in the United States. In its view, this, combined with the rest of the evidence, shows that his ethnic or national origin was a factor in DOJ’s refusal of his request.
+ [96] We cannot accept this argument. The refusal by the U.S. authorities was intended to protect the national security of the United States. Mr. Latif’s career record up to that time was not determinative of the threat he might pose to national security any more than were the many FAA‑approved training courses he had taken in the past.
+ [97] Finally, the Commission faults Bombardier for failing to check with the Canadian authorities or to ask the U.S. authorities to explain the reasons for their refusal. In this regard, it should be noted that Mr. Latif himself did not receive any explanation. In any event, even if these allegations might be of some relevance at the second step of the analysis (that of justification), it is our opinion that they do not show a connection between the prohibited ground and the exclusion of Mr. Latif, and that they are of no assistance.
+ (3) Conclusion
+ [98] In our opinion, the evidence available to the Tribunal — indeed the absence of evidence — was such that it could not reasonably hold that there was a connection between Mr. Latif’s ethnic or national origin and the decision of the U.S. authorities, and therefore Bombardier’s decision to deny Mr. Latif’s training request. As a result, it was not open to the Tribunal to conclude that Bombardier’s decision constituted prima facie discrimination under the Charter.
+ [99] However, we wish to make it clear that our conclusion in this case does not mean that a company can blindly comply with a discriminatory decision of a foreign authority without exposing itself to liability under the Charter. Our conclusion flows from the fact that there is simply no evidence in this case of a connection between a prohibited ground and the foreign decision in question.
+ [100] In light of our conclusion that Mr. Latif was not discriminated against, our discussion could stop here. However, we think it necessary to add a few comments about the mandatory order made by the Tribunal against Bombardier.
+ C. Was the Mandatory Order Against Bombardier Justified?
+ [101] The Tribunal ordered Bombardier to [translation] “cease applying or considering the standards and decisions of the US authorities in ‘national security’ matters when dealing with applications for the training of pilots under Canadian pilot’s licences”: p. 81. The Court of Appeal held that the Tribunal has the jurisdiction to make orders to do or not to do something but that this jurisdiction is limited to measures that are necessary and reasonable for the purpose of rectifying a problematic situation. The Court of Appeal was of the opinion that no order was necessary at the time the Tribunal rendered its decision in this case, since the U.S. authorities had finally approved Mr. Latif’s request for a security clearance and Mr. Latif had received the training he wished to take. The Court of Appeal noted that [translation] “[t]he Tribunal could not use the case as a pretext for managing the future activities of Bombardier, a private entity that is entitled to freedom of contract”: para. 152.
+ [102] The Commission submits that the Tribunal’s jurisdiction is subject to that of the Commission, which is required to act in the public interest, and that the Charter gives the Tribunal the power to make orders that transcend the case before it in order to prevent future discrimination. Bombardier counters that the order overstepped the bounds of the Tribunal’s powers under the Charter, because it was not limited to the scope of the dispute. In addition, it was too vague and, consequently, unlawful.
+ [103] We agree with the Commission about the principles it advances. In addition to the large and liberal interpretation required by the Charter, a careful reading of its provisions shows that the legislature intended to authorize the Commission to take measures needed to eliminate discrimination and in so doing to protect the public interest. In particular, s. 71 of the Charter requires that the Commission “promote and uphold, by every appropriate measure, the principles enunciated in this Charter”. As well, s. 80 provides that the Commission may apply to a tribunal “to obtain, where consistent with the public interest, any appropriate measure against the person at fault or to demand, in favour of the victim, any measure of redress it considers appropriate at that time”. This last section ensures that the orders the Tribunal can make are not limited to compensation for the prejudice suffered by the plaintiff, but can also include measures that are necessary in the public interest. However, the exercise of this power must have a connection with the dispute submitted to the Tribunal, be supported by the relevant evidence and be appropriate in light of all the circumstances.
+ <span style="line-height:200%;
+font-weight:normal">[104] This Court has stressed “the need for flexibility and imagination in the crafting of remedies for infringements of fundamental human rights”: Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Communauté urbaine de Montréal, 2004 SCC 30, [2004] 1 S.C.R. 789, at para. 26; see also Doucet‑Boudreau v. Nova Scotia (Minister of Education), 2003 SCC 62, [2003] 3 S.C.R. 3, at paras. 24‑25 and 94. It has also held that the enforcement of these rights under the Charter “can lead to the imposition of affirmative or negative obligations designed to correct or bring an end to situations that are incompatible with the . . . Charter”: Communauté urbaine de Montréal, at para. 26.
+ [105] In the instant case, the Court of Appeal recognized the Tribunal’s power to issue injunctions but found that this power can be exercised only in [translation] “problematic situations”: para. 150. In the Court of Appeal’s view, the situation had been resolved at the time of the hearing before the Tribunal, given that the U.S. authorities had finally granted the security clearance sought by Mr. Latif. That does not end the discussion, however. If the Tribunal had been right to find that Mr. Latif had been discriminated against, the fact that Mr. Latif had finally received his security clearance from the U.S. authorities would not necessarily have addressed the source of the problem, insofar as the evidence had established the existence of a discriminatory organizational policy. In this sense, an order by the Tribunal might then have been necessary in the public interest in order to prevent discrimination against others.
+ <p class="Title1LevelTitre1Niveau-AltL" style="margin-left:21.55pt;text-indent:
+-21.55pt">VI. Disposition
+ [106] It has not been established in this case that Mr. Latif was discriminated against as a result of Bombardier’s actions.
+ [107] We would dismiss the appeals, with costs against the Commission in the Tribunal and the Court of Appeal, and against the Commission and Mr. Latif, on a solidary basis, in this Court.
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Appeals dismissed.
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the appellant/respondent Commission des droits de la personne et des droits de la jeunesse: Boies Drapeau Bourdeau, Montréal.
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the respondent/appellant Javed Latif: Irving Mitchell Kalichman, Westmount, Quebec.
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the respondent Bombardier Inc. (Bombardier Aerospace Training Center): Norton Rose Fulbright Canada, Montréal.
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the intervener the Canadian Civil Liberties Association: Paliare Roland Rosenberg Rothstein, Toronto.
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitor for the intervener the Canadian Human Rights Commission: Canadian Human Rights Commission, Ottawa.
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the intervener the Center for Research‑Action on Race Relations: Selwyn Pieters, Toronto; Aymar Missakila, Montréal.
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the interveners the National Council of Canadian Muslims and the Canadian Muslim Lawyers Association: Office of Khalid Elgazzar, Barrister, Ottawa.
+ Solicitors for the intervener the South Asian Legal Clinic of Ontario: Bennett Jones, Toronto.
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1761/index.do" />
+    <title>    British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights) - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/1761/1759898/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights)</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights)</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/1761/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights)</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                1999-12-16
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [1999] 3 SCR 868
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                26481
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                L&#39;Heureux-Dubé, Claire; Gonthier, Charles Doherty; McLachlin, Beverley; Iacobucci, Frank; Major, John C.; Bastarache, Michel; Binnie, William Ian Corneil
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                British Columbia
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Constitutional law<br/>
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/26481/">26481</a>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1761/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"> 
+  <div class="Section1"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">British Columbia (Superintendent of Motor Vehicles) <i>v</i>. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:324.0pt;text-align:justify;text-indent:
+-324.0pt;line-height:24.4pt"><b><span lang="EN-GB">Terry Grismer (Estate)</span></b><span lang="EN-GB"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Appellant</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB">v.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">The British Columbia Council of Human Rights </span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">(Member Designate Tom Patch)</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Respondent</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">and</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">The British Columbia Superintendent of Motor Vehicles </span></b></p> 
+   <p class="MsoNormal" style="margin-left:324.0pt;text-align:justify;text-indent:
+-324.0pt;line-height:24.4pt"><b><span lang="EN-GB">and the Attorney General of British Columbia</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Respondents</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">and</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">The Attorney General for Ontario, the</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">Attorney General for New Brunswick, the</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">Attorney General for Alberta, the British Columbia </span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">Human Rights Commission and the Council of </span></b></p> 
+   <p class="MsoNormal" style="margin-left:324.0pt;text-align:justify;text-indent:
+-324.0pt;line-height:24.4pt"><b><span lang="EN-GB">Canadians with Disabilities</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Interveners</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">&nbsp;</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">Indexed as: &nbsp;British Columbia (Superintendent of Motor Vehicles) <i>v</i>. British Columbia (Council of Human Rights)</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">File No.:&nbsp;&nbsp;26481.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">1999:&nbsp;&nbsp;October&nbsp;13; 1999:&nbsp;&nbsp;December&nbsp;16.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">Present:&nbsp;&nbsp;L’Heureux‑Dubé, Gonthier, McLachlin, Iacobucci, Major, Bastarache and Binnie&nbsp;JJ.</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section2"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">on appeal from the court of appeal for british columbia</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i><span lang="EN-GB">Civil rights -- Discrimination -- Bona fide and reasonable justification --Physical disability -- Superintendent of Motor Vehicles refusing to issue driver’s&nbsp; licences to persons with homonymous hemianopia --No individual assessments carried out -- Whether blanket refusal without possibility of individual assessment constituted discrimination --Application of Meiorin test to public service provider -- Human Rights Code, R.S.B.C. 1996, c.&nbsp;210, s.&nbsp;8.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-right:-.3pt;text-align:justify;text-indent:
+57.6pt;line-height:24.4pt"><span lang="EN-GB">The claimant suffered from a condition called homonymous hemianopia (H.H.) which eliminated most of his left-side peripheral vision in both eyes.&nbsp;&nbsp; The B.C. Superintendent of Motor Vehicles cancelled his driver’s licence on the ground that his vision no longer met the standard of a minimum field of vision of 120 degrees.&nbsp; While exceptions to this standard were permitted in other cases, people with H.H. are not&nbsp; permitted to hold a driver’s licence in B.C.&nbsp;&nbsp; After repeatedly being denied a licence despite passing the requisite tests, the claimant&nbsp; filed a complaint with the B.C. Council of Human Rights. The Council found that the standard was <i>prima facie</i> direct discrimination&nbsp; and that the Superintendent had failed to show that applying the visual field standards inflexibly, without individual assessments, was reasonably necessary.&nbsp;&nbsp; The Superintendent was ordered to assess the claimant and to place restrictions on his licence if necessary.&nbsp;&nbsp; A&nbsp; judge of the Supreme Court of British Columbia dismissed the Superintendent’s petition for judicial review but the Court of Appeal set aside that decision.&nbsp;&nbsp; Since the Court of Appeal’s judgment,&nbsp; this Court has set out a modified test for discrimination under the B.C. <i>Human Rights Code</i> -- the <i>Meiorin</i> test. </span></p> 
+   <p class="MsoNormal" style="margin-right:-.3pt;text-align:justify;line-height:
+24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section3"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt;page-break-after:avoid"><i><span lang="EN-GB">Held</span></i><span lang="EN-GB">:&nbsp; The appeal should be allowed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">The <i>Meiorin</i> test applies to all claims for discrimination under the B.C. <i>Human Rights Code</i>.&nbsp;&nbsp; It requires those governed by human rights legislation to accommodate the characteristics of affected groups within their standards.&nbsp;&nbsp; Once a plaintiff establishes that the standard is <i>prima facie</i> discriminatory, the onus shifts to the defendant to prove on a balance of probabilities that the discriminatory standard is a <i>bona fide</i> occupational requirement or has a <i>bona fide</i> and reasonable justification.&nbsp;&nbsp; The defendant must prove that:&nbsp; (1) it adopted the standard for a purpose or goal rationally connected to the function being performed; (2) it adopted the standard in good faith, in the belief that it is necessary for the fulfilment of the purpose or goal; and (3) the standard is reasonably necessary to accomplish its purpose or goal, because the defendant cannot accommodate persons with the characteristics of the claimant without incurring undue hardship,&nbsp; whether that hardship takes the form of impossibility, serious risk or excessive cost.&nbsp;&nbsp; Accommodation ensures that each person is assessed according to his or her own personal abilities rather than presumed group characteristics.&nbsp; Failure to accommodate may be shown by evidence that the standard was set arbitrarily, or that individual&nbsp; assessment&nbsp; was unreasonably refused, or in some other way.&nbsp; If the policy or practice is reasonably necessary to an appropriate purpose or goal, and accommodation short of undue hardship is incorporated into the standard, the fact that the standard excludes some people does not amount to discrimination. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section4"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">&nbsp;The claimant established <i>prima facie</i> discrimination by showing that he was denied a licence on the basis of his physical disability.&nbsp; The Superintendent was then required to prove on a balance of probabilities that the discriminatory standard had a <i>bona fide</i> reasonable justification.&nbsp; The Superintendent’s goal was reasonable highway safety, balancing the need for people to be licensed and the need for public safety.&nbsp;&nbsp; While&nbsp; this goal was legitimate and rationally connected to the general function of issuing driver’s licences, and&nbsp; the standard of a minimum field of vision of 120 degrees&nbsp; was adopted in good faith, the standard was not reasonably necessary to accomplish the goal.&nbsp;&nbsp; First,&nbsp; the Superintendent did not show that no one with this condition could ever achieve reasonable highway safety.&nbsp;&nbsp; The evidence indicated that the Superintendent’s aim was not absolute safety, but rather reasonable safety.&nbsp;&nbsp; People with less than full peripheral vision can drive safely and the claimant compensated for his disability.&nbsp; Second, the Superintendent did not show that the risk or cost associated with&nbsp; providing individual assessment constituted undue hardship.&nbsp;&nbsp; The evidence revealed that at least two tests for road safety of people with H.H. had been developed,&nbsp; and that laboratory testing&nbsp; might also assist.&nbsp;&nbsp; While&nbsp; simulating the emergency situations which are the focus of concern for people with H.H. may be dangerous, many driving tests involve danger and ways are found to reduce it.&nbsp; With respect to the cost of assessing people with H.H., the Superintendent offered no precise figures.&nbsp;&nbsp; Excessive cost may justify a refusal to accommodate those with disabilities, but one must be wary of putting too low a value on accommodating the disabled.&nbsp;&nbsp; Impressionistic evidence of increased expense will not generally suffice, and there may be ways to reduce costs.&nbsp; Since the Superintendent failed&nbsp; to prove that incorporating aspects of individual accommodation within the standard was impossible short of undue hardship,&nbsp; he was obliged to give the claimant an opportunity to prove whether or not he could drive safely, through&nbsp; individual assessment. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section5"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">&nbsp;The discrimination in this case lies not in the refusal to issue a licence, but in the refusal&nbsp; to give the claimant a chance to prove through an individual assessment that he could be licensed&nbsp; without jeopardizing the goal of reasonable road safety.&nbsp;&nbsp; The Superintendent fell into error because he abandoned his reasonable approach to licensing and adopted an absolute standard which was not supported by the evidence.&nbsp;&nbsp;&nbsp; Those who provide services subject to the <i>Human Rights Code</i> must adopt standards that accommodate people with disabilities where this can be done without sacrificing their legitimate objectives and without incurring undue hardship.&nbsp;&nbsp; This&nbsp; does not suggest that safety standards must be lowered.&nbsp;&nbsp; Nor should this decision be taken as predetermining the result in other cases. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB">Cases Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt;page-break-after:avoid"><b><span lang="EN-GB">Applied: </span></b><i><span lang="EN-GB">&nbsp;British Columbia (Public Service Employee Relations Commission) v. BCGSEU</span></i><span lang="EN-GB">,<i> </i>[1999] 3 S.C.R. 3; <b>referred to: </b>&nbsp;<i>Eldridge v. British Columbia (Attorney General)</i>, [1997] 3 S.C.R. 624.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB">Statutes and Regulations Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt;page-break-after:avoid"><i><span lang="EN-GB">Human Rights Act</span></i><span lang="EN-GB">, S.B.C. 1984, c.&nbsp;22, s.&nbsp;3 [rep. &amp; sub. 1992, c.&nbsp;43, s.&nbsp;2].</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt"><i><span lang="EN-GB">Human Rights Code</span></i><span lang="EN-GB">, R.S.B.C. 1996, c.&nbsp;210</span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB">, s.&nbsp;8</span><span lang="EN-GB">.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB">Authors Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt"><span lang="EN-GB">Lövsund, Per, Anders Hedin and Jan Törnros.&nbsp; “Effects on Driving Performance of Visual Field Defects:&nbsp; A Driving Simulator Study”, <i>Accid. Anal. &amp; Prev</i>., vol. 23, No. 4 (August 1991), pp. 331-42.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">APPEAL from a judgment of the British Columbia Court of Appeal (1997), 44 B.C.L.R. (3d) 301, 100 B.C.A.C. 129, 163 W.A.C. 129, 155 D.L.R. (4th) 137, 5 Admin. L.R. (3d) 145, 30 C.H.R.R. D/446, allowing an appeal from a decision of the British Columbia Supreme Court (1996), 25 C.H.R.R. D/309, dismissing a petition for judicial review of a decision of the British Columbia Council of Human Rights (1994), 25 C.H.R.R. D/296.&nbsp; Appeal allowed.</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section6"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i><span lang="EN-GB">Frances M. Kelly</span></i><span lang="EN-GB">, for the appellant.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i><span lang="EN-GB">Deborah K. Lovett</span></i><span lang="EN-GB">, <i>Q.C</i>., and <i>J. Douglas Eastwood</i>, for the respondents the British Columbia Superintendent of Motor Vehicles and the Attorney General of British Columbia.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i><span lang="EN-GB">Hart Schwartz</span></i><span lang="EN-GB"> and <i>David Milner</i>, for the intervener the Attorney General for Ontario.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i><span lang="EN-GB">Cameron Gunn</span></i><span lang="EN-GB"> and <i>Bruce Judah</i>, <i>Q.C.</i>, for the intervener the Attorney General for New Brunswick.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;line-height:
+24.4pt"><i><span lang="EN-GB">Roderick Wiltshire</span></i><span lang="EN-GB">, for the intervener the Attorney General for Alberta.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i><span lang="EN-GB">Deirdre A. Rice</span></i><span lang="EN-GB">, for the intervener the British Columbia Human Rights Commission.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;line-height:
+24.4pt"><i><span lang="EN-GB">David Baker</span></i><span lang="EN-GB">, for the intervener the Council of Canadians with Disabilities.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">The judgment of the Court was delivered by</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB" style="text-transform:uppercase">McLachlin J. – </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB" style="text-transform:uppercase">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt"><span lang="EN-GB">I.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Introduction</u></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section7"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">1<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Driving automobiles is a privilege most adult Canadians take for granted.&nbsp; It is important to their lives and work.&nbsp; While the privilege can be removed because of risk, it must not be removed on the basis of discriminatory assumptions founded on stereotypes of disability, rather than actual capacity to drive safely.&nbsp; This case concerns a blanket refusal of a licence to drive on the basis of lack of peripheral vision associated with a condition&nbsp; known as homonymous hemianopia (“H.H.”).&nbsp; The issue is whether the member designated by the British Columbia Council of Human Rights&nbsp; (“Member”) erred in holding that a blanket refusal in Mr. Grismer’s case, without the possibility of individual assessment, constituted discrimination contrary to the British Columbia <i>Human Rights Act</i>, S.B.C. 1984, c. 22 (now the <i>Human Rights Code</i>, R.S.B.C. 1996, c. 210).</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">2<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This case is not about whether unsafe drivers must be allowed to drive.&nbsp; There is no suggestion that a visually impaired driver should be licensed unless she or he can compensate for the impairment and drive safely.&nbsp; Rather, this case is about whether, on the evidence before the Member, Mr. Grismer should have been given a chance to prove through an individual assessment that he could drive. It is also about combatting false assumptions regarding the effects of disabilities on individual capacities.&nbsp; All too often, persons with disabilities are assumed to be unable to accomplish certain tasks based on the experience of able-bodied individuals.&nbsp; The thrust of human rights legislation is to eliminate such assumptions and break down the barriers that stand in the way of equality for all.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">3<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I conclude that the Member did not err in concluding that the blanket refusal was unjustified and that&nbsp; Mr. Grismer should have been given the opportunity to show in an individualized evaluation that he could drive without undue risk.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">II.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Facts</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section8"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">4<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Terry Grismer was a mining truck driver who lived and worked in the interior of British Columbia.&nbsp; In 1984, at the age of 40, he suffered a stroke.&nbsp; As a result of the stroke, he suffered from H.H., which eliminated almost all of his left-side peripheral vision in both eyes.&nbsp; The B.C. Motor Vehicle Branch cancelled Mr. Grismer’s licence on the ground that his vision no longer met the standards set by the British Columbia Superintendent of Motor Vehicles for safe driving.&nbsp; The Superintendent’s standards require a minimum of a 120 degree field of vision, as compared to the 200 to 220 degree field of vision possessed by the average person.&nbsp; While exceptions are permitted to the 120 degree standard in other cases, people with H.H. always have less than a 120 degree field of vision and are never permitted to drive in British Columbia.&nbsp; These standards were developed by the B.C. Medical Association for the Superintendent and were subsequently adopted by the Canadian Medical Association.&nbsp; The Motor Vehicle Branch applied the H.H. restriction absolutely, permitting no exceptions or individual assessments.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">5<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Over a seven-year period, Mr. Grismer tried four times to be reconsidered for a licence.&nbsp; He passed the standard visual test and the 30-minute driving test, and was found by the driving examiner to compensate well for his loss of peripheral vision.&nbsp; However, he was denied a licence on each occasion because he had H.H. and could not meet the absolute 120 degree standard.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section9"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">6<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Throughout this period, Mr. Grismer continued to drive on private roads at work (where no licence was required) and on public roads.&nbsp; He informed the Motor Vehicle Branch that he would continue to drive on public roads without a licence.&nbsp; Although Mr. Grismer’s licence was cancelled, he was not actually prohibited from driving, so neither the Motor Vehicle Branch nor the police made any serious effort to prevent him from driving.&nbsp; He had two minor accidents, neither of which was caused by his visual impairment.&nbsp; One accident occurred at the mine, when he backed his vehicle into a truck at night, and the other happened in the town of Merritt, when he struck a cyclist who ran a red light and came from the left.&nbsp; The cyclist was found to be at fault.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">7<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>After his fourth licence refusal, Mr. Grismer filed a complaint with the British Columbia Council of Human Rights, which designated a member to hear his claim. The Member found in his favour, ordered that the discrimination cease, and awarded Mr. Grismer $500: (1994), 25 C.H.R.R. D/296.&nbsp;&nbsp; Unfortunately, Mr. Grismer died shortly after the case was heard.&nbsp; Nevertheless, the Superintendent brought a petition for judicial review of the Member’s decision, and Mr. Grismer’s estate was given standing for appeal purposes.&nbsp; The reviewing judge at the British Columbia Supreme Court dismissed the Superintendent’s petition: (1996), 25 C.H.R.R. D/309.&nbsp; The British Columbia Court of Appeal allowed it and overturned the decision of the Member: (1997), 44 B.C.L.R. (3d) 301.&nbsp;&nbsp; The matter now comes before this Court for final review.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">8<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Since the decisions in the tribunals below, this Court has reviewed and modified the test for discrimination in <i>British Columbia (Public Service Employee Relations Commission) v. BCGSEU</i>, [1999] 3 S.C.R. 3 (“<i>Meiorin</i>”)<i>. </i>&nbsp;The issue on this appeal is whether the Superintendent’s absolute prohibition against driving with H.H. has been shown to be a valid standard under the test set out in <i>Meiorin</i>, negating the charge of discrimination.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt">III.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Decisions</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">9<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Member reviewed the provisions of the B.C. <i>Human Rights Act</i> and the case law.&nbsp; He found that:</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section10"> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the standard should be classified as <i>prima</i> <i>facie</i> direct discrimination;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">- &nbsp;&nbsp;&nbsp;&nbsp; the onus was on the Superintendent to provide reasonable justification for the standard (i.e. to establish that there was no reasonable or practical alternative to the absolute rule);</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “something more than merely a ‘real’ or ‘minimal’ risk must be established to justify limiting the equality rights of people with disabilities” (p. D/300) and that impressionistic evidence will not suffice;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the standard was based on knowledge of visual field defects, was up to date, had a logical foundation, and was not impressionistic.&nbsp; However, it was not based on hard evidence of the relationship between H.H. and driving accidents;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; there is lack of agreement on standards among different jurisdictions outside Canada, with a number of countries permitting people with H.H. to obtain driver’s licences in some circumstances;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; based on the lack of empirical evidence linking Mr. Grismer’s disability with road safety and the lack of consensus between jurisdictions, and noting the difficulty in getting better evidence of risk, the Superintendent’s standard should not be applied absolutely, but must be applied “in a manner that ensure[s] individual assessment” (p. D/307); </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section11"> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in the result, the Superintendent had not met the burden of justifying the visual field standards as reasonably necessary “<u>as they are applied [inflexibly] by the M.V.B.</u>” (p. D/308 (emphasis in original)),&nbsp; and discrimination was established.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; since Mr. Grismer had not undergone a recent individual assessment, it would be inappropriate to order the Superintendent to reinstate Mr. Grismer’s licence.&nbsp; Instead, the&nbsp; Member ordered the Superintendent to assess Mr. Grismer and consider the possibility of restrictions on his licence if necessary; and finally </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mr. Grismer was entitled to only $500 nominal compensation since he had not established damage, hurt or humiliation.</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">&nbsp;&nbsp;&nbsp;&nbsp; </p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">10<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The reviewing judge, Williamson J., dismissed the petition for judicial review on the grounds that the Member had made no error in interpreting and applying the <i>bona fide</i> and reasonable justification defence, and that his “finding of fact” that individualized testing was possible was entitled to deference.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">11<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal,&nbsp; <i>per</i> Donald J.A., unanimously allowed the appeal on the ground that the Member had erred by: </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; blending the analyses for direct and indirect discrimination, leading to the application of the wrong approach; since this was not an allegation of indirect discrimination, the question of individual accommodation arose only in setting the standard, beyond which there was no reason to make individual accommodation;&nbsp; </p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section12"> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">- &nbsp;&nbsp;&nbsp;&nbsp; suggesting that the standard could not be justified absent more empirical data from experimental studies;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; finding an insufficient link between the risk and the licensing standard, given the endorsement of medical associations across Canada and the “intuitive connection” between the absence of peripheral vision and the risk of accidents; and </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; concluding that individual testing should be considered absent evidence that such assessment was a practical alternative, and considering whether individual testing was possible, as opposed to practical.&nbsp;&nbsp; There was no evidence of a “safe or reliable form of testing that can measure the ability to deal with unexpected or exceptional traffic situations” (p. 321).</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt">IV.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>The Issue</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt"><i>12<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></i>The test for discrimination under the B.C. human rights legislation was recently modified in <i>Meiorin</i>, <i>supra</i>.&nbsp;&nbsp; Neither the Member nor the reviewing courts had the benefit of that test.&nbsp; The question before us is whether, applying the new test to the findings of fact of the Member, an absolute prohibition on licensing people with H.H. and a less than 120 degree field of vision, without the possibility of individual assessment, constituted discrimination. <i>&nbsp;</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i>&nbsp;</i></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt">V. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Legislation</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section13"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">13<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The relevant statutory provision is s. 3 of the <i>Human Rights Act</i>, S.B.C. 1984, c. 22, which was in force at the time Mr. Grismer’s licence was cancelled.&nbsp; Section 3 read:</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-20.85pt;line-height:12.2pt"><b>3.</b>&nbsp;&nbsp;&nbsp; No person shall</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:144.0pt;text-align:justify;text-indent:
+-31.0pt;line-height:12.2pt">(a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deny to a person or class of persons any accommodation, service or facility customarily available to the public, or</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:144.0pt;text-align:justify;text-indent:
+-31.0pt;line-height:12.2pt">(b) &nbsp;&nbsp;&nbsp;&nbsp; discriminate against a person or class of persons with respect to any accommodation, service or facility customarily available to the public, </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;line-height:
+24.4pt">because of the race, colour, ancestry, place of origin, religion, marital status, physical or mental disability. . . . </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">14<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>That section has been repealed and replaced, and is now s. 8(1) of the <i>Human Rights Code</i>, R.S.B.C. 1996, c. 210.&nbsp; Section 8 of the new Code is identical to s. 3 of the old Act in most respects, but the introductory sentence now reads:&nbsp; “A person must not, <u>without a bona fide and reasonable justification</u>, (a)&nbsp; . . .” (emphasis added).&nbsp; Both parties to this appeal agreed that s. 8 of the Code applies to this case.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">VI.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Analysis</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">A.<i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Meiorin Test</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">15<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Prior to <i>Meiorin</i>, the legal test for discrimination distinguished between “direct” and “adverse effect” discrimination.&nbsp; Direct discrimination in the workplace arose from standards which were discriminatory on their face.&nbsp; Adverse effect discrimination arose from standards which were neutral on their face, apparently applying to everyone equally, but which had an adverse effect on some groups of people.&nbsp; </p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section14"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">16<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The distinction between the two classes of discrimination was important because different defences and remedies applied to each class.&nbsp; If direct discrimination was found, the defendant could justify the discriminatory standard on the basis that it was a <i>bona fide </i>occupational requirement (“BFOR”).&nbsp; A standard was held to be a BFOR if the defendant proved that: (1) it was imposed honestly and in good faith; and (2) it was reasonably necessary for the safe and efficient performance of the work and did not impose an unreasonable burden on those to whom it applied.&nbsp; Absent these two elements, the standard was struck down, and the defendant was obliged to change the discriminatory standard.&nbsp; It could not escape by making exceptions for, or “accommodating”, particular groups.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">17<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Very few standards discriminated directly, however.&nbsp; Most fell into the second category of indirect discrimination, or discrimination by effect.&nbsp; Here the test was less stringent.&nbsp; The defendant could justify the discrimination by establishing that: (1) there was a rational connection between the defendant’s goal and the standard in question, and (2) the defendant could not further accommodate the plaintiff without incurring undue hardship.&nbsp; This allowed employers and service providers to continue to apply standards which in effect caused discrimination, as long as they took steps, short of undue hardship, to accommodate individuals affected by the discrimination.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section15"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">18<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In <i>Meiorin</i>, the Court rejected this dual approach to discrimination for a number of reasons.&nbsp; Among them was the observation that characterizing a standard as either directly or indirectly discriminatory was artificial, since their effect is the same, yet the outcome of the case might turn on the distinction.&nbsp; Moreover, the distinction between direct and adverse effect discrimination legitimized employment procedures where the employer did not intend to discriminate, but nevertheless adopted standards and practices that had the effect of unjustifiably excluding people falling into certain groups from employment or services.&nbsp;&nbsp; In such cases, the standard remained in place and continued to exclude those not prepared to challenge it or demand accommodation.&nbsp; For those who did demand it, the accommodation was limited by what the defendant could afford.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:36.0pt;text-align:justify;line-height:24.4pt">19<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Meiorin</i> announced a unified approach to adjudicating discrimination claims under human rights legislation.&nbsp; The distinction between direct and indirect discrimination has been erased.&nbsp;&nbsp; Employers and others governed by human rights legislation are now required <u>in all cases </u>to accommodate the characteristics of affected groups within their standards, rather than maintaining discriminatory standards supplemented by accommodation for those who cannot meet them.&nbsp; Incorporating accommodation into the standard itself ensures that each person is assessed according to her or his own personal abilities, instead of being judged against presumed group characteristics.&nbsp; Such characteristics are frequently based on bias and historical prejudice and cannot form the basis of reasonably necessary standards. While the <i>Meiorin</i> test was developed in the employment context, it applies to all claims for discrimination under the B.C.<i> Human Rights Code</i>. </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp; </p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">20<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Once the plaintiff establishes that the standard is <i>prima facie</i> discriminatory, the onus shifts to the defendant to prove on a balance of probabilities that the discriminatory standard is a BFOR or has a <i>bona fide</i> and reasonable justification.&nbsp;&nbsp; In order to establish this justification, the defendant must prove that: </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">(1)&nbsp;&nbsp; it adopted the standard for a purpose or goal that is rationally connected to the function being performed;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section16"> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">(2)&nbsp;&nbsp; it adopted the standard in good faith, in the belief that it is necessary for the fulfillment of the purpose or goal; and </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:24.4pt">(3)&nbsp;&nbsp; the standard is reasonably necessary to accomplish its purpose or goal, in the sense that the defendant cannot accommodate persons with the characteristics of the claimant without incurring undue hardship.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">21<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This test permits the employer or service provider to choose its purpose or goal, as long as that choice is made in good faith, or “legitimately”.&nbsp;&nbsp; Having chosen and defined the purpose or goal – be it safety, efficiency, or any other valid object – the focus shifts to the <u>means</u> by which the employer or service provider seeks to achieve the purpose or goal.&nbsp; The means must be tailored to the ends.&nbsp; For example, if an employer’s goal is workplace safety, then the employer is entitled to insist on hiring standards reasonably required to provide that workplace safety.&nbsp; However, the employer is not entitled to set standards that are either higher than necessary for workplace safety or irrelevant to the work required, and which arbitrarily exclude some classes of workers.&nbsp; On the other hand, if the policy or practice is reasonably necessary to an appropriate purpose or goal, and&nbsp; accommodation short of undue hardship has been incorporated into the standard, the fact that the standard excludes some classes of people does not amount to discrimination.&nbsp; Such a policy or practice has, in the words of s. 8 of the <i>Human Rights Code</i>, a “bona fide and reasonable justification”.&nbsp; Exclusion is only justifiable where the employer or service provider has made every possible accommodation short of undue hardship. </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section17"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">22<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>“Accommodation” refers to what is required in the circumstances to avoid discrimination.&nbsp; Standards must be as inclusive as possible.&nbsp; There is more than one way to establish that the necessary level of accommodation has not been provided.&nbsp; In <i>Meiorin</i>, the government failed to demonstrate that its standard was sufficiently accommodating, because it failed to adduce evidence linking the standard (a certain aerobic capacity) to the purpose (safety and efficiency in fire fighting).&nbsp; In Mr. Grismer’s case, a general connection has been established between the standard (a certain field of peripheral vision) and the purpose or goal of reasonable highway safety.&nbsp;&nbsp; However, the appellant argues that some drivers with less than the stipulated field of peripheral vision can drive safely and that the standard is discriminatory because it does not provide for individualized assessment.&nbsp; Failure to accommodate may be established by evidence of arbitrariness in setting the standard, by an unreasonable refusal to provide individual&nbsp; assessment, or perhaps in some other way. The ultimate issue is whether the employer or service provider has shown that it provides accommodation to the point of undue hardship.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;B.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Application of the Test to this Case</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">23<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Mr. Grismer established a&nbsp; <i>prima facie</i> case of discrimination under the Act by showing that he was denied a licence that was available to others, and that the denial was made on the basis of a physical disability, namely H.H.&nbsp;&nbsp; At this point the onus shifted to the Superintendent of Motor Vehicles to prove, on a balance of probabilities, that the discriminatory standard had a <i>bona fide</i> and reasonable justification.&nbsp; To do this, the Superintendent had to show that the purpose of the standard (his goal) was rationally connected to the Superintendent’s function, that the standard was adopted in good faith, and that it was reasonably necessary to achieve his goal, in the sense that accommodation of Mr. Grismer was impossible without undue hardship.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section18"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">24<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Before we can answer these questions, we must define the Superintendent’s purpose or goal with more precision.&nbsp; Whether a goal is “rationally connected” to a function, and whether a standard is “made in good faith” and “reasonably necessary” can only be assessed in relation to a defined goal.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:36.0pt;text-align:justify;line-height:24.4pt">25<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Superintendent’s goal in this case was to maintain highway safety.&nbsp; But what kind of safety?&nbsp; What degree of risk would be tolerated?&nbsp; Where did the Superintendent draw the line between the need to maintain highway safety and the desirability of permitting a broad range of people to drive?&nbsp;&nbsp; The possibilities range from absolute safety, in which case few if any mortals would be allowed to drive, to a total lack of concern for safety, in which case everyone, regardless of their lack of ability, would be allowed to drive.&nbsp; Between these two extremes lies the more moderate view that reasonable safety suffices.&nbsp; The question is:&nbsp; where on this spectrum did the Superintendent set the bar?</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section19"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">26<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The evidence suggests that the Superintendent set a goal of reasonable safety.&nbsp; It would have been unfeasible for the Superintendent to have set a goal of absolute road safety, as nobody is a perfect driver.&nbsp; Even among drivers with excellent vision, hearing and reflexes, there is a range of driving ability.&nbsp; Moreover,&nbsp; many people are licensed even though their physical characteristics might make them less safe than the average driver.&nbsp; The medical consultants at the Motor Vehicle Branch who assess the risk involved in licensing drivers with various disabilities seemed to be aware of the potential hardship involved in losing one’s licence.&nbsp; The consultants balanced the need for people to be licensed with the need for reasonable highway safety.&nbsp; For example, it appears the Superintendent licensed people with severe hearing difficulties, provided that they could pass an individualized test showing that they compensate reasonably well for their lack of hearing.&nbsp; Similarly, the Superintendent licensed people over 80, even though their age made them more susceptible to maladies like heart attacks and strokes and reduced their reaction time, provided again that they could pass an individualized test showing that they compensated reasonably well for any such disabilities that they had.&nbsp;&nbsp; To pass these tests, the hearing impaired or elderly were not required to demonstrate that they were perfectly safe drivers.&nbsp; They were merely required to demonstrate that they could drive reasonably safely.&nbsp; Finally, people with less than a 120 degree field of vision, but who did not have H.H., were licensed if the doctor was convinced that their vision was adequate for safe driving despite being below the 120 degree standard.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">27<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Superintendent thus recognized that removing someone’s licence may impose significant hardship.&nbsp; Striking a balance between the need for people to be licensed to drive and the need for safety of the public on the roads, he adopted a standard that tolerated a moderate degree of risk. The Superintendent did not aim for perfection, nor for absolute safety.&nbsp; The Superintendent rather accepted that a degree of disability and the associated increased risk to highway safety is a necessary trade-off for the policy objectives of permitting a wide range of people to drive and not discriminating against the disabled.&nbsp; The goal was not absolute safety, but reasonable safety.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">28<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Having determined the nature of the Superintendent’s objective, the next question is whether the Superintendent established on a balance of probabilities that the goal of reasonable road safety was rationally connected to the Superintendent’s public function.&nbsp; In <i>Meiorin</i>, the question was whether the purpose (safety and efficiency) was rationally connected to the performance of the job (fire fighting).&nbsp; In this case, the question is whether the Superintendent’s goal (ensuring a reasonable level of highway safety) was rationally connected to his general function (issuing driver’s licences).&nbsp; There can be no question that a rational connection has been shown.&nbsp; Highway safety is indubitably connected to the licensing of drivers.&nbsp; Common sense and experience tell us that driver’s licences should only be issued to those who can demonstrate a reasonable&nbsp; degree of ability and safety in driving.</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section20"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">29<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The second question is whether the Superintendent adopted the standard in good faith.&nbsp; Here again, there can be no doubt that the Superintendent satisfied the requirement.&nbsp; No one suggests that the Superintendent had any motive for the standard he chose other than to maintain highway safety.&nbsp;&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">30<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The third question is whether the standard chosen by the Superintendent was reasonably necessary to accomplish the legitimate purpose.&nbsp; To meet this requirement, the Superintendent had to show that he could not meet his goal of maintaining highway safety while accommodating persons like Mr. Grismer, without incurring undue hardship.&nbsp; Risk has a limited role in this analysis.&nbsp; It is clear from <i>Meiorin</i> that the old notion that “sufficient risk” could&nbsp; justify a discriminatory standard is no longer applicable.&nbsp; Risk can still be considered under the guise of hardship, but not as an independent justification of discrimination.&nbsp; In this case, risk is used as a measure of the level of safety which was sought by the Superintendent, and as a factor in assessing the lack of accommodation provided by the Superintendent for people with H.H.&nbsp; The critical issue is whether the Superintendent’s non-accommodating standard was reasonably necessary to the achievement of reasonable highway safety.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section21"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">31<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Before discussing the ways in which the Superintendent sought to justify the blanket rejection of licensing people with H.H. in this case, two common indicia of unreasonableness mentioned in these proceedings may be noted.&nbsp; First, a standard that excludes members of a particular group on impressionistic assumptions is generally suspect. That is not the case here: the Member found that the Superintendent’s prohibition was based on current knowledge and was not impressionistic.&nbsp; Second, evidence that a particular group is being treated more harshly than others without apparent justification may indicate that the standard applied to that group is not reasonably necessary.&nbsp; There is some suggestion that the Superintendent’s standard for people with H.H. may have been higher than that applied to people with other visual defects.&nbsp; The Superintendent permitted some people with less than a 120 degree field of vision to undergo tests to see if they could compensate for their disability.&nbsp; However, he insisted on a blanket rejection of people with H.H.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">32<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Against this background, I come to the question of whether the Superintendent met the burden&nbsp; of showing that the standard he applied to people with H.H. –&nbsp; an absolute denial of a driver’s licence – was reasonably necessary to achieve the goal of moderate highway safety.&nbsp; In order to prove that its standard is “reasonably necessary”, the defendant always bears the burden of demonstrating that the standard incorporates every possible accommodation to the point of undue hardship, whether that hardship takes the form of impossibility, serious risk or excessive cost.&nbsp; In this case, there are at least two ways in which the Superintendent could show that a standard that permits no accommodation is reasonably necessary.&nbsp;&nbsp; First, he could show that no one with the particular disability could ever meet the desired objective of reasonable highway safety.&nbsp; For example, using current technology, someone who is totally blind cannot safely operate a motor vehicle on the highway.&nbsp; Since accommodation of such a person is impossible, it need not be further considered.&nbsp; Alternatively, if the Superintendent could not show that accommodation is totally inconsistent with his goal, he could show that accommodation is unreasonable because testing for exceptional individuals who can drive safely despite their disability is&nbsp; impossible short of undue hardship.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp; </p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section22"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">33<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Both alternatives are types of accommodation.&nbsp; In the first scenario, the accommodation would be to consider whether a person with H.H. should be permitted to drive at all.&nbsp; The second type of accommodation would be to conduct individual assessments to determine which if any individuals with H.H. should be licensed.&nbsp; The Superintendent was required to show that at least one of these two forms of accommodation would be impossible short of undue hardship in relation to the goal of&nbsp; reasonable highway safety.&nbsp; If the Superintendent in this case could not establish either of these propositions, then he failed to discharge the onus upon him of establishing that a blanket exclusion of persons with Mr. Grismer’s condition is reasonably necessary to meet the goal of reasonable highway safety. </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">34<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The first possibility is that people with Mr. Grismer’s condition could not be accommodated because it would be totally incompatible with the Superintendent’s standard of highway safety.&nbsp; In other words, no person with his condition could ever drive on highways without creating an unacceptable level of risk to the public.&nbsp; The Court of Appeal reasoned that it is common sense, or “intuitive”, that there is a connection between an absence of peripheral vision and a risk of accidents.&nbsp; Intuition tells us, it is true, that lack of peripheral vision may reduce the ability of people to anticipate emergencies and react as quickly as they could otherwise.&nbsp; However, this does not support the conclusion that people with this condition can never meet the standard of reasonable highway safety, for two reasons.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section23"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">35<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>First, it assumes a standard of perfection, which is not the general standard that the Motor Vehicle Branch applies to people seeking driver’s licences, as discussed above.&nbsp; Many people of varying driving abilities are licensed every day.&nbsp; Second, the suggestion that accommodating people with H.H. could never be possible without undue safety risk is belied by the fact that some drivers with less than full peripheral vision appear to drive safely and are allowed to drive by other state licensing agencies.&nbsp; The&nbsp; “Swedish Study”, introduced by the Superintendent, indicated that Britain, Japan, Finland and many states in the U.S. might well allow people with H.H. to drive in some conditions. (P. Lövsund, A. Hedin and J. Törnros, “Effects on Driving Performance of Visual Field Defects: A Driving Simulator Study”,&nbsp; <i>Accid. Anal. &amp; Prev.</i>, vol. 23, No. 4 (August 1991), pp. 331-42).&nbsp; While the fact that other jurisdictions have different standards does not mean that Canadian governments should change theirs, the lack of international unanimity undermines the Superintendent’s presumption that people with H.H. can never drive safely.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">36<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The evidence on the effects of the condition contradicted the&nbsp; Superintendent’s claim that no person with H.H. could ever meet the standard of&nbsp; reasonable safety he expects of others.&nbsp; For example, the Swedish Study indicated that while most people with visual defects such as H.H. have slower reaction times than those with normal fields of vision, some people are able to compensate for their disability.&nbsp; Other evidence showed that individuals with Mr. Grismer’s condition can compensate to some extent for their lack of peripheral vision by using prism lenses and by turning their head from side to side to survey the road.&nbsp;&nbsp; Not everyone with H.H. will succeed in reducing the risk associated with this condition through these means.&nbsp; However, that does not defeat the argument that some may be able to do so, and those exceptional individuals should be accommodated if it is possible short of undue hardship.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section24"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">37<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The evidence suggested that Mr. Grismer was among those who are able to benefit from these compensatory techniques.&nbsp; Mr. Grismer’s prism glasses did not actually expand his visual field in a straight-ahead test.&nbsp; However, the glasses did allow him to look outside his normal field without turning his head as much, just as bifocals allow people to focus down without dropping their head.&nbsp; The Superintendent’s own ophthalmological expert testified that he was “impressed” by the way Mr. Grismer used his prism glasses.&nbsp; The evidence also showed that Mr. Grismer had adapted his driving style so that he was in the habit of constantly looking to the left to check the blind spot caused by his condition.&nbsp; This constant head and eye movement increased Mr. Grismer’s ability to see the road.&nbsp; Finally, the Member noted that Mr. Grismer seemed to make particularly effective use of the mirrors on his truck, again expanding his visual field beyond the restriction imposed by his condition.&nbsp; In short, the evidence suggested that some people with H.H. may be able to drive safely and that Mr. Grismer may have been among them.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">38<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Having failed to prove on a balance of probabilities that no one with Mr. Grismer’s condition could ever drive with a reasonable level of safety, in order to succeed the Superintendent was required to show that the second type of accommodation – individual&nbsp; assessment – was also not feasible because&nbsp; it would have been&nbsp; impossible short of undue hardship.&nbsp;&nbsp; The Superintendent made two arguments in relation to hardship.&nbsp; First, he argued that individual assessment was not possible because there were no known tests by which to establish whether someone like Mr. Grismer could drive in a reasonably safe manner.&nbsp; Until such tests were developed, he argued, the Motor Vehicle Branch was permitted to categorically exclude everyone with this disability.&nbsp; Second, the Superintendent argued that even if there had been a test, it would have been so expensive and dangerous that its use would have constituted “undue hardship”.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section25"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">39<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The evidence revealed that at least two tests for road safety of people with H.H. had been developed: one used by the Swedish researchers; and a Mercedes simulator referred to by the Superintendent’s ophthalmologist.&nbsp; The Superintendent, assuming that it was unnecessary to test people with H.H., directed no substantive research into the current availability or cost of such simulators, contenting himself with knowledge of testing gained&nbsp; ten years earlier.&nbsp; The evidence also suggested that some testing for the ability to compensate for loss of peripheral vision could be done in a laboratory.&nbsp; Mr. Grismer’s optometrist testified that he allowed Mr. Grismer to use prism glasses and move his eyes around during testing, in order to get a better indication of Mr. Grismer’s actual ability to compensate for his disability. </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">40<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Road tests, alone or in combination with laboratory testing, also might have assisted in gauging Mr. Grismer’s actual driving safety.&nbsp; The Superintendent’s witness argued that it would be expensive and dangerous to simulate the emergency situations which are the focus of concern for people with H.H.&nbsp;&nbsp; Yet many driving tests involve danger, and ways are found to reduce it.&nbsp; The evidence did not displace the possibility of road testing in a vehicle equipped with dual controls, permitting the examiner to react to sudden dangers if Mr. Grismer failed to do so.&nbsp; Another possibility that could have been explored, depending on the results of the available tests, was a conditional licence.&nbsp; Most obviously, Mr. Grismer could have been required to wear his prism glasses while driving.&nbsp;&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section26"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">41<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Superintendent alluded to the cost associated with assessing people with H.H., although he offered no precise figures.&nbsp;&nbsp; While in some circumstances excessive cost may justify a refusal to accommodate those with disabilities, one must be wary of putting too low a value on accommodating the disabled.&nbsp; It is all too easy to cite increased cost as a reason for refusing to accord the disabled equal treatment.&nbsp; This Court rejected cost-based arguments in <i>Eldridge v. British Columbia (Attorney General)</i>, [1997] 3 S.C.R. 624, at paras. 87-94, a case where the cost of accommodation was shown to be modest.&nbsp; I do not assert that cost is always irrelevant to accommodation.&nbsp; I do assert, however, that impressionistic evidence of increased expense will not generally suffice.&nbsp; Government agencies perform many expensive services for the public that they serve.&nbsp; Moreover, there may be ways to reduce costs.&nbsp; For example, in this case the Motor Vehicle Branch might have used simulators or tests available elsewhere.&nbsp; The Superintendent’s evidence did not establish that the cost of accommodation would be excessive and did not negate the possibility of cost-reduced alternatives.&nbsp; It was therefore open to the Member to reject the Superintendent’s argument based on cost.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;&nbsp; </p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">42<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In summary, the Superintendent offered no evidence that he had considered any of the options that might have made an assessment of Mr. Grismer’s driving abilities viable and affordable. Content to rely on the general opinion of the medical community, and ignoring the evidence that some people with H.H. can and do drive safely, he offered not so much as a gesture in the direction of accommodation.&nbsp; His position, quite simply, was that no accommodation was necessary.&nbsp; Under the <i>Meiorin</i> test, it was incumbent on the Superintendent to show that he had considered and reasonably rejected all viable forms of accommodation. The onus was on the Superintendent, having adopted a <i>prima facie</i> discriminatory standard, to prove that incorporating aspects of individual accommodation within the standard was impossible short of undue hardship.&nbsp; The Superintendent did not do so.&nbsp; On the facts of this case, the Superintendent’s blanket refusal to issue a driver’s licence was not justified.&nbsp; He fell into error in this case not because he refused to lower his safety standards (which would be contrary to the public interest), but because he abandoned his reasonable approach to licensing and adopted an absolute standard which was not supported by convincing evidence.&nbsp; The Superintendent was obliged to give Mr. Grismer the opportunity to prove whether or not he could drive safely, by assessing Mr. Grismer individually.&nbsp; It follows that the charge of discrimination under the <i>Human Rights Act</i> was established.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section27"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">43<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This is the conclusion that the <i>Meiorin</i> test requires, on the evidence and findings in this case.&nbsp; The question may be put, however, whether this approach places too high an evidentiary burden on the government, particularly in situations involving public safety.&nbsp; The obvious answer to this question is that it is the Legislature, not the Court, which has placed the evidentiary burden of showing reasonable necessity once <i>prima facie</i> discrimination has been made out.&nbsp; More fundamentally, is it really inappropriate to require a governmental body that rejects an application for a driver’s licence on the basis of disability to prove on a balance of probabilities that the denial is reasonably necessary to the standard of highway safety it has selected?&nbsp; The government authority knows why it makes the denial and is in the best position to defend it.&nbsp; The government must only establish its justification according to the relaxed standard of proof on a balance of probabilities.&nbsp; Common sense and intuitive reasoning are not excluded, but in a case where accommodation is flatly refused there must be some evidence to link the outright refusal of even the possibility of accommodation with an undue safety risk.&nbsp; If the government agency can show that accommodation is impossible without risking safety or that it imposes some other form of&nbsp; undue hardship, then it can maintain the absolute prohibition.&nbsp; If not, it is under an obligation to accommodate the claimant by allowing the person an opportunity to show that he or she does not present an undue threat to safety.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;&nbsp; </p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">44<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This case deals with no more than the right to be accommodated.&nbsp; It does not decide that Mr. Grismer had the right to a driver’s licence.&nbsp; It merely establishes that he had a <u>right to be assessed</u>.&nbsp; That was all the Member found and all that we assert.&nbsp; The discrimination here lies not in the refusal to give Mr. Grismer a driver’s licence, but in the refusal to even permit him to attempt to demonstrate that his situation could be accommodated without jeopardizing the Superintendent’s goal of reasonable road safety.&nbsp;&nbsp; This decision stands for the proposition that those who provide services subject to the <i>Human Rights Code</i> must adopt standards that accommodate people with disabilities where this can be done without sacrificing their legitimate objectives and without incurring undue hardship.&nbsp; It does not suggest that agencies like the Motor Vehicle Branch must lower their safety standards or engage in accommodation efforts that amount to undue hardship.&nbsp; </p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section28"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">45<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Nor should this decision be taken as predetermining the result in other cases.&nbsp; This appeal is essentially a judicial review of a decision of a human rights tribunal in a particular case.&nbsp; The result flows from the evidence called before and accepted by the Member in this case.&nbsp; The Member found that the Superintendent had not met the burden of proving that a blanket refusal without the possibility of individual accommodation was reasonably necessary under the Act.&nbsp; In another case, on other evidence, that burden might be met.&nbsp; </p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt">&nbsp;VII.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Conclusion</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">46<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I would allow the appeal and restore the decision of the Member Designate.&nbsp; As Mr. Grismer’s estate pursued this case in the public interest, it is appropriate that the respondents, the British Columbia Superintendent of Motor Vehicles and the Attorney General of British Columbia, pay the appellant’s costs.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Appeal allowed with costs.</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Solicitor for the appellant:&nbsp;&nbsp;The Community Legal Assistance Society, Vancouver</i>.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Solicitors for the respondents the British Columbia Superintendent of Motor Vehicles and the Attorney General of British Columbia:&nbsp;&nbsp;Lovett Westmacott, Victoria</i>.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Solicitor for the intervener the Attorney General for Ontario:&nbsp; The Ministry of the Attorney General, Toronto</i>.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section29"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Solicitor for the intervener the Attorney General for New Brunswick:&nbsp; The Department of Justice, Fredericton</i>.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Solicitor for the intervener the Attorney General for Alberta:&nbsp; Alberta Justice, Edmonton.</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Solicitor for the intervener the British Columbia Human Rights Commission:&nbsp; The British Columbia Human Rights Commission, Victoria.</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i>Solicitor for the intervener the Council of Canadians with Disabilities:&nbsp; The Advocacy Resource Centre for the Handicapped, Toronto.</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p> 
+  </div> 
+ </div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

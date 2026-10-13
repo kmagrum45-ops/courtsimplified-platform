@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2507/index.do" />
+    <title>    Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d&#39;Hydro-Québec, section locale 2000 (SCFP-FTQ) - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/2507/1770044/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Hydro-Qu&eacute;bec v. Syndicat des employ&eacute;-e-s de techniques professionnelles et de bureau d'Hydro-Qu&eacute;bec, section locale 2000 (SCFP-FTQ)</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Hydro-Qu&eacute;bec v. Syndicat des employ&eacute;-e-s de techniques professionnelles et de bureau d'Hydro-Qu&eacute;bec, section locale 2000 (SCFP-FTQ)</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/2507/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d&#39;Hydro-Québec, section locale 2000 (SCFP-FTQ)</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                2008-07-17
+                    </tr>
+                    <tr>
+                        <td class="label">Neutral citation</td>
+                        <td class="metadata">
+                                2008 SCC 43
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [2008] 2 SCR 561
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                31395
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                McLachlin, Beverley; Bastarache, Michel; Binnie, William Ian Corneil; LeBel, Louis; Deschamps, Marie; Fish, Morris J.; Abella, Rosalie Silberman; Charron, Louise; Rothstein, Marshall
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                Quebec
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Labour law<br/>
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/31395/">31395</a>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2507/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"> 
+  <div class="Section1"> 
+   <div> 
+    <table cellspacing="0" cellpadding="0" hspace="0" vspace="0" width="74" height="77"> 
+     <tbody>
+      <tr> 
+       <td valign="top" align="left" height="77" style="padding-top:0cm;padding-right:
+  0cm;padding-bottom:0cm;padding-left:0cm"> <p class="MsoNormal"><img width="74" height="77" src="/scc-csc/scc-csc/en/2507/1770043/res.do" /></p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+   </div> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>SUPREME COURT OF CANADA</b></span></p> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p> 
+   <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse"> 
+    <tbody>
+     <tr> 
+      <td width="414" valign="top" style="width:310.5pt;padding:0cm 0cm 0cm 0cm"> <p class="MsoNormal" style="line-height:6.0pt"><span lang="FR-CA">&nbsp;</span></p> <p class="MsoNormal"><b><span lang="FR-CA" style="text-transform:uppercase">Citation:</span></b><span lang="FR-CA" style="text-transform:uppercase"> </span><span lang="FR-CA">&nbsp;Hydro‑Québec <i>v. </i>Syndicat des employé‑e‑s de techniques professionnelles et de bureau d’Hydro‑Québec, section locale 2000 (SCFP‑FTQ), </span></p> <p class="MsoNormal" style="margin-bottom:2.9pt"><span lang="EN-GB">[2008] 2 S.C.R. 561, 2008 SCC 43</span></p> </td> 
+      <td width="210" valign="top" style="width:157.5pt;padding:0cm 0cm 0cm 0cm"> <p class="MsoNormal" style="line-height:6.0pt"><span lang="EN-GB">&nbsp;</span></p> <p class="MsoNormal" style="margin-left:31.5pt"><b><span lang="EN-GB" style="text-transform:uppercase">Date:</span></b><span lang="EN-GB">&nbsp;&nbsp;20080717</span></p> <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:2.9pt;
+  margin-left:31.5pt"><b><span lang="EN-GB" style="text-transform:uppercase">Docket:</span></b><span lang="EN-GB">&nbsp;&nbsp;31395</span></p> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+   <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB" style="text-transform:uppercase">Between:</span></b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB">Hydro‑Québec</span></b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-GB">Appellant</span></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-GB">and</span></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="FR-CA">Syndicat des employé‑e‑s de techniques professionnelles et</span></b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="FR-CA">de bureau d’Hydro‑Québec, section locale 2000 (SCFP‑FTQ)</span></b></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-GB">Respondent</span></p> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><b><span lang="EN-GB" style="text-transform:uppercase">Official English Translation</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify"><b><span lang="EN-GB" style="text-transform:uppercase">Coram:</span></b><span lang="EN-GB"> McLachlin C.J. and Bastarache, Binnie, LeBel, Deschamps, Fish, Abella, Charron and Rothstein&nbsp;JJ.</span></p> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p> 
+   <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse"> 
+    <tbody>
+     <tr> 
+      <td width="234" valign="top" style="width:175.5pt;padding:0cm 0cm 0cm 0cm"> <p class="MsoNormal" style="line-height:6.0pt"><span lang="EN-GB">&nbsp;</span></p> <p class="MsoNormal"><b><span lang="EN-GB" style="text-transform:uppercase">Reasons for Judgment: </span></b></p> <p class="MsoNormal"><span lang="EN-GB">(paras. 1 to 24)</span></p> <p class="MsoNormal" style="margin-bottom:2.9pt"><span lang="EN-GB">&nbsp;</span></p> </td> 
+      <td width="390" valign="top" style="width:292.5pt;padding:0cm 0cm 0cm 0cm"> <p class="MsoNormal" style="line-height:6.0pt"><span lang="EN-GB">&nbsp;</span></p> <p class="MsoNormal" style="margin-bottom:2.9pt"><span lang="EN-GB">Deschamps J. (McLachlin C.J. and Binnie, LeBel, Fish, Abella, Charron and Rothstein JJ. concurring)</span></p> </td> 
+     </tr> 
+    </tbody>
+   </table> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp; Bastarache J. took no part in the judgment.</span></p> 
+   <p class="MsoNormal" style="text-align:justify"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" align="center" style="text-align:center"><span lang="FR-CA">______________________________</span></p> 
+  </div> 
+  <span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:always"/> </span> 
+  <div class="Section2"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="FR-CA">Hydro‑Québec <i>v. </i>Syndicat des employé‑e‑s de techniques professionnelles et de bureau d’Hydro‑Québec, section locale 2000 (SCFP‑FTQ), [2008] 2 S.C.R. 561, 2008 SCC 43</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="FR-CA">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="FR-CA">Hydro‑Québec</span></b><span lang="FR-CA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Appellant</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="FR-CA">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><i><span lang="FR-CA">v.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="FR-CA">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify"><b><span lang="FR-CA">Syndicat des employé‑e‑s de techniques professionnelles et</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="FR-CA">de bureau d’Hydro‑Québec, section locale 2000 (SCFP‑FTQ)</span></b><span lang="FR-CA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Respondent</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="FR-CA">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="FR-CA">Indexed as:&nbsp; Hydro‑Québec <i>v. </i>Syndicat des employé‑e‑s de techniques professionnelles et de bureau d’Hydro‑Québec, section locale 2000 (SCFP‑FTQ)</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="FR-CA">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">Neutral citation:&nbsp; 2008 SCC 43.</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">File No.: &nbsp;31395.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">2008:&nbsp;&nbsp;January&nbsp;22;&nbsp;2008:&nbsp;&nbsp;July&nbsp;17.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">Present:&nbsp;&nbsp;McLachlin&nbsp;C.J. and Bastarache,<a href="#_ftn1" name="_ftnref1" title=""><span class="MsoFootnoteReference"><sup>*</sup></span></a> Binnie, LeBel, Deschamps, Fish, Abella, Charron and Rothstein&nbsp;JJ.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">on appeal from the court of appeal for quebec</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section3"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Employment law — Duty to accommodate — Undue hardship —Employee frequently absent for extended periods because of illness — Employee dismissed for her absenteeism and inability to work on regular and reasonable basis — Interaction between employer’s duty to accommodate sick employee and employee’s duty to do work — Time relevant to determination of whether employer has fulfilled duty to accommodate — Interpretation and application of undue hardship standard.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section4"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">The complainant, an employee of Hydro‑Québec, had a number of physical and mental problems, and her record of absences indicated that she had missed 960&nbsp;days of work between January&nbsp;3,&nbsp;1994 and July&nbsp;19,&nbsp;2001.&nbsp; Over the years, the employer had adjusted her working conditions in light of her limitations.&nbsp; At the time of her dismissal on July&nbsp;19,&nbsp;2001, the complainant had been absent from work since February&nbsp;8.&nbsp; Her attending physician had recommended that she stop working for an indefinite period, and the employer’s psychiatric assessment mentioned that the complainant would no longer be able to “work on a regular and continuous basis without continuing to have an absenteeism problem as . . . in the past”.&nbsp; The complainant filed a grievance, alleging that her dismissal was not justified.&nbsp; The arbitrator dismissed the grievance on the basis that the employer had proven that, at the time it dismissed the complainant, she was unable, for the reasonably foreseeable future, to work steadily and regularly as provided for in the contract.&nbsp; Furthermore, the conditions for her return to work suggested by the union’s expert would constitute undue hardship.&nbsp; The Superior Court dismissed the motion for judicial review of the arbitrator’s decision.&nbsp; The Court of Appeal set aside the Superior Court’s judgment, holding that the employer had not proven that it was impossible to accommodate the complainant’s characteristics.&nbsp; It added that the arbitrator should not have taken only the absences into account, since the duty to accommodate must be assessed as of the time the decision to terminate the employment was made.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Held</span></i><span lang="EN-GB">:&nbsp; The appeal should be allowed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">The test for undue hardship stated by the Court of Appeal is erroneous.&nbsp; The test is not whether it was impossible for the employer to accommodate the employee’s characteristics.&nbsp; Although the employer does not have a duty to change working conditions in a fundamental way, it does have a duty, if it can do so without undue hardship, to arrange the employee’s workplace or duties to enable the employee to do his or her work.&nbsp; The test for undue hardship is not total unfitness for work in the foreseeable future.&nbsp; If the characteristics of an illness are such that the proper operation of the business is hampered excessively or if an employee with such an illness remains unable to work for the reasonably foreseeable future even though the employer has tried to accommodate him or her, the employer will have satisfied the test.&nbsp; The employer’s duty to accommodate ends where the employee is no longer able to fulfill the basic obligations associated with the employment relationship for the foreseeable future.&nbsp; In the instant case, the arbitrator had not erred in law, and there was no justification for interfering with his assessment of the facts.&nbsp; [16] [18‑19] [23]</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">The Court of Appeal also erred in holding that the duty to accommodate had to be assessed as of the time the decision to dismiss the complainant was made.&nbsp; It is instead necessary to assess the duty to accommodate globally in a way that takes into account the entire time the employee was absent.&nbsp; </span><span lang="FR-CA">[20]</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="FR-CA">&nbsp;</span></b></p> 
+  </div> 
+  <b><span lang="FR-CA" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span></b> 
+  <div class="Section5"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="FR-CA">Cases Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="FR-CA">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><b><span lang="FR-CA">Applied:</span></b><span lang="FR-CA">&nbsp; <i>British Columbia (Public Service Employee Relations Commission) v. BCGSEU</i>, [1999] 3 S.C.R. 3; <i>McGill University Health Centre (Montreal General Hospital) v. Syndicat des employés de l’Hôpital général de Montréal</i>, [2007] 1 S.C.R. 161, 2007 SCC 4; <b>referred to:&nbsp; </b><i>Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montréal (City)</i>, [2000] 1 S.C.R. 665, 2000 SCC 27; <i>Québec (Procureur général) v. Syndicat de professionnelles et professionnels du gouvernement du Québec (SPGQ)</i>, [2005] R.J.Q. 944, 2005 QCCA 311.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="FR-CA">&nbsp;</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><b><span lang="EN-GB">Statutes and Regulations Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:31.85pt;text-align:justify;text-indent:
+-31.85pt;line-height:200%"><i><span lang="EN-GB">Charter of human rights and freedoms</span></i><span lang="EN-GB">, R.S.Q., c.&nbsp;C‑12</span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB">.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">APPEAL from a judgment of the Quebec Court of Appeal (Hilton, Bich and Dufresne JJ.A.), [2006] R.J.Q. 426, [2006] R.J.D.T. 1, [2006] Q.J. No.&nbsp;907 (QL), 2006 CarswellQue 770, 2006 QCCA 150 (CanLII), setting aside a decision of Matteau&nbsp;J., [2004] Q.J. No.&nbsp;11048 (QL), 2004 CarswellQue 3043.&nbsp; Appeal allowed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Robert</span></i><span lang="EN-GB"> <i>Bonhomme</i>, <i>Robert Dupont</i> and<i> Julie Lapierre</i>, for the appellant.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i><span lang="EN-GB">Richard</span></i><span lang="EN-GB"> <i>Bertrand</i>, for the respondent.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+  </div> 
+  <span lang="EN-GB" style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section6"> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">English version of the judgment of the Court delivered by</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%"><span lang="EN-GB">&nbsp;</span></p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[1]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="text-transform:uppercase">Deschamps J.</span> — This appeal requires the Court to take another look at the rules protecting employees in the event of non‑culpable absenteeism and the rules governing contracts of employment.&nbsp; In particular, the Court must consider the interaction between the employer’s duty to accommodate a sick employee and the employee’s duty to do his or her work.&nbsp; For the reasons that follow, I would allow the appeal and affirm the Superior Court’s judgment dismissing the application for judicial review of the arbitration award in issue.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">1.&nbsp;&nbsp;<u>Facts and Procedural History</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[2]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The complainant’s employment with the appellant, Hydro‑Québec, was marked by numerous physical and mental problems:&nbsp; she suffered from tendinitis, epicondylitis and bursitis, had undergone a number of surgical procedures for various problems, took medication for various other physical problems (hypothyroidism, hypertension, etc.), and had episodes of reactive depression and a mixed personality disorder with borderline and dependent character traits.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section7"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[3]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The complainant’s record of absences indicates that she missed 960&nbsp;days of work between January&nbsp;3, 1994 and July&nbsp;19,&nbsp;2001, that is, during the last seven and a half years she was employed by Hydro‑Québec.&nbsp; These absences were due to her many problems.&nbsp; One of the main problems was that her personality disorder resulted in deficient coping mechanisms and that, as a result, her relationships with supervisors and co‑workers were difficult.&nbsp; Over the years, the employer adjusted her working conditions in light of her limitations:&nbsp; light duties, gradual return to work following a depressive episode, etc.&nbsp; As well, following an administrative reorganization in which the complainant’s position was abolished and she became surplus, the employer assigned her to a position she was not owed, although the union had not consented to this.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[4]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>At the time of her dismissal on July&nbsp;19,&nbsp;2001, the complainant had been absent from work since February&nbsp;8 of that year and had been seen by her attending physician, who recommended that she stop working for an indefinite period, [<span style="text-transform:uppercase">translation</span>] “until the work‑related dispute is resolved”.&nbsp; The employer had also obtained a psychiatric assessment, which included a conclusion that the complainant would no longer be able to [<span style="text-transform:uppercase">translation</span>]&nbsp;“work on a regular and continuous basis without continuing to have an absenteeism problem as . . . in the past”.&nbsp; The employer’s letter informing the complainant of her administrative dismissal referred to her absenteeism, her inability to work on a [<span style="text-transform:uppercase">translation</span>] “regular and reasonable” basis and the fact that no improvement in her attendance at work was expected.&nbsp; The complainant filed a grievance, alleging that her dismissal was not justified.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section8"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[5]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The arbitrator who heard the case dismissed the grievance.&nbsp; He was of the opinion [<span style="text-transform:uppercase">translation</span>] “that, in principle, the [e]mployer could terminate its contract of employment with the complainant if it could prove that, at the time it made that administrative decision, the complainant was unable, for the reasonably foreseeable future, to work steadily and regularly as provided for in the contract”.&nbsp; The arbitrator stated that, according to the employer’s experts, no medication can effectively treat a condition such as a personality disorder, and that psychotherapy can at most alleviate the symptoms very slightly.&nbsp; Those experts estimated the risk of depressive relapse at more than 90&nbsp;percent.&nbsp; In their words, [<span style="text-transform:uppercase">translation</span>]&nbsp;“the future will mirror the past”.&nbsp; On the other hand, the arbitrator noted that the expert for the Syndicat des employé‑e‑s de techniques professionnelles et de bureau d’Hydro‑Québec, section locale&nbsp;2000 (SCFP‑FTQ) (“Union”), which represents the complainant and is the respondent in this Court, was of the opinion that the complainant could</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;line-height:
+200%">[<span style="text-transform:uppercase">translation</span>]&nbsp; work in a satisfactory manner provided that it is possible to eliminate the stressors — both those related to her work and those arising out of her relationship with her immediate family — that affect her and make her unable to work.&nbsp; He suggests a complete change in the complainant’s work environment.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[6]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The arbitrator concluded that, given the specific characteristics of the complainant’s illness, if the suggestion of the Union’s expert were accepted, [<span style="text-transform:uppercase">translation</span>] “the [e]mployer would have to periodically, on a recurring basis, provide the complainant with a new work environment, a new immediate supervisor and new co‑workers to keep pace with the evolution of the ‘love‑hate’ cycle of her relationships with supervisors and co‑workers”.&nbsp; The arbitrator added that some of the factors that contributed to the complainant’s condition were beyond the employer’s control and that the employer would not be able to eliminate stressors related to the complainant’s family environment, as the suggestion of the Union’s expert would require.&nbsp; The arbitrator found that the conditions suggested by the Union’s expert would constitute undue hardship.&nbsp; In his view, the employer had acted properly — with patience and even tolerance — toward the complainant.&nbsp; He dismissed the grievance.&nbsp; The Union then applied for judicial review of the arbitrator’s decision.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section9"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[7]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>Matteau J. of the Superior Court noted at the outset that the complainant’s illness was a handicap within the meaning of the <i>Charter of human rights and freedoms</i>, R.S.Q., c.&nbsp;C‑12, and that the decision to terminate her employment had been based on her inability to work regularly and steadily because of her health ([2004] Q.J. No. 11048 (QL), at paras.&nbsp;29‑30).&nbsp; The judge considered the arbitrator’s assessment of the duty to accommodate.&nbsp; She rejected the Union’s argument that the employer had to show that the complainant’s absences would have [<span style="text-transform:
+uppercase">translation</span>] “insurmountable consequences”.&nbsp; In the judge’s view,</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt;line-height:200%">[<span style="text-transform:uppercase">translation</span>]&nbsp; [t]he arbitrator’s findings on the duty to accommodate are therefore correct and are based on the opinions of the various psychiatrists who examined the employee. Although the arbitrator did not, in his reasons, refer clearly to the various steps established by the Supreme Court, he did reach the conclusion that the employer’s decision was not discriminatory.&nbsp; This conclusion is consistent with the provisions of the Charter [of human rights and freedoms] and with what the Supreme Court has said on this question. [para.&nbsp;51]</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">The Union responded by appealing the Superior Court’s judgment.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[8]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal expressed the opinion that the complainant was not totally unable to work and that the arbitrator had misapplied the approach adopted in <i>British Columbia (Public Service Employee Relations Commission) v. BCGSEU</i>, [1999] 3 S.C.R. 3 (“<i>Meiorin</i>”).&nbsp; According to the Court of Appeal, the employer had to prove that it was impossible to accommodate the complainant’s characteristics.&nbsp; Furthermore, in the court’s view, the arbitrator should not have taken only the absences into account, since the duty to accommodate must be assessed as of the time the decision to terminate the employment was made ([2006] R.J.Q. 426, 2006 QCCA 150 (CanLII)).</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section10"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">2.&nbsp;&nbsp;<u>Issue</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[9]<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span>The application of the <i>Meiorin</i> approach is central to this appeal.&nbsp; In the Superior Court and the Court of Appeal, only the scope of the duty to accommodate was really in issue, as both courts briefly noted that the employer in fact has such a duty (Sup. Ct., at paras.&nbsp;29‑31; C.A., at paras.&nbsp;63‑64).&nbsp; In this Court, the appellant also argued that there was no <i>prima facie</i> discrimination and that the rules on accommodation therefore did not apply.&nbsp; According to the respondent, however, the employer had not shown that its attendance standard was necessary for the business to be able to meet its objectives.&nbsp; The preconditions for the duty to accommodate are not really in issue.&nbsp; The real issue is instead the interpretation and application of the undue hardship standard.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">3.&nbsp;&nbsp;<u>Analysis</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[10]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Two problems are apparent upon reading the decision of the Court of Appeal.&nbsp; The first is that the standard that court applied to determine whether the employer had fulfilled its duty to accommodate was whether [<span style="text-transform:
+uppercase">translation</span>] “it was impossible to [accommodate the complainant’s] characteristics”, and the second is that, according to the court, the duty of accommodation must be assessed as of the time of the decision to dismiss.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">A.&nbsp;&nbsp;<i>Standard for Proving Undue Hardship</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section11"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[11]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Despite the large number of decisions concerning the rules developed in <i>Meiorin</i>, the concept of undue hardship seems to present difficulties.&nbsp; Certain aspects that have caused interpretation problems in the case at bar therefore need to be reviewed.&nbsp; First of all, it will be helpful to reproduce the explanation of the approach given in <i>Meiorin</i> (at para.&nbsp;54):</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify">An employer may justify the impugned standard by establishing on the balance of probabilities:</p> 
+   <p class="MsoNormal" style="text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; that the employer adopted the standard for a purpose rationally connected to the performance of the job;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; that the employer adopted the particular standard in an honest and good faith belief that it was necessary to the fulfilment of that legitimate work‑related purpose; and </p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; that the standard is reasonably necessary to the accomplishment of that legitimate work‑related purpose.&nbsp; To show that the standard is reasonably necessary, it must be demonstrated that it is impossible to accommodate individual employees sharing the characteristics of the claimant without imposing undue hardship upon the employer.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[12]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The relevance of the approach is not in issue.&nbsp; However, there is a problem of interpretation in the instant case that seems to arise from the use of the word “impossible”.&nbsp; But it is clear from the way the approach was explained by McLachlin&nbsp;J. that this word relates to undue hardship (at para.&nbsp;55):</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt;line-height:200%">This approach is premised on the need to develop standards that accommodate the potential contributions of all employees in so far as this <u>can be done without undue hardship to the employer</u>.&nbsp; Standards may adversely affect members of a particular group, to be sure.&nbsp; But as Wilson&nbsp;J. noted in <i>Central Alberta Dairy Pool</i>, [[1990] 2 S.C.R. 489], at p.&nbsp;518, “[i]f a reasonable alternative exists to burdening members of a group with a given rule, that rule will not be [a BFOR]”.&nbsp; It follows that a rule or standard must accommodate individual differences <u>to the point of undue hardship</u> if it is to be found reasonably necessary.&nbsp; Unless no further accommodation <u>is possible without imposing undue hardship</u>, the standard is not a BFOR in its existing form and the <i>prima facie</i> case of discrimination stands.&nbsp; [Emphasis added.]</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section12"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">What is really required is not proof that it is impossible to integrate an employee who does not meet a standard, but proof of undue hardship, which can take as many forms as there are circumstances.&nbsp; This is clear from the additional comments on undue hardship in <i>Meiorin</i> (at para.&nbsp;63):</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;line-height:
+200%">For example, dealing with adverse effect discrimination in <i>Central Alberta Dairy Pool</i>, <i>supra</i>, at pp.&nbsp;520‑21, Wilson&nbsp;J. addressed the factors that may be considered when assessing an employer’s duty to accommodate an employee to the point of undue hardship.&nbsp; Among the relevant factors are the financial cost of the possible method of accommodation, the relative interchangeability of the workforce and facilities, and the prospect of substantial interference with the rights of other employees.&nbsp; See also <i>Renaud</i>, [[1992] 2 S.C.R. 970], at p.&nbsp;984, <i>per</i> Sopinka&nbsp;J.&nbsp; The various factors are not entrenched, except to the extent that they are expressly included or excluded by statute.&nbsp; In all cases, as Cory&nbsp;J. noted in <i>Chambly</i>, [[1994] 2 S.C.R. 525], at p.&nbsp;546, such considerations “should be applied with common sense and flexibility in the context of the factual situation presented in each case”.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[13]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>As these passages indicate, in the employment context, the duty to accommodate implies that the employer must be flexible in applying its standard if such flexibility enables the employee in question to work and does not cause the employer undue hardship.&nbsp; L’Heureux‑Dubé&nbsp;J. accurately described the objective of protecting handicapped persons in this context in <i>Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montréal (City)</i>, [2000] 1&nbsp;S.C.R. 665, 2000 SCC 27, at para.&nbsp;36:</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt;line-height:200%">The purpose of Canadian human rights legislation is to protect against discrimination and to guarantee rights and freedoms.&nbsp; With respect to employment, its more specific objective is to eliminate exclusion that is arbitrary and based on preconceived ideas concerning personal characteristics which, when the duty to accommodate is taken into account, do not affect a person’s ability to do a job.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section13"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[14]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>As L’Heureux‑Dubé&nbsp;J. stated, the goal of accommodation is to ensure that an employee who is able to work can do so.&nbsp; In practice, this means that the employer must accommodate the employee in a way that, while not causing the employer undue hardship, will ensure that the employee can work.&nbsp; The purpose of the duty to accommodate is to ensure that persons who are otherwise fit to work are not unfairly excluded where working conditions can be adjusted without undue hardship.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[15]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>However, the purpose of the duty to accommodate is not to completely alter the essence of the contract of employment, that is, the employee’s duty to perform work in exchange for remuneration.&nbsp; The burden imposed by the Court of Appeal in this case was misstated.&nbsp; The Court of Appeal stated the following:</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;line-height:
+200%">[<span style="text-transform:uppercase">translation</span>]&nbsp; Hydro‑Québec did not establish that [the complainant’s] assessment revealed that <u>it was impossible to [accommodate] her characteristics</u>; in actual fact, certain measures were possible and even recommended by the experts.&nbsp; [Emphasis added; para.&nbsp;100.]</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[16]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The test is not whether it was impossible for the employer to accommodate the employee’s characteristics.&nbsp; The employer does not have a duty to change working conditions in a fundamental way, but does have a duty, if it can do so without undue hardship, to arrange the employee’s workplace or duties to enable the employee to do his or her work.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section14"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[17]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>&nbsp;Because of the individualized nature of the duty to accommodate and the variety of circumstances that may arise, rigid rules must be avoided.&nbsp; If a business can, without undue hardship, offer the employee a variable work schedule or lighten his or her duties — or even authorize staff transfers — to ensure that the employee can do his or her work, it must do so to accommodate the employee.&nbsp; Thus, in <i>McGill</i> <i>University Health Centre (Montreal General Hospital) v. Syndicat des employés de l’Hôpital général de Montréal</i>, [2007] 1 S.C.R. 161, 2007 SCC 4, the employer had authorized absences that were not provided for in the collective agreement.&nbsp; Likewise, in the case at bar, Hydro-Québec tried for a number of years to adjust the complainant’s working conditions: &nbsp;modification of her workstation, part‑time work, assignment to a new position, etc.&nbsp; However, in a case involving chronic absenteeism, if the employer shows that, despite measures taken to accommodate the employee, the employee will be unable to resume his or her work in the reasonably foreseeable future, the employer will have discharged its burden of proof and established undue hardship.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[18]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>Thus, the test for undue hardship is not total unfitness for work in the foreseeable future.&nbsp; If the characteristics of an illness are such that the proper operation of the business is hampered excessively or if an employee with such an illness remains unable to work for the reasonably foreseeable future even though the employer has tried to accommodate him or her, the employer will have satisfied the test.&nbsp; In these circumstances, the impact of the standard will be legitimate and the dismissal will be deemed to be non‑discriminatory.&nbsp; I adopt the words of Thibault&nbsp;J.A. in the judgment quoted by the Court of Appeal, <i>Québec (Procureur général) v. Syndicat de professionnelles et professionnels du gouvernement du Québec (SPGQ)</i>, [2005] R.J.Q. 944, 2005 QCCA 311:&nbsp; [<span style="text-transform:uppercase">translation</span>] “[In such cases,] it is less the employee’s handicap that forms the basis of the dismissal than his or her inability to fulfill the fundamental obligations arising from the employment relationship” (para.&nbsp;76).</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section15"> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[19]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The duty to accommodate is therefore perfectly compatible with general labour law rules, including both the rule that employers must respect employees’ fundamental rights and the rule that employees must do their work.&nbsp; The employer’s duty to accommodate ends where the employee is no longer able to fulfill the basic obligations associated with the employment relationship for the foreseeable future.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">B.&nbsp;&nbsp;<i>Time of Accommodation</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[20]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The Court of Appeal held that the duty to accommodate had to be assessed as of the time the decision to dismiss the complainant was made.&nbsp; It stated the following:</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt;line-height:200%">[<span style="text-transform:uppercase">translation</span>]&nbsp; Nevertheless, can it be affirmed that Hydro‑Québec, having in its possession relatively unfavourable expert reports on [the complainant], has established that it had considered <i><u>all</u></i> [reasonably possible accommodation measures] <u>when it dismissed</u> [the complainant]?&nbsp; [Underlining added; italics in original; para.&nbsp;78.]</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">It should be noted that the Court of Appeal’s judgment was delivered prior to this Court’s decision in <i>McGill University Health Centre</i>.&nbsp; In that case, this Court reversed a decision in which the Court of Appeal had adopted the date of dismissal as the relevant date.&nbsp; This Court opted to assess the duty to accommodate globally in a way that took into account the entire time the employee was absent (at para.&nbsp;33):</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section16"> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt;line-height:200%">The Court of Appeal appears to have held that the duty to accommodate must be assessed as of the time the employee was effectively denied an additional measure (para.&nbsp;31).&nbsp; In my view, this approach is based on a compartmentalization of the employee’s various health problems.&nbsp; Undue hardship resulting from the employee’s absence must be assessed globally starting from the beginning of the absence, not from the expiry of the three‑year period.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[21]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>In the instant case, the Court of Appeal applied a compartmentalized approach that was equally inappropriate.&nbsp; A decision to dismiss an employee because the employee will be unable to work in the reasonably foreseeable future must necessarily be based on an assessment of the entire situation.&nbsp; Where, as here, the employee has been absent in the past due to illness, the employer has accommodated the employee for several years and the doctors are not optimistic regarding the possibility of improved attendance, neither the employer nor the employee may disregard the past in assessing undue hardship.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[22]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>The Court of Appeal’s approach led it to criticize the employer for not trying to accommodate the complainant after February&nbsp;8,&nbsp;2001, the last day she reported for work.&nbsp; Even if the employer had not known the reasons for the complainant’s absenteeism at the time it agreed to accommodate her, her personal file, including the record of her past absences, was nonetheless entirely relevant for the purpose of putting the experts’ prognosis for the period after February&nbsp;8 into context.&nbsp; The Court of Appeal found that the employer did not know the nature of the complainant’s mental disorders and therefore could not have taken action in this regard.&nbsp; Believing that it had detected an error in the arbitrator’s approach, the Court of Appeal reinterpreted the evidence and concluded that a gradual return to work was a possible accommodation.&nbsp; My view is that it is in fact the Court of Appeal that erred and that that court should not have interfered with the arbitrator’s assessment of the evidence.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <span style="font-size:12.0pt;line-height:200%;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section17"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">4.&nbsp;&nbsp;<u>Conclusion</u></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[23]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>I therefore conclude that the Court of Appeal’s decision contains two errors of law, one relating to the standard for assessing undue hardship and the other relating to the time that is relevant to the determination of whether the employer has fulfilled its duty to accommodate.&nbsp; The arbitrator, on the other hand, did not err in law, and there was no justification for interfering with his assessment of the facts.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="1" style="margin-left:0cm;text-align:justify;text-indent:57.6pt;
+line-height:200%">[24]<span style="font:7.0pt &quot;Times New Roman&quot;"> </span>For the above reasons, I would allow the appeal, set aside the judgment of the Court of Appeal and affirm the Superior Court’s judgment dismissing the motion for judicial review, with costs throughout.</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Appeal allowed with costs.</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitors for the appellant:&nbsp;&nbsp;Heenan Blaikie, Montréal; Judicial Affairs, Hydro‑Québec, Montréal.</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%"><i>Solicitors for the respondent:&nbsp;&nbsp;Trudel, Nadeau, Montréal.</i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:200%">&nbsp;</p> 
+  </div> 
+  <div>
+   <br clear="all"/> 
+   <hr align="left" size="1" width="33%"/> 
+   <div id="ftn1"> 
+    <p class="MsoNormal" style="margin-bottom:12.0pt;text-align:justify;text-indent:
+36.0pt"><a href="#_ftnref1" name="_ftn1" title=""><span class="MsoFootnoteReference"><sup><span lang="EN-GB">*</span></sup></span></a><span lang="EN-GB"> Bastarache J. took no part in the judgment.</span></p> 
+   </div> 
+  </div> 
+ </div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

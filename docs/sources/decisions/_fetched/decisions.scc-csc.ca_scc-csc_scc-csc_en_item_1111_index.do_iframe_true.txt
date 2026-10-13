@@ -1,0 +1,1191 @@
+ RJR -- MacDonald Inc. v. Canada (Attorney General) - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ RJR -- MacDonald Inc. v. Canada (Attorney General)
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ RJR -- MacDonald Inc. v. Canada (Attorney General)
+ /scc-csc/scc-csc/fr/item/1111/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ RJR -- MacDonald Inc. v. Canada (Attorney General)
+ Collection
+ Supreme Court Judgments
+ Date
+ 1994-03-03
+ Report
+ [1994] 1 SCR 311
+ Case number
+ 23460, 23490
+ Judges
+ Lamer, Antonio; La Forest, Gérard V.; L'Heureux-Dubé, Claire; Sopinka, John; Gonthier, Charles Doherty; Cory, Peter deCarteret; McLachlin, Beverley; Iacobucci, Frank; Major, John C.
+ On appeal from
+ Quebec
+ Subjects
+ Action
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/23460/] 23460, [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/23490/] 23490
+ [LINK /scc-csc/scc-csc/en/1111/1/document.do] 
+Decision Content
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">RJR – MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">RJR – MacDonald Inc. Applicant
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">v.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">The Attorney General of Canada Respondent
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">and
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">The Attorney General of Quebec Mis-en-cause
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">and
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">The Heart and Stroke Foundation of Canada, Interveners on the
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">the Canadian Cancer Society, application for
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">the Canadian Council on Smoking and Health, and interlocutory relief
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Physicians for a Smoke-Free Canada
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">and between
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Imperial Tobacco Ltd. Applicant
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">v.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">The Attorney General of Canada Respondent
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">and
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">The Attorney General of Quebec Mis-en-cause
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">and
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">The Heart and Stroke Foundation of Canada, Interveners on the
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">the Canadian Cancer Society, application for
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">the Canadian Council on Smoking and Health, and interlocutory relief
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Physicians for a Smoke-Free Canada
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Indexed as: RJR – MacDonald Inc. v. Canada (Attorney General)
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">File Nos.: 23460, 23490.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">1993: October 4; 1994: March 3.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Present: Lamer C.J. and La Forest, L'Heureux‑Dubé, Sopinka, Gonthier, Cory, McLachlin, Iacobucci and Major JJ.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">applications for interlocutory relief
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Practice – Interlocutory motions to stay implementation of regulations pending final decision on appeals and to delay implementation if appeals dismissed – Leave to appeal granted shortly after applications to stay heard – Whether the applications for relief from compliance with regulations should be granted – Tobacco Products Control Act, S.C. 1988, c. 20, ss. 3, 4 to 8, 9, 11 to 16, 17(f), 18. – Tobacco Products Control Regulations, amendment, SOR/93‑389 – [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] Canadian Charter of Rights and Freedoms, ss. 1 , [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] 2(b) , [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1] 24(1) – Rules of the Supreme Court of Canada, SOR/83‑74, s. 27 – [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] Supreme Court Act, R.S.C., 1985, c. S‑26, s. 65.1 . 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The Tobacco Products Control Act regulates the advertisement of tobacco products and the health warnings which must be placed upon those products. Both applicants successfully challenged the Act's constitutional validity in the Quebec Superior Court on the grounds that it was ultra vires Parliament and that it violates the right to freedom of expression in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] s. 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] b [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms . The Court of Appeal ordered the suspension of enforcement until judgment was rendered on the Act's validity but declined to order a stay of the coming into effect of the Act until 60 days following a judgment validating the Act. The majority ultimately found the legislation constitutional.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The Tobacco Products Control Regulations, amendment, would cause the applicants to incur major expense in altering their packaging and these expenses would be irrecoverable should the legislation be found unconstitutional. Before a decision on applicants' leave applications to this Court in the main actions had been made, the applicants brought these motions for stay pursuant to [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] s. 65.1 of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en] Supreme Court Act , or, in the event that leave was granted, pursuant to r. 27 of the Rules of the Supreme Court of Canada. In effect, the applicants sought to be released from any obligation to comply with the new packaging requirements until the disposition of the main actions. They also requested that the stays be granted for a period of 12 months from the dismissal of the leave applications or from a decision of this Court confirming the validity of Tobacco Products Control Act.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> This Court heard applicants' motions on October 4 and granted leave to appeal the main action on October 14. At issue here was whether the applications for relief from compliance with the Tobacco Products Control Regulations, amendment should be granted. A preliminary question was raised as to this Court's jurisdiction to grant the relief requested by the applicants.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Held: The applications should be dismissed.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The powers of the Supreme Court of Canada to grant relief in this kind of proceeding are contained in s. 65.1 of the Supreme Court of Canada Act and r. 27 of the Rules of the Supreme Court of Canada.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The words "other relief" in r. 27 of the Supreme Court Rules are broad enough to permit the Court to defer enforcement of regulations that were not in existence when the appeal judgment was rendered. It can apply even though leave to appeal may not yet be granted. In interpreting the language of the rule, regard should be had to its purpose: to facilitate the "bringing of cases" before the Court "for the effectual execution and working of this Act". To achieve its purpose the rule can neither be limited to cases in which leave to appeal has already been granted nor be interpreted narrowly to apply only to an order stopping or arresting execution of the Court's process by a third party or freezing the judicial proceeding which is the subject matter of the judgment in appeal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] Section 65.1 of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en] Supreme Court Act was adopted not to limit the Court's powers under r. 27 but to enable a single judge to exercise the jurisdiction to grant stays in circumstances in which, before the amendment, a stay could be granted by the Court. It should be interpreted as conferring the same broad powers as are included in r. 27. The Court, pursuant to both [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] s. 65.1 and r. 27, can not only grant a stay of execution and of proceedings in the traditional sense but also make any order that preserves matters between the parties in a state that will, as far as possible, prevent prejudice pending resolution by the Court of the controversy, so as to enable the Court to render a meaningful and effective judgment. The Court must be able to intervene not only against the direct dictates of the judgment but also against its effects. The Court therefore must have jurisdiction to enjoin conduct on the part of a party acting in reliance on the judgment which, if carried out, would tend to negate or diminish the effect of the judgment of this Court.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Jurisdiction to grant the relief requested by the applicants exists even if the applicants' requests for relief are for "suspension" of the regulation rather than "exemption" from it. To hold otherwise would be inconsistent with Manitoba (Attorney General) v. Metropolitan Stores (MTS) Ltd. which established that the distinction between "suspension" and "exemption" cases is made only after jurisdiction has been otherwise established. If jurisdiction under s. 65.1 of the Act and r. 27 were wanting, jurisdiction would be found in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1] s. 24(1) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms . A Charter remedy should not be defeated because of a deficiency in the ancillary procedural powers of the Court to preserve the rights of the parties pending a final resolution of constitutional rights.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The three‑part American Cyanamid test (adopted in Canada in Manitoba (Attorney General) v. Metropolitan Stores (MTS) Ltd.) should be applied to applications for interlocutory injunctions and as well for stays in both private law and [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> At the first stage, an applicant for interlocutory relief in a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter case must demonstrate a serious question to be tried. Whether the test has been satisfied should be determined by a motions judge on the basis of common sense and an extremely limited review of the case on the merits. The fact that an appellate court has granted leave in the main action is, of course, a relevant and weighty consideration, as is any judgment on the merits which has been rendered, although neither is necessarily conclusive of the matter. A motions court should only go beyond a preliminary investigation into the merits when the result of the interlocutory motion will in effect amount to a final determination of the action, or when the constitutionality of a challenged statute can be determined as a pure question of law. Instances of this sort will be exceedingly rare. Unless the case on the merits is frivolous or vexatious, or the constitutionality of the statute is a pure question of law, a judge on a motion for relief must, as a general rule, consider the second and third stages of the Metropolitan Stores test.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> At the second stage the applicant is required to demonstrate that irreparable harm will result if the relief is not granted. ‘Irreparable’ refers to the nature of the harm rather than its magnitude. In Charter cases, even quantifiable financial loss relied upon by an applicant may be considered irreparable harm so long as it is unclear that such loss could be recovered at the time of a decision on the merits.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The third branch of the test, requiring an assessment of the balance of inconvenience to the parties, will normally determine the result in applications involving [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter rights. A consideration of the public interest must be taken into account in assessing the inconvenience which it is alleged will be suffered by both parties. These public interest considerations will carry less weight in exemption cases than in suspension cases. When the nature and declared purpose of legislation is to promote the public interest, a motions court should not be concerned whether the legislation has in fact this effect. It must be assumed to do so. In order to overcome the assumed benefit to the public interest arising from the continued application of the legislation, the applicant who relies on the public interest must demonstrate that the suspension of the legislation would itself provide a public benefit.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> As a general rule, the same principles would apply when a government authority is the applicant in a motion for interlocutory relief. However, the issue of public interest, as an aspect of irreparable harm to the interests of the government, will be considered in the second stage. It will again be considered in the third stage when harm to the applicant is balanced with harm to the respondent including any harm to the public interest established by the latter.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Here, the application of these principles to the facts required that the applications for stay be dismissed.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The observation of the Quebec Court of Appeal that the case raised serious constitutional issues and this Court's decision to grant leave to appeal clearly indicated that these cases raise serious questions of law.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Although compliance with the regulations would require a significant expenditure and, in the event of their being found unconstitutional, reversion to the original packaging would require another significant outlay, monetary loss of this nature will not usually amount to irreparable harm in private law cases. However, where the government is the unsuccessful party in a constitutional claim, a plaintiff will face a much more difficult task in establishing constitutional liability and obtaining monetary redress. The expenditures which the new regulations require will therefore impose irreparable harm on the applicants if these motions are denied but the main actions are successful on appeal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Among the factors which must be considered in order to determine whether the granting or withholding of interlocutory relief would occasion greater inconvenience are the nature of the relief sought and of the harm which the parties contend they will suffer, the nature of the legislation which is under attack, and where the public interest lies. Although the required expenditure would impose economic hardship on the companies, the economic loss or inconvenience can be avoided by passing it on to purchasers of tobacco products. Further, the applications, since they were brought by two of the three companies controlling the Canadian tobacco industry, were in actual fact for a suspension of the legislation, rather than for an exemption from its operation. The public interest normally carries greater weight in favour of compliance with existing legislation. The weight given is in part a function of the nature of the legislation and in part a function of the purposes of the legislation under attack. The government passed these regulations with the intention of protecting public health and furthering the public good. When the government declares that it is passing legislation in order to protect and promote public health and it is shown that the restraints which it seeks to place upon an industry are of the same nature as those which in the past have had positive public benefits, it is not for a court on an interlocutory motion to assess the actual benefits which will result from the specific terms of the legislation. The applicants, rather, must offset these public interest considerations by demonstrating a more compelling public interest in suspending the application of the legislation. The only possible public interest in the continued application of the current packaging requirements, however, was that the price of cigarettes for smokers would not increase. Any such increase would not be excessive and cannot carry much weight when balanced against the undeniable importance of the public interest in health and in the prevention of the widespread and serious medical problems directly attributable to smoking. 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt;page-break-after:avoid">Cases Cited
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt;page-break-after:avoid"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Applied: Manitoba (Attorney General) v. Metropolitan Stores (MTS) Ltd., [1987] 1 S.C.R. 110; considered: Labatt Breweries of Canada Ltd. v. Attorney General of Canada, [1980] 1 S.C.R. 594; American Cyanamid Co. v. Ethicon Ltd., [1975] A.C. 396; referred to: R. v. Crown Zellerbach Canada Ltd., [1988] 1 S.C.R. 401; Keable v. Attorney General (Can.), [1978] 2 S.C.R. 135; Battle Creek Toasted Corn Flake Co. v. Kellogg Toasted Corn Flake Co. (1924), 55 O.L.R. 127; Laboratoire Pentagone Ltée v. Parke, Davis & Co., [1968] S.C.R. 269; Adrian Messenger Services v. The Jockey Club Ltd. (No. 2) (1972), 2 O.R. 619; Bear Island Foundation v. Ontario (1989), 70 O.R. (2d) 574; N.W.L. Ltd. v. Woods, [1979] 1 W.L.R. 1294; Trieger v. Canadian Broadcasting Corp. (1988), 54 D.L.R. (4th) 143; Tremblay v. Daigle, [1989] 2 S.C.R. 530; Dialadex Communications Inc. v. Crammond (1987), 34 D.L.R. (4th) 392; R.L. Crain Inc. v. Hendry (1988), 48 D.L.R. (4th) 228; MacMillan Bloedel Ltd. v. Mullin, [1985] 3 W.W.R. 577; Hubbard v. Pitt, [1976] Q.B. 142; Mills v. The Queen, [1986] 1 S.C.R. 863; Nelles v. Ontario, [1989] 2 S.C.R. 170; Ainsley Financial Corp. v. Ontario Securities Commission (1993), 14 O.R. (3d) 280; Morgentaler v. Ackroyd (1983), 150 D.L.R. (3d) 59; Attorney General of Canada v. Fishing Vessel Owners' Association of B.C., [1985] 1 F.C. 791; Esquimalt Anglers' Association v. Canada (Minister of Fisheries and Oceans) (1988), 21 F.T.R. 304; Island Telephone Co., Re (1987), 67 Nfld. & P.E.I.R. 158; Black v. Law Society of Alberta (1983), 144 D.L.R. (3d) 439; Vancouver General Hospital v. Stoffman (1985), 23 D.L.R. (4th) 146; Rio Hotel Ltd. v. Commission des licences et permis d'alcool, [1986] 2 S.C.R. ix; Ontario Jockey Club v. Smith (1922), 22 O.W.N. 373; R. v. Oakes, [1986] 1 S.C.R. 103.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Statutes and Regulations Cited
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">[LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] Canadian Charter of Rights and Freedoms [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] , ss. 1 , [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] b [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) , [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1] 24(1) .
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Code of Civil Procedure of Québec, art. 523.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">[LINK https://qweri.lexum.com/w/calegis/30---31-vict-c-3-en#!fragment/sec91] Constitution Act, 1867 [LINK https://qweri.lexum.com/w/calegis/30---31-vict-c-3-en#!fragment/sec91] , s. 91 .
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">Fisheries Act<span style="letter-spacing:
+-.1pt">, R.S.C. 1970 c. F‑14.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">Rules of the Supreme Court of Canada, 1888, General Order No. 85(17).
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">Rules of the Supreme Court of Canada, SOR/83‑74, s. 27.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">[LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] Supreme Court Act [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] , R.S.C., 1985, c. S‑26 [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] , ss. 65.1 [ad. S.C. 1990, c. 8, s. 40], 97(1)(a). 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">Tobacco Products Control Act, R.S.C., 1985, c. 14 (4th Supp.), S.C. 1988, c. 20, ss. 3, 4 to 8, 9, 11 to 16, 17(f), 18.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt">Tobacco Products Control Regulations, amendment, SOR/93‑389.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Authors Cited
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">Canada. Minister of National Health and Welfare. Regulatory Impact Analysis Statement. (Statement following Tobacco Products Control Regulations, amendment, SOR/93‑389.) In Canada Gazette, Part II, Vol. 127, No. 16, p. 3284.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">Cassels, Jamie. "An Inconvenient Balance: The Injunction as a Charter Remedy". In Jeffrey Berryman, ed. Remedies: Issues and Perspectives. Scarborough, Ont.: Carswell, 1991, 271.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.5in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.5in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">Sharpe, Robert J. Injunctions and Specific Performance, 2nd ed. Aurora, Ont.: Canada Law Book, 1992 (loose-leaf).
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> APPLICATIONS for interlocutory relief ancillary to constitutional challenge of enabling legislation following judgment of the Quebec Court of Appeal, [1993] R.J.Q. 375, 53 Q.A.C. 79, 102 D.L.R. (4th) 289, 48 C.P.R. (3d) 417, allowing an appeal from a judgment of Chabot J., [1991] R.J.Q. 2260, 82 D.L.R. (4th) 449, 37 C.P.R. (3d) 193, granting the application. Applications dismissed.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Colin K. Irving, for the applicant RJR – MacDonald Inc.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Simon V. Potter, for the applicant Imperial Tobacco Inc.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Claude Joyal and Yves Leboeuf, for the respondent.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> W. Ian C. Binnie, Q.C., and Colin Baxter, for the Heart and Stroke Foundation of Canada, the Canadian Cancer Society, the Canadian Council on Smoking and Health, and Physicians for a Smoke-Free Canada.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The judgment of the Court on the applications for interlocutory relief was delivered by
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Sopinka and Cory JJ. –
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">I. Factual Background
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> These applications for relief from compliance with certain Tobacco Products Control Regulations, amendment, SOR/93-389 as interlocutory relief are ancillary to a larger challenge to regulatory legislation which will soon be heard by this Court.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The Tobacco Products Control Act, R.S.C., 1985, c. 14 (4th Supp.), S.C. 1988, c. 20, came into force on January 1, 1989. The purpose of the Act is to regulate the advertisement of tobacco products and the health warnings which must be placed upon tobacco products.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The first part of the Tobacco Products Control Act, particularly ss. 4 to 8, prohibits the advertisement of tobacco products and any other form of activity designed to encourage their sale. Section 9 regulates the labelling of tobacco products, and provides that health messages must be carried on all tobacco packages in accordance with the regulations passed pursuant to the Act.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Sections 11 to 16 of the Act deal with enforcement and provide for the designation of tobacco product inspectors who are granted search and seizure powers. Section 17 authorizes the Governor in Council to make regulations under the Act. Section 17(f) authorizes the Governor in Council to adopt regulations prescribing "the content, position, configuration, size and prominence" of the mandatory health messages. Section 18(1)(b) of the Act indicates that infringements may be prosecuted by indictment, and upon conviction provides for a penalty by way of a fine not to exceed $100,000, imprisonment for up to one year, or both.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Each of the applicants challenged the constitutional validity of the Tobacco Products Control Act on the grounds that it is ultra vires the Parliament of Canada and invalid as it violates [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] s. 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] b [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms . The two cases were heard together and decided on common evidence.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> On July 26, 1991, Chabot J. of the Quebec Superior Court granted the applicants' motions, [1991] R.J.Q. 2260, 82 D.L.R. (4th) 449, finding that the Act was ultra vires the Parliament of Canada and that it contravened the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . The respondent appealed to the Quebec Court of Appeal. Before the Court of Appeal rendered judgment, the applicants applied to this court for interlocutory relief in the form of an order that they would not have to comply with certain provisions of the Act for a period of 60 days following judgment in the Court of Appeal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Up to that point, the applicants had complied with all provisions in the Tobacco Products Control Act. However, under the Act, the complete prohibition on all point of sale advertising was not due to come into force until December 31, 1992. The applicants estimated that it would take them approximately 60 days to dismantle all of their advertising displays in stores. They argued that, with the benefit of a Superior Court judgment declaring the Act unconstitutional, they should not be required to take any steps to dismantle their displays until such time as the Court of Appeal might eventually hold the legislation to be valid. On the motion the Court of Appeal held that the penalties for non-compliance with the ban on point of sale advertising could not be enforced against the applicants until such time as the Court of Appeal had released its decision on the merits. The court refused, however, to stay the enforcement of the provisions for a period of 60 days following a judgment validating the Act.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> On January 15, 1993, the Court of Appeal for Quebec, [1993] R.J.Q. 375, 102 D.L.R. (4th) 289, allowed the respondent's appeal, Brossard J.A. dissenting in part. The Court unanimously held that the Act was not ultra vires the government of Canada. The Court of Appeal accepted that the Act infringed [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] s. 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] b [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter but found, Brossard J.A. dissenting on this aspect, that it was justified under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] s. 1 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . Brossard J.A. agreed with the majority with respect to the requirement of unattributed package warnings (that is to say the warning was not to be attributed to the Federal Government) but found that the ban on advertising was not justified under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] s. 1 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . The applicants filed an application for leave to appeal the judgment of the Quebec Court of Appeal to this Court.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> On August 11, 1993, the Governor in Council published amendments to the regulations dated July 21, 1993, under the Act: Tobacco Products Control Regulations, amendment, SOR/93-389. The amendments stipulate that larger, more prominent health warnings must be placed on all tobacco products packets, and that these warnings can no longer be attributed to Health and Welfare Canada. The packaging changes must be in effect within one year.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> According to affidavits filed in support of the applicant's motion, compliance with the new regulations would require the tobacco industry to redesign all of its packaging and to purchase thousands of rotograve cylinders and embossing dies. These changes would take close to a year to effect, at a cost to the industry of about $30,000,000.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Before a decision on their leave applications in the main actions had been made, the applicants brought these motions for a stay pursuant to [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] s. 65.1 of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en] Supreme Court Act [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en] , R.S.C., 1985, c. S-26 (ad. by S.C. 1990, c. 8, s. 40) or, in the event that leave was granted, pursuant to r. 27 of the Rules of the Supreme Court of Canada, SOR/83-74. The applicants seek to stay "the judgment of the Quebec Court of Appeal delivered on January 15, 1993", but "only insofar as that judgment validates sections 3, 4, 5, 6, 7 and 10 of [the new regulations]". In effect, the applicants ask to be released from any obligation to comply with the new packaging requirements until the disposition of the main actions. The applicants further request that the stays be granted for a period of 12 months from the dismissal of the leave applications or from a decision of this Court confirming the validity of Tobacco Products Control Act.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The applicants contend that the stays requested are necessary to prevent their being required to incur considerable irrecoverable expenses as a result of the new regulations even though this Court may eventually find the enabling legislation to be constitutionally invalid.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The applicants' motions were heard by this Court on October 4. Leave to appeal the main actions was granted on October 14.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">II. Relevant Statutory Provisions
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Tobacco Products Control Act, R.S.C., 1985, c. 14 (4th Supp.), S.C. 1988, c. 20, s. 3:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"> 3.<span style="letter-spacing:
+-.1pt"> The purpose of this Act is to provide a legislative response to a national public health problem of substantial and pressing concern and, in particular,
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-78.45pt;line-height:12.2pt">(a) to protect the health of Canadians in the light of conclusive evidence implicating tobacco use in the incidence of numerous debilitating and fatal diseases;
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-78.45pt;line-height:12.2pt">(b) to protect young persons and others, to the extent that is reasonable in a free and democratic society, from inducements to use tobacco products and consequent dependence on them; and
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-78.45pt;line-height:12.2pt">(c) to enhance public awareness of the hazards of tobacco use by ensuring the effective communication of pertinent information to consumers of tobacco products.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">[LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] Supreme Court Act [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] , R.S.C., 1985, c. S-26 [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] , s. 65.1 (ad. S.C. 1990, c. 8, s. 40):
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"> 65.1<span style="letter-spacing:
+-.1pt"> The Court or a judge may, on the request of a party who has filed a notice of application for leave to appeal, order that proceedings be stayed with respect to the judgment from which leave to appeal is being sought, on such terms as to the Court or the judge seem just.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Rules of the Supreme Court of Canada, SOR/83-74, s. 27:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> 27. Any party against whom judgment has been given, or an order made, by the Court or any other court, may apply to the Court for a stay of execution or other relief against such a judgment or order, and the Court may give such relief upon such terms as may be just.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">III. Courts Below
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In order to place the applications for the stay in context it is necessary to review briefly the decisions of the courts below.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Superior Court, [1991] R.J.Q. 2260, 82 D.L.R. (4th) 449
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Chabot J. concluded that the dominant characteristic of the Tobacco Products Control Act was the control of tobacco advertising and that the protection of public health was only an incidental objective of the Act. Chabot J. characterized the Tobacco Products Control Act as a law regulating advertising of a particular product, a matter within provincial legislative competence.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Chabot J. found that, with respect to [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] s. 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] b [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter , the activity prohibited by the Act was a protected activity, and that the notices required by the Regulations violated that [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter guarantee. He further held that the evidence demonstrated that the objective of reducing the level of consumption of tobacco products was of sufficient importance to warrant legislation restricting freedom of expression, and that the legislative objectives identified by Parliament to reduce tobacco use were a pressing and substantial concern in a free and democratic society.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> However, in his view, the Act did not minimally impair freedom of expression, as it did not restrict itself to protecting young people from inducements to smoke, or limit itself to lifestyle advertising. Chabot J. found that the evidence submitted by the respondent in support of its contention that advertising bans decrease consumption was unreliable and without probative value because it failed to demonstrate that any ban of tobacco advertising would be likely to bring about a reduction of tobacco consumption. Therefore, the respondent had not demonstrated that an advertising ban restricted freedom of expression as little as possible. Chabot J. further concluded that the evidence of a rational connection between the ban of Canadian advertising and the objective of reducing overall consumption of tobacco was deficient, if not non-existent. He held that the Act was a form of censorship and social engineering which was incompatible with a free and democratic society and could not be justified.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Court of Appeal (on the application for a stay)
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In deciding whether or not to exercise its broad power under art. 523 of the Code of Civil Procedure of Québec to "make any order necessary to safeguard the rights of the parties", the Court of Appeal made the following observation on the nature of the relief requested:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> But what is at issue here (if the Act is found to be constitutionally valid) is the suspension of the legal effect of part of the Act and the legal duty to comply with it for 60 days, and the suspension, as well, of the power of the appropriate public authorities to enforce the Act. To suspend or delay the effect or the enforcement of a valid act of the legislature, particularly one purporting to relate to the protection of public health or safety is a serious matter. The courts should not lightly limit or delay the implementation or enforcement of valid legislation where the legislature has brought that legislation into effect. To do so would be to intrude into the legislative and the executive spheres. [Emphasis in original.]
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">The Court made a partial grant of the relief sought as follows:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> Since the letters of the Department of Health and Welfare and appellants' contestation both suggest the possibility that the applicants may be prosecuted under Sec. 5 after December 31, 1992 whether or not judgment has been rendered on these appeals by that date, it seems reasonable to order the suspension of enforcement under Sec. 5 of the Act until judgment has been rendered by this Court on the present appeals. There is, after all, a serious issue as to the validity of the Act, and it would be unfairly onerous to require the applicants to incur substantial expense in dismantling these point of sale displays until we have resolved that issue.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> We see no basis, however, for ordering a stay of the coming into effect of the Act for 60 days following our judgment on the appeals.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> ...
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> Indeed, given the public interest aspect of the Act, which purports to be concerned with the protection of public health, if the Act were found to be valid, there is excellent reason why its effect and enforcement should not be suspended (A.G. of Manitoba v. Metropolitan Stores (MTS) Ltd. [1987] 1 S.C.R. 110, 127, 135). [Emphasis in original.]
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Court of Appeal (on the validity of the legislation), [1993] R.J.Q. 375, 102 D.L.R. (4th) 289
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 1. LeBel J.A. (for the majority)
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> LeBel J.A. characterized the Tobacco Products Control Act as legislation relating to public health. He also found that it was valid as legislation enacted for the peace, order and good government of Canada.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> LeBel J.A. applied the criteria set out in R. v. Crown Zellerbach Canada Ltd., [1988] 1 S.C.R. 401, and concluded that the Act satisfied the "national concern" test and could properly rest on a purely theoretical, unproven link between tobacco advertising and the overall consumption of tobacco.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> LeBel J.A. agreed with Brossard J.A. that the Act infringed freedom of expression pursuant to [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] s. 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] b [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter but found that it was justified under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] s. 1 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . LeBel J.A. concluded that Chabot J. erred in his findings of fact in failing to recognize that the rational connection and minimal impairment branches of the Oakes test have been attenuated by later decisions of the Supreme Court of Canada. He found that the s. 1 test was satisfied since there was a possibility that prohibiting tobacco advertising might lead to a reduction in tobacco consumption, based on the mere existence of a [translation] "body of opinion" favourable to the adoption of a ban. Further he found that the Act appeared to be consistent with minimal impairment as it did not prohibit consumption, did not prohibit foreign advertising and did not preclude the possibility of obtaining information about tobacco products.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 2. Brossard J.A. (dissenting in part)
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Brossard J.A. agreed with LeBel J.A. that the Tobacco Products Control Act should be characterized as public health legislation and that the Act satisfied the "national concern" branch of the peace, order and good government power.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> However, he did not think that the violation of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] s. 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] b [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter could be justified. He reviewed the evidence and found that it did not demonstrate the existence of a connection or even the possibility of a connection between an advertising ban and the use of tobacco. It was his opinion that it must be shown on a balance of probabilities that it was at least possible that the goals sought would be achieved. He also disagreed that the Act met the minimal impairment requirement since in his view the Act's objectives could be met by restricting advertising without the need for a total prohibition.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">IV. Jurisdiction
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> A preliminary question was raised as to this Court's jurisdiction to grant the relief requested by the applicants. Both the Attorney General of Canada and the interveners on the stay (several health organizations, i.e., the Heart and Stroke Foundation of Canada, the Canadian Cancer Society, the Canadian Council on Smoking and Health, and Physicians for a Smoke-Free Canada) argued that this Court lacks jurisdiction to order a stay of execution or of the proceedings which would relieve the applicants of the obligation of complying with the new regulations. Several arguments were advanced in support of this position.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> First, the Attorney General argued that neither the old nor the new regulations dealing with the health messages were in issue before the lower courts and, as such, the applicants' requests for a stay truly cloaks requests to have this Court exercise an original jurisdiction over the matter. Second, he contended that the judgment of the Quebec Court of Appeal is not subject to execution given that it only declared that the Act was intra vires [LINK https://qweri.lexum.com/w/calegis/30---31-vict-c-3-en#!fragment/sec91] s. 91 of the [LINK https://qweri.lexum.com/w/calegis/30---31-vict-c-3-en] Constitution Act, 1867 and justified under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] s. 1 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . Because the lower court decision amounts to a declaration, there is, therefore, no "proceeding" that can be stayed. Finally, the Attorney General characterized the applicants' requests as being requests for a suspension by anticipation of the 12-month delay in which the new regulations will become effective so that the applicants can continue to sell tobacco products for an extended period in packages containing the health warnings required by the present regulations. He claimed that this Court has no jurisdiction to suspend the operation of the new regulations.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The interveners supported and elaborated on these submissions. They also submitted that r. 27 could not apply because leave to appeal had not been granted. In any event, they argued that the words "or other relief" are not broad enough to permit this Court to defer enforcement of regulations that were not even in existence at the time the appeal judgment was rendered.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The powers of the Supreme Court of Canada to grant relief in this kind of proceeding are contained in [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en#!fragment/sec65.1] s. 65.1 of the [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en] Supreme Court Act and r. 27 of the Rules of the Supreme Court of Canada.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">[LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-s-26-en] Supreme Court Act 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"> 65.1<span style="letter-spacing:
+-.1pt"> The Court or a judge may, on the request of a party who has filed a notice of application for leave to appeal, order that proceedings be stayed with respect to the judgment from which leave to appeal is being sought, on such terms as to the Court or the judge seem just.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">Rules of the Supreme Court of Canada
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> 27. Any party against whom judgment has been given, or an order made, by the Court or any other court, may apply to the Court for a stay of execution or other relief against such a judgment or order, and the Court may give such relief upon such terms as may be just.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Rule 27 and its predecessor have existed in substantially the same form since at least 1888 (see Rules of the Supreme Court of Canada, 1888, General Order No. 85(17)). Its broad language reflects the language of s. 97 of the Act whence the Court derives its rule-making power. Subsection (1)(a) of that section provides that the rules may be enacted:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:24.4pt">97. ...
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">(a) for regulating the procedure of and in the Court and the bringing of cases before it from courts appealed from or otherwise, and for the effectual execution and working of this Act and the attainment of the intention and objects thereof;
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Although the point is now academic, leave to appeal having been granted, we would not read into the rule the limitations suggested by the interveners. Neither the words of the rule nor s. 97 contain such limitations. In our opinion, in interpreting the language of the rule, regard should be had to its purpose, which is best expressed in the terms of the empowering section: to facilitate the "bringing of cases" before the Court "for the effectual execution and working of this Act". To achieve its purpose the rule can neither be limited to cases in which leave to appeal has already been granted nor be interpreted narrowly to apply only to an order stopping or arresting execution of the Court's process by a third party or freezing the judicial proceeding which is the subject matter of the judgment in appeal. Examples of the former, traditionally described as stays of execution, are contained in the subsections of s. 65 of the Act which have been held to be limited to preventing the intervention of a third party such as a sheriff but not the enforcement of an order directed to a party. See Keable v. Attorney General (Can.), [1978] 2 S.C.R. 135. The stopping or freezing of all proceedings is traditionally referred to as a stay of proceedings. See Battle Creek Toasted Corn Flake Co. v. Kellogg Toasted Corn Flake Co. (1924), 55 O.L.R. 127 (C.A.). Such relief can be granted pursuant to this Court's powers in r. 27 or s. 65.1 of the Act.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Moreover, we cannot agree that the adoption of s. 65.1 in 1992 (S.C. 1990, c. 8, s. 40) was intended to limit the Court's powers under r. 27. The purpose of that amendment was to enable a single judge to exercise the jurisdiction to grant stays in circumstances in which, before the amendment, a stay could be granted by the Court. Section 65.1 should, therefore, be interpreted to confer the same broad powers that are included in r. 27.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In light of the foregoing and bearing in mind in particular the language of s. 97 of the Act we cannot agree with the first two points raised by the Attorney General that this Court is unable to grant a stay as requested by the applicants. We are of the view that the Court is empowered, pursuant to both s. 65.1 and r. 27, not only to grant a stay of execution and of proceedings in the traditional sense, but also to make any order that preserves matters between the parties in a state that will prevent prejudice as far as possible pending resolution by the Court of the controversy, so as to enable the Court to render a meaningful and effective judgment. The Court must be able to intervene not only against the direct dictates of the judgment but also against its effects. This means that the Court must have jurisdiction to enjoin conduct on the part of a party in reliance on the judgment which, if carried out, would tend to negate or diminish the effect of the judgment of this Court. In this case, the new regulations constitute conduct under a law that has been declared constitutional by the lower courts.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> This, in our opinion, is the view taken by this Court in Labatt Breweries of Canada Ltd. v. Attorney General of Canada, [1980] 1 S.C.R. 594. The appellant Labatt, in circumstances similar to those in this case, sought to suspend enforcement of regulations which were attacked by it in an action for a declaration that the regulations were inapplicable to Labatt's product. The Federal Court of Appeal reversed a lower court finding in favour of Labatt. Labatt applied for a stay pending an appeal to this Court. Although the parties had apparently agreed to the terms of an order suspending further proceedings, Laskin C.J. dealt with the issue of jurisdiction, an issue that apparently was contested notwithstanding the agreement. The Chief Justice, speaking for the Court, determined that the Court was empowered to make an order suspending the enforcement of the impugned regulation by the Department of Consumer and Corporate Affairs. At page 600, Laskin C.J. responded as follows to arguments advanced on the traditional approach to the power to grant a stay:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> It was contended that the Rule relates to judgments or orders of this Court and not to judgments or orders of the Court appealed from. Its formulation appears to me to be inconsistent with such a limitation. Nor do I think that the position of the respondent that there is no judgment against the appellant to be stayed is a tenable one. Even if it be so, there is certainly an order against the appellant. Moreover, I do not think that the words of Rule 126, authorizing this Court to grant relief against an adverse order, should be read so narrowly as to invite only intervention directly against the order and not against its effect while an appeal against it is pending in this Court. I am of the opinion, therefore, that the appellant is entitled to apply for interlocutory relief against the operation of the order dismissing its declaratory action, and that this Court may grant relief on such terms as may be just. [Emphasis added.]
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> While the above passage appears to answer the submission of the respondents on this motion that Labatt was distinguishable because the Court acted on a consent order, the matter was put beyond doubt by the following additional statement of Laskin C.J. at p. 601: 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> Although I am of the opinion that Rule 126 applies to support the making of an order of the kind here agreed to by counsel for the parties, I would not wish it to be taken that this Court is otherwise without power to prevent proceedings pending before it from being aborted by unilateral action by one of the parties pending final determination of an appeal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Indeed, an examination of the factums filed by the parties to the motion in Labatt reveals that while it was agreed that the dispute would be resolved by an application for a declaration, it was not agreed that pending resolution of the dispute the enforcement of the regulations would be stayed.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In our view, this Court has jurisdiction to grant the relief requested by the applicants. This is the case even if the applicants' requests for relief are for "suspension" of the regulation rather than "exemption" from it. To hold otherwise would be inconsistent with this Court's finding in Manitoba (Attorney General) v. Metropolitan Stores (MTS) Ltd., [1987] 1 S.C.R. 110. In that case, the distinction between "suspension" and "exemption" cases is made only after jurisdiction has been otherwise established and the public interest is being weighed against the interests of the applicant seeking the stay of proceedings. While "suspension" is a power that, as is stressed below, must be exercised sparingly, this is achieved by applying the criteria in Metropolitan Stores strictly and not by a restrictive interpretation of this Court's jurisdiction. Therefore, the final argument of the Attorney General on the issue of jurisdiction also fails.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Finally, if jurisdiction under s. 65.1 of the Act and r. 27 were wanting, we would be prepared to find jurisdiction in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1] s. 24(1) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . A Charter remedy should not be defeated due to a deficiency in the ancillary procedural powers of the Court to preserve the rights of the parties pending a final resolution of constitutional rights.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">V. Grounds for Stay of Proceedings
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The applicants rely upon the following grounds:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:24.4pt"><span style="letter-spacing:
+-.1pt">1.The challenged Tobacco Products Control Regulations, amendment were promulgated pursuant to ss. 9 and 17 of the Tobacco Products Control Act, S.C. 1988, c. 20.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:24.4pt"><span style="letter-spacing:
+-.1pt">2.The applicants have applied to this Court for leave to appeal a judgment of the Quebec Court of Appeal dated January 15, 1993. The Court of Appeal overturned a decision of the Quebec Superior Court declaring certain sections of the Act to be beyond the powers of the Parliament of Canada and an unjustifiable violation of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms .
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:24.4pt"><span style="letter-spacing:
+-.1pt">3.The effect of the new regulations is such that the applicants will be obliged to incur substantial unrecoverable expenses in carrying out a complete redesign of all its packaging before this Court will have ruled on the constitutional validity of the enabling legislation and, if this Court restores the judgment of the Superior Court, will incur the same expenses a second time should they wish to restore their packages to the present design.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:24.4pt"><span style="letter-spacing:
+-.1pt">4.The tests for granting of a stay are met in this case:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:24.4pt"><span style="letter-spacing:
+-.1pt">(i) There is a serious constitutional issue to be determined.
+ <p class="MsoNormal" style="margin-left:92.15pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-92.15pt;line-height:24.4pt">(ii)Compliance with the new regulations will cause irreparable harm.
+ <p class="MsoNormal" style="margin-left:92.15pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-92.15pt;line-height:24.4pt">(iii)The balance of convenience, taking into account the public interest, favours retaining the status quo until this court has disposed of the legal issues.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">VI. Analysis
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The primary issue to be decided on these motions is whether the applicants should be granted the interlocutory relief they seek. The applicants are only entitled to this relief if they can satisfy the test laid down in Manitoba (Attorney General) v. Metropolitan Stores (MTS) Ltd., supra. If not, the applicants will have to comply with the new regulations, at least until such time as a decision is rendered in the main actions.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">A. Interlocutory Injunctions, Stays of Proceedings and the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The applicants ask this Court to delay the legal effect of regulations which have already been enacted and to prevent public authorities from enforcing them. They further seek to be protected from enforcement of the regulations for a 12-month period even if the enabling legislation is eventually found to be constitutionally valid. The relief sought is significant and its effects far reaching. A careful balancing process must be undertaken.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> On one hand, courts must be sensitive to and cautious of making rulings which deprive legislation enacted by elected officials of its effect.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> On the other hand, the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter charges the courts with the responsibility of safeguarding fundamental rights. For the courts to insist rigidly that all legislation be enforced to the letter until the moment that it is struck down as unconstitutional might in some instances be to condone the most blatant violation of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter rights. Such a practice would undermine the spirit and purpose of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter and might encourage a government to prolong unduly final resolution of the dispute.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Are there, then, special considerations or tests which must be applied by the courts when [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter violations are alleged and the interim relief which is sought involves the execution and enforceability of legislation?
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Generally, the same principles should be applied by a court whether the remedy sought is an injunction or a stay. In Metropolitan Stores, at p. 127, Beetz J. expressed the position in these words:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> A stay of proceedings and an interlocutory injunction are remedies of the same nature. In the absence of a different test prescribed by statute, they have sufficient characteristics in common to be governed by the same rules and the courts have rightly tended to apply to the granting of interlocutory stay the principles which they follow with respect to interlocutory injunctions.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> We would add only that here the applicants are requesting both interlocutory (pending disposition of the appeal) and interim (for a period of one year following such disposition) relief. We will use the broader term "interlocutory relief" to describe the hybrid nature of the relief sought. The same principles apply to both forms of relief.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Metropolitan Stores adopted a three-stage test for courts to apply when considering an application for either a stay or an interlocutory injunction. First, a preliminary assessment must be made of the merits of the case to ensure that there is a serious question to be tried. Secondly, it must be determined whether the applicant would suffer irreparable harm if the application were refused. Finally, an assessment must be made as to which of the parties would suffer greater harm from the granting or refusal of the remedy pending a decision on the merits. It may be helpful to consider each aspect of the test and then apply it to the facts presented in these cases.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">B. The Strength of the Plaintiff's Case
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Prior to the decision of the House of Lords in American Cyanamid Co. v. Ethicon Ltd., [1975] A.C. 396, an applicant for interlocutory relief was required to demonstrate a "strong prima facie case" on the merits in order to satisfy the first test. In American Cyanamid, however, Lord Diplock stated that an applicant need no longer demonstrate a strong prima facie case. Rather it would suffice if he or she could satisfy the court that "the claim is not frivolous or vexatious; in other words, that there is a serious question to be tried". The American Cyanamid standard is now generally accepted by the Canadian courts, subject to the occasional reversion to a stricter standard: see Robert J. Sharpe, Injunctions and Specific Performance (2nd ed. 1992), at pp. 2-13 to 2-20.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In Metropolitan Stores, Beetz J. advanced several reasons why the American Cyanamid test rather than any more stringent review of the merits is appropriate in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases. These included the difficulties involved in deciding complex factual and legal issues based upon the limited evidence available in an interlocutory proceeding, the impracticality of undertaking a s. 1 analysis at that stage, and the risk that a tentative determination on the merits would be made in the absence of complete pleadings or prior to the notification of any Attorneys General.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The respondent here raised the possibility that the current status of the main action required the applicants to demonstrate something more than "a serious question to be tried." The respondent relied upon the following dicta of this Court in Laboratoire Pentagone Ltée v. Parke, Davis & Co., [1968] S.C.R. 269, at p. 272:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">The burden upon the appellant is much greater than it would be if the injunction were interlocutory. In such a case the Court must consider the balance of convenience as between the parties, because the matter has not yet come to trial. In the present case we are being asked to suspend the operation of a judgment of the Court of Appeal, delivered after full consideration of the merits. It is not sufficient to justify such an order being made to urge that the impact of the injunction upon the appellant would be greater than the impact of its suspension upon the respondent.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">To the same effect were the comments of Kelly J.A. in Adrian Messenger Services v. The Jockey Club Ltd. (No. 2) (1972), 2 O.R. 619 (C.A.), at p. 620:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> Unlike the situation prevailing before trial, where the competing allegations of the parties are unresolved, on an application for an interim injunction pending an appeal from the dismissal of the action the defendant has a judgment of the Court in its favour. Even conceding the ever-present possibility of the reversal of that judgment on appeal, it will in my view be in a comparatively rare case that the Court will interfere to confer upon a plaintiff, even on an interim basis, the very right to which the trial Court has held he is not entitled.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">And, most recently, of Philp J. in Bear Island Foundation v. Ontario (1989), 70 O.R. (2d) 574 (H.C.), at p. 576:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> While I accept that the issue of title to these lands is a serious issue, it has been resolved by trial and by appeal. The reason for the Supreme Court of Canada granting leave is unknown and will not be known until they hear the appeal and render judgment. There is not before me at this time, therefore, a serious or substantial issue to be tried. It has already been tried and appealed. No attempt to stop harvesting was made by the present plaintiffs before trial, nor before the appeal before the Court of Appeal of Ontario. The issue is no longer an issue at trial.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> According to the respondent, such statements suggest that once a decision has been rendered on the merits at trial, either the burden upon an applicant for interlocutory relief increases, or the applicant can no longer obtain such relief. While it might be possible to distinguish the above authorities on the basis that in the present case the trial judge agreed with the applicant's position, it is not necessary to do so. Whether or not these statements reflect the state of the law in private applications for interlocutory relief, which may well be open to question, they have no application in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The Charter protects fundamental rights and freedoms. The importance of the interests which, the applicants allege, have been adversely affected require every court faced with an alleged [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter violation to review the matter carefully. This is so even when other courts have concluded that no [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter breach has occurred. Furthermore, the complex nature of most constitutional rights means that a motions court will rarely have the time to engage in the requisite extensive analysis of the merits of the applicant's claim. This is true of any application for interlocutory relief whether or not a trial has been conducted. It follows that we are in complete agreement with the conclusion of Beetz J. in Metropolitan Stores, at p. 128, that "the American Cyanamid `serious question' formulation is sufficient in a constitutional case where, as indicated below in these reasons, the public interest is taken into consideration in the balance of convenience."
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> What then are the indicators of "a serious question to be tried"? There are no specific requirements which must be met in order to satisfy this test. The threshold is a low one. The judge on the application must make a preliminary assessment of the merits of the case. The decision of a lower court judge on the merits of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter claim is a relevant but not necessarily conclusive indication that the issues raised in an appeal are serious: see Metropolitan Stores, supra, at p. 150. Similarly, a decision by an appellate court to grant leave on the merits indicates that serious questions are raised, but a refusal of leave in a case which raises the same issues cannot automatically be taken as an indication of the lack of strength of the merits.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Once satisfied that the application is neither vexatious nor frivolous, the motions judge should proceed to consider the second and third tests, even if of the opinion that the plaintiff is unlikely to succeed at trial. A prolonged examination of the merits is generally neither necessary nor desirable.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Two exceptions apply to the general rule that a judge should not engage in an extensive review of the merits. The first arises when the result of the interlocutory motion will in effect amount to a final determination of the action. This will be the case either when the right which the applicant seeks to protect can only be exercised immediately or not at all, or when the result of the application will impose such hardship on one party as to remove any potential benefit from proceeding to trial. Indeed Lord Diplock modified the American Cyanamid principle in such a situation in N.W.L. Ltd. v. Woods, [1979] 1 W.L.R. 1294, at p. 1307:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">Where, however, the grant or refusal of the interlocutory injunction will have the practical effect of putting an end to the action because the harm that will have been already caused to the losing party by its grant or its refusal is complete and of a kind for which money cannot constitute any worthwhile recompense, the degree of likelihood that the plaintiff would have succeeded in establishing his right to an injunction if the action had gone to trial is a factor to be brought into the balance by the judge in weighing the risks that injustice may result from his deciding the application one way rather than the other.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">Cases in which the applicant seeks to restrain picketing may well fall within the scope of this exception. Several cases indicate that this exception is already applied to some extent in Canada.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In Trieger v. Canadian Broadcasting Corp. (1988), 54 D.L.R. (4th) 143 (Ont. H.C.), the leader of the Green Party applied for an interlocutory mandatory injunction allowing him to participate in a party leaders' debate to be televised within a few days of the hearing. The applicant's only real interest was in being permitted to participate in the debate, not in any subsequent declaration of his rights. Campbell J. refused the application, stating at p. 152:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> This is not the sort of relief that should be granted on an interlocutory application of this kind. The legal issues involved are complex and I am not satisfied that the applicant has demonstrated there is a serious issue to be tried in the sense of a case with enough legal merit to justify the extraordinary intervention of this court in making the order sought without any trial at all. [Emphasis added.]
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In Tremblay v. Daigle, [1989] 2 S.C.R. 530, the appellant Daigle was appealing an interlocutory injunction granted by the Quebec Superior Court enjoining her from having an abortion. In view of the advanced state of the appellant's pregnancy, this Court went beyond the issue of whether or not the interlocutory injunction should be discharged and immediately rendered a decision on the merits of the case.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The circumstances in which this exception will apply are rare. When it does, a more extensive review of the merits of the case must be undertaken. Then when the second and third stages of the test are considered and applied the anticipated result on the merits should be borne in mind.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The second exception to the American Cyanamid prohibition on an extensive review of the merits arises when the question of constitutionality presents itself as a simple question of law alone. This was recognized by Beetz J. in Metropolitan Stores, at p. 133:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">There may be rare cases where the question of constitutionality will present itself as a simple question of law alone which can be finally settled by a motion judge. A theoretical example which comes to mind is one where Parliament or a legislature would purport to pass a law imposing the beliefs of a state religion. Such a law would violate [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] s. 2( [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec2] ) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms , could not possibly be saved under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] s. 1 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter and might perhaps be struck down right away; see Attorney General of Quebec v. Quebec Association of Protestant School Boards, [1984] 2 S.C.R. 66, at p. 88. It is trite to say that these cases are exceptional.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">A judge faced with an application which falls within the extremely narrow confines of this second exception need not consider the second or third tests since the existence of irreparable harm or the location of the balance of convenience are irrelevant inasmuch as the constitutional issue is finally determined and a stay is unnecessary.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The suggestion has been made in the private law context that a third exception to the American Cyanamid "serious question to be tried" standard should be recognized in cases where the factual record is largely settled prior to the application being made. Thus in Dialadex Communications Inc. v. Crammond (1987), 34 D.L.R. (4th) 392 (Ont. H.C.), at p. 396, it was held that:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">Where the facts are not substantially in dispute, the plaintiffs must be able to establish a strong prima facie case and must show that they will suffer irreparable harm if the injunction is not granted. If there are facts in dispute, a lesser standard must be met. In that case, the plaintiffs must show that their case is not a frivolous one and there is a substantial question to be tried, and that, on the balance of convenience, an injunction should be granted.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">To the extent that this exception exists at all, it should not be applied in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases. Even if the facts upon which the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter breach is alleged are not in dispute, all of the evidence upon which the s. 1 issue must be decided may not be before the motions court. Furthermore, at this stage an appellate court will not normally have the time to consider even a complete factual record properly. It follows that a motions court should not attempt to undertake the careful analysis required for a consideration of s. 1 in an interlocutory proceeding.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">C. Irreparable Harm
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Beetz J. determined in Metropolitan Stores, at p. 128, that "[t]he second test consists in deciding whether the litigant who seeks the interlocutory injunction would, unless the injunction is granted, suffer irreparable harm". The harm which might be suffered by the respondent, should the relief sought be granted, has been considered by some courts at this stage. We are of the opinion that this is more appropriately dealt with in the third part of the analysis. Any alleged harm to the public interest should also be considered at that stage.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> At this stage the only issue to be decided is whether a refusal to grant relief could so adversely affect the applicants' own interests that the harm could not be remedied if the eventual decision on the merits does not accord with the result of the interlocutory application.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> "Irreparable" refers to the nature of the harm suffered rather than its magnitude. It is harm which either cannot be quantified in monetary terms or which cannot be cured, usually because one party cannot collect damages from the other. Examples of the former include instances where one party will be put out of business by the court's decision (R.L. Crain Inc. v. Hendry (1988), 48 D.L.R. (4th) 228 (Sask. Q.B.)); where one party will suffer permanent market loss or irrevocable damage to its business reputation (American Cyanamid, supra); or where a permanent loss of natural resources will be the result when a challenged activity is not enjoined (MacMillan Bloedel Ltd. v. Mullin, [1985] 3 W.W.R. 577 (B.C.C.A.)). The fact that one party may be impecunious does not automatically determine the application in favour of the other party who will not ultimately be able to collect damages, although it may be a relevant consideration (Hubbard v. Pitt, [1976] Q.B. 142 (C.A.)).
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The assessment of irreparable harm in interlocutory applications involving [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter rights is a task which will often be more difficult than a comparable assessment in a private law application. One reason for this is that the notion of irreparable harm is closely tied to the remedy of damages, but damages are not the primary remedy in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> This Court has on several occasions accepted the principle that damages may be awarded for a breach of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter rights: (see, for example, Mills v. The Queen, [1986] 1 S.C.R. 863, at pp. 883, 886, 943 and 971; Nelles v. Ontario, [1989] 2 S.C.R. 170, at p. 196). However, no body of jurisprudence has yet developed in respect of the principles which might govern the award of damages under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec24subsec1] s. 24(1) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . In light of the uncertain state of the law regarding the award of damages for a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter breach, it will in most cases be impossible for a judge on an interlocutory application to determine whether adequate compensation could ever be obtained at trial. Therefore, until the law in this area has developed further, it is appropriate to assume that the financial damage which will be suffered by an applicant following a refusal of relief, even though capable of quantification, constitutes irreparable harm.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">D. The Balance of Inconvenience and Public Interest Considerations
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The third test to be applied in an application for interlocutory relief was described by Beetz J. in Metropolitan Stores at p. 129 as: "a determination of which of the two parties will suffer the greater harm from the granting or refusal of an interlocutory injunction, pending a decision on the merits". In light of the relatively low threshold of the first test and the difficulties in applying the test of irreparable harm in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases, many interlocutory proceedings will be determined at this stage.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The factors which must be considered in assessing the "balance of inconvenience" are numerous and will vary in each individual case. In American Cyanamid, Lord Diplock cautioned, at p. 408, that:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">[i]t would be unwise to attempt even to list all the various matters which may need to be taken into consideration in deciding where the balance lies, let alone to suggest the relative weight to be attached to them. These will vary from case to case.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">He added, at p. 409, that "there may be many other special factors to be taken into consideration in the particular circumstances of individual cases."
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The decision in Metropolitan Stores, at p. 149, made clear that in all constitutional cases the public interest is a `special factor' which must be considered in assessing where the balance of convenience lies and which must be "given the weight it should carry." This was the approach properly followed by Blair J. of the General Division of the Ontario Court in Ainsley Financial Corp. v. Ontario Securities Commission (1993), 14 O.R. (3d) 280, at pp. 303-4:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> Interlocutory injunctions involving a challenge to the constitutional validity of legislation or to the authority of a law enforcement agency stand on a different footing than ordinary cases involving claims for such relief as between private litigants. The interests of the public, which the agency is created to protect, must be taken into account and weighed in the balance, along with the interests of the private litigants.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 1. The Public Interest
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Some general guidelines as to the methods to be used in assessing the balance of inconvenience were elaborated by Beetz J. in Metropolitan Stores. A few additional points may be made. It is the "polycentric" nature of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter which requires a consideration of the public interest in determining the balance of convenience: see Jamie Cassels, "An Inconvenient Balance: The Injunction as a Charter Remedy", in J. Berryman, ed., Remedies: Issues and Perspectives, 1991, 271, at pp. 301-5. However, the government does not have a monopoly on the public interest. As Cassels points out at p. 303:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> While it is of utmost importance to consider the public interest in the balance of convenience, the public interest in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter litigation is not unequivocal or asymmetrical in the way suggested in Metropolitan Stores. The Attorney General is not the exclusive representative of a monolithic "public" in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter disputes, nor does the applicant always represent only an individualized claim. Most often, the applicant can also claim to represent one vision of the "public interest". Similarly, the public interest may not always gravitate in favour of enforcement of existing legislation.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> It is, we think, appropriate that it be open to both parties in an interlocutory [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter proceeding to rely upon considerations of the public interest. Each party is entitled to make the court aware of the damage it might suffer prior to a decision on the merits. In addition, either the applicant or the respondent may tip the scales of convenience in its favour by demonstrating to the court a compelling public interest in the granting or refusal of the relief sought. "Public interest" includes both the concerns of society generally and the particular interests of identifiable groups.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> We would therefore reject an approach which excludes consideration of any harm not directly suffered by a party to the application. Such was the position taken by the trial judge in Morgentaler v. Ackroyd (1983), 150 D.L.R. (3d) 59 (Ont. H.C.), per Linden J., at p. 66. 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> The applicants rested their argument mainly on the irreparable loss to their potential women patients, who would be unable to secure abortions if the clinic is not allowed to perform them. Even if it were established that these women would suffer irreparable harm, such evidence would not indicate any irreparable harm to these applicants, which would warrant this court issuing an injunction at their behest. [Emphasis in original.]
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> When a private applicant alleges that the public interest is at risk that harm must be demonstrated. This is since private applicants are normally presumed to be pursuing their own interests rather than those of the public at large. In considering the balance of convenience and the public interest, it does not assist an applicant to claim that a given government authority does not represent the public interest. Rather, the applicant must convince the court of the public interest benefits which will flow from the granting of the relief sought.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Courts have addressed the issue of the harm to the public interest which can be relied upon by a public authority in different ways. On the one hand is the view expressed by the Federal Court of Appeal in Attorney General of Canada v. Fishing Vessel Owners' Association of B.C., [1985] 1 F.C. 791, which overturned the trial judge's issuance of an injunction restraining Fisheries Officers from implementing a fishing plan adopted under the Fisheries Act, R.S.C. 1970, c. F-14, for several reasons, including, at p. 795:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt">(b) the Judge assumed that the grant of the injunction would not cause any damage to the appellants. This was wrong. When a public authority is prevented from exercising its statutory powers, it can be said, in a case like the present one, that the public interest, of which that authority is the guardian, suffers irreparable harm.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">This dictum received the guarded approval of Beetz J. in Metropolitan Stores at p. 139. It was applied by the Trial Division of the Federal Court in Esquimalt Anglers' Association v. Canada (Minister of Fisheries and Oceans) (1988), 21 F.T.R. 304.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> A contrary view was expressed by McQuaid J.A. of the P.E.I. Court of Appeal in Island Telephone Co. Re, (1987), 67 Nfld. & P.E.I.R. 158, who, in granting a stay of an order of the Public Utilities Commission pending appeal, stated at p. 164:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:24.4pt"><span style="letter-spacing:
+-.1pt">I can see no circumstances whatsoever under which the Commission itself could be inconvenienced by a stay pending appeal. As a regulatory body, it has no vested interest, as such, in the outcome of the appeal. In fact, it is not inconceivable that it should welcome any appeal which goes especially to its jurisdiction, for thereby it is provided with clear guidelines for the future, in situations where doubt may have therefore existed. The public interest is equally well served, in the same sense, by any appeal. . . .
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In our view, the concept of inconvenience should be widely construed in [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases. In the case of a public authority, the onus of demonstrating irreparable harm to the public interest is less than that of a private applicant. This is partly a function of the nature of the public authority and partly a function of the action sought to be enjoined. The test will nearly always be satisfied simply upon proof that the authority is charged with the duty of promoting or protecting the public interest and upon some indication that the impugned legislation, regulation, or activity was undertaken pursuant to that responsibility. Once these minimal requirements have been met, the court should in most cases assume that irreparable harm to the public interest would result from the restraint of that action.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> A court should not, as a general rule, attempt to ascertain whether actual harm would result from the restraint sought. To do so would in effect require judicial inquiry into whether the government is governing well, since it implies the possibility that the government action does not have the effect of promoting the public interest and that the restraint of the action would therefore not harm the public interest. The Charter does not give the courts a licence to evaluate the effectiveness of government action, but only to restrain it where it encroaches upon fundamental rights.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Consideration of the public interest may also be influenced by other factors. In Metropolitan Stores, it was observed that public interest considerations will weigh more heavily in a "suspension" case than in an "exemption" case. The reason for this is that the public interest is much less likely to be detrimentally affected when a discrete and limited number of applicants are exempted from the application of certain provisions of a law than when[LINK #_ftn1] * the application of the law is suspended entirely. See Black v. Law Society of Alberta (1983), 144 D.L.R. (3d) 439; Vancouver General Hospital v. Stoffman (1985), 23 D.L.R. (4th) 146; Rio Hotel Ltd. v. Commission des licences et permis d'alcool, [1986] 2 S.C.R. ix.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Similarly, even in suspension cases, a court may be able to provide some relief if it can sufficiently limit the scope of the applicant's request for relief so that the general public interest in the continued application of the law is not affected. Thus in Ontario Jockey Club v. Smith (1922), 22 O.W.N. 373 (H.C.), the court restrained the enforcement of an impugned taxation statute against the applicant but ordered him to pay an amount equivalent to the tax into court pending the disposition of the main action.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 2. The Status Quo
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> In the course of discussing the balance of convenience in American Cyanamid, Lord Diplock stated at p. 408 that when everything else is equal, "it is a counsel of prudence to ... preserve the status quo." This approach would seem to be of limited value in private law cases, and, although there may be exceptions, as a general rule it has no merit as such in the face of the alleged violation of fundamental rights. One of the functions of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter is to provide individuals with a tool to challenge the existing order of things or status quo. The issues have to be balanced in the manner described in these reasons.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">E. Summary
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> It may be helpful at this stage to review the factors to be considered on an application for interlocutory relief in a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter case.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> As indicated in Metropolitan Stores, the three-part American Cyanamid test should be applied to applications for interlocutory injunctions and as well for stays in both private law and [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter cases.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> At the first stage, an applicant for interlocutory relief in a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter case must demonstrate a serious question to be tried. Whether the test has been satisfied should be determined by a motions judge on the basis of common sense and an extremely limited review of the case on the merits. The fact that an appellate court has granted leave in the main action is, of course, a relevant and weighty consideration, as is any judgment on the merits which has been rendered, although neither is necessarily conclusive of the matter. A motions court should only go beyond a preliminary investigation of the merits when the result of the interlocutory motion will in effect amount to a final determination of the action, or when the constitutionality of a challenged statute can be determined as a pure question of law. Instances of this sort will be exceedingly rare. Unless the case on the merits is frivolous or vexatious, or the constitutionality of the statute is a pure question of law, a judge on a motion for relief must, as a general rule, consider the second and third stages of the Metropolitan Stores test.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> At the second stage the applicant must convince the court that it will suffer irreparable harm if the relief is not granted. `Irreparable' refers to the nature of the harm rather than its magnitude. In Charter cases, even quantifiable financial loss relied upon by an applicant may be considered irreparable harm so long as it is unclear that such loss could be recovered at the time of a decision on the merits.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The third branch of the test, requiring an assessment of the balance of inconvenience, will often determine the result in applications involving [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter rights. In addition to the damage each party alleges it will suffer, the interest of the public must be taken into account. The effect a decision on the application will have upon the public interest may be relied upon by either party. These public interest considerations will carry less weight in exemption cases than in suspension cases. When the nature and declared purpose of legislation is to promote the public interest, a motions court should not be concerned whether the legislation actually has such an effect. It must be assumed to do so. In order to overcome the assumed benefit to the public interest arising from the continued application of the legislation, the applicant who relies on the public interest must demonstrate that the suspension of the legislation would itself provide a public benefit.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> We would add to this brief summary that, as a general rule, the same principles would apply when a government authority is the applicant in a motion for interlocutory relief. However, the issue of public interest, as an aspect of irreparable harm to the interests of the government, will be considered in the second stage. It will again be considered in the third stage when harm to the applicant is balanced with harm to the respondent including any harm to the public interest established by the latter. 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">VII. Application of the Principles to these Cases
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">A. A Serious Question to be Tried
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The applicants contend that these cases raise several serious issues to be tried. Among these is the question of the application of the rational connection and the minimal impairment tests in order to justify the infringement upon freedom of expression occasioned by a blanket ban on tobacco advertising. On this issue, Chabot J. of the Quebec Superior Court and Brossard J.A. in dissent in the Court of Appeal held that the government had not satisfied these tests and that the ban could not be justified under [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec1] s. 1 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . The majority of the Court of Appeal held that the ban was justified. The conflict in the reasons arises from different interpretations of the extent to which recent jurisprudence has relaxed the onus fixed upon the state in R. v. Oakes, [1986] 1 S.C.R. 103, to justify its action in public welfare initiatives. This Court has granted leave to hear the appeals on the merits. When faced with separate motions for interlocutory relief pertaining to these cases, the Quebec Court of Appeal stated that "[w]hatever the outcome of these appeals, they clearly raise serious constitutional issues." This observation of the Quebec Court of Appeal and the decision to grant leaves to appeal clearly indicate that these cases raise serious questions of law.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">B. Irreparable Harm
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The applicants allege that if they are not granted interlocutory relief they will be forced to spend very large sums of money immediately in order to comply with the regulations. In the event that their appeals are allowed by this Court, the applicants contend that they will not be able either to recover their costs from the government or to revert to their current packaging practices without again incurring the same expense.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Monetary loss of this nature will not usually amount to irreparable harm in private law cases. Where the government is the unsuccessful party in a constitutional claim, however, a plaintiff will face a much more difficult task in establishing constitutional liability and obtaining monetary redress. The expenditures which the new regulations require will therefore impose irreparable harm on the applicants if these motions are denied but the main actions are successful on appeal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt">C. Balance of Inconvenience
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Among the factors which must be considered in order to determine whether the granting or withholding of interlocutory relief would occasion greater inconvenience are the nature of the relief sought and of the harm which the parties contend they will suffer, the nature of the legislation which is under attack, and where the public interest lies.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The losses which the applicants would suffer should relief be denied are strictly financial in nature. The required expenditure is significant and would undoubtedly impose considerable economic hardship on the two companies. Nonetheless, as pointed out by the respondent, the applicants are large and very successful corporations, each with annual earnings well in excess of $50,000,000. They have a greater capacity to absorb any loss than would many smaller enterprises. Secondarily, assuming that the demand for cigarettes is not solely a function of price, the companies may also be able to pass on some of their losses to their customers in the form of price increases. Therefore, although the harm suffered may be irreparable, it will not affect the long-term viability of the applicants.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Second, the applicants are two companies who seek to be exempted from compliance with the latest regulations published under the Tobacco Products Control Act. On the face of the matter, this case appears to be an "exemption case" as that phrase was used by Beetz J. in Metropolitan Stores. However, since there are only three tobacco producing companies operating in Canada, the application really is in the nature of a "suspension case". The applicants admitted in argument that they were in effect seeking to suspend the application of the new regulations to all tobacco producing companies in Canada for a period of one year following the judgment of this Court on the merits. The result of these motions will therefore affect the whole of the Canadian tobacco producing industry. Further, the impugned provisions are broad in nature. Thus it is appropriate to classify these applications as suspension cases and therefore ones in which "the public interest normally carries greater weight in favour of compliance with existing legislation".
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The weight accorded to public interest concerns is partly a function of the nature of legislation generally, and partly a function of the purposes of the specific piece of legislation under attack. As Beetz J. explained, at p. 135, in Metropolitan Stores:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> Whether or not they are ultimately held to be constitutional, the laws which litigants seek to suspend or from which they seek to be exempted by way of interlocutory injunctive relief have been enacted by democratically-elected legislatures and are generally passed for the common good, for instance: ... the protection of public health ... . It seems axiomatic that the granting of interlocutory injunctive relief in most suspension cases and, up to a point, as will be seen later, in quite a few exemption cases, is susceptible temporarily to frustrate the pursuit of the common good. [Emphasis added.]
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The regulations under attack were adopted pursuant to s. 3 of the Tobacco Products Control Act which states:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"> 3.<span style="letter-spacing:
+-.1pt"> The purpose of this Act is to provide a legislative response to a national public health problem of substantial and pressing concern and, in particular,
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-78.45pt;line-height:12.2pt">(a) to protect the health of Canadians in the light of conclusive evidence implicating tobacco use in the incidence of numerous debilitating and fatal diseases;
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-78.45pt;line-height:12.2pt">(b) to protect young persons and others, to the extent that is reasonable in a free and democratic society, from inducements to use tobacco products and consequent dependence on them; and
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt"> 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-78.45pt;line-height:12.2pt">(c) to enhance public awareness of the hazards of tobacco use by ensuring the effective communication of pertinent information to consumers of tobacco products.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The Regulatory Impact Analysis Statement, in the Canada Gazette, Part II, Vol. 127, No. 16, p. 3284, at p. 3285, which accompanied the regulations stated:
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="margin-left:.8in;text-align:justify;text-justify:
+inter-ideograph;text-indent:-.8in;line-height:12.2pt"><span style="letter-spacing:
+-.1pt"> The increased number and revised format of the health messages reflect the strong consensus of the public health community that the serious health hazards of using these products be more fully and effectively communicated to consumers. Support for these changes has been manifested by hundreds of letters and a number of submissions by public health groups highly critical of the initial regulatory requirements under this legislation as well as a number of Departmental studies indicating their need.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> These are clear indications that the government passed the regulations with the intention of protecting public health and thereby furthering the public good. Further, both parties agree that past studies have shown that health warnings on tobacco product packages do have some effects in terms of increasing public awareness of the dangers of smoking and in reducing the overall incidence of smoking in our society. The applicants, however, argued strenuously that the government has not shown and cannot show that the specific requirements imposed by the impugned regulations have any positive public benefits. We do not think that such an argument assists the applicants at this interlocutory stage.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> When the government declares that it is passing legislation in order to protect and promote public health and it is shown that the restraints which it seeks to place upon an industry are of the same nature as those which in the past have had positive public benefits, it is not for a court on an interlocutory motion to assess the actual benefits which will result from the specific terms of the legislation. That is particularly so in this case, where this very matter is one of the main issues to be resolved in the appeal. Rather, it is for the applicants to offset these public interest considerations by demonstrating a more compelling public interest in suspending the application of the legislation.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The applicants in these cases made no attempt to argue any public interest in the continued application of current packaging requirements rather than the new requirements. The only possible public interest is that of smokers' not having the price of a package of cigarettes increase. Such an increase is not likely to be excessive and is purely economic in nature. Therefore, any public interest in maintaining the current price of tobacco products cannot carry much weight. This is particularly so when it is balanced against the undeniable importance of the public interest in health and in the prevention of the widespread and serious medical problems directly attributable to smoking.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> The balance of inconvenience weighs strongly in favour of the respondent and is not offset by the irreparable harm that the applicants may suffer if relief is denied. The public interest in health is of such compelling importance that the applications for a stay must be dismissed with costs to the successful party on the appeal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Applications dismissed.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Solicitors for the applicant RJR – MacDonald Inc.: Mackenzie, Gervais, Montreal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Solicitors for the applicant Imperial Tobacco Inc.: Ogilvy, Renault, Montreal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Solicitors for the respondent: Côté & Ouellet, Montreal.
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> 
+ <p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:24.4pt"> Solicitors for the interveners on the application for interlocutory relief Heart and Stroke Foundation of Canada, the Canadian Cancer Society, the Canadian Council on Smoking and Health, and Physicians for a Smoke-Free Canada: McCarthy, Tétrault, Toronto.
+ <p class="MsoFootnoteText" style="margin-top:0in;margin-right:-.5in;margin-bottom:
+12.0pt;margin-left:-.25in;text-align:justify;text-justify:inter-ideograph;
+line-height:12.2pt">[LINK #_ftnref1] <span style="font-size:10.0pt;letter-spacing:-.1pt;
+vertical-align:baseline"> * See Erratum, [1994] 1 S.C.R. iv
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

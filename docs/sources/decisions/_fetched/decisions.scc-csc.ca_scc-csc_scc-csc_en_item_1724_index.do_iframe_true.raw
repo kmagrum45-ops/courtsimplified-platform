@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1724/index.do" />
+    <title>    British Columbia (Public Service Employee Relations Commission) v. BCGSEU - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/1724/1771650/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">British Columbia (Public Service Employee Relations Commission) v. BCGSEU</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">British Columbia (Public Service Employee Relations Commission) v. BCGSEU</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/1724/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">British Columbia (Public Service Employee Relations Commission) v. BCGSEU</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                1999-09-09
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [1999] 3 SCR 3
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                26274
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                Lamer, Antonio; L&#39;Heureux-Dubé, Claire; Gonthier, Charles Doherty; Cory, Peter deCarteret; McLachlin, Beverley; Iacobucci, Frank; Major, John C.; Bastarache, Michel; Binnie, William Ian Corneil
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                British Columbia
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Constitutional law<br/>
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/26274/">26274</a>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1724/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"><div class="Section1">
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">British Columbia (Public Service Employee Relations Commission) <i>v.</i> BCGSEU, [1999] 3 S.C.R. 3 </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">The British Columbia Government and Service </span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">Employees’ Union</span></b><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Appellant</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB">v.</span></i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">The Government of the Province of British Columbia</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">as represented by the Public Service Employee </span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">Relations Commission</span></b><span lang="EN-GB"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Respondent</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">and</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">The British Columbia Human Rights Commission, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">the Women’s Legal Education and Action Fund, </span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><b><span lang="EN-GB">the DisAbled Women’s Network of Canada</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">and the Canadian Labour Congress</span></b><span lang="EN-GB"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Interveners</i></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">Indexed as:&nbsp;&nbsp;British Columbia (Public Service Employee Relations Commission) <i>v.</i> BCGSEU</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">File No.:&nbsp;&nbsp;26274.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">1999:&nbsp; February&nbsp;22; 1999:&nbsp;&nbsp;September&nbsp;9.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">Present:&nbsp;&nbsp;Lamer C.J. and L’Heureux-Dubé, Gonthier, Cory, McLachlin, Iacobucci, Major, Bastarache and Binnie JJ.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">on appeal from the court of appeal for british columbia</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section2"></div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section3">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><i><span lang="EN-GB">Civil rights -- Sex -- Employment -- Adverse effect discrimination -- Forest firefighters -- Women having more difficulty passing fitness test owing to physiological differences -- Whether fitness test a bona fide occupational requirement -- Test to be applied -- Human Rights Code, R.S.B.C. 1996, c.&nbsp;210, s.&nbsp;13(1)(a), (b), (4).</span></i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">The British Columbia government established minimum physical fitness standards for its forest firefighters.&nbsp; One of the standards was an aerobic standard.&nbsp; The claimant, a female firefighter who had in the past performed her work satisfactorily, failed to meet the aerobic standard after four attempts and was dismissed.&nbsp; The claimant’s union brought a grievance on her behalf.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">Evidence accepted by the arbitrator designated to hear the grievance demonstrated that, owing to physiological differences, most women have a lower aerobic capacity than most men and that, unlike most men, most women cannot increase their aerobic capacity enough with training to meet the aerobic standard.&nbsp; No credible evidence showed that the prescribed aerobic capacity was necessary for either men or women to perform the work of a forest firefighter safely and efficiently.&nbsp; The arbitrator found that the claimant had established a <i>prima facie</i> case of adverse effect discrimination and that the Government had not discharged its burden of showing that it had accommodated the claimant to the point of undue hardship.&nbsp; The Court of Appeal allowed an appeal from that decision.&nbsp; The narrow issue here was whether the Government improperly dismissed the claimant.&nbsp; The broader legal issue, however, was whether the aerobic standard that led to her dismissal unfairly excluded women from forest firefighting jobs.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt;page-break-after:avoid"><i><span lang="EN-GB">Held</span></i><span lang="EN-GB">:&nbsp; The appeal should be allowed.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section4">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">The conventional approach of categorizing discrimination as “direct” or “adverse effect” discrimination should be replaced by a unified approach for several reasons.&nbsp; First, the distinction between a standard that is discriminatory on its face and a neutral standard that is discriminatory in its effect is difficult to justify:&nbsp; few cases can be so neatly characterized.&nbsp; Second, it is disconcerting that different remedies are available depending on the stream into which a malleable initial inquiry shunts the analysis.&nbsp; Third, the assumption that leaving an ostensibly neutral standard in place is&nbsp; appropriate so long as its adverse effects are felt only by a numerical minority is questionable:&nbsp; the standard itself is discriminatory because it treats some individuals differently from others on the basis of a prohibited ground, the size of the “affected group” is easily manipulable, and the affected group can actually constitute a majority of the workforce.&nbsp; Fourth, the distinctions between the elements an employer must establish to rebut a <i>prima facie</i> case of direct or adverse effect discrimination are difficult to apply in practice.&nbsp; Fifth, the conventional analysis may serve to legitimize systemic discrimination.&nbsp; Sixth, a bifurcated approach may compromise both the broad purposes and the specific terms of the <i>Human Rights Code</i>.&nbsp; Finally, the focus by the conventional analysis on the mode of discrimination differs in substance from the approach taken to <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15subsec1" target="_blank">s.&nbsp;15(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Canadian Charter of Rights and Freedoms<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section5">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">A three-step test should be adopted for determining whether an employer has established, on a balance of probabilities, that a <i>prima facie</i> discriminatory standard is a <i>bona fide</i> occupational requirement (BFOR).&nbsp; First, the employer must show that it adopted the standard for a purpose rationally connected to the performance of the job.&nbsp; The focus at the first step is not on the validity of the particular standard, but rather on the validity of its more general purpose.&nbsp; Second, the employer must establish that it adopted the particular standard in an honest and good faith belief that it was necessary to the fulfilment of that legitimate work-related purpose.&nbsp; Third, the employer must establish that the standard is reasonably necessary to the accomplishment of that legitimate work-related purpose.&nbsp; To show that the standard is reasonably necessary, it must be demonstrated that it is impossible to accommodate individual employees sharing the characteristics of the claimant without imposing undue hardship upon the employer.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">It may often be useful to consider separately, first, the procedures, if any, which were adopted to assess the<i> </i>issue<i> </i>of accommodation and, second, the substantive content of either a more accommodating standard which was offered or alternatively the employer’s reasons for not offering any such standard. </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">Here, the claimant having established a <i>prima facie</i> case of discrimination, the burden shifts to the Government to demonstrate that the aerobic standard is a BFOR.&nbsp; The Government has satisfied the first two steps of the BFOR analysis.&nbsp; However, the Government failed to demonstrate that this particular aerobic standard is reasonably necessary to identify those persons who are able to perform the tasks of a forest firefighter safely and efficiently.&nbsp; The Government has not established that it would experience undue hardship if a different standard were used.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">The procedures adopted by the researchers who developed the aerobic standard were problematic on two levels.&nbsp; First, their approach was primarily a descriptive one.&nbsp; However, merely describing the characteristics of a test subject does not necessarily allow one to identify the standard minimally required for the safe and efficient performance of the job.&nbsp; Second, the studies failed to distinguish the female test subjects from the male test subjects, who constituted the majority of the sample groups.&nbsp; The record therefore did not permit a decision as to whether men and women require the same minimum level of aerobic capacity to perform a forest firefighter’s tasks safely and efficiently.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section6">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><span lang="EN-GB">Assuming that the Government had properly addressed the question of accommodation in a procedural sense, its response that it would experience undue hardship if it had to accommodate the claimant is deficient from a substantive perspective.&nbsp; There is no reason to interfere with the arbitrator’s holding that the evidence fell well short of establishing that the claimant posed a serious safety risk to herself, her colleagues, or the general public.&nbsp; The Government also claimed that accommodating the claimant would undermine the morale of the workforce.&nbsp; However, the attitudes of those who seek to maintain a discriminatory practice cannot be determinative of whether the employer has accommodated the claimant to the point of undue hardship.&nbsp; If it were possible to perform the tasks of a forest firefighter safely and efficiently without meeting the aerobic standard, the rights of other forest firefighters would not be affected by allowing the claimant to continue performing her job.&nbsp; The order of the arbitrator reinstating the claimant to her former position and compensating her for lost wages and benefits was restored. </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB">Cases Cited</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section7">
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt"><b><span lang="EN-GB">Referred to:</span></b><span lang="EN-GB">&nbsp; <i>Ontario Human Rights Commission and O’Malley v. Simpsons-Sears Ltd.</i>, [1985] 2 S.C.R. 536; <i>Ontario (Human Rights Commission) v. Borough of Etobicoke</i>, [1982] 1 S.C.R. 202; <i>Caldwell v. Stuart</i>, [1984] 2 S.C.R. 603; <i>Brossard (Town) v. Quebec (Commission des droits de la personne)</i>, [1988] 2 S.C.R. 279; <i>Central Alberta Dairy Pool v. Alberta (Human Rights Commission)</i>,<i> </i>[1990] 2 S.C.R. 489; <i>Saskatchewan (Human Rights Commission) v. Saskatoon (City)</i>, [1989] 2 S.C.R. 1297; <i>Large v. Stratford (City)</i>, [1995] 3 S.C.R. 733; <i>Canada (Human Rights Commission) v. Toronto-Dominion Bank</i>, [1998] 4 F.C. 205; <i>Canada (Human Rights Commission) v. Taylor</i>, [1990] 3 S.C.R. 892; <i>Griggs v. Duke Power Co.</i>, 401 U.S. 424 (1971); <i>Commission scolaire régionale de Chambly v. Bergevin</i>, [1994] 2 S.C.R. 525; <i>Law v. Canada (Minister of Employment and Immigration)</i>, [1999] 1 S.C.R. 497; <i>Canada (Attorney General) v. Levac</i>, [1992] 3 F.C. 463; <i>Large v. Stratford (City)</i> (1992), 92 D.L.R. (4th) 565; <i>Saran v. Delta Cedar Products Ltd.</i>, [1995] B.C.C.H.R.D. No. 3 (QL); <i>Grismer v. British Columbia (Attorney General)</i> (1994), 25 C.H.R.R. D/296; <i>Thwaites v. Canada (Armed Forces)</i> (1993), 19 C.H.R.R. D/259;<i> Canadian National Railway Co. v. Canada (Canadian Human Rights Commission)</i>, [1987] 1 S.C.R. 1114; <i>Insurance Corp. of British Columbia v. Heerspink</i>, [1982] 2 S.C.R. 145; <i>Zurich Insurance Co. v. Ontario (Human Rights Commission)</i>, [1992] 2 S.C.R. 321; <i>Robichaud v. Canada (Treasury Board)</i>, [1987] 2 S.C.R. 84; <i>Andrews v. Law Society of British Columbia</i>, [1989] 1 S.C.R. 143;<i> Eldridge v. British Columbia (Attorney General)</i>, [1997] 3 S.C.R. 624; <i>Bhinder v. Canadian National Railway Co.</i>, [1985] 2 S.C.R. 561; <i>Central Okanagan School District No. 23 v. Renaud</i>, [1992] 2 S.C.R. 970; <i>R. v. Cranston</i>, [1997] C.H.R.D. No. 1 (QL).</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><b><span lang="EN-GB">Statutes and Regulations Cited</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt;page-break-after:
+avoid"><i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15subsec1" target="_blank">Canadian Charter of Rights and Freedoms<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span></i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15subsec1" target="_blank">, s. 15(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span><span lang="EN-GB">.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt;page-break-after:
+avoid"><i><span lang="EN-GB">&nbsp;</span></i></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt;page-break-after:avoid"><i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-h-6-en#!fragment/sec15subsec2" target="_blank">Canadian Human Rights Act<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span></i><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-h-6-en#!fragment/sec15subsec2" target="_blank">, R.S.C., 1985, c.&nbsp;H-6<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB"><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-h-6-en#!fragment/sec15subsec2" target="_blank">, s.&nbsp;15(2)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></span><span lang="EN-GB"> [am. 1998, c.&nbsp;9, s. 10]. </span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt;page-break-after:
+avoid"><i><span lang="EN-GB">&nbsp;</span></i></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt;page-break-after:avoid"><i><span lang="EN-GB">Human Rights Act</span></i><span lang="EN-GB">, S.Y. 1987, c. 3, s.&nbsp;7.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="EN-GB">Human Rights Code</span></i><span lang="EN-GB">, R.S.B.C. 1996, c.&nbsp;210</span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB">, ss.&nbsp;3</span><span lang="EN-GB">, 13(1)(a), (b), (4).</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt"><i><span lang="EN-GB">Human Rights Code</span></i><span lang="EN-GB">, R.S.O. 1990, c.&nbsp;H.19</span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB">, s. 24(2)</span><span lang="EN-GB">.</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt"><i><span lang="EN-GB">Human Rights Code</span></i><span lang="EN-GB">, S.M. 1987-88, c.&nbsp;45</span><span lang="EN-GB"></span><span lang="EN-GB"></span><span lang="EN-GB">, s.&nbsp;12</span><span lang="EN-GB">.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="EN-GB">Authors Cited</span></b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Canada.&nbsp; Canadian Human Rights Commission.&nbsp; <i>The Effects of the Bhinder Decision on the Canadian Human Rights Commission: A Special Report to Parliament</i>.&nbsp; Ottawa: The Commission, 1986.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section8">
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Crane, M. C.&nbsp; “Human Rights, <i>Bona Fide</i> Occupational Requirements and the Duty to Accommodate:&nbsp; Semantics or Substance?” (1996), 4 <i>C.L.E.L.J.</i> 209.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Day, Shelagh, and Gwen Brodsky.&nbsp; “The Duty to Accommodate:&nbsp; Who Will Benefit?” (1996), 75 <i>Can. Bar Rev</i>. 433.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Etherington, Brian.&nbsp; “Central Alberta Dairy Pool:&nbsp; The Supreme Court of Canada’s Latest Word on the Duty to Accommodate” (1993), 1<i> Can. Lab. L.J</i>. 311.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Lepofsky, M. David.&nbsp; “The Duty to Accommodate:&nbsp; A Purposive Approach” (1993), 1 <i>Can. Lab. L.J.</i> 1.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">McKenna, Ian B. “Legal Rights for Persons with Disabilities in Canada:&nbsp; Can the Impasse Be Resolved?” (1997-98), 29 <i>Ottawa L. Rev.</i> 153.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Messing, Karen. <i>One-Eyed Science:&nbsp; Occupational Health and Women Workers</i>.&nbsp; Philadelphia:&nbsp; Temple University Press, 1998.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Messing, Karen, and Joan Stevenson. “Women in Procrustean Beds:&nbsp; Strength Testing and the Workplace” (1996), 3 <i>Gender, Work and Organization</i> 156.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Molloy, Anne M.&nbsp; “Disability and the Duty to Accommodate” (1993), 1 <i>Can. Lab. L.J</i>. 23.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Pentney, William.&nbsp; “Belonging:&nbsp; The Promise of Community -- Continuity and Change in Equality Law 1995-96” (1996), 25 C.H.R.R. C/6.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Phillips, Paul, and Erin Phillips.&nbsp; <i>Women and Work:&nbsp; Inequality in the Canadian Labour Market</i>, rev. ed.&nbsp;&nbsp; Toronto:&nbsp; James Lorimer &amp; Co., 1993.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Watkin, Kenneth.&nbsp; “The Justification of Discrimination under Canadian Human Rights Legislation and the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>:&nbsp; Why So Many Tests?” (1993), 2 <i>N.J.C.L. </i>63.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt"><span lang="EN-GB">Yalden, Maxwell F.&nbsp; “The Duty to Accommodate -- A View from the Canadian Human Rights Commission” (1993), 1 <i>Can. Lab. L.J</i>. 283.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt"><span lang="EN-GB">APPEAL from a judgment of the British Columbia Court of Appeal (1997), 37 B.C.L.R. (3d) 317, 94 B.C.A.C. 292, 152 W.A.C. 292, 149 D.L.R. (4th) 261, [1997] 9 W.W.R. 759, 30 C.H.R.R. D/83, [1997] B.C.J. No. 1630 (QL), allowing an appeal from a decision of a Labour Arbitration Board (1996), 58 L.A.C. (4th) 159, allowing a grievance and reinstating the employee with full compensation.&nbsp; Appeal allowed.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt"><i><span lang="EN-GB">Kenneth R. Curry</span></i><span lang="EN-GB">, <i>Gwen Brodsky</i>, <i>John Brewin</i> and <i>Michelle Alman</i>, for the appellant.</span></p>
+</div> <span lang="EN-GB" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section9">
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt"><i><span lang="EN-GB">Peter A. Gall</span></i><span lang="EN-GB">, <i>Lindsay M. Lyster</i> and <i>Janine Benedet</i>, for the respondent.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt"><i><span lang="EN-GB">Deirdre A. Rice</span></i><span lang="EN-GB">, for the intervener the British Columbia Human Rights Commission.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt"><i><span lang="EN-GB">Kate A. Hughes</span></i><span lang="EN-GB"> and <i>Melina Buckley</i>, for the interveners the Women’s Legal Education and Action Fund, the DisAbled Women’s Network of Canada and the Canadian Labour Congress.</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt"><span lang="EN-GB">The judgment of the Court was delivered by</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt"><span lang="EN-GB" style="text-transform:uppercase">McLachlin J.</span><span lang="EN-GB"> --</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">I.&nbsp;&nbsp;&nbsp;&nbsp; <u>Introduction</u></span></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="EN-GB">&nbsp;</span></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">1<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Seven years ago Tawney Meiorin was hired as a forest firefighter by the Province of British Columbia (the “Government”).&nbsp; Although she did her work well,&nbsp; she lost her job three years later when the Government adopted a new series of fitness tests for forest firefighters.&nbsp; She passed three of the tests but failed a fourth one, a 2.5 kilometre run designed to assess whether she met the Government’s aerobic standard, by taking 49.4 seconds longer than required.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section10">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">2<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The narrow issue in this case is whether the Government improperly dismissed Ms. Meiorin from her job as a forest firefighter.&nbsp; The broader legal issue is whether the aerobic standard that led to Ms. Meiorin’s dismissal unfairly excludes women from forest firefighting jobs.&nbsp; Employers seeking to maintain safety may err on the side of caution and set standards higher than are necessary for the safe performance of the work.&nbsp; However, if men and women do not have an equal ability to meet the excessive standard, the effect may be to exclude qualified female candidates from employment for no reason but their gender.&nbsp; Like human rights legislation throughout Canada, the British Columbia <i>Human Rights Code</i>, R.S.B.C. 1996, c. 210, seeks to counter this by requiring employers to justify their standards where <i>prima facie</i> discrimination is established.&nbsp; The question in this case is whether the Government has done so.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">3<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Although this case may be resolved on the basis of the conventional bifurcated analysis this Court has applied to claims of workplace discrimination&nbsp; under human rights statutes, the parties have invited us to reconsider that approach.&nbsp; Accepting this invitation, I propose a revised approach to what an employer must show to justify a <i>prima facie</i> case of discrimination.&nbsp; On this approach, I conclude that Ms. Meiorin has demonstrated that the Government’s aerobic standard is <i>prima facie</i> discriminatory and the Government has failed to establish on the record before this Court that it is a <i>bona fide</i> occupational requirement (“BFOR”).&nbsp; I would therefore allow the appeal and restore the arbitrator’s decision to reinstate Ms. Meiorin.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">II.&nbsp;&nbsp;&nbsp; <u>Facts</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section11">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">4<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ms. Meiorin was employed for three years by the British Columbia Ministry of Forests as a member of a three-person Initial Attack Forest Firefighting Crew in the Golden Forest District.&nbsp; The crew’s job was to attack and suppress forest fires while they were small and could be contained.&nbsp; Ms. Meiorin’s supervisors found her work to be satisfactory.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">5<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ms. Meiorin was not asked to take a physical fitness test until 1994, when she was required to pass the Government’s “Bona Fide Occupational Fitness Tests and Standards for B.C. Forest Service Wildland Firefighters” (the “Tests”).&nbsp; The Tests required that the forest firefighters weigh less than 200 lbs. (with their equipment) and complete a shuttle run, an upright rowing exercise, and a pump carrying/hose dragging exercise within stipulated times.&nbsp; The running test was designed to test the forest firefighters’ aerobic fitness and was based on the view that forest firefighters must have a minimum “VO<sub>2</sub> max” of 50 ml<sup>.</sup>kg<sup>-1.</sup>min<sup>-1</sup> (the “aerobic standard”).&nbsp; “VO<sub>2</sub> max” measures “maximal oxygen uptake”, or the rate at which the body can take in oxygen, transport it to the muscles, and use it to produce energy.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">6<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Tests were developed in response to a 1991 Coroner’s Inquest Report that recommended that only physically fit employees be assigned as front-line forest firefighters for safety reasons.&nbsp; The Government commissioned a team of researchers from the University of Victoria to undertake a review of its existing fitness standards with a view to protecting the safety of firefighters while meeting human rights norms. The researchers developed the Tests by identifying the essential components of forest firefighting, measuring the physiological demands of those components, selecting fitness tests to measure those demands and, finally, assessing the validity of those tests.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section12">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">7<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The researchers studied various sample groups.&nbsp; The specific tasks performed by forest firefighters were identified by reviewing amalgamated data collected by the British Columbia Forest Service.&nbsp; The physiological demands of those tasks were then measured by observing test subjects as they performed them in the field.&nbsp; One simulation involved 18 firefighters, another involved 10 firefighters, but it is unclear from the researchers’ report whether the subjects at this stage were male or female.&nbsp; The researchers asked a pilot group of 10 university student volunteers (6 females and 4 males) to perform a series of proposed fitness tests and field exercises.&nbsp; After refining the preferred tests, the researchers observed them being performed by a larger sample group composed of 31 forest firefighter trainees and 15 university student volunteers (31 males and 15 females), and correlated their results with the group’s performance in the field.&nbsp; Having concluded that the preferred tests were accurate predictors of actual forest firefighting performance -- including the running test designed to gauge whether the subject met the aerobic standard -- the researchers presented their report to the Government in 1992.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">8<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>A follow-up study in 1994 of 77 male forest firefighters and 2 female forest firefighters used the same methodology.&nbsp; However, the researchers this time recommended that the Government initiate another study to examine the impact of the Tests on women.&nbsp; There is no evidence before us that the Government has yet responded to this recommendation.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">9<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Two aspects of the researchers’ methodology are critical to this case.&nbsp; First, it was primarily descriptive, based on measuring the average performance levels of the test subjects and converting this data into minimum performance standards.&nbsp; Second, it did not seem to distinguish between the male and female test subjects.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section13">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">10<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>After four attempts, Ms. Meiorin failed to meet the aerobic standard, running the distance in 11 minutes and 49.4 seconds instead of the required 11 minutes.&nbsp; As a result, she was laid off.&nbsp; Her union subsequently brought a grievance on her behalf.&nbsp; The arbitrator designated to hear the grievance was required to determine whether she had been improperly dismissed.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">11<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Evidence accepted by the arbitrator demonstrated that, owing to physiological differences, most women have lower aerobic capacity than most men.&nbsp; Even with training, most women cannot increase their aerobic capacity to the level required by the aerobic standard, although training can allow most men to meet it.&nbsp; The arbitrator also heard evidence that 65 percent to 70 percent of male applicants pass the Tests on their initial attempts, while only 35 percent of female applicants have similar success.&nbsp; Of the 800 to 900 Initial Attack Crew members employed by the Government in 1995, only 100 to 150 were female.&nbsp;&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">12<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>There was no credible evidence showing that the prescribed aerobic capacity was necessary for either men or women to perform the work of a forest firefighter satisfactorily.&nbsp; On the contrary, Ms. Meiorin had in the past performed her work well, without apparent risk to herself, her colleagues or the public.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">III.&nbsp;&nbsp; <u>The Rulings</u></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section14">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">13<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The arbitrator found that Ms. Meiorin had established a <i>prima facie</i> case of adverse effect discrimination by showing that the aerobic standard has a disproportionately negative effect on women as a group.&nbsp; He further found that the Government had presented no credible evidence that Ms. Meiorin’s inability to meet the aerobic standard meant that she constituted a safety risk to herself, her colleagues, or the public, and hence had not discharged its burden of showing that it had accommodated Ms. Meiorin to the point of undue hardship.&nbsp; He ordered that she be reinstated to her former position and compensated for her lost wages and benefits: (1996), 58 L.A.C. (4th) 159.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">14<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal ((1997), 37 B.C.L.R. (3d) 317) did not distinguish between direct and adverse effect discrimination.&nbsp; It held that so long as the standard is <u>necessary</u> to the safe and efficient performance of the work and is applied through individualized testing, there is no discrimination.&nbsp; The Court of Appeal (mistakenly) read the arbitrator’s reasons as finding that the aerobic standard was necessary to the safe and efficient performance of the work.&nbsp; Since Ms. Meiorin had been individually tested against this standard, it allowed the appeal and dismissed her claim.&nbsp; The Court of Appeal commented that to permit Ms. Meiorin to succeed would create “reverse discrimination”, i.e., to set a lower standard for women than for men would discriminate against those men who failed to meet the men’s standard but were nevertheless capable of meeting the women’s standard.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">IV.&nbsp;&nbsp; <u>Statutory Provisions</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><u><span style="text-decoration:none">&nbsp;</span></u></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">15<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The following provisions of the British Columbia<i> </i><i>Human Rights Code</i>, R.S.B.C. 1996, c. 210, are at issue on this appeal:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+12.2pt"><b>Discrimination in employment </b></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;line-height:
+12.2pt"><b>13 </b>(1)&nbsp; A person must not</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-20.85pt;line-height:12.2pt">(a)&nbsp;&nbsp; refuse to employ or refuse to continue to employ a person, or</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:12.2pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (b)&nbsp;&nbsp; discriminate against a person regarding employment or any term or condition of employment</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section15">
+ <p class="MsoNormal" style="margin-left:92.15pt;text-align:justify;text-indent:
+-92.15pt;line-height:12.2pt">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; because of the race, colour, ancestry, place of origin, political belief, religion, marital status, family status, physical or mental disability, sex, sexual orientation or age of that person or because that person has been convicted of a criminal or summary conviction offence that is unrelated to the employment or to the intended employment of that person.</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;line-height:
+24.4pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . . .</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:12.2pt">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:24.4pt">(4) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subsections (1) and (2) do not apply with respect to a refusal,&nbsp; limitation, specification or preference based on a bona fide&nbsp; occupational requirement.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">V.&nbsp;&nbsp;&nbsp;&nbsp; <u>The Issues</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><u><span style="text-decoration:none">&nbsp;</span></u></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">16<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The first issue on this appeal is the test applicable to s. 13(1) and (4) of the British Columbia <i>Human Rights Code</i>.&nbsp; The second issue is whether, on this test, Ms. Meiorin has established that the Government violated the Code.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">VI.&nbsp;&nbsp;&nbsp; <u>Analysis</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">17<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>As a preliminary matter, I must sort out a characterization issue.&nbsp; The Court of Appeal seems to have understood the arbitrator as having held that the ability to meet the aerobic standard is necessary to the safe and efficient performance of the work of an Initial Attack Crew member.&nbsp; With respect, I cannot agree with this reading of the arbitrator’s reasons.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section16">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">18<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The arbitrator held that the standard was one of the appropriate measurements available to the Government and that there is generally a reasonable relationship between aerobic fitness and the ability to perform the job of an Initial Attack Crew member.&nbsp; This falls short, however, of an affirmative finding that the ability to meet the aerobic standard chosen by the Government is necessary to the safe and efficient performance of the job.&nbsp; To the contrary, that inference is belied by the arbitrator’s conclusion that, despite her failure to meet the aerobic standard, Ms. Meiorin did not pose a serious safety risk to herself, her colleagues, or the general public.&nbsp; I therefore proceed on the view that the arbitrator did not find that an applicant’s ability to meet the aerobic standard is necessary to his or her ability to perform the tasks of an Initial Attack Crew member safely and efficiently.&nbsp; This leaves us to face squarely the issue of whether the aerobic standard is unjustifiably discriminatory within the meaning of the Code.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">A.&nbsp;&nbsp;&nbsp; <i>The Test</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">1.&nbsp;&nbsp;&nbsp; <u>The Conventional Approach</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">19<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The conventional approach to applying human rights legislation in the workplace requires the tribunal to decide at the outset into which of two categories the case falls: (1) “direct discrimination”, where the standard is discriminatory on its face, or (2) “adverse effect discrimination”, where the facially neutral standard discriminates in effect:&nbsp; <i>Ontario Human Rights Commission and O’Malley v. Simpsons-Sears Ltd.</i>, [1985] 2 S.C.R. 536 (hereinafter “<i>O’Malley</i>”), at p. 551, <i>per</i> McIntyre J.&nbsp; If a <i>prima facie</i> case of either form of discrimination is established, the burden shifts to the employer to justify it.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section17">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">20<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In the case of direct discrimination, the employer may establish that the standard is a BFOR by showing: (1) that the standard was imposed honestly and in good faith and was not designed to undermine the objectives of the human rights legislation (the subjective element); and (2) that the standard is reasonably necessary to the safe and efficient performance of the work and does not place an unreasonable burden on those to whom it applies (the objective element).&nbsp; See <i>Ontario (Human Rights Commission) v. Borough of Etobicoke</i>, [1982] 1 S.C.R. 202, at pp. 208-9,<i> per </i>McIntyre J.;<i> Caldwell v. Stuart</i>, [1984] 2 S.C.R. 603, at pp. 622-23, <i>per</i> McIntyre J.; <i>Brossard (Town) v. Quebec (Commission des droits de la personne)</i>, [1988] 2 S.C.R. 279, at pp. 310-12, <i>per </i>Beetz J.&nbsp; It is difficult for an employer to justify a standard as a BFOR where individual testing of the capabilities of the employee or applicant is a reasonable alternative: <i>Central Alberta Dairy Pool v. Alberta (Human Rights Commission)</i>,<i> </i>[1990] 2 S.C.R. 489, at pp. 513-14, <i>per</i> Wilson J.; <i>Saskatchewan (Human Rights Commission) v. Saskatoon (City)</i>, [1989] 2 S.C.R. 1297, at pp. 1313-14, <i>per</i> Sopinka J.<i>&nbsp; </i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">21<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>If these criteria are established, the standard is justified as a BFOR.&nbsp; If they are not, the standard itself is struck down: <i>Etobicoke</i>,<i> supra</i>, at pp. 207-8, <i>per</i> McIntyre J<i>.</i>; <i>O’Malley</i>, <i>supra</i>, at p. 555, <i>per</i> McIntyre J.; <i>Saskatoon</i>, <i>supra</i>, at pp. 1308-10,<i> per </i>Sopinka J<i>.</i>; <i>Central Alberta Dairy Pool</i>,<i> supra</i>, at p. 506, <i>per </i>Wilson J.;<i> Large v. Stratford (City)</i>, [1995] 3 S.C.R. 733, at para. 33, <i>per</i> Sopinka J.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">22<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>A different analysis applies to adverse effect discrimination.&nbsp; The BFOR defence does not apply.&nbsp; <i>Prima facie</i> discrimination established, the employer need only show:&nbsp; (1) that there is a rational connection between the job and the particular standard, and (2) that it cannot further accommodate the claimant without incurring undue hardship: <i>O’Malley</i>, <i>supra</i>, at pp. 555-59, <i>per</i> McIntyre J.; <i>Central Alberta Dairy Pool</i>, <i>supra</i>, at pp. 505-6 and 519-20, <i>per</i> Wilson J.&nbsp; If the employer cannot discharge this burden, then it has failed to establish a defence to the charge of discrimination.&nbsp; In such a case, the claimant succeeds, but the standard itself always remains intact.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section18">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">23<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The arbitrator considered the aerobic standard to be a neutral standard that adversely affected Ms. Meiorin.&nbsp; The Court of Appeal, on the other hand, did not distinguish between direct and adverse effect discrimination, simply holding that it is not discriminatory to test individuals against a standard demonstrated to be necessary to the safe and efficient performance of the work.&nbsp; Approaching the case purely on the conventional bifurcated approach, the better view would seem to be that the standard is neutral on its face, leading one to the adverse effect discrimination analysis.&nbsp; On the conventional analysis, I agree with the arbitrator that a case of <i>prima facie</i> adverse effect discrimination was made out and that, on the record before him and before this Court, the Government failed to discharge its burden of showing that it had accommodated Ms. Meiorin to the point of undue hardship.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">24<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>However, the divergent approaches taken by the arbitrator and the Court of Appeal suggest a more profound difficulty with the conventional test itself.&nbsp; The parties to this appeal have accordingly invited this Court to adopt a new model of analysis that avoids the threshold distinction between direct discrimination and adverse effect discrimination and integrates the concept of accommodation within the BFOR defence.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:24.4pt">2.&nbsp;&nbsp;&nbsp; <u>Why is a New Approach Required?</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">25<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The conventional analysis was helpful in the interpretation of the early human rights statutes, and indeed represented a significant step forward in that it recognized for the first time the harm of adverse effect discrimination.&nbsp; The distinction it drew between the available remedies may also have reflected the apparent differences between direct and adverse effect discrimination.&nbsp; However well this approach may have served us in the past, many commentators have suggested that it ill-serves the purpose of contemporary human rights legislation.&nbsp; I agree.&nbsp; In my view, the complexity and unnecessary artificiality of&nbsp; aspects of the conventional analysis attest to the desirability of now simplifying the guidelines that structure the interpretation of human rights legislation in Canada.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section19">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">26<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I will canvass seven difficulties with the conventional approach taken to claims under human rights legislation.&nbsp; Taken cumulatively, they make a compelling case for revising the analysis.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:12.2pt">(a)&nbsp;&nbsp; <i>Artificiality of the Distinction Between Direct and Adverse Effect Discrimination</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><i>&nbsp;</i></p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">27<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The distinction between a standard that is discriminatory on its face and a neutral standard that is discriminatory in its effect is difficult to justify, simply because there are few cases that can be so neatly characterized.&nbsp; For example, a rule requiring all workers to appear at work on Fridays or face dismissal may plausibly be characterized as either <u>directly</u> discriminatory (because it means that no workers whose religious beliefs preclude working on Fridays may be employed there) or as a neutral rule that merely has an <u>adverse effect</u> on a few individuals (those same workers whose religious beliefs prevent them from working on Fridays).&nbsp; On the same reasoning, it could plausibly be argued that forcing employees to take a mandatory pregnancy test before commencing employment is a neutral rule because it is facially applied to all members of a workforce and its special effects on women are only incidental.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section20">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">28<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Several courts and commentators have observed that it seems perverse to have a threshold classification that is so malleable, indeed “chimerical”:&nbsp; see, for example, <i>Canada (Human Rights Commission) v. Toronto-Dominion Bank</i>, [1998] 4 F.C. 205 (C.A.), at paras. 114 and 145,&nbsp; <i>per</i> Robertson J.A.; S. Day and G. Brodsky, “The Duty to Accommodate: Who Will Benefit?” (1996), 75 <i>Can. Bar Rev</i>. 433, at pp. 447-57; A. M. Molloy, “Disability and the Duty to Accommodate” (1993), 1 <i>Can. Lab. L.J</i>. 23, at pp. 36-37.&nbsp; Given the vague boundaries of the categories, an adjudicator may unconsciously tend to classify the impugned standard in a way that fits the remedy he or she is contemplating, be that striking down the standard itself or requiring only that the claimant’s differences be accommodated.&nbsp; If so, form triumphs over substance and the broad purpose of the human rights statutes is left unfulfilled.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">29<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Not only is the distinction between direct and indirect discrimination malleable, it is also unrealistic:&nbsp; a modern employer with a discriminatory intention would rarely frame the rule in directly discriminatory terms when the same effect -- or an even broader effect -- could be easily realized by couching it in neutral language: M. D. Lepofsky, “The Duty to Accommodate:&nbsp; A Purposive Approach” (1993), 1 <i>Can. Lab. L.J.</i> 1, at pp. 8-9.&nbsp; Dickson C.J., for one, recognized that this more subtle type of discrimination, which rises in the aggregate to the level of systemic discrimination, is now much more prevalent than the cruder brand of openly direct discrimination:&nbsp; <i>Canada (Human Rights Commission) v. Taylor</i>, [1990] 3 S.C.R. 892, at p. 931.&nbsp; See also the classic case of <i>Griggs v. Duke Power Co.</i>, 401 U.S. 424 (1971).&nbsp; The bifurcated analysis gives employers with a discriminatory intention and the forethought to draft the rule in neutral language an undeserved cloak of legitimacy.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">(b)&nbsp; <i>Different Remedies Depending on Method of Discrimination</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section21">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">30<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The malleability of the initial classification under the conventional approach would not matter so much if both routes led to the same result.&nbsp; But, as indicated above, the potential remedies may differ.&nbsp; If an employer cannot justify a directly discriminatory standard as a BFOR, it will be struck down in its entirety.&nbsp; However, if the rule is characterized as a neutral one that adversely affects a certain individual, the employer need only show that there is a rational connection between the standard and the performance of the job and that it cannot further accommodate the claimant without experiencing undue hardship.&nbsp; The general standard, however, remains in effect.&nbsp; These very different results flow directly from the stream into which the initial inquiry shunts the analysis.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">31<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The proposition that dramatically different results should follow from a tenuous initial classification of the method of discrimination is disconcerting because the effect of a discriminatory standard does not substantially change depending on how it is expressed: see M. C. Crane, “Human Rights, <i>Bona Fide</i> Occupational Requirements and the Duty to Accommodate:&nbsp; Semantics or Substance?” (1996), 4 <i>C.L.E.L.J.</i> 209, at pp. 226-29.&nbsp; Kenneth Watkin therefore observes that the question should not be whether the discrimination is direct or indirect, but rather “whether the individual or group discriminated against receives the same protection regardless of the manner in which that discrimination is brought about”:&nbsp; K. Watkin, “The Justification of Discrimination under Canadian Human Rights Legislation and the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>:&nbsp; Why So Many Tests?” (1993), 2 <i>N.J.C.L. </i>63, at p. 88.&nbsp;&nbsp; These criticisms are compelling.&nbsp; It is difficult to justify conferring more or less protection on a claimant and others who share his or her characteristics, depending only on how the discriminatory rule is phrased.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-19.95pt;line-height:12.2pt">(c)&nbsp;&nbsp; <i>Questionable Assumption that Adversely Affected Group Always a Numerical Minority</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">32<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>From a narrowly utilitarian perspective, it could be argued that it is sometimes appropriate to leave an ostensibly neutral standard in place if its adverse effects are felt by only one or, at most, a few individuals.&nbsp; This seems to have been the original rationale of this Court’s adverse effect discrimination jurisprudence.&nbsp; In <i>O’Malley</i>, <i>supra</i>, McIntyre J. commented, at p. 555:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section22">
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">Where there is adverse effect discrimination on account of creed the offending order or rule will not necessarily be struck down.&nbsp; It will survive in most cases because its discriminatory effect is limited to one person or to one group, and it is the effect upon them rather than upon the general work force which must be considered.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">In <i>Central Alberta Dairy Pool</i>, <i>supra</i>, Wilson J. held at p. 514, that “the group of people who are adversely affected . . . is always smaller than the group to which the rule applies”.&nbsp; More recently, in <i>Commission scolaire régionale de Chambly v. Bergevin</i>, [1994] 2 S.C.R. 525, at p. 544, Cory J. made the more modest observation that “[a]lmost invariably, those adversely affected will be members of a minority group”.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">33<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>To the extent that the bifurcated analysis relies on a comparison between the relative demographic representation of various groups, it is arguably unhelpful.&nbsp; First, the argument that an apparently neutral standard should be permitted to stand because its discriminatory effect is limited to members of a minority group and does not adversely affect the majority of employees is difficult to defend.&nbsp; The standard itself is discriminatory precisely because it treats some individuals differently from others, on the basis of a prohibited ground: see<i> </i>generally<i> Toronto-Dominion Bank</i>, <i>supra</i>, at paras. 140-41, <i>per</i> Robertson J.A.&nbsp; As this Court held in <i>Law v. Canada (Minister of Employment and Immigration)</i>, [1999] 1 S.C.R. 497, at para. 66, if a rule has a substantively discriminatory effect on a prohibited ground, it should be characterized as such regardless of whether the claimant is a member of a majority or minority group.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section23">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">34<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Second, the size of the “group affected” is easily manipulable:&nbsp; see Day and Brodsky, <i>supra</i>, at p. 453.&nbsp; For example, in <i>Toronto-Dominion Bank</i>, <i>supra</i>, the Bank instituted a policy of having returning employees submit to drug tests.&nbsp; Was the affected group the small minority of returning employees who were drug-dependent, leading to a characterization of the policy as adverse effect discrimination?&nbsp; Or was the affected group all returning employees who were required to submit to invasive drug-testing on the assumption that some of them were drug-dependent, lending itself to a characterization of the policy as direct discrimination?&nbsp; “It is possible for a policy to be characterized as direct discrimination, or adverse effect discrimination, or both, depending on how ‘neutrality’ and the group affected are defined by the adjudicator”: Day and Brodsky, <i>supra</i>, at p. 453.&nbsp; Because the size of the affected group is so manipulable, it is difficult to justify using it as the foundation of the entire analysis.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">35<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Third, the emphasis on whether the claimant is a member of a majority or a minority group is clearly most unhelpful when the affected group actually constitutes a <u>majority</u> of the workforce:&nbsp; see B. Etherington, “Central Alberta Dairy Pool:&nbsp; The Supreme Court of Canada’s Latest Word on the Duty to Accommodate” (1993), 1<i> Can. Lab. L.J</i>. 311, at pp. 324-25.&nbsp; The utilitarian arguments about the minority’s having to abide by the practices of the majority for reasons of economic efficiency or safety fade in strength as the affected group nears the status of the majority.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">36<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>At this point, which exists where women constitute the adversely affected group, the adverse effect analysis may serve to entrench the male norm as the “mainstream” into which women must integrate.&nbsp; Concerns about economic efficiency and safety, shorn of their utilitarian cloaks, may well operate to discriminate against women in a way that is direct in every way except that contemplated by the legal nomenclature.&nbsp; An analysis that does not acknowledge this reality fails to give full effect to the purpose of the human rights legislation at issue.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">(d)&nbsp;&nbsp; <i>Difficulties in Practical Application of Employers’ Defences</i>&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section24">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">37<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The conventional analysis developed by this Court has also been criticized for drawing difficult distinctions between the elements an employer must establish to rebut a<i> prima facie</i> case of direct discrimination and the elements an employer must establish to rebut a <i>prima facie</i> case of adverse effect discrimination.&nbsp; For example, a distinction has been drawn between the obligation to explore “reasonable alternatives”, applicable to direct discrimination, and the obligation to consider “individual&nbsp; accommodation”, applicable to adverse effect discrimination:&nbsp; see <i>Large</i>, <i>supra</i>, at paras. 30-34, <i>per</i> Sopinka J.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">38<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In practice, however, there may be little difference between the two defences:&nbsp; see, for example, <i>Canada (Attorney General) v. Levac</i>, [1992] 3 F.C. 463 (C.A.); <i>Large v. Stratford (City)</i> (1992), 92 D.L.R. (4th) 565 (Ont. Div. Ct.), <i>per</i> Campbell J., at pp. 577-79; <i>Saran v. Delta Cedar Products Ltd.</i>, [1995] B.C.C.H.R.D. No. 3 (QL); <i>Grismer v. British Columbia (Attorney General)</i> (1994), 25 C.H.R.R. D/296 (B.C.C.H.R.).&nbsp; In <i>Thwaites v. Canada (Armed Forces)</i> (1993), 19 C.H.R.R. D/259 (Can. H.R.T.), it was recognized, at p. D/282, that</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+19.95pt;line-height:12.2pt">[t]he logical conclusion from this analysis is that there is very little, if any, meaningful distinction between what an employer must establish by way of a defence to an allegation of direct discrimination and a defence to an allegation of adverse effect discrimination.&nbsp; The only difference may be semantic.&nbsp; In both cases, the employer must have regard to the particular individual in question.&nbsp; In the case of direct discrimination, the employer must justify its rule or practice by demonstrating that there are no reasonable alternatives and that the rule or practice is proportional to the end being sought.&nbsp; In the case of adverse effect discrimination, the neutral rule is not attacked but the employer must still show that it could not otherwise reasonably accommodate the individual disparately affected by that rule.&nbsp; In both cases, whether the operative words are “reasonable alternative” or “proportionality” or “accommodation”, the inquiry is essentially the same:&nbsp; the employer must show that it could not have done anything else reasonable or practical to avoid the negative impact on the individual.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section25">
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">Parties, tribunals and courts are therefore compelled to frame their arguments and decisions within the confines of definitions that are themselves blurred.&nbsp; The broad purpose of human rights legislation may be obscured in the process.&nbsp; If the ultimate practical question is common to both the direct and adverse effect discrimination analyses, it may fairly be argued that there is little reason to distinguish between either the two analyses or the available remedies.</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+24.4pt">(e)&nbsp;&nbsp; <i>Legitimizing Systemic Discrimination</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">39<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>It has also been argued that the distinction drawn by the conventional analysis between direct and adverse effect discrimination may, in practice, serve to legitimize systemic discrimination, or “discrimination that results from the simple operation of established procedures of recruitment, hiring and promotion, none of which is necessarily designed to promote discrimination”: <i>&nbsp;Canadian National Railway Co. v. Canada (Canadian Human Rights Commission)</i>, [1987] 1 S.C.R. 1114 (hereinafter “<i>Action Travail</i>”), at p. 1139, <i>per</i> Dickson C.J.&nbsp; See generally I. B. McKenna, “Legal Rights for Persons with Disabilities in Canada: Can the Impasse Be Resolved?” (1997-98), 29 <i>Ottawa L. Rev.</i> 153, and P. Phillips and E. Phillips, <i>Women and Work: Inequality in the Canadian Labour Market</i> (rev. ed. 1993), at pp. 45-95.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">40<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Under the conventional analysis, if a standard is classified as being “neutral” at the threshold stage of the inquiry, its legitimacy is never questioned.&nbsp; The focus shifts to whether the individual claimant can be accommodated, and the formal standard itself always remains intact.&nbsp; The conventional analysis thus shifts attention away from the substantive norms underlying the standard, to how “different” individuals can fit into the “mainstream”, represented by the standard.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section26">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">41<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Although the practical result of the conventional analysis may be that individual claimants are accommodated and the particular discriminatory effect they experience may be alleviated, the larger import of the analysis cannot be ignored.&nbsp; It bars courts and tribunals from assessing the legitimacy of the standard itself.&nbsp; Referring to the distinction that the conventional analysis draws between the accepted neutral standard and the duty to accommodate those who are adversely affected by it, Day and Brodsky,<i> supra</i>, write at p. 462:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:18.0pt;text-align:justify;line-height:
+12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:18.0pt;text-align:justify;line-height:
+12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:54.0pt;text-align:justify;text-indent:
+36.0pt;line-height:12.2pt">The difficulty with this paradigm is that it does not challenge the imbalances of power, or the discourses of dominance, such as racism, ablebodyism and sexism, which result in a society being designed well for some and not for others.&nbsp; It allows those who consider themselves “normal” to continue to construct institutions and relations in their image, as long as others, when they challenge this construction are “accommodated”.</p>
+ <p class="MsoNormal" style="margin-left:54.0pt;text-align:justify;line-height:
+12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:54.0pt;text-align:justify;text-indent:
+36.0pt;line-height:12.2pt">Accommodation, conceived this way, appears to be rooted in the formal model of equality.&nbsp; As a formula, different treatment for “different” people is merely the flip side of like treatment for likes.&nbsp; Accommodation does not go to the heart of the equality question, to the goal of transformation, to an examination of the way institutions and relations must be changed in order to make them available, accessible, meaningful and rewarding for the many diverse groups of which our society is composed.&nbsp; Accommodation seems to mean that we do not change procedures or services, we simply “accommodate” those who do not quite fit.&nbsp; We make some concessions to those who are “different”, rather than abandoning the idea of “normal” and working for genuine inclusiveness.</p>
+ <p class="MsoNormal" style="margin-left:54.0pt;text-align:justify;line-height:
+12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:54.0pt;text-align:justify;text-indent:
+36.0pt;line-height:12.2pt">In this way, accommodation seems to allow formal equality to be the dominant paradigm, as long as some adjustments can be made, sometimes, to deal with unequal effects.&nbsp; Accommodation, conceived of in this way does not challenge deep-seated beliefs about the intrinsic superiority of such characteristics as mobility and sightedness.&nbsp; In short, accommodation is assimilationist.&nbsp; Its goal is to try to make “different” people fit into existing systems.</p>
+ <p class="MsoNormal" style="margin-left:18.0pt;text-align:justify;line-height:
+12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:18.0pt;text-align:justify;line-height:
+24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">I agree with the thrust of these observations.&nbsp; Interpreting human rights legislation primarily in terms of formal equality undermines its promise of substantive equality and prevents consideration of the effects of systemic discrimination, as this Court acknowledged in <i>Action Travail</i>,<i> supra.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section27">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">42<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This case, where Ms. Meiorin seeks to keep her position in a male-dominated occupation, is a good example of how the conventional analysis shields systemic discrimination from scrutiny.&nbsp; This analysis prevents the Court from rigorously assessing a standard which, in the course of regulating entry to a male-dominated occupation, adversely affects women as a group.&nbsp; Although the Government may have a duty to accommodate an individual claimant, the practical result of the conventional analysis is that the complex web of seemingly neutral, systemic barriers to traditionally male-dominated occupations remains beyond the direct reach of the law.&nbsp; The right to be free from discrimination is reduced to a question of whether the “mainstream” can afford to confer proper treatment on those adversely affected, within the confines of its existing formal standard.&nbsp; If it cannot, the edifice of systemic discrimination receives the law’s approval.&nbsp; This cannot be right.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:60.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:12.2pt">(f)&nbsp;&nbsp;&nbsp;&nbsp; <i>Dissonance Between Conventional Analysis and Express Purpose and Terms of Human Rights Code</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">43<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Although the various human rights statutes have an elevated legal status (<i>Insurance Corp. of British Columbia v. Heerspink</i>, [1982] 2 S.C.R. 145; <i>Zurich Insurance Co. v. Ontario (Human Rights Commission)</i>, [1992] 2 S.C.R. 321), they remain legislative pronouncements and, in the absence of a constitutional challenge, this Court must interpret them according to their terms, and in light of their purposes.&nbsp; As I suggested earlier, the conventional analysis may compromise both the broad purposes and the specific terms of the Code.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">44<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In British Columbia, the relevant purposes are stated in s. 3 of the Code:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+24.45pt;line-height:24.4pt"><b>3&nbsp; </b>. . .</p>
+ <p class="MsoNormal" style="margin-left:95.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:12.2pt">(a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to foster a society in British Columbia in which there are no impediments to full and free participation in the economic, social, political and cultural life of British Columbia;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:95.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:12.2pt">(b)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to promote a climate of understanding and mutual respect where all are equal in dignity and rights;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:95.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:12.2pt">(c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to prevent discrimination prohibited by this Code;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section28">
+ <p class="MsoNormal" style="margin-left:95.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:12.2pt">(d)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to identify and eliminate persistent patterns of inequality associated with discrimination prohibited by this Code;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:95.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:12.2pt">(e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to provide a means of redress for those persons who are discriminated against contrary to this Code. . . .</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" align="center" style="text-align:center;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">This Court has held that, because of their status as “fundamental law”, human rights statutes must be interpreted liberally, so that they may better fulfill their objectives: <i>O’Malley</i>,<i> supra</i>, at p. 547,<i> per </i>McIntyre J.; <i>Action Travail</i>, <i>supra</i>, at pp. 1134-36, <i>per</i> Dickson C.J.;&nbsp; <i>Robichaud v. Canada (Treasury Board)</i>, [1987] 2 S.C.R. 84, at pp. 89-90, <i>per</i> La Forest J.&nbsp; An interpretation that allows the rule itself to be questioned only if the discrimination can be characterized as “direct” does not allow these statutes to accomplish their purposes as well as they might otherwise do.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">45<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Furthermore, the terms of the British Columbia Code do not contemplate one type of employment-related discrimination being treated differently from another.&nbsp; Section 13(1) generally prohibits discriminating “against a person regarding employment or any term or condition of employment”.&nbsp; Section 13(4) states that the general rule does not apply “with respect to a refusal, limitation, specification or preference based on a bona fide occupational requirement”.&nbsp; The BFOR defence thus applies to all types of discrimination.&nbsp; There is no presumption that an ostensibly neutral rule is not discriminatory in itself, nor is there any statement in the Code that a discriminatory rule can be allowed to stand as long as the group or individual against whom it discriminates constitutes a minority of the workforce and it would be prohibitively difficult to accommodate them.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section29">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">46<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Most of the other Canadian human rights statutes that refer to a BFOR do not confine it or the duty to accommodate to certain types of discrimination.&nbsp; Indeed, some statutes expressly foreclose such reasoning, as I will discuss below.&nbsp; Stated simply, there is no statutory imperative in this case to perpetuate different categories of discrimination and provide different remedies for their respective breaches.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(g)&nbsp;&nbsp;&nbsp; <i>Dissonance Between Human Rights Analysis and Charter Analysis</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-top:0cm;margin-right:-4.5pt;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;text-align:justify;text-indent:0cm;
+line-height:24.4pt">47<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The conventional analysis differs in substance from the approach this Court has taken to <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15subsec1" target="_blank">s. 15(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Canadian Charter of Rights and Freedoms<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>.&nbsp; In the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> context, the distinction between direct and adverse effect discrimination may have some analytical significance but, because the principal concern is the <u>effect</u> of the impugned law, it has little legal importance.&nbsp; As Iacobucci J. noted at para. 80 of <i>Law</i>,<i> supra</i>:</p>
+ <p class="MsoNormal" style="margin-right:-4.5pt;text-align:justify;line-height:
+24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:-4.5pt;margin-bottom:
+0cm;margin-left:54.0pt;margin-bottom:.0001pt;text-align:justify;line-height:
+12.2pt">While it is well established that it is open to a s. 15(1) claimant to establish discrimination by demonstrating a discriminatory legislative purpose, proof of legislative intent is not required in order to found a s. 15(1) claim: <i>Andrews</i>, <i>supra</i>, at p. 174.&nbsp; What is required is that the claimant establish that <u>either</u> the purpose <u>or</u> the effect of the legislation infringes s. 15(1), such that the onus may be satisfied by showing only a discriminatory effect. [Emphasis in original.]</p>
+ <p class="MsoNormal" style="margin-right:-4.5pt;text-align:justify;line-height:
+12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-right:-4.5pt;text-align:justify;line-height:
+24.4pt">&nbsp;</p>
+ <p class="1" style="margin-top:0cm;margin-right:-4.5pt;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt;text-align:justify;text-indent:0cm;
+line-height:24.4pt">48<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Where <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15subsec1" target="_blank">s. 15(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> is concerned, therefore, this Court has recognized that the negative effect on the individual complainant’s dignity does not substantially vary depending on whether the discrimination is overt or covert.&nbsp; Where it is possible to make a <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> claim in the course of an employment relationship, the employer cannot dictate the nature of what it must prove in justification simply by altering the <u>method</u> of discrimination.&nbsp; I see little reason for adopting a different approach when the claim is brought under human rights legislation which, while it may have a different legal orientation, is aimed at the same general wrong as <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15subsec1" target="_blank">s. 15(1)<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a> of the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i>.</p>
+ <p class="MsoNormal" style="margin-right:-4.5pt;text-align:justify;line-height:
+24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section30">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">49<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>It has been suggested that the distinction between direct and adverse effect discrimination in human rights analysis may be attributable, at least in part, to a sense that “unintentional” discrimination occasioned by “neutral” rules is less deserving of legal censure:&nbsp; see Etherington, <i>supra</i>, at pp. 324-25.&nbsp; At p. 457, Day and Brodsky, <i>supra</i>, argue that:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:54.0pt;text-align:justify;text-indent:
+24.45pt;line-height:12.2pt">It seems apparent that the distinction between direct and adverse effect discrimination is based on the need to maintain that there is a difference between intentional discrimination and unintentional discrimination, even though tribunals and courts, including the Supreme Court of Canada, have repeatedly ruled that unintentional discrimination is no less a violation of human rights laws, and that it is the effects of discrimination which matter.&nbsp; There remains a holdover sense that direct discrimination is more loathsome, morally more repugnant, because the perpetrator <i>intends</i> to discriminate or has discriminated <i>knowingly</i>.&nbsp; By contrast, adverse effect discrimination is viewed as “innocent”, unwitting, accidental, and consequently not morally repugnant.&nbsp; [Emphasis in original.]</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:12.2pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">I acknowledge that there may in some cases be differences in the respective origins of directly discriminatory standards and neutral standards with adverse effects.&nbsp; However, this Court long ago held that the fact that a discriminatory effect was unintended is not determinative of its general<i> <a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en" target="_blank">Charter<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i> analysis and certainly does not determine the available remedy: <i>Law</i>, <i>supra</i>, at para. 80, <i>per </i>Iacobucci J.; <i>Andrews v. Law Society of British Columbia</i>, [1989] 1 S.C.R. 143, at pp. 174-75, <i>per</i> McIntyre J.; <i>Eldridge v.&nbsp; British Columbia</i> <i>(Attorney General)</i>, [1997] 3 S.C.R. 624, at para. 62, <i>per</i> La Forest J.&nbsp; In cases such as <i>O’Malley</i>, <i>supra</i>, and <i>Bhinder v. Canadian National Railway Co.</i>, [1985] 2 S.C.R. 561, this Court endeavoured to entrench the same principle in its analysis of human rights legislation.&nbsp; In my view, care should be taken to ensure that this goal is not compromised by a bifurcated method of analysing claims made pursuant to such legislation.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt">3.&nbsp;&nbsp; <u>Toward a Unified Approach </u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section31">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">50<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Whatever may have once been the benefit of the conventional analysis of discrimination claims brought under human rights legislation, the difficulties discussed&nbsp; show that there is much to be said for now adopting a unified approach that (1) avoids the problematic distinction between direct and adverse effect discrimination, (2) requires employers to accommodate as much as reasonably possible the characteristics of individual employees when setting the workplace standard, and (3) takes a strict approach to exemptions from the duty not to discriminate, while permitting exemptions where they are reasonably necessary to the achievement of legitimate work-related objectives.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">51<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Many of those who have studied the issue and written on it have advocated such a unified approach: see W. Pentney, “Belonging:&nbsp; The Promise of Community -- Continuity and Change in Equality Law 1995-96” (1996), 25 C.H.R.R. C/6;&nbsp; Day and Brodsky, <i>supra</i>, at pp. 459-60 and 472; Lepofsky, <i>supra</i>, at pp. 16-17;&nbsp; Crane, <i>supra</i>, at pp. 231-32;&nbsp; Molloy, <i>supra</i>, at pp. 36-37;&nbsp; Watkin, <i>supra</i>, at pp. 86-93; M. F. Yalden, “The Duty to Accommodate -- A View from the Canadian Human Rights Commission” (1993), 1 <i>Can. Lab. L.J</i>. 283, at pp. 286-93; Canadian Human Rights Commission, <i>The Effects of the Bhinder Decision on the Canadian Human Rights Commission:&nbsp; A Special Report to Parliament </i>(1986).&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section32">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">52<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Furthermore, some provinces have revised their human rights statutes so that courts are now required to adopt a unified approach:&nbsp; see s. 24(2) of the Ontario <i>Human Rights Code</i>, R.S.O. 1990, c. H.19;&nbsp; s. 12 of the Manitoba <i>Human Rights Code</i>, S.M. 1987-88, c. 45, and, in a more limited sense, s. 7 of the Yukon<i> Human Rights Act</i>, S.Y. 1987, c. 3.&nbsp; Most recently, the <i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-h-6-en" target="_blank">Canadian Human Rights Act<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a></i><a class="reflex2-link" href="https://qweri.lexum.com/w/calegis/rsc-1985-c-h-6-en" target="_blank">, R.S.C., 1985, c. H-6<span class="decisia-reflex2-icon">&nbsp;<span class="icon-external-link"></span></span></a>, was amended (S.C. 1998, c. 9, s. 10) so that s. 15(2) of the Act now expressly provides that an otherwise discriminatory practice will only constitute a BFOR if the employer establishes that the needs of the individual or class of individuals cannot be accommodated without imposing undue hardship.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">53<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Finally, judges of this Court have not infrequently written of the need to adopt a simpler, more common-sense approach to determining when an employer may be justified in applying a standard with discriminatory effects.&nbsp; See <i>Bhinder</i>, <i>supra</i>, at pp. 567-68, <i>per</i> Dickson C.J. (dissenting); <i>Central Alberta Dairy Pool</i>,<i> supra</i>, at pp. 528-29, <i>per</i> Sopinka J.; <i>Large</i>, <i>&nbsp;supra</i>, at para. 56, <i>per</i> L’Heureux-Dubé J.&nbsp; It is noteworthy that even Wilson J., writing for the majority of this Court in <i>Central Alberta Dairy Pool</i>, <i>supra</i>, arguably recognized that a form of accommodation -- the search for proportionate, reasonable alternatives to a general rule -- had a certain place within the BFOR analysis, then applicable only to cases of direct discrimination.&nbsp; See in particular her references, at pp. 518-19, to <i>Brossard</i>, <i>supra</i>, and <i>Saskatoon</i>, <i>supra</i>.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt">4. &nbsp;&nbsp;&nbsp; <u>Elements of a Unified Approach</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">54<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Having considered the various alternatives, I propose the following three-step test for determining whether a <i>prima facie</i> discriminatory standard is a BFOR.&nbsp; An employer may justify the impugned standard by establishing on the balance of probabilities:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(1)&nbsp;&nbsp;&nbsp; that the employer adopted the standard for a purpose rationally connected to the performance of the job;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(2)&nbsp;&nbsp;&nbsp; that the employer adopted the particular standard in an honest and good faith belief that it was necessary to the fulfilment of that legitimate work-related purpose; and</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section33">
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(3)&nbsp;&nbsp;&nbsp; that the standard is reasonably necessary to the accomplishment of that legitimate work-related purpose.&nbsp; To show that the standard is&nbsp; reasonably necessary, it must be demonstrated that it is impossible to accommodate individual employees sharing the characteristics of the claimant without imposing undue hardship upon the employer.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">55<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This approach is premised on the need to develop standards that accommodate the potential contributions of all employees in so far as this can be done without undue hardship to the employer.&nbsp; Standards may adversely affect members of a particular group, to be sure.&nbsp; But as Wilson J. noted in <i>Central Alberta Dairy Pool</i>,<i> supra</i>, at p. 518, “[i]f a reasonable alternative exists to burdening members of a group with a given rule, that rule will not be [a BFOR]”.&nbsp;&nbsp; It follows that a rule or standard must accommodate individual differences to the point of undue hardship if it is to be found reasonably necessary.&nbsp; Unless no further accommodation is possible without imposing undue hardship, the standard is not a BFOR in its existing form and the <i>prima facie</i> case of discrimination stands.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">56<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Having set out the test, I offer certain elaborations on its application.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><u>Step One</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section34">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">57<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The first step in assessing whether the employer has successfully established a BFOR defence is to identify the general purpose of the impugned standard and determine whether it is rationally connected to the performance of the job.&nbsp; The initial task is to determine what the impugned standard is generally designed to achieve.&nbsp; The ability to work safely and efficiently is the purpose most often mentioned in the cases but there may well be other reasons for imposing particular standards in the workplace.&nbsp; In <i>Brossard</i>, <i>supra</i>, for example, the general purpose of the town’s anti-nepotism policy was to curb actual and apparent conflicts of interest among public employees.&nbsp; In <i>Caldwell</i>,<i> supra</i>, the Roman Catholic high school sought to maintain the religious integrity of its teaching environment and curriculum.&nbsp; In other circumstances, the employer may seek to ensure that qualified employees are present at certain times.&nbsp; There are innumerable possible reasons that an employer might seek to impose a standard on its employees.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">58<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The employer must demonstrate that there is a rational connection between the general purpose for which the impugned standard was introduced and the objective requirements of the job.&nbsp; For example, turning again to <i>Brossard</i>,<i> supra</i>, Beetz J. held, at p. 313, that because of the special character of public employment, “[i]t is appropriate and indeed necessary to adopt rules of conduct for public servants to inhibit conflicts of interest”.&nbsp; Where the general purpose of the standard is to ensure the safe and efficient performance of the job --&nbsp; essential elements of all occupations --&nbsp; it will likely not be necessary to spend much time at this stage.&nbsp; Where the purpose is narrower, it may well be an important part of the analysis.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">59<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The focus at the first step is not on the validity of the particular standard that is at issue, but rather on the validity of its more general purpose.&nbsp; This inquiry is necessarily more general than determining whether there is a rational connection between the performance of the job and the <u>particular standard</u> that has been selected, as may have been the case on the conventional approach.&nbsp; The distinction is important.&nbsp; If there is no rational relationship between the general purpose of the standard and the tasks properly required of the employee, then there is of course no need to continue to assess the legitimacy of the particular standard itself.&nbsp; Without a legitimate general purpose underlying it, the standard cannot be a BFOR.&nbsp; In my view, it is helpful to keep the two levels of inquiry distinct.</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section35">
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><u>Step Two</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">60<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Once the legitimacy of the employer’s more general purpose is established, the employer must take the second step of demonstrating that it adopted the particular standard with an honest and good faith belief that it was necessary to the accomplishment of its purpose, with no intention of discriminating against the claimant.&nbsp; This addresses the subjective element of the test which, although not essential to a finding that the standard is not a BFOR, is one basis on which the standard may be struck down:&nbsp; see <i>O’Malley</i>, <i>supra</i>, at pp. 547-50, <i>per</i> McIntyre J.; <i>Etobicoke</i>,<i> supra</i>, at p. 209, <i>per</i> McIntyre J.&nbsp; If the imposition of the standard was not thought to be reasonably necessary or was motivated by discriminatory <i>animus</i>, then it cannot be a BFOR.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">61<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>It is important to note that the analysis shifts at this stage from the general purpose of the standard to the particular standard itself.&nbsp; It is not necessarily so that a particular standard will constitute a BFOR merely because its general purpose is rationally connected to the performance of the job:&nbsp; see <i>Brossard</i>,<i> supra</i>, at&nbsp; pp. 314-15, <i>per</i> Beetz J.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><u>Step Three</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section36">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">62<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The employer’s third and final hurdle is to demonstrate that the impugned standard is reasonably necessary for the employer to accomplish its purpose, which by this point has been demonstrated to be rationally connected to the performance of the job.&nbsp; The employer must establish that it cannot accommodate the claimant and others adversely affected by the standard without experiencing undue hardship.&nbsp; When referring to the concept of “undue hardship”, it is important to recall the words of Sopinka J. who observed in <i>Central Okanagan School District No. 23 v. Renaud</i>, [1992] 2 S.C.R. 970, at p. 984, that “[t]he use of the term ‘undue’ infers that some hardship is acceptable; it is only ‘undue’ hardship that satisfies this test”.&nbsp; It may be ideal from the employer’s perspective to choose a standard that is uncompromisingly stringent.&nbsp; Yet the standard, if it is to be justified under the human rights legislation, must accommodate factors relating to the unique capabilities and inherent worth and dignity of every individual, up to the point of undue hardship.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">63<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>When determining whether an existing standard is reasonably necessary for the employer to accomplish its purpose, it may be helpful to refer to the jurisprudence of this Court dealing both with the justification of direct discrimination and the concept of accommodation within the adverse effect discrimination analysis.&nbsp; For example, dealing with adverse effect discrimination in <i>Central Alberta Dairy Pool</i>, <i>supra</i>, at pp. 520-21, Wilson J. addressed the factors that may be considered when assessing an employer’s duty to accommodate an employee to the point of undue hardship.&nbsp; Among the relevant factors are the financial cost of the possible method of accommodation, the relative interchangeability of the workforce and facilities, and the prospect of substantial interference with the rights of other employees.&nbsp; See also <i>Renaud</i>,<i> supra</i>, at p. 984, <i>per</i> Sopinka J.&nbsp; The various factors are not entrenched, except to the extent that they are expressly included or excluded by statute.&nbsp; In all cases, as Cory J. noted in <i>Chambly</i>, <i>supra</i>, at p. 546, such considerations “should be applied with common sense and flexibility in the context of the factual situation presented in each case”.&nbsp;&nbsp;&nbsp;&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section37">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">64<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Courts and tribunals should be sensitive to the various ways in which individual capabilities may be accommodated. Apart from individual testing to determine whether the person has the aptitude or qualification that is necessary to perform the work, the possibility that there may be different ways to perform the job while still accomplishing the employer’s legitimate work-related purpose should be considered in appropriate cases.&nbsp; The skills, capabilities and potential contributions of the individual claimant and others like him or her must be respected as much as possible.&nbsp; Employers, courts and tribunals should be innovative yet practical when considering how this may best be done in particular circumstances.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">65<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Some of the important questions that may be asked in the course of the analysis include:</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(a)&nbsp;&nbsp;&nbsp; Has the employer investigated alternative approaches that do not have a discriminatory effect, such as individual testing against a more individually sensitive standard?</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(b)&nbsp;&nbsp;&nbsp; If alternative standards were investigated and found to be capable of fulfilling the employer’s purpose, why were they not implemented?&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(c)&nbsp;&nbsp;&nbsp; Is it necessary to have <u>all</u> employees meet the single standard for the employer to accomplish its legitimate purpose or could standards reflective of group or individual differences and capabilities be established?&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(d)&nbsp;&nbsp;&nbsp; Is there a way to do the job that is less discriminatory while still accomplishing the employer’s legitimate purpose?</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(e)&nbsp;&nbsp;&nbsp; Is the standard properly designed to ensure that the desired qualification is met without placing an undue burden on those to whom the standard applies?</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section38">
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-24.45pt;line-height:24.4pt">(f)&nbsp;&nbsp;&nbsp;&nbsp; Have other parties who are obliged to assist in the search for possible accommodation fulfilled their roles?&nbsp; As Sopinka J. noted in<i> Renaud</i>, <i>supra</i>, at pp. 992-96, the task of determining how to accommodate individual differences may also place burdens on the employee and, if there is a collective agreement, a union.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">66<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Notwithstanding the overlap between the two inquiries, it may often be useful as a practical matter to consider separately, first, the <u>procedure</u>, if any, which was adopted to assess the<i> </i>issue<i> </i>of accommodation and, second, the <u>substantive content</u> of either a more accommodating standard which was offered or alternatively the employer’s reasons for not offering any such standard: see generally Lepofsky, <i>supra</i>.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">67<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>If the <i>prima facie</i> discriminatory standard is not reasonably necessary for the employer to accomplish its legitimate purpose or, to put it another way, if individual differences may be accommodated without imposing undue hardship on the employer, then the standard is not a BFOR.&nbsp; The employer has failed to establish a defence to the charge of discrimination.&nbsp; Although not at issue in this case, as it arose as a grievance before a labour arbitrator, when the standard is not a BFOR, the appropriate remedy will be chosen with reference to the remedies provided in the applicable human rights legislation. Conversely, if the general purpose of the standard is rationally connected to the performance of the particular job, the particular standard was imposed with an honest, good faith belief in its necessity, and its application in its existing form is reasonably necessary for the employer to accomplish its legitimate purpose without experiencing undue hardship, the standard is a BFOR.&nbsp; If all of these criteria are established, the employer has brought itself within an exception to the general prohibition of discrimination.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section39">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">68<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Employers designing workplace standards owe an obligation to be aware of both the differences between individuals, and differences that characterize groups of individuals.&nbsp; They must build conceptions of equality into workplace standards.&nbsp; By enacting human rights statutes and providing that they are applicable to the workplace, the legislatures have determined that the standards governing the performance of work should be designed to reflect all members of society, in so far as this is reasonably possible.&nbsp; Courts and tribunals must bear this in mind when confronted with a claim of employment-related discrimination.&nbsp; To the extent that a standard unnecessarily fails to reflect the differences among individuals, it runs afoul of the prohibitions contained in the various human rights statutes and must be replaced.&nbsp; The standard <u>itself</u> is required to provide for individual accommodation, if reasonably possible.&nbsp; A standard that allows for such accommodation may be only slightly different from the existing standard but it is a different standard nonetheless.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">B.&nbsp;&nbsp; <i>Application of the Reformed Approach to the Case on Appeal</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt">1.&nbsp; <u>Introduction </u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">69<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ms. Meiorin has discharged the burden of establishing that, <i>prima facie</i>, the aerobic standard discriminates against her as a woman.&nbsp; The arbitrator held that, because of their generally lower aerobic capacity, most women are adversely affected by the high aerobic standard.&nbsp; While the Government’s expert witness testified that most women can achieve the aerobic standard with training, the arbitrator rejected this evidence as&nbsp; “anecdotal” and “not supported by scientific data”.&nbsp; This Court has not been presented with any reason to revisit this characterization.&nbsp; Ms. Meiorin has therefore demonstrated that the aerobic standard is <i>prima facie</i> discriminatory, and has brought herself within s. 13(1) of the Code.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section40">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">70<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ms. Meiorin having established a <i>prima facie</i> case of discrimination, the burden shifts to the Government to demonstrate that the aerobic standard is a BFOR.&nbsp; For the reasons below, I conclude that the Government has failed to discharge this burden and therefore cannot rely on the defence provided by s. 13(4) of the Code.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt">2.&nbsp; <u>Steps One and Two </u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">71<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The first two elements of the proposed BFOR analysis, that is (1) that the employer adopted the standard for a purpose rationally connected to the performance of the job; and (2) that the employer adopted the particular standard in an honest and good faith belief that it was necessary to the fulfilment of that legitimate work-related purpose, have been fulfilled.&nbsp; The Government’s general purpose in imposing the aerobic standard is not disputed.&nbsp; It is to enable the Government to identify those employees or applicants who are able to perform the job of a forest firefighter safely and efficiently.&nbsp; It is also clear that there is a rational connection between this general characteristic and the performance of the particularly strenuous tasks expected of a forest firefighter.&nbsp; All indications are that the Government acted honestly and in a good faith belief that adopting the particular standard was necessary to the identification of those persons able to perform the job safely and efficiently.&nbsp; It did not intend to discriminate against Ms. Meiorin.&nbsp; To the contrary, one of the reasons the Government retained the researchers from the University of Victoria was that it sought to identify non-discriminatory standards.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt">3.&nbsp; <u>Step Three </u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section41">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">72<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Under the third element of the unified approach, the employer must establish that the standard is reasonably necessary to the accomplishment of that legitimate work-related purpose.&nbsp; To show that the standard is reasonably necessary, it must be demonstrated that it is impossible to accommodate individual employees sharing the characteristics of the claimant without imposing undue hardship upon the employer.&nbsp; In the case on appeal, the contentious issue is whether the Government has demonstrated that this particular aerobic standard is reasonably necessary in order to identify those persons who are able to perform the tasks of a forest firefighter safely and efficiently.&nbsp; As noted, the burden is on the government to demonstrate that, in the course of accomplishing this purpose, it cannot accommodate individual or group differences without experiencing undue hardship.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">73<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Government adopted the laudable course of retaining experts to devise a non-discriminatory test.&nbsp; However, because of significant problems with the way the researchers proceeded, passing the resulting aerobic standard has not been shown to be reasonably necessary to the safe and efficient performance of the work of a forest firefighter.&nbsp; The Government has not established that it would experience undue hardship if a different standard were used.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">74<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The procedures adopted by the researchers are problematic on two levels.&nbsp; First, their approach seems to have been primarily a descriptive one:&nbsp; test subjects were observed completing the tasks, the aerobic capacity of the test subjects was ascertained, and that capacity was established as the minimum standard required of every forest firefighter.&nbsp; However, merely describing the characteristics of a test subject does not necessarily allow one to identify the standard <u>minimally</u> necessary for the safe and efficient performance of the task.&nbsp; Second, these primarily descriptive studies failed to distinguish the female test subjects from the male test subjects, who constituted the vast majority of the sample groups.&nbsp; The record before this Court therefore does not permit us to say whether men and women require the same minimum level of aerobic capacity to perform safely and efficiently the tasks expected of a forest firefighter.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section42">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">75<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>While the researchers’ goal was admirable, their aerobic standard was developed through a process that failed to address the possibility that it may discriminate unnecessarily on one or more prohibited grounds, particularly sex.&nbsp; This phenomenon is not unique to the procedures taken towards identifying occupational qualifications in this case:&nbsp; see generally K. Messing and J. Stevenson, “Women in Procrustean Beds:&nbsp; Strength Testing and the Workplace” (1996), 3 <i>Gender, Work and Organization</i> 156; K. Messing, <i>One-Eyed Science: Occupational Health and Women Workers</i> (1998).&nbsp; Employers and researchers should be highly mindful of this serious problem.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">76<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The expert who testified before the arbitrator on behalf of the Government defended the original researchers’ decision not to analyse separately the aerobic performance of the male and female, experienced and inexperienced, test subjects as an attempt to reflect the actual conditions of firefighting.&nbsp; This misses the point.&nbsp; The polymorphous group’s average aerobic performance is irrelevant to the question of whether the aerobic standard constitutes a minimum threshold that cannot be altered without causing undue hardship to the employer.&nbsp; Rather, the goal should have been to measure whether members of all groups require the same minimum aerobic capacity to perform the job safely and efficiently and, if not, to reflect that disparity in the employment qualifications.&nbsp; There is no evidence before us that any action was taken to further this goal before the aerobic standard was adopted.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">77<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Neither is there any evidence that the Government embarked upon a study of the discriminatory effects of the aerobic standard when the issue was raised by Ms. Meiorin.&nbsp; In fact, the expert reports filed by the Government in these proceedings content themselves with asserting that the aerobic standard set in 1992 and 1994 is a minimum standard that women can meet with appropriate training.&nbsp; No studies were conducted to substantiate the latter assertion and the arbitrator rejected it as unsupported by the evidence.</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section43">
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">78<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Assuming that the Government had properly addressed the question in a procedural sense, its response -- that it would experience undue hardship if it had to accommodate Ms. Meiorin -- is deficient from a substantive perspective.&nbsp; The Government has presented no evidence as to the cost of accommodation.&nbsp; Its primary argument is that, because the aerobic standard is necessary for the safety of the individual firefighter, the other members of the crew, and the public at large, it would experience undue hardship if compelled to deviate from that standard in any way.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">79<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Referring to the Government’s arguments on this point, the arbitrator noted that, “other than anecdotal or ‘impressionistic’ evidence concerning the magnitude of risk involved in accommodating the adverse-effect discrimination suffered by the grievor, the employer has presented no cogent evidence . . . to support its position that it cannot accommodate Ms. Meiorin because of safety risks”.&nbsp; The arbitrator held that the evidence fell short of establishing that Ms. Meiorin posed a serious safety risk to herself, her colleagues, or the general public.&nbsp; Accordingly, he held that the Government had failed to accommodate her to the point of undue hardship.&nbsp; This Court has not been presented with any reason to interfere with his conclusion on this point, and I decline to do so.&nbsp; The Government did not discharge its burden of showing that the purpose for which it introduced the aerobic standard would be compromised to the point of undue hardship if a different standard were used.&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section44">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">80<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>This leaves the evidence of the Assistant Director of Protection Programs for the British Columbia Ministry of Forests, who testified that accommodating Ms. Meiorin would undermine the morale of the Initial Attack Crews.&nbsp; Again, this proposition is not supported by evidence.&nbsp; But even if it were, the attitudes of those who seek to maintain a discriminatory practice cannot be reconciled with the Code.&nbsp; These attitudes cannot therefore be determinative of whether the employer has accommodated the claimant to the point of undue hardship:&nbsp; see generally <i>Renaud</i>, <i>supra</i>, at pp. 984-85, <i>per</i> Sopinka J.; <i>Chambly</i>, <i>supra</i>, at pp. 545-46, <i>per </i>Cory J.&nbsp; Although serious consideration must of course be taken of the “objection of employees based on well-grounded concerns that their rights will be affected”, discrimination on the basis of a prohibited ground cannot be justified by arguing that abandoning such a practice would threaten the morale of the workforce: <i>Renaud</i>, <i>supra</i>, at p. 988, <i>per </i>Sopinka J.; <i>R. v. Cranston</i>, [1997] C.H.R.D. No. 1 (QL).&nbsp; If it were possible to perform the tasks of a forest firefighter safely and efficiently without meeting the prescribed aerobic standard (and the Government has not established the contrary), I can see no right of other firefighters that would be affected by allowing Ms. Meiorin to continue performing her job.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">81<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal suggested that accommodating women by permitting them to meet a lower aerobic standard than men would constitute “reverse discrimination”.&nbsp; I respectfully disagree.&nbsp; As this Court has repeatedly held, the essence of equality is to be treated according to one’s own merit, capabilities and circumstances.&nbsp; True equality requires that differences be accommodated: <i>&nbsp;Andrews</i>, <i>supra</i>, at pp. 167-69, <i>per</i> McIntyre J.; <i>Law</i>, <i>supra</i>, at para. 51, <i>per</i> Iacobucci J.&nbsp; A different aerobic standard capable of identifying women who could perform the job safely and efficiently therefore does not necessarily imply discrimination against men.&nbsp;&nbsp; “Reverse” discrimination would only result if, for example, an aerobic standard representing a minimum threshold for <u>all</u> forest firefighters was held to be inapplicable to men simply because they were men.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section45">
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">82<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Court of Appeal also suggested that the fact that Ms. Meiorin was tested individually immunized the Government from a finding of discrimination.&nbsp; However, individual testing, without more, does not negate discrimination.&nbsp;&nbsp; The individual must be tested against a realistic standard that reflects his or her capacities and potential contributions.&nbsp; Having failed to establish that the aerobic standard constitutes the minimum qualification required to perform the job safely and efficiently, the Government cannot rely on the mere fact of individual testing to rebut Ms. Meiorin’s <i>prima facie</i> case of discrimination.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">VII.&nbsp;&nbsp; <u>Conclusion</u></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">83<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I conclude that Ms. Meiorin has established that the aerobic standard is <i>prima facie</i> discriminatory, and the Government has not shown that it is reasonably necessary to the accomplishment of the Government’s general purpose, which is to identify those forest firefighters who are able to work safely and efficiently.&nbsp; Because it has therefore not been established that the aerobic standard is a BFOR, the Government cannot avail itself of the defence in s. 13(4) of the Code and is bound by the prohibition of such a discriminatory standard in s. 13(1)(b).&nbsp; The Code accordingly prevents the Government from relying on the aerobic standard as the basis for Ms. Meiorin’s dismissal.&nbsp; As this case arose as a grievance before a labour arbitrator, rather than as a claim before the Human Rights Tribunal or its predecessor, relief of a more general nature cannot be claimed.&nbsp; No challenge was made to the other components of the Government’s Tests.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:24.4pt">84<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>I would allow the appeal and restore the order of the arbitrator reinstating Ms. Meiorin to her former position and compensating her for lost wages and benefits.&nbsp; Ms. Meiorin’s union, the appellant on this appeal, shall have its costs in this Court and in the court below.</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><i>Appeal allowed with costs.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><i>Solicitor for the appellant:&nbsp;&nbsp;The British Columbia Government and Service Employees’ Union, Burnaby.</i></p>
+</div> <span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;"><br clear="all" style="page-break-before:auto"> </span>
+<div class="Section46">
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><i>Solicitors for the respondent:&nbsp;&nbsp;Heenan, Blaikie, Vancouver.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><i>Solicitor for the intervener the British Columbia Human Rights Commission:&nbsp; The British Columbia Human Rights Commission, Victoria.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i>&nbsp;</i></p>
+ <p class="MsoNormal" style="text-align:justify;text-indent:54.0pt;line-height:
+24.4pt"><i>Solicitors for the interveners the Women’s Legal Education and Action Fund, the DisAbled Women’s Network of Canada and the Canadian Labour Congress:&nbsp; Cavalluzzo, Hayes, Shilton, McIntyre &amp; Cornish, Toronto.</i></p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt">&nbsp;</p>
+</div></div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>

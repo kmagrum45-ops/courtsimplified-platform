@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/101/index.do" />
+    <title>    Ont. Human Rights Comm. v. Simpsons-Sears - SCC Cases
+</title>
+    <link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/scc-csc/scc-csc/en/101/1765011/res.do" />
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Ont. Human Rights Comm. v. Simpsons-Sears</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/scc-csc/scc-csc/en/nav_date.do">Supreme Court Judgments</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Ont. Human Rights Comm. v. Simpsons-Sears</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/scc-csc/fr/item/101/index.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content">
+<div id="decisia-document-header" class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisia-box">
+
+<h1>
+    <a id="decisia-decisions"></a>
+    Supreme Court Judgments
+</h1>
+
+<h2 class="accessibility-only">Decision Information</h2>
+<div class="metadata">
+
+    <h3 class="title">Ont. Human Rights Comm. v. Simpsons-Sears</h3>
+    <table>
+                    <tr>
+                        <td class="label">Collection</td>
+                        <td class="metadata">
+                                Supreme Court Judgments
+                    </tr>
+                    <tr>
+                        <td class="label">Date</td>
+                        <td class="metadata">
+                                1985-12-17
+                    </tr>
+                    <tr>
+                        <td class="label">Report</td>
+                        <td class="metadata">
+                                [1985] 2 SCR 536
+                    </tr>
+                    <tr>
+                        <td class="label">Case number</td>
+                        <td class="metadata">
+                                17328
+                    </tr>
+                    <tr>
+                        <td class="label">Judges</td>
+                        <td class="metadata">
+                                Dickson, Robert George Brian; Beetz, Jean; Estey, Willard Zebedee; McIntyre, William Rogers; Chouinard, Julien; Lamer, Antonio; Wilson, Bertha
+                    </tr>
+                    <tr>
+                        <td class="label">On appeal from</td>
+                        <td class="metadata">
+                                Ontario
+                    </tr>
+                    <tr>
+                        <td class="label">Subjects</td>
+                        <td class="metadata">
+                                Constitutional law<br/>
+                    </tr>
+                    <tr>
+                        <td class="label">Notes</td>
+                        <td class="metadata">
+                                SCC Case Information: <a target="_blank" href="https://www.scc-csc.ca/cases-dossiers/search-recherche/17328/">17328</a>
+                    </tr>
+    </table>
+
+    <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/101/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="lexboxHook"></div>
+
+<h2 class="accessibility-only">Decision Content</h2>
+
+</div> 
+
+<div id="document-content">
+
+        
+<div class="documentcontent"> 
+  <div class="Section1"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Ont. Human Rights Comm. <i>v.</i> Simpsons-Sears, [1985] 2 S.C.R. 536</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Ontario Human Rights Commission and Theresa O'Malley (Vincent)</span></b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <i>Appellants</i>;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">and</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Simpsons‑Sears Limited</span></b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp; <i>Respondent</i>;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">and</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Canadian Human Rights Commission, Saskatchewan Human Rights Commission, Manitoba Human Rights Commission, Alberta Human Rights Commission, Canadian Association for the Mentally Retarded, Coalition of Provincial Organizations of the Handicapped and Canadian Jewish Congress</span></b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp; <i>Interveners.</i></span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">File No.: 17328.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">1985: January 29; 1985: December 17.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Present: Dickson C.J. and Beetz, Estey, McIntyre, Chouinard, Lamer and Wilson JJ.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">on appeal from the court of appeal for ontario</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Civil rights ‑‑ Discrimination through effect on basis of creed ‑‑ Employees legitimately required to work Friday evenings and Saturdays ‑‑ Appellant forbidden by creed to work Saturdays ‑‑ Whether or not discrimination through effect on basis of creed contrary to Ontario Human Rights Code ‑‑ Ontario Human Rights Code, R.S.O. 1980, c. 340, s. 4(1)(g).</span></i></p> 
+  </div> 
+  <span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt"><br clear="all" style="page-break-before:auto"/> </span> 
+  <div class="Section2"> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Appellant O'Malley alleged discrimination on the basis of creed against her employer, a retailer, because she was periodically required to work Friday evenings and Saturdays as a condition of her employment. Appellant's religion required strict observance of the Sabbath from sundown Friday to sundown Saturday. Given this conflict, appellant accepted part‑time work because a full‑time position not involving work on Saturday was not available to a person with her qualifications. Both the Divisional Court and the Court of Appeal upheld a Board of Inquiry's decision to dismiss the complaint. At issue was whether or not a work requirement imposed on all employees for business reasons discriminated against appellant because compliance required her to act contrary to her religious beliefs and did not so affect other members of the employed group.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Held</span></i><span lang="FR-CA" style="font-size:
+12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">: The appeal should be allowed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; An employment rule, honestly made for sound economic and business reasons and equally applicable to all to whom it is intended to apply, may nevertheless be discriminatory if it affects a person or persons differently from others to whom it is intended to apply. The intent to discriminate is not a governing factor in construing human rights legislation aimed at eliminating discrimination. Rather, it is the result or effect of the alleged discriminatory action that is significant. The aim of the <i>Ontario Human Rights Code</i> is to remove discrimination ‑‑ its main approach is not to punish the discriminator but to provide relief to the victim of discrimination.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In a case of adverse effect discrimination, the employer has a duty to take reasonable steps to accommodate short of undue hardship in the operation of the employer's business. There is no question of justification because the rule, if rationally connected to the employment, needs none. If such reasonable steps do not fully reach the desired end, the complainant, in the absence of some accommodating steps on his own part, must sacrifice either his religious principles or his employment.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The complainant first must establish a <i>prima facie</i> case of discrimination. The onus then shifts to the employer to show that he has taken such reasonable steps to accommodate the employee as are open to him without undue hardship. Here, the employer did not discharge the onus of showing that it had taken reasonable steps to accommodate the complainant.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Cases Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ontario Human Rights Commission v. Borough of Etobicoke</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">, [1982] 1 S.C.R. 202, applied; <i>Singh (Ishar) v. Security and Investigation Services Ltd.</i>, Ontario Human Rights Board of Inquiry, unreported decision of May 31, 1977; <i>Insurance Corporation of British Columbia v. Heerspink</i>, [1982] 2 S.C.R. 145; <i>Gay Alliance Toward Equality v. Vancouver Sun</i>, [1979] 2 S.C.R. 435; <i>Re Attorney‑General for Alberta and Gares</i> (1976), 67 D.L.R. (3d) 635; <i>Re Rocca Group Ltd. and Muise</i> (1979), 102 D.L.R. (3d) 529; <i>Osborne v. Inco Ltd.</i>, [1984] 5 W.W.R. 228, reversed on other grounds, [1985] 2 W.W.R. 577; <i>British Columbia Human Rights Commission v. College of Physicians and Surgeons of B.C.</i>, British Columbia Board of Inquiry, unreported decision of May 27, 1976; <i>Griggs v. Duke Power Co.</i>, 401 U.S. 424 (1971); <i>Dennis v. United States</i>, 339 U.S. 162 (1950); <i>Rand v. Sealy Eastern Ltd.</i> (1982), 3 C.H.R.R. D/938; <i>Marcotte v. Rio Algom Ltd.</i> (1983), 5 C.H.R.R. D/2010; <i>Christie v. Central Alberta Dairy Pool</i> (1984), 6 C.H.R.R. D/2488; <i>Reid v</i>. <i>Memphis Publishing Co</i>., 468 F.2d 346 (1972); <i>Riley v. Bendix Corp.</i>, 464 F.2d 1113 (1972); <i>Trans World Airlines, Inc. v. Hardison</i>, 432 U.S. 63 (1977); <i>R. v. Big M Drug Mart Ltd.</i>, [1985] 1 S.C.R. 295, referred to.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Statutes and Regulations Cited</span></b></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:30.6pt;text-align:justify;text-indent:
+-30.6pt;line-height:12.2pt"><i><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">Civil Rights Act of 1964</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">, 42 USCS §§ 2000e(j), 2000e‑2(a)(1).</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:30.6pt;text-align:justify;text-indent:
+-30.6pt;line-height:12.2pt"><i><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">Human Rights Act</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">, 1975 (P.E.I.), c. 72.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:30.6pt;text-align:justify;text-indent:
+-30.6pt;line-height:12.2pt"><i><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">Human Rights Code of British Columbia</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;;letter-spacing:-.15pt">, 1973 (B.C.) (2nd Sess.), c. 119, s. 3.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:30.6pt;text-align:justify;text-indent:
+-30.6pt;line-height:12.2pt"><i><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">Individual’s Rights Protection Act</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;;letter-spacing:-.15pt">, 1972 (Alta.), c. 2, s.&nbsp;5.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:30.6pt;text-align:justify;text-indent:
+-30.6pt;line-height:12.2pt"><i><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">Interpretation Act</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">, R.S.O. 1970, c. 225, s. 10.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:30.6pt;text-align:justify;text-indent:
+-30.6pt;line-height:12.2pt"><i><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">Ontario Human Rights Code</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">, R.S.O. 1980, c. 340, preamble, ss. 4(1)(<i>g</i>), 9.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APPEAL from a judgment of the Ontario Court of Appeal (1982), 138 D.L.R. (3d) 133, 38 O.R. (2d) 423, dismissing an appeal from a judgment of the Divisional Court (1982), 133 D.L.R. (3d) 611, 36 O.R. (2d) 59, dismissing an appeal from a decision of a Board of Inquiry dismissing a complaint of discrimination. Appeal allowed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; John Sopinka, Q.C.</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">, and <i>Robert Rueter</i>, for the appellants.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Christopher Riggs, Q.C.</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">, and <i>Brenda Bowlby</i>, for the respondent.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Russell G. Juriansz</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt"> and <i>James Hendry</i>, for the intervener the Canadian Human Rights Commission.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; M. C. Woodward</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">, for the interveners Saskatchewan Human Rights Commission and Manitoba Human Rights Commission.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R. A. Philp</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">, for the intervener Alberta Human Rights Commission.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; J. David Baker</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">, for the interveners Canadian Association for the Mentally Retarded and Coalition of Provincial Organizations of the Handicapped.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; John I. Laskin</span></i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">, for the intervener the Canadian Jewish Congress.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The judgment of the Court was delivered by </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Juge McIntyre</span></i><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">1.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt"><span style="text-transform:uppercase">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; McIntyre J.</span>‑‑This appeal arose out of a complaint by the appellant O'Malley against her employer, the respondent, alleging discrimination with regard to a condition of employment on the basis of her creed, contrary to the provisions of s. 4(1)(<i>g</i>) of the <i>Ontario Human Rights Code</i>, R.S.O. 1980, c. 340, as it stood when the events giving rise to these proceedings occurred.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">2.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mrs. O'Malley, now Vincent, was first employed in 1971 by the respondent, Simpsons‑Sears, in Quebec City. After moving to Kingston she worked full‑time as a saleswoman in the respondent's Kingston store from 1975 until October 1978. The ladies' wear department, where she was employed, was one of the major income producers. The store remained open for business on Thursday and Friday evenings and was open, of course, on Saturdays. This period from Thursday evening to Saturday evening was acknowledged by both the complainant and the respondent to be the busiest time of the week. It was described as "the time for selling". It was a condition of employment that full‑time sales clerks employed by the respondent would work on Friday evenings, on a rotating basis, and on two Saturdays out of three.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">3.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In October of 1978 the complainant became a member of the Seventh‑Day Adventist Church. A tenet of this faith is that the Sabbath must be strictly kept; its Sabbath extends from sundown Friday to sundown Saturday. As a result, the complainant could no longer, consistent with her new faith, work for her employer on Saturdays. In the proceedings which followed it was found by the Board of Inquiry appointed under the <i>Ontario Human Rights Code</i>, and indeed not questioned by the respondent, that the complainant's conversion was genuine, sincerely made, and in no way actuated by any desire to procure more favourable working conditions. Mrs. O'Malley, because of her conversion, found herself in a position where she could no longer fulfil her employment obligations without compromising her religious beliefs. It was also found, however, and again it was not disputed, that the policy of Saturday opening followed by the respondent was adopted for sound business reasons and not as the result of any intent to discriminate against the complainant, nor out of any malice towards the complainant or members of her faith. In fact, the evidence made it clear that until her conversion the complainant was in all respects a competent and valued employee. She, with other members of the staff, had accepted as a condition of employment the obligation to work on Saturdays when required by the employer's rotating schedule.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">4.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The complainant informed a Mr. Burleigh, the personnel manager for the respondent, of her conversion and he informed her that she would be required to work her turn on Saturdays. The complainant did not want to resign but Burleigh informed her that Saturday work was a requirement and she would be discharged if she could not work on Saturdays. She wanted to continue her employment but could not continue on the required basis because of her newly‑assumed obligation of Sabbath observance. On October 20, during what was to be the last week of her employment, Mr. Burleigh called her into his office and offered her part‑time employment commencing the next week. She accepted this offer and then became a part‑time employee. She worked about one‑half the hours formerly required and suffered a consequent reduction in her earnings and fringe benefits. Mr. Burleigh also told her she would be considered for any jobs for which she might be suitable and which could accommodate her personal requirements. On October 23, the complainant and Mr. Burleigh signed a statement summarizing these events, which is set out below: </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On Friday, October 20, 1978 Mrs. Therese O'Malley was officially removed from full time status with Simpsons‑Sears Kingston and subsequently re‑hired on a contingent basis. This action was required as Mrs. O'Malley indicated she would no longer be available for work on Saturdays.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; When Mrs. O'Malley started working for Sears on August, 1971 she was fully aware of the need for her to work on Saturday as a condition of her employment. This situation has continued to her present situation where she has been working since August, 1975 in Department 17/31.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; She first brought the situation to our attention on Tuesday, October 10, 1978. At that time she informed us that she would not be available Saturday October 14 although she was scheduled to be present. She was advised that this could not be allowed on a regular basis as it would be preferential treatment not offered to all our other sales staff.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mrs. O'Malley and myself discussed the possibility of her resigning from full time employment with Sears. At that time Mrs. O'Malley suggested she would want to resign. However, when I discussed the situation with her on Friday October 13 she indicated that she did not choose to resign. At that time I indicated we would be required to terminate her services then on Friday, October 20, 1978, as she could not fulfill the requirements of the job.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On Friday October 20 Mrs. O'Malley was once again asked if she had reconsidered and would be available on Saturdays. When she indicated she had not we proceeded with the termination.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; During the time Mrs. O'Malley was employed by the Kingston store she proved to be a satisfactory saleslady. In view of her length of service and not wishing to create an undue hardship we offered her contingent employment which she readily accepted.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; At the same time, without any guarantees, we indicated we would consider her for any jobs she might be suitable for and could accommodate her personal needs.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The situation is somewhat unfortunate from Mrs. O'Malley's point of view as she has been with the company for a good length of time. However this action is necessary to ensure proper staff availability consistent with departmental needs.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I have discussed the above with Mrs. O'Malley over our series of conversations.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">5.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Although the hours of work offered to the complainant after she became a part‑time employee were fewer than she wished for, it was agreed that the respondent tried to give her more hours when possible. Any full‑time positions which came to her attention either involved Saturday work or the complainant did not have the necessary qualifications. Before the Board of Inquiry the complainant said she was no longer interested in full‑time employment because her husband preferred that she not work full time. She, therefore, now seeks compensation only for the difference in remuneration between full‑time and part‑time employment lost between October 23, 1978 and July 6, 1979, the date of her marriage. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">6.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The complaint, alleging discrimination in a condition of employment, based on her creed, came before Professor Edward J. Ratushny, appointed under the <i>Ontario Human Rights Code</i> as a Board of Inquiry to hear and determine the complaint. After outlining the facts, he succinctly stated the questions in issue in these terms:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">(1)&nbsp;Assuming (as in this case) that a general employment condition is established without a discriminatory motive and for legitimate business reasons, can there be discrimination under the <i>Ontario Human Rights Code</i> where that condition applies equally to all employees but has the practical consequence of discriminating against one or more of those employees on a prohibited ground such as creed?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">(2)&nbsp;If so, and if the general employment condition has such a practical consequence, how far must an employer go in accommodating the religious beliefs of such an employee in order to avoid a contravention of the Code?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">Relying on the preamble, s. 9 of the Code, and s. 10 of the <i>Interpretation Act</i>, R.S.O. 1970, c. 225, he considered that s. 4(1)(<i>g</i>) of the Code required a broad inquiry into the effect of the condition of employment on the religious beliefs and practices of the complainant. He was of the view that s. 4(1)(<i>g</i>) should be interpreted to prohibit not only employment conditions which are on their face discriminatory, but also those which, though innocuous in their terms, could result in discrimination against a particular employee or group of employees.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">7.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In dealing with the second question which follows directly from the first, he concluded, relying in great part on the decision of Professor Peter A. Cumming, Chairman of a Board of Inquiry under the <i>Ontario Human Rights Code</i>, in the complaint of <i>Singh (Ishar) v. Security and Investigation Services Ltd.</i> (decision handed down May 31, 1977, as yet unreported), that the duty of the employer was to accommodate the position of the complainant unless "undue hardhsip" would result. He reviewed various American decisions and concluded that in the absence of any legislative provision imposing a duty to accommodate no specific standard of undue hardship should be imposed. The appropriate test would be to decide whether in all the circumstances of the case and within the general context of the Code the employer had acted reasonably. He concluded by posing a question in these words:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Did the respondent act reasonably in the steps which it took to accommodate Mrs. Vincent after learning that the general condition of employment was incompatible with her religious observance?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">And after some discussion he answered the question in these terms:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Taking into account all of the circumstances of the case and the entire context of the <i>Ontario Human Rights Code</i>, I have concluded that the Commission has not satisfied its onus of establishing that the respondent acted unreasonably in the steps which it took to accommodate the complainant after learning that the general condition of employment was incompatible with her religious observance.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">The complaint was dismissed. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">8.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The complainant appealed to the Divisional Court (Southey, Gray and Smith JJ.) The appeal was dismissed, Southey J. writing for the majority, while Smith J. dissented. Southey J. pointed out that there was no saving clause in the <i>Ontario Human Rights Code</i> covering the prohibition in s. 4(1)(<i>g</i>) of discrimination based on creed which would determine the limits to which an employer would be required to go in accommodating the religious practices of an employee, such as the one which appears in s. 4(6) for discrimination based on age, sex, or marital status. He was of the view that the absence of such a saving clause was a strong indication that the Legislature did not intend to prohibit unintentional discrimination and had limited the prohibition to discrimination resulting from intentional acts. He was strengthened in this view by the use of the words "because of" employed in s. 4(1), which he considered referred to the reason or reasons the employer imposed the impugned terms or conditions. He was not critical of the test employed by the Chairman of the Board of Inquiry imposing the requirement of reasonable steps toward accommodation on the part of the employer, but he was of the view that no such standard could be imported into the construction of the Code without specific legislative provisions. In dismissing the appeal, he expressed his conclusion in these terms:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For the reasons I have given, I cannot hold that the Legislature intended the Code as now worded to mean that an employer acting for legitimate business reasons and with no thought of discriminating on a prohibited ground, as in the case at bar, is guilty of a contravention of s. 4(1)(<i>g</i>). The question of whether it would be desirable to prohibit under some circumstances practices that unintentionally discriminate for reasons that are prohibited is not for the Court to decide.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For the foregoing reasons, it is my judgment that the learned Chairman was in error in holding with respect to the first question that an intention to discriminate on a prohibited ground is not an essenital element of a contravention of s. 4(1)(<i>g</i>) of the Code. As it is admitted that the respondent had not such intention in this case, there was no contravention of the Code by the respondent and the appeal is dismissed.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">9.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The complainant appealed to the Court of Appeal (Lacourcière, Weatherston and Goodman JJ.A.) Lacourcière J.A. wrote the judgment of the court dismissing the appeal and held clearly that there could be no breach of the anti‑discrimination provisions of the <i>Ontario Human Rights Code</i> unless the employer intended to discriminate on one of the prohibited grounds. There was clearly no such intent in the case at bar and the appeal was dismissed. He concluded by saying:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For these reasons I agree with the majority of the Divisional Court that an intention to discriminate is an essential requirement for a contravention of s. 4(1)(<i>g</i>) of the Code prior to the proclamation of the amendment. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">10.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This appeal comes to us by leave granted November 1, 1982. In addition to the parties, the Ontario Human Rights Commission acting on behalf of the complainant O'Malley, and the respondent Simpsons‑Sears Limited, interventions were allowed to the Canadian Human Rights Commission; the Human Rights Commissions of Alberta, Saskatchewan and Manitoba; the Canadian Association for the Mentally Retarded; the Coalition of Provincial Organizations of the Handicapped; and the Canadian Jewish Congress. The interveners filed factums and were heard before this Court. Though the specific statement of issues involved in this appeal appeared in different terms in the factums and submissions of the interveners, in general all were in support of the appellant. In essence, their positions are all included in the appellant's framing of the issues. The appellant contended that the Court of Appeal was in error in holding that proof of an intention to discriminate on a prohibited ground of discrimination is essential to a finding that s. 4(1) of the <i>Ontario Human Rights Code</i> has been contravened and further that the Court of Appeal erred in failing to hold that the onus of proving business necessity and reasonable accommodation is on the employer.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">11.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The discrimination complained of in this case is said to be discrimination on the basis of the creed of the complainant, which is forbidden by s. 4(1)(<i>g</i>) of the <i>Ontario Human Rights Code</i> as it then stood. The relevant portions of s. 4 are set out hereunder:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><b><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.</span></b><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">‑‑(1) No person shall</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">(<i>g</i>)&nbsp;discriminate against any employee with regard to any term or condition of employment,</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">because of race, creed, colour, age, sex, marital status, nationality, ancestry or place of origin of such person or employee.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">It is asserted that the requirement to work on Saturdays, while itself an employment rule imposed for business reasons upon all employees, discriminates against the complainant because compliance with it requires her to act contrary to her religious beliefs and does not so affect other members of the employed group. The Board of Inquiry accepted this proposition, but it was firmly rejected in the judgment of the majority of the Divisional Court and in the Court of Appeal. It is the principal ground upon which this appeal is taken.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">12.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It will be seen at once that the problem confronting the Court involves consideration of unintentional discrimination on the part of the employer and as well the concept of adverse effect discrimination. To begin with, we must consider the nature and purpose of human rights legislation. The preamble to the <i>Ontario Human Rights Code</i> provides the guide and it is worth quoting in full: </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;text-transform:uppercase;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Whereas</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt"> recognition of the inherent dignity and the equal and inalienable rights of all members of the human family is the foundation of freedom, justice and peace in the world and is in accord with the Universal Declaration of Human Rights as proclaimed by the United Nations;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;text-transform:uppercase;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And Whereas</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt"> it is public policy in Ontario that every person is free and equal in dignity and rights without regard to race, creed, colour, sex, marital status, nationality, ancestry or place or [<i>sic</i>] origin;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;text-transform:uppercase;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And Whereas</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt"> these principles have been confirmed in Ontario by a number of enactments of the Legislature;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;text-transform:uppercase;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And Whereas</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt"> it is desirable to enact a measure to codify and extend such enactments and to simplify their administration;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">There we find enunciated the broad policy of the Code and it is this policy which should have effect. It is not, in my view, a sound approach to say that according to established rules of construction no broader meaning can be given to the Code than the narrowest interpretation of the words employed. The accepted rules of construction are flexible enough to enable the Court to recognize in the construction of a human rights code the special nature and purpose of the enactment (see Lamer J. in <i>Insurance Corporation of British Columbia v. Heerspink</i>, [1982] 2 S.C.R. 145, at pp. 157‑58), and give to it an interpretation which will advance its broad purposes. Legislation of this type is of a special nature, not quite constitutional but certainly more than the ordinary‑‑and it is for the courts to seek out its purpose and give it effect. The Code aims at the removal of discrimination. This is to state the obvious. Its main approach, however, is not to punish the discriminator, but rather to provide relief for the victims of discrimination. It is the result or the effect of the action complained of which is significant. If it does, in fact, cause discrimination; if its effect is to impose on one person or group of persons obligations, penalties, or restrictive conditions not imposed on other members of the community, it is discriminatory.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">13.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Without express statutory support in Ontario, inquiry board chairmen and judges have recognized the principle that an intention to discriminate is not a necessary element of the discrimination generally forbidden in Canadian human rights legislation. Laskin C.J., in a dissenting opinion in <i>Gay Alliance Toward Equality v. Vancouver Sun</i>, [1979] 2 S.C.R. 435, said at p. 446, in reference to s. 3 of the <i>Human Rights Code of British Columbia</i>, 1973 (B.C.) (2nd Sess.), c. 119, a section prohibiting discrimination with respect to the supply of accommodation, services, and facilities available to the public:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">What appears to me to have occurred in this case is a concern with "motive" as if it was being differentiated from "intent" for criminal law purposes. Intent is not, however, an issue under s. 3 of the <i>Human Rights Code</i>.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">This Court in <i>Ontario Human Rights Commission v. Borough of Etobicoke</i>, [1982] 1 S.C.R. 202, found mandatory retirement provisions agreed upon in a collective agreement discriminatory, even though "there was no evidence to indicate that the motives of the employer were other than honest and in good faith..." (at p. 209). In <i>Re Attorney‑General for Alberta and Gares</i> (1976), 67 D.L.R. (3d) 635 (Alta. S.C.), a case arising out of a complaint of discrimination on the basis of sex under s. 5 of <i>The Individual’s Rights Protection Act</i>, 1972 (Alta.), c. 2, of Alberta, because of a lower rate of pay for female employees than that for males, McDonald J. of the Alberta Supreme Court, Trial Division, said, at p. 695: </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">He also submits that compensation ought to be directed only when the employer wilfully or consciously discriminated between the sexes. Here, he says, the employer did not have the sexual distinction in mind when it negotiated first a collective agreement with the male group, then with the female group, then again with the male group and so on. However, in my opinion relief in the form of compensation for lost wages should ordinarily be granted to a complainant whose complaint as to unequal pay has been found to be justified, even in the absence of present or past intent to discriminate on the ground of sex. It is the discriminatory result which is prohibited and not a discriminatory intent.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">In <i>Re Rocca Group Ltd. and Muise</i> (1979), 102 D.L.R. (3d) 529, MacDonald J., speaking for the Prince Edward Island Supreme Court <i>in Banco</i>, said in dealing with a complaint under the <i>Human Rights Act</i>, 1975 (P.E.I.), c. 72, at p. 533:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">I am not in absolute agreement that it was the trial Judge's finding that intention was a relevant part of his finding, however, if it were I would agree with the appellant's contention that intention plays no part in considering whether or not there has been discrimination.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">He then cited the <i>Gares</i> case. The matter was considered as well in <i>Osborne v. Inco Ltd.,</i> [1984] 5 W.W.R. 228 (Man. Q.B.), where Kroft J. said, at p. 238:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adjudicators in Manitoba have consistently concluded that discrimination, be it on the grounds of religion or sex, is not confined to instances where intent is shown: e.g., <i>Froese v. Pine Creek Sch. Div. 30</i>, M. Rothstein, Q.C., 28th December 1978 (Man. Bd. Adjud.)(unreported); <i>McDonald v. Knit‑Rite Mills Ltd.</i> (1983), 5 C.H.R.R. D/1949 (Man. Bd. Adjud.); and <i>Can. Safeway Ltd. v. Steel</i>, supra. This is a view which I think to be totally consistent with the object of the Manitoba Act and the wording of s. 6(1) in particular.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">But see: [1985] 2 W.W.R. 577, where the appeal was allowed. Matas J.A. referred to the question, at p. 584, but refrained from deciding it. In <i>British Columbia Human Rights Commission v. College of Physicians and Surgeons of B.C.,</i> B.C. Bd. Inq. May 27, 1976, a policy adopted by the British Columbia College of Physicians and Surgeons, which required doctors who were not Canadian citizens to practise in remote and `undoctored' areas of the Province during the first three years of their practice, was held to be discriminatory and a violation of the Code even though the motive was described as being "wholly laudable".</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">14.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I do not consider that to adopt such an approach does any violence to the <i>Ontario Human Rights Code</i>, nor would it be impractical in its application. To take the narrower view and hold that intent is a required element of discrimination under the Code would seem to me to place a virtually insuperable barrier in the way of a complainant seeking a remedy. It would be extremely difficult in most circumstances to prove motive, and motive would be easy to cloak in the formation of rules which, though imposing equal standards, could create, as in <i>Griggs v. Duke Power Co.</i>, 401 U.S. 424 (1971), injustice and discrimination by the equal treatment of those who are unequal (<i>Dennis v. United States</i>, 339 U.S. 162 (1950), at p. 184). Furthermore, as I have endeavoured to show, we are dealing here with consequences of conduct rather than with punishment for misbehaviour. In other words, we are considering what are essentially civil remedies. The proof of intent, a necessary requirement in our approach to criminal and punitive legislation, should not be a governing factor in construing human rights legislation aimed at the elimination of discrimination. It is my view that the courts below were in error in finding an intent to discriminate to be a necessary element of proof. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">15.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; As to the second consideration, the courts below upon a not unreasonable construction of the <i>Ontario Human Rights Code</i> based their judgments primarily upon the proposition that an intent to discriminate was a necessary element in prohibited discrimination under the Code. They did not then have to consider the question of adverse effect discrimination as a concept separate from intentional discrimination.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">16.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The idea of treating as discriminatory regulations and rules not discriminatory on their face but which have a discriminatory effect, sometimes termed adverse effect discrimination, is of American origin and is usually said to have been introduced in the <i>Duke Power</i> case, <i>supra</i>, in the Supreme Court of the United States. In that case the employer required as a condition of employment or advancement in employment the production of a high school diploma or the passing of an intelligence test. The requirement applied equally to all employees but had the effect of excluding from employment a much higher proportion of black applicants than white. It was found that the requirements were not related to performance on the job, and the Supreme Court of the United States held them to be discriminatory because of their disproportionate effect upon the black population. There was no provision in the relevant statute, the <i>Civil Rights Act of 1964</i>, (Title VII, 78 Stat. 255, s. 703(a)(1)) 42 USCS § 2000e‑&lt;‑2(a)(1), which directed such an interpretation.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">17.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Again, without express statutory support in Ontario, Inquiry Board chairmen have introduced the concept. In addition to the Inquiry Board decision under review in this appeal, the adverse effect principle was applied in <i>Singh (Ishar) v. Security and Investigation Services Ltd., supra; Rand v. Sealy Eastern Ltd.</i> (1982), 3 C.H.R.R. D/938 (Ont. Bd. Inq.) See also <i>Marcotte v. Rio Algom Ltd.</i> (1983), 5 C.H.R.R. D/2010 (Canadian Human Rights Commission Review Tribunal); <i>Christie v. Central Alberta Dairy Pool</i> (1984), 6 C.H.R.R. D/2488 (Alta. Bd. Inq.), as well as several others.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">18.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A distinction must be made between what I would describe as direct discrimination and the concept already referred to as adverse effect discrimination in connection with employment. Direct discrimination occurs in this connection where an employer adopts a practice or rule which on its face discriminates on a prohibited ground. For example, "No Catholics or no women or no blacks employed here." There is, of course, no disagreement in the case at bar that direct discrimination of that nature would contravene the Act. On the other hand, there is the concept of adverse effect discrimination. It arises where an employer for genuine business reasons adopts a rule or standard which is on its face neutral, and which will apply equally to all employees, but which has a discriminatory effect upon a prohibited ground on one employee or group of employees in that it imposes, because of some special characteristic of the employee or group, obligations, penalties, or restrictive conditions not imposed on other members of the work force. For essentially the same reasons that led to the conclusion that an intent to discriminate was not required as an element of discrimination contravening the Code I am of the opinion that this Court may consider adverse effect discrimination as described in these reasons a contradiction of the terms of the Code. An employment rule honestly made for sound economic or business reasons, equally applicable to all to whom it is intended to apply, may yet be discriminatory if it affects a person or group of persons differently from others to whom it may apply. From the foregoing I therefore conclude that the appellant showed a <i>prima facie</i> case of discrimination based on creed before the Board of Inquiry. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">19.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Where discrimination in connection with employment on grounds of a person's creed is found, is that person automatically entitled to remedies provided in the <i>Ontario Human Rights Code</i>? One of the arguments advanced in this Court and in the courts below was based on the fact that the Code, while prohibiting discrimination on the basis of creed, contains no saving or justifying clause for the protection of the employer. Such a saving provision is found in s. 4(6) for cases concerning discrimination on the basis of age, sex, and marital status‑‑the <i>bona fide</i> occupational qualification defence. This omission was said to create a vacuum in the Code and was relied on for the proposition that only intentional discrimination was prohibited because without some such protection the innocent discriminator would be defenceless. While I reject that argument as support for a limitation of the Code to intentional discrimination, I do not on the other hand accept the proposition that on a showing of adverse effect discrimination on the basis of religion the right to a remedy is automatic.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">20.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No question arises in a case involving direct discrimination. Where a working rule or condition of employment is found to be discriminatory on a prohibited ground and fails to meet any statutory justification test, it is simply struck down: see the <i>Etobicoke</i> case, <i>supra</i>. In the case of discrimination on the basis of creed resulting from the effect of a condition or rule rationally related to the performance of the job and not on its face discriminatory a different result follows. The working rule or condition is not struck down, but its effect on the complainant must be considered, and if the purpose of the <i>Ontario Human Rights Code</i> is to be given effect some accommodation must be required from the employer for the benefit of the complainant. The Code must be construed and flexibly applied to protect the right of the employee who is subject to discrimination and also to protect the right of the employer to proceed with the lawful conduct of his business. The Code was not intended to accord rights to one to the exclusion of the rights of the other. American courts have met this problem with what has been described as a "duty to accommodate", short of undue hardship, on the part of the employer: see <i>Reid v. Memphis Publishing Co.</i>, 468 F.2d 346 (6th Cir. 1972); <i>Riley v. Bendix Corp.</i>, 464 F.2d 1113 (5th Cir. 1972). Statutory authority for this approach in the United States is said to be found in the provisions of the 1972 amendment to the <i>Civil Rights Act of 1964</i>‑‑see: <i>Civil Rights Act of 1964</i>, 42 USCS § 2000e(j); see also <i>Trans World Airlines, Inc. v. Hardison</i>, 432 U.S. 63 (1977). In Canada, boards of inquiry under human rights legislation have adopted this concept and it was formulated by the Board of Inquiry in this case by Professor Ratushny as:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">.&nbsp;.&nbsp;.&nbsp;the very general standard of whether the employer acted reasonably in attempting to accommodate the employee in all of the circumstances of the case as well as in the context of the general scope and objects of the Code. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The reasonable standard, referred to by Professor Ratushny, and the duty to accommodate, referred to in the American cases, provide that where it is shown that a working rule has caused discrimination it is incumbent upon the employer to make a reasonable effort to accommodate the religious needs of the employee, short of undue hardship to the employer in the conduct of his business. There is no express statutory base for such a proposition in the Code. Hence, the vacuum in the Code and the question: Should such a doctrine be imported to fill it?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">21.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The question is not free from difficulty. No problem is found with the proposition that a person should be free to adopt any religion he or she may choose and to observe the tenets of that faith. This general concept of freedom of religion has been well‑established in our society and was a recognized and protected right long before the human rights codes of recent appearance were enacted. Difficulty arises when the question is posed of how far the person in entitled to go in the exercise of his religious freedom. At what point in the profession of his faith and the observance of its rules does he go beyond the mere exercise of his rights and seek to enforce upon others conformance with his beliefs? To what extent, if any, in the exercise of his religion is a person entitled to impose a liability upon another to do some act or accept some obligation he would not otherwise have done or accepted? In a clear case involving legislation‑‑see: <i>R. v. Big M Drug Mart Ltd</i>., [1985] 1 S.C.R. 295‑‑the <i>Lord's Day Act</i> was struck down essentially for the reason that its effect was to impose upon minority groups a legal duty to observe the Christian Sabbath. To put the question in the individual context of this case: in the honest desire to exercise her religious practices, how far can an employee compel her employer in the conduct of its business to conform with, or to accommodate, such practices? How far, it may be asked, may the same requirement be made of fellow employees and, for that matter, of the general public?</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">22.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; These questions raise difficult problems. It is not, in my view, either wise or possible to venture an answer that would apply generally. We are, however, faced with the necessity of finding an answer at least for this case and, therefore, in the nature of the judicial process an answer for similar cases. In my view, for this case the answer lies in the <i>Ontario Human Rights Code</i>, its purpose, and its general provisions. The Code accords the right to be free from discrimination in employment. While no right can be regarded as absolute, a natural corollary to the recognition of a right must be the social acceptance of a general duty to respect and to act within reason to protect it. In any society the rights of one will inevitably come into conflict with the rights of others. It is obvious then that all rights must be limited in the interest of preserving a social structure in which each right may receive protection without undue interference with others. This will be especially important where special relationships exist, in the case at bar the relationship of employer and employee. In this case, consistent with the provisions and intent of the <i>Ontario Human Rights Code</i>, the employee's right requires reasonable steps towards an accommodation by the employer. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">23.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Accepting the proposition that there is a duty to accommodate imposed on the employer, it becomes necessary to put some realistic limit upon it. The duty in a case of adverse effect discrimination on the basis of religion or creed is to take reasonable steps to accommodate the complainant, short of undue hardship: in other words, to take such steps as may be reasonable to accommodate without undue interference in the operation of the employer's business and without undue expense to the employer. Cases such as this raise a very different issue from those which rest on direct discrimination. Where direct discrimination is shown the employer must justify the rule, if such a step is possible under the enactment in question, or it is struck down. Where there is adverse effect discrimination on account of creed the offending order or rule will not necessarily be struck down. It will survive in most cases because its discriminatory effect is limited to one person or to one group, and it is the effect upon them rather than upon the general work force which must be considered. In such case there is no question of justification raised because the rule, if rationally connected to the employment, needs no justification; what is required is some measure of accommodation. The employer must take reasonable steps towards that end which may or may not result in full accommodation. Where such reasonable steps, however, do not fully reach the desired end, the complainant, in the absence of some accommodating steps on his own part such as an acceptance in this case of part‑time work, must either sacrifice his religious principles or his employment.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">24.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To relate the principle of accommodation to the facts at bar, we must begin with the proposition that the employer is lawfully entitled to carry on business and to stay open for business on Saturdays. It is accordingly entitled to engage employees on the condition that they work on Saturdays. The complainant, however, is lawfully entitled to pursue the practices of her religion and to be free from compulsion to work on Saturday, contrary to her religious beliefs. We are faced here with a record which in some respects is incomplete and is perhaps inadequate for a proper resolution of the issue which arises regarding the accommodation made by the respondent. Professor Ratushny recognized this inadequacy but reached his conclusion on the basis that the Commission had not discharged the onus upon it of proving inadequate accommodation. He considered the question of onus of proof and discussed it at some length. He concluded that the Commission, which had the conduct of proceedings at the outset, had the burden of showing a <i>prima facie</i> case of discrimination, in this case of discriminatory effect. He then said that once the discriminatory effect had been established an onus of proof would pass to the respondent employer, and he observed that in this case the employer had not called any evidence and this left the record inadequate in some particulars. He considered that the employer would be best able to provide evidence on the issue of accommodation, and he also considered that there was power not exercised here by the Commission to call company officials to provide the evidence. He was reluctant, however, to impose a strict burden of proof upon the employer, reasoning that the <i>Ontario Human Rights Code</i> itself did not impose any duty of accommodation or burden of proof. He said: </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Quite frankly, I have reservations about attempting to impose an onus of proof upon an employer to meet a specific standard of undue hardship in the absence of any specific legislative basis. It is one thing to conclude that the total framework of the Code warrants a broad interpretation of what might constitute discrimination under that statute. It is another, in effect, to adopt and read into the Code the specific legislative provision of another jurisdiction.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">and later he said:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Meanwhile, I propose to apply the very general standard of whether the employer acted reasonably in attempting to accommodate the employee in all of the circumstances of the case as well as in the context of the general scope and objects of the Code.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">He then went on to say that in a particular case the matter must be dealt with as a question of proof:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">In my view, the onus of establishing a contravention of the <i>Ontario Human Rights Code</i> remains upon the Commission (on behalf of the complainant) throughout the inquiry. As a practical matter, the evidential burden will often shift to the respondent (employer, in this case).</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">He concluded his decision by holding that the Commission had not discharged its burden of proof. He said:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Taking into account all of the circumstances of the case and the entire context of the <i>Ontario Human Rights Code</i>, I have concluded that the Commission has not satisfied its onus of establishing that the respondent acted unreasonably in the steps which it took to accommodate the complainant after learning that the general condition of employment was incompatible with her religious observance.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">And, finally, he said:</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"><span lang="FR-CA" style="font-size:12.0pt;
+font-family:&quot;Times New Roman&quot;;letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I have decided, therefore, that the Commission has not satisfied its onus of establishing a contravention of the Code.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">25.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It appears that the Board of Inquiry resolved the matter by holding that a <i>prima facie</i> case for discrimination had been shown, but that the Commission had not then discharged its burden of showing that the employer had not acted reasonably in all the circumstances of the case and in the context of the <i>Ontario Human Rights Code</i> to accommodate the complainant.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">26.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The majority in the Divisional Court, and the Court of Appeal, having decided that intentional discrimination had to be shown, did not consider the question of accommodation and burden of proof.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">27.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It will be seen that Professor Ratushny departed from the rule respecting the onus of proof expressed in <i>Etobicoke</i>. It was held in that case that at least in direct discrimination cases, where the complainant has shown a <i>prima facie</i> case of discrimination on a prohibited ground, the onus falls on the employer to justify if he can the discriminatory rule on a balance of probabilities. The question then is whether this rule should apply in cases of adverse effect discrimination. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">28.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To begin with, experience has shown that in the resolution of disputes by the employment of the judicial process, the assignment of a burden of proof to one party or the other is an essential element. The burden need not in all cases be heavy‑‑it will vary with particular cases‑‑and it may not apply to one party on all issues in the case; it may shift from one to the other. But as a practical expedient it has been found necessary, in order to insure a clear result in any judicial proceeding, to have available as a `tie‑breaker' the concept of the onus of proof. I agree then with the Board of Inquiry that each case will come down to a question of proof, and therefore there must be a clearly‑recognized and clearly‑assigned burden of proof in these cases as in all civil proceedings. To whom should it be assigned? Following the well‑settled rule in civil cases, the plaintiff bears the burden. He who alleges must prove. Therefore, under the <i>Etobicoke</i> rule as to burden of proof, the showing of a <i>prima facie</i> case of discrimination, I see no reason why it should not apply in cases of adverse effect discrimination. The complainant in proceedings before human rights tribunals must show a <i>prima facie</i> case of discrimination. A <i>prima facie</i> case in this context is one which covers the allegations made and which, if they are believed, is complete and sufficient to justify a verdict in the complainant's favour in the absence of an answer from the respondent‑employer. Where adverse effect discrimination on the basis of creed is shown and the offending rule is rationally connected to the performance of the job, as in the case at bar, the employer is not required to justify it but rather to show that he has taken such reasonable steps toward accommodation of the employee's position as are open to him without undue hardship. It seems evident to me that in this kind of case the onus should again rest on the employer, for it is the employer who will be in possession of the necessary information to show undue hardship, and the employee will rarely, if ever, be in a position to show its absence. The onus will not be a heavy one in all cases. In some cases it may be established without eivdence; for example, a requirement that all employees work on Saturday in a business which is open only on Saturdays, but once the <i>prima facie</i> proof of a discriminatory effect is made it will remain for the employer to show undue hardship if required to take more steps for its accommodation than he has done. In my view, the Board of Inquiry was in error in fixing the Commission with the burden of proof.</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">29.</span><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+letter-spacing:-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In this case the respondent‑employer called no evidence. While the evidence called for the complainant reveals some steps taken by the respondent towards her accommodation, there is no evidence in the record bearing on the question of undue hardship to the employer. The first reaction to the complainant's announcement that she would not be able to continue to work on Saturdays was the response that she would have to resign her job. Within a few days, and before she had left her employment, the employer on its own initiative offered part‑time work, which was accepted. In addition the employer agreed to consider Mrs. O'Malley for other jobs as they became vacant. All of the vacancies of which Mrs. O'Malley had notice required Saturday work except one and for that one she was not qualified. There was no evidence adduced regarding the problems which could have arisen as a result of further steps by the respondent, or of what expense would have been incurred in rearranging working periods for her benefit, or of what other problems could have arisen if further steps were taken towards her accommodation. There was therefore no evidence upon which the Board Chairman could have found that such further steps would have caused undue hardship for the respondent and thus have been unreasonable. In the absence of such evidence, I can only conclude that the appeal must succeed. I would therefore allow the appeal with costs and direct that the respondent pay to the complainant as compensation the difference between the sum of her earnings while engaged as a part‑time employee of the respondent from October 23, 1978 to July 6, 1979 and the amount she would have earned as a full‑time employee during that period. </span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Appeal allowed with costs.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the appellants: Stikeman, Elliott, Toronto.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the respondent: Hicks, Morley, Hamilton, Stewart, Storie, Toronto.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitor for the intervener Canadian Human Rights Commission: Canadian Human Rights Commission, Ottawa.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitor for the interveners Saskatchewan Human Rights Commission and Manitoba Human Rights Commission: Milton C. Woodward, Regina.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitor for the intervener Alberta Human Rights Commission: Robert A. Philp, Edmonton.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitor for the interveners Canadian Association for the Mentally Retarded and Coalition of Provincial Organizations of the Handicapped: Advocacy Resource Centre for the Handicapped, Toronto.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><i><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Solicitors for the intervener Canadian Jewish Congress: Davies, Ward &amp; Beck, Toronto.</span></i></p> 
+   <p class="MsoNormal" style="text-align:justify;line-height:24.4pt"><span lang="FR-CA" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;letter-spacing:
+-.15pt">&nbsp;</span></p> 
+  </div> 
+ </div>
+</div>
+<div id="lexboxAnnotationHook"></div>
+<div id="decisia-reflex2-dialog" class="decisia-content" title="Citation automatically hyperlinked by Norma">
+    <div class="decisia-box">
+        <div style="margin-bottom:10px">
+            <div><span class="icon-warning-sign">&nbsp;</span>You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.</div>
+        </div>
+        <div style="float:right">
+            <button id="decisia-reflex2-continue-button" type="button">Continue&nbsp;<span class="icon-arrow-right"></span></button>
+        </div>
+        <div style="clear:both"></div>
+        <input id="decisia-reflex2-ignore-warning" type="checkbox"/>
+        <label for="decisia-reflex2-ignore-warning">Do not display this message anymore</label>
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.modalClose = "Close";
+</script>
+</body>
+
+</html>
