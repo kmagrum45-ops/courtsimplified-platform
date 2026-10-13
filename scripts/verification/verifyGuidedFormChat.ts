@@ -112,6 +112,8 @@ console.log("\n6. What the story already says is offered for one click, not aske
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("the chat shows the story's words and asks 'Is that right?'", /From what you told us: &ldquo;/.test(chat) && /Is that right\?/.test(chat));
   check("'No' asks the question plainly instead", /setNotFromStory/.test(chat) && /No, let me answer/.test(chat));
+}
+
 console.log("\n7. Small Claims 'Here's what I understood' states answers once (2026-10-13)");
 {
   check("the side is stated, not asked", cardLabel("sc-orient-role", "Are you the person or business bringing this claim, or the one responding to a claim?") === "Your side");
