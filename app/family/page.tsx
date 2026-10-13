@@ -77,7 +77,7 @@ export default function FamilyPage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             {isPathwayAvailable("family") && (
               <Link
-                href="/builder?path=family"
+                href="/?path=family"
                 className="rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#276a57]"
               >
                 Start my Family case
@@ -191,7 +191,7 @@ export default function FamilyPage() {
           <div className="mt-8 flex flex-wrap gap-4">
             {isPathwayAvailable("family") && (
               <Link
-                href="/builder?path=family"
+                href="/?path=family"
                 className="inline-block rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#276a57]"
               >
                 Continue to Family Intake →

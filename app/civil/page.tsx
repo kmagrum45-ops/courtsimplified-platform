@@ -85,7 +85,7 @@ export default function CivilPage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             {isPathwayAvailable("civil") && (
               <Link
-                href="/builder?path=civil"
+                href="/?path=civil"
                 className="rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#256b58]"
               >
                 Start my Civil case
@@ -201,7 +201,7 @@ export default function CivilPage() {
           <div className="mt-8 flex flex-wrap gap-4">
             {isPathwayAvailable("civil") && (
               <Link
-                href="/builder?path=civil"
+                href="/?path=civil"
                 className="inline-block rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#256b58]"
               >
                 Continue to Civil Intake →
