@@ -109,7 +109,7 @@ function main() {
  * below them fails CI. Raise them as the work lands; never lower them to
  * make a change pass.
  */
-export const FLOOR = { form: 17, file: 15, counted: 8, noRepeat: 20 };
+export const FLOOR = { form: 17, file: 16, counted: 8, noRepeat: 20 };
 
 function check(scores: CaseScore[]) {
   const got = {
