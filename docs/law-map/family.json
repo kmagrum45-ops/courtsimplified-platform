@@ -3561,7 +3561,8 @@
       "says": "The Supreme Court of Canada set out the two-step approach for changing a custody order when a parent wants to move: first a material change in circumstances, then a fresh look at the child's best interests. The relocation sections of the Divorce Act now set out much of this test.",
       "source": {
         "decision": "Gordon v. Goertz, [1996] 2 S.C.R. 27",
-        "pinpoint": "para. 49"
+        "pinpoint": "para. 49",
+        "corpusId": "decisions/gordon-v-goertz-1996-2-SCR-27.html.txt"
       }
     },
     {
@@ -4639,7 +4640,8 @@
       "source": {
         "decision": "Carey v. Laiken, 2015 SCC 17",
         "pinpoint": "para. 32",
-        "expect": "beyond a reasonable doubt"
+        "expect": "beyond a reasonable doubt",
+        "corpusId": "decisions/carey-v-laiken-2015-SCC-17.html.txt"
       }
     }
   ]

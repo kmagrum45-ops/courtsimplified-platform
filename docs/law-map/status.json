@@ -5,11 +5,11 @@
       "area": "civil",
       "title": "Superior Court of Justice (civil actions and applications)",
       "total": 255,
-      "matches": 247,
+      "matches": 248,
       "elsewhere": 0,
-      "differs": 0,
+      "differs": 5,
       "not-saved": 0,
-      "lead": 8,
+      "lead": 2,
       "inSite": 107,
       "reviewed": 248
     },
@@ -29,11 +29,11 @@
       "area": "employment",
       "title": "Employment",
       "total": 199,
-      "matches": 187,
+      "matches": 189,
       "elsewhere": 0,
-      "differs": 0,
+      "differs": 9,
       "not-saved": 0,
-      "lead": 12,
+      "lead": 1,
       "inSite": 28,
       "reviewed": 187
     },
@@ -41,11 +41,11 @@
       "area": "family",
       "title": "Family law",
       "total": 272,
-      "matches": 268,
+      "matches": 269,
       "elsewhere": 0,
-      "differs": 0,
+      "differs": 1,
       "not-saved": 2,
-      "lead": 2,
+      "lead": 0,
       "inSite": 164,
       "reviewed": 268
     },
@@ -53,11 +53,11 @@
       "area": "human-rights",
       "title": "Human rights (Human Rights Tribunal of Ontario)",
       "total": 197,
-      "matches": 164,
+      "matches": 165,
       "elsewhere": 0,
-      "differs": 0,
+      "differs": 19,
       "not-saved": 10,
-      "lead": 23,
+      "lead": 3,
       "inSite": 3,
       "reviewed": 163
     },
@@ -67,9 +67,9 @@
       "total": 210,
       "matches": 202,
       "elsewhere": 0,
-      "differs": 0,
+      "differs": 2,
       "not-saved": 3,
-      "lead": 5,
+      "lead": 3,
       "inSite": 5,
       "reviewed": 201
     },
@@ -79,9 +79,9 @@
       "total": 271,
       "matches": 267,
       "elsewhere": 0,
-      "differs": 0,
+      "differs": 4,
       "not-saved": 0,
-      "lead": 4,
+      "lead": 0,
       "inSite": 102,
       "reviewed": 267
     },
@@ -91,14 +91,273 @@
       "total": 208,
       "matches": 202,
       "elsewhere": 0,
-      "differs": 0,
+      "differs": 3,
       "not-saved": 2,
-      "lead": 4,
+      "lead": 1,
       "inSite": 16,
       "reviewed": 201
     }
   ],
-  "differs": [],
+  "differs": [
+    {
+      "area": "civil",
+      "id": "civ.dec.mountain-view",
+      "pinpoint": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt para. 47",
+      "expect": ""
+    },
+    {
+      "area": "civil",
+      "id": "civ.dec.rjr",
+      "pinpoint": "decisions/rjr-macdonald-v-canada-1994-1-SCR-311.html.txt p. 334",
+      "expect": ""
+    },
+    {
+      "area": "civil",
+      "id": "civ.dec.housen",
+      "pinpoint": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt para. 10",
+      "expect": ""
+    },
+    {
+      "area": "civil",
+      "id": "civ.claim.conversion",
+      "pinpoint": "decisions/boma-manufacturing-v-cibc-1996-3-SCR-727.html.txt para. 31",
+      "expect": ""
+    },
+    {
+      "area": "civil",
+      "id": "civ.claim.fraud-misrep",
+      "pinpoint": "decisions/bruno-appliance-v-hryniak-2014-SCC-8.html.txt para. 21",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.test.just-cause",
+      "pinpoint": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt para. 48",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.test.fixed-term",
+      "pinpoint": "decisions/howard-v-benson-group-2016-ONCA-256.txt",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.test.dependent-contractor",
+      "pinpoint": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.dec.wood",
+      "pinpoint": "decisions/wood-v-fred-deeley-imports-2017-ONCA-158.txt para. 28",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.dec.mckinley",
+      "pinpoint": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt para. 48",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.dec.evans",
+      "pinpoint": "decisions/evans-v-teamsters-local-31-2008-SCC-20.html.txt para. 30",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.dec.howard",
+      "pinpoint": "decisions/howard-v-benson-group-2016-ONCA-256.txt",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.dec.mckee",
+      "pinpoint": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt",
+      "expect": ""
+    },
+    {
+      "area": "employment",
+      "id": "emp.dec.north",
+      "pinpoint": "decisions/north-v-metaswitch-networks-2017-ONCA-790.txt para. 44",
+      "expect": ""
+    },
+    {
+      "area": "family",
+      "id": "fam.dec.gordon",
+      "pinpoint": "decisions/gordon-v-goertz-1996-2-SCR-27.html.txt para. 49",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.test.no-intent-needed",
+      "pinpoint": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.test.burden-of-proof",
+      "pinpoint": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt para. 65",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.test.accommodation-process",
+      "pinpoint": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.grismer",
+      "pinpoint": "decisions/bc-superintendent-v-bc-council-grismer-1999-3-SCR-868.html.txt para. 20",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.elk-valley",
+      "pinpoint": "decisions/stewart-v-elk-valley-coal-2017-SCC-30.html.txt para. 24",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.simpsons-sears",
+      "pinpoint": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt para. 18",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.renaud",
+      "pinpoint": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.hydro-quebec",
+      "pinpoint": "decisions/hydro-quebec-v-syndicat-2008-SCC-43.html.txt para. 16",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.bombardier",
+      "pinpoint": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt para. 65",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.pieters",
+      "pinpoint": "decisions/peel-law-association-v-pieters-2013-ONCA-396.txt para. 59",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.janzen",
+      "pinpoint": "decisions/janzen-v-platy-1989-1-SCR-1252.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.bhadauria",
+      "pinpoint": "decisions/seneca-college-v-bhadauria-1981-2-SCR-181.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.figliola",
+      "pinpoint": "decisions/bc-wcb-v-figliola-2011-SCC-52.html.txt para. 37",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.penner",
+      "pinpoint": "decisions/penner-v-niagara-police-2013-SCC-19.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.tranchemontagne",
+      "pinpoint": "decisions/tranchemontagne-v-ontario-2006-SCC-14.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.horrocks",
+      "pinpoint": "decisions/northern-regional-health-v-horrocks-2021-SCC-42.html.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.vavilov",
+      "pinpoint": "decisions/canada-mci-v-vavilov-2019-SCC-65.html.txt para. 35",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.taylor-baptiste",
+      "pinpoint": "decisions/taylor-baptiste-v-opseu-2015-ONCA-495.txt",
+      "expect": ""
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.decision.shaw-phipps",
+      "pinpoint": "decisions/shaw-v-phipps-2012-ONCA-155.txt",
+      "expect": ""
+    },
+    {
+      "area": "landlord-tenant",
+      "id": "ltb.decision.matthews",
+      "pinpoint": "decisions/matthews-v-algoma-timberlakes-2010-ONCA-468.txt para. 24",
+      "expect": ""
+    },
+    {
+      "area": "landlord-tenant",
+      "id": "ltb.decision.onyskiw",
+      "pinpoint": "decisions/onyskiw-v-cjm-property-management-2016-ONCA-477.txt",
+      "expect": ""
+    },
+    {
+      "area": "small-claims",
+      "id": "sc.decision.mountain-view",
+      "pinpoint": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt",
+      "expect": ""
+    },
+    {
+      "area": "small-claims",
+      "id": "sc.decision.1196158",
+      "pinpoint": "decisions/1196158-ontario-v-6274013-canada-2012-ONCA-544.txt",
+      "expect": ""
+    },
+    {
+      "area": "small-claims",
+      "id": "sc.decision.grover",
+      "pinpoint": "decisions/grover-v-hodgins-2011-ONCA-72.txt",
+      "expect": ""
+    },
+    {
+      "area": "small-claims",
+      "id": "sc.decision.housen",
+      "pinpoint": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt para. 8",
+      "expect": ""
+    },
+    {
+      "area": "victims-and-criminal",
+      "id": "vic.dec.krieger",
+      "pinpoint": "decisions/krieger-v-law-society-alberta-2002-SCC-65.html.txt para. 47",
+      "expect": ""
+    },
+    {
+      "area": "victims-and-criminal",
+      "id": "vic.dec.jordan",
+      "pinpoint": "decisions/r-v-jordan-2016-SCC-27.html.txt para. 5",
+      "expect": ""
+    },
+    {
+      "area": "victims-and-criminal",
+      "id": "vic.dec.jj",
+      "pinpoint": "decisions/r-v-jj-2022-SCC-28.html.txt",
+      "expect": ""
+    }
+  ],
   "elsewhere": [],
   "notSaved": [
     {
@@ -135,55 +394,15 @@
     }
   ],
   "leads": [
-    "Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194",
-    "RJR-MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311",
     "Fong v. Chan (1999), 46 O.R. (3d) 330 (C.A.)",
-    "Housen v. Nikolaisen, 2002 SCC 33",
     "Hadley v. Baxendale (1854), 9 Exch. 341, 156 E.R. 145",
-    "Moore v. Sweet, 2018 SCC 52",
-    "Boma Manufacturing Ltd. v. Canadian Imperial Bank of Commerce, [1996] 3 S.C.R. 727",
-    "Bruno Appliance and Furniture, Inc. v. Hryniak, 2014 SCC 8",
-    "McKinley v. BC Tel, 2001 SCC 38",
-    "Howard v. Benson Group Inc., 2016 ONCA 256",
-    "671122 Ontario Ltd. v. Sagaz Industries Canada Inc., 2001 SCC 59",
-    "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916",
-    "Wood v. Fred Deeley Imports Ltd., 2017 ONCA 158",
     "Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140 (Ont. H.C.)",
-    "Evans v. Teamsters Local Union No. 31, 2008 SCC 20",
-    "North v. Metaswitch Networks Corporation, 2017 ONCA 790",
-    "Gordon v. Goertz, [1996] 2 S.C.R. 27",
-    "Carey v. Laiken, 2015 SCC 17",
-    "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536",
-    "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc., 2015 SCC 39",
-    "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970",
-    "British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3",
-    "British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868",
-    "Stewart v. Elk Valley Coal Corp., 2017 SCC 30",
-    "Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d'Hydro-Québec, section locale 2000 (SCFP-FTQ), 2008 SCC 43",
-    "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center), 2015 SCC 39",
-    "Peel Law Association v. Pieters, 2013 ONCA 396",
-    "Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252",
     "Noble v. York University, 2010 HRTO 878",
-    "Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181",
-    "British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52",
-    "Penner v. Niagara (Regional Police Services Board), 2013 SCC 19",
-    "Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14",
-    "Northern Regional Health Authority v. Horrocks, 2021 SCC 42",
-    "Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65",
     "Arunachalam v. Best Buy Canada, 2010 HRTO 1880",
     "ADGA Group Consultants Inc. v. Lane (2008), 91 O.R. (3d) 649 (Div. Ct.)",
-    "Taylor-Baptiste v. Ontario Public Service Employees Union, 2015 ONCA 495",
-    "Shaw v. Phipps, 2012 ONCA 155",
-    "Matthews v. Algoma Timberlakes Corp., 2010 ONCA 468",
     "Salter v. Beljinac, 2001 CanLII 40231 (ON SCDC)",
     "Fava v. Harrison, 2014 ONSC 3352",
-    "Onyskiw v. CJM Property Management Ltd., 2016 ONCA 477",
     "Mejia v. Cargini, 2007 CanLII 2801 (ON SCDC)",
-    "1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544",
-    "Grover v. Hodgins, 2011 ONCA 72",
-    "Krieger v. Law Society of Alberta, 2002 SCC 65",
-    "Prinzo v. Baycrest Centre for Geriatric Care (2002), 60 O.R. (3d) 474 (C.A.)",
-    "R. v. Jordan, 2016 SCC 27",
-    "R. v. J.J., 2022 SCC 28"
+    "Prinzo v. Baycrest Centre for Geriatric Care (2002), 60 O.R. (3d) 474 (C.A.)"
   ]
 }

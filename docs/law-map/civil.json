@@ -1539,7 +1539,8 @@
       "says": "The Court of Appeal for Ontario described the factors a court considers on a motion to set aside a default judgment, including whether the motion was brought promptly, whether there is a plausible excuse for the default, whether the defence has an air of reality, and prejudice to each side.",
       "source": {
         "decision": "Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194",
-        "pinpoint": "para. 47"
+        "pinpoint": "para. 47",
+        "corpusId": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt"
       }
     },
     {
@@ -2319,7 +2320,8 @@
       "says": "The Supreme Court of Canada set out the three-part test for an interlocutory injunction or stay: a serious question to be tried, irreparable harm if it is refused, and the balance of convenience.",
       "source": {
         "decision": "RJR-MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311",
-        "pinpoint": "p. 334"
+        "pinpoint": "p. 334",
+        "corpusId": "decisions/rjr-macdonald-v-canada-1994-1-SCR-311.html.txt"
       }
     },
     {
@@ -3553,7 +3555,8 @@
       "says": "The Supreme Court of Canada set out the standards of review on appeal: correctness for questions of law, and palpable and overriding error for questions of fact and of mixed fact and law where there is no extricable legal error.",
       "source": {
         "decision": "Housen v. Nikolaisen, 2002 SCC 33",
-        "pinpoint": "para. 10"
+        "pinpoint": "para. 10",
+        "corpusId": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt"
       }
     },
     {
@@ -4142,7 +4145,7 @@
       "title": "Moore v. Sweet",
       "says": "The Supreme Court of Canada restated that a plaintiff succeeds in unjust enrichment by showing that the defendant was enriched, that the plaintiff suffered a corresponding deprivation, and that both occurred in the absence of a juristic reason.",
       "source": {
-        "corpusId": "decision-moore-sweet",
+        "corpusId": "decisions/moore-v-sweet-2018-SCC-52.english.txt",
         "decision": "Moore v. Sweet, 2018 SCC 52",
         "pinpoint": "para. 37",
         "expect": "corresponding deprivation"
@@ -4160,7 +4163,8 @@
       "says": "Conversion is a wrongful act of dealing with another person's goods in a way that is inconsistent with that person's right of possession or ownership, such as taking, keeping or disposing of them. Liability does not depend on knowing the goods belonged to someone else.",
       "source": {
         "decision": "Boma Manufacturing Ltd. v. Canadian Imperial Bank of Commerce, [1996] 3 S.C.R. 727",
-        "pinpoint": "para. 31"
+        "pinpoint": "para. 31",
+        "corpusId": "decisions/boma-manufacturing-v-cibc-1996-3-SCR-727.html.txt"
       }
     },
     {
@@ -4203,7 +4207,8 @@
       "says": "Civil fraud requires a false representation by the defendant, some knowledge of its falsity (knowledge or recklessness), reliance by the plaintiff on it, and a loss caused by that reliance.",
       "source": {
         "decision": "Bruno Appliance and Furniture, Inc. v. Hryniak, 2014 SCC 8",
-        "pinpoint": "para. 21"
+        "pinpoint": "para. 21",
+        "corpusId": "decisions/bruno-appliance-v-hryniak-2014-SCC-8.html.txt"
       },
       "leadsTo": [
         "civ.step.pleading.particulars"

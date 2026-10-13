@@ -1,0 +1,891 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+  CITATION: 1196158 Ontario Inc. v. 6274013 Canada Limited, 2012 ONCA 544
+                                                            DATE20120821
+                                                         DOCKET: C54452
+
+                        Laskin, Sharpe and Epstein JJ.A.
+
+BETWEEN
+
+                              1196158 Ontario Inc.
+
+                                                              Plaintiff (Appellant)
+
+                                       and
+
+     6274013 Canada Limited, Rob Kumer, CB Richard Ellis Limited, John
+   LaFontaine, Karen Pickernell, Carl Lavoie, William Neilson Limited, Toronto
+   Hydro Corporation, Toronto Hydro-Electric System Ltd. and Toronto Hydro
+                            Energy Services Inc.
+
+                                                       Defendants (Respondents)
+
+William Pepall and Louise Moher, for the appellant
+
+J. Schatz and D. Holden, for the respondents 6274013 Canada Limited and Rob
+Kumer
+
+Sonja Williams, for the respondents Toronto Hydro Corporation, Toronto Hydro-
+Electric System Ltd. and Toronto Hydro Energy Services Inc.
+
+S. Pettipiere, for the respondent CB Richard Ellis Limited
+
+Christiaan Jordaan, for the respondent William Neilson Limited
+
+Heard: June 7, 2012
+
+On appeal from the order of Justice Leonard Ricchetti of the Superior Court of
+Justice dated September 15, 2011, with reasons reported at 2011 ONSC 5410.
+
+Sharpe J.A.:
+                                      Page: 2
+
+
+[1]   The plaintiff’s action, commenced in September 2006, had not proceeded
+
+beyond the close of pleadings five years later in September 2011 and was
+
+dismissed on a rule 48.14 status hearing.
+
+[2]   The court issued a status notice pursuant to rule 48.14 of the Rules of Civil
+
+Procedure, R.R.O. 1990, Reg. 194, in October 2008 as the matter had not been
+
+set down for trial within two years of the filing of a defence. After several
+
+adjournments, a status hearing was finally held in January 2010 and a timetable
+
+was agreed-upon requiring discoveries be completed and the action be set down
+
+for trial by June 2011. The plaintiff failed to take the steps within the time limits
+
+required by the timetable and, at a status hearing held in September 2011, the
+
+presiding judge dismissed the action for delay.
+
+[3]   The plaintiff appeals that order. For the following reasons, I would dismiss
+
+the appeal.
+
+THE PLAINTIFF’S CLAIM
+
+[4]   The plaintiff purchased a commercial property from 6274013 Canada
+
+Limited (“627”) in June 2005. The plaintiff commenced this action in September
+
+2006 alleging that 627 breached its contractual obligation to provide a 600
+
+ampere electrical service and that the defendants 627, its officer Rob Kumer, and
+
+the agents CB Richard Ellis Ltd., John Lafontaine, Karen Pickernell and Carl
+
+Lavoie misrepresented that the property had a 600 ampere service. The plaintiff
+                                      Page: 3
+
+
+also alleged that the defendant William Neilson Ltd. (“Neilson”), the lessee of the
+
+property from 1994 to 2005, had breached its lease agreement with the prior
+
+owner before its lease terminated in September 2005. The plaintiff subsequently
+
+moved successfully to join the defendants Toronto Hydro-Electric System Ltd.
+
+and Toronto Hydro Energy Services Inc. (“Toronto Hydro”), alleging that they
+
+negligently damaged the electrical service at the property.
+
+RULE 48.14
+
+[5]   Where an action has not been placed on the trial list within two years of the
+
+defence being filed, the registrar issues a status notice indicating that the action
+
+will be dismissed for delay unless the matter is set down for trial within 90 days of
+
+the notice: rule 48.14(1). A party may request a status hearing, held before a
+
+judge or case management master (rule 48.14(8)), which will be held in writing
+
+where the party files an agreed timetable for the necessary steps to be
+
+completed to ensure that the matter is set down for trial within 12 months (rule
+
+48.14(10)). If no such timetable is filed a status hearing is held pursuant to rule
+
+48.14(12).
+
+[6]   Rule 48.14(13) provides:
+
+             48.14(13) At the status hearing, the plaintiff shall show cause why
+             the action should not be dismissed for delay and,
+
+                   (a) if the presiding judge or case management master is
+                   satisfied that the action should proceed, the judge or case
+                   management master may,
+                                     Page: 4
+
+
+                         (i) set time periods for the completion of the remaining
+                         steps necessary to have the action placed on or
+                         restored to a trial list and order that it be placed on or
+                         restored to a trial list within a specified time,
+
+                         (ii) adjourn the status hearing to a specified date on
+                         such terms as are just, or
+
+                         (iii) if the action is an action to which Rule 77 may apply
+                         under rule 77.02, assign the action for case
+                         management under that Rule, subject to the direction of
+                         the regional senior judge,
+
+                         (iv) make such other order as is just; or
+
+                   (b) if the presiding judge or case management master is not
+                   satisfied that the action should proceed, the judge or case
+                   management master may dismiss the action for delay.
+
+
+THE CHRONOLOGY OF THIS ACTION
+
+[7]   The statement of claim was issued on September 6, 2006. 627 and
+
+Neilson delivered their statements of defence on October 19, 2006 and
+
+November 15, 2006 respectively. The plaintiff amended its statement of claim on
+
+January 25, 2007, and 627 and Neilson served amended statements of defence
+
+in February and March 2007. The plaintiff took no steps to move the action
+
+beyond the pleading stage. A status notice was issued on October 31, 2008, two
+
+years after the commencement of the action. At the plaintiff’s request, a Notice of
+
+Status Hearing for December 9, 2008 was issued. At that point, the plaintiff had
+
+still taken no steps to move the action beyond the pleading stage. The December
+
+9, 2008 status hearing was adjourned on consent at the plaintiff’s request to
+                                     Page: 5
+
+
+allow the plaintiff to move to add the Toronto Hydro defendants. That motion was
+
+heard and decided in May 2009. Status hearings set for January 27, 2009,
+
+August 25, 2009 and October 27, 2009 were adjourned and a status hearing was
+
+finally held on January 19, 2010. By that point, three years and four months after
+
+commencing the action, the plaintiff still had not moved the action beyond the
+
+pleading stage.
+
+[8]   At this status hearing, the presiding judge approved an agreed timetable
+
+requiring the completion of pleadings by February 26, 2010 and delivery of
+
+affidavits of documents by March 19, 2010. The timetable also required the
+
+parties to agree to a discovery plan by March 19, 2010, or alternatively to bring a
+
+motion to fix a plan by April 2, 2010. Examinations for discovery were to be
+
+completed by September 30, 2010, undertakings given at examination for
+
+discovery completed by November 30, 2010, related discovery motions
+
+completed by January 2011 and the action set down for trial by June 30, 2011. If
+
+the action was not set down by that date, a further status hearing was to be
+
+conducted on September 13, 2011.
+
+[9]   The plaintiff delivered an amended statement of claim on January 19,
+
+2010, adding the Toronto Hydro defendants. The defendants filed amended
+
+statements of defence and related pleadings in February and March 2010. On
+
+March 16, 2010, plaintiff’s counsel, without presenting his own discovery plan,
+
+asked the defendants for their proposed discovery plans. Counsel for 627
+                                      Page: 6
+
+
+responded that it would make more sense for the plaintiff to circulate a proposed
+
+discovery plan. Plaintiff’s counsel did not respond to that suggestion and took no
+
+further steps in the action for the next year and five months.
+
+[10]   Before the September 13, 2011 status hearing, counsel for defendants 627
+
+and Kumer indicated that they would ask to have the action dismissed for delay.
+
+On September 1, 2011, plaintiff’s counsel served an affidavit of documents and
+
+proposed a new timetable and discovery plan. The plaintiff also filed affidavit
+
+evidence in an attempt to meet the defendants’ request to have the action
+
+dismissed for delay.
+
+[11]   At the September 13, 2011 status hearing, the defendants asked that the
+
+action be dismissed. The plaintiff relied on the fact that none of the parties had
+
+complied with the timetable set at the January 19, 2010 status hearing and that
+
+the attention of the principal and counsel for the plaintiff, who are brothers, had
+
+been diverted from the action by financial concerns and personal problems
+
+including the death of their father and brother and elder care for their mother.
+
+THE REASONS OF THE STATUS HEARING JUDGE
+
+[12]   The status hearing judge reviewed the chronology of the action and the
+
+positions of the parties. He identified and applied the legal test requiring the
+
+plaintiff to satisfy the status hearing judge that there is both an explanation for the
+
+delay that justifies the continuation of the action and that there would be no
+                                     Page: 7
+
+
+prejudice to the defendant in allowing the action to proceed. The status hearing
+
+judge found that the plaintiff had failed to satisfy that test. He observed that
+
+although the plaintiff had failed to move the action beyond the pleadings, it had
+
+been give a “lifeline” at the January 19, 2010 status hearing but had failed to
+
+comply with the timetable it agreed to follow at that time. The status hearing
+
+judge stated “[d]espite being given this opportunity, the Plaintiff did nothing to
+
+move this action along for a further year and a half! Other than serving the Hydro
+
+Defendants, the Plaintiff simply ignored January 19, 2010 Order.”
+
+[13]   The status hearing judge noted that the defendants had done nothing to
+
+move the action along but that they reasonably believed, in light of the history of
+
+the action and the plaintiff's failure to comply with the January 19, 2010 order,
+
+that the plaintiff was not pursuing the action. The status hearing judge found that
+
+while the financial and personal issues faced by counsel and the principal of the
+
+plaintiff evoked sympathy, those personal factors were not enough to justify a five
+
+year delay in prosecuting the action. In any event, if those problems were the
+
+reason for not proceeding, the plaintiff should have asked for an adjustment to
+
+the timetable set in January 2010. The status hearing judge concluded that there
+
+had been a “lack of any real progress in 5 years” beyond pleadings and a
+
+“complete disregard of the timetable imposed on January 19, 2010”.
+
+[14]   The status hearing judge observed that there was no alleged or
+
+demonstrated actual prejudice to the defendants. However, he noted that the
+                                       Page: 8
+
+
+limitation period for the claims had long expired and that adjudication of the
+
+claims, especially those against Neilson, would involve documents and events
+
+potentially going back more than 15 years. He found that although no actual
+
+prejudice had been demonstrated, he had “concerns as to whether a fair trial can
+
+be held on the issues raised in the action”. The status hearing judge concluded
+
+that the action should be dismissed:
+
+             There must be finality to claims. The Plaintiff has been
+             given numerous chances to proceed with the action. At
+             some point, the court has to say the Plaintiff has had
+             enough opportunities to move this action along. The
+             Defendants have had to deal with these claims for over
+             5 years and shouldn't be forced to have this claim
+             remain a contingent claim against them.
+
+
+ISSUES
+
+[15]   The overarching issue in this case is whether the order dismissing the
+
+action be set aside on the ground that the status hearing judge failed to apply the
+
+correct   legal   test   or   committed   palpable   and   overriding   errors   by
+
+misapprehending evidence. The appeal raises several specific issues:
+
+   1. Did the status hearing judge commit palpable and overriding errors by
+
+       misapprehending the evidence in relation to the number of previous status
+
+       hearings and the history of the action?
+                                         Page: 9
+
+
+      2. Did the status hearing judge commit palpable and overriding errors by
+
+         finding, without affidavit evidence, that the defendants believed that the
+
+         plaintiff was not pursuing the action?
+
+      3. Did the status hearing judge err in dismissing the action for delay without
+
+         evidence of actual prejudice?
+
+ANALYSIS
+
+(a)      Standard of Review
+
+[16]     It is common ground that a decision to dismiss an action for delay at a
+
+status hearing is discretionary and entitled to deference on appeal. The decision
+
+may, however, be set aside if made on an erroneous legal principle or if infected
+
+by a palpable and overriding error of fact.
+
+(b)      Delay and Fairness in Civil Litigation
+
+[17]     The civil justice system aims to resolve disputes fairly, on the merits and in
+
+a timely and efficient manner. The Rules of Civil Procedure provide that the rules
+
+are to be “liberally construed to secure the just, most expeditious and least
+
+expensive determination of every civil proceeding on its merits”: rule 1.04(1).
+
+[18]     Achieving that goal in cases involving dismissal for delay requires a careful
+
+balance of two fundamental principles. The first is that civil actions should, if
+
+possible, be decided on their merits and procedural rules should be interpreted
+
+accordingly. The second is that the procedural rules that aim to resolve disputes
+                                     Page: 10
+
+
+in a timely and efficient manner can only achieve their goal if they are respected
+
+and enforced.
+
+[19]   Time lines prescribed by the Rules of Civil Procedure or imposed by
+
+judicial orders should be complied with. Failure to enforce rules and orders
+
+undermines public confidence in the capacity of the justice system to process
+
+disputes fairly and efficiently. On the other hand, procedural rules are the
+
+servants of justice not its master. We must allow some latitude for unexpected
+
+and unusual contingencies that make it difficult or impossible for a party to
+
+comply. We should strive to avoid a purely formalistic and mechanical application
+
+of time lines that would penalize parties for technical non-compliance and
+
+frustrate the fundamental goal of resolving disputes on their merits. As Laskin
+
+J.A. stated in Finlay v. Paassen, 2010 ONCA 204, 101 O.R. (3d) 390, at para.
+
+14: “the Rules and procedural orders are construed in a way that advances the
+
+interests of justice, and ordinarily permits the parties to get to the real merits of
+
+their dispute.”
+
+[20]   The challenge posed in cases involving dismissal for delay is to find the
+
+right balance between, on the one hand, the need to ensure that the rules are
+
+enforced to ensure timely and efficient justice and, on the other, the need to
+
+ensure sufficient flexibility to allow parties able to provide a reasonable
+
+explanation for failing to comply with the rules to have their disputes decided on
+
+the merits.
+                                     Page: 11
+
+
+[21]    With these general principles as background, I will now consider the
+
+specific grounds of appeal advanced by the plaintiff.
+
+   Issue 1. Number of Status Hearings and History of the Action
+
+[22]    The plaintiff submits that the status hearing judge committed palpable and
+
+overriding errors by misapprehending the evidence in relation to the number of
+
+previous status hearings and the history of the action.
+
+[23]    The status hearing judge stated that the matter had been “before this court
+
+a number of times prior to this date – one Status Notice and 5 Status Hearings”
+
+and that he was entertaining “the 6th Status Hearing” (emphasis in original). In
+
+fact, there had only been one prior status hearing and the other four scheduled
+
+hearings had all been adjourned. The plaintiff argues that it was an error to take
+
+into account the adjournments of the first status hearing and related delay as no
+
+timetable had yet been set and that period had been dealt with by the judge who
+
+conducted the January 2010 status hearing.
+
+[24]    I am unable to accept this submission. Although the status hearing judge
+
+described the hearing he was conducting as “the 6th Status Hearing”, it is clear
+
+from his review of the chronology of the action that he was under no
+
+misapprehension as to the number of status hearings that had actually been
+
+held.
+                                     Page: 12
+
+
+[25]   I completely disagree with the contention that the plaintiff was somehow
+
+absolved for all prior delay by the order made at the January 2010 status
+
+hearing. That order, made despite over three years of delay, was properly
+
+described by the September 2011 status hearing judge as a “lifeline” that allowed
+
+the plaintiff to proceed on the basis of the timetable ordered. The plaintiff ignored
+
+the lifeline it had been given and failed to respect the timetable that had been set.
+
+Without repentance there can be no absolution. The plaintiff did not emerge from
+
+the January 2010 status hearing with a clean slate and it was open to the status
+
+hearing judge to consider the entire history of delay.
+
+[26]   It is also submitted that the status hearing judge misapprehended the
+
+impact of the motion to add Toronto Hydro. I disagree. That motion was heard
+
+and decided in May 2009 and the amended endorsement issued in November
+
+2009 was a minor correction that did not affect the substance of the matter. The
+
+plaintiff’s failure to prosecute this action with the required degree of diligence
+
+cannot be explained by the motion to add Toronto Hydro.
+
+   Issue 2. Conduct of the Defendants
+
+[27]   The plaintiff submits that the status hearing judge erred by finding that the
+
+defendants believed that the plaintiff was not pursuing the action as there was no
+
+affidavit evidence to that effect, only the oral submission of counsel at the
+
+hearing. It certainly would have been preferable to have had affidavit evidence on
+                                     Page: 13
+
+
+the point. However, in my view, in the circumstances of this case, it was open to
+
+the status hearing judge to infer from the dilatory action of the plaintiff that there
+
+was a factual foundation for counsel’s submission. After five years of inaction on
+
+the part of the plaintiff, it was virtually inevitable that the defendants would
+
+assume that the claim was not being pursued. At the very least, without some
+
+action on the part of the plaintiff, the defendants would be disinclined to spend
+
+any time or money in preparing affidavits of documents or taking any other steps
+
+in anticipation of a trial that as time went by, became increasingly unlikely to
+
+happen.
+
+[28]   The focus of the inquiry on a rule 48.14 status hearing is the conduct of the
+
+plaintiff and, as this court held in Wellwood v. Ontario Provincial Police, 2010
+
+ONCA 386, 102 O.R. (3d) 555, at para. 48, “the party who commences the
+
+proceeding bears primary responsibility for its progress” and therefore “the
+
+initiating litigant generally suffers the consequences of a dilatory regard for the
+
+pace of litigation”. See also Hamilton (City) v. Svedas Koyanagi Architects Inc.,
+
+2010 ONCA 887, 104 O.R. (3d) 689, at paras. 27-28.
+
+[29]   I agree that the conduct of a defendant may be relevant, especially where
+
+a plaintiff who tries to move an action along is faced with “some resistance” from
+
+the defendant, or tactics that are not “consistent with a willingness to see a
+
+relatively straightforward case proceed expeditiously”: see Bolohan v. Hull, 2012
+
+ONCA 121, [2012] O.J. No. 749, at para. 17.
+                                     Page: 14
+
+
+[30]   In this case, however, the defendants did nothing to resist any attempt by
+
+the plaintiff to advance the action. They cannot be accused of “lying in the
+
+weeds” and hoping to gain a tactical advantage. Failing any initiative on the part
+
+of the plaintiff, to require the defendants to spend time and money to prepare for
+
+a case that, from all appearances, was dead on the vine would, in my view, be to
+
+impose an unnecessary and unreasonable burden.
+
+Issue 3. Prejudice
+
+[31]   The defendants did not allege that if the action were allowed to proceed,
+
+they would face actual prejudice of the kind caused by, for example, “the death of
+
+an important witness, the inability to locate a witness, the inability of a witness to
+
+recall [important] facts or the loss of important evidence, including documents”:
+
+Paul M. Perell & John W. Morden, The Law of Civil Procedure in Ontario
+
+(Markham: LexisNexis, 2010), at p. 423.
+
+[32]   Actual prejudice or the lack thereof is an important factor to consider in
+
+cases of dismissal for delay: Hamilton, at para. 33. However, it is certainly not the
+
+law that an action cannot be dismissed for delay at a rule 48.14 status hearing
+
+without proof of actual prejudice. The status hearing judge applied the test as
+
+stated by this court in Khan v. Sun Life Assurance, 2011 ONCA 650, [2011] O.J.
+
+No. 4590, at para. 1: “the appellant [plaintiff] bore the burden of demonstrating
+
+that there was an acceptable explanation for the involved litigation delay and
+                                      Page: 15
+
+
+that, if the action was allowed to proceed, the respondent [defendant] would
+
+suffer no non-compensable prejudice”. The test is conjunctive, not disjunctive.
+
+Even if the plaintiff can provide a satisfactory explanation for the delay, the action
+
+will be dismissed if there would be prejudice to the defendant. And if the plaintiff
+
+is not able to provide a satisfactory explanation for the delay, it is still open to the
+
+judge to dismiss the action, even if there is no proof of actual prejudice to the
+
+defendant.
+
+[33]   As I have noted, the goal of the civil justice system is ensure “the just,
+
+most expeditious and least expensive determination of every civil proceeding on
+
+its merits”. Consideration of actual prejudice focuses on the just determination of
+
+the dispute on its merits. The absence of actual prejudice does not automatically
+
+or inevitably trump the values of timeliness and efficiency. At some point, a party
+
+who has failed to respect the rules designed to ensure timely and efficient justice
+
+loses the right to have its dispute decided on the merits. If that were not the case,
+
+the rules and the time lines they impose would cease to have any meaning and
+
+any hope of ensuring timely and efficient justice would be seriously jeopardized.
+
+[34]   Modern civil procedure recognizes the need to deal with unexplained delay
+
+and, through rules such as rule 48.14, provides for an active judicial role “to
+
+promote the timely resolution of disputes, to discourage delay in civil litigation
+
+and to give the courts a significant role in reducing delays”: Todd Archibald,
+
+Gordon Killeen & James C. Morton, Ontario Superior Court Practice (Markham:
+                                      Page: 16
+
+
+LexisNexis Canada, 2011), at p. 1205. As judgments of this court and the
+
+Superior Court recognize, if an action could not be dismissed for delay unless
+
+there was proof of actual prejudice, time lines would become meaningless.
+
+Where a party fails to prosecute an action in a timely fashion, the court is entitled
+
+to exercise the powers conferred by the rules to dismiss actions absent an
+
+adequate explanation for the delay: Riggitano v. Standard Life Assurance Co.,
+
+[2009] O.J. No. 1997 (S.C.), at para. 45, aff’d 2010 ONCA 70, [2010] O.J. No.
+
+292.
+
+[35]     It is surely not too much to expect a party to either set a matter down for
+
+trial within two years of the close of pleadings or be able to offer a reasonable
+
+explanation for why that is not possible to do so. In this case, the plaintiff had no
+
+explanation for an initial lengthy period of inaction. Despite that unexplained
+
+delay, the plaintiff was permitted to proceed with the action, but again failed to
+
+take any meaningful step towards trial for another period of almost eighteen
+
+months. In these circumstances, the status hearing judge did not err by
+
+concluding that the time for any further indulgence had passed.
+
+[36]     The balance to be struck in the circumstance of a case such as this was
+
+very well put by Glithero J. in Riggitano, at para. 45, a decision affirmed by this
+
+court:
+
+               It is never pleasant to dismiss a plaintiff's action for
+               delay. Nevertheless, Rule 48.14 clearly contemplates
+                                    Page: 17
+
+
+            that two years following the filing of a statement of
+            defence is viewed as being ample time to complete
+            remaining steps and have a matter set down for trial,
+            absent some satisfactory explanation. Where a contest
+            arises, sub-rule (8) squarely puts the onus on [the]
+            plaintiff to show cause why the action should not be
+            dismissed for delay. Here more than five years, and
+            hence more than twice the normal time period
+            contemplated by the rule, has gone by and in my
+            assessment the plaintiff has done very little to move the
+            matter along. In my opinion, the materials do not
+            disclose any satisfactory explanation for the delay. If the
+            common submission, as made here, to the effect that a
+            dismissal would be unfair to the plaintiff is permitted to
+            always trump the provision in the rules contemplating a
+            reasonably timely procedure for the disposition of
+            actions, then the rule would be effectively gutted.
+            [Emphasis added]
+
+[37]   I also agree with and adopt the statement of D.K. Gray J. in Broniek-
+
+Harren v. Osborne, [2008] O.J. No. 1690 (S.C.), at paras. 28-29:
+
+            The policy underlying the Rules of Civil Procedure is
+            twofold: to ensure that cases that are not settled are
+            tried on their merits; and to ensure that cases are
+            processed, and heard, in an orderly way. A civilized
+            society must ensure that a credible system of justice is
+            in place, and the Rules of Civil Procedure, made
+            pursuant to the Courts of Justice Act, reflect the scheme
+            created by the Province for the orderly handling of civil
+            cases.
+
+            The Rules reflect a balance. The litigant does not have
+            an untrammelled right to have his or her case heard. In
+            order to be heard, a case must be processed in
+            accordance with the Rules. By the same token,
+            adherence to the Rules must not be slavish in all
+            circumstances. They are, after all, designed to ensure
+            that cases are heard. Throughout the Rules, the
+            principle is reflected that strict compliance may be
+            dispensed with where the interests of justice require it:
+                                     Page: 18
+
+
+             see, for example, Rules 1.04(1), 2.01, 2.03, 3.02, and
+             26.01. The difficult issue, in any particular case, is to
+             determine when non-compliance reaches the point that
+             it can no longer be excused. The Court, and society as
+             a whole, have an interest in ensuring that the system
+             remains viable. If the Rules can be ignored with
+             impunity, they might as well not exist. [Emphasis
+             added.]
+
+
+[38]   See also Sepehr Industrial Mineral Exports Co. v. Alternative Marketing
+
+Bridge Enterprises Inc. (2007), 86 O.R. (3d) 550 (S.C.), at para 21, Quinn J:
+
+             Legal proceedings are not to be undertaken lightly.
+             Plaintiffs have a responsibility to prosecute their actions
+             diligently and in accordance with the Rules of Civil
+             Procedure. Our legal system, sagging, as it is, under the
+             weight of a heavy caseload, should not lightly tolerate
+             anything short of that diligence.
+
+
+[39]   These cases quite properly reflect and reinforce the strong public interest
+
+in promoting the timely resolution of disputes. “The notion that justice delayed is
+
+justice denied reaches back to the mists of time.... For centuries, those working
+
+with our legal system have recognized that unnecessary delay strikes against its
+
+core values and have done everything within their powers to combat it”: Marché
+
+D'Alimentation Denis Thériault Ltée v. Giant Tiger Stores Ltd., 2007 ONCA 695,
+
+87 O.R. (3d) 660, at para. 25, quoting Blencoe v. British Columbia (Human
+
+Rights Commission), 2000 SCC 44, [2000] 2 S.C.R. 307, at para. 146. Excusing
+
+significant delay “risks undermining public confidence in the administration of
+                                     Page: 19
+
+
+justice”:   Marché, at para. 32. The time lines the rules impose are relatively
+
+generous and there is a heavy price to be paid when they are not respected.
+
+[40]   As Professor Stephen G.A. Pitel observed in “Revival After Dismissal for
+
+Delay: Marche D’Alimentation Denis Theriault Ltee v. Giant Tiger Stores Ltd.”
+
+(2008) 34 Adv. Q. 240: “…our system of civil justice is under almost constant
+
+scrutiny. One of the most fundamental concerns is that the process is far too
+
+complex, too expensive and takes too long.” In his review of the civil justice
+
+system the Honourable Coulter Osborne, Q.C. observed that the related issues
+
+of cost and delay “continue to be cited nationally and provincially as formidable
+
+barriers that prevent average Canadians from accessing the civil justice system”:
+
+Civil Justice Reform Project, Summary of Findings & Recommendations
+
+(Toronto: Ontario Ministry of the Attorney General, 2007), at p. 1. A system that
+
+tolerates unexplained delay will not attract public confidence.
+
+[41]   The civil justice regime should deliver timely justice to both plaintiffs and
+
+defendants. Failure to enforce time lines frustrates the legitimate expectations of
+
+both those who claim and those who defend. Unless the basic ground rules of
+
+litigation – including time requirements – are enforced in a principled way,
+
+counsel cannot provide reliable advice and clients cannot plan their affairs in an
+
+orderly manner.
+                                       Page: 20
+
+
+[42]   If flexibility is permitted to descend into toleration of laxness, fairness itself
+
+will be frustrated. As the status hearing judge recognized, even if there is no
+
+actual prejudice, allowing stale claims to proceed will often be unfair to the
+
+litigants. Disputes are more likely to be resolved fairly if they are resolved in a
+
+timely fashion and accordingly, the enforcement of time lines helps achieve the
+
+ultimate goal of fair resolution of disputes. Stale claims are more difficult to
+
+defend.   As this court stated in Wellwood, at para. 72: “as the memories of
+
+witnesses fade over time, the passage of an inordinate length of time after a
+
+cause of action arises or after an applicable limitation period expires gives rise to
+
+trial fairness concerns. In my view, this is so even when timely notice of the claim
+
+has been provided.”
+
+[43]   The allegations made in the statement of claim in this case reach back
+
+many years, to a period earlier than the date of sale in 2005. In my view, it was
+
+open to the status hearing judge to find that as time went on, it would be more
+
+and more difficult to defend a claim that related to events that had transpired at
+
+least six years ago and that would be even more remote by the time a trial could
+
+be held. The more time that passes, the more difficult it is to defend the case.
+
+Memories fade and even if documents are not lost, their significance becomes
+
+shrouded.
+
+[44]   Another harm that flows from delay, properly relied on by the status
+
+hearing judge, is that it leaves the litigant with the claim hanging over its head in
+                                     Page: 21
+
+
+a kind of perpetual limbo. Fairness requires allowing parties to plan their lives on
+
+the assumption that, barring exceptional or unusual circumstances, litigation time
+
+lines will be enforced. “Litigants are entitled to have their disputes resolved
+
+quickly so that they can get on with their lives” and “delay multiplies costs and
+
+breeds frustration and unfairness": Marché, at para. 25; see also Hamilton, at
+
+para 21. In my view, it was entirely proper for the status hearing judge to weigh in
+
+the balance the fact that the defendants would inevitably suffer some harm if,
+
+after more than five years and no significant movement by the plaintiff, they were
+
+forced to continue to face this contingent claim.
+
+CONCLUSION
+
+[45]   In my view, the reasons of the status hearing judge reveal no errors of fact
+
+or law that would justify this court’s intervention. The discretionary decision of the
+
+status hearing judge attracts deference in this court. As his decision is consistent
+
+with the applicable legal principles I have identified and reveals no reversible
+
+errors of fact, I would dismiss the appeal with costs to 627 and Neilson fixed at
+
+$7,500 each, inclusive of disbursements and taxes.
+
+
+Released: “RJS” Aug. 21, 2012                       “Robert J. Sharpe J.A.”
+                                                    “I agree John Laskin J.A.”
+                                                    “I agree G.J. Epstein J.A.”
+

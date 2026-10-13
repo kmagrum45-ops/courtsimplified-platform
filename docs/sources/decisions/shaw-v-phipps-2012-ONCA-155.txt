@@ -1,0 +1,735 @@
+          COURT OF APPEAL FOR ONTARIO
+
+                        CITATION: Shaw v. Phipps, 2012 ONCA 155
+                                                 DATE: 20120313
+                                               DOCKET: C53665
+
+            Goudge, Armstrong and Lang JJ.A.
+
+BETWEEN
+
+           Michael Shaw and Chief William Blair
+
+                                                     Appellants
+
+                           and
+
+                      Ronald Phipps
+
+                                                    Respondent
+
+                           and
+
+
+              Toronto Police Services Board
+
+                                                    Respondent
+
+                           and
+
+
+             Human Rights Tribunal of Ontario
+
+                                                    Respondent
+
+                           and
+
+
+            Ontario Human Rights Commission
+
+                                                      Intervenor
+                                    Page: 2
+
+
+Kevin A. McGivney and Lisa C. Cabel, for the appellants
+
+Jayson Thomas, for the respondent Ronald Phipps
+
+Antonella Ceddia, for the respondent Toronto Police Services Board
+
+Margaret Leighton and Rochelle Fox, for the respondent Human Rights Tribunal
+of Ontario
+
+Cathy Pike, for the intervenor Ontario Human Rights Commission
+
+Heard: November 4, 2011
+
+On appeal from the order of the Divisional Court (Wilson, Swinton and
+Nordheimer JJ.) dated October 6, 2010, with majority reasons by Wilson and
+Swinton JJ., reported at 2010 ONSC 3884, 271 O.A.C. 305, by way of judicial
+review of the decision of Kaye Joachim, Alternate Chair of the Human Rights
+Tribunal of Ontario, dated June 18, 2009.
+
+Lang J.A.:
+
+A.     INTRODUCTION
+
+[1]   The Alternate Chair of the Human Rights Tribunal of Ontario (the
+
+Adjudicator) concluded that a police constable, Michael Shaw, discriminated
+
+against a letter carrier, Ronald Phipps, contrary to this province’s human rights
+
+legislation.
+
+[2]   The decision arose from an incident that occurred while the police
+
+constable, and an officer trainee, were on patrol in an affluent neighbourhood.
+
+The police officers had been directed by their superiors to maintain a watch for
+
+white Eastern European men with a vehicle. Men fitting that description were
+
+suspected of cutting telephone lines in the area, which was a neighbourhood that
+                                      Page: 3
+
+
+Constable Shaw regularly patrolled. While Constable Shaw did not see any men
+
+matching the description in the directive, he observed Mr. Phipps.
+
+[3]   Mr. Phipps was dressed in a Canada Post uniform with a Canada Post
+
+satchel.   He was delivering mail door-to-door.    Constable Shaw’s suspicions
+
+were aroused because Mr. Phipps was not the regular letter carrier and because
+
+he delivered mail in an order that Constable Shaw testified was unusual. By this
+
+point, Constable Shaw recognized that Mr. Phipps’s skin colour was black,
+
+although he testified that this realization did not inform his suspicions.     He
+
+testified that his concerns increased when Mr. Phipps knocked at the door of one
+
+of the houses.    After Mr. Phipps finished his conversation with the householder
+
+who answered the door, Constable Shaw sent the officer trainee to make
+
+inquiries about the content of the conversation. The householder explained to
+
+the trainee that Mr. Phipps had been inquiring about some mis-delivered mail.
+
+Constable Shaw’s suspicions were not mollified. To the contrary, he became
+
+concerned that Mr. Phipps might be wearing the postal uniform as a ruse.
+
+[4]   Constable Shaw decided to stop Mr. Phipps. He questioned him about his
+
+postal identification and had the trainee run Mr. Phipps’s name through a criminal
+
+records search.    When Constable Shaw learned nothing adverse about Mr.
+
+Phipps, he allowed him to resume delivery of the mail. However, Constable
+
+Shaw subsequently made further inquiries of a white letter carrier in the area
+
+concerning Mr. Phipps’s bona fides.
+                                     Page: 4
+
+
+[5]    On the basis of factual findings and inferences, the Adjudicator concluded
+
+that Mr. Phipps had established discrimination, including by satisfying the court
+
+that his colour was probably “a factor, a significant factor, and probably the
+
+predominant factor” in Constable Shaw’s actions towards Mr. Phipps (at para.
+
+21).
+
+[6]    The Divisional Court dismissed applications for judicial review of the
+
+Adjudicator’s decision.    The majority reasons of Wilson and Swinton JJ.
+
+concluded that the Adjudicator’s decision was reasonable in the sense that it was
+
+supported by the evidence and reflected a proper application of the correct law.
+
+On the issue of discrimination, Nordheimer J. dissented.        In his view, the
+
+Adjudicator’s decision was unreasonable because he saw it as lacking
+
+evidentiary support and a proper analysis of the issues.
+
+[7]    On this appeal, the appellants are Michael Shaw and his Chief of Police at
+
+the time, William Blair, who admitted responsibility for Constable Shaw’s conduct
+
+under the Police Services Act R.S.O. 1990, c. P.15. The appellants argue the
+
+Divisional Court made the same reviewable errors as those made by the
+
+Adjudicator in:
+
+             (i)    identifying and applying the test for prima facie
+                    discrimination;
+
+             (ii)   effectively placing the onus on Constable Shaw to
+                    disprove discrimination; and
+                                     Page: 5
+
+
+             (iii)   failing to place proper weight on Constable
+                     Shaw’s evidence and in particular his role as a
+                     police officer.
+
+[8]   The respondent Toronto Police Services Board also argues that the
+
+Adjudicator improperly shifted the onus to Constable Shaw or created an
+
+improper presumption of discrimination by referring to a concept of “unconscious
+
+discrimination”.
+
+[9]   For the reasons that follow, I do not accept these challenges to the
+
+Divisional Court majority decision. In my view, that decision correctly concluded
+
+that the Adjudicator’s decision was reasonable because, when read fairly and in
+
+the context of the arguments presented, the decision demonstrated an
+
+application of the proper test and a proper weighing of the evidence. In my view,
+
+the Divisional Court dissent erred by not giving the required degree of deference
+
+to the Adjudicator’s findings and conclusions.
+
+B.    DISCUSSION
+
+(1) Standard of Review
+
+[10] An Adjudicator’s decision is not subject to appeal, but only to judicial
+
+review: see s. 45.8 of the Human Rights Code, R.S.O. 1990, c. H.19 (the Code).
+
+All counsel agree that the Divisional Court properly identified “reasonableness”
+
+as the appropriately deferential standard of review on an application for judicial
+
+review of the Adjudicator’s conclusion of discrimination: see Dunsmuir v. New
+                                        Page: 6
+
+
+Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190. In recognition that the Adjudicator
+
+“has a specialized expertise” in the area, the Divisional Court explained that the
+
+reasonableness standard accords “the highest degree of deference … with
+
+respect to [the Adjudicator’s] determinations of fact and the interpretation and
+
+application of human rights law” (at para. 41). Deference is maintained unless
+
+the decision is not rationally supported. The ultimate question is whether the
+
+result falls within the Dunsmuir “range of possible, acceptable outcomes which
+
+are defensible in respect of the facts and the law”, as the Divisional Court
+
+determined that it did (at para. 85).
+
+(2) Relevant Legislation and the Applicable Prima Facie Test
+
+[11] Section 1 of the Code provides that every person has the right to equal
+
+treatment without discrimination on the basis of his or her colour. Section 9
+
+provides that no one shall infringe a person’s right to equal treatment.
+
+[12]   The onus rests on a complainant to establish the prohibited discrimination
+
+in accordance with the “prima facie” test. This description of the approach to
+
+establish discrimination comes from the decision of the Supreme Court of
+
+Canada in Ontario Human Rights Commission v. Simpson-Sears Ltd., [1985] 2
+
+S.C.R. 536, which was decided in the context of employment-related
+
+discrimination. In that case, the Supreme Court of Canada explained that “[a]
+
+prima facie case in this context is one which covers the allegations made and
+                                     Page: 7
+
+
+which, if they are believed, is complete and sufficient to justify a verdict in the
+
+complainant’s favour in the absence of an answer” from the person alleged to
+
+have discriminated (at p. 558). This means that the onus lies on the complainant
+
+to establish discrimination on the balance of probabilities and that, if the
+
+complainant does so, the evidentiary burden shifts to the respondent. See also
+
+Ontario (Director, Disability Support Program) v. Tranchemontagne, 2010 ONCA
+
+593, 269 O.A.C. 137.
+
+[13]   The Adjudicator was cognizant of this aspect of the test and the proper
+
+onus. As she explained, “[o]nce a prima facie case of discrimination has been
+
+established, the burden shifts to the respondent to provide a rational explanation
+
+which is not discriminatory” (at para. 17). When confronted with a prima facie
+
+case, the respondent “must offer an explanation which is credible on all the
+
+evidence” (at para. 17). The complainant is not required to establish that the
+
+respondent’s actions lead to no other conclusion but discrimination. Rather, the
+
+“ultimate issue is whether an inference of discrimination is more probable from
+
+the evidence than the actual explanations offered by the respondent” (at para.
+
+17).
+
+[14] The three elements of the prima facie test were described by the Divisional
+
+Court majority, at para. 47, as requiring the complainant to prove the following:
+
+            1.     That he or she is a member of a group protected
+                   by the Code;
+                                         Page: 8
+
+
+             2.     That he or she was subjected to adverse
+                    treatment; and
+
+             3.     That his or her gender, race, colour or ancestry
+                    was a factor in the alleged adverse treatment.
+
+See Dang v. PTPC Corrugated Co., 2007 BCHRT 27, [2007] B.C.H.R.T.D. No.
+
+27, at para. 82.
+
+[15]   No issue is taken with these elements or principles explained by the
+
+Adjudicator, but rather with their application in this case.
+
+(3) The Prima Facie Element
+
+[16] The appeal challenges the Adjudicator’s interpretation and application of
+
+the discrimination test in three ways.
+
+[17] First, the appellants argue that the Adjudicator “skipp[ed] over the
+
+requirement … [to] establish a connection [or nexus] between” Mr. Phipps’s
+
+colour and his treatment by Constable Shaw. It is their position that no such
+
+connection is available on the record. Second, the appellants argue that the
+
+Adjudicator did not properly articulate or make the required finding that the prima
+
+facie test was met and that her failure to do so rendered her decision
+
+unreasonable. The third argument echoes the Divisional Court dissent position
+
+that the Adjudicator was obliged to declare whether the prima facie test was met
+
+at the conclusion of Mr. Phipps’s case and before Constable Shaw presented his
+
+case. I will explain why I do not accept these challenges.
+                                     Page: 9
+
+
+[18]   Addressing the first argument, while the Adjudicator may not have
+
+specifically delineated and individually parsed each of the three elements of the
+
+test seriatim, that may well have been because two out of three of the elements -
+
+Mr. Phipps’s colour and his adverse treatment - were conceded by Constable
+
+Shaw’s counsel and, in any event, were clear on the record.
+
+[19]   In addition, the Adjudicator specifically recognized the need for a nexus or
+
+connection when she identified the core of the dispute. In her words, at para. 20,
+
+the issue to be determined was “whether the applicant’s skin colour was a factor
+
+in Constable Shaw’s surveillance of, decision to stop, and subsequent inquiry
+
+about the applicant.” While the appellants are correct that the Adjudicator did not
+
+use the specific word “nexus”, there is no mandatory incantation of particular
+
+words, provided that the Adjudicator understood the need for the complainant to
+
+establish this element of the test. The record establishes that she did so.
+
+[20] In her reasons, the Adjudicator gave particular attention to whether colour
+
+or race was a factor in Constable Shaw’s conduct towards Mr. Phipps. The
+
+Adjudicator’s repeated reference to this “factor” evidences that, indeed, she was
+
+cognizant of the need for a connection or link between the complainant’s colour
+
+and the Constable’s actions.
+
+[21] The Adjudicator examined the evidence on this issue with care and linked
+
+that evidence to her conclusion that Mr. Phipps’s colour “in an affluent
+                                     Page: 10
+
+
+neighbourhood was a factor, a significant factor, and probably the predominant
+
+factor, whether consciously or unconsciously, in Constable Shaw’s actions” (at
+
+para. 21).
+
+[22] The Adjudicator’s clear finding that colour was a factor, when combined
+
+with the other two conceded elements of the prima facie test – Mr. Phipps’s
+
+colour and adverse treatment – provided a reasonable basis, indeed a solid
+
+foundation, for her conclusion of discrimination.
+
+[23] This conclusion was supported by the following findings regarding the
+
+impugned interaction between Constable Shaw and Mr. Phipps:
+
+
+                   Constable Shaw stopped and questioned Mr.
+                   Phipps even though his appearance did not
+                   match the description given in the directive (white,
+                   East European men driving a vehicle);
+
+                   Constable Shaw did not approach or question any
+                   white service or construction workers present in
+                   the same neighbourhood; and
+
+                   Constable Shaw subsequently approached a
+                   white letter carrier in the neighbourhood to inquire
+                   about Mr. Phipps’s bona fides.
+
+[24]   The Adjudicator also considered Constable Shaw’s denial of any racial
+
+reasoning and his evidence explaining his actions involving Mr. Phipps.
+
+However, the Adjudicator came to a reasoned decision explaining why she did
+
+not accept Constable Shaw’s position as providing a credible non-discriminatory
+
+explanation for his conduct toward Mr. Phipps.
+                                      Page: 11
+
+
+[25]   In essence, the appellants’ argument amounts to an attack on the
+
+Adjudicator’s factual findings and the inferences she drew from those findings. As
+
+the Divisional Court observed, those findings are entitled to considerable
+
+deference. In my view, the Divisional Court majority correctly concluded that
+
+there was no basis for this court to interfere.
+
+[26]   In their second challenge to the Adjudicator’s interpretation and application
+
+of the prima facie test, the appellants argue that the Adjudicator erred in not
+
+stating precisely that the prima facie test had been satisfied. On this issue, I
+
+observe, as did the Divisional Court, that the Adjudicator expressly referred to the
+
+need to establish a “prima facie case of discrimination”. The experienced
+
+Adjudicator would be familiar with the three elements of the test, which are well
+
+known in human rights law. In my view, a fair reading of the Adjudicator’s
+
+reasons leaves no room for doubt by any reader that the Adjudicator concluded
+
+that this foundational human rights test was met based on her assessment of the
+
+evidence and her knowledge of the law. I would not give effect to this argument.
+
+[27]   Finally, both before the Divisional Court and before this court, the
+
+appellants argued that the Adjudicator was obliged to declare that the test had
+
+been met at the conclusion of the complainant’s case and before she allowed
+
+Constable Shaw to give his evidence.
+                                     Page: 12
+
+
+[28]   Constable Shaw has not provided authority for this proposition. Where as
+
+here, the person alleged to have discriminated chooses to give evidence, the
+
+Adjudicator must decide the case based on all the evidence.           Moreover, the
+
+argument purports to engage the same test at the end of the complainant’s case
+
+as at the end of Constable Shaw’s evidence: whether discrimination has been
+
+proven. Recalling the words of the Adjudicator, which were also adopted by the
+
+Divisional Court, “[t]he ultimate issue is whether an inference of discrimination is
+
+more probable from the evidence than the actual explanations offered by the
+
+respondent”: see Divisional Court reasons at para. 77 and Adjudicator’s reasons
+
+at para. 17. In the human rights context, there is no rational justification for
+
+requiring an adjudicator to decide the same issue on two occasions at two
+
+different points in the hearing in the absence of any challenge to the sufficiency
+
+of the evidence at the conclusion of the complainant’s case. I would not give
+
+effect to this aspect of the argument.
+
+(4) Placement of the Onus
+
+[29]   In a related argument, the appellants take the position that the effect of the
+
+Adjudicator’s reasoning, including her approach to the discrimination test,
+
+improperly placed the onus on Constable Shaw to disprove discrimination. I do
+
+not agree. As in the usual civil case, the Adjudicator will decide the case on the
+
+basis of all the evidence, cognizant of the principle that the onus rests and
+
+remains on the complainant throughout the case to establish the complaint.
+                                     Page: 13
+
+
+[30]   The Adjudicator expressly recognized the basic principle that the onus is
+
+on the complainant to establish a “prima facie case of discrimination” after which
+
+“the burden shifts to the respondent to provide a rational explanation which is not
+
+discriminatory” (at para. 17). She specifically addressed “whether the inference
+
+of racial discrimination is more probable than the explanations offered by the
+
+respondent” (at para. 18).
+
+[31]   The Adjudicator also recognized, to establish his case, that the
+
+complainant need not prove that the Constable’s adverse actions were rationally
+
+consistent only with discrimination. Rather, the test was met if one of the factors
+
+influencing Constable Shaw’s actions was Mr. Phipps’s colour. The Adjudicator
+
+understood that Mr. Phipps was required to establish discrimination and only if he
+
+did so would it be necessary for Constable Shaw to provide a rational and
+
+credible explanation for his actions other than discrimination.
+
+[32]   With those principles in mind, the Adjudicator considered the whole of the
+
+evidence and rejected Constable Shaw’s explanation that Mr. Phipps’s conduct
+
+raised a suspicion of illegal activity. As the Divisional Court majority observed,
+
+the Adjudicator “carefully considered [Constable] Shaw’s explanations for his
+
+conduct and found that he was unable to rebut the prima facie case of
+
+discrimination” (at para. 84).     Moreover, in the majority’s description, the
+
+Adjudicator reasonably concluded that “the combination of [Constable Shaw’s]
+                                      Page: 14
+
+
+actions when viewed together further supports” the conclusion of discrimination
+
+(at para. 72). I agree and would not give effect to this ground of appeal.
+
+[33]   The Adjudicator’s reasons are also challenged on the basis that they arrive
+
+at a conclusion of discrimination based on “unconscious discrimination”. The
+
+appellants argue that this concept improperly imposes a burden of disproof on
+
+Constable Shaw. However, this was not a case where the Adjudicator concluded,
+
+without supporting evidence, that because discrimination can be unconscious,
+
+Constable Shaw unconsciously discriminated against Mr. Phipps. Indeed, the
+
+Adjudicator did not assume discrimination, but drew an inference of
+
+discrimination from a number of different pieces of evidence.
+
+[34]   As the Adjudicator observed, in any event, proof of Constable Shaw’s
+
+subjective intention to discriminate is not a necessary component of the test.
+
+There is seldom direct evidence of a subjective intention to discriminate, because
+
+“[r]acial stereotyping will usually be the result of subtle unconscious beliefs,
+
+biases and prejudices” and racial discrimination “often operates on an
+
+unconscious level”. For this reason, discrimination is often “proven by
+
+circumstantial evidence and inference” (at paras. 16 and 18). See also Radek v.
+
+Henderson Development (Canada) Ltd. (No. 3), 2005 BCHRT 302, [2005]
+
+B.C.H.R.T.D. No. 302, at para. 482.
+                                      Page: 15
+
+
+[35]   The Divisional Court majority concluded that the Adjudicator was entitled to
+
+and, indeed, obliged to “draw reasonable inferences from proven facts” about
+
+Constable Shaw’s actions and whether Mr. Phipps’s colour was a factor in those
+
+actions (at para. 75). In rejecting the argument concerning an improper use of
+
+“unconscious discrimination”, the Divisional Court majority explained at para. 81
+
+that its conclusion was not based on “Mr. Phipps' perception of racism”, but on
+
+the Adjudicator’s appreciation of all the evidence it accepted after rejecting “the
+
+evidence that the conduct of Mr. Phipps should have aroused the suspicion of
+
+the police of potential illegal activity.” It was on this basis that the Adjudicator
+
+arrived at a finding of discrimination:
+
+             The Tribunal found that the most rational explanation for
+             the actions of [Constable] Shaw was that they were
+             motivated by race - that is, Mr. Phipps was an unknown
+             black man in an affluent neighbourhood, and, therefore,
+             he may be disguised as a postal worker, acting for an
+             improper or illegal purpose.
+
+[36]   I agree that the Adjudicator did not use “unconscious discrimination” to
+
+place the onus on Constable Shaw improperly. I would not give effect to this
+
+ground of appeal.
+
+(5) Consideration of the Evidence
+
+[37]   Finally, the appellants argue that the Adjudicator failed to give sufficient
+
+weight to Constable Shaw’s position as a police officer.
+                                    Page: 16
+
+
+[38]   Before the Adjudicator, the appellants argued that the discrimination test
+
+should be different when it involves allegations against police officers.
+
+Specifically, the appellants argued that the test should be the same as that
+
+applied to potential racial profiling in the criminal law context where an accused
+
+brings an application for the exclusion of evidence pursuant to the Canadian
+
+Charter of Rights and Freedoms. Relying on Kampe v. Toronto Police Services
+
+Board, 2008 HRTO 304, [2008] O.H.R.T.D. No. 302, at paras. 11-12, the
+
+appellants argued that the question to be asked was whether the Constable had
+
+articulable cause for the treatment of the letter carrier and whether there was an
+
+improper purpose in that treatment. The application of this criminal law test in a
+
+discrimination case was rejected by the Divisional Court and not pursued on
+
+appeal to this court.
+
+[39]   The majority of the Divisional Court also rejected the appellants’ argument
+
+that the test should be whether the police constable acted reasonably in
+
+accordance with the negligence test applied in Hill v. Hamilton-Wentworth
+
+Regional Police Services Board, 2007 SCC 41, [2007] 3 S.C.R. 129. As the
+
+Divisional Court pointed out, this argument was not raised before the Adjudicator,
+
+nor was any expert evidence called to support the position that the police
+
+constable’s actions were reasonable.      In these circumstances the Divisional
+
+Court correctly declined to consider the argument on appeal. The Adjudicator’s
+                                     Page: 17
+
+
+role was not to determine whether Constable Shaw’s actions were reasonable,
+
+but rather, whether they were discriminatory contrary to the Code.
+
+[40]   Again on this appeal, the appellants argue that the Adjudicator erred by
+
+failing to give adequate weight to Constable Shaw’s evidence and to the
+
+“legitimate role and duty of the police to investigate circumstances of possible
+
+wrongdoing”.
+
+[41]   In my view, the Adjudicator gave careful consideration to the particular
+
+position of police officers. Constable Shaw pointed to the Police Services Act
+
+provisions that place a duty on police officers to prevent crime, apprehend
+
+criminals, and perform the duties they are assigned. As the Divisional Court
+
+correctly concluded, the Adjudicator “did not fail to have regard to the unique
+
+duties of police officers” or Officer Shaw’s obligations to investigate crime.
+
+Further, her “task was to determine whether the powers exercised by this police
+
+officer in carrying out this duty complied with the Code” (at paras. 91 and 95).
+
+[42]   In fulfilling that task, the Adjudicator was entitled to consider other
+
+requirements of the Police Services Act, including the principles articulated in s. 1
+
+that highlight “[t]he importance of safeguarding the fundamental rights
+
+guaranteed by the... Code” and “[t]he need for sensitivity to the pluralistic,
+
+multiracial and multicultural character of Ontario Society”. In the words of the
+
+Divisional Court majority:   “Police officers therefore have a statutory duty to
+                                     Page: 18
+
+
+uphold the Code, and in this the [Adjudicator] had proper regard to police officers’
+
+statutory duties” (at para. 91). There is no basis to interfere with this conclusion.
+
+C.     RESULT
+
+[43]   For these reasons, I would dismiss the appeal.
+
+[44]   In accordance with the positions advanced by counsel, I would make no
+
+order for costs.
+
+
+Released: March 13, 2012                      “S.E. Lang J.A.”
+ “STG”                                        “I agree S.T. Goudge J.A.”
+                                              “I agree Robert P. Armstrong J.A.”
+

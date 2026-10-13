@@ -1,0 +1,308 @@
+ Bruno Appliance and Furniture, Inc. v. Hryniak - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Bruno Appliance and Furniture, Inc. v. Hryniak
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Bruno Appliance and Furniture, Inc. v. Hryniak
+ /scc-csc/scc-csc/fr/item/13428/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Bruno Appliance and Furniture, Inc. v. Hryniak
+ Collection
+ Supreme Court Judgments
+ Date
+ 2014-01-23
+ Neutral citation
+ 2014 SCC 8
+ Report
+ [2014] 1 SCR 126
+ Case number
+ 34645
+ Judges
+ McLachlin, Beverley; LeBel, Louis; Abella, Rosalie Silberman; Rothstein, Marshall; Cromwell, Thomas Albert; Karakatsanis, Andromache; Wagner, Richard
+ On appeal from
+ Ontario
+ Subjects
+ Civil procedure
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/34645/] 34645
+ [LINK /scc-csc/scc-csc/en/13428/1/document.do] 
+Decision Content
+ SUPREME COURT OF CANADA 
+ Citation: Bruno Appliance and Furniture, Inc. v. Hryniak, 2014 SCC 8, [2014] 1 S.C.R. 126 
+ Date: 20140123 Docket: 34645 
+ Between: 
+ Bruno Appliance and Furniture, Inc. 
+ Applicant 
+ and 
+ Robert Hryniak 
+ Respondent 
+ - and - 
+ Attorney General of Ontario, Ontario Trial Lawyers Association, 
+ Advocates’ Society and Canadian Bar Association 
+ Interveners 
+ Coram: McLachlin C.J. and LeBel, Abella, Rothstein, Cromwell, Karakatsanis and Wagner JJ. 
+ <table class="TableGrid1" border="0" cellspacing="0" cellpadding="0" style="border-collapse:
+ collapse;border:none"> 
+ Reasons for Judgment: (paras. 1 to 32) 
+ Karakatsanis J. (McLachlin C.J. and LeBel, Abella, Rothstein, Cromwell and Wagner JJ. concurring) 
+ Bruno Appliance and Furniture, Inc. v. Hryniak, 2014 SCC 8, [2014] 1 S.C.R. 126 
+ Bruno Appliance and Furniture, Inc.<span style="font-weight:
+normal"> Appellant 
+ v. 
+ Robert Hryniak Respondent 
+ and 
+ Attorney General of Ontario, Ontario 
+ Trial Lawyers Association, Advocates’ 
+ Society and Canadian Bar Association Interveners 
+ Indexed as: Bruno Appliance and Furniture, Inc. v. Hryniak 
+ 2014 SCC 8 
+ File No.: 34645. 
+ 2013: March 26; 2014: January 23. 
+ Present: McLachlin C.J. and LeBel, Abella, Rothstein, Cromwell, Karakatsanis and Wagner JJ. 
+ on appeal from the court of appeal for ontario 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"><span style="line-height:
+200%"> Civil procedure — Summary judgment — Investor bringing action in civil fraud and subsequently bringing a motion for summary judgment — Motion judge granting summary judgment but being overruled by Court of Appeal — Elements of civil fraud — Whether motion judge erred in granting summary judgment — Rules of Civil Procedure, R.R.O. 1990, Reg. 194, Rule 20. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Bruno Appliance and Furniture, Inc. is an American corporation. Its principal met with the principal of Frontline Investments, Inc. and as a result of these meetings, executed a number of investment documents in favour of Frontline. Bruno Appliance subsequently wired US$1 million to Cassels Brock, who assigned the funds to an account associated with Tropos Capital Inc., a company of which H was the principal. Bruno Appliance’s funds were then bundled with other funds and paid to Tropos in a bank draft. Bruno Appliance’s money was not invested and disappeared. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Bruno Appliance launched a civil fraud action against H and others, and brought a motion for summary judgment. The motion judge found that Bruno Appliance had established its claim and that there was no issue requiring a trial. The Court of Appeal disagreed and ordered that the Bruno Appliance action proceed to trial. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"><span style="line-height:
+200%"> Held<span style="line-height:
+200%">: The appeal should be dismissed. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The scope and interpretation of the amended Rule 20 summary judgment motion are addressed in the companion appeal, Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87. Summary judgment may not be granted under Rule 20 where there is a genuine issue requiring a trial. The motion judge should ask whether the matter can be resolved in a fair and just manner on a summary judgment motion. This will be the case when the process (1) allows the judge to make the necessary findings of fact, (2) allows the judge to apply the law to the facts, and (3) is a proportionate, more expeditious and less expensive means to achieve a just result. If there appears to be a genuine issue requiring a trial, based only on the record before her, the judge should then ask if the need for a trial can be avoided by using the new powers provided under Rules 20.04(2.1) and (2.2). She may, at her discretion, use those powers, provided that their use is not against the interest of justice. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The Court of Appeal did not err in its determination that Bruno Appliance should not receive summary judgment against H. The following four elements constitute the tort of civil fraud: (1) a false representation made by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether through knowledge or recklessness); (3) the false representation caused the plaintiff to act; and (4) the plaintiff’s actions resulted in a loss. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Civil fraud requires a finding that H made a misrepresentation which induced Bruno Appliance to invest. The motion judge neither identified the need for a misrepresentation, nor found that H made one. H was not present at the meeting that led to Bruno’s investment and the motion judge’s findings are insufficient to establish that any false statements made at the meeting can be attributed to him. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> While the evidence clearly demonstrates that H was aware of the fraud, and may in fact have benefited from the fraud, whether H perpetrated the fraud by inducing Bruno Appliance to contribute US$1 million to a non‑existent investment scheme is a genuine issue requiring a trial. 
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:.5in;line-height:normal;
+page-break-after:avoid">Cases Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Applied: Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87; referred to: Derry v. Peek (1889), 14 App. Cas. 337; Parna v. G. & S. Properties Ltd., [1971] S.C.R. 306; Snell v. Farrell, [1990] 2 S.C.R. 311; Angers v. Mutual Reserve Fund Life Assn. (1904), 35 S.C.R. 330. 
+ <p class="SCCNormalDoubleSpacing" style="margin-bottom:.5in;line-height:normal;
+page-break-after:avoid">Statutes and Regulations Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal">Rules of Civil Procedure, R.R.O. 1990, Reg. 194, r. 20. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.35pt;text-indent:-27.35pt;line-height:normal;
+page-break-after:avoid">Authors Cited 
+ Osborne, Philip H. The Law of Torts, 4th ed. Toronto: Irwin Law, 2011. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> APPEAL from a judgment of the Ontario Court of Appeal (Winkler C.J.O. and Laskin, Sharpe, Armstrong and Rouleau JJ.A.), 2011 ONCA 764, 108 O.R. (3d) 1, 286 O.A.C. 3, 97 C.C.E.L. (3d) 25, 14 C.P.C. (7th) 242, 13 R.P.R. (5th) 167, 93 B.L.R. (4th) 1, 344 D.L.R. (4th) 193, 10 C.L.R. (4th) 17, [2011] O.J. No. 5431 (QL), 2011 CarswellOnt 13515, setting aside a decision of Grace J., 2010 ONSC 5490, [2010] O.J. No. 4661 (QL), 2010 CarswellOnt 8325. Appeal dismissed. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Javad Heydary, Jeffrey D. Landmann, David K. Alderson, Michelle Jackson and Jonathan A. Odumeru, for the appellant. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Sarit E. Batner, Brandon Kain and Moya J. Graham, for the respondent. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Malliha Wilson and Christopher P. Thompson, for the intervener the Attorney General of Ontario. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Allan Rouben and Ronald P. Bohm, for the intervener the Ontario Trial Lawyers Association. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> David W. Scott, Q.C., Patricia D. S. Jackson and Crawford Smith, for the intervener the Advocates’ Society. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Paul R. Sweeny and David Sterns, for the intervener the Canadian Bar Association. 
+ The judgment of the Court was delivered by 
+ [1] Karakatsanis J. — Like its companion, Hryniak v. Mauldin, 2014 SCC 7, [2014] 1 S.C.R. 87 (Mauldin), this appeal concerns the interpretation and application of Ontario’s new summary judgment rules. In this action, the Ontario Court of Appeal overturned the motion judge’s decision to grant summary judgment in favour of the plaintiff and made various trial management orders under Rule 20.05 of the Rules of Civil Procedure, R.R.O. 1990, Reg. 194. 
+ [2] In light of the principles articulated in the Mauldin appeal and for the reasons that follow, I would dismiss the appeal. 
+ <span style="text-decoration:
+none">I. Facts 
+ [3] Bruno Appliance and Furniture, Inc. is an American corporation, whose principal is Albert Bruno. In late 2001, Bruno met with Robert Cranston, the principal of a Panamanian company, Frontline Investments, Inc. As a result of these meetings, Bruno executed a number of investment documents in favour of Frontline. 
+ [4] In February 2002, Bruno met with Cranston and Gregory Peebles, a corporate-commercial lawyer at the Toronto offices of Cassels Brock and Blackwell. No notes were kept of this meeting, and the recollection of the participants varies. While Robert Hryniak did not attend this meeting, Tropos Capital Inc. (Tropos), a company of which Hryniak was the principal, received and paid a bill for Peebles’ attendance. 
+ [5] In early March 2002, Bruno Appliance wired US$1 million to Cassels Brock, who assigned the funds to an account associated with Tropos. Bruno Appliance’s funds were then bundled with other funds (totalling US$3.5 million) and paid to Tropos in a bank draft. At the end of April 2002, Tropos paid US$2.5 million to a company called Southern Equity Investors Inc., and in late June 2002 transferred approximately US$550,000 to an individual named Reinhard. By the end of September 2003, Tropos’ balance with Cassels Brock had declined to US$19,000. 
+ [6] In short, Bruno Appliance’s money was not invested and it never received a return on its investment. 
+ <span style="text-decoration:
+none">II. Judicial History 
+ A. Ontario Superior Court of Justice, 2010 ONSC 5490 (CanLII) 
+ [7] Bruno Appliance joined with the plaintiffs from the companion Mauldin appeal in a civil fraud action against Hryniak, Peebles and Cassels Brock. Both sets of plaintiffs brought motions for summary judgment, which were heard together. 
+ [8] The motion judge found that Bruno Appliance had established its claim against Hryniak and that there was no issue requiring a trial. He was satisfied that, in spite of Hryniak’s absence from an early meeting between Peebles, Cranston and Bruno, Hryniak knew that the meeting was occurring and his company, Tropos, paid for Peebles’ attendance. The motion judge further found that Hryniak was aware that US$1 million was placed in Tropos’ account on Bruno Appliance’s behalf, and that Hryniak gave instructions regarding those funds. 
+ [9] The motion judge found that none of Bruno Appliance’s funds were invested. In part, they were used to fund disbursements to another individual, Reinhard, and the remainder was slowly drained. 
+ [10] The motion judge held that the tort of civil fraud was made out and there was no genuine issue requiring a trial. 
+ [11] As in the companion Mauldin appeal, the motion judge dismissed the motion for summary judgment against Peebles, as he found that the claim involved factual issues that could not be resolved on the record. Consequently, the motion for summary judgment against Cassels Brock was dismissed, as it was premised on the theory that the firm was vicariously liable for Peebles’ acts and omissions. 
+ B. Court of Appeal for Ontario, 2011 ONCA 764, 108 O.R. (3d) 1 
+ [12] Hryniak’s appeal of this motion was heard together with the companion Mauldin appeal, as well as three other matters, which are not before this Court. The Court of Appeal found that Bruno Appliance’s action should not be addressed through summary judgment due to its voluminous record, conflicting testimony, credibility issues, conflicting theories of liability advanced against multiple defendants, and the absence of reliable documentary evidence. 
+ [13] Despite this conclusion, as in Mauldin, the Court of Appeal was prepared to review whether the motion judge was nonetheless entitled to grant judgment but, in this case, it concluded that the evidence against Hryniak was not nearly as overwhelming. Two genuine issues required a trial: first, whether Hryniak induced Bruno Appliance to invest, and second, whether some of the funds were misappropriated by Cranston, instead of Hryniak. 
+ [14] The Court of Appeal found that the motion judge failed to address the issue of whether Hryniak knowingly made any misrepresentation that induced Bruno Appliance to invest, a necessary element of fraud. The Court of Appeal concluded that there was no compelling evidence that Peebles acted as Hryniak’s agent when the relevant representations were made. With respect to the second issue, the Court of Appeal found that it could not decide, based on the record, whether Bruno Appliance’s investment was misappropriated entirely by Hryniak or by both Hryniak and Cranston in some proportion. 
+ [15] As a result, the Court of Appeal ordered that the Bruno Appliance action proceed to trial, subject to certain trial management orders under Rule 20.05(2). 
+ <span style="text-decoration:
+none">III. Analysis 
+ [16] The scope and interpretation of the amended Rule 20 are addressed in the companion Mauldin appeal. Therefore, the issue that remains to be determined in this appeal is whether the Court of Appeal erred in its determination that Bruno Appliance should not receive summary judgment against Hryniak. 
+ A. The Tort of Civil Fraud 
+ [17] The parties disagree as to the elements of the tort of civil fraud, in particular whether proof is required that Hryniak induced Bruno Appliance to part with its funds. 
+ [18] The classic statement of the elements of civil fraud stems from an 1889 decision of the House of Lords, Derry v. Peek (1889), 14 App. Cas. 337, where Lord Herschell conducted a thorough review of the history of the tort of deceit and put forward the following three propositions, at p. 374: 
+ First, in order to sustain an action of deceit, there must be proof of fraud, and nothing short of that will suffice. Secondly, fraud is proved when it is shewn that a false representation has been made (1) knowingly, or (2) without belief in its truth, or (3) recklessly, careless whether it be true or false. . . . Thirdly, if fraud be proved, the motive of the person guilty of it is immaterial. It matters not that there was no intention to cheat or injure the person to whom the statement was made. 
+ [19] This Court adopted Lord Herschell’s formulation in Parna v. G. & S. Properties Ltd., [1971] S.C.R. 306, adding that the false statement must “actually [induce the plaintiff] to act upon it” (p. 316, quoting Anson on Contract). Requiring the plaintiff to prove inducement is consistent with this Court’s later recognition in Snell v. Farrell, [1990] 2 S.C.R. 311, at pp. 319-20, that tort law requires proof that “but for the tortious conduct of the defendant, the plaintiff would not have sustained the injury complained of”. 
+ [20] Finally, this Court has recognized that proof of loss is also required. As Taschereau C.J. held in Angers v. Mutual Reserve Fund Life Assn. (1904), 35 S.C.R. 330, “fraud without damage gives . . . no cause of action” (p. 340). 
+ [21] From this jurisprudential history, I summarize the following four elements of the tort of civil fraud: (1) a false representation made by the defendant; (2) some level of knowledge of the falsehood of the representation on the part of the defendant (whether through knowledge or recklessness); (3) the false representation caused the plaintiff to act; and (4) the plaintiff’s actions resulted in a loss. 
+ B. Did the Motion Judge Err in Granting Summary Judgment? 
+ [22] Summary judgment may not be granted under Rule 20 where there is a genuine issue requiring a trial. As outlined in the companion Mauldin appeal, the motion judge should ask whether the matter can be resolved in a fair and just manner on a summary judgment motion. This will be the case when the process (1) allows the judge to make the necessary findings of fact, (2) allows the judge to apply the law to the facts, and (3) is a proportionate, more expeditious and less expensive means to achieve a just result. If there appears to be a genuine issue requiring a trial, based only on the record before her, the judge should then ask if the need for a trial can be avoided by using the new powers provided under Rules 20.04(2.1) and (2.2). She may, at her discretion, use those powers, provided that their use is not against the interest of justice. 
+ [23] For the reasons that follow, I am of the view that there is a genuine issue requiring a trial. 
+ [24] As noted by the Court of Appeal, and following the analysis above, civil fraud requires a finding that Hryniak made a misrepresentation which induced Bruno Appliance to invest. The motion judge neither identified the need for a misrepresentation, nor found that Hryniak made one. 
+ [25] The motion judge found that Tropos did not invest Bruno Appliance’s funds and that a misrepresentation had therefore been made to the investors. The point at which a misrepresentation occurred was a meeting between Peebles, Cranston and Bruno Appliance’s principal in February 2002. He found: that Hryniak was supposed to be in attendance at this meeting, that Hryniak knew of the purpose of the meeting and that Hryniak’s company paid for Peebles’ attendance. 
+ [26] However, Hryniak was not present, and he can only be liable for any misrepresentation made by Peebles or Cranston if their statements can be attributed to him. For example, the Court of Appeal considered, and ultimately rejected, the possibility that Peebles or Cranston was acting as Hryniak’s agent. 
+ [27] In my view, the motion judge’s findings are insufficient to establish that any false statements made at the meeting can be attributed to Hryniak. There was no evidence that Peebles or Cranston were acting on instructions from Hryniak when they met with Bruno. While a principal will generally be vicariously liable “for the torts of her agent committed within the scope of her actual or apparent authority” (P. H. Osborne, The Law of Torts (4th ed. 2011), at p. 369), the motion judge did not find Peebles or Cranston to be Hryniak’s agent, and there is no indication that the evidence established that Peebles or Cranston was authorized to make representations on behalf of Hryniak and did not do so on their own account. Similarly, there was insufficient evidence to establish that either Peebles or Cranston was acting as Hryniak’s unwitting dupe and, as the motion judge concluded, that issue required a trial. 
+ [28] While the motion judge found that Hryniak was aware of the falseness of the representations[LINK #_ftn1] [1] and exercised “full dominion and control” over Bruno Appliance’s funds (para. 169), as noted by the Court of Appeal, this finding would support liability in conversion, but is not sufficient to establish fraud. 
+ [29] While I agree with the motion judge that the evidence clearly demonstrates that Hryniak was aware of the fraud, and may in fact have benefited from the fraud, whether Hryniak perpetrated the fraud by inducing Bruno Appliance to contribute US$1 million to a non-existent investment scheme is a genuine issue requiring a trial. 
+ [30] The Court of Appeal also found the extent of Hryniak’s misappropriation of Bruno Appliance’s funds to be a second issue requiring a trial. The Court of Appeal found that Hryniak had appropriated US$450,000, but that the fate of the remaining US$550,000 required a trial. Given the principles of joint and several liability, I am satisfied that this issue would not normally preclude a finding that there is no genuine issue requiring a trial against Hryniak. 
+ [31] The motion judge failed to find a necessary element of civil fraud, an error of law, and did not draw sufficient factual conclusions for either him, or an appellate court, to make such a finding. Since the action was proceeding to trial against the other defendants in any event, the order of the Court of Appeal that all the remaining actions be heard together is the most proportionate, timely and cost effective approach. In light of this conclusion, it is unnecessary for me to determine whether it was against the interest of justice for the motion judge to make use of his expanded fact-finding powers. 
+ <span style="text-decoration:
+none">IV. Conclusion 
+ [32] Accordingly, I would dismiss the appeal, with costs to the respondent. I would not interfere with the case management orders made by the Court of Appeal. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Appeal dismissed with costs. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the appellant: Heydary Hamilton, Toronto. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the respondent: McCarthy Tétrault, Toronto. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitor for the intervener the Attorney General of Ontario: Attorney General of Ontario, Toronto. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the intervener the Ontario Trial Lawyers Association: Allan Rouben, Toronto; SBMB Law, Richmond Hill, Ontario. 
+ <p class="SCCLawFirm" style="margin-top:24.0pt;margin-right:0in;margin-bottom:
+24.0pt;margin-left:0in"> Solicitors for the intervener the Advocates’ Society: Borden Ladner Gervais, Ottawa; Torys, Toronto. 
+ Solicitors for the intervener the Canadian Bar Association: Evans Sweeny Bordin, Hamilton; Sotos, Toronto. 
+ [LINK #_ftnref1] <span style="font-size:10.0pt;font-family:
+"Times New Roman","serif"">[1] This follows from his finding in a footnote to para. 178 of his reasons that he accepted Peebles’ evidence that he regularly reviewed trust activity with Hryniak (A.R., vol. V, at pp. 154-59). 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

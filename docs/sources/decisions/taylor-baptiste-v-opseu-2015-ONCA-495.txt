@@ -1,0 +1,1334 @@
+                  COURT OF APPEAL FOR ONTARIO
+
+         CITATION: Taylor-Baptiste v. Ontario Public Service Employees Union,
+                                                              2015 ONCA 495
+                                                              DATE: 20150703
+                                                 DOCKET: C59529 & C59543
+
+                      Hoy A.C.J.O., Watt and Brown JJ.A.
+
+BETWEEN
+
+                            Mariann Taylor-Baptiste
+
+                                                                       Applicant
+                                                                     (Appellant)
+
+                                      and
+
+                          Attorney General of Ontario
+
+                                                                      Intervener
+                                                                     (Appellant)
+
+                                      and
+
+    Ontario Public Service Employees Union, Jeff Dvorak and Human Rights
+                              Tribunal of Ontario
+
+                                                                   Respondents
+                                                                 (Respondents)
+
+
+
+Ranjan K. Agarwal and Amanda C. McLachlan, for the appellant Mariann Taylor-
+Baptiste
+
+Matthew Horner and Padraic Ryan, for the appellant Attorney General of Ontario
+
+Caroline Jones and Jodi Martin, for the respondents Ontario Public Service
+Employees Union and Jeff Dvorak
+                                      Page: 2
+
+
+Margaret Leighton and Linda Chen, for the respondent Human Rights Tribunal of
+Ontario
+
+Cara Zwibel, for the intervener Canadian Civil Liberties Association
+
+Reema Khawja and Sunil Gurmukh, for the intervener Ontario Human Rights
+Commission
+
+Heard: April 16, 2015
+
+On appeal from the order of the Divisional Court (Justices Frances P. Kiteley,
+David Aston and Kevin W. Whitaker), dated May 28, 2014, with reasons reported
+at 2014 ONSC 2169, 323 O.A.C. 376, dismissing an application for judicial
+review from the decisions of the Human Rights Tribunal of Ontario, dated July
+16, 2012, and February 1, 2013, with reasons reported at 2012 HRTO 1393, 1
+C.C.E.L. (4th) 104, and 2013 HRTO 180.
+
+
+Brown J.A.:
+
+ I.   INTRODUCTION
+
+[1]   The appellant, Mariann Taylor-Baptiste, and the respondent, Jeff Dvorak,
+
+both worked at the Toronto Jail. In late 2008 and early 2009, when the events at
+
+issue took place, Ms. Taylor-Baptiste was Mr. Dvorak’s manager. Mr. Dvorak
+
+was president of the jail’s local branch of the respondent union, the Ontario
+
+Public Service Employees Union (“OPSEU”).
+
+[2]   In early 2009, during a period of labour unrest and intense collective
+
+bargaining, Mr. Dvorak operated a blog about union matters on which he
+
+authored a blog post, and permitted the posting of a comment written by
+
+someone     else,   both   accusing   Ms.   Taylor-Baptiste   of   nepotism   and
+
+incompetence. She complained to the Human Rights Commission, alleging
+                                      Page: 3
+
+
+discrimination “with respect to employment” contrary to s. 5(1) and harassment
+
+“in the workplace” contrary to s. 5(2) of the Human Rights Code, R.S.O. 1990, c.
+
+H.19.
+
+[3]     The Human Rights Tribunal’s decision did not turn on whether the
+
+offending blog posts constituted “discrimination” or “harassment”; the Tribunal
+
+was satisfied that the comments were sexist and offensive. Instead, the Tribunal
+
+focused its analysis on whether the blog posts constituted conduct “with respect
+
+to employment” or “in the workplace” – in other words, whether the conduct
+
+complained of fell within the areas of social activity regulated by the Code.
+
+[4]     The Tribunal found they were not, ruling that the scope of s. 5(1) of the
+
+Code was ambiguous on the facts, and had to be interpreted in a way that took
+
+into account Mr. Dvorak’s Charter rights of freedom of expression and
+
+association. The Tribunal concluded that, in the particular circumstances of the
+
+case, the claim for discrimination “with respect to employment” was not made
+
+out. The Tribunal also held that, on the facts, the harassment was not “in the
+
+workplace.”
+
+[5]     The Divisional Court unanimously dismissed Ms. Taylor-Baptiste’s
+
+subsequent application for judicial review, holding that the Tribunal’s decision
+
+was reasonable.
+                                        Page: 4
+
+
+[6]   Ms. Taylor-Baptiste now appeals, with leave, to this court. She has
+
+abandoned her appeal regarding a breach of s. 5(2) of the Code, but maintains
+
+that the Tribunal erred in dismissing her s. 5(1) claim. In particular, she argues
+
+that the Tribunal erred by holding that the words “with respect to employment”
+
+were ambiguous, thus necessitating a consideration of Charter values and a
+
+balancing of Mr. Dvorak’s free speech and associational rights against her Code
+
+right to be free from discrimination.
+
+[7]   The Attorney General of Ontario (“AGO”) was joined as a party to the
+
+appeal in this court and supports Ms. Taylor-Baptiste’s position.
+
+[8]   For the reasons set out below, I conclude that the Tribunal’s decision was
+
+reasonable and I would not interfere with it.
+
+II.   THE FACTS
+
+The parties
+
+[9]   In October 2008, Ms. Taylor-Baptiste became the Deputy Superintendent
+
+of Programs at the Toronto Jail for the Ontario Ministry of Community Safety and
+
+Correctional Services (the “Ministry”). Her common law spouse is Scott Gray,
+
+who is the Deputy Superintendent, Administration, at the Toronto West Detention
+
+Centre. Her former husband is Alan Taylor-Baptiste, who is the president of the
+
+OPSEU local at the Ontario Correctional Institute, a different jail.
+                                        Page: 5
+
+
+[10]   Mr. Dvorak is a correctional officer and was President of OPSEU Local 530
+
+at the Toronto Jail from February 2008 to November 2009.
+
+[11]   In the fall of 2008, as collective bargaining between OPSEU members and
+
+the Province was underway, Mr. Dvorak started a blog about issues in the
+
+workplace. The Tribunal accepted that the blog’s purpose was to communicate
+
+with the Local 530 membership, especially about the ongoing collective
+
+agreement negotiations.
+
+[12]   Blog entries by Mr. Dvorak and others strongly criticized the Ministry as the
+
+employer, and also took aim at individual managers, politicians and journalists.
+
+The blog was widely read by people both in and out of the bargaining unit. Many
+
+posts used strong language; some used profanity. This reflected the difficult state
+
+of collective bargaining at that time, which Mr. Dvorak described before the
+
+Tribunal as “off the charts in terms of hostility.”
+
+The blog entries
+
+[13]   The two blog entries that became the subject of Ms. Taylor-Baptiste’s
+
+complaint were posted on January 16 and 21, 2009. Mr. Dvorak wrote the first
+
+post. It was prompted by a work refusal under the Occupational Health and
+
+Safety Act, R.S.O. 1990, c. O.1, related to the failure to remove ice in the jail’s
+
+parking lot. Mr. Dvorak thought that Ms. Taylor-Baptiste had not properly dealt
+
+with this issue as a manager. He posted the following comment:
+                                     Page: 6
+
+
+            RO’S STEP Up
+
+
+            Yesterday our annex staff had a valid concern regarding
+            the conditions they HAVE TO walk through to get to
+            there [sic] work stations. Yet there [sic] deputy waited
+            hours to call someone else to ask what she should do.
+            First of all if you don’t know the answers to something
+            this simple Ms. Baptiste maybe you should call your
+            boyfriend over at his office after all he is the only reason
+            you got the job. Clearly all you have shown is an
+            inability to handle even the easiest of situations or staff
+            relations. Perhaps our senior administration should
+            reconsider there [sic] hiring practices for deputy’s [sic]
+            and change the qualifications from having intimate
+            knowledge off [sic] another deputy to something like
+            maybe some experience doing the job, like Mr. Puntillo.
+            Oh yeah I forgot doing the job for three years doesn’t
+            even get you an interview. Anyways congratulations to
+            the annex staff well done and keep showing this
+            employer they can’t forget about you. I am out of town in
+            Ottawa actually to tell some mp’s and senators just what
+            kind of conditions we are working in but will be back
+            tomorrow until then keep up the good fight!!!!!!!!!
+
+
+[14]   The second blog entry was a comment made by an anonymous poster on
+
+January 21, 2009, in response to Mr. Dvorak’s posting. Mr. Dvorak approved any
+
+comments before they were placed on the blog for public review. The
+
+anonymous comment read as follows (the capitals appeared in the original):
+
+            EXCELLENT    WEBSITE      GUYS     AND     GREAT
+            COMMENTS/EDITORIALS BY YOUR PRESIDENT.
+            GOOD TO SEE THAT THE MINISTRY IS A PROUD
+            SUPPORTER OF THE “PETER PRINCIPLE” – ONE’S
+            LEVEL OF INCOMPETANCE [sic] REACHED AND
+            EXCEDED [sic] (could apply to all managers). AS A
+            FELLOW C.O. I WOULD LIKE TO POINT OUT THAT
+            MR. TAYLOR-BAPTISTE, IS NOTHING LIKE HIS “X”
+                                      Page: 7
+
+
+             AND SHE COULD ACTUALLY TAKE GUIDANCE
+             FROM HIS WORK ETHIC. HE IS THE UNION
+             SCHEDULING ASSISTANT HERE AT O.C.I. AND
+             PERFORMS HIS DUTIES WITH EXCEPTIONAL
+             COMPITANCE [sic]. HE IS ALL ABOUT FAIRNESS
+             AND DOING THE RIGHT THING FOR THE STAFF. IN
+             HIS PRESENT CAPACITY HE HAS TO RELATE TO
+             MANAGERS AND ALWAYS CHAMPIONS STAFF
+             ISSUES AND CONCERNS. HE HAS THE FULL
+             SUPPORT OF ALL THE UNCLASSIFIED STAFF, AS
+             WELL AS THE CLASSIFIED. “T.B.” AS HE’S KNOWN,
+             IS VERY DIPLOMATIC WITH ALL THE STAFF HERE,
+             AND I BELIEVE HAS MANAGEMENTS RESPECT.
+             IMAGINE THAT; A C.O. EARNING RESPECT! KEEP
+             UP THE GOOD WORK AND LET MS. BAPTISTE
+             KNOW THAT IF SHE NEEDS ANY HELP MAKING A
+             DECISION IN THE FUTURE, I’M SURE HE WOULD
+             HELP HER. MAYBE SHE SHOULD GO BACK TO HER
+             MAIDEN NAME, OR GRAY, SO AS NOT TO
+             BESMERCH [sic] THE GOOD “UNION” NAME OF
+             TAYLOR-BAPTISTE.
+
+
+             local 229, O.C.I. C.O.
+
+The aftermath
+
+[15]   Ms. Taylor-Baptiste alleged that the two posts belittled her on the basis of
+
+sex and marital status because they relied on stereotypical views about women
+
+obtaining positions of power through sexual relations. She alleged that the posts
+
+suggested she only got her managerial job because of her husband and exposed
+
+her personal relationships with others working at the Ministry. She also
+
+contended that the posts painted her as an incompetent woman, in contrast to
+
+competent men such as her current partner, her ex-husband, and Mr. Puntillo.
+                                     Page: 8
+
+
+[16]   For his part, Mr. Dvorak explained he had wanted to voice his belief that
+
+Ms. Taylor-Baptiste had obtained her position through nepotism because of her
+
+relationship with Mr. Gray. Mr. Dvorak asserted that nepotism is rampant in the
+
+Ministry, even acknowledging that he had been the beneficiary of the practice.
+
+[17]   On several occasions management raised concerns with Mr. Dvorak about
+
+the blog and asked him to remove the blog’s references to managers. Mr. Dvorak
+
+initially resisted those requests but, in mid-February 2009, he stopped making
+
+new postings. Several days later he made the blog inaccessible without a
+
+password, which he did not share with anyone else.
+
+Complaint to the Human Rights Commission
+
+[18]   Management did not discipline Mr. Dvorak for his blog. After the collective
+
+agreement was concluded, the union and employer agreed that no discipline
+
+would be meted out to employees who had made blog postings during
+
+negotiations and who had not already been disciplined. Ms. Taylor-Baptiste filed
+
+a Workplace Discrimination and Harassment Prevention Policy complaint against
+
+Mr. Dvorak, but it was not pursued because of the agreement reached between
+
+the Ministry and the union.
+
+[19]   That led Ms. Taylor-Baptiste to file her complaint against the respondents
+
+alleging that the blog posts violated ss. 5(1) and 5(2) of the Code. Section 5(1) of
+
+the Code protects “equal treatment with respect to employment without
+                                       Page: 9
+
+
+discrimination” on enumerated grounds including sex and marital status. Section
+
+5(2) of the Code provides employees with a right to freedom from harassment in
+
+the workplace by the employer or by another employee because of marital
+
+status, among other grounds.
+
+[20]   Before the Tribunal, Ms. Taylor-Baptiste testified that the two postings had
+
+upset her and she had felt under extreme stress following their publication,
+
+particularly because Mr. Dvorak was working in an office very close to hers. She
+
+thought people in the workplace knew who she was because of the blog posting
+
+and associated her primarily with that posting. Ms. Taylor-Baptiste sought
+
+assistance from the Employee Assistance Plan and was treated for pain in her
+
+jaw from grinding her teeth, a condition directly attributable to stress.
+
+[21]   Before the Tribunal, Mr. Dvorak testified that he felt regrets about the blog
+
+and its effect on Ms. Taylor-Baptiste, but he stated that one had to “understand
+
+what was going on and what was going on with me personally as well.”
+
+III.   DECISIONS OF THE HUMAN RIGHTS TRIBUNAL
+
+[22]   The Tribunal issued two decisions in respect of Ms. Taylor-Baptiste’s
+
+complaint: its initial decision dated July 16, 2012 (the “Initial Decision”) and its
+
+February 1, 2013, decision dealing with Ms. Taylor-Baptiste’s request for a
+
+reconsideration (the “Reconsideration Decision”).
+                                              Page: 10
+
+
+The Initial Decision
+
+[23]    In its Initial Decision, the Tribunal acknowledged that postings on blogs
+
+and other electronic media can form part of or an extension of the workplace, but
+
+concluded that in the circumstances of this case the postings on Mr. Dvorak’s
+
+blog did not amount to harassment “in the workplace” because:
+
+                [t]hey were made on a blog identified with the union
+                that, although open to the public, was directed at
+                communication between union members and their
+                leadership. There is no evidence that Mr. Dvorak made
+                the postings while at work for the employer. There may
+                be circumstances in which postings in cyberspace are
+                sufficiently connected that they are “in the workplace”.
+                However, even giving them a broad interpretation, the
+                words of s. 5(2) cannot apply to this blog, given the
+                context.1
+
+
+As I mentioned, this holding is not challenged on appeal.
+
+[24]    As to Ms. Taylor-Baptiste’s complaint under s. 5(1) of the Code, the
+
+Tribunal acknowledged that the conduct of an employee which does not
+
+constitute harassment in the workplace under s. 5(2) of the Code, nevertheless
+
+could fall within s. 5(1). At para. 27 of its Initial Decision, the Tribunal framed the
+
+issue in the following terms:
+
+                The determination of whether actions constitute
+                discrimination under s. 5(1) involves a consideration of
+
+
+1
+ Taylor-Baptiste v. Ontario Public Service Employees Union, 2012 HRTO 1393 (the “Initial Decision”), at
+para. 26. See also, 2013 HRTO 180 (the “Reconsideration Decision”), at paras. 22 and 53.
+                                      Page: 11
+
+
+              all the relevant circumstances, including the
+              seriousness of the conduct, their significance, their
+              effect on the workplace, the role of the person making
+              them, the effect on the applicant, and the reaction of the
+              respondent to any concerns raised.
+
+[25]   One circumstance considered by the Tribunal was the nature of the
+
+expression at issue. The Tribunal found that Mr. Dvorak made or authorized the
+
+comments “in the course of his duties as a … union president,” as a result of
+
+which his comments enjoyed the protection of the rights of freedom of expression
+
+and freedom of association guaranteed by ss. 2(b) and (d) of the Canadian
+
+Charter of Rights and Freedoms.
+
+[26]   After taking into account several factors, including the Charter rights
+
+engaged, the Tribunal concluded that Mr. Dvorak had not discriminated against
+
+Ms. Taylor-Baptiste with respect to employment. The Tribunal stated, at para. 42
+
+of its Initial Decision:
+
+              Most significant to my decision in this case are that the
+              postings were tied to communication to the membership
+              on issues of labour-management relations and the
+              absence of Code-related effects in the workplace.
+
+
+The Reconsideration Decision
+
+[27]   In its Reconsideration Decision, the Tribunal not only dealt with new
+
+Charter arguments advanced by Ms. Taylor-Baptiste, but also described, at para.
+                                                Page: 12
+
+
+32, the analytical exercise it had undertaken in considering Ms. Taylor-Baptiste’s
+
+complaint:
+
+                  The boundaries of what falls under the social areas of
+                  services, accommodation, contracts, membership in a
+                  vocational association and employment are not always
+                  clear. An adjudicator must undertake an interpretation of
+                  the broad words in the Code to determine, in a
+                  contested case, whether this is the type of activity that it
+                  regulates. In doing so, the Tribunal must interpret rights
+                  broadly, and also undertake a purposive and contextual
+                  interpretation of the legislation. The need for a large and
+                  liberal approach to the rights in the Code does not
+                  relieve those applying it from the difficult task of
+                  interpreting its boundaries.
+
+
+[28]      The Tribunal stated that where the issue was whether the activities in
+
+question fell within a social area regulated by the Code, it has favoured an
+
+interpretation under which “in cases of ambiguity the Code would not restrict
+
+activities at the core of the fundamental freedoms protected by s. 2 of the
+
+Charter”: Reconsideration Decision, at para. 33. The Tribunal was of the view
+
+that the direction given by the Supreme Court of Canada in Doré v. Barreau du
+
+Québec that “administrative decisions are always required to consider
+
+fundamental [i.e. Charter] values” confirmed the approach it had taken.2
+
+
+
+
+2
+    2012 SCC 12, [2012] 1 S.C.R. 395, at para. 35.
+                                               Page: 13
+
+
+IV.       DECISION OF THE DIVISIONAL COURT
+
+[29]      The Divisional Court dismissed Ms. Taylor-Baptiste’s application for judicial
+
+review of the Initial Decision and the Reconsideration Decision.3
+
+[30]      The Divisional Court concluded that whether the blog posts were “in the
+
+workplace” within the meaning of s. 5(2) of the Code was a question of mixed
+
+fact and law lying at the heart of the Tribunal’s expertise. The court deferred to
+
+the Tribunal’s decision on the point, holding that the Tribunal’s decision that the
+
+blog posts were outside the scope of s. 5(2) was reasonable.
+
+[31]      The Divisional Court went on to hold that the Tribunal’s decision that the
+
+blog posts fell outside of s. 5(1) of the Code also was reasonable. On that
+
+question of mixed fact and law, the Divisional Court concluded that the Tribunal
+
+was entitled to delve deeply into the specific facts of the case, including that Mr.
+
+Dvorak’s comments on management were protected by ss. 2(b) and 2(d) of the
+
+Charter. I will consider the Divisional Court’s reasons in more detail below.
+
+V.        THE PARTIES’ POSITIONS ON THE ISSUE ON APPEAL
+
+[32]      On this appeal, Ms. Taylor-Baptiste does not challenge the Tribunal’s
+
+finding that the blog posts were not made “in the workplace” within the meaning
+
+of s. 5(2) of the Code.
+
+
+
+3
+    2014 ONSC 2169, 323 O.A.C. 376 (hereafter the “Divisional Court Reasons”).
+                                    Page: 14
+
+
+[33]   Although the parties used different language to frame the main issue, in
+
+essence they agreed that the question before this court is whether the Divisional
+
+Court properly applied the reasonableness standard to the Tribunal’s decision
+
+that the blog posts did not infringe Ms. Taylor-Baptiste’s right to equal treatment
+
+“with respect to employment” without discrimination under s. 5(1) of the Code.
+
+[34]   The appellants submit that the Divisional Court did not properly apply the
+
+reasonableness standard. In their view, the Tribunal improperly took account of
+
+Mr. Dvorak’s Charter rights of freedom of expression and association in
+
+determining that the blog posts did not infringe Ms. Taylor-Baptiste’s right to
+
+equal treatment with respect to employment. They argue that the Tribunal’s
+
+approach, and the Divisional Court’s endorsement of that approach, is
+
+inconsistent with Supreme Court of Canada jurisprudence on when an
+
+administrative decision-maker may resort to Charter values to decide a case
+
+before it.
+
+[35]   In the alternative, the appellants submit that even if the Tribunal was
+
+entitled to take Charter values into account in its s. 5(1) analysis, it failed to
+
+balance reasonably the Charter values with the statutory objectives of the Code.
+
+[36]   The intervener, the Ontario Human Rights Commission, supports these
+
+arguments.
+                                            Page: 15
+
+
+[37]   For their part, the respondents submit that the Tribunal reasonably
+
+concluded that the impugned blog posts, on the specific facts of the case, were
+
+not “with respect to employment” within the meaning of s. 5(1) of the Code, and
+
+that the Tribunal properly used Charter values as an interpretive aid in reaching
+
+that conclusion.
+
+[38]   The respondent, the Human Rights Tribunal of Ontario, submits that the
+
+Supreme Court of Canada’s decision in Doré compels administrative decision-
+
+makers to consider and integrate Charter values into their adjudicative work. To
+
+this, the Canadian Civil Liberties Association adds that the Tribunal must
+
+consider and reconcile the fundamental Charter right of freedom of expression
+
+with a broad and purposive reading of the Code.
+
+VI.    THE STANDARD OF APPELLATE REVIEW
+
+[39]   On an appeal from a decision disposing of an application for judicial
+
+review, the appellate court must decide whether the court below identified the
+
+appropriate standard of review and applied it correctly. The appellate court steps
+
+into the shoes of the lower court, with its focus on the administrative decision. 4
+
+[40]   Before the Divisional Court, the parties agreed that the standard of review
+
+on questions respecting the scope of s. 5 of the Code was reasonableness, and
+
+
+
+4
+ Agraira v. Canada (Public Safety and Emergency Preparedness), 2013 SCC 36, [2013] 2 S.C.R. 559, at
+paras. 45 and 46.
+                                              Page: 16
+
+
+the Divisional Court identified reasonableness as the applicable standard of
+
+review. In so doing, the Divisional Court followed the jurisprudence of this court
+
+that under the reasonableness standard, the decisions of the Tribunal on
+
+determinations of fact and the interpretation and application of human rights law
+
+are entitled to the highest degree of deference having regard to the Tribunal’s
+
+expertise and specialization.5
+
+VII.   ANALYSIS
+
+[41]    Did the Divisional Court properly apply the reasonableness standard to the
+
+Tribunal’s decision that the blog posts did not infringe Ms. Taylor-Baptiste’s right
+
+to equal treatment “with respect to employment without discrimination” under s.
+
+5(1) of the Code?
+
+A. The general principles that guide the review
+
+[42]    The reasonableness standard of review recognizes that certain questions
+
+coming before administrative tribunals do not lend themselves to only one
+
+particular result.6 Consequently, reasonableness is concerned with both the
+
+existence of justification, transparency and intelligibility of the decision-making
+
+process, as well as with whether the decision falls within a range of possible,
+
+
+
+
+5
+  Divisional Court Reasons, at para. 20, citing Shaw v. Phipps, 2012 ONCA 155, 347 D.L.R. (4th) 616, at
+para. 10.
+6
+  Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190, at para. 47.
+                                                Page: 17
+
+
+acceptable outcomes which are defensible in respect of the facts and law.7
+
+Where the reasonableness standard applies to an issue, the person seeking
+
+judicial review must show that the tribunal could not reasonably have arrived at
+
+the decision it reached.8
+
+B. The Divisional Court’s approach to the Tribunal’s reasons
+
+[43]      In the present case, the Divisional Court properly examined the Tribunal’s
+
+reasons        as    a    whole,     reading     the    Initial   Decision     together   with   the
+
+Reconsideration Decision. In so doing, the Divisional Court considered the
+
+Tribunal’s reasons in their totality, rather than parsing them: at para. 38.
+
+C. The Divisional Court’s treatment of the ambiguity issue
+
+[44]      Ms. Taylor-Baptiste and the AGO submit that the Tribunal unreasonably
+
+concluded that an ambiguity existed in the language of s. 5(1) of the Code which
+
+then permitted the Tribunal to consider Charter values in analyzing whether the
+
+respondents’ conduct had violated the section.
+
+[45]       I agree with the Divisional Court that it was difficult to see any ambiguity
+
+on the face of the language of s. 5(1) of the Code and that the issue the Tribunal
+
+faced more accurately should be characterized as “deciding as a question of
+
+mixed fact and law in the particular circumstances of this case, whether the blog
+
+
+
+7
+    Dunsmuir, at para. 47.
+8
+    Pieters v. Peel Law Association, 2013 ONCA 396, 116 O.R. (3d) 81, at para. 132.
+                                    Page: 18
+
+
+posts were within or outside of s. 5(1) of the Code”: at paras. 29 and 38. That
+
+issue did not require the Tribunal to resolve an ambiguity in the statutory
+
+language, but rather to interpret and apply the Code to the specific
+
+circumstances of the case.
+
+[46]   Since the Tribunal had concluded that s. 5(1) of the Code contained an
+
+ambiguity, the Divisional Court reviewed the Tribunal’s decision on the point in
+
+depth to understand what the Tribunal meant by that conclusion. In the course of
+
+its review, the Divisional Court observed that the parties had presented the
+
+Tribunal with “stark and extreme perspectives” about how to apply s. 5(1) of the
+
+Code to the facts of the case: at para. 36. Whereas Ms. Taylor-Baptiste focused
+
+on her position as a woman entitled to a workplace free of sexism, the
+
+respondents focused on Mr. Dvorak’s right to union speech and his subordinate
+
+position vis-à-vis his manager, Ms. Taylor-Baptiste.
+
+[47]   The Divisional Court reproduced paras. 40-42 of the Reconsideration
+
+Decision in which the Tribunal had tried to take a more nuanced approach to the
+
+issue of whether the respondents’ conduct was “with respect to employment”
+
+under s. 5(1) of the Code. There the Tribunal repeated the factors it had taken
+
+into account and, at para. 41, summarized how it had balanced them:
+
+            Although I found it a difficult decision, in the end I
+            concluded that the facts in this case tipped in favour of
+            the public expressive nature of the comments. Central
+                                     Page: 19
+
+
+             to the tipping of the balance in favour of this union
+             expression were:
+
+
+             (1) The connection of the comments to a matter of union
+             concern, made during bargaining, and made on a blog
+             focused on union-management relationships, by the
+             President of the union local.
+
+
+             (2) The impact of the comments on the applicant was
+             her concern they had brought her personal life into the
+             workplace, not the sexist stereotypes. As she described
+             it, her concern and upset would have been the largely
+             the same whether the point about her relationship with
+             Mr. Gray was made using sexist language or not.
+
+
+             (3) The absence of any evidence of Code-based effects
+             in the workplace. The only impact described was people
+             commenting on the fact they had read about her.
+
+
+             (4) The applicant was mentioned twice among
+             voluminous numbers of posts that were accessible for a
+             period of only about a month.
+
+
+[48]   I agree with the Divisional Court’s conclusion, at para. 37 of its reasons,
+
+that the Tribunal was entitled to delve deeply into the facts of the case in order to
+
+determine the key question of mixed fact and law – i.e. whether, in the particular
+
+circumstances of this case, the blog posts fell within or outside s. 5(1) of the
+
+Code. Indeed, the parties agreed that any determination about whether conduct
+
+violates s. 5(1) of the Code requires an examination of all relevant facts.
+                                     Page: 20
+
+
+D. Whether the Tribunal could consider Charter values as part of its
+   analysis under s. 5(1) of the Code
+
+[49]   That brings us to the main point in dispute between the parties: what were
+
+the relevant facts or factors that the Tribunal was entitled to take into account in
+
+making its decision? The appellants submit that the Tribunal was not entitled to
+
+consider Charter values as factors in its analysis; the respondents contend it
+
+was. More specifically, the appellants submit that the Tribunal and Divisional
+
+Court erred in giving any consideration to Charter values because an
+
+administrative tribunal can only take such values into account if its home statute
+
+contains an ambiguity or if the tribunal is exercising a discretionary power. By
+
+contrast, the respondents argue that the Supreme Court’s Doré decision
+
+authorized the Tribunal to take into account the relevant Charter values, in
+
+particular, the Charter rights of freedom of expression and association.
+
+[50]   The Divisional Court observed, at para. 38 of its reasons, that “the Charter
+
+rights of Dvorak and OPSEU are ultimately just a factor that was considered,
+
+amongst others, in deciding as a question of mixed fact and law in the particular
+
+circumstances of this case, whether the blog posts were within or outside of s.
+
+5(1) of the Code.” That court then addressed the appellants’ submission about
+
+the Tribunal’s ability to take into account Charter rights, concluding, at para. 40,
+
+that the Doré case stands for “the broad principle that administrative bodies are
+
+empowered, and indeed required, to consider Charter values within their scope
+                                     Page: 21
+
+
+of expertise.” The Divisional Court observed that interpreting the meaning of the
+
+words “with respect to employment” in s. 5(1) of the Code engaged the core of
+
+the Tribunal’s expertise: Divisional Court Reasons, at para. 40.
+
+[51]      I agree with that analysis. In Doré, the Supreme Court considered the
+
+reasonableness of a decision by the Disciplinary Council of the Barreau du
+
+Québec. The Council found that Doré, a lawyer, had violated art. 2.03 of the
+
+Code of ethics of advocates, R.R.Q. 1981, c. B-1, r.1, which requires that the
+
+“conduct of an advocate must bear the stamp of objectivity, moderation and
+
+dignity.” The Council suspended Doré for 21 days from the practice of law. By the
+
+time the case reached the Supreme Court, Doré had served the suspension and
+
+was not appealing the penalty. His appeal was limited to the Council’s finding
+
+that he had breached the Code of ethics.
+
+[52]      The Court re-considered the appropriate framework to apply when
+
+reviewing administrative decisions for compliance with the Charter. At para. 24 of
+
+its reasons, the Court stated: “It goes without saying that administrative decision-
+
+makers must act consistently with the values underlying the grant of discretion,
+
+including Charter values.” The Supreme Court replaced the R. v. Oakes9 s. 1
+
+framework previously used to measure whether an administrative decision
+
+complied with the Charter with an approach under which a decision-maker is
+
+
+9
+    [1986] 1 S.C.R. 103.
+                                             Page: 22
+
+
+required to balance the Charter values at issue with the statutory objectives
+
+engaged.10 If the reviewing court can conclude that the administrative decision-
+
+maker has properly balanced the relevant Charter value with the statutory
+
+objectives in exercising its statutory discretion, the decision will be found to be
+
+reasonable.11
+
+[53]   The appellants argue that the Tribunal acted unreasonably in taking
+
+Charter values into account in its analysis. They make two points.
+
+[54]   Their first submission is that an administrative tribunal can only consider
+
+Charter values in its decision-making if an ambiguity exists in the provision of its
+
+home or enabling statute at issue in a case. In support of their submission, they
+
+rely on the statement in Bell ExpressVu that “to the extent this Court has
+
+recognized a ‘Charter values’ interpretive principle, such principle can only
+
+receive application in circumstances of genuine ambiguity.”12
+
+[55]    Binding authority prevents the acceptance of the appellants’ submission.
+
+Slightly more than a decade after deciding Bell ExpressVu, the Supreme Court
+
+
+
+
+10
+   Doré, at paras. 55 and 56.
+11
+   Doré, at para. 58.
+12
+   Bell ExpressVu Limited Partnership v. Rex, 2002 SCC 42, [2002] 2 S.C.R. 559, at para. 62 (emphasis
+in original).
+                                          Page: 23
+
+
+rejected an argument similar to the appellants’ when, in R. v. Clarke13, it stated,
+
+at para. 16:
+
+                  Only in the administrative law context is ambiguity not
+                  the divining rod that attracts Charter values. Instead,
+                  administrative     law    decision-makers      “must   act
+                  consistently with the values underlying the grant of
+                  discretion, including Charter values” (Doré, at para. 24).
+                  The issue in the administrative context therefore, is not
+                  whether the statutory language is so ambiguous as to
+                  engage Charter values, it is whether the exercise of
+                  discretion by the administrative decision-maker
+                  unreasonably limits the Charter protections in light of
+                  the legislative objective of the statutory scheme.
+
+
+[56]      The appellants’ second submission is that the Charter values interpretive
+
+principle articulated in Doré only applies to instances where an administrative
+
+decision-maker exercises a discretionary power, such as crafting a remedy. They
+
+say it does not apply to the kind of adjudicative decision made by the Tribunal in
+
+this case – i.e. whether the respondents’ conduct violated s. 5(1) of the Code.
+
+[57]      While I take the appellants’ point that in both Doré and Loyola High School
+
+the Supreme Court frequently referred to the exercise of a discretionary power
+
+under a home statute, in my view the decision in Doré, when read as a whole,
+
+prevents the acceptance of the appellants’ submission. First, in Doré the Court
+
+stated that “administrative decisions are always required to consider fundamental
+
+
+
+
+13
+     2014 SCC 28, [2014] 1 S.C.R. 612.
+                                             Page: 24
+
+
+values”14 (emphasis in original). Second, the context which framed the court’s
+
+discussion in Doré was analogous to the present case – i.e. the determination by
+
+an administrative tribunal about whether a person’s conduct had violated the
+
+strictures of a statutory or regulatory rule.
+
+[58]   Consequently, I do not interpret the binding jurisprudence as permitting
+
+this court to interfere with the Tribunal’s decision simply because it considered
+
+Charter values in the course of determining whether the respondents’ conduct
+
+violated s. 5(1) of the Code.
+
+E. Whether the Tribunal properly balanced relevant Charter values with the
+   objective of the Code
+
+[59]   As an alternative argument, the appellants submit that if the Tribunal was
+
+entitled to take into account Charter values in deciding whether the respondents’
+
+conduct violated s. 5(1) of the Code, the Tribunal failed to strike a reasonable
+
+balance between Charter values and the statutory objectives of the Code.
+
+[60]   In Doré, the Supreme Court of Canada described the approach an
+
+administrative decision-maker should follow when applying Charter values: first,
+
+the decision-maker should consider the statutory objectives at play, and then ask
+
+how the Charter value at issue will best be protected in view of the statutory
+
+objectives by balancing the severity of the interference of the Charter protection
+
+
+14
+  Doré, at para. 35. See also Loyola High School v. Quebec (Attorney General), 2015 SCC 12, at paras.
+3 and 4.
+                                              Page: 25
+
+
+with the statutory objectives.15 The resulting decision is entitled to a measure of
+
+deference so long as it falls within a range of possible, acceptable outcomes.16
+
+As put by the Supreme Court of Canada at para. 58 of Doré: “If, in exercising its
+
+statutory discretion, the decision-maker has properly balanced the relevant
+
+Charter value with the statutory objectives, the decision will be found to be
+
+reasonable.”
+
+[61]      Let me turn, then, to the Tribunal’s identification of the relevant statutory
+
+objective, its selection of the relevant Charter values, and its balancing of both.
+
+The statutory objective
+
+[62]      Although the Divisional Court did not conduct this part of its judicial review
+
+in the precise sequence described in Doré, it performed the substantive
+
+equivalent. As to the applicable statutory objective, in para. 42 of its reasons the
+
+Divisional Court stated that in “the original decision the Tribunal pinpoints the
+
+Code’s objective as protecting Ms. Taylor-Baptiste from a poisoned work
+
+environment”.          Indeed,    in   its   Initial   Decision   (paras.   27,   31-35)   and
+
+Reconsideration Decision (paras. 37-38, 40, 48-51, 56-57), the Tribunal
+
+thoroughly considered the objective of s. 5(1) of the Code and the evidence that
+
+related to that objective.
+
+
+
+15
+     Doré, at paras. 55 and 56.
+16
+     Doré, at para. 56.
+                                    Page: 26
+
+
+The Charter rights selected by the Tribunal
+
+[63]   At paras. 42 and 43 of its reasons the Divisional Court reviewed the
+
+Charter rights selected by the Tribunal – freedom of expression and freedom of
+
+association – writing that:
+
+             I agree with the statement in paragraph 29 of the
+             original decision that “an analysis of the nature of the
+             expression at issue which was made by Mr. Dvorak in
+             the course of his duties as a local union president”
+             necessitated consideration of the fact that “his
+             comments on management are protected” by s. 2(b)
+             and (d) of the Charter.
+
+
+             The broader consideration the Tribunal engaged in in
+             this case could include the Charter rights of Dvorak and
+             OPSEU as a factor to take into account in determining
+             whether or not there was “discrimination with respect to
+             employment” within the meaning of the Code.
+
+
+[64]   I agree with the Divisional Court’s analysis on this point. The Tribunal
+
+properly identified freedom of expression and freedom of association enshrined
+
+in ss. 2(b) and 2(d) of the Charter as the relevant Charter rights in the
+
+circumstances of this case.
+
+[65]   The appellants submit that the Tribunal’s selection of those Charter rights
+
+was unreasonable for two reasons: first, the discriminatory and offensive content
+
+of the blog postings do not lie at the core of constitutionally-protected speech;
+
+and, second, the protection afforded by s. 5(1) of the Code does not infringe
+
+associational freedom. I do not agree.
+                                             Page: 27
+
+
+[66]   Regarding the appellants’ submission about freedom of expression, the
+
+Tribunal wrote, in para. 44 of its Reconsideration Decision:
+
+               [The applicant] suggests that the blog posts, because
+               they drew on sexist stereotypes to make their point,
+               were not protected under ss. 2(b) or 2(d) of the Charter.
+               She argues that the Tribunal failed to distinguish
+               between “legitimate speech” and “illegitimate expression
+               that runs counter to the equality rights values” in the
+               Charter and the Code. This argument is not consistent
+               with the principle that expression is protected under s.
+               2(b) of the Charter regardless of its content if it conveys
+               meaning. See, for example, Ross v. New Brunswick
+               School District No. 15, [1996] 1 SCR 825. The nature of
+               the expression is a factor in the balancing of rights, and
+               the Decision explicitly analyzed this issue at paras. 27
+               and 33-35. The applicant’s submission that the speech
+               is “illegitimate” or not worthy of protection because it
+               drew on a sexist stereotype runs counter to established
+               jurisprudence on freedom of expression.
+
+
+[67]   I see nothing unreasonable in this conclusion. Section 2(b) of the Charter
+
+protects a broad range of expressive activity, including “distasteful” expression. 17
+
+By the same token, it does not protect violent expression, 18 and some
+
+expression, such as hate speech, does not enjoy equal treatment in determining
+
+an appropriate balancing of competing values under a s. 1 analysis. 19 The
+
+Tribunal understood these legal principles, stating that “the nature of the
+
+
+
+17
+   R. v. Keegstra, [1990] 3 S.C.R. 697, at p. 729. See also, Reconsideration Decision, at para. 44.
+18
+   Saskatchewan Human Rights Commission v. Whatcott, 2013 SCC 11, [2013] 1 S.C.R. 467, at para.
+112.
+19
+   Whatcott, at para. 114.
+                                       Page: 28
+
+
+expression is a factor in the balancing of rights.” But, the blog postings in this
+
+case were not hate speech. They contained rude, distasteful, and sexist remarks
+
+which even Mr. Dvorak acknowledged, upon reflection, appeared to him to have
+
+been “written by an ‘asshole’:” Initial Decision, at para. 19.
+
+[68]   As to the appellants’ submission about the Tribunal’s selection of freedom
+
+of association as a relevant Charter right, the Tribunal enumerated, in para. 37 of
+
+its Initial Decision, the facts which engaged the respondents’ associational rights:
+
+the comments were made by Mr. Dvorak in his role as a local union president on
+
+a union blog, rather than in his role as a fellow employee; they dealt with union-
+
+management relations; Ms. Taylor-Baptiste was a manager who had the power in
+
+the workplace that came with that role; the comments were directed at the union
+
+membership; and, the posts expressed to the union members opinions on how
+
+Ms. Taylor-Baptiste had handled the work refusal by union members. That led
+
+the Tribunal, in para. 40 of its Initial Decision, to conclude:
+
+             His postings were made on issues of union-
+             management concern, and while they relied upon sexist
+             language, they were not gratuitous attacks unrelated to
+             union business…. Most important, union comments on
+             workplace issues are constitutionally protected
+             expression of opinion and exercise of freedom of
+             association, and close to the core of those rights.
+
+[69]   Again, I see nothing unreasonable in the Tribunal’s conclusion on this
+
+point. As the Supreme Court has held, expressive activity in the labour context is
+                                            Page: 29
+
+
+directly related to the Charter-protected right of workers to associate to further
+
+workplace goals under s. 2(d) of the Charter. Such expressive activity can play a
+
+significant role in redressing or alleviating the presumptive imbalance between
+
+the employer’s economic power and the relative vulnerability of the individual
+
+worker.20
+
+[70]   In these portions of its decisions, the Tribunal explained, in a transparent
+
+and intelligible way, how the Charter rights it was selecting arose on the specific
+
+facts of the case. The two Charter rights it selected were logically related to the
+
+facts of the case, thereby satisfying the requirements of Doré that the
+
+administrative tribunal select relevant Charter values.21
+
+The proportionality of the Tribunal’s balancing exercise
+
+[71]   As to the whether the Tribunal’s balancing of the Charter rights with the
+
+objectives of the Code was proper in the circumstances, one must recall the key
+
+principle that drives the presently prevailing approach to judicial review analysis.
+
+As stated by the Supreme Court, at para. 47 of Dunsmuir:
+
+               [C]ertain questions that come before administrative
+               tribunals do not lend themselves to one specific,
+               particular result. Instead, they may give rise to a number
+
+
+20
+   Alberta (Information and Privacy Commissioner) v. United Food and Commercial Workers, Local 401,
+2013 SCC 62, [2013] 3 S.C.R. 733, at paras. 30 and 32; Mounted Police Association of Ontario v.
+Canada (Attorney General), 2015 SCC 1, at paras. 66, 69 and 70; Saskatchewan Federation of Labour v.
+Saskatchewan, 2015 SCC 4, at para. 58.
+21
+   Doré, at para. 58.
+                                         Page: 30
+
+
+                  of possible, reasonable conclusions. Tribunals have a
+                  margin of appreciation within the range of acceptable
+                  and rational solutions.
+
+
+[72]      In the present case, the Tribunal gave detailed, intelligible and transparent
+
+reasons for its decision that the respondents’ conduct did not constitute
+
+discrimination “with respect to employment” in violation of s. 5(1) of the Code.
+
+The Tribunal engaged in a proportionate balancing of the statutory objective of s.
+
+5(1) of the Code with the Charter rights of expressive and associational freedom
+
+engaged by the specific facts of this case.
+
+[73]      The Tribunal’s reasons disclosed that it was alive to the various interests at
+
+play in determining whether, as a question of mixed fact and law, the
+
+respondents’ conduct fell within or without the reach of s. 5(1) of the Code. Facts
+
+such as those raised by this case can well “give rise to a number of possible,
+
+reasonable conclusions.” In light of the deference that the prevailing, binding
+
+reasonableness standard of review accords to the Tribunal’s findings of fact and
+
+determinations of questions of mixed fact and law, including the balancing of
+
+Charter rights with the Code’s objective, I cannot conclude that the Tribunal’s
+
+conclusion fell outside the range of possible, acceptable outcomes defensible in
+
+respect of the facts and law.22
+
+
+
+
+22
+     Dunsmuir, at para. 47.
+                                     Page: 31
+
+
+[74]    I would make one final observation. Ms. Taylor-Baptiste and the AGO
+
+submit that the Tribunal’s decision effectively creates a “blanket exemption”
+
+protecting all forms of union speech from the requirements of s. 5 of the Code. In
+
+my view, their concern is misplaced. The Tribunal expressly stated that its
+
+analysis was confined to the facts before it and that the result might be different
+
+in another case. As the Divisional Court emphasized at para. 28 of its reasons:
+
+“The Associate-Chair took pains to say more than once that the outcome here is
+
+based on the particular constellation of facts in this case.” I agree with that
+
+statement.
+
+VIII.   DISPOSITION
+
+[75]    For the reasons set out above, I would dismiss the appeal.
+
+[76]    At the hearing of the appeal, the parties were not able to agree on costs.
+
+The respondents advised they would seek costs if successful; the Tribunal was
+
+not seeking costs. I would permit the parties to make written cost submissions, of
+
+up to five pages, on the following schedule: (i) the respondents are to deliver
+
+their cost submissions within ten days of the date of these reasons; and (ii) any
+
+party against whom the respondents seek costs may deliver responding cost
+
+submissions within ten days thereafter.
+
+
+Released: July 3, 2015 (A.H.)                “David Brown J.A.”
+                                             “I agree Alexandra Hoy A.C.J.O.”
+                                             “I agree David Watt J.A.”
+

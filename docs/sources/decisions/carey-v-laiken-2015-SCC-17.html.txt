@@ -1,0 +1,322 @@
+ Carey v. Laiken - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Carey v. Laiken
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Carey v. Laiken
+ /scc-csc/scc-csc/fr/item/15289/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Carey v. Laiken
+ Collection
+ Supreme Court Judgments
+ Date
+ 2015-04-16
+ Neutral citation
+ 2015 SCC 17
+ Report
+ [2015] 2 SCR 79
+ Case number
+ 35597
+ Judges
+ McLachlin, Beverley; Abella, Rosalie Silberman; Rothstein, Marshall; Cromwell, Thomas Albert; Moldaver, Michael J.; Karakatsanis, Andromache; Wagner, Richard
+ On appeal from
+ Ontario
+ Subjects
+ Civil procedure
+ Courts
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/35597/] 35597
+ [LINK /scc-csc/scc-csc/en/15289/1/document.do] 
+Decision Content
+ SUPREME COURT OF CANADA 
+ Citation: Carey v. Laiken, 2015 SCC 17, [2015] 2 S.C.R. 79 
+ Date: 20150416 Docket: 35597 
+ Between: 
+ Peter W. G. Carey 
+ Appellant 
+ <p class="SCCLsocVersus" align="center" style="margin-bottom:0in;margin-bottom:
+.0001pt;text-align:center">and 
+ Judith Laiken 
+ Respondent 
+ Coram: McLachlin C.J. and Abella, Rothstein, Cromwell, Moldaver, Karakatsanis and Wagner JJ. 
+ Reasons for Judgment: (paras. 1 to 68): 
+ Cromwell J. (McLachlin C.J. and Abella, Rothstein, Moldaver, Karakatsanis and Wagner JJ. concurring) 
+ Carey v. Laiken, 2015 SCC 17, [2015] 2 S.C.R. 79 
+ Peter W. G. Carey Appellant 
+ v. 
+ Judith Laiken Respondent 
+ Indexed as: Carey v. Laiken 
+ 2015 SCC 17 
+ File No.: 35597. 
+ 2014: December 10; 2015: April 16. 
+ Present: McLachlin C.J. and Abella, Rothstein, Cromwell, Moldaver, Karakatsanis and Wagner JJ. 
+ on appeal from the court of appeal for ontario 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Civil procedure — Contempt of court — Required intent — Mareva injunction issued enjoining any person with knowledge of order from disposing of or otherwise dealing with assets of lawyer’s client — Lawyer having knowledge of injunction but returning trust account funds to client — Lawyer not found in contempt on basis that terms of order not clear and lawyer’s interpretation of order not deliberately and wilfully blind — Whether intent to interfere with administration of justice required to prove civil contempt — Whether lawyer in contempt. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Courts — Judges — Jurisdiction — Contempt of court — Motions judge’s discretion to revisit contempt finding — Lawyer breaching terms of injunction found in contempt — Lawyer moving to reopen contempt hearing — Motions judge setting aside initial contempt finding — Whether motions judge erred in setting aside initial contempt finding — Rules of Civil Procedure, R.R.O. 1990, Reg. 194, Rule 60.11. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> L brought contempt proceedings against C, alleging that he had breached the terms of a Mareva injunction by returning over $400,000 to his client S for whom he was holding it in trust. The injunction was issued in the course of litigation between L, S and related parties. It enjoined any person with knowledge of the order from disposing of, or otherwise dealing with, the assets of various parties, including those of S. The motions judge initially found C in contempt. She was satisfied that the injunction was clear and that C had knowingly and deliberately breached it by transferring the funds. When the parties reappeared before the motions judge for determination of the appropriate penalty, C moved to reopen the contempt hearing. He filed new evidence in support of his assertion that he had acted in a manner consistent with the practice of counsel generally, and he testified about what he perceived to be his professional obligations and his motivations in dealing with the trust funds. Based on the new evidence, the motions judge set aside her previous finding of contempt. The Court of Appeal allowed the appeal and restored the initial contempt finding. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> Held: The appeal should be dismissed. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> The law does not require that a person breach an injunction contumaciously or with intent to interfere with the administration of justice in order to satisfy the elements of civil contempt. All that is required to establish civil contempt is proof beyond a reasonable doubt of an intentional act or omission that is in breach of a clear order of which the alleged contemnor has notice. Contumacious intent or lack thereof goes to the penalty to be imposed following a finding of contempt, not to liability. Furthermore, there is no principled reason to depart from the established elements of civil contempt in situations in which compliance with a court order has become impossible either because the act that constituted the contempt cannot be undone or because of a conflicting legal duty. Where a person’s own actions contrary to the terms of a court order make further compliance impossible, it is neither logical nor just to require proof of some higher degree of fault in order to establish contempt. It also undermines one of the purposes of contempt findings — to deter violations of court orders — to treat with special charity people whose acts in violation of an order make subsequent compliance impossible. The fact that civil contempt is quasi-criminal in nature also provides no justification for carving out a distinct mental element for particular types of civil contempt cases. Nor does reliance on legal advice shield a party from a finding of contempt. The law should not permit lawyers to escape a finding of contempt because they have, in effect, relied on their own legal advice. Further still, where a lawyer acts for a client in relation to an order to which the client is a party, he or she should be held to the same standard of compliance with that order as the client. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> In this case, C was in contempt. The Mareva injunction clearly prohibited dealing with money held in trust, and C’s other conduct showed that he understood that. Even assuming that the existence of the funds was protected by solicitor-client privilege at the time of the transfer, C’s assumed duty to guard that privilege did not conflict with his duty to comply with the order. C needed only to leave the funds in his trust account once they had been deposited there in order to fulfill both duties. Moreover, leaving the funds in his trust account would not have conflicted with his other asserted professional obligations. It is also no answer for C to say that he breached the order so that he would avoid the possibility of a future ethical dilemma, in the event that L obtained judgment against his client and he might have to decide how to comply with any solicitor-client privilege obligations, with the Mareva injunction and with any duty to avoid assisting his client in evading execution arising from the judgment. In any event, even accepting that C believed that there was a true conflict, there were appropriate avenues open to him other than making a unilateral decision to breach the order. 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:24.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in"> While the Rules of Civil Procedure do not prescribe the form of contempt proceedings, as a general rule, they are bifurcated into a liability phase — where the case on liability proceeds and a defence is offered — and, if liability is established, a penalty phase. Once a finding of contempt has been made at the first stage, that finding is usually final and may only be revisited in certain circumstances, such as where the contemnor subsequently complies with the order or otherwise purges his or her contempt, or in exceptional circumstances, where new facts or evidence have come to light after the contempt finding was made. In this case, the motions judge erred in exercising her discretion to permit C to relitigate the initial contempt finding. C’s attack on the motions judge’s earlier finding was based on evidence he ought to have filed at the first hearing. Moreover, as the Court of Appeal stated, a party faced with a contempt motion is not entitled to present a partial defence at the liability stage and then, if the initial gambit fails, have a second “bite at the cherry” at the penalty stage. This would defeat the purpose of the first hearing. 
+ Cases Cited 
+ Referred to: College of Optometrists (Ont.) v. SHS Optical Ltd., 2008 ONCA 685, 241 O.A.C. 225; United Nurses of Alberta v. Alberta (Attorney General), [1992] 1 S.C.R. 901; Pro Swing Inc. v. Elta Golf Inc., 2006 SCC 52, [2006] 2 S.C.R. 612; Bell ExpressVu Limited Partnership v. Torroni, 2009 ONCA 85, 94 O.R. (3d) 614; Poje v. Attorney General for British Columbia, [1953] 1 S.C.R. 516; Chiang (Trustee of) v. Chiang, 2009 ONCA 3, 305 D.L.R. (4th) 655; Prescott-Russell Services for Children and Adults v. G. (N.) (2006), 82 O.R. (3d) 686; Bhatnager v. Canada (Minister of Employment and Immigration), [1990] 2 S.C.R. 217; Jackson v. Honey, 2009 BCCA 112, 267 B.C.A.C. 210; TG Industries Ltd. v. Williams, 2001 NSCA 105, 196 N.S.R. (2d) 35; Godin v. Godin, 2012 NSCA 54, 317 N.S.R. (2d) 204; Soper v. Gaudet, 2011 NSCA 11, 298 N.S.R. (2d) 303; Jaskhs Enterprises Inc. v. Indus Corp., 2004 CanLII 32262; Culligan Canada Ltd. v. Fettes, 2010 SKCA 151, 326 D.L.R. (4th) 463; Sheppard v. Sheppard (1976), 12 O.R. (2d) 4; Hefkey v. Hefkey, 2013 ONCA 44, 30 R.F.L. (7th) 65; Centre commercial Les Rivières ltée v. Jean Bleu inc., 2012 QCCA 1663; Vidéotron Ltée v. Industries Microlec Produits Électroniques Inc., [1992] 2 S.C.R. 1065; Daigle v. St-Gabriel-de-Brandon (Paroisse), [1991] R.D.J. 249; St. Elizabeth Home Society v. Hamilton (City), 2008 ONCA 182, 89 O.R. (3d) 81; Morrow, Power v. Newfoundland Telephone Co. (1994), 121 Nfld. & P.E.I.R. 334; Sussex Group Ltd. v. Fangeat, 42 C.P.C. (5th) 274; Re Tyre Manufacturers’ Agreement, [1966] 2 All E.R. 849; Canada Metal Co. v. C.B.C. (No. 2) (1974), 48 D.L.R. (3d) 641, aff’d (1975), 65 D.L.R. (3d) 231; Customs and Excise Commissioners v. Barclays Bank plc, [2006] UKHL 28, [2007] 1 A.C. 181; Attorney General v. Punch Ltd., [2002] UKHL 50, [2003] 1 A.C. 1046; Z Ltd. v. A-Z, [1982] 1 Q.B. 558; Baker v. Paul, [2013] NSWCA 426; Wilson v. The Queen, [1983] 2 S.C.R. 594; Ontario (Attorney General) v. Paul Magder Furs Ltd. (1991), 6 O.R. (3d) 188. 
+ Statutes and Regulations Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Rules of Civil Procedure, R.R.O. 1990, Reg. 194, r. 60.11. 
+ Authors Cited 
+ <p class="SCCNormalDoubleSpacing" style="margin-top:0in;margin-right:0in;
+margin-bottom:.5in;margin-left:27.0pt;text-indent:-27.0pt;line-height:normal">Sharpe, Robert J. Injunctions and Specific Performance, 2nd ed. Aurora, Ont.: Canada Law Book, 1992 (loose-leaf updated November 2014, release 23). 
+ APPEAL from a judgment of the Ontario Court of Appeal (Rosenberg, Sharpe and Gillese JJ.A.), 2013 ONCA 530, 310 O.A.C. 209, 116 O.R. (3d) 641, 367 D.L.R. (4th) 415, 52 C.P.C. (7th) 144, [2013] O.J. No. 3891 (QL), 2013 CarswellOnt 11824 (WL Can.), setting aside a decision of Roberts J., 2012 ONSC 7252, [2012] O.J. No. 6596 (QL), 2012 CarswellOnt 17537 (WL Can.), and restoring her initial contempt order. Appeal dismissed. 
+ Patricia D. S. Jackson and Rachael Saab, for the appellant. 
+ Kevin Toyne and John Philpott, for the respondent. 
+ The judgment of the Court was delivered by 
+ Cromwell J. — 
+ <span style="text-decoration:
+none">I. Introduction 
+ [1] Contempt of court proceedings against lawyers are rare; so are situations in which judges reverse their own previous findings. But this case, which gives the Court the opportunity to clarify some aspects of the common law of civil contempt of court, has both of these unusual elements. 
+ [2] The appellant, Peter Carey, is a lawyer who was the object of contempt proceedings for allegedly breaching the terms of an injunction. He was initially found in contempt by a judge of the Ontario Superior Court of Justice, but the judge revisited that finding and reversed it when the matter came back before her for consideration of the appropriate penalty. The Court of Appeal set the judge’s second decision aside and found Mr. Carey in contempt. He now appeals to this Court, raising three questions: 
+ 1. To have committed contempt, did Mr. Carey have to intend to interfere with the administration of justice? 
+ 2. Was Mr. Carey in contempt? 
+ 3. Was it open to the judge to set aside her initial finding of contempt? 
+ [3] I conclude that the Court of Appeal for Ontario was correct to answer the first and third questions in the negative and the second in the affirmative: to be in contempt, Mr. Carey did not need to intend to interfere with the administration of justice; Mr. Carey was in contempt and his obligations to his client did not justify or excuse his breaching the injunction; and it was not open to the judge to set aside her initial finding of contempt. I would therefore dismiss the appeal with costs. 
+ [4] The factual and procedural context in which these issues arise is complicated and I will turn to that before getting into the legal analysis that has led me to these conclusions. 
+ <span style="text-decoration:
+none">II. Background 
+ A. Overview 
+ [5] The appeal arises out of Mr. Carey’s alleged breach of a so-called Mareva injunction that enjoined any person with knowledge of the order from “disposing of, or otherwise dealing with” any assets of various parties, including Peter Sabourin for whom Mr. Carey acted. The injunction was issued in the course of litigation between the respondent, Judith Laiken, and Mr. Sabourin and related parties. Ultimately, Ms. Laiken obtained a judgment against Mr. Sabourin and his companies for roughly $1 million and costs. 
+ [6] Following the conclusion of this litigation, Ms. Laiken brought contempt proceedings against Mr. Carey, who unquestionably had knowledge of the injunction. She alleged he had breached its terms by returning to Mr. Sabourin over $400,000 that Mr. Carey was holding in trust for him. These contempt proceedings have led to the appeal before this Court. 
+ B. The Litigation Leading to the Injunction 
+ [7] Ms. Laiken retained Mr. Sabourin and his group of companies to conduct off-shore security trades on her behalf. To this end, she transferred approximately $885,000 to various bank accounts he and his businesses held. Ultimately, these funds were lost and, unsurprisingly, the business relationship between Ms. Laiken and Mr. Sabourin soured. In 2000, he sued her for $364,000, alleging a deficit in her margin account. She counterclaimed for over $800,000, alleging that he had defrauded her. Mr. Carey represented Mr. Sabourin and his business entities in these proceedings. 
+ [8] Ms. Laiken obtained an ex parte Mareva injunction from the Ontario Superior Court of Justice freezing the assets of the defendants to her counterclaim, including Mr. Sabourin. The injunction had broad terms. It prohibited, among other things, Mr. Sabourin and any person with knowledge of the order from “disposing of, or otherwise dealing with” any of Mr. Sabourin’s assets: Order of May 4, 2006, by Campbell J. (see A.R., vol. I, at p. 2). The injunction also directed any person with knowledge of it to “take immediate steps to prevent the . . . transfer” of the assets, including those held in “trust accounts” in that person’s power, possession or control (ibid.). The Superior Court of Justice continued the injunction on multiple occasions with the understanding that the parties needed to work out between themselves variations to it to allow for payment of legal fees and living expenses. However, the injunction was never formally amended. 
+ [9] A few months after the initial order had been made Mr. Sabourin sent Mr. Carey a cheque for $500,000. No instructions accompanied the cheque and Mr. Carey could not reach Mr. Sabourin to obtain instructions. Pursuant to Law Society of Upper Canada by-law requirements, Mr. Carey deposited the cheque in his trust account, applying some of the money towards Mr. Sabourin’s outstanding legal fees, since the parties had agreed that the injunction did not prohibit the payment of reasonable legal fees. 
+ [10] Mr. Sabourin later called Mr. Carey and told him to use the rest of the funds to settle the claims of creditors represented by Bill Brown, who had invested in the Sabourin entities. Mr. Carey advised Mr. Sabourin that he could not do that because making a payment to a third-party creditor would breach the injunction. Mr. Sabourin then instructed Mr. Carey to attempt to negotiate a settlement with Ms. Laiken. 
+ [11] A few days later, during a conference call with Messrs. Brown and Carey, Mr. Sabourin advised that Mr. Carey was holding some $500,000 in trust. The money, he said, was intended for Mr. Brown, but the injunction prohibited Mr. Carey from paying it to him. 
+ [12] Mr. Carey could not reach a settlement with Ms. Laiken’s lawyers. At no point did he reveal to them the existence of the trust money. After the failed settlement negotiations, Mr. Sabourin instructed Mr. Carey to return the balance of the funds to him, which Mr. Carey did after deducting an amount to cover future legal fees. Mr. Carey transferred a total of $440,000 back to Mr. Sabourin in October and November 2006. 
+ [13] Early in 2007, Mr. Sabourin called Mr. Carey and terminated his retainer and instructed him to take no further steps until he had retained new counsel. Shortly after this call, Mr. Sabourin went out of business and vanished. Mr. Carey never received a notice of change of lawyers and remained counsel of record in the Laiken-Sabourin litigation. 
+ [14] Later that year, Mr. Brown obtained judgment against Mr. Sabourin and receivership over his assets and those of his companies. Advised of the trust funds that Mr. Carey had held for Mr. Sabourin, the receiver demanded that Mr. Carey provide a full accounting of these funds. Mr. Carey replied that he had received $500,000 from Mr. Sabourin, returned $440,000 and that just over $6,000 remained in the trust account. Mr. Carey indicated that he felt he could provide this information without violating any solicitor-client privilege, but he refused to provide additional information or documents that he thought might be privileged. A further court order required Mr. Carey to give a “full accounting of all funds” from Mr. Sabourin, which he provided. 
+ [15] In November 2007, Ms. Laiken obtained summary judgment dismissing Mr. Sabourin’s claim against her and granting her over $1 million in damages and costs on her counterclaim for fraud. 
+ C. The Contempt Proceedings 
+ [16] Ms. Laiken applied to have Mr. Carey found in contempt. She alleged that he breached the Mareva injunction by returning the $440,000 in his trust account to Mr. Sabourin. The series of decisions related to this motion led ultimately to the appeal before us. 
+ [17] In Ontario, civil contempt proceedings are governed by rule 60.11 of the Rules of Civil Procedure, R.R.O. 1990, Reg. 194. Under this rule, a party may move to obtain a contempt order: rule 60.11(1). A judge, in dealing with such a motion, can “make such order as is just” and, following “a finding” of contempt, he or she may order the contemnor to be imprisoned, pay a fine, do or refrain from doing an act, pay just costs, and comply with any other order the judge considers necessary: rule 60.11(5). Upon motion, “a judge may discharge, set aside, vary or give directions in respect of an order under subrule (5) . . . and may grant such other relief and make such other order as is just”: rule 60.11(8). 
+ [18] The Rules do not prescribe the form of contempt proceedings. However, as a general rule, proceedings are bifurcated into a liability phase — where the case on liability proceeds and a defence is offered — and, if liability is established, a penalty phase. In contempt proceedings, liability and penalty are discrete issues: College of Optometrists (Ont.) v. SHS Optical Ltd., 2008 ONCA 685, 241 O.A.C. 225, at paras. 72-75. 
+ [19] It is within this procedural framework that the Ontario courts considered Ms. Laiken’s motion to find Mr. Carey in contempt of the Mareva injunction. 
+ (1) The First Contempt Decision: Ontario Superior Court of Justice (Roberts J., 2011 ONSC 5892) 
+ [20] The motions judge found Mr. Carey in contempt and issued an order to that effect. She was satisfied beyond a reasonable doubt that the Mareva order was clear and that Mr. Carey “knowingly and deliberately breached” it by transferring the funds from his trust account to Mr. Sabourin (para. 42 (CanLII)). The motions judge ordered the parties to appear before her at a later date for another hearing. She stated she would take into account any further evidence and testimony the parties submitted in making any order under rules 60.11(5) and 60.11(8). 
+ (2) The Stay Application Decision: Ontario Court of Appeal (Sharpe J.A., 2011 ONCA 757, 286 O.A.C. 273) 
+ [21] A judge of the Court of Appeal dismissed Mr. Carey’s motion for a stay of the motions judge’s order and any further proceedings pending appeal of that order. The court held that the contempt proceedings were not yet completed and that until they were, the Court of Appeal would not know relevant information, including whether the judge considered the contempt to be trivial or serious. 
+ (3) The Second Contempt Decision: Ontario Superior Court of Justice (Roberts J., 2012 ONSC 7252, [2012] O.J. No. 6596 (QL)) 
+ [22] When the matter resumed before the motions judge, Mr. Carey moved to reopen the contempt hearing. He filed new evidence, including an affidavit sworn by Alan Lenczner, Q.C., stating that by returning the money in excess of that required to cover legal fees, Mr. Carey had acted in a manner consistent with the practice of counsel generally. Mr. Carey also proffered his own testimony about what he perceived to be his professional obligations and his motivations in dealing with the trust funds. 
+ [23] The motions judge set aside her previous finding of contempt. Based on the new evidence, she doubted whether the terms of the order were clear and whether Mr. Carey’s interpretation of it was deliberately and wilfully blind. 
+ (4) The Appeal Decision: Ontario Court of Appeal (Sharpe J.A. (Rosenberg and Gillese JJ.A. concurring), 2013 ONCA 530, 367 D.L.R. (4th) 415) 
+ [24] The Court of Appeal unanimously allowed the appeal and restored the initial contempt finding. The motions judge had erred, the Court of Appeal found, in setting it aside. Mr. Carey had inappropriately used the second stage of the contempt proceedings to attack the motions judge’s earlier findings and based this attack on evidence he ought to have filed at the first hearing. While the appeal could have been resolved on these procedural grounds, the court went on to hold that the motions judge erred in finding Mr. Carey was not in contempt. 
+ [25] The Court of Appeal accepted that Mr. Carey did not desire or knowingly choose to disobey the order, but found that it is unnecessary to establish this in order to find him liable for civil contempt. Mr. Carey knew of a clear court order and he committed an act that violated it. This was sufficient to constitute civil contempt. 
+ <span style="text-decoration:
+none">III. Analysis 
+ A. First Issue: To Have Committed Contempt, Did Mr. Carey Have to Intend to Interfere With the Administration of Justice? 
+ (1) Overview 
+ [26] At the initial contempt hearing, Roberts J. stated, in my view correctly, that “civil contempt consists of the intentional doing of an act which is in fact prohibited by the order”: 2011 ONSC 5892, at para. 24. However, she subsequently set aside her earlier finding of contempt. She held: 
+ Based on Mr. Carey’s oral evidence, because of the protracted history between Mr. Carey’s clients and the plaintiff and the way that Mr. Carey viewed the merits of the plaintiffs [sic] claim, the unusual form of the May 4, 2006 Mareva Order, and the variations discussed and agreed upon between counsel, which were not set out in one document by formal amendment, I have a reasonable doubt as to whether the terms of the May 4, 2006 Mareva Order were completely clear to Mr. Carey, and I am not satisfied beyond a reasonable doubt that Mr. Carey’s interpretation of the May 4, 2006 Mareva Order was deliberately and willfully blind. [Emphasis added; 2012 ONSC 7252, at para. 36.] 
+ [27] The Court of Appeal, however, held that it was an error of law to conclude that Mr. Carey could not be found in contempt because he did not deliberately breach the order. Ms. Laiken did not have to prove that Mr. Carey had “deliberately” breached the order or, as the court put it elsewhere in its reasons, to establish “contumacious intent”: paras. 65 and 62. The order clearly prohibited dealing in trust funds belonging to Mr. Sabourin, yet Mr. Carey knew of the order and he intentionally transferred the funds, an act that was contrary to the order. This is all that is required to establish the elements of civil contempt. 
+ [28] Before this Court, the parties devoted a substantial portion of their written submissions to the mental element of civil contempt. Mr. Carey’s position is that in various circumstances — namely, where the alleged contemnor cannot “purge” his contempt, is a lawyer or is a third party to an order — proof of an intention to interfere with the administration of justice is required. In other words, in these circumstances contumacy or intent to breach the order is an element of the offence. Ms. Laiken frames the issue slightly differently. Rather than viewing the question as one turning on the elements of civil contempt, she submits that lack of contumacious intent is not a defence in civil contempt proceedings, regardless of the alleged contemnor’s circumstances. 
+ [29] However framed, the issue boils down to the required intent for a finding of civil contempt. Canadian jurisprudence clearly sets out the requirements for establishing civil contempt, of which I provide an overview below. Contumacy — the intent to interfere with the administration of justice — is not an element of civil contempt and lack of contumacy is therefore not a defence. I do not accept Mr. Carey’s position that a different rule should apply to individuals who cannot purge their contempt, to lawyers and to third parties. 
+ (2) The Canadian Common Law of Civil Contempt 
+ [30] Contempt of court “rest[s] on the power of the court to uphold its dignity and process. . . . The rule of law is directly dependent on the ability of the courts to enforce their process and maintain their dignity and respect”: United Nurses of Alberta v. Alberta (Attorney General), [1992] 1 S.C.R. 901, at p. 931. It is well established that the purpose of a contempt order is “first and foremost a declaration that a party has acted in defiance of a court order”: Pro Swing Inc. v. Elta Golf Inc., 2006 SCC 52, [2006] 2 S.C.R. 612, at para. 35, cited in Bell ExpressVu Limited Partnership v. Torroni, 2009 ONCA 85, 94 O.R. (3d) 614, at para. 20. 
+ [31] The common law has developed to recognize two forms of contempt of court: criminal contempt and civil contempt. The distinction, which the parties to this appeal accept, rests on the element of public defiance accompanying criminal contempt: see, e.g., United Nurses, at p. 931; Poje v. Attorney General for British Columbia, [1953] 1 S.C.R. 516, at p. 522. With civil contempt, where there is no element of public defiance, the matter is generally seen “primarily as coercive rather than punitive”: R. J. Sharpe, Injunctions and Specific Performance (2nd ed. (loose-leaf)), at ¶ 6.100. However, one purpose of sentencing for civil contempt is punishment for breaching a court order: Chiang (Trustee of) v. Chiang, 2009 ONCA 3, 305 D.L.R. (4th) 655, at para. 117. Courts sometimes impose substantial fines to match the gravity of the contempt, to deter the contemnor’s continuing conduct and to deter others from comparable conduct: Sharpe, at ¶ 6.100. 
+ [32] Civil contempt has three elements which must be established beyond a reasonable doubt: Prescott-Russell Services for Children and Adults v. G. (N.) (2006), 82 O.R. (3d) 686 (C.A.), at para. 27; College of Optometrists, at para. 71; Bhatnager v. Canada (Minister of Employment and Immigration), [1990] 2 S.C.R. 217, at pp. 224-25; Jackson v. Honey, 2009 BCCA 112, 267 B.C.A.C. 210, at paras. 12-13; TG Industries Ltd. v. Williams, 2001 NSCA 105, 196 N.S.R. (2d) 35, at paras. 17 and 32; Godin v. Godin, 2012 NSCA 54, 317 N.S.R. (2d) 204, at para. 47; Soper v. Gaudet, 2011 NSCA 11, 298 N.S.R. (2d) 303, at para. 23. These three elements, coupled with the heightened standard of proof, help to ensure that the potential penal consequences of a contempt finding ensue only in appropriate cases: Bell ExpressVu, at para. 22; Chiang, at paras. 10-11. 
+ [33] The first element is that the order alleged to have been breached “must state clearly and unequivocally what should and should not be done”: Prescott-Russell, at para. 27; Bell ExpressVu, at para. 28, citing with approval Jaskhs Enterprises Inc. v. Indus Corp., 2004 CanLII 32262 (Ont. S.C.J.), at para. 40. This requirement of clarity ensures that a party will not be found in contempt where an order is unclear: Pro Swing, at para. 24; Bell ExpressVu, at para. 22. An order may be found to be unclear if, for example, it is missing an essential detail about where, when or to whom it applies; if it incorporates overly broad language; or if external circumstances have obscured its meaning: Culligan Canada Ltd. v. Fettes, 2010 SKCA 151, 326 D.L.R. (4th) 463, at para. 21. 
+ [34] The second element is that the party alleged to have breached the order must have had actual knowledge of it: Bhatnager, at p. 226; College of Optometrists, at para. 71. It may be possible to infer knowledge in the circumstances, or an alleged contemnor may attract liability on the basis of the wilful blindness doctrine (ibid.). 
+ [35] Finally, the party allegedly in breach must have intentionally done the act that the order prohibits or intentionally failed to do the act that the order compels: Sheppard v. Sheppard (1976), 12 O.R. (2d) 4 (C.A.), at p. 8. The meaning of this element is one of the main points in contention on appeal and I will turn to consider it in more detail momentarily. 
+ [36] The contempt power is discretionary and courts have consistently discouraged its routine use to obtain compliance with court orders: see, e.g., Hefkey v. Hefkey, 2013 ONCA 44, 30 R.F.L. (7th) 65, at para. 3. If contempt is found too easily, “a court’s outrage might be treated as just so much bluster that might ultimately cheapen the role and authority of the very judicial power it seeks to protect”: Centre commercial Les Rivières ltée v. Jean Bleu inc., 2012 QCCA 1663, at para. 7. As this Court has affirmed, “contempt of court cannot be reduced to a mere means of enforcing judgments”: Vidéotron Ltée v. Industries Microlec Produits Électroniques Inc., [1992] 2 S.C.R. 1065, at p. 1078, citing Daigle v. St-Gabriel-de-Brandon (Paroisse), [1991] R.D.J. 249 (Que. C.A.). Rather, it should be used “cautiously and with great restraint”: TG Industries, at para. 32. It is an enforcement power of last rather than first resort: Hefkey, at para. 3; St. Elizabeth Home Society v. Hamilton (City), 2008 ONCA 182, 89 O.R. (3d) 81, at paras. 41-43; Centre commercial Les Rivières ltée, at para. 64. 
+ [37] For example, where an alleged contemnor acted in good faith in taking reasonable steps to comply with the order, the judge entertaining a contempt motion generally retains some discretion to decline to make a finding of contempt: see, e.g., Morrow, Power v. Newfoundland Telephone Co. (1994), 121 Nfld. & P.E.I.R. 334 (Nfld. C.A.), at para. 20; TG Industries, at para. 31. While I prefer not to delineate the full scope of this discretion, given that the issue was not argued before us, I wish to leave open the possibility that a judge may properly exercise his or her discretion to decline to impose a contempt finding where it would work an injustice in the circumstances of the case. 
+ (3) The Required “Intent” 
+ [38] It is well settled in Canadian common law that all that is required to establish civil contempt is proof beyond a reasonable doubt of an intentional act or omission that is in fact in breach of a clear order of which the alleged contemnor has notice: Prescott-Russell, at para. 27; College of Optometrists, at para. 71; Sheppard, at p. 8; TG Industries, at paras. 17 and 32; Bhatnager, at pp. 224-25; Sharpe, at ¶ 6.190. The Court of Appeal followed this approach. As it noted, to require a contemnor to have intended to disobey the order would put the test “too high” and result in “mistakes of law [becoming] a defence to an allegation of civil contempt but not to a murder charge” (para. 59). Instead, contumacy or lack thereof goes to the penalty to be imposed following a finding of contempt: para. 62; see also Sheppard; and Sharpe, at ¶ 6.200. 
+ [39] The appellant submits, however, that in situations in which the alleged contemnor cannot “purge” the contempt, is a lawyer or is a third party to the order, the intent to interfere with the administration of justice must be proved. I understand this to mean that “the intention to disobey, in the sense of desiring or knowingly choosing to disobey the order” must be established: TG Industries, at para. 17. This is sometimes also referred to as “contumacious” intent. 
+ [40] The appellant submits that the mental element of civil contempt must address at least one of the two goals of civil contempt: securing compliance with court orders or protecting the integrity of the administration of justice. Finding a party in contempt where he or she cannot purge (either because the act that constituted the contempt cannot be undone or because a conflicting legal duty prevents compliance with the order) furthers neither of these goals absent some heightened mental element for contempt. Only if the person is shown to have had the intent to interfere with the administration of justice would one of these purposes — protecting the integrity of the administration of justice — be served. 
+ [41] I cannot accept this position. There is no principled reason to depart from the established elements of civil contempt in situations in which compliance has become impossible for either of the reasons referred to by the appellant. Where, as here, the person’s own actions contrary to the terms of a court order make future compliance impossible, I fail to see the logic or justice of requiring proof of some higher degree of fault in order to establish contempt. The appellant’s submission also overlooks the point that one of the purposes of the contempt power is to deter violations of court orders, thereby encouraging respect for the administration of justice. It undermines that purpose to treat with special charity people whose acts in violation of an order make subsequent compliance impossible. It seems to me that the existing discretion not to enter a contempt finding and the defence of impossibility of compliance provide better answers than a heightened degree of fault where a party is unable to purge his or her contempt for the reasons the appellant outlines: Jackson, at para. 14; Sussex Group Ltd. v. Fangeat, 42 C.P.C. (5th) 274 (Ont. S.C.J.), at para. 56. 
+ [42] The appellant correctly notes that civil contempt is quasi-criminal in nature, which he says justifies a higher fault element where contempt cannot be purged. But civil contempt is always quasi-criminal, so this provides no justification for carving out a distinct mental element for particular types of civil contempt cases. As I have already discussed, requiring contumacious intent would open the door to mistakes of law providing a defence to an allegation of civil contempt. It could also permit an alleged contemnor to rely on a misinterpretation of a clear order to avoid a contempt finding, which would significantly undermine the authority of court orders. 
+ [43] Further, adopting the appellant’s proposal would in effect make the required mental element dependent on the nature of the order alleged to have been breached. Those who breach a prohibitory order would benefit from this heightened mental element disproportionately, due to subsequent impossibility of compliance, as compared to those who breach a mandatory order, with which the alleged contemnor will be able to subsequently comply absent a conflicting legal duty. I see no principled basis for creating this distinction. 
+ [44] The appellant also submits that lawyers should benefit from a heightened fault requirement, but I do not agree. As the Court of Appeal recognized, reliance on legal advice does not shield a party from a finding of contempt: para. 61, citing Re Tyre Manufacturers’ Agreement, [1966] 2 All E.R. 849 (R.P.C.), at p. 862; Canada Metal Co. v. C.B.C. (No. 2) (1974), 48 D.L.R. (3d) 641 (Ont. H.C.J.), at p. 661, aff’d (1975), 65 D.L.R. (3d) 231 (Ont. C.A.). Still less should the law permit lawyers to escape a finding of contempt because they have, in effect, relied on their own legal advice. 
+ [45] As for third parties, the appellant points to some authority in the United Kingdom and Australia to the effect that intent to interfere with the administration of justice is a prerequisite for finding a third party in contempt: see, e.g., Customs and Excise Commissioners v. Barclays Bank plc, [2006] UKHL 28, [2007] 1 A.C. 181, at para. 29; Attorney General v. Punch Ltd., [2002] UKHL 50, [2003] 1 A.C. 1046, at para. 87; Z Ltd. v. A-Z, [1982] 1 Q.B. 558 (C.A.), at p. 583; Baker v. Paul, [2013] NSWCA 426, at para. 19. It has also been noted that “[i]t would appear that a higher degree of intention is required to make a non-party liable for contempt”: Sharpe, at ¶ 6.210. 
+ [46] The short answer to this point is that, even accepting this line of authority, Mr. Carey is not in the same category as the third parties discussed in this line of authority. I would respectfully adopt as my own the following excerpt on this point from the reasons of Sharpe J.A. in the Court of Appeal: 
+ The solicitor-client bond creates a community of interest between Carey and Sabourin that is plainly distinguishable from the situation of a stranger to the litigation who is apprised of the court order. As an officer of the court, a solicitor of record is duty-bound to take scrupulous care to ensure respect for court orders. . . . [A]s the solicitor of record in the case, Carey should be held to the same standard of compliance as his client who was a party. [para. 64] 
+ (4) Conclusion 
+ [47] I conclude that “contumacious” intent was not required in this case, and to the extent that the judge at first instance found otherwise in overturning her earlier finding of contempt, she erred in law. 
+ B. Second Issue: Was Mr. Carey in Contempt? 
+ [48] Mr. Carey submits that he was not in contempt, making two main points. He submits first that the payment of funds from his trust account to Mr. Sabourin was not a “transfer” within the meaning of the order, either because beneficial ownership of the funds did not change or because it amounted to a permissible return of an overpayment of legal fees that informal variations to the order permitted. Second, he also says that his conduct complied with his solicitor-client obligations and that such compliance cannot be considered to have been in breach of the Mareva injunction. The existence of Mr. Sabourin’s funds in his trust account attracted solicitor-client privilege and, as such, Mr. Carey was bound not to disclose that the funds were in his account. But, he submits, leaving the funds where they were and maintaining the privilege would have sheltered them from execution. He maintains that his only option that was consistent with both his professional obligations to his client and to the court was to return the funds to Mr. Sabourin as he did. The privileged nature of the funds precluded him from seeking advice about the proper course of action from the court. 
+ [49] Respectfully, neither of these points withstands careful scrutiny. 
+ (1) The “Transfer” 
+ [50] Mr. Carey contends that there was no transfer of funds within the meaning of the order because there was no change in beneficial ownership when he returned them to Mr. Sabourin. As the Court of Appeal pointed out, the purpose of the order was to prevent dealings with Mr. Sabourin’s assets that would defeat the court’s process (para. 50). Mr. Carey’s position, if accepted, would mean the order actually permitted trustees of assets held for Mr. Sabourin’s benefit to freely transfer those assets between accounts and even between jurisdictions, putting those assets beyond the reach of the court in the event of execution, so long as Mr. Sabourin retained beneficial ownership of the assets. An interpretation of the order that permitted this would be illogical: it would clearly defeat the purpose of the order and would also run counter to the plain language of the order specifically prohibiting those with knowledge of it from “dealing with” Mr. Sabourin’s assets. For these reasons, I cannot accept Mr. Carey’s position. 
+ [51] Mr. Carey also submits that the return of the funds to Mr. Sabourin did not constitute a “transfer” within the meaning of the injunction because it amounted simply to returning an overpayment of reasonable legal fees, the payment of which was permitted by the informal variations to the order agreed to by counsel. Mr. Carey also contends that returning the overpayment was consistent with the standard of practice of the profession at the time. Moreover, if moving funds from the trust account to Mr. Sabourin did constitute a “transfer”, then it actually corrected a violation of the order that would have occurred when Mr. Sabourin originally transferred funds to Mr. Carey and he deposited them in his trust account. 
+ [52] Mr. Carey’s characterization of the $500,000 in his trust account as an “overpayment” of “reasonable legal fees” in the circumstances of this case is artificial in the extreme. Moreover, even if I were to accept that characterization (and I do not), the clear terms of this order still prohibited any transfer of those “excess” funds. Further, while the question of whether Mr. Sabourin’s initial transfer of the funds to Mr. Carey breached the order is not before us, I reject Mr. Carey’s submission that if it were a breach, this justifies a subsequent violation of the order by returning the money to Mr. Sabourin. 
+ [53] In my view, Mr. Carey’s submissions on this issue rely on alleged uncertainty where none in fact exists. The order clearly prohibited, as the Court of Appeal held, at para. 49, dealing with money held in trust. Mr. Carey’s other conduct showed that he understood that, even taking into account the variations informally agreed to by counsel to permit payment of legal and ordinary living expenses, the order was in full force and was binding on him. He unsuccessfully tried to vary the order to permit payments to third party creditors and he rightly declined, on the basis of the order, to carry out Mr. Sabourin’s instructions to use the trust money to settle the Brown claims. 
+ (2) Solicitor-Client Privilege 
+ [54] I am not persuaded by Mr. Carey’s arguments before this Court that there was a true conflict between the order and his professional duties such that he had no option but to transfer the trust funds back to Mr. Sabourin. 
+ [55] I will assume, but not decide, that the existence of the funds was privileged at the time of the transfer. There are certainly arguments to be considered that the privilege never attached in the first place, or that it was waived by Mr. Sabourin’s disclosure of the funds’ existence to a third party adverse in interest, as Ms. Laiken submits was the case. Moreover, Mr. Carey’s claim in this litigation that the funds’ existence was privileged is undermined by his disclosure of that fact in response to a request from the receiver in the unrelated litigation for a full accounting of trust funds, a disclosure which he indicated he believed could be made without even any danger of violating any privilege. Mr. Carey wrote: 
+ . . . I believe I can provide you with the following information without danger of violating any privilege: on September 21, 2006 our firm was provided with a cheque for $500,000.00 from Peter Sabourin. Subsequently, on October 25, 2006, at the request of Mr. Sabourin, we returned $400,000.00, by way of four (4) Bank Drafts, payable to Peter Sabourin. On November 30, 2006 we returned another $40,000.00 to Peter Sabourin. The balance of the monies were kept in the Trust account and used to pay legal fees resulting in the balance that is currently in our account. [Emphasis added; Letter from Mr. Carey to receiver, November 1, 2007; A.R., vol. IV, at p. 145.] 
+ [56] Be that as it may, Mr. Carey’s assumed duty to guard solicitor-client privilege did not conflict with his duty to comply with the order. To fulfill both, he needed only to leave the funds in his trust account once they had been deposited there. In doing so, he would have respected any obligations arising from solicitor-client privilege to maintain the confidentiality of the funds and he would have abided by the terms of the Mareva order not to transfer funds held in trust for Mr. Sabourin. 
+ [57] In my view, leaving the funds in his trust account would not have conflicted with other asserted professional obligations. Mr. Carey expressed concern that if he left the funds where they were, he would be assisting in shielding them from execution in the event that Ms. Laiken succeeded in her action against Mr. Sabourin. This position is not only illogical, but ironic in view of the fact that returning them certainly had that effect. It is true that had Mr. Carey retained the funds, a conflict might have developed at the point when Ms. Laiken obtained judgment against Mr. Sabourin. Then Mr. Carey might have had an ethical dilemma on his hands: how would he comply with any solicitor-client privilege obligations (assuming the existence of the funds in trust was privileged), with the Mareva order and with any duty to avoid assisting his client in evading execution arising from the judgment? But it is not an answer for Mr. Carey to say that he breached the order so that he would avoid the possibility of a future ethical dilemma. 
+ [58] Accepting that Mr. Carey believed — albeit mistakenly — that there was a true conflict, there were appropriate avenues open to him other than making a unilateral decision to breach the order. The unilateral approach that he adopted gave no weight to the important principle that “a court order, made by a court having jurisdiction to make it, stands and is binding and conclusive unless it is set aside on appeal or lawfully quashed”: Wilson v. The Queen, [1983] 2 S.C.R. 594, at p. 599. See also Ontario (Attorney General) v. Paul Magder Furs Ltd. (1991), 6 O.R. (3d) 188 (C.A.), at p. 192: “It is elementary that so long as . . . an order of the court remains in force it must be obeyed.” 
+ [59] For one thing, Mr. Carey could have obtained a determination about whether the existence of the funds in trust was covered by solicitor-client privilege. Only if it was would a true conflict potentially exist. He himself at one point thought that information about the funds’ existence could be released without any danger of violating solicitor-client privilege. He could have asked his client to waive any privilege over the existence of the funds. Had his client agreed, that would have put an end to any potential future conflict. Mr. Carey also could have sought a variation of the order or direction from the court on an ex parte and in camera basis. But there is no evidence that Mr. Carey took or even considered taking any of these steps. 
+ [60] In any event, we do not need to make any final pronouncements on what Mr. Carey should have done instead of unilaterally deciding to give the money back. One thing is crystal clear: there was no legal or ethical duty that compelled Mr. Carey to breach the injunction by transferring the trust funds back to Mr. Sabourin or that conflicted with obeying the order. Although I accept that Mr. Carey did not breach the order maliciously or with the intent to interfere with the administration of justice, the law does not require that he have done so in order to satisfy the elements of civil contempt. 
+ C. Third Issue: Was It Open to the Motions Judge to Set Aside Her Initial Contempt Finding? 
+ <p class="ParaNoNdepar-AltN" style="margin-top:12.0pt;margin-right:0in;
+margin-bottom:24.0pt;margin-left:0in;text-indent:0in">[61] The Court of Appeal held that the motions judge erred in setting aside her initial contempt finding. Neither the Rules nor the case law contemplates the procedure the motions judge followed. The interests of justice are best served when the principle of finality is respected. Mr. Carey used the second stage of the proceedings to attack the motions judge’s findings and declaration of contempt. This was inappropriate (paras. 30-32). 
+ [62] The court identified two qualifications to the general rule that a contempt finding at the first hearing is final. First, rule 60.11 contemplates that a judge may set aside a finding of contempt if the contemnor purges the contempt, since the contempt proceedings have secured compliance with the court order. Second, contempt proceedings are subject to the standard principles that allow parties to reopen findings in exceptional circumstances to permit consideration of fresh evidence or new facts that were not before the court at the first hearing. 
+ [63] The appellant submits that the Court of Appeal was wrong for two principal reasons: rule 60.11(8) grants the court discretion to set aside a contempt finding and the quasi-criminal nature of civil contempt proceedings demands that judges retain discretion to set aside a finding on the basis of new material evidence. The appellant submits that the motions judge properly exercised her discretion to set aside the contempt finding in this case. 
+ [64] I do not accept these submissions and I agree with the Court of Appeal, for substantially the reasons it gave. 
+ [65] The starting point is that, in civil contempt proceedings, once a finding of contempt has been made at the first stage of a bifurcated proceeding, that finding is usually final. As the Court of Appeal stated, “[a] party faced with a contempt motion is not entitled to present a partial defence [at the liability stage] and then, if the initial gambit fails, have a second ‘bite at the cherry’” at the penalty stage (para. 32). This would defeat the purpose of the first hearing. This is what the judge at first instance erroneously permitted Mr. Carey to do. 
+ [66] Without exhaustively outlining the circumstances in which a judge may properly revisit an initial contempt finding, I agree with the Court of Appeal that he or she may do so where the contemnor subsequently complies with the order or otherwise purges his or her contempt or, in exceptional circumstances, where new facts or evidence have come to light after the contempt finding was made. 
+ [67] Although the motions judge was concerned that refusing to consider the new evidence would lead to a miscarriage of justice, I agree that neither Rule 60.11 nor the case law permitted her to revisit her earlier finding in the circumstances of this case. rule 60.11(8) allows a judge, on motion, to “discharge, set aside, vary or give directions in respect of an order under subrule (5) or (6) and . . . grant such other relief and make such other order as is just”. Relying on the Court of Appeal’s comments in its stay decision, the motions judge thought that there was no need to “reopen” Ms. Laiken’s motion for contempt, as it was not yet completed: 2012 ONSC 7252, at para. 8. I agree with the Court of Appeal that the motions judge misinterpreted this aspect of the stay decision. The Court of Appeal correctly held that in these circumstances, the motions judge erred in exercising her discretion to permit Mr. Carey to relitigate the initial contempt finding and erred in setting that finding aside. 
+ <span style="text-decoration:
+none">IV. Disposition 
+ [68] I would dismiss the appeal with costs. 
+ Appeal dismissed with costs. 
+ Solicitors for the appellant: Torys, Toronto. 
+ Solicitors for the respondent: Brauti Thorning Zibarras, Toronto. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

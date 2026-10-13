@@ -1,0 +1,737 @@
+ Janzen v. Platy Enterprises Ltd. - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Janzen v. Platy Enterprises Ltd.
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Janzen v. Platy Enterprises Ltd.
+ /scc-csc/scc-csc/fr/item/456/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Janzen v. Platy Enterprises Ltd.
+ Collection
+ Supreme Court Judgments
+ Date
+ 1989-05-04
+ Report
+ [1989] 1 SCR 1252
+ Case number
+ 20241
+ Judges
+ Dickson, Robert George Brian; Beetz, Jean; McIntyre, William Rogers; Wilson, Bertha; Le Dain, Gerald Eric; La Forest, Gérard V.; L'Heureux-Dubé, Claire
+ On appeal from
+ Manitoba
+ Subjects
+ Civil procedure
+ Constitutional law
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/20241/] 20241
+ [LINK /scc-csc/scc-csc/en/456/1/document.do] 
+Decision Content
+ Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252
+ Dianna Janzen and Tracy Govereau Appellants
+ v.
+ Platy Enterprises Ltd., and Platy 
+ Enterprises Ltd., carrying on business 
+ under the firm name and style of 
+ <p class="MsoNormal" style="margin-bottom:12.0pt;text-align:justify;line-height:
+12.0pt">Pharos Restaurant, and Tommy Grammas<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Respondents
+ and
+ Women's Legal Education and Action Fund (LEAF)<span lang="EN-GB" style="font-family:"TmsRmn 12pt Italic";
+letter-spacing:-.15pt"> Intervener
+ indexed as: janzen v. platy enterprises ltd.
+ File No.: 20241.
+ 1988: June 15; 1989: May 4.
+ <p class="MsoNormal" style="margin-bottom:12.0pt;text-align:justify;line-height:
+12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";letter-spacing:
+-.15pt">Present: Dickson C.J. and Beetz, McIntyre, Wilson, Le Dain[LINK #_ftn1] *, La Forest and L'Heureux‑Dubé JJ.
+ on appeal from the court of appeal for manitoba
+ Civil rights -- Employment -- Sex discrimination -- Sexual harassment -- Whether sexual harassment in the workplace is discrimination on the basis of sex -- Whether employer liable for employee's actions -- Quantum of damages -- The Human Rights Act, S.M. 1974, c. 65, s. 6(1).
+ Costs -- Manitoba Human Rights Commission -- Costs should only be ordered against the Commission in exceptional circumstances.
+ The appellants were employed as waitresses at Pharos Restaurant during the fall of 1982. The restaurant was owned and operated by Platy Enterprises Ltd. and the president of the corporation was the manager of the restaurant. J, during the course of her employment, was sexually harassed by another employee who touched various part of her body and made sexual advances towards her. The offending employee was in charge of the cooking during the evening shift and had no actual disciplinary authority over the waitresses. He nevertheless was represented by himself and by the manager as having control over firing employees. Despite J's objections, this course of conduct persisted for over a month. When the overtly sexual conduct ceased, the employee continued to make the work environment difficult for J by a pattern of uncooperative and threatening behaviour. He was unjustifiably critical of her work and generally treated her in an unpleasant manner. The manager, when informed of the situation, did nothing to put an end to the harassment and J terminated her employment shortly thereafter.
+ G was the victim of similar behaviour by the same employee. Following a conversation with the manager, the physical harassment ended but it was replaced by a general pattern of verbal abuse by both the manager and the employee who would unjustly criticize her in front of the staff. The harassment culminated with the manager terminating G's employment.
+ The appellants filed a complaint with the Manitoba Human Rights Commission against Platy Enterprises Ltd., its owners, agents and servants, Pharos Restaurant. The adjudicator found that the appellants had been subjected to persistent and abusive sexual harassment and had been the victims of sex discrimination contrary to s. 6(1) of the<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Human Rights Act. He awarded exemplary damages and damages for loss of wages and found the employee and the employer, Platy Enterprises Ltd., jointly and severally liable. With the exception of the quantum of damages, the Court of Queen's Bench upheld the adjudicator's decision. The Court of Appeal reversed the judgment of the Court of Queen's Bench. The Court held that sexual harassment of the type to which the appellants were subjected was not discrimination on the basis of sex and that the employer could not be held liable for the sexual harassment perpetrated by its employee.
+ Held: The appeal should be allowed.
+ Sexual harassment is a form of sex discrimination. Sexual harassment in the workplace is unwelcome conduct of a sexual nature that detrimentally affects the work environment or leads to adverse job‑related consequences for the victims of the harassment. By requiring an employee, male or female, to contend with unwelcome sexual actions or explicit sexual demands, sexual harassment in the workplace attacks the dignity and self‑respect of the victim both as an employee and as a human being. Here, the sexual harassment suffered by the appellants constituted sex discrimination for it was a practice or attitude which had the effect of limiting the conditions of employment of, or the employment opportunities available to, employees on the basis of a characteristic related to gender.
+ The fact that only some, and not all, female employees at the restaurant were subject to sexual harassment is not a valid reason to conclude that sexual harassment could not amount to discrimination on the basis of sex. Sex discrimination does not exist only where gender is the sole ingredient in the discriminatory action and where, therefore, all members of the affected gender are mistreated identically. While the concept of discrimination is rooted in the notion of treating an individual as part of a group rather than on the basis of the individual's personal characteristics, discrimination does not require uniform treatment of all members of a particular group. It is sufficient that the ascribing of a group characteristic to an individual is a factor in the treatment of that individual. If a finding of discrimination required that every individual in the affected group be treated identically, legislative protection against discrimination would be of little or no value. In nearly every instance of discrimination the discriminatory action is composed of various ingredients with the result that some members of the pertinent group are not adversely affected, at least in a direct sense, by the discriminatory action. To deny a finding of discrimination in the present circumstances would be to deny the existence of discrimination in any situation where discriminatory practices are less than perfectly inclusive. The crucial fact in this case is that it was only female employees who ran the risk of sexual harassment. Indeed, only a woman could be subject to sexual harassment by a heterosexual male, such as the offending employee. A man would not have been subjected to this treatment.
+ It strains credulity to argue that the sole factor underlying the discriminatory action was appellants' sexual attractiveness -- a personal characteristic -- and that gender was accordingly irrelevant. Sexual attractiveness cannot be separated from gender. These women were subject to a disadvantage because of their being women; no male employee in these circumstances would have been subject to the same disadvantage. Any female considering employment at the restaurant was a potential victim and as such was disadvantaged because of her sex.
+ The respondent Platy Enterprises Ltd. must be held liable for the actions of its employee given this Court's decision in Robichaud. The offending employee was acting in respect of his employment when he sexually harassed the appellants. His actions were clearly work related. His authority, which had been accorded to him by the respondent, and which derived from his control in running the restaurant and his purported ability to fire waitresses, gave him power over the waitresses. Respondent did not meet its responsibility to ensure that this power was not abused, even after the appellants made specific complaints.
+ The Court of Queen's Bench should not have reduced the award of damages given to the appellants. The amounts were not inordinate in light of the seriousness of the complaints.
+ Cases Cited
+ Applied: Robichaud v. Canada (Treasury Board)<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, [1987] 2 S.C.R. 84, rev'g [1984] 2 F.C. 799 (C.A.), rev'g (1983), 4 C.H.R.R. D/1272 (H.R. Rev. Trib.), rev'g (1982), 3 C.H.R.R. D/977 (H.R. Trib.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Brooks v. Canada Safeway Ltd., [1989] 1 S.C.R. 000; referred to:<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Hufnagel v. Osama Enterprises Ltd. (1982), 3 C.H.R.R. D/922;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Torres v. Royalty Kitchenware Ltd. (1982), 3 C.H.R.R. D/858;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Olarte v. DeFilippis (1983), 4 C.H.R.R. D/1705;<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> Giouvanoudis v. Golden Fleece Restaurant (1984), 5 C.H.R.R. D/1967;<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> Bell v. Ladas<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1980), 1 C.H.R.R. D/155; Re Dakota Ojibway Tribal Council and Bewza<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1985), 24 D.L.R. (4th) 374; Kotyk v. Canadian Employment and Immigration Commission (1983), 4 C.H.R.R. D/1416;<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> Phillips v. Hermiz<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1984), 5 C.H.R.R. D/2450; Doherty v. Lodger's International Ltd.<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1981), 3 C.H.R.R. D/628; Coutroubis v. Sklavos Printing<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1981), 2 C.H.R.R. D/457; Hughes v. Dollar Snack Bar<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1981), 3 C.H.R.R. D/1014; Cox v. Jagbritte Inc. (1981), 3 C.H.R.R. D/609;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Mitchell v. Traveller Inn (Sudbury) Ltd. (1981), 2 C.H.R.R. D/590;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Deisting v. Dollar Pizza (1978) Ltd. (1982), 3 C.H.R.R. D/898;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> McPherson v. Mary's Donuts (1982), 3 C.H.R.R. D/961;<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> Johnstone v. Zarankin<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> (1985), 6 C.H.R.R. D/2651 (B.C.S.C.), aff'g (1984), 5 C.H.R.R. D/2274 (B.C. Bd.); Foisy v. Bell Canada (1984), 6 C.H.R.R. D/2817;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Commodore Business Machines Ltd. v. Ontario Minister of Labour<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1984), 6 C.H.R.R. D/2833; Re Mehta and MacKinnon<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1985), 19 D.L.R. (4th) 198; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Barnes v. Costle, 561 F.2d 983 (1977);<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> Bundy v. Jackson<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, 641 F.2d 934 (1981); Henson v. Dundee, 682 F.2d 897 (1982);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Meritor Savings Bank v. Vinson, 106 S. Ct. 2399 (1986);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Porcelli v. Strathclyde Regional Council, [1985] I.C.R. 177 (E.A.T. (Scot.)), aff'd [1986] I.C.R. 564 (Ct. of Session).
+ Statutes and Regulations Cited
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">[LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-l-2-en#!fragment/sec247.1] Canada Labour Code [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-l-2-en#!fragment/sec247.1] , R.S.C., 1985, c. L‑2 [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-l-2-en#!fragment/sec247.1] , s. 247.1 [am. c. 9 (1st Supp.), s. 17].
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">Civil Rights Act of 1964, 78 Stat. 241, {SS} 703.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">Human Rights Act, S.M. 1974, c. 65, s. 6(1) [am. 1976, c. 48, s. 6; am. 1977, c. 46, ss. 2, 3; am. 1982, c. 23, s. 9], 19(4) [en. 1978, c. 43, s. 4], 20 [am. 1976, c. 48, s. 14], 28 [rep. & subs. 1976, c. 48, s. 18; am. 1982, c. 23, s. 24].
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">Human Rights Code, 1981, S.O. 1981, c. 53, s. 6.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">Human Rights Code, S.M. 1987‑88, c. 45, s. 19.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-24.0pt;line-height:12.0pt">Newfoundland Human Rights Code<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, R.S.N. 1970, c. 262, s. 10.1 [en. 1983, c. 62, s. 3].
+ Authors Cited
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">Abella, Rosalie S. Report of the Commission on Equality in Employment. Ottawa: Minister of Supply and Services Canada, 1984.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">Aggarwal, Arjun P. Sexual Harassment in the Workplace<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">. Toronto: Butterworths, 1987.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">Backhouse, Constance and Leah Cohen. The Secret Oppression: Sexual Harassment of Working Women. Toronto: Macmillan of Canada, 1978.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">Hickling, M. A. "Employer's Liability for Sexual Harassment" (1988), 17<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Man. L.J.<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> 124.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-24.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">MacKinnon, Catharine. Sexual Harassment of Working Women: A Case of Sex Discrimination. London: Yale University Press, 1979.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-24.0pt;line-height:12.0pt">United States. Equal Employment Opportunity Commission. Guidelines on Discrimination Because of Sex, 29 C.F.R. 1604.11(a) (1985).
+ APPEAL from a judgment of the Manitoba Court of Appeal (1986), 43 Man. R. (2d) 293, 33 D.L.R. (4th) 32, [1987] 1 W.W.R. 385, 87 CLLC {PP} 17,014, 8 C.H.R.R. D/3831, setting aside the judgment of Monnin J. (1985), 38 Man. R. (2d) 20, 24 D.L.R. (4th) 31, [1986] 2 W.W.R. 273, 86 CLLC {PP} 16,009, 7 C.H.R.R. D/3309, which affirmed in part the decision of a Board of Adjudication (1985), 6 C.H.R.R. D/2735. Appeal allowed.
+ Aaron L. Berg<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> and<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> G. Hannon<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">, for the appellants.
+ No one appeared for the respondents.
+ Louise Lamb<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, for the intervener.
+ //The Chief Justice<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">//
+ The judgment of the Court was delivered by
+ THE CHIEF JUSTICE -- On January 24, 1983, Dianna Janzen made a complaint to the Human Rights Commission of Manitoba against Platy Enterprises Ltd., its owners, agents and servants, Pharos Restaurant. The complaint reads:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> I am a female resident of Manitoba.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> I was employed as a waitress at the Pharos Restaurant, located at 9 St. Mary's Road, from August to October, 1982. I was hired by Phillip Anastasiadis, who I believe is part owner of the restaurant.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> During my period of employment at the restaurant, I was continuously sexually harassed by Tommy, the cook. On many occasions Tommy grabbed my legs and touched my knee, bum and crotch area. When I resisted his sexual advances, he told me to shut up or he would fire me. He began to yell at me in front of staff and criticize my work.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> During the second week of October 1982 I spoke to Phillip about Tommy's behaviour. He told me he couldn't do anything about it. Under the circumstances I felt I had no alternative but to quit my job effective October 31st, 1982.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> I believe I have been subjected to discriminatory terms and conditions of employment and that I have been discriminated against because of my sex contrary to Section 6 of The Human Rights Act.
+ Five days later, on January 29, 1983, Tracy Govereau made a complaint of a similar nature against the same parties, alleging sexual harassment by "Tommy, the cook".
+ The main issue in this appeal is whether sexual harassment in the workplace is discrimination on the basis of sex, and therefore prohibited by s. 6(1) of the Manitoba<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Act, S.M. 1974, c. 65.
+ I
+ Facts
+ The appellants, Dianna Janzen and Tracy Govereau, were employed as waitresses at Pharos Restaurant in Winnipeg, during the fall of 1982. The restaurant and two others of like name were owned and operated by the corporate respondent Platy Enterprises Ltd. The president of the corporation, Eleftherois (also known as Phillip) Anastasiadis, was the manager of the restaurant and the cook at the restaurant on the first shift. The respondent, Tommy Grammas, was the cook during evening shifts. He did not have an ownership interest in the restaurant, nor was he an officer of the corporation. Although Grammas had no actual disciplinary authority over the waitresses, he was represented by himself and by Anastasiadis as having control over firing employees.
+ The appellant Janzen was employed at the restaurant from August 21, 1982 until October 31, 1982. Approximately two to three weeks after she commenced her employment, the respondent Grammas began engaging in unwelcome conduct of a sexual nature. He began to make sexual advances towards her. Often this touching occurred when Janzen was burdened with duties as a waitress and unable to defend herself. Despite Janzen's clear and repeated objections to Grammas' behaviour, this course of conduct persisted for over a month.
+ Dianna Janzen's troubles did not end when the overtly sexual conduct ceased. Grammas continued to make the work environment difficult for her by a pattern of uncooperative and threatening behaviour. He was unjustifiably critical of her work, refused to respond co-operatively to her food orders and generally treated her in an unpleasant manner. Towards the middle of October, Janzen endeavoured to speak to Anastasiadis about Grammas' behaviour. Anastasiadis was unable to talk to her at the time, but according to Janzen's testimony, he said "If it is about Tommy, I can't do anything about it." At a second meeting in late October, Janzen described to Anastasiadis in detail the conduct to which she had been subjected. His reaction was unsympathetic. Janzen's evidence was that Anastasiadis treated the matter lightly and insinuated she was responsible for Grammas' conduct. Anastasiadis admits to telling Janzen she was over-reacting. Anastasiadis made no attempt to put an end to the harassment and, shortly after her discussion with him, Janzen terminated her employment. She was out of work for one month before finding employment at another restaurant. She gave evidence, accepted by the adjudicator, that the physical and emotional consequences of the harassment she endured included insomnia, vomiting and inability to concentrate.
+ The appellant Govereau was a waitress at Pharos restaurant from October 13, 1982 to December 11, 1982. At the end of her first week of employment, Grammas approached her and kissed her on the mouth. From that point onwards, Grammas repeatedly grabbed Govereau and attempted to kiss her. He constantly touched various parts of her body, including her stomach and breasts. On one occasion, when Govereau was washing dishes in the kitchen, Grammas came up behind her, put his hands under her sweater and attempted to fondle her breasts. Grammas also harassed Govereau verbally, commenting frequently and inappropriately on her appearance. Grammas' conduct persisted despite forceful objections.
+ As a result of conversations with another waitress at the restaurant, Carol Enns, Govereau decided to raise the matter with Anastasiadis. In mid-November she met with Anastasiadis and discussed Grammas' behaviour for approximately fifteen minutes. According to Govereau's testimony, Anastasiadis did not seem particularly surprised or perturbed by the situation. At one point during the conversation he asked Govereau why she let Grammas treat her that way. After Govereau's discussion with Anastasiadis, the physical harassment of her by Grammas came to an end. It was replaced, however, by a general pattern of verbal abuse by both Grammas and Anastasiadis. Govereau maintained that she was unjustly criticized by the two men and that both of them would yell at her in front of the other staff for no reason. There had been no criticism of her work prior to her decision to complain about Grammas. Govereau's testimony was supported by Carol Enns. The harassment culminated with Anastasiadis terminating Govereau's employment on December 8, 1982, ostensibly as a result of a customer complaint. Govereau worked three additional days, until December 11. She was unable to find alternative employment until August 1983. Govereau testified that as a result of the harassment by Grammas and Anastasiadis she "felt dirty, wasn't relaxed, couldn't sleep or concentrate in class".
+ As I have mentioned, both Janzen and Govereau filed complaints with the Manitoba Human Rights Commission alleging that they had been victims of discrimination on the basis of sex contrary to s. 6(1) of the Human Rights Act.
+ Grammas' employment at Pharos Restaurant was terminated before the hearing of the complaints and he did not participate in any of the proceedings.
+ II
+ Legislation
+ The Human Rights Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, S.M. 1974, c. 65, as amended, reads:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">6 (1)<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> Every person has the right of equality of opportunity based upon bona fide qualifications in respect of his occupation or employment or in respect of training for employment, or in respect of an intended occupation, employment, advancement or promotion, and in respect of his membership or intended membership in a trade union, employers' organization or occupational association; and, without limiting the generality of the foregoing
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(a) no employer or person acting on behalf of an employer shall refuse to employ, or to continue to employ or to train the person for employment or to advance or promote that person, or discriminate against that person in respect of employment or any term or condition of employment;
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(b) no employment agency shall refuse to refer a person for employment; or for training for employment; and
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(c) no trade union, employers' organization or occupational association shall refuse membership to, expel, suspend or otherwise discriminate against that person; or negotiate, on behalf of that person, an agreement that would discriminate against him;
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">because of the race, nationality, religion, colour, sex, age, marital status, physical or mental handicap, ethnic or national origin, or political beliefs or family status of that person.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">28 (1)<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> Where the board of adjudication decides that there has been no contravention of the Act by any party, it shall dismiss the complaint.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">28 (2)<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> Where the board of adjudication decides that a party has contravened any provision of the Act, it may do one or more of the following things:
+ . . .
+ <p class="MsoNormal" style="margin-left:90.0pt;text-align:justify;text-indent:
+-90.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(b) Make an order requiring the party who contravened the Act to compensate the person discriminated against for all, or such part as a board may determine, of any wages or salary lost or expenses incurred by reason of the contravention of this Act;
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:90.0pt;text-align:justify;text-indent:-90.0pt;line-height:12.0pt">(c) Order the person who contravened the Act to pay to the person discriminated against, a penalty or exemplary damages in such amount as the board may determine, if the board is of the opinion that the person discriminated against suffered damages in respect of his feelings, or self-respect.
+ In 1987, subsequent to the adjudication of the complaints of Janzen and Govereau, the Manitoba<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Act was repealed and replaced with<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> The <span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">Human Rights Code, S.M. 1987-88, c. 45. Section 19 of the new<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Code expressly prohibits sexual discrimination in the workplace:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">19 (1)<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> No person who is responsible for an activity or undertaking to which this Code applies shall
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(a) harass any person who is participating in the activity or undertaking; or
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(b) knowingly permit, or fail to take reasonable steps to terminate, harassment of one person who is participating in the activity or undertaking by another person who is participating in the activity or undertaking.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">19 (2)<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> In this section "harassment" means
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(a) a course of abusive or unwelcome conduct or comment undertaken or made on the basis of any characteristic referred to in subsection 9(2); or
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(b) a series of objectionable and unwelcome sexual solicitations or advances; or
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(c) a sexual solicitation or advance made by a person who is in a position to confer any benefit on, or deny any benefit to, the recipient of the solicitation or advance, if the person making the solicitation or advance knows or ought reasonably to know that it is unwelcome; or
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:78.0pt;text-align:justify;text-indent:-78.0pt;line-height:12.0pt">(d) a reprisal or threat of reprisal for rejecting a sexual solicitation or advance.
+ III
+ Judgments Below
+ 1. The Adjudication Board
+ The complaints were heard by Adjudicator Henteleff. In a comprehensive decision of some 144 pages, rendered April 26, 1985 and reported at (1985), 6 C.H.R.R. D/2735, the adjudicator found that both Janzen and Govereau had been victims of sex discrimination. Much of the decision is devoted to preliminary matters which are not at issue in this Court. Adjudicator Henteleff conducted a thorough review of the evidence and concluded that the appellants had been subjected to persistent and abusive sexual harassment. He made the following finding in respect of Janzen, at p. D/2768:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Further, I find that the cumulative effect of the physical and mental harassment that she had been subjected to created an intolerable work environment for her. She was justified in coming to the conclusion, as she did following her conversation with Phillip immediately prior to her terminating her employment, that there was very little likelihood, if any, that the situation would be rectified. Accordingly, I further find that the cumulative effect of such acts of harassment, sexual as well as mental, and the attitude of the employer as above described amounted to constructive dismissal (see Cox and Cowell<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> v.<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Jagbritte Inc. et al. (1982) 3 C.H.R.R. D/609 (Peter A. Cumming) at paras. 5593 and 5594).
+ and in respect of Govereau, at p. D/2768:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Based on all of the evidence I have no doubt in concluding that the individual respondent, Tommy, was guilty of sexual harassment of Tracy Govereau. The specific acts, of which she complained, consisted of unwanted sexual acts of a persistent and abusive nature. Her evidence, which I accept, also clearly established that Tommy knew or ought to have known that such acts were unwanted. It is clear from the evidence that Tommy made a variety of sexual advances including touching the complainant for sexual reasons, and that he persisted in this conduct even though it is obvious from her evidence that she forcibly rejected his actions. She impressed me as a truthful witness. Moreover, her evidence was corroborated in all essential respects by her co-worker, Carol Elizabeth Enns. Furthermore, I find that there was additional corroboration of Ms. Govereau's evidence as to Tommy by virtue of the similar acts committed by Tommy on the complainant, Dianna Janzen.
+ The question of whether sexual harassment could amount to sex discrimination prohibited by the Manitoba statute was not raised before the arbitrator by either counsel. As there was no dispute on the point, the adjudicator was content to cite six authorities for holding that sexual harassment is sex discrimination;<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Hufnagel v. Osama Enterprises Ltd. (1982), 3 C.H.R.R. D/922 (Man. Bd.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Torres v. Royalty Kitchenware Ltd. (1982), 3 C.H.R.R. D/858 (Ont. Bd.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Olarte v. DeFilippis (1983), 4 C.H.R.R. D/1705 (Ont. Bd.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Giouvanoudis v. Golden Fleece Restaurant (1984), 5 C.H.R.R. D/1967 (Ont. Bd.); and<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Robichaud v. Brennan (1982), 3 C.H.R.R. D/977; Review Tribunal (1983), 4 C.H.R.R. D/1272, and on appeal to the Federal Court of Appeal which gave its judgment dated 18th day of February, 1985, [1984] 2 F.C. 799. The adjudicator accepted the definition of sexual harassment quoted by Professor Cumming in Giouvanoudis v. Golden Fleece Restaurant<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">,<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> supra<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">, at para. 16819, as follows:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">From a factual standpoint, sexual harassment can be considered to include:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">Unwanted sexual attention of a persistent or abusive nature, made by a person who knows or ought reasonably to know that such attention is unwanted:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">... or
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">Implied or expressed threat or reprisal, in the form either of actual reprisal or the denial of opportunity for refusal to comply with a sexually oriented required;
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">... or
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">Sexually oriented remarks and behaviour which may reasonably be perceived to create a negative psychological and emotional environment for work.
+ Adjudicator Henteleff concluded that Grammas' conduct violated s. 6(1) of the Human Rights Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">.
+ The adjudicator made a number of findings of fact with respect to the position and responsibilities of Grammas at the restaurant and to Anastasiadis' knowledge of the existence of the harassment. He found: (1) that Grammas decided which of the waitresses went home early or stayed at work depending on the amount of business in the restaurant; (2) that in the absence of Anastasiadis, Grammas handled any problems with food quality or service; (3) that the staff had the clear and justifiable impression that Grammas was next in line in authority to Anastasiadis, and that he was in charge when Anastasiadis was absent; (4) that Grammas could clear cash from the till; and (5) that Grammas had advised both of the appellants that he could fire them and that even though this was not the case, his authority to terminate the appellants' employment was confirmed by Anastasiadis. Anastasiadis testified that he had told the waitresses Grammas had firing authority because (at p. D/2758) "the girls had to have somebody to be kind of afraid of or respect or whatever". The adjudicator also found that Anastasiadis was aware of the harassment of the appellants, that he failed to take any reasonable steps to ensure that the workplace was free from sexual harassment, and that he actively participated in the verbal harassment of the appellant Govereau.
+ The adjudicator also considered the liability of the corporate respondent, Platy Enterprises Ltd., for breaches of the Human Rights Act committed by Grammas. Adjudicator Henteleff reviewed earlier decisions of human rights tribunals, as well as the decision of the Federal Court of Appeal in<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> Robichaud<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, before concluding that the corporate respondent was liable for the violations. The adjudicator appears to have found Platy Enterprises Ltd. liable both on the principle of vicarious liability and on the organic theory of corporate liability. He remarked (at p. D/2753):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">The clear intent of Sec. 6(1), in respect of areas of discrimination arising therefrom, is not only to make the employer liable for any acts of sexual harassment directly committed by such employer, but also makes him responsible for any such acts committed by a person in authority during the course of his employment.
+ The adjudicator stated at p. D/2768:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> After consideration of all of the evidence, it is my conclusion that Tommy was a person in such authority that his acts became those of his employer, Platy. The complainant Janzen was made aware of this to the extent that Tommy was in such a preferred position, that if she subjected herself to sexual harassment, she was to blame for it. Accordingly such harassment had become a condition of her continued employment since Phillip either couldn't or wouldn't do anything about it. (See<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> McPherson et al v. Mary's Donuts and Doschoian (1982) 3 C.H.R.R. D/961 (Peter A. Cumming) and particularly at paras. 8549 to 8558, both inclusive.)
+ The adjudicator did not consider himself to be bound by the decision of the Federal Court of Appeal in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Robichaud<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> which restricted vicarious liability of a corporation to acts of sexual harassment committed by the corporation's directors or officers. Adjudicator Henteleff interpreted the majority judgment as dealing solely with the question of vicarious liability in a complaint against the Crown and as having no application to private employers. The decision of the Federal Court of Appeal on the issue of liability was later reversed on appeal to this Court (<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt">Robichaud v. Canada (Treasury Board), [1987] 2 S.C.R. 84).
+ Adjudicator Henteleff found Grammas and Platy Enterprises Ltd. jointly and severally liable to the complainants. He awarded Janzen the sum of $480 for lost wages and $3,500 in exemplary damages, and Govereau the sum of $3,000 for lost wages and $3,000 exemplary damages. In arriving at the quantum of exemplary damages, the adjudicator noted that both Janzen and Govereau had been subjected to physical and mental harassment of a severe nature and that the harassment had had a substantial psychological impact on both women. With respect to Janzen he said, at p. D/2771:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> I further find that she was subject to physical and mental harassment which was of a most severe nature. I further find that the harassment was close to being constant throughout her period of employment. I find also that by virtue of her age (21) and her particular situation (including trying to be self-supporting for the first time), she was particularly vulnerable with the result that the cumulative effect of the harassment had a very substantial psychological impact upon her, and suffered damage in respect of feelings and self-respect.
+ and with respect to Govereau, also at p. D/2771:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> I further find that she was subject to physical and mental harassment which although severe and frequent, was not of the same degree as that suffered by Ms. Janzen. I find that by virtue of her situation (including attending University and her particular need of this part-time job) that the cumulative effect of the harassment had a substantial psychological impact upon her and she suffered damages in respect of feelings and self-respect.
+ The award to Janzen was greater than the award to Govereau, as the harassment Janzen endured was more severe.
+ The decision concluded, at p. D/2772 by directing Platy Enterprises Ltd.:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">Further and under the direction of the Manitoba Human Rights Commission, and within such time as the Commission determines, to establish and maintain in all of its restaurant premises such program as will reasonably assure such restaurant premises will remain free of sexual harassment.
+ 2. The Manitoba Court of Queen's Bench<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> 
+ Platy Enterprises Ltd. appealed the decision of Adjudicator Henteleff. With the exception of the quantum of damages, Monnin J. upheld the adjudicator's decision: (1985), 38 Man. R. (2d) 20, 24 D.L.R. (4th) 31, [1986] 2 W.W.R. 273, 86 CLLC {PP} 16,009, 7 C.H.R.R. D/3309 (hereinafter cited to C.H.R.R.) Monnin J. began by noting that the question whether Janzen and Govereau had been sexually harassed was not before the court, counsel for the appellant having admitted that Grammas was guilty of sexual harassment. He then turned to consider whether sexual harassment is a form of sex discrimination prohibited by s. 6(1) of the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Act. Monnin J. rejected Platy Enterprises Ltd's argument that the term sex discrimination as used in the Manitoba statute was not intended to apply to activities of an individual directed against a particular individual, rather than against an entire identifiable group. Instead, he accepted the result and the reasoning of Adjudicator Shime in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Bell v. Ladas (1980), 1 C.H.R.R. D/155 (Ont. Bd.), who held that sexual harassment did amount to discrimination on the basis of sex.
+ Monnin J. also rejected Platy Enterprises Ltd.'s argument that the amendments enacted by some provinces to prohibit specifically sexual harassment in their human rights legislation was to be construed as an indication that the term sex discrimination did not encompass sexual harassment.
+ Monnin J. next considered the liability of Platy Enterprises Ltd. for the actions of its employee, Grammas. He began by absolving Anastasiadis from any participation in the sexual harassment of Janzen and Govereau and from condoning Grammas' behaviour. In spite of his conclusion that Anastasiadis was not personally responsible for Grammas' conduct, Monnin J. continued to find Platy Enterprises Ltd. liable for sexual harassment (at p. D/3314):
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">. . . I have no hesitation in finding, as did the adjudicator, that whether or not, in reality, Grammas had any power over the staff of the restaurant, the staff was purposefully led to believe by Anastasiadis that he did. In point of fact, Grammas might well not have been a directing mind of respondents [<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt">sic] but the perception given to the employees is what must be a determining factor ...
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> By the admission of Anastasiadis, respondents [sic] have placed Grammas in a position of authority over the staff and therefore the complainants. By seemingly proffering this authority upon Grammas, respondents [<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt">sic<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">] must be and are bound by his actions. Liability for Grammas' sexual harassment of complainants therefore extends to respondents [sic].
+ On the issue of damages, Monnin J. said, at pp. D/3314-15:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Section 28(2) of the Act empowers a board of adjudication to compensate a person who has been discriminated against for any wages or salary lost as a result of a contravention of the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> as well as ordering payments of a penalty or exemplary damages if a person who has been discriminated against has suffered damages in respect of feelings or self-respect.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> In this particular case the board of adjudication found that complainant Janzen suffered a one month loss of income and awarded her $480.00 in lost wages. I have little difficulty in upholding this finding. As to complainant Govereau however, the board of adjudication found a loss of income of approximately 6 months and awarded damages in the amount of $3,000.00 for such loss. I am not satisfied that the evidence warrants this finding. There is little evidence of what if any attempts complainant Govereau made to secure other employment. There is evidence that she was embarrassed by her firing from Pharos and that this caused her some difficulties in seeking out employment. I do not question this, but an award of damages and not compensation for loss of wages is the proper remedy for this state of affairs. Even by giving complainant Govereau every benefit of the doubt, I cannot justify an award for loss of wages in excess of one month or $500.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> I am now left with the issue of punitive or exemplary damages. This is a difficult concept with which to deal because the court must attempt to quantify feelings or self-respect. The concept itself is difficult to rationalize and even more so when it is of a nature with which courts do not normally deal with. Notwithstanding that human rights legislation is a new and specialized area of law, awards of damages in one area of law must maintain a certain balance with fines meted out in criminal or quasi criminal matters and damages awarded in general civil cases. Not to maintain this general balance will too easily bring into question the principle of equal justice for all. I fully realize and accept that the conduct of Grammas was demeaning and traumatic for both complainants. What must be realized however is that victims of criminal acts or persons wrongfully dismissed from their employment or injured by the conduct of others also have their feelings and self-respect attacked. This type of loss is not the sole preserve and domain of persons who have suffered discrimination. A loss based on discrimination cannot be assessed in a vacuum. Such a loss must be looked at in the context of damages in law as a whole.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Bearing those comments in mind, I find the complainant Janzen is entitled under s. 28(2)(c) of the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> to an award of $1,000.00 while complainant Govereau is entitled to an award of $1,500.00. I have awarded Govereau an amount greater than Janzen because the evidence has convinced me that her feelings and self-respect were dealt a more severe attack by the actions of Grammas than were the feelings and self-respect of Janzen.
+ Thus Monnin J. reduced the award for lost wages to Govereau from $3,000 to $500 because of insufficient evidence of her efforts to secure alternative employment and reduced the exemplary damage awards to Janzen and Govereau to $1,000 and $1,500 respectively.
+ 3. The Manitoba Court of Appeal
+ Platy Enterprises Ltd. appealed the decision of Monnin J. and Janzen and Govereau cross-appealed on the quantum of damages. The Manitoba Court of Appeal (Matas, Huband and Twaddle JJ.A.) allowed the appeal: (1986), 43 Man. R. (2d) 293, 33 D.L.R. (4th) 32, [1987] 1 W.W.R. 385, 87 CLLC {PP} 17,014, 8 C.H.R.R. D/3831 (hereinafter cited to C.H.R.R.) Huband J.A. and Twaddle J.A. rendered comprehensive separate reasons which I will review at some length because, with the greatest respect, I do not agree with them. Both held that sexual harassment could not constitute discrimination on the basis of sex. Due to his untimely death, Matas J.A. did not participate in the reasons for judgment.
+ Huband J.A. began by expressing his amazement that sexual harassment had been equated with discrimination on the basis of sex, and that an employer could be held vicariously responsible for the harassing conduct of an employee. He stated (at p. D/3832):
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> I am amazed to think that sexual harassment has been equated with discrimination on the basis of sex. I think they are entirely different concepts. But adjudicators under human rights legislation, legal scholars and writers, and jurists have said that the one is included in the other.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Assuming sexual harassment to be a form of sexual discrimination, I am amazed to think that an employer could be held vicariously responsible for that form of discrimination on the part of an employee, or that a corporate employer could be found "personally responsible" for a sexually malevolent employee, except under the rarest of circumstances. Yet adjudicators, legal scholars, and judges have said otherwise.
+ Huband J.A. noted the line of cases in which both judges and adjudicators had found sexual harassment to be a form of sex discrimination but stated that these decisions were wrong.
+ Huband J.A. adopted two of the three meanings assigned to the word "discriminate" in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> The Shorter Oxford English Dictionary (3rd ed.): "1. To make or constitute a difference in or between; to differentiate . . .; 3. To make a distinction"; and concluded, "In this<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> discrimination is a violation of the law. The word `discriminate' used in a pejorative sense, means an unjustified differentiation or distinction."
+ Sexual harassment, in the view of Huband J.A., embraced an entirely different concept, stating (at p. D/3834):
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">The word "harass" is given several definitions in<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> The Shorter Oxford English Dictionary, the most pertinent for our purposes being to harry, or to trouble or vex by repeated attacks. Sexual harassment involves vexing or troubling a person with respect to sexual matters such as repeatedly touching or making suggestions, or threats.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Sexual harassment is not socially acceptable conduct. Depending on the nature of it, it might constitute a criminal offence or a civil wrong under the common law. But I cannot understand how it can be equated with sexual discrimination.
+ Although he recognized that sexual harassment was not socially acceptable conduct, Huband J.A. cited the following example to illustrate how it could not be viewed as sex discrimination (at p. D/3834):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> When a schoolboy steals kisses from a female classmate, one might well say that he is harassing her. He is troubling her; vexing her; harrying her -- but he surely is not discriminating against her.
+ Huband J.A. next examined the meaning of discrimination in s. 6(1) of the Human Rights Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">. He discussed each of the clauses of s. 6(1) and concluded that the section as a whole was aimed at discrimination in a generic sense. He gave the following examples of generic discrimination: discriminating against Blacks as a group, Jehovah's Witnesses as a group, or women as a group. In Huband J.A.'s view, discrimination in the generic sense could not include sexual harassment, presumably because not all women were the victims of sexual harassment.
+ Even though his finding on the issue of sex discrimination rendered consideration of corporate liability unnecessary, Huband J.A. examined this issue. He noted that he did not believe Grammas could be held liable under the Human Rights Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, as he interpreted the statute to apply only to employers and not to fellow employees. Unlike Adjudicator Henteleff, Huband J.A. considered himself bound by the decision of the Federal Court of Appeal in Robichaud, supra, where the court held that absent a provision in the relevant human rights statute for the imposition of vicarious or strict liability, an employer could not be held vicariously liable for the actions of an employee, except where an employee was acting on behalf of an employer. No such foundation for vicarious liability could be found in the Manitoba<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Human Rights Act. Huband J.A. was firmly of the view that Platy Enterprises Ltd. could not be held liable for Grammas' conduct as Grammas was not acting on behalf of the employer corporation.
+ Huband J.A. proceeded to examine the second ground on which the adjudicator held Platy Enterprises Ltd. liable, the organic theory of corporate responsibility. On this theory, a corporation could be liable for wrongful acts of an employee where the corporation adopts or approves of the employee's wrongful acts or where an officer or official of the corporation is given the authority to originate the corporation's policies and to implement them. Huband J.A. was of the view that liability could not be founded on the organic theory for two reasons. First, Grammas was not the directing mind of the corporation. Second, Grammas did not commit the acts of harassment in the course of employment. In Huband J.A.'s view, an employer could only be held liable for the acts of negligent employees where the employees were acting within their authorized capacity. In the case of a cook, Huband J.A. explained that this authority would extend to the preparation of food and the maintenance of safe conditions in the kitchen, but would not encompass acts of sexual harassment (at p. D/3841):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">If the cook dumped too much pepper in the soup, he would clearly be acting in the course of his employment, trying, albeit negligently, to prepare and present a decent meal. If the cook, contrary to instruction, was smoking on the job, and as a result negligently caused a gas explosion in the kitchen, it would be arguable that he was still acting in the course of his employment in the sense that he was trying to fulfil his responsibilities as a cook. But what has patting the buttocks of a waitress to do with fulfilling the responsibilities as a cook?
+ Huband J.A. concluded that even if Grammas' actions did violate the Human Rights Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, Platy Enterprises Ltd. could not be held liable on either theory of corporate liability.
+ Finally, Huband J.A. briefly discussed the issue of damages. He stated that Monnin J. was correct in reducing the damage awards of the adjudicator in keeping with the decision of the Manitoba Court of Appeal in Re Dakota Ojibway Tribal Council and Bewza<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1985), 24 D.L.R. (4th) 374.
+ Like Huband J.A., Twaddle J.A. was emphatic in his view that sexual harassment was not sex discrimination. To assert a claim of discrimination by reason of sex under s. 6(1) of the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Act, Twaddle J.A. held that three elements must be present: (1) discrimination; (2) because of sex; and (3) in respect of employment. He proceeded to examine each of these elements in turn. With respect to the element of discrimination, Twaddle J.A. held that the intent of the Manitoba legislature was to prohibit differentiation on the basis of categorical grouping. It was not to prevent differentiation between people on the basis of individual characteristics or qualifications. Twaddle J.A. explained his understanding of categorical grouping as (at p. D/3844): "a distinction which results in people being dealt with on account of group characteristics, unrelated to merit, rather than individual ability and qualifications". In his view, harassment could not be seen to constitute differentiation on a categorical basis (at p. D/3845): 
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Harassment is as different from discrimination as assault is from random selection. The victim of assault may be chosen at random just as the victim of harassment may be chosen because of categorical distinction, but it is nonsense to say that assault is random selection just as it is nonsense to say that harassment is discrimination. The introduction of a sexual element, be it the nature of the conduct or the gender of the victim, does not alter the basic fact that harassment and assault are acts, whilst discrimination and random selection are methods of choice.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> The fact that harassment is sexual in form does not determine the reason why the victim was chosen. Only if the woman was chosen on a categorical basis, without regard to individual characteristics, can the harassment be a manifestation of discrimination. [Emphasis added.]
+ Twaddle J.A. next considered the second element, whether sexual harassment was differentiation based on sex. He began by providing the following definition of the word "sex" in the Manitoba Human Rights Act (at p. D/3845):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Gender, as distinct from the physical attraction of the victim or the manner in which the discrimination is carried out, is in my view the meaning to be given to "sex" as it is used in s. 6 of the Act. Only in that sense does it constitute a category of persons as distinct from a personal quality.
+ Twaddle J.A. contrasted this meaning of the word sex with a different definition concerned with physical attractiveness (at pp. D/3845-46):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> "Sex" can also refer to that aura which attracts one person to another, particularly a person of one gender to a person of the other. In this meaning the word is frequently used in combination with another word, as in "sex appeal"... The word in this sense, however, is not categorical in that the degree to which a person has it is determinable on a decidedly subjective basis.
+ Twaddle J.A. concluded that sexual harassment based on the "sex appeal" of the victim could not constitute sex discrimination (at p. D/3846):
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Where the conduct of an employer is directed at some but not all persons of one category, it must not be assumed that membership in the category is the reason for the distinction having been made. The distinction may have been based on another factor. Thus in Bliss v. Attorney-General of Canada<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1978), 92 D.L.R. (3d) 417 it was held that statutory conditions applicable only at pregnant women did not discriminate against them as women . . . . 
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> The gender of a woman is unquestionably a factor in most cases of sexual harassment. If she were not a woman, the harassment would not have occurred. That, however, is not decisive. Only a woman can become pregnant, but that does not mean that she becomes pregnant because she is a woman. We are concerned with the effective cause of the harassment, be it a random selection, the conduct, or a particular characteristic of the victim, a wish on the part of the aggressor to discourage women from seeking or continuing in a position of employment or a contempt for women generally. Only in the last two instances is the harassment a manifestation of discrimination.
+ Twaddle J.A. then turned to the final issue, whether the discrimination occurred in respect of employment. He was of the view that if discriminatory conduct occurred in a way that directly prejudiced the employment opportunity, the conduct would be said to arise in respect of employment. He was also of the view that the Manitoba<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Act only prohibited actions perpetrated by or on behalf of an employer. Co-employment of the discriminator and the victim was not, in Twaddle J.A.'s opinion, sufficient unless the discriminatory behaviour was authorized by the employer.
+ Applying these principles to the case, Twaddle J.A. concluded there had been no violation of s. 6 of the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Act. He dismissed the argument that the sexual harassment that occurred amounted to sex discrimination (at p. D/3847):
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> This is not a case in which an employer adopted a practice whereby women as a class were treated differently from men. Nor is it a case in which a rule of general application adversely affected the complainants because they were women. For the harassment to amount to discrimination, it must have occurred by reason of the categorical selection of the complainants because they were women.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Although not conclusive, the sex of the victims and the sexual nature of the harassment is some evidence of the basis of their selection. There is, on the other hand, no evidence that women as a class were not welcome as employees or were subject to adverse treatment. On the contrary, the evidence discloses that at the restaurant in question women were the only employees other than the cook and the corporate officer. Another female employee testified that the cook touched her a lot by putting his arm around her or touching her neck, but she interpreted that as him being friendly... This evidence suggests that the complainants were chosen for the harassment because of characteristics peculiar to them rather than because of their sex. That is not discrimination no matter how objectionable the conduct. [Emphasis added.]
+ Twaddle J.A. also dismissed the argument that the discrimination, if any, occurred in respect of employment. In his view, there was not a sufficient connection between the employer and the allegedly discriminatory conduct (at p. D/3847):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Finally, because of the personal nature of the conduct and the fact that the employer could not gain by it, even in the achievement of a discriminatory goal, I do not consider that the victims were affected directly in respect of their employment. The board held that the employer condoned the cook's conduct. That is not, in my view, enough. Adoption of his conduct by the employer, not forgiveness, would be required at the very least to bring the cook's conduct within the meaning of the words "on behalf of the employer".
+ Twaddle J.A. also concluded that the Manitoba Human Rights Act did not impose upon employers the duty to provide a workplace free from sexual harassment.
+ IV
+ Issues
+ In this Court the appellants raise four grounds of appeal. The first and central ground of appeal is that the Manitoba Court of Appeal erred in holding that sexual harassment of the type to which the appellants were subjected was not discrimination on the basis of sex. Second, the appellants challenge the appellate court's holding that the employer could not be held liable for the sexual harassment perpetrated by Grammas. The liability of an employer for harassment of this nature is no longer in issue following the decision of this Court in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Robichaud v. Canada (Treasury Board), supra. Third, the appellants allege that the Court of Appeal erred in confirming the decision of Monnin J. to reduce the damages awarded by the adjudicator. Finally, the appellants submit that the Court of Appeal erred by ordering costs against the Human Rights Commission in respect of the hearing before the adjudication board.
+ The respondent, Platy Enterprises Ltd., did not participate in this appeal either through written submission or oral argument. As I noted earlier, Grammas did not participate in any of the proceedings.
+ V
+ Is Sexual Harassment Sex Discrimination?
+ It would appear that since the decision in 1980 in Bell v. Ladas, supra, human rights adjudication boards and courts in Canada have been to all intents unanimous in the recognition that certain forms of sexual harassment constitute sex discrimination. In<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Bell<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">, in the course of determining whether sexual harassment was included in the concept of sex discrimination in s. 4 of the Ontario<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Code, Adjudicator Shime, in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> obiter<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">, made the following oft-quoted remarks (at p. D/156):
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> In my view, the purpose of The Code is to establish uniform working conditions for employees and to remove those matters enumerated in Section 4 as relevant considerations in the work place. Consideration of matters such as "race, creed, colour, age, sex, marital status, nationality or place of origin" strikes at what the preamble of The Code refers to [as] "the foundation of freedom, justice and peace", and infringes on the "freedom of equality and dignity in rights" which this province and society revere as commonly held values and have enshrined those in The Code. Thus, The Code prohibits these values from becoming negative factors in the employment relationship.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Subject to the exception provided in Section 4(6), discrimination based on sex is prohibited by The Code. Thus, the paying of a female person less than a male person for the same job is prohibited, or dismissing an employee on the basis of sex is also prohibited. But what about sexual harassment? Clearly a person who is disadvantaged because of her sex, is being discriminated against in her employment when employer conduct denies her financial rewards because of her sex, or exacts some form of sexual compliance to improve or maintain her existing benefits. The evil to be remedied is the utilization of economic power or authority so as to restrict a woman's guaranteed and equal access to the work-place, and all of its benefits, free from extraneous pressures having to do with the mere fact that she is a woman.<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Where a woman's equal access is denied or when terms or conditions differ when compared to male employees, the woman is being discriminated against.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> The forms of prohibited conduct that, in my view, are discriminatory run the gamut from overt gender based activity, such as coerced intercourse to unsolicited physical contact to persistent propositions to more subtle conduct such as gender based insults and taunting, which may reasonably be perceived to create a negative psychological and emotional work environment.... [Emphasis added. Italics in original.]
+ As Huband J.A. acknowledged, Adjudicator Shime's view that certain forms of sexual harassment fall within the statutory prohibition on sex discrimination has been adopted by human rights adjudication boards and tribunals across the country. For example:<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Kotyk v. Canadian Employment and Immigration Commission (1983), 4 C.H.R.R. D/1416 (Can.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Phillips v. Hermiz (1984), 5 C.H.R.R. D/2450 (Sask.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Doherty v. Lodger's International Ltd. (1981), 3 C.H.R.R. D/628 (N.B.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Coutroubis v. Sklavos Printing (1981), 2 C.H.R.R. D/457 (Ont.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Hughes v. Dollar Snack Bar (1981), 3 C.H.R.R. D/1014 (Ont.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Cox v. Jagbritte Inc. (1981), 3 C.H.R.R. D/609 (Ont.);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Mitchell v. Traveller Inn (Sudbury) Ltd. (1981), 2 C.H.R.R. D/590 (Ont.);<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Torres v. Royalty Kitchenware Ltd., supra; Deisting v. Dollar Pizza (1978) Ltd.<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1982), 3 C.H.R.R. D/898 (Alta.); Hufnagel v. Osama Enterprises Ltd.<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">,<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> supra<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">; and McPherson v. Mary's Donuts<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1982), 3 C.H.R.R. D/961 (Ont.)
+ With the exception of the Manitoba Court of Appeal in the case at bar, all of the courts in Canada which have considered the issue, including two appellate courts, have also found sexual harassment to be a form of sex discrimination: Johnstone v. Zarankin<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1985), 6 C.H.R.R. D/2651 (B.C.S.C.); Foisy v. Bell Canada<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1984), 6 C.H.R.R. D/2817 (Que. Sup. Ct.); Commodore Business Machines Ltd. v. Ontario Minister of Labour (1984), 6 C.H.R.R. D/2833 (Ont. S.C.);<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Re Mehta and MacKinnon (1985), 19 D.L.R. (4th) 198 (N.S.C.A.); and<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Robichaud (F.C.A.), supra.
+ Since the middle of the 1970's, courts in the United States, including the United States Supreme Court, to which reference will be made later, have also reached the conclusion that forms of sexual harassment constitute sex discrimination.
+ The Manitoba Court of Appeal departed radically from this apparently unbroken line of judicial opinion. To determine whether the Manitoba Court of Appeal was correct in rejecting the reasoning in these cases and in holding that sexual harassment of the sort to which the appellants were subjected could not amount to sex discrimination, it is necessary to consider what is meant by the terms "sex discrimination" and "sexual harassment". Both sex discrimination and sexual harassment are broad concepts, encompassing a wide range of behaviour. For the purposes of this appeal I will restrict my discussion of each of these terms to their manifestations in the workplace. In Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114, a case raising a claim of systemic sex discrimination, the Court had occasion to consider the meaning of discrimination in the employment context. The Court adopted at pp. 1138-39 the definition of discrimination found in the Abella Report on equality in employment (Abella, Equality in Employment: Royal Commission Report (1984), at p. 2), which I quote in full below:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Equality in employment means that no one is denied opportunities for reasons that have nothing to do with inherent ability. It means equal access free from arbitrary obstructions. Discrimination means that an arbitrary barrier stands between a person's ability and his or her opportunity to demonstrate it. If the access is genuinely available in a way that permits everyone who so wishes the opportunity to fully develop his or her potential, we have achieved a kind of equality. It is equality defined as equal freedom from discrimination.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Discrimination in this context means practices or attitudes that have, whether by design or impact, the effect of limiting an individual's or a group's right to the opportunities generally available because of attributed rather than actual characteristics. What is impeding the full development of the potential is not the individual's capacity but an external barrier that artificially inhibits growth.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> It is not a question of whether this discrimination is motivated by an intentional desire to obstruct someone's potential, or whether it is the accidental by-product of innocently motivated practices or systems. If the barrier is affecting certain groups in a disproportionately negative way, it is a signal that the practices that lead to this adverse impact may be discriminatory.
+ In keeping with this general definition of employment discrimination, discrimination on the basis of sex may be defined as practices or attitudes which have the effect of limiting the conditions of employment of, or the employment opportunities available to, employees on the basis of a characteristic related to gender.
+ Numerous definitions of sexual harassment have been proposed. Professor Catharine MacKinnon describes sexual harassment, most broadly defined, as "the unwanted imposition of sexual requirements in the context of a relationship of unequal power" (<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">Sexual Harassment of Working Women: A Case of Sex Discrimination<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1979), at p. 1). In Sexual Harassment in the Workplace<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> (1987), Arjun P. Aggarwal states that sexual harassment (at p. 1) "is any sexually-oriented practice that endangers an individual's continued employment, negatively affects his/her work performance, or undermines his/her sense of personal dignity". As Aggarwal states, at p. 1:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Sexual harassment is a complex issue involving men and women, their perceptions and behaviour, and the social norms of the society. Sexual harassment is not confined to any one level, class, or profession. It can happen to executives as well as factory workers. It occurs not only in the workplace and in the classroom, but even in parliamentary chambers and churches. Sexual harassment may be an expression of power or desire or both. Whether it is from supervisors, co-workers, or customers, sexual harassment is an attempt to assert power over another person.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Sexual harassment is any sexually-oriented practice that endangers an individual's continued employment, negatively affects his/her work performance, or undermines his/her sense of personal dignity. Harassment behaviour may manifest itself blatantly in forms such as leering, grabbing, and even sexual assault. More subtle forms of sexual harassment may include sexual innuendos, and propositions for dates or sexual favours.
+ Professors Constance Backhouse and Leah Cohen cite a number of definitions in The Secret Oppression: Sexual Harassment of Working Women (1978), including the following description proposed by the Alliance Against Sexual Coercion (at p. 38) "[a]ny sexually oriented practice that endangers a woman's job - that undermines her job performance and threatens her economic livelihood". Backhouse and Cohen list a number of concrete illustrations of harassing behaviour (at p. 38):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">Sexual harassment can manifest itself both physically and psychologically. In its milder forms it can involve verbal innuendo and inappropriate affectionate gestures. It can, however, escalate to extreme behaviour amounting to attempted rape and rape. Physically, the recipient may be the victim of pinching, grabbing, hugging, patting, leering, brushing against, and touching. Psychological harassment can involve a relentless proposal of physical intimacy, beginning with subtle hints which may lead to overt requests for dates and sexual favours.
+ Common to all of these descriptions of sexual harassment is the concept of using a position of power to import sexual requirements into the workplace thereby negatively altering the working conditions of employees who are forced to contend with sexual demands.
+ Legislative definitions of sexual harassment and guidelines promulgated by various organizations reflect this general view of sexual harassment. In 1980 the American Equal Employment Opportunity Commission produced one of the first set of guidelines dealing with sexual harassment (Equal Employment Opportunity Commission,<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Guidelines on Discrimination Because of Sex, 29 C.F.R. 1604.11(a) (1985)). The Commission took the position that sexual harassment was a violation of Title VII of the Civil Rights Act of 1964<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, the prohibition against sex discrimination:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> (a) harassment on the basis of sex is a violation of Sec. 703 of Title VII. Unwelcome sexual advances, requests for sexual favors, and other verbal or physical conduct of a sexual nature constitute sexual harassment, when (1) submission to such conduct is made either explicitly or implicitly a term or condition of an individual's employment, (2) submission to or rejection of such conduct by an individual is used as the basis for employment decisions affecting such individual, or (3) such conduct has the purpose or effect of unreasonably interfering with an individual's work performance or creating an intimidating, hostile, or offensive working environment.
+ These guidelines have been quoted with approval by courts and human rights tribunals in both the United States and Canada. The [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-l-2-en] Canada Labour Code [LINK https://qweri.lexum.com/w/calegis/rsc-1985-c-l-2-en] , R.S.C., 1985, c. L-2 , as amended by c. 9 (1st Supp.), s. 17, provides the following definition of "sexual harassment":
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">247.1 <span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">... any conduct, comment, gesture or contact of a sexual nature 
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">(<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt">a<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">) that is likely to cause offence or humiliation to any employee; or 
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">(b) that might, on reasonable grounds, be perceived by that employee as placing a condition of a sexual nature on employment or on any opportunity for training or promotion.
+ The Manitoba<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Code, quoted earlier, which repeals and replaces the Manitoba Human Rights Act in force at the time of the initiation of the proceedings in this appeal, also explicitly defines sexual harassment.
+ The human rights legislation of Ontario and Newfoundland, both of which expressly prohibit sexual harassment, contain similar definition of "sexual solicitation": Ontario<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Human Rights Code, 1981, S.O. 1981, c. 53, s. 6;<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> The Newfoundland Human Rights Code, R.S.N. 1970, c. 262, s. 10.1.
+ Emerging from these various legislative proscriptions is the notion that sexual harassment may take a variety of forms. Sexual harassment is not limited to demands for sexual favours made under threats of adverse job consequences should the employee refuse to comply with the demands. Victims of harassment need not demonstrate that they were not hired, were denied a promotion or were dismissed from their employment as a result of their refusal to participate in sexual activity. This form of harassment, in which the victim suffers concrete economic loss for failing to submit to sexual demands, is simply one manifestation of sexual harassment, albeit a particulary blatant and ugly one. Sexual harassment also encompasses situations in which sexual demands are foisted upon unwilling employees or in which employees must endure sexual groping, propositions, and inappropriate comments, but where no tangible economic rewards are attached to involvement in the behaviour.
+ The Manitoba Court of Appeal judges rejected a series of United States decisions which, over the past decade, considered the question whether sexual harassment of the nature of that found here by Adjudicator Henteleff could constitute sex discrimination within the context of human rights legislation, namely, Title VII of the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Civil Rights Act of 1964. Title VII states that it is an unlawful employment practice "... to discriminate against any individual with respect to his compensation, terms, conditions, or privileges of employment, because of such individual's race, color, religion, sex, or national origin".
+ The American courts have tended to divide sexual harassment into two categories: the<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> "quid pro quo"<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> variety in which tangible employment related benefits are made contingent upon participation in sexual activity, and conduct which creates a "hostile environment" by requiring employees to endure sexual gestures and posturing in the workplace. Both forms of sexual harassment have been recognized by the American Courts including the United States Supreme Court:<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Barnes v. Costle, 561 F.2d 983 (D.C. Cir. 1977);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Bundy v. Jackson, 641 F.2d 934 (D.C. Cir. 1981);<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Henson v. Dundee, 682 F.2d 897 (11th Cir. 1982); and<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Meritor Savings Bank v. Vinson, 106 S. Ct. 2399 (1986). Canadian human rights tribunals have also tended to rely on the<span lang="EN-GB" style="font-family:"Book Antiqua";letter-spacing:
+-.15pt"> quid pro quo<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">/hostile work environment dichotomy. I do not find this categorization particularly helpful. While the distinction may have been important to illustrate forcefully the range of behaviour that constitutes harassment at a time before sexual harassment was widely viewed as actionable, in my view there is no longer any need to characterize harassment as one of these forms. The main point in allegations of sexual harassment is that unwelcome sexual conduct has invaded the workplace, irrespective of whether the consequences of the harassment included a denial of concrete employment rewards for refusing to participate in sexual activity.
+ I am in accord with the following dictum of the United States Court of Appeals for the Eleventh Circuit in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Henson v. Dundee, quoted with approval in the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Meritor Savings Bank case:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Sexual harassment which creates a hostile or offensive environment for members of one sex is every bit the arbitrary barrier to sexual equality at the workplace that racial harassment is to racial equality. Surely, a requirement that a man or woman run a gauntlet of sexual abuse in return for the privilege of being allowed to work and make a living can be as demeaning and disconcerting as the harshest of racial epithets.
+ Without seeking to provide an exhaustive definition of the term, I am of the view that sexual harassment in the workplace may be broadly defined as unwelcome conduct of a sexual nature that detrimentally affects the work environment or leads to adverse job-related consequences for the victims of the harassment. It is, as Adjudicator Shime observed in<span lang="EN-GB" style="font-family:
+"Book Antiqua";letter-spacing:-.15pt"> Bell v. Ladas, supra, and as has been widely accepted by other adjudicators and academic commentators, an abuse of power. When sexual harassment occurs in the workplace, it is an abuse of both economic and sexual power. Sexual harassment is a demeaning practice, one that constitutes a profound affront to the dignity of the employees forced to endure it. By requiring an employee to contend with unwelcome sexual actions or explicit sexual demands, sexual harassment in the workplace attacks the dignity and self-respect of the victim both as an employee and as a human being.
+ Perpetrators of sexual harassment and victims of the conduct may be either male or female. However, in the present sex stratified labour market, those with the power to harass sexually will predominantly be male and those facing the greatest risk of harassment will tend to be female. Professor Hickling documents this situation in an article entitled "Employer's Liability for Sexual Harassment" (1988), 17<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Man. L.J<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">. 124, at p. 127:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Sexual harassment as a phenomenon of the workplace is not new. Nor is it confined to harassment of women by men, though this is by far the most prevalent and significant context. It may be committed by women against men, by homosexuals against members of the same sex. According to a Canadian survey published in 1983 [Canadian Human Rights Commission, Research and Special Studies Branch, Unwanted Sexual Attention and Sexual Harassment: Result of a Survey of Canadians (Ottawa: Minister of Supply and Services Canada (1983))], women reported far more exposure to all forms of unwanted sexual attention than did men. Forty-nine percent of women (as compared to 33% of men) stated that they had experienced at least one form of this kind of harassment. The frequency of sexual harassment directed against women was also significantly higher. In the case of sexual harassment experienced by women, most (93%) of the harassers were men, while men complained of harassment by women (62%) and men (24%). The victims of sexual harassment are not confined to any particular group, identifiable by age, sex, class, educational background, income or occupation, although younger single women (and interestingly, those at the lower end of the economic scale) tend to suffer the most. One characteristic that victims usually share in common is their vulnerability to economic sanctions both real and threatened.
+ Professor Hickling's exposition suggests that women may be at greater risk of being sexually harassed because they tend to occupy low status jobs in the employment hierarchy. Arjun Aggarwal, in his article quoted earlier, offers an additional explanation for the increased vulnerability of women to sexual harassment. Drawing an analogy to the practice of racial discrimination where racial slurs reinforce perceived racial inequality, Aggarwal argues that sexual harassment is used in a sexist society to (at pp. 5-6) "underscore women's difference from, and by implication, inferiority with respect to the dominant male group" and to "remind women of their inferior ascribed status".
+ In the context of this understanding of sexual harassment and discrimination on the basis of sex, the reasons of the Court of Appeal of Manitoba may be evaluated. Let me say at the outset that, in my opinion, the Court of Appeal erred to the extent that it relied on legislation enacted by the Parliament of Canada and three of the provinces, defining and prohibiting sexual harassment, for the inference that in the absence of such express legislation a prohibition against sexual discrimination could not embrace sexual harassment. The amendments were no doubt intended to make express and explicit what had previously been implicit. As the appellants point out in their factum:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">It is worth noting, however, that in those jurisdictions [Ontario, Quebec, Newfoundland, Canada] the decisions given prior to those amendments unanimously came to the conclusion that sexual harassment of the type we are dealing with here constituted sex discrimination. Moreover, most jurisdictions (eg. B.C., Alberta, Saskatchewan, Nova Scotia, etc.) have continued to rely on the prohibition against "sex discrimination" in employment, as a sufficient vehicle to cope with sexual harassment.
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> The amendments were meant to clarify and educate, not to alter the interpretation of the legislation. As one Ontario Adjudicator, Prof. Peter Cummings, has noted in a subsequent analysis of the Court of Appeal for Manitoba's reasoning:
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">The question before the Court of appeal in Janzen, however, was not, of course, whether a prohibition against sexual harassment should be a part of Manitoba's human rights legislation but rather whether such a prohibition is in fact implicit in the existing general anti-discrimination provisions of the Act. This must be the question in every jurisdiction examining the place of harassing behaviour under a general anti-discriminatory provision. In some provinces (Quebec, Newfoundland and Ontario) and in the federal sphere the legislatures have decided to use express language where before an implicit prohibition had been sufficient. Given this obvious advantage of clarify and certainty which an express prohibition allows, these new provisions are to be applauded. It seems ironic, however, at the least, that in making its own progressive policies explicit a legislature may endanger equally progressive implicit assumptions about general legislation in another province.
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">The legislative history of the Ontario provision suggests that the government of the day viewed the explicit inclusions of harassment as a measure to clarify existing rights rather than to create new ones . . . .
+ <p class="MsoNormal" style="margin-left:78.0pt;text-align:justify;text-indent:
+-78.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">In my view the more general language found in legislation without explicit provisions also prohibits sexual harassment in employment.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:78.0pt;text-align:justify;text-indent:-78.0pt;line-height:12.0pt">See Boehm v. National System of Banking Ltd<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">., (1987), 8 C.H.R.R. D/4110 at D/419-20; and also<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Zarankin<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">, supra, at D/2276-77.
+ There appear to be two principal reasons, closely related, for the decision of the Court of Appeal of Manitoba that the sexual harassment to which the appellants were subjected was not sex discrimination. First, the Court of Appeal drew a link between sexual harassment and sexual attraction. Sexual harassment, in the view of the Court, stemmed from personal characteristics of the victim, rather than from the victim's gender. Second, the appellate court was of the view that the prohibition of sex discrimination in s. 6(1) of the Human Rights Act<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> was designed to eradicate only generic or categorical discrimination. On this reasoning, a claim of sex discrimination could not be made out unless all women were subjected to a form of treatment to which all men were not. If only some female employees were sexually harassed in the workplace, the harasser could not be said to be discriminating on the basis of sex. At most the harasser could only be said to be distinguishing on the basis of some other characteristic.
+ The two arguments raised by the Manitoba Court of Appeal may in fact be seen as alternate formulations of the following argument. Discrimination implies treating one group differently from other groups, thus all members of the affected group must be subjected to the discriminatory treatment. Sexual harassment, however, involves treating some persons differently from others, usually on the basis of the sexual attractiveness of the victim. The harasser will typically choose one, or several, persons to harass but will not harass all members of one gender. As harassers select their targets on the basis of a personal characteristic, physical attractiveness, rather than on the basis of a group characteristic, gender, sexual harassment does not constitute discrimination on the basis of sex.
+ This line of reasoning has been considered in both Canada and the United States, and in my view, quite properly rejected. The reasons for the rejection were cogently expressed by Adjudicator Lynn Smith in Zarankin v. Johnstone (1984), 5 C.H.R.R. D/2274 (B.C. Bd.), at p. 2276 (appeal to Supreme Court of British Columbia dismissed (1985), 6 C.H.R.R. D/2651):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Although it might be thought that sexual harassment would not amount to sex discrimination unless all employees of the same gender were equally recipients of it, that is fallacious. So long as gender provides a basis for differentiation, it matters not that further differentiation on another basis is made. An analogy would be a complaint of sex discrimination against an employer who decided to dismiss all of his married female employees but none of his male employees and none of his unmarried female employees. The decision would affect one group adversely -- female employees -- even though it would not affect every member of that group. Similarly, an employer who selects only some of his female employees for sexual harassment and leaves other female employees alone is discriminatory by reason of sex because the harassment affects only one group adversely.
+ The fallacy in the position advanced by the Court of Appeal is the belief that sex discrimination only exists where gender is the sole ingredient in the discriminatory action and where, therefore, all members of the affected gender are mistreated identically. While the concept of discrimination is rooted in the notion of treating an individual as part of a group rather than on the basis of the individual's personal characteristics, discrimination does not require uniform treatment of all members of a particular group. It is sufficient that ascribing to an individual a group characteristic is one factor in the treatment of that individual. If a finding of discrimination required that every individual in the affected group be treated identically, legislative protection against discrimination would be of little or no value. It is rare that a discriminatory action is so bluntly expressed as to treat all members of the relevant group identically. In nearly every instance of discrimination the discriminatory action is composed of various ingredients with the result that some members of the pertinent group are not adversely affected, at least in a direct sense, by the discriminatory action. To deny a finding of discrimination in the circumstances of this appeal is to deny the existence of discrimination in any situation where discriminatory practices are less than perfectly inclusive. It is to argue, for example, that an employer who will only hire a woman if she has twice the qualifications required of a man is not guilty of sex discrimination if, despite this policy, the employer nevertheless manages to hire some women.
+ The argument that discrimination requires identical treatment of all members of the affected group is firmly dismissed by this Court in Brooks v. Canada Safeway Ltd.<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">, [1989] 1 S.C.R. 000 (judgment being delivered concurrently herewith). In<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Brooks<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> I stated that pregnancy related discrimination is sex discrimination. The argument that pregnancy related discrimination could not be sex discrimination because not all women become pregnant was dismissed for the reason that pregnancy cannot be separated from gender. All pregnant persons are women. Although, in Brooks, the impugned benefits plan of the employer, Safeway, did not mention women, it was held to discriminate on the basis of sex because the plan's discriminatory effects fell entirely upon women.
+ The reasoning in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Brooks<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> is applicable to the present appeal. Only a woman can become pregnant; only a woman could be subject to sexual harassment by a heterosexual male, such as the respondent Grammas. That some women do not become pregnant was no defence in Brooks, just as it is no defence in this appeal that not all female employees at the restaurant were subject to sexual harassment. The crucial fact is that it was only female employees who ran the risk of sexual harassment. No man would have been subjected to this treatment. The sexual harassment the appellants suffered fits the definition of sex discrimination offered earlier: "practices or attitudes which have the effect of limiting the conditions of employment of, or the employment opportunities available to, employees on the basis of a characteristic related to gender".
+ To argue that the sole factor underlying the discriminatory action was the sexual attractiveness of the appellants and to say that their gender was irrelevant strains credulity. Sexual attractiveness cannot be separated from gender. The similar gender of both appellants is not a mere coincidence, it is fundamental to understanding what they experienced. All female employees were potentially subject to sexual harassment by the respondent Grammas. That his discriminatory behaviour was pinpointed against two of the female employees would have been small comfort to other women contemplating entering such a workplace. Any female considering employment at the Pharos restaurant was a potential victim of Grammas and as such was disadvantaged because of her sex. A potential female employee would recognize that if she were a male employee she would not have to run the same risks of sexual harassment. In Brooks, in reference to a health benefits plan which imposed the costs of pregnancy upon women, I stated that "[R]emoval of such unfair impositions upon women and other groups in society is a key purpose of anti-discrimination legislation" (p. 000). That statement is equally applicable to the sexual harassment that was suffered by the appellants in this appeal. Because they were women, the appellants were subject to a disadvantage to which no man at the restaurant would have been subject. As the LEAF factum puts it, "... sexual harassment is a form of sex discrimination because it denies women equality of opportunity in employment because of their sex." It is one of the purposes of anti-discrimination legislation to remove such denials of equality of opportunity.
+ As noted earlier, the argument that sexual harassment is sex discrimination has been recognized by a long line of Canadian, American and English (see Porcelli v. Strathclyde Regional Council<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">, [1985] I.C.R. 177 (E.A.T.-Scot.), aff'd [1986] I.C.R. 564 (Ct. of Session)) cases which have found sexual harassment to be sex discrimination.
+ In conclusion on this point, I offer a quotation from a leading American decision, Bundy v. Jackson<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">,<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> supra<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">, at p. 942, which is equally applicable to the legislation at issue in this appeal:
+ <p class="MsoNormal" style="margin-left:60.0pt;text-align:justify;text-indent:
+-60.0pt;line-height:12.0pt"><span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">. . . our task of statutory construction in Barnes was to determine whether the disparate treatment Barnes suffered was "based on . . . sex." We heard arguments there that whatever harm Barnes suffered was not sex discrimination, since Barnes' supervisor terminated her job because she had refused sexual advances, not because she was a woman. We rejected those arguments as disingenuous in the extreme. The supervisor in that case made demands of Barnes that he would not have made of male employees. "But for her womanhood ... [Barnes'] participation in sexual activity would never have been solicited. To say, then, that she was victimized in her employment simply because she declined the invitation is to ignore the asserted fact that she was invited only because she was a woman subordinate to the inviter in the hierarchy of agency personnel.
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> We thus made it clear in<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Barnes<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> that sex discrimination within the meaning of Title VII is not limited to disparate treatment founded solely or categorically on gender. Rather, discrimination is sex discrimination whenever sex is for no legitimate reason a substantial factor in the discrimination.
+ VI
+ Is the Respondent Liable?
+ The liability of employers for the acts of their employees in situations such as in the present appeal has been settled by the recent decision of this Court in Robichaud v. Canada (Treasury Board)<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">,<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> supra<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt">. This decision, which reversed the judgment of the Federal Court of Appeal, was delivered subsequent to the decision of the Manitoba Court of Appeal in the present case. In Robichaud, La Forest J., writing for the Court, considered the liability of an employer for sexual harassment under the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Canadian Human Rights Act, where the harassment was committed by an employee. His words are equally applicable to the Manitoba legislation; each Act has a similar purpose and structure.
+ La Forest J. began by stating that human rights legislation (at p. 92):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">. . . is not aimed at determining fault or punishing conduct. It is remedial. Its aim is to identify and eliminate discrimination. If this is to be done, then the remedies must be effective, consistent with the "almost constitutional" nature of the rights protected.
+ He continued two pages later:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">Indeed, if the Act is concerned with the effects of discrimination rather than its causes (or motivations), it must be admitted that only an employer can remedy undesirable effects; only an employer can provide the most important remedy -- a healthy work environment.
+ La Forest J. then concluded that the statute requires that employers be held liable for the discriminatory acts of their employees where those actions are work-related. He did not try to apply principles of vicarious liability, saying that this was unhelpful and, in any event, unnecessary since the employer's liability could be found within the statute (at p. 95):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt"> Hence, I would conclude that the statute contemplates the imposition of liability on employers for all acts of their employees "in the course of employment", interpreted in the purposive fashion outlined earlier as being in some way related or associated with the employment. It is unnecessary to attach any label to this type of liability; it is purely statutory.
+ Although the employer in the<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> Robichaud<span lang="EN-GB" style="font-family:
+"Times New Roman";letter-spacing:-.15pt"> case was the Crown, it is clear that La Forest J.'s words are meant to apply to all employment relationships. At no point in his judgment is any significance attached to the Crown status of the employer.
+ On the basis of La Forest J.'s decision, the respondent Platy Enterprises Ltd. must be held liable for the actions of the cook Grammas. Grammas' actions fall within the "course of his employment" as defined by La Forest J.'s purposive interpretation. On page 92, La Forest J. expanded on the meaning to be given to "course of employment", arguing that the term should not be interpreted as only referring to activities which fall narrowly within the employee's job description. To employ such a narrow definition, he said, would be wrongly to import tortious notions of vicarious liability into the field of discrimination law. He concluded that employers are liable for any action of their employees which is "work-related" (at p. 92):
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;
+margin-left:60.0pt;text-align:justify;text-indent:-60.0pt;line-height:12.0pt">It would appear more sensible and more consonant with the purpose of the Act to interpret the phrase "in the course of employment" as meaning work- or job-related . . .
+ The difference between the words of the Manitoba Act, "in respect of employment", and those of the Canadian Act, "course of employment", is not significant. La Forest J.'s words apply equally to both Acts.
+ In light of this interpretation it cannot be argued that Grammas was not acting in respect of his employment when he sexually harassed the appellants. His actions were clearly work related. Grammas' opportunity to harass the appellants sexually was directly related to his employment position as the next in line in authority to the employer. Grammas used his position of authority, a position accorded him by the respondent, to take advantage of the appellants. The authority granted to Grammas, both through his control in running the restaurant, including his control over food orders and work hours, and through his purported ability to fire waitresses, gave him power over the waitresses. It was the respondent's responsibility to ensure that this power was not abused. This it clearly did not do, even after the appellants made specific complaints about the harassment. So it is liable for the actions of Grammas.
+ VII
+ The Damages Award
+ I quoted earlier the remarks of Monnin J. in reducing the award of damages to Janzen and Govereau. With great respect, no persuasive arguments were presented by Monnin J. as to why Adjudicator Henteleff erred in his award. The amounts are not inordinate in light of the seriousness of the complaints.
+ VIII
+ Costs Before the Board of Adjudication
+ The Court of Appeal awarded costs to the respondents and against the Commission not only before the Court of Queen's Bench and the Court of Appeal, but also before the Board of Adjudication itself. The order with respect to costs will be set aside because of this Court's decision on the respondent's liability. I wish however to comment briefly on the Court of Appeal's decision to award costs against the Commission in respect of the hearing before the Board of Adjudication. Even if the Court of Appeal's decision on liability had been upheld in this Court, I would see no justification for this award of costs against the Commission. Under the Act, the Board of Adjudication itself is given no authority to award costs. One reason for this is that the Commission has a duty under s. 20 of the Act to bring complaints before the Board, unless those complaints are,<span lang="EN-GB" style="font-family:"Book Antiqua";
+letter-spacing:-.15pt"> per<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> s. 19(4), "without merit". Therefore, while appreciating that courts do have a discretion with respect to costs, I believe costs should only be ordered against the Manitoba Human Rights Commission in exceptional circumstances. There was no reason to exercise that discretion on the facts of this case, even as these facts were interpreted by the Court of Appeal. The complaint brought forth by the Commission was clearly with merit. It succeeded before the Board and the Court of Queen's Bench. For the Commission to have refused to have brought forth the complaint would have been a neglect of its statutory duty.
+ IX
+ Disposition
+ For the aforementioned reasons I would allow the appeal, set aside the judgment of the Court of Appeal of Manitoba and restore the judgment of Monnin J. of the Court of Queen's Bench, except as to the award of damages which should be as stated by Adjudicator Henteleff. The appellants are entitled to costs at all levels, except before the Board of Adjudication.
+ Appeal allowed with costs.
+ Solicitor for the appellants: Tanner Elton, Winnipeg.
+ Solicitors for the intervener: Fillmore & Riley, Winnipeg.
+ <p class="MsoFootnoteText" style="margin-bottom:12.0pt;text-align:justify;
+line-height:12.0pt">[LINK #_ftnref1] <span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt;vertical-align:baseline"> <span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt">*<span lang="EN-GB" style="font-family:"Times New Roman";
+letter-spacing:-.15pt"> Le Dain J. took no part in the judgment.
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

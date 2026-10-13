@@ -4431,7 +4431,8 @@
       "title": "Mountain View Farms Ltd. v. McQueen (setting aside default judgment)",
       "says": "The Court of Appeal for Ontario set out the factors considered on a motion to set aside a default judgment, including how promptly the motion was brought, the explanation for the default, whether there is an arguable defence, and prejudice to each side. A lead to be retrieved and read.",
       "source": {
-        "decision": "Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194"
+        "decision": "Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194",
+        "corpusId": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt"
       }
     },
     {
@@ -4440,7 +4441,8 @@
       "title": "1196158 Ontario Inc. v. 6274013 Canada Ltd. (default judgment factors)",
       "says": "A Court of Appeal for Ontario decision often cited for the factors on setting aside a default judgment. A lead to be retrieved and read.",
       "source": {
-        "decision": "1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544"
+        "decision": "1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544",
+        "corpusId": "decisions/1196158-ontario-v-6274013-canada-2012-ONCA-544.txt"
       }
     },
     {
@@ -4449,7 +4451,8 @@
       "title": "Grover v. Hodgins (no summary judgment in Small Claims Court)",
       "says": "The Court of Appeal for Ontario held that the Small Claims Court motion to strike under rule 12.02 is not a summary judgment procedure. A lead to be retrieved and read.",
       "source": {
-        "decision": "Grover v. Hodgins, 2011 ONCA 72"
+        "decision": "Grover v. Hodgins, 2011 ONCA 72",
+        "corpusId": "decisions/grover-v-hodgins-2011-ONCA-72.txt"
       }
     },
     {
@@ -4459,7 +4462,8 @@
       "says": "The Supreme Court of Canada set the standards an appeal court applies: correctness for questions of law and palpable and overriding error for findings of fact. A lead to be retrieved and read.",
       "source": {
         "decision": "Housen v. Nikolaisen, 2002 SCC 33",
-        "pinpoint": "para. 8"
+        "pinpoint": "para. 8",
+        "corpusId": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt"
       }
     }
   ]

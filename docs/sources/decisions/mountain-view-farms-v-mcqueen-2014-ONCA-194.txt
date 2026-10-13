@@ -1,0 +1,660 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+             CITATION: Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194
+                                                           DATE: 20140314
+                                                         DOCKET: C56832
+
+                       Gillese, Rouleau and Tulloch JJ.A.
+
+BETWEEN
+                            Mountain View Farms Ltd.
+                                                              Plaintiff (Appellant)
+
+
+                                       and
+
+                            George Donald McQueen
+
+                                                        Defendant (Respondent)
+
+M.A. Cummings, for the appellant
+
+V.L. Vandergust, for the respondent
+
+Heard: February 13, 2014
+
+On appeal from the judgment of Justice Alfred J. Stong of the Superior Court of
+Justice, dated March 7, 2013, with reasons reported at 2013 ONSC 1440.
+
+
+Gillese J.A.:
+
+
+[1]    This appeal concerns the scope of a motion judge’s power to vary a default
+
+judgment under rule 19.08 of the Rules of Civil Procedure, R.R.O. 1990, Reg.
+
+194.
+                                    Page: 2
+
+
+OVERVIEW
+
+[2]   Mountain View Farms Ltd. (the “appellant”) provided crop services to
+
+George Donald McQueen (the “respondent”) for a number of years. When the
+
+respondent failed to fully pay for the services, the appellant had him sign an
+
+invoice to acknowledge the outstanding amount of just under $50,000.        Pre-
+
+printed words on the bottom of the invoice stated that interest would be charged
+
+on overdue accounts at the rate of 24% per year.
+
+[3]   The appellant later sued the respondent for the unpaid amount plus
+
+interest at an annual rate of 24%.     The respondent did not respond to the
+
+appellant’s suit and the appellant obtained default judgment against him.
+
+[4]   Six years later, the respondent moved to have the default judgment set
+
+aside. By that time, interest calculated at 24% per annum had accumulated to
+
+over $75,000. The respondent acknowledged that he owed the principal amount
+
+but maintained that he had never agreed to pay the appellant interest at the rate
+
+of 24% per year.
+
+[5]   The appellant opposed the motion on a number of bases, including that the
+
+invoice with the respondent’s signature on it was an agreement to pay interest at
+
+the annual rate of 24%.
+                                     Page: 3
+
+
+[6]    The motion judge was unable to find, on the evidence before him, that the
+
+respondent had agreed to pay the 24% interest rate. Thus, he concluded, the
+
+respondent had an arguable defence on the merits of the applicable interest rate.
+
+[7]    The motion judge did not set aside the default judgment, however.
+
+Instead, by order dated March 7, 2013 (the “Order”), acting pursuant to rule
+
+19.08, the motion judge varied the default judgment by substituting an annual
+
+interest rate of 5%.
+
+[8]    The appellant submits that the motion judge erred in a number of ways and
+
+asks this court to set aside the Order.
+
+[9]    As I explain below, in my view, the motion judge erred. Consequently, I
+
+would allow the appeal.
+
+FACTS
+
+[10]   The respondent is a farmer in his late eighties. For two decades, he traded
+
+equipment and services with his neighbours, Roger and Bill McLeod. During the
+
+period relevant to these proceedings, the McLeods provided crop services to the
+
+respondent through their corporation, the appellant.
+
+[11]   In February 2002, the appellant issued an invoice to the respondent for
+
+$28,273.68. The amounts shown on the invoice were for baling hay in 1999,
+
+2000 and 2001.         On the invoice, below the pre-printed heading “Work
+
+Performed”, the appellant had handwritten in the amounts owing and the years in
+                                     Page: 4
+
+
+which the services had been performed.          Although the services had been
+
+provided over a three-year period, the invoice showed no interest charges.
+
+However, the following pre-printed interest provision was in the bottom left hand
+
+corner of the invoice:
+
+               Please Pay By Invoice
+               No statements issued
+               Terms: Net 30 days
+               2% Service charge per month (24% per annum)
+               will be charged on overdue accounts.
+
+[12]   The respondent paid $10,000 of the amount claimed in this invoice.
+
+[13]   In December 2003, the appellant sent the respondent an invoice for
+
+$39,685.52. This amount reflected the outstanding balance from the prior invoice
+
+(for the period from 1999 to 2001) and new charges for hay baling, snow blowing,
+
+and swathing performed after 2001. Again, the invoice showed no charges for
+
+interest. And, again, the pre-printed interest provision was on this invoice.
+
+[14]   The McLeods acknowledged that they neither asked nor expected the
+
+respondent to pay interest on outstanding amounts. They testified that they
+
+trusted the respondent to pay what he owed.
+
+[15]   The McLeods did not, however, trust the respondent’s son, who was taking
+
+an ever greater role in managing the respondent’s affairs as the respondent’s
+
+age advanced. They did not want to deal with the respondent’s son with respect
+
+to the account. They wanted to close the account as soon as possible.
+                                    Page: 5
+
+
+[16]    In June 2005, the McLeods decided to take a different approach. The
+
+appellant prepared another invoice for services rendered to the respondent. The
+
+total amount claimed was $49,862.82 (the “Invoice”). Like the previous invoices,
+
+the Invoice did not claim an amount for interest but the pre-printed interest
+
+provision was on it.
+
+[17]    Roger McLeod walked up to the respondent, who was sitting in his truck,
+
+and handed him the Invoice. He asked the respondent to sign a copy of the
+
+Invoice, explaining that “we want a bill signed so if something happens [to you]
+
+we know we have a bill signed because right now it’s just between you and us
+
+that the work was done.” The respondent replied, “Yeah, I'll sign the damn thing.”
+
+[18]    Roger McLeod says he asked the respondent to sign “down by the [pre-
+
+printed interest provision]”. However, the respondent actually signed below the
+
+amounts shown as owing, and not next to the pre-printed interest provision.
+
+[19]    The respondent has a Grade 3 education. His ability to read and write is
+
+poor.
+
+[20]    The Invoice was not paid and later in the summer of 2005, the appellant
+
+issued and served a statement of claim for the amount of the Invoice plus interest
+
+at the rate of 24% per annum.
+                                     Page: 6
+
+
+[21]   The respondent did not file a statement of defence or notice of intent to
+
+defend. He was noted in default and default judgment was signed against him in
+
+August 2005 for the principal amount plus interest at the rate of 24% per annum.
+
+[22]   In November 2005, the appellant registered a writ of seizure and sale
+
+against lands the respondent owned. The writ was to expire six years later, in
+
+November 2011.
+
+[23]   The appellant took no further steps to enforce the default judgment.
+
+[24]   In 2010, the respondent transferred three of his four properties to his son.
+
+All three properties were subject to the writ of seizure and sale. The transfers
+
+were each stamped as being subject to the writ.
+
+[25]   In May 2011, the respondent’s son wanted to refinance his properties. To
+
+do so, because he and his father have the same name, he needed to confirm
+
+that he was not the same person as his father.
+
+[26]   In November 2011, the appellant renewed the writ.
+
+[27]   In April 2012, the respondent brought a motion seeking, among other
+
+things, to have the default judgment set aside, leave to file a Statement of
+
+Defence, and “such further relief” as the court deemed just.
+
+[28]   By the time the motion was argued, the respondent had accepted that he
+
+owed the principal amount set out in the default judgment and, in fact, had paid it
+                                        Page: 7
+
+
+plus assessed costs. He continued to maintain that he had never agreed to pay
+
+interest at the rate of 24% per year.
+
+[29]   The appellant opposed the motion on a number of bases. It contended
+
+that it was the respondent’s son and not the respondent who had brought the
+
+motion.     As a non-party, the respondent’s son lacked standing to bring the
+
+motion. Moreover, it submitted that the respondent failed to meet the test for
+
+setting aside a default judgment and that he came to the court without clean
+
+hands. It also argued that the respondent’s affidavit evidence should be struck
+
+for lack of reliability.
+
+THE DECISION BELOW
+
+[30]   The motion judge set out the three-part test for determining whether to set
+
+aside the default judgment. (The test is set out later in these reasons.)
+
+[31]   He found that there had been “inexplicable delay” in the respondent’s
+
+bringing of the motion to set aside the default judgment. The respondent must
+
+have been aware of the writ (and, therefore, the default judgment) no later than
+
+June 2010, when he transferred his properties to his son.           No reasonable
+
+explanation had been given for the delay between then and when he brought the
+
+motion in 2012.
+
+[32]   The motion judge noted that while it had been argued that the respondent
+
+was growing more forgetful over time owing to his advanced age, no evidence of
+                                     Page: 8
+
+
+medical incapacity had been presented on the motion. He added that the
+
+respondent was still driving in 2010 and had managed to transfer his properties
+
+to his son that year without requiring a power of attorney.
+
+[33]   The motion judge acknowledged that the appellant would suffer prejudice
+
+from the respondent’s delay in seeking to set aside the default judgment. The
+
+prejudice consisted of the following: the process server who served the
+
+statement of claim on the respondent had died; many of the original invoices had
+
+been destroyed; the respondent’s mental competence was now in issue; and, at
+
+least three of the respondent’s properties had been conveyed since the default
+
+judgment was obtained. But, in the motion judge’s view, the prejudice could be
+
+addressed in costs.
+
+[34]   The motion judge then considered whether the respondent had an
+
+arguable defence with respect to the matter of interest. He noted that there was
+
+no evidence of any agreement to pay interest at 24% per year except for the
+
+respondent’s signature on the Invoice – evidence that, in his view, was not
+
+determinative. He also noted that Bill McLeod had testified that he, his brother
+
+and the appellant had not charged the respondent interest in their dealings with
+
+him prior to the lawsuit.
+
+[35]   The motion judge found that the respondent had an arguable defence on
+
+the merits of the claimed interest rate, saying that he was not satisfied that the
+                                      Page: 9
+
+
+respondent had even impliedly agreed to pay interest at the rate of 24% per
+
+annum.
+
+[36]   The motion judge then explained that he would impose a different annual
+
+interest rate, saying:
+
+             In these circumstances, it would be inappropriate to
+             have interest accrue at the rate claimed by the
+             [appellant]. Certainly however, reasonable parties to a
+             commercial transaction would expect that monies left
+             unpaid would attract interest at some rate. In the
+             absence of any evidence before me to establish the
+             credit costs of the [appellant] or the rate of return it
+             might reasonably have expected for investment of the
+             amount of the unpaid accounts, interest on the unpaid
+             accounts, including prejudgment interest, should
+             properly be charged at the [postjudgment interest] rate
+             prescribed by the Courts of Justice Act, plus the 1%
+             submitted by concession of the [respondent], from
+             August 25, 2005.
+
+[37]   He ordered that the default judgment be varied only in respect of the rate
+
+of interest, with an annual rate of 5% being substituted for 24%.
+
+THE ISSUES
+
+[38]   The appellant submits that the motion judge erred in:
+
+       1. allowing the respondent’s son to bring the motion, when he had no
+       standing;
+
+       2. admitting the respondent’s affidavit evidence;
+
+       3. his application of the test for setting aside a default judgment; and
+
+       4. varying the interest rate in the default judgment, pursuant to rule 19.08.
+                                     Page: 10
+
+
+ANALYSIS
+
+         1. Standing to bring the motion
+
+[39]   The appellant submits that the motion judge should not have heard the
+
+motion. It says that the motion to set aside the default judgment was brought
+
+and argued by the respondent’s son and because the respondent’s son was not
+
+a party to the default judgment, he had no standing to contest the default
+
+judgment.
+
+[40]   Mr. Vandergust is the lawyer who brought and argued the motion. He told
+
+the motion judge that he represented the respondent. Furthermore, the materials
+
+filed in support of the motion describe Mr. Vandergust as solicitor for the
+
+respondent.
+
+[41]   Mr. Vandergust is also the respondent’s son’s lawyer.
+
+[42]   While the motion judge did not expressly deal with the issue of standing, it
+
+is implicit that he accepted that the respondent brought the motion and that Mr.
+
+Vandergust was acting on behalf of the respondent. This is evident from the
+
+motion judge’s reasons in which he lists Mr. Vandergust as counsel for the
+
+respondent.
+
+[43]   I see no basis for interfering with the motion judge’s implicit determination
+
+that it was the respondent who brought the motion, and not the respondent’s son.
+
+Accordingly, I would dismiss this ground of appeal.
+                                    Page: 11
+
+
+         2. The respondent’s affidavit evidence
+
+[44]   The appellant submits that the motion judge erred in admitting into
+
+evidence an affidavit signed by the respondent. It submits that the affidavit was
+
+not reliable because on cross-examination the respondent could not recall having
+
+signed it and because his memory is unreliable.
+
+[45]   I see no error in the motion judge’s admission of the affidavit.       The
+
+problems identified by the appellant go to weight rather than admissibility.
+
+Furthermore, the motion judge’s reasons show that he gave the affidavit little to
+
+no weight. He found that the respondent had an arguable defence on the
+
+question of the interest rate based on other evidence, particularly that of Bill
+
+McLeod who testified that the appellant had a history of not charging the
+
+respondent interest on overdue accounts.
+
+[46]   I would dismiss this ground of appeal.
+
+          3. Application of the test for setting aside default judgment
+
+[47]   The court’s ultimate task on a motion to set aside a default judgment is to
+
+determine whether the interests of justice favour granting the order.         The
+
+approach to be taken to this determination has been considered numerous times
+
+by this court. The following draws heavily on the summary of the principles in
+
+those cases by Perell J. in Watkins v. Sosnowski, 2012 ONSC 3836, at paras.
+
+19-20 and 23-24.
+                                     Page: 12
+
+
+[48]   The court must consider the following three factors:
+
+             (a) whether the motion was brought promptly after the defendant
+             learned of the default judgment;
+
+             (b) whether there is a plausible excuse or explanation for the
+             defendant’s default in complying with the Rules; and
+
+             (c) whether the facts establish that the defendant has an arguable
+             defence on the merits.
+
+[49]   To this list, I would add the following two factors the court should have
+
+regard to, as set out in Peterbilt of Ontario Inc. v. 1565627 Ontario Ltd. 2007
+
+ONCA 333, 87 O.R. (3d) 479 (C.A.), at para. 2:
+
+             (d) the potential prejudice to the moving party should the motion be
+             dismissed, and the potential prejudice to the respondent should the
+             motion be allowed; and
+
+             (e) the effect of any order the court might make on the overall
+             integrity of the administration of justice.
+
+[50]   These factors are not to be treated as rigid rules; the court must consider
+
+the particular circumstances of each case to decide whether it is just to relieve
+
+the defendant from the consequences of his or her default.
+
+[51]   For instance, the presence of an arguable defence on the merits may
+
+justify the court exercising its discretion to set aside the default judgment, even if
+
+the other factors are unsatisfied in whole or in part. In showing a defence on the
+
+merits, the defendant need not show that the defence will inevitably succeed.
+
+The defendant must show that his or her defence has an air of reality.
+                                     Page: 13
+
+
+[52]   The motion judge considered the relevant factors. In respect of the first
+
+and second factors, he found “inexplicable delay” on the part of the respondent.
+
+He also found that the delay had caused prejudice to the appellant.
+
+[53]   However, the motion judge was satisfied that the respondent had raised an
+
+arguable defence in respect of the interest rate that applied to the principal debt.
+
+There was evidence before him, including evidence led by the appellant, which
+
+called into question whether the respondent had agreed to pay interest at the
+
+rate of 24% per annum.
+
+[54]   Having found that there was an arguable defence, it was open to the
+
+motion judge to find that the interests of justice favoured setting aside the default
+
+judgment. It is not, as the appellant would have it, that the motion judge failed to
+
+give adequate weight to the unexplained delay and prejudice to the appellant.
+
+Rather, in the exercise of his discretion, after duly considering the factors, the
+
+motion judge concluded that the respondent’s arguable defence on the matter of
+
+the applicable interest rate weighed most heavily and caused the interests of
+
+justice to favour setting aside.
+
+[55]   A motion judge’s decision to set aside a default judgment is a discretionary
+
+one that will attract deference on appeal. It should not be interfered with absent
+
+an error in law or principle, a palpable and overriding error of fact, or unless the
+
+decision is so clearly wrong as to amount to an injustice: HSBC Securities
+                                     Page: 14
+
+
+(Canada) Inc. v. Firestar Capital Management Corporation, 2008 ONCA 894, 245
+
+O.A.C. 47, at para. 22.
+
+[56]   I see no such error and the decision is not clearly wrong. Accordingly, I
+
+would dismiss this ground of appeal.
+
+             4. Rule 19.08 – setting aside or varying a default judgment
+
+[57]   Rule 19.08 gives the court the power to set aside or vary a default
+
+judgment “on such terms as are just”. It reads as follows:
+
+             19.08 (1) A judgment against a defendant who has been noted in
+             default that is signed by the registrar or granted by the court on
+             motion under rule 19.04 may be set aside or varied by the court on
+             such terms as are just.
+
+                    (2) A judgment against a defendant who has been noted in
+             default that is obtained on a motion for judgment on the statement of
+             claim under rule 19.05 or that is obtained after trial may be set aside
+             or varied by a judge on such terms as are just.
+
+[58]   The appellant says that the motion judge erred when he used his power
+
+under rule 19.08 to substitute an annual interest rate of 5% for the 24% rate in
+
+the default judgment.
+
+[59]   The respondent contends that the Order was a valid exercise of the power
+
+under rule 19.08 to vary a default judgment “on such terms as are just”. He says
+
+that the parties were aware that the motion would focus on the issue of the
+
+interest rate, and that the motion judge had sufficient evidence before him to
+
+decide that issue on the merits. A rule 19.08 motion, in his submission, is akin to
+                                     Page: 15
+
+
+a summary judgment motion, where the motion judge is entitled to reach a fair
+
+and just adjudication of substantive issues in the interests of minimizing
+
+unnecessary process.
+
+[60]   I would accept the appellant’s submission on this issue.
+
+[61]   In my view, the motion judge erred in making a final determination of the
+
+merits of the respondent’s defence. The respondent’s motion sought to set aside
+
+the default judgment. Therefore, the court’s task was to determine whether the
+
+interests of justice favoured setting aside the default judgment. As we have
+
+seen, one factor in that determination is whether there is an arguable defence on
+
+the merits. The materials filed on the motion did not seek a determination of
+
+whether, if there were an arguable defence, that defence should succeed.
+
+[62]   Yet, that is precisely what the motion judge did in the present case. The
+
+effect of the Order is to find in favour of the respondent, that is, to find that the
+
+respondent is not bound to pay interest at the annual rate of 24%. Indeed, the
+
+motion judge went further and established the rate of interest that was payable,
+
+despite his own observation that he lacked the requisite evidence.
+
+[63]   To move from finding an arguable defence to a final determination is not,
+
+as the respondent contends, a just result. A just result presupposes that both
+
+sides had the opportunity to be fairly heard on the two issues of (1) whether the
+
+respondent was bound to pay interest at an annual rate of 24%; and (2) if not,
+                                     Page: 16
+
+
+what the appropriate rate of interest was. That did not occur in the motion. This
+
+is not surprising, given that the motion was to set aside a default judgment.
+
+Although both parties knew that the interest rate issue was to be a central focus
+
+on the motion, the appellant was responding to a motion in which the question
+
+was whether the respondent had an arguable defence in respect of the 24% rate
+
+of interest contained in the default judgment. The appellant was not responding
+
+to a motion for summary judgment on the matter of the applicable interest rate.
+
+[64]   In conclusion, the appropriate course was to set aside the default judgment
+
+in part, and order that the matter proceed on the interest issue.
+
+DISPOSITION
+
+[65]   Accordingly, I would allow the appeal, set aside para. 1 of the Order (which
+
+varies the rate of interest in the default judgment), order that the 24% interest
+
+provision in the default judgment be set aside, permit the respondent to file a
+
+defence, and allow the matter to proceed on the rate of interest.
+
+[66]   I would order costs of the appeal in favour of the appellant fixed at
+
+$12,000, all inclusive. In light of the result on appeal, costs of the motion must
+
+be revisited. If the parties are unable to agree on that matter, they shall return to
+
+the motion judge to have those costs decided.
+
+Released: March 14, 2014 (“E.E.G.”)
+                                                   “E.E. Gillese J.A.”
+                                                   “I agree. Paul Rouleau J.A.”
+                                                   “I agree. M. Tulloch J.A.”
+Page: 17
+

@@ -3475,7 +3475,8 @@
       "says": "A Court of Appeal decision cited for the rule that parties cannot contract out of the Residential Tenancies Act. Lead to be retrieved and read.",
       "source": {
         "decision": "Matthews v. Algoma Timberlakes Corp., 2010 ONCA 468",
-        "pinpoint": "para. 24"
+        "pinpoint": "para. 24",
+        "corpusId": "decisions/matthews-v-algoma-timberlakes-2010-ONCA-468.txt"
       }
     },
     {
@@ -3502,7 +3503,8 @@
       "title": "Onyskiw v. CJM Property Management Ltd.",
       "says": "A Court of Appeal decision on when a tenant's claim against a landlord can proceed in court rather than at the Board. Lead to be retrieved and read.",
       "source": {
-        "decision": "Onyskiw v. CJM Property Management Ltd., 2016 ONCA 477"
+        "decision": "Onyskiw v. CJM Property Management Ltd., 2016 ONCA 477",
+        "corpusId": "decisions/onyskiw-v-cjm-property-management-2016-ONCA-477.txt"
       }
     },
     {

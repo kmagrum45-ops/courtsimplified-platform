@@ -2771,7 +2771,8 @@
       "says": "An employer can dismiss without notice only for just cause: misconduct so serious that it is incompatible with the employment relationship, judged in context and with proportionality. The employer has to prove it.",
       "source": {
         "decision": "McKinley v. BC Tel, 2001 SCC 38",
-        "pinpoint": "para. 48"
+        "pinpoint": "para. 48",
+        "corpusId": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt"
       },
       "leadsTo": [
         "emp.test.esa-wilful-misconduct",
@@ -2865,7 +2866,8 @@
       "title": "Fixed-term contracts",
       "says": "If a fixed-term contract has no enforceable early termination clause, an employee ended early may be owed pay for the rest of the term, and the Ontario Court of Appeal has held there is no duty to mitigate in that situation.",
       "source": {
-        "decision": "Howard v. Benson Group Inc., 2016 ONCA 256"
+        "decision": "Howard v. Benson Group Inc., 2016 ONCA 256",
+        "corpusId": "decisions/howard-v-benson-group-2016-ONCA-256.txt"
       }
     },
     {
@@ -2931,7 +2933,8 @@
       "source": {
         "decision": "671122 Ontario Ltd. v. Sagaz Industries Canada Inc., 2001 SCC 59",
         "pinpoint": "para. 47",
-        "expect": "in business on his own account"
+        "expect": "in business on his own account",
+        "corpusId": "decisions/671122-ontario-v-sagaz-2001-SCC-59.html.txt"
       },
       "leadsTo": [
         "emp.test.dependent-contractor",
@@ -2944,7 +2947,8 @@
       "title": "Dependent contractors",
       "says": "Ontario courts recognize an intermediate category of \"dependent contractor\", who is owed reasonable notice at common law when the relationship ends, based on the worker's economic dependence on one business.",
       "source": {
-        "decision": "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916"
+        "decision": "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916",
+        "corpusId": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt"
       }
     },
     {
@@ -3439,7 +3443,8 @@
       "says": "The Court of Appeal summarized how termination clauses are interpreted: the ESA is remedial, and a clause is judged on its wording when signed, not on what the employer actually paid.",
       "source": {
         "decision": "Wood v. Fred Deeley Imports Ltd., 2017 ONCA 158",
-        "pinpoint": "para. 28"
+        "pinpoint": "para. 28",
+        "corpusId": "decisions/wood-v-fred-deeley-imports-2017-ONCA-158.txt"
       },
       "leadsTo": [
         "emp.test.termination-clause"
@@ -3492,7 +3497,8 @@
       "says": "The Supreme Court held that whether dishonesty or other misconduct justifies dismissal is decided contextually, with proportionality between the misconduct and the sanction.",
       "source": {
         "decision": "McKinley v. BC Tel, 2001 SCC 38",
-        "pinpoint": "para. 48"
+        "pinpoint": "para. 48",
+        "corpusId": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt"
       },
       "leadsTo": [
         "emp.test.just-cause"
@@ -3536,7 +3542,8 @@
       "says": "The Supreme Court held that a dismissed employee may in some cases be expected to mitigate by returning to work for the same employer, judged by whether a reasonable person would accept the offer.",
       "source": {
         "decision": "Evans v. Teamsters Local Union No. 31, 2008 SCC 20",
-        "pinpoint": "para. 30"
+        "pinpoint": "para. 30",
+        "corpusId": "decisions/evans-v-teamsters-local-31-2008-SCC-20.html.txt"
       },
       "leadsTo": [
         "emp.test.mitigation"
@@ -3644,7 +3651,8 @@
       "title": "Howard v. Benson Group Inc.",
       "says": "The Court of Appeal held that an employee under a fixed-term contract with no enforceable early termination clause is owed the balance of the term, with no duty to mitigate.",
       "source": {
-        "decision": "Howard v. Benson Group Inc., 2016 ONCA 256"
+        "decision": "Howard v. Benson Group Inc., 2016 ONCA 256",
+        "corpusId": "decisions/howard-v-benson-group-2016-ONCA-256.txt"
       },
       "leadsTo": [
         "emp.test.fixed-term"
@@ -3658,7 +3666,8 @@
       "source": {
         "decision": "671122 Ontario Ltd. v. Sagaz Industries Canada Inc., 2001 SCC 59",
         "pinpoint": "para. 47",
-        "expect": "in business on his own account"
+        "expect": "in business on his own account",
+        "corpusId": "decisions/671122-ontario-v-sagaz-2001-SCC-59.html.txt"
       },
       "leadsTo": [
         "emp.test.employee-vs-contractor"
@@ -3670,7 +3679,8 @@
       "title": "McKee v. Reid's Heritage Homes Ltd.",
       "says": "The Court of Appeal confirmed the intermediate category of dependent contractor, who is owed reasonable notice.",
       "source": {
-        "decision": "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916"
+        "decision": "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916",
+        "corpusId": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt"
       },
       "leadsTo": [
         "emp.test.dependent-contractor"
@@ -3683,7 +3693,8 @@
       "says": "The Court of Appeal held that a severability clause cannot save contract terms that a statute makes void.",
       "source": {
         "decision": "North v. Metaswitch Networks Corporation, 2017 ONCA 790",
-        "pinpoint": "para. 44"
+        "pinpoint": "para. 44",
+        "corpusId": "decisions/north-v-metaswitch-networks-2017-ONCA-790.txt"
       },
       "leadsTo": [
         "emp.test.termination-clause"

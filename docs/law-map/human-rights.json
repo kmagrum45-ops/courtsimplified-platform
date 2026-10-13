@@ -976,7 +976,8 @@
       "title": "Intent is not required",
       "says": "Discrimination can be found even where there was no intent to discriminate; the focus is on the effect of the conduct on the person.",
       "source": {
-        "decision": "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536"
+        "decision": "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536",
+        "corpusId": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt"
       },
       "leadsTo": [
         "hr.test.constructive"
@@ -989,7 +990,8 @@
       "says": "Each element must be proved on a balance of probabilities. The protected ground need only be one factor, not the only factor.",
       "source": {
         "decision": "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc., 2015 SCC 39",
-        "pinpoint": "para. 65"
+        "pinpoint": "para. 65",
+        "corpusId": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt"
       },
       "leadsTo": [
         "hr.decision.pieters"
@@ -1116,7 +1118,8 @@
       "title": "Accommodation has a procedural and a substantive part",
       "says": "The duty to accommodate includes a fair process of seeking out and assessing accommodation (gathering information, considering options) and the accommodation itself. The person seeking accommodation is expected to cooperate, and a union may share the duty.",
       "source": {
-        "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970"
+        "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970",
+        "corpusId": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt"
       },
       "leadsTo": [
         "hr.decision.meiorin"
@@ -3022,7 +3025,8 @@
       "source": {
         "decision": "British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3",
         "pinpoint": "para. 54",
-        "expect": "reasonably necessary to the accomplishment of that legitimate work-related purpose"
+        "expect": "reasonably necessary to the accomplishment of that legitimate work-related purpose",
+        "corpusId": "decisions/bc-psers-v-bcgseu-meiorin-1999-3-SCR-3.html.txt"
       },
       "leadsTo": [
         "hr.defence.bfor"
@@ -3035,7 +3039,8 @@
       "says": "The Supreme Court applied the Meiorin test to services, not only employment (a driver's licence standard).",
       "source": {
         "decision": "British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868",
-        "pinpoint": "para. 20"
+        "pinpoint": "para. 20",
+        "corpusId": "decisions/bc-superintendent-v-bc-council-grismer-1999-3-SCR-868.html.txt"
       },
       "leadsTo": [
         "hr.test.respondent-justification"
@@ -3048,7 +3053,8 @@
       "says": "The Supreme Court confirmed the three-part Moore test and that the protected ground must be a factor in the adverse treatment; it also addressed addiction and workplace drug policies.",
       "source": {
         "decision": "Stewart v. Elk Valley Coal Corp., 2017 SCC 30",
-        "pinpoint": "para. 24"
+        "pinpoint": "para. 24",
+        "corpusId": "decisions/stewart-v-elk-valley-coal-2017-SCC-30.html.txt"
       },
       "leadsTo": [
         "hr.test.prima-facie"
@@ -3061,7 +3067,8 @@
       "says": "The Supreme Court held that intent is not required and that rules neutral on their face can discriminate by their effect (adverse effect discrimination).",
       "source": {
         "decision": "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536",
-        "pinpoint": "para. 18"
+        "pinpoint": "para. 18",
+        "corpusId": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt"
       },
       "leadsTo": [
         "hr.test.no-intent-needed"
@@ -3073,7 +3080,8 @@
       "title": "Central Okanagan School District No. 23 v. Renaud",
       "says": "The Supreme Court held that a union can share the duty to accommodate and that the employee seeking accommodation must help find a reasonable accommodation.",
       "source": {
-        "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970"
+        "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970",
+        "corpusId": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt"
       },
       "leadsTo": [
         "hr.test.accommodation-process"
@@ -3086,7 +3094,8 @@
       "says": "The Supreme Court held that undue hardship does not require proof that accommodation is impossible; the test is whether the employer cannot accommodate without undue hardship, for example where the employee cannot work in the reasonably foreseeable future.",
       "source": {
         "decision": "Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d'Hydro-Québec, section locale 2000 (SCFP-FTQ), 2008 SCC 43",
-        "pinpoint": "para. 16"
+        "pinpoint": "para. 16",
+        "corpusId": "decisions/hydro-quebec-v-syndicat-2008-SCC-43.html.txt"
       },
       "leadsTo": [
         "hr.test.undue-hardship"
@@ -3099,7 +3108,8 @@
       "says": "The Supreme Court held that each element of discrimination is proved on a balance of probabilities and that the ground need only be a factor, which can be shown by circumstantial evidence.",
       "source": {
         "decision": "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center), 2015 SCC 39",
-        "pinpoint": "para. 65"
+        "pinpoint": "para. 65",
+        "corpusId": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt"
       },
       "leadsTo": [
         "hr.test.burden-of-proof"
@@ -3112,7 +3122,8 @@
       "says": "The Court of Appeal for Ontario confirmed that a protected ground need only be one factor in the treatment and that discrimination can be inferred from circumstantial evidence.",
       "source": {
         "decision": "Peel Law Association v. Pieters, 2013 ONCA 396",
-        "pinpoint": "para. 59"
+        "pinpoint": "para. 59",
+        "corpusId": "decisions/peel-law-association-v-pieters-2013-ONCA-396.txt"
       },
       "leadsTo": [
         "hr.test.burden-of-proof"
@@ -3124,7 +3135,8 @@
       "title": "Janzen v. Platy Enterprises",
       "says": "The Supreme Court held that sexual harassment in the workplace is a form of sex discrimination.",
       "source": {
-        "decision": "Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252"
+        "decision": "Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252",
+        "corpusId": "decisions/janzen-v-platy-1989-1-SCR-1252.html.txt"
       },
       "leadsTo": [
         "hr.area.workplace-sexual-harassment"
@@ -3149,7 +3161,8 @@
       "title": "Seneca College v. Bhadauria",
       "says": "The Supreme Court held there is no independent tort (civil wrong) of discrimination; the Code's own procedures are the route for Code-only claims.",
       "source": {
-        "decision": "Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181"
+        "decision": "Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181",
+        "corpusId": "decisions/seneca-college-v-bhadauria-1981-2-SCR-181.html.txt"
       },
       "leadsTo": [
         "hr.civil.no-standalone-action"
@@ -3162,7 +3175,8 @@
       "says": "The Supreme Court discussed when a human rights tribunal may decline to re-decide a matter already decided by another body that had power to decide it, applying principles behind s. 45.1-type provisions.",
       "source": {
         "decision": "British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52",
-        "pinpoint": "para. 37"
+        "pinpoint": "para. 37",
+        "corpusId": "decisions/bc-wcb-v-figliola-2011-SCC-52.html.txt"
       },
       "leadsTo": [
         "hr.motion.dismiss-other-proceeding"
@@ -3174,7 +3188,8 @@
       "title": "Penner v. Niagara (Regional Police Services Board)",
       "says": "The Supreme Court addressed when a decision in one proceeding prevents re-litigation of the same issue in another (issue estoppel), including fairness of applying it.",
       "source": {
-        "decision": "Penner v. Niagara (Regional Police Services Board), 2013 SCC 19"
+        "decision": "Penner v. Niagara (Regional Police Services Board), 2013 SCC 19",
+        "corpusId": "decisions/penner-v-niagara-police-2013-SCC-19.html.txt"
       },
       "leadsTo": [
         "hr.motion.dismiss-other-proceeding",
@@ -3207,7 +3222,8 @@
       "title": "Tranchemontagne v. Ontario",
       "says": "The Supreme Court held that an Ontario tribunal with power to decide questions of law can apply the Human Rights Code and decline to apply a provision that conflicts with it.",
       "source": {
-        "decision": "Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14"
+        "decision": "Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14",
+        "corpusId": "decisions/tranchemontagne-v-ontario-2006-SCC-14.html.txt"
       },
       "leadsTo": [
         "hr.statute.primacy"
@@ -3219,7 +3235,8 @@
       "title": "Northern Regional Health Authority v. Horrocks",
       "says": "The Supreme Court addressed whether a labour arbitrator or a human rights tribunal has jurisdiction over workplace human rights disputes in a unionized setting, depending on the statutes in each province.",
       "source": {
-        "decision": "Northern Regional Health Authority v. Horrocks, 2021 SCC 42"
+        "decision": "Northern Regional Health Authority v. Horrocks, 2021 SCC 42",
+        "corpusId": "decisions/northern-regional-health-v-horrocks-2021-SCC-42.html.txt"
       },
       "leadsTo": [
         "hr.pre.unionized-worker"
@@ -3232,7 +3249,8 @@
       "says": "The Supreme Court set the framework for the standard of review of administrative decisions, including that courts give effect to a legislature's choice of a standard.",
       "source": {
         "decision": "Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65",
-        "pinpoint": "para. 35"
+        "pinpoint": "para. 35",
+        "corpusId": "decisions/canada-mci-v-vavilov-2019-SCC-65.html.txt"
       },
       "leadsTo": [
         "hr.test.jr-standard"
@@ -3270,7 +3288,8 @@
       "title": "Taylor-Baptiste v. OPSEU",
       "says": "The Court of Appeal for Ontario upheld the HRTO's approach to whether conduct falls within a social area ('with respect to employment') and its balancing of Code rights with freedom of expression.",
       "source": {
-        "decision": "Taylor-Baptiste v. Ontario Public Service Employees Union, 2015 ONCA 495"
+        "decision": "Taylor-Baptiste v. Ontario Public Service Employees Union, 2015 ONCA 495",
+        "corpusId": "decisions/taylor-baptiste-v-opseu-2015-ONCA-495.txt"
       },
       "leadsTo": [
         "hr.pre.social-area-and-ground"
@@ -3282,7 +3301,8 @@
       "title": "Shaw v. Phipps",
       "says": "The Court of Appeal for Ontario upheld an HRTO finding of racial profiling based on circumstantial evidence.",
       "source": {
-        "decision": "Shaw v. Phipps, 2012 ONCA 155"
+        "decision": "Shaw v. Phipps, 2012 ONCA 155",
+        "corpusId": "decisions/shaw-v-phipps-2012-ONCA-155.txt"
       },
       "leadsTo": [
         "hr.test.burden-of-proof"
