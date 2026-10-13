@@ -68,6 +68,11 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   "oreg-258-98-small-claims-rules": "2026-09-27",
   "rules-of-civil-procedure": "2026-09-27",
   "family-law-rules": "2026-09-30",
+  "cja-courts-of-justice-act": "2026-09-27",
+  "municipal-act-2001": "2026-09-27",
+  "city-of-toronto-act-2006": "2026-09-27",
+  "occupiers-liability-act": "2026-09-27",
+  "insurance-act": "2026-09-27",
 };
 
 // ---------------------------------------------------------------- fees
@@ -471,6 +476,54 @@ const APPEAL_START = rcp(
   "An appeal to an appellate court shall be commenced by serving a notice of appeal in Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court) together with the certificate required by subrule 61.05 (1), within 30 days after the making of the order appealed from, unless a statute or these rules provide otherwise",
 );
 
+// Build order Step 3, 2026-10-12/13: the Small Claims steps that were empty.
+// Notice before suing: no court form or fee; the card quotes how the notice
+// must be given (the published answer explains it in plain words).
+const MUNICIPAL_NOTICE = cite(
+  "municipal-act-2001",
+  "s. 44 (10)",
+  "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+);
+const TORONTO_NOTICE = cite(
+  "city-of-toronto-act-2006",
+  "s. 42 (6)",
+  "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+);
+const SNOW_ICE_NOTICE = cite(
+  "occupiers-liability-act",
+  "s. 6.1 (1)",
+  "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+);
+const VEHICLE_NOTICE = cite(
+  "insurance-act",
+  "s. 258.3 (1) (a), (b)",
+  "(a) the plaintiff has applied for statutory accident benefits; (b) the plaintiff served written notice of the intention to commence the action on the defendant within 120 days after the incident or within such longer period as a court in which the action may be commenced may authorize, on motion made before or after the expiry of the 120-day period;",
+);
+// Paying a judgment by instalments (r. 20.02 (2)-(4)).
+const SC_PERIODIC_ENFORCEMENT = scr(
+  "r. 20.02 (2)",
+  "While an order for periodic payment is in force, no step to enforce the judgment may be taken or continued against the debtor by a creditor named in the order, except issuing a writ of seizure and sale of land and filing it with the sheriff.",
+);
+const SC_PERIODIC_DEFAULT = scr(
+  "r. 20.02 (3)",
+  "The creditor may serve the debtor with a notice of default of payment (Form 20L) in accordance with subrule 8.01 (14) and file a copy of it, together with an affidavit of default of payment (Form 20M), if the debtor fails to make payments under an order for periodic payment.",
+);
+const SC_PERIODIC_ENDS = scr(
+  "r. 20.02 (4)",
+  "An order for periodic payment terminates on the day that is 15 days after the creditor serves the debtor with the notice of default of payment, unless a consent (Form 13B) in which the creditor waives the default is filed within the 15-day period.",
+);
+// The cap on costs in Small Claims Court.
+const SC_COSTS_CAP = cite(
+  "cja-courts-of-justice-act",
+  "s. 29",
+  "An award of costs in the Small Claims Court, other than disbursements, shall not exceed 15 per cent of the amount claimed or the value of the property sought to be recovered unless the court considers it necessary in the interests of justice to penalize a party or a party's representative for unreasonable behaviour in the proceeding.",
+);
+
+const SC_GARNISHMENT_PAID = scr(
+  "r. 20.08 (20.2)",
+  "Once the amount owing under an order that is enforced by garnishment is paid, the creditor shall immediately serve a notice of termination of garnishment (Form 20R) on the garnishee and on the clerk.",
+);
+
 const NOTHING: StepPractical = { forms: [], fees: [], files: false, serve: null };
 
 /**
@@ -481,44 +534,46 @@ const NOTHING: StepPractical = { forms: [], fees: [], files: false, serve: null 
 export const STEP_PRACTICAL: Record<string, StepPractical> = {
   // ---- Small Claims: before filing
   "before-filing:deciding-whether-to-sue": { forms: ["7A"], fees: ["sc-claim", "sc-claim-frequent"], files: true, serve: null, also: [SC_START, SC_ATTACH] },
-  "before-filing:notice-municipality": NOTHING,
-  "before-filing:notice-toronto": NOTHING,
-  "before-filing:notice-snow-ice-private": NOTHING,
-  "before-filing:notice-vehicle-injury": NOTHING,
-  "before-filing:notice-deadline-missed": NOTHING,
+  "before-filing:notice-municipality": { forms: [], fees: [], files: false, serve: null, also: [MUNICIPAL_NOTICE] },
+  "before-filing:notice-toronto": { forms: [], fees: [], files: false, serve: null, also: [TORONTO_NOTICE] },
+  "before-filing:notice-snow-ice-private": { forms: [], fees: [], files: false, serve: null, also: [SNOW_ICE_NOTICE] },
+  "before-filing:notice-vehicle-injury": { forms: [], fees: [], files: false, serve: null, also: [VEHICLE_NOTICE] },
+  "before-filing:notice-deadline-missed": { forms: ["7A"], fees: ["sc-claim", "sc-claim-frequent"], files: true, serve: "originating", also: [SC_START, SC_ATTACH] },
   "before-filing:limitation-period-may-have-passed": NOTHING,
-  "before-filing:claim-exceeds-small-claims-limit": NOTHING,
+  // Two routes, both named: Small Claims (waiving the excess) or the Superior Court.
+  "before-filing:claim-exceeds-small-claims-limit": { forms: ["7A", "civil:14A"], fees: [], files: false, serve: null, also: [SC_START, CIV_START] },
   // ---- Small Claims: plaintiff
-  "plaintiff:claim-drafted-not-filed": { forms: ["7A"], fees: ["sc-claim", "sc-claim-frequent"], files: true, serve: null, also: [SC_START, SC_ATTACH] },
+  // Served once issued: the card says how and within six months (r. 8.01 (2)).
+  "plaintiff:claim-drafted-not-filed": { forms: ["7A"], fees: ["sc-claim", "sc-claim-frequent"], files: true, serve: "originating", also: [SC_START, SC_ATTACH] },
   "plaintiff:claim-issued-not-served": { forms: ["8A"], fees: [], files: false, serve: "originating" },
   "plaintiff:service-attempted-failed": { forms: ["15A", "8A"], fees: ["sc-motion"], files: true, serve: "originating", also: [SC_HEARING_DATE] },
   "plaintiff:six-month-service-window-expired": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: null, also: [SC_HEARING_DATE] },
-  "plaintiff:served-awaiting-defence": NOTHING,
-  "plaintiff:defence-period-expired-no-defence": { forms: ["9B", "11B"], fees: ["sc-default"], files: true, serve: null },
+  "plaintiff:served-awaiting-defence": { forms: ["8A", "9B"], fees: [], files: true, serve: null },
+  "plaintiff:defence-period-expired-no-defence": { forms: ["9B", "11B", "11A"], fees: ["sc-default"], files: true, serve: null },
   "plaintiff:defendant-noted-in-default": { forms: ["11B", "15A", "9B"], fees: ["sc-default", "sc-motion", "sc-trial"], files: true, serve: null },
   "plaintiff:assessment-of-damages-needed": { forms: ["15A", "9B"], fees: ["sc-motion", "sc-trial"], files: true, serve: null },
-  "plaintiff:default-judgment-signed": { forms: ["20P", "20E", "20H"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment" },
-  "plaintiff:defence-filed": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
+  "plaintiff:default-judgment-signed": { forms: ["20P", "20E", "20H", "20C", "20D", "20A", "20I", "20F"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment" },
+  "plaintiff:defence-filed": { forms: ["13A", "20L", "20M"], fees: [], files: true, serve: "ordinary" },
   "plaintiff:served-with-defendants-claim": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
-  "plaintiff:awaiting-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
-  "plaintiff:settlement-conference-held": { forms: ["9B"], fees: ["sc-trial"], files: true, serve: null },
-  "plaintiff:trial-date-set": { forms: ["18A"], fees: ["sc-summons"], files: true, serve: "summons" },
-  "plaintiff:judgment-in-my-favour-unpaid": { forms: ["20P", "20E", "20H", "20C"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment" },
-  "plaintiff:action-dismissed-for-delay": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "plaintiff:awaiting-settlement-conference": { forms: ["13A", "1B"], fees: [], files: true, serve: "ordinary" },
+  "plaintiff:settlement-conference-held": { forms: ["9B", "14D"], fees: ["sc-trial"], files: true, serve: null },
+  "plaintiff:trial-date-set": { forms: ["18A"], fees: ["sc-summons"], files: true, serve: "summons", also: [SC_COSTS_CAP] },
+  "plaintiff:judgment-in-my-favour-unpaid": { forms: ["20P", "20E", "20H", "20C", "20D", "20A", "20I", "20F", "20R"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment", also: [SC_GARNISHMENT_PAID, SC_PERIODIC_ENFORCEMENT, SC_PERIODIC_DEFAULT, SC_PERIODIC_ENDS] },
+  "plaintiff:action-dismissed-for-delay": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   // ---- Small Claims: defendant
   "defendant:served-defence-period-running": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
   "defendant:defence-period-expired-not-yet-noted": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
-  "defendant:noted-in-default": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
-  "defendant:default-judgment-against-me": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "defendant:noted-in-default": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "defendant:default-judgment-against-me": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "defendant:defence-filed": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
   "defendant:considering-defendants-claim": { forms: ["10A"], fees: ["sc-defendants-claim"], files: true, serve: "originating" },
   "defendant:awaiting-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
-  "defendant:trial-date-set": { forms: ["18A"], fees: ["sc-summons"], files: true, serve: "summons" },
-  "defendant:judgment-against-me": { forms: ["15A"], fees: ["sc-motion", "sc-appeal"], files: true, serve: "ordinary", also: [APPEAL_START] },
+  "defendant:trial-date-set": { forms: ["18A"], fees: ["sc-summons"], files: true, serve: "summons", also: [SC_COSTS_CAP] },
+  "defendant:judgment-against-me": { forms: ["15A", "11.2A", "20I"], fees: ["sc-motion", "sc-appeal"], files: true, serve: "ordinary", also: [APPEAL_START] },
   // ---- Small Claims: either side
-  "both:missed-settlement-conference": NOTHING,
-  "both:missed-trial": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
-  "both:filed-in-wrong-place": NOTHING,
+  "both:missed-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
+  "both:missed-trial": { forms: ["15A", "15B"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "both:filed-in-wrong-place": { forms: ["9A", "15A"], fees: ["sc-defence", "sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
 
   // ---- Civil: before filing
   "civil:before-filing:deciding-whether-to-sue": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: null, also: [CIV_START] },
@@ -652,7 +707,7 @@ const MOVING_PARTY_FORMS: Record<PracticalCourt, ReadonlySet<string>> = {
 
 export function practicalFor(stepId: string, court: PracticalCourt, city = "", responding = false): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
-  if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve)) return null;
+  if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
   const toronto = inTorontoRegion(city);
   const filingLines = FILING[court];
   const fees = step.fees.map((id) => FEES[id]).filter(Boolean);

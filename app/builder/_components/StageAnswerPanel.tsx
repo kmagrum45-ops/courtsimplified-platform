@@ -245,6 +245,9 @@ function NextStepCard({
           !practical?.serving.length ? "how to serve" : "",
         ].filter(Boolean);
         if (missing.length === 0) return null;
+        // A step done outside court (a notice before suing) shows the rule for
+        // it and has nothing to file at court, so there is nothing missing.
+        if (practical && practical.also.length > 0 && !practical.forms.length && !practical.filing.length && !practical.serving.length) return null;
         const list = missing.length === 1 ? missing[0] : `${missing.slice(0, -1).join(", ")} or ${missing[missing.length - 1]}`;
         return (
           <p data-testid="next-step-not-listed" className="mt-3 text-sm leading-6 text-[#4d675f]">
