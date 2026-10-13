@@ -11,6 +11,7 @@
  * master_result and writes the rest back as it found it.
  */
 
+import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
@@ -58,10 +59,6 @@ async function ownedCaseFor(request: Request, body: Record<string, unknown>) {
   return { caseId, user, ownedCase, supabase };
 }
 
-function masterOf(value: unknown): Record<string, unknown> {
-  return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
-}
-
 export async function POST(request: Request) {
   const body = await readBody(request);
   if (body instanceof NextResponse) return body;
@@ -71,16 +68,16 @@ export async function POST(request: Request) {
   const checked = validateDraft(body.draft, new Date());
   if (!checked.ok) return NextResponse.json({ error: checked.error }, { status: 400 });
 
-  const master = masterOf(owned.ownedCase.master_result);
-  const updated = upsertDraft(readCaseDrafts(master), checked.draft);
-  if (!updated.ok) return NextResponse.json({ error: updated.error }, { status: 400 });
-
-  const { error } = await owned.supabase
-    .from("cases")
-    .update({ master_result: { ...master, drafts: updated.drafts }, updated_at: new Date().toISOString() })
-    .eq("id", owned.caseId)
-    .eq("user_id", owned.user.id);
-  if (error) return NextResponse.json({ error: "Could not save the draft." }, { status: 500 });
+  // Read fresh and write only over what was read (updateCaseRecord.ts).
+  const saved = await updateMasterResult(owned.supabase, { caseId: owned.caseId, userId: owned.user.id }, (master) => {
+    const updated = upsertDraft(readCaseDrafts(master), checked.draft);
+    return updated.ok ? { ...master, drafts: updated.drafts } : { reject: updated.error };
+  });
+  if (!saved.ok) {
+    return saved.reason === "rejected"
+      ? NextResponse.json({ error: saved.error }, { status: 400 })
+      : NextResponse.json({ error: "Could not save the draft." }, { status: saved.reason === "conflict" ? 409 : 500 });
+  }
 
   return NextResponse.json({ draft: checked.draft });
 }
@@ -92,15 +89,11 @@ export async function DELETE(request: Request) {
   if ("error" in owned) return owned.error;
 
   const draftId = typeof body.draftId === "string" ? body.draftId : "";
-  const master = masterOf(owned.ownedCase.master_result);
-  const remaining = readCaseDrafts(master).filter((draft) => draft.id !== draftId);
-
-  const { error } = await owned.supabase
-    .from("cases")
-    .update({ master_result: { ...master, drafts: remaining }, updated_at: new Date().toISOString() })
-    .eq("id", owned.caseId)
-    .eq("user_id", owned.user.id);
-  if (error) return NextResponse.json({ error: "Could not delete the draft." }, { status: 500 });
+  const saved = await updateMasterResult(owned.supabase, { caseId: owned.caseId, userId: owned.user.id }, (master) => ({
+    ...master,
+    drafts: readCaseDrafts(master).filter((draft) => draft.id !== draftId),
+  }));
+  if (!saved.ok) return NextResponse.json({ error: "Could not delete the draft." }, { status: saved.reason === "conflict" ? 409 : 500 });
 
   return NextResponse.json({ deleted: draftId });
 }

@@ -273,7 +273,7 @@ function personsDatesWin(source: string): boolean {
 {
   const builder = read("app/builder/page.tsx");
   const saveAt = builder.indexOf("master_result: {\n              ...masterPayload");
-  const readAt = builder.lastIndexOf('.select("master_result")', saveAt);
+  const readAt = builder.lastIndexOf('.select("master_result,updated_at")', saveAt);
   check(
     "a builder re-save keeps the position and drafts, read fresh just before writing",
     saveAt !== -1 &&
@@ -282,6 +282,12 @@ function personsDatesWin(source: string): boolean {
       // The kept keys include position and drafts; more may join (Phase 1
       // added formApplicability and intakeAnswers).
       /\["position", "drafts"[^\]]*\]/.test(builder.slice(readAt, saveAt)),
+  );
+  // 2026-10-13: and only over what it read -- a stage saved in between is
+  // rebuilt on top, not erased.
+  check(
+    "a builder re-save writes only if nothing saved in between, and rebuilds on top if something did",
+    /write = write\.eq\("updated_at", userOwnedRow\.updated_at\)/.test(builder) && /outcome = await buildAndWrite\(\)/.test(builder),
   );
 }
 

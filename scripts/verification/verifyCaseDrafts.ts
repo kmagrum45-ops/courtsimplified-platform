@@ -151,7 +151,8 @@ const read = (file: string) => readFileSync(path.join(process.cwd(), file), "utf
     /getAuthenticatedUser\(/.test(route) &&
       /getAuthenticatedOwnedCase\(/.test(route) &&
       /validateDraft\(/.test(route) &&
-      (route.match(/\.eq\("user_id", owned\.user\.id\)/g) ?? []).length === 2,
+      // Both writes go through updateMasterResult, scoped to the owner (2026-10-13).
+      (route.match(/updateMasterResult\(owned\.supabase, \{ caseId: owned\.caseId, userId: owned\.user\.id \}/g) ?? []).length === 2,
   );
 }
 

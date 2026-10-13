@@ -1,4 +1,5 @@
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import { suggestApplicability } from "@/src/lib/case-system/forms/applicabilitySuggestions";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
@@ -224,10 +225,11 @@ export async function PATCH(request: Request) {
   if (!patch) return NextResponse.json({ error: "Form applicability answers are not declared for this selected case." }, { status: 400 });
   const supabase = authenticatedClient(request);
   if (!supabase) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
-  const masterResult = mergeFormApplicability(current.masterResult, patch);
-  const { data, error } = await supabase.from("cases").update({ master_result: masterResult }).eq("id", caseId).select("id").maybeSingle();
-  if (error) return NextResponse.json({ error: "Could not save form applicability answers." }, { status: 500 });
-  if (!data?.id) return NextResponse.json({ error: "The selected case could not be updated." }, { status: 404 });
+  // Merged into the record as stored now, not the copy read above (which also
+  // carries derived fields), and only over what was read (updateCaseRecord.ts).
+  const saved = await updateMasterResult(supabase, { caseId }, (stored) => mergeFormApplicability(stored, patch));
+  if (!saved.ok && saved.reason === "not-found") return NextResponse.json({ error: "The selected case could not be updated." }, { status: 404 });
+  if (!saved.ok) return NextResponse.json({ error: "Could not save form applicability answers." }, { status: saved.reason === "conflict" ? 409 : 500 });
   const updated = await readinessForOwnedCase(request, caseId);
   if ("error" in updated) return NextResponse.json({ error: updated.error }, { status: updated.status });
   return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, suggestedApplicability: suggestionsFor(updated), recommendations: updated.recommendations, stageSupport: updated.stageSupport });
