@@ -800,7 +800,31 @@ const MOVING_PARTY_FORMS: Record<PracticalCourt, ReadonlySet<string>> = {
   family: new Set(["14"]),
 };
 
-export function practicalFor(stepId: string, court: PracticalCourt, city = "", responding = false): PracticalView | null {
+/**
+ * Which of a step's notice rules fit the person's words (2026-10-13,
+ * walkthrough: a woman hurt on a Toronto sidewalk was shown the Crown and
+ * libel notices beside the City of Toronto one). Only rules whose source
+ * appears here are filtered; when the words fit none of them, every one is
+ * shown, so a gap in these patterns never hides a notice that might apply.
+ */
+const PUBLIC_WAY = /\b(?:city|town|township|municipal\w*|sidewalk|road|street|highway|bridge|pothole)\b/i;
+const NOTICE_FITS: Partial<Record<RuleCitation["sourceId"], (story: string, city: string) => boolean>> = {
+  "city-of-toronto-act-2006": (story, city) => PUBLIC_WAY.test(story) && (inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
+  "municipal-act-2001": (story, city) => PUBLIC_WAY.test(story) && !(inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
+  "occupiers-liability-act": (story) => /\b(?:snow|ice|icy)\b/i.test(story) && /\b(?:property|premises|store|shop|parking|lot|driveway|building|landlord|mall|restaurant|plaza)\b/i.test(story),
+  "crown-liability-and-proceedings-act-2019": (story) => /\b(?:crown|province|provincial|ontario government|government of ontario|ministry|minister|opp)\b/i.test(story),
+};
+
+/** A step's extra rule lines, narrowed to the notices the person's words fit (all of them when the words fit none). */
+export function alsoFor(also: RuleCitation[], story = "", city = ""): RuleCitation[] {
+  if (!story.trim()) return also;
+  const judged = also.filter((cite) => NOTICE_FITS[cite.sourceId]);
+  const fitting = judged.filter((cite) => NOTICE_FITS[cite.sourceId]!(story, city));
+  if (judged.length === 0 || fitting.length === 0) return also;
+  return also.filter((cite) => !NOTICE_FITS[cite.sourceId] || fitting.includes(cite));
+}
+
+export function practicalFor(stepId: string, court: PracticalCourt, city = "", responding = false, story = ""): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
   const toronto = inTorontoRegion(city);
@@ -836,7 +860,7 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = "", r
       ? [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]
       : [],
     serving: serviceLines.length > 0 ? [...serviceLines, SERVICE[court].proof] : [],
-    also: step.also ?? [],
+    also: alsoFor(step.also ?? [], story, city),
   };
 }
 

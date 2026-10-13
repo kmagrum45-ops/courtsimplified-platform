@@ -1226,7 +1226,10 @@ function BuilderPageContent() {
   };
 
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
-    // One save at a time with the deadline box's own saves (positionSave.ts).
+    // One save at a time with the deadline box's own saves (positionSave.ts);
+    // tried once more if it fails, so the case page does not ask again.
+    if (await savePositionQueued(caseId, { confirmedStage: stage })) return;
+    await new Promise((resolve) => setTimeout(resolve, 2_000));
     await savePositionQueued(caseId, { confirmedStage: stage });
   }
 
@@ -1246,18 +1249,35 @@ function BuilderPageContent() {
     if (!canonicalIntakeSaved) return;
     const caseId = savedCaseId();
     if (!caseId) return;
-    const patch: Record<string, unknown> = {};
-    if (confirmedStage) patch.confirmedStage = confirmedStage;
-    if (positionThisVisit.stepId !== undefined) patch.stepId = positionThisVisit.stepId;
-    if (positionThisVisit.dateAnswers && Object.keys(positionThisVisit.dateAnswers).length) patch.dateAnswers = positionThisVisit.dateAnswers;
-    if (positionThisVisit.service && Object.keys(positionThisVisit.service).length) patch.service = positionThisVisit.service;
-    if (Object.keys(patch).length === 0) return;
-    const key = JSON.stringify({ caseId, ...patch });
+    /*
+     * EACH PART ITS OWN SAVE (2026-10-13, walkthrough run 38470954003: the
+     * stage confirmed on this page was missing on the case page, on 3 of 5
+     * cases). The position route accepts or rejects a save whole, so one date
+     * it could not read took the confirmed stage down with it. The stage goes
+     * first and alone; the step, the dates and how papers were served follow
+     * in their own saves. A save that fails is tried once more.
+     */
+    const parts: Record<string, unknown>[] = [];
+    if (confirmedStage) parts.push({ confirmedStage });
+    if (positionThisVisit.stepId !== undefined) parts.push({ stepId: positionThisVisit.stepId });
+    if (positionThisVisit.dateAnswers && Object.keys(positionThisVisit.dateAnswers).length) parts.push({ dateAnswers: positionThisVisit.dateAnswers });
+    if (positionThisVisit.service && Object.keys(positionThisVisit.service).length) parts.push({ service: positionThisVisit.service });
+    if (parts.length === 0) return;
+    const key = JSON.stringify({ caseId, parts });
     if (sentPositionRef.current === key) return;
     sentPositionRef.current = key;
-    void savePositionQueued(caseId, patch).then((ok) => {
-      if (!ok) sentPositionRef.current = "";
-    });
+    void (async () => {
+      let allSaved = true;
+      for (const part of parts) {
+        let ok = await savePositionQueued(caseId, part);
+        if (!ok) {
+          await new Promise((resolve) => setTimeout(resolve, 2_000));
+          ok = await savePositionQueued(caseId, part);
+        }
+        if (!ok) allSaved = false;
+      }
+      if (!allSaved) sentPositionRef.current = "";
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canonicalIntakeSaved, confirmedStage, positionThisVisit, masterCaseId]);
 
