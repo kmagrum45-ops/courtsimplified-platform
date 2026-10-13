@@ -17,7 +17,34 @@
 
 import type { CaseRecord } from "../caseRecord";
 
-export type ApplicabilitySuggestion = { fieldPath: string; value: boolean | string; reason: string };
+/**
+ * `firm`: the answer is something the person themselves entered or chose --
+ * their side, an amount they typed, an answer to a family question, the step
+ * they picked. The Forms page keeps a firm answer with the case without
+ * asking again (build order Step 2B, 2026-10-12: the walkthrough flagged the
+ * page re-asking "money or property?" and "which pleading?" on 4 of 10
+ * cases). An answer read from what the story does or does not mention stays
+ * a suggestion the person confirms.
+ */
+export type ApplicabilitySuggestion = { fieldPath: string; value: boolean | string; reason: string; firm?: boolean };
+
+/** The person's chosen step -> the answer it settles, where that step leaves no doubt. */
+const STEP_ANSWERS: Record<string, Record<string, { value: string; reason: string; firm: boolean }>> = {
+  pleadingPosture: {
+    "civil:plaintiff:served-with-counterclaim": { value: "defence-to-counterclaim", reason: "Your step is answering a counterclaim made against you.", firm: true },
+    "civil:defendant:served-with-counterclaim-as-new-party": { value: "defence-to-counterclaim", reason: "Your step is answering a counterclaim that names you.", firm: true },
+  },
+  responseDocument: {
+    // A Statement of Defence is the usual answer, but a notice of intent to
+    // defend is also open to them, so this one stays a suggestion.
+    "civil:defendant:served-defence-period-running": { value: "statement-of-defence", reason: "Your step is answering a statement of claim.", firm: false },
+  },
+  motionDocumentSet: {
+    "family:both:served-with-motion-to-change": { value: "response-to-motion-to-change", reason: "Your step is responding to a motion to change.", firm: true },
+    "family:both:asking-to-change-final-order": { value: "motion-to-change", reason: "Your step is asking to change a final order.", firm: true },
+    "family:both:bringing-a-motion": { value: "notice-of-motion-and-general-affidavit", reason: "Your step is bringing a motion.", firm: false },
+  },
+};
 
 type Question = { field_path: string; choices: ReadonlyArray<{ value: unknown }> };
 
@@ -29,25 +56,25 @@ function suggest(
   fieldPath: string,
   record: CaseRecord,
   master: Record<string, unknown>,
-): { value: boolean | string; reason: string } | null {
+): { value: boolean | string; reason: string; firm?: boolean } | null {
   const last = fieldPath.split(".").at(-1) ?? "";
   const side = record.side?.value;
 
   // "Are you responding to a Plaintiff's Claim / Family Application?"
   if (/^respondingTo/.test(last) && side) {
     return side === "responding"
-      ? { value: true, reason: "Your case says you are responding to the other side's case." }
-      : { value: false, reason: "Your case says you are the one starting it." };
+      ? { value: true, reason: "Your case says you are responding to the other side's case.", firm: true }
+      : { value: false, reason: "Your case says you are the one starting it.", firm: true };
   }
 
   // "Is this a divorce application?" -- from the family questions' own answers.
   if (last === "isDivorceApplication") {
     const family = asRecord(asRecord(master.familyStatus).record);
     if (family.marriedToOtherParty === "no") {
-      return { value: false, reason: "You said you were not married to the other person." };
+      return { value: false, reason: "You said you were not married to the other person.", firm: true };
     }
-    if (family.divorceSought === "yes") return { value: true, reason: "You said you are asking for a divorce." };
-    if (family.divorceSought === "no") return { value: false, reason: "You said you are not asking for a divorce." };
+    if (family.divorceSought === "yes") return { value: true, reason: "You said you are asking for a divorce.", firm: true };
+    if (family.divorceSought === "no") return { value: false, reason: "You said you are not asking for a divorce.", firm: true };
   }
 
   // "Does your case include a claim about decision-making, parenting time or contact?"
@@ -55,15 +82,23 @@ function suggest(
     const issues = asRecord(asRecord(master.intakeData).extra).issues;
     const list = Array.isArray(issues) ? issues.map(String) : [];
     if (list.some((issue) => /decision|custody|parenting|access|contact/i.test(issue))) {
-      return { value: true, reason: "The issues you chose include parenting." };
+      return { value: true, reason: "The issues you chose include parenting.", firm: true };
     }
   }
   // "What ordinary claim are you starting?" -- a money claim, from the amount
   // they recorded (held-back walkthrough, 2026-10-09: asked of a plaintiff
   // whose $5,200 repair-cost claim was on record).
   if (last === "requestedRemedyType" && record.amount && /\d/.test(record.amount)) {
-    return { value: "ordinary-money-claim", reason: `You recorded an amount: ${record.amount}.` };
+    return { value: "ordinary-money-claim", reason: `You recorded an amount: ${record.amount}.`, firm: true };
   }
+  // No amount typed, but the story asks for money: offered, not kept.
+  if (last === "requestedRemedyType" && /\$\s?\d|\b(?:pay(?:\s+(?:me|for|back))?|owe[sd]?|refund|compensat\w*|reimburs\w*)\b/i.test(record.story)) {
+    return { value: "ordinary-money-claim", reason: "Your story asks for money." };
+  }
+
+  // The step the person picked settles some of these outright.
+  const stepAnswer = record.position.stepId ? STEP_ANSWERS[last]?.[record.position.stepId] : undefined;
+  if (stepAnswer) return stepAnswer;
 
   // Civil: what the person's own words already answer. Each says only what is
   // in their story; "Not sure" stays one click away.
@@ -76,6 +111,11 @@ function suggest(
   }
   if (last === "isGeneralAction" && /\b(?:statement of claim|sued|suing|sue)\b/.test(story)) {
     return { value: true, reason: "You described suing someone." };
+  }
+  // Suing someone is an action, not an application (walkthrough: the page
+  // asked a plaintiff with a new action whether it was an application).
+  if (last === "isApplication" && /\b(?:statement of claim|sued|suing|sue)\b/.test(story) && !/\bnotice of application\b/.test(story)) {
+    return { value: false, reason: "You described suing someone, which is an action, not an application." };
   }
   return null;
 }

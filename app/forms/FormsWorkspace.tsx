@@ -11,7 +11,7 @@
  */
 
 import Link from "next/link";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   FORM_COMPLETION_PAUSED,
@@ -432,7 +432,11 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
    * (applicabilitySuggestions.ts, master plan Phase 1). Saved only when the
    * person presses Save.
    */
-  const [suggestedAnswers, setSuggestedAnswers] = useState<{ fieldPath: string; value: boolean | string; reason: string }[]>([]);
+  const [suggestedAnswers, setSuggestedAnswers] = useState<{ fieldPath: string; value: boolean | string; reason: string; firm?: boolean }[]>([]);
+  // Answers kept from what the person already entered, with why (Step 2B).
+  const [keptFromCase, setKeptFromCase] = useState<Record<string, string>>({});
+  const [changingKept, setChangingKept] = useState<Record<string, boolean>>({});
+  const autoKeptKey = useRef("");
   const [verifiedRecommendations, setVerifiedRecommendations] = useState<
     VerifiedFormRecommendation[]
   >([]);
@@ -717,7 +721,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     }, {});
   }
 
-  async function saveApplicability() {
+  async function saveApplicability(onlyPatch?: FormApplicability, kept?: Record<string, string>) {
     if (!caseId || caseLoading || caseUnavailable) return;
     setApplicabilitySaving(true);
     setApplicabilityError("");
@@ -729,7 +733,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       setApplicabilityError("Sign in to save form confirmations for this case.");
       return;
     }
-    const patch = applicabilityPatch();
+    const patch = onlyPatch ?? applicabilityPatch();
     const response = await fetch("/api/cases/form-applicability", {
       method: "PATCH",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
@@ -744,6 +748,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     setFormApplicability(result.formApplicability || {});
     setApplicabilityQuestions(Array.isArray(result.applicabilityQuestions) ? result.applicabilityQuestions : []);
     setSuggestedAnswers(Array.isArray(result.suggestedApplicability) ? result.suggestedApplicability : []);
+    if (kept) setKeptFromCase((current) => ({ ...current, ...kept }));
     setVerifiedRecommendations(Array.isArray(result.recommendations) ? result.recommendations : []);
     setStageSupport(
       result.stageSupport && typeof result.stageSupport === "object"
@@ -752,6 +757,37 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     );
     setApplicabilitySaving(false);
   }
+
+  /*
+   * Answers the person already gave elsewhere (their side, an amount they
+   * typed, a family answer, the step they picked) are kept with the case
+   * without asking again (build order Step 2B, 2026-10-12: the walkthrough
+   * flagged this page re-asking "money or property?", "what kind of case?"
+   * and "which pleading?" on 4 of 10 cases). Each shows where it came from,
+   * with Change. Answers read from what the story does or doesn't mention
+   * stay suggestions the person saves themselves.
+   */
+  useEffect(() => {
+    if (!caseId || caseLoading || caseUnavailable || applicabilitySaving) return;
+    const firm = suggestedAnswers.filter(
+      (suggestion) =>
+        suggestion.firm &&
+        applicabilityQuestions.some((question) => question.field_path === suggestion.fieldPath && savedAnswerFor(question) === undefined),
+    );
+    if (firm.length === 0) return;
+    const key = JSON.stringify(firm.map((item) => [item.fieldPath, item.value]));
+    if (autoKeptKey.current === key) return;
+    autoKeptKey.current = key;
+    const patch: FormApplicability = {};
+    const reasons: Record<string, string> = {};
+    for (const item of firm) {
+      const [, group, field] = item.fieldPath.split(".");
+      patch[group] = { ...(asRecord(patch[group]) || {}), [field]: item.value };
+      reasons[item.fieldPath] = item.reason;
+    }
+    void saveApplicability(patch, reasons);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [suggestedAnswers, applicabilityQuestions, caseId, caseLoading, caseUnavailable]);
 
   async function generateFilledForm(form: CleanFormItem) {
     try {
@@ -929,12 +965,25 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                 {applicabilityQuestions.map((question) => {
                   const answer = answerFor(question);
                   const selectedValue = question.choices.find((choice) => choice.value === answer)?.value;
+                  if (keptFromCase[question.field_path] && !changingKept[question.field_path] && savedAnswerFor(question) !== undefined) {
+                    const chosen = question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(savedAnswerFor(question)));
+                    return (
+                      <div key={question.field_path} data-testid="forms-kept-from-case" className="block">
+                        <p className="font-semibold">{question.question}</p>
+                        <p className="mt-1 text-[#16302b]">{chosen?.label ?? String(savedAnswerFor(question))}</p>
+                        <p className="mt-1 font-normal text-[#2f7d67]">From your case: {keptFromCase[question.field_path]} Saved to your case.</p>
+                        <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
+                          Change
+                        </button>
+                      </div>
+                    );
+                  }
                   return <label key={question.field_path} className="block font-semibold">{question.question}{question.explanation ? <span className="mt-1 block font-normal text-[#4f685f]">{question.explanation}</span> : null}{suggestionFor(question) ? <span className="mt-1 block font-normal text-[#2f7d67]">From your case: {suggestionFor(question)!.reason} Change it if that is not right, then save.</span> : null}<select className="mt-2 block w-full rounded-xl border border-[#d8e6df] p-3" value={selectedValue === undefined ? "" : JSON.stringify(selectedValue)} onChange={(event) => { const choice = question.choices.find((item) => JSON.stringify(item.value) === event.target.value); if (choice) updateApplicability(question, choice.value); }}><option value="" disabled>Select an answer</option>{question.choices.map((choice) => <option key={`${typeof choice.value}:${choice.value}`} value={JSON.stringify(choice.value)}>{choice.label}</option>)}</select></label>;
                 })}
               </div>
             ) : null}
 
-            {applicabilityQuestions.length ? <button type="button" onClick={saveApplicability} disabled={applicabilitySaving} className="mt-5 rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white disabled:opacity-70">{applicabilitySaving ? "Saving..." : "Save confirmations"}</button> : null}
+            {applicabilityQuestions.length ? <button type="button" onClick={() => void saveApplicability()} disabled={applicabilitySaving} className="mt-5 rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white disabled:opacity-70">{applicabilitySaving ? "Saving..." : "Save confirmations"}</button> : null}
             {applicabilityError ? <p className="mt-3 text-sm font-semibold text-red-700">{applicabilityError}</p> : null}
 
             {verifiedRecommendations.length ? (
