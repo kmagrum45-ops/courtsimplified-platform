@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
@@ -583,6 +583,44 @@ export default function StageAnswerPanel({
     setDateStatus(saved ? "saved" : "not-saved");
   }
 
+  /*
+   * A full date the person wrote in their story (with its year) is kept with
+   * the case as soon as it is shown, instead of waiting for "Yes, save this
+   * date" (build order Step 2B, 2026-10-12). It is their own statement, not a
+   * guess; the deadline was already counted from it; and the walkthrough
+   * flagged the waiting prompt as asking again on 8 cases, including after
+   * every reload, because nothing was saved until the click. The quote it
+   * came from stays on screen with "Change", and a date with no year is still
+   * asked (yearAssumed never reaches storyDates).
+   */
+  const [keptFromStory, setKeptFromStory] = useState<Record<string, string>>({});
+  const autoKeptFor = useRef("");
+  useEffect(() => {
+    if (result?.outcome !== "rendered") return;
+    const fill: Record<string, string> = {};
+    const bases: Record<string, string> = {};
+    for (const question of result.dateQuestions ?? []) {
+      const story = storyDates[question.id];
+      if (story && !dateAnswers[question.id] && !rejected[question.id]) {
+        fill[question.id] = story.value;
+        bases[question.id] = story.basis;
+      }
+    }
+    const key = `${stageId}|${JSON.stringify(fill)}`;
+    if (Object.keys(fill).length === 0 || autoKeptFor.current === key) return;
+    autoKeptFor.current = key;
+    setKeptFromStory((current) => ({ ...current, ...bases }));
+    setDateDraft((current) => ({ ...current, ...fill }));
+    const next = { ...dateAnswers, ...fill };
+    setDateAnswers(next);
+    onSaved?.({ dateAnswers: next });
+    if (!caseId) return;
+    // Only the dates: the step is saved when the person acts on it, never
+    // because a date was kept (case position stores only what they chose).
+    void savePosition(caseId, { dateAnswers: fill }).then((saved) => setDateStatus(saved ? "saved" : "not-saved"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, storyDates, stageId]);
+
   return (
     <section
       data-testid="stage-answer-panel"
@@ -719,7 +757,12 @@ export default function StageAnswerPanel({
                       <span className="font-semibold">{shortLabel(question.question)}:</span> {formatIso(saved || fromStory!.value)}
                     </p>
                     <p className="text-xs text-[#4d675f]">
-                      {saved ? "Saved to your case." : `${fromStory!.basis.replace(/^from your story/, "From your story")}`} Used for:{" "}
+                      {saved
+                        ? keptFromStory[question.id]
+                          ? `${keptFromStory[question.id].replace(/^from your story/, "From your story")}. Saved to your case.`
+                          : "Saved to your case."
+                        : `${fromStory!.basis.replace(/^from your story/, "From your story")}`}{" "}
+                      Used for:{" "}
                       {question.sets.join("; ")}
                     </p>
                     <div className="mt-2 flex flex-wrap gap-2">
