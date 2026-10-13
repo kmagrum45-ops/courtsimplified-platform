@@ -188,7 +188,7 @@ const LAW_MAP_MOVES: StageMove[] = [
   move("plaintiff:served-awaiting-defence", "plaintiff:defendant-proposed-terms", "other-side", "The defendant's defence admits all or part of the claim and proposes terms of payment.", R_9_03_ADMIT_PROPOSE),
   move("plaintiff:defendant-proposed-terms", "plaintiff:judgment-in-my-favour-unpaid", "other-side", "If you do not dispute the proposal within 20 days and the defendant misses payments, you may serve a notice of default of payment (Form 20L) and ask the clerk for judgment for the unpaid balance.", R_9_03_NO_DISPUTE),
   move("defendant:admitted-and-proposed-terms", "defendant:judgment-being-enforced", "other-side", "If the plaintiff does not dispute the proposal, you pay as if it were a court order; if a payment is missed, the plaintiff may serve a notice of default of payment and get judgment for the unpaid balance.", R_9_03_NO_DISPUTE),
-  move("defendant:admitted-and-proposed-terms", "defendant:awaiting-settlement-conference", "other-side", "The plaintiff may dispute the proposal within 20 days by asking for a terms of payment hearing (Form 9B).", R_9_03_DISPUTE),
+  move("defendant:admitted-and-proposed-terms", "defendant:awaiting-settlement-conference", "other-side", "The plaintiff can dispute the proposal within 20 days by asking for a terms of payment hearing (Form 9B).", R_9_03_DISPUTE),
   // Motions (r. 15)
   move("plaintiff:defence-filed", "both:bringing-a-motion", "you", "You ask the court for an order before trial by a notice of motion and supporting affidavit (Form 15A).", R_15_01_MOTION_FORM),
   move("defendant:defence-filed", "both:bringing-a-motion", "you", "You ask the court for an order before trial by a notice of motion and supporting affidavit (Form 15A).", R_15_01_MOTION_FORM),
@@ -293,8 +293,8 @@ const CIVIL_MOVES: StageMove[] = [
   move("civil:both:pretrial-scheduled", "civil:both:trial-date-set", "court", "The action is placed on a trial list and all parties are deemed ready for trial.", stepRule("civil:both:trial-date-set", "r. 48.07")),
   move("civil:both:trial-date-set", "civil:both:judgment-given", "court", "After the trial, a final order is made; an appeal starts with a notice of appeal served within 30 days.", stepRule("civil:both:judgment-given", "r. 61.04 (1)")),
   move("civil:both:trial-date-set", "civil:both:missed-trial", "either", "When the action is called for trial, all the parties fail to attend.", stepRule("civil:both:missed-trial", "r. 52.01 (1)")),
-  move("civil:both:missed-trial", "civil:plaintiff:struck-off-trial-list", "court", "The trial judge may strike the action off the trial list.", stepRule("civil:both:missed-trial", "r. 52.01 (1)")),
-  move("civil:both:missed-trial", "civil:both:motion-scheduled", "either", "A judge may set aside or vary a judgment obtained against a party who did not attend the trial.", stepRule("civil:both:missed-trial", "r. 52.01 (3)")),
+  move("civil:both:missed-trial", "civil:plaintiff:struck-off-trial-list", "court", "The action can be struck off the trial list by the trial judge.", stepRule("civil:both:missed-trial", "r. 52.01 (1)")),
+  move("civil:both:missed-trial", "civil:both:motion-scheduled", "either", "A judgment obtained against a party who did not attend the trial can be set aside or varied by a judge.", stepRule("civil:both:missed-trial", "r. 52.01 (3)")),
   move("civil:plaintiff:struck-off-trial-list", "civil:both:trial-date-set", "court", "An action struck off a trial list goes back on only with leave.", stepRule("civil:plaintiff:struck-off-trial-list", "r. 48.11")),
   move("civil:plaintiff:struck-off-trial-list", "civil:plaintiff:action-dismissed-for-delay", "time", "An action struck off a trial list and not restored or ended is dismissed for delay by the registrar, unless the court orders otherwise.", stepRule("civil:plaintiff:ready-to-set-down", "r. 48.14 (1)")),
   move("civil:plaintiff:action-dismissed-for-delay", "civil:both:motion-scheduled", "you", "A party affected by a registrar's order may move to set it aside, by a notice of motion served as soon as the order comes to their attention.", stepRule("civil:plaintiff:action-dismissed-for-delay", "r. 37.14 (1)")),
@@ -456,7 +456,7 @@ const FAMILY_MOVES: StageMove[] = [
   // Enforcement
   move("family:both:support-order-not-paid", "family:both:served-with-request-for-financial-statement", "either", "If a payment order is in default, the recipient may serve a request for a financial statement (Form 27).", F("both:served-with-request-for-financial-statement", "r. 27 (1)")),
   move("family:both:support-order-not-paid", "family:both:served-with-financial-examination-appointment", "either", "If a payment order is in default, the recipient may serve an appointment for a financial examination (Form 27C).", F("both:served-with-financial-examination-appointment", "r. 27 (11)")),
-  move("family:both:support-order-not-paid", "family:both:served-with-notice-of-garnishment", "either", "A payment order may be enforced by garnishment; a payor or garnishee may dispute it within 10 days.", F("both:support-order-not-paid", "r. 26 (3)"), F("both:served-with-notice-of-garnishment", "r. 29 (16)")),
+  move("family:both:support-order-not-paid", "family:both:served-with-notice-of-garnishment", "either", "A payment order may be enforced by garnishment; a payor or garnishee can dispute it within 10 days.", F("both:support-order-not-paid", "r. 26 (3)"), F("both:served-with-notice-of-garnishment", "r. 29 (16)")),
   move("family:both:support-order-not-paid", "family:both:served-with-notice-of-default-hearing", "either", "A support order may be enforced by a default hearing; the notice is served on the payor by special service.", F("both:support-order-not-paid", "r. 26 (3)"), F("both:served-with-notice-of-default-hearing", "r. 30 (2)")),
   move("family:both:support-order-not-paid", "family:both:served-with-contempt-motion", "either", "An order other than a payment order may be enforced by a contempt motion in the case where it was made.", F("both:served-with-contempt-motion", "r. 31 (1)")),
   move("family:both:support-order-not-paid", "family:both:served-with-licence-suspension-notice", "other-side", "When a support order filed with the Director is in default, the Director may serve a first notice that the payor's driver's licence may be suspended unless, within 30 days, the payor acts.", F("both:served-with-licence-suspension-notice", "s. 34")),
@@ -520,4 +520,34 @@ export const SEQUENCED_PATHWAYS = ["small-claims", "civil", "family"] as const;
 
 export function isSequenced(stage: CaseStage): boolean {
   return (SEQUENCED_PATHWAYS as readonly string[]).includes(stage.pathway ?? "small-claims");
+}
+
+/** Who moves the case, in the words the step panel shows. */
+export const MOVER_WORDS: Record<Mover, string> = {
+  you: "You",
+  "other-side": "The other side",
+  either: "Either side",
+  court: "The court or the clerk",
+  time: "Time running out",
+};
+
+export type NextStepView = { to: string; title: string; when: string; by: string; rules: RuleCitation[] };
+
+/**
+ * What can come next from a step, for the step panel ("What can happen next").
+ * A move into the other side's own steps is left out for this reader when
+ * moves into their own or shared steps remain, so a defendant is not shown
+ * the plaintiff's version of the same next step. A final step returns its
+ * reason instead.
+ */
+export function nextStepsFor(stageId: string, responding: boolean): { moves: NextStepView[]; final: FinalStep | null } {
+  const otherSides = responding ? ["plaintiff", "applicant"] : ["defendant", "respondent"];
+  const all = movesFrom(stageId);
+  const sideOf = (id: string) => ALL_STAGES.find((stage) => stage.id === id)?.side ?? "both";
+  const own = all.filter((m) => !otherSides.includes(sideOf(m.to)));
+  const shown = own.length > 0 ? own : all;
+  return {
+    moves: shown.map((m) => ({ to: m.to, title: ALL_STAGES.find((stage) => stage.id === m.to)?.title ?? m.to, when: m.when, by: MOVER_WORDS[m.by], rules: m.rules })),
+    final: FINAL_STEPS.find((f) => f.stage === stageId) ?? null,
+  };
 }

@@ -80,6 +80,13 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   "city-of-toronto-act-2006": "2026-09-27",
   "occupiers-liability-act": "2026-09-27",
   "insurance-act": "2026-09-27",
+  // Cited by the step chain's "What can happen next" (stageSequence.ts).
+  "limitations-act-2002": "2026-09-27",
+  "oreg-626-00-monetary-jurisdiction": "2026-09-27",
+  "crown-liability-and-proceedings-act-2019": "2026-09-27",
+  "family-law-act": "2026-09-30",
+  "family-responsibility-support-arrears-enforcement-act": "2026-09-30",
+  "divorce-act": "2026-09-30",
 };
 
 // ---------------------------------------------------------------- fees
