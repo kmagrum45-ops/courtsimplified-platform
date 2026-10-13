@@ -111,6 +111,22 @@ export default function CaseOverviewPage() {
     "not-sure";
 
   const confirmed = position.confirmedStage;
+
+  /*
+   * A stage confirmed on the results page a moment ago may still be on its
+   * way when this page first loads (walkthrough run 38475320722: the case
+   * page asked for it again, and showed it after a reload). Read the case once
+   * more shortly after opening, before asking.
+   */
+  const [lookedAgain, setLookedAgain] = useState(false);
+  useEffect(() => {
+    if (confirmed || lookedAgain) return;
+    const timer = setTimeout(() => {
+      setLookedAgain(true);
+      void reload();
+    }, 2_500);
+    return () => clearTimeout(timer);
+  }, [confirmed, lookedAgain, reload]);
   const draftCount = readCaseDrafts(master).length;
   const suggestedDates: Record<string, SuggestedDate> = events ? suggestedDatesFromEvents(events.events) : {};
   const analysis = asRecord(master.intakeAnalysis) as unknown as AnalysisResult;

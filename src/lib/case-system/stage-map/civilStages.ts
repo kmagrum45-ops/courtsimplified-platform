@@ -2312,6 +2312,20 @@ const BEFORE_FILING: CaseStage[] = [
         ],
       },
       {
+        id: "deadline:civil:toronto-notice-10-days",
+        what: "If the City of Toronto did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the city clerk",
+        countFrom: "the day of the injury",
+        countFromEvent: "injury-occurred",
+        length: { unit: "days", count: 10 },
+        regime: "legislation-act",
+        rule: C.S_TORONTO_42_6_NOTICE,
+        computation: C.S_LEGISLATION_89_3_BETWEEN,
+        consequence: "bars-the-claim",
+        qualifier:
+          "The notice must give the date, time and place of the injury. Serve it on the city clerk, or send it by registered mail. For injury from snow or ice on a sidewalk, the City is liable only for gross negligence. Missing the notice is not a bar if the injured person died from the injury. It is also not a bar if a judge finds a reasonable excuse and no prejudice to the City.",
+        exceptions: [C.S_TORONTO_42_5_SIDEWALK, C.S_TORONTO_42_7_DEATH, C.S_TORONTO_42_8_EXCUSE],
+      },
+      {
         id: "deadline:civil:occupier-notice-60-days",
         what: "If you were hurt by snow or ice on someone's premises, give written notice of the claim to an occupier or to their snow-removal contractor",
         countFrom: "the day of the injury",

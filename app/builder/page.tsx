@@ -29,6 +29,7 @@ import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelli
 import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import CivilIntake from "./_components/CivilIntake";
 import FamilyStatusTriage, {
+  existingFamilyOrder,
   emptyTriageState,
   triageStateFromStored,
   type FamilyTriageState,
@@ -1183,7 +1184,10 @@ function BuilderPageContent() {
     intakeFacts: draftIntakeFacts,
   });
   // The document that STARTS a case is offered only to the side that starts it.
-  const offerOriginatingDraft = !originatingDocumentFiled && !respondingSide;
+  // Someone with a family order already changes it by a motion to change, not
+  // a new application (walkthrough run 38475320722).
+  const offerOriginatingDraft =
+    !originatingDocumentFiled && !respondingSide && !(courtPath === "family" && existingFamilyOrder(homeStory || userStory(caseData)));
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
   // words name (case reader first, then the phrase lists).
@@ -1794,7 +1798,11 @@ function BuilderPageContent() {
           if (!issues.includes("child-support")) return null;
           return (
             <div className="mt-8" data-testid="child-support-surfaces">
-              {role !== "respondent" && <ChildSupportIntake />}
+              {/* The application builder is for a new case. Someone changing an
+                  order they already have makes a motion to change instead
+                  (walkthrough run 38475320722: a father lowering a 2022 support
+                  order was offered "This produces your application"). */}
+              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && <ChildSupportIntake />}
               <ChildSupportTableCard />
             </div>
           );
