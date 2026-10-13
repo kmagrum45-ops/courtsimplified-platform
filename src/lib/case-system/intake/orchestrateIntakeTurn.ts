@@ -376,7 +376,11 @@ export async function orchestrateIntakeTurn(
       distressAcknowledgment = safety.userMessage;
     }
 
-    const { facts: extracted, directFields } = await extractFacts(newStoryText, apiKey);
+    // 2026-10-13: a failed read of the answer (a timeout, a rate limit) never
+    // ends the conversation -- the walkthrough's ice-slip case got "could not
+    // process this intake turn" mid-intake. The answer's own words are still
+    // kept below for the question it answers; the next question is asked.
+    const { facts: extracted, directFields } = await extractOrNothing(extractFacts, newStoryText, apiKey);
 
     const answeredQuestion = answeredQuestionId
       ? questionBank.find((question) => question.id === answeredQuestionId)
@@ -450,7 +454,9 @@ export async function orchestrateIntakeTurn(
       //
       // Side effect, and a large one: this removes a billed call from roughly
       // ten of the eleven turns in a typical journey.
-      suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey)) ?? undefined;
+      // A failed classification means no suggestion, never a failed turn
+      // (2026-10-13): the person can still pick a claim type themselves.
+      suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey).catch(() => null)) ?? undefined;
     }
   }
 
@@ -497,6 +503,24 @@ export async function orchestrateIntakeTurn(
       requestsLegalAdvice,
     },
   });
+}
+
+/**
+ * The structured facts in some text, or none when the read fails. Never
+ * throws: a confirmed or typed answer is still recorded word for word for its
+ * own question, so nothing the person said is lost.
+ */
+async function extractOrNothing(
+  extractFacts: (text: string, apiKey: string) => Promise<{ facts: IntakeFacts; directFields: KnownFactField[] }>,
+  text: string,
+  apiKey: string,
+): Promise<{ facts: IntakeFacts; directFields: KnownFactField[] }> {
+  try {
+    return await extractFacts(text, apiKey);
+  } catch (error) {
+    console.error("Reading the intake answer failed; continuing without it.", { errorName: error instanceof Error ? error.name : "unknown" });
+    return { facts: {}, directFields: [] };
+  }
 }
 
 /** How many of the questions about to be asked are checked against the conversation each turn. */
@@ -690,7 +714,7 @@ export async function applyConfirmedStoryAnswers(
   if (accepted.length > 0) {
     const text = confirmedAnswersAsText(accepted, questionBank);
     const { facts: extracted, directFields } = text
-      ? await extractFacts(text, apiKey)
+      ? await extractOrNothing(extractFacts, text, apiKey)
       : { facts: {} as IntakeFacts, directFields: [] as KnownFactField[] };
 
     for (const item of accepted) {

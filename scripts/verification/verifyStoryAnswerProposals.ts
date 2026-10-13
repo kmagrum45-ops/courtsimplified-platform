@@ -370,6 +370,42 @@ async function main(): Promise<void> {
     applied.nextQuestion?.id,
   );
 
+  // 2026-10-13: the walkthrough's ice-slip case got "could not process this
+  // intake turn" after confirming an answer. A failed read never ends the
+  // conversation: the confirmed words are still kept, and the next question
+  // is asked.
+  const throwing = async () => {
+    throw new Error("timeout");
+  };
+  const survived = await applyConfirmedStoryAnswers(
+    { role: "plaintiff" },
+    [],
+    [{ questionId: "sc-amount-claimed", answerText: "about $2,600" }],
+    "stub-key",
+    QUESTION_BANK,
+    "small-claims",
+    { extractFacts: throwing, composeVoice: STUB_VOICE },
+  );
+  check(
+    "a failed read of confirmed answers still records them and asks the next question",
+    survived.facts.amountClaimedText === "about $2,600" && survived.answeredIds.includes("sc-amount-claimed") && Boolean(survived.nextQuestion || survived.intakeComplete),
+  );
+  const typedSurvived = await orchestrateIntakeTurn(
+    { role: "plaintiff" },
+    ["sc-orient-when-happened"],
+    "about $2,600 for lost work",
+    "stub-key",
+    QUESTION_BANK,
+    CLAIM_TYPES,
+    "small-claims",
+    "sc-amount-claimed",
+    { extractFacts: throwing, composeVoice: STUB_VOICE, runSafety: STUB_SAFETY, proposeAnswers: async () => [] },
+  ).catch(() => null);
+  check(
+    "a failed read of a typed answer still records it and asks the next question",
+    Boolean(typedSurvived && typedSurvived.facts.amountClaimedText === "about $2,600 for lost work" && (typedSurvived.nextQuestion || typedSurvived.intakeComplete)),
+  );
+
   // 2026-09-28: one more read of the story for questions the confirmations
   // just made applicable -- never a question the first card showed, never an
   // answered one, and only when asked for.
