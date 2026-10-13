@@ -387,6 +387,9 @@ jobs:
       - name: Family and civil ask one question at a time, never one already answered
         run: npm run test:guided-form-chat
 
+      - name: Every provision a published answer was proved from is in its source list
+        run: npm run test:verdict-sources
+
       - name: Service counts from the day the rules say, by how papers were served
         run: npm run test:service-dates
 

@@ -28,6 +28,7 @@
 
 import { assertApprovedUserContent } from "./outputGuard";
 import { publishedBlockFor, PUBLISHED_RELEASE } from "./publishedLibrary";
+import VERDICT_SOURCES from "./published/verdictSources.generated.json";
 import { fillSlots, slotsUsed, type StageAnswer } from "./stageAnswers";
 import { OFFICIAL_URLS, SOURCE_NAMES } from "../case-system/stage-map/citations";
 import { findStage, isSpecialStage } from "../case-system/stage-map/stageMap";
@@ -334,7 +335,14 @@ function withDeadlineSources(
   ]);
   const seen = new Set<string>();
   const out: RenderedSource[] = [];
-  for (const citation of [...citations, ...fromDeadlines]) {
+  // The provisions the release proved the answer's other sentences from
+  // (scripts/content/buildVerdictSources.ts): the walkthrough flagged "a
+  // defendant's claim may be issued within 20 days after your defence is
+  // filed" with r. 10.01 missing from the list, though proved from it.
+  const fromVerdicts = ((VERDICT_SOURCES as Record<string, { sourceId: string; pinpoint: string }[]>)[stageId] ?? []).filter(
+    (citation): citation is { sourceId: keyof typeof SOURCE_NAMES; pinpoint: string } => citation.sourceId in SOURCE_NAMES,
+  );
+  for (const citation of [...citations, ...fromDeadlines, ...fromVerdicts]) {
     const key = `${citation.sourceId}|${citation.pinpoint}`;
     if (seen.has(key) || !SOURCE_NAMES[citation.sourceId]) continue;
     seen.add(key);
