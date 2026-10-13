@@ -316,4 +316,41 @@ export const PRACTICAL_SOURCES: CorpusSource[] = [
     mustContain: ["vacation"],
     why: "Cited by the claim-type catalogue; the 2026-09-30 audit could not check claims against it because no copy was saved.",
   },
+  // ---- court glossaries for the Latin still heard in court (2026-10-13) ----
+  // Ontario's rules and statutes replaced Latin with English ("without
+  // notice", not ex parte) and define none of it, yet judges, lawyers and
+  // decisions still use a handful of phrases. No Ontario court publishes a
+  // glossary of them, so these are other Canadian courts' own glossaries for
+  // self-represented people. They explain what a Latin phrase means; nothing
+  // Ontario-specific is taken from them.
+  {
+    id: "fc-glossary",
+    title: "Representing yourself — Glossary (Federal Court)",
+    citation: "fct-cf.ca — Federal Court of Canada",
+    url: "https://www.fct-cf.ca/en/pages/representing-yourself/glossary",
+    format: "html",
+    tier: "practical",
+    mustContain: ["Nunc pro tunc", "In camera"],
+    why: "Meaning of ex parte, in camera, nunc pro tunc and amicus curiae for the glossary.",
+  },
+  {
+    id: "nb-courts-glossary",
+    title: "Glossary of Legal Terms (Courts of New Brunswick)",
+    citation: "courtsnb-coursnb.ca — Courts of New Brunswick",
+    url: "https://www.courtsnb-coursnb.ca/content/cour/en/glossary.html",
+    format: "html",
+    tier: "practical",
+    mustContain: ["De novo", "Viva voce"],
+    why: "Meaning of de novo, viva voce, ex parte and in camera for the glossary.",
+  },
+  {
+    id: "mb-courts-definitions",
+    title: "Definitions: Understanding Legal Words (Manitoba Courts)",
+    citation: "manitobacourts.mb.ca — Manitoba Courts",
+    url: "https://www.manitobacourts.mb.ca/general-information/definitions-understanding-legal-words/",
+    format: "html",
+    tier: "practical",
+    mustContain: ["Prima Facie", "Stare Decisis"],
+    why: "Meaning of prima facie, stare decisis, pro bono and ex parte for the glossary.",
+  },
 ];
