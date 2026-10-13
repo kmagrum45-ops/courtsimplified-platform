@@ -1,0 +1,406 @@
+{
+  "before-filing:deciding-whether-to-sue": [
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 5 (1)"
+    },
+    {
+      "sourceId": "residential-tenancies-act-2006",
+      "pinpoint": "s. 168 (2)"
+    },
+    {
+      "sourceId": "cja-courts-of-justice-act",
+      "pinpoint": "s. 23 (1.1)"
+    },
+    {
+      "sourceId": "municipal-act-2001",
+      "pinpoint": "s. 44 (10)"
+    }
+  ],
+  "before-filing:notice-municipality": [
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 4"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 5 (1)"
+    }
+  ],
+  "before-filing:notice-toronto": [
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 4"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 5 (1)"
+    }
+  ],
+  "before-filing:notice-snow-ice-private": [
+    {
+      "sourceId": "municipal-act-2001",
+      "pinpoint": "s. 44 (9)"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 4"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 5 (1)"
+    }
+  ],
+  "before-filing:notice-deadline-missed": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 7.01 (1)"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 4"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 7.02 (1)"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 5 (1)"
+    }
+  ],
+  "before-filing:limitation-period-may-have-passed": [
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 13 (9)"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 7 (2)"
+    }
+  ],
+  "before-filing:claim-exceeds-small-claims-limit": [
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 4"
+    },
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 5 (1)"
+    }
+  ],
+  "plaintiff:claim-drafted-not-filed": [
+    {
+      "sourceId": "limitations-act-2002",
+      "pinpoint": "s. 5 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 7.02 (1)"
+    }
+  ],
+  "plaintiff:claim-issued-not-served": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.02"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.03 (2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.01"
+    }
+  ],
+  "plaintiff:service-attempted-failed": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.03 (2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 15.01 (3)"
+    }
+  ],
+  "plaintiff:six-month-service-window-expired": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 15.03 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 15.01 (2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.04"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.01"
+    }
+  ],
+  "plaintiff:served-awaiting-defence": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 1.02 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.03 (3)"
+    }
+  ],
+  "plaintiff:defendant-noted-in-default": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 11.05 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 11.06"
+    }
+  ],
+  "plaintiff:default-judgment-signed": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 20.03"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.01 (11)"
+    }
+  ],
+  "plaintiff:defence-filed": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.03 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.03 (3)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.02 (5)"
+    }
+  ],
+  "plaintiff:served-with-defendants-claim": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 10.05 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 10.04 (1)"
+    },
+    {
+      "sourceId": "oreg-332-16-small-claims-fees",
+      "pinpoint": "s. 1 (1)-(2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 11.05 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 11.04"
+    }
+  ],
+  "plaintiff:awaiting-settlement-conference": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.01 (2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.08"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 2 (2)-(5)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.06 (1)"
+    }
+  ],
+  "plaintiff:settlement-conference-held": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.08"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 16.1.01 (1)"
+    }
+  ],
+  "plaintiff:trial-date-set": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 17.02 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 18.03 (5.1)"
+    }
+  ],
+  "plaintiff:judgment-in-my-favour-unpaid": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 20.08 (7)"
+    }
+  ],
+  "plaintiff:action-dismissed-for-delay": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 15.01 (1)"
+    }
+  ],
+  "defendant:served-defence-period-running": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.02 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.03 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 10.01 (2)"
+    }
+  ],
+  "defendant:defence-period-expired-not-yet-noted": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 11.05 (1)"
+    }
+  ],
+  "defendant:noted-in-default": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 11.05 (1)"
+    }
+  ],
+  "defendant:default-judgment-against-me": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.01 (4)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 20.02 (1)"
+    }
+  ],
+  "defendant:defence-filed": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.03 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.02 (2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.07"
+    }
+  ],
+  "defendant:considering-defendants-claim": [
+    {
+      "sourceId": "cja-courts-of-justice-act",
+      "pinpoint": "s. 111 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.01"
+    },
+    {
+      "sourceId": "oreg-332-16-small-claims-fees",
+      "pinpoint": "s. 1 (1)-(2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 8.01 (2)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 10.03"
+    }
+  ],
+  "defendant:awaiting-settlement-conference": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.01 (2)"
+    }
+  ],
+  "defendant:trial-date-set": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 16.1.01 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 17.02 (1)"
+    }
+  ],
+  "defendant:judgment-against-me": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 20.03"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 20.11 (1)"
+    }
+  ],
+  "both:missed-settlement-conference": [
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 13.03 (2)"
+    }
+  ],
+  "both:missed-trial": [
+    {
+      "sourceId": "oreg-332-16-small-claims-fees",
+      "pinpoint": "s. 1 (1)-(2)"
+    }
+  ],
+  "both:filed-in-wrong-place": [
+    {
+      "sourceId": "cja-courts-of-justice-act",
+      "pinpoint": "s. 23 (1)"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 9.01"
+    },
+    {
+      "sourceId": "oreg-258-98-small-claims-rules",
+      "pinpoint": "r. 17.01 (3)"
+    },
+    {
+      "sourceId": "oreg-332-16-small-claims-fees",
+      "pinpoint": "s. 1 (1)-(2)"
+    }
+  ],
+  "family:both:served-with-motion-to-change": [
+    {
+      "sourceId": "family-law-rules",
+      "pinpoint": "r. 8 (1)-(3)"
+    }
+  ],
+  "family:respondent:answer-filed": [
+    {
+      "sourceId": "family-law-rules",
+      "pinpoint": "r. 8 (4)-(5)"
+    }
+  ],
+  "family:both:served-with-automatic-order": [
+    {
+      "sourceId": "family-law-rules",
+      "pinpoint": "r. 8 (1)-(3)"
+    }
+  ]
+}
