@@ -97,6 +97,8 @@ async function main() {
   const fullAt = panel.indexOf('data-testid="stage-answer-full"');
   check("the card comes before the full answer", cardAt > 0 && fullAt > cardAt);
   check("the full answer is still there, folded under the card", /<details data-testid="stage-answer-full"[\s\S]{0,400}<AnswerView/.test(panel));
+  // Step 2E, 2026-10-12: a part the card doesn't list is named, not left out silently.
+  check("the card says which parts it doesn't list yet", /data-testid="next-step-not-listed"/.test(panel) && /"where and how to file"/.test(panel) && /"how to serve"/.test(panel));
   // Say it once (Step 2B, 2026-10-12; walkthrough: 7 of 10 cases printed the
   // card's paragraph again under the full answer).
   check("the full answer under the card is told the card shows the first step", /<AnswerView answer=\{result\.answer\} court=\{courtPath\} userWords=\{userWords\} underCard \/>/.test(panel));

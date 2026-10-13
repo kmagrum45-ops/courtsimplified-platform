@@ -7,6 +7,7 @@ import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-syst
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
 import GetHelp from "../../_components/GetHelp";
+import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
 import { limitNotesFor, practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
@@ -225,6 +226,25 @@ function NextStepCard({
           the answer's text names are the fallback for a step with none recorded. */}
       {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
+      {(() => {
+        // Say what the card doesn't list yet, instead of leaving a gap the
+        // person can't see (build order Step 2E, 2026-10-12). Worded so it
+        // never claims something must be filed or served at this step.
+        const missing = [
+          !practical?.forms.length && officialFormsNamedIn(toDo ? [toDo] : [], court).length === 0 ? "the form" : "",
+          !practical?.fees.length && !practical?.feeNotes.length ? "the fee" : "",
+          !practical?.filing.length ? "where and how to file" : "",
+          !practical?.serving.length ? "how to serve" : "",
+        ].filter(Boolean);
+        if (missing.length === 0) return null;
+        const list = missing.length === 1 ? missing[0] : `${missing.slice(0, -1).join(", ")} or ${missing[missing.length - 1]}`;
+        return (
+          <p data-testid="next-step-not-listed" className="mt-3 text-sm leading-6 text-[#4d675f]">
+            This card doesn&apos;t list {list} for this step yet. If you need to file or serve something now, the court
+            office can tell you how, and the full answer below has the rules.
+          </p>
+        );
+      })()}
       {answer.sources.length > 0 ? (
         <p className="mt-3 text-xs leading-5 text-[#4d675f]">
           {answer.sources.slice(0, 4).map((source, index) => (
