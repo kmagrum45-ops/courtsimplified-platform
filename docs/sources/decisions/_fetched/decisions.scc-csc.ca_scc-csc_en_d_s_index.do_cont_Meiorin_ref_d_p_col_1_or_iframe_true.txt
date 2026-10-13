@@ -1,0 +1,719 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=Meiorin&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=Meiorin&ref=&p=&col=1&or=] All Databases (55)
+ Decisions (17)
+ [LINK /scc-csc/en/n/s/index.do?cont=Meiorin&ref=&p=&col=1&or=] Resources (38)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=Meiorin&ref=&p=&col=1&or=date] Date
+ 17 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/1724/index.do?q=Meiorin] British Columbia (Public Service Employee Relations Commission) v. BCGSEU
+ - [1999] 3 SCR 3
+ - 1999-09-09
+ Supreme Court Judgments
+ Constitutional law
+ 1 Seven years ago Tawney Meiorin was hired as a forest firefighter by the Province of British Columbia (the “Government”). [...] Since Ms. Meiorin had been individually tested against this standard, it allowed the appeal and dismissed her claim. [...] Ms. Meiorin’s union, the appellant on this appeal, shall have its costs in this Court and in the court below. 
+ [LINK /scc-csc/scc-csc/en/1724/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/4150/index.do?q=Meiorin] New Brunswick (Human Rights Commission) v. Potash Corporation of Saskatchewan Inc.
+ - 2008 SCC 45
+ - [2008] 2 SCR 604
+ - 2008-07-18
+ Supreme Court Judgments
+ Constitutional law
+ Pensions
+ The Meiorin test is required here to determine whether the age-related limitation is “reasonably necessary to the achievement of legitimate work-related objectives” (Meiorin, at para. 50), and whether the complainant can be accommodated without imposing undue hardship on the employer. [...] This accords with the underlying Meiorin principle, that the qualification must truly be required for the employment. [...] It continues to form an essential element of the Meiorin test. But this is only a part of the full connotation of “bona fide”. 
+ [LINK /scc-csc/scc-csc/en/4150/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/1761/index.do?q=Meiorin] British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights)
+ - [1999] 3 SCR 868
+ - 1999-12-16
+ Supreme Court Judgments
+ Constitutional law
+ A. The Meiorin Test 15 Prior to Meiorin, the legal test for discrimination distinguished between “direct” and “adverse effect” discrimination. [...] 18 In Meiorin, the Court rejected this dual approach to discrimination for a number of reasons. [...] 19 Meiorin announced a unified approach to adjudicating discrimination claims under human rights legislation. 
+ [LINK /scc-csc/scc-csc/en/1761/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/16679/index.do?q=Meiorin] Stewart v. Elk Valley Coal Corp.
+ - 2017 SCC 30
+ - [2017] 1 SCR 591
+ - 2017-06-15
+ Supreme Court Judgments
+ [8] The Tribunal, at para. 131, relied on British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), in setting the test for a bona fide occupational requirement. Meiorin provides that [...] [104] A male who failed the aerobic requirement in Meiorin would have been laid off, just like Ms. Meiorin. What mattered was that female candidates were adversely impacted by the requirement. [...] [126] To determine what “reasonable or practical” alternatives are available to it, an employer must engage in an individualized analysis of the employee in question (Meiorin, at paras. 54-55; Hydro-Québec, at para. 17) based on the employee’s “individual differences” and “individual capabilities” (Meiorin, at paras. 55, 64
+ [LINK /scc-csc/scc-csc/en/16679/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/2339/index.do?q=Meiorin] McGill University Health Centre (Montreal General Hospital) v. Syndicat des employés de l'Hôpital général de Montréal
+ - 2007 SCC 4
+ - [2007] 1 SCR 161
+ - 2007-01-26
+ Supreme Court Judgments
+ Constitutional law
+ Labour law
+ (Meiorin, at para. 54) 14 The first and second steps enable the court to assess the legitimacy of, respectively, the standard’s general purpose and the employer’s intent in adopting it. [...] It is at this stage that the Meiorin test is engaged and the onus shifts to the employer to justify the prima facie discriminatory conduct. [...] In Meiorin, prima facie discrimination was established by the fact that the requirement at issue had the practical effect of excluding most women from employment as firefighters. 
+ [LINK /scc-csc/scc-csc/en/2339/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/2352/index.do?q=Meiorin] Council of Canadians with Disabilities v. VIA Rail Canada Inc.
+ - 2007 SCC 15
+ - [2007] 1 SCR 650
+ - 2007-03-23
+ Supreme Court Judgments
+ Administrative law
+ Transportation
+ 119 When assessing the scope of an applicant’s right not to be confronted with undue obstacles to mobility, the Agency is bound by this Court’s decision in Meiorin. Meiorin defines the balancing required to determine whether a workplace obstacle or standard unjustifiably infringes human rights principles. [...] 294 In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), this Court laid down the approach to human rights claims. The framework in Meiorin was described in language specific to the employment context. [...] In Meiorin, McLachlin J. stated at para. 63 that the financial cost of the method of accommodation is a relevant factor. 
+ [LINK /scc-csc/scc-csc/en/2352/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/2507/index.do?q=Meiorin] Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d'Hydro-Québec, section locale 2000 (SCFP-FTQ)
+ - 2008 SCC 43
+ - [2008] 2 SCR 561
+ - 2008-07-17
+ Supreme Court Judgments
+ Labour law
+ [9] The application of the Meiorin approach is central to this appeal. In the Superior Court and the Court of Appeal, only the scope of the duty to accommodate was really in issue, as both courts briefly noted that the employer in fact has such a duty (Sup. Ct., at paras. 29‐31; C.A., at paras. 63‐64). [...] [11] Despite the large number of decisions concerning the rules developed in Meiorin, the concept of undue hardship seems to present difficulties. Certain aspects that have caused interpretation problems in the case at bar therefore need to be reviewed. [...] First of all, it will be helpful to reproduce the explanation of the approach given in Meiorin (at para. 54): An employer may justify the impugned standard by establishing on the balance of probabilities: 
+ [LINK /scc-csc/scc-csc/en/2507/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/12680/index.do?q=Meiorin] Moore v. British Columbia (Education)
+ - 2012 SCC 61
+ - [2012] 3 SCR 360
+ - 2012-11-09
+ Supreme Court Judgments
+ Education law
+ [61] It is true that before Meiorin and British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868 (“Grismer”), different remedial approaches had been applied for direct versus adverse impact discrimination. [...] But in Meiorin, McLachlin J. observed that since few rules are framed in directly discriminatory terms, the human rights issue will generally be whether the claimant has suffered adverse effects. [...] The Meiorin/Grismer approach imposed a unified remedial theory with two aspects: the removal of arbitrary barriers to participation by a group, and the requirement to take positive steps to remedy the adverse impact of neutral practices. 
+ [LINK /scc-csc/scc-csc/en/12680/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/2103/index.do?q=Meiorin] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Maksteel Québec Inc.
+ - 2003 SCC 68
+ - [2003] 3 SCR 228
+ - 2003-11-14
+ Supreme Court Judgments
+ Constitutional law
+ In the context of an independent justification mechanism being provided in s. 18.2, the “reasonable accommodation” standard established in Meiorin in relation to bona fide occupational requirements plays no role. [...] 26 In the context of an independent justification mechanism being provided in s. 18.2 itself, the “reasonable accommodation” standard established in Meiorin in relation to bona fide occupational requirements plays no role. [...] 47 In discrimination cases, it is settled law that the onus is on the complainant to establish prima facie proof that a protected right has been infringed: Meiorin, supra, and Grismer, supra. The content of that evidence will depend on the wording of the provision in question. 
+ [LINK /scc-csc/scc-csc/en/2103/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/18510/index.do?q=Meiorin] Fraser v. Canada (Attorney General)
+ - 2020 SCC 28
+ - [2020] 3 SCR 113
+ - 2020-10-16
+ Supreme Court Judgments
+ Constitutional law
+ (Meiorin, at para. 41, quoting Shelagh Day and Gwen Brodsky, “The Duty to Accommodate: Who Will Benefit? [...] In Griggs and Meiorin, by contrast, the relevant impact was the higher rate at which African Americans and women were disqualified from employment. [...] [5] British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), at para. 29, citing Canada (Human Rights Commission) v. Taylor, [1990] 3 S.C.R. 892, at p. 931. 
+ [LINK /scc-csc/scc-csc/en/18510/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/5065/index.do?q=Meiorin] Montréal (City) v. Quebec (Commission des droits de la personne et des droits de la jeunesse)
+ - 2008 SCC 48
+ - [2008] 2 SCR 698
+ - 2008-08-01
+ Supreme Court Judgments
+ Constitutional law
+ to as a bona fide occupational requirement, governed by the three-part test set out in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (the “Meiorin” test). [73] Hence, in order to prove that a standard is a bona fide occupational requirement, the employer must demonstrate: [...] To show that the standard is reasonably necessary, it must be demonstrated that the employer could not accommodate individual employees sharing the characteristics of the claimant without imposing undue hardship upon the employer (Meiorin, at para. 54; Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles [...] [85] Clearly the standard of “good moral character” set out in s. 3 of the Police Act meets the first two steps of the Meiorin test, as it is rationally connected to the job and is imposed in good faith. 
+ [LINK /scc-csc/scc-csc/en/5065/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/15471/index.do?q=Meiorin] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)
+ - 2015 SCC 39
+ - [2015] 2 SCR 789
+ - 2015-07-23
+ Supreme Court Judgments
+ In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), at para. 54, this Court developed an approach for determining whether a prima facie discriminatory standard or practice is a BFOR in the context of British Columbia’s human rights code. [...] [61] In Meiorin, the Court stated that, “[i]f a prima facie case of either form of discrimination is established, the burden shifts to the employer to justify it”: para. 19. 
+ [LINK /scc-csc/scc-csc/en/15471/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/1791/index.do?q=Meiorin] Granovsky v. Canada (Minister of Employment and Immigration)
+ - 2000 SCC 28
+ - [2000] 1 SCR 703
+ - 2000-05-18
+ Supreme Court Judgments
+ Constitutional law
+ On the other hand, in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3, a woman firefighter named Tawney Meiorin failed a series of strenuous physical endurance tests, thus exhibiting a physical limitation broadly related to her gender, but succeeded in her complaint by showing [...] While not a case of disability as such, the Meiorin case illustrates a situation where a personal characteristic enumerated in s. 15 (gender) is shown to be related to a more limited aerobic capacity (functional limitation) but this is then wrongly converted into a state-imposed job handicap which was no less objectionable 
+ [LINK /scc-csc/scc-csc/en/1791/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/16959/index.do?q=Meiorin] Quebec (Commission des normes, de l’équité, de la santé et de la sécurité du travail) v. Caron
+ - 2018 SCC 3
+ - [2018] 1 SCR 35
+ - 2018-02-01
+ Supreme Court Judgments
+ The duty reflects a choice by legislatures to ensure “that the standards governing the performance of work should be designed to reflect all members of society, in so far as this is reasonably possible” (British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (Meiorin), at para. 68). [...] [27] In short, the duty to accommodate requires accommodation to the point that an employer is able to demonstrate “that it could not have done anything else reasonable or practical to avoid the negative impact on the individual” (Moore v. British Columbia (Education), [2012] 3 S.C.R. 360, at para. 49, quoting Meiorin, at 
+ [LINK /scc-csc/scc-csc/en/16959/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/13106/index.do?q=Meiorin] Communications, Energy and Paperworkers Union of Canada, Local 30 v. Irving Pulp & Paper, Ltd.
+ - 2013 SCC 34
+ - [2013] 2 SCR 458
+ - 2013-06-14
+ Supreme Court Judgments
+ Administrative law
+ Whether an arbitrator applies the test developed by this Court for the human rights context in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), or traditional labour relations law and the KVP test, at bottom, the inquiry in both cases is concerned with the [...] In some provinces, arbitrators may adjudicate grievances challenging these polices under both KVP and Meiorin and we have difficulty accepting that a policy would fail under one test but pass muster under the other. 
+ [LINK /scc-csc/scc-csc/en/13106/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/15/index.do?q=Meiorin] Multani v. Commission scolaire Marguerite-Bourgeoys
+ - 2006 SCC 6
+ - [2006] 1 SCR 256
+ - 2006-03-02
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), and British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868 (“Grismer”), the Court developed a mechanism that permits a balance to be struck between the [...] This duty, which is more than a mere bona fide occupational requirement, was extended in Meiorin to all cases of direct or indirect discrimination, and in Grismer (at para. 19), to all persons governed by human rights legislation. 
+ [LINK /scc-csc/scc-csc/en/15/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/2161/index.do?q=Meiorin] Syndicat Northcrest v. Amselem
+ - 2004 SCC 47
+ - [2004] 2 SCR 551
+ - 2004-06-30
+ Supreme Court Judgments
+ Constitutional law
+ He then went on to consider the duty to accommodate, in light of this Court’s decisions in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“Meiorin”), and British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868. [...] Morin J.A. applied all three steps of the test set out in Meiorin and concluded that (1) the respondent’s goal in establishing restrictions was rationally linked to the goal of administrating the building, in accordance with art. 1039 C.C.Q., and (2) the restrictions had been enacted on the basis of a bona fide belief that 
+ [LINK /scc-csc/scc-csc/en/2161/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=Meiorin&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=Meiorin&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (55)</a>
+        </li>
+
+        <li class="active">Decisions (17)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=Meiorin&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (38)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="Meiorin" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=Meiorin&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>17 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1724/index.do?q=Meiorin">British Columbia (Public Service Employee Relations Commission) v. BCGSEU</a></span>
+                    - <span class="report-citation">[1999] 3 SCR 3</span>
+                - <span class="publicationDate">1999-09-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    1 Seven years ago Tawney <b>Meiorin</b> was hired as a forest firefighter by the Province of British Columbia (the “Government”). &nbsp;&nbsp;[...]&nbsp;&nbsp;Since Ms. <b>Meiorin</b> had been individually tested against this standard, it allowed the appeal and dismissed her claim. &nbsp;&nbsp;[...]&nbsp;&nbsp;Ms. <b>Meiorin</b>’s union, the appellant on this appeal, shall have its costs in this Court and in the court below. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1724/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/4150/index.do?q=Meiorin">New Brunswick (Human Rights Commission) v. Potash Corporation of Saskatchewan Inc.</a></span>
+                        - <span class="citation">2008 SCC 45</span>
+                    - <span class="report-citation">[2008] 2 SCR 604</span>
+                - <span class="publicationDate">2008-07-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Pensions<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    The <b>Meiorin</b> test is required here to determine whether the age-related limitation is “reasonably necessary to the achievement of legitimate work-related objectives” (<b>Meiorin</b>, at para. 50), and whether the complainant can be accommodated without imposing undue hardship on the employer. &nbsp;&nbsp;[...]&nbsp;&nbsp;This accords with the underlying <b>Meiorin</b> principle, that the qualification must truly be required for the employment. &nbsp;&nbsp;[...]&nbsp;&nbsp;It continues to form an essential element of the <b>Meiorin</b> test. But this is only a part of the full connotation of “bona fide”. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/4150/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1761/index.do?q=Meiorin">British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights)</a></span>
+                    - <span class="report-citation">[1999] 3 SCR 868</span>
+                - <span class="publicationDate">1999-12-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    A. The <b>Meiorin</b> Test 15 Prior to <b>Meiorin</b>, the legal test for discrimination distinguished between “direct” and “adverse effect” discrimination. &nbsp;&nbsp;[...]&nbsp;&nbsp;18 In <b>Meiorin</b>, the Court rejected this dual approach to discrimination for a number of reasons. &nbsp;&nbsp;[...]&nbsp;&nbsp;19 <b>Meiorin</b> announced a unified approach to adjudicating discrimination claims under human rights legislation. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1761/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16679/index.do?q=Meiorin">Stewart v. Elk Valley Coal Corp.</a></span>
+                        - <span class="citation">2017 SCC 30</span>
+                    - <span class="report-citation">[2017] 1 SCR 591</span>
+                - <span class="publicationDate">2017-06-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [8] The Tribunal, at para. 131, relied on British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“<b>Meiorin</b>”), in setting the test for a bona fide occupational requirement. <b>Meiorin</b> provides that &nbsp;&nbsp;[...]&nbsp;&nbsp;[104] A male who failed the aerobic requirement in <b>Meiorin</b> would have been laid off, just like Ms. <b>Meiorin</b>. What mattered was that female candidates were adversely impacted by the requirement. &nbsp;&nbsp;[...]&nbsp;&nbsp;[126] To determine what “reasonable or practical” alternatives are available to it, an employer must engage in an individualized analysis of the employee in question (<b>Meiorin</b>, at paras. 54-55; Hydro-Québec, at para. 17) based on the employee’s “individual differences” and “individual capabilities” (<b>Meiorin</b>, at paras. 55, 64
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16679/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2339/index.do?q=Meiorin">McGill University Health Centre (Montreal General Hospital) v. Syndicat des employés de l&#39;Hôpital général de Montréal</a></span>
+                        - <span class="citation">2007 SCC 4</span>
+                    - <span class="report-citation">[2007] 1 SCR 161</span>
+                - <span class="publicationDate">2007-01-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Labour law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    (<b>Meiorin</b>, at para. 54) 14 The first and second steps enable the court to assess the legitimacy of, respectively, the standard’s general purpose and the employer’s intent in adopting it. &nbsp;&nbsp;[...]&nbsp;&nbsp;It is at this stage that the <b>Meiorin</b> test is engaged and the onus shifts to the employer to justify the prima facie discriminatory conduct. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Meiorin</b>, prima facie discrimination was established by the fact that the requirement at issue had the practical effect of excluding most women from employment as firefighters. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2339/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2352/index.do?q=Meiorin">Council of Canadians with Disabilities v. VIA Rail Canada Inc.</a></span>
+                        - <span class="citation">2007 SCC 15</span>
+                    - <span class="report-citation">[2007] 1 SCR 650</span>
+                - <span class="publicationDate">2007-03-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Transportation<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    119 When assessing the scope of an applicant’s right not to be confronted with undue obstacles to mobility, the Agency is bound by this Court’s decision in <b>Meiorin</b>. <b>Meiorin</b> defines the balancing required to determine whether a workplace obstacle or standard unjustifiably infringes human rights principles. &nbsp;&nbsp;[...]&nbsp;&nbsp;294 In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“<b>Meiorin</b>”), this Court laid down the approach to human rights claims. The framework in <b>Meiorin</b> was described in language specific to the employment context. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>Meiorin</b>, McLachlin J. stated at para. 63 that the financial cost of the method of accommodation is a relevant factor. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2352/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2507/index.do?q=Meiorin">Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d&#39;Hydro-Québec, section locale 2000 (SCFP-FTQ)</a></span>
+                        - <span class="citation">2008 SCC 43</span>
+                    - <span class="report-citation">[2008] 2 SCR 561</span>
+                - <span class="publicationDate">2008-07-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Labour law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    [9] The application of the <b>Meiorin</b> approach is central to this appeal. In the Superior Court and the Court of Appeal, only the scope of the duty to accommodate was really in issue, as both courts briefly noted that the employer in fact has such a duty (Sup. Ct., at paras. 29‐31; C.A., at paras. 63‐64). &nbsp;&nbsp;[...]&nbsp;&nbsp;[11] Despite the large number of decisions concerning the rules developed in <b>Meiorin</b>, the concept of undue hardship seems to present difficulties. Certain aspects that have caused interpretation problems in the case at bar therefore need to be reviewed. &nbsp;&nbsp;[...]&nbsp;&nbsp;First of all, it will be helpful to reproduce the explanation of the approach given in <b>Meiorin</b> (at para. 54): An employer may justify the impugned standard by establishing on the balance of probabilities: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2507/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/12680/index.do?q=Meiorin">Moore v. British Columbia (Education)</a></span>
+                        - <span class="citation">2012 SCC 61</span>
+                    - <span class="report-citation">[2012] 3 SCR 360</span>
+                - <span class="publicationDate">2012-11-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Education law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    [61] It is true that before <b>Meiorin</b> and British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868 (“Grismer”), different remedial approaches had been applied for direct versus adverse impact discrimination. &nbsp;&nbsp;[...]&nbsp;&nbsp;But in <b>Meiorin</b>, McLachlin J. observed that since few rules are framed in directly discriminatory terms, the human rights issue will generally be whether the claimant has suffered adverse effects. &nbsp;&nbsp;[...]&nbsp;&nbsp;The <b>Meiorin</b>/Grismer approach imposed a unified remedial theory with two aspects: the removal of arbitrary barriers to participation by a group, and the requirement to take positive steps to remedy the adverse impact of neutral practices. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/12680/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2103/index.do?q=Meiorin">Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Maksteel Québec Inc.</a></span>
+                        - <span class="citation">2003 SCC 68</span>
+                    - <span class="report-citation">[2003] 3 SCR 228</span>
+                - <span class="publicationDate">2003-11-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In the context of an independent justification mechanism being provided in s. 18.2, the “reasonable accommodation” standard established in <b>Meiorin</b> in relation to bona fide occupational requirements plays no role. &nbsp;&nbsp;[...]&nbsp;&nbsp;26 In the context of an independent justification mechanism being provided in s. 18.2 itself, the “reasonable accommodation” standard established in <b>Meiorin</b> in relation to bona fide occupational requirements plays no role. &nbsp;&nbsp;[...]&nbsp;&nbsp;47 In discrimination cases, it is settled law that the onus is on the complainant to establish prima facie proof that a protected right has been infringed: <b>Meiorin</b>, supra, and Grismer, supra. The content of that evidence will depend on the wording of the provision in question. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2103/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18510/index.do?q=Meiorin">Fraser v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2020 SCC 28</span>
+                    - <span class="report-citation">[2020] 3 SCR 113</span>
+                - <span class="publicationDate">2020-10-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    (<b>Meiorin</b>, at para. 41, quoting Shelagh Day and Gwen Brodsky, “The Duty to Accommodate: Who Will Benefit?&nbsp;&nbsp;[...]&nbsp;&nbsp;In Griggs and <b>Meiorin</b>, by contrast, the relevant impact was the higher rate at which African Americans and women were disqualified from employment. &nbsp;&nbsp;[...]&nbsp;&nbsp;[5] British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“<b>Meiorin</b>”), at para. 29, citing Canada (Human Rights Commission) v. Taylor, [1990] 3 S.C.R. 892, at p. 931. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18510/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/5065/index.do?q=Meiorin">Montréal (City) v. Quebec (Commission des droits de la personne et des droits de la jeunesse)</a></span>
+                        - <span class="citation">2008 SCC 48</span>
+                    - <span class="report-citation">[2008] 2 SCR 698</span>
+                - <span class="publicationDate">2008-08-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     to as a bona fide occupational requirement, governed by the three-part test set out in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (the “<b>Meiorin</b>” test). [73] Hence, in order to prove that a standard is a bona fide occupational requirement, the employer must demonstrate: &nbsp;&nbsp;[...]&nbsp;&nbsp;To show that the standard is reasonably necessary, it must be demonstrated that the employer could not accommodate individual employees sharing the characteristics of the claimant without imposing undue hardship upon the employer (<b>Meiorin</b>, at para. 54; Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles &nbsp;&nbsp;[...]&nbsp;&nbsp;[85] Clearly the standard of “good moral character” set out in s. 3 of the Police Act meets the first two steps of the <b>Meiorin</b> test, as it is rationally connected to the job and is imposed in good faith. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/5065/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/15471/index.do?q=Meiorin">Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center)</a></span>
+                        - <span class="citation">2015 SCC 39</span>
+                    - <span class="report-citation">[2015] 2 SCR 789</span>
+                - <span class="publicationDate">2015-07-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“<b>Meiorin</b>”), at para. 54, this Court developed an approach for determining whether a prima facie discriminatory standard or practice is a BFOR in the context of British Columbia’s human rights code. &nbsp;&nbsp;[...]&nbsp;&nbsp;[61] In <b>Meiorin</b>, the Court stated that, “[i]f a prima facie case of either form of discrimination is established, the burden shifts to the employer to justify it”: para. 19. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/15471/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1791/index.do?q=Meiorin">Granovsky v. Canada (Minister of Employment and Immigration)</a></span>
+                        - <span class="citation">2000 SCC 28</span>
+                    - <span class="report-citation">[2000] 1 SCR 703</span>
+                - <span class="publicationDate">2000-05-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    On the other hand, in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3, a woman firefighter named Tawney <b>Meiorin</b> failed a series of strenuous physical endurance tests, thus exhibiting a physical limitation broadly related to her gender, but succeeded in her complaint by showing &nbsp;&nbsp;[...]&nbsp;&nbsp;While not a case of disability as such, the <b>Meiorin</b> case illustrates a situation where a personal characteristic enumerated in s. 15 (gender) is shown to be related to a more limited aerobic capacity (functional limitation) but this is then wrongly converted into a state-imposed job handicap which was no less objectionable 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1791/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16959/index.do?q=Meiorin">Quebec (Commission des normes, de l’équité, de la santé et de la sécurité du travail) v. Caron</a></span>
+                        - <span class="citation">2018 SCC 3</span>
+                    - <span class="report-citation">[2018] 1 SCR 35</span>
+                - <span class="publicationDate">2018-02-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The duty reflects a choice by legislatures to ensure “that the standards governing the performance of work should be designed to reflect all members of society, in so far as this is reasonably possible” (British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (<b>Meiorin</b>), at para. 68). &nbsp;&nbsp;[...]&nbsp;&nbsp;[27] In short, the duty to accommodate requires accommodation to the point that an employer is able to demonstrate “that it could not have done anything else reasonable or practical to avoid the negative impact on the individual” (Moore v. British Columbia (Education), [2012] 3 S.C.R. 360, at para. 49, quoting <b>Meiorin</b>, at 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16959/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/13106/index.do?q=Meiorin">Communications, Energy and Paperworkers Union of Canada, Local 30 v. Irving Pulp &amp; Paper, Ltd.</a></span>
+                        - <span class="citation">2013 SCC 34</span>
+                    - <span class="report-citation">[2013] 2 SCR 458</span>
+                - <span class="publicationDate">2013-06-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Whether an arbitrator applies the test developed by this Court for the human rights context in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“<b>Meiorin</b>”), or traditional labour relations law and the KVP test, at bottom, the inquiry in both cases is concerned with the &nbsp;&nbsp;[...]&nbsp;&nbsp;In some provinces, arbitrators may adjudicate grievances challenging these polices under both KVP and <b>Meiorin</b> and we have difficulty accepting that a policy would fail under one test but pass muster under the other. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/13106/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/15/index.do?q=Meiorin">Multani v. Commission scolaire Marguerite-Bourgeoys</a></span>
+                        - <span class="citation">2006 SCC 6</span>
+                    - <span class="report-citation">[2006] 1 SCR 256</span>
+                - <span class="publicationDate">2006-03-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“<b>Meiorin</b>”), and British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868 (“Grismer”), the Court developed a mechanism that permits a balance to be struck between the &nbsp;&nbsp;[...]&nbsp;&nbsp;This duty, which is more than a mere bona fide occupational requirement, was extended in <b>Meiorin</b> to all cases of direct or indirect discrimination, and in Grismer (at para. 19), to all persons governed by human rights legislation. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/15/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2161/index.do?q=Meiorin">Syndicat Northcrest v. Amselem</a></span>
+                        - <span class="citation">2004 SCC 47</span>
+                    - <span class="report-citation">[2004] 2 SCR 551</span>
+                - <span class="publicationDate">2004-06-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    He then went on to consider the duty to accommodate, in light of this Court’s decisions in British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 (“<b>Meiorin</b>”), and British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868. &nbsp;&nbsp;[...]&nbsp;&nbsp;Morin J.A. applied all three steps of the test set out in <b>Meiorin</b> and concluded that (1) the respondent’s goal in establishing restrictions was rationally linked to the goal of administrating the building, in accordance with art. 1039 C.C.Q., and (2) the restrictions had been enacted on the basis of a bona fide belief that 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2161/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

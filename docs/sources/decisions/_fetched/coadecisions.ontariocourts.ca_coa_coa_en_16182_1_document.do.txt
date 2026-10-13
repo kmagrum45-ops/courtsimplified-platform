@@ -1,0 +1,750 @@
+                     COURT OF APPEAL FOR ONTARIO
+
+         CITATION: North v. Metaswitch Networks Corporation, 2017 ONCA 790
+                                                            DATE: 20171016
+                                                          DOCKET: C62624
+
+                       Feldman, Sharpe and Roberts JJ.A.
+
+BETWEEN
+
+                                  Doug North
+
+                                                           Applicant (Appellant)
+
+                                     and
+
+                        Metaswitch Networks Corporation
+
+                                                      Respondent (Respondent)
+
+Ben Hahn, for the appellant
+
+Tracy Kay and Carrington Hickey, for the respondent
+
+Heard: March 27, 2017
+
+On appeal from the judgment of Justice Meredith Donohue of the Superior Court
+of Justice, dated August 3, 2016.
+
+Feldman J.A.:
+
+[1]   Doug North’s employment with Metaswitch Networks Corporation was
+
+governed by a written employment contract (the “Agreement”). When North’s
+
+employment was terminated without cause, a dispute arose as to whether he was
+
+entitled to be paid in accordance with the Agreement, or based on common law
+
+reasonable notice.
+                                      Page: 2
+
+
+[2]   The Agreement contained a termination clause that amounted to contracting
+
+out of an employment standard mandated by the Employment Standards Act,
+
+2000, S.O. 2000, c. 41 (the “ESA”). However, the Agreement also contained a
+
+severability clause. The issue before the application judge and on this appeal is
+
+the interpretation and application of the two clauses in light of s. 5 of the ESA,
+
+which prohibits employers and employees from waiving or contracting out of any
+
+employment standard prescribed by the ESA, except to provide a greater benefit
+
+to the employee.
+
+[3]   The application judge used the severability clause to excise what she found
+
+to be the offending part of the termination clause. For the reasons that follow, I
+
+would set aside the decision of the application judge and find that North is entitled
+
+to receive termination pay based on common law pay in lieu of reasonable notice.
+
+FACTS
+
+[4]   The appellant was employed from November 2012 to March 2016 with the
+
+respondent, pursuant to the Agreement. His earnings consisted of salary plus
+
+commission.
+
+[5]   His employment was terminated in accordance with paragraph 9(c) of the
+
+Agreement, under Termination of Employment, the relevant part of which provides:
+
+             9. Termination of Employment
+
+                   (c) Without Cause – The Company may
+                   terminate your employment at any time in its
+                   sole discretion for any reason, without
+                                    Page: 3
+
+
+                  cause, upon by [sic] providing you with
+                  notice and severance, if applicable, in
+                  accordance with the provisions of the
+                  Ontario Employment Standards Act (the
+                  “Act”). In addition, the Company will
+                  continue to pay its share all [sic] of your
+                  employee benefits, if any, and only for that
+                  period required by the Act.
+            The reference to notice in paragraphs 9(b) and (c) can,
+            at the Company’s option, be satisfied by our provision to
+            you of pay in lieu of such notice. The decision to provide
+            actual notice or pay in lieu, or any combination thereof,
+            shall be in the sole discretion of the Company. All pay in
+            lieu of notice will be subject to all required tax
+            withholdings and statutory deductions.
+
+            In the event of the termination of your employment, any
+            payments owing to you shall be based on your Base
+            Salary, as defined in the Agreement.
+
+[6]   The appellant took the position that this part of the Agreement was void
+
+under s. 5(1) of the ESA, because the sentence that provides that payments are
+
+to be based “on your Base Salary” contravened the ESA by excluding his
+
+commission. Therefore, he was entitled to receive termination compensation
+
+based on common law pay in lieu of reasonable notice.
+
+[7]   The respondent’s position was that if the termination clause was illegal
+
+because of the one offending sentence, then that sentence should be excised from
+
+the Agreement, using the severability clause contained in para. 17(a) which
+
+provides:
+                                      Page: 4
+
+
+             17. General Provisions
+
+                    (a) If any part of the Agreement is found to
+                    be illegal or otherwise unenforceable by any
+                    court of competent jurisdiction, that part
+                    shall be severed from this Agreement and
+                    the rest of the Agreement’s provisions shall
+                    remain in full force and effect.
+[8]    That would leave the balance of para. 9 in force, and the appellant would
+
+be paid termination pay calculated in accordance with the ESA.
+
+[9]    The appellant sought to have the issue of the applicability and effect of the
+
+severability clause determined by the court on an application under Rule 14 of the
+
+Rules of Civil Procedure, R.R.O. 1990, Reg. 194, where the determination of rights
+
+depends on the interpretation of a contract and there are unlikely to be any material
+
+facts in dispute.
+
+THE FINDINGS OF THE APPLICATION JUDGE
+
+[10]   The application judge accepted that the sentence in the termination clause,
+
+para. 9 of the Agreement, that reads: “[i]n the event of the termination of your
+
+employment, any payments owing to you shall be based on your Base Salary, as
+
+defined in the Agreement”, had the effect of excluding payment of commission to
+
+which the appellant was entitled, and therefore contravened the ESA.
+
+[11]   “Employment standard” is defined in s. 1(1) of the ESA as “a requirement or
+
+prohibition under this Act that applies to an employer for the benefit of an
+
+employee”. Sections 57, 60 and 61 set out employment standards in relation to
+
+termination of employment. Section 57 of the ESA stipulates minimum notice
+                                       Page: 5
+
+
+periods for termination. Section 60 provides that during such a notice period,
+
+wages cannot be reduced and employees are entitled to their regular wages.
+
+Section 61 allows an employer to terminate the employment of an employee
+
+without notice, so long as the employer makes a lump sum payment equivalent to
+
+the amount that would have been received under s. 60 (i.e., based on regular
+
+wages) and continues to make benefit plan contributions. The definition of regular
+
+wages includes wages, which are defined broadly in the ESA, in s. 1(1), as:
+
+             (a) monetary remuneration payable by an employer to an
+             employee under the terms of an employment contract,
+             oral or written, express or implied,
+
+             (b) any payment required to be made by an employer to
+             an employee under this Act, and
+
+             (c) any allowances for room or board under an
+             employment contract or prescribed allowances[.]
+
+[12]   The definition goes on to list certain exclusions that are not relevant in this
+
+case. Wages have been held to include commissions: see Kimberly A. Parry and
+
+David A. Ryan, Employment Standards Handbook, 3d ed. (Toronto: Thomson
+
+Reuters, 2017) vol. 1, at p. 1-29; and Paquette c. Quadraspec Inc., 2014 ONCS
+
+2431, 121 O.R. (3d) 765, at para. 27. By excluding commissions, the employer
+
+therefore contravened the employment standard of ss. 60 and 61. In oral argument
+
+before this court, the respondent did not dispute this illegality.
+
+[13]   The application judge addressed the severability clause and found that para.
+
+17(a) expressed the intention of the parties that “any illegal or unenforceable parts
+                                       Page: 6
+
+
+were to be severed to allow the rest of the agreement to stand.” She then recited
+
+the portion of the termination clause, para. 9(c), which states that notice and
+
+severance, if applicable, were to be provided “in accordance with the provisions of
+
+the Ontario Employment Standards Act”. She concluded that the parties’ intention
+
+was to comply with the ESA.
+
+[14]   In interpreting and giving effect to the severability clause, the application
+
+judge referred to the reasoning of Dunphy J. in Oudin v. Centre Francophone de
+
+Toronto, Inc., 2015 ONSC 6494, 27 C.C.E.L. (4th) 86, aff’d 2016 ONCA 514, 34
+
+C.C.E.L. (4th) 271, leave to appeal to SCC refused, [2016] S.C.C.A. No. 391,
+
+where, using a severability provision, he excised from a termination provision one
+
+reason among a list of reasons for dismissal without pay, stating, at para. 41, that
+
+“[t]he excision of the offending reason from the list does no violence to the integrity
+
+of the remainder of s. 4 which contains a list of other unrelated grounds for
+
+termination.”
+
+[15]   The application judge found that the same reasoning would apply to the
+
+Agreement: the illegal clause limiting the pay upon termination to be based on base
+
+salary only “could be removed in its entirety pursuant to the para. 17(a) severability
+
+clause. The parties would be left with [para.] 9(c) as to what payments would be
+
+owing.” She was satisfied that the term “any part” in para. 17(a) was not ambiguous
+
+and could apply to the offending sentence. She rejected the argument that the
+
+severability clause was void as a result of s. 5(1) of the ESA.
+                                        Page: 7
+
+
+ISSUES
+
+[16]   The issues on this appeal are:
+
+              1) Did the application judge err in law by using the
+              severability clause of the Agreement to save the
+              termination clause that contravened the ESA?
+
+              2) Did the application judge err in law by failing to find
+              that the severability clause had no application to a clause
+              of the Agreement that was rendered void by s. 5(1) of the
+              ESA?
+
+ANALYSIS
+
+(1)    Did the application judge err in law by using the severability clause of
+
+       the Agreement to save the termination clause that contravened the
+
+       ESA?
+
+       (a)    The employment law framework
+
+[17]   When deciding this case, the application judge did not have the benefit of
+
+this court’s recent decision in Wood v. Fred Deeley Imports Ltd., 2017 ONCA 158,
+
+134 O.R. (3d) 481, on the issue of the interpretation and treatment of termination
+
+clauses in an employment contract. While deference is owed to the application
+
+judge on issues of contractual interpretation, no deference is owed where there is
+
+an extricable error of law: see Wood, at para. 43; and Ledcor Construction Ltd. v.
+
+Northbridge Indemnity Insurance Co., 2016 SCC 37, [2016] 2 S.C.R. 23, at paras.
+
+21, 36.
+                                     Page: 8
+
+
+[18]   In Wood, Laskin J.A. set out the principles that govern the payment owed to
+
+an Ontario employee whose employment is terminated without cause. He
+
+summarized the law as follows, beginning at paras. 15-16:
+
+             At common law, an employee hired for an indefinite
+             period can be dismissed without cause, but only if the
+             employer gives the employee reasonable notice. In
+             Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. 986,
+             at p. 998, the Supreme Court characterized the common
+             law principle of termination of employment on reasonable
+             notice “as a presumption, rebuttable if the contract of
+             employment clearly specifies some other period of
+             notice”.
+
+             Ontario employers and employees can rebut the
+             presumption of reasonable notice by agreeing to a
+             different notice period. But their agreement will be
+             enforceable only if it complies with the minimum
+             employment standards in the ESA. If it does not do so,
+             then the presumption is not rebutted, and the employee
+             is entitled to reasonable notice of termination.
+
+[19]   And continuing at paras. 25-28:
+
+             The question of the enforceability of the termination
+             clause turns on the wording of the clause, the purpose
+             and language of the ESA, and the jurisprudence on
+             interpreting employment agreements. That jurisprudence
+             is now well-established. I will summarize it briefly.
+
+             In general, courts interpret employment agreements
+             differently from other commercial agreements. They do
+             so mainly because of the importance of employment in a
+             person’s life. As Dickson C.J.C. said in an oft-quoted
+             passage:
+
+                   Work is one of the most fundamental
+                   aspects in a person’s life, providing the
+                   individual with a means of financial support
+                   and, as importantly, a contributory role in
+                        Page: 9
+
+
+      society. A person’s employment is an
+      essential component of his or her sense of
+      identity, self-worth and emotional well-
+      being.
+As important as employment itself is the way a person’s
+employment is terminated. It is on termination of
+employment that a person is most vulnerable and thus is
+most in need of protection.
+
+The importance of employment and the vulnerability of
+employees when their employment is terminated give
+rise to a number of considerations relevant to the
+interpretation and enforceability of a termination clause:
+
+   When employment agreements are made, usually
+    employees have less bargaining power than
+    employers. Employees rarely have enough
+    information or leverage to bargain with employers on
+    an equal footing.
+
+   Many employees are likely unfamiliar with the
+    employment standards in the ESA and the
+    obligations the statute imposes on employers.
+    These employees may not seek to challenge
+    unlawful termination clauses.
+
+   The ESA is remedial legislation, intended to protect
+    the interests of employees. Courts should thus
+    favour an interpretation of the ESA that “encourages
+    employers to comply with the minimum
+    requirements of the Act” and “extends its protections
+    to as many employees as possible”, over an
+    interpretation that does not do so.
+
+   Termination clauses should be interpreted in a way
+    that encourages employers to draft agreements that
+    comply with the ESA. If the only consequence
+    employers suffer for drafting a termination clause
+    that fails to comply with the ESA is an order that they
+    comply, then they will have little or no incentive to
+    draft a lawful termination clause at the beginning of
+    the employment relationship.
+                                      Page: 10
+
+
+                  A termination clause will rebut the presumption of
+                   reasonable notice only if its wording is clear.
+                   Employees should know at the beginning of their
+                   employment what their entitlement will be at the end
+                   of their employment.
+
+                  Faced with a termination clause that could
+                   reasonably be interpreted in more than one way,
+                   courts should prefer the interpretation that gives the
+                   greater benefit to the employee. [Citations omitted.]
+
+[20]   Section 5 of the ESA prohibits employers and employees from waiving or
+
+contracting out of any of the employment standards prescribed in the ESA, except
+
+to provide a greater benefit to the employee. Any such contracting out is void. The
+
+text of s. 5 is as follows:
+
+              5. (1) Subject to subsection (2), no employer or agent of
+              an employer and no employee or agent of an employee
+              shall contract out of or waive an employment standard
+              and any such contracting out or waiver is void.
+
+              (2) If one or more provisions in an employment contract
+              or in another Act that directly relate to the same subject
+              matter as an employment standard provide a greater
+              benefit to an employee than the employment standard,
+              the provision or provisions in the contract or Act apply
+              and the employment standard does not apply.
+
+[21]   Most importantly, in Wood, at para. 21, the court explained the effect of the
+
+principles established by the Supreme Court in Machtinger regarding the
+
+consequences of s. 5(1) of the ESA:
+
+              Contracting out of even one of the employment standards
+              and not substituting a greater benefit would render the
+              termination clause void and thus unenforceable, in which
+              case [the employee] would be entitled to reasonable
+              notice of termination of her employment at common law.
+                                     Page: 11
+
+
+[22]   This interpretation of the operation and effect of s. 5(1) of the ESA explains
+
+how a court is to approach the interpretation of termination clauses that waive or
+
+contract out of one employment standard, but comply with others.
+
+       (b)   Application of the principles
+
+[23]   In my view, the application judge erred in her approach to the interpretation
+
+and application of the severability clause. It is convenient to restate para. 17(a) of
+
+the agreement here for ease of reference:
+
+             17. General Provisions
+
+                    (a) If any part of the Agreement is found to
+                    be illegal or otherwise unenforceable by any
+                    court of competent jurisdiction, that part
+                    shall be severed from this Agreement and
+                    the rest of the Agreement’s provisions shall
+                    remain in full force and effect.
+[24]   The severability clause directs that the part of the agreement that is to be
+
+severed is the part that a court would find to be illegal. The rule from Wood,
+
+following Machtinger, is that where a termination clause contracts out of one
+
+employment standard, the court is to find the entire termination clause to be void,
+
+in accordance with s. 5(1) of the ESA. It is an error in law to merely void the
+
+offending portion and leave the rest of the termination clause to be enforced.
+
+[25]   As a result, the application judge erred in law by severing only the offending
+
+sentence that referred to using only base salary to calculate termination pay in lieu
+
+of notice, rather than the entire termination clause. Para. 17(a) requires that the
+                                       Page: 12
+
+
+part to be severed is the part that a court would find to be illegal, which must be
+
+the entire termination clause.
+
+[26]   Because of the conclusion I have reached based on the meaning and
+
+application of para. 17(a), there is no need in this case to address the Supreme
+
+Court decision in Shafron v. KRG Insurance Brokers (Western) Inc., 2009 SCC 6,
+
+[2009] 1 S.C.R. 157, referred to by the appellant, and to what extent the rules
+
+regarding blue pencil and notional severance may apply in the context of the
+
+severability clause drafted by the parties.
+
+(2)    Did the application judge err in law by failing to find that the
+
+       severability clause had no application to a clause of the Agreement
+
+       that was rendered void by s. 5(1) of the ESA?
+
+[27]   The appellant also argued, in the alternative, that the effect of s. 5(1) of the
+
+ESA is to make the severability clause void. The application judge rejected that
+
+submission.
+
+[28]   While I agree with the application judge that the severability clause is not
+
+rendered void by s. 5(1), I would frame the issue differently. The issue is not
+
+whether the severability clause is void, but whether it can have any application on
+
+the termination clause, if that clause is void as a result of s. 5(1).
+                                      Page: 13
+
+
+       (a)   Consequences of a voided clause, absent a severability clause
+
+[29]   Section 5(1) prohibits contracting out of or waiving an employment standard,
+
+and provides that any such contracting out or waiver is void. An employment
+
+standard is defined in s. 1(1) as: “a requirement or prohibition under this Act that
+
+applies to an employer for the benefit of an employee”.
+
+[30]   The result is that an offending termination clause that is void has no
+
+application to oust the common law, which again applies, requiring pay in lieu of
+
+reasonable notice. As discussed above, in Wood, at para. 21, this court explained
+
+that where a termination clause contains “even one” instance of contracting out of
+
+an ESA employment standard, the clause is void.
+
+[31]   In Machtinger, Iacobucci J. gave a number of policy reasons for finding that
+
+where there is contracting out of an employment standard within a termination
+
+clause, the effect is to void the entire clause (resulting in entitlement to reasonable
+
+notice), and not just the removal of the impugned clause (resulting in entitlement
+
+to the statutory minimum termination pay provisions).
+
+[32]   He stated at p. 1003, that in light of the objective of the ESA to protect the
+
+interests of employees:
+
+             [A]n interpretation of the [ESA] which encourages
+             employers to comply with the minimum requirements of
+             the [ESA], and so extends its protections to as many
+             employees as possible, is to be favoured over one that
+             does not.
+
+[33]   He continued at p. 1004:
+                                     Page: 14
+
+
+             If the only sanction which employers potentially face for
+             failure to comply with the minimum notice periods
+             prescribed by the [ESA] is an order that they minimally
+             comply with the [ESA], employers will have little incentive
+             to make contracts with their employees that comply with
+             the [ESA].
+
+[34]   And as many employees are not aware of their legal rights or will not go to
+
+the trouble or expense of trying to have the contract set aside in court, they will
+
+accept the illegality: see Machtinger, at p. 1004.
+
+[35]   Nor would it be a hardship for the employer to draft a contract that complies
+
+with or accounts for potential changes in the ESA. As Iacobucci J. stated, at pp.
+
+1004-1005:
+
+             Absent considerations of unconscionability, an employer
+             can readily make contracts with his or her employees
+             which referentially incorporate the minimum notice
+             periods set out in the [ESA] or otherwise take into
+             account later changes to the [ESA] or to the employees'
+             notice entitlement under the [ESA].
+
+[36]   Justice Iacobucci concluded his analysis by observing, at p. 1005:
+
+             Given that the employer has attempted, whether
+             deliberately or not, to frustrate the intention of the
+             legislature, it would indeed be perverse to allow the
+             employer to avail itself of legislative provisions intended
+             to protect employees, so as to deny the employees their
+             common law right to reasonable notice.
+
+[37]   In my view, these same policy considerations should inform the approach to
+
+be taken when considering the operation of s. 5(1), where an employment contract
+
+contains a severability clause.
+                                      Page: 15
+
+
+       (b)   Approaches to interpreting and applying a severability clause
+
+[38]   When a severability clause is introduced into the contract, the issue is
+
+whether: (i) the severability clause can be used to remove the illegality in the
+
+termination clause; or (ii) because the termination clause as drafted is void as a
+
+result of s. 5(1), there is nothing on which the severability clause can act.
+
+(i)    First approach
+
+[39]   In Oudin, the motion judge relied on the wording of the specific severability
+
+provision in the employment contract that directed modification “only to the extent
+
+necessary” to comply with the law: see Oudin, at paras. 35, 40. The motion judge
+
+found that this established the clear intention of the parties: see Oudin, at para. 42.
+
+Similarly in Miller v. Convergys CMG Canada Limited Partnership, 2014 BCCA
+
+311, 16 C.C.E.L. (4th) 49, leave to appeal to SCC refused, [2014] S.C.C.A No.
+
+424, the court stated at para. 42:
+
+             Where the parties anticipated the possibility of severance
+             and chose contractual language to govern this
+             eventuality, severability is not just a remedial question.
+             Before turning to remedy, the starting point must be to
+             give effect to what the parties reasonably intended if a
+             provision of the contract is found unenforceable by
+             reason of illegality.
+
+[40]   The problem with this approach is that, to the extent that it effectively
+
+rewrites or reads down the offending provisions, it has the very effect referred to
+
+by Iacobucci J. in Machtinger – employers will be incentivized to contract out of the
+                                       Page: 16
+
+
+ESA but include a severability clause to save the offending provision in the event
+
+that an employee has the time and money to challenge the contract in court. Similar
+
+concerns were recognized by this court in 2176693 Ontario Ltd. v. Cora Franchise
+
+Group Inc., 2015 ONCA 152, 124 O.R. (3d) 776, where the court declined to order
+
+severance of an illegal clause in a franchise agreement because, if the only
+
+consequence to a franchisor is that the illegal clause is read down to make it legal,
+
+franchisors would be encouraged to draft illegal contracts.
+
+(ii)   Second approach
+
+[41]   The other approach is to first assess the termination clause to see whether
+
+there is any contracting out of an employment standard. If there is, then the
+
+termination clause is void, and there is nothing to which the severability clause can
+
+be applied. In that way, the severability clause is not void, but it is inoperative
+
+where the agreement contracts out of or waives an employment standard.
+
+[42]   In my view, this approach is the one that is consistent with the intent of the
+
+ESA and the Supreme Court decision in Machtinger. Nor does it do any injustice
+
+to the contractual interpretation principle of ascertaining the intention of the parties.
+
+Because the termination clause is void, it cannot be used as evidence of the
+
+parties’ intentions to comply with the ESA: see Machtinger, at p. 1001.
+
+[43]   This approach also causes no disadvantage to employers, who, as noted by
+
+Iacobucci J., are free to make a legal contract that limits an employee’s rights on
+
+termination to the standards set by the ESA.
+                                     Page: 17
+
+
+[44]   As noted above, this conclusion does not make the severability clause void.
+
+It continues to have application to the rest of the agreement. However, it cannot
+
+have any effect on clauses of the contract that have been made void by statute.
+
+Those terms are null and void for all purposes and cannot be rewritten, read down
+
+or interpreted through the application of a severability clause to provide for the
+
+minimum standard imposed by the ESA.
+
+[45]   I would therefore hold that s. 5(1) of the ESA makes the severability clause,
+
+para. 17(a), inoperative on the termination clause, which contracts out of an
+
+employment standard.
+
+[46]   This result may appear to be inconsistent with this court’s dismissal of the
+
+appeal in Oudin. The application judge found the motion judge’s reasons in Oudin
+
+to be analogous. However, the courts in Oudin also did not have the benefit of this
+
+court’s subsequent decision in Wood. Further, the issue of the applicability of the
+
+severability provision in light of s. 5(1) of the ESA was not discussed in the
+
+endorsement as the basis of the appeal. Rather, the basis of the appeal was
+
+primarily focused on the correctness of the motion judge’s determination that the
+
+termination provisions respecting notice did not offend the ESA. Therefore, this
+
+court’s endorsement in Oudin should not be viewed as supporting a broad,
+
+overarching principle regarding the motion judge’s application of the severability
+
+provision in that case: see R. v. Timminco Limited (2001), 54 O.R. (3d) 21 (C.A.),
+
+at para. 36; and R. v. Singh, 2014 ONCA 293, 120 O.R. (3d) 76, at para. 12.
+                                     Page: 18
+
+
+RESULT
+
+[47]   I would allow the appeal with costs, set aside the decision of the application
+
+judge, and order that the appellant is entitled to receive termination pay based on
+
+common law reasonable notice. I would fix the costs of the appeal at $17,000
+
+inclusive of HST and disbursements, and the costs of the application at $8,000
+
+inclusive of disbursements and HST.
+
+Released: “K.F.” October 16, 2017
+
+                                                   “K. Feldman J.A.”
+                                                   “I agree. Robert J. Sharpe J.A”
+                                                   “I agree. L.B. Roberts J.A.”
+
