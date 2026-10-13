@@ -41,6 +41,8 @@ export type CaseScore = {
   court: string;
   step: string;
   form: boolean;
+  /** The step is done outside court and its card shows the rule for it. */
+  outsideCourt: boolean;
   file: boolean;
   /** null when the step's deadlines need no date. */
   counted: boolean | null;
@@ -74,12 +76,17 @@ export function scoreCase(persona: Persona): CaseScore {
   const onlyArrival = questions.length > 0 && questions.every((question) => !hints[question.id]?.value || arrival[question.id]) && Object.keys(arrival).length > 0;
   const oneClick = known.filter((question) => hints[question.id]?.yearAssumed).length;
   const storyHasFullDate = FULL_DATE.test(persona.story);
+  const outsideCourt = Boolean(practical && practical.also.length > 0 && !practical.forms.length && !practical.filing.length && !practical.serving.length);
   return {
     id: persona.id,
     court,
     step: step || "(none)",
-    form: Boolean(practical?.forms.length),
-    file: Boolean(practical && practical.filing.length > 0 && practical.serving.length > 0 && (practical.fees.length > 0 || practical.feeNotes.length > 0)),
+    // A step done outside court (a notice before suing) has no court form, fee
+    // or filing; its card passes when it shows the rule for that step instead,
+    // the same test the card itself uses to say nothing is missing.
+    form: Boolean(practical?.forms.length) || outsideCourt,
+    file: Boolean(practical && practical.filing.length > 0 && practical.serving.length > 0 && (practical.fees.length > 0 || practical.feeNotes.length > 0)) || outsideCourt,
+    outsideCourt,
     // n/a when the step needs no date, or the story gives no day to count
     // from ("last week", "in july") -- then asking is right, not a repeat.
     counted: questions.length === 0 || !DAY_DATE.test(persona.story) || onlyArrival ? null : known.length > 0,
@@ -98,7 +105,7 @@ function main() {
   console.log("|---|---|---|---|---|---|---|");
   for (const score of scores) {
     console.log(
-      `| ${score.id} | ${score.court} | ${score.step} | ${score.form ? "yes" : "NO"} | ${score.file ? "yes" : "NO"} | ${
+      `| ${score.id} | ${score.court} | ${score.step} | ${score.outsideCourt ? "n/a (notice, outside court)" : score.form ? "yes" : "NO"} | ${score.outsideCourt ? "n/a (notice, outside court)" : score.file ? "yes" : "NO"} | ${
         score.counted === null ? "n/a" : score.counted ? (score.oneClick ? "yes (year: 1 click)" : "yes") : "NO"
       } | ${score.repeats.length ? score.repeats.join(", ") : "no"} |`,
     );
@@ -119,7 +126,7 @@ function main() {
 // "got the claim in the mail on september 28" is the day it arrived, and the
 // site now asks for the mailing date instead of counting from the arrival
 // day, so that case is n/a, not a pass (7 of 7 counted).
-export const FLOOR = { form: 19, file: 19, counted: 7, noRepeat: 20 };
+export const FLOOR = { form: 20, file: 20, counted: 7, noRepeat: 20 };
 
 function check(scores: CaseScore[]) {
   const got = {
