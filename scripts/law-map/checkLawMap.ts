@@ -66,6 +66,12 @@ for (const source of indexed) {
   }
 }
 
+// Saved decisions not (yet) in the corpus index are read by their file:
+// corpusId "decisions/<file>" (e.g. Odhavji, saved 2026-10-09).
+for (const file of readdirSync(path.join(ROOT, "docs/sources/decisions"))) {
+  if (file.endsWith(".txt")) texts.set(`decisions/${file}`, norm(readFileSync(path.join(ROOT, "docs/sources/decisions", file), "utf8")));
+}
+
 // ---------------------------------------------------------------- locating a provision
 
 /** "r. 17.01 (5) (a)" -> { main: "17.01", subs: ["(5)", "(a)"] } */

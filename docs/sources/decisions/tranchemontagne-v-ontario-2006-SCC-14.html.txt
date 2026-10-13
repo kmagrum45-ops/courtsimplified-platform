@@ -1,0 +1,665 @@
+ Tranchemontagne v. Ontario (Director, Disability Support Program) - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Tranchemontagne v. Ontario (Director, Disability Support Program)
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Tranchemontagne v. Ontario (Director, Disability Support Program)
+ /scc-csc/scc-csc/fr/item/7/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Tranchemontagne v. Ontario (Director, Disability Support Program)
+ Collection
+ Supreme Court Judgments
+ Date
+ 2006-04-21
+ Neutral citation
+ 2006 SCC 14
+ Report
+ [2006] 1 SCR 513
+ Case number
+ 30615
+ Judges
+ McLachlin, Beverley; Bastarache, Michel; Binnie, William Ian Corneil; LeBel, Louis; Deschamps, Marie; Fish, Morris J.; Abella, Rosalie Silberman
+ On appeal from
+ Ontario
+ Subjects
+ Administrative law
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/30615/] 30615
+ [LINK /scc-csc/scc-csc/en/7/1/document.do] 
+Decision Content
+ <td valign="top" align="left" height="77" style="padding-top:0cm;padding-right:
+ 0cm;padding-bottom:0cm;padding-left:0cm">
+ SUPREME COURT OF CANADA
+ Citation: Tranchemontagne v. Ontario (Director, Disability Support Program), [2006] 1 S.C.R. 513, 2006 SCC 14
+ <span style="text-transform:
+ uppercase">Date: 20060421 <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:2.9pt;
+ margin-left:31.5pt">Docket: 30615
+ Between:
+ Robert Tranchemontagne and Norman Werbeski
+ Appellants
+ and
+ Director of the Ontario Disability Support Program of the 
+ Ministry of Community, Family and Children’s Services
+ Respondent
+ and
+ Canadian Human Rights Commission, Ontario Human Rights 
+ Commission, Advocacy Centre for Tenants Ontario, African 
+ Canadian Legal Clinic, Empowerment Council — Centre for 
+ Addiction and Mental Health, and Social Benefits Tribunal
+ Interveners
+ Coram: McLachlin C.J. and Bastarache, Binnie, LeBel, Deschamps, Fish and Abella JJ.
+ Reasons for Judgment: (paras. 1 to 54) Dissenting Reasons: (paras. 55 to 98) 
+ Bastarache J. (McLachlin C.J. and Binnie and Fish JJ. concurring) Abella J. (LeBel and Deschamps JJ. concurring)
+ ______________________________
+ Tranchemontagne v. Ontario (Director, Disability Support Program), [2006] 1 S.C.R. 513, 2006 SCC 14
+ Robert Tranchemontagne and Norman Werbeski Appellants
+ v.
+ Director of the Ontario Disability Support Program of the 
+ Ministry of Community, Family and Children’s Services Respondent
+ and
+ Canadian Human Rights Commission, Ontario Human Rights 
+ Commission, Advocacy Centre for Tenants Ontario, African 
+ Canadian Legal Clinic, Empowerment Council — Centre for 
+ Addiction and Mental Health, and Social Benefits Tribunal Interveners
+ Indexed as: Tranchemontagne v. Ontario (Director, Disability Support Program)
+ Neutral citation: 2006 SCC 14.
+ File No.: 30615.
+ 2005: December 12; 2006: April 21.
+ Present: McLachlin C.J. and Bastarache, Binnie, LeBel, Deschamps, Fish and Abella JJ.
+ on appeal from the court of appeal for ontario
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Administrative law — Boards and tribunals — Jurisdiction — Human rights issues — Legislation prohibiting Social Benefits Tribunal from considering constitutional validity of laws and regulations — Whether tribunal has jurisdiction to consider human rights legislation in rendering its decisions — If so, whether tribunal should decline to exercise its jurisdiction in instant cases in favour of more appropriate forum — Human Rights Code, R.S.O. 1990, c. H.19, s. 47(2) — Ontario Disability Support Program Act, 1997, S.O. 1997, c. 25, Sch. B, s. 5(2) — Ontario Works Act, 1997, S.O. 1997, c. 25, Sch. A, s. 67(2).
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">T and W applied for support pursuant to the Ontario Disability Support Program Act, 1997 (“ODSPA”). The Director of the program denied their applications and an internal review confirmed the Director’s decisions. The Social Benefits Tribunal (“SBT”) dismissed T’s and W’s appeals pursuant to s. 5(2) of the ODSPA based on its finding that they both suffered from alcoholism. In so concluding, the SBT found that it did not have jurisdiction to consider whether s. 5(2) was inapplicable by virtue of the Ontario Human Rights Code. The Divisional Court upheld the decision. On a further appeal, the Court of Appeal found that the SBT had the power to declare a provision of the ODSPA inapplicable on the basis that the provision was discriminatory, but that it should have declined to exercise that jurisdiction in favour of a more appropriate forum.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Held (LeBel, Deschamps and Abella JJ. dissenting): The appeal should be allowed. The case is remitted to the SBT for a ruling on the applicability of s. 5(2) of the ODSPA.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Per McLachlin C.J. and Binnie, Bastarache and Fish JJ.: The SBT had jurisdiction to consider the Human Rights Code in determining whether T and W were eligible for support pursuant to the ODSPA. Statutory tribunals empowered to decide questions of law are presumed to have the power to look beyond their enabling statutes in order to apply the whole law to a matter properly before them. Here, the ODSPA and the Ontario Works Act, 1997 (“OWA”) confirm that the SBT can decide questions of law. As a result, when the SBT decides whether an applicant is eligible for income support, it is presumed to be able to consider any legal source that might influence its decision on eligibility, including the Code. [14] [40]
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">With respect to the Code, there is no indication that the legislature has sought to rebut this presumption. While s. 67(2) of the OWA clearly prohibits the SBT from considering the constitutional validity of laws and regulations, it is equally clear that the legislature chose not to adopt the same prohibition where the Code is concerned. The legislature envisioned constitutional and Code‑related issues as being in different “categories of questions of law”. It is one thing to preclude a statutory tribunal from invalidating legislation, but it is another to preclude that body from applying legislation enacted by the provincial legislature in order to resolve apparent conflicts between statutes. Two elements of the Code’s scheme confirm this legislative intention to differentiate the Code from the Constitution and to confer on the SBT the jurisdiction to apply the Code. First, the Code has primacy over other legislative enactments, and the legislature has given itself clear directions as to how this primacy can be eliminated in particular circumstances (s. 47(2)). Since, in the cases of the ODSPA and the OWA, the legislature did not follow the procedure it declared mandatory for overruling the primacy of the Code, it would be contrary to the legislature’s intention to demand that the SBT ignore the Code. Second, in light of recent amendments that have removed exclusive jurisdiction over the interpretation and application of the Code from the Ontario Human Rights Commission and as a result of which the Commission may decline jurisdiction where an issue would best be adjudicated pursuant to another Act, it would not be appropriate to seek to restore the Commission’s exclusive jurisdiction. [31‑42]
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Since the SBT has not been granted the authority to decline jurisdiction, it cannot avoid considering the issues relating to the Code in these cases. Moreover, although this is not determinative, the SBT is the most appropriate forum to decide those issues. The applicability of s. 5(2) of the ODSPA is best decided by the SBT because the SBT is practically unavoidable for vulnerable applicants who have been denied financial assistance under the ODSPA. Such applicants merit prompt, final and binding resolutions for their disputes. Where an issue is properly before a tribunal pursuant to a statutory appeal, and especially where a vulnerable applicant is advancing arguments in defence of his human rights, it would be rare for this tribunal not to be the one most appropriate to hear the entire dispute. [43‑50]
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Per LeBel, Deschamps and Abella JJ. (dissenting): While the Ontario Human Rights Commission no longer has exclusive jurisdiction to decide complaints under the Human Rights Code, and while the Code has primacy over other provincial enactments, not all provincial tribunals have free‑standing jurisdiction, concurrent with that of the Commission, to enforce the Code in a way that nullifies a provision. Here, although the SBT is not precluded from applying the human rights values and principles found in the Code, it does not have jurisdiction to apply the Code in a way that renders a provision inoperable. By enacting s. 67(2) of the OWA, which prohibits the SBT from considering the constitutional validity of any enactment or the legislative authority for a regulation, the legislature unequivocally expressed its intent that the SBT not hear and decide legal issues that may result in the inoperability of a provision. Even though s. 67(2) refers to constitutional validity, but not to compliance with the Code, their remedial and conceptual similarities are such that the legislature has, by clear implication, withdrawn the authority to grant the remedy of inoperability under either mandate. [85] [93‑97]
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Practical considerations also indicate the legislature’s intention that the SBT not consider legal questions that go to the validity of its enabling statute. In light of their institutional characteristics, it was deemed inappropriate for either the Director or the SBT to decide such complex, time‑consuming legal issues as the operability of a provision. The Director does not hold hearings or receive evidence beyond that filed by an applicant, and the SBT’s hearings are informal, private, and brief. The SBT is meant to be an efficient, effective, and quick process, and imposing such Code compliance hearings on it will inevitably have an impact on its ability to assist the disabled community in a timely way. [86‑91]
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">Cases Cited
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">By Bastarache J.
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Referred to: Nova Scotia (Workers’ Compensation Board) v. Martin, [2003] 2 S.C.R. 504, 2003 SCC 54; Cuddy Chicks Ltd. v. Ontario (Labour Relations Board), [1991] 2 S.C.R. 5; Douglas/Kwantlen Faculty Assn. v. Douglas College, [1990] 3 S.C.R. 570; Canadian Pacific Ltd. v. Matsqui Indian Band, [1995] 1 S.C.R. 3; Paul v. British Columbia (Forest Appeals Commission), [2003] 2 S.C.R. 585, 2003 SCC 55; McLeod v. Egan, [1975] 1 S.C.R. 517; Battlefords and District Co‑operative Ltd. v. Gibbs, [1996] 3 S.C.R. 566; Insurance Corp. of British Columbia v. Heerspink, [1982] 2 S.C.R. 145; B v. Ontario (Human Rights Commission), [2002] 3 S.C.R. 403, 2002 SCC 66; Cooper v. Canada (Human Rights Commission), [1996] 3 S.C.R. 854; Quebec (Attorney General) v. Quebec (Human Rights Tribunal), [2004] 2 S.C.R. 223, 2004 SCC 40; Parry Sound (District) Social Services Administration Board v. O.P.S.E.U., Local 324, [2003] 2 S.C.R. 157, 2003 SCC 42; Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Quebec (Attorney General), [2004] 2 S.C.R. 185, 2004 SCC 39; Zurich Insurance Co. v. Ontario (Human Rights Commission), [1992] 2 S.C.R. 321.
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">By Abella J. (dissenting)
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+24.4pt">Nova Scotia (Workers’ Compensation Board) v. Martin, [2003] 2 S.C.R. 504, 2003 SCC 54; British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3; Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montréal (City), [2000] 1 S.C.R. 665, 2000 SCC 27; Tétreault‑Gadoury v. Canada (Employment and Immigration Commission), [1991] 2 S.C.R. 22; Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181.
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">Statutes and Regulations Cited
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt;page-break-after:avoid">[LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15] Canadian Charter of Rights and Freedoms [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15] , s. 15 .
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">[LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52] Constitution Act, 1982 [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52] , s. 52 .
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Courts of Justice Act, R.S.O. 1990, c. C.43, s. 106.
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Fire Protection and Prevention Act, 1997, S.O. 1997, c. 4, s. 53(9)(j). 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Human Rights Code, R.S.O. 1990, c. H.19, ss. 1, 34, 36, 47.
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Labour Relations Act, 1995, S.O. 1995, c. 1, Sch. A, s. 48(12)(j).
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">O. Reg. 134/98, ss. 41(1), 42(2)2.
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">O. Reg. 222/98, ss. 30(1)1, 31(2)2.
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Ontario Disability Support Program Act, 1997, S.O. 1997, c. 25, Sch. B, ss. 1, 4, 5, 11, 21, 22, 23(1), (10), 26(1), (3), 28, 29(3), 31(1), 37(3), 38.
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Ontario Human Rights Code, R.S.O. 1970, c. 318, s. 14b(6) [ad. 1971, c. 50 (Supp.), s. 63].
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:12.2pt">Ontario Works Act, 1997, S.O. 1997, c. 25, Sch. A, s. 1, 7(4)(b), 67(2).
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:24.4pt">Statutory Powers Procedure Act, R.S.O. 1990, c. S.22.
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid">Authors Cited
+ <p class="MsoNormal" style="text-align:justify;line-height:24.4pt;page-break-after:
+avoid"> 
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;page-break-after:avoid">Ontario. Legislative Assembly. Official Report of Debates, No. 19A, 2nd Sess., 36th Parl., June 2, 1998, p. 971.
+ <p class="MsoNormal" style="margin-left:26.4pt;text-align:justify;text-indent:
+-26.4pt;line-height:200%">Ontario. Legislative Assembly. Official Report of Debates, No. 222B, 1st Sess., 36th Parl., September 2, 1997, p. 11708.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">APPEAL from a judgment of the Ontario Court of Appeal (Labrosse, Weiler and Charron JJ.A.) (2004), 72 O.R. (3d) 457, 244 D.L.R. (4th) 118, 190 O.A.C. 108, [2004] O.J. No. 3724 (QL), affirming a decision of the Divisional Court (Then, Cameron and Desotti JJ.), [2003] O.J. No. 1409 (QL). Appeal allowed, LeBel, Deschamps and Abella JJ. dissenting. 
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Peter J. Chapin, Terence Copes and Grace Kurke, for the appellants.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Rebecca J. Givens and Janet E. Minor, for the respondent.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">R. Daniel Pagowski and Leslie A. Reaume, for the intervener the Canadian Human Rights Commission.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Cathy Pike and Hart Schwartz, for the intervener the Ontario Human Rights Commission.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Katherine Laird and Toby Young, for the intervener the Advocacy Centre for Tenants Ontario.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Marie Chen and Royland Moriah, for the intervener the African Canadian Legal Clinic.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Lesli Bisgould and Dianne Wintermute, for the intervener the Empowerment Council — Centre for Addiction and Mental Health.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Jeff G. Cowan and M. Jill Dougherty, for the intervener the Social Benefits Tribunal.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">The judgment of McLachlin C.J. and Bastarache, Binnie and Fish JJ. was delivered by
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">Bastarache J. —
+ <p class="MsoNormal" style="margin-left:27.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">1. Introduction
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">1 Is the Social Benefits Tribunal (“SBT”), a provincially created statutory tribunal, obligated to follow provincial human rights legislation in rendering its decisions? That is the question raised by this appeal.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">2 The roots of this dispute can be traced back to November 1998 and July 1999, when the appellants Robert Tranchemontagne and Norman Werbeski respectively applied to the Director of the Ontario Disability Support Program (“Director”) for support pursuant to the Ontario Disability Support Program Act, 1997, S.O. 1997, c. 25, Sch. B (“ODSPA”). If successful, the appellants would have received financial assistance in order to help them cope with their substantial impairments. If unsuccessful, the appellants would be left to apply for the appreciably lower levels of assistance offered pursuant to the Ontario Works Act, 1997, S.O. 1997, c. 25, Sch. A (“OWA”).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">3 It is clear that the ODSPA and the OWA are meant to serve very different goals. The former statute is meant to ensure support for disabled applicants, recognizing that the government shares in the responsibility of providing such support (ODSPA, s. 1). The latter statute, on the other hand, seeks to provide only temporary assistance premised on the concept of individual responsibility (OWA, s. 1). The divergent purposes of these two statutes was alluded to by the Honourable Janet Ecker, the Ontario Minister of Community and Social Services, on the day after the ODSPA was proclaimed:
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">This new program removes people with disabilities from the welfare system, where they should never have been in the first place, and it creates for them an entirely separate system of income support. . . .
+ (Legislative Assembly of Ontario, Official Report of Debates, No. 19A, June 2, 1998, at p. 971)
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">4 The Director determined that the appellants were not entitled to benefits under the ODSPA regime. Following the procedure set out in the ODSPA, the appellants requested an internal review of the Director’s decision. Rejected at this stage as well, the appellants then appealed to the intervener SBT.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">5 The rulings of the SBT in the appellants’ individual appeals were rendered on February 7, 2001, for the appellant Werbeski, and September 18, 2001, for the appellant Tranchemontagne. In both decisions, the SBT found that the appellants suffered from alcoholism. The SBT held alcoholism to be a “disabling condition”, in the case of the appellant Tranchemontagne, and a “substantial impairment” that “substantially restricts” working ability, in the case of the appellant Werbeski. The SBT dismissed both appellants’ appeals.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">6 The SBT based its decisions on s. 5(2) of the ODSPA. That section provides:
+ 5. . . .
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">(2) A person is not eligible for income support if,
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(a) the person is dependent on or addicted to alcohol, a drug or some other chemically active substance;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(b) the alcohol, drug or other substance has not been authorized by prescription as provided for in the regulations; and
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">(c) the only substantial restriction in activities of daily living is attributable to the use or cessation of use of the alcohol, drug or other substance at the time of determining or reviewing eligibility.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">7 The appellants do not dispute that, if applicable, s. 5(2) functions to deny them support on the basis of their alcoholism. In front of the SBT, they each argued that they had impairments other than alcoholism; these arguments were rejected and the SBT’s findings have not been appealed to this Court. But the appellants also argued that s. 5(2) was inapplicable by virtue of the Ontario Human Rights Code, R.S.O. 1990, c. H.19 (“Code”). By purporting to refuse them support on the basis of their alcoholism, which the appellants assert is a disability within the meaning of the Code, the appellants argued that s. 5(2) of the ODSPA constituted discrimination and was therefore inapplicable because of the primacy of the Code over other legislation.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">8 Instead of analyzing this argument, the SBT held that it did not have the jurisdiction to consider the applicability of s. 5(2) pursuant to the Code. The appellants’ appeals were therefore dismissed without the benefit of a ruling that their treatment was not discriminatory.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">9 Their cases now joined, the appellants appealed to the Divisional Court. In brief oral reasons, the bench of Then, Cameron and Desotti JJ. agreed with the SBT that the authority to consider the Code could not be found in its enabling statutes ([2003] O.J. No. 1409 (QL), at para. 3). The appellants then appealed to the Ontario Court of Appeal.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">10 On behalf of a unanimous bench, Weiler J.A. examined the ODSPA and OWA in detail. She concluded that the legislature did not remove jurisdiction to consider the Code from the SBT, and that accordingly the SBT possessed the power to declare a provision of the ODSPA inapplicable by virtue of its discriminatory nature ((2004), 72 O.R. (3d) 457, at paras. 58-59 and 62). However, Weiler J.A. then went on to consider whether the SBT should have declined to exercise its Code jurisdiction in the present appeal. She held that the SBT was not the most appropriate forum in which the Code issue could be decided, leading her to ultimately dismiss the appeal (para. 70).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">11 The substance of the appellants’ argument before the SBT is not at issue before this Court. Since the appeal is allowed, this issue will be remitted to the SBT. In the event the appeal would have been dismissed, the appellants would have pursued a judicial review application, which is presently being held in abeyance before the Divisional Court. It is thus not for this Court to consider whether s. 5(2) of the ODSPA conflicts with the Code. Rather, this Court is only concerned with the SBT’s decision that it could not decide these issues for itself.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">12 It has been almost five years since the appellants’ applications were denied by the Director. During this time, the appellants have not received any disability support pursuant to the ODSPA. If the appellants are ultimately successful in their substantive claims, no amount of interest could negate the fact that they have lived the past five years without the assistance they were owed. Accordingly, much argument before this Court centred on concerns as to the vulnerability of the appellants and their need to have their appeals settled fully by the SBT. Nevertheless, these concerns must be tempered by the importance of the efficient operation of the SBT more generally, lest other applicants suffer needlessly while waiting for the results of their appeals. Ultimately, however, this appeal is not decided by matters of practicality for applicants or matters of expediency for administrative tribunals. It is decided by following the statutory scheme enacted by the legislature.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">13 The Code is fundamental law. The Ontario legislature affirmed the primacy of the Code in the law itself, as applicable both to private citizens and public bodies. Further, the adjudication of Code issues is no longer confined to the exclusive domain of the intervener the Ontario Human Rights Commission (“OHRC”): s. 34 of the Code. The legislature has thus contemplated that this fundamental law could be applied by other administrative bodies and has amended the Code accordingly.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">14 The laudatory goals of the Code are not well served by reading in limitations to its application. It is settled law that statutory tribunals empowered to decide questions of law are presumed to have the power to look beyond their enabling statutes in order to apply the whole law to a matter properly in front of them. By applying this principle to the present appeal, it becomes clear that the SBT had the jurisdiction to consider the Code in determining whether the appellants were eligible for support pursuant to the ODSPA. At that point, the SBT had the responsibility of applying the Code in order to render a decision that reflected the whole law of the province.
+ <p class="MsoNormal" style="margin-left:27.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">2. Issues
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">15 This appeal raises two issues:
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(1) Does the SBT have the jurisdiction to consider the Code in rendering its decisions?
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-20.85pt;line-height:200%">(2) If the answer to the first question is “yes”, should the SBT have declined to exercise its jurisdiction in the present cases?
+ <p class="MsoNormal" style="margin-left:27.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">3. Analysis
+ <p class="MsoNormal" style="margin-left:27.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">3.1 Does the SBT Have the Jurisdiction to Consider the Code?
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">16 Statutory tribunals like the SBT do not enjoy any inherent jurisdiction. It is therefore necessary to examine the enabling statutes of the SBT in order to determine what powers it possesses: Nova Scotia (Workers’ Compensation Board) v. Martin, [2003] 2 S.C.R. 504, 2003 SCC 54, at para. 33; Cuddy Chicks Ltd. v. Ontario (Labour Relations Board), [1991] 2 S.C.R. 5, at p. 14; Douglas/Kwantlen Faculty Assn. v. Douglas College, [1990] 3 S.C.R. 570, at p. 595. For the SBT, the relevant statutes are the ODSPA and the OWA. In the context of the present appeal, however, the legislative scheme surrounding the Code cannot be ignored. The enabling statutes and the Code will all be considered in turn.
+ <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:200%">3.1.1 The ODSPA and the OWA
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">17 The ODSPA and the OWA are twin components of the Ontario government’s scheme for delivering social assistance to deserving applicants. The ODSPA deals with disabled applicants, while the OWA provides assistance for eligible applicants who are not disabled. Reference can be made to the opening sections of each statute in order to discern the policy differences between the two. Section 1 of the ODPSA reads:
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">1. [Purpose of Act] The purpose of this Act is to establish a program that,
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(a) provides income and employment supports to eligible persons with disabilities;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(b) recognizes that government, communities, families and individuals share responsibility for providing such supports;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(c) effectively serves persons with disabilities who need assistance; and
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">(d) is accountable to the taxpayers of Ontario.
+ Section 1 of the OWA reads:
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">1. [Purpose of Act] The purpose of this Act is to establish a program that,
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(a) recognizes individual responsibility and promotes self reliance through employment;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(b) provides temporary financial assistance to those most in need while they satisfy obligations to become and stay employed;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(c) effectively serves people needing assistance; and
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt;line-height:200%">(d) is accountable to the taxpayers of Ontario.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">18 As mentioned above, the levels of support also vary greatly between the two regimes. For instance, the amount payable for basic needs for a single recipient with no dependents, pursuant to the OWA, is $201 per month (O. Reg. 134/98, s. 41(1)). The comparable figure for the ODSPA regime is $532 per month (O. Reg. 222/98, s. 30(1)1). The single shelter allowance under the OWA is $335 (O. Reg. 134/98, s. 42(2)2), while the comparable ODSPA figure is $427 (O. Reg. 222/98, s. 31(2)2). The provision of assistance under the OWA may also be subject to conditions, like participating in employment measures: s. 7(4)(b).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">19 The ODSPA provides a detailed framework for the handling of a disability benefits application. The Director receives applications for income support: s. 38(a). Whether a person is disabled is decided through reference to ss. 4 and 5 of the ODSPA:
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">4. (1) [Person with a disability] A person is a person with a disability for the purposes of this Part if,
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(a) the person has a substantial physical or mental impairment that is continuous or recurrent and expected to last one year or more;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(b) the direct and cumulative effect of the impairment on the person’s ability to attend to his or her personal care, function in the community and function in a workplace, results in a substantial restriction in one or more of these activities of daily living; and
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-32.0pt">(c) the impairment and its likely duration and the restriction in the person’s activities of daily living have been verified by a person with the prescribed qualifications.
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+23.4pt">(2) [Determination] A determination under this section shall be made by a person appointed by the Director.
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+23.4pt">5. (1) [Eligibility for income support] No person is eligible for income support unless,
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-32.0pt">(a) the person qualifies under subsection 3 (1);
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-32.0pt">(b) the person is resident in Ontario;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-32.0pt">(c) the budgetary requirements of the person and any dependants exceed their income and their assets do not exceed the prescribed limits, as provided for in the regulations;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(d) the person and the prescribed dependants provide the information and the verification of information required to determine eligibility including,
+ <p class="MsoNormal" style="margin-left:144.0pt;text-align:justify;text-indent:
+-31.0pt">(i) information regarding personal identification, as prescribed,
+ <p class="MsoNormal" style="margin-left:144.0pt;text-align:justify;text-indent:
+-31.0pt">(ii) financial information, as prescribed, and
+ <p class="MsoNormal" style="margin-left:144.0pt;text-align:justify;text-indent:
+-31.0pt">(iii) any other prescribed information; and
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(e) the person and any dependants meet any other prescribed conditions relating to eligibility.
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">(2) [Same] A person is not eligible for income support if,
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(a) the person is dependent on or addicted to alcohol, a drug or some other chemically active substance;
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(b) the alcohol, drug or other substance has not been authorized by prescription as provided for in the regulations; and
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-34.55pt">(c) the only substantial restriction in activities of daily living is attributable to the use or cessation of use of the alcohol, drug or other substance at the time of determining or reviewing eligibility.
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+20.85pt">(3) [Same] Subsection (2) does not apply with respect to a person who, in addition to being dependent on or addicted to alcohol, a drug or some other chemically active substance, has a substantial physical or mental impairment, whether or not that impairment is caused by the use of alcohol, a drug or some other chemically active substance.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">20 As s. 4(2) makes clear, it is not the Director who personally decides whether a person is disabled within the meaning of s. 4(1). The Director may also allow any of his or her duties to be performed by another under his or her supervision and direction: s. 37(3). However the ultimate determination of eligibility, including the application of s. 5(2), falls within the responsibilities of the Director: s. 38(b). 
+ Once an applicant is found to be eligible for support, it is also the Director who determines the amount and directs its provision: s. 38(c).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">21 An appeal to the SBT is generally permitted, with the legislature specifying certain exceptional cases where an appeal will not lie: s. 21. But an applicant must request an internal review before appealing to the SBT: s. 22. The internal review need not conform to the Statutory Powers Procedure Act, R.S.O. 1990, c. S.22: s. 22(4). After the internal review, an applicant can appeal the Director’s decision to the SBT: s. 23(1). The onus is on the applicant to satisfy the SBT that the Director is wrong: s. 23(10).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">22 I should emphasize at this point that, for an applicant whose application for income support is still denied after the internal review, the SBT is a forum that cannot easily be avoided. It is the SBT that is empowered by the legislature to decide income support appeals binding on the Director: s. 26(3). Given the existence of an appeal to the SBT, it is not at all clear that an applicant could seek judicial review of the Director’s decision without first arguing before the SBT: see Canadian Pacific Ltd. v. Matsqui Indian Band, [1995] 1 S.C.R. 3, at paras. 32-38, 112 and 140-53. And while an applicant who is denied benefits for discriminatory reasons may indeed seek recourse through the OHRC, applicants will not always realize that they are victims of discrimination. For instance, in the present appeal, the letters from the Director to the appellants concerning the initial application and the internal review never mention that the appellants’ alcoholism was being ignored as a potential basis for disability. The appellants were simply told that they were not found to be persons with a disability. The adjudication summaries of the cases raise the issue of alcoholism, but there is no evidence that these documents were appended to the Director’s letters; it would seem they were obtained by the appellants on discovery.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">23 The ODSPA also provides for an appeal, on questions of law, from the SBT to the Divisional Court: s. 31(1). Such questions of law can routinely arise during the course of the SBT’s normal operations: for example, it may need to determine the legal meaning of “substantial physical or mental impairment” under s. 4(1)(a), or even “chemically active substance” under s. 5(2)(a). There is little doubt, therefore, that the SBT is empowered to decide questions of law: see Paul v. British Columbia (Forest Appeals Commission), [2003] 2 S.C.R. 585, 2003 SCC 55, at para. 41. Important implications flow from this power.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">24 In Martin, this Court repeated the principle that administrative bodies empowered to decide questions of law “may presumptively go beyond the bounds of their enabling statute and decide issues of common law or statutory interpretation that arise in the course of a case properly before them, subject to judicial review on the appropriate standard”: see para. 45. I must emphasize that the presumptive power to look beyond a tribunal’s enabling statute is triggered simply where a tribunal (with the authority to decide questions of law) is confronted with “issues . . . that arise in the course of a case properly before” it. This can be contrasted with the power to subject a statutory provision to [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter scrutiny, which will only be found where the tribunal has jurisdiction to decide questions of law relating to that specific provision: see Martin, at para. 3.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">25 I must conclude that the contrast in the wording of Martin is deliberate. Where a specific provision is being declared invalid, it is necessary to ensure that the tribunal is empowered to scrutinize it. Power to scrutinize other provisions is not sufficient, because the constitutional analysis is targeting one specific provision. But the same does not hold true when a tribunal is merely being asked to consider external sources of law. In such a situation, a specific statutory provision is not necessarily placed at the heart of the analysis; for instance, the tribunal may be asked to look beyond its enabling statute because its enabling statute is silent on an issue. Although consideration of the external source in the present appeal might lead to the inapplicability of a specific provision, this does not imply that the process is analogous to that of constitutional invalidation. When a tribunal is simply asked to apply an external statute, this Court has always focused the analysis on the tribunal’s jurisdiction to consider the whole issue before it:
+ Although the issue before the arbitrator arose by virtue of a grievance under a collective agreement, it became necessary for him to go outside the collective agreement and to construe and apply a statute which was not a projection of the collective bargaining relations of the parties but a general public enactment of the superior provincial Legislature. [Emphasis added.]
+ (McLeod v. Egan, [1975] 1 S.C.R. 517, at pp. 518-19 (per Laskin C.J., concurring))
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">26 The presumption that a tribunal can go beyond its enabling statute — unlike the presumption that a tribunal can pronounce on constitutional validity — exists because it is undesirable for a tribunal to limit itself to some of the law while shutting its eyes to the rest of the law. The law is not so easily compartmentalized that all relevant sources on a given issue can be found in the provisions of a tribunal’s enabling statute. Accordingly, to limit the tribunal’s ability to consider the whole law is to increase the probability that a tribunal will come to a misinformed conclusion. In turn, misinformed conclusions lead to inefficient appeals or, more unfortunately, the denial of justice.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">27 Yet the power to decide questions of law will not always imply the power to apply legal principles beyond the tribunal’s enabling legislation. As noted above, statutory creatures are necessarily limited by the boundaries placed upon them by the legislature. Subject to its own constitutional constraints, a legislature may restrict the jurisdiction of its tribunals however it sees fit. The respondent points to two provisions in the ODSPA and OWA to argue that this is precisely what the legislature sought to do with respect to the SBT.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">28 Section 29(3) of the ODSPA provides that the “Tribunal shall not make a decision in an appeal under this Act that the Director would not have authority to make”. The respondent suggests that the Director, and the Director’s delegates, cannot possibly have the power to use the Code to deny application of the ODSPA, and it therefore follows that the SBT does not have this power either. I believe this argument can be dealt with easily.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">29 Section 29(3) is not as extreme as the respondent suggests. The section merely states that the SBT cannot make a decision that the Director would not have the authority to make. Thus the SBT could not decide to award an applicant income support in an amount inconsistent with the regulations, because the Director does not have the authority to award income support in an amount inconsistent with the regulations: see s. 11. Yet allowing the Code to inform an eligibility determination can hardly be characterized as a “decision” itself; it is simply a power that the SBT may possess. And the ODSPA does not limit the SBT’s powers to those possessed by the Director. In fact, the ODSPA itself contemplates powers that the SBT has and the Director does not. For instance, pursuant to s. 38(b), the Director must determine each applicant’s eligibility for income support, but s. 28 obliges the SBT to refuse to hear frivolous or vexatious appeals. I conclude that s. 29(3) does not preclude the possibility of the SBT considering the Code.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">30 The second provision to which the respondent points in suggesting that the SBT does not have the jurisdiction to consider the Code is s. 67(2) of the OWA. That section provides that the SBT cannot determine the constitutional validity of a provision or regulation and cannot determine the legislative authority for making a regulation. The respondent’s argument is thus premised on the notion that scrutiny pursuant to the Code is analogous to the kind of scrutiny explicitly prohibited by s. 67(2). Once again, I cannot agree.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">31 The Code emanates from the Ontario legislature. As I will elaborate below, it is one thing to preclude a statutory tribunal from invalidating legislation enacted by the legislature that created it. It is completely different to preclude that body from applying legislation enacted by that legislature in order to resolve apparent conflicts between statutes. The former power — an act of defying legislative intent — is one that is clearly more offensive to the legislature; it should not be surprising, therefore, when the legislature eliminates it. Yet the latter power represents nothing more than an instantiation of legislative intent — a legislative intent, I should note, that includes the primacy of the Code and the concurrent jurisdiction of administrative bodies to apply it.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">32 Thus the argument based on s. 67(2) is defeated because the legislature could not possibly have intended that the Code be denied application by analogy to the Constitution. While it clearly prohibited the SBT from considering the constitutional validity of laws and regulations, it equally clearly chose not to invoke the same prohibition with respect to the Code. In the context of this distinction, I must conclude that the legislature envisioned constitutional and Code issues as being in different “categor[ies] of questions of law”, to use the language of Martin, at para. 42. Consistent with the human rights regime it crafted, the legislature has afforded the Code the possibility of broad application even while denying the SBT the authority to determine constitutional issues.
+ <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:200%">3.1.2 The Code
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">33 The most important characteristic of the Code for the purposes of this appeal is that it is fundamental, quasi-constitutional law: see Battlefords and District Co-operative Ltd. v. Gibbs, [1996] 3 S.C.R. 566, at para. 18; Insurance Corp. of British Columbia v. Heerspink, [1982] 2 S.C.R. 145, at p. 158. Accordingly, it is to be interpreted in a liberal and purposive manner, with a view towards broadly protecting the human rights of those to whom it applies: see B v. Ontario (Human Rights Commission), [2002] 3 S.C.R. 403, 2002 SCC 66, at para. 44. And not only must the content of the Code be understood in the context of its purpose, but like the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms , it must be recognized as being the law of the people: see Cooper v. Canada (Human Rights Commission), [1996] 3 S.C.R. 854, at para. 70, aff’d in Martin, at para. 29, and Quebec (Attorney General) v. Quebec (Human Rights Tribunal), [2004] 2 S.C.R. 223, 2004 SCC 40 (“Charette”), at para. 28. Accordingly, it must not only be given expansive meaning, but also offered accessible application.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">34 The importance of the Code is not merely an assertion of this Court. The Ontario legislature has seen fit to bind itself and all its agents through the Code: s. 47(1). Further, it has given the Code primacy over all other legislative enactments: s. 47(2). As a result of this primacy clause, where provisions of the Code conflict with provisions in another provincial law, it is the provisions of the Code that are to apply.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">35 This primacy provision has both similarities and differences with [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52] s. 52 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Constitution Act, 1982 , which announces the supremacy of the Constitution. In terms of similarities, both provisions function to eliminate the effects of inconsistent legislation. At the end of the day, whether there is a conflict with the Code or the Constitution, the ultimate effect is that the other provision is not followed and, for the purposes of that particular application, it is as if the legislation was never enacted. But in my view, the differences between the two provisions are far more important. A provision declared invalid pursuant to [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52] s. 52 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Constitution Act, 1982 was never validly enacted to begin with. It never existed as valid law because the legislature enacting it never had the authority to pass it. But when a provision is inapplicable pursuant to s. 47 of the Code, there is no statement being made as to its validity. The legislature had the power to enact the conflicting provision; it just so happens that the legislature also enacted another law that takes precedence.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">36 Thus whether a provision is constitutionally permissible, and whether it is consistent with the Code, are two separate questions involving two different kinds of scrutiny. When a tribunal or court applies s. 47 of the Code to render another law inapplicable, it is not “going behind” that law to consider its validity, as it would be if it engaged in the two activities denied the SBT by s. 67(2) of the OWA. It is not declaring that the legislature was wrong to enact it in the first place. Rather, it is simply applying the tie-breaker supplied by, and amended according to the desires of, the legislature itself. The difference between s. 47 of the Code and [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52] s. 52 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Constitution Act, 1982 is therefore the difference between following legislative intent and overturning legislative intent.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">37 In addition to the formal analogy between s. 47 of the Code and [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec52] s. 52 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Constitution Act, 1982 , the respondent purports to invoke a substantive similarity between s. 1 of the Code and [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15] s. 15 of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . Based on this second comparison, the respondent infers that an issue sufficiently complex to be carved out of the SBT’s jurisdiction qua Charter issue should also be carved out of the SBT’s jurisdiction qua Code issue. In my view, this argument is also flawed. Under the respondent’s argument, in order for the SBT to determine whether it has jurisdiction over an issue, it must first decide whether that issue could be framed constitutionally. But one cannot deduce a legislative intention to preclude the SBT from dealing with [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter issues because of their complexity, yet also conclude that the SBT has been given the responsibility of determining its own jurisdiction on the basis of whether a claim could potentially be argued under the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . This “is it really a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter question?” analysis would often be as complex as the substantive issue itself; it would demand that the SBT inquire first into the applicability of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter , and then inquire into the relative advantages and disadvantages of the Code versus the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter in order to ensure it was not disadvantaging an applicant by compelling the applicant to make a constitutional argument. If the legislature feels the first sort of analysis is too complex for the SBT to engage in, I hardly see why it should be inferred that the legislature is inviting the SBT to engage in the second.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">38 Rather, it is most consistent with the legislative scheme surrounding the Code to differentiate the Code from the Constitution and allow the SBT to consider the former. Two elements of the Code regime, in addition to those discussed under the ODSPA and OWA, confirm this legislative intention. The first is found at s. 47(2). This section provides not simply that the Code takes primacy over other legislative enactments, but that this primacy applies “unless the [other] Act or regulation specifically provides that it is to apply despite this Act [the Code]”. Thus the legislature put its mind to conflicts between the Code and other enactments, declared that the Code will prevail as a general rule and also developed instructions for how it is to avoid application of Code primacy. Given that the legislature did not follow the procedure it declared mandatory for overruling the primacy of the Code, this Court is in no position to deduce that it meant to do so or that it came close enough. This is especially so given that the consequence of this deduction would be that the application of human rights law is curtailed.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">39 The second element in the statutory scheme that confirms the jurisdiction of the SBT to apply the Code is the non-exclusive jurisdiction of the OHRC concerning the interpretation and application of the Code. While s. 14b(6) of The Ontario Human Rights Code, R.S.O. 1970, c. 318, as amended by S.O. 1971, c. 50 (Supp.), s. 63, previously gave a board of inquiry exclusive jurisdiction to determine contraventions of the Code, the legislature has since altered its regime. In its present form, the Code can be interpreted and applied by a myriad of administrative actors. Nothing in the current legislative scheme suggests that the OHRC is the guardian or the gatekeeper for human rights law in Ontario. Thus in Parry Sound (District) Social Services Administration Board v. O.P.S.E.U., Local 324, [2003] 2 S.C.R. 157, 2003 SCC 42, this Court held that a labour arbitrator was able to apply the Code, as its provisions are implicit in collective agreements. And in Charette, I noted how allowing many administrative actors to apply human rights legislation fosters a general culture of respect for human rights in the administrative system: see para. 28; see also Parry Sound, at para. 52. These pronouncements are consistent with the legislature’s removal of the exclusive jurisdiction clause for the OHRC, as well as its current policy of permitting the OHRC to decline jurisdiction where an issue would be best adjudicated pursuant to another Act: see s. 34(1)(a) of the Code. It is hardly appropriate for this Court to now argue with this legislative policy shift towards concurrent jurisdiction, and seek to restore exclusive jurisdiction for the OHRC.
+ <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:200%">3.1.3 Conclusion on Jurisdiction
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">40 I therefore conclude that the SBT has jurisdiction to consider the Code. The ODSPA and OWA confirm that the SBT can decide questions of law. It follows that the SBT is presumed to have the jurisdiction to consider the whole law. More specifically, when it decides whether an applicant is eligible for income support, the SBT is presumed able to consider any legal source that might influence its decision on eligibility. In the present appeal, the Code is one such source.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">41 There is no indication that the legislature has sought to rebut this presumption. To the contrary, the legislature has announced the primacy of the Code and has given itself clear directions for how this primacy can be eliminated in particular circumstances. The legislature has indeed prohibited the SBT from considering the constitutional validity of enactments, or the vires of regulations, but it did nothing to suggest that the SBT could not consider the Code. I cannot impute to the legislature the intention that the SBT ignore the Code when the legislature did not even follow its own instructions for yielding this result.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">42 The ODSPA and OWA do evince a legislative intent to prevent the SBT from looking behind the statutory and regulatory scheme enacted by the legislature and its delegated actors. However, consideration of the Code is not analogous. Far from being used to look behind the legislative scheme, the Code forms part of the legislative scheme. It would be contrary to legislative intention to demand that the SBT ignore it.
+ <p class="MsoNormal" style="margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;line-height:200%">3.2 Should the SBT Have Declined to Exercise Its Jurisdiction in the Present Cases?
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">43 Although I have established that the SBT has the jurisdiction to apply the Code in rendering its income support decisions, the respondent argues that a further analysis remains. It suggests that, in cases where two administrative bodies — the SBT and the OHRC, in the present appeal — have jurisdiction over an issue, there should be a determination of which one is the better forum before an applicant is allowed to proceed in either one. Following the Court of Appeal’s reasoning, this approach would use the framework developed in the context of disputes over exclusive jurisdiction — like Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Quebec (Attorney General), [2004] 2 S.C.R. 185, 2004 SCC 39, and Charette — to determine the most appropriate forum in cases of concurrent jurisdiction.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">44 The analysis that the respondent invites is premised on the assumption that the SBT could decline jurisdiction if it determines that the OHRC is a more appropriate forum in which the applicants could advance their claim. This premise is unnecessary when a tribunal is determining whether another decision maker has exclusive jurisdiction; in that context, the tribunal is not deciding which of two forums is preferable, but rather which of two forums has jurisdiction in the first place. But this premise is vital in the present appeal because the jurisdiction of the SBT has already been triggered. In order for the SBT to be able to decline to hear the issue properly in front of it, the legislature must have granted it this power.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">45 An investigation of the ODSPA and the OWA reveals that the legislature did not grant the SBT such a power. While the SBT must refuse to hear an appeal that is frivolous or vexatious pursuant to s. 28 of the ODSPA, at no point does the legislature offer the SBT the discretion to decline to hear an issue of which it is properly seized. This approach can be contrasted with the Ontario legislature’s regime surrounding the OHRC (which possesses a discretion to decline to hear complaints better considered under another Act pursuant to s. 34 of the Code) and its courts (which may stay proceedings “on such terms as are considered just” pursuant to s. 106 of the Courts of Justice Act, R.S.O. 1990, c. C.43).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">46 Since the SBT has not been granted the authority to decline jurisdiction, it cannot avoid considering the Code issues in the appellants’ appeals. This is sufficient to decide the appeal. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">47 Having the SBT apply the Code in rendering its decisions also has many salutary effects and is consistent with this Court’s jurisprudence affirming the importance of accessible human rights legislation. Before reviewing these effects, however, I should stress that they were not determinative in deciding the outcome of this appeal. While the SBT happens to be the best forum to decide Code issues in this particular case, even if it was not, its lack of authority to decline jurisdiction would be conclusive. The legislature defines the jurisdiction of the tribunals that it creates and, so long as it defines their jurisdiction in a way that does not infringe the Constitution, it is not for those tribunals (or the courts) to decide that the jurisdiction granted is in some way deficient. Accordingly, important as they may be to applicants and administrative bodies, factors like expertise and practical constraints are insufficient to bestow a power that the legislature did not see fit to grant a tribunal.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">48 In this case, the applicability of s. 5(2) of the ODSPA is best decided by the SBT because the SBT is practically unavoidable for the vulnerable applicants who have been denied financial assistance under the ODSPA. Appellants to the SBT, like applicants in front of many administrative tribunals, are not individuals who have time on their side, nor will they necessarily be willing to start afresh with an application to the OHRC if their appeal to the SBT is dismissed. And if they try this alternate route, there is no guarantee that they would even have the chance to argue their case before the Human Rights Tribunal of Ontario: see s. 36 of the Code. These applicants merit prompt, final and binding resolutions for their disputes: Parry Sound, at para. 50. It is truly exceptional that the appellants in the present appeal have been able to ride the waves of this legal battle for almost five years, without ever collecting benefits under the ODSPA and without even having their substantive argument adjudicated yet.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">49 The intersection of the ODSPA regime with human rights law in the present dispute only accentuates the importance of the SBT deciding the entire dispute in front of it. In Zurich Insurance Co. v. Ontario (Human Rights Commission), [1992] 2 S.C.R. 321, at p. 339, Sopinka J. described human rights legislation as often being the “final refuge of the disadvantaged and the disenfranchised” and the “last protection of the most vulnerable members of society”. But this refuge can be rendered meaningless by placing barriers in front of it. Human rights remedies must be accessible in order to be effective.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">50 Where a tribunal is properly seized of an issue pursuant to a statutory appeal, and especially where a vulnerable appellant is advancing arguments in defence of his or her human rights, I would think it extremely rare for this tribunal to not be the one most appropriate to hear the entirety of the dispute. I am unable to think of any situation where such a tribunal would be justified in ignoring the human rights argument, applying a potentially discriminatory provision, referring the legislative challenge to another forum, and leaving the appellant without benefits in the meantime.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">51 The practical constraints that burden the SBT are of an entirely different character than those facing applicants. It is true that the efficient functioning of tribunals is important. And the presence of another tribunal with greater institutional capacity may indeed signal that this other forum is more appropriate to deal with the case at hand: see Paul, at para. 39. But tribunals should be loath to avoid cases on the assumption that the legislature gave them insufficient tools to handle matters within their jurisdiction. In those instances where the legislature does grant a tribunal the power to decline jurisdiction, the scope of this power should be carefully observed in order to ensure that the tribunal does not improperly ignore issues that the legislature intended it to consider.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">52 I conclude that the SBT is a highly appropriate forum in which to argue the applicability of s. 5(2) of the ODSPA under the Code. In general, encouraging administrative tribunals to exercise their jurisdiction to decide human rights issues fulfills the laudable goal of bringing justice closer to the people. But more crucial for the purposes of the present appeal is the fact that the legislature did not grant the SBT the power to defer to another forum when it is properly seized of an issue. Absent such authority, the SBT could not decline to deal with the Code issue on the basis that a more appropriate forum existed.
+ <p class="MsoNormal" style="margin-left:27.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">4. Disposition
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">53 The appeal is allowed. The case will be remitted to the SBT so that it can rule on the applicability of s. 5(2) of the ODSPA.
+ <p class="MsoNormal" style="margin-left:27.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">5. Costs
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">54 The appellants’ request for reimbursement of their disbursements before this Court will be granted. The parties did not seek costs and therefore none will be awarded.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+200%">The reasons of LeBel, Deschamps and Abella JJ. were delivered by
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">55 Abella J. (dissenting) — The government of Ontario created a special program for the efficient and effective delivery of income support benefits to persons with disabilities. Though not excluded from general social assistance benefits, those whose sole impairment is alcohol or drug addiction are excluded from this particular program.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">56 This case is not about access, about the applicability of human rights legislation, or about whether the government is entitled to refuse to provide disability benefits to individuals whose only substantial impairment is an alcohol or drug dependency. It is about statutory interpretation. Specifically, it is about the scope of the legislature’s intention when it enacted a statutory provision depriving an administrative tribunal of jurisdiction to decide whether any of its enabling provisions were ultra vires or violated the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Canadian Charter of Rights and Freedoms . With respect, I do not share the view of my colleague Bastarache J. that this legislative direction has no effect on a tribunal’s ability to apply the Ontario Human Rights Code, R.S.O. 1990, c. H.19 (“Code”), so as to render legislation inapplicable. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">57 The Social Benefits Tribunal (“SBT”) was created to hear appeals dealing with Ontario’s general social assistance regime under the Ontario Works Act, 1997, S.O. 1997, c. 25, Sch. A (“OWA”), and Ontario’s special income support program for persons with disabilities under the Ontario Disability Support Program Act, 1997, S.O. 1997, c. 25, Sch. B (“ODSPA”). The OWA prescribes the general structure, composition, procedures and jurisdiction of the SBT.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">58 Section 5(2) of the ODSPA provides that an individual whose only disabling condition is an alcohol or non-prescription drug dependency is not eligible for income support under the ODSPA. The question in this appeal is whether the SBT has jurisdiction to refuse to apply this provision, based on its purported inconsistency with the Code, or whether it is precluded from doing so by s. 67(2) of the OWA, which states:
+ 67. . . .
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+22.5pt">(2) The Tribunal shall not inquire into or make a decision concerning,
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(a) the constitutional validity of a provision of an Act or a regulation; or
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">(b) the legislative authority for a regulation made under an Act.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">59 In Nova Scotia (Workers’ Compensation Board) v. Martin, [2003] 2 S.C.R. 504, 2003 SCC 54, at para. 42, this Court said: “The question to be asked is whether an examination of the statutory provisions clearly leads to the conclusion that the legislature intended to exclude the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter , or more broadly, a category of questions of law encompassing the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter , from the scope of the questions of law to be addressed by the tribunal” (emphasis added). 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">60 In my view, s. 67(2) creates a “category of questions of law” that have been explicitly removed from the SBT’s jurisdiction, namely any legal question the answer to which might result in the SBT finding a provision of its own legislation inoperative.
+ Background
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">61 The ODSPA was enacted for the benefit of persons with disabilities who require income support. The provision under which Robert Tranchemontagne and Norman Werbeski applied for support was s. 4(1) of the ODSPA, which states:
+ <p class="MsoNormal" style="margin-top:0cm;margin-right:58.5pt;margin-bottom:
+0cm;margin-left:58.5pt;margin-bottom:.0001pt;text-align:justify;text-indent:
+22.5pt">4. (1) A person is a person with a disability for the purposes of this Part if,
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(a) the person has a substantial physical or mental impairment that is continuous or recurrent and expected to last one year or more;
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(b) the direct and cumulative effect of the impairment on the person’s ability to attend to his or her personal care, function in the community and function in a workplace, results in a substantial restriction in one or more of these activities of daily living; and
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">(c) the impairment and its likely duration and the restriction in the person’s activities of daily living have been verified by a person with the prescribed qualifications.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">62 Section 4 is limited by s. 5(2), which provides that a person is not eligible for income support in the following circumstances:
+ 5. . . .
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(a) the person is dependent on or addicted to alcohol, a drug or some other chemically active substance;
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(b) the alcohol, drug or other substance has not been authorized by prescription as provided for in the regulations; and
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(c) the only substantial restriction in activities of daily living is attributable to the use or cessation of use of the alcohol, drug or other substance at the time of determining or reviewing eligibility.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">63 Mr. Tranchemontagne applied for income support on the grounds that his back pain, seizures and alcoholism rendered him a person with a disability within the meaning of s. 4(1). According to the evidence, Mr. Tranchemontagne’s back pain caused only limited restrictions in daily activities and his seizures had been successfully treated with medication. The Director found that neither Mr. Tranchemontagne’s back pain nor his seizures constituted substantial impairments. Both the Director and Mr. Tranchemontagne’s doctor concluded that the only disabling condition from which Mr. Tranchemontagne suffered was his chronic and excessive use of alcohol. As a result, based on s. 5(2), he was denied income support.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">64 Mr. Werbeski applied for income support on the grounds that his alcohol and drug dependencies, antisocial personality disorder, depression, insomnia and poor motivation rendered him a person with a disability within the meaning of s. 4(1). The Director found that Mr. Werbeski’s mobility and ability to engage in the activities of daily life were not substantially impaired by any physical or mental conditions other than alcoholism. He too was accordingly denied income support based on s. 5(2).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">65 On appeal to the SBT, both Mr. Tranchemontagne and Mr. Werbeski argued that s. 5(2) should not be applied because it violates the Code. In both cases, the SBT found that it had no jurisdiction to interpret and apply the Code to its enabling legislation in a way that rendered a provision inoperable.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">66 The Divisional Court similarly concluded that no such power had been conferred on the SBT by its enabling legislation, either explicitly or implicitly ([2003] O.J. No. 1409 (QL)).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">67 The Ontario Court of Appeal, applying this Court’s decision in Martin, found that the SBT had concurrent jurisdiction with the Ontario Human Rights Commission to find human rights violations, but was of the view that the complaints were best resolved by the Commission ((2004), 72 O.R. (3d) 457).
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">68 Both Mr. Tranchemontagne and Mr. Werbeski appealed. Although my reasons differ from those of the Court of Appeal, I would dismiss the appeal.
+ Analysis
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">69 The issue is not whether a party can challenge a provision of the ODSPA as being inconsistent with the Code; it is where the challenge can be made and, specifically, whether it can be made before the Director or SBT.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">70 Through s. 5 of the ODSPA, the legislature has imposed some restrictions on eligibility for income support. Under s. 5(2), the Director is required to determine whether “the only substantial restriction in activities of daily living” the applicant experiences is attributable to the use of drugs, alcohol or some other substance. If so, the applicant is ineligible for income support.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">71 This provision, it is argued, is discriminatory and must defer to the paramountcy of the Code. Section 47(2) of the Code provides that where a provision in an Act or regulation purports to require or authorize conduct in contravention of the Code, the Code prevails in the absence of specific legislative language to the contrary:
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;text-indent:
+22.5pt;line-height:200%">Where a provision in an Act or regulation purports to require or authorize conduct that is a contravention of Part I, this Act applies and prevails unless the Act or regulation specifically provides that it is to apply despite this Act.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">72 Clearly, the values and rights expressed in the Code are fundamental. This, however, is different from a derivative conclusion that as a result of s. 47(2), all administrative bodies in Ontario are ad hoc Human Rights Commissions capable of applying the Code. Section 47(2) of the Code does not confer jurisdiction; it announces the primacy of the Code. It represents a legislative direction that when a body with the authority to do so is asked to apply the Code, the provisions of the Code will prevail over an inconsistent statutory provision.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">73 The question in this case, then, is whether the Director or the SBT have the jurisdiction to apply the Code in a way that renders a provision inoperable. If they do not, the Code’s primacy is of no interpretive assistance in this regard.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">74 In Martin, this Court decided that the authority to assess the constitutional validity of a legislative provision flows from the powers to decide questions of law the legislature conferred on the administrative body:
+ <p class="MsoNormal" style="margin-left:58.5pt;text-align:justify;line-height:
+200%">Administrative tribunals which have jurisdiction — whether explicit or implied — to decide questions of law arising under a legislative provision are presumed to have concomitant jurisdiction to decide the constitutional validity of that provision. [Emphasis added; para. 3.] 
+ This recognizes the truism that the jurisdictional range of administrative tribunals is determined by their enabling legislation. It also recognizes that the legislature may have intended that an administrative decision maker be authorized to resolve some legal issues, but not others.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">75 The following powers and duties of the Director are prescribed in s. 38 of the ODSPA:
+ 38. The Director shall,
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(a) receive applications for income support;
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(b) determine the eligibility of each applicant for income support;
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(c) if an applicant is found eligible for income support, determine the amount of the income support and direct its provision;
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(d) administer the provisions of this Act and the regulations;
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(e) determine how the payment of the costs of administering this Act and providing income support is to be allocated;
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(f) ensure that the appropriate payments are made or withheld, as the case may be; and
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt;line-height:200%">(g) exercise the prescribed powers and duties.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">76 Following an internal review, an appeal lies from the Director to the SBT. Section 26(1) of the ODSPA provides that on appeal, the SBT is limited to denying the appeal, granting the appeal, granting the appeal in part or referring “the matter back to the Director for reconsideration in accordance with any directions the Tribunal considers proper”. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">77 The SBT’s authority is limited by s. 29(3) of the ODSPA. Section 29(3) states that the “Tribunal shall not make a decision in an appeal under this Act that the Director would not have authority to make”, confining the SBT to exercising the limited jurisdiction of the Director. While the ODSPA provides the SBT with greater procedural powers than the Director, it is clear from s. 29(3) that the SBT has no broader decision-making powers or jurisdiction than the Director.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">78 Section 67(2) of the OWA was enacted in 1997 in response to a decision of the prior SBT interpreting its legislation to give itself [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter jurisdiction. As previously noted, s. 67(2) provides that the SBT “shall not inquire into or make a decision concerning” either “the constitutional validity of a provision of an Act or a regulation” or “the legislative authority for a regulation made under an Act”. The potential effect of either inquiry may be to render a regulation or provision inapplicable.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">79 The reasons of my colleague Bastarache J. suggest that the s. 67(2) revocation of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter jurisdiction does not extend to Code jurisdiction because the consequence of a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter breach is legislative invalidity while non-compliance with the Code gives rise only to inoperability. The difference between invalidity and inoperability explains why, in his view, the legislature revoked [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter jurisdiction but not Code jurisdiction. This, with respect, overlooks the fact that administrative tribunals lack the power to make formal declarations of invalidity. A tribunal only has jurisdiction to decline to apply the offending provision. The legislature revoked the SBT’s [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter jurisdiction because it did not want the SBT to declare any part of the legislation inapplicable. That is precisely what the effect could be of applying the Code.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">80 An obvious deduction from the specific withdrawal of [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter and ultra vires determinations, it seems to me, is that the legislature did not want the SBT to be able to refuse to apply any of its enabling provisions by finding these to be inoperable, period. In the face of such a clear legislative direction, one wonders why it can be assumed that the intent was, nonetheless, to permit such a finding under the Code.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">81 In enacting s. 67(2), the legislature did everything it could reasonably have been expected to do to signal its intention that the SBT not decide the validity of any aspect of the ODSPA. What the legislature specifically excluded from the SBT’s determinations was that “category of questions of law”, to use the language of Martin, which engaged the validity, and thus the applicability, of any of the statutory provisions or regulations the SBT was created to administer.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:200%">82 The fact that the Code is not mentioned specifically in the taxonomy of prohibited determinations in s. 67(2) is not determinative. The overlapping nature of the rights and remedies guaranteed under the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter and the Code, including disability rights, is such that it would be anomalous if the SBT were empowered to assess whether an ODSPA provision was discriminatory on grounds of disability under the Code but not under the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">83 In British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3, this Court identified as problematic any dissonance between an analysis under human rights legislation and one under the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . Given their conceptual parallels, the Court preferred an interpretation that made the two sources of human rights remedies consistent. McLachlin J., for a unanimous court, wrote, “I see little reason for adopting a different approach when the claim is brought under human rights legislation which, while it may have a different legal orientation, is aimed at the same general wrong as [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en#!fragment/sec15subsec1] s. 15(1) of the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter ” (para. 48). This approach also drove this Court’s conclusion that [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter interpretation must inform the interpretation of human rights codes across Canada: Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montréal (City), [2000] 1 S.C.R. 665, 2000 SCC 27, at para. 42.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">84 The Code and the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter are both legal instruments capable of remedying discrimination based on disability. The result of a challenge under either may very well be the same. From the perspective of a claimant before the SBT, the result of a Code or a [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter violation would be the same — s. 5(2) would be rendered inapplicable to them.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">85 By revoking jurisdiction over [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter questions, the legislature unequivocally expressed its intent that the SBT not hear and decide legal issues that may result in the inoperability of a provision. Even though s. 67(2) refers to constitutional validity, but not to compliance with the Code, the remedial and conceptual similarities between the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter and the Code are such that the legislature has, by clear implication, withdrawn authority to grant the remedy of inoperability under either mandate.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">86 In addition to the wording of the operative legislation, Martin also holds that practical considerations, including its institutional capacity, may indicate the legislature’s intention that a tribunal not consider legal questions that go to the applicability of its enabling statute. Assessing the applicability of the legislature’s decision to make those whose sole incapacitating impairment is drug or alcohol addiction ineligible for income support under the ODSPA, requires an inquiry into the legislature’s justification, which is a complicated evidentiary and legal determination. On second reading of the OWA, the Parliamentary Assistant to the Minister of Community and Social Services said, about s. 67(2), “. . . we are proposing to remove jurisdiction from the tribunal to consider constitutional issues. The reason for this proposed change is simple: Constitutional questions involve complex legal issues and can have far-reaching consequences that are better addressed, in our opinion, by the courts”: Legislative Assembly of Ontario, Official Report of Debates, No. 222B, September 2, 1997, at p. 11708 (Mr. F. Klees). 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">87 Clearly, a legal inquiry into the operability of a provision by either the Director or the SBT was deemed inappropriate. A brief review of their institutional characteristics confirms why neither the Director nor the SBT was deemed to have the capacity to decide such complex, time-consuming legal issues.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">88 The Director does not hold hearings or receive evidence beyond that filed by an applicant. An appeal to the SBT from the Director’s decision is commenced by filing with the SBT a notice of appeal form on which an applicant is simply asked to explain what he or she disagrees with in the Director’s original decision and why. The Director has the option of making only written submissions before the SBT. Following receipt of an applicant’s notice of appeal form, the Director has 30 days to file any written submissions in response.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">89 The SBT’s decisions are not publicly available. The hearings are informal and private. Most hearings last no longer than one and a half hours.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">90 The SBT is meant to be an efficient, effective, and quick process. Yet it seems to be having difficulty meeting this mandate. In 2004-2005, the SBT had a backlog of 9,042 cases and received 11,127 new appeals under the OWA and the ODSPA. This Court recognized in Tétreault-Gadoury v. Canada (Employment and Immigration Commission), [1991] 2 S.C.R. 22, at p. 34, that administrative bodies responsible for ensuring the payment of monetary benefits to eligible applicants would undoubtedly be impeded from this important and time-sensitive undertaking if they were asked to decide constitutional challenges.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">91 Imposing Code compliance hearings on the SBT will similarly and inevitably impact its ability to assist the disabled community it was established to benefit in a timely way. It will be difficult to explain to the thousands of disabled individuals waiting for their appeals to be heard — many without any interim support — that there is any public benefit in the SBT hearing a complex, lengthy, and inevitably delaying jurisprudential issue with no precedential value. That is the real access issue in this case. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">92 The SBT’s institutional capacity and procedural practices differ markedly from those of a tribunal appointed under the Code (“Human Rights Tribunal”). The Human Rights Tribunal’s Rules of Practice foster full adversarial debate and provide for full disclosure and production obligations. I acknowledge that the Human Rights Tribunal’s greater institutional powers and capacity do not mean that only a Human Rights Tribunal can apply the Code. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">93 Formerly, the Ontario Human Rights Commission had exclusive jurisdiction to decide human rights complaints: The Ontario Human Rights Code, R.S.O. 1970, c. 318, s. 14b(6); see also Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181. In 1981, the legislature enacted what is now s. 34(1)(a) of the Code, giving the Commission a discretion to refer a human rights complaint to another body. Section 34(1)(a) states:
+ 34.—(1) Where it appears to the Commission that,
+ <p class="MsoNormal" style="margin-left:108.0pt;text-align:justify;text-indent:
+-27.0pt">(a) the complaint is one that could or should be more appropriately dealt with under an Act other than this Act;
+ . . .
+ the Commission may, in its discretion, decide to not deal with the complaint.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">94 While s. 34(1)(a) of the Code may signal that the Commission no longer has exclusive jurisdiction to decide complaints under the Code, the legislature does not seem to have replaced that exclusivity with a scheme whereby all provincial tribunals have concurrent, free-standing jurisdiction with the Commission to enforce the Code. Such jurisdiction would have to be found in the enabling legislation of the tribunal. Under s. 48(12)(j) of the Labour Relations Act, 1995, S.O. 1995, c. 1, Sch. A, for example, labour arbitrators are authorized “to interpret and apply human rights and other employment-related statutes”. And labour arbitrators under the province’s Fire Protection and Prevention Act, 1997, S.O. 1997, c. 4, s. 53(9)(j), have been given similar originating jurisdiction.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">95 The existence of a dedicated human rights body like the Commission reflects how complex and nuanced human rights determinations necessarily are, as manifested in the many checks and balances in the Code itself, and protects the integrity of the Code, of human rights adjudication, and of the interests of the parties and the public.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">96 The inability to declare a provision inoperative under the Code does not mean that in making their determinations, the Director and the SBT are precluded from applying the human rights values and principles found in it. It does mean, however, that those principles cannot be used to “invalidate” a provision which defines their mandate. 
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">97 Nor does it mean that a litigant cannot challenge a provision of the OPSDA for incompatibility with the Code, or even with the [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter . It means that the challenge must be made in the proper forum. That is exactly what the parties in this case have done by bringing a joint [LINK https://qweri.lexum.com/w/calegis/schedule-b-to-the-canada-act-1982-uk-1982-c-11-en] Charter and Code challenge before the Divisional Court.
+ <p class="1" style="margin-left:0cm;text-align:justify;text-indent:0cm;
+line-height:194%">98 I would accordingly dismiss the appeal without costs and restore the SBT’s decision that it lacked jurisdiction to find s. 5(2) inoperable under the Code.
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+194%">Appeal allowed, LeBel, Deschamps and Abella JJ. dissenting.
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+194%">Solicitor for the appellant Robert Tranchemontagne: Sudbury Community Legal Clinic, Sudbury.
+ <p class="MsoNormal" style="text-align:justify;text-indent:58.5pt;line-height:
+194%">Solicitor for the appellant Norman Werbeski: Legal Aid Ontario, Toronto.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+194%">Solicitor for the respondent: Ministry of Community and Social Services, Toronto.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+194%">Solicitor for the intervener the Canadian Human Rights Commission: Canadian Human Rights Commission, Ottawa.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+194%">Solicitor for the intervener the Ontario Human Rights Commission: Ontario Human Rights Commission, Toronto.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+194%">Solicitor for the intervener the Advocacy Centre for Tenants Ontario: Advocacy Centre for Tenants Ontario, Toronto.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+194%">Solicitor for the intervener the African Canadian Legal Clinic: African Canadian Legal Clinic, Toronto.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+194%">Solicitor for the intervener the Empowerment Council — Centre for Addiction and Mental Health: ARCH: A Legal Resource Centre for Persons with Disabilities, Toronto.
+ <p class="MsoNormal" style="text-align:justify;text-indent:57.6pt;line-height:
+194%">Solicitors for the intervener the Social Benefits Tribunal: WeirFoulds, Toronto.
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

@@ -1,0 +1,363 @@
+ Central Okanagan School District No. 23 v. Renaud - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Central Okanagan School District No. 23 v. Renaud
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ [LINK /scc-csc/scc-csc/en/nav_date.do] Supreme Court Judgments
+ &gt;
+ Central Okanagan School District No. 23 v. Renaud
+ /scc-csc/scc-csc/fr/item/910/index.do?alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Supreme Court Judgments
+Decision Information
+ Central Okanagan School District No. 23 v. Renaud
+ Collection
+ Supreme Court Judgments
+ Date
+ 1992-09-24
+ Report
+ [1992] 2 SCR 970
+ Case number
+ 21682
+ Judges
+ La Forest, Gérard V.; L'Heureux-Dubé, Claire; Sopinka, John; Gonthier, Charles Doherty; Cory, Peter deCarteret; McLachlin, Beverley; Stevenson, William
+ On appeal from
+ British Columbia
+ Subjects
+ Constitutional law
+ Notes
+ SCC Case Information: [LINK https://www.scc-csc.ca/cases-dossiers/search-recherche/21682/] 21682
+ [LINK /scc-csc/scc-csc/en/910/1/document.do] 
+Decision Content
+ Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970 
+ Larry S. Renaud Appellant 
+ v. 
+ Board of School Trustees, School District No. 23 
+ (Central Okanagan) and the Canadian Union of 
+ Public Employees, Local 523 Respondents 
+ and 
+ British Columbia Council of Human Rights Respondent 
+ and 
+ Ontario Human Rights Commission, 
+ Seventh‑day Adventist Church in Canada, 
+ Canadian Labour Congress, 
+ Disabled People for Employment Equity, 
+ Persons United for Self Help 
+ in Ontario (P.U.S.H.) Ontario Interveners 
+ Indexed as: Central Okanagan School District No. 23 v. Renaud 
+ File No.: 21682. 
+ 1992: March 24; 1992: September 24. 
+ Present: La Forest, L'Heureux‑Dubé, Sopinka, Gonthier, Cory, McLachlin and Stevenson[LINK #_ftn1] *JJ. 
+ on appeal from the court of appeal for british columbia 
+ Human rights ‑‑ Adverse effect discrimination ‑‑ Bona fide occupational requirement ‑‑ Worker refusing to work shift for religious reasons ‑‑ Employer's attempts to accommodate worker opposed by union ‑‑ Worker dismissed when accommodation not found ‑‑ Whether complainant's union under a duty to effect a reasonable accommodation ‑‑ Human Rights Act, S.B.C. 1984, c. 22, ss. 8(1)(a), (b), (4), 9(a), (b), (c). 
+ Appellant, a Seventh‑day Adventist, was a unionized custodian 
+ working a Monday to Friday job for the respondent school board. The work schedule, which formed part of the collective agreement, included a shift which included Friday evening. Appellant's religion, however, prevented his working on his sabbath ‑‑ from sundown Friday to sundown Saturday. A number of alternatives to appellant's working Friday nights were canvassed by appellant and a representative of the school board. The only practical accommodation was the creation of a Sunday to Thursday shift but this accommodation involved an exception to the collective agreement and required union consent. The union demanded that board rescind the Sunday‑Thursday shift proposal and threatened to launch a policy grievance. After further unsuccessful attempts to accommodate the appellant, the school board eventually terminated his employment when he refused to complete his regular Friday night shift. 
+ The appellant filed a complaint pursuant to s. 8 of the British Columbia Human Rights Act against the school board and pursuant to s. 9 against the union. The proceedings were subsequently amended by the member designate (appointed by the British Columbia Council of Human Rights to investigate the complaints) to include a claim against the union under s. 8 as well. 
+ The member designate found that the condition of employment that appellant work on Friday nights was adverse effect discrimination, that the union was instrumental in effecting this adverse effect discrimination, and that neither the employer nor the union had discharged its duty to accommodate the complainant's religious beliefs. The school board and the respondent union brought separate applications by way of certiorari to quash the member designate's decision for errors of law on the face of the record. The applications were granted and the decision of the member designate was set aside. The Court of Appeal dismissed appellant's appeal. 
+ At issue here was whether an employer is relieved of its duty to accommodate the religious beliefs of an employee when this would require an alteration of a collective agreement which is opposed by a union of employees. Also at issue is whether a union in these circumstances is in breach of a duty to accommodate. 
+ Held: The appeal should be allowed. 
+ An employer must take reasonable measures short of undue hardship to accommodate an employee's religious beliefs and practices. While the words "short of undue hardship" limit this duty, the use of the term "undue" infers that some hardship is acceptable. More than a mere negligible effort is required. The qualification that the measures be reasonable was an alternate way of expressing the same concept and is a question of fact varying with the circumstances of the case. 
+ Private arrangements, by contract or collective agreement, must give way to the requirements of the Act. In cases of direct discrimination not justified under the Act, the whole of the provision is invalid because its purpose as well as effect is to discriminate on a prohibited ground. In cases of adverse effect discrimination, the provision is upheld in its general application and the complainant is accommodated so that it does not affect him or her in a discriminatory fashion. An employer must establish compliance with the duty to accommodate. 
+ The effect of the collective agreement is relevant in assessing the degree of hardship caused by interference with its terms. Substantial departure from the normal operation of its conditions and terms of employment may constitute undue interference in the operation of the employer's business. The cost of defending a threatened grievance, however, did not constitute undue hardship justifying a refusal to accommodate the appellant. 
+ Considerations as to the effect on employee morale, while a factor to be considered in deciding whether accommodating measures would constitute undue interference, must be applied with caution. Well‑grounded concerns that the employees' rights will be affected must be considered. Objections based on attitudes inconsistent with human rights, however, are irrelevant. This category includes those objections based on the view that the integrity of a collective agreement is to be preserved irrespective of its discriminatory effect on an individual employee on religious grounds. A contrary conclusion would enable an employer to contract out of human rights legislation provided the employees were ad idem with their employer. The employer failed to establish that it discharged its duty to accommodate. 
+ A union causing or contributing to the discriminatory effect incurs liability under the Act. In order to avoid imposing absolute liability, a union must have the same right as an employer to justify the discrimination by discharging its duty to accommodate. 
+ A union may become a party to discrimination in two ways. First, it may cause or contribute to the discrimination by participating in the formulation of the work rule that has the discriminatory effect on the complainant ‑‑ e.g., if the rule forms part of the collective agreement. Second, a union may be liable if it impedes the reasonable efforts of an employer to accommodate. If reasonable accommodation is only possible with the union's co‑operation and the union blocks the employer's efforts to remove or alleviate the discriminatory effect, it becomes a party to the discrimination. 
+ The focus of the union's concern about the impact of accommodating measures is mainly on its effect on other employees. The duty to accommodate should not substitute discrimination against other employees for the discrimination suffered by the complainant. Any significant interference with the rights of others will amount to an undue hardship and will ordinarily justify the union's refusing to consent to a measure which would have this effect. 
+ The application of the duty to accommodate will vary depending on how the duty arose. A union liable as co‑discriminator with the employer shares a joint responsibility with the employer to seek to accommodate the employee and both are equally liable if nothing is done. Ordinarily the employer has charge of the workplace and will be in the better position to initiate and formulate accommodations. An employer will be found to have failed to take reasonable measures to accommodate and the union will be absolved of not acting reasonably in refusing to consent if an employer proposes measures which are the least expensive or disruptive measures from its point of view but are disruptive of the collective agreement or otherwise affecting the rights of other employees. The union, however, may not be absolved of its duty if it fails to put forward alternative measures that are available and less onerous from its point of view. 
+ Where the union contributes to the discrimination only through its failure to co‑operate in implementing a reasonable accommodation, the employer must canvass other methods of accommodation before the union can be expected to assist in finding or implementing a solution. The union's duty arises only when its involvement is required to make accommodation possible and no other reasonable alternative resolution of the matter has been found or could reasonably have been found. 
+ Here, the union had a shared duty, arising out of the adverse effect discrimination, to accommodate the appellant. The employer did not need to explore all other reasonable accommodations. The proposal presented to the union was reasonable. The union, therefore, was jointly liable with the employer. 
+ The search for accommodation is a multi‑party inquiry. The complainant also has a duty to assist in securing an appropriate accommodation and his or her conduct must therefore be considered in determining whether the duty to accommodate has been fulfilled. When an employer has initiated a proposal that is reasonable and would, if implemented, fulfil the duty to accommodate, the complainant has a duty to facilitate the implementation of the proposal. If the complainant fails to take reasonable steps and causes the proposal to founder, the complaint will be dismissed. The complainant is also obligated to accept reasonable accommodation and the employer's duty is discharged if a proposal that would be reasonable in all the circumstances is turned down. The complainant did all that could be expected of him in this case. 
+ Cases Cited 
+ Considered: Ontario Human Rights Commission and O'Malley v. Simpsons‑Sears Ltd., [1985] 2 S.C.R. 536; Central Alberta Dairy Pool v. Alberta (Human Rights Commission), [1990] 2 S.C.R. 489; distinguished: Trans World Airlines, Inc. v. Hardison, 432 U.S. 63 (1977); Ansonia Board of Education v. Philbrook, 479 U.S. 60 (1986); referred to: Ontario Human Rights Commission v. Etobicoke (Borough of), [1982] 1 S.C.R. 202; Bhinder v. Canadian National Railway Co., [1985] 2 S.C.R. 561; Insurance Corporation of British Columbia v. Heerspink, [1982] 2 S.C.R. 145; Office and Professional Employees International Union, Local 267 v. Domtar Inc., Ontario Divisional Court, March 19, 1992, unreported. 
+ Statutes and Regulations Cited 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-36.0pt;line-height:12.2pt">Human Rights Act, S.B.C. 1984, c. 22, ss. 8(1)(a), (b), (4), 9(a), (b), (c). 
+ APPEAL from a judgment of the British Columbia Court of Appeal (1990), 11 C.H.C.C. D/62, 90 C.L.L.C. 17,004, dismissing an appeal from an order of Dohm J. (1987), 8 A.C.W.S. (3d) 283, quashing a finding of Verbrugge, Member Designate of the British Columbia Council of Human Rights. Appeal allowed. 
+ Karen Scott and Henry S. Brown, Q.C., for the appellant. 
+ Robert E. Groves, for the respondent Board of School Trustees, School District No. 23 (Central Okanagan). 
+ John Baigent, for the respondent Canadian Union of Public Employees, Local 523. 
+ Janet E. Minor and M. David Lepofsky, for the intervener Ontario Human Rights Commission. 
+ Karnik Doukmetzian and Gerald Chipeur, for the intervener Seventh‑day Adventist Church in Canada. 
+ Jeffrey Sack, Q.C. and Steven Barrett, for the intervener Canadian Labour Congress. 
+ Anne M. Molloy and Janet L. Budgell, for the interveners Disabled People for Employment Equity and Persons United for Self Help in Ontario (P.U.S.H.) Ontario. 
+ //Sopinka J.// 
+ The judgment of the Court was delivered by 
+ Sopinka J. -- The issue raised in this appeal is the scope and content of the duty of an employer to accommodate the religious beliefs of employees and whether and to what extent that duty is shared by a trade union. While this duty has been recognized and discussed as it relates generally to employers (Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at pp. 552-56, and Central Alberta Dairy Pool v. Alberta (Human Rights Commission), [1990] 2 S.C.R. 489, at pp. 520-29), little judicial consideration has been given to the question raised by the involvement of a collective agreement and a certified trade union. Is a trade union liable for discrimination if it refuses to relax the provisions of a collective agreement and thereby blocks the employer's attempt to accommodate? Must the employer act unilaterally in these circumstances? These are issues that have serious implications for the unionized workplace. 
+ The Facts 
+ The appellant was employed by the Board of School Trustees, School District No. 23 (Central Okanagan) (the "school board") and was a member of the Canadian Union of Public Employees, Local 523 (the "union"). He had been employed by the school board since 1981 and in 1984 used his seniority to secure a Monday to Friday job at Spring Valley Elementary School ("SVE"). The gymnasium at SVE was rented out to a community group on Friday evenings and a custodian was required to be present for security and emergency purposes during this time. Pursuant to the employer's work schedule, which was included in the collective agreement, the job at SVE involved an afternoon shift from 3:00 p.m. until 11:00 p.m. during which only one custodian was on duty. As a Seventh-day Adventist, the appellant's religion forbade him from working on the church's sabbath, which is from sundown Friday until sundown Saturday. The appellant met with a representative of the school board to try to accommodate his inability to work the full Friday shift. The school board representative was agreeable to the request but indicated that the school board required the consent of the union if any accommodation involved an exception to the collective agreement. Many of the alternatives discussed by the representative and the appellant involved transfer to "prime" positions which the appellant did not have enough seniority to secure. The appellant was reluctant to accept a further alternative, that he work a four day week, as this would result in a substantial loss in pay. In spite of these possibilities and other alternatives that could perhaps have been implemented without the union's consent, the employer concluded that the only practical alternative was to create a Sunday to Thursday shift for the appellant which did require the consent of the union. 
+ The union had a meeting to discuss making an exception for the appellant but instead passed the following motion: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">that the Kelowna sub-local of Local 523 demand that management of SD #23 rescind the proposal of placing any employee on a Sunday-Thursday shift. If, failing this agreement, a Policy Grievance be filed immediately to prevent the implementation of this proposal due to the severe violations of our Collective Agreement. 
+ The appellant was informed of the rejection of the proposed accommodation and the ongoing requirement to work on Friday nights. He was also informed of the intention of the school board to continue to seek a viable accommodation. After further unsuccessful attempts to accommodate, the school board eventually terminated the appellant's employment as a result of his refusal to complete his regular Friday night shift. 
+ The appellant filed a complaint pursuant to s. 8 of the British Columbia Human Rights Act, S.B.C. 1984, c. 22 (the Act), against the school board and pursuant to s. 9 against the union. The proceedings were subsequently amended by the member designate (appointed by the British Columbia Council of Human Rights to investigate the complaints) to include a claim against the union under s. 8 as well. 
+ Legislation 
+ For convenience, the relevant legislation is reproduced below: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">8. (1) No person or anyone acting on his behalf shall 
+ <p class="MsoNormal" style="margin-left:112.95pt;text-align:justify;text-indent:
+-112.95pt;line-height:12.2pt">(a)refuse to employ or refuse to continue to employ a person, or 
+ <p class="MsoNormal" style="margin-left:112.95pt;text-align:justify;text-indent:
+-112.95pt;line-height:12.2pt">(b)discriminate against a person with respect to employment or any term or condition of employment, 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">because of the . . . religion . . . of that person . . . . 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> (4) Subsections (1) and (2) do not apply with respect to a refusal, limitation, specification or preference based on a bona fide occupational requirement. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> 9. No trade union, employers' organization or occupational association shall 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt">(a) exclude any person from membership, 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt">(b) expel or suspend any member, or 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt">(c) discriminate against any person or member 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:24.4pt">because of the . . . religion . . . of that person or member . . .. 
+ Decision of the Member Designate 
+ The member designate investigated the complaint and found in favour of the appellant. She began her reasons by reviewing the facts of the case, paying particular attention to the efforts of the school board to accommodate the appellant. The member designate then discussed the issue of amending the complaint. The complaint, as filed, was deficient and the member designate amended the complaint to encompass a s. 8, as well as the s. 9, complaint against the union to bring the complaint into conformity with the nature of the proceedings. She determined that no prejudice would be suffered by the union as a result of the amendment as the union had been represented throughout the proceedings and had fully taken part in the s. 8 complaint against the school board. 
+ The member designate then turned to the issue of bona fide occupational requirement ("BFOR"). Reviewing the case of Ontario Human Rights Commission v. Etobicoke (Borough of), [1982] 1 S.C.R. 202, the adjudicator noted that the presence of a discriminatory provision in a collective agreement does not, in and of itself, make that provision bona fide. The member designate acknowledged, however, that once a BFOR was established, there was no duty to accommodate individual employees (citing Bhinder v. Canadian National Railway Co., [1985] 2 S.C.R. 561). As discussed in O'Malley, supra, however, if a BFOR is not established, there is a duty to accommodate to avoid adverse effect discrimination. 
+ The member designate determined that the condition of employment that the appellant work on Friday nights amounted, prima facie, to adverse effect discrimination. As the collective agreement set those terms of employment, both the school board and the union were liable for that discrimination. The member designate concluded that it was a BFOR that a custodian be present in schools but it is not a BFOR that a custodian at the appellant's school work from 3:00 p.m. until 11:00 p.m. on Fridays. The preference of the union and school board that the school operate on this work schedule failed to satisfy the objective branch of the Etobicoke test as it was not related to the safety, efficiency, etc., of the job. Thus there was a duty on the union as well as on the school board to accommodate the appellant. She reached this conclusion on the basis that the duty to accommodate enunciated in O'Malley applied equally to a union and an employer. 
+ Having found that the union was instrumental in bringing about the adverse effect discrimination, the member designate further found that the union was liable equally with the employer for the adverse effect discrimination. She further found that neither had discharged its duty to accommodate the religious beliefs of the complainant. 
+ Accordingly, she ordered that the respondents cease discriminating against the appellant, make available to the appellant the next available custodial position and that each respondent pay damages of $6,250 for lost wages and $1,000 for emotional distress. 
+ Courts Below 
+ The school board and the respondent union brought separate applications by way of certiorari to quash the member designate's decision for "errors of law on the face of the record". Dohm J. in the Supreme Court of British Columbia granted the applications and set aside the decision of the member designate. The decision was quashed on the ground that the member designate erred in failing to follow Bhinder v. Canadian National Railway Co., supra, in that once a BFOR was established there was no duty to accommodate. The appellant appealed this decision to the British Columbia Court of Appeal which dismissed his appeal. The Court of Appeal agreed with Dohm J. that the member designate erred in finding that there was a duty to accommodate. Applying Bhinder, the Court of Appeal held that once a BFOR was established, the individual application of the rules could not constitute discrimination under the Act. In view of this finding, the liability of the respondent union was not considered. 
+ The Issues 
+ Leave to appeal was limited to the following issues: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">Whether regular attendance at work in accordance with a schedule established by an employer is a bona fide occupational requirement providing a complete defence to a complaint of discrimination on the basis of religious beliefs. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">Whether an employer or a labour union representing him is under any duty to effect a reasonable accommodation where, for reasons of religious belief, the employee is unable to work a particular shift. 
+ The respondents succeeded in the courts below in proceedings by way of certiorari based on alleged errors of law apparent on the face of the record. Accordingly, the appeal must succeed if the courts below were wrong that the member designate erred in law. The first ground upon which leave was granted was the basis for the decisions in the courts below. Both Dohm J. and the Court of Appeal decided that the member designate erred in finding a duty to accommodate in the face of a BFOR, which finding was contrary to Bhinder. Those decisions were made without the benefit of the reasons of this Court in Central Alberta Dairy Pool, supra, in which both the majority and the minority judgments held that there is a duty to accommodate notwithstanding the presence of a BFOR in cases of adverse effect discrimination. The majority put it this way at p. 517: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">... where a rule has an adverse discriminatory effect, the appropriate response is to uphold the rule in its general application and consider whether the employer could have accommodated the employee adversely affected without undue hardship. 
+ In my minority judgment I indicated at p. 528 that: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">An employer who wishes to avail himself of a general rule having a discriminatory effect on the basis of religion must show that the impact on the religious practices of those subject to the rule was considered, and that there was no reasonable alternative short of causing undue hardship to the employer. 
+ The respondent employer conceded in this Court that notwithstanding the presence of a BFOR the employer had a duty to accommodate. 
+ By reason of the foregoing, only the issues relating to the second ground are before us for determination. In this regard, the respondents contended that the member designate erred in law in the following respects: 
+ <p class="MsoNormal" style="margin-left:92.1pt;text-align:justify;text-indent:
+-92.1pt;line-height:24.4pt">(1)in the definition of the nature and extent of the duty to accommodate; 
+ <p class="MsoNormal" style="margin-left:92.1pt;text-align:justify;text-indent:
+-92.1pt;line-height:24.4pt">(2)in the application of the definition of this duty: 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:24.4pt">(a)in holding that economic liability by reason of a threatened grievance could not constitute undue hardship; 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:24.4pt">(b)in holding that the effect on employee morale was not a relevant consideration with respect to undue hardship; 
+ <p class="MsoNormal" style="margin-left:113.0pt;text-align:justify;text-indent:
+-113.0pt;line-height:24.4pt">(c)in finding that the complainant had no duty to assist in the employer's attempts to accommodate; 
+ <p class="MsoNormal" style="margin-left:92.1pt;text-align:justify;text-indent:
+-92.1pt;line-height:24.4pt">(3)in finding that the respondent union had a duty to accommodate; 
+ <p class="MsoNormal" style="margin-left:92.1pt;text-align:justify;text-indent:
+-92.1pt;line-height:24.4pt">(4)in amending the complaint to include s. 8 of the Act. 
+ Nature and Extent of the Duty to Accommodate 
+ The duty resting on an employer to accommodate the religious beliefs and practices of employees extends to require an employer to take reasonable measures short of undue hardship. In O'Malley, McIntyre J. explained that the words "short of undue hardship" import a limitation on the employer's obligation so that measures that occasion undue interference with the employer's business or undue expense are not required. 
+ The respondents submitted that we should adopt the definition of undue hardship articulated by the Supreme Court of the United States in Trans World Airlines, Inc. v. Hardison, 432 U.S. 63 (1977). In that case, the court stated at pp. 84-85: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> To require TWA to bear more than a de minimis cost in order to give Hardison Saturdays off is an undue hardship . . . . to require TWA to bear additional costs when no such costs are incurred to give other employees the days off that they want would involve unequal treatment of employees on the basis of their religion. By suggesting that TWA should incur certain costs in order to give Hardison Saturdays off . . . would in effect require TWA to finance an additional Saturday off and then to choose the employee who will enjoy it on the basis of his religious beliefs. While incurring extra costs to secure a replacement for Hardison might remove the necessity of compelling another employee to work involuntarily in Hardison's place, it would not change the fact that the privilege of having Saturdays off would be allocated according to religious beliefs. [Footnote omitted.] 
+ This definition is in direct conflict with the explanation of undue hardship in O'Malley. This Court reviewed the American authorities in that case and referred specifically to Hardison but did not adopt the "de minimis" test which it propounded. 
+ Furthermore there is good reason not to adopt the "de minimis" test in Canada. Hardison was argued on the basis of the establishment clause of the First Amendment of the U.S. Constitution and its prohibition against the establishment of religion. This aspect of the Hardison decision was thus decided within an entirely different legal context. The case law of this Court has approached the issue of accommodation in a more purposive manner, attempting to provide equal access to the workforce to people who would otherwise encounter serious barriers to entry. The approach of Canadian courts is thus quite different from the approach taken in U.S. cases such as Hardison and more recently Ansonia Board of Education v. Philbrook, 479 U.S. 60 (1986). 
+ The Hardison de minimis test virtually removes the duty to accommodate and seems particularly inappropriate in the Canadian context. More than mere negligible effort is required to satisfy the duty to accommodate. The use of the term "undue" infers that some hardship is acceptable; it is only "undue" hardship that satisfies this test. The extent to which the discriminator must go to accommodate is limited by the words "reasonable" and "short of undue hardship". These are not independent criteria but are alternate ways of expressing the same concept. What constitutes reasonable measures is a question of fact and will vary with the circumstances of the case. Wilson J., in Central Alberta Dairy Pool, at p. 521, listed factors that could be relevant to an appraisal of what amount of hardship was undue as: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">... financial cost, disruption of a collective agreement, problems of morale of other employees, interchangeability of work force and facilities. The size of the employer's operation may influence the assessment of whether a given financial cost is undue or the ease with which the work force and facilities can be adapted to the circumstances. Where safety is at issue both the magnitude of the risk and the identity of those who bear it are relevant considerations. 
+ She went on to explain at p. 521 that "[t]his list is not intended to be exhaustive and the results which will obtain from a balancing of these factors against the right of the employee to be free from discrimination will necessarily vary from case to case". 
+ The concern for the impact on other employees which prompted the court in Hardison to adopt the de minimis test is a factor to be considered in determining whether the interference with the operation of the employer's business would be undue. However, more than minor inconvenience must be shown before the complainant's right to accommodation can be defeated. The employer must establish that actual interference with the rights of other employees, which is not trivial but substantial, will result from the adoption of the accommodating measures. Minor interference or inconvenience is the price to be paid for religious freedom in a multicultural society. 
+ The member designate did not err in the test that she applied and her decision must be upheld unless she erred in law in other respects as submitted by the respondents. I now turn to those alleged errors. 
+ The Threatened Grievance 
+ The member designate refused to give effect to the submission that the economic impact of a grievance threatened by the respondent union constituted undue hardship. She was of the view that the collective agreement was subject to the Human Rights Act and the only economic consequence to the employer would have been the costs of defending the grievance. 
+ The proposition relied on by the member designate is fully supported by the authorities. In Insurance Corporation of British Columbia v. Heerspink, [1982] 2 S.C.R. 145, Lamer J. (as he then was) stated at p. 158: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> Furthermore, as it [the Human Rights Code] is a public and fundamental law, no one, unless clearly authorized by law to do so, may contractually agree to suspend its operation and thereby put oneself beyond the reach of its protection. 
+ In the Etobicoke case this principle was stated to apply to a collective agreement. At page 213, McIntyre J. stated: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> While this submission is that the condition, being in a collective agreement, should be considered a bona fide occupational qualification and requirement, in my opinion to give it effect would be to permit the parties to contract out of the provisions of The Ontario Human Rights Code. 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt"> Although the Code contains no explicit restriction on such contracting out, it is nevertheless a public statute and it constitutes public policy in Ontario as appears from a reading of the Statute itself and as declared in the preamble. It is clear from the authorities, both in Canada and in England, that parties are not competent to contract themselves out of the provisions of such enactments and that contracts having such effect are void, as contrary to public policy. 
+ The respondent Board submits, however, that this principle does not apply in the case of adverse effect discrimination. The basis for this submission is that in the case of direct discrimination the offending provision is struck down but that in adverse effect discrimination it is upheld in its general application and the complainant is accommodated so that it does not affect him or her in a discriminatory fashion. I do not accept this submission. Adverse effect discrimination is prohibited by the Human Rights Act no less than direct discrimination. In both instances private arrangements, whether by contract or collective agreement, must give way to the requirements of the statute. In the case of direct discrimination which is not justified under the Act, the whole of the provision is invalid because its purpose as well as effect is to discriminate on a prohibited ground. Thus, in Etobicoke, a provision in the collective agreement, which required firefighters to retire at age 60, could not be applied because in all of its applications it discriminated by its very terms on the basis of age. This discriminatory effect could not be justified as a BFOR. 
+ On the other hand a provision such as the one in this case is neutral on its face but operates in a discriminatory fashion against the appellant. The provision is valid in its general application. What the human rights legislation requires is that the appellant be accommodated by exempting him from its provisions to the extent that it no longer discriminates against him on the basis of his religion. To suggest that the provision must be applied to include the appellant within its terms is to allow the employer and the union to contract out of the requirements of the Human Rights Act. This they cannot do. This does not mean that the collective agreement cannot contain a formula for the accommodation of the religious beliefs of employees. An employer who avails himself of such a general provision must, however, establish that it complies with the duty to accommodate. See Central Alberta Dairy Pool, at p. 528. 
+ While the provisions of a collective agreement cannot absolve the parties from the duty to accommodate, the effect of the agreement is relevant in assessing the degree of hardship occasioned by interference with the terms thereof. Substantial departure from the normal operation of the conditions and terms of employment in the collective agreement may constitute undue interference in the operation of the employer's business. 
+ The member designate did not err in law in concluding that the collective agreement did not relieve the respondent employer of its duty to accommodate. She concluded that the sole impact of the threatened grievance which would have sought to enforce the collective agreement was the cost of defending it and that this did not constitute undue hardship. The only other alleged effect of the proposed accommodation was with respect to the effect on other employees and their reaction which the respondent Board feared would result from unilateral action on the part of the employer without union approval. It is, therefore, necessary to consider whether the member designate erred in law in respect of this factor. 
+ Effect on Other Employees 
+ The respondent Board submits that the member designate erred in stating that the employer's fear that unilateral action on the part of the employer might bring forth reprisals from other employees was not a justification for refusing to accommodate the appellant. This submission is based on the following statement in the evidence of Harvey Peatman, the secretary-treasurer of the respondent Board: 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt">Q.What would have happened if the school district had moved unilaterally without union approval to accommodate him in some way in your view? What did you think would happen? 
+ <p class="MsoNormal" style="margin-left:78.45pt;text-align:justify;text-indent:
+-78.45pt;line-height:12.2pt">A.Well, possible riot by the members of the union but -- No, more seriously, very definitely being faced with a grievance which really would have been undefendable. 
+ This statement would justify the conclusion that the alleged fear of employee reprisal was not the real reason for the employer's decision not to create the special shift for the appellant. The real reason was the concern relating to the threatened grievance which was based on a mistake of law. I have explained above that there was no error of law on the part of the member designate in this regard. If this concern played any part in the decision of the employer, it did not constitute justification for the refusal to accommodate the appellant. 
+ The reaction of employees may be a factor in deciding whether accommodating measures would constitute undue interference in the operation of the employer's business. In Central Alberta Dairy Pool, Wilson J. referred to employee morale as one of the factors to be taken into account. It is a factor that must be applied with caution. The objection of employees based on well-grounded concerns that their rights will be affected must be considered. On the other hand, objections based on attitudes inconsistent with human rights are an irrelevant consideration. I would include in this category objections based on the view that the integrity of a collective agreement is to be preserved irrespective of its discriminatory effect on an individual employee on religious grounds. The contrary view would effectively enable an employer to contract out of human rights legislation provided the employees were ad idem with their employer. It was in this context that Wilson J. referred to employee morale as a factor in determining what constitutes undue hardship. 
+ There is no evidence in the record before the Court that the rights of other employees would likely have been affected by an accommodation of the appellant. The fact that the appellant would be assigned to a special shift may have required the adjustment of the schedule of some other employee but this might have been done with the consent of the employee or employees affected. The respondents apparently did not canvass this possibility. The union objected to the proposed accommodation on the basis that the integrity of the collective agreement would be compromised and not that any individual employee objected on the basis of interference with his or her right. In my opinion, the member designate came to the right conclusion with respect to this issue. 
+ Union's Duty to Accommodate 
+ The duty to accommodate developed as a means of limiting the liability of an employer who was found to have discriminated by the bona fide adoption of a work rule without any intention to discriminate. It enabled the employer to justify adverse effect discrimination and thus avoid absolute liability for consequences that were not intended. Section 8 of the Act, like many other human rights codes, prohibits discrimination against a person with respect to employment or any term or condition of employment without differentiating between direct and adverse effect discrimination. Both are prohibited. Moreover, any person who discriminates is subject to the sanctions which the Act provides. By definition (s. 1) a union is a person. Accordingly, a union which causes or contributes to the discriminatory effect incurs liability. In order to avoid imposing absolute liability, a union must have the same right as an employer to justify the discrimination. In order to do so it must discharge its duty to accommodate. 
+ The respondent union does not contest that it had a duty to accommodate but asserts that the limitations on that duty were not properly applied by the member designate. It submits that the focus must be on interference with the rights of employees rather than on interference with the union's business. It further submits, and is supported in this regard by the Canadian Labour Congress (C.L.C.), that a union cannot be required to adopt measures which conflict with the collective agreement until the employer has exhausted reasonable accommodations that do not affect the collective rights of employees. 
+ These submissions raise for determination the extent of a union's obligation to accommodate and how the discharge of that duty is to be reconciled and harmonized with the employer's duty. These are matters that have not been previously considered in this Court. 
+ As I have previously observed, the duty to accommodate only arises if a union is party to discrimination. It may become a party in two ways. 
+ First, it may cause or contribute to the discrimination in the first instance by participating in the formulation of the work rule that has the discriminatory effect on the complainant. This will generally be the case if the rule is a provision in the collective agreement. It has to be assumed that all provisions are formulated jointly by the parties and that they bear responsibility equally for their effect on employees. I do not find persuasive the submission that the negotiations be re-examined to determine which party pressed for a provision which turns out to be the cause of a discriminatory result. This is especially so when a party has insisted that the provision be enforced. In this respect, I am in agreement with the majority of the Ontario Divisional Court in Office and Professional Employees International Union, Local 267 v. Domtar Inc., Ontario Divisional Court, March 19, 1992, unreported. That case dealt with a provision in a collective agreement which required the complainant to work one Saturday in six for four hours. This conflicted with her religious beliefs. The minority view expressed by Campbell J. was that the inclusion of the Saturday work schedule was merely a recognition by the union of the company's policy in this regard. The majority concluded, however, that the presence of the provision in the agreement was a barrier to the continued employment of the complainant, and the union, having aided in the creation of the barrier, was jointly liable to her. 
+ Second, a union may be liable for failure to accommodate the religious beliefs of an employee notwithstanding that it did not participate in the formulation or application of a discriminatory rule or practice. This may occur if the union impedes the reasonable efforts of an employer to accommodate. In this situation it will be known that some condition of employment is operating in a manner that discriminates on religious grounds against an employee and the employer is seeking to remove or alleviate the discriminatory effect. If reasonable accommodation is only possible with the union's co-operation and the union blocks the employer's efforts to remove or alleviate the discriminatory effect, it becomes a party to the discrimination. In these circumstances, the union, while not initially a party to the discriminatory conduct and having no initial duty to accommodate, incurs a duty not to contribute to the continuation of discrimination. It cannot behave as if it were a bystander asserting that the employee's plight is strictly a matter for the employer to solve. I agree with the majority in Office and Professional Employees International Union, Local 267 at p. 13 that "Discrimination in the work place is everybody's business". 
+ The timing and manner in which the union's duty is to be discharged depends on whether its duty arises on the first or second basis as outlined above. I agree with the submissions of the respondent union and C.L.C. that the focus of the duty differs from that of the employer in that the representative nature of a union must be considered. The primary concern with respect to the impact of accommodating measures is not, as in the case of the employer, the expense to or disruption of the business of the union but rather the effect on other employees. The duty to accommodate should not substitute discrimination against other employees for the discrimination suffered by the complainant. Any significant interference with the rights of others will ordinarily justify the union in refusing to consent to a measure which would have this effect. Although the test of undue hardship applies to a union, it will often be met by a showing of prejudice to other employees if proposed accommodating measures are adopted. As I stated previously, this test is grounded on the reasonableness of the measures to remove discrimination which are taken or proposed. Given the importance of promoting religious freedom in the workplace, a lower standard cannot be defended. 
+ While the general definition of the duty to accommodate is the same irrespective of which of the two ways it arises, the application of the duty will vary. A union which is liable as a co-discriminator with the employer shares a joint responsibility with the employer to seek to accommodate the employee. If nothing is done both are equally liable. Nevertheless, account must be taken of the fact that ordinarily the employer, who has charge of the workplace, will be in the better position to formulate accommodations. The employer, therefore, can be expected to initiate the process. The employer must take steps that are reasonable. If the proposed measure is one that is least expensive or disruptive to the employer but disruptive of the collective agreement or otherwise affects the rights of other employees, then this will usually result in a finding that the employer failed to take reasonable measures to accommodate and the union did not act unreasonably in refusing to consent. This assumes, of course, that other reasonable accommodating measures were available which either did not involve the collective agreement or were less disruptive of it. In such circumstances, the union may not be absolved of its duty if it failed to put forward alternative measures that were available which are less onerous from its point of view. I would not be prepared to say that in every instance the employer must exhaust all the avenues which do not involve the collective agreement before involving the union. A proposed measure may be the most sensible one notwithstanding that it requires a change to the agreement and others do not. This does not mean that the union's duty to accommodate does not arise until it is called on by the employer. When it is a co-discriminator with the employer, it shares the obligation to take reasonable steps to remove or alleviate the source of the discriminatory effect. 
+ In the second type of situation in which the union is not initially a contributing cause of the discrimination but by failing to co-operate impedes a reasonable accommodation, the employer must canvass other methods of accommodation before the union can be expected to assist in finding or implementing a solution. The union's duty arises only when its involvement is required to make accommodation possible and no other reasonable alternative resolution of the matter has been found or could reasonably have been found. 
+ The member designate did not, therefore, err in applying the O'Malley definition of the duty to accommodate to the respondent union. Moreover, she found that the union was involved in the conduct which resulted in adverse effect discrimination and that its duty to accommodate arose by reason of this fact. The respondent union, therefore, owed a duty to accommodate jointly with the employer. The proposal for accommodation presented to the union was found to be reasonable. While it was submitted that the member designate failed to consider the trespass on the rights of other employees, I am satisfied that the only possible effect was the adjustment to the schedule of one employee to work the Friday afternoon shift in place of the appellant. The respondent union conceded in argument that there is no evidence that employees were canvassed to ascertain whether someone would volunteer to switch with the appellant. If this occurred, no employees' rights would have been adversely affected. The onus of proof with respect to this issue was on the respondent union. I agree with the member designate that it was not discharged. 
+ Finally, in view of the fact that the duty to accommodate of the union was shared jointly with the employer, it was not incumbent on the member designate to determine whether all other reasonable accommodations had been explored by the employer before calling upon the union. Nevertheless, it appears to me that the member designate was of the view that the special shift proposal was not only reasonable but the most reasonable. This view is fully supported by the evidence. Accordingly, the decision of the member designate must be upheld unless the respondents are correct that there was an error in law on her part with respect to the complainant's duty to facilitate accommodation of his religious beliefs. 
+ Duty of Complainant 
+ The search for accommodation is a multi-party inquiry. Along with the employer and the union, there is also a duty on the complainant to assist in securing an appropriate accommodation. The inclusion of the complainant in the search for accommodation was recognized by this Court in O'Malley. At page 555, McIntyre J. stated: 
+ <p class="MsoNormal" style="margin-left:57.6pt;text-align:justify;text-indent:
+-57.6pt;line-height:12.2pt">Where such reasonable steps, however, do not fully reach the desired end, the complainant, in the absence of some accommodating steps on his own part such as an acceptance in this case of part-time work, must either sacrifice his religious principles or his employment. 
+ To facilitate the search for an accommodation, the complainant must do his or her part as well. Concomitant with a search for reasonable accommodation is a duty to facilitate the search for such an accommodation. Thus in determining whether the duty of accommodation has been fulfilled the conduct of the complainant must be considered. 
+ This does not mean that, in addition to bringing to the attention of the employer the facts relating to discrimination, the complainant has a duty to originate a solution. While the complainant may be in a position to make suggestions, the employer is in the best position to determine how the complainant can be accommodated without undue interference in the operation of the employer's business. When an employer has initiated a proposal that is reasonable and would, if implemented, fulfil the duty to accommodate, the complainant has a duty to facilitate the implementation of the proposal. If failure to take reasonable steps on the part of the complainant causes the proposal to founder, the complaint will be dismissed. The other aspect of this duty is the obligation to accept reasonable accommodation. This is the aspect referred to by McIntyre J. in O'Malley. The complainant cannot expect a perfect solution. If a proposal that would be reasonable in all the circumstances is turned down, the employer's duty is discharged. 
+ In my opinion the member designate did not err in this respect. The complainant did everything that was expected of him with respect to the proposal put forward by the employer. It failed because the union refused consent and the employer refused to proceed unilaterally. The appellant had no obligation to suggest other measures. Moreover, it is not suggested that the appellant turned down any reasonable proposal which was offered to him. 
+ Conclusion 
+ In this appeal the discriminatory effects have resulted from certain workplace conditions. Both the employer and the union had an impact on setting these conditions and thus both are responsible for remedying any adverse effects caused by those conditions. The member designate found that neither party had discharged its duty to accommodate. These findings were not based on any error of law. 
+ The member designate concluded that the employer was liable for its failure to accommodate. The employer's view that proceeding unilaterally with the Sunday to Thursday shift would result in a grievance may have been justified but it does not satisfy the employer's duty to accommodate. The position of the employer was based on a mistake of law. The union might have grieved but the grievance would have been dismissed. The mere fact that the employer might have been required to defend an ill-founded grievance cannot justify failure to accommodate. Fear of employee reprisals was not well grounded. 
+ I agree with the member designate that in this case the union had an original duty to accommodate. By incorporating the work schedule in the collective agreement and insisting in adherence to it, the union contributed to the discrimination. Its conduct was a factor in the formation of the discriminatory rule and in its operation. The union also contributed to the continuation of the discrimination with its refusal to accept the employer-suggested accommodation which was not only reasonable but the most reasonable solution to the problem. It had a duty to co-operate with the employer in arriving at a reasonable solution to the problem which it failed to do. 
+ The complainant appears to have done everything in his power to assist in arriving at an accommodation. He took part in many meetings and discussions with both the school board and the union and actively sought union approval of the proposed accommodation. The complainant fully discharged the duty resting on him. 
+ Amendment of Complaint 
+ The respondent union submitted that the member designate erred in amending the complaint to allege that the union was liable under s. 8 as well as s. 9 of the Human Rights Act. While not, strictly speaking, an issue upon which leave to appeal was granted, I am satisfied from the record before the Court that the case was presented to the member designate on this basis of liability and the amendment simply brought the complaint into conformity with the proceedings. I agree with the member designate that no prejudice to the union was occasioned by the amendment. I agree with the respondents, however, that the reasons are in error in stating that liability of the respondent union was found also under s. 9. This section has no application in the circumstances. This error did not affect the relief granted. 
+ Disposition 
+ I would therefore allow the appeal, set aside the orders of Dohm J. and of the Court of Appeal, and restore the decision of the member designate, with costs to the appellant against the respondent board and union, both here and below. 
+ Appeal allowed. 
+ Solicitors for the appellant: Gaynor, Smith & Scott, Associates, Langley. 
+ Solicitors for the respondent Board of School Trustees, School District No. 23 (Central Okanagan): Weddell, Horn & Company, Kelowna. 
+ Solicitors for the respondent Canadian Union of Public Employees, Local 523: Baigent & Jackson, Enderby. 
+ Solicitors for the respondent British Columbia Council of Human Rights: The Ministry of the Attorney General, Victoria. 
+ Solicitors for the intervener Ontario Human Rights Commission: The Ministry of the Attorney General, Toronto. 
+ Solicitors for the intervener Seventh‑day Adventist Church in Canada: Karnik Doukmetzian and Milner Fenerty, Oshawa. 
+ Solicitors for the intervener Canadian Labour Congress: Sack Goldblatt Mitchell, Toronto. 
+ Solicitor for the interveners Disabled People for Employment Equity and Persons United for Self Help in Ontario (P.U.S.H.) Ontario: Advocacy Resource Centre for the Handicapped, Toronto. 
+ <p class="MsoFootnoteText" style="margin-bottom:12.0pt;text-align:justify;
+line-height:12.2pt">[LINK #_ftnref1] <span lang="EN-GB" style="letter-spacing:-.15pt;vertical-align:
+baseline"> *<span lang="EN-GB" style="letter-spacing:
+-.15pt"> Stevenson J. took no part in the judgment. 
+ You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.
+ Continue 
+ Do not display this message anymore
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.modalClose = "Close";

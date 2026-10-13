@@ -1,0 +1,863 @@
+                                         CITATION: Grover v. Hodgins, 2011 ONCA 72
+                                                                   DATE: 20110127
+                                                                  DOCKET: C51812
+
+                      COURT OF APPEAL FOR ONTARIO
+
+
+                            Doherty, Watt and Epstein JJ.A.
+
+BETWEEN
+
+                         Chander Grover and Tabassum Grover
+
+                                                               Defendants (Appellants/
+                                                    Respondents by way of cross-appeal)
+
+                                           and
+
+
+                             John Hodgins and Ann Dorans
+
+                                                                 Plaintiffs (Respondents/
+                                                      Appellants by way of cross-appeal)
+
+Yavar Hameed, for the appellants/respondents by way of cross-appeal
+
+Kellie Stewart, for the respondents/appellants by way of cross-appeal
+
+
+Heard: November 19, 2010
+
+On appeal from the order of Justice James McNamara of the Superior Court of Justice,
+sitting as a single judge of the Divisional Court, dated July 20, 2009.
+
+
+Epstein J.A.:
+
+[1]   This appeal and cross-appeal involve a decision of a deputy judge of the Small
+
+Claims Court granting judgment in favour of the respondents (the appellants in the cross-
+
+appeal). The deputy judge‟s order was for a portion of the legal fees that the respondents
+                                             Page: 2
+
+
+and other plaintiffs in a law suit in British Columbia paid to prosecute an action relating
+
+to a condominium complex in which they were all owners. The Small Claims Court
+
+action was based in contract or, in the alternative, unjust enrichment. The claim in
+
+contract failed as the trial judge held that the appellants had not agreed to contribute to
+
+the legal costs of the British Columbia law suit. However, he did find the appellants (the
+
+respondents in the cross-appeal) liable to the respondents for a share in the legal fees,
+
+based on unjust enrichment.
+
+[2]       In this appeal, the appellants challenge the trial judge‟s unjust enrichment analysis.
+
+The respondents cross-appeal on the basis that the trial judge erred in finding that the
+
+appellants were not contractually bound to contribute to the costs of the British Columbia
+
+action.
+
+[3]       A further, and arguably more important, issue is also raised in this matter:
+
+namely, the jurisdiction of a deputy judge of the Small Claims Court to grant equitable
+
+relief.    Before this court, the parties addressed their arguments only to the issues
+
+involving the respondents‟ claims in contract and unjust enrichment. However, during
+
+oral argument, counsel were asked to make written submissions on the extent, if any, of
+
+the jurisdiction of the Small Claims Court to grant equitable relief. The court was
+
+concerned with the issue of whether the trial judge had the power to grant relief based on
+
+unjust enrichment.
+                                         Page: 3
+
+
+[4]    In their submissions, both parties took the position that the Small Claims Court has
+
+jurisdiction to grant such relief when the order involves the return of personal property or
+
+a monetary payment within the limit of the Small Claims Court.
+
+[5]    For the reasons that follow, I agree with this position. As for the substantive
+
+issues, in my view the respondents‟ claims both in contract and in unjust enrichment must
+
+fail. I would therefore allow the appeal and dismiss the cross-appeal.
+
+I.    BACKGROUND
+      1.   The British Columbia action
+
+[6]    At the relevant time, the appellants, Chander Grover and Tabassum Grover, and
+
+the respondents, John Hodgins and Ann Dorans, lived in Ontario and owned
+
+condominium units in a complex located in British Columbia. Concerns arose over the
+
+majority owners‟ management of the condominium complex.               The Ontario owners
+
+believed that the value of their units was depressed due to the poor management of the
+
+complex. As a result, a group of 12 Ontario-based owners, including the respondents,
+
+retained a British Columbia lawyer. The lawyer was asked to initiate an action for,
+
+among other relief, damages arising out of the mismanagement of the condominium
+
+complex.
+
+[7]    On July 5, 2004, the lawyer sent a letter to the Ontario-based condominium
+
+owners, including the appellants and the respondents, explaining the potential conflicts of
+
+interest involved in a joint retainer agreement. The closing sentence of the letter read as
+                                          Page: 4
+
+
+follows: “If you are satisfied that you wish us to continue to act for you on the basis
+
+outlined above, please sign the enclosed duplicate copy of this letter and return it to us.”
+
+[8]     The appellants did not sign the letter. The other 12 condominium owners in the
+
+Ontario group, including the respondents, agreed to share the legal costs of the British
+
+Columbia action and each ultimately contributed his or her share, which amounted to
+
+$7,550 each.
+
+[9]     In August 2005, the Supreme Court of British Columbia appointed an
+
+administrator to exercise the powers of the council of condominium owners and to
+
+prepare an expert report to the court on the financial management of the complex.
+
+Subsequently, the majority investors sold most of their units and ceased their
+
+management of the complex. The litigation effectively came to an end.
+
+       2.   The Ontario proceedings
+
+[10]    In April 2006, the respondents brought this action against the appellants in the
+
+Ontario Small Claims Court, claiming $7,550 as damages arising from the breach of an
+
+alleged agreement to contribute to the legal costs incurred in prosecuting the British
+
+Columbia action. In the alternative, the respondents claimed they were entitled to the
+
+money on the basis of unjust enrichment.
+
+[11]    The trial judge dismissed the claim in contract. Although he found that the
+
+appellants were aware of the litigation and interested in its result, there was no “meeting
+
+of the minds” that would have formed a contract whereby they agreed to share legal
+                                          Page: 5
+
+
+costs. With respect to the claim in unjust enrichment, the trial judge found that the
+
+appellants had been enriched by the efforts of the respondents, as, following the removal
+
+of the management under which the problems had developed, they had sold their
+
+condominium unit at a significantly higher value. He also found that the respondents had
+
+suffered a corresponding deprivation by paying their $7,550 share of the legal costs.
+
+Finding no juristic reason for the enrichment, he granted judgment in favour of the
+
+respondents.
+
+[12]   The appellants‟ appeal to the Divisional Court was dismissed on July 20, 2009, by
+
+way of a brief endorsement, as follows:
+
+               This is an appeal and cross-appeal from the decision of
+               Deputy Judge Stauffer of the Small Claims Court at Ottawa
+               dated June 22/07 and released July 10/07.
+
+               The standard of review in an appeal from such a judgment
+               requires, if I am to overturn it, a finding that the Deputy
+               Judge made an overriding & palpable error, that he
+               misapplied the law, or that he misapprehended the evidence.
+
+               I have carefully considered the materials, the submissions of
+               counsel & the decision of the Trial Judge. I am not
+               [persuaded], based on that review, that Judge Stauffer made
+               either an error in law nor a palpable & overriding error in
+               coming to the factual conclusions.
+
+               A Trial Judge is only required to give sufficient reasons to
+               permit appellate review and to allow the parties to know why
+               the decision was as it is. He or she is not required to
+               comment on all issues at the trial, nor on each and every
+               argument presented to him or her. It is also not required that
+               the Judge explain their entire thought process in arriving at
+               their decision as long as there is a logical connection between
+               the decision and the grounds for reaching that decision.
+                                           Page: 6
+
+
+               In this case I had no difficulty in terms of the logical
+               connection between the Trial Judge‟s decision & his grounds
+               for reaching same.
+
+               In the circumstances the Appeal and cross-appeal are both
+               dismissed.
+
+               As success was divided, each side will bear its own costs.
+
+[13]    By order dated February 22, 2010, this court granted leave to appeal.
+
+II.    THE ISSUES
+      1. Does a deputy judge of the small claims court have jurisdiction to grant equitable
+         relief?
+
+      2. Did the deputy judge err in granting judgment on the basis of unjust enrichment in
+         this case?
+
+      3. Did the deputy judge err in finding that the appellants were not bound by contract
+         to contribute to the legal costs of the British Columbia action?
+
+III. ANALYSIS
+[14]    I will first deal with the decision of the Divisional Court. The reasons, set out
+
+above in their totality, contain no reference to the case being decided. As such, they do
+
+not permit any meaningful appellate review and therefore constitute legal error: see R. v.
+
+Brown (2002), 61 O.R. (3d) 619 (C.A.), at para. 30. I must therefore approach my
+
+analysis on the basis of its being a review of the decision of the trial judge.
+
+[15]    It is logical to start with the issue raised by this court concerning the scope of the
+
+equitable jurisdiction of the Small Claims Court.
+                                                       Page: 7
+
+
+       1.     Does the Small Claims Court have jurisdiction to grant equitable relief?
+
+              a.     The legislation
+[16]     The Small Claims Court is a statutory court that derives its jurisdiction solely
+
+through the Courts of Justice Act, R.S.O. 1990, c. C.43. Section 23 is of primary
+
+relevance in this appeal, while section 96 is also informative to the analysis.1
+
+[17]     Section 23 is the section of the Act that sets out the jurisdiction of the Small
+
+Claims Court:
+
+                   23. (1) The Small Claims Court,
+
+                   (a) has jurisdiction in any action for the payment of money
+                   where the amount claimed does not exceed the prescribed
+                   amount exclusive of interest and costs; and
+
+                   (b) has jurisdiction in any action for the recovery of
+                   possession of personal property where the value of the
+                   property does not exceed the prescribed amount.
+
+[18]     Section 96, in dealing with the equitable jurisdiction of all courts, provides as
+
+follows:
+
+                   96. (1) Courts shall administer concurrently all rules of equity
+                   and the common law.
+
+                   (2) Where a rule of equity conflicts with a rule of the
+                   common law, the rule of equity prevails.
+
+                   (3) Only the Court of Appeal and the Superior Court of
+                   Justice, exclusive of the Small Claims Court, may grant
+                   equitable relief, unless otherwise provided.
+
+
+
+1
+  Section 97, which is briefly referenced in these reasons, addresses the jurisdiction of all courts to grant declaratory
+relief, It contains the identical words “exclusive of the Small Claims Court” that appear in s. 96(3), and has
+undergone similar amendments at the same time as s. 96(3).
+                                           Page: 8
+
+
+           b.    The jurisprudence
+                 (i)   The Superior Court
+[19]   The case most often cited in support of the proposition that the Small Claims
+
+Court has jurisdiction to grant equitable relief is the decision of the Divisional Court in
+
+936464 Ontario Ltd. v. Mungo Bear Ltd. (2003), 74 O.R. (3d) 45 (Div. Ct.), in which a
+
+remedy based on quantum meruit was in issue. Heeney J., at paras. 12-15, concluded that
+
+notwithstanding that quantum meruit is part of the restitutionary group of remedies, its
+
+origins can be found in the common law and therefore the court does not need equitable
+
+jurisdiction to award it.
+
+[20]   However, in extensive obiter dicta, Heeney J. went on, in paras. 20-40, to canvass
+
+the equitable jurisdiction of the Small Claims Court.
+
+[21]   Heeney J. noted that while s. 96(3) specifically excludes the Small Claims Court
+
+from the list of courts able to grant equitable relief, it does so with the proviso found in
+
+the words “unless otherwise provided”. He reasoned that s. 23(1)(a) provides otherwise
+
+in the words “any action” – wording sufficiently broad so as to encompass both common
+
+law claims and equitable claims.      He therefore concluded that the only meaningful
+
+restriction on the jurisdiction of the Small Claims Court was that the relief claimed must
+
+be for the payment of money or the return of property, the value of which falls within the
+
+monetary limit prescribed by regulation.
+
+[22]   Two subsequent decisions adopted the reasoning of Heeney J. in relation to the
+
+jurisdiction of the Small Claims Court to grant equitable relief, although, as in the case of
+                                                   Page: 9
+
+
+Mungo Bear, the analysis was not necessary for either decision: 311874 Ontario Ltd.
+
+(c.o.b. Grossi Plumbing & Heating) v. 1461763 Ontario Ltd. (c.o.b. Per Bacco
+
+Ristorante), [2006] O.J. No. 2779 (S.C.) and Tang v. Jarrett (2009), 251 O.A.C. 123
+
+(Div. Ct.).
+
+[23]    While a number of other decisions of the Superior Court have implicitly and
+
+explicitly held that the Small Claims Court has jurisdiction to consider equitable claims
+
+for relief, there appears to be no binding authority for that proposition.2
+
+The Small Claims Court
+[24]    A review of Small Claims Court decisions suggests that the court has been
+
+operating on the basis that it has jurisdiction to consider claims for equitable relief and, in
+
+appropriate cases, to grant it.
+
+[25]    In Szeib v. Team Truck Centres – Freightliner, [2001] O.J. No. 2208 (Sm. Cl. Ct.),
+
+Searle Deputy J. specifically considered the jurisdictional issue and held that the Small
+
+Claims Court has jurisdiction to grant relief from forfeiture, a form of equitable relief. In
+
+a myriad of other cases, the Small Claims Court has, without any analysis of jurisdiction,
+
+considered and awarded (or rejected after consideration) remedies in equity, particularly
+
+based on unjust enrichment. See, for example, P & G Electronics Ltd. v. Scottish and
+
+York Insurance Co., [1992] O.J. No. 2707 (Sm. Cl. Ct.); Gula v. Ontario Hydro, [1995]
+
+O.J. No. 2392 (Sm. Cl. Ct.); Michael Davies Plymouth Chrysler Ltd. v. Shabsove, [1995]
+2
+  In Moore v. Canadian Newspapers Co. (1989), 69 O.R. (2d) 262 (Div. Ct.), Rosenberg J. analyzed the jurisdiction
+of the Small Claims Court to award equitable relief and determined that there was none. However, this case was
+decided before the legislative changes in 1989 and 1994 (discussed below). Also, the remedy at issue in Moore was
+injunctive relief, not a monetary payment.
+                                          Page: 10
+
+
+O.J. No. 5017 (Sm. Cl. Ct.); Bell, Baker v. Wong, [1996] O.J. No. 5443 (Sm. Cl. Ct.);
+
+Canada Post Corp. v. Asquith, [1999] O.J. No. 5583 (Sm. Cl. Ct.); 1346597 Ontario Ltd.
+
+v. Riddiford, [2007] O.J. No. 5502 (Sm. Cl. Ct.); Causeway View Road South Assn. v.
+
+Foster (2009), 91 R.P.R. (4th) 314 (Sm. Cl. Ct.).
+
+           c.    Analysis of the equitable jurisdiction of the Small Claims Court
+[26]   Strictly speaking, my determination set out below that the respondents‟ claims in
+
+contract and in unjust enrichment must fail is sufficient to dispose of the matter.
+
+However, the law concerning the jurisdiction of the Small Claims Court to grant
+
+equitable relief is unsettled is a matter of some importance. Furthermore, decisions of the
+
+Small Claims Court infrequently reach our court. Therefore, in my view, it is appropriate
+
+to provide an analysis of the issue.
+
+[27]   The resolution of whether the Small Claims Court has jurisdiction to grant
+
+equitable relief involves basic statutory interpretation. According to the well-known case
+
+of Rizzo & Rizzo Shoes Ltd. (Re), [1998] 1 S.C.R. 27, at para. 21, the analysis must focus
+
+on the words of the relevant statutory provisions, read in their entire context and in their
+
+grammatical and ordinary sense and interpreted harmoniously with the scheme and the
+
+object of the Act and with the legislature‟s intention.
+
+[28]   I start with the wording of the relevant statutory provisions, taken in context.
+
+[29]   As stated above, s. 23 of the Courts of Justice Act is the section that delineates the
+
+jurisdiction of the Small Claims Court. It gives the court jurisdiction in any action for the
+
+payment of money or the recovery of possession of personal property with a value within
+                                         Page: 11
+
+
+the prescribed limit. This is a wide grant of jurisdiction. I agree with Heeney J. in
+
+Mungo Bear that the wording “any action” is sufficiently broad so as to encompass both
+
+common law and equitable claims.
+
+[30]   But, this observation begs the very question at issue – whether this wording is also
+
+broad enough to include jurisdiction to grant equitable remedies. In my view, it is.
+
+[31]   I agree with Heeney J. at para. 29 of Mungo Bear that s. 23, s. 96(1) and s. 96(3)
+
+are to be read as a “coherent package”. As discussed above, s. 23 of the Act is broad
+
+enough to allow the Small Claims Court to deal with claims in common law and equity.
+
+Under s. 96(1), the courts, including the Small Claims Court, are authorized to
+
+concurrently administer all rules of equity and the common law. It would be irrational
+
+for the legislators to give the Small Claims Court authorization to administer rules of
+
+equity and deal with claims in equity and then specifically preclude the court from
+
+granting any equitable relief. It only makes sense if the wording “where otherwise
+
+provided” in s. 96(3) is interpreted to mean that the Small Claims Court is able to grant
+
+equitable relief within the limits of its jurisdiction set out in s. 23: namely, to order the
+
+payment of money or the return of personal property.
+
+[32]   Notwithstanding the availability of this interpretation of the plain language of the
+
+Courts of Justice Act, it is clear from the jurisprudence that there has been some
+
+uncertainty involving the reconciliation of the broad wording in s. 23 of the Act with the
+
+apparent limitation expressed in s. 96(3).
+                                          Page: 12
+
+
+[33]   This takes me to legislative intent.
+
+[34]   The legislative history of the relevant provisions of the Courts of Justice Act,
+
+particularly ss. 96(3) and 96(1), is available as a tool for determining the intention of the
+
+legislature: Re Rizzo at para. 31.
+
+[35]   In 1984, the Courts of Justice Act replaced the Judicature Act. In Ontario Civil
+
+Practice, 1996 (Scarborough: Carswell, 1995), Watson and McGowan usefully provide
+
+Ministry commentary that accompanied changes to the Courts of Justice Act. In the
+
+commentary accompanying the 1984 Act, the Attorney General clarified that the
+
+statement in s. 109(1) (now s. 96(1)) “courts shall administer concurrently all rules of
+
+equity and the common law” was intended to encompass the meaning of the statement in
+
+the Judicature Act that courts shall recognize all claims and defences, whether arising
+
+under the common law or equity. This means that all courts, including the Small Claims
+
+Court, have the ability to consider equitable claims, such as a claim based on unjust
+
+enrichment.
+
+[36]   Section 96(3) grants the superior court broad jurisdiction to award equitable relief.
+
+When the Courts of Justice Act was enacted in 1984, the Small Claims Court was part of
+
+the provincial court system. Section 109(3) (now s. 96(3)), which granted equitable
+
+jurisdiction to the superior courts of the province, did not apply to the Small Claims
+
+Court. However, in 1989, important changes were made to the organization of the
+
+Ontario court system. With the passage of Bill 2, An Act to amend the Courts of Justice
+                                         Page: 13
+
+
+Act, 1984, 2d Sess., 34th Leg., Ontario, 1989 (assented to 15 November 1989), S.O. 1989,
+
+c. 55, the Small Claims Court became a branch of the newly-created Ontario Court
+
+(General Division), part of the province‟s superior court.
+
+[37]   Of particular interest in terms of the 1989 legislative changes is that the first
+
+version of Bill 2 included a provision that “the Court of Appeal, the Unified Family Court
+
+and the Ontario Court (General Division), excluding the Small Claims Court, may grant
+
+equitable relief, unless otherwise provided” (emphasis added).
+
+[38]   However, the Standing Committee on Administration of Justice approved an
+
+amendment to Bill 2 striking out the words “excluding the Small Claims Court”. The
+
+representative of the Attorney General explained to the Committee that the reference to
+
+the Small Claims Court was being removed because it was unnecessary (Ontario,
+
+Legislative Assembly, Standing Committee on Administration of Justice, Transcripts of
+
+Meetings (31 July 1989) at J-5 (Steven Offer)):
+
+              As members of the committee will be aware, the jurisdiction
+              of the Small Claims Court is limited to two aspects: first, for
+              the payment of money and, second, for the return of personal
+              property.
+
+              Having said that, we have an amendment before us to section
+              15, which speaks to subsection 109(3) [now s. 96(3)] of the
+              Courts of Justice Act. Basically, this amendment talks to the
+              granting of equitable relief. This amendment is saying that
+              we want to exclude the Small Claims Court‟s jurisdiction
+              from subsection 109(3), which talks to the granting of
+              equitable relief. We believe that that is not necessary,
+              because the Small Claims Court does not have jurisdiction
+              under that matter.
+                                        Page: 14
+
+
+[39]   The Standing Committee similarly amended the proposed section 110 (now s. 97)
+
+(declarations of right) and section 114(1) (now s. 101(1)) (interlocutory injunctions,
+
+mandatory orders and receivers) by removing the words “excluding the Small Claims
+
+Court”. The rationale for these amendments was the same: the Small Claims Court has
+
+not been provided the jurisdiction in s. 23(1) to grant declarations of right or injunctive
+
+relief so it was considered unnecessary to specifically exclude the court from these
+
+provisions.
+
+[40]   Despite the government‟s assertion that the words “excluding the Small Claims
+
+Court” were unnecessary, the 1989 amendments created some confusion as to whether
+
+the Small Claims Court had been provided with jurisdiction to grant equitable relief.
+
+[41]   This confusion is reflected in Ontario Civil Practice, 1990, (Toronto: Carswell,
+
+1990), where Watson and McGowan queried whether the Small Claims Court had been
+
+given equitable jurisdiction by the 1989 changes, in the following observations:
+
+              Apparently the rationale for the amendment [to Bill 2]
+              (deleting the specific exclusion with regard to the Small
+              Claims Court) was that since the Small Claims Court is a
+              court of limited jurisdiction, it has only that jurisdiction
+              which is conferred on it by statute, and the relevant statutory
+              provision does not confer general equitable jurisdiction on the
+              Small Claims Court: see s. 22 [now s. 23]. The competing
+              argument is that by s. 21(1) [now s. 22(1)] the Small Claims
+              Court is made a branch of the General Division and as such is
+              now one of the courts enumerated in s. 109(3) [now s. 96(3)].
+
+[42]   The second change of significance took place in 1994, when Bill 136, An Act to
+
+amend the Courts of Justice Act and to make related amendments to the Freedom of
+                                          Page: 15
+
+
+Information and Protection of Privacy Act and the Justices of the Peace Act, 3rd Sess.,
+
+35th Leg., Ontario, 1994 (assented to 23 June 1994), S.O. 1994, c. 12, amended both ss.
+
+96(3) and 97 by inserting the words “exclusive of the Small Claims Court”. There was
+
+no discussion of these changes in either the legislative or committee debates.
+
+[43]   This insertion appears to have prompted Watson and McGowan to remove their
+
+earlier comment about the potential ambiguity concerning whether the Small Claims
+
+Court could grant equitable relief in Ontario Civil Practice, 1996 (Scarborough:
+
+Carswell, 1995).       In its place they provided Ministry commentary from the 1994
+
+amendments saying that “sections 96(3) and 97 of the Act were amended to make it clear
+
+that the Small Claims Court cannot give equitable relief or a declaratory judgment.”
+
+[44]   In my opinion, the series of changes to s. 96(3) and s. 97 in which the reference to
+
+the Small Claims Court was proposed to be included, removed, and then later inserted
+
+demonstrate that the legislative drafters struggled with how to make it clear that the Small
+
+Claims Court, once it became part of the superior court with the 1989 reorganization, did
+
+not acquire that court‟s broad jurisdiction to grant equitable relief. It follows that the
+
+ultimate decision to include the words “exclusive of the Small Claims Court” in ss. 96(3)
+
+and 97, was to clarify that the Small Claims Court‟s becoming a part of the superior court
+
+did not alter the court‟s jurisdiction.
+
+[45]   This conclusion is reinforced by an examination of the purpose of the Small
+
+Claims Court itself.
+                                          Page: 16
+
+
+[46]   The history of the Small Claims Court is one of progressive development toward
+
+providing increased access to justice. The origins of the Small Claims Court in Ontario
+
+may be found in 1792 when the first provincial Parliament of Upper Canada determined
+
+that to “contribute to the conveniency of the inhabitants of this province, to have an easy
+
+and speedy method of recovering small debts”, a separate court was required (An act for
+
+the more easy and speedy recovery of small debts, 1792 (Upper Canada) 32 Geo. III, c.
+
+6). Courts of Request were established and empowered to hear and determine matters of
+
+debt up to forty shillings, and to “decree as to them should seem just in law and equity.”
+
+Thus, right from the inception of the Courts of Request, it is clear that the legislature, in
+
+establishing the Small Claims Court, intended to provide “conveniency” – increased
+
+access to justice.
+
+[47]   In the report by Ontario Civil Justice Review, First Report of the Civil Justice
+
+Review (Toronto: Ontario Civil Justice Review, 1995), the authors noted the following.
+
+“Frequently referred to as the „people's court‟, today's Small Claims Court in Ontario is
+
+seen as the one place where a private citizen can have ready and inexpensive access to
+
+civil justice.” The Small Claims Court is more hospitable to the ever-increasing number
+
+of self-represented litigants. Procedures are simpler in the Small Claims Court; matters
+
+are decided in a summary way under relaxed rules of evidence. There are limits on the
+
+costs that may be recovered by a successful party in the Small Claims Court. These
+
+features contribute to an increase in the accessibility of our system of justice.
+                                          Page: 17
+
+
+[48]    Interpreting the words of the Courts of Justice Act in such a way as to restrict the
+
+jurisdiction of the Small Claims Court in a manner that would preclude it from awarding
+
+equitable relief in resolving claims properly before it would run counter to this important
+
+objective.
+
+[49]    It follows that the interpretation of the Courts of Justice Act provisions relevant to
+
+the jurisdiction of the Small Claims Court that is in keeping with the wording of the Act
+
+and is consistent with the intent of the legislature, apparent not only from the legislative
+
+amendments but also from the rationale behind establishing the Court itself, is that the
+
+Small Claims Court has jurisdiction to award legal or equitable relief where the relief
+
+requested is a monetary payment under the limit of $25,000 or the return of personal
+
+property valued within that limit.
+
+       2.    Did the trial judge err in granting judgment based on unjust enrichment?
+
+[50]    Having determined that the trial judge had jurisdiction to grant relief based on a
+
+claim of unjust enrichment, the next question is whether he erred in doing so on the facts
+
+of this case.
+
+[51]    I now therefore turn to the trial judge‟s conclusion that, based on unjust
+
+enrichment, the respondents were entitled to judgment in the amount of the contribution
+
+paid by each member of the Ontario-based group of condominium owners to the legal
+
+fees of the British Columbia action.
+                                         Page: 18
+
+
+[52]   As the trial judge correctly stated, the cause of action for unjust enrichment has
+
+three elements: (1) an enrichment of the defendant; (2) a corresponding deprivation of
+
+the plaintiff; and (3) an absence of any juristic reason for the enrichment: Pettkus v.
+
+Becker, [1980] 2 S.C.R. 834 at p. 848.
+
+[53]   The trial judge held that the respondents established each of these requirements. I
+
+respectfully disagree. In my view, the respondents met none of the requirements and the
+
+claim in unjust enrichment must therefore fail.
+
+[54]   First, the trial judge erred in holding that the appellants were enriched through the
+
+efforts of the respondents and the expenses they incurred to fund the British Columbia
+
+litigation.
+
+[55]   The trial judge found that the appellants received a benefit because their
+
+condominium unit increased in value following the removal of the old management
+
+through the B.C. litigation. Thus, he held that the appellants were enriched by the
+
+respondents‟ litigation that was ultimately to the advantage of the appellants. I disagree.
+
+[56]   What the trial judge overlooked is the difference between unjust enrichment
+
+through the provision of money and unjust enrichment through the provision of services.
+
+This difference was explained by Laskin J.A. in Sharwood & Co. v. Municipal Financial
+
+Corp. (2001) 53 O.R. 3d 470 (C.A.), at para. 26: “The receipt of money is always a
+
+benefit to the defendant. The receipt of services may not be a benefit because the
+                                         Page: 19
+
+
+defendant may not have wanted the services or may not have wanted them if it had to pay
+
+for them.”
+
+[57]   The provision of services will constitute a benefit in two situations: (a) where they
+
+were performed at the request of the defendant, or (b) where the defendant has been
+
+“incontrovertibly benefited”:     see Maddaugh and McCamus in their text Law of
+
+Restitution, looseleaf (Aurora: Canada Law Book, 2010), at p. 3-17.
+
+[58]   There is no evidence that the appellants requested that the respondents subsidize
+
+their contribution to the legal services or that they requested the services themselves, so
+
+the issue of whether the appellants were enriched comes down to whether they were
+
+“incontrovertibly benefited”.
+
+[59]   In Peel (Regional Municipality) v. Canada; Peel (Regional Municipality) v.
+
+Ontario, [1992] 3 S.C.R. 762, McLachlin J. explained the basic concept of an
+
+“incontrovertible benefit” at p. 795:
+
+              An “incontrovertible benefit” is an unquestionable benefit, a
+              benefit which is demonstrably apparent and not subject to
+              debate and conjecture. Where the benefit is not clear and
+              manifest, it would be wrong to make the defendant pay, since
+              he or she might well have preferred to decline the benefit if
+              given the choice. [Emphasis added.]
+
+[60]   Here, based on the trial judge‟s conclusion that “the evidence is far from clear to
+
+draw a direct link between the departure of the former managers [and] an increase in
+
+value of the units”, it cannot be said the appellants received any demonstrably apparent
+
+benefit.
+                                          Page: 20
+
+
+[61]    For these reasons, I cannot accept the finding of an enrichment or a benefit.
+
+[62]    Nor can I agree with the trial judge‟s finding of a corresponding deprivation. He
+
+found the deprivation to be the $7,550 the respondents paid toward the legal costs of the
+
+British Columbia action.       This finding fails to take into account the benefit the
+
+respondents received themselves.      They paid for legal services.      They received the
+
+services. They suffered no deprivation. Given the trial judge‟s finding that the appellants
+
+did not agree to share costs, each plaintiff paid no more, and no less, than he or she
+
+agreed to pay.
+
+[63]    Even if I were to accept that there had been a benefit conferred and a
+
+corresponding loss, the respondents have not met the third requirement for unjust
+
+enrichment. Simply put, it would not be unjust for the appellants to retain the benefit
+
+given there is nothing in the record to support a conclusion that the appellants requested
+
+or otherwise indicated that they wanted the service.
+
+       3.    The cross-appeal – Did the trial judge err in holding that the appellants
+             were not bound by contract to contribute to the legal costs?
+
+[64]    The respondents submit that the trial judge erred in concluding that the appellants
+
+had not contractually obligated themselves to contribute to the legal costs of the British
+
+Columbia action. This finding was clearly supported by the evidence. I would not
+
+interfere.
+                                         Page: 21
+
+
+IV. DISPOSITION
+[65]   For these reasons I would allow the appeal and dismiss the cross-appeal. I would
+
+set aside the decision of the Divisional Court and the judgment of the deputy judge of the
+
+Small Claims Court and dismiss the action.
+
+[66]   The appellants are entitled to their costs of the trial that were fixed in the amount
+
+of $500, and their costs of the appeal to the Divisional Court that I would fix in the
+
+amount of $3000, and their costs of this appeal, which I would fix at $4000.
+
+RELEASED:
+
+
+“DD”                               “Gloria Epstein J.A.”
+
+“JAN 27 2011”                      “I agree Doherty J.A.”
+
+                                   “I agree David Watt J.A.”
+

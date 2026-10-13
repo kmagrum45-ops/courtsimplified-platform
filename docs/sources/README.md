@@ -1067,3 +1067,68 @@ official sites, on a probe branch that was never merged.
 - **Retrieved from:** https://laws-lois.justice.gc.ca/eng/acts/C-46/20070701/P1TT3xt3.html (Justice Laws point-in-time version 2007-07-01 to 2007-11-30). The point-in-time versions from 2006-12-14, 2007-03-01 and 2007-12-01 were fetched too and Part XVI is identical in all four, so one file covers the period.
 - **Downloaded:** 2026-10-09 (Vendor Sources run 37978651892)
 - **Worth knowing:** today's s. 515 (10) (b) adds "or any person under the age of 18 years" to the public-safety ground; the 2007 text does not have those words.
+
+## Court of Appeal decisions for the law map (2026-10-13)
+
+Fetched by the **CourtSimplified Fetch Decisions** workflow on a GitHub runner
+(run 38429968449, branch `sources-vendor-decisions-38429968449`), found by
+searching the court's own database by neutral citation, text extracted with
+`pdftotext -layout`, saved under `docs/sources/decisions/`. Downloaded
+2026-10-13. Each file's header CITATION line was checked against the citation
+below. Cited in the law map (`docs/law-map/`), which no user sees until each
+item is checked against these files.
+
+| File | Neutral citation | Retrieved from |
+|---|---|---|
+| `decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt` | McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916 | https://coadecisions.ontariocourts.ca/coa/coa/en/8490/1/document.do |
+| `decisions/matthews-v-algoma-timberlakes-2010-ONCA-468.txt` | Matthews v. Algoma Timberlakes Corporation, 2010 ONCA 468 | https://coadecisions.ontariocourts.ca/coa/coa/en/9715/1/document.do |
+| `decisions/grover-v-hodgins-2011-ONCA-72.txt` | Grover v. Hodgins, 2011 ONCA 72 | https://coadecisions.ontariocourts.ca/coa/coa/en/10157/1/document.do |
+| `decisions/shaw-v-phipps-2012-ONCA-155.txt` | Shaw v. Phipps, 2012 ONCA 155 | https://coadecisions.ontariocourts.ca/coa/coa/en/11069/1/document.do |
+| `decisions/1196158-ontario-v-6274013-canada-2012-ONCA-544.txt` | 1196158 Ontario Inc. v. 6274013 Canada Limited, 2012 ONCA 544 | https://coadecisions.ontariocourts.ca/coa/coa/en/11477/1/document.do |
+| `decisions/peel-law-association-v-pieters-2013-ONCA-396.txt` | Peel Law Association v. Pieters, 2013 ONCA 396 | https://coadecisions.ontariocourts.ca/coa/coa/en/12241/1/document.do |
+| `decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt` | Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194 | https://coadecisions.ontariocourts.ca/coa/coa/en/12803/1/document.do |
+| `decisions/taylor-baptiste-v-opseu-2015-ONCA-495.txt` | Taylor-Baptiste v. Ontario Public Service Employees Union, 2015 ONCA 495 | https://coadecisions.ontariocourts.ca/coa/coa/en/13982/1/document.do |
+| `decisions/howard-v-benson-group-2016-ONCA-256.txt` | Howard v. Benson Group Inc. (The Benson Group Inc.), 2016 ONCA 256 | https://coadecisions.ontariocourts.ca/coa/coa/en/14681/1/document.do |
+| `decisions/onyskiw-v-cjm-property-management-2016-ONCA-477.txt` | Onyskiw v. CJM Property Management Ltd., 2016 ONCA 477 | https://coadecisions.ontariocourts.ca/coa/coa/en/14877/1/document.do |
+| `decisions/wood-v-fred-deeley-imports-2017-ONCA-158.txt` | Wood v. Fred Deeley Imports Ltd., 2017 ONCA 158 | https://coadecisions.ontariocourts.ca/coa/coa/en/15562/1/document.do |
+| `decisions/north-v-metaswitch-networks-2017-ONCA-790.txt` | North v. Metaswitch Networks Corporation, 2017 ONCA 790 | https://coadecisions.ontariocourts.ca/coa/coa/en/16182/1/document.do |
+
+## Supreme Court of Canada decisions for the law map (2026-10-13)
+
+Fetched by the **CourtSimplified Fetch Decisions** workflow (run 38430287032,
+branch `sources-vendor-decisions-38430287032`) from each case's own page with
+`?iframe=true`, which carries the full judgment text (SOURCING_NOTES.md,
+"Reading SCC decisions"). Item ids came from searching the court's own
+database (runs 38428461666 and 38429968449); each file's title and citation
+were checked against the citation below. Downloaded 2026-10-13. Cited in the
+law map (`docs/law-map/`), which no user sees until each item is checked
+against these files.
+
+| File | Citation | Retrieved from |
+|---|---|---|
+| `decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt` | Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/101/index.do |
+| `decisions/rjr-macdonald-v-canada-1994-1-SCR-311.html.txt` | RJR-MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1111/index.do |
+| `decisions/penner-v-niagara-police-2013-SCC-19.html.txt` | Penner v. Niagara (Regional Police Services Board), 2013 SCC 19 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/12962/index.do |
+| `decisions/bruno-appliance-v-hryniak-2014-SCC-8.html.txt` | Bruno Appliance and Furniture, Inc. v. Hryniak, 2014 SCC 8 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/13428/index.do |
+| `decisions/gordon-v-goertz-1996-2-SCR-27.html.txt` | Gordon v. Goertz, [1996] 2 S.C.R. 27 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1380/index.do |
+| `decisions/boma-manufacturing-v-cibc-1996-3-SCR-727.html.txt` | Boma Manufacturing Ltd. v. Canadian Imperial Bank of Commerce, [1996] 3 S.C.R. 727 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1447/index.do |
+| `decisions/carey-v-laiken-2015-SCC-17.html.txt` | Carey v. Laiken, 2015 SCC 17 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/15289/index.do |
+| `decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt` | Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc., 2015 SCC 39 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/15471/index.do |
+| `decisions/r-v-jordan-2016-SCC-27.html.txt` | R. v. Jordan, 2016 SCC 27 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/16057/index.do |
+| `decisions/stewart-v-elk-valley-coal-2017-SCC-30.html.txt` | Stewart v. Elk Valley Coal Corp., 2017 SCC 30 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/16679/index.do |
+| `decisions/bc-psers-v-bcgseu-meiorin-1999-3-SCR-3.html.txt` | British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1724/index.do |
+| `decisions/bc-superintendent-v-bc-council-grismer-1999-3-SCR-868.html.txt` | British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1761/index.do |
+| `decisions/canada-mci-v-vavilov-2019-SCC-65.html.txt` | Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/18078/index.do |
+| `decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt` | McKinley v. BC Tel, 2001 SCC 38 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1876/index.do |
+| `decisions/671122-ontario-v-sagaz-2001-SCC-59.html.txt` | 671122 Ontario Ltd. v. Sagaz Industries Canada Inc., 2001 SCC 59 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1898/index.do |
+| `decisions/northern-regional-health-v-horrocks-2021-SCC-42.html.txt` | Northern Regional Health Authority v. Horrocks, 2021 SCC 42 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/19043/index.do |
+| `decisions/r-v-jj-2022-SCC-28.html.txt` | R. v. J.J., 2022 SCC 28 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/19428/index.do |
+| `decisions/housen-v-nikolaisen-2002-SCC-33.html.txt` | Housen v. Nikolaisen, 2002 SCC 33 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/1972/index.do |
+| `decisions/krieger-v-law-society-alberta-2002-SCC-65.html.txt` | Krieger v. Law Society of Alberta, 2002 SCC 65 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2007/index.do |
+| `decisions/hydro-quebec-v-syndicat-2008-SCC-43.html.txt` | Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d'Hydro-Québec, section locale 2000 (SCFP-FTQ), 2008 SCC 43 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2507/index.do |
+| `decisions/seneca-college-v-bhadauria-1981-2-SCR-181.html.txt` | Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2524/index.do |
+| `decisions/janzen-v-platy-1989-1-SCR-1252.html.txt` | Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/456/index.do |
+| `decisions/evans-v-teamsters-local-31-2008-SCC-20.html.txt` | Evans v. Teamsters Local Union No. 31, 2008 SCC 20 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/4629/index.do |
+| `decisions/bc-wcb-v-figliola-2011-SCC-52.html.txt` | British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7968/index.do |
+| `decisions/tranchemontagne-v-ontario-2006-SCC-14.html.txt` | Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7/index.do |
+| `decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt` | Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/910/index.do |
