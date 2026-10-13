@@ -42,6 +42,7 @@ import {
   type PlainLine,
   type PracticalCourt,
   FAMILY_NO_STEP_FEE,
+  SC_NO_STEP_FEE,
   limitNotesFor,
 } from "../../src/lib/content-library/nextStepPractical";
 
@@ -61,6 +62,7 @@ const COURTS: PracticalCourt[] = ["small-claims", "civil", "family"];
 const lines: PlainLine[] = [
   ...FAMILY_FEE_NOTES,
   ...FAMILY_NO_STEP_FEE,
+  ...SC_NO_STEP_FEE,
   ...limitNotesFor("civil", "a supplier sued my company"),
   FAMILY_APPEAL_FEE_NOTE,
   FEE_WAIVER,
@@ -183,6 +185,14 @@ check("a person whose story mentions a company account is not", limitNotesFor("c
 console.log("\n6. Nothing grades a case");
 const grading = lines.filter((line) => /\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)).map((line) => line.say);
 check("no plain-words line grades a case or predicts an outcome", grading.length === 0, grading.join(" | "));
+
+console.log("\n7. A Small Claims step with no fee says so (2026-10-13)");
+{
+  const conference = practicalFor("plaintiff:awaiting-settlement-conference", "small-claims", "Kingston", false);
+  check("the settlement conference card says the fee list has no fee for it", conference?.feeNotes[0] === SC_NO_STEP_FEE[0]);
+  const claim = practicalFor("plaintiff:claim-drafted-not-filed", "small-claims", "Kingston", false);
+  check("a step with a fee shows the fee, not the no-fee note", Boolean(claim?.fees.length) && claim?.feeNotes.length === 0);
+}
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;
