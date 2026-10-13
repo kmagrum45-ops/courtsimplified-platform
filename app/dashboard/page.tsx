@@ -195,7 +195,7 @@ export default function DashboardPage() {
           {START_OPTIONS.map((option) => (
             <Link
               key={option.path}
-              href={`/builder?path=${option.path}`}
+              href={`/?path=${option.path}`}
               className="rounded-3xl border border-[#d8e6df] bg-white p-5 transition hover:border-[#2f7d67]"
             >
               <p className="font-bold text-[#10231f]">{option.title}</p>

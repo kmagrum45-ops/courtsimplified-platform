@@ -128,16 +128,37 @@ const DOORS: Array<{ file: string; why: string }> = [
     ["app/family/page.tsx", "family"],
     ["app/civil/page.tsx", "civil"],
   ]) {
-    // Every link into the intake must sit inside an availability check.
+    // Every link into the intake must sit inside an availability check --
+    // straight to the builder, or through the front door (/?path=, the court
+    // check; Step 2C, 2026-10-12).
     const text = read(file);
-    let at = text.indexOf(`/builder?path=${pathway}`);
-    while (at !== -1) {
-      const before = text.slice(Math.max(0, at - 250), at);
-      if (!before.includes(`isPathwayAvailable("${pathway}")`)) {
-        offenders.push(`${file} links to /builder?path=${pathway} without checking the pathway is open`);
+    for (const target of [`/builder?path=${pathway}`, `"/?path=${pathway}"`]) {
+      let at = text.indexOf(target);
+      while (at !== -1) {
+        const before = text.slice(Math.max(0, at - 250), at);
+        if (!before.includes(`isPathwayAvailable("${pathway}")`)) {
+          offenders.push(`${file} links to ${target} without checking the pathway is open`);
+        }
+        at = text.indexOf(target, at + 1);
       }
-      at = text.indexOf(`/builder?path=${pathway}`, at + 1);
     }
+  }
+
+  // Starting a case goes through the front door, where the story is read
+  // against the chosen court before the intake (HomeLocationGate's court
+  // check, which nothing linked to before 2026-10-12, Step 2C).
+  for (const [file, pathway] of [
+    ["app/small-claims/page.tsx", "small-claims"],
+    ["app/family/page.tsx", "family"],
+    ["app/civil/page.tsx", "civil"],
+  ]) {
+    const text = read(file);
+    if (!text.includes(`href="/?path=${pathway}"`) || text.includes(`href="/builder?path=${pathway}"`)) {
+      offenders.push(`${file}: Start must go through the court check (/?path=${pathway}), not straight to the builder`);
+    }
+  }
+  if (!read("app/_components/HomeLocationGate.tsx").includes('fetch("/api/classify-court-path"')) {
+    offenders.push("HomeLocationGate no longer runs the court check");
   }
 
   if (offenders.length === 0) {

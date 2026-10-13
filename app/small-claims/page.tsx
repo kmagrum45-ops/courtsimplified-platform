@@ -58,7 +58,7 @@ export default function SmallClaimsPage() {
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/builder?path=small-claims"
+              href="/?path=small-claims"
               className="rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#276a57]"
             >
               Start my Small Claims case
@@ -169,7 +169,7 @@ export default function SmallClaimsPage() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
-              href="/builder?path=small-claims"
+              href="/?path=small-claims"
               className="inline-block rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#276a57]"
             >
               Continue to Small Claims Intake →
