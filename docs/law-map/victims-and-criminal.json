@@ -2681,7 +2681,8 @@
       "says": "The Supreme Court of Canada held that Crown prosecutors do not have absolute immunity from a lawsuit for malicious prosecution, while the Crown itself was immune under the law then in force.",
       "source": {
         "decision": "Nelles v. Ontario, [1989] 2 S.C.R. 170",
-        "expect": "absolute immunity from a suit for malicious prosecution"
+        "expect": "absolute immunity from a suit for malicious prosecution",
+        "corpusId": "decision-nelles"
       }
     },
     {
@@ -2691,7 +2692,9 @@
       "says": "The Supreme Court of Canada set out the elements of malicious prosecution against a Crown prosecutor, including absence of reasonable and probable cause and malice in the sense of an improper purpose.",
       "source": {
         "decision": "Miazga v. Kvello Estate, 2009 SCC 51",
-        "pinpoint": "para. 3"
+        "pinpoint": "para. 3",
+        "corpusId": "decision-miazga",
+        "expect": "absence of reasonable and probable cause"
       }
     },
     {
@@ -2701,7 +2704,8 @@
       "says": "The Supreme Court of Canada held that Charter damages may be awarded against the Crown for wrongful non-disclosure by prosecutors, where the claimant meets the fault standard the Court set out.",
       "source": {
         "decision": "Henry v. British Columbia (Attorney General), 2015 SCC 24",
-        "expect": "Wrongful non-disclosure"
+        "expect": "Wrongful non-disclosure",
+        "corpusId": "decision-henry"
       }
     },
     {
@@ -2807,7 +2811,8 @@
       "says": "The Supreme Court of Canada recognized the tort of negligent investigation: police owe a duty of care to a suspect being investigated, judged against the standard of a reasonable officer.",
       "source": {
         "decision": "Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41",
-        "expect": "tort of negligent investigation"
+        "expect": "tort of negligent investigation",
+        "corpusId": "decision-hill-hamilton"
       }
     },
     {
@@ -3040,7 +3045,8 @@
       "says": "Battery is intentional, direct, harmful or offensive physical contact. In a sexual battery claim, the plaintiff proves the sexual contact; if the defendant does not dispute it happened, the defendant bears the burden of proving consent or that a reasonable person would have thought there was consent.",
       "source": {
         "decision": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24",
-        "expect": "he bears the burden of proving that the plaintiff consented"
+        "expect": "he bears the burden of proving that the plaintiff consented",
+        "corpusId": "decision-scalera"
       }
     },
     {
@@ -3061,7 +3067,8 @@
       "says": "A claimant does not need a diagnosed psychiatric illness to recover for mental injury in negligence; the injury must be serious and prolonged and more than ordinary upset.",
       "source": {
         "decision": "Saadati v. Moorhead, 2017 SCC 28",
-        "expect": "recognized psychiatric illness"
+        "expect": "recognized psychiatric illness",
+        "corpusId": "decision-saadati"
       }
     },
     {
@@ -3366,7 +3373,8 @@
       "source": {
         "decision": "R. v. Antic, 2017 SCC 27",
         "pinpoint": "para. 67",
-        "expect": "the following principles and guidelines should be adhered to"
+        "expect": "the following principles and guidelines should be adhered to",
+        "corpusId": "decision-antic"
       }
     },
     {
@@ -3377,7 +3385,8 @@
       "source": {
         "decision": "R. v. Zora, 2020 SCC 14",
         "pinpoint": "para. 6",
-        "expect": "the principles of restraint and review"
+        "expect": "the principles of restraint and review",
+        "corpusId": "decision-zora"
       }
     },
     {
@@ -3388,7 +3397,8 @@
       "source": {
         "decision": "R. v. St-Cloud, 2015 SCC 27",
         "pinpoint": "para. 87",
-        "expect": "does not create a residual ground for detention"
+        "expect": "does not create a residual ground for detention",
+        "corpusId": "decision-st-cloud"
       }
     },
     {
@@ -3399,7 +3409,8 @@
       "source": {
         "decision": "R. v. Myers, 2019 SCC 18",
         "pinpoint": "para. 1",
-        "expect": "Pre-trial detention is the exception, not the rule"
+        "expect": "Pre-trial detention is the exception, not the rule",
+        "corpusId": "decision-myers-bail"
       }
     },
     {
@@ -3409,7 +3420,8 @@
       "says": "The Supreme Court of Canada held that the Charter right not to be denied reasonable bail without just cause allows denial of bail only in a narrow set of circumstances where necessary for the proper functioning of the bail system.",
       "source": {
         "decision": "R. v. Morales, [1992] 3 S.C.R. 711",
-        "expect": "just cause"
+        "expect": "just cause",
+        "corpusId": "decision-morales"
       }
     },
     {
@@ -3419,7 +3431,8 @@
       "says": "The Supreme Court of Canada upheld detention to maintain confidence in the administration of justice, while striking down a broader 'any other just cause' ground.",
       "source": {
         "decision": "R. v. Hall, 2002 SCC 64",
-        "expect": "confidence in the administration of justice"
+        "expect": "confidence in the administration of justice",
+        "corpusId": "decision-hall-bail"
       }
     },
     {

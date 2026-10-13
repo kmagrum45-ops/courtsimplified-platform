@@ -1558,7 +1558,8 @@
       "source": {
         "decision": "Odhavji Estate v. Woodhouse, 2003 SCC 69",
         "pinpoint": "para. 32",
-        "expect": "deliberate unlawful conduct in the exercise of public functions"
+        "expect": "deliberate unlawful conduct in the exercise of public functions",
+        "corpusId": "decisions/odhavji-estate-v-woodhouse-2003-SCC-69.html.txt"
       },
       "leadsTo": [
         "crown.pre.s17-applies",
@@ -1573,7 +1574,8 @@
       "source": {
         "decision": "Odhavji Estate v. Woodhouse, 2003 SCC 69",
         "pinpoint": "para. 23",
-        "expect": "deliberate and unlawful conduct in his or her capacity as a public officer"
+        "expect": "deliberate and unlawful conduct in his or her capacity as a public officer",
+        "corpusId": "decisions/odhavji-estate-v-woodhouse-2003-SCC-69.html.txt"
       }
     },
     {
