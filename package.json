@@ -106,6 +106,8 @@
     "forms:index": "node --import tsx scripts/forms/buildFormRuleIndex.ts",
     "test:glossary": "node --import tsx scripts/verification/verifyGlossary.ts",
     "glossary:index": "node --import tsx scripts/glossary/buildGlossary.ts",
+    "glossary:sources": "node --import tsx scripts/glossary/fillSources.ts",
+    "glossary:check-batch": "node --import tsx scripts/glossary/checkBatch.ts",
     "test:topic-guides": "node --import tsx scripts/verification/verifyTopicGuides.ts",
     "test:court-locations": "node --import tsx scripts/verification/verifyCourtLocations.ts",
     "test:claim-library": "node --import tsx scripts/verification/verifyClaimLibrary.ts",

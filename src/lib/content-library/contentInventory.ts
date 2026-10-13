@@ -323,20 +323,35 @@ export function collectContentInventory(): ContentItem[] {
     });
   }
 
-  // ---- Glossary (2026-09-30): plain explanations of defined terms ----
+  // ---- Glossary (rebuilt 2026-10-13): what each word means, then court differences ----
   for (const entry of GLOSSARY) {
-    if (!entry.explanation) continue;
-    items.push(
-      item({
-        id: entry.id,
-        type: "education-topic",
-        pathway: "all",
-        stage: "glossary",
-        text: entry.explanation,
-        sourceUrl: entry.definitions[0]?.url ?? "",
-        appearsIn: `Glossary, "${entry.term}"`,
-      }),
-    );
+    const sourceUrl = entry.sources[0]?.url ?? entry.definitions[0]?.url ?? "";
+    if (entry.meaning) {
+      items.push(
+        item({
+          id: entry.id,
+          type: "education-topic",
+          pathway: "all",
+          stage: "glossary",
+          text: entry.meaning,
+          sourceUrl,
+          appearsIn: `Glossary, "${entry.term}"`,
+        }),
+      );
+    }
+    for (const note of entry.courts) {
+      items.push(
+        item({
+          id: `${entry.id}:${note.court}`,
+          type: "education-topic",
+          pathway: "all",
+          stage: "glossary",
+          text: note.text,
+          sourceUrl,
+          appearsIn: `Glossary, "${entry.term}" (${note.label.toLowerCase()})`,
+        }),
+      );
+    }
   }
 
   // formKnowledgeBase.ts (12 forms, unsourced) was listed here until

@@ -183,6 +183,40 @@ Words the site uses constantly but no instrument defines ("service", "noted
 in default", "affidavit") are NOT in it: they would need a source that
 defines them, and none of these provisions do.
 
+### The glossary was rebuilt to explain words across all three courts (2026-10-13)
+
+The definitions-provisions glossary above read "In the family rules, ..." for
+most words, because the Family Law Rules have by far the longest definitions
+list, and it carried Limitations Act environmental terms. Now
+`glossaryEntries.json` is hand-written: the meaning that holds everywhere
+first, then a note per court only where they differ, each statement resting on
+a quote test:glossary finds word for word in `docs/sources/corpus`. The law's
+definitions are still shown underneath; 13 defined terms are listed in
+`removed` with a reason. Draft batches are checked with
+`npm run glossary:check-batch <file>`; titles and links are filled by
+`npm run glossary:sources`.
+
+- **The Superior Court's "Steps to a Civil Case" page has a Glossary of Terms
+  written for self-represented people** (`scj-steps-to-a-civil-case`, near the
+  end). It is the best single source for everyday words (affidavit, costs,
+  hearsay, without prejudice).
+- **That same page still says the Small Claims limit is $35,000** (it has been
+  $50,000 since 2025-10-01, O. Reg. 626/00 and the Small Claims guides). Its
+  appeal thresholds ($50,000 Court of Appeal / Divisional Court) do match CJA
+  s. 19 (1.2). Don't quote its Small Claims limit.
+- **Latin: no Ontario court publishes a glossary, and Ontario's rules and
+  statutes define none.** The rules say "without notice", never "ex parte"
+  (0 hits in all three rulebooks). Meanings come from other Canadian courts'
+  own glossaries, vendored 2026-10-13: `fc-glossary` (Federal Court),
+  `nb-courts-glossary`, `mb-courts-definitions`. Searched and NOT found in any
+  official court or government glossary: res judicata, functus officio, bona
+  fide, quantum meruit, inter alia, status quo. They stay out until a source is
+  found (the BC Provincial Court glossary was checked through "Plea" only; the
+  rest of the page did not load).
+- `ontario.ca`, `ontariocourts.ca`, `justice.gc.ca` refuse the workspace
+  proxy (403); new pages are vendored with the Vendor Sources workflow
+  dispatched on the working branch (`gh api .../dispatches -f ref=<branch>`).
+
 ### Every form explained from the rule that names it (2026-09-30)
 
 The explanation of a court form is in the regulation itself: the rule that

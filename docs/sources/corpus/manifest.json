@@ -3623,6 +3623,42 @@
       "characters": 2695,
       "lines": 87,
       "file": "oreg-456-96-prescribed-crimes.txt"
+    },
+    {
+      "id": "fc-glossary",
+      "title": "Representing yourself — Glossary (Federal Court)",
+      "citation": "fct-cf.ca — Federal Court of Canada",
+      "url": "https://www.fct-cf.ca/en/pages/representing-yourself/glossary",
+      "retrievedAt": "2026-10-13T21:54:49.207Z",
+      "sha256": "080fbcae98e348a6da36c428e1bdb5d694688f077214022845d1c758dea46c9a",
+      "consolidation": "(none stated)",
+      "characters": 19624,
+      "lines": 933,
+      "file": "fc-glossary.txt"
+    },
+    {
+      "id": "nb-courts-glossary",
+      "title": "Glossary of Legal Terms (Courts of New Brunswick)",
+      "citation": "courtsnb-coursnb.ca — Courts of New Brunswick",
+      "url": "https://www.courtsnb-coursnb.ca/content/cour/en/glossary.html",
+      "retrievedAt": "2026-10-13T21:54:49.596Z",
+      "sha256": "7364ee378114f21d2c3bfd4d310702690fd21bcb07194ed4529458dd111e1db1",
+      "consolidation": "(none stated)",
+      "characters": 11496,
+      "lines": 160,
+      "file": "nb-courts-glossary.txt"
+    },
+    {
+      "id": "mb-courts-definitions",
+      "title": "Definitions: Understanding Legal Words (Manitoba Courts)",
+      "citation": "manitobacourts.mb.ca — Manitoba Courts",
+      "url": "https://www.manitobacourts.mb.ca/general-information/definitions-understanding-legal-words/",
+      "retrievedAt": "2026-10-13T21:54:50.117Z",
+      "sha256": "3a5c662ce33368405488535026ccacb459a8543f7d7ad37f38d212791c8ed7bb",
+      "consolidation": "(none stated)",
+      "characters": 25038,
+      "lines": 217,
+      "file": "mb-courts-definitions.txt"
     }
   ],
   "failures": []
