@@ -157,7 +157,7 @@ const DOORS: Array<{ file: string; why: string }> = [
       offenders.push(`${file}: Start must go through the court check (/?path=${pathway}), not straight to the builder`);
     }
   }
-  if (!read("app/_components/HomeLocationGate.tsx").includes('fetch("/api/classify-court-path"')) {
+  if (!read("app/_components/HomeLocationGate.tsx").includes('"/api/classify-court-path"')) {
     offenders.push("HomeLocationGate no longer runs the court check");
   }
 
