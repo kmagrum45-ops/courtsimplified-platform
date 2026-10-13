@@ -3587,24 +3587,45 @@
       "characters": 374562,
       "lines": 5044,
       "file": "corrections-and-conditional-release-act.txt"
-    }
-  ],
-  "failures": [
+    },
     {
       "id": "oreg-290-98-landlord-tenant-selection",
+      "title": "Business Practices Permissible to Landlords in Selecting Prospective Tenants",
+      "citation": "O. Reg. 290/98",
       "url": "https://www.ontario.ca/laws/docs/980290_e.doc",
-      "reason": "missing required marker(s): SELECTING PROSPECTIVE TENANTS"
+      "retrievedAt": "2026-10-13T16:14:38.455Z",
+      "sha256": "a661c08e3eff41b3a497f76077646d21e3d26dd919b4a3f4f2f870c28ec91d0d",
+      "consolidation": "CONSOLIDATION PERIOD: FROM MARCH 8, 2018 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 3574,
+      "lines": 65,
+      "file": "oreg-290-98-landlord-tenant-selection.txt"
     },
     {
       "id": "oreg-9-18-standard-lease",
+      "title": "Standard Forms of Lease",
+      "citation": "O. Reg. 9/18",
       "url": "https://www.ontario.ca/laws/docs/180009_e.doc",
-      "reason": "missing required marker(s): STANDARD FORMS OF LEASE"
+      "retrievedAt": "2026-10-13T16:14:38.680Z",
+      "sha256": "ca370c62aa5badc5ff229d50eb14ffc296298be9ae4ca279986b5c7a4b964e03",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 2, 2020 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 5257,
+      "lines": 102,
+      "file": "oreg-9-18-standard-lease.txt"
     },
     {
       "id": "oreg-456-96-prescribed-crimes",
+      "title": "Prescribed Crimes (Victims' Bill of Rights, 1995)",
+      "citation": "O. Reg. 456/96",
       "url": "https://www.ontario.ca/laws/docs/960456_e.doc",
-      "reason": "missing required marker(s): PRESCRIBED CRIMES"
-    },
+      "retrievedAt": "2026-10-13T16:14:38.796Z",
+      "sha256": "a5c6bad7ba4930b749854da77f1e6c10f18ab00bb2b6ff2279dc8186c4becaf2",
+      "consolidation": "CONSOLIDATION PERIOD: FROM OCTOBER 16, 2024 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 2695,
+      "lines": 87,
+      "file": "oreg-456-96-prescribed-crimes.txt"
+    }
+  ],
+  "failures": [
     {
       "id": "criminal-proceedings-rules-scj-ontario",
       "url": "https://laws-lois.justice.gc.ca/eng/regulations/SI-2012-7/FullText.html",

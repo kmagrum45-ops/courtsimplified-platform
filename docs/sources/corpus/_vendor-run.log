@@ -1,0 +1,15 @@
+oreg-290-98-landlord-tenant-selection  ok      3574 chars  a661c08e3eff
+                                       CONSOLIDATION PERIOD: FROM MARCH 8, 2018 TO THE E-LAWS CURRENCY DATE.
+oreg-9-18-standard-lease               ok      5257 chars  ca370c62aa5b
+                                       CONSOLIDATION PERIOD: FROM DECEMBER 2, 2020 TO THE E-LAWS CURRENCY DATE.
+oreg-456-96-prescribed-crimes          ok      2695 chars  a5c6bad7ba49
+                                       CONSOLIDATION PERIOD: FROM OCTOBER 16, 2024 TO THE E-LAWS CURRENCY DATE.
+
+289 vendored, 1 failed.
+Manifest: docs/sources/corpus/manifest.json
+
+SOURCES MISSING FROM THE CORPUS:
+  criminal-proceedings-rules-scj-ontario — extracted only 1120 characters, below this source's minimum of 2000
+
+Nothing may be written from memory to fill these. Record them in the
+report and leave the content that would have cited them unwritten.
