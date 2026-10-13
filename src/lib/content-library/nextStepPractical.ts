@@ -682,6 +682,14 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:both:offer-to-settle": { forms: ["49A"], fees: [], files: false, serve: "ordinary" },
   "civil:both:summary-judgment-motion": { forms: ["37A", "37B"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
   "civil:both:motion-scheduled": { forms: ["37A", "37B"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
+  "civil:both:motion-to-strike-or-dismiss": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
+  "civil:both:asking-for-injunction": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
+  // Amended on the face of the pleading already filed; leave, when needed, is asked by motion (the step's own rules).
+  "civil:both:amending-a-pleading": NOTHING,
+  // The order is asked for by motion, which may be made without notice (r. 42.01 (3), in the step's rules).
+  "civil:plaintiff:certificate-of-pending-litigation": { forms: ["37A", "42A"], fees: ["civ-motion"], files: true, serve: null, also: [CIV_MOTION] },
+  // The motion's own timing is in s. 137.2 of the Courts of Justice Act, in the step's rules.
+  "civil:defendant:sued-over-public-expression": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
   "civil:both:interlocutory-order-made": { forms: ["61A", "62A"], fees: ["civ-motion", "civ-appeal-interlocutory"], files: true, serve: "ordinary" },
   "civil:both:pretrial-scheduled": { forms: ["50A"], fees: [], files: true, serve: "ordinary" },
   "civil:both:trial-date-set": { forms: ["53A"], fees: ["civ-summons"], files: true, serve: "summons" },

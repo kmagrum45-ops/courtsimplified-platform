@@ -2093,6 +2093,83 @@ const THIRD_PARTY_CLAIM_DEADLINE: StageDeadline = {
 // Before anything is filed
 // =====================================================================
 
+// ------------------------------------------------------------ law map, 2026-10-13: motions to strike, anti-SLAPP, injunctions, CPL, amending
+
+const RCP_21_01_BEFORE_TRIAL = rcp(
+  "r. 21.01 (1)",
+  "A party may move before a judge, (a) for the determination, before trial, of a question of law raised by a pleading in an action where the determination of the question may dispose of all or part of the action, substantially shorten the trial or result in a substantial saving of costs; or (b) to strike out a pleading on the ground that it discloses no reasonable cause of action or defence, and the judge may make an order or grant judgment accordingly.",
+);
+const RCP_21_01_DEFENDANT = rcp(
+  "r. 21.01 (3)",
+  "A defendant may move before a judge to have an action stayed or dismissed on the ground that, ... (a) the court has no jurisdiction over the subject matter of the action; ... (b) the plaintiff is without legal capacity to commence or continue the action or the defendant does not have the legal capacity to be sued; ... (c) another proceeding is pending in Ontario or another jurisdiction between the same parties in respect of the same subject matter; or ... (d) the action is frivolous or vexatious or is otherwise an abuse of the process of the court, and the judge may make an order or grant judgment accordingly.",
+);
+const RCP_21_02_PROMPTLY = rcp(
+  "r. 21.02",
+  "A motion under rule 21.01 shall be made promptly and a failure to do so may be taken into account by the court in awarding costs.",
+);
+const RCP_25_11_STRIKE = rcp(
+  "r. 25.11",
+  "The court may strike out or expunge all or part of a pleading or other document, with or without leave to amend, on the ground that the pleading or other document, (a) may prejudice or delay the fair trial of the action; (b) is scandalous, frivolous or vexatious; or (c) is an abuse of the process of the court.",
+);
+const RCP_26_01_LEAVE = rcp(
+  "r. 26.01",
+  "On motion at any stage of an action the court shall grant leave to amend a pleading on such terms as are just, unless prejudice would result that could not be compensated for by costs or an adjournment.",
+);
+const RCP_26_02_WHEN = rcp(
+  "r. 26.02",
+  "A party may amend the party's pleading, (a) without leave, before the close of pleadings, if the amendment does not include or necessitate the addition, deletion or substitution of a party to the action; (b) on filing the consent of all parties and, where a person is to be added or substituted as a party, the person's consent; or (c) with leave of the court.",
+);
+const RCP_26_03_UNDERLINED = rcp(
+  "r. 26.03 (2)",
+  "An amendment to a pleading shall be underlined so as to distinguish the amended wording from the original, and the registrar shall note on the amended pleading the date on which, and the authority by which, the amendment was made.",
+);
+const CJA_101_INJUNCTION = cja(
+  "s. 101 (1)",
+  "In the Superior Court of Justice, an interlocutory injunction or mandatory order may be granted or a receiver or receiver and manager may be appointed by an interlocutory order, where it appears to a judge of the court to be just or convenient to do so.",
+);
+const CJA_101_TERMS = cja("s. 101 (2)", "An order under subsection (1) may include such terms as are considered just.");
+const CJA_103_CPL = cja(
+  "s. 103 (1)",
+  "The commencement of a proceeding in which an interest in land is in question is not notice of the proceeding to a person who is not a party until a certificate of pending litigation is issued by the court and the certificate is registered in the proper land registry office under subsection (2).",
+);
+const CJA_103_LIABILITY = cja(
+  "s. 103 (4)",
+  "A party who registers a certificate under subsection (2) without a reasonable claim to an interest in the land is liable for any damages sustained by any person as a result of its registration.",
+);
+const RCP_42_01_ORDER = rcp(
+  "r. 42.01 (1)",
+  "A certificate of pending litigation (Form 42A) under section 103 of the Courts of Justice Act may be issued by a registrar only under an order of the court.",
+);
+const RCP_42_01_CLAIM_IT = rcp(
+  "r. 42.01 (2)",
+  "A party who seeks a certificate of pending litigation shall include a claim for it in the originating process or pleading that commences the proceeding, together with a description of the land in question sufficient for registration.",
+);
+const RCP_42_01_WITHOUT_NOTICE = rcp("r. 42.01 (3)", "A motion for an order under subrule (1) may be made without notice.");
+const CJA_137_1_DISMISS = cja(
+  "s. 137.1 (3)",
+  "On motion by a person against whom a proceeding is brought, a judge shall, subject to subsection (4), dismiss the proceeding against the person if the person satisfies the judge that the proceeding arises from an expression made by the person that relates to a matter of public interest.",
+);
+const CJA_137_1_NO_DISMISSAL = cja(
+  "s. 137.1 (4)",
+  "A judge shall not dismiss a proceeding under subsection (3) if the responding party satisfies the judge that, (a) there are grounds to believe that, (i) the proceeding has substantial merit, and (ii) the moving party has no valid defence in the proceeding; and (b) the harm likely to be or have been suffered by the responding party as a result of the moving party's expression is sufficiently serious that the public interest in permitting the proceeding to continue outweighs the public interest in protecting that expression.",
+);
+const CJA_137_1_NO_STEPS = cja(
+  "s. 137.1 (5)",
+  "Once a motion under this section is made, no further steps may be taken in the proceeding by any party until the motion, including any appeal of the motion, has been finally disposed of.",
+);
+const CJA_137_1_COSTS = cja(
+  "s. 137.1 (7)",
+  "If a judge dismisses a proceeding under this section, the moving party is entitled to costs on the motion and in the proceeding on a full indemnity basis, unless the judge determines that such an award is not appropriate in the circumstances.",
+);
+const CJA_137_2_60_DAYS = cja(
+  "s. 137.2 (2)",
+  "A motion under section 137.1 shall be heard no later than 60 days after notice of the motion is filed with the court.",
+);
+const CJA_137_2_DATE_FIRST = cja(
+  "s. 137.2 (3)",
+  "The moving party shall obtain the hearing date for the motion from the court before notice of the motion is served.",
+);
+
 const BEFORE_FILING: CaseStage[] = [
   {
     id: "civil:before-filing:deciding-whether-to-sue",
@@ -3679,6 +3756,24 @@ const DEFENDANT: CaseStage[] = [
     ],
     requiresAffirmativeScope: true,
   },
+  {
+    id: "civil:defendant:sued-over-public-expression",
+    pathway: "civil",
+    side: "defendant",
+    wentWrong: false,
+    userQuestion: "I'm being sued over something I said or wrote about a public issue. Can I ask the court to dismiss it early?",
+    title: "Sued over expression on a matter of public interest (anti-SLAPP motion)",
+    description:
+      "The person has been sued over something they said, wrote or otherwise communicated that relates to a matter of public interest, and is considering a motion under section 137.1 of the Courts of Justice Act.",
+    cues: ["anti-SLAPP", "sued for defamation over a review", "sued for what I posted", "sued over a public comment", "137.1 motion", "they're suing me to shut me up"],
+    distinguishedFrom: [
+      { stage: "civil:both:motion-to-strike-or-dismiss", by: "whether the motion is under section 137.1 about expression on a matter of public interest, or under rule 21" },
+      { stage: "civil:defendant:served-defence-period-running", by: "whether the defendant is considering the section 137.1 motion or only the time to defend" },
+    ],
+    rules: [CJA_137_1_DISMISS, CJA_137_1_NO_DISMISSAL, CJA_137_1_NO_STEPS, CJA_137_1_COSTS, CJA_137_2_60_DAYS, CJA_137_2_DATE_FIRST],
+    deadlines: [],
+    requiresAffirmativeScope: true,
+  },
 ];
 
 // =====================================================================
@@ -4883,6 +4978,104 @@ const BOTH: CaseStage[] = [
         exceptions: [RCP_1_03_DELIVER, RCP_3_02_APPEALS],
       },
     ],
+    requiresAffirmativeScope: true,
+  },
+  {
+    id: "civil:both:motion-to-strike-or-dismiss",
+    pathway: "civil",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "The other side wants my claim or defence struck out or the action dismissed before trial, or I want that. How does it work?",
+    title: "Motion to strike out a pleading or dismiss the action before trial",
+    description:
+      "A party has brought, or wants to bring, a motion to strike out all or part of a pleading, to decide a question of law before trial, or (by a defendant) to stay or dismiss the action.",
+    cues: ["motion to strike", "Rule 21 motion", "no reasonable cause of action", "abuse of process", "frivolous and vexatious", "dismiss the action before trial", "the court has no jurisdiction"],
+    distinguishedFrom: [
+      { stage: "civil:both:summary-judgment-motion", by: "whether the motion is decided on the pleadings and the law, or on evidence that there is no genuine issue requiring a trial" },
+      { stage: "civil:both:motion-scheduled", by: "whether the motion is to strike out or dismiss, or for another order" },
+    ],
+    rules: [RCP_21_01_BEFORE_TRIAL, RCP_21_01_DEFENDANT, RCP_21_02_PROMPTLY, RCP_25_11_STRIKE, RCP_37_07_SEVEN_DAYS, RCP_37_08_FILE],
+    deadlines: [
+      {
+        id: "deadline:civil:strike-serve-7-days",
+        what: "If you are bringing the motion, serve the notice of motion on the other parties, and file it with proof of service",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 7 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_07_SEVEN_DAYS,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
+        exceptions: [RCP_37_08_FILE, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
+      },
+    ],
+    requiresAffirmativeScope: true,
+  },
+  {
+    id: "civil:both:amending-a-pleading",
+    pathway: "civil",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "I need to change my statement of claim or defence. Can I amend it, and do I need permission?",
+    title: "Amending your own pleading",
+    description: "A party wants to change their own statement of claim, defence or other pleading already delivered.",
+    cues: ["amend my statement of claim", "amend my defence", "change my claim", "add to my pleading", "amended statement of claim", "leave to amend"],
+    distinguishedFrom: [
+      { stage: "civil:both:served-with-amended-pleading", by: "whether the person is amending their own pleading or was served with someone else's amended pleading" },
+    ],
+    rules: [RCP_26_02_WHEN, RCP_26_01_LEAVE, RCP_26_03_UNDERLINED],
+    deadlines: [],
+    requiresAffirmativeScope: true,
+  },
+  {
+    id: "civil:both:asking-for-injunction",
+    pathway: "civil",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "I need the court to stop the other side from doing something, or make them do something, before the case is decided. How do I ask for an injunction?",
+    title: "Asking for an interlocutory injunction",
+    description: "A party wants a court order, before the action is decided, stopping someone from doing something or requiring them to do something.",
+    cues: ["injunction", "stop them from", "order them to stop", "interim injunction", "interlocutory injunction", "mandatory order"],
+    distinguishedFrom: [
+      { stage: "civil:both:motion-scheduled", by: "whether the motion asks for an injunction or another order" },
+    ],
+    rules: [CJA_101_INJUNCTION, CJA_101_TERMS, RCP_37_07_SEVEN_DAYS, RCP_37_08_FILE],
+    deadlines: [
+      {
+        id: "deadline:civil:injunction-serve-7-days",
+        what: "If you are bringing the motion, serve the notice of motion on the other parties, and file it with proof of service",
+        countFrom: "the date the motion will be heard, counting backwards",
+        countFromEvent: "motion-hearing-date",
+        length: { unit: "days", count: 7 },
+        direction: "before",
+        regime: "civil-rules",
+        rule: RCP_37_07_SEVEN_DAYS,
+        computation: C.RCP_3_01_SHORT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. A document served after 4 p.m., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday.",
+        exceptions: [RCP_37_08_FILE, RCP_3_01_D_LATE_SERVICE, C.RCP_1_03_HOLIDAY],
+      },
+    ],
+    requiresAffirmativeScope: true,
+  },
+  {
+    id: "civil:plaintiff:certificate-of-pending-litigation",
+    pathway: "civil",
+    side: "plaintiff",
+    wentWrong: false,
+    userQuestion: "My claim is about an interest in land. How do I make sure a buyer or lender knows about my case?",
+    title: "Certificate of pending litigation",
+    description: "The plaintiff's action puts an interest in land in question, and the plaintiff wants notice of it on the land's title.",
+    cues: ["certificate of pending litigation", "CPL", "register my claim on title", "they might sell the house", "lis pendens", "interest in the land"],
+    distinguishedFrom: [
+      { stage: "civil:both:asking-for-injunction", by: "whether the person wants notice of the action on title, or an order stopping a sale or other act" },
+    ],
+    rules: [CJA_103_CPL, RCP_42_01_ORDER, RCP_42_01_CLAIM_IT, RCP_42_01_WITHOUT_NOTICE, CJA_103_LIABILITY],
+    deadlines: [],
     requiresAffirmativeScope: true,
   },
 ];
