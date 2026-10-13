@@ -215,12 +215,96 @@ const DISMISSAL_MOVES: StageMove[] = ALL_STAGES.filter((stage) =>
   move(stage.id, "plaintiff:action-dismissed-for-delay", "time", "Two years after the action was started, with no judgment, no step to get one under rule 11.03 and no trial date requested, the clerk dismisses it for delay.", R_11_1_01_DISMISSAL_FOR_DELAY),
 );
 
+
+/**
+ * A rule a step already quotes, looked up by its pinpoint, so a move cites the
+ * same verified quote the step shows (test:stage-map checks it word for word)
+ * and no quote is typed twice. Throws at load if the step does not carry it.
+ */
+function stepRule(stageId: string, pinpoint: string): RuleCitation {
+  const stage = ALL_STAGES.find((candidate) => candidate.id === stageId);
+  const all = stage ? [...stage.rules, ...stage.deadlines.map((deadline) => deadline.rule), ...stage.deadlines.flatMap((deadline) => deadline.exceptions)] : [];
+  const found = all.find((rule) => rule.pinpoint === pinpoint);
+  if (!found) throw new Error(`stageSequence: ${stageId} does not quote ${pinpoint}`);
+  return found;
+}
+
 // ---------------------------------------------------------------- Superior Court (civil): first moves
 
 /** Claims against the Crown for misfeasance or bad faith (2026-10-13). The rest of the civil chain follows. */
 const CIVIL_MOVES: StageMove[] = [
   move("civil:before-filing:notice-required-before-suing", "civil:plaintiff:crown-misfeasance-leave-needed", "you", "Notice of the claim was served on the Crown at least 60 days before the proceeding is brought; a claim of misfeasance in public office or bad faith then goes ahead only with the court's leave.", S_CLPA_18_1_NOTICE, S_CLPA_17_2_LEAVE),
   move("civil:plaintiff:crown-misfeasance-leave-needed", "civil:plaintiff:claim-issued-not-served", "court", "Leave is granted, or the Crown waives it in writing: the stay is lifted and the proceeding goes on.", S_CLPA_17_9_GRANTED, S_CLPA_17_11_WAIVER),
+  move("civil:before-filing:deciding-whether-to-sue", "civil:plaintiff:claim-drafted-not-issued", "you", "An action is started by a statement of claim (Form 14A or 14B).", stepRule("civil:plaintiff:claim-drafted-not-issued", "r. 14.03 (1)")),
+  move("civil:before-filing:deciding-whether-to-sue", "civil:before-filing:notice-required-before-suing", "you", "A claim for damages against the Ontario Crown needs written notice served at least 60 days before the proceeding is brought; other statutes require notice for some other claims.", stepRule("civil:before-filing:notice-required-before-suing", "s. 18 (1)")),
+  move("civil:before-filing:deciding-whether-to-sue", "civil:before-filing:limitation-period-may-have-passed", "time", "The two years may have run from the day the claim was discovered.", stepRule("civil:before-filing:limitation-period-may-have-passed", "s. 4"), stepRule("civil:before-filing:limitation-period-may-have-passed", "s. 5 (1)")),
+  move("civil:before-filing:deciding-whether-to-sue", "before-filing:deciding-whether-to-sue", "you", "A claim within the Small Claims Court's limit cannot be started in the Superior Court without that court's leave.", stepRule("civil:before-filing:deciding-whether-to-sue", "s. 23 (1.1)")),
+  move("civil:before-filing:notice-required-before-suing", "civil:plaintiff:claim-drafted-not-issued", "you", "Once the required notice has been given, the action is started by a statement of claim.", stepRule("civil:before-filing:notice-required-before-suing", "s. 18 (1)"), stepRule("civil:plaintiff:claim-drafted-not-issued", "r. 14.03 (1)")),
+  move("civil:before-filing:limitation-period-may-have-passed", "civil:plaintiff:claim-drafted-not-issued", "you", "The Act sets when a claim is discovered; a claim started within two years of that day can go ahead.", stepRule("civil:before-filing:limitation-period-may-have-passed", "s. 5 (1)"), stepRule("civil:plaintiff:claim-drafted-not-issued", "r. 14.03 (1)")),
+  move("civil:plaintiff:claim-drafted-not-issued", "civil:plaintiff:claim-issued-not-served", "court", "The registrar issues the claim by dating, signing and sealing it and giving it a court file number.", stepRule("civil:plaintiff:claim-drafted-not-issued", "r. 14.07 (1)")),
+  move("civil:plaintiff:claim-issued-not-served", "civil:plaintiff:served-awaiting-defence", "you", "You serve the statement of claim, within six months after it was issued.", stepRule("civil:plaintiff:claim-issued-not-served", "r. 14.08 (1)")),
+  move("civil:plaintiff:claim-issued-not-served", "civil:plaintiff:service-attempted-failed", "you", "Prompt service turns out to be impractical.", stepRule("civil:plaintiff:service-attempted-failed", "r. 16.04 (1)")),
+  move("civil:plaintiff:service-attempted-failed", "civil:plaintiff:served-awaiting-defence", "court", "The court may order substituted service or, where necessary in the interest of justice, dispense with service.", stepRule("civil:plaintiff:service-attempted-failed", "r. 16.04 (1)")),
+  move("civil:plaintiff:served-awaiting-defence", "civil:plaintiff:defence-received", "other-side", "The defendant delivers a statement of defence: within 20 days if served in Ontario, 40 elsewhere in Canada or the U.S., 60 anywhere else.", stepRule("civil:plaintiff:served-awaiting-defence", "r. 18.01")),
+  move("civil:plaintiff:served-awaiting-defence", "civil:plaintiff:defence-period-expired-no-defence", "time", "The time to deliver a defence runs out with no defence.", stepRule("civil:plaintiff:served-awaiting-defence", "r. 18.01")),
+  move("civil:plaintiff:defence-period-expired-no-defence", "civil:plaintiff:defendant-noted-in-default", "you", "You file proof of service and require the registrar to note the defendant in default.", stepRule("civil:plaintiff:defence-period-expired-no-defence", "r. 19.01 (1)")),
+  move("civil:plaintiff:defendant-noted-in-default", "civil:plaintiff:judgment-unpaid", "court", "For a debt or fixed sum, recovery of land or property, or foreclosure, the registrar may sign default judgment at your request.", stepRule("civil:plaintiff:defendant-noted-in-default", "r. 19.04 (1)")),
+  move("civil:plaintiff:defendant-noted-in-default", "civil:both:motion-scheduled", "you", "For any other claim, you may move before a judge for judgment on the statement of claim.", stepRule("civil:plaintiff:defendant-noted-in-default", "r. 19.05 (1)")),
+  move("civil:plaintiff:defence-received", "civil:plaintiff:served-with-counterclaim", "other-side", "The defendant's statement of defence includes a counterclaim; a defence to counterclaim (Form 27C) is due within 20 days of its service.", stepRule("civil:plaintiff:served-with-counterclaim", "r. 27.05 (1)")),
+  move("civil:plaintiff:defence-received", "civil:both:discovery", "either", "A party who wants evidence through discovery of documents or examinations; the parties agree a discovery plan.", stepRule("civil:both:discovery", "r. 29.1.03 (1)")),
+  move("civil:plaintiff:defence-received", "civil:both:mandatory-mediation", "court", "An action started in Ottawa, Toronto or Essex County on or after January 1, 2010 is under mandatory mediation.", stepRule("civil:both:mandatory-mediation", "r. 24.1.04 (1)")),
+  move("civil:plaintiff:defence-received", "civil:both:simplified-procedure-after-defence", "either", "The claim is only for money or property and totals $200,000 or less, so the simplified procedure is used.", stepRule("civil:both:simplified-procedure-after-defence", "r. 76.02 (1)")),
+  move("civil:plaintiff:defence-received", "civil:both:served-with-amended-pleading", "other-side", "A party amends a pleading; a response is due within the time left for the original or 10 days after service, whichever is longer.", stepRule("civil:both:served-with-amended-pleading", "r. 26.05 (1)")),
+  move("civil:plaintiff:defence-received", "civil:both:offer-to-settle", "either", "An offer to settle may be made at any time; made less than seven days before the hearing, the costs consequences in rule 49.10 do not apply.", stepRule("civil:both:offer-to-settle", "r. 49.03")),
+  move("civil:plaintiff:defence-received", "civil:plaintiff:wants-to-discontinue", "you", "Before pleadings close you may discontinue by a notice of discontinuance (Form 23A); after, with leave or everyone's consent.", stepRule("civil:plaintiff:wants-to-discontinue", "r. 23.01 (1)")),
+  move("civil:plaintiff:served-with-counterclaim", "civil:both:discovery", "either", "Pleadings on the counterclaim are delivered and the action moves to discovery.", stepRule("civil:both:discovery", "r. 29.1.03 (1)")),
+  move("civil:both:discovery", "civil:plaintiff:ready-to-set-down", "either", "After the close of pleadings, a party who is not in default and is ready for trial may set the action down.", stepRule("civil:plaintiff:ready-to-set-down", "r. 48.01")),
+  move("civil:both:discovery", "civil:both:served-with-request-to-admit", "other-side", "A party may at any time serve a request to admit (Form 51A) a fact or that a document is genuine.", stepRule("civil:both:served-with-request-to-admit", "r. 51.02 (1)")),
+  move("civil:both:discovery", "civil:both:summary-judgment-motion", "either", "After the defence is delivered, the plaintiff may move for summary judgment on all or part of the claim.", stepRule("civil:both:summary-judgment-motion", "r. 20.01 (1)")),
+  move("civil:both:discovery", "civil:both:motion-scheduled", "either", "A party brings a motion on notice, served at least seven days before it is heard.", stepRule("civil:both:motion-scheduled", "r. 37.07 (6)")),
+  move("civil:both:served-with-request-to-admit", "civil:both:discovery", "you", "You respond within 20 days by serving a response to request to admit (Form 51B).", stepRule("civil:both:served-with-request-to-admit", "r. 51.03 (1)")),
+  move("civil:both:mandatory-mediation", "civil:plaintiff:ready-to-set-down", "either", "Before setting the action down, a party files the mediator's name and session date (Form 24.1A) or the mediator's report.", stepRule("civil:plaintiff:ready-to-set-down", "r. 24.1.09 (5)")),
+  move("civil:both:simplified-procedure-after-defence", "civil:both:pretrial-scheduled", "either", "The plaintiff sets the action down within 180 days after the first defence by serving a notice of readiness for pre-trial conference (Form 76C).", stepRule("civil:both:simplified-procedure-after-defence", "r. 76.09 (1)")),
+  move("civil:both:served-with-amended-pleading", "civil:both:discovery", "you", "You respond to the amended pleading within the longer of the time left and 10 days after service.", stepRule("civil:both:served-with-amended-pleading", "r. 26.05 (1)")),
+  move("civil:plaintiff:ready-to-set-down", "civil:both:pretrial-scheduled", "you", "You set the action down by serving a trial record on every party and filing it with proof of service; a pre-trial conference is then scheduled within 180 days.", stepRule("civil:plaintiff:ready-to-set-down", "r. 48.02 (1)"), stepRule("civil:both:pretrial-scheduled", "r. 50.02 (1)")),
+  move("civil:plaintiff:ready-to-set-down", "civil:plaintiff:action-dismissed-for-delay", "time", "An action not set down for trial or ended by the fifth anniversary of its start is dismissed for delay by the registrar, unless the court orders otherwise.", stepRule("civil:plaintiff:ready-to-set-down", "r. 48.14 (1)")),
+  move("civil:both:pretrial-scheduled", "civil:both:trial-date-set", "court", "The action is placed on a trial list and all parties are deemed ready for trial.", stepRule("civil:both:trial-date-set", "r. 48.07")),
+  move("civil:both:trial-date-set", "civil:both:judgment-given", "court", "After the trial, a final order is made; an appeal starts with a notice of appeal served within 30 days.", stepRule("civil:both:judgment-given", "r. 61.04 (1)")),
+  move("civil:both:trial-date-set", "civil:both:missed-trial", "either", "When the action is called for trial, all the parties fail to attend.", stepRule("civil:both:missed-trial", "r. 52.01 (1)")),
+  move("civil:both:missed-trial", "civil:plaintiff:struck-off-trial-list", "court", "The trial judge may strike the action off the trial list.", stepRule("civil:both:missed-trial", "r. 52.01 (1)")),
+  move("civil:both:missed-trial", "civil:both:motion-scheduled", "either", "A judge may set aside or vary a judgment obtained against a party who did not attend the trial.", stepRule("civil:both:missed-trial", "r. 52.01 (3)")),
+  move("civil:plaintiff:struck-off-trial-list", "civil:both:trial-date-set", "court", "An action struck off a trial list goes back on only with leave.", stepRule("civil:plaintiff:struck-off-trial-list", "r. 48.11")),
+  move("civil:plaintiff:struck-off-trial-list", "civil:plaintiff:action-dismissed-for-delay", "time", "An action struck off a trial list and not restored or ended is dismissed for delay by the registrar, unless the court orders otherwise.", stepRule("civil:plaintiff:ready-to-set-down", "r. 48.14 (1)")),
+  move("civil:plaintiff:action-dismissed-for-delay", "civil:both:motion-scheduled", "you", "A party affected by a registrar's order may move to set it aside, by a notice of motion served as soon as the order comes to their attention.", stepRule("civil:plaintiff:action-dismissed-for-delay", "r. 37.14 (1)")),
+  move("civil:both:judgment-given", "civil:both:appeal-in-progress", "either", "An appeal starts with a notice of appeal (Form 61A.2 or 61A.3) served within 30 days after the order.", stepRule("civil:both:judgment-given", "r. 61.04 (1)")),
+  move("civil:both:judgment-given", "civil:plaintiff:judgment-unpaid", "other-side", "An order for money that is not paid may be enforced by a writ of seizure and sale, garnishment, a writ of sequestration or a receiver.", stepRule("civil:plaintiff:judgment-unpaid", "r. 60.02 (1)")),
+  move("civil:both:judgment-given", "civil:defendant:judgment-being-enforced", "other-side", "An order for money that is not paid may be enforced by a writ of seizure and sale, garnishment, a writ of sequestration or a receiver.", stepRule("civil:plaintiff:judgment-unpaid", "r. 60.02 (1)")),
+  move("civil:both:summary-judgment-motion", "civil:both:judgment-given", "court", "The court grants summary judgment if there is no genuine issue requiring a trial, or the parties agree and the court finds it appropriate.", stepRule("civil:both:summary-judgment-motion", "r. 20.04 (2)")),
+  move("civil:both:motion-scheduled", "civil:both:interlocutory-order-made", "court", "The motion is heard and an order is made.", stepRule("civil:both:motion-scheduled", "r. 37.07 (6)")),
+  move("civil:both:interlocutory-order-made", "civil:both:appeal-in-progress", "either", "An interlocutory order of a Superior Court judge can be appealed to the Divisional Court only with leave of a panel of that court.", stepRule("civil:both:interlocutory-order-made", "r. 62.02 (1)")),
+  move("civil:both:interlocutory-order-made", "civil:both:discovery", "either", "Without an appeal, the action continues.", stepRule("civil:both:interlocutory-order-made", "s. 19 (1)")),
+  move("civil:both:offer-to-settle", "civil:both:trial-date-set", "either", "If no offer is accepted, the action continues; an offer made at least seven days before the hearing and not withdrawn can affect costs.", stepRule("civil:both:offer-to-settle", "r. 49.10 (1)")),
+  move("civil:both:lawyer-removed-from-record", "civil:both:discovery", "you", "Within 30 days after being served with the order, you appoint a new lawyer (Form 15B) or serve a notice of intention to act in person (Form 15C).", stepRule("civil:both:lawyer-removed-from-record", "r. 15.04 (16)")),
+  move("civil:defendant:served-defence-period-running", "civil:defendant:defence-delivered", "you", "You deliver a statement of defence (Form 18A): within 20 days if served in Ontario, 40 elsewhere in Canada or the U.S., 60 anywhere else.", stepRule("civil:plaintiff:served-awaiting-defence", "r. 18.01")),
+  move("civil:defendant:served-defence-period-running", "civil:defendant:defence-period-expired-not-noted", "time", "The time to deliver a defence runs out.", stepRule("civil:plaintiff:served-awaiting-defence", "r. 18.01")),
+  move("civil:defendant:defence-period-expired-not-noted", "civil:defendant:defence-delivered", "you", "You may still deliver a statement of defence at any time before being noted in default.", stepRule("civil:defendant:defence-period-expired-not-noted", "r. 19.01 (5)")),
+  move("civil:defendant:defence-period-expired-not-noted", "civil:defendant:noted-in-default", "other-side", "The plaintiff files proof of service and requires the registrar to note you in default.", stepRule("civil:plaintiff:defence-period-expired-no-defence", "r. 19.01 (1)")),
+  move("civil:defendant:noted-in-default", "civil:defendant:defence-delivered", "court", "The court may set aside the noting of default on such terms as are just.", stepRule("civil:defendant:noted-in-default", "r. 19.03 (1)")),
+  move("civil:defendant:noted-in-default", "civil:defendant:default-judgment-against-me", "court", "For a debt or fixed sum and some other claims, the registrar may sign default judgment at the plaintiff's request.", stepRule("civil:plaintiff:defendant-noted-in-default", "r. 19.04 (1)")),
+  move("civil:defendant:default-judgment-against-me", "civil:defendant:defence-delivered", "court", "The court may set aside or vary the default judgment on such terms as are just.", stepRule("civil:defendant:default-judgment-against-me", "r. 19.08 (1)")),
+  move("civil:defendant:default-judgment-against-me", "civil:defendant:judgment-being-enforced", "other-side", "An unpaid order for money may be enforced by a writ of seizure and sale, garnishment, a writ of sequestration or a receiver.", stepRule("civil:plaintiff:judgment-unpaid", "r. 60.02 (1)")),
+  move("civil:defendant:defence-delivered", "civil:both:discovery", "either", "A party who wants evidence through discovery; the parties agree a discovery plan.", stepRule("civil:both:discovery", "r. 29.1.03 (1)")),
+  move("civil:defendant:defence-delivered", "civil:both:offer-to-settle", "either", "An offer to settle may be made at any time.", stepRule("civil:both:offer-to-settle", "r. 49.03")),
+  move("civil:defendant:defence-delivered", "civil:defendant:plaintiff-delaying", "time", "The plaintiff fails to take a step the rules set a time for, such as setting the action down for trial.", stepRule("civil:defendant:plaintiff-delaying", "r. 24.01 (1)")),
+  move("civil:defendant:defence-delivered", "civil:defendant:served-with-crossclaim", "other-side", "Another defendant crossclaims against you; a defence to crossclaim (Form 28B) is due within 20 days.", stepRule("civil:defendant:served-with-crossclaim", "r. 28.05 (1)")),
+  move("civil:defendant:defence-delivered", "civil:defendant:action-discontinued-counterclaim-pending", "other-side", "The plaintiff discontinues the action against you while your counterclaim is outstanding.", stepRule("civil:defendant:action-discontinued-counterclaim-pending", "r. 23.02")),
+  move("civil:defendant:defence-delivered", "civil:defendant:action-dismissed-counterclaim-pending", "court", "The action against you is dismissed for delay while your counterclaim is outstanding.", stepRule("civil:defendant:action-dismissed-counterclaim-pending", "r. 24.03")),
+  move("civil:defendant:plaintiff-delaying", "civil:both:motion-scheduled", "you", "A defendant not in default may move to have the action dismissed for delay.", stepRule("civil:defendant:plaintiff-delaying", "r. 24.01 (1)")),
+  move("civil:defendant:served-with-crossclaim", "civil:both:discovery", "you", "You deliver a defence to crossclaim (Form 28B) within 20 days of service.", stepRule("civil:defendant:served-with-crossclaim", "r. 28.05 (1)")),
+  move("civil:defendant:served-with-counterclaim-as-new-party", "civil:both:discovery", "you", "You deliver a defence to counterclaim within 20 days if served in Ontario (longer elsewhere).", stepRule("civil:defendant:served-with-counterclaim-as-new-party", "r. 27.05 (3)")),
+  move("civil:defendant:served-with-third-party-claim", "civil:both:discovery", "you", "You may defend by delivering a third party defence (Form 29B) within 20 days if served in Ontario (longer elsewhere).", stepRule("civil:defendant:served-with-third-party-claim", "r. 29.03")),
+  move("civil:defendant:action-discontinued-counterclaim-pending", "civil:both:discovery", "you", "Within 30 days you may deliver a notice of election to proceed with the counterclaim (Form 23B); otherwise it is deemed discontinued.", stepRule("civil:defendant:action-discontinued-counterclaim-pending", "r. 23.02")),
+  move("civil:defendant:action-dismissed-counterclaim-pending", "civil:both:discovery", "you", "Within 30 days you may deliver a notice of election to proceed with the counterclaim (Form 23B); otherwise it is deemed discontinued.", stepRule("civil:defendant:action-dismissed-counterclaim-pending", "r. 24.03")),
 ];
 
 export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...LAW_MAP_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES];
@@ -230,6 +314,10 @@ export const FINAL_STEPS: FinalStep[] = [
   { stage: "plaintiff:debtor-examination", why: "After the examination the court may make an order as to payment; the other ways to enforce (garnishment, writs) are in this step's card.", rules: [R_20_10_ORDER_AS_TO_PAYMENT, R_20_03_ENFORCEMENT] },
   { stage: "defendant:judgment-being-enforced", why: "The debtor may ask the court to stay enforcement or change the payments if their circumstances have changed; after an examination the court may make an order as to payment.", rules: [R_20_02_STAY_VARY, R_20_10_ORDER_AS_TO_PAYMENT] },
   { stage: "plaintiff:action-dismissed-for-delay", why: "If every party consents, the clerk can restore the action to the list (Form 11.2A); the case then picks up where it was.", rules: [R_11_2_01_RESTORE_ON_CONSENT] },
+  { stage: "civil:both:appeal-in-progress", why: "The appeal is perfected and decided by the appellate court; the appellate steps are this step's own deadlines.", rules: [stepRule("civil:both:appeal-in-progress", "r. 61.09 (1)")] },
+  { stage: "civil:plaintiff:judgment-unpaid", why: "The judgment is enforced from here; a writ of seizure and sale lasts six years and can be renewed.", rules: [stepRule("civil:plaintiff:judgment-unpaid", "r. 60.07 (6)")] },
+  { stage: "civil:defendant:judgment-being-enforced", why: "Delivering a notice of appeal stays the payment of money under the order (except support) until the appeal is decided.", rules: [stepRule("civil:defendant:judgment-being-enforced", "r. 63.01 (1)")] },
+  { stage: "civil:plaintiff:wants-to-discontinue", why: "The action ends for the parties it is discontinued against; any party may move about costs within 30 days.", rules: [stepRule("civil:plaintiff:wants-to-discontinue", "r. 23.05 (1)")] },
 ];
 
 /**
@@ -240,6 +328,11 @@ export const STARTING_POINTS: { stage: string; why: string }[] = [
   { stage: "before-filing:deciding-whether-to-sue", why: "Where a person who may sue starts." },
   { stage: "defendant:served-defence-period-running", why: "Where a person who has been sued starts: the plaintiff's claim was served on them." },
   { stage: "both:filed-in-wrong-place", why: "Found when a case turns out to have been started in the wrong place; no step in the chain leads there on purpose." },
+  { stage: "civil:before-filing:deciding-whether-to-sue", why: "Where a person who may sue in the Superior Court starts." },
+  { stage: "civil:defendant:served-defence-period-running", why: "Where a person sued in the Superior Court starts: the statement of claim was served on them." },
+  { stage: "civil:defendant:served-with-third-party-claim", why: "A person brought into an action by a third party claim starts here." },
+  { stage: "civil:defendant:served-with-counterclaim-as-new-party", why: "A person not yet a party, brought in by a counterclaim, starts here." },
+  { stage: "civil:both:lawyer-removed-from-record", why: "Can happen at any point in an action; no step leads there on purpose." },
 ];
 
 /** The steps a step can lead to. */
@@ -253,7 +346,7 @@ export function movesInto(stageId: string): StageMove[] {
 }
 
 /** The stages this chain covers so far. */
-export const SEQUENCED_PATHWAYS = ["small-claims"] as const;
+export const SEQUENCED_PATHWAYS = ["small-claims", "civil"] as const;
 
 export function isSequenced(stage: CaseStage): boolean {
   return (SEQUENCED_PATHWAYS as readonly string[]).includes(stage.pathway ?? "small-claims");
