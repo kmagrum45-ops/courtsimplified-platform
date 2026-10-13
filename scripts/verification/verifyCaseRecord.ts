@@ -30,6 +30,8 @@ import path from "node:path";
 
 import { documentsOf, readCaseRecord, recordedDateAnswers, storedIntakeValues } from "../../src/lib/case-system/caseRecord";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
+import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
+import { practicalFor } from "../../src/lib/content-library/nextStepPractical";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -199,6 +201,23 @@ check("both form intakes reopen with what the case holds", (builder.match(/store
 for (const file of ["caseDrafts.ts", "respondingDocumentDraft.ts", "startingDocumentDraft.ts"]) {
   const source = read(`src/lib/case-system/drafts/${file}`);
   check(`${file} drafts from the person's own story, not the labelled record`, /userStory\(intake\)/.test(source) && !/intake\.facts\?\.trim\(\)|\[intake\.facts \|\||text\(intake\.facts\)/.test(source));
+}
+
+{
+  // 2026-10-13, walkthrough: the family steps that decide the form.
+  const step = (story: string) => stepNamedInStory("family", false, story);
+  check(
+    "an existing order the person wants lowered is a motion to change",
+    step("i pay 900 a month child support from a court order in 2022. i lost my job in july and now im on EI making way less. i cant keep paying 900. how do i get it lowered") ===
+      "family:both:asking-to-change-final-order",
+  );
+  check("'the court order says every other weekend and i want it changed' is a motion to change", step("the court order says every other weekend and i want it changed") === "family:both:asking-to-change-final-order");
+  check("no order yet is not a motion to change", step("there is no court order yet and i want to change the schedule") === "");
+  check("a temporary order is not a motion to change", step("we have a temporary order and i want it changed") === "");
+  check("an order that isn't being followed, with no change wanted, is not a motion to change", step("there is a court order for support but he never pays") === "");
+  const start = practicalFor("family:before-filing:deciding-where-to-start", "family", "Ottawa", false);
+  check("starting a family case names the application forms", Boolean(start?.forms.some((form) => form.number === "8")) && Boolean(start?.forms.some((form) => form.number === "8A")));
+  check("starting a family case shows the fee, filing and service", Boolean(start?.fees.length && start.filing.length && start.serving.length));
 }
 
 if (failures > 0) {

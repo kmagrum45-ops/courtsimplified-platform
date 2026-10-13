@@ -494,6 +494,23 @@ const CIV_MOTION = rcp(
 );
 const FAM_MOTION = flr("r. 14 (9)", "A motion, whether made with or without notice, (a) requires a notice of motion (Form 14) and an affidavit (Form 14A); and (b) may be supported by additional evidence.");
 
+/*
+ * Starting a family case (2026-10-13). Family has no "file your application"
+ * step: a person with nothing filed is on "deciding where to start", whose
+ * card listed no form, fee, filing or service -- the walkthrough's two family
+ * applicants were told "This card doesn't list the form". These are the
+ * rules that say what starts the case and what goes with it.
+ */
+const FAM_START = flr("r. 8 (1)", "To start a case, a person shall file an application (Form 8, 8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 33D.1, 34L or 34N).");
+const FAM_FINANCIAL_STATEMENT = flr(
+  "r. 13 (1)",
+  "If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim",
+);
+const FAM_PARENTING_AFFIDAVIT = flr(
+  "r. 35.1 (1)",
+  "If an application, answer or motion to change a final order contains a claim respecting decision-making responsibility, parenting time or contact with respect to a child, the party making the claim shall serve and file with the document that contains the claim, (a) an affidavit in Form 35.1",
+);
+
 const APPEAL_START = rcp(
   "r. 61.04 (1)",
   "An appeal to an appellate court shall be commenced by serving a notice of appeal in Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court) together with the certificate required by subrule 61.05 (1), within 30 days after the making of the order appealed from, unless a statute or these rules provide otherwise",
@@ -649,7 +666,13 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:both:appeal-in-progress": { forms: ["61D"], fees: ["civ-perfect"], files: true, serve: "ordinary" },
 
   // ---- Family: before filing
-  "family:before-filing:deciding-where-to-start": NOTHING,
+  "family:before-filing:deciding-where-to-start": {
+    forms: ["8", "8A", "13", "13.1", "35.1"],
+    fees: ["fam-application"],
+    files: true,
+    serve: "originating",
+    also: [FAM_START, FAM_FINANCIAL_STATEMENT, FAM_PARENTING_AFFIDAVIT],
+  },
   "family:before-filing:property-claim-time-limit": NOTHING,
   // ---- Family: applicant
   "family:applicant:application-filed-not-served": { forms: ["6"], fees: [], files: false, serve: "originating" },
