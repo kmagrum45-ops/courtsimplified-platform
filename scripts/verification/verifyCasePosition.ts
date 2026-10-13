@@ -211,7 +211,7 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
     const panel = readFileSync(path.resolve(__dirname, "../../app/builder/_components/StageAnswerPanel.tsx"), "utf8");
     check("full story dates are kept with the case without a click", /autoKeptFor/.test(panel) && /savePosition\(caseId, \{ dateAnswers: counted/.test(panel));
     check("keeping a story date never saves the step", !/savePosition\(caseId, \{ dateAnswers: counted, stepId/.test(panel));
-    check("a story date with no year is never kept or counted", /if \(hint\.value && !hint\.yearAssumed\) out\[id\]/.test(panel));
+    check("a story date with no year is never kept or counted", /if \(hint\.value && !hint\.yearAssumed && !arrivalOnly\[id\]\) out\[id\]/.test(panel));
     check("the kept date still shows the words it came from, with Change", /keptFromStory\[question\.id\]/.test(panel));
   }
   // Civil and family dates are asked too (2026-10-05), so the reader's own

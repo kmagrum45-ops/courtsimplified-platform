@@ -14,8 +14,10 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition } from "../../src/lib/case-system/casePosition";
+import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
+import { arrivalOnlyDates } from "../../app/builder/_components/StageAnswerPanel";
 import {
+  arrivalNotSendDate,
   FAMILY_CLOSED_DAY_RULE,
   SERVICE_RULES,
   effectiveServiceDate,
@@ -128,6 +130,31 @@ check("Small Claims registered mail signed for is its own method", serviceMethod
 check("a story that says nothing gives nothing", serviceMethodFromStory("civil", "i got served a statement of claim") === null);
 check("a story naming two ways gives nothing", serviceMethodFromStory("family", "they emailed it and then handed me the papers") === null);
 check("the deadline box uses it, shown and changeable", /serviceMethod\[question\.id\] \?\? storyServiceMethod/.test(readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8")));
+
+console.log("\nThe day papers arrived is never counted as the day they were mailed (2026-10-13)");
+{
+  check("'got the claim in the mail on september 28' is an arrival, not a mailing", arrivalNotSendDate("mail", "i got the plaintiffs claim in the mail on september 28"));
+  check("'he mailed it on september 20' is the mailing day", !arrivalNotSendDate("mail", "he mailed it to me on september 20"));
+  check("handed over in person counts from that day", !arrivalNotSendDate("personal", "i got the papers at my door on september 28"));
+  check("signed for counts from the signature", !arrivalNotSendDate("registered-mail-signature", "i got it by registered mail on september 28"));
+  check("a courier delivery is an arrival", arrivalNotSendDate("courier", "it arrived by courier on october 2"));
+  const story =
+    "a contractor did my bathroom reno and now hes suing me in small claims for 7500 he says i owe. the tiles are cracked and the shower leaks into the basement so i stopped paying. i got the plaintiffs claim in the mail on september 28 2026";
+  const hints = storyHintsForDates(story, new Date("2026-10-12T12:00:00Z"));
+  const arrival = arrivalOnlyDates({ stageId: "defendant:served-defence-period-running", court: "small-claims", storyText: story, storyHints: hints, methods: {} });
+  check("the renovation defendant's arrival date is held back from the count", Object.keys(arrival).length === 1, JSON.stringify({ hints, arrival }));
+  const typedMethod = arrivalOnlyDates({
+    stageId: "defendant:served-defence-period-running",
+    court: "small-claims",
+    storyText: story,
+    storyHints: hints,
+    methods: Object.fromEntries(Object.keys(arrival).map((id) => [id, "personal" as const])),
+  });
+  check("choosing 'handed to me' counts from that day again", Object.keys(typedMethod).length === 0);
+  const panel = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+  check("held-back dates never reach the count", /!arrivalOnly\[id\]\) out\[id\] = \{ value: hint\.value/.test(panel) && /useState<Record<string, string>>\(initialCountable\)/.test(panel));
+  check("the person is told why, and what date to look for", /That is the day the papers reached you/.test(panel));
+}
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;

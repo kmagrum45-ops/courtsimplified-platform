@@ -303,3 +303,32 @@ export function serviceMethodFromStory(court: ServiceCourt, story: string): Serv
   const method = [...found][0];
   return SERVICE_RULES[court].some((rule) => rule.method === method) ? method : null;
 }
+
+/**
+ * Methods whose rule counts from the day the person themselves got the papers
+ * (handed over, signed for, an email's own date). For the others -- mail,
+ * courier, left at home and mailed -- the rule counts from the day they were
+ * SENT, which the person usually doesn't know.
+ */
+const COUNTS_FROM_ARRIVAL: ReadonlySet<ServiceMethod> = new Set([
+  "personal",
+  "personal-after-4pm",
+  "registered-mail-signature",
+  "email",
+  "email-after-4pm",
+]);
+
+const ARRIVED = /\b(?:got|received|recieved|came|arrived|showed up|delivered to me|found)\b/i;
+
+/**
+ * True when the date in `quote` is the day the papers ARRIVED but the rule for
+ * `method` counts from the day they were sent (2026-10-13). "i got the
+ * plaintiffs claim in the mail on september 28": service by mail counts from
+ * the fifth day after MAILING (r. 8.07 (2)), and treating the arrival day as
+ * the mailing day can give a deadline later than the real one. Such a date is
+ * never counted from; the person is asked for the mailing date instead.
+ */
+export function arrivalNotSendDate(method: ServiceMethod | null | undefined, quote: string): boolean {
+  if (!method || COUNTS_FROM_ARRIVAL.has(method)) return false;
+  return ARRIVED.test(quote);
+}
