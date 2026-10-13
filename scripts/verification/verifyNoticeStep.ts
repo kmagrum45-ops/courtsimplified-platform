@@ -48,6 +48,13 @@ check("a Toronto sidewalk fall goes to the Toronto notice", suggestedNoticeStep(
 check("ice on a sidewalk is not sent to the private-property notice", suggestedNoticeStep({ claimTypeId: SLIP, story: "I slipped on ice on the sidewalk" }) !== "before-filing:notice-snow-ice-private");
 check("a story that places no notice gets no suggestion", suggestedNoticeStep({ claimTypeId: SLIP, story: "I tripped on a loose mat inside the store" }) === null);
 check("no claim type, no suggestion", suggestedNoticeStep({ claimTypeId: null, story: live }) === null);
+// 2026-10-13, walkthrough ice-slip case: classified as an injury at a shop,
+// which had no link to the snow-and-ice notice.
+const walmart = "i went into the walmart by my house and the entry way was full of ice with no salt on the ground. i slipped and hurt my elbow realy bad";
+for (const id of ["sc-claim-injury-at-a-business-or-event", "sc-claim-fall-in-a-parking-lot-or-plaza", "sc-claim-fall-at-a-rental-property"]) {
+  check(`an ice fall classified ${id} is pointed to the snow-and-ice notice`, suggestedNoticeStep({ claimTypeId: id, story: walmart }) === "before-filing:notice-snow-ice-private");
+}
+check("an injury at a shop with no snow or ice gets no notice step", suggestedNoticeStep({ claimTypeId: "sc-claim-injury-at-a-business-or-event", story: "a shelf fell on me at the store" }) === null);
 
 check("civil: a story pointing to a notice gets the civil notice step", suggestedNoticeStep({ courtPath: "civil", story: "I slipped on ice outside a grocery store" }) === CIVIL_NOTICE_STEP);
 check("civil: a claim against the province gets it too", suggestedNoticeStep({ courtPath: "civil", story: "The Ontario government cancelled my contract" }) === CIVIL_NOTICE_STEP);

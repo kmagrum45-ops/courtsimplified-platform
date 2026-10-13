@@ -152,6 +152,22 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
     name: "A fall on snow or ice on private or business property",
     contentStatus: "authored",
     existingClaimTypeId: "sc-claim-slip-and-fall-occupier-liability",
+    /*
+     * 2026-10-13. The walkthrough's ice-slip case ("the entry way [at the
+     * Walmart] was full of ice with no salt") was classified "An injury at a
+     * shop, restaurant or event", which had no link here, so the sixty-day
+     * notice never reached her. Every claim type for an injury on someone's
+     * premises can be a fall on snow or ice; the notice step is still offered
+     * only when the story itself mentions snow or ice off a public road
+     * (noticeStep.ts POINTS_TO).
+     */
+    alsoRelevantTo: [
+      "sc-claim-injury-at-a-business-or-event",
+      "sc-claim-fall-in-a-parking-lot-or-plaza",
+      "sc-claim-fall-at-a-rental-property",
+      "sc-claim-injury-at-a-gym-or-sport",
+      "sc-claim-injury-at-school-or-daycare",
+    ],
     sides: {
       bringing: "the person who fell",
       defending:
