@@ -1,11 +1,11 @@
 {
   "release": {
-    "runId": "run-20",
-    "model": "run-19 blocks; the two Small Claims trial steps' deadline sections rendered by renderDeadlineSection from the stage map (no model)",
-    "promotedAt": "2026-10-09T15:56:21.612Z",
+    "runId": "run-21",
+    "model": "run-20 blocks; defendant:judgment-against-me deadline section re-rendered by renderDeadlineSection from the stage map after the statement check (no model)",
+    "promotedAt": "2026-10-13T20:50:32.997Z",
     "corpusGeneratedAt": "2026-09-27T00:45:24.224Z",
     "blockCount": 126,
-    "contentHash": "7f4d02bf"
+    "contentHash": "29b36d09"
   },
   "blocks": [
     {
@@ -4578,7 +4578,7 @@
       "userQuestion": "I lost — what happens now, and what if I cannot pay?",
       "whatsHappening": "If you must pay money, you are the debtor, and the creditor can enforce right away. This can be by garnishment, or a writ of seizure and sale of your goods or land. Serving and filing a notice of appeal puts the money parts on hold until the appeal ends, unless an appeal judge lifts it. If you do not pay, the creditor can have a Notice of Examination (Form 20H) issued to you. If you are served and do not go, the court may order you to a contempt hearing.",
       "whatToDoNext": "If you cannot pay in full, you can contact the creditor to set up payments. On a motion (Form 15A), the court may pause enforcement on just terms, or change when and how much you pay if things change. With more than one such judgment, you can ask the court where you live for a consolidation order. When it is all paid, you can both sign and file a Request for Clerk's Order on Consent (Form 11.2A). If the creditor will not sign, you can bring a motion.",
-      "yourDeadline": "If you want to ask for a new trial, bring a motion for a new trial. You have 30 days after the day the final order was made. The court can grant one only for a purely arithmetical error in the amount of damages, or for relevant evidence that was not available at the trial and could not reasonably have been expected to be.\n\nIf you want to appeal to the Divisional Court, serve a notice of appeal (Form 61A.3) with a certificate respecting evidence (Form 61C). You have 30 days after the day the order was made. File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. An appeal lies only from an order for the payment of more than $5,000, not counting costs, or for the recovery of personal property worth more than $5,000.",
+      "yourDeadline": "If you want to ask for a new trial, bring a motion for a new trial. You have 30 days after the day the final order was made. The court can grant one only for a purely arithmetical error in the amount of damages, or for relevant evidence that was not available at the trial and could not reasonably have been expected to be.\n\nIf you want to appeal to the Divisional Court, serve a notice of appeal (Form 61A.3) with a certificate respecting evidence (Form 61C). You have 30 days after the day the order was made. File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. You can appeal only a final order to pay more than $5,000, not counting costs, or to return personal property worth more than $5,000.",
       "whatHappensAfter": "A new trial motion also needs proof, served and filed, that you asked for a transcript of the reasons and key parts. An individual served with Form 20H must serve a Financial Information Form (Form 20I) on the creditor. Do not file it, but give the judge a copy, bring papers to back it up, and be ready to answer questions. After the examination, or if you file your consent, the court may order how you pay. While that order stands, creditors named in it can only use a writ of seizure and sale of land.",
       "slots": [],
       "citations": [

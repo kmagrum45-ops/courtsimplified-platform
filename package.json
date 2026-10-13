@@ -86,6 +86,7 @@
     "test:verdict-sources": "node --import tsx scripts/verification/verifyVerdictSources.ts",
     "test:service-dates": "node --import tsx scripts/verification/verifyServiceDates.ts",
     "eval:free-finish-line": "node --import tsx scripts/eval/freeFinishLine.ts",
+    "eval:statement-check": "node --import tsx scripts/eval/statementCheck.ts",
     "test:case-reader": "node --import tsx scripts/verification/verifyCaseReader.ts",
     "test:presumed-limitation": "node --import tsx scripts/verification/verifyPresumedLimitation.ts",
     "test:narrative-prefill": "node --import tsx scripts/verification/verifyNarrativePrefill.ts",

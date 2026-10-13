@@ -34,6 +34,7 @@ import {
   R_11_03_ASSESSMENT,
   R_11_06_SET_ASIDE,
   R_11_1_01_DISMISSAL_FOR_DELAY,
+  R_11_1_01_DISMISSAL_EXCEPTIONS,
   R_11_2_01_RESTORE_ON_CONSENT,
   R_13_01_CLERK_FIXES,
   R_13_02_FAILURE_TO_ATTEND,
@@ -234,7 +235,14 @@ const LAW_MAP_MOVES: StageMove[] = [
 const DISMISSAL_MOVES: StageMove[] = ALL_STAGES.filter((stage) =>
   stage.id !== "plaintiff:action-dismissed-for-delay" && stage.deadlines.some((deadline) => deadline.rule.quote === R_11_1_01_DISMISSAL_FOR_DELAY.quote),
 ).map((stage) =>
-  move(stage.id, "plaintiff:action-dismissed-for-delay", "time", "Two years after the action was started, with no judgment, no step to get one under rule 11.03 and no trial date requested, the clerk dismisses it for delay.", R_11_1_01_DISMISSAL_FOR_DELAY),
+  move(
+    stage.id,
+    "plaintiff:action-dismissed-for-delay",
+    "time",
+    "If, by the second anniversary of the start of the action, it has not been disposed of by order, and the plaintiff has not taken a step under rule 11.03 to get judgment or asked for a trial date, the clerk dismisses it for delay, unless the court orders otherwise. This does not apply if an offer to settle was accepted and filed, the defence admits liability and proposes terms of payment, or the plaintiff is under disability.",
+    R_11_1_01_DISMISSAL_FOR_DELAY,
+    R_11_1_01_DISMISSAL_EXCEPTIONS,
+  ),
 );
 
 
@@ -471,7 +479,7 @@ export const FINAL_STEPS: FinalStep[] = [
   { stage: "defendant:judgment-being-enforced", why: "The debtor may ask the court to stay enforcement or change the payments if their circumstances have changed; after an examination the court may make an order as to payment.", rules: [R_20_02_STAY_VARY, R_20_10_ORDER_AS_TO_PAYMENT] },
   { stage: "plaintiff:action-dismissed-for-delay", why: "If every party consents, the clerk can restore the action to the list (Form 11.2A); the case then picks up where it was.", rules: [R_11_2_01_RESTORE_ON_CONSENT] },
   { stage: "plaintiff:wants-to-discontinue", why: "The claim ends against the defendants it is discontinued against; a discontinuance is not a defence to a later action on the matter, unless an order granting leave says otherwise.", rules: [R_11_3_02_EFFECT] },
-  { stage: "plaintiff:court-considering-dismissal", why: "The court decides on the written submissions; if the plaintiff files none within 20 days, it can make the order without further notice.", rules: [R_12_02_SUBMISSION] },
+  { stage: "plaintiff:court-considering-dismissal", why: "Unless the court orders otherwise, it decides on written submissions. The plaintiff has 20 days after receiving the clerk's notice to file one, no more than four pages long; if none meeting those terms is filed, the court can make the order without further notice.", rules: [R_12_02_SUBMISSION] },
   { stage: "civil:both:appeal-in-progress", why: "The appeal is perfected and decided by the appellate court; the appellate steps are this step's own deadlines.", rules: [stepRule("civil:both:appeal-in-progress", "r. 61.09 (1)")] },
   { stage: "civil:plaintiff:judgment-unpaid", why: "The judgment is enforced from here; a writ of seizure and sale lasts six years and can be renewed.", rules: [stepRule("civil:plaintiff:judgment-unpaid", "r. 60.07 (6)")] },
   { stage: "civil:defendant:judgment-being-enforced", why: "Delivering a notice of appeal stays the payment of money under the order (except support) until the appeal is decided.", rules: [stepRule("civil:defendant:judgment-being-enforced", "r. 63.01 (1)")] },

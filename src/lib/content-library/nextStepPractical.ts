@@ -310,7 +310,7 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
       // How, in practice (held-back walkthrough, 2026-10-09: "stamped copies
       // for you to serve" never said how). Each from rule 8.02 itself.
       {
-        say: "To serve a person yourself, hand them a copy.",
+        say: "To serve a person personally, leave a copy with them. A person under disability, such as a minor, is served another way.",
         cite: scr("r. 8.02 (a)", "on an individual, other than a person under disability, by leaving a copy of the document with him or her"),
       },
       {
@@ -376,7 +376,7 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
         cite: rcp("r. 16.01 (1)", "An originating process shall be served personally as provided in rule 16.02 or by an alternative to personal service as provided in rule 16.03."),
       },
       {
-        say: "To serve a person personally, hand them a copy.",
+        say: "To serve a person personally, leave a copy with them. A person under disability, such as a minor, is served another way.",
         cite: rcp("r. 16.02 (1) (a)", "on an individual, other than a person under disability, by leaving a copy of the document with the individual"),
       },
       {

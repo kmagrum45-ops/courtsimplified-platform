@@ -1,0 +1,1300 @@
+{
+  "court": "small-claims",
+  "seed": 20261013,
+  "drawnFrom": 747,
+  "count": 50,
+  "generated": "2026-10-13",
+  "statements": [
+    {
+      "n": 1,
+      "where": "published answer",
+      "stageId": "plaintiff:judgment-in-my-favour-unpaid",
+      "statement": "Within 5 days, you serve the debtor the notice and your affidavit, and file proof of both.",
+      "quotes": [
+        {
+          "sourceId": "guide-after-judgment",
+          "pinpoint": "",
+          "quote": "You serve the notice of garnishment and a copy of the affidavit for enforcement request on the debtor. You must do so within 5 days of serving the garnishee. | You then fill out and file two Affidavits of Service [Form 8A] with the court: one proving service on the garnishee and the other proving service on the debtor."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "guide-after-judgment",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Guide: serve the notice and a copy of the Form 20P affidavit on the debtor 'within 5 days of serving the garnishee', then file two Affidavits of Service (one per person served); the preceding sentence supplies the garnishee anchor."
+      }
+    },
+    {
+      "n": 2,
+      "where": "published answer",
+      "stageId": "before-filing:deciding-whether-to-sue",
+      "statement": "Second, that something done or not done caused it or helped cause it.",
+      "quotes": [
+        {
+          "sourceId": "limitations-act-2002",
+          "pinpoint": "",
+          "quote": "(a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "limitations-act-2002",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Plain restatement of s. 5 (1) (a) (ii): the loss 'was caused by or contributed to by an act or omission'."
+      }
+    },
+    {
+      "n": 3,
+      "where": "published answer",
+      "stageId": "plaintiff:service-attempted-failed",
+      "statement": "If notice is needed, you get a hearing date, serve the papers at least seven days before it, and file them with proof of service at least three days before it.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "shall be served on every party who has filed a claim and any defendant who has not been noted in default, at least seven days before the hearing date; and (b) shall be filed, with proof of service, at least three days before the hearing date."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Matches r. 15.01 (2)-(3): hearing date from the clerk first, serve at least seven days before, file with proof of service at least three days before."
+      }
+    },
+    {
+      "n": 4,
+      "where": "published answer",
+      "stageId": "plaintiff:default-judgment-signed",
+      "statement": "To have the debtor questioned, you file a Notice of Examination (Form 20H) and an Affidavit for Enforcement Request (Form 20P).",
+      "quotes": [
+        {
+          "sourceId": "guide-after-judgment",
+          "pinpoint": "",
+          "quote": "you could begin the enforcement process by requesting an examination hearing. | At the hearing, the debtor or other person should be prepared to answer questions | You fill out a Notice of Examination [Form 20H] | You fill out an Affidavit for Enforcement Request [Form 20P] in support of a request for a notice of examination. | You file the notice of examination and affidavit with the court"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "guide-after-judgment",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Guide: a notice of examination (Form 20H) and an affidavit for enforcement request (Form 20P) are filled out and filed with the court to have the debtor examined."
+      }
+    },
+    {
+      "n": 5,
+      "where": "what can happen next",
+      "stageId": "plaintiff:claim-issued-not-served -> plaintiff:service-attempted-failed",
+      "statement": "Attempts to serve it do not work.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 8.04",
+          "quote": "If it is shown that it is impractical to effect prompt service of a claim personally or by an alternative to personal service, the court may allow substituted service."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 8.04",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Describes an event (service attempts failing), not a legal rule; it correctly leads to the substituted-service step in r. 8.04."
+      }
+    },
+    {
+      "n": 6,
+      "where": "what can happen next",
+      "stageId": "plaintiff:awaiting-settlement-conference -> plaintiff:action-dismissed-for-delay",
+      "statement": "Two years after the action was started, with no judgment, no step to get one under rule 11.03 and no trial date requested, the clerk dismisses it for delay.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.1.01 (1)",
+          "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 11.1.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "Drops 'Unless the court orders otherwise' (r. 11.1.01 (1)) and the r. 11.1.01 (2) exceptions, so it states as automatic what the rule makes conditional; it also narrows 'the action has not been disposed of by order' to 'no judgment'. Corrected: \"If, by the second anniversary of the start of the action, it has not been disposed of by order, and the plaintiff has not taken a step under rule 11.03 to obtain judgment or requested a trial date, the clerk must dismiss it for delay, unless the court orders otherwise. This does not apply if an offer to settle was accepted and filed, if the defence admits liability and proposes terms of payment, or if the plaintiff is under disability.\" (r. 11.1.01 (1): \"Unless the court orders otherwise ... (a) the action has not been disposed of by order\"; r. 11.1.01 (2): \"Subrule (1) does not apply if, (a) an offer to settle the action has been accepted and filed; ...\")"
+      }
+    },
+    {
+      "n": 7,
+      "where": "published answer",
+      "stageId": "before-filing:notice-vehicle-injury",
+      "statement": "Second, that something someone did, or failed to do, caused it or helped cause it.",
+      "quotes": [
+        {
+          "sourceId": "limitations-act-2002",
+          "pinpoint": "",
+          "quote": "(ii) that the injury, loss or damage was caused by or contributed to by an act or omission,"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "limitations-act-2002",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Plain restatement of s. 5 (1) (a) (ii): 'caused by or contributed to by an act or omission'."
+      }
+    },
+    {
+      "n": 8,
+      "where": "what can happen next (final)",
+      "stageId": "plaintiff:court-considering-dismissal",
+      "statement": "The court decides on the written submissions; if the plaintiff files none within 20 days, it can make the order without further notice.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 12.02 (4)",
+          "quote": "Unless the court orders otherwise, an order under subrule (3) shall be made on the basis of written submissions in accordance with the following procedures: 1. The court shall direct the clerk to send notice by mail to the plaintiff that the court is considering making the order. 2. The plaintiff may, within 20 days after receiving the notice, file with the court a written submission, no more than four pages in length, responding to the notice. 3. If the plaintiff does not file a written submission that complies with paragraph 2, the court may make the order without any further notice to the plaintiff or to any other party."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 12.02 (4)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "Drops conditions in r. 12.02 (4): 'Unless the court orders otherwise'; the 20 days run 'after receiving the notice'; and the submission must be 'no more than four pages in length'. The order may be made if the plaintiff 'does not file a written submission that complies with paragraph 2', so an over-length or late submission counts the same as none. Corrected: \"Unless the court orders otherwise, the court decides on written submissions. The plaintiff has 20 days after receiving the clerk's notice to file a written submission of no more than four pages. If no submission meeting those terms is filed, the court can make the order without further notice.\""
+      }
+    },
+    {
+      "n": 9,
+      "where": "published answer",
+      "stageId": "plaintiff:default-judgment-signed",
+      "statement": "A default judgment does not guarantee that you will be paid.",
+      "quotes": [
+        {
+          "sourceId": "guide-after-judgment",
+          "pinpoint": "",
+          "quote": "A judgment is an order of the court; it is not a guarantee of payment."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "guide-after-judgment",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Guide: 'A judgment is an order of the court; it is not a guarantee of payment.'"
+      }
+    },
+    {
+      "n": 10,
+      "where": "published answer",
+      "stageId": "defendant:awaiting-settlement-conference",
+      "statement": "On the day, the parties must talk openly and frankly about the issues.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "At the settlement conference, the parties and their representatives shall openly and frankly discuss the issues involved in the action."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Restates the settlement conference rule that the parties 'shall openly and frankly discuss the issues'."
+      }
+    },
+    {
+      "n": 11,
+      "where": "published answer",
+      "stageId": "plaintiff:service-attempted-failed",
+      "statement": "If quick service in the usual ways is not practical, the court may allow substituted service.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 8.04",
+          "quote": "If it is shown that it is impractical to effect prompt service of a claim personally or by an alternative to personal service, the court may allow substituted service."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 8.04",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Plain restatement of r. 8.04 (impractical to effect prompt service personally or by an alternative; court may allow substituted service)."
+      }
+    },
+    {
+      "n": 12,
+      "where": "published answer",
+      "stageId": "plaintiff:trial-date-set",
+      "statement": "If you miss either step, the other parties may ask to put off the trial, with costs.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "A party who is not served with a copy of the summons in accordance with subrule (5) may request an adjournment of the trial, with costs. | If a party does not comply with subrule (5.1), every other party is entitled to request an adjournment of the trial, with costs."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 18.02 (7) and r. 18.03 (5.2) both allow the affected party/parties to request an adjournment of the trial, with costs, for the two steps described in the preceding sentences."
+      }
+    },
+    {
+      "n": 13,
+      "where": "what can happen next",
+      "stageId": "before-filing:notice-snow-ice-private -> plaintiff:claim-drafted-not-filed",
+      "statement": "Written notice was given within the 60 days; the claim can then be started.",
+      "quotes": [
+        {
+          "sourceId": "occupiers-liability-act",
+          "pinpoint": "s. 6.1 (1)",
+          "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2)."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 7.01 (1)",
+          "quote": "An action shall be commenced by filing a plaintiff's claim (Form 7A) with the clerk, together with a copy of the claim for each defendant."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "s. 6.1 (1)",
+          "sourceId": "occupiers-liability-act",
+          "found": true
+        },
+        {
+          "pinpoint": "r. 7.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Describes the transition: OLA s. 6.1 (1) bars the action only unless written notice is given within 60 days, and r. 7.01 (1) then governs starting the claim."
+      }
+    },
+    {
+      "n": 14,
+      "where": "published answer",
+      "stageId": "plaintiff:defendant-noted-in-default",
+      "statement": "If the claim is not for a set amount, you can ask a judge to assess the damages once all defendants are noted in default.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "If all defendants have been noted in default, the plaintiff may obtain judgment against a defendant noted in default with respect to any part of the claim to which rule 11.02 does not apply."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 11.03 (1)-(2): once all defendants are noted in default, the plaintiff may obtain judgment on the unliquidated part by a motion or assessment hearing before a judge."
+      }
+    },
+    {
+      "n": 15,
+      "where": "deadline",
+      "stageId": "plaintiff:served-awaiting-defence",
+      "statement": "Ask for an assessment of damages under rule 11.03 or request a trial date, or the clerk will dismiss the action for delay. An assessment can be asked for only once every defendant has been noted in default. This does not apply if the action was already decided by an order. Nor does it apply if an offer to settle was accepted and filed, if the defence admits liability for your claim and proposes terms of payment, or if you are under disability. The court may order otherwise.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.1.01 (1)",
+          "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.1.01 (1)",
+          "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.1.01 (2)",
+          "quote": "Subrule (1) does not apply if, (a) an offer to settle the action has been accepted and filed; (b) the defence contains an admission of liability for the plaintiff's claim in the action and a proposal of terms of payment under subrule 9.03 (1); or (c) at the time the clerk would otherwise be required under that subrule to dismiss the action, the plaintiff is under disability."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 11.1.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        },
+        {
+          "pinpoint": "r. 11.1.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        },
+        {
+          "pinpoint": "r. 11.1.01 (2)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Matches r. 11.1.01 (1)-(2), including the 'disposed of by order' condition, the three exceptions and 'Unless the court orders otherwise'; the 'noted in default' point reflects r. 11.03 (1)."
+      }
+    },
+    {
+      "n": 16,
+      "where": "what can happen next",
+      "stageId": "plaintiff:settlement-conference-held -> both:trial-management-conference",
+      "statement": "After a request to fix a trial date is filed, the court may direct a trial management conference before a judge.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 16.1.01 (1)",
+          "quote": "At any time after the filing of a request to fix a date for trial, the court may, on its own initiative, direct that a trial management conference be held before a judge."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 16.1.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 16.1.01 (1): after a request to fix a trial date, the court may on its own initiative direct a trial management conference before a judge."
+      }
+    },
+    {
+      "n": 17,
+      "where": "what can happen next",
+      "stageId": "plaintiff:defence-filed -> plaintiff:action-dismissed-for-delay",
+      "statement": "Two years after the action was started, with no judgment, no step to get one under rule 11.03 and no trial date requested, the clerk dismisses it for delay.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.1.01 (1)",
+          "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 11.1.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "Drops 'Unless the court orders otherwise' (r. 11.1.01 (1)) and the r. 11.1.01 (2) exceptions, so it states as automatic what the rule makes conditional; it also narrows 'the action has not been disposed of by order' to 'no judgment'. Corrected: \"If, by the second anniversary of the start of the action, it has not been disposed of by order, and the plaintiff has not taken a step under rule 11.03 to obtain judgment or requested a trial date, the clerk must dismiss it for delay, unless the court orders otherwise. This does not apply if an offer to settle was accepted and filed, if the defence admits liability and proposes terms of payment, or if the plaintiff is under disability.\" (r. 11.1.01 (1): \"Unless the court orders otherwise ... (a) the action has not been disposed of by order\"; r. 11.1.01 (2): \"Subrule (1) does not apply if, (a) an offer to settle the action has been accepted and filed; ...\")"
+      }
+    },
+    {
+      "n": 18,
+      "where": "published answer",
+      "stageId": "plaintiff:served-with-defendants-claim",
+      "statement": "The one exception is a motion to set aside the noting.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "shall not file a defence or take any other step in the proceeding, except making a motion under rule 11.06"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 11.05 (1): the only step allowed without leave or consent is 'a motion under rule 11.06', which is the motion to set aside the noting."
+      }
+    },
+    {
+      "n": 19,
+      "where": "published answer",
+      "stageId": "plaintiff:trial-date-set",
+      "statement": "At a trial, each party tells their own side of the case to a judge who makes a decision.",
+      "quotes": [
+        {
+          "sourceId": "guide-getting-ready-for-court",
+          "pinpoint": "",
+          "quote": "A trial is a public process where each party tells their own side of the case to a judge who makes a decision about the issues in the case."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "guide-getting-ready-for-court",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Word for word from the guide."
+      }
+    },
+    {
+      "n": 20,
+      "where": "published answer",
+      "stageId": "defendant:awaiting-settlement-conference",
+      "statement": "It is also meant to give full disclosure between the parties of the relevant facts and evidence.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "(e) to provide full disclosure between the parties of the relevant facts and evidence."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Restates the settlement conference purpose 'to provide full disclosure between the parties of the relevant facts and evidence'."
+      }
+    },
+    {
+      "n": 21,
+      "where": "published answer",
+      "stageId": "plaintiff:six-month-service-window-expired",
+      "statement": "A claim must be served within six months after it is issued.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 8.01 (2)",
+          "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 8.01 (2)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 8.01 (2); the court's power to extend is stated in the sentences that follow."
+      }
+    },
+    {
+      "n": 22,
+      "where": "what can happen next",
+      "stageId": "before-filing:deciding-whether-to-sue -> before-filing:notice-snow-ice-private",
+      "statement": "The claim is for an injury from snow or ice on someone's property: written notice comes first, within 60 days.",
+      "quotes": [
+        {
+          "sourceId": "occupiers-liability-act",
+          "pinpoint": "s. 6.1 (1)",
+          "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2)."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "s. 6.1 (1)",
+          "sourceId": "occupiers-liability-act",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "OLA s. 6.1 (1)-(2): written notice within 60 days to an occupier or its snow-removal contractor before an action for personal injury from snow or ice."
+      }
+    },
+    {
+      "n": 23,
+      "where": "published answer",
+      "stageId": "before-filing:limitation-period-may-have-passed",
+      "statement": "A claim is discovered on the earlier of two days.",
+      "quotes": [
+        {
+          "sourceId": "limitations-act-2002",
+          "pinpoint": "s. 5 (1)",
+          "quote": "A claim is discovered on the earlier of,"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "s. 5 (1)",
+          "sourceId": "limitations-act-2002",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Limitations Act s. 5 (1): 'A claim is discovered on the earlier of,' (two dates follow)."
+      }
+    },
+    {
+      "n": 24,
+      "where": "published answer",
+      "stageId": "plaintiff:default-judgment-signed",
+      "statement": "Serve it on the garnishee with a blank Garnishee's Statement (Form 20F), then on the debtor with Form 20P within five days.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "A notice of garnishment (Form 20E) shall be served by the creditor, (a) together with a sworn affidavit for enforcement request (Form 20P), on the debtor | (b) together with a garnishee's statement (Form 20F), on the garnishee | The creditor shall serve the notice of garnishment on the debtor within five days of serving it on the garnishee."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 20.08: notice served on the garnishee with Form 20F and on the debtor with Form 20P, the debtor 'within five days of serving it on the garnishee'."
+      }
+    },
+    {
+      "n": 25,
+      "where": "published answer",
+      "stageId": "before-filing:notice-municipality",
+      "statement": "A municipality must keep its highways and bridges in repair.",
+      "quotes": [
+        {
+          "sourceId": "municipal-act-2001",
+          "pinpoint": "",
+          "quote": "The municipality that has jurisdiction over a highway or bridge shall keep it in a state of repair that is reasonable in the circumstances"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "municipal-act-2001",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Municipal Act s. 44 (1); the 'reasonable in the circumstances' standard is stated in the next sentence."
+      }
+    },
+    {
+      "n": 26,
+      "where": "published answer",
+      "stageId": "plaintiff:claim-drafted-not-filed",
+      "statement": "Online, you do not need extra copies; Toronto uses the Ontario Courts Public Portal, and other regions use the Small Claims Court Submissions Online portal.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 7.01 (1.1)",
+          "quote": "If the plaintiff's claim is filed electronically, the requirement to also file a copy of the claim for each defendant does not apply."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 7.01 (1.1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "The first clause is supported by r. 7.01 (1.1). The portal clause is accurate but is not supported by the cited quote. It needs its own citation, from the saved page ontario-file-small-claims-online: \"Starting October 14, 2025, all online filings for the Toronto region must be submitted using the Ontario Courts Public Portal. The Small Claims Court Submissions Online portal will continue to be available to file court documents online for Small Claims Court cases in other regions outside of Toronto.\" The wording can stay as it is once that quote is attached."
+      }
+    },
+    {
+      "n": 27,
+      "where": "what can happen next",
+      "stageId": "both:bringing-a-motion -> plaintiff:awaiting-settlement-conference",
+      "statement": "The motion is heard, in person, by video or phone, or in writing, and the case goes on with whatever order is made.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 15.02",
+          "quote": "A motion may be conducted, (a) with the attendance of parties by a method determined under rule 1.07; or (b) in writing, (i) if these rules provide for the motion to be in writing, or (ii) if the judge determines that it is fair and reasonable for the motion to be in writing."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 15.02",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 15.02 with r. 1.07 (1): a motion is attended in person, by video or by telephone, or done in writing where the rules provide or the judge allows; it does not suggest the party chooses."
+      }
+    },
+    {
+      "n": 28,
+      "where": "published answer",
+      "stageId": "both:filed-in-wrong-place",
+      "statement": "The defence can raise the place of trial.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "if an issue as to the proper place of trial under subrule 6.01 (1) is raised in the defence, the trial judge shall consider it and make a finding."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 17.01 (3) assumes a place-of-trial issue 'raised in the defence', so a defence can raise it."
+      }
+    },
+    {
+      "n": 29,
+      "where": "published answer",
+      "stageId": "before-filing:claim-exceeds-small-claims-limit",
+      "statement": "You can start the case in the Superior Court of Justice.",
+      "quotes": [
+        {
+          "sourceId": "ontario-suing-someone-small-claims",
+          "pinpoint": "",
+          "quote": "For anything over $50,000, you need to go to the Superior Court of Justice ."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "ontario-suing-someone-small-claims",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Shown for a claim over the limit; ontario.ca: 'For anything over $50,000, you need to go to the Superior Court of Justice'."
+      }
+    },
+    {
+      "n": 30,
+      "where": "published answer",
+      "stageId": "before-filing:deciding-whether-to-sue",
+      "statement": "Even within the two years, most claims can't be started more than 15 years after the act or omission.",
+      "quotes": [
+        {
+          "sourceId": "limitations-act-2002",
+          "pinpoint": "",
+          "quote": "Even if the limitation period established by any other section of this Act in respect of a claim has not expired, no proceeding shall be commenced in respect of the claim after the expiry of a limitation period established by this section. | No proceeding shall be commenced in respect of any claim after the 15th anniversary of the day on which the act or omission on which the claim is based took place. | There is no limitation period in respect of, | (h) a proceeding based on a sexual assault; | This section and section 17 prevail over anything in section 15."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "limitations-act-2002",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Limitations Act s. 15: the 15-year ultimate period applies even if the basic period has not expired; 'most' allows for the s. 16 exceptions."
+      }
+    },
+    {
+      "n": 31,
+      "where": "published answer",
+      "stageId": "defendant:considering-defendants-claim",
+      "statement": "If it is based on a document, a copy must be attached, or the claim must say why it is not.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "If the defendant's claim is based in whole or in part on a document, a copy of the document shall be attached to each copy of the claim, unless it is unavailable, in which case the claim shall state the reason why the document is not attached."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Restates the defendant's claim document rule, including the 'unavailable' exception."
+      }
+    },
+    {
+      "n": 32,
+      "where": "published answer",
+      "stageId": "plaintiff:claim-issued-not-served",
+      "statement": "The rules allow personal service or other set methods.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 8.01 (1)",
+          "quote": "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 8.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 8.01 (1): personal service under r. 8.02 or an alternative under r. 8.03."
+      }
+    },
+    {
+      "n": 33,
+      "where": "published answer",
+      "stageId": "defendant:trial-date-set",
+      "statement": "A trial can be put off to a later date only by order of the court.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "A trial may be adjourned only by order of the court."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Restates 'A trial may be adjourned only by order of the court.'"
+      }
+    },
+    {
+      "n": 34,
+      "where": "published answer",
+      "stageId": "defendant:trial-date-set",
+      "statement": "With each one, give the writer's name, phone number and address for service, and a summary of an expert's qualifications.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "(a) the name, telephone number and address for service of the witness or author; and (b) if the witness or author is to give expert evidence, a summary of his or her qualifications."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 18.02 (3): name, telephone number and address for service of the witness or author, and a summary of qualifications if giving expert evidence."
+      }
+    },
+    {
+      "n": 35,
+      "where": "deadline",
+      "stageId": "defendant:judgment-against-me",
+      "statement": "If you want to appeal to the Divisional Court, serve a notice of appeal (Form 61A.3) with a certificate respecting evidence (Form 61C). File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. An appeal lies only from an order for the payment of more than $5,000, not counting costs, or for the recovery of personal property worth more than $5,000.",
+      "quotes": [
+        {
+          "sourceId": "rules-of-civil-procedure",
+          "pinpoint": "r. 61.04 (1)",
+          "quote": "An appeal to an appellate court shall be commenced by serving a notice of appeal in Form 61A.2 (Court of Appeal) or 61A.3 (Divisional Court) together with the certificate required by subrule 61.05 (1), within 30 days after the making of the order appealed from, unless a statute or these rules provide otherwise,"
+        },
+        {
+          "sourceId": "cja-courts-of-justice-act",
+          "pinpoint": "s. 31",
+          "quote": "An appeal lies to the Divisional Court from a final order of the Small Claims Court in an action, (a) for the payment of money in excess of the prescribed amount, excluding costs; or (b) for the recovery of possession of personal property exceeding the prescribed amount in value."
+        },
+        {
+          "sourceId": "oreg-626-00-monetary-jurisdiction",
+          "pinpoint": "s. 2 (1)",
+          "quote": "For the purposes of clause 31 (a) of the Act, the prescribed amount is $5,000."
+        },
+        {
+          "sourceId": "rules-of-civil-procedure",
+          "pinpoint": "r. 61.05 (1)",
+          "quote": "the appellant shall serve and file, with proof of service, with the notice of appeal an appellant's certificate respecting evidence (Form 61C) setting out only the portions of the evidence that, in the appellant's opinion, are required for the appeal."
+        },
+        {
+          "sourceId": "rules-of-civil-procedure",
+          "pinpoint": "r. 61.04 (4)",
+          "quote": "The notice of appeal, with proof of service, shall be filed in accordance with subrule 4.05 (4) (leaving in or mailing to court office) in the Registrar's office within ten days after service."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 61.04 (1)",
+          "sourceId": "rules-of-civil-procedure",
+          "found": true
+        },
+        {
+          "pinpoint": "s. 31",
+          "sourceId": "cja-courts-of-justice-act",
+          "found": true
+        },
+        {
+          "pinpoint": "s. 2 (1)",
+          "sourceId": "oreg-626-00-monetary-jurisdiction",
+          "found": true
+        },
+        {
+          "pinpoint": "r. 61.05 (1)",
+          "sourceId": "rules-of-civil-procedure",
+          "found": true
+        },
+        {
+          "pinpoint": "r. 61.04 (4)",
+          "sourceId": "rules-of-civil-procedure",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "CJA s. 31 allows an appeal to the Divisional Court only 'from a final order of the Small Claims Court'. The statement drops 'final', so a reader could think an interim order (for example, one made on a motion) can be appealed this way. The rest matches r. 61.04 (1), (4), r. 61.05 (1) and O. Reg. 626/00 s. 2 (1). Corrected last sentence: \"An appeal lies only from a final order for the payment of more than $5,000, not counting costs, or for the recovery of personal property worth more than $5,000.\""
+      }
+    },
+    {
+      "n": 36,
+      "where": "what can happen next",
+      "stageId": "plaintiff:served-awaiting-defence -> plaintiff:action-dismissed-for-delay",
+      "statement": "Two years after the action was started, with no judgment, no step to get one under rule 11.03 and no trial date requested, the clerk dismisses it for delay.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.1.01 (1)",
+          "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 11.1.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "Drops 'Unless the court orders otherwise' (r. 11.1.01 (1)) and the r. 11.1.01 (2) exceptions, so it states as automatic what the rule makes conditional; it also narrows 'the action has not been disposed of by order' to 'no judgment'. Corrected: \"If, by the second anniversary of the start of the action, it has not been disposed of by order, and the plaintiff has not taken a step under rule 11.03 to obtain judgment or requested a trial date, the clerk must dismiss it for delay, unless the court orders otherwise. This does not apply if an offer to settle was accepted and filed, if the defence admits liability and proposes terms of payment, or if the plaintiff is under disability.\" (r. 11.1.01 (1): \"Unless the court orders otherwise ... (a) the action has not been disposed of by order\"; r. 11.1.01 (2): \"Subrule (1) does not apply if, (a) an offer to settle the action has been accepted and filed; ...\")"
+      }
+    },
+    {
+      "n": 37,
+      "where": "next-step card",
+      "stageId": "before-filing:notice-deadline-missed",
+      "statement": "To serve a person yourself, hand them a copy.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 8.02 (a)",
+          "quote": "on an individual, other than a person under disability, by leaving a copy of the document with him or her"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 8.02 (a)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "r. 8.02 (a) applies to 'an individual, other than a person under disability'. Service on a minor or a person under disability is different, and the statement drops that exception. 'Yourself' can also be read as 'by you personally' rather than 'personal service'. Corrected: \"To serve a person personally, leave a copy with them. This does not apply if the person is a minor or otherwise under a disability; a different method is used then.\" This matches the answer at plaintiff:claim-issued-not-served: 'To serve a person who is not under a disability, you leave a copy with them.'"
+      }
+    },
+    {
+      "n": 38,
+      "where": "published answer",
+      "stageId": "before-filing:claim-exceeds-small-claims-limit",
+      "statement": "In the Superior Court of Justice, the Rules of Civil Procedure generally apply.",
+      "quotes": [
+        {
+          "sourceId": "scj-steps-to-a-civil-case",
+          "pinpoint": "",
+          "quote": "Civil proceedings in the Superior Court of Justice are generally governed by the Rules of Civil Procedure"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "scj-steps-to-a-civil-case",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Steps to a Civil Case: 'generally governed by the Rules of Civil Procedure'."
+      }
+    },
+    {
+      "n": 39,
+      "where": "published answer",
+      "stageId": "before-filing:notice-vehicle-injury",
+      "statement": "You can still start the lawsuit without doing these steps.",
+      "quotes": [
+        {
+          "sourceId": "insurance-act",
+          "pinpoint": "s. 258.3 (9)",
+          "quote": "Despite subsection (1), a person may commence an action without complying with subsection (1),"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "s. 258.3 (9)",
+          "sourceId": "insurance-act",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Insurance Act s. 258.3 (9); the costs consequence ('the court shall consider the non-compliance in awarding costs') is in the very next sentence."
+      }
+    },
+    {
+      "n": 40,
+      "where": "what can happen next",
+      "stageId": "plaintiff:claim-drafted-not-filed -> plaintiff:claim-issued-not-served",
+      "statement": "You file the plaintiff's claim (Form 7A) with the clerk.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 7.01 (1)",
+          "quote": "An action shall be commenced by filing a plaintiff's claim (Form 7A) with the clerk, together with a copy of the claim for each defendant."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 7.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 7.01 (1): an action is commenced by filing Form 7A with the clerk."
+      }
+    },
+    {
+      "n": 41,
+      "where": "deadline",
+      "stageId": "both:bringing-a-motion",
+      "statement": "Serve the notice of motion and supporting affidavit on every party who filed a claim and any defendant not noted in default. Get a hearing date from the clerk before you serve. Earlier is fine.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 15.01 (3)",
+          "quote": "The notice of motion and supporting affidavit, (a) shall be served on every party who has filed a claim and any defendant who has not been noted in default, at least seven days before the hearing date; and (b) shall be filed, with proof of service, at least three days before the hearing date."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 15.01 (3)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "The serve-on clause and the 7-day timing match r. 15.01 (3). 'Get a hearing date from the clerk before you serve' is accurate, but it rests on r. 15.01 (2), which is not in the cited quote. Add that citation: r. 15.01 (2) \"The moving party shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit under subrule (3).\" The wording can stay as it is."
+      }
+    },
+    {
+      "n": 42,
+      "where": "published answer",
+      "stageId": "defendant:trial-date-set",
+      "statement": "If so, you and your representative, if any, must take part, unless the court directs otherwise.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "A party and the party's representative, if any, shall participate in the trial management conference, unless the court directs otherwise."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Restates the trial management conference participation rule, 'unless the court directs otherwise'."
+      }
+    },
+    {
+      "n": 43,
+      "where": "published answer",
+      "stageId": "defendant:trial-date-set",
+      "statement": "In that case, the plaintiff must prove the amount but not that you are liable, and the judge must decide any place of trial issue in your defence.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "In the case described in clause (2) (b) or (c), the person with the claim is not required to prove liability against the party who has failed to attend but is required to prove the amount of the claim. | In the case described in clause (2) (b), if an issue as to the proper place of trial under subrule 6.01 (1) is raised in the defence, the trial judge shall consider it and make a finding."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 17.01 (2.1) and (3): after the defence is struck for non-attendance, the plaintiff proves the amount, not liability, and the judge 'shall consider ... and make a finding' on a place-of-trial issue raised in the defence."
+      }
+    },
+    {
+      "n": 44,
+      "where": "published answer",
+      "stageId": "plaintiff:defence-period-expired-no-defence",
+      "statement": "Once the defendant is noted in default, for a debt or set amount you can file a Default Judgment (Form 11B), which the clerk may sign; there is a fee.",
+      "quotes": [
+        {
+          "sourceId": "guide-making-a-claim",
+          "pinpoint": "",
+          "quote": "A \"liquidated\" claim is a claim for a set amount owing under a written contract or verbal agreement"
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "guide-making-a-claim",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "Accurate, but the cited quote only defines a 'liquidated' claim. It does not support filing Form 11B, the clerk signing it, or the fee. Cite the next sentences of the same guide page: \"If the defendant has been noted in default and your claim is a 'liquidated' claim, then you can fill out a Default Judgment [Form 11B] and file it with the clerk. ... There is a fee for this process.\" Or cite r. 11.02 (1): \"If a defendant has been noted in default, the clerk may sign default judgment (Form 11B) in respect of ... a debt or liquidated demand in money\". The wording can stay as it is once the support is attached."
+      }
+    },
+    {
+      "n": 45,
+      "where": "published answer",
+      "stageId": "defendant:defence-filed",
+      "statement": "Each party takes part in the conference, unless the court orders otherwise.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "",
+          "quote": "A party and the party's representative, if any, shall participate in the settlement conference, unless the court orders otherwise."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Restates the rule that a party (and representative) shall participate in the settlement conference unless the court orders otherwise."
+      }
+    },
+    {
+      "n": 46,
+      "where": "published answer",
+      "stageId": "plaintiff:served-with-defendants-claim",
+      "statement": "The fee for filing a defence is $77.",
+      "quotes": [
+        {
+          "sourceId": "oreg-332-16-small-claims-fees",
+          "pinpoint": "",
+          "quote": "On the filing of a defence, $77."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "oreg-332-16-small-claims-fees",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "O. Reg. 332/16 s. 1 (2) para. 5: 'On the filing of a defence, $77.'"
+      }
+    },
+    {
+      "n": 47,
+      "where": "published answer",
+      "stageId": "defendant:defence-period-expired-not-yet-noted",
+      "statement": "If your defence disputes all or part of the claim, you attend a settlement conference.",
+      "quotes": [
+        {
+          "sourceId": "guide-replying-to-a-claim",
+          "pinpoint": "",
+          "quote": "If you disputed all or part of the claim you will have to attend a settlement conference."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "",
+          "sourceId": "guide-replying-to-a-claim",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "Guide: 'If you disputed all or part of the claim you will have to attend a settlement conference.'"
+      }
+    },
+    {
+      "n": 48,
+      "where": "next-step card (fee)",
+      "stageId": "plaintiff:defence-period-expired-no-defence",
+      "statement": "Asking for default judgment (most people): $94",
+      "quotes": [
+        {
+          "sourceId": "oreg-332-16-small-claims-fees",
+          "pinpoint": "s. 1 (2), para. 8",
+          "quote": "For the filing of a request for default judgment by an infrequent claimant, $94."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "s. 1 (2), para. 8",
+          "sourceId": "oreg-332-16-small-claims-fees",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "O. Reg. 332/16 s. 1 (2) para. 8: $94 for an infrequent claimant (fewer than 10 claims at that office this calendar year); 'most people' is a fair plain gloss."
+      }
+    },
+    {
+      "n": 49,
+      "where": "what can happen next",
+      "stageId": "plaintiff:settlement-conference-held -> plaintiff:action-dismissed-for-delay",
+      "statement": "Two years after the action was started, with no judgment, no step to get one under rule 11.03 and no trial date requested, the clerk dismisses it for delay.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.1.01 (1)",
+          "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 11.1.01 (1)",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "overreaches",
+        "note": "Drops 'Unless the court orders otherwise' (r. 11.1.01 (1)) and the r. 11.1.01 (2) exceptions, so it states as automatic what the rule makes conditional; it also narrows 'the action has not been disposed of by order' to 'no judgment'. Corrected: \"If, by the second anniversary of the start of the action, it has not been disposed of by order, and the plaintiff has not taken a step under rule 11.03 to obtain judgment or requested a trial date, the clerk must dismiss it for delay, unless the court orders otherwise. This does not apply if an offer to settle was accepted and filed, if the defence admits liability and proposes terms of payment, or if the plaintiff is under disability.\" (r. 11.1.01 (1): \"Unless the court orders otherwise ... (a) the action has not been disposed of by order\"; r. 11.1.01 (2): \"Subrule (1) does not apply if, (a) an offer to settle the action has been accepted and filed; ...\")"
+      }
+    },
+    {
+      "n": 50,
+      "where": "published answer",
+      "stageId": "before-filing:claim-exceeds-small-claims-limit",
+      "statement": "A claim cannot be split into two or more cases to bring it under the limit.",
+      "quotes": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 6.02",
+          "quote": "A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction."
+        }
+      ],
+      "quotesInSource": [
+        {
+          "pinpoint": "r. 6.02",
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "found": true
+        }
+      ],
+      "review": {
+        "verdict": "correct",
+        "note": "r. 6.02, restated plainly."
+      }
+    }
+  ],
+  "reviewSummary": {
+    "reviewer": "independent agent",
+    "date": "2026-10-13",
+    "correct": 40,
+    "overreaches": 10,
+    "wrong": 0
+  },
+  "fixes": {
+    "date": "2026-10-13",
+    "fixed": {
+      "6,17,36,49": "dismissal-for-delay moves now carry 'unless the court orders otherwise' and the r. 11.1.01 (2) exceptions, citing both subrules",
+      "8": "final reason for the court's own notice now carries 'unless the court orders otherwise', '20 days after receiving' and the four-page limit",
+      "35": "appeal line now reads 'You can appeal only a final order to pay more than $5,000, not counting costs, or to return personal property worth more than $5,000.' (CJA s. 31; reworded after review to keep the published answer at reading grade 8; the published deadline section was re-rendered from the stage map and promoted as run-21, no model)",
+      "37": "personal service line says 'leave a copy with them' and that a person under disability is served another way; the same fix made to the civil card line (r. 16.02 (1) (a)), found by the reviewer",
+      "41": "r. 15.01 (2) added to the deadline's quoted rules; same for the strike-motion deadline, which also gained its 3-day filing line"
+    },
+    "deferred": {
+      "26,44": "published answers are accurate but cite a quote that supports only part of the sentence; published blocks are fixed by hash and change only through the publishing pipeline (paid), so the added quotes go in at the next promotion"
+    },
+    "recheck": "the same independent reviewer re-checked every fix against the saved sources: all correct"
+  }
+}
