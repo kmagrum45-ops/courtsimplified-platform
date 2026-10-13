@@ -25,6 +25,7 @@
  */
 
 import { ALL_STAGES, type CaseStage } from "./stageMap";
+import { S_CLPA_17_11_WAIVER, S_CLPA_17_2_LEAVE, S_CLPA_17_9_GRANTED } from "./civilStages";
 import {
   R_10_01_DEFENDANTS_CLAIM,
   R_10_03_DEFENCE_TO_DEFENDANTS_CLAIM,
@@ -61,6 +62,7 @@ import {
   S_TORONTO_42_6_NOTICE,
   S_TORONTO_42_8_EXCUSE,
   S_CJA_23_1_1_LEAVE,
+  S_CLPA_18_1_NOTICE,
   type RuleCitation,
 } from "./citations";
 
@@ -166,7 +168,15 @@ const DISMISSAL_MOVES: StageMove[] = ALL_STAGES.filter((stage) =>
   move(stage.id, "plaintiff:action-dismissed-for-delay", "time", "Two years after the action was started, with no judgment, no step to get one under rule 11.03 and no trial date requested, the clerk dismisses it for delay.", R_11_1_01_DISMISSAL_FOR_DELAY),
 );
 
-export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...DISMISSAL_MOVES];
+// ---------------------------------------------------------------- Superior Court (civil): first moves
+
+/** Claims against the Crown for misfeasance or bad faith (2026-10-13). The rest of the civil chain follows. */
+const CIVIL_MOVES: StageMove[] = [
+  move("civil:before-filing:notice-required-before-suing", "civil:plaintiff:crown-misfeasance-leave-needed", "you", "Notice of the claim was served on the Crown at least 60 days before the proceeding is brought; a claim of misfeasance in public office or bad faith then goes ahead only with the court's leave.", S_CLPA_18_1_NOTICE, S_CLPA_17_2_LEAVE),
+  move("civil:plaintiff:crown-misfeasance-leave-needed", "civil:plaintiff:claim-issued-not-served", "court", "Leave is granted, or the Crown waives it in writing: the stay is lifted and the proceeding goes on.", S_CLPA_17_9_GRANTED, S_CLPA_17_11_WAIVER),
+];
+
+export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES];
 
 /** Steps where this chain stops, and why. Each is a real end, or the next move belongs to a part of the map not yet built. */
 export const FINAL_STEPS: FinalStep[] = [

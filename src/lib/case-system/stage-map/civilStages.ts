@@ -1604,11 +1604,74 @@ const S_CLPA_17_1_MISFEASANCE: RuleCitation = {
     "This section applies to proceedings brought against the Crown or an officer or employee of the Crown that include a claim in respect of a tort of misfeasance in public office or a tort based on bad faith respecting anything done in the exercise or intended exercise of the officer or employee's powers or the performance or intended performance of the officer or employee's duties or functions.",
 };
 
-const S_CLPA_17_2_LEAVE: RuleCitation = {
+export const S_CLPA_17_2_LEAVE: RuleCitation = {
   sourceId: "crown-liability-and-proceedings-act-2019",
   pinpoint: "s. 17 (2)",
   quote:
     "A proceeding to which this section applies that is brought on or after the day section 1 of Schedule 7 to the Smarter and Stronger Justice Act, 2020 comes into force may proceed only with leave of the court and, unless and until leave is granted, is deemed to have been stayed in respect of all claims in that proceeding from the time that it is brought.",
+};
+
+const S_CLPA_17_3_DOCUMENTS: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (3)",
+  quote:
+    "On a motion for leave under subsection (2), the claimant shall, in accordance with section 15 if applicable, serve on the defendant and file with the court, (a) an affidavit, or such other document as may be prescribed, setting out a concise statement of the material facts on which the claimant intends to rely; and (b) an affidavit of documents, or such other document as may be prescribed, disclosing, to the full extent of the claimant's knowledge, information and belief, all documents relevant to any matter in issue in the proceeding that are or have been in the claimant's possession, control or power.",
+};
+
+const S_CLPA_17_4_RESPONSE: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (4)",
+  quote:
+    "On a motion for leave under subsection (2), the defendant may serve on the claimant and file an affidavit, or such other document as may be prescribed, setting out a concise statement of the material facts on which the defendant intends to rely for the defence, but is not required to do so.",
+};
+
+const S_CLPA_17_5_EXAMINATIONS: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (5)",
+  quote:
+    "No person may be examined or summoned for examination on the contents of an affidavit or prescribed document referred to in subsection (3) or (4) or in relation to the motion for leave, other than the maker of the affidavit or prescribed document.",
+};
+
+const S_CLPA_17_6_NO_DISCOVERY: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (6)",
+  quote:
+    "The defendant shall not be subject to discovery or the inspection of documents, or to examination for discovery, in relation to the motion for leave.",
+};
+
+const S_CLPA_17_7_TEST: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (7)",
+  quote:
+    "The court shall not grant leave unless it is satisfied that, (a) the proceeding is being brought in good faith; and (b) there is a reasonable possibility that the claim described in subsection (1) would be resolved in the claimant's favour.",
+};
+
+const S_CLPA_17_8_COSTS: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (8)",
+  quote:
+    "Each party to the motion for leave shall bear its own costs of the motion.",
+};
+
+export const S_CLPA_17_9_GRANTED: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (9)",
+  quote:
+    "The granting of leave under subsection (2) lifts the stay of the proceeding.",
+};
+
+const S_CLPA_17_10_REFUSED: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (10)",
+  quote:
+    "If leave is not granted under subsection (2), (a) the proceeding is rendered a nullity; or (b) if the proceeding contains any claims other than the claim described in subsection (1), the proceeding is rendered a nullity in respect of the claim described in that subsection and the stay is lifted with respect to the remainder of the proceeding.",
+};
+
+export const S_CLPA_17_11_WAIVER: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 17 (11)",
+  quote:
+    "Despite subsections (2) and (10), the Crown may waive the application of subsection (2) in relation to a proceeding by giving notice of the waiver in writing to the claimant.",
 };
 
 const RCP_28_08_REPLY = rcp(
@@ -2215,6 +2278,53 @@ const BEFORE_FILING: CaseStage[] = [
       },
       basicLimitation("deadline:civil:basic-limitation-notice-stage"),
     ],
+    requiresAffirmativeScope: true,
+  },
+  {
+    id: "civil:plaintiff:crown-misfeasance-leave-needed",
+    pathway: "civil",
+    side: "plaintiff",
+    wentWrong: false,
+    userQuestion: "My claim against the government says an official acted in bad faith or abused their office. What does the court's permission (leave) to go ahead need?",
+    title: "Claim against the Crown for misfeasance or bad faith: leave to proceed needed",
+    description:
+      "The proceeding is against the Ontario Crown or a Crown officer or employee and includes a claim of misfeasance in public office or another tort based on bad faith. A statute says such a proceeding may go ahead only with the court's leave, and is on hold until leave is granted.",
+    cues: [
+      "misfeasance in public office",
+      "the Crown acted in bad faith",
+      "the prosecutor abused their office",
+      "sue the Crown attorney",
+      "leave to proceed against the Crown",
+      "section 17 leave",
+      "the government official acted in bad faith",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "civil:before-filing:notice-required-before-suing",
+        by: "whether the 60-day notice of claim is still to be served, or the claim against the Crown has been or is about to be brought and now needs the court's leave",
+      },
+      {
+        stage: "civil:plaintiff:claim-issued-not-served",
+        by: "whether the claim is against the Crown or a Crown officer or employee and includes misfeasance in public office or bad faith, which needs leave before it can go ahead",
+      },
+    ],
+    rules: [
+      S_CLPA_17_1_MISFEASANCE,
+      S_CLPA_17_2_LEAVE,
+      S_CLPA_17_3_DOCUMENTS,
+      S_CLPA_17_4_RESPONSE,
+      S_CLPA_17_5_EXAMINATIONS,
+      S_CLPA_17_6_NO_DISCOVERY,
+      S_CLPA_17_7_TEST,
+      S_CLPA_17_8_COSTS,
+      S_CLPA_17_9_GRANTED,
+      S_CLPA_17_10_REFUSED,
+      S_CLPA_17_11_WAIVER,
+      S_CLPA_15_SERVICE,
+      RCP_37_07_SEVEN_DAYS,
+      RCP_37_08_FILE,
+    ],
+    deadlines: [],
     requiresAffirmativeScope: true,
   },
   {
