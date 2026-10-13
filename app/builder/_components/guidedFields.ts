@@ -13,6 +13,9 @@
  */
 
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
+import { amountFromStory, childrenFromStory, civilRoleFromStory, familyRoleFromStory, goalFromStory } from "./storyAnswers";
+
+const storyOf = (values: GuidedValues) => (typeof values.facts === "string" ? values.facts : "");
 
 const has = (values: GuidedValues, key: string, ...wanted: string[]) => {
   const value = values[key];
@@ -32,6 +35,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "yourRole",
       label: "Your side",
+      fromStory: (values) => familyRoleFromStory(storyOf(values)),
       question: "Are you starting a family case, or responding to one the other person started?",
       why: "Your side decides which forms and deadlines are yours, so we only show you your own.",
       kind: "choice",
@@ -61,6 +65,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "childrenInfo",
       label: "The children",
+      fromStory: (values) => childrenFromStory(storyOf(values)),
       question: "Tell us about the children: how many, how old, and who they live with now.",
       why: "Parenting and child support depend on the children's ages and where they live.",
       kind: "longtext",
@@ -77,6 +82,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "goal",
       label: "What you want",
+      fromStory: (values) => goalFromStory(storyOf(values)),
       question: "What would you like to happen in the end?",
       why: "What you're asking for shapes what goes in your papers.",
       kind: "longtext",
@@ -110,6 +116,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "yourRole",
       label: "Your side",
+      fromStory: (values) => civilRoleFromStory(storyOf(values)),
       question: "Are you suing someone, or is someone suing you?",
       why: "Your side decides which forms and deadlines are yours, so we only show you your own.",
       kind: "choice",
@@ -141,6 +148,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "amountClaimed",
       label: "Amount",
+      fromStory: (values) => amountFromStory(storyOf(values)),
       question: "How much money is involved, if any?",
       why: "The amount decides which court and which procedure your case uses.",
       kind: "text",
@@ -164,6 +172,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "legalRemedy",
       label: "What you want",
+      fromStory: (values) => goalFromStory(storyOf(values)),
       question: "What would you like the court to order?",
       why: "What you're asking for shapes what goes in your papers.",
       kind: "longtext",

@@ -18,6 +18,7 @@ import path from "node:path";
 
 import { acknowledgement, isAnswered, pendingFields, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
 import { civilGuidedFields, familyGuidedFields } from "../../app/builder/_components/guidedFields";
+import { amountFromStory, childrenFromStory, civilRoleFromStory, familyRoleFromStory, goalFromStory } from "../../app/builder/_components/storyAnswers";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");
@@ -87,6 +88,29 @@ console.log("\n4. Every answer reaches the form, with the form's own values");
     check(`${court}: the chat's Continue is the form's own`, /onDone=\{handleAnalyze\}/.test(source));
     check(`${court}: the whole form is one click away`, /onShowForm=\{\(\) => setMode\("form"\)\}/.test(source));
   }
+}
+
+console.log("\n6. What the story already says is offered for one click, not asked cold (2026-10-13)");
+{
+  check("'i got served a statement of claim' is the defendant", civilRoleFromStory("i got served a statement of claim from my old partner")?.value === "defendant");
+  check("'i want to sue the city' is the plaintiff", civilRoleFromStory("i slipped on ice. i want to sue the city")?.value === "plaintiff");
+  check("a story saying both sides offers neither", civilRoleFromStory("he sued me and now i want to sue him back") === null);
+  check("'took me to court' is the family respondent", familyRoleFromStory("my ex took me to court for custody")?.value === "respondent");
+  check("'owes them 68000' is $68,000", amountFromStory("a supplier saying my business owes them 68000")?.value === "$68,000");
+  check("a year is never an amount", amountFromStory("i pay support from a court order in 2022") === null);
+  check("'i want my money back' is what they want", goalFromStory("he stopped showing up. i want my money back")?.value === "I want my money back");
+  check("'what i need to bring' is not a goal", goalFromStory("i dont know what i need to bring or file before it") === null);
+  check("'i want to sue' is not what they want ordered", goalFromStory("i want to sue the city") === null);
+  check("'2 years ago' is not a child's age", childrenFromStory("me and my sons father split up 2 years ago") === null);
+  check("'my daughter is 5' is the children", childrenFromStory("my daughter is 5 and lives with me")?.value === "my daughter is 5 and lives with me");
+  const fam = familyGuidedFields({ issues: opt("child-support"), filed: opt("nothing") });
+  const civ = civilGuidedFields({ issues: opt("contract"), documents: opt("nothing") });
+  for (const [court, fields, keys] of [["family", fam, ["yourRole", "childrenInfo", "goal"]], ["civil", civ, ["yourRole", "amountClaimed", "legalRemedy"]]] as const) {
+    for (const key of keys) check(`${court}: '${key}' is offered from the story`, typeof fields.find((field) => field.key === key)?.fromStory === "function");
+  }
+  const chat = read("app/builder/_components/GuidedFormChat.tsx");
+  check("the chat shows the story's words and asks 'Is that right?'", /From what you told us: &ldquo;/.test(chat) && /Is that right\?/.test(chat));
+  check("'No' asks the question plainly instead", /setNotFromStory/.test(chat) && /No, let me answer/.test(chat));
 }
 
 console.log("\n5. The walkthrough plays it");

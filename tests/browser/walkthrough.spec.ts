@@ -115,6 +115,15 @@ async function playGuidedChat(page: Page, persona: Persona, steps: Step[]): Prom
     const question = page.getByTestId("guided-form-question");
     if (!(await question.isVisible().catch(() => false))) break;
     const key = await question.getAttribute("data-key");
+    // An answer read from the story is offered for one click (2026-10-13):
+    // the persona agrees unless it is a side that isn't theirs.
+    const offered = question.getByTestId("guided-form-from-story");
+    if (await offered.isVisible().catch(() => false)) {
+      const value = JSON.parse((await offered.getAttribute("data-value")) ?? "null");
+      const agrees = key !== "yourRole" || value === persona.role;
+      await question.getByTestId(agrees ? "guided-form-from-story-yes" : "guided-form-from-story-no").click();
+      continue;
+    }
     if (key === "facts") {
       await question.getByRole("textbox").fill(persona.story);
       await question.getByTestId("guided-form-next").click();
