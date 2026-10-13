@@ -3625,11 +3625,5 @@
       "file": "oreg-456-96-prescribed-crimes.txt"
     }
   ],
-  "failures": [
-    {
-      "id": "criminal-proceedings-rules-scj-ontario",
-      "url": "https://laws-lois.justice.gc.ca/eng/regulations/SI-2012-7/FullText.html",
-      "reason": "extracted only 1120 characters, below this source's minimum of 2000"
-    }
-  ]
+  "failures": []
 }
