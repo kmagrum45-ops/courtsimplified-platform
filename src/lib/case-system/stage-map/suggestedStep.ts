@@ -109,6 +109,12 @@ export function suggestedStageFor(
         return "family:both:case-conference-scheduled";
       case "motion":
         return responding ? "family:both:responding-to-a-motion" : "family:both:bringing-a-motion";
+      // Urgent: the motion step, whose answer sets out the urgent route (no
+      // wait for a case conference where the court finds urgency or
+      // hardship, r. 14). It suggested no step at all before (free finish
+      // line, 2026-10-12: an applicant who feels unsafe got an empty card).
+      case "urgent":
+        return responding ? "family:both:responding-to-a-motion" : "family:both:bringing-a-motion";
       case "trial":
         return "family:both:trial-scheduled";
       case "enforcement":
