@@ -489,6 +489,10 @@ export const R_14_02_ANY_TIME = scc(
   "r. 14.02 (1)",
   "An offer to settle may be made at any time.",
 );
+export const R_14_02_COSTS_7_DAYS = scc(
+  "r. 14.02 (2)",
+  "The costs consequences referred to in rule 14.07 apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences.",
+);
 export const R_14_03_WITHDRAW = scc(
   "r. 14.03 (1)",
   "An offer to settle may be withdrawn at any time before it is accepted, by serving a notice of withdrawal of an offer to settle on the party to whom it was made.",

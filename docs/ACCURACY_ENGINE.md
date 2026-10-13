@@ -68,8 +68,11 @@ positions where something has already gone wrong.
 Plus 8 Small Claims steps added from the law map on 2026-10-13 (motions,
 admitting and proposing terms of payment, the trial management conference,
 offers to settle, and enforcement from both sides): 45 in all. Their timing
-rules are quoted; counted deadlines for them need date questions that do not
-exist yet.
+rules are quoted, and five of them are counted (2026-10-13): serving and
+filing a motion (7 and 3 days before the hearing), a response affidavit (2
+days before), the defence with a payment proposal (20 days), disputing a
+proposal (20 days after the defence was served) and an offer's 7 days before
+trial for costs.
 
 | File | What it does |
 |---|---|
