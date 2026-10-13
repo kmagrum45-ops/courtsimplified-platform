@@ -56,9 +56,20 @@ export function stepNamedInStory(courtPath: StagePathway, responding: boolean, s
     return "";
   }
   // Family.
+  // 2026-10-13, walkthrough: "i pay 900 a month child support from a court
+  // order in 2022 ... how do i get it lowered" was sent to "bringing a motion"
+  // (Form 14): "lowered" and "it" were not caught. An existing order plus a
+  // wish to change it, anywhere in the story, is a motion to change -- unless
+  // the order is a temporary one, which a motion to change does not cover.
+  const hasOrder = /\b(?:court order|support order|final order|custody order|parenting order|order (?:from|in|made in) (?:19|20)\d\d|(?:19|20)\d\d order|ordered (?:me )?to pay)\b/.test(text);
+  const wantsChange = /\b(?:lower(?:ed|ing)?|reduc(?:e|ed|ing)|chang(?:e|ed|ing)|var(?:y|ied)|increas(?:e|ed|ing)|adjust(?:ed|ing)?)\b/.test(text);
   const changeFinal =
     /\bmotion to change\b/.test(text) ||
-    /\b(?:change|vary|lower|reduce|increase)\b[^.]{0,40}\b(?:final |support |child support |spousal support |parenting |custody )*order\b/.test(text);
+    /\b(?:change|vary|lower|reduce|increase)\b[^.]{0,40}\b(?:final |support |child support |spousal support |parenting |custody )*order\b/.test(text) ||
+    (hasOrder &&
+      wantsChange &&
+      !/\btemporary order\b/.test(text) &&
+      !/\b(?:no|not a|never had a|without a|don'?t have a|do not have a)\s+(?:court |support |custody |parenting )?order\b/.test(text));
   if (changeFinal) return /\bserved\b[^.]{0,40}\bmotion to change\b/.test(text) ? "family:both:served-with-motion-to-change" : "family:both:asking-to-change-final-order";
   if (/\btrial management conference\b/.test(text)) return "family:both:trial-management-conference-scheduled";
   if (/\bsettlement conference\b/.test(text)) return "family:both:settlement-conference-scheduled";
