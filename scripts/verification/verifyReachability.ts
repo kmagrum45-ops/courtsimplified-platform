@@ -68,6 +68,13 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "pending replacement goes unchecked for 90 days. It has no user-facing role by design, and " +
       "wiring it into a page would be the mistake.",
   },
+  {
+    file: "src/lib/case-system/stage-map/stageSequence.ts",
+    reason:
+      "The Small Claims step chain (2026-10-12), merged on its own first so its check " +
+      "(test:stage-sequence) lands before anything shows it. The next change puts 'what comes " +
+      "next' on the step panel and deletes this entry.",
+  },
 
   // ---- The 13 "unreachable and NOT deliberate" modules were DELETED 2026-10-04 ----
   //
