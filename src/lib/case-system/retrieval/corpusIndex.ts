@@ -251,6 +251,39 @@ export function isSupersededPassage(sourceId: string, text: string): boolean {
   return SUPERSEDED.some((entry) => entry.sourceId === sourceId && text.includes(entry.phrase));
 }
 
+/**
+ * Sentences in official guides that urge settling or avoiding trial
+ * (2026-10-13, walkthrough: "Being well prepared may make it possible for you
+ * to avoid the expense and risks of having to go to trial" was shown to a
+ * plaintiff preparing for a settlement conference, and failed "nothing pushes
+ * settlement"). The guide's wording is accurate, but the site never nudges a
+ * person toward settling (CLAUDE.md s. 3), so these sentences are left out of
+ * the passage everywhere it is shown or used; the rest of the passage stays.
+ * Each is the exact sentence in the saved text. Pure.
+ */
+export const PRESSURE_SENTENCES: { sourceId: string; sentence: string }[] = [
+  {
+    sourceId: "guide-getting-ready-for-court",
+    sentence: "Being well prepared may make it possible for you to avoid the expense and risks of having to go to trial.",
+  },
+  {
+    sourceId: "scj-steps-to-a-civil-case",
+    sentence:
+      "Settlement is always a good option, so you should consider settlement possibilities after receiving disclosure or conducting discovery or at any other step in the case.",
+  },
+];
+
+export function withoutPressure(sourceId: string, text: string): string {
+  let out = text;
+  for (const entry of PRESSURE_SENTENCES) {
+    if (entry.sourceId !== sourceId) continue;
+    // The saved text may break lines anywhere, so match the sentence across any whitespace.
+    const pattern = new RegExp(entry.sentence.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "\\s+") + "\\s*", "g");
+    out = out.replace(pattern, "");
+  }
+  return out;
+}
+
 export function readPassage(index: LoadedIndex, id: string, score: number): Passage | null {
   const sourceId = id.split(":")[1];
   const source = index.meta.sources[sourceId];
@@ -261,5 +294,5 @@ export function readPassage(index: LoadedIndex, id: string, score: number): Pass
   const row = index.meta.chunks.find(([chunkId]) => chunkId === id);
   if (!row || row[1] !== passageHash(chunk, source)) return null;
   if (isSupersededPassage(sourceId, chunk.text)) return null;
-  return { ...chunk, source, score };
+  return { ...chunk, text: withoutPressure(sourceId, chunk.text), source, score };
 }

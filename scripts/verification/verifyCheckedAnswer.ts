@@ -23,7 +23,7 @@
  * Run: node --import tsx scripts/verification/verifyCheckedAnswer.ts
  */
 
-import { loadCorpusIndex, readPassage, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
+import { loadCorpusIndex, PRESSURE_SENTENCES, readPassage, withoutPressure, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import {
   checkedAnswer,
   checkedAnswerView,
@@ -382,6 +382,15 @@ async function main() {
   const staleRead = stale.map((id) => readPassage(index, id, 0.5));
   check("the Superior Court guide's old $35,000 limit is never given to the check", stale.length > 0 && !staleRead.some((p) => p && p.text.includes("$35,000")));
   check("the rest of that guide still is", staleRead.some(Boolean));
+
+  // ---- 6j. Guide sentences that urge settling are never shown (2026-10-13)
+  for (const entry of PRESSURE_SENTENCES) {
+    const ids = index.meta.chunks.map(([id]) => id).filter((id) => id.startsWith(`corpus:${entry.sourceId}:`));
+    const read = ids.map((id) => readPassage(index, id, 0.5)).filter(Boolean);
+    const flat = (text: string) => text.replace(/\s+/g, " ");
+    check(`never shown: "${entry.sentence.slice(0, 50)}..."`, read.length > 0 && !read.some((p) => p && flat(p.text).includes(entry.sentence)));
+  }
+  check("the sentence goes, the rest of the passage stays", withoutPressure("guide-getting-ready-for-court", "Get organized. Being well prepared may make it possible for you to avoid the expense and\n risks of having to go to trial. It is a good idea.") === "Get organized. It is a good idea.");
 
   // ---- 6d. Talk about the passages is dropped, the law kept
   check(
