@@ -21,7 +21,7 @@
  * listed in FINAL_STEPS with the reason the chain stops there, so a step
  * cannot silently lead nowhere (test:stage-sequence).
  *
- * Small Claims first (2026-10-12). Superior Court civil and family follow.
+ * Small Claims (2026-10-12), Superior Court civil and family (2026-10-13).
  */
 
 import { ALL_STAGES, type CaseStage } from "./stageMap";
@@ -307,7 +307,123 @@ const CIVIL_MOVES: StageMove[] = [
   move("civil:defendant:action-dismissed-counterclaim-pending", "civil:both:discovery", "you", "Within 30 days you may deliver a notice of election to proceed with the counterclaim (Form 23B); otherwise it is deemed discontinued.", stepRule("civil:defendant:action-dismissed-counterclaim-pending", "r. 24.03")),
 ];
 
-export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...LAW_MAP_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES];
+
+// ---------------------------------------------------------------- Family (2026-10-13)
+
+const F = (stageId: string, pinpoint: string) => stepRule(`family:${stageId}`, pinpoint);
+/** "A case shall not be scheduled for trial unless a settlement conference has been conducted": why the steps between conferences return to the settlement conference. */
+const FAMILY_BEFORE_TRIAL = () => F("both:settlement-conference-scheduled", "r. 17 (10)");
+
+const FAMILY_MOVES: StageMove[] = [
+  // Before filing
+  move("family:before-filing:deciding-where-to-start", "family:applicant:application-filed-not-served", "you", "A family case is started by filing an application (Form 8 or another listed form), in the municipality the rules name.", F("applicant:application-filed-not-served", "r. 8 (1)"), F("before-filing:deciding-where-to-start", "r. 5 (1)")),
+  move("family:before-filing:deciding-where-to-start", "family:before-filing:property-claim-time-limit", "time", "A claim to equalize net family property has its own time limit: two years after a divorce, six years after separation, or six months after a spouse's death, whichever comes first.", F("before-filing:property-claim-time-limit", "s. 7 (3)")),
+  move("family:before-filing:deciding-where-to-start", "family:applicant:uncontested-or-joint-divorce", "you", "Either spouse may start a divorce case, naming the other as respondent, or the spouses may file a joint application with no respondent.", F("applicant:uncontested-or-joint-divorce", "r. 36 (1)")),
+  move("family:before-filing:deciding-where-to-start", "family:both:asking-to-change-final-order", "you", "Where there is already a final order, a filed support agreement or a filed arbitration award, the way to change it is a motion to change.", F("both:asking-to-change-final-order", "r. 15 (2)")),
+  move("family:before-filing:property-claim-time-limit", "family:applicant:application-filed-not-served", "you", "An application to equalize net family property is filed before the earliest of those times.", F("before-filing:property-claim-time-limit", "s. 7 (3)"), F("applicant:application-filed-not-served", "r. 8 (1)")),
+
+  // Applicant
+  move("family:applicant:application-filed-not-served", "family:applicant:served-waiting-for-answer", "you", "You serve the application right away on every other party, by special service unless the rules say otherwise.", F("applicant:application-filed-not-served", "r. 8 (5)")),
+  move("family:applicant:application-filed-not-served", "family:applicant:service-failed", "you", "Attempts to serve it do not work.", F("applicant:service-failed", "r. 6 (15)")),
+  move("family:applicant:application-filed-not-served", "family:both:served-with-automatic-order", "court", "For a parenting, property or matrimonial home claim, the clerk issues an automatic order, which is served with the application.", F("both:served-with-automatic-order", "r. 8.0.1 (3)"), F("both:served-with-automatic-order", "r. 8.0.1 (5)")),
+  move("family:applicant:application-filed-not-served", "family:applicant:amending-own-application", "you", "Before an answer is filed you may amend the application without the court's permission; after, only with everyone's consent.", F("applicant:amending-own-application", "r. 11 (1)")),
+  move("family:applicant:service-failed", "family:applicant:served-waiting-for-answer", "court", "On a motion with detailed evidence of the steps taken, the court may order substituted service, or order that service is not required.", F("applicant:service-failed", "r. 6 (15)"), F("applicant:service-failed", "r. 6 (16)")),
+  move("family:applicant:served-waiting-for-answer", "family:applicant:answer-received", "other-side", "The respondent serves and files an answer within 30 days after being served.", F("applicant:served-waiting-for-answer", "r. 10 (1)")),
+  move("family:applicant:served-waiting-for-answer", "family:applicant:no-answer-filed", "time", "The 30 days pass with no answer served and filed.", F("applicant:served-waiting-for-answer", "r. 10 (1)"), F("applicant:served-waiting-for-answer", "r. 10 (5)")),
+  move("family:applicant:no-answer-filed", "family:both:trial-scheduled", "you", "On request, the clerk sets a date for an uncontested trial; the court may deal with the case without the respondent.", F("applicant:no-answer-filed", "r. 17 (2)"), F("applicant:no-answer-filed", "r. 1 (8.4)")),
+  move("family:applicant:no-answer-filed", "family:both:case-conference-scheduled", "you", "On request, the clerk schedules a case conference.", F("applicant:no-answer-filed", "r. 17 (2)")),
+  move("family:applicant:no-answer-filed", "family:applicant:uncontested-or-joint-divorce", "you", "In a divorce case with no answer, you file the affidavit for a divorce (Form 36) and the clerk prepares the documents for a judge.", F("applicant:no-answer-filed", "r. 36 (5.1)"), F("applicant:no-answer-filed", "r. 17 (2)")),
+  move("family:applicant:answer-received", "family:both:case-conference-scheduled", "court", "In each case where an answer is filed, a judge holds at least one conference; a party asks for it by a case conference notice (Form 17).", F("applicant:answer-received", "r. 17 (1)"), F("applicant:answer-received", "r. 17 (4.1)")),
+  move("family:applicant:amending-own-application", "family:applicant:served-waiting-for-answer", "you", "You serve and file the amended application in the same way as the first.", F("applicant:amending-own-application", "r. 11 (1)")),
+  move("family:applicant:uncontested-or-joint-divorce", "family:both:final-order-made", "court", "A divorce the judge grants takes effect on the 31st day after the judgment.", F("applicant:uncontested-or-joint-divorce", "s. 12 (1)")),
+
+  // Respondent
+  move("family:respondent:served-time-to-answer-running", "family:respondent:answer-filed", "you", "You serve an answer on every other party and file it within 30 days after being served.", F("respondent:served-time-to-answer-running", "r. 10 (1)")),
+  move("family:respondent:served-time-to-answer-running", "family:respondent:answer-time-missed", "time", "The 30 days pass without an answer served and filed.", F("respondent:served-time-to-answer-running", "r. 10 (1)")),
+  move("family:respondent:served-time-to-answer-running", "family:respondent:served-with-amended-application", "other-side", "The applicant serves an amended application; you may amend your answer within 14 days.", F("respondent:served-with-amended-application", "r. 11 (2)")),
+  move("family:respondent:served-time-to-answer-running", "family:both:served-with-automatic-order", "other-side", "An automatic order issued on the application is served on you with it.", F("both:served-with-automatic-order", "r. 8.0.1 (5)")),
+  move("family:respondent:answer-time-missed", "family:respondent:answer-filed", "court", "The court may lengthen any time in the rules, or the parties may change it by written consent; the answer is then filed.", F("respondent:answer-time-missed", "r. 3 (5)"), F("respondent:answer-time-missed", "r. 3 (6)")),
+  move("family:respondent:answer-time-missed", "family:both:trial-scheduled", "other-side", "Without an answer, the court may deal with the case in your absence and a date may be set for an uncontested trial.", F("respondent:answer-time-missed", "r. 10 (5)"), F("applicant:no-answer-filed", "r. 1 (8.4)")),
+  move("family:respondent:answer-filed", "family:both:case-conference-scheduled", "court", "In each case where an answer is filed, a judge holds at least one conference.", F("respondent:answer-filed", "r. 17 (1)")),
+  move("family:respondent:served-with-amended-application", "family:respondent:answer-filed", "you", "You may serve and file an amended answer within 14 days after being served with the amended application.", F("respondent:served-with-amended-application", "r. 11 (2)")),
+
+  // The automatic order
+  move("family:both:served-with-automatic-order", "family:both:case-conference-scheduled", "court", "The case goes on: where an answer is filed, a judge holds at least one conference.", F("respondent:answer-filed", "r. 17 (1)")),
+
+  // Conferences
+  move("family:both:case-conference-scheduled", "family:both:settlement-conference-scheduled", "court", "After the case conference comes a settlement conference; a case is scheduled for trial only after one, or on a judge's order.", F("both:settlement-conference-scheduled", "r. 17 (5)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:case-conference-scheduled", "family:both:missed-or-unconfirmed-conference", "either", "A conference is not held if it was not confirmed to the clerk, unless the court orders otherwise, and the parties must come to it.", F("both:missed-or-unconfirmed-conference", "r. 17 (14.1)"), F("both:missed-or-unconfirmed-conference", "r. 17 (15)")),
+  move("family:both:case-conference-scheduled", "family:both:bringing-a-motion", "you", "Once a conference on the substantive issues has been completed, a motion for a temporary order can be served (sooner only in the cases the rules allow, such as urgency).", F("both:bringing-a-motion", "r. 14 (4)"), F("both:bringing-a-motion", "r. 14 (1)")),
+  move("family:both:case-conference-scheduled", "family:both:responding-to-a-motion", "other-side", "The other party brings a motion; a response is due not later than four days before the motion date.", F("both:responding-to-a-motion", "r. 14 (11.3)")),
+  move("family:both:case-conference-scheduled", "family:both:financial-disclosure-missing", "you", "The other party's financial disclosure is not enough to understand their finances: you ask in writing for what is missing.", F("both:financial-disclosure-missing", "r. 13 (11)")),
+  move("family:both:case-conference-scheduled", "family:both:document-disclosure-requested", "other-side", "A party asks for an affidavit listing documents, due within 10 days of the request.", F("both:document-disclosure-requested", "r. 19 (1)")),
+  move("family:both:case-conference-scheduled", "family:both:questioning", "either", "A party may get information from another party by consent, or by a court order for questioning.", F("both:questioning", "r. 20 (4)"), F("both:questioning", "r. 20 (5)")),
+  move("family:both:case-conference-scheduled", "family:both:served-with-request-to-admit", "other-side", "At any time, a party may serve a request to admit (Form 22) a fact or that a document is genuine.", F("both:served-with-request-to-admit", "r. 22 (2)")),
+  move("family:both:case-conference-scheduled", "family:both:offer-to-settle", "either", "A party may serve an offer to settle on any other party.", F("both:offer-to-settle", "r. 18 (3)-(10)")),
+  move("family:both:case-conference-scheduled", "family:both:childrens-lawyer-report", "court", "Where the Children's Lawyer investigates and reports on parenting, notice is first served on the parties.", F("both:childrens-lawyer-report", "r. 21 (a)")),
+  move("family:both:case-conference-scheduled", "family:both:responding-to-summary-judgment", "other-side", "After an answer is served, or the time for one has run out, a party may move for summary judgment.", F("both:responding-to-summary-judgment", "r. 16 (1)")),
+  move("family:both:case-conference-scheduled", "family:both:binding-judicial-dispute-resolution", "either", "Where the court offers it, each party may ask for a binding judicial dispute resolution hearing by serving and filing a request and consent (Form 43 or 43A).", F("both:binding-judicial-dispute-resolution", "r. 43 (4)"), F("both:binding-judicial-dispute-resolution", "r. 43 (7)")),
+  move("family:both:case-conference-scheduled", "family:both:withdrawing-a-claim", "you", "A party may withdraw all or part of an application, answer or reply by serving and filing a notice of withdrawal (Form 12).", F("both:withdrawing-a-claim", "r. 12 (1)")),
+  move("family:both:case-conference-scheduled", "family:both:case-in-wrong-municipality", "either", "If another municipality is substantially more convenient, the court may on motion transfer the case.", F("both:case-in-wrong-municipality", "r. 5 (8)")),
+  move("family:both:case-conference-scheduled", "family:both:notice-of-approaching-dismissal", "court", "If the case is not settled, withdrawn or scheduled for trial before the 365th day after it started, the clerk serves a notice of approaching dismissal (Form 39).", F("both:notice-of-approaching-dismissal", "r. 39 (11)")),
+  move("family:both:case-conference-scheduled", "family:both:notice-case-may-be-stayed-or-dismissed", "court", "The court may give notice (Form 1.4A) that a case which appears frivolous, vexatious or an abuse of process may be stayed or dismissed.", F("both:notice-case-may-be-stayed-or-dismissed", "r. 1.4 (1)"), F("both:notice-case-may-be-stayed-or-dismissed", "r. 1.4 (5)")),
+  move("family:both:settlement-conference-scheduled", "family:both:trial-management-conference-scheduled", "court", "A trial management conference may follow; among its purposes is setting the trial date.", F("both:trial-management-conference-scheduled", "r. 17 (6)")),
+  move("family:both:settlement-conference-scheduled", "family:both:trial-scheduled", "court", "Once a settlement conference has been held, the case can be scheduled for trial.", FAMILY_BEFORE_TRIAL()),
+  move("family:both:settlement-conference-scheduled", "family:both:missed-or-unconfirmed-conference", "either", "A conference is not held if it was not confirmed to the clerk, unless the court orders otherwise.", F("both:settlement-conference-scheduled", "r. 17 (14.1)")),
+  move("family:both:settlement-conference-scheduled", "family:both:offer-to-settle", "either", "A party may serve an offer to settle on any other party.", F("both:offer-to-settle", "r. 18 (3)-(10)")),
+  move("family:both:trial-management-conference-scheduled", "family:both:trial-scheduled", "court", "The trial management conference sets the trial date, if that has not already been done.", F("both:trial-management-conference-scheduled", "r. 17 (6)")),
+  move("family:both:trial-management-conference-scheduled", "family:both:missed-or-unconfirmed-conference", "either", "A conference is not held if it was not confirmed to the clerk, unless the court orders otherwise.", F("both:trial-management-conference-scheduled", "r. 17 (14.1)")),
+  move("family:both:missed-or-unconfirmed-conference", "family:both:case-conference-scheduled", "you", "A party who asks for a conference serves and files a conference notice (Form 17).", F("applicant:answer-received", "r. 17 (4.1)")),
+  move("family:both:missed-or-unconfirmed-conference", "family:both:notice-of-approaching-dismissal", "court", "If the case is not settled, withdrawn or scheduled for trial before the 365th day after it started, the clerk serves a notice of approaching dismissal.", F("both:missed-or-unconfirmed-conference", "r. 40 (5)")),
+
+  // Disclosure, questioning, admissions, reports: the case then goes on to the settlement conference
+  move("family:both:financial-disclosure-missing", "family:both:bringing-a-motion", "you", "If the information is not given within seven days, a motion can be made; the court may order the document served or filed and order costs.", F("both:financial-disclosure-missing", "r. 13 (11)"), F("both:financial-disclosure-missing", "r. 13 (17)")),
+  move("family:both:document-disclosure-requested", "family:both:settlement-conference-scheduled", "you", "You give the affidavit listing documents within 10 days of the request; a case reaches trial only after a settlement conference.", F("both:document-disclosure-requested", "r. 19 (1)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:served-with-request-to-admit", "family:both:settlement-conference-scheduled", "you", "Unless you serve a response (Form 22A) within 20 days, the fact or document is treated as admitted for the case; a case reaches trial only after a settlement conference.", F("both:served-with-request-to-admit", "r. 22 (4)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:questioning", "family:both:settlement-conference-scheduled", "either", "The parties are served at least three days ahead with who is to be questioned, where and when; a case reaches trial only after a settlement conference.", F("both:questioning", "r. 20 (13)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:childrens-lawyer-report", "family:both:settlement-conference-scheduled", "you", "Within 30 days after being served with the report, a party may serve and file a statement disputing anything in it; a case reaches trial only after a settlement conference.", F("both:childrens-lawyer-report", "r. 21 (e)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:offer-to-settle", "family:both:trial-scheduled", "either", "If no offer is accepted, the case goes on; offers carry the costs consequences in rule 24.", F("both:offer-to-settle", "r. 18 (12.1)"), F("both:offer-to-settle", "r. 24 (12)")),
+  move("family:both:case-in-wrong-municipality", "family:both:case-conference-scheduled", "court", "If the court transfers the case or a step, it goes on in the other municipality.", F("both:case-in-wrong-municipality", "r. 5 (8)")),
+  move("family:both:notice-of-approaching-dismissal", "family:both:case-conference-scheduled", "you", "Within 60 days after the notice is served, a party takes one of the listed steps, such as getting an order lengthening the time; otherwise the case is dismissed without further notice.", F("both:notice-of-approaching-dismissal", "r. 40 (6)")),
+
+  // Motions
+  move("family:both:bringing-a-motion", "family:both:order-made-without-notice", "court", "A motion may be made without notice where notice is unnecessary or not reasonably possible, or in the other cases the rule lists, such as immediate danger to a child's or a party's health or safety.", F("both:bringing-a-motion", "r. 14 (12)")),
+  move("family:both:bringing-a-motion", "family:both:settlement-conference-scheduled", "court", "You serve the motion papers at least six days before the motion date and file them at least four days before; the motion is heard and the case goes on to a settlement conference before any trial.", F("both:bringing-a-motion", "r. 14 (11) (a)-(c)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:bringing-a-motion", "family:both:appealing-temporary-order", "either", "An appeal from a temporary order of the Ontario Court of Justice starts with a notice of appeal served within seven days of the order.", F("both:appealing-temporary-order", "r. 38 (6)")),
+  move("family:both:responding-to-a-motion", "family:both:settlement-conference-scheduled", "you", "You serve and file your response not later than four days before the motion date; the motion is heard and the case goes on to a settlement conference before any trial.", F("both:responding-to-a-motion", "r. 14 (11.3)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:responding-to-a-motion", "family:both:appealing-temporary-order", "either", "An appeal from a temporary order of the Ontario Court of Justice starts with a notice of appeal served within seven days of the order.", F("both:appealing-temporary-order", "r. 38 (6)")),
+  move("family:both:order-made-without-notice", "family:both:bringing-a-motion", "court", "The order is served right away on everyone affected, and the matter comes back to court, if possible to the same judge, within 14 days or on a date the court chooses.", F("both:order-made-without-notice", "r. 14 (14)"), F("both:order-made-without-notice", "r. 14 (15)")),
+  move("family:both:responding-to-summary-judgment", "family:both:final-order-made", "court", "You set out specific facts in an affidavit showing a genuine issue for trial; if there is none, the court makes a final order.", F("both:responding-to-summary-judgment", "r. 16 (4.1)"), F("both:responding-to-summary-judgment", "r. 16 (6)")),
+  move("family:both:binding-judicial-dispute-resolution", "family:both:final-order-made", "court", "Once the court orders the hearing, consent can be withdrawn only with everyone's written consent or the court's permission; the hearing ends in the court's order.", F("both:binding-judicial-dispute-resolution", "r. 43 (12)")),
+
+  // Changing a final order
+  move("family:both:asking-to-change-final-order", "family:both:motion-to-change-response-time-missed", "time", "The other party has 30 days after receiving the motion to change to respond (60 outside Canada and the U.S.), and that time passes.", F("both:asking-to-change-final-order", "r. 15 (10)")),
+  move("family:both:asking-to-change-final-order", "family:both:case-conference-scheduled", "court", "A judge holds at least one conference on a motion to change, unless it is on consent or unopposed.", F("both:asking-to-change-final-order", "r. 17 (3)"), F("respondent:answer-filed", "r. 17 (1)")),
+  move("family:both:asking-to-change-final-order", "family:both:final-order-made", "court", "If the parties and any assignee agree to the change, they file a consent motion to change (Form 15C).", F("both:asking-to-change-final-order", "r. 15 (17)")),
+  move("family:both:served-with-motion-to-change", "family:both:case-conference-scheduled", "you", "If you do not agree, you serve and file a response within 30 days after receiving the motion (60 outside Canada and the U.S.).", F("both:served-with-motion-to-change", "r. 15 (10)")),
+  move("family:both:served-with-motion-to-change", "family:both:motion-to-change-response-time-missed", "time", "The 30 days (60 outside Canada and the U.S.) pass without a response or a returned consent.", F("both:served-with-motion-to-change", "r. 15 (10)"), F("both:served-with-motion-to-change", "r. 15 (14)")),
+  move("family:both:motion-to-change-response-time-missed", "family:both:final-order-made", "court", "The party who made the motion may file a motion form (Form 14B) asking the court to make the order requested.", F("both:motion-to-change-response-time-missed", "r. 15 (15)")),
+  move("family:both:motion-to-change-response-time-missed", "family:both:served-with-motion-to-change", "court", "The court may lengthen any time in the rules; the response is then served and filed.", F("respondent:answer-time-missed", "r. 3 (5)")),
+
+  // Trial and after
+  move("family:both:trial-scheduled", "family:both:final-order-made", "court", "The applicant serves and files a trial record at least 20 days before the trial; after the trial, the court's order is final, and an appeal from a final order of the Ontario Court of Justice starts within 30 days.", F("both:trial-scheduled", "r. 23 (1)"), F("both:final-order-made", "r. 38 (5)")),
+  move("family:both:trial-scheduled", "family:both:offer-to-settle", "either", "A party may serve an offer to settle on any other party, up to when the court begins to give its decision.", F("both:offer-to-settle", "r. 18 (3)-(10)")),
+  move("family:both:final-order-made", "family:both:served-with-notice-of-appeal", "other-side", "Another party starts an appeal by serving a notice of appeal (Form 38) within 30 days after the order.", F("both:final-order-made", "r. 38 (5)")),
+  move("family:both:final-order-made", "family:both:support-order-not-paid", "other-side", "An order to pay can be enforced in the ways the rules list; a support order is filed with the Director's office.", F("both:support-order-not-paid", "r. 26 (3)"), F("both:support-order-not-paid", "s. 12 (1)")),
+  move("family:both:final-order-made", "family:both:asking-to-change-final-order", "you", "A final order is changed by a motion to change.", F("both:asking-to-change-final-order", "r. 15 (2)")),
+  move("family:both:final-order-made", "family:both:served-with-motion-to-change", "other-side", "Another party brings a motion to change the final order; a response is due within 30 days (60 outside Canada and the U.S.).", F("both:served-with-motion-to-change", "r. 15 (10)")),
+
+  // Enforcement
+  move("family:both:support-order-not-paid", "family:both:served-with-request-for-financial-statement", "either", "If a payment order is in default, the recipient may serve a request for a financial statement (Form 27).", F("both:served-with-request-for-financial-statement", "r. 27 (1)")),
+  move("family:both:support-order-not-paid", "family:both:served-with-financial-examination-appointment", "either", "If a payment order is in default, the recipient may serve an appointment for a financial examination (Form 27C).", F("both:served-with-financial-examination-appointment", "r. 27 (11)")),
+  move("family:both:support-order-not-paid", "family:both:served-with-notice-of-garnishment", "either", "A payment order may be enforced by garnishment; a payor or garnishee may dispute it within 10 days.", F("both:support-order-not-paid", "r. 26 (3)"), F("both:served-with-notice-of-garnishment", "r. 29 (16)")),
+  move("family:both:support-order-not-paid", "family:both:served-with-notice-of-default-hearing", "either", "A support order may be enforced by a default hearing; the notice is served on the payor by special service.", F("both:support-order-not-paid", "r. 26 (3)"), F("both:served-with-notice-of-default-hearing", "r. 30 (2)")),
+  move("family:both:support-order-not-paid", "family:both:served-with-contempt-motion", "either", "An order other than a payment order may be enforced by a contempt motion in the case where it was made.", F("both:served-with-contempt-motion", "r. 31 (1)")),
+  move("family:both:support-order-not-paid", "family:both:served-with-licence-suspension-notice", "other-side", "When a support order filed with the Director is in default, the Director may serve a first notice that the payor's driver's licence may be suspended unless, within 30 days, the payor acts.", F("both:served-with-licence-suspension-notice", "s. 34")),
+  move("family:both:served-with-licence-suspension-notice", "family:both:asking-to-change-final-order", "you", "A payor who makes a motion to change the support order may also ask the court, on notice to the Director, to order the Director not to suspend the licence.", F("both:served-with-licence-suspension-notice", "s. 35 (1)")),
+];
+
+export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...LAW_MAP_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES, ...FAMILY_MOVES];
 
 /** Steps where this chain stops, and why. Each is a real end, or the next move belongs to a part of the map not yet built. */
 export const FINAL_STEPS: FinalStep[] = [
@@ -318,6 +434,15 @@ export const FINAL_STEPS: FinalStep[] = [
   { stage: "civil:plaintiff:judgment-unpaid", why: "The judgment is enforced from here; a writ of seizure and sale lasts six years and can be renewed.", rules: [stepRule("civil:plaintiff:judgment-unpaid", "r. 60.07 (6)")] },
   { stage: "civil:defendant:judgment-being-enforced", why: "Delivering a notice of appeal stays the payment of money under the order (except support) until the appeal is decided.", rules: [stepRule("civil:defendant:judgment-being-enforced", "r. 63.01 (1)")] },
   { stage: "civil:plaintiff:wants-to-discontinue", why: "The action ends for the parties it is discontinued against; any party may move about costs within 30 days.", rules: [stepRule("civil:plaintiff:wants-to-discontinue", "r. 23.05 (1)")] },
+  { stage: "family:both:appealing-temporary-order", why: "The appeal is decided by the Superior Court of Justice; the appeal's own steps are this step's deadlines.", rules: [stepRule("family:both:appealing-temporary-order", "r. 38 (6)")] },
+  { stage: "family:both:served-with-notice-of-appeal", why: "The appeal is decided by the appellate court; serving a notice of appeal does not stay a support order.", rules: [stepRule("family:both:served-with-notice-of-appeal", "r. 38 (21)"), stepRule("family:both:served-with-notice-of-appeal", "r. 38 (33)")] },
+  { stage: "family:both:served-with-request-for-financial-statement", why: "The payor sends a completed financial statement within 15 days; enforcement goes on from the support order.", rules: [stepRule("family:both:served-with-request-for-financial-statement", "r. 27 (2)")] },
+  { stage: "family:both:served-with-financial-examination-appointment", why: "The financial examination is held where the parties agree, where the payor lives in Ontario, or where the court chooses.", rules: [stepRule("family:both:served-with-financial-examination-appointment", "r. 27 (13)")] },
+  { stage: "family:both:served-with-notice-of-garnishment", why: "A dispute goes to a garnishment hearing, which the clerk issues on request.", rules: [stepRule("family:both:served-with-notice-of-garnishment", "r. 29 (17)")] },
+  { stage: "family:both:served-with-notice-of-default-hearing", why: "At the default hearing the court may decide and enforce the amount owing.", rules: [stepRule("family:both:served-with-notice-of-default-hearing", "r. 30 (7)")] },
+  { stage: "family:both:served-with-contempt-motion", why: "The motion is decided by the court; the rule lists the orders it may make if it finds contempt.", rules: [stepRule("family:both:served-with-contempt-motion", "r. 31 (5)")] },
+  { stage: "family:both:withdrawing-a-claim", why: "The withdrawn part ends; the party who withdraws pays the other parties' costs of it to that date, unless the court orders or the parties agree otherwise.", rules: [stepRule("family:both:withdrawing-a-claim", "r. 12 (3)")] },
+  { stage: "family:both:notice-case-may-be-stayed-or-dismissed", why: "The court decides after the written submissions the rule allows, filed within 15 days of the notice.", rules: [stepRule("family:both:notice-case-may-be-stayed-or-dismissed", "r. 1.4 (7)")] },
 ];
 
 /**
@@ -333,6 +458,9 @@ export const STARTING_POINTS: { stage: string; why: string }[] = [
   { stage: "civil:defendant:served-with-third-party-claim", why: "A person brought into an action by a third party claim starts here." },
   { stage: "civil:defendant:served-with-counterclaim-as-new-party", why: "A person not yet a party, brought in by a counterclaim, starts here." },
   { stage: "civil:both:lawyer-removed-from-record", why: "Can happen at any point in an action; no step leads there on purpose." },
+  { stage: "family:before-filing:deciding-where-to-start", why: "Where a person starting a family case begins." },
+  { stage: "family:respondent:served-time-to-answer-running", why: "Where a person served with a family application starts." },
+  { stage: "family:both:served-with-motion-to-change", why: "A person served with a motion to change a final order starts here, often years after the case ended." },
 ];
 
 /** The steps a step can lead to. */
@@ -346,7 +474,7 @@ export function movesInto(stageId: string): StageMove[] {
 }
 
 /** The stages this chain covers so far. */
-export const SEQUENCED_PATHWAYS = ["small-claims", "civil"] as const;
+export const SEQUENCED_PATHWAYS = ["small-claims", "civil", "family"] as const;
 
 export function isSequenced(stage: CaseStage): boolean {
   return (SEQUENCED_PATHWAYS as readonly string[]).includes(stage.pathway ?? "small-claims");

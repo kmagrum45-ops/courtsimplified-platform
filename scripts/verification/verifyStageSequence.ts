@@ -90,6 +90,8 @@ const path = ["defendant:served-defence-period-running", "defendant:defence-file
 check("a served Small Claims defendant can follow the chain to a trial date", path.every((id, i) => i === 0 || movesFrom(path[i - 1]).some((m) => m.to === id)));
 const civilPath = ["civil:defendant:served-defence-period-running", "civil:defendant:defence-delivered", "civil:both:discovery", "civil:plaintiff:ready-to-set-down", "civil:both:pretrial-scheduled", "civil:both:trial-date-set", "civil:both:judgment-given"];
 check("a served Superior Court defendant can follow the chain to a judgment", civilPath.every((id, i) => i === 0 || movesFrom(civilPath[i - 1]).some((m) => m.to === id)));
+const familyPath = ["family:respondent:served-time-to-answer-running", "family:respondent:answer-filed", "family:both:case-conference-scheduled", "family:both:settlement-conference-scheduled", "family:both:trial-scheduled", "family:both:final-order-made"];
+check("a served family respondent can follow the chain through the conferences to a final order", familyPath.every((id, i) => i === 0 || movesFrom(familyPath[i - 1]).some((m) => m.to === id)));
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;

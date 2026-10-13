@@ -79,7 +79,7 @@ trial for costs.
 | `stageMap.ts` | The 37 stages: cues, boundaries, rules, deadlines |
 | `citations.ts` | Every quoted provision. **The only place a quote may live** |
 | `stageMessages.ts` | The UNKNOWN and OUT_OF_SCOPE wording, and the clarifying-question lookup |
-| `stageSequence.ts` | What comes next: each step's moves to the next steps, who or what makes each move, and the rule that governs it. A step with no way out is declared final with its reason (test:stage-sequence). Small Claims first, 2026-10-12 |
+| `stageSequence.ts` | What comes next: each step's moves to the next steps, who or what makes each move, and the rule that governs it. A step with no way out is declared final with its reason (test:stage-sequence). Small Claims (2026-10-12), Superior Court civil and family (2026-10-13): all 135 steps of the three courts. Not yet shown in the step panel |
 
 **`distinguishedFrom` is the part that prevents a repeat of the Part 0 bug.**
 Each stage records what *separates* it from the neighbours it will be confused
