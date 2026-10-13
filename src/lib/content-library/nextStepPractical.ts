@@ -519,6 +519,11 @@ const SC_COSTS_CAP = cite(
   "An award of costs in the Small Claims Court, other than disbursements, shall not exceed 15 per cent of the amount claimed or the value of the property sought to be recovered unless the court considers it necessary in the interests of justice to penalize a party or a party's representative for unreasonable behaviour in the proceeding.",
 );
 
+const SC_GARNISHMENT_PAID = scr(
+  "r. 20.08 (20.2)",
+  "Once the amount owing under an order that is enforced by garnishment is paid, the creditor shall immediately serve a notice of termination of garnishment (Form 20R) on the garnishee and on the clerk.",
+);
+
 const NOTHING: StepPractical = { forms: [], fees: [], files: false, serve: null };
 
 /**
@@ -544,30 +549,30 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "plaintiff:service-attempted-failed": { forms: ["15A", "8A"], fees: ["sc-motion"], files: true, serve: "originating", also: [SC_HEARING_DATE] },
   "plaintiff:six-month-service-window-expired": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: null, also: [SC_HEARING_DATE] },
   "plaintiff:served-awaiting-defence": { forms: ["8A", "9B"], fees: [], files: true, serve: null },
-  "plaintiff:defence-period-expired-no-defence": { forms: ["9B", "11B"], fees: ["sc-default"], files: true, serve: null },
+  "plaintiff:defence-period-expired-no-defence": { forms: ["9B", "11B", "11A"], fees: ["sc-default"], files: true, serve: null },
   "plaintiff:defendant-noted-in-default": { forms: ["11B", "15A", "9B"], fees: ["sc-default", "sc-motion", "sc-trial"], files: true, serve: null },
   "plaintiff:assessment-of-damages-needed": { forms: ["15A", "9B"], fees: ["sc-motion", "sc-trial"], files: true, serve: null },
-  "plaintiff:default-judgment-signed": { forms: ["20P", "20E", "20H"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment" },
-  "plaintiff:defence-filed": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
+  "plaintiff:default-judgment-signed": { forms: ["20P", "20E", "20H", "20C", "20D", "20A", "20I", "20F"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment" },
+  "plaintiff:defence-filed": { forms: ["13A", "20L", "20M"], fees: [], files: true, serve: "ordinary" },
   "plaintiff:served-with-defendants-claim": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
-  "plaintiff:awaiting-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
-  "plaintiff:settlement-conference-held": { forms: ["9B"], fees: ["sc-trial"], files: true, serve: null },
+  "plaintiff:awaiting-settlement-conference": { forms: ["13A", "1B"], fees: [], files: true, serve: "ordinary" },
+  "plaintiff:settlement-conference-held": { forms: ["9B", "14D"], fees: ["sc-trial"], files: true, serve: null },
   "plaintiff:trial-date-set": { forms: ["18A"], fees: ["sc-summons"], files: true, serve: "summons", also: [SC_COSTS_CAP] },
-  "plaintiff:judgment-in-my-favour-unpaid": { forms: ["20P", "20E", "20H", "20C"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment", also: [SC_PERIODIC_ENFORCEMENT, SC_PERIODIC_DEFAULT, SC_PERIODIC_ENDS] },
-  "plaintiff:action-dismissed-for-delay": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "plaintiff:judgment-in-my-favour-unpaid": { forms: ["20P", "20E", "20H", "20C", "20D", "20A", "20I", "20F", "20R"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment", also: [SC_GARNISHMENT_PAID, SC_PERIODIC_ENFORCEMENT, SC_PERIODIC_DEFAULT, SC_PERIODIC_ENDS] },
+  "plaintiff:action-dismissed-for-delay": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   // ---- Small Claims: defendant
   "defendant:served-defence-period-running": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
   "defendant:defence-period-expired-not-yet-noted": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
-  "defendant:noted-in-default": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
-  "defendant:default-judgment-against-me": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "defendant:noted-in-default": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "defendant:default-judgment-against-me": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "defendant:defence-filed": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
   "defendant:considering-defendants-claim": { forms: ["10A"], fees: ["sc-defendants-claim"], files: true, serve: "originating" },
   "defendant:awaiting-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
   "defendant:trial-date-set": { forms: ["18A"], fees: ["sc-summons"], files: true, serve: "summons", also: [SC_COSTS_CAP] },
-  "defendant:judgment-against-me": { forms: ["15A"], fees: ["sc-motion", "sc-appeal"], files: true, serve: "ordinary", also: [APPEAL_START] },
+  "defendant:judgment-against-me": { forms: ["15A", "11.2A", "20I"], fees: ["sc-motion", "sc-appeal"], files: true, serve: "ordinary", also: [APPEAL_START] },
   // ---- Small Claims: either side
   "both:missed-settlement-conference": { forms: ["13A"], fees: [], files: true, serve: "ordinary" },
-  "both:missed-trial": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  "both:missed-trial": { forms: ["15A", "15B"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "both:filed-in-wrong-place": { forms: ["9A", "15A"], fees: ["sc-defence", "sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
 
   // ---- Civil: before filing
