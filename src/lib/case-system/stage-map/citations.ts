@@ -437,6 +437,10 @@ export const R_15_01_MOTION_FORM = scc(
   "r. 15.01 (1)",
   "A motion shall be made by a notice of motion and supporting affidavit (Form 15A).",
 );
+export const R_15_01_HEARING_DATE_FIRST = scc(
+  "r. 15.01 (2)",
+  "The moving party shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit under subrule (3).",
+);
 export const R_15_01_SERVE_FILE = scc(
   "r. 15.01 (3)",
   "The notice of motion and supporting affidavit, (a) shall be served on every party who has filed a claim and any defendant who has not been noted in default, at least seven days before the hearing date; and (b) shall be filed, with proof of service, at least three days before the hearing date.",
