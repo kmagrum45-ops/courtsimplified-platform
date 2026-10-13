@@ -556,6 +556,8 @@ export const USUAL_NEXT: Record<string, string[]> = {
   "civil:defendant:defence-delivered": ["civil:both:discovery"],
   "family:both:case-conference-scheduled": ["family:both:settlement-conference-scheduled", "family:both:bringing-a-motion"],
   "family:both:support-order-not-paid": [],
+  // The notice itself comes first; leave for a Crown misfeasance claim is the rarer path (walkthrough, 2026-10-13).
+  "civil:before-filing:notice-required-before-suing": ["civil:plaintiff:claim-drafted-not-issued"],
 };
 
 export type NextStepView = { to: string; title: string; when: string; by: string; rules: RuleCitation[]; usual: boolean };

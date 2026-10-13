@@ -815,6 +815,23 @@ const NOTICE_FITS: Partial<Record<RuleCitation["sourceId"], (story: string, city
   "crown-liability-and-proceedings-act-2019": (story) => /\b(?:crown|province|provincial|ontario government|government of ontario|ministry|minister|opp)\b/i.test(story),
 };
 
+/**
+ * Whether a time limit about a notice fits the person's words, read from the
+ * limit's own "If ..." line: "fits", "not", or null when the line is not about
+ * one of these notices. Uses the same tests as the notice rules above.
+ */
+const LIBEL = /\b(?:libel\w*|slander\w*|defam\w*|newspaper|broadcast|radio|television|tv)\b/i;
+export function noticeFit(what: string, story: string, city = ""): "fits" | "not" | null {
+  if (!story.trim()) return null;
+  const test = (fits: boolean) => (fits ? "fits" : "not");
+  if (/\bCity of Toronto\b/.test(what)) return test(NOTICE_FITS["city-of-toronto-act-2006"]!(story, city));
+  if (/\bmunicipality\b/i.test(what)) return test(NOTICE_FITS["municipal-act-2001"]!(story, city));
+  if (/snow or ice on someone's premises/i.test(what)) return test(NOTICE_FITS["occupiers-liability-act"]!(story, city));
+  if (/\bOntario Crown\b/.test(what)) return test(NOTICE_FITS["crown-liability-and-proceedings-act-2019"]!(story, city));
+  if (/\blibel\b/i.test(what)) return test(LIBEL.test(story));
+  return null;
+}
+
 /** A step's extra rule lines, narrowed to the notices the person's words fit (all of them when the words fit none). */
 export function alsoFor(also: RuleCitation[], story = "", city = ""): RuleCitation[] {
   if (!story.trim()) return also;

@@ -1945,6 +1945,16 @@ earlier review rounds had passed it:
 re-promoted together (the gate requires the deadline section byte-identical to
 the renderer).
 
+**This caught me twice on 2026-10-13: editing a stage's deadlines (a word in a
+qualifier, or a new deadline) fails CI's published-library gate** for every
+step that has a published answer, because its stored deadline section no
+longer matches the renderer. No model is needed to fix it: build a candidate
+from the published blocks with each stale `yourDeadline` re-rendered by
+`renderDeadlineSection(stage.deadlines)`, promote it with `--confirm` (run-21,
+run-22), and check readability (the grade-8 gate failed once on a longer
+sentence). Run `tsx scripts/verification/verifyPublishedLibrary.ts` before
+pushing any deadline edit.
+
 ## The research step: the analysis researches before it writes (2026-10-05)
 
 `retrieval/researchStory.ts` replaces single-pass retrieval in the brain

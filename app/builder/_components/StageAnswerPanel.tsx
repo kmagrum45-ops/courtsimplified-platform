@@ -20,7 +20,7 @@ import WhatComesNext from "../../_components/WhatComesNext";
 import GetHelp from "../../_components/GetHelp";
 import { savePositionQueued } from "./positionSave";
 import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
-import { limitNotesFor, practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import { limitNotesFor, noticeFit, practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
@@ -165,7 +165,7 @@ function NextStepCard({
     filingShown: Boolean(practical?.filing.length),
   });
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
-  const { main, conditional } = cardLimits(summary, responding);
+  const { main, conditional } = cardLimits(summary, responding, userWords, city);
   const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => (
     <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
       <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
@@ -356,7 +356,7 @@ function savePosition(caseId: string, patch: Record<string, unknown>): Promise<b
  * date; "N days before" ones furthest-before first; "N days after" ones
  * soonest first.
  */
-export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean) {
+export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "") {
   const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
   const ownSide = (what: string) =>
     (responding ? /\bresponding\b|\bthe other party\b|\brespondent\b/i : /\bbringing\b|\bmoving party\b|\bapplicant\b|\bmade the motion\b/i).test(what);
@@ -374,13 +374,26 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
     deadlines = neutralDeadlines.slice(0, 1);
     periods = neutralDeadlines.length ? [] : neutralPeriods.slice(0, 1);
   }
+  /*
+   * Notices the person's words point to lead; notices for other kinds of
+   * claim are left out once one fits (2026-10-13, walkthrough: a Toronto
+   * sidewalk fall led with the general two years, its 10-day City notice
+   * folded beside Crown and libel notices). When none fits, nothing changes.
+   */
+  const fit = (what: string) => noticeFit(what, story, city);
+  const anyFits = [...summary.deadlines, ...summary.periods].some((item) => fit(item.what) === "fits");
+  const keep = <T extends { what: string }>(items: T[]) => (anyFits ? items.filter((item) => fit(item.what) !== "not") : items);
+  if (anyFits) {
+    deadlines = [...summary.deadlines.filter((item) => fit(item.what) === "fits"), ...deadlines.filter((item) => fit(item.what) !== "not" && fit(item.what) !== "fits")];
+    periods = [...summary.periods.filter((item) => fit(item.what) === "fits"), ...periods.filter((item) => fit(item.what) !== "not" && fit(item.what) !== "fits")];
+  }
   const main = {
     deadlines: [...deadlines].sort((a, b) => a.date.localeCompare(b.date)),
     periods: [...periods].sort(byDue),
   };
   const conditional = {
-    deadlines: summary.deadlines.filter((item) => !main.deadlines.includes(item)),
-    periods: summary.periods.filter((item) => !main.periods.includes(item)),
+    deadlines: keep(summary.deadlines).filter((item) => !main.deadlines.includes(item)),
+    periods: keep(summary.periods).filter((item) => !main.periods.includes(item)),
   };
   return { main, conditional };
 }

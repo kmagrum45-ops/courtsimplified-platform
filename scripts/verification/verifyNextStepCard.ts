@@ -138,6 +138,29 @@ async function main() {
     check("a defendant's card never leads with 'If you are bringing the motion'", cardLimits(motion, true).main.periods.every((period) => !/bringing/.test(period.what)));
   }
 
+  // 2026-10-13, walkthrough: a Toronto sidewalk fall led with the general two
+  // years while its 10-day City notice sat folded beside Crown and libel ones.
+  {
+    const notices = {
+      deadlines: [
+        { what: "The general deadline to start a court case", date: "2028-09-30", statement: "" },
+        { what: "If a municipality did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the municipal clerk", date: "2026-10-10", statement: "" },
+        { what: "If the City of Toronto did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the city clerk", date: "2026-10-10", statement: "" },
+      ],
+      periods: [
+        { what: "If you are claiming damages from the Ontario Crown, serve a notice of claim on the Crown", count: 60, unit: "days", countFrom: "the day you start the action, counting backwards" },
+        { what: "If you are suing over a libel in an Ontario newspaper or broadcast, start the action", count: 3, unit: "months", countFrom: "the day the libel came to your knowledge" },
+      ],
+    };
+    const story = "i slipped on ice on the sidewalk on queen street in toronto and broke my wrist. i want to sue the city";
+    const toronto = cardLimits(notices as never, false, story, "Toronto");
+    check("a Toronto sidewalk fall leads with the City of Toronto notice", toronto.main.deadlines.some((d) => /City of Toronto/.test(d.what)));
+    check("and drops the Crown, libel and general-municipality notices", ![...toronto.main.deadlines, ...toronto.conditional.deadlines, ...toronto.main.periods, ...toronto.conditional.periods].some((d) => /Ontario Crown|libel|a municipality/.test(d.what)));
+    check("the general two years stays", [...toronto.main.deadlines, ...toronto.conditional.deadlines].some((d) => /general deadline/.test(d.what)));
+    const vague = cardLimits(notices as never, false, "something happened to me", "Ottawa");
+    check("a story that fits no notice keeps every notice", vague.main.deadlines.length + vague.conditional.deadlines.length + vague.main.periods.length + vague.conditional.periods.length === 5);
+  }
+
   if (failures > 0) {
     console.log(`\n${failures} check(s) failed.`);
     process.exit(1);
