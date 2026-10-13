@@ -325,7 +325,10 @@ export function courtPathAsPathway(courtPath: string | null | undefined): StageP
  * refuses to make (app/api/cases/events). Either way the user confirms.
  */
 const STORY_CUES: Record<string, RegExp> = {
-  "sc-date-claim-served": /\b(served|papers (?:came|arrived)|got the (?:papers|claim)|received the (?:papers|claim)|handed (?:me )?the (?:papers|claim))\b/i,
+  // 2026-10-12 (free finish line): "i got the plaintiffs claim in the mail on
+  // september 28" and "someone handed me the plaintiffs claim at my door on
+  // october 1" were not read as service.
+  "sc-date-claim-served": /\b(served|papers (?:came|arrived)|(?:claim|papers) (?:came|arrived) in the mail|(?:got|received|picked up) (?:the |a )?(?:papers|plaintiff'?s? claim|plaintifs claim|claim|statement of claim)|handed (?:me )?(?:the |a )?(?:papers|plaintiff'?s? claim|plaintifs claim|claim|statement of claim))\b/i,
   "sc-date-claim-issued": /\b(issued|filed (?:my|the|a) (?:claim|plaintiff'?s claim))\b/i,
   "sc-date-defence-filed": /\bfiled (?:my|a|the|our) defen[cs]e\b/i,
   "sc-date-settlement-conference": /\bsettlement conference\b/i,
@@ -599,11 +602,35 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
       ...(assumed ? { yearAssumed: true } : {}),
     };
   }
+  // "This happened January 13 2025" in its own sentence, after the sentence
+  // that says what happened: the date of the event the claim is about
+  // (2026-10-12, free finish line: an icy-entrance story's date was never
+  // linked, because the injury words and the date sat in different sentences).
+  const happened = sentences.find((candidate) => /\b(?:this|it|that|all this)\s+(?:all\s+)?(?:happened|occurred|was)\b/i.test(candidate) && DATE_ANYWHERE.test(candidate));
+  DATE_ANYWHERE.lastIndex = 0;
+  if (happened) {
+    const dateText = happened.match(DATE_ANYWHERE)?.[0] ?? "";
+    DATE_ANYWHERE.lastIndex = 0;
+    const full = FULL_DATE.exec(dateText);
+    const value = full ? parseUserDate(full[1].replace(/,/g, "")) : null;
+    const assumed = value || !dateText ? null : assumedYearDate(dateText, now, false);
+    if (value || assumed) {
+      const hint: StoryHint = { quote: happened.length > 240 ? `${happened.slice(0, 237)}…` : happened, value: value ?? assumed, ...(assumed ? { yearAssumed: true } : {}) };
+      if (hints["sc-date-injury"] && !hints["sc-date-injury"].value) hints["sc-date-injury"] = hint;
+      if (!hints["case-date-act-or-omission"]?.value) hints["case-date-act-or-omission"] = hint;
+    }
+  }
   // For an injury claim the day of the injury IS the day the claim is based
   // on, as in suggestedDatesFromAnswers (2026-10-09: a dog-bite story gave the
   // date and the starting step asked for it again).
   if (hints["sc-date-injury"]?.value && !hints["case-date-act-or-omission"]?.value) {
     hints["case-date-act-or-omission"] = { ...hints["sc-date-injury"] };
+  }
+  // A family case's "I was served the papers" is the application, unless the
+  // story is about a motion (2026-10-12: the family question has its own id,
+  // so a family respondent's service date never reached it).
+  if (hints["sc-date-claim-served"]?.value && !hints["case-date-served-with-application"]?.value && !/\bmotion\b/i.test(story)) {
+    hints["case-date-served-with-application"] = { ...hints["sc-date-claim-served"] };
   }
   return hints;
 }

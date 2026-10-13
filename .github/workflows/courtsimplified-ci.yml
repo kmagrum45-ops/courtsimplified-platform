@@ -390,6 +390,9 @@ jobs:
       - name: Service counts from the day the rules say, by how papers were served
         run: npm run test:service-dates
 
+      - name: Free finish line (form, file/fee/service, counted deadline, no repeated date) stays at or above its floor
+        run: npm run eval:free-finish-line
+
       - name: Production build
         run: npm run build
 
