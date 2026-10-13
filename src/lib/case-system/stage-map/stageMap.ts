@@ -1953,7 +1953,7 @@ const DEFENDANT: CaseStage[] = [
         computation: C.R_RCP_3_01_HOLIDAY,
         consequence: "changes-what-happens-next",
         qualifier:
-          "File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. An appeal lies only from a final order for the payment of more than $5,000, not counting costs, or for the recovery of personal property worth more than $5,000.",
+          "File the notice, with proof of service, within 10 days after serving it, and file the certificate with it. You can appeal only a final order to pay more than $5,000, not counting costs, or to return personal property worth more than $5,000.",
         exceptions: [C.S_CJA_31_APPEAL, C.S_APPEAL_LIMIT, C.R_61_05_CERTIFICATE, C.R_61_04_FILE_10_DAYS],
       },
     ],
