@@ -7,7 +7,7 @@
       "id": "vic.statute.criminal-code",
       "kind": "statute",
       "title": "Criminal Code: who is a victim",
-      "says": "The Criminal Code sets out crimes, bail, peace bonds, trials and sentencing. It defines a victim as a person against whom an offence was committed or is said to have been committed, and who suffered physical or emotional harm, property damage or economic loss because of it.",
+      "says": "The Criminal Code defines a victim as a person against whom an offence was committed or is said to have been committed, and who suffered (or is said to have suffered) physical or emotional harm, property damage or economic loss because of it.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 2 (victim)",
@@ -17,13 +17,18 @@
         "vic.pre.report",
         "vic.bail.start.show-cause",
         "vic.sent.vis"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 2 only defines 'victim'; it does not say the Code sets out crimes, bail, peace bonds, trials and sentencing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.statute.cvbr",
       "kind": "statute",
       "title": "Canadian Victims Bill of Rights",
-      "says": "A federal law that gives victims of crime rights to information, protection, participation and restitution in the criminal justice system. A victim is an individual who suffered physical or emotional harm, property damage or economic loss as the result of an offence or alleged offence.",
+      "says": "The Canadian Victims Bill of Rights defines a victim as an individual who suffered physical or emotional harm, property damage or economic loss as the result of an offence or alleged offence.",
       "source": {
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 2 (victim)",
@@ -36,13 +41,18 @@
         "vic.cvbr.views",
         "vic.cvbr.restitution",
         "vic.cvbr.complaint-federal"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 2 only defines 'victim'; the list of rights to information, protection, participation and restitution is not in it.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.statute.ovbr",
       "kind": "statute",
       "title": "Ontario Victims' Bill of Rights, 1995",
-      "says": "Ontario's law that sets out principles for how justice officials treat victims of crime, and special rules for civil lawsuits by victims against people convicted of certain crimes. A victim includes certain family members when the crime causes a death.",
+      "says": "Under Ontario's Victims' Bill of Rights, 1995, a victim is a person who suffers emotional or physical harm, property loss or damage, or economic harm because of a crime by another. If the crime causes death, it includes the person's child, parent, dependant or spouse, but not one who is charged with or convicted of the crime.",
       "source": {
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 1 (victim)",
@@ -51,13 +61,18 @@
       "leadsTo": [
         "vic.ovbr.principles-courtesy",
         "vic.ovbr.civil-damages"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1 only defines 'victim' and 'crime'; principles for officials (s. 2) and civil-lawsuit rules are not in it, and the exclusion of family members charged with the crime is dropped.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.statute.crown-attorneys-act",
       "kind": "statute",
       "title": "Crown Attorneys Act",
-      "says": "Ontario's law that creates Crown Attorneys and assistant Crown Attorneys, who must be members of the bar of Ontario, and sets out their duties in prosecutions.",
+      "says": "No one may be appointed as, or act as, a Crown Attorney or assistant Crown Attorney unless they are a member of the bar of Ontario.",
       "source": {
         "corpusId": "crown-attorneys-act",
         "pinpoint": "s. 4",
@@ -66,7 +81,12 @@
       "leadsTo": [
         "vic.crown.agent",
         "vic.crown.duties"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 4 only sets the qualification; it does not create the offices or set out their duties.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.statute.mag-act",
@@ -80,13 +100,17 @@
       },
       "leadsTo": [
         "vic.crown.immunity"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.statute.limitations",
       "kind": "statute",
       "title": "Limitations Act, 2002",
-      "says": "Ontario's law that sets the deadlines for starting a civil lawsuit, including a lawsuit against the person who harmed you. Some claims based on sexual assault or certain assaults have no deadline.",
+      "says": "Unless the Limitations Act, 2002 provides otherwise, a court case about a claim cannot be started after the second anniversary of the day the claim was discovered.",
       "source": {
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 4",
@@ -95,7 +119,12 @@
       "leadsTo": [
         "vic.civil.limit-basic",
         "vic.civil.no-limit-sexual-assault"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 4 sets only the basic two-year period; the statement that some sexual assault or assault claims have no deadline is not in s. 4 (it is elsewhere in the Act).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.pre.report",
@@ -131,7 +160,11 @@
       },
       "leadsTo": [
         "vic.step.pre-enquete"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.step.pre-enquete",
@@ -146,7 +179,11 @@
       "leadsTo": [
         "vic.option.crown-takes-over",
         "vic.option.crown-stay"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.option.crown-takes-over",
@@ -160,13 +197,17 @@
       },
       "leadsTo": [
         "vic.option.crown-stay"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.option.crown-stay",
       "kind": "option",
       "title": "Crown stay of proceedings",
-      "says": "The Attorney General, or a Crown counsel instructed for that purpose, may stay a criminal proceeding at any time after it starts and before judgment. A stayed proceeding can be restarted by notice, but if no notice is given within one year it is treated as never having been started.",
+      "says": "The Attorney General, or a Crown counsel instructed for that purpose, may stay a criminal proceeding at any time after it starts and before judgment. A stayed proceeding can be restarted by notice, but if no notice is given within one year, or before the time for starting the proceeding would have run out if that is earlier, it is treated as never having been started.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 579 (1)",
@@ -174,7 +215,12 @@
       },
       "leadsTo": [
         "vic.dec.krieger"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the condition that a stayed proceeding is also treated as never started if no notice is given before the time for starting it would have run out, whichever is earlier than one year.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.crown.screening",
@@ -201,6 +247,10 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 5.1",
         "expect": "treated with respect, courtesy, compassion and fairness"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -215,7 +265,11 @@
       },
       "leadsTo": [
         "vic.dec.jordan"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.info-general",
@@ -230,7 +284,11 @@
       "leadsTo": [
         "vic.support.vwap",
         "vic.support.victim-support-line"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.investigation-info",
@@ -244,7 +302,11 @@
       },
       "leadsTo": [
         "vic.ovbr.principles-info"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.protection-info",
@@ -260,7 +322,11 @@
         "vic.trial.support-person",
         "vic.trial.screen",
         "vic.trial.pub-ban-sexual"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.restorative",
@@ -271,13 +337,17 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 7.2 (1)",
         "expect": "the voluntary nature of participation at every stage"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.cvbr.offender-info",
       "kind": "statute",
       "title": "Right to information about the offender's release",
-      "says": "Every victim has the right to information about conditional release reviews of the offender, and the timing and conditions of release, and about Review Board hearings if the accused is found not criminally responsible or unfit to stand trial.",
+      "says": "Every victim has the right to information about conditional release reviews of the offender and the timing and conditions of release, and, if the accused is found not criminally responsible or unfit to stand trial, about the hearings held to make dispositions for the accused and the dispositions made.",
       "source": {
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 8",
@@ -286,7 +356,12 @@
       "leadsTo": [
         "vic.post.ovbr-notification",
         "vic.post.ccra-info"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 8(b) speaks of hearings held to make dispositions (and the dispositions made), not specifically Review Board hearings.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.security",
@@ -301,7 +376,11 @@
       "leadsTo": [
         "vic.bail.victim-safety-statement",
         "vic.cvbr.intimidation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.intimidation",
@@ -316,7 +395,11 @@
       "leadsTo": [
         "vic.bail.conditions",
         "vic.peace.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.privacy",
@@ -330,7 +413,11 @@
       },
       "leadsTo": [
         "vic.trial.records-hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.identity",
@@ -346,7 +433,11 @@
         "vic.trial.pub-ban-sexual",
         "vic.trial.pub-ban-other",
         "vic.trial.identity-nondisclosure"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.testimonial-aids",
@@ -362,7 +453,11 @@
         "vic.trial.support-person",
         "vic.trial.screen",
         "vic.trial.no-self-cross"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.views",
@@ -376,7 +471,11 @@
       },
       "leadsTo": [
         "vic.sent.vis"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.vis",
@@ -390,7 +489,11 @@
       },
       "leadsTo": [
         "vic.sent.vis"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.restitution",
@@ -404,7 +507,11 @@
       },
       "leadsTo": [
         "vic.rest.consider"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.restitution-enforcement",
@@ -418,7 +525,11 @@
       },
       "leadsTo": [
         "vic.enf.restitution-judgment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.on-behalf",
@@ -429,6 +540,10 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 3",
         "expect": "if the victim is dead or incapable of acting on their own behalf"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -440,6 +555,10 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 4",
         "expect": "if the individual is charged with the offence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -451,17 +570,26 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 18 (1)",
         "expect": "while the offence is investigated or prosecuted"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.cvbr.mechanisms",
       "kind": "statute",
       "title": "Rights are exercised through existing legal mechanisms",
-      "says": "Victims exercise their rights under the Act through the mechanisms the law already provides. The Act is applied so as not to interfere with police or prosecutorial discretion or cause excessive delay.",
+      "says": "Victims exercise their rights under the Act through the mechanisms the law already provides. A victim can exercise these rights only if they are in Canada or are a Canadian citizen or permanent resident.",
       "source": {
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 19 (1)",
         "expect": "exercised through the mechanisms provided by law"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 19(1) says only that rights are exercised through the mechanisms provided by law; the rule about not interfering with police or prosecutorial discretion or causing delay is in s. 20, a different section.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -473,6 +601,10 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 20",
         "expect": "causing interference with prosecutorial discretion"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -484,6 +616,10 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 27",
         "expect": "the status of party, intervenor or observer in any proceedings"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -499,7 +635,11 @@
       "leadsTo": [
         "vic.cvbr.complaint-federal",
         "vic.cvbr.complaint-provincial"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.cvbr.no-appeal",
@@ -510,6 +650,10 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 29",
         "expect": "No appeal lies from any decision or order solely"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -540,6 +684,10 @@
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 25 (2)",
         "expect": "who has exhausted their recourse under the complaints mechanism"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -574,7 +722,11 @@
       },
       "leadsTo": [
         "vic.ovbr.limits"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.ovbr.principles-info",
@@ -589,7 +741,11 @@
       "leadsTo": [
         "vic.ovbr.limits",
         "vic.support.vwap"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.ovbr.notification",
@@ -603,7 +759,11 @@
       },
       "leadsTo": [
         "vic.post.ovbr-notification"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.ovbr.same-gender",
@@ -614,6 +774,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 2 (1), para. 5",
         "expect": "only by police officers and officials of the same gender"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -625,6 +789,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 2 (1), para. 6",
         "expect": "should be returned promptly to the victim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -639,7 +807,11 @@
       },
       "leadsTo": [
         "vic.ovbr.no-remedy"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.ovbr.no-remedy",
@@ -650,6 +822,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 2 (5)",
         "expect": "No new cause of action, right of appeal, claim or other remedy"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -664,7 +840,11 @@
       },
       "leadsTo": [
         "vic.support.vqrp"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.ovbr.office",
@@ -675,6 +855,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 5.1 (4)",
         "expect": "ways to ensure that the principles set out in subsection 2 (1)"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -695,7 +879,11 @@
         "vic.bail.adjournment",
         "vic.bail.pub-ban",
         "vic.bail.evidence-safety"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.principle-restraint",
@@ -727,6 +915,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 493.11 (2)",
         "expect": "shall not order that the accused be released if the detention of the accused is justified"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -738,6 +930,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 493.2",
         "expect": "give particular attention to the circumstances of"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -754,7 +950,11 @@
         "vic.bail.ladder",
         "vic.bail.conditions",
         "vic.bail.surety"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.ladder",
@@ -768,29 +968,43 @@
       },
       "leadsTo": [
         "vic.dec.antic"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.surety",
       "kind": "step",
       "title": "Sureties",
-      "says": "Before requiring a surety, the justice must be satisfied it is the least onerous form of release possible. A proposed surety gives a sworn declaration (Form 12) about themselves, their relationship to the accused, and their understanding of the role.",
+      "says": "Before a particular person is named as a surety, they give the judge or justice a signed sworn or solemn declaration (Form 12) setting out, among other things, their contact information, suitability including finances, relationship to the accused, the amount they are willing to promise or deposit, and that they understand and voluntarily accept a surety's role.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 515.1 (1)",
         "expect": "signed declaration under oath, solemn declaration or solemn affirmation in Form 12"
       },
-      "form": "Form 12"
+      "form": "Form 12",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The rule that a surety must be the least onerous form of release is in s. 515(2.03), not s. 515.1(1), which deals only with the surety's declaration.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.factors",
       "kind": "test",
       "title": "Factors: intimate partner violence and record",
-      "says": "In making a bail order the justice considers relevant factors, including whether the offence involved violence against the accused's intimate partner, random and unprovoked violence, and any previous convictions involving violence. An intimate partner includes a current or former spouse, common-law partner and dating partner.",
+      "says": "In making a bail order the justice considers relevant factors, including whether the offence charged involved violence used, threatened or attempted against the accused's intimate partner, random and unprovoked violence, and any previous criminal convictions, including ones involving violence.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 515 (3)",
         "expect": "violence was used, threatened or attempted against their intimate partner"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 515(3) does not define 'intimate partner'; that definition is in s. 2.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -809,7 +1023,11 @@
         "vic.bail.no-contact-effective",
         "vic.bail.breach-offence",
         "vic.bail.copy-to-victim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.weapons",
@@ -820,17 +1038,26 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 515 (4.1)",
         "expect": "shall add to the order a condition prohibiting the accused from possessing a firearm"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.bail.safety-conditions",
       "kind": "step",
       "title": "Considering extra safety conditions",
-      "says": "For certain offences, including violent offences and those against an intimate partner, the justice must consider whether to add no-contact, stay-away or electronic monitoring conditions in the interest of the safety and security of any victim or witness.",
+      "says": "For certain offences, including violent offences (among them violence against an intimate partner), the justice must consider whether to add no-contact, stay-away or other conditions in the interest of the safety and security of any person, particularly a victim or witness, and, if the Attorney General asks, a condition that the accused wear an electronic monitoring device.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 515 (4.2)",
         "expect": "particularly a victim of or witness to the offence"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the condition that an electronic monitoring device is considered only if the Attorney General asks for it.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -846,7 +1073,11 @@
       "leadsTo": [
         "vic.bail.reverse-onus-ipv",
         "vic.bail.grounds-primary"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.reverse-onus-ipv",
@@ -857,6 +1088,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 515 (6) (b.1)",
         "expect": "violence was allegedly used, threatened or attempted against their intimate partner"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -871,7 +1106,11 @@
       },
       "leadsTo": [
         "vic.bail.grounds-secondary"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.grounds-secondary",
@@ -886,7 +1125,11 @@
       "leadsTo": [
         "vic.bail.grounds-tertiary",
         "vic.dec.morales"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.grounds-tertiary",
@@ -902,7 +1145,11 @@
         "vic.dec.st-cloud",
         "vic.dec.hall",
         "vic.bail.detention"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.detention",
@@ -918,13 +1165,17 @@
         "vic.bail.detention-no-contact",
         "vic.bail.review-accused",
         "vic.bail.90-day-review"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.detention-no-contact",
       "kind": "step",
       "title": "No-contact order while detained",
-      "says": "A justice who detains an accused may order them not to communicate, directly or indirectly, with any victim, witness or other person named in the order. Breaking it is an offence.",
+      "says": "A justice who orders an accused detained may include a direction that they not communicate, directly or indirectly, with any victim, witness or other person named in the order, except under any conditions the justice sets.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 515 (12)",
@@ -932,7 +1183,12 @@
       },
       "leadsTo": [
         "vic.bail.breach-offence"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 515(12) does not say that breaking the no-contact direction is an offence.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.victim-safety-statement",
@@ -943,6 +1199,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 515 (13)",
         "expect": "considered the safety and security of every victim of the offence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -957,7 +1217,11 @@
       },
       "leadsTo": [
         "vic.bail.ask-victims-informed"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.ask-victims-informed",
@@ -968,6 +1232,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 515 (14.1)",
         "expect": "whether victims of the offence have been informed of their right to request a copy"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -979,6 +1247,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 516 (1)",
         "expect": "no adjournment shall be for more than three clear days"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -990,6 +1262,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 517 (1)",
         "expect": "shall on application by the accused"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1001,6 +1277,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 518 (1) (d.2)",
         "expect": "the need to ensure the safety or security of any victim of or witness"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1012,13 +1292,17 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 519 (1) (c)",
         "expect": "is effective from the moment it is made"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.bail.variation-consent",
       "kind": "option",
       "title": "Changing a release order by consent",
-      "says": "A release order can be varied with the written consent of the accused, the prosecutor and any sureties. A victim who wants a condition changed may raise it with the Crown; the victim is not a party who can consent.",
+      "says": "A release order can be varied with the written consent of the accused, the prosecutor and any sureties. The varied order is treated as a release order under section 515.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 519.1",
@@ -1026,7 +1310,12 @@
       },
       "leadsTo": [
         "vic.cvbr.views"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 519.1 says nothing about a victim raising a change with the Crown or not being able to consent.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.review-accused",
@@ -1043,13 +1332,17 @@
         "vic.bail.review-powers",
         "vic.bail.review-30-days",
         "vic.bail.review-rules"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.review-crown",
       "kind": "motion",
       "title": "Bail review by the prosecutor",
-      "says": "The prosecutor may apply to a judge, at any time before trial, to review a release order. A victim may ask the Crown to consider this, but cannot bring the review themselves.",
+      "says": "The prosecutor may apply to a judge, at any time before trial, to review a release order (or a no-contact direction in a detention order).",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 521 (1)",
@@ -1058,17 +1351,27 @@
       "leadsTo": [
         "vic.bail.review-notice",
         "vic.bail.review-powers"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 521(1) says nothing about a victim asking the Crown or being unable to bring a review.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.review-notice",
       "kind": "deadline",
       "title": "Notice of bail review",
-      "says": "A bail review is not heard unless the other side received at least two clear days' written notice (the prosecutor may consent to less for an accused's review).",
+      "says": "An accused's bail review is not heard unless the accused gave the prosecutor at least two clear days' written notice, unless the prosecutor consents otherwise.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 520 (2)",
         "expect": "at least two clear days notice in writing"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 520(2) covers only an accused's review (notice to the prosecutor); notice on a prosecutor's review is in s. 521(2), a different section.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1083,7 +1386,11 @@
       },
       "leadsTo": [
         "vic.dec.st-cloud"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.review-30-days",
@@ -1094,6 +1401,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 520 (8)",
         "expect": "before the expiry of 30 days from the date of the decision"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1117,6 +1428,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 522 (2)",
         "expect": "shall order that the accused be detained in custody unless the accused"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1132,7 +1447,11 @@
       "leadsTo": [
         "vic.bail.breach-cancel",
         "vic.dec.zora"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.breach-cancel",
@@ -1146,7 +1465,11 @@
       },
       "leadsTo": [
         "vic.bail.breach-reverse-onus"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.bail.breach-reverse-onus",
@@ -1157,6 +1480,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 524 (4)",
         "expect": "order that the accused be detained in custody unless the accused"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1171,13 +1498,17 @@
       },
       "leadsTo": [
         "vic.dec.myers"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.start",
       "kind": "start",
       "title": "Peace bond (s. 810 recognizance): laying the information",
-      "says": "Any person who fears on reasonable grounds that another person will injure them, their intimate partner or child, or damage their property, or share an intimate image without consent, may lay an information before a justice, or have one laid on their behalf. No criminal charge is needed.",
+      "says": "Any person who fears on reasonable grounds that another person will injure them, their intimate partner or child, or damage their property, or will commit the offence of sharing an intimate image without consent (s. 162.1), may lay an information before a justice, or have one laid on their behalf.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 810 (1)",
@@ -1185,7 +1516,12 @@
       },
       "leadsTo": [
         "vic.peace.appearance"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 810(1) does not say that no criminal charge is needed.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.appearance",
@@ -1200,17 +1536,26 @@
       "leadsTo": [
         "vic.peace.test",
         "vic.peace.crown-role"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.crown-role",
       "kind": "step",
       "title": "Crown or private conduct of a peace bond",
-      "says": "A peace bond hearing may be conducted by the Crown Attorney, who acts as the Attorney General's agent under the Criminal Code, or by the person who laid the information. A peace bond is sometimes entered to resolve a criminal charge.",
+      "says": "Every Crown Attorney and every provincial prosecutor is the agent of the Attorney General for the purposes of the Criminal Code.",
       "source": {
         "corpusId": "crown-attorneys-act",
         "pinpoint": "s. 10",
         "expect": "is the agent of the Attorney General for the purposes of the Criminal Code"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 10 says only that Crown Attorneys and provincial prosecutors are the Attorney General's agents for the Criminal Code; it says nothing about peace bond hearings, the informant conducting them, or peace bonds resolving charges.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1227,7 +1572,11 @@
         "vic.peace.conditions",
         "vic.peace.refusal",
         "vic.form.recognizance"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.refusal",
@@ -1238,6 +1587,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 810 (3.01)",
         "expect": "fails or refuses to enter into the recognizance"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1253,7 +1606,11 @@
       "leadsTo": [
         "vic.peace.weapons",
         "vic.peace.no-contact"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.weapons",
@@ -1264,6 +1621,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 810 (3.1)",
         "expect": "prohibited from possessing any firearm"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1275,6 +1636,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 810 (3.2)",
         "expect": "prohibiting the defendant from communicating, in whole or in part"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1286,6 +1651,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 810 (4.1)",
         "expect": "on application of the informant or the defendant, vary the conditions"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1300,7 +1669,11 @@
       },
       "leadsTo": [
         "vic.peace.breach"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.spio",
@@ -1314,7 +1687,11 @@
       },
       "leadsTo": [
         "vic.peace.breach"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.breach",
@@ -1325,29 +1702,43 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 811",
         "expect": "who commits a breach of the recognizance"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.form.recognizance",
       "kind": "form",
       "title": "Recognizance (Criminal Code form)",
-      "says": "A peace bond is entered as a recognizance in the form set out in Part XXVIII of the Criminal Code.",
+      "says": "In the Criminal Code, a recognizance means a recognizance in Form 32 entered into before a judge or justice.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 2 (recognizance)",
         "expect": "means a recognizance in Form 32"
       },
-      "form": "Form 32"
+      "form": "Form 32",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 2 defines a recognizance as one in Form 32 entered into before a judge or justice; it does not mention peace bonds or Part XXVIII.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.peace.family-alternative",
       "kind": "option",
       "title": "Family court restraining order (alternative)",
-      "says": "Separately from the criminal process, a person with reasonable grounds to fear for their own safety or a child's safety may apply in family court for a restraining order against a spouse or former partner.",
+      "says": "On application, a court may make an interim or final restraining order under the Family Law Act if the applicant has reasonable grounds to fear for their own safety or for the safety of a child in their lawful custody. The order may be made against a spouse or former spouse, or against someone who lives or has lived with the applicant for any period.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 46 (1)",
         "expect": "reasonable grounds to fear for his or her own safety"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Section 46(2) limits the order to a spouse or former spouse, or a person who is or has been cohabiting with the applicant; 'former partner' wrongly takes in partners who never lived together.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1362,7 +1753,11 @@
       },
       "leadsTo": [
         "vic.records.ocj-recordings"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.trial.support-person",
@@ -1376,7 +1771,11 @@
       },
       "leadsTo": [
         "vic.trial.inquiry"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.trial.screen",
@@ -1390,13 +1789,17 @@
       },
       "leadsTo": [
         "vic.trial.inquiry"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.trial.no-self-cross",
       "kind": "motion",
       "title": "Self-represented accused may not cross-examine the victim",
-      "says": "In sexual offence, criminal harassment, trafficking and intimate partner cases, the judge must, on application, order that a self-represented accused not personally cross-examine the victim; a lawyer is appointed to do it.",
+      "says": "In sexual offence, criminal harassment, trafficking and intimate partner cases, the judge must, on application by the prosecutor or the victim-witness, order that the accused not personally cross-examine the victim, unless the proper administration of justice requires the accused to do it personally. If the order is made, the judge appoints a lawyer to conduct the cross-examination.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 486.3 (2)",
@@ -1404,17 +1807,27 @@
       },
       "leadsTo": [
         "vic.trial.inquiry"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the exception that the order is not made where the proper administration of justice requires the accused to cross-examine personally, and the section does not limit it to self-represented accused.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.trial.inquiry",
       "kind": "step",
       "title": "Court checks that witnesses were told about these aids",
-      "says": "If no application for a support person or screen is made, the judge must ask the prosecutor whether reasonable steps were taken to tell the witness that one may be made.",
+      "says": "If no application for a support person or support animal is made, the judge must ask the prosecutor whether reasonable steps were taken to tell the witness that one may be made.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 486.1 (1.2)",
         "expect": "whether reasonable steps have been taken to inform the witness"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 486.1(1.2) covers only support person or support animal applications; the matching inquiry for testifying outside the courtroom or behind a screen is in s. 486.2, a different section.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1426,6 +1839,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 486.31 (1)",
         "expect": "any information that could identify the witness not be disclosed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1440,7 +1857,11 @@
       },
       "leadsTo": [
         "vic.trial.pub-ban-other"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.trial.pub-ban-other",
@@ -1451,6 +1872,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 486.5 (1)",
         "expect": "any information that could identify the victim or witness shall not be published"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1462,6 +1887,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 486.7 (1)",
         "expect": "necessary to protect the security of any witness"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1476,7 +1905,11 @@
       },
       "leadsTo": [
         "vic.dec.jj"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.trial.plea-agreement",
@@ -1490,7 +1923,11 @@
       },
       "leadsTo": [
         "vic.sent.vis"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.sent.vis",
@@ -1507,7 +1944,11 @@
         "vic.form.34-2",
         "vic.sent.vis-presentation",
         "vic.rest.consider"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.sent.vis-inquiry",
@@ -1521,7 +1962,11 @@
       },
       "leadsTo": [
         "vic.sent.vis-adjourn"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.sent.vis-adjourn",
@@ -1532,13 +1977,17 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 722 (3)",
         "expect": "On application of the prosecutor or a victim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.form.34-2",
       "kind": "form",
       "title": "Form 34.2: Victim Impact Statement",
-      "says": "The statement is prepared in writing on Form 34.2, following the procedures of the program designated in the province. In Ontario, the Victim/Witness Assistance Program helps victims with this form.",
+      "says": "The statement is prepared in writing on Form 34.2, following the procedures of the program the province has designated for that purpose.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 722 (4)",
@@ -1547,7 +1996,12 @@
       "form": "Form 34.2",
       "leadsTo": [
         "vic.support.vwap"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 722(4) does not name Ontario's Victim/Witness Assistance Program or say that it helps with the form.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.sent.vis-presentation",
@@ -1561,17 +2015,26 @@
       },
       "leadsTo": [
         "vic.sent.vis-relevance"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.sent.vis-relevance",
       "kind": "step",
       "title": "Only relevant parts are considered",
-      "says": "The court takes into account the parts of the statement relevant to sentencing and disregards the rest. A copy goes to the offender and the prosecutor.",
+      "says": "In considering a victim impact statement, the court takes into account the parts it considers relevant to the sentence (or to a discharge) and disregards the rest.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 722 (8)",
         "expect": "disregard any other portion"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 722(8) covers only which parts of the statement the court considers; giving a copy to the offender and prosecutor is in s. 722.1, a different section.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1583,6 +2046,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 722.1",
         "expect": "provide a copy of a statement referred to in subsection 722(1)"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1595,7 +2062,11 @@
         "pinpoint": "s. 722.2 (1)",
         "expect": "any statement made by an individual on a community’s behalf"
       },
-      "form": "Form 34.3"
+      "form": "Form 34.3",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.sent.ncr-vis",
@@ -1607,7 +2078,11 @@
         "pinpoint": "s. 672.5 (14)",
         "expect": "A victim of the offence may prepare and file with the court or Review Board"
       },
-      "form": "Form 48.2"
+      "form": "Form 48.2",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.sent.no-contact-custody",
@@ -1618,6 +2093,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 743.21 (1)",
         "expect": "during the custodial period of the sentence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1629,6 +2108,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 732.1 (3) (a.1)",
         "expect": "abstain from communicating, directly or indirectly, with any victim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1643,7 +2126,11 @@
       },
       "leadsTo": [
         "vic.ovbr.fund"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.rest.consider",
@@ -1660,7 +2147,11 @@
         "vic.form.34-1",
         "vic.rest.property",
         "vic.rest.harm"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.rest.inquiry",
@@ -1674,7 +2165,11 @@
       },
       "leadsTo": [
         "vic.rest.reasons"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.form.34-1",
@@ -1686,7 +2181,11 @@
         "pinpoint": "s. 737.1 (4)",
         "expect": "by completing Form 34.1 in Part XXVIII"
       },
-      "form": "Form 34.1"
+      "form": "Form 34.1",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.rest.reasons",
@@ -1697,6 +2196,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 737.1 (5)",
         "expect": "shall include in the record a statement of the court’s reasons"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1712,13 +2215,17 @@
       "leadsTo": [
         "vic.rest.ability",
         "vic.rest.payment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.rest.harm",
       "kind": "test",
       "title": "Restitution for bodily or psychological harm",
-      "says": "For bodily or psychological harm, the court may order payment of all pecuniary (money) damages caused by the harm, including lost income or support, if the amount is readily ascertainable. Pain and suffering is not covered by restitution; that is for a civil claim.",
+      "says": "For bodily or psychological harm caused by the offence, the court may order payment of up to all pecuniary (money) damages caused by the harm, including lost income or support, if the amount is readily ascertainable.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 738 (1) (b)",
@@ -1727,7 +2234,12 @@
       "leadsTo": [
         "vic.rest.household",
         "vic.civil.start-small-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 738(1)(b) says nothing about pain and suffering or about a civil claim for it.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.rest.household",
@@ -1738,6 +2250,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 738 (1) (c)",
         "expect": "was a member of the offender’s household at the relevant time"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1749,6 +2265,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 738 (1) (e)",
         "expect": "incurs expenses to remove the intimate image from the Internet"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1760,6 +2280,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 739",
         "expect": "to a person acting in good faith and without notice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1771,13 +2295,17 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 739.1",
         "expect": "does not prevent the court from making an order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.rest.payment",
       "kind": "step",
       "title": "Payment date or instalments",
-      "says": "A restitution order must require payment of the full amount by a set day, unless the court sets an instalment schedule. Several victims can be named, with amounts and priority set out.",
+      "says": "A restitution order must require payment of the full amount by a set day, unless the court decides on payment by instalments, in which case the order sets out a payment schedule.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 739.2",
@@ -1786,7 +2314,12 @@
       "leadsTo": [
         "vic.rest.notice",
         "vic.enf.restitution-judgment"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Naming several people with amounts and priority is in s. 739.3, not s. 739.2.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.rest.public-authority",
@@ -1797,6 +2330,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 739.4 (1)",
         "expect": "in favour of a public authority, designated by the regulations"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1808,6 +2345,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 740",
         "expect": "the court shall first make the order of restitution"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1819,6 +2360,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 740.1",
         "expect": "deemed to continue as a restitution order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1830,6 +2375,10 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 741.1",
         "expect": "cause notice of the content of the order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1844,7 +2393,11 @@
       },
       "leadsTo": [
         "vic.enf.garnishment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.enf.money-on-arrest",
@@ -1855,17 +2408,26 @@
         "corpusId": "criminal-code",
         "pinpoint": "s. 741 (2)",
         "expect": "taken out of moneys found in the possession of the offender"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.enf.garnishment",
       "kind": "enforcement",
       "title": "Enforcing in Small Claims Court: garnishment",
-      "says": "Once entered as a judgment in Small Claims Court, the amount can be enforced by the usual Small Claims steps, such as garnishment of wages or bank accounts.",
+      "says": "In Small Claims Court, a creditor may enforce an order for the payment of money by garnishment of debts that other people owe to the debtor.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.08 (1)",
         "expect": "by garnishment of debts payable to the debtor"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 20.08(1) says only that an order for payment may be enforced by garnishing debts owed to the debtor by others; it does not mention entering a restitution order as a judgment or name wages or bank accounts.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1881,7 +2443,11 @@
       "leadsTo": [
         "vic.civil.start-small-claims",
         "vic.civil.start-superior"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.post.ovbr-notification",
@@ -1892,6 +2458,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 2 (1), para. 4",
         "expect": "any hearing held with respect to the accused by the Review Board"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1919,7 +2489,11 @@
       "leadsTo": [
         "vic.records.ocj-restrictions",
         "vic.records.cja-136"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.records.ocj-restrictions",
@@ -1930,6 +2504,10 @@
         "corpusId": "ocj-public-access-court-recordings",
         "pinpoint": "Policy s. 3 (a)",
         "expect": "Proceedings under the Youth Criminal Justice Act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1941,6 +2519,10 @@
         "corpusId": "ocj-public-access-court-recordings",
         "pinpoint": "How to access court records",
         "expect": "should be made at the court location where the matter was heard"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1955,13 +2537,17 @@
       },
       "leadsTo": [
         "vic.records.scj-recordings"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.records.scj-recordings",
       "kind": "step",
       "title": "Superior Court recordings for members of the public",
-      "says": "Unless a Superior Court judge orders otherwise, members of the public, including victims who are not parties, are not given digital recordings. They may request access by seeking a court order with the Request Form/Undertaking and paying the fee.",
+      "says": "Unless a Superior Court judge orders otherwise, members of the public are not given digital recordings of court proceedings. They may request access by seeking a court order using the Request/Undertaking Form and paying the prescribed fee; a person under an order made under s. 140 of the Courts of Justice Act must first get a judge's leave.",
       "source": {
         "corpusId": "scj-accessing-digital-recordings",
         "pinpoint": "Access to Digital Recordings for Members of the Public",
@@ -1969,7 +2555,12 @@
       },
       "leadsTo": [
         "vic.records.scj-not-official"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The policy does not mention victims, and it leaves out that a person under a vexatious-litigant order (CJA s. 140) must first get leave.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.records.scj-not-official",
@@ -1980,6 +2571,10 @@
         "corpusId": "scj-accessing-digital-recordings",
         "pinpoint": "Access to Digital Court Recordings",
         "expect": "are not considered an official court record"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1991,6 +2586,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 136 (1)",
         "expect": "take or attempt to take a photograph"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2002,13 +2601,17 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 137 (1)",
         "expect": "is entitled to see any document filed in a civil proceeding"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.crown.agent",
       "kind": "statute",
       "title": "Crown Attorney acts for the Attorney General",
-      "says": "Every Crown Attorney is the agent of the Attorney General for the purposes of the Criminal Code. The Crown represents the public, not the victim, and the victim is not the Crown's client.",
+      "says": "Every Crown Attorney and every provincial prosecutor is the agent of the Attorney General for the purposes of the Criminal Code.",
       "source": {
         "corpusId": "crown-attorneys-act",
         "pinpoint": "s. 10",
@@ -2016,7 +2619,12 @@
       },
       "leadsTo": [
         "vic.dec.krieger"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 10 does not say that the Crown represents the public rather than the victim or that the victim is not the Crown's client.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.crown.duties",
@@ -2030,7 +2638,11 @@
       },
       "leadsTo": [
         "vic.crown.screening"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.crown.immunity",
@@ -2046,7 +2658,11 @@
         "vic.dec.nelles",
         "vic.dec.miazga",
         "vic.civil.crown-cross-ref"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.dec.krieger",
@@ -2092,7 +2708,7 @@
       "id": "vic.police.complaint",
       "kind": "start",
       "title": "Complaint about police conduct (LECA)",
-      "says": "Any person may make a complaint about the conduct of a police officer to the Complaints Director at the Law Enforcement Complaints Agency.",
+      "says": "Any person, other than those listed in subsection (2) (such as members of the same police service), may make a complaint to the Complaints Director about the conduct of a police officer or other person covered by section 152 of the Act.",
       "source": {
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 154 (1)",
@@ -2102,7 +2718,12 @@
         "vic.police.forward",
         "vic.police.review",
         "vic.police.six-months"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 154(1) does not name the Law Enforcement Complaints Agency, covers the conduct of any person referred to in s. 152 (not only police officers), and is subject to the restrictions in subsection (2).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.police.forward",
@@ -2113,6 +2734,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 155 (1)",
         "expect": "shall forward the complaint to the Complaints Director"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2124,6 +2749,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 157 (2)",
         "expect": "cause the complaint to be investigated"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2138,7 +2767,11 @@
       },
       "leadsTo": [
         "vic.police.affected"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.police.affected",
@@ -2149,6 +2782,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 158 (3)",
         "expect": "A person at whom the conduct was directed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2177,7 +2814,7 @@
       "id": "vic.civil.start-small-claims",
       "kind": "start",
       "title": "Suing the offender in Small Claims Court",
-      "says": "A victim can sue the person who harmed them for damages. Claims up to $50,000 go to Small Claims Court, started by filing a Plaintiff's Claim (Form 7A).",
+      "says": "A Small Claims Court action is started by filing a Plaintiff's Claim (Form 7A) with the clerk, with a copy for each defendant (no copies are needed if the claim is filed electronically).",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 7.01 (1)",
@@ -2190,7 +2827,12 @@
         "vic.test.iims",
         "vic.civil.conviction-proof",
         "vic.civil.settle"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 7.01(1) says only how an action is started; it says nothing about victims suing or the $50,000 limit.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.civil.monetary-limit",
@@ -2201,13 +2843,17 @@
         "corpusId": "oreg-626-00-monetary-jurisdiction",
         "pinpoint": "s. 1 (1)",
         "expect": "$50,000"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.civil.start-superior",
       "kind": "start",
       "title": "Suing the offender in the Superior Court",
-      "says": "Larger claims are started in the Superior Court of Justice by a statement of claim (Form 14A).",
+      "says": "In the Superior Court of Justice, an action is usually started by a statement of claim (Form 14A), or by a notice of action (Form 14C) where there is not enough time to prepare a statement of claim.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.03 (1)",
@@ -2217,7 +2863,12 @@
       "leadsTo": [
         "vic.civil.limit-basic",
         "vic.ovbr.civil-security-costs"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.03(1) does not say which claims are 'larger' or tie the statement of claim to claim size; it also lists exceptions such as a notice of action.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.civil.limit-basic",
@@ -2235,7 +2886,11 @@
         "vic.civil.limit-incapable",
         "vic.civil.ultimate",
         "vic.civil.no-limit-sexual-assault"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.civil.discovery",
@@ -2246,6 +2901,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 5 (1)",
         "expect": "the day on which the person with the claim first knew"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2257,6 +2916,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 6",
         "expect": "is a minor"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2268,6 +2931,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 7 (1)",
         "expect": "because of his or her physical, mental or psychological condition"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2279,6 +2946,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 15 (2)",
         "expect": "15th anniversary of the day on which the act or omission"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2296,7 +2967,11 @@
         "vic.civil.no-limit-assault",
         "vic.civil.no-limit-retroactive",
         "vic.civil.no-limit-all-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.civil.no-limit-sexual-misconduct",
@@ -2307,6 +2982,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 16 (1) (h.1)",
         "expect": "any other misconduct of a sexual nature"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2318,6 +2997,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 16 (1) (h.2)",
         "expect": "they had an intimate relationship"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2329,6 +3012,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 16 (1.1)",
         "expect": "regardless of the expiry of any previously applicable limitation period"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2340,6 +3027,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 16 (1.3)",
         "expect": "for breach of fiduciary or any other duty or for vicarious liability"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2382,6 +3073,10 @@
         "corpusId": "evidence-act",
         "pinpoint": "s. 22.1 (1)",
         "expect": "is proof, in the absence of evidence to the contrary"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2397,7 +3092,11 @@
       "leadsTo": [
         "vic.ovbr.civil-presumption",
         "vic.ovbr.civil-prescribed"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.ovbr.civil-presumption",
@@ -2408,6 +3107,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 3 (2)",
         "expect": "shall be presumed to have suffered emotional distress"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2435,7 +3138,11 @@
       "leadsTo": [
         "vic.ovbr.civil-sentence",
         "vic.ovbr.civil-costs"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "vic.ovbr.civil-sentence",
@@ -2446,6 +3153,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 4 (3)",
         "expect": "shall not consider the sentence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2457,6 +3168,10 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 4 (5)",
         "expect": "to disallow an award of interest to a victim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2468,17 +3183,26 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 4 (6)",
         "expect": "shall make the order on a solicitor and client basis"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.civil.settle",
       "kind": "option",
       "title": "Offer to settle",
-      "says": "In Small Claims Court, a party may serve an offer to settle the claim on the terms set out in the offer at any time.",
+      "says": "In Small Claims Court, a party may serve on any other party an offer to settle the claim on the terms set out in the offer.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.01",
         "expect": "an offer to settle a claim on the terms specified in the offer"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.01 does not say an offer may be made 'at any time'; that is in r. 14.02(1), a separate rule.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2497,7 +3221,7 @@
       "id": "vic.civil.crown-cross-ref",
       "kind": "option",
       "title": "Suing the Crown or police over how the case was handled",
-      "says": "A lawsuit for damages against the Ontario Crown needs 60 days' written notice of the claim before it starts. Claims for misfeasance in public office or bad faith against the Crown or its employees need the court's leave. See the crown-and-public area for these claims.",
+      "says": "A lawsuit that includes a claim for damages cannot be brought against the Ontario Crown unless, at least 60 days before it starts, the claimant serves on the Crown a notice of the claim with enough details to identify the occasion it arose from.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 18 (1)",
@@ -2507,7 +3231,12 @@
         "vic.civil.crown-leave",
         "vic.dec.hill",
         "vic.dec.henry"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 18(1) covers only the 60-day notice; the leave requirement for misfeasance or bad-faith claims is in s. 17, and the cross-reference to another area is not law.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "vic.civil.crown-leave",
@@ -2518,6 +3247,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 17 (2)",
         "expect": "may proceed only with leave of the court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2529,6 +3262,10 @@
         "corpusId": "ontario-connect-supports-survivors-violence",
         "pinpoint": "Victim/Witness Assistance Program",
         "expect": "provides information, assistance and support to victims and witnesses"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2540,6 +3277,10 @@
         "corpusId": "ontario-connect-supports-survivors-violence",
         "pinpoint": "Victim Support Line",
         "expect": "information and referrals for victims of crime across Ontario"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2551,6 +3292,10 @@
         "corpusId": "ontario-connect-supports-survivors-violence",
         "pinpoint": "Victim Crisis Assistance Ontario",
         "expect": "provides crisis intervention services to victims of crime"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2562,6 +3307,10 @@
         "corpusId": "ontario-connect-supports-survivors-violence",
         "pinpoint": "Victim Quick Response Program+",
         "expect": "short-term support for essential expenses for victims"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2573,6 +3322,10 @@
         "corpusId": "ontario-connect-supports-survivors-violence",
         "pinpoint": "Vulnerable Victims and Family Fund",
         "expect": "helps victims of crime participate more fully in the criminal court process"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2584,6 +3337,10 @@
         "corpusId": "ontario-connect-supports-survivors-violence",
         "pinpoint": "Independent Legal Advice",
         "expect": "up to 4 hours of free legal advice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2595,6 +3352,10 @@
         "corpusId": "ontario-connect-supports-survivors-violence",
         "pinpoint": "Help for child victims and child witnesses",
         "expect": "offers support and services to child victims and witnesses"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {

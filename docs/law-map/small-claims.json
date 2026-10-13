@@ -7,7 +7,7 @@
       "id": "sc.statute.rules",
       "kind": "statute",
       "title": "Rules of the Small Claims Court",
-      "says": "The Small Claims Court Rules set out the forms, steps and deadlines for every Small Claims Court case. Their main goal is the just, quickest and least expensive decision of each case on its merits.",
+      "says": "The main goal of the Small Claims Court Rules is to let the court reach a just, quick and least expensive decision of every case on its merits. The court applies the rules liberally to promote that goal, and the parties must help it do so.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.03(1)",
@@ -15,28 +15,43 @@
       },
       "leadsTo": [
         "sc.jurisdiction.money"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The first sentence (the rules set out forms, steps and deadlines for every case) is not in r. 1.03, which states only the primary objective and the duty to promote it.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.statute.court",
       "kind": "statute",
       "title": "Small Claims Court is a branch of the Superior Court",
-      "says": "The Small Claims Court is a branch of the Superior Court of Justice. Cases are heard by a Superior Court judge, a deputy judge or the Small Claims Court Administrative Judge.",
+      "says": "The Small Claims Court is a branch of the Superior Court of Justice. The Chief Justice of the Superior Court is its president, and every Superior Court judge is also a judge of the Small Claims Court.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 22(1)",
         "expect": "continued as a branch of the Superior Court of Justice"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 22 says who the court consists of (the Chief Justice and designated Superior Court judges); who may hear and decide a case (deputy judge, Administrative Judge) is s. 24(2), not s. 22.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "sc.statute.deputy-judges",
       "kind": "statute",
       "title": "Who hears Small Claims cases",
-      "says": "A Small Claims case may be heard and decided by one Superior Court judge, by a deputy judge (a lawyer appointed to the role), or by the Small Claims Court Administrative Judge.",
+      "says": "A Small Claims case is heard and decided by one Superior Court judge, or instead by a deputy judge appointed under section 32 or by the Small Claims Court Administrative Judge.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 24(2)",
         "expect": "a deputy judge appointed under section 32"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The gloss that a deputy judge is a lawyer appointed to the role comes from s. 32, not s. 24(2), which only names a deputy judge appointed under section 32.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -48,6 +63,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 25",
         "expect": "in a summary way all questions of law and fact"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -59,6 +78,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 26",
         "expect": "a person authorized under the Law Society Act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -70,6 +93,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.08",
         "expect": "not authorized to do so under the Law Society Act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -81,6 +108,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.09",
         "expect": "shall notify the court in writing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -92,6 +123,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 27(1)",
         "expect": "any oral testimony and any document or other thing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -103,13 +138,17 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 27(5)",
         "expect": "if the presiding judge is satisfied as to its authenticity"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.statute.fees-reg",
       "kind": "statute",
       "title": "Small Claims Court fees regulation",
-      "says": "Ontario Regulation 332/16 sets the fees paid to the Small Claims Court clerk and bailiff, and the allowances paid to witnesses.",
+      "says": "Ontario Regulation 332/16 sets the fees paid to the Small Claims Court clerk for steps in a case, such as filing a claim, a defence or a motion.",
       "source": {
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(2)",
@@ -117,17 +156,27 @@
       },
       "leadsTo": [
         "sc.fees.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1(2) covers only fees payable to clerks; bailiff fees are in s. 2 and witness allowances in s. 3 of the regulation.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.statute.jurisdiction-reg",
       "kind": "statute",
       "title": "Monetary limit and appeal limit regulation",
-      "says": "Ontario Regulation 626/00 sets the highest amount that can be claimed in Small Claims Court and the amount a case must exceed before it can be appealed.",
+      "says": "Ontario Regulation 626/00 sets the highest amount that can be claimed in Small Claims Court, which is $50,000.",
       "source": {
         "corpusId": "oreg-626-00-monetary-jurisdiction",
         "pinpoint": "s. 1(1)",
         "expect": "The maximum amount of a claim in the Small Claims Court"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1(1) sets only the maximum claim amount; the appeal limit is in s. 2 of the regulation.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -142,7 +191,11 @@
       },
       "leadsTo": [
         "sc.pre.limitation-basic"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.rules.matters-not-covered",
@@ -153,6 +206,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.03.1",
         "expect": "by reference to the Rules of Civil Procedure"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -164,6 +221,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.04",
         "expect": "may impose such terms and give such directions as are just"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -175,6 +236,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 2.01",
         "expect": "is an irregularity and does not render"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -186,6 +251,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 2.02",
         "expect": "may dispense with compliance with any rule at any time"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -197,6 +266,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 3.01",
         "expect": "excluding the first day and including the last day"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -208,6 +281,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.02(1)",
         "expect": "any Saturday or Sunday"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -222,7 +299,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.option.time-consent",
@@ -233,6 +314,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 3.02(2)",
         "expect": "by filing the consent of the parties"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -244,6 +329,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.06(2)",
         "expect": "www.ontariocourtforms.on.ca"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -256,7 +345,11 @@
         "pinpoint": "r. 1.06(3)",
         "expect": "the remaining parties shall be listed in Form 1A"
       },
-      "form": "1A"
+      "form": "1A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.form.15B",
@@ -268,7 +361,11 @@
         "pinpoint": "r. 1.06(5)",
         "expect": "Form 15B may be used for the purpose"
       },
-      "form": "15B"
+      "form": "15B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.rules.online-portal",
@@ -279,6 +376,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.05.4(2)",
         "expect": "Small Claims Court Submissions Online Portal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -290,6 +391,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.05.5(3)",
         "expect": "issuance electronically through the Ontario Courts Public Portal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -301,6 +406,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.05.6(3)",
         "expect": "shall be uploaded to Case Center"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -312,6 +421,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.05.1(6)",
         "expect": "outside of regular business hours is deemed to have been filed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -326,7 +439,11 @@
       },
       "leadsTo": [
         "sc.motion.change-attendance"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.change-attendance",
@@ -341,7 +458,11 @@
       "form": "1B",
       "leadsTo": [
         "sc.form.1C"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.form.1C",
@@ -353,7 +474,11 @@
         "pinpoint": "r. 1.07(5)",
         "expect": "no later than seven days after being served with the request"
       },
-      "form": "1C"
+      "form": "1C",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.jurisdiction.money",
@@ -367,7 +492,11 @@
       },
       "leadsTo": [
         "sc.jurisdiction.limit"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.jurisdiction.limit",
@@ -382,7 +511,11 @@
       "leadsTo": [
         "sc.jurisdiction.no-splitting",
         "sc.forum.place"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.jurisdiction.deputy-limit",
@@ -393,6 +526,10 @@
         "corpusId": "oreg-626-00-monetary-jurisdiction",
         "pinpoint": "s. 1(2)",
         "expect": "over which a deputy judge may preside is $50,000"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -404,6 +541,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 6.02",
         "expect": "shall not be divided into two or more actions"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -434,6 +575,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.01.1(3)",
         "expect": "only if it is in the interest of justice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -445,6 +590,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 57.05(1)",
         "expect": "the plaintiff shall not recover any costs"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -456,6 +605,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 23(2)",
         "expect": "with the consent of all parties filed before the trial"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -467,17 +620,26 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 110(1)",
         "expect": "may be transferred or adjourned to the proper court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.jurisdiction.vexatious",
       "kind": "statute",
       "title": "Vexatious litigant orders",
-      "says": "A Superior Court or Court of Appeal judge may order that a person who has persistently brought vexatious cases cannot start or continue cases without a judge's leave. If such a person starts a Small Claims case without leave, the court must stay or dismiss it, and any party may ask for that order in writing.",
+      "says": "If a person who is subject to an order under subsection 140(1) of the Courts of Justice Act starts or continues a Small Claims case without the order being cancelled or leave being granted, the court must stay or dismiss the case. Any party may ask for that order in writing, and it may be made without notice.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 12.03(1)",
         "expect": "subsection 140 (1) of the Courts of Justice Act"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 12.03 does not say who makes a vexatious-litigant order or what it does; that is s. 140(1) of the Courts of Justice Act, which is not the cited provision.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -492,7 +654,11 @@
       },
       "leadsTo": [
         "sc.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.forum.territorial",
@@ -503,6 +669,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 1.02(1)",
         "expect": "a county, a district or a regional municipality"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -514,6 +684,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 6.01(2)",
         "expect": "balance of convenience substantially favours"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -529,7 +703,11 @@
       "leadsTo": [
         "sc.pre.discovery",
         "sc.pre.ultimate"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.pre.discovery",
@@ -544,7 +722,11 @@
       "leadsTo": [
         "sc.pre.discovery-presumption",
         "sc.decision.grant-thornton"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.pre.discovery-presumption",
@@ -555,6 +737,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 5(2)",
         "expect": "shall be presumed to have known of the matters"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -566,6 +752,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 5(3)",
         "expect": "once a demand for the performance is made"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -577,6 +767,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 6",
         "expect": "does not run during any time in which the person with the claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -604,6 +798,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 11(1)",
         "expect": "agreed to have an independent third party resolve the claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -615,6 +813,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 13(1)",
         "expect": "acknowledges liability in respect of a claim for payment of a liquidated sum"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -626,6 +828,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 15(2)",
         "expect": "after the 15th anniversary of the day on which the act or omission"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -656,6 +862,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 22(1)",
         "expect": "applies despite any agreement to vary or exclude it"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -667,6 +877,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 21(1)",
         "expect": "shall not be pursued by adding the person as a party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -682,7 +896,11 @@
       "leadsTo": [
         "sc.pre.municipal-excuse",
         "sc.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.pre.municipal-excuse",
@@ -693,6 +911,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 44(12)",
         "expect": "reasonable excuse for the want or the insufficiency"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -704,6 +926,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 44(9)",
         "expect": "Except in case of gross negligence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -718,7 +944,11 @@
       },
       "leadsTo": [
         "sc.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.pre.toronto-sidewalk",
@@ -729,6 +959,10 @@
         "corpusId": "city-of-toronto-act-2006",
         "pinpoint": "s. 42(5)",
         "expect": "Except in case of gross negligence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -744,7 +978,11 @@
       "leadsTo": [
         "sc.pre.snow-ice-excuse",
         "sc.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.pre.snow-ice-excuse",
@@ -755,6 +993,10 @@
         "corpusId": "occupiers-liability-act",
         "pinpoint": "s. 6.1(6)",
         "expect": "reasonable excuse for the want or the insufficiency"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -769,7 +1011,11 @@
       },
       "leadsTo": [
         "sc.pre.mva-noncompliance"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.pre.mva-noncompliance",
@@ -780,6 +1026,10 @@
         "corpusId": "insurance-act",
         "pinpoint": "s. 258.3(9)",
         "expect": "may commence an action without complying"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -791,6 +1041,10 @@
         "corpusId": "insurance-act",
         "pinpoint": "s. 258.3(8)",
         "expect": "no prejudgment interest shall be awarded"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -805,7 +1059,11 @@
       },
       "leadsTo": [
         "sc.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.fees.frequent",
@@ -816,6 +1074,10 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(1)",
         "expect": "has already filed 10 or more claims in the same office"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -827,6 +1089,10 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(2)",
         "expect": "On the filing of a defence, $77"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -838,6 +1104,10 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(2)",
         "expect": "except a notice of motion under the Wages Act), $127"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -849,6 +1119,10 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(2)",
         "expect": "assessment hearing by an infrequent claimant, $308"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -860,17 +1134,26 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(2)",
         "expect": "default judgment by an infrequent claimant, $94"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.fees.enforcement",
       "kind": "pre-step",
       "title": "Enforcement fees",
-      "says": "A summons to witness costs $33; a certificate of judgment $30; a writ of delivery, writ of seizure and sale or notice of examination $68; a notice of garnishment or renewal $144; and a consolidation order $127. Bailiffs charge separate fees for each attempt to enforce.",
+      "says": "Clerk fees: a summons to witness costs $33; a certificate of judgment $30; a writ of delivery, writ of seizure and sale or notice of examination $68; issuing or renewing a notice of garnishment $144; and preparing and filing a consolidation order $127.",
       "source": {
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(2)",
         "expect": "On the issue or renewal of a notice of garnishment, $144"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The last sentence about bailiff fees for each attempt comes from s. 2 of the regulation, not s. 1(2), which lists clerk fees only.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -882,6 +1165,10 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 1(2)",
         "expect": "For forwarding a court file to Divisional Court for appeal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -893,6 +1180,10 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 3",
         "expect": "For attendance in court, $11 per day"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -904,6 +1195,10 @@
         "corpusId": "oreg-332-16-small-claims-fees",
         "pinpoint": "s. 4(1)",
         "expect": "Beginning on January 1, 2027"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -918,7 +1213,11 @@
       },
       "leadsTo": [
         "sc.fees.waiver-reg"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.fees.waiver-reg",
@@ -944,7 +1243,11 @@
       },
       "leadsTo": [
         "sc.form.4A"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.form.4A",
@@ -956,7 +1259,11 @@
         "pinpoint": "r. 4.01(3)",
         "expect": "file with the clerk a consent (Form 4A)"
       },
-      "form": "4A"
+      "form": "4A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.parties.minor-500",
@@ -967,6 +1274,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 4.01(2)",
         "expect": "may sue for any sum not exceeding $500"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -979,7 +1290,11 @@
         "pinpoint": "r. 4.02(1)",
         "expect": "shall be defended by a litigation guardian"
       },
-      "form": "4A"
+      "form": "4A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.parties.who-lg",
@@ -990,6 +1305,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 4.03(2)",
         "expect": "the Children's Lawyer shall be the litigation guardian"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1001,6 +1320,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 4.06",
         "expect": "has not been defended by a litigation guardian"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1012,6 +1335,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 4.07",
         "expect": "without the approval of the court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1024,17 +1351,26 @@
         "pinpoint": "r. 4.08(1)",
         "expect": "shall be paid into court, unless the court orders otherwise"
       },
-      "form": "4B"
+      "form": "4B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.parties.partnership",
       "kind": "pre-step",
       "title": "Suing or being sued as a partnership",
-      "says": "Partners may sue or be sued in the firm name. A partnership sued in its name defends in the firm name.",
+      "says": "A case by or against two or more people as partners may be started using the partnership's firm name.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 5.01",
         "expect": "may be commenced using the firm name of the partnership"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 5.01 only allows a proceeding by or against partners to start in the firm name; defending in the firm name is r. 5.02.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1047,7 +1383,11 @@
         "pinpoint": "r. 5.03(1)",
         "expect": "notice to alleged partner (Form 5A)"
       },
-      "form": "5A"
+      "form": "5A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.parties.disclose-partners",
@@ -1058,6 +1398,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 5.04(1)",
         "expect": "disclose immediately in writing the names and addresses"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1069,6 +1413,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 5.06(1)",
         "expect": "using the business name"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1101,7 +1449,11 @@
       "leadsTo": [
         "sc.start.claim-contents",
         "sc.start.issue"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.start.claim-contents",
@@ -1115,7 +1467,11 @@
       },
       "leadsTo": [
         "sc.start.claim-documents"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.start.claim-documents",
@@ -1126,6 +1482,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 7.01(2)",
         "expect": "a copy of the document shall be attached to each copy of the claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1140,7 +1500,11 @@
       },
       "leadsTo": [
         "sc.deadline.serve-claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.start.interest-prejudgment",
@@ -1151,6 +1515,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 128(1)",
         "expect": "calculated from the date the cause of action arose"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1162,6 +1530,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 129(1)",
         "expect": "bears interest at the postjudgment interest rate"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1173,6 +1545,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 130(1)",
         "expect": "where it considers it just to do so"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1188,7 +1564,11 @@
       "leadsTo": [
         "sc.service.claim-methods",
         "sc.motion.extend-service"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.extend-service",
@@ -1202,7 +1582,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.service.claim-methods",
@@ -1220,7 +1604,11 @@
         "sc.service.registered-mail",
         "sc.service.corp-alt",
         "sc.motion.substituted"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.service.personal",
@@ -1234,7 +1622,11 @@
       },
       "leadsTo": [
         "sc.form.8A"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.service.municipality",
@@ -1245,17 +1637,26 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.02",
         "expect": "with the clerk or deputy clerk of the municipality"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.service.crown",
       "kind": "step",
       "title": "Serving the Crown in right of Ontario",
-      "says": "The Crown in right of Ontario is served under section 15 of the Crown Liability and Proceedings Act, 2019, and may also be served by email at the address posted by the Ministry of the Attorney General.",
+      "says": "Personal service on the Crown in right of Ontario is made in accordance with section 15 of the Crown Liability and Proceedings Act, 2019.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.02",
         "expect": "section 15 of the Crown Liability and Proceedings Act, 2019"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Service on the Crown in right of Ontario by email is r. 8.03(9), not r. 8.02, which only refers to section 15 of the Crown Liability and Proceedings Act, 2019.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1270,7 +1671,11 @@
       },
       "leadsTo": [
         "sc.deadline.alt-effective"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.service.corp-alt",
@@ -1284,7 +1689,11 @@
       },
       "leadsTo": [
         "sc.deadline.alt-effective"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.alt-effective",
@@ -1298,7 +1707,11 @@
       },
       "leadsTo": [
         "sc.deadline.defence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.service.lawyer-accept",
@@ -1309,6 +1722,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.03(5)",
         "expect": "endorses on the document or a copy of it an acceptance of service"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1323,7 +1740,11 @@
       },
       "leadsTo": [
         "sc.deadline.defence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.substituted",
@@ -1337,7 +1758,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.service.outside-ontario",
@@ -1348,6 +1773,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.05",
         "expect": "costs reasonably incurred in effecting service"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1359,6 +1788,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.01(14)",
         "expect": "by mail, by courier, by email, personally"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1370,6 +1803,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.07(2)",
         "expect": "on the fifth day following the date of mailing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1381,6 +1818,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.07.1(2)",
         "expect": "courier verifies to the sender that the document was delivered"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1408,6 +1849,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.09(1)",
         "expect": "within seven days after the change takes place"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1420,7 +1865,11 @@
         "pinpoint": "r. 8.09.1(2)",
         "expect": "affidavit of service (Form 8A)"
       },
-      "form": "8A"
+      "form": "8A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.form.8B",
@@ -1432,7 +1881,11 @@
         "pinpoint": "r. 8.09.1(3)",
         "expect": "certificate of service (Form 8B)"
       },
-      "form": "8B"
+      "form": "8B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.not-received",
@@ -1446,7 +1899,11 @@
       },
       "leadsTo": [
         "sc.motion.set-aside-default"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.defence",
@@ -1465,7 +1922,11 @@
         "sc.start.defendants-claim",
         "sc.step.noting-default",
         "sc.step.settlement-conference"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.defence-contents",
@@ -1476,6 +1937,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 9.02(1)",
         "expect": "The reasons why the defendant disputes the plaintiff's claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1487,6 +1952,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 111(1)",
         "expect": "claim the right to set off against the plaintiff's claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1502,7 +1971,11 @@
       "leadsTo": [
         "sc.step.proposal-undisputed",
         "sc.deadline.dispute-proposal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.proposal-undisputed",
@@ -1517,7 +1990,11 @@
       "form": "20L",
       "leadsTo": [
         "sc.enforcement.methods"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.dispute-proposal",
@@ -1532,7 +2009,11 @@
       "form": "9B",
       "leadsTo": [
         "sc.step.terms-hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.terms-hearing",
@@ -1548,7 +2029,11 @@
       "leadsTo": [
         "sc.step.terms-no-show",
         "sc.step.terms-default"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.terms-no-show",
@@ -1559,6 +2044,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 9.03(6)",
         "expect": "for the part of the claim that has been admitted"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1573,19 +2062,28 @@
       },
       "leadsTo": [
         "sc.enforcement.methods"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.form.9B",
       "kind": "form",
       "title": "Form 9B: Request to clerk",
-      "says": "Form 9B is used to ask the clerk to note a defendant in default, to set an assessment hearing, to set a terms of payment hearing, or to fix a trial date.",
+      "says": "A request to the clerk (Form 9B) is used to ask the clerk to fix a trial date. Once a settlement conference has been held and the fee is paid, the clerk fixes the date and serves a notice of trial.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 16.01(1)",
         "expect": "request to the clerk (Form 9B)"
       },
-      "form": "9B"
+      "form": "9B",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 16.01(1) mentions Form 9B only as the request to fix a trial date; its use to note default, request an assessment hearing or a terms of payment hearing comes from other rules (11.01, 11.03, 9.03).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.start.defendants-claim",
@@ -1600,7 +2098,11 @@
       "form": "10A",
       "leadsTo": [
         "sc.deadline.defendants-claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.defendants-claim",
@@ -1616,7 +2118,11 @@
       "leadsTo": [
         "sc.step.dc-service",
         "sc.motion.dc-leave"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.dc-leave",
@@ -1630,7 +2136,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.dc-service",
@@ -1644,7 +2154,11 @@
       },
       "leadsTo": [
         "sc.deadline.defence-to-dc"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.defence-to-dc",
@@ -1656,7 +2170,11 @@
         "pinpoint": "r. 10.03",
         "expect": "within 20 days after service of the defendant's claim"
       },
-      "form": "9A"
+      "form": "9A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.dc-tried-together",
@@ -1667,6 +2185,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 10.04(2)",
         "expect": "unduly complicate or delay the trial"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1678,6 +2200,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 10.04(3)",
         "expect": "may at the trial contest the defendant's liability to the plaintiff"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1689,6 +2215,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.04",
         "expect": "only at trial or on motion"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1707,7 +2237,11 @@
         "sc.step.assessment",
         "sc.step.default-consequences",
         "sc.option.discontinue"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.form.11A",
@@ -1719,7 +2253,11 @@
         "pinpoint": "r. 11.01(3)",
         "expect": "affidavit for jurisdiction (Form 11A)"
       },
-      "form": "11A"
+      "form": "11A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.default-judgment-liquidated",
@@ -1735,7 +2273,11 @@
       "leadsTo": [
         "sc.enforcement.methods",
         "sc.motion.set-aside-default"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.assessment",
@@ -1751,7 +2293,11 @@
       "leadsTo": [
         "sc.test.assessment-amount",
         "sc.step.assessment-hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.test.assessment-amount",
@@ -1762,6 +2308,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.03(5)",
         "expect": "is not required to prove liability"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1773,6 +2323,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.03(4)",
         "expect": "shall proceed as a trial in accordance with rule 17"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1784,6 +2338,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.03(7)",
         "expect": "shall proceed to a settlement conference under rule 13"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1798,7 +2356,11 @@
       },
       "leadsTo": [
         "sc.motion.set-aside-default"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.set-aside-default",
@@ -1815,7 +2377,11 @@
         "sc.decision.mountain-view",
         "sc.option.consent-order",
         "sc.decision.1196158"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.dismissal-delay",
@@ -1830,7 +2396,11 @@
       "leadsTo": [
         "sc.step.dismissal-exceptions",
         "sc.option.consent-order"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.dismissal-exceptions",
@@ -1841,6 +2411,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.1.01(2)",
         "expect": "an offer to settle the action has been accepted and filed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1852,13 +2426,17 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.1.02",
         "expect": "deemed to be dismissed 60 days after the order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.option.consent-order",
       "kind": "option",
       "title": "Clerk's order on consent (Form 11.2A)",
-      "says": "If all parties sign, the clerk makes an order for certain things: amending a claim or defence or changing parties less than 30 days before trial, setting aside a default or default judgment, restoring a case dismissed for delay, noting payment in full, or dismissing a case.",
+      "says": "If all parties (including any party being added, deleted or substituted) sign a request for clerk's order on consent (Form 11.2A) stating that each received a copy and that no affected party is under disability, the clerk makes an order for certain things: amending a claim or defence or changing parties less than 30 days before the original trial date, setting aside a noting in default or default judgment, restoring a case dismissed for delay, noting payment in full, or dismissing a case.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.2.01(1)",
@@ -1867,7 +2445,12 @@
       "form": "11.2A",
       "leadsTo": [
         "sc.step.consent-refused"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "It drops a condition of the rule: the signed request must also state that each party received a copy and that no affected party is under disability, so all parties signing is not enough by itself.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.consent-refused",
@@ -1878,6 +2461,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.2.01(3)",
         "expect": "with reasons for the refusal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1893,7 +2480,11 @@
       "form": "11.3A",
       "leadsTo": [
         "sc.test.discontinue-effect"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.test.discontinue-effect",
@@ -1904,6 +2495,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.3.02",
         "expect": "is not a defence to a subsequent action"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1915,6 +2510,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.09",
         "expect": "shall not be withdrawn or discontinued"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1929,7 +2528,11 @@
       },
       "leadsTo": [
         "sc.deadline.amend"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.amend",
@@ -1940,6 +2543,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 12.01(3)",
         "expect": "at least 30 days before the originally scheduled trial date"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1955,7 +2562,11 @@
       "leadsTo": [
         "sc.motion.general",
         "sc.decision.grover"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.court-dismiss-own",
@@ -1966,6 +2577,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 12.02(4)",
         "expect": "no more than four pages in length"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1982,7 +2597,11 @@
       "leadsTo": [
         "sc.deadline.sc-90",
         "sc.deadline.sc-disclosure"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.sc-90",
@@ -1993,6 +2612,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.01(3)",
         "expect": "within 90 days after the first defence is filed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2008,7 +2631,11 @@
       "form": "13A",
       "leadsTo": [
         "sc.step.sc-participation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.sc-participation",
@@ -2022,7 +2649,11 @@
       },
       "leadsTo": [
         "sc.step.sc-purposes"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.sc-failure",
@@ -2033,6 +2664,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.02(6)",
         "expect": "strike out the defence and dismiss the defendant's claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2048,7 +2683,11 @@
       "leadsTo": [
         "sc.step.sc-confidential",
         "sc.step.sc-orders"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.sc-confidential",
@@ -2060,7 +2699,11 @@
         "pinpoint": "r. 13.03(4)",
         "expect": "shall not be disclosed to others until after the action has been disposed of"
       },
-      "form": "13B"
+      "form": "13B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.sc-recommendations",
@@ -2071,6 +2714,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.04",
         "expect": "the elimination of claims or defences that appear to be unsupported"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2082,6 +2729,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.05(2)",
         "expect": "directing production of documents"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2094,13 +2745,17 @@
         "pinpoint": "r. 13.05(4)",
         "expect": "final determination of the matter at the settlement conference"
       },
-      "form": "13B"
+      "form": "13B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.sc-memorandum",
       "kind": "step",
       "title": "Settlement conference memorandum",
-      "says": "At the end, the court prepares a memorandum of recommendations, remaining issues, agreed matters, evidence issues and scheduling, which goes to the trial judge. The conference judge does not hear the trial.",
+      "says": "At the end of the settlement conference, the court prepares a memorandum summarizing its recommendations, the issues still in dispute, what the parties agreed, relevant evidence matters and scheduling. It is filed with the clerk, who gives a copy to the trial judge.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.06(1)",
@@ -2108,7 +2763,12 @@
       },
       "leadsTo": [
         "sc.deadline.request-trial"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "That the conference judge does not preside at trial is r. 13.08, not r. 13.06.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.sc-costs",
@@ -2119,6 +2779,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.10",
         "expect": "shall not exceed $100 unless the court orders otherwise"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2133,13 +2797,17 @@
       },
       "leadsTo": [
         "sc.step.trial-date"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.option.offer",
       "kind": "option",
       "title": "Offer to settle (Form 14A)",
-      "says": "A party may serve any other party with a written offer to settle, at any time. Form 14A may be used; acceptance may use Form 14B and withdrawal Form 14C.",
+      "says": "An offer to settle, an acceptance and a notice of withdrawal must be in writing. An offer may be made in Form 14A, an acceptance in Form 14B and a withdrawal in Form 14C.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.01.1(2)",
@@ -2150,7 +2818,12 @@
         "sc.deadline.offer-7days",
         "sc.step.offer-accept",
         "sc.step.offer-withdraw"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.01.1 says offers, acceptances and withdrawals must be in writing and names the forms; that an offer may be made at any time is r. 14.02(1), not the cited rule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.offer-7days",
@@ -2165,19 +2838,28 @@
       "leadsTo": [
         "sc.test.offer-plaintiff",
         "sc.test.offer-defendant"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.offer-withdraw",
       "kind": "step",
       "title": "Withdrawing or expiry of an offer",
-      "says": "An offer may be withdrawn any time before acceptance by serving a notice of withdrawal (Form 14C). An offer with an end date is treated as withdrawn the day after that date, and no offer can be accepted after the court decides the claim.",
+      "says": "An offer may be withdrawn any time before acceptance by serving a notice of withdrawal on the party it was made to. An offer with an end date is treated as withdrawn the day after that date if not accepted, and no offer can be accepted after the court decides the claim.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.03(1)",
         "expect": "may be withdrawn at any time before it is accepted"
       },
-      "form": "14C"
+      "form": "14C",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.03 does not name Form 14C; the form number comes from r. 14.01.1(2).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.offer-no-disclosure",
@@ -2188,13 +2870,17 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.04",
         "expect": "no communication about it or any related negotiations"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.step.offer-accept",
       "kind": "step",
       "title": "Accepting an offer (Form 14B)",
-      "says": "An offer is accepted by serving an acceptance (Form 14B) before it is withdrawn or the court decides the claim. The terms may be written up as terms of settlement (Form 14D). If costs are not dealt with, the plaintiff gets disbursements up to the set date.",
+      "says": "An offer is accepted by serving an acceptance on the party who made it, before the offer is withdrawn or the court decides the claim. If the accepted offer does not deal with costs, the plaintiff gets disbursements assessed up to the date set by the rule.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.05(1)",
@@ -2204,7 +2890,12 @@
       "leadsTo": [
         "sc.form.14D",
         "sc.motion.offer-breach"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.05 does not name Form 14B or terms of settlement (Form 14D); those come from r. 14.01.1.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.form.14D",
@@ -2216,7 +2907,11 @@
         "pinpoint": "r. 14.01.1(3)",
         "expect": "terms of settlement (Form 14D)"
       },
-      "form": "14D"
+      "form": "14D",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.offer-pay-into-court",
@@ -2227,6 +2922,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.05(2)",
         "expect": "the defendant may accept the offer only by paying the money into court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2241,7 +2940,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.test.offer-plaintiff",
@@ -2252,6 +2955,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.07(1)",
         "expect": "an amount not exceeding twice the costs of the action"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2263,6 +2970,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.07(2)",
         "expect": "from the date the offer was served"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2274,6 +2985,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.07(3)",
         "expect": "an amount not exceeding $1,500"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2290,7 +3005,11 @@
       "leadsTo": [
         "sc.deadline.motion-service",
         "sc.step.motion-hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.motion-service",
@@ -2304,7 +3023,11 @@
       },
       "leadsTo": [
         "sc.deadline.motion-response"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.motion-response",
@@ -2332,6 +3055,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 15.01(6)",
         "expect": "including those who have been noted in default"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2343,6 +3070,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 15.02",
         "expect": "fair and reasonable for the motion to be in writing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2357,7 +3088,11 @@
       },
       "leadsTo": [
         "sc.motion.set-aside-without-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.set-aside-without-notice",
@@ -2368,6 +3103,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 15.03(3)",
         "expect": "within 30 days after being served with the order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2379,17 +3118,26 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 15.04",
         "expect": "making numerous motions without merit"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.step.motion-adjourn",
       "kind": "step",
       "title": "Adjourning or withdrawing a motion",
-      "says": "A motion is not adjourned before the hearing date at a party's request unless all parties' written consent is filed or the court orders otherwise, and is not withdrawn without all parties' written consent or leave.",
+      "says": "A motion is not adjourned at a party's request before the hearing date unless all parties' written consent is filed with the request, unless the court orders otherwise.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 15.05",
         "expect": "unless the written consent of all parties is filed"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The withdrawal limit (all parties' written consent or leave) is r. 15.06, not r. 15.05, which deals only with adjournment.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2401,6 +3149,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 15.07",
         "expect": "shall not exceed $100 unless the court orders otherwise"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2418,17 +3170,26 @@
         "sc.step.tmc",
         "sc.deadline.evidence-30",
         "sc.step.summons"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.tmc",
       "kind": "step",
       "title": "Trial management conference",
-      "says": "After a trial date is requested, the court may on its own direct a trial management conference before a judge to check readiness, narrow issues, encourage settlement and set the trial date. Parties must take part; costs up to $100 may be ordered, and the judge does not preside at trial.",
+      "says": "After a request to fix a trial date is filed, the court may on its own direct that a trial management conference be held before a judge. The parties and their representatives take part unless the court directs otherwise, the clerk sets and serves notice of it, and the court may impose costs or other sanctions on a party who does not attend or who is so unprepared as to frustrate it.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 16.1.01(1)",
         "expect": "direct that a trial management conference be held before a judge"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The purposes, the $100 costs limit and the bar on the conference judge presiding at trial are in rr. 16.1.02, 16.1.07 and 16.1.06, not r. 16.1.01.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2459,6 +3220,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 18.02(3)",
         "expect": "a summary of his or her qualifications"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2475,7 +3240,11 @@
       "leadsTo": [
         "sc.deadline.summons-10",
         "sc.enforcement.witness-warrant"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.summons-10",
@@ -2486,6 +3255,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.01(7)",
         "expect": "at least 10 days before the trial date"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2497,6 +3270,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 18.03(5.1)",
         "expect": "shall arrange for a qualified interpreter"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2509,7 +3286,11 @@
         "pinpoint": "r. 18.03(6)",
         "expect": "by warrant (Form 18B)"
       },
-      "form": "18B"
+      "form": "18B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.undefended-affidavit",
@@ -2520,6 +3301,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 18.01",
         "expect": "the plaintiff's case may be proved by affidavit"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2531,6 +3316,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 17.02(1)",
         "expect": "A trial may be adjourned only by order of the court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2542,6 +3331,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 17.03",
         "expect": "inspect any real or personal property"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2556,7 +3349,11 @@
       },
       "leadsTo": [
         "sc.motion.set-aside-missed"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.set-aside-missed",
@@ -2570,7 +3367,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.new-trial",
@@ -2584,7 +3385,11 @@
       },
       "leadsTo": [
         "sc.test.new-trial"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.test.new-trial",
@@ -2595,6 +3400,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 17.04(5)",
         "expect": "purely arithmetical error"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2606,6 +3415,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 28",
         "expect": "may order the times and the proportions"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2620,7 +3433,11 @@
       },
       "leadsTo": [
         "sc.step.costs-penalty"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.disbursements",
@@ -2631,6 +3448,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 19.01(4)",
         "expect": "shall not exceed $200"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2642,6 +3463,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 19.01(3)",
         "expect": "shall not exceed $60 for each person served"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2653,6 +3478,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 19.04",
         "expect": "a reasonable representation fee"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2664,6 +3493,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 19.05",
         "expect": "an amount not exceeding $500"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2675,6 +3508,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 19.06",
         "expect": "has unduly complicated or prolonged an action"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2691,7 +3528,11 @@
         "sc.test.appeal-limit",
         "sc.deadline.appeal-30",
         "sc.decision.housen"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.test.appeal-limit",
@@ -2702,6 +3543,10 @@
         "corpusId": "oreg-626-00-monetary-jurisdiction",
         "pinpoint": "s. 2(1)",
         "expect": "the prescribed amount is $5,000"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2713,6 +3558,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 133",
         "expect": "from an order made with the consent of the parties"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2747,7 +3596,11 @@
         "pinpoint": "r. 61.05(1)",
         "expect": "appellant's certificate respecting evidence (Form 61C)"
       },
-      "form": "61C"
+      "form": "61C",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.appeal-perfect",
@@ -2758,6 +3611,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 61.09(1)",
         "expect": "within thirty days after filing the notice of appeal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2769,6 +3626,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 63.01(1)",
         "expect": "stays, until the disposition of the appeal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2787,19 +3648,28 @@
         "sc.enforcement.wss-land",
         "sc.enforcement.garnishment",
         "sc.enforcement.examination"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.affidavit-20P",
       "kind": "form",
       "title": "Form 20P: Affidavit for enforcement request",
-      "says": "Most enforcement requests are supported by an affidavit for enforcement request (Form 20P) stating the amount still owing.",
+      "says": "A creditor's request for a certificate of judgment is supported by an affidavit for enforcement request (Form 20P) stating the amount still owing.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.04(1)",
         "expect": "affidavit for enforcement request (Form 20P)"
       },
-      "form": "20P"
+      "form": "20P",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 20.04(1) uses Form 20P only for a request for a certificate of judgment; it does not say that most enforcement requests use it.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.stay-vary",
@@ -2813,7 +3683,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.periodic-limit",
@@ -2824,6 +3698,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.02(2)",
         "expect": "except issuing a writ of seizure and sale of land"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2836,7 +3714,11 @@
         "pinpoint": "r. 20.02(4)",
         "expect": "15 days after the creditor serves the debtor"
       },
-      "form": "20M"
+      "form": "20M",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.certificate",
@@ -2848,7 +3730,11 @@
         "pinpoint": "r. 20.04(1)",
         "expect": "issue a certificate of judgment (Form 20A)"
       },
-      "form": "20A"
+      "form": "20A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.delivery",
@@ -2860,7 +3746,11 @@
         "pinpoint": "r. 20.05(1)",
         "expect": "writ of delivery (Form 20B)"
       },
-      "form": "20B"
+      "form": "20B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.wss-personal",
@@ -2877,7 +3767,11 @@
         "sc.enforcement.writ-duration",
         "sc.enforcement.exemptions",
         "sc.enforcement.sale-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.direction",
@@ -2889,17 +3783,26 @@
         "pinpoint": "r. 20.06(4)",
         "expect": "(Form 20O) with the bailiff"
       },
-      "form": "20O"
+      "form": "20O",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.leave-6yrs",
       "kind": "enforcement",
       "title": "Leave needed after six years",
-      "says": "If more than six years have passed since the order, a writ of seizure and sale or a notice of garnishment may be issued only with the court's leave. A leave order lapses if the writ is not issued within one year.",
+      "says": "If more than six years have passed since the order, a writ of seizure and sale of personal property may be issued only with the court's leave. A leave order lapses if the writ is not issued within one year, and a new motion is then needed.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.06(1.1)",
         "expect": "If more than six years have passed since the order was made"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 20.06(1.1) covers only a writ of seizure and sale of personal property; leave for a notice of garnishment is r. 20.08(2.1).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2912,7 +3815,11 @@
         "pinpoint": "r. 20.06(2)",
         "expect": "expires on the sixth anniversary of the date of its issue"
       },
-      "form": "20N"
+      "form": "20N",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.sale-notice",
@@ -2923,6 +3830,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.06(6)",
         "expect": "at least 10 days before the sale"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2934,6 +3845,10 @@
         "corpusId": "execution-act",
         "pinpoint": "s. 2(1)",
         "expect": "exempt from forced seizure or sale"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2949,7 +3864,11 @@
       "form": "20D",
       "leadsTo": [
         "sc.enforcement.land-rcp"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.land-rcp",
@@ -2960,6 +3879,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.07(2)",
         "expect": "as if the writ were a writ of seizure and sale issued under rule 60.07"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2974,7 +3897,11 @@
       },
       "leadsTo": [
         "sc.enforcement.garnish-request"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.garnish-request",
@@ -2990,7 +3917,11 @@
       "leadsTo": [
         "sc.enforcement.garnish-service",
         "sc.enforcement.garnish-duration"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.garnish-service",
@@ -3005,7 +3936,11 @@
       "leadsTo": [
         "sc.enforcement.garnishee-pay",
         "sc.enforcement.garnishee-statement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.garnish-duration",
@@ -3017,7 +3952,11 @@
         "pinpoint": "r. 20.08(5.1)",
         "expect": "remains in force for six years from the date of its issue"
       },
-      "form": "20E.1"
+      "form": "20E.1",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.garnishee-pay",
@@ -3031,13 +3970,17 @@
       },
       "leadsTo": [
         "sc.enforcement.wages-exempt"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.wages-exempt",
       "kind": "enforcement",
       "title": "80% of wages are protected",
-      "says": "80% of a person's wages are exempt from seizure or garnishment (50% when enforcing support). A garnishee pays into court only the non-exempt part.",
+      "says": "80% of a person's wages are exempt from seizure or garnishment, or 50% when an order for support or maintenance is being enforced. Amounts the employer must deduct by law are not counted as wages.",
       "source": {
         "corpusId": "wages-act",
         "pinpoint": "s. 7(2)",
@@ -3045,7 +3988,12 @@
       },
       "leadsTo": [
         "sc.motion.wage-exemption"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 7 of the Wages Act does not say a garnishee pays into court only the non-exempt part; that limit is in Small Claims rule 20.08(9) (s. 7(6) only lets an employer pay the non-exempt part into court when a motion to change the exemption is brought).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "sc.motion.wage-exemption",
@@ -3056,6 +4004,10 @@
         "corpusId": "wages-act",
         "pinpoint": "s. 7(5)",
         "expect": "be increased, if the judge is satisfied that it is just"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3073,7 +4025,11 @@
         "sc.enforcement.co-owner",
         "sc.enforcement.garnish-hearing",
         "sc.enforcement.garnishee-default"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.co-owner",
@@ -3085,7 +4041,11 @@
         "pinpoint": "r. 20.08(16)",
         "expect": "requests a garnishment hearing within 30 days after the notice is sent"
       },
-      "form": "20G"
+      "form": "20G",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.garnish-hearing",
@@ -3097,7 +4057,11 @@
         "pinpoint": "r. 20.08(15.2)",
         "expect": "vary or suspend periodic payments"
       },
-      "form": "20Q"
+      "form": "20Q",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.garnishee-default",
@@ -3108,6 +4072,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.08(17)",
         "expect": "the creditor is entitled to an order against the garnishee"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3119,6 +4087,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.08(20.1)",
         "expect": "30 days after the date it is received"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3131,7 +4103,11 @@
         "pinpoint": "r. 20.08(20.2)",
         "expect": "notice of termination of garnishment (Form 20R)"
       },
-      "form": "20R"
+      "form": "20R",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.consolidation",
@@ -3145,7 +4121,11 @@
       },
       "leadsTo": [
         "sc.motion.general"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.examination",
@@ -3163,7 +4143,11 @@
         "sc.enforcement.exam-fif",
         "sc.enforcement.payment-order",
         "sc.enforcement.contempt"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.deadline.exam-service",
@@ -3191,7 +4175,11 @@
         "pinpoint": "r. 20.10(4.1)",
         "expect": "complete a financial information form (Form 20I)"
       },
-      "form": "20I"
+      "form": "20I",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.exam-who",
@@ -3202,6 +4190,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.10(5)",
         "expect": "An officer or director of a corporate debtor"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3213,6 +4205,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.10(6)",
         "expect": "held in the absence of the public"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3227,7 +4223,11 @@
       },
       "leadsTo": [
         "sc.enforcement.periodic-default"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.contempt",
@@ -3243,7 +4243,11 @@
         "sc.test.contempt",
         "sc.motion.set-aside-contempt",
         "sc.enforcement.contempt-powers"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.test.contempt",
@@ -3254,6 +4258,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 30(2)",
         "expect": "the failure to attend was wilful"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3265,6 +4273,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.11(4)",
         "expect": "may make a motion to set aside the order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3277,7 +4289,11 @@
         "pinpoint": "r. 20.11(7)",
         "expect": "be jailed for a period of not more than five days"
       },
-      "form": "20J"
+      "form": "20J",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.enforcement.satisfaction",
@@ -3289,7 +4305,11 @@
         "pinpoint": "r. 20.12",
         "expect": "payment has been made in full satisfaction of the order"
       },
-      "form": "11.2A"
+      "form": "11.2A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "sc.step.referee",
@@ -3300,17 +4320,26 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 21.01(2)",
         "expect": "shall not make a final decision in any matter"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.step.payment-into-court",
       "kind": "step",
       "title": "Paying money into and out of court",
-      "says": "A party required to pay money into court files a written request (and the order, if any) with the clerk or Accountant of the Superior Court and pays into the named account. Money comes out only under a court order.",
+      "says": "Money in court is paid out only under a court order. The person asking for it files with the Accountant a written request for payment out with a supporting affidavit, in the Ministry's form, and a sealed copy of the order.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 22.04(1)",
         "expect": "Money may only be paid out of court under an order"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 22.04 covers only payment out of court; the steps for paying money into court are in other parts of rule 22.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3322,6 +4351,10 @@
         "corpusId": "decision-mustapha",
         "pinpoint": "para. 3",
         "expect": "owed him a duty of care"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3333,17 +4366,26 @@
         "corpusId": "decision-clements",
         "pinpoint": "para. 8",
         "expect": "The test for showing causation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.test.contributory",
       "kind": "test",
       "title": "Shared fault reduces damages",
-      "says": "If the plaintiff's own fault contributed to the damage, the court divides the damages according to each party's degree of fault. If degrees cannot be determined, the parties are treated as equally at fault.",
+      "says": "In a negligence case, if the plaintiff's own fault contributed to the damage, the court divides the damages in proportion to each party's degree of fault.",
       "source": {
         "corpusId": "negligence-act",
         "pinpoint": "s. 3",
         "expect": "the court shall apportion the damages"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Equal fault where degrees cannot be determined is s. 4 of the Negligence Act, not s. 3.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3355,6 +4397,10 @@
         "corpusId": "negligence-act",
         "pinpoint": "s. 1",
         "expect": "jointly and severally liable"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3367,6 +4413,10 @@
         "decision": "Grant Thornton LLP v. New Brunswick, 2021 SCC 31",
         "pinpoint": "para. 42",
         "expect": "plausible inference of liability"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {

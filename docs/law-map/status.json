@@ -11,7 +11,7 @@
       "not-saved": 1,
       "lead": 8,
       "inSite": 107,
-      "reviewed": 22
+      "reviewed": 247
     },
     {
       "area": "crown-and-public",
@@ -23,7 +23,7 @@
       "not-saved": 21,
       "lead": 2,
       "inSite": 57,
-      "reviewed": 6
+      "reviewed": 176
     },
     {
       "area": "employment",
@@ -35,7 +35,7 @@
       "not-saved": 14,
       "lead": 12,
       "inSite": 28,
-      "reviewed": 14
+      "reviewed": 173
     },
     {
       "area": "family",
@@ -47,7 +47,7 @@
       "not-saved": 4,
       "lead": 2,
       "inSite": 164,
-      "reviewed": 18
+      "reviewed": 266
     },
     {
       "area": "human-rights",
@@ -59,7 +59,7 @@
       "not-saved": 17,
       "lead": 24,
       "inSite": 3,
-      "reviewed": 13
+      "reviewed": 156
     },
     {
       "area": "landlord-tenant",
@@ -71,7 +71,7 @@
       "not-saved": 4,
       "lead": 5,
       "inSite": 5,
-      "reviewed": 19
+      "reviewed": 201
     },
     {
       "area": "small-claims",
@@ -83,7 +83,7 @@
       "not-saved": 1,
       "lead": 4,
       "inSite": 102,
-      "reviewed": 9
+      "reviewed": 266
     },
     {
       "area": "victims-and-criminal",
@@ -95,7 +95,7 @@
       "not-saved": 6,
       "lead": 16,
       "inSite": 16,
-      "reviewed": 4
+      "reviewed": 186
     }
   ],
   "differs": [],

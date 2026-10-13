@@ -7,7 +7,7 @@
       "id": "crown.statute.clpa",
       "kind": "statute",
       "title": "Crown Liability and Proceedings Act, 2019",
-      "says": "This Ontario law sets the rules for suing the Ontario government (the Crown): when it can be held responsible, what immunities protect it, the notice that must come first, and how the case runs. It binds the Crown.",
+      "says": "The Crown Liability and Proceedings Act, 2019 binds the Ontario government (the Crown).",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 2 (1)",
@@ -16,17 +16,27 @@
       "leadsTo": [
         "crown.test.crown-tort-liability",
         "crown.pre.notice-60-days"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 2 (1) only says the Act binds the Crown; the description of what the whole Act covers (liability, immunities, notice, procedure) is not in s. 2.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.clpa-transition",
       "kind": "statute",
       "title": "The old Proceedings Against the Crown Act (history only)",
-      "says": "The Crown Liability and Proceedings Act, 2019 replaced the Proceedings Against the Crown Act. The old Act still governs cases that were started against the Crown before the new Act came into force. Any case started now follows the 2019 Act, no matter when the facts happened.",
+      "says": "The Proceedings Against the Crown Act, as it read before its repeal, still applies to cases started against the Crown before the 2019 Act came into force, except that section 11 of the 2019 Act (including its ending of some claims and dismissal of some cases) applies to those older cases too. A case started on or after that day follows the 2019 Act, no matter when the facts happened.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 31 (3)",
         "expect": "the Proceedings Against the Crown Act, as it read immediately"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Subsection (3) is expressly subject to subsection (4): section 11 and its extinguishment and dismissal of proceedings also apply to cases started before the Act came into force, so the old Act does not wholly govern them.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -38,6 +48,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 31 (2)",
         "expect": "regardless of when the facts"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -49,6 +63,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 7 (2)",
         "expect": "greater protection against such liability prevails"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -60,6 +78,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 6",
         "expect": "This Act does not affect and is subject to"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -71,13 +93,17 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 2 (3)",
         "expect": "if the Act that confers the right does not bind the Crown"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.statute.municipal-act",
       "kind": "statute",
       "title": "Municipal Act, 2001",
-      "says": "The Municipal Act, 2001 governs Ontario municipalities other than Toronto. It sets out a municipality's duty to repair roads and bridges, the 10-day notice for road-repair claims, the protection for staff who act in good faith, and the court's power to cancel an illegal by-law.",
+      "says": "Under the Municipal Act, 2001, a municipality must keep a highway or bridge it has jurisdiction over in a state of repair that is reasonable in the circumstances, and the same section sets a 10-day written notice for claims about a failure to repair.",
       "source": {
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 44 (1)",
@@ -86,7 +112,12 @@
       "leadsTo": [
         "crown.test.highway-repair",
         "crown.pre.municipal-10-day-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 44 covers the road and bridge repair duty and the 10-day notice, but not which municipalities the Act governs, staff good-faith protection, or the power to quash by-laws, which are elsewhere in the Act.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.toronto-act",
@@ -100,13 +131,17 @@
       },
       "leadsTo": [
         "crown.pre.toronto-10-day-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.cspa",
       "kind": "statute",
       "title": "Community Safety and Policing Act, 2019",
-      "says": "This Act governs policing in Ontario. It makes police service boards responsible for the conduct of their officers on the job, and sets up the public complaints process run by the Law Enforcement Complaints Agency.",
+      "says": "Under the Community Safety and Policing Act, 2019, a police service board is liable for the acts or omissions of members of its police service committed in the course of their employment, and the municipality is responsible for those liabilities.",
       "source": {
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 47 (1)",
@@ -115,7 +150,12 @@
       "leadsTo": [
         "crown.police.board-liable",
         "crown.police.complaint.start"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 47 (1) is only about a police service board's liability for its members' acts in the course of employment; the general description of the Act and the Law Enforcement Complaints Agency complaints process are not in s. 47.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.jrpa",
@@ -137,7 +177,7 @@
       "id": "crown.statute.sppa",
       "kind": "statute",
       "title": "Statutory Powers Procedure Act",
-      "says": "This Act sets minimum hearing rules for Ontario tribunals that must hold a hearing before deciding: notice, the right to present evidence and cross-examine, and written decisions.",
+      "says": "The Statutory Powers Procedure Act applies, subject to listed exceptions such as courts, to a tribunal using a statutory power of decision under an Ontario Act where the law requires it to hold a hearing, or offer the parties one, before deciding.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 3 (1)",
@@ -146,7 +186,12 @@
       "leadsTo": [
         "crown.sppa.notice",
         "crown.sppa.decision-in-writing"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 3 (1) only says when the Act applies; the hearing rules listed (notice, evidence, cross-examination, written decisions) are in other sections.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.ombudsman",
@@ -176,13 +221,17 @@
       "leadsTo": [
         "crown.deadline.limitation-basic",
         "crown.deadline.ultimate-15"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.charter",
       "kind": "statute",
       "title": "Canadian Charter of Rights and Freedoms, s. 24(1)",
-      "says": "Anyone whose Charter rights were infringed or denied may apply to a court of competent jurisdiction for the remedy the court considers appropriate and just. Damages are one possible remedy.",
+      "says": "Anyone whose Charter rights or freedoms were infringed or denied may apply to a court of competent jurisdiction for the remedy the court considers appropriate and just in the circumstances.",
       "source": {
         "corpusId": "canadian-charter-of-rights-and-freedoms",
         "pinpoint": "s. 24 (1)",
@@ -191,7 +240,12 @@
       "leadsTo": [
         "crown.test.charter-damages",
         "crown.pre.constitutional-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 24 (1) does not mention damages; it speaks only of the remedy the court considers appropriate and just.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.federal-clpa",
@@ -221,7 +275,11 @@
       },
       "leadsTo": [
         "crown.prosecutor.sue-ag"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.vbr",
@@ -232,17 +290,26 @@
         "corpusId": "victims-bill-of-rights-1995",
         "pinpoint": "s. 2 (5)",
         "expect": "No new cause of action, right of appeal, claim or other remedy"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.statute.cvbr",
       "kind": "statute",
       "title": "Canadian Victims Bill of Rights creates no right to damages",
-      "says": "The federal Canadian Victims Bill of Rights gives victims rights to information, protection and participation, but says no cause of action or right to damages arises when one of those rights is breached. Its remedy is a complaint to the federal department or agency involved.",
+      "says": "Under the Canadian Victims Bill of Rights, no cause of action or right to damages arises when a right under that Act is infringed or denied.",
       "source": {
         "corpusId": "canadian-victims-bill-of-rights",
         "pinpoint": "s. 28",
         "expect": "No cause of action or right to damages arises"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 28 only says no cause of action or right to damages arises; the list of rights and the complaint remedy are in other sections.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -275,17 +342,26 @@
         "crown.test.crown-good-faith-enforcement",
         "crown.test.policy-immunity",
         "crown.pre.notice-60-days"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.crown-only-for-its-people",
       "kind": "test",
       "title": "The Crown is liable only through the acts of its people",
-      "says": "The Crown is not liable for a tort unless the tort comes from the acts or omissions of one of its officers, employees or agents.",
+      "says": "The Crown's liability for torts committed by its officers, employees or agents does not extend to a tort that does not come from the acts or omissions of one of its officers, employees or agents.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 8 (2)",
         "expect": "not attributable to the acts or omissions of an officer"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 8 (2) limits only clause 8 (1) (a) (torts of officers, employees or agents); the item states it as a rule for every kind of Crown tort liability.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -297,6 +373,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 8 (3)",
         "expect": "applies to the same extent and in the same manner with respect to the Crown"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -308,13 +388,17 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 8 (4)",
         "expect": "enforceable by and against the Crown"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.test.crown-not-liable-for-agencies",
       "kind": "test",
       "title": "Crown not liable for agencies, Crown corporations, funded bodies or contractors",
-      "says": "The Crown is not liable for torts committed by Crown agencies, Crown corporations, transfer payment recipients (such as municipalities, hospitals, school boards, universities, children's aid societies and long-term care homes), or independent contractors. A claim about their conduct is brought against that body itself.",
+      "says": "The Crown is not liable for torts committed by Crown agencies, Crown corporations, transfer payment recipients, or independent contractors providing services to the Crown.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 9 (1)",
@@ -322,7 +406,12 @@
       },
       "leadsTo": [
         "crown.test.transfer-payment-recipient"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 9 (1) does not list examples of transfer payment recipients and does not say a claim is brought against the body itself.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.transfer-payment-recipient",
@@ -333,6 +422,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 1 (1)",
         "expect": "transfer payment recipient"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -348,7 +441,11 @@
       "leadsTo": [
         "crown.test.misfeasance",
         "crown.test.malicious-prosecution"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.legislative-immunity",
@@ -359,24 +456,33 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 11 (1)",
         "expect": "duties or functions of a legislative nature"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.test.regulatory-immunity",
       "kind": "test",
       "title": "No negligence claim for good-faith regulatory decisions",
-      "says": "When a person is harmed by someone else who was regulated (for example licensed or inspected), no negligence claim lies against the Crown for a regulatory decision made in good faith, or for failing to make one.",
+      "says": "When a person is harmed by the act or omission of someone who was the subject of a regulatory decision, no cause of action arises against the Crown or its officers, employees or agents for negligence in making that decision in good faith (s. 11 (2)), or for negligence in a purported failure to make one (s. 11 (3)).",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 11 (2)",
         "expect": "in respect of a regulatory decision made in good faith"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 11 (2) covers regulatory decisions made in good faith; the failure-to-make branch is in s. 11 (3) and has no good-faith condition, and neither subsection gives licensing or inspection as examples.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.test.policy-immunity",
       "kind": "test",
       "title": "No negligence claim for good-faith policy decisions",
-      "says": "No negligence claim lies against the Crown for a decision made in good faith about a policy matter, or for failing to make one. Policy matters include designing, funding, delivering and ending programs. Common-law defences remain available too.",
+      "says": "No cause of action arises against the Crown or its officers, employees or agents for negligence in making a decision in good faith about a policy matter, or for negligence in a purported failure to make such a decision. Section 11 (5) lists what a policy matter includes, and s. 11 (9) keeps common-law defences and immunities available.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 11 (4)",
@@ -384,7 +490,12 @@
       },
       "leadsTo": [
         "crown.decision.marchi"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 11 (4) does not define policy matters or preserve common-law defences; those are in s. 11 (5) and (9) of the same section, but 'delivering and ending programs' paraphrases (5) loosely and the cited pinpoint alone does not carry them.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.policy-matter-defined",
@@ -395,6 +506,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 11 (5)",
         "expect": "a policy matter includes"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -406,6 +521,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 11 (8)",
         "expect": "deemed to have been dismissed, without costs"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -418,29 +537,43 @@
         "corpusId": "decision-marchi",
         "pinpoint": "para. 51",
         "expect": "economic, social and political factors"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.decision.cooper",
       "kind": "decision",
       "title": "Cooper v. Hobart: when a public body owes a duty of care",
-      "says": "The Supreme Court set out the test for a new duty of care in negligence: foreseeability and proximity between the parties, then any policy reasons to limit or deny the duty. It is often applied to regulators and public bodies.",
+      "says": "The Supreme Court set out the test for a duty of care in negligence: first, whether the harm was reasonably foreseeable and the parties were in a relationship of proximity, which together give a prima facie duty of care; second, whether any residual policy considerations outside that relationship negate the duty.",
       "source": {
         "decision": "Cooper v. Hobart, 2001 SCC 79",
         "corpusId": "decision-cooper",
         "pinpoint": "para. 30",
         "expect": "prima facie duty of care"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 30 sets out the two-stage Anns test but does not say it is often applied to regulators and public bodies.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.test.no-in-rem",
       "kind": "test",
       "title": "No seizure of Crown property",
-      "says": "No proceeding in rem may be brought against the Crown, and Crown property cannot be seized, attached, arrested, detained or sold.",
+      "says": "Nothing in the Act authorizes a proceeding in rem for a claim against the Crown, or the seizure, attachment, arrest, detention or sale of any Crown property.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 5",
         "expect": "seizure, attachment, arrest, detention or sale of any property of the Crown"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 5 says only that nothing in this Act authorizes a proceeding in rem or the seizure of Crown property; it does not prohibit them outright.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -458,7 +591,11 @@
         "crown.deadline.notice-extends-limitation",
         "crown.step.serve-crown",
         "crown.deadline.notice-nullity"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.pre.notice-particulars",
@@ -472,7 +609,11 @@
       },
       "leadsTo": [
         "crown.option.settle-before-suit"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.notice-extends-limitation",
@@ -487,7 +628,11 @@
       "leadsTo": [
         "crown.start.statement-of-claim",
         "crown.start.small-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.property-10-days",
@@ -501,7 +646,11 @@
       },
       "leadsTo": [
         "crown.pre.notice-60-days"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.notice-not-for-counterclaims",
@@ -512,6 +661,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 18 (5)",
         "expect": "does not apply with respect to a counterclaim, crossclaim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -523,6 +676,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 18 (6)",
         "expect": "renders a proceeding brought without such notice a nullity"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -534,17 +691,26 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 28",
         "expect": "the subject of a notice of claim under section 18"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.step.name-crown",
       "kind": "step",
       "title": "How to name the Ontario government",
-      "says": "In a court case, the Ontario Crown is named as \"His Majesty the King in right of Ontario\". A ministry is not named as a separate party.",
+      "says": "In a proceeding to which the Ontario Crown is a party, the Crown is named as \"His Majesty the King in right of Ontario\" (in French, \"Sa Majesté du chef de l'Ontario\").",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 14",
         "expect": "His Majesty the King in right of Ontario"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 14 sets how the Crown is designated but says nothing about whether a ministry may be named as a separate party.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -556,6 +722,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 15",
         "expect": "Crown Law Office (Civil Law)"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -567,17 +737,26 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 8.02 (g)",
         "expect": "in accordance with section 15"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.step.rules-apply",
       "kind": "step",
       "title": "The usual court rules apply",
-      "says": "Except where the Act says otherwise, the ordinary rules of court apply to a case against the Crown, and the court may make any order it could make between private persons.",
+      "says": "Except where the Act says otherwise, the ordinary rules of court apply to a proceeding to which the Crown is a party.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 13 (1)",
         "expect": "the rules of court apply with respect to a proceeding"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 13 (1) says only that the rules of court apply; the court's power to make any order it could make between persons is in s. 12, not s. 13.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -589,13 +768,17 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 16 (1)",
         "expect": "petition of right is abolished"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.start.statement-of-claim",
       "kind": "start",
       "title": "Starting a Superior Court action: statement of claim",
-      "says": "An action in the Superior Court of Justice starts with a statement of claim (Form 14A), issued by the court and then served on each defendant.",
+      "says": "Except in listed cases such as a notice of action, an action in the Superior Court of Justice is started with a statement of claim (Form 14A, or 14B for mortgage actions).",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.03 (1)",
@@ -605,7 +788,12 @@
       "leadsTo": [
         "crown.step.serve-crown",
         "crown.deadline.defence-20-days"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.03 (1) names the statement of claim as the originating process but says nothing about issuing or serving it, and it also lists exceptions.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.start.notice-of-action",
@@ -620,13 +808,17 @@
       "form": "14C",
       "leadsTo": [
         "crown.deadline.defence-20-days"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.start.small-claims",
       "kind": "start",
       "title": "Starting in Small Claims Court",
-      "says": "A money claim up to the Small Claims Court limit (currently $50,000, not counting interest and costs) starts by filing a plaintiff's claim (Form 7A) with the clerk. Claims against the Crown, cities and police boards can be brought there.",
+      "says": "A Small Claims Court action is started by filing a plaintiff's claim (Form 7A) with the clerk, with a copy for each defendant (no copies are needed if the claim is filed electronically).",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 7.01 (1)",
@@ -636,17 +828,27 @@
       "leadsTo": [
         "crown.deadline.sc-defence",
         "crown.step.sc-settlement-conference"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 7.01 (1) says how an action starts but does not state the $50,000 limit, the exclusion of interest and costs, or that claims against the Crown, cities and police boards can be brought there.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.sc-limit",
       "kind": "statute",
       "title": "Small Claims Court money limit",
-      "says": "The Small Claims Court can hear claims for money up to $50,000, excluding interest and costs.",
+      "says": "The maximum amount of a claim in the Small Claims Court is $50,000.",
       "source": {
         "corpusId": "oreg-626-00-monetary-jurisdiction",
         "pinpoint": "s. 1 (1)",
         "expect": "$50,000"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1 (1) of O. Reg. 626/00 sets the $50,000 maximum but says nothing about interest and costs being excluded.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -664,7 +866,11 @@
         "crown.motion.default-leave",
         "crown.motion.strike",
         "crown.step.discovery-crown"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.sc-defence",
@@ -680,7 +886,11 @@
       "leadsTo": [
         "crown.step.sc-settlement-conference",
         "crown.motion.default-leave"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.motion.default-leave",
@@ -691,13 +901,17 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 25",
         "expect": "except with leave of the court to be obtained on motion"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.motion.strike",
       "kind": "motion",
       "title": "Motion to strike a claim that discloses no cause of action",
-      "says": "A party may ask a judge to strike out a pleading because it discloses no reasonable cause of action, or to decide a question of law before trial. Government defendants often use this step, for example to raise an immunity.",
+      "says": "A party may ask a judge to strike out a pleading because it discloses no reasonable cause of action or defence, or to decide before trial a question of law raised by a pleading where deciding it may dispose of all or part of the action, substantially shorten the trial or save substantial costs.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 21.01 (1)",
@@ -705,7 +919,12 @@
       },
       "leadsTo": [
         "crown.motion.summary-judgment"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 21.01 (1) does not say government defendants often use it or mention immunity, and it drops the condition that a question of law may be decided only where that may dispose of or shorten the case or save costs.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.motion.summary-judgment",
@@ -719,7 +938,11 @@
       },
       "leadsTo": [
         "crown.decision.hryniak"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.decision.hryniak",
@@ -731,6 +954,10 @@
         "corpusId": "decision-hryniak",
         "pinpoint": "para. 49",
         "expect": "a fair and just determination on the merits"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -746,17 +973,26 @@
       "leadsTo": [
         "crown.step.public-interest-immunity",
         "crown.step.no-jury"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.public-interest-immunity",
       "kind": "step",
       "title": "Public interest immunity",
-      "says": "The Crown may withhold a document or refuse to answer a question where disclosure would be injurious to the public interest. The court can decide whether that claim holds.",
+      "says": "The Act does not change the rule of law that allows or requires a document to be withheld, or a question to go unanswered, in a case involving the Crown where disclosure would be injurious to the public interest.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 13 (2)",
         "expect": "would be injurious to the public interest"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 13 (2) only preserves the existing rule of law on public-interest withholding; it does not say the court decides whether the claim holds.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -768,6 +1004,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 19 (2)",
         "expect": "in a proceeding to which the Crown is not a party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -783,7 +1023,11 @@
       "leadsTo": [
         "crown.step.remedy-limits",
         "crown.step.costs"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.remedy-limits",
@@ -797,7 +1041,11 @@
       },
       "leadsTo": [
         "crown.step.declaration"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.declaration",
@@ -808,6 +1056,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 22 (3)",
         "expect": "make an order declaratory of the rights of the parties"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -819,6 +1071,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 23",
         "expect": "make an order declaring that the claimant is entitled"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -830,13 +1086,17 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 24 (2)",
         "expect": "relates to a matter under the administration of the particular ministry"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.step.costs",
       "kind": "step",
       "title": "Costs",
-      "says": "Costs are in the court's discretion. In a case where the Crown is a party, the Crown can be awarded costs and ordered to pay costs like any other party, including with offers to settle taken into account.",
+      "says": "Subject to any Act or the rules of court, costs are in the court's discretion, and the court decides who pays them and how much. Costs awarded to the Ontario Crown are not disallowed or reduced just because they relate to a salaried Crown lawyer.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 131 (1)",
@@ -844,7 +1104,12 @@
       },
       "leadsTo": [
         "crown.option.offer-to-settle"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 131 makes costs discretionary and says Crown costs are not reduced because a salaried Crown lawyer did the work; it does not say the Crown is ordered to pay costs like any other party or mention offers to settle.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.option.offer-to-settle",
@@ -855,6 +1120,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 49.10 (1)",
         "expect": "at least seven days before the commencement of the hearing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -866,6 +1135,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.01",
         "expect": "an offer to settle a claim on the terms specified"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -877,19 +1150,28 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.01 (1)",
         "expect": "A settlement conference shall be held in every defended action"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.option.discontinue",
       "kind": "option",
       "title": "Discontinuing a claim",
-      "says": "A plaintiff may discontinue all or part of an action against a defendant before the close of pleadings by serving and filing a notice of discontinuance (Form 23A); after that, leave of the court is needed.",
+      "says": "A plaintiff may discontinue all or part of an action against a defendant before the close of pleadings by serving a notice of discontinuance (Form 23A) on every party served with the claim and filing it with proof of service; after the close of pleadings, with leave of the court; or at any time by filing the consent of all parties.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 23.01 (1)",
         "expect": "a notice of discontinuance (Form 23A)"
       },
-      "form": "23A"
+      "form": "23A",
+      "review": {
+        "verdict": "wrong",
+        "problem": "The rule also allows discontinuance at any time by filing the consent of all parties, so leave is not the only route after the close of pleadings.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.option.appeal",
@@ -900,13 +1182,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 61.04 (1)",
         "expect": "within 30 days after the making of the order appealed from"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.step.interest",
       "kind": "step",
       "title": "Interest on a judgment against the Crown",
-      "says": "A judgment debt owed by or to the Crown carries interest the same way as one between private persons, and prejudgment interest can be claimed on money awarded.",
+      "says": "A judgment debt owed by or to the Crown carries interest in the same way as a judgment debt between private persons.",
       "source": {
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 26",
@@ -914,7 +1200,12 @@
       },
       "leadsTo": [
         "crown.enforce.payment"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 26 deals only with interest on a judgment debt; it says nothing about prejudgment interest.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.enforce.payment",
@@ -944,6 +1235,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 28",
         "expect": "pay out of the Consolidated Revenue Fund"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -955,6 +1250,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 27 (2)",
         "expect": "A garnishment that is otherwise lawful may issue against the Crown"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -969,7 +1268,11 @@
       },
       "leadsTo": [
         "crown.motion.s17-leave"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.motion.s17-leave",
@@ -984,7 +1287,11 @@
       "leadsTo": [
         "crown.step.s17-claimant-materials",
         "crown.option.s17-waiver"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.s17-claimant-materials",
@@ -998,7 +1305,11 @@
       },
       "leadsTo": [
         "crown.step.s17-defendant-response"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.s17-defendant-response",
@@ -1012,7 +1323,11 @@
       },
       "leadsTo": [
         "crown.step.s17-limits-on-examination"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.s17-limits-on-examination",
@@ -1027,7 +1342,11 @@
       "leadsTo": [
         "crown.step.s17-no-discovery-defendant",
         "crown.test.s17-leave"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.s17-no-discovery-defendant",
@@ -1038,6 +1357,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 17 (6)",
         "expect": "shall not be subject to discovery or the inspection of documents"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1054,7 +1377,11 @@
         "crown.step.s17-costs",
         "crown.step.s17-granted",
         "crown.step.s17-refused"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.s17-costs",
@@ -1065,6 +1392,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 17 (8)",
         "expect": "shall bear its own costs of the motion"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1079,7 +1410,11 @@
       },
       "leadsTo": [
         "crown.deadline.defence-20-days"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.s17-refused",
@@ -1093,7 +1428,11 @@
       },
       "leadsTo": [
         "crown.option.appeal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.option.s17-waiver",
@@ -1107,7 +1446,11 @@
       },
       "leadsTo": [
         "crown.step.s17-waiver-timing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.step.s17-waiver-timing",
@@ -1118,6 +1461,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 17 (13)",
         "expect": "the stay of the proceeding is lifted once notice of the waiver"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1129,6 +1476,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 17 (14)",
         "expect": "This section does not apply if the claimant is the Crown"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1140,6 +1491,10 @@
         "corpusId": "crown-liability-and-proceedings-act-2019",
         "pinpoint": "s. 17 (17)",
         "expect": "For the purposes of any applicable limitation period"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1156,7 +1511,11 @@
         "crown.prosecutor.crown-rules-apply",
         "crown.test.malicious-prosecution",
         "crown.test.henry-nondisclosure"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.prosecutor.crown-rules-apply",
@@ -1170,7 +1529,11 @@
       },
       "leadsTo": [
         "crown.pre.notice-60-days"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.prosecutor.only-if-claim-existed",
@@ -1181,6 +1544,10 @@
         "corpusId": "ministry-of-the-attorney-general-act",
         "pinpoint": "s. 8 (3)",
         "expect": "could have been brought against a person referred to"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1224,7 +1591,11 @@
         "crown.decision.nelles",
         "crown.decision.miazga-malice",
         "crown.deadline.malprosecution-discovery"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.decision.nelles",
@@ -1236,25 +1607,34 @@
         "corpusId": "decision-nelles",
         "pinpoint": "p. 192",
         "expect": "There are four necessary elements which must be proved"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.decision.miazga-malice",
       "kind": "decision",
       "title": "Miazga v. Kvello Estate: malice means improper purpose",
-      "says": "Starting a prosecution without reasonable and probable grounds is not enough on its own. Malice, meaning an improper purpose, must also be proved, and lack of a prosecutor's personal belief in the case is a factor but does not equal malice.",
+      "says": "Starting a prosecution without reasonable and probable grounds is not enough on its own for malicious prosecution, whether the defendant is a private or public actor. It is an intentional tort, and the claimant must also prove that the defendant's conduct in setting the criminal process in motion was fuelled by malice.",
       "source": {
         "decision": "Miazga v. Kvello Estate, 2009 SCC 51",
         "corpusId": "decision-miazga",
         "pinpoint": "para. 56",
         "expect": "requires proof that the defendant"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 56 says lack of reasonable and probable grounds is not enough and malice must be proved, but does not discuss the prosecutor's personal belief as a factor.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.test.henry-nondisclosure",
       "kind": "test",
       "title": "Charter damages for wrongful non-disclosure by the Crown",
-      "says": "A person who was prosecuted can claim Charter damages for wrongful non-disclosure without proving malice, by showing that (1) the prosecutor intentionally withheld information; (2) the prosecutor knew or ought reasonably to have known it was material to the defence and that withholding it would interfere with full answer and defence; (3) withholding it violated the person's Charter rights; and (4) the person suffered harm as a result.",
+      "says": "To claim Charter damages for wrongful non-disclosure by a prosecutor, a person must prove that (1) the prosecutor intentionally withheld information; (2) the prosecutor knew or ought reasonably to have known that the information was material to the defence and that not disclosing it would likely impinge on the person's ability to make full answer and defence; (3) withholding it violated the person's Charter rights; and (4) the person suffered harm as a result.",
       "source": {
         "decision": "Henry v. British Columbia (Attorney General), 2015 SCC 24",
         "corpusId": "decision-henry",
@@ -1263,7 +1643,12 @@
       },
       "leadsTo": [
         "crown.test.charter-damages"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 85 says the failure to disclose 'would likely impinge' on full answer and defence (the item says 'would interfere'), and does not itself say malice need not be proved.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.decision.clark",
@@ -1275,6 +1660,10 @@
         "corpusId": "decision-clark",
         "pinpoint": "para. 1",
         "expect": "whether prosecutorial immunity precludes misfeasance claims"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1291,7 +1680,11 @@
       "leadsTo": [
         "crown.decision.hill-standard",
         "crown.police.board-liable"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.decision.hill-standard",
@@ -1303,6 +1696,10 @@
         "corpusId": "decision-hill-hamilton",
         "pinpoint": "para. 73",
         "expect": "a reasonable police officer in similar circumstances"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1319,7 +1716,11 @@
       "leadsTo": [
         "crown.decision.ward-alternatives",
         "crown.pre.constitutional-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.decision.ward-alternatives",
@@ -1331,6 +1732,10 @@
         "corpusId": "decision-ward",
         "pinpoint": "para. 34",
         "expect": "a further award of damages under s. 24(1) would serve no function"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1346,7 +1751,11 @@
       "form": "4F",
       "leadsTo": [
         "crown.deadline.constitutional-notice-15-days"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.constitutional-notice-15-days",
@@ -1375,18 +1784,27 @@
         "pinpoint": "r. 4.11",
         "expect": "shall be in Form 4F"
       },
-      "form": "4F"
+      "form": "4F",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.decision.antrim",
       "kind": "decision",
       "title": "Antrim Truck Centre: injurious affection from public works",
-      "says": "Where public works on land not taken from the owner interfere with the owner's use of land, compensation may be claimed under the Expropriations Act for injurious affection. The Supreme Court set the test for when the interference is unreasonable.",
+      "says": "Where none of an owner's land is taken, the Expropriations Act gives compensation for injurious affection only on conditions, including that the damage results from the construction, not the use, of works done under statutory authority and would otherwise give rise to liability. For the nuisance part of that test, the Supreme Court held the interference with the owner's use or enjoyment of land must be both substantial (non-trivial) and unreasonable in all the circumstances.",
       "source": {
         "decision": "Antrim Truck Centre Ltd. v. Ontario (Transportation), 2013 SCC 13",
         "corpusId": "decision-antrim",
         "pinpoint": "para. 19",
         "expect": "must be both substantial and unreasonable"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 19 states the private-nuisance test (substantial and unreasonable interference); the item drops the Expropriations Act conditions the decision sets out (damage from construction, not use, of works done under statutory authority) and does not state the test it says was set.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1402,7 +1820,11 @@
       "leadsTo": [
         "crown.test.highway-defences",
         "crown.pre.municipal-10-day-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.highway-defences",
@@ -1416,7 +1838,11 @@
       },
       "leadsTo": [
         "crown.statute.minimum-maintenance"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.minimum-maintenance",
@@ -1439,6 +1865,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 44 (8)",
         "expect": "the presence, absence or insufficiency of any wall, fence, rail"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1453,7 +1883,11 @@
       },
       "leadsTo": [
         "crown.pre.municipal-10-day-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.pre.municipal-10-day-notice",
@@ -1469,7 +1903,11 @@
         "crown.pre.municipal-notice-death",
         "crown.pre.municipal-notice-excuse",
         "crown.deadline.limitation-basic"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.pre.municipal-notice-death",
@@ -1480,6 +1918,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 44 (11)",
         "expect": "in the case of the death of the injured person"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1495,7 +1937,11 @@
       "leadsTo": [
         "crown.start.statement-of-claim",
         "crown.start.small-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.municipal-acts-of-others",
@@ -1506,6 +1952,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 44 (14)",
         "expect": "over which the municipality had no control"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1517,6 +1967,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 44 (15)",
         "expect": "a particular loss or damage beyond what is suffered"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1528,6 +1982,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 45 (1)",
         "expect": "No proceeding shall be commenced against a member of council"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1539,6 +1997,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 46",
         "expect": "presence of any nuisance on a highway"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1553,7 +2015,11 @@
       },
       "leadsTo": [
         "crown.test.municipality-still-liable"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.municipality-still-liable",
@@ -1564,17 +2030,26 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 448 (2)",
         "expect": "does not relieve a municipality of liability"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.test.water-sewage-nuisance",
       "kind": "test",
       "title": "No nuisance claim for escaping water or sewage",
-      "says": "No proceeding based on nuisance for water or sewage escaping from sewage or water works may be brought against a municipality, local board, or their members or staff. Claims in negligence are not barred by this section.",
+      "says": "No proceeding based on nuisance for the escape of water or sewage from sewage works or water works may be brought against a municipality or local board, or their members, officers, employees or agents. This does not remove liability under a cause of action or compensation right created by a statute, and does not apply where the cause of action arose before December 19, 1996.",
       "source": {
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 449 (1)",
         "expect": "in connection with the escape of water or sewage"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 449 does not say negligence claims remain available; what it preserves is liability under a statutory cause of action or statutory compensation, and it does not apply to causes of action that arose before December 19, 1996.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1589,7 +2064,11 @@
       },
       "leadsTo": [
         "crown.decision.marchi"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.option.quash-bylaw",
@@ -1603,7 +2082,11 @@
       },
       "leadsTo": [
         "crown.deadline.quash-bylaw-1-year"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.quash-bylaw-1-year",
@@ -1614,6 +2097,10 @@
         "corpusId": "municipal-act-2001",
         "pinpoint": "s. 273 (5)",
         "expect": "within one year after the passing of the by-law"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1628,7 +2115,11 @@
       },
       "leadsTo": [
         "crown.ombudsman.complaint"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.pre.toronto-10-day-notice",
@@ -1642,7 +2133,11 @@
       },
       "leadsTo": [
         "crown.pre.toronto-notice-excuse"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.pre.toronto-notice-excuse",
@@ -1669,6 +2164,10 @@
         "corpusId": "city-of-toronto-act-2006",
         "pinpoint": "s. 42 (5)",
         "expect": "Except in case of gross negligence, the City is not liable"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1680,6 +2179,10 @@
         "corpusId": "city-of-toronto-act-2006",
         "pinpoint": "s. 42 (3)",
         "expect": "the City took reasonable steps to prevent the default"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1691,13 +2194,17 @@
         "corpusId": "city-of-toronto-act-2006",
         "pinpoint": "s. 391 (1)",
         "expect": "for any act done in good faith in the performance"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.pre.ola-snow-ice-60-days",
       "kind": "pre-step",
       "title": "60-day notice for snow and ice injuries on other premises",
-      "says": "For a personal injury from snow or ice on premises (for example a municipal parking lot or a government building), no action may be brought against the occupier or its snow-removal contractor unless written notice, including the date, time and location, is served or sent by registered mail within 60 days after the injury. Public roads are governed by the Municipal Act instead.",
+      "says": "No action for personal injury caused by snow or ice may be brought against an occupier, or the occupier's independent snow-removal contractor, unless within 60 days after the injury written notice of the claim, including the date, time and location, was personally served on or sent by registered mail to at least one of them.",
       "source": {
         "corpusId": "occupiers-liability-act",
         "pinpoint": "s. 6.1 (1)",
@@ -1705,7 +2212,12 @@
       },
       "leadsTo": [
         "crown.test.ola-not-highways"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 6.1 does not give examples of premises and does not say public roads are governed by the Municipal Act; it also lets notice go to at least one listed person and has death and reasonable-excuse exceptions.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.ola-not-highways",
@@ -1716,13 +2228,17 @@
         "corpusId": "occupiers-liability-act",
         "pinpoint": "s. 10 (2)",
         "expect": "occupier of a public highway or a public road"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.police.board-liable",
       "kind": "test",
       "title": "Police service board liable for its officers",
-      "says": "A municipal police service board is liable for the acts or omissions of members of its police service committed in the course of their employment. The claim names the board, and the municipality is responsible for the board's liabilities.",
+      "says": "A police service board is liable for the acts or omissions of members of its police service committed in the course of their employment, and the municipality is responsible for the board's liabilities under that section.",
       "source": {
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 47 (1)",
@@ -1732,7 +2248,12 @@
         "crown.police.board-sue-in-name",
         "crown.police.municipality-pays",
         "crown.police.board-members-immune"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 47 makes the board liable and the municipality responsible for its liabilities, but says nothing about how the claim is named; that the board can be sued in its own name is s. 49.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.municipality-pays",
@@ -1743,13 +2264,17 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 47 (4)",
         "expect": "The municipality is responsible for the liabilities incurred"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.police.board-sue-in-name",
       "kind": "step",
       "title": "Naming the police service board",
-      "says": "A police service board may sue and be sued in its own name, so a claim is brought against the board (for example the \"Ottawa Police Service Board\"), usually together with the individual officers.",
+      "says": "A police service board may contract, sue and be sued in its own name, so a claim against it names the board itself.",
       "source": {
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 49 (1)",
@@ -1759,24 +2284,34 @@
         "crown.deadline.limitation-basic",
         "crown.start.statement-of-claim",
         "crown.start.small-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 49 (1) says only that a board may contract, sue and be sued in its own name; it says nothing about suing individual officers alongside it.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.board-members-immune",
       "kind": "test",
       "title": "Board members protected for good-faith acts",
-      "says": "Members of a police service board cannot be sued for good-faith acts done in their duties, but the board stays liable for its officers' acts as if they were its employees.",
+      "says": "Members of a police service board cannot be sued for good-faith acts or omissions in carrying out their duties or powers under the Act, the regulations or the by-laws, but the board itself stays liable for a board member's acts or omissions as if that member were the board's employee.",
       "source": {
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 48 (2)",
         "expect": "does not relieve a police service board of liability"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Section 48 (2) keeps the board liable for the acts of its own board members (treated as if they were its employees), not for the acts of police officers; the item misreads 'member' as officer.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.police.opp-crown-liable",
       "kind": "test",
       "title": "OPP officers: the Ontario Crown is liable",
-      "says": "The Ontario Crown is liable for the acts or omissions of Ontario Provincial Police members in the course of their employment, so OPP claims are brought against the Crown and follow the Crown Liability and Proceedings Act, 2019, including the 60-day notice.",
+      "says": "The Ontario Crown is liable for the acts or omissions of members of the Ontario Provincial Police committed in the course of their employment.",
       "source": {
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 63 (1)",
@@ -1784,13 +2319,18 @@
       },
       "leadsTo": [
         "crown.pre.notice-60-days"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 63 (1) makes the Crown liable for OPP members' acts in the course of employment but does not say claims follow the Crown Liability and Proceedings Act or its 60-day notice.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.start",
       "kind": "start",
       "title": "Making a public complaint about a police officer",
-      "says": "Any person may make a complaint to the Complaints Director of the Law Enforcement Complaints Agency (LECA) about the conduct of a police officer, a Niagara Parks special constable or a Legislative Protective Service peace officer. A complaint is not a lawsuit and does not award money.",
+      "says": "Subject to listed exceptions (for example, a police officer complaining about a member of the same police service), any person may make a complaint to the Complaints Director about the conduct of a police officer, a Niagara Parks Commission special constable or a Legislative Protective Service peace officer.",
       "source": {
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 154 (1)",
@@ -1800,7 +2340,12 @@
         "crown.police.complaint.who",
         "crown.police.complaint.review",
         "crown.deadline.police-complaint-6-months"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 154 (1) is subject to the restrictions in (2) on who may complain, and says nothing about a complaint not being a lawsuit or not awarding money.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.leca",
@@ -1813,7 +2358,11 @@
       },
       "leadsTo": [
         "crown.police.complaint.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.who",
@@ -1827,7 +2376,11 @@
       },
       "leadsTo": [
         "crown.police.complaint.forwarded"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.forwarded",
@@ -1838,6 +2391,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 155 (1)",
         "expect": "shall forward the complaint to the Complaints Director"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1853,7 +2410,11 @@
       "leadsTo": [
         "crown.police.complaint.refusal",
         "crown.police.complaint.investigator"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.police-complaint-6-months",
@@ -1867,7 +2428,11 @@
       },
       "leadsTo": [
         "crown.police.complaint.six-month-factors"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.six-month-factors",
@@ -1878,6 +2443,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 158 (2)",
         "expect": "whether the complainant is or was subject to a criminal investigation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1892,7 +2461,11 @@
       },
       "leadsTo": [
         "crown.option.jr-of-leca"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.investigator",
@@ -1907,7 +2480,11 @@
       "leadsTo": [
         "crown.police.complaint.postpone",
         "crown.deadline.police-investigation-120"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.withdraw",
@@ -1918,6 +2495,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 160 (1)",
         "expect": "a complainant may withdraw his or her complaint"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1929,6 +2510,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 163 (1)",
         "expect": "may postpone the commencement of the investigation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1940,6 +2525,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 173 (1)",
         "expect": "may be investigated by the SIU Director"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1954,7 +2543,11 @@
       },
       "leadsTo": [
         "crown.police.complaint.report"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.report",
@@ -1969,7 +2562,11 @@
       "leadsTo": [
         "crown.police.complaint.no-misconduct",
         "crown.police.complaint.misconduct"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.no-misconduct",
@@ -1983,7 +2580,11 @@
       },
       "leadsTo": [
         "crown.deadline.police-review-30-days"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.police-review-30-days",
@@ -1997,7 +2598,11 @@
       },
       "leadsTo": [
         "crown.police.complaint.review-powers"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.review-powers",
@@ -2011,7 +2616,11 @@
       },
       "leadsTo": [
         "crown.option.jr-of-leca"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.misconduct",
@@ -2025,7 +2634,11 @@
       },
       "leadsTo": [
         "crown.police.complaint.hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.hearing",
@@ -2039,7 +2652,11 @@
       },
       "leadsTo": [
         "crown.police.complaint.appeal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.appeal",
@@ -2050,6 +2667,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 204 (1)",
         "expect": "within 30 days of receiving notice of the adjudicator's decision"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2065,7 +2686,11 @@
       "leadsTo": [
         "crown.police.complaint.informal-revoke",
         "crown.police.complaint.informal-privilege"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.police.complaint.informal-revoke",
@@ -2076,6 +2701,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 169 (3)",
         "expect": "no later than 12 business days after the day"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2087,6 +2716,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 169 (4)",
         "expect": "is admissible in a civil proceeding"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2098,6 +2731,10 @@
         "corpusId": "community-safety-and-policing-act",
         "pinpoint": "s. 170 (1)",
         "expect": "no further action shall be taken under this Part"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2147,7 +2784,7 @@
       "id": "crown.jr.start",
       "kind": "start",
       "title": "Starting judicial review in the Divisional Court",
-      "says": "Judicial review is started by a notice of application to the Divisional Court in Form 68A. The registrar sets the hearing date.",
+      "says": "An application for judicial review under the Judicial Review Procedure Act is started by notice of application; where it is made to the Divisional Court, the notice is in Form 68A.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 68.01 (1)",
@@ -2157,7 +2794,12 @@
       "leadsTo": [
         "crown.jr.record",
         "crown.jr.interim"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 68.01 (1) covers how the application is commenced and its form; who fixes the hearing date is in rule 68.03, not 68.01.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.jr.court",
@@ -2196,7 +2838,11 @@
       "leadsTo": [
         "crown.jr.dismiss-delay",
         "crown.jr.perfection"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.jr.perfection",
@@ -2207,6 +2853,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 68.05 (1)",
         "expect": "a certificate of perfection"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2218,13 +2868,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 68.06 (1)",
         "expect": "to have the application dismissed for delay"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.jr.not-appeal-no-stay",
       "kind": "step",
       "title": "Judicial review does not automatically stay the decision",
-      "says": "Starting judicial review is not an appeal, so the automatic stay that applies to tribunal appeals does not apply. A stay must be sought from the court.",
+      "says": "An application for judicial review is not an appeal for the purposes of the Statutory Powers Procedure Act rule that an appeal from a tribunal decision stays the decision, so starting judicial review does not by itself stay the decision under that rule.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 25 (2)",
@@ -2232,7 +2886,12 @@
       },
       "leadsTo": [
         "crown.jr.interim"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 25 (2) only says judicial review is not an appeal for the automatic-stay rule in s. 25 (1); it does not say a stay must be sought from the court.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.jr.appeal-onca",
@@ -2243,6 +2902,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 6 (1)",
         "expect": "with leave of the Court of Appeal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2257,7 +2920,11 @@
       },
       "leadsTo": [
         "crown.sppa.absence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.sppa.absence",
@@ -2268,6 +2935,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 7 (1)",
         "expect": "the tribunal may proceed in the absence of the party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2279,6 +2950,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 10.1",
         "expect": "call and examine witnesses and present evidence and submissions"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2294,7 +2969,11 @@
       "leadsTo": [
         "crown.sppa.reconsider",
         "crown.jr.time-limit"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.sppa.reconsider",
@@ -2305,17 +2984,26 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 21.2 (1)",
         "expect": "review all or part of its own decision or order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.sppa.record",
       "kind": "step",
       "title": "The tribunal's record of proceedings",
-      "says": "A tribunal keeps a record of every proceeding in which a hearing was held, including the starting documents, notices, evidence and decision. This record goes to the court on judicial review.",
+      "says": "A tribunal compiles a record of every proceeding in which a hearing was held, including the document that started it, the notice of hearing, interlocutory orders, documentary evidence filed, any transcript of oral evidence, and the decision with any reasons.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 20",
         "expect": "shall compile a record of any proceeding"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 20 lists what the tribunal's record contains but says nothing about the record going to the court on judicial review.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2327,6 +3015,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 25 (1)",
         "expect": "operates as a stay in the matter"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2453,6 +3145,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 5 (1)",
         "expect": "a proceeding would be an appropriate means to seek to remedy it"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2480,6 +3176,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 7 (1)",
         "expect": "is incapable of commencing a proceeding in respect of the claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2491,6 +3191,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 15 (2)",
         "expect": "after the 15th anniversary of the day on which the act or omission"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2521,6 +3225,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 16 (1.1)",
         "expect": "regardless of the expiry of any previously applicable limitation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2535,7 +3243,11 @@
       },
       "leadsTo": [
         "crown.deadline.notice-extends-limitation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.adding-party",
@@ -2546,6 +3258,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 21 (1)",
         "expect": "shall not be pursued by adding the person as a party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {

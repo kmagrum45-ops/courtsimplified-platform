@@ -7,7 +7,7 @@
       "id": "hr.statute.code",
       "kind": "statute",
       "title": "Human Rights Code",
-      "says": "Ontario's Human Rights Code sets out the right to equal treatment without discrimination in five social areas. No one may infringe these rights, directly or indirectly.",
+      "says": "No one may infringe, or do anything that directly or indirectly infringes, a right under Part I of the Code.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 9",
@@ -15,7 +15,12 @@
       },
       "leadsTo": [
         "hr.pre.social-area-and-ground"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 9 only prohibits infringing Part I rights; it does not set out the right to equal treatment or the five social areas.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.statute.primacy",
@@ -26,17 +31,26 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 47 (2)",
         "expect": "this Act applies and prevails unless the Act or regulation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.statute.binds-crown",
       "kind": "statute",
       "title": "The Code binds the Ontario government",
-      "says": "The Code applies to the Ontario government and its agencies, as well as to private persons and businesses.",
+      "says": "The Code binds the Ontario Crown and every agency of the Crown.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 47 (1)",
         "expect": "Act binds the Crown and every agency of the Crown"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 47(1) says only that the Act binds the Crown and its agencies; it says nothing about private persons and businesses.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -48,6 +62,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 42 (1)",
         "expect": "apply to a proceeding before the Tribunal unless they conflict"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -63,7 +81,11 @@
       "leadsTo": [
         "hr.step.oral-submissions-right",
         "hr.step.written-reasons"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.statute.liberal-construction",
@@ -74,6 +96,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 41",
         "expect": "shall be liberally construed to permit the Tribunal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -85,6 +111,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 39",
         "expect": "to determine all questions of fact or law that arise"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -96,6 +126,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 40",
         "expect": "best opportunity for a fair, just and expeditious resolution"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -241,11 +275,16 @@
       "id": "hr.statute.hrlsc",
       "kind": "statute",
       "title": "The Human Rights Legal Support Centre",
-      "says": "The Code creates the Human Rights Legal Support Centre, an independent non-profit corporation funded by Ontario.",
+      "says": "The Code establishes the Human Rights Legal Support Centre, a corporation without share capital that is independent from, but accountable to, the Government of Ontario.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.11 (1)",
         "expect": "Human Rights Legal Support Centre in English"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 45.11 does not say the Centre is funded by Ontario or describe it as non-profit; it says it is a corporation without share capital, independent from but accountable to Ontario.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -268,7 +307,7 @@
       "id": "hr.pre.choose-forum",
       "kind": "option",
       "title": "Choose: HRTO application or a court action",
-      "says": "A person can apply to the Tribunal, or, if they are suing in court for another legal wrong (such as wrongful dismissal), ask the court for Code remedies in that lawsuit. They cannot do both for the same right at the same time.",
+      "says": "A person cannot apply to the Tribunal about a right while a court case in which they ask for a Code order under s. 46.1 for the same alleged infringement is not finally decided or withdrawn, or after a court has finally decided the issue or the matter has been settled.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (11)",
@@ -278,7 +317,12 @@
         "hr.start.application",
         "hr.civil.remedy",
         "hr.pre.application-barred"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 34(11) only bars a Tribunal application while a court case seeking a s. 46.1 order is pending or after a final decision or settlement; the option of asking a court for Code remedies comes from s. 46.1, not s. 34.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.pre.application-barred",
@@ -292,7 +336,11 @@
       },
       "leadsTo": [
         "hr.pre.final-determination"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.pre.final-determination",
@@ -303,6 +351,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (12)",
         "expect": "right of appeal exists and the time for appealing has"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -318,7 +370,11 @@
       "leadsTo": [
         "hr.start.application",
         "hr.test.late-application"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.late-application",
@@ -332,13 +388,17 @@
       },
       "leadsTo": [
         "hr.start.application"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.services",
       "kind": "test",
       "title": "Services, goods and facilities",
-      "says": "Everyone has the right to equal treatment in services, goods and facilities (such as stores, restaurants, schools, hospitals, police and government services) without discrimination because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sex, sexual orientation, gender identity, gender expression, age, marital status, family status or disability.",
+      "says": "Everyone has the right to equal treatment in services, goods and facilities without discrimination because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sex, sexual orientation, gender identity, gender expression, age, marital status, family status or disability.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 1",
@@ -348,7 +408,12 @@
         "hr.def.services",
         "hr.test.prima-facie",
         "hr.start.application"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1 does not give examples such as stores, restaurants, schools, hospitals, police or government services.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.def.services",
@@ -359,6 +424,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (1)",
         "expect": "not include a levy, fee, tax or periodic payment imposed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -378,7 +447,11 @@
         "hr.defence.shared-accommodation",
         "hr.defence.tenant-screening",
         "hr.test.prima-facie"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.housing-harassment",
@@ -393,7 +466,11 @@
       "leadsTo": [
         "hr.def.harassment",
         "hr.test.harassment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.minors-housing",
@@ -404,6 +481,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 4 (1)",
         "expect": "withdrawn from parental control has a right to equal treatment"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -419,13 +500,17 @@
       "leadsTo": [
         "hr.defence.insurance",
         "hr.test.prima-facie"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.employment",
       "kind": "test",
       "title": "Employment",
-      "says": "Every person has the right to equal treatment in employment without discrimination because of a listed ground. In employment, the grounds include 'record of offences'. This covers hiring, pay, conditions, discipline and firing.",
+      "says": "Every person has the right to equal treatment in employment without discrimination because of a listed ground. In employment, the grounds include 'record of offences'.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 5 (1)",
@@ -440,7 +525,12 @@
         "hr.area.benefit-plans",
         "hr.defence.bfor",
         "hr.test.prima-facie"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 5(1) does not list hiring, pay, conditions, discipline and firing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.workplace-harassment",
@@ -455,7 +545,11 @@
       "leadsTo": [
         "hr.def.harassment",
         "hr.test.harassment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.vocational",
@@ -469,7 +563,11 @@
       },
       "leadsTo": [
         "hr.test.prima-facie"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.housing-sexual-harassment",
@@ -484,7 +582,11 @@
       "leadsTo": [
         "hr.test.harassment",
         "hr.decision.janzen"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.workplace-sexual-harassment",
@@ -499,7 +601,11 @@
       "leadsTo": [
         "hr.test.harassment",
         "hr.decision.janzen"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.sexual-solicitation",
@@ -513,7 +619,11 @@
       },
       "leadsTo": [
         "hr.test.harassment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.reprisal",
@@ -527,7 +637,11 @@
       },
       "leadsTo": [
         "hr.test.reprisal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.area.association",
@@ -538,6 +652,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 12",
         "expect": "relationship, association or dealings with a person or persons"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -549,6 +667,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 13 (1)",
         "expect": "any notice, sign, symbol, emblem, or other similar representation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -560,6 +682,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 23 (1)",
         "expect": "an invitation to apply for employment or an advertisement"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -574,17 +700,26 @@
       },
       "leadsTo": [
         "hr.defence.interview-questions"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.defence.interview-questions",
       "kind": "test",
       "title": "Interview questions where the Code permits",
-      "says": "An employer may ask about a protected ground at a personal job interview where discrimination on that ground is allowed by the Code (for example, a genuine job requirement).",
+      "says": "Questions about a protected ground may be asked at a personal job interview where discrimination on that ground is permitted under the Code.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 23 (3)",
         "expect": "the asking of questions at a personal employment interview"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 23(3) does not give 'genuine job requirement' as an example; it refers only to discrimination permitted under the Act.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -596,6 +731,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 23 (4)",
         "expect": "an employment agency discriminates against a person"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -612,7 +751,11 @@
         "hr.defence.benefit-plans-age",
         "hr.defence.preexisting-disability",
         "hr.remedy.benefit-compensation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.remedy.benefit-compensation",
@@ -623,6 +766,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 25 (4)",
         "expect": "compensation equivalent to the contribution that the employer would make"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -634,6 +781,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 26 (1)",
         "expect": "no right under section 5 will be infringed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -649,7 +800,11 @@
       "leadsTo": [
         "hr.def.perceived-disability",
         "hr.test.duty-to-accommodate"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.def.perceived-disability",
@@ -660,6 +815,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (3)",
         "expect": "is believed to have or to have had a disability"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -671,6 +830,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (2)",
         "expect": "a woman is or may become pregnant"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -685,13 +848,17 @@
       },
       "leadsTo": [
         "hr.test.harassment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.def.age",
       "kind": "test",
       "title": "What 'age' means",
-      "says": "Under the Code, 'age' means 18 years or older. People under 18 are protected on other grounds, and 16- and 17-year-olds have a special housing right.",
+      "says": "Under the Code, 'age' means an age of 18 years or more.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (1)",
@@ -700,7 +867,12 @@
       "leadsTo": [
         "hr.defence.age-65",
         "hr.area.minors-housing"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 10(1) defines age only; it says nothing about protection of people under 18 or the 16- and 17-year-old housing right (that is s. 4).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.def.family-status",
@@ -711,6 +883,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (1)",
         "expect": "the status of being in a parent and child relationship"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -722,17 +898,26 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (1)",
         "expect": "the status of being married, single, widowed, divorced or separated"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.def.record-of-offences",
       "kind": "test",
       "title": "What 'record of offences' means",
-      "says": "Record of offences (an employment ground only) means a conviction for an offence for which a pardon (record suspension) was granted and not revoked, or a conviction for a provincial offence.",
+      "says": "Record of offences means a conviction for an offence for which a pardon was granted under the Criminal Records Act (Canada) and not revoked, or a conviction for an offence under any provincial law.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (1)",
         "expect": "an offence in respect of any provincial enactment"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 10(1) defines record of offences but does not say it is an employment-only ground.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -751,7 +936,11 @@
         "hr.test.burden-of-proof",
         "hr.test.respondent-justification",
         "hr.step.response"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.no-intent-needed",
@@ -790,7 +979,11 @@
       },
       "leadsTo": [
         "hr.test.constructive-undue-hardship"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.constructive-undue-hardship",
@@ -804,13 +997,17 @@
       },
       "leadsTo": [
         "hr.test.undue-hardship"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.respondent-justification",
       "kind": "test",
       "title": "Respondent's justification",
-      "says": "Once discrimination is shown on its face, the respondent may justify it only within the Code's exemptions and defences, such as a bona fide requirement where accommodation to the point of undue hardship is not possible, special programs, or the listed exceptions.",
+      "says": "Once discrimination is shown on its face, the burden shifts to the respondent to justify the conduct or practice within the framework of the exemptions available under human rights statutes; if it cannot be justified, discrimination is found.",
       "source": {
         "decision": "Moore v. British Columbia (Education), 2012 SCC 61",
         "corpusId": "decision-moore-bc",
@@ -821,7 +1018,12 @@
         "hr.defence.bfor",
         "hr.defence.special-program",
         "hr.test.duty-to-accommodate"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 33 of Moore says only that the respondent must justify within the framework of statutory exemptions; it does not list bona fide requirements, undue hardship or special programs.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.duty-to-accommodate",
@@ -838,7 +1040,11 @@
         "hr.test.undue-hardship",
         "hr.test.accommodation-process",
         "hr.decision.renaud"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.essential-duties",
@@ -852,7 +1058,11 @@
       },
       "leadsTo": [
         "hr.test.duty-to-accommodate"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.undue-hardship",
@@ -866,7 +1076,11 @@
       },
       "leadsTo": [
         "hr.decision.hydro-quebec"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.accommodation-process",
@@ -884,7 +1098,7 @@
       "id": "hr.test.harassment",
       "kind": "test",
       "title": "What must be shown for harassment",
-      "says": "For Code harassment, the applicant shows a course of comment or conduct, connected to a protected ground, in housing or at work, that the harasser knew or ought reasonably to have known was unwelcome. Harassment under ss. 2(2), 5(2) and 7 is not automatically attributed to a corporation under s. 46.3.",
+      "says": "Harassment means engaging in a course of vexatious comment or conduct that is known, or ought reasonably to be known, to be unwelcome.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (1)",
@@ -892,7 +1106,12 @@
       },
       "leadsTo": [
         "hr.test.corporate-liability"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 10(1) only defines harassment; the link to grounds and social areas, and the s. 46.3 point about corporations, are not in s. 10.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.reprisal",
@@ -906,7 +1125,11 @@
       },
       "leadsTo": [
         "hr.decision.noble"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.corporate-liability",
@@ -920,7 +1143,11 @@
       },
       "leadsTo": [
         "hr.test.corporate-opinion"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.corporate-opinion",
@@ -931,6 +1158,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 46.3 (2)",
         "expect": "with or without the authority or acquiescence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -946,13 +1177,17 @@
       "leadsTo": [
         "hr.defence.bfor-accommodation",
         "hr.decision.meiorin"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.defence.bfor-accommodation",
       "kind": "test",
       "title": "A job requirement needs accommodation to the point of undue hardship",
-      "says": "No tribunal or court may find a qualification reasonable and bona fide unless the person's circumstances cannot be accommodated without undue hardship, considering cost, outside funding and health and safety.",
+      "says": "No tribunal or court may find that a qualification based on age, sex, record of offences or marital status under s. 24(1)(b) is reasonable and bona fide unless the person's circumstances cannot be accommodated without undue hardship, considering cost, outside sources of funding and health and safety requirements.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (2)",
@@ -960,7 +1195,12 @@
       },
       "leadsTo": [
         "hr.test.undue-hardship"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 24(2) applies only to a qualification under clause 24(1)(b), not to any qualification.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.defence.special-employment",
@@ -971,6 +1211,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (1) (a)",
         "expect": "employs only, or gives preference in employment to, persons similarly"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -982,6 +1226,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (1) (c)",
         "expect": "attending to the medical or personal needs of the person"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -993,6 +1241,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (1) (d)",
         "expect": "spouse, child or parent of the employer or an employee"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1007,7 +1259,11 @@
       },
       "leadsTo": [
         "hr.option.special-program-designation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.option.special-program-designation",
@@ -1018,17 +1274,26 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 14 (2)",
         "expect": "apply to the Commission for a designation of a program"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.defence.age-65",
       "kind": "test",
       "title": "Preferences for people 65 and over",
-      "says": "The age right is not infringed where being 65 or over is a requirement for preferential treatment (such as seniors' discounts).",
+      "says": "The right to be free from age discrimination is not infringed where being 65 or over is a requirement, qualification or consideration for preferential treatment.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 15",
         "expect": "an age of sixty-five years or over is a requirement"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 15 does not mention seniors' discounts.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1040,6 +1305,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 16 (1)",
         "expect": "Canadian citizenship is a requirement, qualification or consideration imposed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1051,6 +1320,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 18",
         "expect": "primarily engaged in serving the interests of persons identified by"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1062,6 +1335,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 18.1 (1)",
         "expect": "refuses to solemnize a marriage"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1073,6 +1350,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 19 (1)",
         "expect": "any right or privilege respecting separate schools"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1084,6 +1365,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 20 (1)",
         "expect": "restricted to persons of the same sex on the ground"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1095,6 +1380,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 20 (2)",
         "expect": "enforcing a minimum drinking age of nineteen years"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1106,6 +1395,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 20 (3)",
         "expect": "where a recreational club restricts or qualifies access"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1117,6 +1410,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 21 (1)",
         "expect": "required to share a bathroom or kitchen facility with the"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1128,6 +1425,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 21 (2)",
         "expect": "is restricted to persons who are of the same sex"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1142,7 +1443,11 @@
       },
       "leadsTo": [
         "hr.reg.tenant-screening"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.reg.tenant-screening",
@@ -1165,6 +1470,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 22",
         "expect": "reasonable and bona fide grounds because of age, sex, marital"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1176,6 +1485,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 25 (2.1)",
         "expect": "that complies with the Employment Standards Act, 2000"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1187,6 +1500,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 25 (3) (a)",
         "expect": "a pre-existing disability that substantially increases the risk"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1204,13 +1521,17 @@
         "hr.form.application",
         "hr.step.screening",
         "hr.step.response"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.form.application",
       "kind": "form",
       "title": "Application form (Form 1)",
-      "says": "An application must be made in the form approved by the Tribunal (Form 1, the Application under section 34). The form asks for the social area, the grounds, the facts, and the remedy sought.",
+      "says": "An application to the Tribunal must be in a form approved by the Tribunal.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (3)",
@@ -1219,7 +1540,12 @@
       "form": "Form 1",
       "leadsTo": [
         "hr.step.screening"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 34(3) only requires a form approved by the Tribunal; it does not name Form 1 or say what the form asks for.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.start.joint-application",
@@ -1233,7 +1559,11 @@
       },
       "leadsTo": [
         "hr.step.screening"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.start.on-behalf",
@@ -1249,7 +1579,11 @@
         "hr.deadline.on-behalf",
         "hr.option.withdraw-on-behalf",
         "hr.step.screening"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.deadline.on-behalf",
@@ -1276,6 +1610,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (10)",
         "expect": "be withdrawn by the person on behalf of whom the"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1290,13 +1628,17 @@
       },
       "leadsTo": [
         "hr.remedy.commission-orders"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.statute.commission",
       "kind": "statute",
       "title": "Ontario Human Rights Commission",
-      "says": "The Commission promotes and protects human rights, approves policies, conducts inquiries, designates special programs, and may apply to or intervene at the Tribunal. It does not take individual complaints.",
+      "says": "The Commission's functions include promoting and protecting human rights, public education, research, reviewing laws and programs, inquiring into tension or conflict, designating special programs, approving policies, applying to the Tribunal under s. 35, and reporting to the people of Ontario.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 29",
@@ -1306,7 +1648,12 @@
         "hr.step.commission-policies",
         "hr.start.commission",
         "hr.step.commission-intervention"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 29 does not mention intervening at the Tribunal (that is s. 37) or say the Commission does not take individual complaints.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.parties",
@@ -1320,7 +1667,11 @@
       },
       "leadsTo": [
         "hr.motion.add-party"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.motion.add-party",
@@ -1331,6 +1682,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 36",
         "expect": "if they are added as a party by the Tribunal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1342,6 +1697,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 37 (1)",
         "expect": "The Commission may intervene in an application under section 34"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1377,7 +1736,11 @@
       "leadsTo": [
         "hr.step.submissions-on-dismissal",
         "hr.step.response"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.submissions-on-dismissal",
@@ -1495,7 +1858,11 @@
       "leadsTo": [
         "hr.decision.figliola",
         "hr.decision.penner"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.motion.summary-hearing",
@@ -1573,6 +1940,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 44 (1)",
         "expect": "an inquiry is required in order to obtain evidence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1584,6 +1955,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 9.1 (1)",
         "expect": "involve the same or similar questions of fact, law or"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1595,17 +1970,26 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 21",
         "expect": "the adjournment is required to permit an adequate hearing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.motion.summons",
       "kind": "motion",
       "title": "Summons to a witness",
-      "says": "The Tribunal can summon any person, including a party, to give evidence or produce documents at a hearing. The summons must be served personally, and a Superior Court judge may issue a warrant if a summoned witness does not attend.",
+      "says": "The Tribunal can summon any person, including a party, to give evidence or produce documents at a hearing. The summons must be served personally. A Superior Court judge may issue a warrant if satisfied the summons was served, the person did not attend, and their attendance is material to the ends of justice.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 12 (1)",
         "expect": "tribunal may require any person, including a party, by summons"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops a condition: a judge may issue a warrant only if satisfied the summons was served, the person failed to attend, and their attendance is material to the ends of justice.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1617,6 +2001,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 9 (1)",
         "expect": "intimate financial or personal matters or other matters"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1628,6 +2016,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 17.1 (2)",
         "expect": "conduct or course of conduct of a party has been"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1639,6 +2031,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 23 (1)",
         "expect": "as it considers proper to prevent abuse of its processes"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1671,6 +2067,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 4.9 (1)",
         "expect": "shall be compelled to give testimony or produce documents"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1717,7 +2117,11 @@
       "leadsTo": [
         "hr.step.hearing",
         "hr.step.non-attendance"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.non-attendance",
@@ -1728,13 +2132,17 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 7 (1)",
         "expect": "the tribunal may proceed in the absence of the party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.step.hearing",
       "kind": "step",
       "title": "The hearing",
-      "says": "The Tribunal can hold the hearing in person, electronically (video or phone), in writing, or a mix. A party can object to a written hearing for good reason, or to an electronic hearing that would cause significant prejudice.",
+      "says": "The Tribunal may hold any combination of written, electronic and oral hearings in a proceeding.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 5.2.1",
@@ -1747,7 +2155,12 @@
         "hr.step.cross-examination",
         "hr.step.commission-policies",
         "hr.step.decision"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 5.2.1 only allows any combination of hearing types; the objections to written or electronic hearings are in other sections.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.oral-submissions-right",
@@ -1758,6 +2171,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (2)",
         "expect": "an opportunity to make oral submissions in accordance with the"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1785,17 +2202,26 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 15 (1)",
         "expect": "relevant to the subject-matter of the proceeding and may act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.step.cross-examination",
       "kind": "step",
       "title": "Calling and cross-examining witnesses",
-      "says": "At an oral or electronic hearing, a party may call witnesses, present evidence and submissions, and cross-examine as reasonably required. The Tribunal's rules can also let it question witnesses and narrow the issues.",
+      "says": "At an oral or electronic hearing, a party may call and examine witnesses, present evidence and submissions, and cross-examine witnesses as reasonably required for a full and fair disclosure of the relevant matters.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 10.1",
         "expect": "conduct cross-examinations of witnesses at the hearing"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 10.1 says nothing about the Tribunal's rules letting it question witnesses or narrow issues (that is Code s. 43(3)).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1807,6 +2233,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (3)",
         "expect": "define or narrow the issues required to dispose of an"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1818,13 +2248,17 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.5 (2)",
         "expect": "the Tribunal shall consider a policy approved by the Commission"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.step.decision",
       "kind": "step",
       "title": "The decision",
-      "says": "A final decision must have written reasons. The Tribunal sends each party a copy; a copy sent by email is deemed received the next day, and by mail on the fifth day after mailing.",
+      "says": "The Tribunal's rules must ensure that an application is not finally disposed of without written reasons.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (2)",
@@ -1838,7 +2272,12 @@
         "hr.option.judicial-review",
         "hr.enforce.file-in-court",
         "hr.step.decision-delivery"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 43(2) requires written reasons but says nothing about sending copies or deemed receipt by email or mail (that is SPPA s. 18).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.written-reasons",
@@ -1849,6 +2288,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (2)",
         "expect": "may not be finally disposed of without written reasons"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1860,6 +2303,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 18 (2)",
         "expect": "deemed to be received by the party on the fifth"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1871,13 +2318,17 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.4 (1)",
         "expect": "they are matters of public interest"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.remedy.compensation",
       "kind": "step",
       "title": "Order to pay compensation",
-      "says": "If the Tribunal finds a party infringed another party's Code right, it may order payment of compensation for loss arising from the infringement, including compensation for injury to dignity, feelings and self-respect. There is no cap on the amount in the Code.",
+      "says": "If the Tribunal finds a party infringed another party's Code right, it may order payment of compensation for loss arising from the infringement, including compensation for injury to dignity, feelings and self-respect.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.2 (1)",
@@ -1888,39 +2339,59 @@
         "hr.decision.adga-lane",
         "hr.remedy.interest",
         "hr.enforce.file-in-court"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 45.2(1) says nothing about the absence of a cap on compensation.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.remedy.restitution",
       "kind": "step",
       "title": "Order of restitution other than money",
-      "says": "The Tribunal may order the party who infringed a right to make restitution other than money (for example, reinstatement to a job or offering housing) for loss arising out of the infringement.",
+      "says": "The Tribunal may order the party who infringed a right to make restitution, other than money, for loss arising out of the infringement, including for injury to dignity, feelings and self-respect.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.2 (1)",
         "expect": "make restitution to the party whose right was infringed, other"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 45.2(1) gives no examples such as reinstatement or offering housing.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "hr.remedy.public-interest",
       "kind": "step",
       "title": "Order to promote compliance (public interest remedy)",
-      "says": "The Tribunal may order any party to do anything it thinks that party ought to do to promote compliance with the Code, including about future practices (such as training or policy changes), even if no one asked for it.",
+      "says": "Where it finds an infringement, the Tribunal may order any party to do anything it thinks that party ought to do to promote compliance with the Code, including about future practices, even if no one asked for that order.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.2 (2)",
         "expect": "direct a person to do anything with respect to future"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 45.2(2) does not mention training or policy changes.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "hr.remedy.commission-orders",
       "kind": "step",
       "title": "Orders on a Commission application",
-      "says": "On a Commission application, the Tribunal may order any party to do anything to promote compliance with the Code, including about future practices.",
+      "says": "On a Commission application, if the Tribunal determines that a party infringed a Code right, it may order any party to do anything it thinks that party ought to do to promote compliance with the Code, including about future practices.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.3 (1)",
         "expect": "to do anything that, in the opinion of the Tribunal"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the condition that the Tribunal must first determine that a party infringed a Part I right.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1932,6 +2403,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 17 (2)",
         "expect": "rate of interest and the date from which it is"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1947,7 +2422,11 @@
       "leadsTo": [
         "hr.option.consent-order",
         "hr.start.contravention"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.option.consent-order",
@@ -1958,6 +2437,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.9 (2)",
         "expect": "joint motion of the parties, make an order requiring compliance"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1969,6 +2452,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 4.1",
         "expect": "If the parties consent, a proceeding may be disposed of"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1997,7 +2484,11 @@
         "hr.deadline.contravention-late",
         "hr.form.contravention",
         "hr.remedy.contravention"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.deadline.contravention-late",
@@ -2008,6 +2499,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.9 (4)",
         "expect": "the delay was incurred in good faith"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2019,6 +2514,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.9 (5)",
         "expect": "shall be in a form approved by the Tribunal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2033,13 +2532,17 @@
       },
       "leadsTo": [
         "hr.enforce.file-in-court"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.option.reconsideration",
       "kind": "option",
       "title": "Request for reconsideration",
-      "says": "Any party may ask the Tribunal to reconsider its decision under the Tribunal rules, and the Tribunal may also reconsider on its own. Reconsideration is discretionary and is not a second hearing.",
+      "says": "Any party may ask the Tribunal to reconsider its decision under the Tribunal rules, and the Tribunal may reconsider on a request or on its own; reconsideration is at the Tribunal's discretion.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.7 (1)",
@@ -2048,7 +2551,12 @@
       "leadsTo": [
         "hr.deadline.reconsideration",
         "hr.option.judicial-review"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 45.7 does not say reconsideration is not a second hearing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.deadline.reconsideration",
@@ -2071,6 +2579,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 21.1",
         "expect": "correct a typographical error, error of calculation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2086,13 +2598,17 @@
       "leadsTo": [
         "hr.option.judicial-review",
         "hr.decision.vavilov"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.option.judicial-review",
       "kind": "option",
       "title": "Judicial review in the Divisional Court",
-      "says": "A party may apply to the Divisional Court for judicial review of a Tribunal decision. It is started by a notice of application (Form 68A) and is a review of the decision, not a new hearing.",
+      "says": "An application to the Divisional Court for judicial review is started by a notice of application in Form 68A.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 68.01 (1)",
@@ -2104,7 +2620,12 @@
         "hr.step.jr-record",
         "hr.step.jr-no-automatic-stay",
         "hr.test.jr-standard"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 68.01(1) only says how a judicial review application is started; it does not say who may apply or that it is not a new hearing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.deadline.judicial-review",
@@ -2130,7 +2651,11 @@
       },
       "leadsTo": [
         "hr.step.jr-dismissal-for-delay"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.jr-dismissal-for-delay",
@@ -2141,6 +2666,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 68.06 (1)",
         "expect": "to have the application dismissed for delay"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2152,13 +2681,17 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 25 (2)",
         "expect": "is not an appeal within the meaning of subsection (1)"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.test.jr-standard",
       "kind": "test",
       "title": "Standard of review on judicial review",
-      "says": "The Code says a Tribunal decision can be set aside only if patently unreasonable. The Supreme Court's framework for standard of review is in Vavilov; how it applies to the Code's patently unreasonable clause has been addressed by Ontario courts.",
+      "says": "The Code says a Tribunal decision is not to be altered or set aside on judicial review or in any other proceeding unless it is patently unreasonable.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.8",
@@ -2167,7 +2700,12 @@
       "leadsTo": [
         "hr.decision.vavilov",
         "hr.test.rules-breach"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 45.8 says nothing about Vavilov or how Ontario courts have applied the patently unreasonable standard.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.rules-breach",
@@ -2178,6 +2716,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (8)",
         "expect": "caused a substantial wrong which affected the final disposition"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2192,7 +2734,11 @@
       },
       "leadsTo": [
         "hr.deadline.stated-case-reconsideration"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.deadline.stated-case-reconsideration",
@@ -2203,6 +2749,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.6 (7)",
         "expect": "30 days of receipt of the decision of the Divisional"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2220,7 +2770,11 @@
         "hr.enforce.sheriff",
         "hr.enforce.writ",
         "hr.enforce.garnishment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.enforce.notice-of-filing",
@@ -2231,6 +2785,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 19 (2)",
         "expect": "shall notify the tribunal within 10 days after the filing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2242,28 +2800,42 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 19 (3)",
         "expect": "sheriff shall enforce the order as if it were an"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.enforce.writ",
       "kind": "enforcement",
       "title": "Writ of seizure and sale",
-      "says": "A creditor under a court order (including a filed Tribunal order) can have a writ of seizure and sale issued, which lets the sheriff seize and sell the debtor's property.",
+      "says": "Where an order may be enforced by a writ of seizure and sale, the creditor can have one or more writs (Form 60A) issued by filing a requisition with the registrar where the proceeding started, setting out payments received, the amount owing and the post-judgment interest rate, with a copy of the order.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.07 (1)",
         "expect": "creditor is entitled to the issue of one or more"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 60.07(1) does not mention Tribunal orders or say what the sheriff does with the writ; it sets out when and how a writ is issued.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "hr.enforce.garnishment",
       "kind": "enforcement",
       "title": "Garnishment",
-      "says": "A creditor under an order to pay money can enforce it by garnishing money owed to the debtor by others, such as wages or bank accounts.",
+      "says": "A creditor under an order for the payment or recovery of money may enforce it by garnishing debts that other people owe to the debtor.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.08 (1)",
         "expect": "enforce it by garnishment of debts payable to the debtor"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 60.08(1) does not give wages or bank accounts as examples.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2294,6 +2866,10 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 46.2 (2)",
         "expect": "except with the consent in writing of the Attorney General"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2310,13 +2886,17 @@
         "hr.civil.no-standalone-action",
         "hr.civil.limitation",
         "hr.pre.application-barred"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.civil.no-standalone-action",
       "kind": "test",
       "title": "No lawsuit based only on the Code",
-      "says": "A person cannot start a court action based only on an infringement of a Code right. The Code claim must be attached to another cause of action, such as wrongful dismissal or breach of contract.",
+      "says": "Section 46.1 does not allow a person to start a court action based only on an infringement of a Code right.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 46.1 (2)",
@@ -2324,7 +2904,12 @@
       },
       "leadsTo": [
         "hr.decision.bhadauria"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 46.1(2) says only that an action cannot be based solely on a Code infringement; it does not say the claim must be attached to another cause of action or give examples.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.civil.limitation",
@@ -2335,6 +2920,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 4",
         "expect": "after the second anniversary of the day on which the"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2346,13 +2935,17 @@
         "corpusId": "human-rights-code",
         "pinpoint": "s. 31 (1)",
         "expect": "Commission believes it is in the public interest to do"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "hr.statute.commission-policies",
       "kind": "statute",
       "title": "Commission policies",
-      "says": "The Commission may approve policies giving guidance on applying Parts I and II of the Code (for example, on disability accommodation or harassment).",
+      "says": "The Commission may approve policies it prepares and publishes to give guidance on applying Parts I and II of the Code.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 30",
@@ -2360,7 +2953,12 @@
       },
       "leadsTo": [
         "hr.step.commission-policies"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 30 does not give disability accommodation or harassment as examples.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.moore",
@@ -2375,7 +2973,11 @@
       },
       "leadsTo": [
         "hr.test.prima-facie"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.meiorin",

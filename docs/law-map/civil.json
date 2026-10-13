@@ -7,7 +7,7 @@
       "id": "civ.statute.rcp",
       "kind": "statute",
       "title": "Rules of Civil Procedure",
-      "says": "The Rules of Civil Procedure set out the steps, forms and deadlines for civil cases in the Superior Court of Justice and the Court of Appeal. They are to be read so that each case is decided justly, as quickly and cheaply as possible, in a way that fits how important and complex it is.",
+      "says": "The Rules of Civil Procedure are to be read broadly so that every civil case is decided justly, as quickly and cheaply as possible, on its merits; the court makes orders that fit the importance and complexity of the issues and the amount involved.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 1.04(1)",
@@ -15,7 +15,12 @@
       },
       "leadsTo": [
         "civ.pre.choose-court"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 1.04(1) says how the rules are to be read; it does not say what the rules cover or which courts they apply to.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.statute.rcp.proportionality",
@@ -26,17 +31,26 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 1.04(1.1)",
         "expect": "proportionate to the importance and complexity"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.statute.cja",
       "kind": "statute",
       "title": "Courts of Justice Act",
-      "says": "The Courts of Justice Act sets up Ontario's courts, says which court hears which cases and appeals, and covers interest, costs, injunctions and other powers of the court.",
+      "says": "Under the Courts of Justice Act, the Superior Court of Justice has all the jurisdiction, power and authority historically exercised by the courts of common law and equity in England and Ontario.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 11(2)",
         "expect": "has all the jurisdiction, power and authority"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 11(2) only says the Superior Court has the historic common law and equity jurisdiction; it says nothing about interest, costs, injunctions or which court hears which appeals.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -51,7 +65,11 @@
       },
       "leadsTo": [
         "civ.pre.limitation.basic"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.statute.fees",
@@ -65,17 +83,26 @@
       },
       "leadsTo": [
         "civ.pre.fee-waiver"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.statute.negligence-act",
       "kind": "statute",
       "title": "Negligence Act",
-      "says": "The Negligence Act lets the court split responsibility for damage between two or more people at fault, including the person who was hurt, and makes people at fault jointly responsible to the injured person.",
+      "says": "Where two or more people caused or contributed to damage by their fault or negligence, the court decides how much each is at fault; those at fault are jointly and severally liable to the person who suffered the loss, and contribute between themselves in proportion to their fault.",
       "source": {
         "corpusId": "negligence-act",
         "pinpoint": "s. 1",
         "expect": "the court shall determine the degree in which each"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1 apportions fault among two or more persons at fault; apportioning fault to the injured plaintiff is section 3, not section 1.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -90,13 +117,17 @@
       },
       "leadsTo": [
         "civ.test.ola.duty"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.statute.libel",
       "kind": "statute",
       "title": "Libel and Slander Act",
-      "says": "The Libel and Slander Act sets special rules for defamation claims, including the notice required before suing over a newspaper or broadcast and a short time limit for those claims.",
+      "says": "Under the Libel and Slander Act, no action for libel in a newspaper or broadcast can be brought unless the plaintiff gave the defendant written notice of the matter complained of within six weeks after learning of the alleged libel.",
       "source": {
         "corpusId": "libel-and-slander-act",
         "pinpoint": "s. 5(1)",
@@ -104,7 +135,12 @@
       },
       "leadsTo": [
         "civ.pre.notice.libel"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 5(1) sets the six-week notice requirement; the short time limit for newspaper and broadcast claims is in section 6, not section 5.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.statute.clpa",
@@ -118,7 +154,11 @@
       },
       "leadsTo": [
         "civ.pre.notice.crown"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.limitation.basic",
@@ -153,7 +193,11 @@
       },
       "leadsTo": [
         "civ.pre.limitation.basic"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.limitation.presumption",
@@ -164,6 +208,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 5(2)",
         "expect": "unless the contrary is proved"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -175,17 +223,26 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 15(2)",
         "expect": "15th anniversary of the day on which the act or omission"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.pre.limitation.minor",
       "kind": "pre-step",
       "title": "Limitation period paused for minors and people lacking capacity",
-      "says": "The two-year period does not run while the person with the claim is a minor or is incapable of starting a claim because of their condition, as long as no litigation guardian represents them in the claim.",
+      "says": "The two-year period does not run while the person with the claim is a minor and is not represented by a litigation guardian in relation to the claim.",
       "source": {
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 6",
         "expect": "does not run during any time in which the person"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 6 covers only minors; the rule for people incapable because of their condition is section 7.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -197,6 +254,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 5(3)",
         "expect": "there is a failure to perform the obligation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -208,6 +269,10 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 13(1)",
         "expect": "acknowledges liability in respect of a claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -219,13 +284,17 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 22(1)",
         "expect": "despite any agreement to vary or exclude it"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.pre.choose-court",
       "kind": "pre-step",
       "title": "Choosing the court: Small Claims Court or Superior Court",
-      "says": "The Small Claims Court hears claims for money or the return of personal property up to the prescribed amount, not counting interest and costs. Claims above that amount, and claims for other kinds of orders, are started in the Superior Court of Justice.",
+      "says": "The Small Claims Court hears actions for the payment of money where the amount claimed, not counting interest and costs, is no more than the prescribed amount, and actions for the return of personal property worth no more than the prescribed amount.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 23(1)",
@@ -234,7 +303,12 @@
       "leadsTo": [
         "civ.pre.leave-small-claims",
         "civ.pre.action-or-application"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 23(1) sets the Small Claims Court's jurisdiction; it does not say that larger claims or other kinds of orders are started in the Superior Court.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.leave-small-claims",
@@ -248,7 +322,11 @@
       },
       "leadsTo": [
         "civ.motion.leave-small-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.leave-small-claims",
@@ -278,13 +356,17 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 23(2)",
         "expect": "with the consent of all parties filed before the trial"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.pre.action-or-application",
       "kind": "pre-step",
       "title": "Action or application",
-      "says": "Every proceeding in the Superior Court is an action unless a statute or the rules allow it to be an application. An action starts with a statement of claim and usually has discovery and a trial. An application starts with a notice of application and is usually decided on affidavit evidence.",
+      "says": "Every proceeding in the Superior Court is an action, unless a statute or the rules provide otherwise.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.02",
@@ -293,7 +375,12 @@
       "leadsTo": [
         "civ.start.claim",
         "civ.start.application"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.02 only says proceedings are by action unless a statute or the rules provide otherwise; how actions and applications start and are decided is not in it.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.application-grounds",
@@ -307,7 +394,11 @@
       },
       "leadsTo": [
         "civ.start.application"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.corporation-lawyer",
@@ -321,17 +412,26 @@
       },
       "leadsTo": [
         "civ.motion.corporation-rep"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.corporation-rep",
       "kind": "motion",
       "title": "Leave for a corporation to be represented by a non-lawyer",
-      "says": "A corporation can ask the court for leave to be represented by someone other than a lawyer, such as an officer or director.",
+      "says": "A corporation that is a party must be represented by a lawyer unless the court gives leave for it to be represented otherwise.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 15.01(2)",
         "expect": "except with leave of the court"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 15.01(2) allows leave but does not say who may represent the corporation; officers or directors are not mentioned.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -343,6 +443,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 15.01(3)",
         "expect": "may act in person or be represented by a lawyer"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -357,7 +461,11 @@
       },
       "leadsTo": [
         "civ.pre.settlement-approval"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.settlement-approval",
@@ -368,17 +476,26 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 7.08(1)",
         "expect": "without the approval of a judge"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.pre.place",
       "kind": "pre-step",
       "title": "Where the case is started",
-      "says": "If no statute or rule names a county, the proceeding is started at a court office in a county with which there is a rational connection, based on the factors the rules list, and that county is named in the originating process. The court can transfer it to another county on motion.",
+      "says": "If no statute or rule names a county, the proceeding is started at a court office in a county with which there is a rational connection, based on the factors listed in clause 13.1.02(2)(b), and that county is named in the originating process.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 13.1.01(2)",
         "expect": "a county with which there is a rational connection"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 13.1.01(2) sets where the proceeding is started; the power to transfer to another county is in rule 13.1.02, not the cited rule.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -389,6 +506,10 @@
       "source": {
         "corpusId": "ontario-fee-waiver",
         "expect": "you can ask the court to waive them"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -400,6 +521,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 140(1)",
         "expect": "except by leave of a judge of the Superior Court of Justice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -414,7 +539,11 @@
       },
       "leadsTo": [
         "civ.pre.libel.time"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.libel.time",
@@ -428,7 +557,11 @@
       },
       "leadsTo": [
         "civ.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.notice.crown",
@@ -442,7 +575,11 @@
       },
       "leadsTo": [
         "civ.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.notice.municipal-road",
@@ -456,7 +593,11 @@
       },
       "leadsTo": [
         "civ.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.pre.notice.snow-ice",
@@ -470,13 +611,17 @@
       },
       "leadsTo": [
         "civ.start.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.start.claim",
       "kind": "start",
       "title": "Statement of claim",
-      "says": "An action starts when the court issues a statement of claim: Form 14A for most actions or Form 14B for mortgage actions. It names the parties, sets out the relief claimed and the material facts the claim relies on.",
+      "says": "An action is started by a statement of claim, Form 14A for most actions or Form 14B for mortgage actions, except where the rules allow another document such as a notice of action.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.03(1)",
@@ -487,13 +632,18 @@
         "civ.start.form14f",
         "civ.step.pleading.content",
         "civ.start.issue"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.03(1) names the originating process and its forms; it does not say what a statement of claim contains.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.start.notice-of-action",
       "kind": "start",
       "title": "Notice of action (when time is short)",
-      "says": "If there is not enough time to prepare a statement of claim, for example because a limitation period is about to end, an action can be started by issuing a notice of action (Form 14C) with a short statement of the nature of the claim.",
+      "says": "If there is not enough time to prepare a statement of claim, an action can be started by issuing a notice of action (Form 14C) with a short statement of the nature of the claim.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.03(2)",
@@ -502,7 +652,12 @@
       "form": "14C",
       "leadsTo": [
         "civ.deadline.notice-of-action.claim"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.03(2) does not mention a limitation period; the example is added.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.deadline.notice-of-action.claim",
@@ -534,7 +689,11 @@
         "pinpoint": "r. 14.03(4.1)",
         "expect": "Information for court use"
       },
-      "form": "14F"
+      "form": "14F",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.start.issue",
@@ -560,11 +719,16 @@
       "id": "civ.start.fee.issue",
       "kind": "step",
       "title": "Fee to issue a claim",
-      "says": "A fee is payable on issuing a statement of claim, notice of action or notice of application, unless a fee waiver applies.",
+      "says": "A fee of $243 is payable on the issue of a statement of claim, notice of action or notice of application.",
       "source": {
         "corpusId": "oreg-293-92-superior-court-fees",
         "pinpoint": "s. 1(1)",
         "expect": "A statement of claim, notice of action or notice of application"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1(1) lists the fee but says nothing about fee waivers; its only stated exception is for proceedings under section 1.2 (family proceedings).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -576,13 +740,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 4.05.1(1)",
         "expect": "Civil Claims Online Portal"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.start.application",
       "kind": "start",
       "title": "Notice of application",
-      "says": "An application starts when the court issues a notice of application (Form 14E). It states the relief sought, the grounds, the statute or rule relied on, and the documentary evidence to be used, and sets a hearing date.",
+      "says": "An application is started by a notice of application, Form 14E in most cases (other forms, such as 2.2B, 14E.1, 68A or 73A, apply to particular applications).",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.05(1)",
@@ -592,7 +760,12 @@
       "leadsTo": [
         "civ.app.service",
         "civ.app.record"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.05(1) names the forms for a notice of application (2.2B, 14E, 14E.1, 68A, 73A); it does not say what the notice states or that it sets a hearing date.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.start.title",
@@ -603,6 +776,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.06(1)",
         "expect": "setting out the names of all the parties"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -637,13 +814,17 @@
       "form": "38A",
       "leadsTo": [
         "civ.app.record"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.app.record",
       "kind": "step",
       "title": "Application record and factum",
-      "says": "The applicant serves an application record and a factum, and the respondent may serve a responding record and factum, within set times before the hearing. Evidence is usually given by affidavit, and witnesses may be cross-examined on their affidavits.",
+      "says": "The applicant serves an application record and factum on every respondent who has served a notice of appearance, and files them with proof of service, at least seven days before the hearing; the respondent serves a factum at least four days before the hearing.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 38.09(1)",
@@ -651,7 +832,12 @@
       },
       "leadsTo": [
         "civ.app.hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 38.09 sets the records and factums and their timing; it does not say evidence is by affidavit or that deponents may be cross-examined.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.app.hearing",
@@ -666,7 +852,11 @@
       "leadsTo": [
         "civ.step.order",
         "civ.opt.appeal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.app.convert",
@@ -677,6 +867,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 38.10(2)",
         "expect": "shall thereafter be treated as an action"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -708,6 +902,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 3.02(1)",
         "expect": "extend or abridge any time prescribed by these rules"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -724,7 +922,11 @@
         "civ.step.service.how-personal",
         "civ.step.service.alternatives",
         "civ.motion.substituted-service"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.service.how-personal",
@@ -749,7 +951,7 @@
       "id": "civ.step.service.alternatives",
       "kind": "step",
       "title": "Alternatives to personal service",
-      "says": "Instead of personal service, the originating process can be accepted by the defendant's lawyer, mailed with an acknowledgment of receipt card that is signed and returned, or left at the person's residence with an adult member of the household and a copy mailed the next day.",
+      "says": "Instead of personal service, a document can be left with the party's lawyer if the lawyer endorses acceptance of service, mailed with an acknowledgment of receipt card (effective when the card comes back), or, if an attempt at personal service at the person's home fails, left there in a sealed envelope with an apparent adult member of the household with another copy mailed the same day or the next day (effective on the fifth day after mailing).",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 16.03(5)",
@@ -757,17 +959,27 @@
       },
       "leadsTo": [
         "civ.step.service.proof"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Service at the residence is allowed only after an attempt at personal service there fails, and the second copy is mailed the same day or the next day; the item drops the first condition and narrows the mailing day.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.substituted-service",
       "kind": "motion",
       "title": "Substituted service or dispensing with service",
-      "says": "If it is impractical to serve a document personally or by an alternative method, the court can order another way to serve it, such as by email or social media, or can dispense with service where necessary in the interest of justice.",
+      "says": "If it is impractical for any reason to serve a document promptly in the way the rules require, the court can order substituted service or, where necessary in the interest of justice, dispense with service.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 16.04(1)",
         "expect": "may make an order for substituted service"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 16.04(1) does not mention email or social media; the examples are added.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -779,6 +991,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 16.05(1)",
         "expect": "Service of a document on the lawyer of record"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -791,13 +1007,17 @@
         "pinpoint": "r. 16.09(1)",
         "expect": "an affidavit of the person who served"
       },
-      "form": "16B"
+      "form": "16B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.service.outside",
       "kind": "step",
       "title": "Serving a defendant outside Ontario",
-      "says": "An originating process can be served outside Ontario without a court order where the claim falls in a category the rules list, such as a claim about property in Ontario, a contract made in Ontario or governed by Ontario law or breached in Ontario, or a tort committed in Ontario. Otherwise, leave of the court is needed.",
+      "says": "An originating process can be served outside Ontario without a court order where the claim falls in a category the rule lists, such as a claim about property in Ontario, a contract made in Ontario, governed by Ontario law or breached in Ontario, or a tort committed in Ontario.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 17.02",
@@ -806,17 +1026,27 @@
       "leadsTo": [
         "civ.motion.serve-outside",
         "civ.motion.set-aside-service"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 17.02 lists when service outside Ontario needs no order; the need for leave in other cases is in rule 17.03, not the cited rule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.serve-outside",
       "kind": "motion",
       "title": "Leave to serve outside Ontario",
-      "says": "In cases not listed in the rules, the court can give leave to serve an originating process outside Ontario if the claim has a real and substantial connection with Ontario, and may set terms.",
+      "says": "In cases not listed in rule 17.02, the court can give leave to serve an originating process outside Ontario; the motion may be made without notice, supported by evidence of where the person may be found and the grounds.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 17.03(1)",
         "expect": "the court may grant leave to serve"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 17.03 gives the court power to grant leave but states no real and substantial connection test and says nothing about terms.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -828,6 +1058,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 17.06(1)",
         "expect": "setting aside the service and any order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -845,7 +1079,11 @@
         "civ.step.notice-intent",
         "civ.step.defence",
         "civ.default.noting"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.notice-intent",
@@ -860,7 +1098,11 @@
       "form": "18B",
       "leadsTo": [
         "civ.step.defence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.defence",
@@ -880,28 +1122,42 @@
         "civ.step.third-party",
         "civ.step.pleadings-close",
         "civ.start.fee.defence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.start.fee.defence",
       "kind": "step",
       "title": "Fee to file a defence",
-      "says": "A fee is payable on filing a notice of intent to defend, or a statement of defence if no notice of intent was filed by that party, unless a fee waiver applies.",
+      "says": "A fee of $194 is payable on filing a notice of intent to defend, or on filing a statement of defence if that party has not filed a notice of intent to defend.",
       "source": {
         "corpusId": "oreg-293-92-superior-court-fees",
         "pinpoint": "s. 1(1)",
         "expect": "A notice of intent to defend"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 1(1) sets the fee but says nothing about fee waivers.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.step.defence.affirmative",
       "kind": "step",
       "title": "Pleading an affirmative defence",
-      "says": "A party must plead any matter on which it intends to rely to defeat the claim that, if not pleaded, would take the other side by surprise, such as payment, release, the Limitations Act, fraud or a statute.",
+      "says": "In a defence, a party must plead any matter it intends to rely on to defeat the claim that, if not specifically pleaded, might take the other side by surprise or raise an issue not raised in the other side's pleading.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 25.07(4)",
         "expect": "might take the opposite party by surprise"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 25.07(4) gives no examples such as payment, release, the Limitations Act or fraud, and it also covers matters that raise an issue not already raised.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -916,17 +1172,26 @@
       },
       "leadsTo": [
         "civ.step.pleading.damages"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.pleading.damages",
       "kind": "test",
       "title": "Pleading the amount of damages",
-      "says": "A party claiming money must state the amount claimed for each kind of damages. Fraud, misrepresentation, breach of trust, malice or intent must be pleaded with full particulars.",
+      "says": "A pleading that claims relief says what relief is claimed; where damages are claimed, it states the amount claimed for each claimant for each claim, and special damages are pleaded as far as known, with later amounts given at least ten days before trial. Fraud, misrepresentation, breach of trust, malice or intent must be pleaded with full particulars.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 25.06(9)",
         "expect": "the amount claimed for each claimant"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 25.06(9) requires the amount claimed for each claimant in respect of each claim, not for each kind of damages, and lets special damages be pleaded as far as known.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -938,17 +1203,26 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 25.06(8)",
         "expect": "shall contain full particulars"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.motion.particulars",
       "kind": "motion",
       "title": "Demand and motion for particulars",
-      "says": "A party can demand particulars of an allegation in a pleading, and if they are not given within seven days, the court can order them where they are necessary to plead in response.",
+      "says": "A party can demand particulars of an allegation in the other side's pleading; if they are not supplied within seven days, the court may order them delivered within a set time.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 25.10",
         "expect": "fails to supply them within seven days"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 25.10 does not limit the order to particulars necessary to plead in response.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -960,13 +1234,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 25.11",
         "expect": "scandalous, frivolous or vexatious"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.step.reply",
       "kind": "step",
       "title": "Reply",
-      "says": "A plaintiff who intends to prove a version of the facts different from the one in the defence, or to raise a matter that might take the other side by surprise, delivers a reply. A reply is delivered only where the rules require one. The time for delivering it is set by Rule 25.",
+      "says": "A party who intends to prove a version of the facts different from the defence's, or to raise a matter that might take the other side by surprise, delivers a reply; a reply is delivered only in those cases, and a party who does not deliver one in time is deemed to deny the facts alleged in the defence.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 25.08(1)",
@@ -975,7 +1253,12 @@
       "form": "25A",
       "leadsTo": [
         "civ.step.pleadings-close"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 25.08 does not set the time for a reply (that is elsewhere in Rule 25); it does say a party who delivers no reply in time is deemed to deny the defence's allegations, which the item leaves out.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.pleadings-close",
@@ -991,7 +1274,11 @@
         "civ.disc.plan",
         "civ.disc.affidavit-docs",
         "civ.med.mandatory"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.counterclaim",
@@ -1007,7 +1294,11 @@
       "leadsTo": [
         "civ.deadline.counterclaim",
         "civ.deadline.defence-counterclaim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.deadline.counterclaim",
@@ -1059,7 +1350,11 @@
       "form": "28A",
       "leadsTo": [
         "civ.deadline.crossclaim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.deadline.crossclaim",
@@ -1091,7 +1386,11 @@
       "form": "29A",
       "leadsTo": [
         "civ.deadline.third-party"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.deadline.third-party",
@@ -1125,7 +1424,11 @@
         "civ.default.judgment.registrar",
         "civ.default.motion-judgment",
         "civ.default.set-aside-noting"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.default.consequences",
@@ -1136,6 +1439,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 19.02(1)",
         "expect": "is deemed to admit the truth of all allegations of fact"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1153,7 +1460,11 @@
         "civ.step.order",
         "civ.enf.methods",
         "civ.default.set-aside-judgment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.default.motion-judgment",
@@ -1167,7 +1478,11 @@
       },
       "leadsTo": [
         "civ.default.facts-must-entitle"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.default.facts-must-entitle",
@@ -1178,6 +1493,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 19.06",
         "expect": "unless the facts entitle the plaintiff to judgment"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1189,6 +1508,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 19.03(1)",
         "expect": "may be set aside by the court on such terms as are just"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1203,7 +1526,11 @@
       },
       "leadsTo": [
         "civ.dec.mountain-view"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.dec.mountain-view",
@@ -1227,7 +1554,11 @@
       },
       "leadsTo": [
         "civ.opt.amend.without-leave"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.opt.amend.without-leave",
@@ -1238,6 +1569,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 26.02",
         "expect": "without leave"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1253,7 +1588,11 @@
       "form": "23A",
       "leadsTo": [
         "civ.opt.discontinue.costs"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.opt.discontinue.costs",
@@ -1275,23 +1614,33 @@
       "id": "civ.opt.withdraw-defence",
       "kind": "option",
       "title": "Withdrawing a defence",
-      "says": "A defendant can withdraw all or part of a defence by delivering a notice of withdrawal of defence (Form 23C). A defendant who withdraws all of a defence and does not deliver a new one can be noted in default.",
+      "says": "A defendant can withdraw all or part of a defence at any time by delivering a notice of withdrawal of defence (Form 23C) to all parties, but needs the court's leave if it has crossclaimed or made a third party claim. A defendant who withdraws the whole defence is deemed to be noted in default.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 23.06(1)",
         "expect": "notice of withdrawal of defence"
       },
-      "form": "23C"
+      "form": "23C",
+      "review": {
+        "verdict": "wrong",
+        "problem": "Under r. 23.06(2) a defendant who withdraws the whole defence is deemed to be noted in default; it is not a matter of being able to be noted if no new defence is delivered, and leave is needed if the defendant has crossclaimed or made a third party claim.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.dismiss-delay",
       "kind": "motion",
       "title": "Defendant's motion to dismiss for delay",
-      "says": "A defendant who is not in default can move to dismiss an action for delay where the plaintiff has failed to serve the claim on time, to have a defendant noted in default, to set the action down for trial, or the action was struck off a trial list.",
+      "says": "A defendant who is not in default can move to dismiss an action for delay where the plaintiff has failed to serve the claim on all defendants in the prescribed time, to have a defaulting defendant noted in default within 30 days after the default, to set the action down for trial within six months after the close of pleadings, or to move to restore a struck-off action to the trial list within 30 days.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 24.01(1)",
         "expect": "may move to have an action dismissed for delay"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "The item drops the time conditions that make each failure a ground: noting in default within 30 days after the default, setting down within six months after the close of pleadings, and moving to restore within 30 days after being struck off.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1323,6 +1672,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 48.14(5)",
         "expect": "bring a motion for a status hearing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1334,6 +1687,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 37.14(1)",
         "expect": "set aside or vary the order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1348,7 +1705,11 @@
       },
       "leadsTo": [
         "civ.deadline.mediation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.deadline.mediation",
@@ -1380,7 +1741,11 @@
         "pinpoint": "r. 24.1.10(1)",
         "expect": "every party shall prepare a statement in Form 24.1C"
       },
-      "form": "24.1C"
+      "form": "24.1C",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.med.outcome",
@@ -1394,7 +1759,11 @@
       },
       "leadsTo": [
         "civ.opt.settle"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.disc.plan",
@@ -1409,7 +1778,11 @@
       "leadsTo": [
         "civ.disc.affidavit-docs",
         "civ.disc.proportionality"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.disc.proportionality",
@@ -1420,13 +1793,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 29.2.03(1)",
         "expect": "the time required for the party or other person to answer"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.disc.affidavit-docs",
       "kind": "step",
       "title": "Affidavit of documents",
-      "says": "Each party serves an affidavit of documents (Form 30A for individuals, 30B for corporations or partnerships) listing every document relevant to any matter in issue that is or has been in its possession, control or power, and saying which are claimed to be privileged.",
+      "says": "Each party serves on every other party an affidavit of documents (Form 30A or 30B) disclosing every document relevant to any matter in issue that is or has been in its possession, control or power, listing separately those it claims privilege for and the grounds.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 30.03(1)",
@@ -1438,13 +1815,18 @@
         "civ.disc.deemed-undertaking",
         "civ.disc.failure-to-disclose",
         "civ.disc.exam"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 30.03 says Form 30A or 30B but does not say which is for individuals and which for corporations or partnerships.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.disc.production",
       "kind": "step",
       "title": "Inspecting and producing documents",
-      "says": "A party can request a copy of documents in another party's affidavit of documents that are not privileged, and the other party must provide them on payment of the cost of copying.",
+      "says": "A party who serves a request to inspect documents (Form 30C) is entitled to inspect any non-privileged document listed in the other party's affidavit of documents, and may copy it at its own expense, or reimburse the other party if that party agrees to make the copy.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 30.04(1)",
@@ -1452,7 +1834,12 @@
       },
       "leadsTo": [
         "civ.motion.further-affidavit"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Rule 30.04 gives a right to inspect non-privileged documents, with the inspecting party entitled to copy at its own expense; it does not require the other party to provide copies on payment.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.further-affidavit",
@@ -1463,6 +1850,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 30.06",
         "expect": "order cross-examination on the affidavit of documents"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1474,6 +1865,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 30.08(1)",
         "expect": "may not use the document at the trial, except with leave"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1485,6 +1880,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 30.10(1)",
         "expect": "unfair to require the moving party to proceed to trial"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1496,13 +1895,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 30.1.01(3)",
         "expect": "deemed to undertake not to use evidence or information"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.disc.exam",
       "kind": "step",
       "title": "Examination for discovery",
-      "says": "A party can examine for discovery any other party adverse in interest, once, under oath, usually orally. The examination is arranged with a notice of examination (Form 34A).",
+      "says": "A party can examine for discovery any other party adverse in interest once, and more than once only with the court's leave.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 31.03(1)",
@@ -1514,17 +1917,27 @@
         "civ.disc.exam.time",
         "civ.disc.undertakings",
         "civ.disc.refusals"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 31.03(1) limits examination to once without leave; it says nothing about oath, oral form or a notice of examination (Form 34A).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.disc.exam.scope",
       "kind": "test",
       "title": "Scope of examination for discovery",
-      "says": "A person being examined must answer, to the best of their knowledge, information and belief, any proper question relevant to any matter in issue in the action, or to whether a document is relevant.",
+      "says": "A person being examined for discovery must answer, to the best of their knowledge, information and belief, any proper question relevant to any matter in issue or to a matter made discoverable by the rule (such as names of people with knowledge); a question cannot be refused just because it seeks evidence or is cross-examination, unless it goes only to credibility.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 31.06(1)",
         "expect": "any proper question relevant to any matter in issue"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 31.06(1) extends to matters made discoverable by subrules (2) to (4), not to whether a document is relevant, and it bars objections on the grounds that the answer is evidence or the question is cross-examination.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1536,17 +1949,26 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 31.05.1(1)",
         "expect": "exceed a total of seven hours of examination"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.disc.undertakings",
       "kind": "step",
       "title": "Undertakings and answers given later",
-      "says": "A person who promises to provide information after the examination, or who finds that an answer was incorrect or incomplete, must provide the information or correct the answer in writing.",
+      "says": "A party who later finds that an answer given on its examination for discovery was incorrect or incomplete when made, or is no longer correct and complete, must right away give the information in writing to every other party.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 31.09(1)",
         "expect": "was incorrect or incomplete when made"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 31.09(1) covers correcting answers found to be incorrect, incomplete or no longer correct; it does not deal with promises (undertakings) to provide information later.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1558,6 +1980,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 31.07(2)",
         "expect": "may not introduce at the trial the information that was not provided"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1569,28 +1995,42 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 31.11(1)",
         "expect": "may read into evidence as part of the party's own case"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.disc.written",
       "kind": "option",
       "title": "Discovery by written questions",
-      "says": "An examining party can choose to examine by written questions and answers instead of orally.",
+      "says": "An examination for discovery by written questions is done by serving a list of questions (Form 35A) on the person to be examined and on every other party.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 35.01(1)",
         "expect": "written questions"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 35.01 sets how a written examination is conducted; the examining party's choice between oral and written examination is not in it.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.disc.medical",
       "kind": "motion",
       "title": "Medical examination of a party",
-      "says": "Where the physical or mental condition of a party is in question, an adverse party can move, on notice to every other party, for an order under section 105 of the Courts of Justice Act for a physical or mental examination by a named health practitioner.",
+      "says": "Where a party's physical or mental condition is in question, an adverse party can move, on notice to every other party, for an order under section 105 of the Courts of Justice Act for a physical or mental examination of that party.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 33.01",
         "expect": "physical or mental examination of a party"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 33.01 only requires notice to every other party; naming the health practitioner is in rule 33.02, not the cited rule.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1606,7 +2046,11 @@
       "form": "51A",
       "leadsTo": [
         "civ.deadline.admit"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.deadline.admit",
@@ -1629,7 +2073,7 @@
       "id": "civ.motion.how",
       "kind": "motion",
       "title": "Notice of motion",
-      "says": "A motion is a request to a judge or associate judge for an order during a case. It starts with a notice of motion (Form 37A) setting out the relief sought, the grounds, and the evidence to be used.",
+      "says": "A motion is made by a notice of motion (Form 37A), unless the nature of the motion or the circumstances make one unnecessary or the rules provide otherwise.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 37.01",
@@ -1641,7 +2085,12 @@
         "civ.motion.service",
         "civ.motion.record",
         "civ.motion.evidence"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 37.01 says a motion is made by notice of motion (Form 37A) unless unnecessary or the rules provide otherwise; what the notice contains is in rule 37.06, and the definition of a motion is not in the rule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.who-hears",
@@ -1652,6 +2101,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 37.02(2)",
         "expect": "An associate judge has jurisdiction to hear any motion"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1677,18 +2130,23 @@
       "id": "civ.motion.without-notice",
       "kind": "motion",
       "title": "Motion without notice",
-      "says": "A motion can be made without notice where the nature of the motion or the circumstances make notice unnecessary, or the delay would have serious consequences. The moving party must make full and fair disclosure of all material facts.",
+      "says": "When a motion or application is made without notice, the moving party must make full and fair disclosure of all material facts; failing to do so is itself enough to set aside any order obtained.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 39.01(6)",
         "expect": "full and fair disclosure of all material facts"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 39.01(6) only sets the duty of full and fair disclosure on a motion without notice; when a motion may be made without notice is in rule 37.07, not the cited rule.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.motion.record",
       "kind": "step",
       "title": "Motion record, factum and confirmation",
-      "says": "The moving party serves and files a motion record with the notice of motion and evidence, and may need a factum. The responding party can serve a responding record. Before the hearing, the moving party confirms the motion (Form 37B) by the deadline the rules set, or it may not be heard.",
+      "says": "On a motion made on notice, unless the court orders otherwise, the moving party serves a motion record on every other party and files it with proof of service at least seven days before the hearing; a responding party who thinks it incomplete may serve and file a responding motion record.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 37.10(1)",
@@ -1697,7 +2155,12 @@
       "leadsTo": [
         "civ.motion.confirm",
         "civ.motion.hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 37.10(1) requires serving and filing the motion record at least seven days before the hearing; the confirmation of motion (Form 37B) is in rule 37.10.1, not the cited subrule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.confirm",
@@ -1720,7 +2183,7 @@
       "id": "civ.motion.evidence",
       "kind": "step",
       "title": "Evidence on a motion",
-      "says": "Evidence on a motion or application is usually given by affidavit, which may set out what the person believes and the source of that information. A person who swears an affidavit can be cross-examined on it.",
+      "says": "Evidence on a motion or application may be given by affidavit unless a statute or the rules say otherwise. An affidavit for a motion may include what the person believes on information, if it names the source of the information and states the belief.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 39.01(1)",
@@ -1728,7 +2191,12 @@
       },
       "leadsTo": [
         "civ.motion.cross-exam"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 39.01 says evidence may be given by affidavit (not usually), and the right to cross-examine on an affidavit is in rule 39.02, not the cited rule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.cross-exam",
@@ -1739,13 +2207,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 39.02(1)",
         "expect": "may cross-examine the deponent"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.motion.hearing",
       "kind": "step",
       "title": "Hearing of a motion",
-      "says": "A motion is heard in person, by video, by phone or in writing, as the rules and the court direct. The judge or associate judge can grant the order, dismiss the motion, adjourn it, or give directions.",
+      "says": "On hearing a motion, the judge or officer may grant the relief sought, or dismiss or adjourn the motion, in whole or in part and with or without terms, and may order an action placed on a speedy trial list or an application heard at a set time and place.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 37.13(1)",
@@ -1754,7 +2226,12 @@
       "leadsTo": [
         "civ.step.order",
         "civ.opt.appeal.interlocutory"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 37.13(1) sets what the judge may order; it says nothing about hearing in person, by video, by phone or in writing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.rule21",
@@ -1765,6 +2242,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 21.01(1)",
         "expect": "discloses no reasonable cause of action or defence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1776,6 +2257,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 21.01(3)",
         "expect": "frivolous or vexatious or is otherwise an abuse"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1787,13 +2272,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 2.1.01(1)",
         "expect": "appears on its face to be frivolous or vexatious"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.motion.injunction",
       "kind": "motion",
       "title": "Interlocutory injunction",
-      "says": "The court can grant an interlocutory injunction or mandatory order where it appears to a judge to be just or convenient to do so. A motion for one is made to a judge, and the moving party usually undertakes to pay damages caused by the order if it turns out to be wrong.",
+      "says": "In the Superior Court of Justice, an interlocutory injunction or mandatory order can be granted, or a receiver appointed, by an interlocutory order where it appears to a judge to be just or convenient, on terms the judge considers just.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 101(1)",
@@ -1801,7 +2290,12 @@
       },
       "leadsTo": [
         "civ.dec.rjr"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 101 gives the power and allows terms; it does not say the motion is made to a judge by the moving party or mention an undertaking as to damages (that is r. 40.03).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.motion.injunction.undertaking",
@@ -1812,6 +2306,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 40.03",
         "expect": "undertake to abide by any order concerning damages"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1828,11 +2326,16 @@
       "id": "civ.motion.cpl",
       "kind": "motion",
       "title": "Certificate of pending litigation",
-      "says": "Where a proceeding claims an interest in land, the court can issue a certificate of pending litigation that is registered on title to warn others of the claim. It is obtained by motion.",
+      "says": "Starting a proceeding in which an interest in land is in question is not notice to people who are not parties until the court issues a certificate of pending litigation and it is registered in the land registry office. A party who registers one without a reasonable claim to an interest in the land is liable for resulting damages.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 103(1)",
         "expect": "certificate of pending litigation"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 103(1) does not say a certificate is obtained by motion; it says starting a proceeding is not notice to non-parties until a certificate is issued and registered.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1844,6 +2347,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 56.01(1)",
         "expect": "ordinarily resident outside Ontario"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1855,6 +2362,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 44.01(1)",
         "expect": "unlawfully detained by the defendant"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1866,6 +2377,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 45.01(1)",
         "expect": "custody or preservation of any property"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1877,6 +2392,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 6.01(1)",
         "expect": "have a question of law or fact in common"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1888,6 +2407,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 5.04(2)",
         "expect": "add, delete or substitute a party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1899,13 +2422,17 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 140(1)",
         "expect": "persistently and without reasonable grounds"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.motion.anti-slapp",
       "kind": "motion",
       "title": "Anti-SLAPP motion (expression on a public interest matter)",
-      "says": "A defendant sued over expression on a matter of public interest can move to dismiss. Once the defendant shows the case arises from such expression, the plaintiff must show the claim has substantial merit, the defendant has no valid defence, and the harm suffered is serious enough that the public interest in allowing the case to continue outweighs protecting the expression.",
+      "says": "A person sued over expression on a matter of public interest can move to dismiss. If that person shows the proceeding arises from such expression, the judge dismisses it unless the plaintiff satisfies the judge that there are grounds to believe the claim has substantial merit and the defendant has no valid defence, and that the harm the plaintiff has suffered or may suffer from the expression is serious enough that the public interest in letting the case continue outweighs the public interest in protecting the expression.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 137.1(3)",
@@ -1913,7 +2440,12 @@
       },
       "leadsTo": [
         "civ.dec.pointes"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Under s. 137.1(4) the plaintiff need only satisfy the judge that there are grounds to believe the claim has substantial merit and the defendant has no valid defence; the item states it as having to show those things outright.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.dec.pointes",
@@ -1925,6 +2457,10 @@
         "decision": "1704604 Ontario Ltd. v. Pointes Protection Association, 2020 SCC 22",
         "pinpoint": "para. 18",
         "expect": "public interest weighing exercise"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1940,7 +2476,11 @@
       "leadsTo": [
         "civ.sj.evidence",
         "civ.sj.test"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.sj.evidence",
@@ -1951,6 +2491,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 20.02(2)",
         "expect": "may not rest solely on the allegations or denials"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1967,7 +2511,11 @@
         "civ.sj.powers",
         "civ.dec.hryniak",
         "civ.sj.costs"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.sj.powers",
@@ -1978,6 +2526,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 20.04(2.1)",
         "expect": "weighing the evidence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1989,6 +2541,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 20.06",
         "expect": "acted unreasonably by making or responding to the motion"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2001,6 +2557,10 @@
         "decision": "Hryniak v. Mauldin, 2014 SCC 7",
         "pinpoint": "para. 49",
         "expect": "fair and just determination on the merits"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2016,39 +2576,58 @@
       "leadsTo": [
         "civ.simp.discovery",
         "civ.simp.trial"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.simp.notice",
       "kind": "step",
       "title": "Notice that simplified procedure applies",
-      "says": "A statement of claim or defence in an action under simplified procedure states that the action is being brought under Rule 76.",
+      "says": "The statement of claim or notice of action in an action under the simplified procedure states that the action is being brought under Rule 76.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 76.02(4)",
         "expect": "the action is being brought under this Rule"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Rule 76.02(4) requires the statement of claim or notice of action, not the defence, to say the action is brought under Rule 76.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.simp.discovery",
       "kind": "step",
       "title": "Discovery under simplified procedure",
-      "says": "Under simplified procedure, each party serves an affidavit of documents that also lists its witnesses, and oral discovery of each party is limited to a total of three hours.",
+      "says": "In an action under the simplified procedure, no party may spend more than a total of three hours conducting oral examinations for discovery, however many parties or other people are examined.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 76.04(2)",
         "expect": "three hours"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 76.04(2) caps the oral discovery each party conducts at three hours in total; the affidavit of documents with a witness list is in rule 76.03, not the cited rule.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.simp.trial",
       "kind": "step",
       "title": "Trial under simplified procedure",
-      "says": "A simplified procedure trial is limited to five days, and evidence in chief may be given by affidavit, with limits on cross-examination time set by the trial management conference.",
+      "says": "In a simplified procedure action, at least 30 days before the pre-trial conference the parties agree to a proposed trial management plan listing every witness and dividing the trial time, no more than five days in total, among openings, evidence in chief by affidavit, cross-examination, re-examination and argument.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 76.10(1)",
         "expect": "five days"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 76.10 has the parties agree, at least 30 days before the pre-trial conference, to a trial management plan whose time division may not exceed five days; it does not say limits are set by a trial management conference.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2060,13 +2639,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 76.02.1",
         "expect": "jury notice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.opt.settle",
       "kind": "option",
       "title": "Settling the case",
-      "says": "The parties can settle their case at any time by agreement. If a party does not comply with an accepted offer to settle, the other party can move for judgment on its terms or continue the case.",
+      "says": "If a party to an accepted offer to settle does not comply with its terms, the other party can move before a judge for judgment in the terms of the accepted offer, or continue the case as if there had been no accepted offer.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 49.09",
@@ -2074,7 +2657,12 @@
       },
       "leadsTo": [
         "civ.opt.offer"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 49.09 deals only with failure to comply with an accepted offer; it does not say parties can settle at any time by agreement.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.opt.offer",
@@ -2089,7 +2677,11 @@
       "leadsTo": [
         "civ.opt.offer.accept",
         "civ.opt.offer.costs"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.opt.offer.accept",
@@ -2104,7 +2696,11 @@
       "form": "49C",
       "leadsTo": [
         "civ.opt.offer.default"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.opt.offer.default",
@@ -2115,6 +2711,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 49.09",
         "expect": "judgment in the terms of the accepted offer"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2129,7 +2729,11 @@
       },
       "leadsTo": [
         "civ.costs.factors"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.opt.offer.discretion",
@@ -2140,6 +2744,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 49.13",
         "expect": "any offer to settle made in writing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2151,13 +2759,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 72.03(1)",
         "expect": "Money may be paid out of court only"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.step.set-down",
       "kind": "step",
       "title": "Setting the action down for trial",
-      "says": "After the close of pleadings, any party who is not in default and is ready for trial can set the action down for trial by serving a trial record on every party and filing it with proof of service.",
+      "says": "After the close of pleadings, any party to the action, counterclaim or crossclaim who is not in default and is ready for trial can set the action down for trial, together with any counterclaim or crossclaim.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 48.01",
@@ -2167,47 +2779,67 @@
         "civ.step.trial-record",
         "civ.step.after-set-down",
         "civ.pt.conference"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 48.01 says who may set an action down; how it is done (serving and filing a trial record) is in rule 48.02.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.step.trial-record",
       "kind": "step",
       "title": "Trial record",
-      "says": "The party setting the action down serves and files a trial record containing the pleadings, any notice of action, demands and orders for particulars, and orders about the trial.",
+      "says": "The trial record contains a table of contents, any jury notice, the pleadings (including any counterclaim or crossclaim), any demand or order for particulars and the particulars given, any notice of special damages, any order about the trial, and a certificate by the lawyer setting the action down.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 48.03(1)",
         "expect": "trial record"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "The clause of r. 48.03(1) that covered a notice of action is revoked, so the trial record does not list it; the rule does list a jury notice, notice of special damages and the lawyer's certificate, and serving and filing is in r. 48.02.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.step.after-set-down",
       "kind": "test",
       "title": "Limits after setting down",
-      "says": "A party who has set an action down or consented to it being placed on the trial list cannot start or continue a motion or discovery without leave of the court, with exceptions.",
+      "says": "A party who has set an action down for trial cannot start or continue a motion or any form of discovery without the court's leave, subject to the exceptions in the rule.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 48.04(1)",
         "expect": "shall not initiate or continue any motion or form of discovery without leave"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 48.04(1) applies to a party who has set the action down; it says nothing about a party who consented to it being placed on the trial list.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.step.jury-notice",
       "kind": "option",
       "title": "Jury notice",
-      "says": "A party who wants a trial by jury delivers a jury notice (Form 47A) before the close of pleadings. Some claims, such as for equitable relief or against a municipality, must be tried without a jury.",
+      "says": "A party can require the facts to be tried or damages assessed by a jury by delivering a jury notice (Form 47A) before the close of pleadings, unless section 108 of the Courts of Justice Act or another statute requires a trial without a jury.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 47.01",
         "expect": "jury notice"
       },
-      "form": "47A"
+      "form": "47A",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 47.01 refers to section 108 of the Courts of Justice Act or another statute; it does not name equitable relief or claims against a municipality.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.pt.conference",
       "kind": "step",
       "title": "Pre-trial conference",
-      "says": "A pre-trial conference is held to consider settling the case, simplifying the issues, the number of witnesses, the length of trial and other matters that may help dispose of the case quickly and cheaply.",
+      "says": "A pre-trial conference gives the parties an opportunity to settle any or all issues without a hearing and, for issues not settled, to get orders or directions from the court to help the case go ahead justly, quickly, cheaply and in an orderly way.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 50.01",
@@ -2216,7 +2848,12 @@
       "leadsTo": [
         "civ.pt.brief",
         "civ.trial.experts"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 50.01 states the purpose in general terms; it does not mention the number of witnesses or the length of the trial.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.pt.brief",
@@ -2266,6 +2903,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 4.1.01(1)",
         "expect": "fair, objective and non-"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2278,13 +2919,17 @@
         "pinpoint": "r. 53.04(1)",
         "expect": "summons to witness (Form 53A)"
       },
-      "form": "53A"
+      "form": "53A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.trial.start",
       "kind": "step",
       "title": "Trial",
-      "says": "Unless the rules provide otherwise, witnesses at the trial of an action are examined orally in court, by direct examination, cross-examination and re-examination. The judge or jury then decides the facts and the judge applies the law.",
+      "says": "Unless the rules provide otherwise, witnesses at the trial of an action are examined orally in court, by direct examination, cross-examination and re-examination.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 53.01(1)",
@@ -2294,17 +2939,27 @@
         "civ.trial.non-attendance",
         "civ.step.order",
         "civ.costs.factors"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 53.01(1) covers how witnesses are examined; it says nothing about who decides facts or applies the law.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.trial.non-attendance",
       "kind": "test",
       "title": "Failure to attend trial",
-      "says": "If a party does not attend the trial, the judge can proceed in their absence, including dismissing the action if the plaintiff does not attend, or giving judgment if the defendant does not attend.",
+      "says": "If a party does not attend the trial, the judge may proceed without them; if the defendant is absent, dismiss any counterclaim and let the plaintiff prove the claim; if the plaintiff is absent, dismiss the action and let the defendant prove any counterclaim; or make another just order. If no party attends, the action may be struck off the trial list.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 52.01(1)",
         "expect": "fails to attend"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Where the defendant does not attend, r. 52.01(2) lets the judge dismiss any counterclaim and allow the plaintiff to prove the claim; it does not let the judge simply give judgment.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2316,6 +2971,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 46.01",
         "expect": "shall be held in the county where the proceeding was commenced"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2330,7 +2989,11 @@
       },
       "leadsTo": [
         "civ.costs.factors"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.costs.factors",
@@ -2347,7 +3010,11 @@
         "civ.costs.assessment",
         "civ.costs.small-claims-cap",
         "civ.dec.fong"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.costs.fixed",
@@ -2358,39 +3025,58 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 57.01(3)",
         "expect": "it shall fix them in accordance with subrule (1)"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.costs.assessment",
       "kind": "step",
       "title": "Assessment of costs",
-      "says": "Where costs are to be assessed, the person entitled serves a bill of costs and the assessment officer decides the amount in a hearing.",
+      "says": "A party entitled to assessed costs gets a notice of appointment for assessment (Form 58A) by filing a bill of costs and the order with the assessment officer, and serves the notice and bill on every interested party at least seven days before the assessment date.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 58.03",
         "expect": "bill of costs"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 58.03 covers getting a notice of appointment by filing a bill of costs and serving them seven days before; it does not describe the assessment officer deciding at a hearing.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.costs.small-claims-cap",
       "kind": "test",
       "title": "Costs where the recovery is within Small Claims limits",
-      "says": "A plaintiff who recovers an amount within the monetary jurisdiction of the Small Claims Court in a Superior Court action may be refused costs, or ordered to pay the defendant's costs, unless the court finds there were reasonable grounds for starting in Superior Court.",
+      "says": "If a plaintiff recovers an amount within the Small Claims Court's monetary limit, the court may order that the plaintiff recover no costs. If the court finds the plaintiff added a claim in order to start in the Superior Court instead of Small Claims Court, it may order the plaintiff to pay costs.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 57.05(1)",
         "expect": "within the monetary jurisdiction of the Small Claims Court"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 57.05(1) only allows the court to deny the plaintiff costs; it has no reasonable-grounds exception, and costs against the plaintiff arise under subrule (5) only where a claim was added to get into the Superior Court.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.costs.motion",
       "kind": "test",
       "title": "Costs of a motion",
-      "says": "On every motion the court decides costs and fixes them, and they are usually payable within 30 days, unless the court orders otherwise.",
+      "says": "On a contested motion, unless a different order would be more just, the court fixes the costs and orders them paid within 30 days, or in an exceptional case refers them for assessment. On a motion without notice there are no costs unless the court orders otherwise.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 57.03(1)",
         "expect": "fix the costs of the motion"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Rule 57.03(1) applies to contested motions, not every motion; on a motion without notice there are no costs unless the court orders otherwise.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2412,6 +3098,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 128(1)",
         "expect": "is entitled to claim and have included in the order an award of interest"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2423,6 +3113,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 129(1)",
         "expect": "bears interest at the postjudgment interest rate"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2434,13 +3128,17 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 130(1)",
         "expect": "where it considers it just to do so"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.step.order",
       "kind": "step",
       "title": "Formal order or judgment",
-      "says": "Any party or person affected by an order can prepare a draft order (Form 59A order, 59B judgment) and send it to the parties who took part for approval. Once approved, it is filed with the registrar to be issued. Disputes about the form are settled by the court.",
+      "says": "Any party or person affected by an order can prepare a draft order (Form 59A for an order, 59B for a judgment) and send it to the parties who took part for approval of its form and content; once all approve, it is filed with the registrar, with evidence of approval, to be issued.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 59.03(1)",
@@ -2450,7 +3148,12 @@
         "civ.opt.set-aside-order",
         "civ.opt.appeal",
         "civ.enf.methods"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 59.03 covers preparing, approving and filing a draft order; it does not say how disputes about its form are settled.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.opt.set-aside-order",
@@ -2461,6 +3164,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 59.06(2)",
         "expect": "on the ground of fraud or of facts arising or discovered after it was made"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2472,6 +3179,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 59.01",
         "expect": "effective from the date on which it is made"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2489,13 +3200,17 @@
         "civ.enf.garnishment",
         "civ.enf.exam",
         "civ.enf.receiver"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.enf.writ",
       "kind": "enforcement",
       "title": "Writ of seizure and sale",
-      "says": "A creditor gets a writ of seizure and sale (Form 60A) by filing a requisition with the registrar, with a copy of the order and the amount owing. The writ is filed with the sheriff in each area where the debtor has property, including land.",
+      "says": "A creditor gets one or more writs of seizure and sale (Form 60A) by filing with the registrar where the case started a requisition setting out any payments received and the amount owing with postjudgment interest, with a copy of the order. Leave is needed if six years or more have passed since the order. The writ may be filed with a sheriff.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.07(1)",
@@ -2504,7 +3219,12 @@
       "form": "60A",
       "leadsTo": [
         "civ.enf.writ.renew"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 60.07 says a writ may be filed with a sheriff, but not that it is filed in each area where the debtor has property, including land.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.enf.writ.renew",
@@ -2515,6 +3235,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.07(6)",
         "expect": "expires on the sixth anniversary of the date of its issue"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2530,7 +3254,11 @@
       "form": "60G",
       "leadsTo": [
         "civ.enf.wages-exempt"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.enf.wages-exempt",
@@ -2541,6 +3269,10 @@
         "corpusId": "wages-act",
         "pinpoint": "s. 7(2)",
         "expect": "80 per cent of a person's wages are exempt"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2552,53 +3284,77 @@
         "corpusId": "execution-act",
         "pinpoint": "s. 2(1)",
         "expect": "exempt from forced seizure"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.enf.exam",
       "kind": "enforcement",
       "title": "Examination in aid of execution",
-      "says": "A creditor can examine the debtor under oath about their income, property and debts, and about how they intend to pay, by serving a notice of examination.",
+      "says": "A creditor can examine the debtor about why the order has not been paid or obeyed, the debtor's income and property, debts owed to and by the debtor, property disposed of, the debtor's means to satisfy the order, whether the debtor intends to obey it, and any other matter relevant to enforcing it.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.18(2)",
         "expect": "examine the debtor in relation to"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 60.18(2) lists the topics of the examination; it does not mention an oath or a notice of examination.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.enf.receiver",
       "kind": "enforcement",
       "title": "Appointing a receiver",
-      "says": "The court can appoint a receiver, by interlocutory order, where it appears to a judge to be just or convenient to do so, for example to collect income of a debtor.",
+      "says": "In the Superior Court of Justice, a receiver or receiver and manager can be appointed by interlocutory order where it appears to a judge to be just or convenient, on terms the judge considers just.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 101(1)",
         "expect": "a receiver or receiver and manager may be"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 101(1) does not mention collecting a debtor's income; the example is added.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.enf.possession",
       "kind": "enforcement",
       "title": "Writ of possession for land",
-      "says": "An order for the recovery or delivery of possession of land can be enforced by a writ of possession (Form 60C), which is obtained with leave of the court in some cases.",
+      "says": "An order for the recovery or delivery of possession of land can be enforced by a writ of possession (Form 60C) under rule 60.10.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.03",
         "expect": "writ of possession (Form 60C)"
       },
-      "form": "60C"
+      "form": "60C",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 60.03 says only that the order may be enforced by a writ of possession under rule 60.10; when leave is needed is in rule 60.10, not the cited rule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.enf.delivery",
       "kind": "enforcement",
       "title": "Writ of delivery for personal property",
-      "says": "An order for the recovery of personal property can be enforced by a writ of delivery (Form 60D) directing the sheriff to seize and deliver the property.",
+      "says": "An order for the recovery of personal property other than money can be enforced by a writ of delivery (Form 60D), obtained by filing a requisition and a copy of the order with the registrar where the case started; if the property is not delivered up, a writ of sequestration may follow.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.04(1)",
         "expect": "writ of delivery (Form 60D)"
       },
-      "form": "60D"
+      "form": "60D",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 60.04(1) does not describe what the writ directs the sheriff to do; it says the writ is obtained by filing a requisition with a copy of the order.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.enf.contempt",
@@ -2609,6 +3365,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.11(1)",
         "expect": "may be obtained only on motion to a judge"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2620,6 +3380,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.19(1)",
         "expect": "is entitled to the costs of the following steps"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2648,7 +3412,11 @@
         "civ.appeal.divisional",
         "civ.appeal.notice",
         "civ.appeal.stay"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.appeal.divisional",
@@ -2662,7 +3430,11 @@
       },
       "leadsTo": [
         "civ.appeal.notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.appeal.notice",
@@ -2678,7 +3450,11 @@
       "leadsTo": [
         "civ.appeal.perfect",
         "civ.appeal.cross"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.appeal.cross",
@@ -2690,7 +3466,11 @@
         "pinpoint": "r. 61.07(1)",
         "expect": "notice of cross-appeal"
       },
-      "form": "61E"
+      "form": "61E",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.appeal.perfect",
@@ -2705,7 +3485,11 @@
       "leadsTo": [
         "civ.appeal.dismiss-delay",
         "civ.appeal.hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.appeal.dismiss-delay",
@@ -2716,6 +3500,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 61.13(1)",
         "expect": "to have the appeal dismissed for delay"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2727,13 +3515,17 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 61.06(1)",
         "expect": "frivolous and vexatious"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.appeal.hearing",
       "kind": "step",
       "title": "Hearing of the appeal",
-      "says": "The appeal is heard by a panel of the appellate court on the record from the court below. The court can allow the appeal, dismiss it, or order a new trial.",
+      "says": "Unless otherwise provided, the court hearing an appeal can make any order or decision that ought to or could have been made by the court appealed from, order a new trial, or make any other order or decision it considers just.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 134(1)",
@@ -2741,7 +3533,12 @@
       },
       "leadsTo": [
         "civ.dec.housen"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 134(1) sets the appellate court's powers; it does not say the appeal is heard by a panel or on the record below.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.dec.housen",
@@ -2757,7 +3554,7 @@
       "id": "civ.opt.appeal.interlocutory",
       "kind": "option",
       "title": "Appeal from an interlocutory order",
-      "says": "An interlocutory order of a Superior Court judge can be appealed to the Divisional Court only with leave. The motion for leave is made to a Divisional Court judge.",
+      "says": "An interlocutory order of a Superior Court judge can be appealed to the Divisional Court only with leave, as provided in the rules of court.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 19(1)",
@@ -2766,7 +3563,12 @@
       "leadsTo": [
         "civ.appeal.leave",
         "civ.appeal.associate-judge"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 19(1)(b) requires leave as provided in the rules of court; it does not say who hears the leave motion.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.appeal.leave",
@@ -2796,6 +3598,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 62.02(4)",
         "expect": "good reason to doubt the correctness of the order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2827,17 +3633,26 @@
       },
       "leadsTo": [
         "civ.appeal.stay.motion"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.appeal.stay.motion",
       "kind": "motion",
       "title": "Motion for a stay, or to lift a stay",
-      "says": "A party can move for a stay of other parts of an order pending appeal, or to lift the automatic stay, and the judge can impose terms.",
+      "says": "An interlocutory or final order can be stayed on just terms by the court whose decision is to be appealed, or by a judge of the court to which leave to appeal is sought or the appeal is taken.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 63.02(1)",
         "expect": "an interlocutory or final order may be stayed"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 63.02(1) allows an order to be stayed on just terms by the court appealed from or an appellate judge; lifting the automatic stay is in rule 63.01(5), not the cited rule.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2849,13 +3664,17 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 6(1)",
         "expect": "an order made under section 137.1"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.claim.contract",
       "kind": "test",
       "title": "Breach of contract",
-      "says": "A person claiming breach of contract must show that a contract was formed (offer, acceptance, consideration and an intention to create legal relations), its terms, that the other party failed to perform a term, and the loss that resulted.",
+      "says": "In deciding what a contract means, the court aims to find the parties' intent: it reads the contract as a whole, gives the words their ordinary and grammatical meaning, and takes into account the surrounding circumstances known to the parties when the contract was made.",
       "source": {
         "corpusId": "decision-sattva",
         "decision": "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53",
@@ -2868,7 +3687,12 @@
         "civ.claim.contract.exclusion",
         "civ.claim.contract.damages",
         "civ.claim.contract.limitation"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Sattva para. 47 is about how contracts are interpreted; it says nothing about the elements of a breach of contract claim (formation, offer, acceptance, consideration, breach, loss).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "civ.claim.contract.interpretation",
@@ -2880,6 +3704,10 @@
         "decision": "Sattva Capital Corp. v. Creston Moly Corp., 2014 SCC 53",
         "pinpoint": "para. 47",
         "expect": "the surrounding circumstances known to the parties"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2895,18 +3723,27 @@
       },
       "leadsTo": [
         "civ.claim.contract.callow"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.claim.contract.callow",
       "kind": "decision",
       "title": "C.M. Callow Inc. v. Zollinger",
-      "says": "The Supreme Court of Canada held that the duty of honest performance can be breached by actively misleading the other party, including by half-truths and some kinds of silence, even when exercising a right such as termination.",
+      "says": "The Supreme Court of Canada restated that the duty of honest performance applies to all contracts and means that parties must not lie or otherwise knowingly mislead each other about matters directly linked to performing the contract; the appeal asked whether that duty applied to how a right of termination was exercised.",
       "source": {
         "corpusId": "decision-callow",
         "decision": "C.M. Callow Inc. v. Zollinger, 2020 SCC 45",
         "pinpoint": "para. 3",
         "expect": "knowingly mislead each other about matters directly linked"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 3 of Callow restates the Bhasin duty and summarizes the parties' positions; it does not hold that half-truths or silence can breach the duty.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2919,6 +3756,10 @@
         "decision": "Tercon Contractors Ltd. v. British Columbia (Transportation and Highways), 2010 SCC 4",
         "pinpoint": "para. 121",
         "expect": "a series of enquiries to be addressed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2963,7 +3804,11 @@
         "civ.claim.negligence.remoteness",
         "civ.claim.negligence.contributory",
         "civ.claim.negligence.mental"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.claim.negligence.duty",
@@ -2978,18 +3823,27 @@
       },
       "leadsTo": [
         "civ.claim.negligence.rankin"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.claim.negligence.rankin",
       "kind": "decision",
       "title": "Rankin (Rankin's Garage & Sales) v. J.J.",
-      "says": "The Supreme Court of Canada held that a garage did not owe a duty of care to a youth injured after a car was stolen from its lot, because the evidence did not make personal injury reasonably foreseeable. It said that something being possible does not make it reasonably foreseeable.",
+      "says": "The Supreme Court of Canada said that something being possible does not make it reasonably foreseeable; harm must pass a higher threshold than mere possibility, and some evidence is needed before a court can find that the risk of theft of a car includes the risk of theft by minors.",
       "source": {
         "corpusId": "decision-rankin",
         "decision": "Rankin (Rankin's Garage & Sales) v. J.J., 2018 SCC 19",
         "pinpoint": "para. 46",
         "expect": "does not mean that it is reasonably foreseeable"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 46 of Rankin states only that possible is not the same as reasonably foreseeable and that some evidence is needed before the risk of theft includes theft by minors; it does not state the result of the case.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3002,6 +3856,10 @@
         "decision": "Nelson (City) v. Marchi, 2021 SCC 41",
         "pinpoint": "para. 37",
         "expect": "core policy decisions are immune"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3014,6 +3872,10 @@
         "decision": "Clements v. Clements, 2012 SCC 32",
         "pinpoint": "para. 8",
         "expect": "but for"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3026,6 +3888,10 @@
         "decision": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
         "pinpoint": "para. 15",
         "expect": "ordinary fortitude"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3038,6 +3904,10 @@
         "decision": "Saadati v. Moorhead, 2017 SCC 28",
         "pinpoint": "para. 37",
         "expect": "serious and prolonged"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3049,6 +3919,10 @@
         "corpusId": "negligence-act",
         "pinpoint": "s. 3",
         "expect": "the court shall apportion the damages in proportion to the degree of fault"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3060,6 +3934,10 @@
         "corpusId": "negligence-act",
         "pinpoint": "s. 1",
         "expect": "jointly and severally liable"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3074,7 +3952,11 @@
       },
       "leadsTo": [
         "civ.test.ola.duty"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.test.ola.duty",
@@ -3090,7 +3972,11 @@
         "civ.test.ola.risk",
         "civ.test.ola.contractor",
         "civ.pre.notice.snow-ice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.test.ola.risk",
@@ -3101,6 +3987,10 @@
         "corpusId": "occupiers-liability-act",
         "pinpoint": "s. 4(1)",
         "expect": "risks willingly assumed by the person"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3112,6 +4002,10 @@
         "corpusId": "occupiers-liability-act",
         "pinpoint": "s. 6(1)",
         "expect": "independent contractor"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3130,18 +4024,27 @@
         "civ.claim.defamation.responsible",
         "civ.pre.notice.libel",
         "civ.motion.anti-slapp"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.claim.defamation.defences",
       "kind": "test",
       "title": "Defences to defamation",
-      "says": "Where statements of fact are in issue, the usual defences are justification (the statement was substantially true) and privilege (it was made in a protected setting). Fair comment applies to opinion, and the Court added responsible communication on matters of public interest.",
+      "says": "Where statements of fact are in issue, usually only two defences are available: that the statement was substantially true (justification), and that it was made in a protected context (privilege). The case asked whether to expand those defences, as had been done for statements of opinion.",
       "source": {
         "corpusId": "decision-grant-torstar",
         "decision": "Grant v. Torstar Corp., 2009 SCC 61",
         "pinpoint": "para. 32",
         "expect": "the defence that the statement was substantially true"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 32 names justification and privilege for statements of fact; it does not name fair comment or say the Court added responsible communication.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3154,17 +4057,26 @@
         "decision": "Grant v. Torstar Corp., 2009 SCC 61",
         "pinpoint": "para. 126",
         "expect": "diligent in trying to verify the allegation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.claim.defamation.fair-report",
       "kind": "test",
       "title": "Privilege for fair and accurate reports",
-      "says": "A fair and accurate report in a newspaper or broadcast of public proceedings, such as legislative or court proceedings, is privileged unless published with malice, as the Libel and Slander Act sets out.",
+      "says": "A fair and accurate report in a newspaper or broadcast of certain public proceedings open to the public, such as those of a legislative body, a public administrative body or a commission of inquiry, is privileged unless it is proved that it was published maliciously.",
       "source": {
         "corpusId": "libel-and-slander-act",
         "pinpoint": "s. 3(1)",
         "expect": "A fair and accurate report in a newspaper or in a broadcast"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 3(1) lists proceedings of legislative bodies, public administrative bodies, commissions of inquiry and organizations representing public authorities; it does not list court proceedings.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3176,6 +4088,10 @@
         "corpusId": "libel-and-slander-act",
         "pinpoint": "s. 16",
         "expect": "calculated to disparage the plaintiff in any office"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3192,7 +4108,11 @@
       "leadsTo": [
         "civ.claim.unjust-enrichment.juristic",
         "civ.claim.unjust-enrichment.moore"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.claim.unjust-enrichment.juristic",
@@ -3204,18 +4124,27 @@
         "decision": "Garland v. Consumers' Gas Co., 2004 SCC 25",
         "pinpoint": "para. 44",
         "expect": "no juristic reason from an established category"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.claim.unjust-enrichment.moore",
       "kind": "decision",
       "title": "Moore v. Sweet",
-      "says": "The Supreme Court of Canada applied the unjust enrichment framework to life insurance proceeds and explained the meaning of corresponding deprivation.",
+      "says": "The Supreme Court of Canada restated that a plaintiff succeeds in unjust enrichment by showing that the defendant was enriched, that the plaintiff suffered a corresponding deprivation, and that both occurred in the absence of a juristic reason.",
       "source": {
         "corpusId": "decision-moore-sweet",
         "decision": "Moore v. Sweet, 2018 SCC 52",
         "pinpoint": "para. 37",
         "expect": "corresponding deprivation"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 37 of Moore v. Sweet sets out the three-element framework; it does not explain the meaning of corresponding deprivation or apply it to the insurance proceeds.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3232,23 +4161,33 @@
       "id": "civ.claim.detinue",
       "kind": "test",
       "title": "Recovery of personal property",
-      "says": "A person entitled to possession of personal property that is being kept from them can claim its return and damages, and can move before trial for interim recovery.",
+      "says": "A plaintiff claiming personal property can move before trial for an interim order for its recovery, with an affidavit describing the property and its value, showing the plaintiff owns it or is lawfully entitled to possession, and setting out how it was unlawfully taken or is unlawfully held by the defendant.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 44.01(1)",
         "expect": "unlawfully detained by the defendant"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 44.01(1) sets out the affidavit for an interim recovery motion; it does not create or describe a claim for return of the property and damages.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "civ.claim.nuisance",
       "kind": "decision",
       "title": "Antrim Truck Centre Ltd. v. Ontario (Transportation)",
-      "says": "The Supreme Court of Canada held that private nuisance is an interference with the use or enjoyment of land that is both substantial and unreasonable, weighing the gravity of the harm against the usefulness of the defendant's conduct.",
+      "says": "The Supreme Court of Canada said that private nuisance requires an interference with the owner's use or enjoyment of land that is both substantial (more than trivial) and unreasonable in all the circumstances.",
       "source": {
         "corpusId": "decision-antrim",
         "decision": "Antrim Truck Centre Ltd. v. Ontario (Transportation), 2013 SCC 13",
         "pinpoint": "para. 19",
         "expect": "substantial and unreasonable"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 19 of Antrim states the substantial-and-unreasonable test; weighing the gravity of the harm against the usefulness of the conduct is not in that paragraph.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3274,6 +4213,10 @@
         "decision": "Queen v. Cognos Inc., [1993] 1 S.C.R. 87",
         "pinpoint": "p. 110",
         "expect": "five general requirements"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3286,18 +4229,27 @@
         "decision": "Grant Thornton LLP v. New Brunswick, 2021 SCC 31",
         "pinpoint": "para. 3",
         "expect": "plausible inference of liability"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.dec.pintea",
       "kind": "decision",
       "title": "Pintea v. Johns",
-      "says": "The Supreme Court of Canada endorsed the Canadian Judicial Council's Statement of Principles on Self-represented Litigants and Accused Persons, which guides judges in making sure self-represented people understand the process.",
+      "says": "The Supreme Court of Canada endorsed the Canadian Judicial Council's Statement of Principles on Self-represented Litigants and Accused Persons (2006).",
       "source": {
         "corpusId": "decision-pintea",
         "decision": "Pintea v. Johns, 2017 SCC 23",
         "pinpoint": "para. 4",
         "expect": "Statement of Principles on Self-represented Litigants"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 4 of Pintea only endorses the Statement of Principles; it does not describe what the Statement does.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3309,17 +4261,26 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 3.01(1)",
         "expect": "excluding the day on which the first event happens"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.step.lawyer-removal",
       "kind": "motion",
       "title": "Lawyer removed from the record",
-      "says": "A lawyer who wants to stop acting for a party in a proceeding must get an order removing them from the record. After that, the party must appoint a new lawyer or say it will act in person.",
+      "says": "A lawyer can move, on notice to the client and every other party, for an order removing them as lawyer of record. Within 30 days after being served with the order, a client that is an individual acting for themselves appoints a new lawyer or serves a notice of intention to act in person (Form 15C); a corporation appoints a new lawyer or gets leave to be represented by someone else; a representative party or litigation guardian appoints a new lawyer.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 15.04(1)",
         "expect": "removing the lawyer from the record"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Rule 15.04(1) lets a lawyer move for removal (it does not say must), and after removal only clients who are not corporations, representative parties or under disability may choose to act in person; corporations need a lawyer or leave, and representative parties and litigation guardians must appoint a lawyer, each within 30 days.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3331,17 +4292,26 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 2.01(1)",
         "expect": "is an irregularity and does not render a proceeding"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "civ.step.case-conference",
       "kind": "step",
       "title": "Case conference and case management",
-      "says": "In case-managed actions, a case management judge or associate judge can hold case conferences to set timetables and give directions to move the case forward.",
+      "says": "A judge can at any time, on their own initiative or at a party's request, direct a case conference before a judge or associate judge, who may identify the issues, explore ways to resolve them, and set or amend a timetable.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 50.13(1)",
         "expect": "case conference"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Rule 50.13(1) is not limited to case-managed actions or a case management judge: any judge may at any time, on their own initiative or at a party's request, direct a case conference.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3353,6 +4323,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 36.01(2)",
         "expect": "for the purpose of having the person's testimony available"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     }
   ]
