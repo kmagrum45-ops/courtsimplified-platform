@@ -87,6 +87,9 @@ jobs:
       - name: Law as it read on a past date
         run: npm run test:historical-law
 
+      - name: Every step leads to the next by a rule
+        run: npm run test:stage-sequence
+
       - name: Source links name their law
         run: npm run test:source-link-labels
 
