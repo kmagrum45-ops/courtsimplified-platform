@@ -28,7 +28,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
-import { withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import { cardLimits, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
@@ -109,6 +109,34 @@ async function main() {
       withoutCardLead("Your deadline", "File Form 9A.", "File Form 9A.") === "File Form 9A." &&
       withoutCardLead("What to do next", "Something else.\n\nMore.", "File Form 9A.") === "Something else.\n\nMore.",
   );
+
+  // 2026-10-13, walkthrough: a family respondent's own brief (4 days before
+  // the conference) was folded under "may apply later" while the
+  // confirmation (3 days before) led.
+  {
+    const conference = {
+      deadlines: [],
+      periods: [
+        { what: "Give a copy of the confirmation of conference (Form 17F) to every other party", count: 3, unit: "days", countFrom: "the date of the case conference, counting backwards" },
+        { what: "If you served the case conference notice (Form 17), serve and file your case conference brief", count: 6, unit: "days", countFrom: "the date of the case conference, counting backwards" },
+        { what: "If you are the other party, serve and file your case conference brief", count: 4, unit: "days", countFrom: "the date of the case conference, counting backwards" },
+      ],
+    };
+    const respondent = cardLimits(conference, true);
+    check("a respondent's own brief leads the card", respondent.main.periods.some((period) => /the other party/.test(period.what)));
+    check("it comes first, because it is due first", /the other party/.test(respondent.main.periods[0]?.what ?? ""), respondent.main.periods.map((period) => period.count).join(","));
+    check("the other side's brief stays folded", respondent.conditional.periods.length === 1 && /served the case conference notice/.test(respondent.conditional.periods[0].what));
+    const applicant = cardLimits(conference, false);
+    check("an applicant's card does not lead with the other party's brief", !applicant.main.periods.some((period) => /the other party/.test(period.what)));
+    const motion = {
+      deadlines: [],
+      periods: [
+        { what: "If you are bringing the motion, serve the motion", count: 7, unit: "days", countFrom: "the hearing, counting backwards" },
+        { what: "If you are responding, serve your affidavit", count: 4, unit: "days", countFrom: "the hearing, counting backwards" },
+      ],
+    };
+    check("a defendant's card never leads with 'If you are bringing the motion'", cardLimits(motion, true).main.periods.every((period) => !/bringing/.test(period.what)));
+  }
 
   if (failures > 0) {
     console.log(`\n${failures} check(s) failed.`);
