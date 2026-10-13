@@ -18,6 +18,7 @@ import SmallClaimsIntake, {
 import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
 } from "./_components/GuidedSmallClaimsIntake";
+import { readSourcedAnswers } from "./_components/SourcedQuestions";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
 import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
 import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
@@ -1067,6 +1068,8 @@ function BuilderPageContent() {
           // its cards follow the user's confirmation rather than a separate
           // keyword match that can disagree with it.
           confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
+          // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
+          ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
         },
       };
       handleComplete(analysisResult.analysis, payload);
@@ -1191,6 +1194,11 @@ function BuilderPageContent() {
   }
 
   const storedPosition = readCasePosition(existingMasterResult, courtPath);
+  // Follow-up answers this case already holds, for a return visit (Step 2A).
+  const earlierSourcedAnswers = useMemo(
+    () => (queryCaseId ? readSourcedAnswers(asRecord(asRecord(asRecord(existingMasterResult).intakeData).extra).sourcedAnswers) : []),
+    [queryCaseId, existingMasterResult],
+  );
   const savedPosition = {
     ...storedPosition,
     stepId: positionThisVisit.stepId !== undefined ? positionThisVisit.stepId : storedPosition.stepId,
@@ -1602,6 +1610,8 @@ function BuilderPageContent() {
             {courtPath === "family" && (
               <FamilyIntake
                 onComplete={handleComplete}
+                earlierSourcedAnswers={earlierSourcedAnswers}
+                storedIntake={queryCaseId ? asRecord(existingMasterResult).intakeData : undefined}
                 onScopeChange={setFamilyScope}
                 location={confirmedLocation}
                 initialStory={homeStory}
@@ -1658,6 +1668,7 @@ function BuilderPageContent() {
                       ? {
                           answers: asRecord(existingMasterResult).intakeAnswers as { questionId: string; answerText: string }[],
                           facts: asRecord(asRecord(existingMasterResult).intakeFacts),
+                          sourcedAnswers: earlierSourcedAnswers,
                         }
                       : undefined
                   }
@@ -1676,6 +1687,7 @@ function BuilderPageContent() {
             {courtPath === "civil" && (
               <CivilIntake
                 onComplete={handleComplete}
+                earlierSourcedAnswers={earlierSourcedAnswers}
                 caseId={queryCaseId || masterCaseId}
                 location={confirmedLocation}
                 initialStory={homeStory}

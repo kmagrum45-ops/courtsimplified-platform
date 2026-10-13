@@ -19,7 +19,7 @@ import { supabase } from "../../../src/lib/supabase/client";
 import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/questionBank";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
-import { SourcedQuestionsCard, sourcedAnswersText, useSourcedQuestions } from "./SourcedQuestions";
+import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -210,6 +210,8 @@ export type GuidedIntakeCompletionResult = {
    * were answered.
    */
   followUpText?: string;
+  /** Every follow-up answer to keep with the case (earlier visits and this one; Step 2A). */
+  sourcedAnswers?: SourcedAnswer[];
   /**
    * Every answer the person confirmed or typed, by question id. The page
    * offers the dates among them on the next-steps panel instead of asking
@@ -438,10 +440,11 @@ type Props = {
    * from nothing, so nothing already answered is asked again (build order
    * Step 2A, 2026-10-12; it used to start from scratch on every visit).
    */
-  previous?: { answers: ConfirmedStoryAnswer[]; facts: Record<string, unknown> };
+  previous?: { answers: ConfirmedStoryAnswer[]; facts: Record<string, unknown>; sourcedAnswers?: SourcedAnswer[] };
 };
 
 const BANK_IDS = new Set(QUESTION_BANK.map((question) => question.id));
+const NO_EARLIER_SOURCED: SourcedAnswer[] = [];
 const KNOWN_FACTS = new Set<string>(KNOWN_FACT_FIELDS);
 
 /** Earlier facts the guided turn accepts (known fields, plain values only). */
@@ -519,7 +522,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
   // Retained so onComplete fires with the same facts/answeredIds the
   // completing turn produced, rather than whatever state has become since.
   const [completionPayload, setCompletionPayload] = useState<GuidedIntakeCompletionResult | null>(null);
-  const sourced = useSourcedQuestions("small-claims");
+  const sourced = useSourcedQuestions("small-claims", previous?.sourcedAnswers ?? NO_EARLIER_SOURCED);
   const [heldPayload, setHeldPayload] = useState<GuidedIntakeCompletionResult | null>(null);
   const storyRef = useRef("");
   // 2026-09-28. "Here's what I understood" -- answers the opening story
@@ -960,22 +963,26 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
       setHeldPayload(payload);
       return;
     }
-    onComplete?.(payload);
+    const kept = sourced.answeredList();
+    const followUpText = sourcedAnswerListText(kept);
+    onComplete?.({ ...payload, sourcedAnswers: kept, ...(followUpText ? { followUpText } : {}) });
   }
 
   function releaseHeld() {
     if (!heldPayload) return;
-    const followUpText = sourcedAnswersText(sourced.questions, sourced.answers);
+    const kept = sourced.answeredList();
+    const followUpText = sourcedAnswerListText(kept);
     setHeldPayload(null);
-    onComplete?.({ ...heldPayload, ...(followUpText ? { followUpText } : {}) });
+    onComplete?.({ ...heldPayload, sourcedAnswers: kept, ...(followUpText ? { followUpText } : {}) });
   }
 
   useEffect(() => {
     if (heldPayload && (sourced.state === "none" || sourced.state === "idle")) {
       setHeldPayload(null);
-      onComplete?.(heldPayload);
+      // Nothing new to ask: still keep the answers from earlier visits.
+      onComplete?.({ ...heldPayload, sourcedAnswers: sourced.answeredList() });
     }
-  }, [heldPayload, sourced.state, onComplete]);
+  }, [heldPayload, sourced.state, sourced.answeredList, onComplete]);
 
   function finishDepthPhase(
     stateMap: Record<string, unknown> | null,
@@ -984,7 +991,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
     setDepthActive(false);
     const payload = payloadOverride ?? completionPayload;
     if (payload) {
-      onComplete?.({ ...payload, elementStateMap: stateMap || undefined });
+      onComplete?.({ ...payload, elementStateMap: stateMap || undefined, sourcedAnswers: sourced.answeredList() });
     }
   }
 

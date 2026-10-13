@@ -13,6 +13,7 @@ import {
 import type { FamilyMasterCaseInput } from "@/src/lib/case-system/familyMasterCaseEngine";
 import type { FamilyCanonicalIntakeResult } from "@/src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { supabase } from "@/src/lib/supabase/client";
+import { userStory } from "@/src/lib/case-system/userStory";
 import {
   runClientSafetyCheck,
   type ClientSafetyClassification,
@@ -27,7 +28,7 @@ import {
 } from "../../../src/lib/case-system/evidence/evidenceReference";
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
-import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswers } from "./SourcedQuestions";
+import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -101,6 +102,15 @@ export type FamilyScope = { issues: FamilyIssue[]; role: FamilyRole };
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+  /** Follow-up answers this case already holds (intakeData.extra.sourcedAnswers; Step 2A). */
+  earlierSourcedAnswers?: SourcedAnswer[];
+  /**
+   * The saved case's intake (master_result.intakeData), when the person comes
+   * back through "Update your story". The form starts from what they entered
+   * instead of opening blank (build order Step 2A, 2026-10-12; civil and
+   * Small Claims already refilled, family did not).
+   */
+  storedIntake?: unknown;
   onScopeChange?: (scope: FamilyScope) => void;
   location: { province: "Ontario"; city: string };
   initialStory: string;
@@ -238,7 +248,44 @@ function buildCompactFamilyPayload(
 }
 
 
-export default function FamilyIntake({ onComplete, onScopeChange, location, initialStory }: Props) {
+const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
+
+/** What a saved family case holds, as this form's starting values (Step 2A). */
+function savedFamilyValues(stored: unknown) {
+  const obj = (value: unknown): Record<string, unknown> =>
+    value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+  const data = obj(stored);
+  if (data.courtPath !== "family") return null;
+  const extra = obj(data.extra);
+  const str = (value: unknown) => (typeof value === "string" ? value : "");
+  const list = (value: unknown) => (Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []);
+  return {
+    caseStage: str(data.caseStage),
+    yourRole: str(extra.yourRole),
+    filedDocuments: list(extra.filedDocuments).filter((value): value is FiledDocument => filedOptions.some((option) => option.value === value)),
+    issues: list(extra.issues).filter((value): value is FamilyIssue => issueOptions.some((option) => option.value === value)),
+    yourName: str(data.yourName),
+    otherParty: str(data.otherParty),
+    // The person's own words (extra.story), not the labelled record in `facts`.
+    facts: userStory(data as Parameters<typeof userStory>[0]),
+    timeline: str(data.timeline),
+    evidence: str(data.evidence),
+    missingEvidence: str(data.missingEvidence),
+    goal: str(data.goal),
+    urgent: str(data.urgent),
+    childrenInfo: str(extra.childrenInfo),
+    currentLivingSituation: str(extra.currentLivingSituation),
+    pastLivingHistory: str(extra.pastLivingHistory),
+    safetyConcerns: str(extra.safetyConcerns),
+    propertyHomeDetails: str(extra.propertyHomeDetails),
+    upcomingCourtDate: str(extra.upcomingCourtDate),
+    adoptionDetails: str(extra.adoptionDetails),
+  };
+}
+
+export default function FamilyIntake({ onComplete, onScopeChange, location, initialStory, earlierSourcedAnswers, storedIntake }: Props) {
+  // Read once: what the saved case holds wins over a fresh story hand-off.
+  const [saved] = useState(() => savedFamilyValues(storedIntake));
   const [editingStory, setEditingStory] = useState(false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({
@@ -250,42 +297,42 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
     ? directPrefillValues(initialPrefill)
     : {};
   const [caseStage, setCaseStage] = useState<UniversalStage>(
-    () => initialValues.caseStage ? initialValues.caseStage as UniversalStage : "not-sure",
+    () => (saved?.caseStage || initialValues.caseStage ? (saved?.caseStage || initialValues.caseStage) as UniversalStage : "not-sure"),
   );
   // Which side the user is on, ASKED — never guessed from keywords. A role read
   // from the story ("I was served") only pre-selects the answer the user sees.
   const [yourRole, setYourRole] = useState<FamilyRole>(() => {
-    const prefilled = String(initialValues.yourRole || "").toLowerCase();
+    const prefilled = String(saved?.yourRole || initialValues.yourRole || "").toLowerCase();
     if (prefilled.includes("respondent")) return "respondent";
     if (prefilled.includes("applicant")) return "applicant";
     return "not-sure";
   });
   const [filedDocuments, setFiledDocuments] = useState<FiledDocument[]>(
-    () => Array.isArray(initialValues.documentStatus) ? ["application"] : [],
+    () => (saved?.filedDocuments.length ? saved.filedDocuments : Array.isArray(initialValues.documentStatus) ? ["application"] : []),
   );
-  const [issues, setIssues] = useState<FamilyIssue[]>([]);
+  const [issues, setIssues] = useState<FamilyIssue[]>(() => saved?.issues ?? []);
 
   React.useEffect(() => {
     onScopeChange?.({ issues, role: yourRole });
   }, [issues, yourRole, onScopeChange]);
 
-  const [yourName, setYourName] = useState(() => String(initialValues.yourName || ""));
+  const [yourName, setYourName] = useState(() => saved?.yourName || String(initialValues.yourName || ""));
   const province = location.province;
   const city = location.city;
-  const [otherParty, setOtherParty] = useState(() => String(initialValues.otherParty || ""));
-  const [childrenInfo, setChildrenInfo] = useState("");
-  const [currentLivingSituation, setCurrentLivingSituation] = useState("");
-  const [pastLivingHistory, setPastLivingHistory] = useState("");
-  const [facts, setFacts] = useState(() => String(initialValues.facts || initialStory || ""));
-  const [timeline, setTimeline] = useState(() => String(initialValues.timeline || initialValues.enforcementDetails || ""));
-  const [evidence, setEvidence] = useState(() => String(initialValues.evidence || ""));
-  const [missingEvidence, setMissingEvidence] = useState("");
-  const [goal, setGoal] = useState(() => String(initialValues.goal || ""));
-  const [urgent, setUrgent] = useState(() => String(initialValues.urgent || ""));
-  const [safetyConcerns, setSafetyConcerns] = useState("");
-  const [propertyHomeDetails, setPropertyHomeDetails] = useState(() => String(initialValues.addressDetails || initialValues.existingOrderDetails || ""));
-  const [upcomingCourtDate, setUpcomingCourtDate] = useState("");
-  const [adoptionDetails, setAdoptionDetails] = useState("");
+  const [otherParty, setOtherParty] = useState(() => saved?.otherParty || String(initialValues.otherParty || ""));
+  const [childrenInfo, setChildrenInfo] = useState(() => saved?.childrenInfo ?? "");
+  const [currentLivingSituation, setCurrentLivingSituation] = useState(() => saved?.currentLivingSituation ?? "");
+  const [pastLivingHistory, setPastLivingHistory] = useState(() => saved?.pastLivingHistory ?? "");
+  const [facts, setFacts] = useState(() => saved?.facts || String(initialValues.facts || initialStory || ""));
+  const [timeline, setTimeline] = useState(() => saved?.timeline || String(initialValues.timeline || initialValues.enforcementDetails || ""));
+  const [evidence, setEvidence] = useState(() => saved?.evidence || String(initialValues.evidence || ""));
+  const [missingEvidence, setMissingEvidence] = useState(() => saved?.missingEvidence ?? "");
+  const [goal, setGoal] = useState(() => saved?.goal || String(initialValues.goal || ""));
+  const [urgent, setUrgent] = useState(() => saved?.urgent || String(initialValues.urgent || ""));
+  const [safetyConcerns, setSafetyConcerns] = useState(() => saved?.safetyConcerns ?? "");
+  const [propertyHomeDetails, setPropertyHomeDetails] = useState(() => saved?.propertyHomeDetails || String(initialValues.addressDetails || initialValues.existingOrderDetails || ""));
+  const [upcomingCourtDate, setUpcomingCourtDate] = useState(() => saved?.upcomingCourtDate ?? "");
+  const [adoptionDetails, setAdoptionDetails] = useState(() => saved?.adoptionDetails ?? "");
 
   const [uploadedEvidenceFiles, setUploadedEvidenceFiles] =
     useState<EvidenceFile[]>([]);
@@ -508,7 +555,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
 
   // Questions from the law that applies to the story, asked for as soon as
   // there is a story and again when it is edited. Never blocks the analysis.
-  const sourced = useSourcedQuestions("family");
+  const sourced = useSourcedQuestions("family", earlierSourcedAnswers ?? NO_EARLIER_ANSWERS);
   const startSourced = sourced.start;
   React.useEffect(() => {
     void startSourced(facts, yourRole !== "not-sure" ? yourRole : undefined);
@@ -575,7 +622,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
         childrenInfo,
         currentLivingSituation,
         pastLivingHistory,
-        facts: withSourcedAnswers(facts, sourced.questions, sourced.answers),
+        facts: withSourcedAnswerList(facts, sourced.answeredList()),
         timeline,
         evidence,
         missingEvidence,
@@ -656,6 +703,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
         // The user's own story, for showing back (userStory.ts); `facts`
         // above is the labelled record the analysis reads.
         story: facts,
+        // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
+        sourcedAnswers: sourced.answeredList(),
         yourRole,
         filedDocuments,
         filedDocumentLabels: filedDocuments.map(labelForFiledDocument),

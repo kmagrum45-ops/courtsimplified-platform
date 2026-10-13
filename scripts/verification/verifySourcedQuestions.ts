@@ -46,6 +46,7 @@ import {
   writingPrompt,
 } from "../../src/lib/case-system/retrieval/sourcedQuestions";
 import { sourcedQuestionsEnabled } from "../../src/lib/content-library/phaseScope";
+import { readSourcedAnswers, withSourcedAnswerList } from "../../app/builder/_components/sourcedAnswers";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (relative: string) => readFileSync(path.join(ROOT, relative), "utf8");
@@ -261,7 +262,11 @@ function wiring() {
   ] as const) {
     const source = read(file);
     check(`${court} shows the questions`, source.includes("<SourcedQuestionsCard"));
-    check(`${court} carries the answers to the analysis`, /withSourcedAnswers\(|sourcedAnswersText\(/.test(source));
+    check(`${court} carries the answers to the analysis`, /withSourcedAnswers\(|sourcedAnswersText\(|withSourcedAnswerList\(|sourcedAnswerListText\(/.test(source));
+    // Step 2A, 2026-10-12: the answers are kept with the case and come back on
+    // a return visit, instead of being lost after the analysis.
+    check(`${court} keeps the answers with the case`, /sourcedAnswers: (sourced\.answeredList\(\)|kept)/.test(source));
+    check(`${court} starts from the case's earlier answers`, /useSourcedQuestions\("[a-z-]+", [^)]+\)/.test(source));
   }
   // One question at a time, each with why it matters (walkthrough 2026-10-08:
   // four or five at once failed the conversation check on every run).
@@ -274,6 +279,28 @@ function wiring() {
     "the Small Claims analysis gets the story as sent, plus the answers",
     /result\.storyText[\s\S]{0,80}result\.followUpText/.test(read("app/builder/_components/guidedIntakeToSmallClaimsInput.ts")),
   );
+  // Kept answers (sourcedAnswers.ts; Step 2A, 2026-10-12).
+  {
+    const kept = readSourcedAnswers([
+      { question: "When were you served?", answer: "March 3" },
+      { question: "Blank", answer: "   " },
+      { question: 7, answer: "x" },
+      "junk",
+    ]);
+    check("only well-formed, answered entries are read back", kept.length === 1 && kept[0].answer === "March 3");
+    check("nothing saved reads as no answers", readSourcedAnswers(undefined).length === 0 && readSourcedAnswers({}).length === 0);
+    const many = readSourcedAnswers(Array.from({ length: 30 }, (_, i) => ({ question: `Q${i}`, answer: `A${i}` })));
+    check("at most 20 are kept, the newest", many.length === 20 && many[19].question === "Q29");
+    const story = withSourcedAnswerList("My story.", kept);
+    check("the answers are added to the story under a heading", story.startsWith("My story.") && /follow-up questions[\s\S]*Q: When were you served\?\nA: March 3/.test(story));
+    check("no answers leaves the story unchanged", withSourcedAnswerList("My story.", []) === "My story.");
+    const builder = read("app/builder/page.tsx");
+    check(
+      "the builder passes the case's earlier answers to all three intakes",
+      /earlierSourcedAnswers=\{earlierSourcedAnswers\}[\s\S]*earlierSourcedAnswers=\{earlierSourcedAnswers\}/.test(builder) && /sourcedAnswers: earlierSourcedAnswers/.test(builder),
+    );
+    check("the builder saves the guided chat's answers with the case", /sourcedAnswers: result\.sourcedAnswers/.test(builder));
+  }
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }
