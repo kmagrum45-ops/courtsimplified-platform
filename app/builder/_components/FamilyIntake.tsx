@@ -27,7 +27,7 @@ import {
 } from "../../../src/lib/case-system/evidence/evidenceReference";
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
-import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswers } from "./SourcedQuestions";
+import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -101,6 +101,8 @@ export type FamilyScope = { issues: FamilyIssue[]; role: FamilyRole };
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+  /** Follow-up answers this case already holds (intakeData.extra.sourcedAnswers; Step 2A). */
+  earlierSourcedAnswers?: SourcedAnswer[];
   onScopeChange?: (scope: FamilyScope) => void;
   location: { province: "Ontario"; city: string };
   initialStory: string;
@@ -238,7 +240,9 @@ function buildCompactFamilyPayload(
 }
 
 
-export default function FamilyIntake({ onComplete, onScopeChange, location, initialStory }: Props) {
+const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
+
+export default function FamilyIntake({ onComplete, onScopeChange, location, initialStory, earlierSourcedAnswers }: Props) {
   const [editingStory, setEditingStory] = useState(false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({
@@ -508,7 +512,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
 
   // Questions from the law that applies to the story, asked for as soon as
   // there is a story and again when it is edited. Never blocks the analysis.
-  const sourced = useSourcedQuestions("family");
+  const sourced = useSourcedQuestions("family", earlierSourcedAnswers ?? NO_EARLIER_ANSWERS);
   const startSourced = sourced.start;
   React.useEffect(() => {
     void startSourced(facts, yourRole !== "not-sure" ? yourRole : undefined);
@@ -575,7 +579,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
         childrenInfo,
         currentLivingSituation,
         pastLivingHistory,
-        facts: withSourcedAnswers(facts, sourced.questions, sourced.answers),
+        facts: withSourcedAnswerList(facts, sourced.answeredList()),
         timeline,
         evidence,
         missingEvidence,
@@ -656,6 +660,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
         // The user's own story, for showing back (userStory.ts); `facts`
         // above is the labelled record the analysis reads.
         story: facts,
+        // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
+        sourcedAnswers: sourced.answeredList(),
         yourRole,
         filedDocuments,
         filedDocumentLabels: filedDocuments.map(labelForFiledDocument),

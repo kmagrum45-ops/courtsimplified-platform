@@ -1,7 +1,7 @@
 "use client";
 
 import TidyWordingReview from "./TidyWordingReview";
-import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswers } from "./SourcedQuestions";
+import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 
 import { useEffect, useRef, useState } from "react";
 import {
@@ -68,6 +68,8 @@ type EvidenceFile = {
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+  /** Follow-up answers this case already holds (intakeData.extra.sourcedAnswers; Step 2A). */
+  earlierSourcedAnswers?: SourcedAnswer[];
   caseId?: string | null;
   location: { province: "Ontario"; city: string };
   initialStory: string;
@@ -555,7 +557,9 @@ const CIVIL_TEXT_FIELDS: [keyof CivilInput, string, string][] = [
 /** Fields worth a spelling check: free prose, not file numbers or amounts. */
 const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "amountClaimed"]);
 
-export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues }: Props) {
+const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
+
+export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
   const [editingStory, setEditingStory] = useState(false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({ courtPath: "civil", caseId }),
@@ -664,7 +668,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   // Questions from the law that applies to the story, asked for as soon as
   // there is a story (it usually arrives from the home page) and again when
   // it is edited. Never blocks the analysis.
-  const sourced = useSourcedQuestions("civil");
+  const sourced = useSourcedQuestions("civil", earlierSourcedAnswers ?? NO_EARLIER_ANSWERS);
   const startSourced = sourced.start;
   useEffect(() => {
     void startSourced(input.facts, input.yourRole || undefined);
@@ -734,7 +738,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         body: JSON.stringify({
           input: {
             ...civilAnalysisInput,
-            facts: withSourcedAnswers(civilAnalysisInput.facts, sourced.questions, sourced.answers),
+            facts: withSourcedAnswerList(civilAnalysisInput.facts, sourced.answeredList()),
             caseId: caseId || undefined,
           },
         }),
@@ -784,6 +788,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           completedAt: new Date().toISOString(),
         },
         civilInput: input,
+        // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
+        sourcedAnswers: sourced.answeredList(),
         province: input.province,
         city: input.city,
         issues: input.issues,

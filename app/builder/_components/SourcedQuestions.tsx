@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { supabase } from "../../../src/lib/supabase/client";
+import { MAX_KEPT_ANSWERS, withSourcedAnswerList, type SourcedAnswer } from "./sourcedAnswers";
 
 /**
  * Follow-up questions written from the law that applies to the person's
@@ -42,15 +43,25 @@ export function withSourcedAnswers(story: string, questions: readonly ClientSour
   return extra ? `${story.trim()}\n\n${extra}` : story;
 }
 
+export { readSourcedAnswers, sourcedAnswerListText, withSourcedAnswerList, MAX_KEPT_ANSWERS, type SourcedAnswer } from "./sourcedAnswers";
+
 /**
  * Fetches the questions once per story text; a changed story is asked about
  * again, and a reply for an older text is ignored.
+ *
+ * `earlier`: the answers this case already holds from an earlier visit
+ * (build order Step 2A, 2026-10-12). They are sent with the story, so the
+ * questions are written around what was already answered instead of asking
+ * it again, and they stay in `answeredList()` so they are saved again and
+ * reach the analysis. Before, they were lost after the analysis ran.
  */
-export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "family") {
+export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "family", earlier: readonly SourcedAnswer[] = []) {
   const [state, setState] = useState<SourcedQuestionsState>("idle");
   const [questions, setQuestions] = useState<ClientSourcedQuestion[]>([]);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const askedFor = useRef<string>("");
+  const earlierRef = useRef<readonly SourcedAnswer[]>(earlier);
+  earlierRef.current = earlier;
 
   const start = useCallback(
     async (story: string, side?: string) => {
@@ -58,6 +69,9 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
       if (text.length < 40 || text.length > 8_000) return;
       if (askedFor.current === text) return;
       askedFor.current = text;
+      // The story plus what was answered before, when it fits the route's limit.
+      const withEarlier = withSourcedAnswerList(text, earlierRef.current);
+      const sentStory = withEarlier.length <= 8_000 ? withEarlier : text;
       setState("loading");
       try {
         // Signed-in only, like every route that sends a story to a model.
@@ -68,7 +82,7 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
           "Content-Type": "application/json",
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
         };
-        const base = { story: text, courtPath, ...(side ? { side } : {}) };
+        const base = { story: sentStory, courtPath, ...(side ? { side } : {}) };
         // Two calls, each with a whole request's time: research, then the
         // questions from the passages it found (route.ts explains why).
         const first = (await (
@@ -87,7 +101,11 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
         });
         const data = (await response.json()) as { ok?: boolean; questions?: ClientSourcedQuestion[] };
         if (askedFor.current !== text) return;
-        const list = Array.isArray(data.questions) ? data.questions.slice(0, 5) : [];
+        // A question already answered on an earlier visit, word for word, is not asked again.
+        const already = new Set(earlierRef.current.map((item) => item.question.trim().toLowerCase()));
+        const list = (Array.isArray(data.questions) ? data.questions : [])
+          .filter((item) => !already.has(item.question.trim().toLowerCase()))
+          .slice(0, 5);
         setQuestions(list);
         setAnswers({});
         setState(list.length > 0 ? "ready" : "none");
@@ -102,7 +120,16 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
     setAnswers((current) => ({ ...current, [id]: value.slice(0, MAX_SOURCED_ANSWER_LENGTH) }));
   }, []);
 
-  return { state, questions, answers, setAnswer, start };
+  /** Every answer to keep: earlier visits, then this one (a re-answered question takes the new answer). */
+  const answeredList = useCallback((): SourcedAnswer[] => {
+    const now = questions
+      .map((question) => ({ question: question.question, answer: (answers[question.id] ?? "").trim() }))
+      .filter((item) => item.answer);
+    const replaced = new Set(now.map((item) => item.question.trim().toLowerCase()));
+    return [...earlierRef.current.filter((item) => !replaced.has(item.question.trim().toLowerCase())), ...now].slice(-MAX_KEPT_ANSWERS);
+  }, [questions, answers]);
+
+  return { state, questions, answers, setAnswer, start, answeredList };
 }
 
 /**
