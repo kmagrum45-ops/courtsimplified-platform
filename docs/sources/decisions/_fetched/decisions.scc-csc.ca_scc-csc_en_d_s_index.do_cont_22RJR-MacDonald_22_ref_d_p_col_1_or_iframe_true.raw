@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (267)</a>
+        </li>
+
+        <li class="active">Decisions (104)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (163)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;RJR-MacDonald&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=3">3</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=4">4</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=5">5</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>104 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1111/index.do?q=%22RJR-MacDonald%22">RJR -- MacDonald Inc. v. Canada (Attorney General)</a></span>
+                    - <span class="report-citation">[1994] 1 SCR 311</span>
+                - <span class="publicationDate">1994-03-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Action<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>RJR -- MacDonald</b> Inc. v. Canada (Attorney General), <b>RJR -- Macdonald</b> Inc. c. Canada (Procureur général), 23490, 23460, [1994] 1 SCR 311, [1994] 1 RCS 311 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>RJR – MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311 <b>RJR – MacDonald</b> Inc. Applicant &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: <b>RJR – MacDonald</b> Inc. v. Canada (Attorney General) File Nos.: 23460, 23490. 1993: October 4; 1994: March 3. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1111/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1290/index.do?q=%22RJR-MacDonald%22">RJR-MacDonald Inc. v. Canada (Attorney General)</a></span>
+                    - <span class="report-citation">[1995] 3 SCR 199</span>
+                - <span class="publicationDate">1995-09-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), <b>RJR-MacDonald</b> Inc. c. Canada (Procureur général), 23490, 23460, [1995] 3 SCR 199, [1995] 3 RCS 199 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>RJR-MacDonald</b> Inc. v. Canada (Attorney General) 199 <b>RJR-MacDonald</b> Inc. Appellant &nbsp;&nbsp;[...]&nbsp;&nbsp;Indexed as: <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General) File Nos.: 23460, 23490. 1994: November 29, 30; 1995: September 21. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1290/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16981/index.do?q=%22RJR-MacDonald%22">R. v. Canadian Broadcasting Corp.</a></span>
+                        - <span class="citation">2018 SCC 5</span>
+                    - <span class="report-citation">[2018] 1 SCR 196</span>
+                - <span class="publicationDate">2018-02-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    (Indeed, in <b>RJR — MacDonald</b>, the Court identified two exceptions which may call for “an extensive review of the merits” at the first stage of the analysis.[20]) In this case, the parties have at every level of court agreed that, where a mandatory interlocutory injunction is sought, the appropriate inquiry at the first stage&nbsp;&nbsp;[...]&nbsp;&nbsp;[17] <b>RJR — MacDonald</b>, at pp. 334-35. [18] <b>RJR — MacDonald</b>, at pp. 334 and 348. [19] <b>RJR — MacDonald</b>, at p. 334. &nbsp;&nbsp;[...]&nbsp;&nbsp;[27] <b>RJR — MacDonald</b>, at pp. 338-39. [28] Injunctions and Specific Performance, at paras. 1.530 and 1.540. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16981/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1822/index.do?q=%22RJR-MacDonald%22">Harper v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2000 SCC 57</span>
+                    - <span class="report-citation">[2000] 2 SCR 764</span>
+                - <span class="publicationDate">2000-11-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Action<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    As Sopinka and Cory JJ. stated in <b>RJR--MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, at pp. 348-49: &nbsp;&nbsp;[...]&nbsp;&nbsp;Moreover, applying <b>RJR--MacDonald</b>, we must take as given at this stage that the legislation imposing spending limits on third parties will serve a valid public purpose. &nbsp;&nbsp;[...]&nbsp;&nbsp;34 In <b>RJR–MacDonald</b>, at pp. 333-34, Sopinka and Cory JJ. considered the factors that must govern the balancing process: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1822/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18417/index.do?q=%22RJR-MacDonald%22">Reference re Genetic Non‑Discrimination Act</a></span>
+                        - <span class="citation">2020 SCC 17</span>
+                    - <span class="report-citation">[2020] 2 SCR 283</span>
+                - <span class="publicationDate">2020-07-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    [145] Further, I must also respectfully disagree with Justice Kasirer’s contention that <b>RJR‐MacDonald</b> is distinguishable from this case. To the contrary, I believe that <b>RJR‐MacDonald</b> provides a full answer to this case. &nbsp;&nbsp;[...]&nbsp;&nbsp;[148] Here, like in <b>RJR‐MacDonald</b>, Parliament employed indirect means to suppress the threat to health it identified. &nbsp;&nbsp;[...]&nbsp;&nbsp;[249] Of course, Parliament can use indirect means in the exercise of its criminal law power, as was the case in <b>RJR-MacDonald</b>. Yet, contrary to the amicus curiae’s suggestion, <b>RJR-MacDonald</b> is of little assistance in this case. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18417/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1542/index.do?q=%22RJR-MacDonald%22">R. v. Hydro-Québec</a></span>
+                    - <span class="report-citation">[1997] 3 SCR 213</span>
+                - <span class="publicationDate">1997-09-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    It may, as La Forest J. noted in <b>RJR-MacDonald</b>, supra, at pp. 263-64, “validly contain exemptions for certain conduct without losing its status as criminal law”. &nbsp;&nbsp;[...]&nbsp;&nbsp;58 The appellant relies on this Court’s decision in <b>RJR-MacDonald</b>, supra, arguing that the statutory regime in this case is analogous to that upheld (on division of powers grounds) in <b>RJR-MacDonald</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;” This approach has been consistently followed ever since and, as <b>RJR-MacDonald</b> relates, it has been applied by the courts in a wide variety of settings. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1542/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2312/index.do?q=%22RJR-MacDonald%22">Baier v. Alberta</a></span>
+                        - <span class="citation">2006 SCC 38</span>
+                    - <span class="report-citation">[2006] 2 SCR 311</span>
+                - <span class="publicationDate">2006-07-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Civil procedure<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: <b>RJR — MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311. Statutes and Regulations Cited &nbsp;&nbsp;[...]&nbsp;&nbsp;13 In <b>RJR — MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, Sopinka and Cory JJ. wrote, at p. 329: &nbsp;&nbsp;[...]&nbsp;&nbsp;On the basis of the interpretation of this Court’s authority as established in <b>RJR — MacDonald</b>, I am satisfied that the effect of the judgment of the Court of Appeal may be stayed by this Court. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2312/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1141/index.do?q=%22RJR-MacDonald%22">143471 Canada Inc. v. Quebec (Attorney General); Tabah v. Quebec (Attorney General)</a></span>
+                    - <span class="report-citation">[1994] 2 SCR 339</span>
+                - <span class="publicationDate">1994-05-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Civil procedure<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In <b>RJR ‐‐ MacDonald</b>, supra, this Court noted that this view of harm is of limited application when a breach of the Charter is alleged. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR ‐‐ MacDonald</b> the Court wrote (at p. 346): In our view, the concept of inconvenience should be widely construed in Charter cases. &nbsp;&nbsp;[...]&nbsp;&nbsp;See <b>RJR -- MacDonald</b>, supra, at p. 342. In summary then, there is some small privacy interest in commercial documents. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1141/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1722/index.do?q=%22RJR-MacDonald%22">U.F.C.W., Local 1518, v. KMart Canada Ltd.</a></span>
+                    - <span class="report-citation">[1999] 2 SCR 1083</span>
+                - <span class="publicationDate">1999-09-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Labour law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    See <b>RJR-MacDonald</b>, at para. 144. The characterization of the objective by the respondent and the Attorney General is too broad. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR-MacDonald</b>, at para. 136, McLachlin J. held that: As with context, however, care must be taken not to extend the notion of deference too far. &nbsp;&nbsp;[...]&nbsp;&nbsp;See <b>RJR-MacDonald</b>, supra, and Rocket, supra. 66 Unlike other aspects of industrial relations, leafleting is not strictly confined to labour and management. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1722/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1621/index.do?q=%22RJR-MacDonald%22">Thomson Newspapers Co. v. Canada (Attorney General)</a></span>
+                    - <span class="report-citation">[1998] 1 SCR 877</span>
+                - <span class="publicationDate">1998-05-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Also McLachlin J., in writing for the majority in <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 137, expressed the unanimous view of the Court: &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR-MacDonald</b>, supra, at para. 160, McLachlin J. stated: “if the government fails to explain why a significantly less intrusive and equally effective measure was not chosen, the law may fail” (emphasis added). &nbsp;&nbsp;[...]&nbsp;&nbsp;This sets this case apart from cases involving advertisers (such as Irwin Toy, Libman or <b>RJR-MacDonald</b>), where advertisers encouraged choices which served their particular interests. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1621/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2348/index.do?q=%22RJR-MacDonald%22">R. v. Bryan</a></span>
+                        - <span class="citation">2007 SCC 12</span>
+                    - <span class="report-citation">[2007] 1 SCR 527</span>
+                - <span class="publicationDate">2007-03-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: Harper v. Canada (Attorney General), [2004] 1 S.C.R. 827, 2004 SCC 33; R. v. Oakes, [1986] 1 S.C.R. 103; <b>RJR‐MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199; Thomson Newspapers Co. v. Canada (Attorney General), [1998] 1 S.C.R. 877. &nbsp;&nbsp;[...]&nbsp;&nbsp;42 The standard for this stage of the analysis is still best encapsulated by the well-known passage from <b>RJR-MacDonald</b>, at para. 160: The impairment must be “minimal”, that is, the law must be carefully tailored so that rights are impaired no more than necessary. &nbsp;&nbsp;[...]&nbsp;&nbsp;The government must provide “a reasoned demonstration of the good which the law may achieve in relation to the seriousness of the infringement” (<b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 129). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2348/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1436/index.do?q=%22RJR-MacDonald%22">Canadian Broadcasting Corp. v. New Brunswick (Attorney General)</a></span>
+                    - <span class="report-citation">[1996] 3 SCR 480</span>
+                - <span class="publicationDate">1996-10-31</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    It was also my view in <b>RJR-MacDonald</b>, supra, that a common-sense analysis was sufficient to satisfy the rational connection branch. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR-MacDonald</b>, supra, I noted that the evidentiary requirements of s. 1 analysis will vary substantially with the nature of the right infringed. &nbsp;&nbsp;[...]&nbsp;&nbsp;I put the matter this way in <b>RJR-MacDonald</b>, at para. 72: Although freedom of expression is undoubtedly a fundamental value, there are other fundamental values that are also deserving of protection and consideration by the courts. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1436/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17446/index.do?q=%22RJR-MacDonald%22">Frank v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2019 SCC 1</span>
+                    - <span class="report-citation">[2019] 1 SCR 3</span>
+                - <span class="publicationDate">2019-01-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    To discharge this burden, the AGC must satisfy the civil standard of proof on a balance of probabilities (Oakes, at p. 137; <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at paras. 137-38). &nbsp;&nbsp;[...]&nbsp;&nbsp;Essentially, the government must show that there is a causal connection between the limit and the intended purpose (<b>RJR-MacDonald</b>, at para. 153). In cases in which a causal connection is not scientifically measurable, one can be made out on the basis of reason or logic, as opposed to concrete proof (<b>RJR-MacDonald</b>, at para. &nbsp;&nbsp;[...]&nbsp;&nbsp; as little as reasonably possible in furthering the legislative objective (<b>RJR-MacDonald</b>, at para. 160; Oakes, at p. 139). In other words, the measure must be “carefully tailored” to ensure that rights are impaired no more than is reasonably necessary (<b>RJR-MacDonald</b>, at para. 160; Mounted Police Association, at para. 149). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17446/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1628/index.do?q=%22RJR-MacDonald%22">M &amp; D Farm Ltd. v. Manitoba Agricultural Credit Corp.</a></span>
+                    - <span class="report-citation">[1998] 1 SCR 1074</span>
+                - <span class="publicationDate">1998-04-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Appeal<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: <b>RJR ‐‐ MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311. Statutes and Regulations Cited &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR -- MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, it was held, at p. 329, by Sopinka and Cory JJ. on behalf of the Court as follows: &nbsp;&nbsp;[...]&nbsp;&nbsp;Accordingly, if the appeal is granted, and the order of Clearwater J. dated March 20, 1997 is restored, alienation of the property by the respondent at this stage would “tend to negate or diminish the effect of the judgment of this Court” within the meaning of <b>RJR -- MacDonald</b>, supra. Were the respondent to dispose of the 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1628/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7808/index.do?q=%22RJR-MacDonald%22">Alberta v. Hutterian Brethren of Wilson Colony</a></span>
+                        - <span class="citation">2009 SCC 37</span>
+                    - <span class="report-citation">[2009] 2 SCR 567</span>
+                - <span class="publicationDate">2009-07-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    [54] In <b>RJR-MacDonald</b>, the minimal impairment analysis was explained as follows, at para. 160: &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR- MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, McLachlin J. cautioned that “[c]are must be taken not to overstate the objective. &nbsp;&nbsp;[...]&nbsp;&nbsp;The connection must be established on a balance of probabilities (<b>RJR-MacDonald</b>, at para. 153; see also Nicholas Emiliou, The Principle of Proportionality in European Law: A Comparative Study (1996), at p. 27). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7808/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1794/index.do?q=%22RJR-MacDonald%22">Reference re Firearms Act (Can.)</a></span>
+                        - <span class="citation">2000 SCC 31</span>
+                    - <span class="report-citation">[2000] 1 SCR 783</span>
+                - <span class="publicationDate">2000-06-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    27 As a general rule, legislation may be classified as criminal law if it possesses three prerequisites: a valid criminal law purpose backed by a prohibition and a penalty: <b>RJR-MacDonald</b>, supra; Hydro-Québec, supra; and Reference re Validity of Section 5(a) of the Dairy Industry Act, [1949] S.C.R. 1 (the “Margarine &nbsp;&nbsp;[...]&nbsp;&nbsp;Criminal law, as this Court has stated in numerous cases, constitutes a broad area of federal jurisdiction: <b>RJR-MacDonald</b>, supra; Hydro-Québec, supra; and Margarine Reference, supra. The criminal law stands on its own as federal jurisdiction. &nbsp;&nbsp;[...]&nbsp;&nbsp;As such, the regulation of guns as dangerous products is a valid purpose within the criminal law power: see R. v. Felawka, [1993] 4 S.C.R. 199; <b>RJR-MacDonald</b>, supra; R. v. Wetmore, [1983] 2 S.C.R. 284; and Cosman’s Furniture, supra. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1794/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/2146/index.do?q=%22RJR-MacDonald%22">Harper v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2004 SCC 33</span>
+                    - <span class="report-citation">[2004] 1 SCR 827</span>
+                - <span class="publicationDate">2004-05-18</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    The “impairment must be ‘minimal’, that is, the law must be carefully tailored so that rights are impaired no more than necessary”: <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 160. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR-MacDonald</b>, the Court held, in the absence of direct scientific evidence showing a causal link between advertising bans and a decrease in tobacco consumption/use, that as a matter of logic advertising bans and package warnings lead to a reduction in tobacco use; see paras. 155-58. &nbsp;&nbsp;[...]&nbsp;&nbsp;The oft-cited quote from <b>RJR-MacDonald</b>, supra, at para. 160, sets out the appropriate standard: The impairment must be “minimal”, that is, the law must be carefully tailored so that rights are impaired no more than necessary. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/2146/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/7905/index.do?q=%22RJR-MacDonald%22">Reference re Assisted Human Reproduction Act</a></span>
+                        - <span class="citation">2010 SCC 61</span>
+                    - <span class="report-citation">[2010] 3 SCR 457</span>
+                - <span class="publicationDate">2010-12-22</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    To this end, criminal laws for the protection of health must address a “legitimate public health evil”: <b>RJR-MacDonald</b>, at para. 32; see also Schneider v. The Queen, [1982] 2 S.C.R. 112, at p. 142. &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR-MacDonald</b>, La Forest J. emphasized that the harm of tobacco consumption was “dramatic and substantial” (para. 32). &nbsp;&nbsp;[...]&nbsp;&nbsp;In <b>RJR‐MacDonald</b>, on the other hand, given the well‐established health risks associated with tobacco consumption, the exercise of the criminal law power was found to be justified. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/7905/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1367/index.do?q=%22RJR-MacDonald%22">Ross v. New Brunswick School District No. 15</a></span>
+                    - <span class="report-citation">[1996] 1 SCR 825</span>
+                - <span class="publicationDate">1996-04-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    88 In <b>RJR-MacDonald</b>, supra, I noted that "the evidentiary requirements under s. 1 will vary substantially depending upon both the nature of the legislation and the nature of the right infringed" (p. 272). &nbsp;&nbsp;[...]&nbsp;&nbsp;As to the standard of proof required under s. 1, McLachlin J., in <b>RJR-MacDonald</b>, supra, stated that proof to the standard of science was not required, and accepted the civil standard of proof on a balance of probabilities. &nbsp;&nbsp;[...]&nbsp;&nbsp;103 In <b>RJR-MacDonald</b>, supra, at p. 342, McLachlin J. reasoned that an impairment must be minimal to the extent that it impairs the right no more than is necessary. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1367/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/16701/index.do?q=%22RJR-MacDonald%22">Google Inc. v. Equustek Solutions Inc.</a></span>
+                        - <span class="citation">2017 SCC 34</span>
+                    - <span class="report-citation">[2017] 1 SCR 824</span>
+                - <span class="publicationDate">2017-06-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The test for interlocutory injunctions established in <b>RJR ― MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, does not apply to an order that is effectively final, and the test for a permanent injunction has not been satisfied. &nbsp;&nbsp;[...]&nbsp;&nbsp;[61] In <b>RJR ― MacDonald</b>, this Court set out the test for interlocutory injunctions ― a serious question to be tried, irreparable harm, and the balance of convenience ― but also described an exception (at pp. 338-39): &nbsp;&nbsp;[...]&nbsp;&nbsp;[65] Following <b>RJR ― MacDonald</b> (at pp. 338-39), an extensive review of the merits is therefore required at the first stage of the analysis (Schooff v. British Columbia (Medical Services Commission), 2010 BCCA 396, 323 D.L.R. (4th) 680, at paras. 26-27). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/16701/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1685/index.do?q=%22RJR-MacDonald%22">Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montreal (City); Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Boisbriand (City)</a></span>
+                    - <span class="report-citation">[1999] 1 SCR 381</span>
+                - <span class="publicationDate">1999-02-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Action<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Referred to: Industrial Development Bank v. Canadian Plywood Corp., [1972] 1 W.W.R. 298; G. (L.) v. B. (G.), [1995] 3 S.C.R. 367; Keable v. Attorney General of Canada, [1978] 2 S.C.R. 135; <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311; Corner Brook Pulp and Paper Ltd. v. Bowater Inc. (1989), 246 &nbsp;&nbsp;[...]&nbsp;&nbsp;12 This interpretation of s. 65 was confirmed again by this Court in <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, where Sopinka and Cory JJ. stated at pp. 328-29: &nbsp;&nbsp;[...]&nbsp;&nbsp;The result is that while s. 65(1) must be given effect according to its terms, the section as a whole is to be read restrictively in accordance with the interpretation authoritatively settled by the Court in Keable, supra, G. (L.) v. B. (G.), supra, and <b>RJR-MacDonald</b>, supra, as previously stated. 14 Even a broader reading 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1685/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/1551/index.do?q=%22RJR-MacDonald%22">Libman v. Quebec (Attorney General)</a></span>
+                    - <span class="report-citation">[1997] 3 SCR 569</span>
+                - <span class="publicationDate">1997-10-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Elections<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Scientific proof is not required to meet this standard: “the balance of probabilities may be established by the application of common sense to what is known, even though what is known may be deficient from a scientific point of view” (<b>RJR‐MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at p. 333). &nbsp;&nbsp;[...]&nbsp;&nbsp;58 In <b>RJR‐MacDonald</b>, supra, McLachlin J. explained the application of the minimal impairment test as follows, at p. 342: &nbsp;&nbsp;[...]&nbsp;&nbsp; areas (Irwin Toy, supra, at pp. 993‐94; McKinney v. University of Guelph, [1990] 3 S.C.R. 229, at pp. 304‐5; Stoffman v. Vancouver General Hospital, [1990] 3 S.C.R. 483, at p. 521; <b>RJR‐MacDonald</b>, supra, at pp. 279 and 331‐32). La Forest J.’s comment on the subject in <b>RJR‐MacDonald</b>, supra, at p. 277, is perfectly apposite: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/1551/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21476/index.do?q=%22RJR-MacDonald%22">Quebec (Attorney General) v. Lalande</a></span>
+                        - <span class="citation">2026 SCC 13</span>
+                - <span class="publicationDate">2026-05-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: R. v. Oakes, [1986] 1 S.C.R. 103; referred to: R. v. K.R.J., 2016 SCC 31, [2016] 1 S.C.R. 906; Alberta v. Hutterian Brethren of Wilson Colony, 2009 SCC 37, [2009] 2 S.C.R. 567; <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199. By Côté and Rowe JJ. (dissenting) &nbsp;&nbsp;[...]&nbsp;&nbsp; from constitutional scrutiny and relieves the appellant of his burden, under s. 1 of the Charter, of demonstrating that the law has been “carefully tailored so that rights are impaired no more than necessary” (<b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 160, cited by C.A., at para. 78). &nbsp;&nbsp;[...]&nbsp;&nbsp;This is especially so given that it is not the Court’s role to determine the conditions of electoral redistribution in Quebec or to prescribe a specific solution to a complex problem of democratic representation involving the reconciliation of competing interests (ibid.; <b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21476/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/14577/index.do?q=%22RJR-MacDonald%22">Mounted Police Association of Ontario v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2015 SCC 1</span>
+                    - <span class="report-citation">[2015] 1 SCR 3</span>
+                - <span class="publicationDate">2015-01-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    The onus rests on the party seeking to uphold the limitation of the Charter right, and the burden of proof is a preponderance of probabilities (<b>RJR-MacDonald</b> Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at paras. 137-38 (“<b>RJR-MacDonald</b> (1995)”). &nbsp;&nbsp;[...]&nbsp;&nbsp;For this reason, courts have not always insisted on direct proof of a relationship between the infringing measure and the legislative objective, accepting conclusions supported by logic and reason (<b>RJR-MacDonald</b> (1995), at para. 154; Ross v. New Brunswick School District No. 15, [1996] 1 S.C.R. 825, at para. 101). &nbsp;&nbsp;[...]&nbsp;&nbsp;(<b>RJR-MacDonald</b> (1995), at para. 160; see also Hutterian Brethren, at paras. 53-55; Health Services, at para. 150.) 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/14577/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/17448/index.do?q=%22RJR-MacDonald%22">R. v. Beaudry</a></span>
+                        - <span class="citation">2019 SCC 2</span>
+                    - <span class="report-citation">[2019] 1 SCR 95</span>
+                - <span class="publicationDate">2019-01-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Referred to: Manitoba (Attorney General) v. Metropolitan Stores Ltd., [1987] 1 S.C.R. 110; <b>RJR — MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311. MOTION to stay the declaration of invalidity issued by the Court Martial Appeal Court of Canada (Bell C.J. and Gagné and Ouellette JJ.A.), 2018 CMAC 4, [2018] &nbsp;&nbsp;[...]&nbsp;&nbsp;[2] The applicable criteria set out in Manitoba (Attorney General) v. Metropolitan Stores Ltd., [1987] 1 S.C.R. 110, and <b>RJR — MacDonald</b> Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, are not in dispute. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/17448/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

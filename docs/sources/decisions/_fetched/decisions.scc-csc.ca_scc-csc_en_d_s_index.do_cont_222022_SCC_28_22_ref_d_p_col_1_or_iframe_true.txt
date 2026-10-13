@@ -1,0 +1,673 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%222022+SCC+28%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%222022+SCC+28%22&ref=&p=&col=1&or=] All Databases (17)
+ Decisions (13)
+ [LINK /scc-csc/en/n/s/index.do?cont=%222022+SCC+28%22&ref=&p=&col=1&or=] Resources (4)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%222022+SCC+28%22&ref=&p=&col=1&or=date] Date
+ 13 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/19428/index.do?q=%222022+SCC+28%22] R. v. J.J.
+ - 2022 SCC 28
+ - [2022] 2 SCR 3
+ - 2022-06-30
+ Supreme Court Judgments
+ Constitutional law
+ R. v. J.J., R. c. J.J., 2022 SCC 28, 2022 CSC 28, 39516, 39133, [2022] 2 SCR 3, [2022] 2 RCS 3 SUPREME COURT OF CANADA [...] Citation: R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3 Appeals Heard: October 5 and 6, 2021 Judgment Rendered: June 30, 2022 [...] 2022 SCC 28 File Nos.: 39133, 39516. 2021: October 5, 6; 2022: June 30. 
+ [LINK /scc-csc/scc-csc/en/19428/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/20255/index.do?q=%222022+SCC+28%22] R. v. Brunelle
+ - 2024 SCC 3
+ - 2024-01-26
+ Supreme Court Judgments
+ Constitutional law
+ Referred to: R. v. J.J., 2022 SCC 28; Canada (Attorney General) v. Whaling, 2014 SCC 20, [2014] 1 S.C.R. 392; R. v. Harrer, [1995] 3 S.C.R. 562; R. v. Généreux, [1992] 1 S.C.R. 259; R. v. Pearson, [1992] 3 S.C.R. 665; R. v. Pan, 2001 SCC 42, [2001] 2 S.C.R. 344; R. v. Cawthorne, 2016 SCC 32, [2016] 1 S.C.R. 983; R. v. [...] This role has also been recognized many times by the Court outside the abuse of process context (R. v. J.J., 2022 SCC 28, at para. 113; R. v. Darrach, 2000 SCC 46, [2000] 2 S.C.R. 443, at para. 24; R. v. White, [1999] 2 S.C.R. 417, at para. 44; R. v. Mills, [1999] 3 S.C.R. 668, at paras. 72 and 76; R. v. Pearson, [1992] 3 [...] [126] The Court has not been consistent in its approach to how the legal analysis should be sequenced when an accused seeks a stay under s. 7 and under ss. 8 to 14 (R. v. J.J., 2022 SCC 28, at para. 115). In some cases, the Court has stated that where one of the “Legal Rights” under ss. 8 to 14 are relied on, as well as the
+ [LINK /scc-csc/scc-csc/en/20255/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/21588/index.do?q=%222022+SCC+28%22] Democracy Watch v. Canada (Attorney General)
+ - 2026 SCC 28
+ - 2026-07-30
+ Supreme Court Judgments
+ Constitutional law
+ S.C.R. 854; Northback Holdings Corporation v. Alberta Energy Regulator, 2025 ABCA 186, 510 D.L.R. (4th) 488, Canada Labour Relations Board v. Paul L’Anglais Inc., [1983] 1 S.C.R. 147; R. v. Mills, [1999] 3 S.C.R. 668; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; Slaight Communications Inc. v. Davidson, [1989] 1 S.C.R. 1038. [...] It is true that, in interpreting the text of s. 66 of the COIA in context and in light of its purpose, it is presumed that Parliament intended to respect its constitutional constraints: see R. v. Mills, [1999] 3 S.C.R. 668, at para. 56; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3, at para. 18. The presumption of 
+ [LINK /scc-csc/scc-csc/en/21588/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/20086/index.do?q=%222022+SCC+28%22] La Presse inc. v. Quebec
+ - 2023 SCC 22
+ - 2023-10-06
+ Supreme Court Judgments
+ Criminal law
+ Well Association v. Grant Thornton Ltd., 2019 SCC 5, [2019] 1 S.C.R. 150; referred to: R. v. Brassington, 2018 SCC 37, [2018] 2 S.C.R. 616; R. v. J.J., 2022 SCC 28; Vancouver Sun (Re), 2004 SCC 43, [2004] 2 S.C.R. 332; Attorney General of Nova Scotia v. MacIntyre, [1982] 1 S.C.R. 175; R. v. Malik, Bagri and Reyat, 2002 [...] In R. v. J.J., 2022 SCC 28, para. 283, Justice Brown, dissenting in part, treated s. 648(1) as applying before jury selection to information that would ordinarily be dealt with in the absence of a jury, though he provided little analysis. 
+ [LINK /scc-csc/scc-csc/en/20086/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/20972/index.do?q=%222022+SCC+28%22] R. v. Sheppard
+ - 2025 SCC 29
+ - 2025-09-26
+ Supreme Court Judgments
+ Criminal law
+ 237, 422 D.L.R. (4th) 471, aff’d 2018 SCC 6, [2018] 1 S.C.R. 218; R. v. D.D., 2000 SCC 43, [2000] 2 S.C.R. 275; R. v. Mills, [1999] 3 S.C.R. 668; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Burns, [1994] 1 S.C.R. 656; R. v. Wright, 2024 ONCA 516; R. v. De Flores Bermudez, 2024 ONCA 433; R. v. R.D. (1996), 144 Sask. [...] This Court stated in R. v. Mills, [1999] 3 S.C.R. 668, that “[t]he notion that consultation with a psychiatrist is, by itself, an indication of untrustworthiness is a more recent, but equally invidious, example of such a myth” (para. 119; see also R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3, at para. 132; Kruk, at para. 41).
+ [LINK /scc-csc/scc-csc/en/20972/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/21096/index.do?q=%222022+SCC+28%22] R. v. Kinamore
+ - 2025 SCC 19
+ - 2025-06-13
+ Supreme Court Judgments
+ Criminal law
+ v. Goldfinch, 2019 SCC 38, [2019] 3 S.C.R. 3; R. v. Arcangioli, [1994] 1 S.C.R. 129; R. v. Osolin, [1993] 4 S.C.R. 595; R. v. Kruk, 2024 SCC 7; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Grant, 2015 SCC 9, [2015] 1 S.C.R. 475; R. v. Salituro, [1991] 3 S.C.R. 654; Dagenais v. Canadian Broadcasting Corp., [1994] 3 [...] As this Court recognized in R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3, this amendment was introduced within a larger package of Criminal Code reforms that were “designed to protect the interests of complainants in their own private records” (para. 3). 
+ [LINK /scc-csc/scc-csc/en/21096/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/20907/index.do?q=%222022+SCC+28%22] John Howard Society of Saskatchewan v. Saskatchewan (Attorney General)
+ - 2025 SCC 6
+ - 2025-03-14
+ Supreme Court Judgments
+ Constitutional law
+ 2003 SCC 74, [2003] 3 S.C.R. 571; Performance Industries Ltd. v. Sylvan Lake Golf & Tennis Club Ltd., 2002 SCC 19, [2002] 1 S.C.R. 678; R. v. J.J., 2022 SCC 28; R. v. Mentuck, 2001 SCC 76, [2001] 3 S.C.R. 442; R. v. Seaboyer, [1991] 2 S.C.R. 577; Martineau v. M.N.R., 2004 SCC 81, [2004] 3 S.C.R. 737; Goodwin v. [...] [26] I note that, in coming to this conclusion, I am not establishing a principle of broader application for when accused persons raise claims under both ss. 7 and 11(d) (see R. v. J.J., 2022 SCC 28, at para. 115). The methodology for assessing alleged Charter breaches is highly context- and fact-specific (ibid.; R. v. [...] The Court of Appeal found that the s. 11 analysis from Shubley was relevant to the s. 7 analysis in this case and held that where there is overlap between s. 7 and s. 11, those portions of the analyses can be considered together, referring to R. v. J.J., 2022 SCC 28. The Court of Appeal noted that while the presumption of 
+ [LINK /scc-csc/scc-csc/en/20907/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/21302/index.do?q=%222022+SCC+28%22] R. v. Vrbanic
+ - 2026 SCC 19
+ - 2026-05-29
+ Supreme Court Judgments
+ Constitutional law
+ S.C.R. 353; R. v. Haevischer, 2023 SCC 11, [2023] 1 S.C.R. 416; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Rahey, [1987] 1 S.C.R. 588; Auer v. Auer, 2024 SCC 36; R. v. Pauls, 2020 ONCA 220, 453 D.L.R. (4th) 193, aff’d R. v. Yusuf, 2021 SCC 2, [2021] 1 S.C.R. 5; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235. [...] • If the delay is because of a complex proceeding under s. 276 or s. 278.92 of the Criminal Code, the court could order that the procedures be simplified, such as by conducting the stage 1 proceeding in writing, or that the stage 1 and stage 2 proceedings be scheduled together (see, generally, R. v. J.J., 2022 SCC 28, 
+ [LINK /scc-csc/scc-csc/en/21302/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/19851/index.do?q=%222022+SCC+28%22] R. v. Haevischer
+ - 2023 SCC 11
+ - [2023] 1 SCR 416
+ - 2023-04-28
+ Supreme Court Judgments
+ Criminal law
+ L.R. (4th) 152; R. v. Felderhof (2003), 68 O.R. (3d) 481; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Rice, 2018 QCCA 198; R. v. Lyttle, 2004 SCC 5, [2004] 1 S.C.R. 193; R. v. Osolin, [1993] 4 S.C.R. 595; R. v. Shearing, 2002 SCC 58, [2002] 3 S.C.R. 33; R. v. N.S., 2012 SCC 72, [2012] 3 S.C.R. 726. [...] Case management powers also include the ability to revisit prior evidentiary determinations or to allow new applications mid-trial if doing so would be in the interests of justice (R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3, at para. 86). A motion by counsel for directions also calls for an exercise of case management 
+ [LINK /scc-csc/scc-csc/en/19851/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/21132/index.do?q=%222022+SCC+28%22] R. v. Kloubakov
+ - 2025 SCC 25
+ - 2025-07-24
+ Supreme Court Judgments
+ Constitutional law
+ January 13, 2023, at p. 32; referred to: Canadian Alliance for Sex Work Law Reform v. Attorney General, 2023 ONSC 5197, 535 C.R.R. (2d) 40; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Sharpe, 2001 SCC 2, [2001] 1 S.C.R. 45; Canada (Attorney General) v. JTI-Macdonald Corp., 2007 SCC 30, [2007] 2 S.C.R. 610; Rizzo [...] [59] This Court has observed that, before evaluating the constitutionality of statutory provisions, it is first necessary to interpret the provisions at issue based on their text, context, and purpose to determine their scope (R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3, at para. 17; R. v. Sharpe, 2001 SCC 2, [2001] 1 S.C.R.
+ [LINK /scc-csc/scc-csc/en/21132/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/21149/index.do?q=%222022+SCC+28%22] R. v. Bharwani
+ - 2025 SCC 26
+ - 2025-07-25
+ Supreme Court Judgments
+ Criminal law
+ 1 S.C.R. 402; Lizotte v. Aviva Insurance Company of Canada, 2016 SCC 52, [2016] 2 S.C.R. 521; The Queen v. Laliberté (1877), 1 S.C.R. 117; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3; R. v. Harrer, [1995] 3 S.C.R. 562; R. v. Demers, 2004 SCC 46, [2004] 2 S.C.R. 489; R. v. Lyttle, 2004 SCC 5, [2004] 1 S.C.R. 193; R. v. [...] 117, at p. 140, per Ritchie J.; Roberts, at p. 545; Woltucky, at pp. 46-47; Steele, at pp. 172-73 and 181; R. v. J.J., 2022 SCC 28, [2022] 2 S.C.R. 3, at paras. 113-14). This right guarantees the accused a fair opportunity to challenge the evidence and present a defence (R. v. Harrer, [1995] 3 S.C.R. 562, at para. 13). 
+ [LINK /scc-csc/scc-csc/en/21149/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/20315/index.do?q=%222022+SCC+28%22] R. v. Kruk
+ - 2024 SCC 7
+ - 2024-03-08
+ Supreme Court Judgments
+ Criminal law
+ (3d) 252; R. v. G.F., 2021 SCC 20, [2021] 1 S.C.R. 801; R. v. Mills, [1999] 3 S.C.R. 668; R. v. Darrach, 2000 SCC 46, [2000] 2 S.C.R. 443; R. v. J.J., 2022 SCC 28; R. v. A. (A.B.), 2019 ONCA 124, 145 O.R. (3d) 634; R. v. A.R.J.D., 2018 SCC 6, [2018] 1 S.C.R. 218; R. v. C.M.M., 2020 BCCA 56; R. v. Kodwat, 2017 YKCA 11; [...] complainants as well as the interests of society at large (R. v. Mills, [1999] 3 S.C.R. 668; R. v. Darrach, 2000 SCC 46, [2000] 2 S.C.R. 443; R. v. J.J., 2022 SCC 28). This approach is part of the obligation to strive towards “the fair, ethical and non-discriminatory adjudication of sexual assault cases” (D. M. Tanovich,
+ [LINK /scc-csc/scc-csc/en/20315/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/20772/index.do?q=%222022+SCC+28%22] R. v. Campbell
+ - 2024 SCC 42
+ - 2024-12-06
+ Supreme Court Judgments
+ Constitutional law
+ [1996] 1 S.C.R. 128, aff’g (1994), 73 O.A.C. 55; R. v. Jones, 2017 SCC 60, [2017] 2 S.C.R. 696; R. v. Buhay, 2003 SCC 30, [2003] 1 S.C.R. 631; R. v. J.J., 2022 SCC 28; R. v. Knelsen, 2024 ONCA 501; R. v. Rafferty, 2018 ONCJ 881, 424 C.R.R. (2d) 88; R. v. Devic, 2018 BCPC 318; R. v. Bear‐Knight, 2021 SKQB 258, [2022] 2 [...] [178] I do not question the idea that Marakah represented a groundbreaking development in our s. 8 jurisprudence and supported the fact that electronic communications may contain private content (see Marakah, at para. 36, per McLachlin C.J., and at para. 92, per Moldaver J.; R. v. J.J., 2022 SCC 28, at para. 238, per Brown 
+ [LINK /scc-csc/scc-csc/en/20772/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

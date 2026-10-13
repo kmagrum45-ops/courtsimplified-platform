@@ -1,0 +1,601 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=%222014+ONCA+194%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=%222014+ONCA+194%22&ref=&p=&col=1&or=date] Date
+ 23 result(s)
+ 1.
+ [LINK /coa/coa/en/item/12803/index.do?q=%222014+ONCA+194%22] Mountain View Farms Ltd. v. McQueen
+ - 2014 ONCA 194
+ - 2014-03-14
+ Decisions of the Court of Appeal
+ - Civil
+ Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, C56832 COURT OF APPEAL FOR ONTARIO CITATION: Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194 
+ [LINK /coa/coa/en/12803/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/14528/index.do?q=%222014+ONCA+194%22] Baptista v. Safranko
+ - 2016 ONCA 114
+ - 2016-02-09
+ Decisions of the Court of Appeal
+ - Civil
+ [2] The motion judge correctly articulated the test set out in Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, but the appellant submits that on the facts before him, the motion judge ought to have concluded that there was an air of reality to the defence. 
+ [LINK /coa/coa/en/14528/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/24006/index.do?q=%222014+ONCA+194%22] Amex Bank of Canada v. DaCosta
+ - 2026 ONCA 181
+ - 2026-03-11
+ Decisions of the Court of Appeal
+ - Civil
+ [2] The motion judge recited the factors to be considered in deciding whether to aside a default judgment as approved by this court in Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 48-49. She reminded herself that the factors are not treated as rigid rules but are to be employed in the 
+ [LINK /coa/coa/en/24006/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/16367/index.do?q=%222014+ONCA+194%22] Mazgaj v. Profitable Plots (Canada) Ltd.
+ - 2017 ONCA 1020
+ - 2017-12-27
+ Decisions of the Court of Appeal
+ - Civil
+ [4] Applying the principles in Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, the motion judge refused to set aside the default judgment. We would not interfere with this decision. 
+ [LINK /coa/coa/en/16367/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/20667/index.do?q=%222014+ONCA+194%22] Fisher v. Soroka
+ - 2022 ONCA 442
+ - 2022-06-06
+ Decisions of the Court of Appeal
+ - Civil
+ v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 47-50. We see no palpable and overriding error in the findings of the motion judge on the record before him that the motions to set aside were not made with reasonable promptness, and that the appellant’s explanation for the delay was neither plausible nor credible. 
+ [LINK /coa/coa/en/20667/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/16866/index.do?q=%222014+ONCA+194%22] Alderton v. Haylor Properties Niagara Inc.
+ - 2018 ONCA 483
+ - 2018-05-24
+ Decisions of the Court of Appeal
+ - Civil
+ [6] The motion judge referred to the factors set out in Mountainview Farms Ltd. v. McQueen, 2014 ONCA 194, as applicable to a motion to set aside a default judgment. He accepted that the motion had been brought promptly and that the appellants had an arguable defence. 
+ [LINK /coa/coa/en/16866/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/14953/index.do?q=%222014+ONCA+194%22] Ur-Rahman v. Mahatoo
+ - 2016 ONCA 555
+ - 2016-07-08
+ Decisions of the Court of Appeal
+ - Civil
+ [7] The motion judge expressly referred to this court’s decision in Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, and the factors identified in that case, at paras. 47-51, as governing whether to set aside a default judgment. 
+ [LINK /coa/coa/en/14953/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/22134/index.do?q=%222014+ONCA+194%22] Storoszko & Associates v. 1489767 Ontario Limited
+ - 2024 ONCA 147
+ - 2024-02-27
+ Decisions of the Court of Appeal
+ - Civil
+ The factors the motion judge listed and applied were the factors that this court has set out for the determination of whether a default judgment should be set aside or varied under r. 19.08: Mountain View v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 47-49. [4] The dismissal of a motion to vary a final judgment is
+ [LINK /coa/coa/en/22134/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/14233/index.do?q=%222014+ONCA+194%22] Frankie Tomatto's Woodbine Inc. v. De Groot
+ - 2015 ONCA 739
+ - 2015-11-02
+ Decisions of the Court of Appeal
+ - Civil
+ It should not be interfered with absent an error in law or principle, a palpable and overriding error of fact, or unless the decision is so clearly wrong as to amount to an injustice: Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at para. 55. [4] The motion judge correctly identified the principles 
+ [LINK /coa/coa/en/14233/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/16184/index.do?q=%222014+ONCA+194%22] Redabe Holdings Inc. v. I.C.I. Construction Corporation
+ - 2017 ONCA 808
+ - 2017-10-24
+ Decisions of the Court of Appeal
+ - Civil
+ [5] The motion judge applied well-established criteria for determining whether the justice of the case required him to order that the default judgment be set aside: see, for example, Intact Insurance Co. v. Kisel, 2015 ONCA 205, 125 O.R. (3d) 365, at para. 14; and Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 372 
+ [LINK /coa/coa/en/16184/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/23195/index.do?q=%222014+ONCA+194%22] Ezomo v. Afriyie
+ - 2025 ONCA 272
+ - 2025-04-09
+ Decisions of the Court of Appeal
+ - Civil
+ [8] As the appellant fairly acknowledges, the motion judge correctly adverted to the following criteria from Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 48-49, in determining whether to set aside the default judgment: 
+ [LINK /coa/coa/en/23195/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/24531/index.do?q=%222014+ONCA+194%22] Appgear Mortgage Investment Limited Partnership v. Longobardi
+ - 2026 ONCA 711
+ - 2026-10-02
+ Decisions of the Court of Appeal
+ - Civil
+ [9] The Motion Judge correctly identified the test to set aside a default judgment as set out in Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561. He found that there was no plausible excuse or explanation for Ms. Longobardi’s default in complying with the rules. 
+ [LINK /coa/coa/en/24531/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/16900/index.do?q=%222014+ONCA+194%22] Sammut v. Sammut
+ - 2018 ONCA 507
+ - 2018-06-01
+ Decisions of the Court of Appeal
+ - Civil
+ an error in principle, a palpable and overriding error of fact, or unless the decision is so clearly wrong as to amount to an injustice: see Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, at para.55. [6] In our view, the appellant has not established that the motion judge made an error in any of these categories. 
+ [LINK /coa/coa/en/16900/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/16822/index.do?q=%222014+ONCA+194%22] 992548 Ontario Inc. v. 8657181 Canada Inc.
+ - 2018 ONCA 416
+ - 2018-05-02
+ Decisions of the Court of Appeal
+ - Civil
+ [11] In these fact-based cases the ultimate task is “to determine whether the interests of justice favour granting the order”: Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 317 O.A.C. 255, at paras. 47-51. [12] The decision to set aside a default judgment for foreclosure is discretionary. 
+ [LINK /coa/coa/en/16822/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/14050/index.do?q=%222014+ONCA+194%22] Ravazzolo v. Romaniuk
+ - 2015 ONCA 542
+ - 2015-07-21
+ Decisions of the Court of Appeal
+ - Civil
+ [17] In Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 48-49, this court set out five factors that a court should consider in determining whether to set aside a default judgment: 
+ [LINK /coa/coa/en/14050/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/20320/index.do?q=%222014+ONCA+194%22] Franchetti v. Huggins
+ - 2022 ONCA 111
+ - 2022-02-07
+ Decisions of the Court of Appeal
+ - Civil
+ An arguable defence on the merits may justify the court in exercising its discretion to set aside a default judgment, and for that purpose it is sufficient for the defence to have an “air of reality”: Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at para. 51. However, perhaps because requests to set
+ [LINK /coa/coa/en/20320/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/13696/index.do?q=%222014+ONCA+194%22] Intact Insurance Company v. Kisel
+ - 2015 ONCA 205
+ - 2015-03-26
+ Decisions of the Court of Appeal
+ - Civil
+ The court has to decide whether, in the particular circumstances of the case, it is just to relieve a defendant from the consequences of default: Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 372 D.L.R. (4th) 526, at paras. 48-50. [15] The motion judge applied the test for setting aside a default judgment. 
+ [LINK /coa/coa/en/13696/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/23360/index.do?q=%222014+ONCA+194%22] McIlwain v. Len’s Cove Marina Ltd.
+ - 2025 ONCA 434
+ - 2025-06-16
+ Decisions of the Court of Appeal
+ - Civil
+ [6] In his reasons for dismissing the motion, the motion judge considered the relevant factors in a r. 19.08(1) motion, citing to this court’s decision in Intact Insurance Company v. Kisel, 2015 ONCA 205, 125 O.R. (3d) 365, which in turn relied on the leading case of Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 
+ [LINK /coa/coa/en/23360/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/21446/index.do?q=%222014+ONCA+194%22] Trayanov v. Icetrading Inc.
+ - 2023 ONCA 322
+ - 2023-05-08
+ Decisions of the Court of Appeal
+ - Civil
+ These factors are not exhaustive and are not to be applied as rigid rules: Franchetti, at paras. 8, 10; Kisel, at paras. 13-14; Nobosoft, at para. 3; Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 48-51. IV. issues and analysis 
+ [LINK /coa/coa/en/21446/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/18506/index.do?q=%222014+ONCA+194%22] Zeifman Partners Inc. v. Aiello
+ - 2020 ONCA 33
+ - 2020-01-21
+ Decisions of the Court of Appeal
+ - Civil
+ Those factors are set out in this court’s decision in Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 48, 49. They are: 1. whether the motion was brought promptly after the defendant learned of the default judgment; 
+ [LINK /coa/coa/en/18506/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/16265/index.do?q=%222014+ONCA+194%22] Winters v. Hunking
+ - 2017 ONCA 909
+ - 2017-11-27
+ Decisions of the Court of Appeal
+ - Civil
+ As this Court has stated, in the context of setting aside default judgments generally, the various applicable factors are not to be treated as rigid rules; the ultimate task on such a motion is “to determine whether the interests of justice favour granting the order”: Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 317 
+ [LINK /coa/coa/en/16265/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/20782/index.do?q=%222014+ONCA+194%22] Paul's Transport Inc. v. Immediate Logistics Limited
+ - 2022 ONCA 573
+ - 2022-08-05
+ Decisions of the Court of Appeal
+ - Civil
+ [53] The appellants submit that, on the Third Motion, the Motion Judge failed to apply the legal test for setting aside default judgment set out in Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, and, instead, treated the Third Motion as an appeal. 
+ [LINK /coa/coa/en/20782/1/document.do] 
+ 23.
+ [LINK /coa/coa/en/item/20741/index.do?q=%222014+ONCA+194%22] Leaf Homes Limited v. Khan
+ - 2022 ONCA 504
+ - 2022-06-30
+ Decisions of the Court of Appeal
+ - Civil
+ Relying on Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194, 119 O.R. (3d) 561, at paras. 47-49, among other authorities, she said that the test to set aside a default judgment includes an assessment of the following factors: 
+ [LINK /coa/coa/en/20741/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

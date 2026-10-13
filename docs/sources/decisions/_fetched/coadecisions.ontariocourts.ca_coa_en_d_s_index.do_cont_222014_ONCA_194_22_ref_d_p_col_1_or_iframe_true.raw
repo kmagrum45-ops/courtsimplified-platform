@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://coadecisions.ontariocourts.ca/coa/en/d/s/index.do" />
+    <title>    Advanced Search - Court of Appeal for Ontario
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/coa/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.decisia-content a {
+    color: #0645ad;
+    text-decoration: underline;
+}
+
+.decisia-content a:visited {
+    color: purple;
+}
+
+.decisia-content a:hover {
+    color: #222;
+    text-decoration: none;
+}
+
+#decisia-footer a.outlink:after {
+    content: normal;
+	margin: 0;
+}
+
+.breadcrumb-separator > span {
+    display: none;
+}
+
+.breadcrumb-separator:after {
+    content: " » ";
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+    color: #0645ad;
+	text-decoration: underline;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+    text-decoration: none;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+    outline: 1px dashed #666;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+    outline: 0;
+}
+
+#solrHiBar {
+    line-height: normal;
+}
+
+.lexumSolrArrow {
+    line-height: 20px;
+}
+
+.wpml-ls-item-legacy-list-horizontal > span {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+	line-height: 1;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+    padding-bottom: 0;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+    padding-top: 0;
+}
+
+#decisia-main-content .decisia-content > #decisia-login-header {
+    padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+    margin-top: 0;
+}
+
+#decisia-main-content .decisia-content .resultControls ul.pager {
+    margin-bottom: 1.2em;
+}
+
+#document-content {
+    border-bottom: 2px solid black;
+}
+
+#decisia-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#decisia-footer .decisia-lexum a {
+    top: 10px;
+}
+
+#decisia-footer img.decisia_logo {
+    width: 120px;
+    height: 42px;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/coa/fr/d/s/index.do?cont=%222014+ONCA+194%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/coa/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;2014 ONCA 194&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Docket numbers</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Aitken, Catherine D."
+         >Aitken, Catherine D.</option>
+        <option value="Armstrong, Robert Patrick"
+         >Armstrong, Robert Patrick</option>
+        <option value="Austin, Allan McNiece"
+         >Austin, Allan McNiece</option>
+        <option value="Baltman, Deena"
+         >Baltman, Deena</option>
+        <option value="Benotto, Mary Lou"
+         >Benotto, Mary Lou</option>
+        <option value="Blair, Robert Ashley"
+         >Blair, Robert Ashley</option>
+        <option value="Borins, Stephen"
+         >Borins, Stephen</option>
+        <option value="Brooke, John Watson"
+         >Brooke, John Watson</option>
+        <option value="Brown, David M."
+         >Brown, David M.</option>
+        <option value="Brown, Michael F."
+         >Brown, Michael F.</option>
+        <option value="Brownstone, Lisa"
+         >Brownstone, Lisa</option>
+        <option value="Carthy, James Joseph"
+         >Carthy, James Joseph</option>
+        <option value="Catzman, Marvin Adrian"
+         >Catzman, Marvin Adrian</option>
+        <option value="Cavarzan, John Joseph"
+         >Cavarzan, John Joseph</option>
+        <option value="Chapnik, Sandra"
+         >Chapnik, Sandra</option>
+        <option value="Charron, Louise Vivianne"
+         >Charron, Louise Vivianne</option>
+        <option value="Code, Michael A."
+         >Code, Michael A.</option>
+        <option value="Copeland, Jill M."
+         >Copeland, Jill M.</option>
+        <option value="Coroza, Steve A."
+         >Coroza, Steve A.</option>
+        <option value="Cronk, Eleanore Ann"
+         >Cronk, Eleanore Ann</option>
+        <option value="Cumming, Peter Allan"
+         >Cumming, Peter Allan</option>
+        <option value="Cunningham, John Douglas"
+         >Cunningham, John Douglas</option>
+        <option value="Daley, Peter A."
+         >Daley, Peter A.</option>
+        <option value="Dambrot, Michael R."
+         >Dambrot, Michael R.</option>
+        <option value="Dawe, Jonathan"
+         >Dawe, Jonathan</option>
+        <option value="Doherty, David H."
+         >Doherty, David H.</option>
+        <option value="Ducharme, Edward W."
+         >Ducharme, Edward W.</option>
+        <option value="Dunnet, Tamarin M."
+         >Dunnet, Tamarin M.</option>
+        <option value="Durno, Bruce"
+         >Durno, Bruce</option>
+        <option value="Epstein, Gloria Jean"
+         >Epstein, Gloria Jean</option>
+        <option value="Fairburn, J. Michal"
+         >Fairburn, J. Michal</option>
+        <option value="Farley, James Montague"
+         >Farley, James Montague</option>
+        <option value="Favreau, Lise G."
+         >Favreau, Lise G.</option>
+        <option value="Feldman, Kathryn N."
+         >Feldman, Kathryn N.</option>
+        <option value="Ferrier, Lee Kenneth"
+         >Ferrier, Lee Kenneth</option>
+        <option value="Finlayson, George Duncan"
+         >Finlayson, George Duncan</option>
+        <option value="Fragomeni, Joseph M."
+         >Fragomeni, Joseph M.</option>
+        <option value="Gans, Arthur M."
+         >Gans, Arthur M.</option>
+        <option value="George, Jonathon C."
+         >George, Jonathon C.</option>
+        <option value="Gillese, Eileen E."
+         >Gillese, Eileen E.</option>
+        <option value="Glithero, C. Stephen"
+         >Glithero, C. Stephen</option>
+        <option value="Gomery, Sally A."
+         >Gomery, Sally A.</option>
+        <option value="Goudge, Stephen Thomas"
+         >Goudge, Stephen Thomas</option>
+        <option value="Gray, Douglas K."
+         >Gray, Douglas K.</option>
+        <option value="Hackland, Charles T."
+         >Hackland, Charles T.</option>
+        <option value="Harvison Young, Alison"
+         >Harvison Young, Alison</option>
+        <option value="Hennessy, Patricia C."
+         >Hennessy, Patricia C.</option>
+        <option value="Himel, Susan G."
+         >Himel, Susan G.</option>
+        <option value="Hourigan, C. William"
+         >Hourigan, C. William</option>
+        <option value="Hoy, Alexandra"
+         >Hoy, Alexandra</option>
+        <option value="Huscroft, Grant"
+         >Huscroft, Grant</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Juriansz, Russell G."
+         >Juriansz, Russell G.</option>
+        <option value="Karakatsanis, Andromache Rhea"
+         >Karakatsanis, Andromache Rhea</option>
+        <option value="Kent, James C."
+         >Kent, James C.</option>
+        <option value="Killeen, Gordon Patrick"
+         >Killeen, Gordon Patrick</option>
+        <option value="Kozak, Lawrence Cyril"
+         >Kozak, Lawrence Cyril</option>
+        <option value="Krever, Horace"
+         >Krever, Horace</option>
+        <option value="LaForme, Harry Smith"
+         >LaForme, Harry Smith</option>
+        <option value="Labrosse, Jean-Marc"
+         >Labrosse, Jean-Marc</option>
+        <option value="Lane, George Dennis"
+         >Lane, George Dennis</option>
+        <option value="Lang, Susan Elizabeth"
+         >Lang, Susan Elizabeth</option>
+        <option value="Langdon, Kenneth Aylsworth"
+         >Langdon, Kenneth Aylsworth</option>
+        <option value="Laskin, John Ivan"
+         >Laskin, John Ivan</option>
+        <option value="Lauwers, Peter D."
+         >Lauwers, Peter D.</option>
+        <option value="Lax, Joan L."
+         >Lax, Joan L.</option>
+        <option value="Lederman, Sidney N."
+         >Lederman, Sidney N.</option>
+        <option value="MacDonald, Cindy A.M."
+         >MacDonald, Cindy A.M.</option>
+        <option value="MacFarland, Jean Louise"
+         >MacFarland, Jean Louise</option>
+        <option value="MacKinnon, Jennifer"
+         >MacKinnon, Jennifer</option>
+        <option value="MacPherson, James C."
+         >MacPherson, James C.</option>
+        <option value="Madsen, Lene"
+         >Madsen, Lene</option>
+        <option value="Maranger, Robert L."
+         >Maranger, Robert L.</option>
+        <option value="Marrocco, Frank N."
+         >Marrocco, Frank N.</option>
+        <option value="McCombs, John David"
+         >McCombs, John David</option>
+        <option value="McKinlay, Hilda Margaret"
+         >McKinlay, Hilda Margaret</option>
+        <option value="McKinnon, Colin"
+         >McKinnon, Colin</option>
+        <option value="McMurtry, Roy"
+         >McMurtry, Roy</option>
+        <option value="Melle, Francine Van"
+         >Melle, Francine Van</option>
+        <option value="Miller, Bradley"
+         >Miller, Bradley</option>
+        <option value="Moldaver, Michael James"
+         >Moldaver, Michael James</option>
+        <option value="Monahan, Patrick J."
+         >Monahan, Patrick J.</option>
+        <option value="Morden, John Wilson"
+         >Morden, John Wilson</option>
+        <option value="Métivier, Monique"
+         >Métivier, Monique</option>
+        <option value="Newbould, Frank"
+         >Newbould, Frank</option>
+        <option value="Nordheimer, Ian V.B."
+         >Nordheimer, Ian V.B.</option>
+        <option value="O&#39;Driscoll, John Gerald Joseph"
+         >O&#39;Driscoll, John Gerald Joseph</option>
+        <option value="O&#39;Marra, Alfred J."
+         >O&#39;Marra, Alfred J.</option>
+        <option value="O&#39;Marra, Brian"
+         >O&#39;Marra, Brian</option>
+        <option value="Osborne, Coulter Arthur Anthony"
+         >Osborne, Coulter Arthur Anthony</option>
+        <option value="Osborne, Peter J."
+         >Osborne, Peter J.</option>
+        <option value="O’Connor, Dennis"
+         >O’Connor, Dennis</option>
+        <option value="Paciocco, David M."
+         >Paciocco, David M.</option>
+        <option value="Pardu, Gladys I."
+         >Pardu, Gladys I.</option>
+        <option value="Pattillo, Laurence A."
+         >Pattillo, Laurence A.</option>
+        <option value="Pepall, Sarah E."
+         >Pepall, Sarah E.</option>
+        <option value="Perell, Paul M."
+         >Perell, Paul M.</option>
+        <option value="Pitt, Romain William Michael"
+         >Pitt, Romain William Michael</option>
+        <option value="Pomerance, Renee M."
+         >Pomerance, Renee M.</option>
+        <option value="Rahman, Moiz"
+         >Rahman, Moiz</option>
+        <option value="Ray, Timothy D."
+         >Ray, Timothy D.</option>
+        <option value="Rivard, Paul U."
+         >Rivard, Paul U.</option>
+        <option value="Roberts, Lois B."
+         >Roberts, Lois B.</option>
+        <option value="Robins, Sydney Lewis"
+         >Robins, Sydney Lewis</option>
+        <option value="Rosenberg, Marc"
+         >Rosenberg, Marc</option>
+        <option value="Rouleau, Paul S."
+         >Rouleau, Paul S.</option>
+        <option value="Sachs, Harriet E."
+         >Sachs, Harriet E.</option>
+        <option value="Sharpe, Robert J."
+         >Sharpe, Robert J.</option>
+        <option value="Simmons, Janet M."
+         >Simmons, Janet M.</option>
+        <option value="Smith, G. Patrick"
+         >Smith, G. Patrick</option>
+        <option value="Sossin, Lorne"
+         >Sossin, Lorne</option>
+        <option value="Southey, James Bonham Strange"
+         >Southey, James Bonham Strange</option>
+        <option value="Spence, James M."
+         >Spence, James M.</option>
+        <option value="Speyer, Christopher M."
+         >Speyer, Christopher M.</option>
+        <option value="Steep, R. Paul"
+         >Steep, R. Paul</option>
+        <option value="Strathy, George R."
+         >Strathy, George R.</option>
+        <option value="Swinton, Katherine E."
+         >Swinton, Katherine E.</option>
+        <option value="Then, Edward F."
+         >Then, Edward F.</option>
+        <option value="Theroulde, Sandra"
+         >Theroulde, Sandra</option>
+        <option value="Thorburn, Julie"
+         >Thorburn, Julie</option>
+        <option value="Trotter, Gary T."
+         >Trotter, Gary T.</option>
+        <option value="Tulloch, Michael H."
+         >Tulloch, Michael H.</option>
+        <option value="Turnbull, James R.H."
+         >Turnbull, James R.H.</option>
+        <option value="Tzimas, E. Ria"
+         >Tzimas, E. Ria</option>
+        <option value="Watt, David"
+         >Watt, David</option>
+        <option value="Weiler, Karen Merle Magnuson"
+         >Weiler, Karen Merle Magnuson</option>
+        <option value="Whalen, Lawrence"
+         >Whalen, Lawrence</option>
+        <option value="Wilson, Darla A."
+         >Wilson, Darla A.</option>
+        <option value="Wilton-Siegel, Herman J."
+         >Wilton-Siegel, Herman J.</option>
+        <option value="Winkler, Warren Keith"
+         >Winkler, Warren Keith</option>
+        <option value="Zarnett, Benjamin"
+         >Zarnett, Benjamin</option>
+        <option value="van Rensburg, Katherine"
+         >van Rensburg, Katherine</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Subject</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Civil</option>
+                <option value="2"
+                >Criminal</option>
+                <option value="3"
+                >Family</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/coa/en/d/s/index.do?cont=%222014+ONCA+194%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>23 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/12803/index.do?q=%222014+ONCA+194%22">Mountain View Farms Ltd. v. McQueen</a></span>
+                        - <span class="citation">2014 ONCA 194</span>
+                - <span class="publicationDate">2014-03-14</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, C56832 COURT OF APPEAL FOR ONTARIO CITATION: Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b> 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/12803/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14528/index.do?q=%222014+ONCA+194%22">Baptista v. Safranko</a></span>
+                        - <span class="citation">2016 ONCA 114</span>
+                - <span class="publicationDate">2016-02-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [2] The motion judge correctly articulated the test set out in Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, but the appellant submits that on the facts before him, the motion judge ought to have concluded that there was an air of reality to the defence. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14528/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24006/index.do?q=%222014+ONCA+194%22">Amex Bank of Canada v. DaCosta</a></span>
+                        - <span class="citation">2026 ONCA 181</span>
+                - <span class="publicationDate">2026-03-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [2] The motion judge recited the factors to be considered in deciding whether to aside a default judgment as approved by this court in Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 48-49. She reminded herself that the factors are not treated as rigid rules but are to be employed in the 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24006/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16367/index.do?q=%222014+ONCA+194%22">Mazgaj v. Profitable Plots (Canada) Ltd.</a></span>
+                        - <span class="citation">2017 ONCA 1020</span>
+                - <span class="publicationDate">2017-12-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [4] Applying the principles in Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, the motion judge refused to set aside the default judgment. We would not interfere with this decision. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16367/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20667/index.do?q=%222014+ONCA+194%22">Fisher v. Soroka</a></span>
+                        - <span class="citation">2022 ONCA 442</span>
+                - <span class="publicationDate">2022-06-06</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 47-50. We see no palpable and overriding error in the findings of the motion judge on the record before him that the motions to set aside were not made with reasonable promptness, and that the appellant’s explanation for the delay was neither plausible nor credible. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20667/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16866/index.do?q=%222014+ONCA+194%22">Alderton v. Haylor Properties Niagara Inc.</a></span>
+                        - <span class="citation">2018 ONCA 483</span>
+                - <span class="publicationDate">2018-05-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [6] The motion judge referred to the factors set out in Mountainview Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, as applicable to a motion to set aside a default judgment. He accepted that the motion had been brought promptly and that the appellants had an arguable defence. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16866/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14953/index.do?q=%222014+ONCA+194%22">Ur-Rahman v. Mahatoo</a></span>
+                        - <span class="citation">2016 ONCA 555</span>
+                - <span class="publicationDate">2016-07-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [7] The motion judge expressly referred to this court’s decision in Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, and the factors identified in that case, at paras. 47-51, as governing whether to set aside a default judgment. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14953/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/22134/index.do?q=%222014+ONCA+194%22">Storoszko &amp; Associates v. 1489767 Ontario Limited</a></span>
+                        - <span class="citation">2024 ONCA 147</span>
+                - <span class="publicationDate">2024-02-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The factors the motion judge listed and applied were the factors that this court has set out for the determination of whether a default judgment should be set aside or varied under r. 19.08: Mountain View v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 47-49. [4] The dismissal of a motion to vary a final judgment is
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/22134/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14233/index.do?q=%222014+ONCA+194%22">Frankie Tomatto&#39;s Woodbine Inc. v. De Groot</a></span>
+                        - <span class="citation">2015 ONCA 739</span>
+                - <span class="publicationDate">2015-11-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    It should not be interfered with absent an error in law or principle, a palpable and overriding error of fact, or unless the decision is so clearly wrong as to amount to an injustice: Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at para. 55. [4] The motion judge correctly identified the principles 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14233/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16184/index.do?q=%222014+ONCA+194%22">Redabe Holdings Inc. v. I.C.I. Construction Corporation</a></span>
+                        - <span class="citation">2017 ONCA 808</span>
+                - <span class="publicationDate">2017-10-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [5] The motion judge applied well-established criteria for determining whether the justice of the case required him to order that the default judgment be set aside: see, for example, Intact Insurance Co. v. Kisel, 2015 ONCA 205, 125 O.R. (3d) 365, at para. 14; and Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 372 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16184/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/23195/index.do?q=%222014+ONCA+194%22">Ezomo v. Afriyie</a></span>
+                        - <span class="citation">2025 ONCA 272</span>
+                - <span class="publicationDate">2025-04-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [8] As the appellant fairly acknowledges, the motion judge correctly adverted to the following criteria from Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 48-49, in determining whether to set aside the default judgment: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/23195/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24531/index.do?q=%222014+ONCA+194%22">Appgear Mortgage Investment Limited Partnership v. Longobardi</a></span>
+                        - <span class="citation">2026 ONCA 711</span>
+                - <span class="publicationDate">2026-10-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [9] The Motion Judge correctly identified the test to set aside a default judgment as set out in Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561. He found that there was no plausible excuse or explanation for Ms. Longobardi’s default in complying with the rules. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24531/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16900/index.do?q=%222014+ONCA+194%22">Sammut v. Sammut</a></span>
+                        - <span class="citation">2018 ONCA 507</span>
+                - <span class="publicationDate">2018-06-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     an error in principle, a palpable and overriding error of fact, or unless the decision is so clearly wrong as to amount to an injustice: see Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, at para.55. [6] In our view, the appellant has not established that the motion judge made an error in any of these categories. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16900/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16822/index.do?q=%222014+ONCA+194%22">992548 Ontario Inc. v. 8657181 Canada Inc.</a></span>
+                        - <span class="citation">2018 ONCA 416</span>
+                - <span class="publicationDate">2018-05-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [11] In these fact-based cases the ultimate task is “to determine whether the interests of justice favour granting the order”: Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 317 O.A.C. 255, at paras. 47-51. [12] The decision to set aside a default judgment for foreclosure is discretionary. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16822/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14050/index.do?q=%222014+ONCA+194%22">Ravazzolo v. Romaniuk</a></span>
+                        - <span class="citation">2015 ONCA 542</span>
+                - <span class="publicationDate">2015-07-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [17] In Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 48-49, this court set out five factors that a court should consider in determining whether to set aside a default judgment: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14050/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20320/index.do?q=%222014+ONCA+194%22">Franchetti v. Huggins</a></span>
+                        - <span class="citation">2022 ONCA 111</span>
+                - <span class="publicationDate">2022-02-07</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    An arguable defence on the merits may justify the court in exercising its discretion to set aside a default judgment, and for that purpose it is sufficient for the defence to have an “air of reality”: Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at para. 51. However, perhaps because requests to set
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20320/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/13696/index.do?q=%222014+ONCA+194%22">Intact Insurance Company v. Kisel</a></span>
+                        - <span class="citation">2015 ONCA 205</span>
+                - <span class="publicationDate">2015-03-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The court has to decide whether, in the particular circumstances of the case, it is just to relieve a defendant from the consequences of default: Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 372 D.L.R. (4th) 526, at paras. 48-50. [15] The motion judge applied the test for setting aside a default judgment. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/13696/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/23360/index.do?q=%222014+ONCA+194%22">McIlwain v. Len’s Cove Marina Ltd.</a></span>
+                        - <span class="citation">2025 ONCA 434</span>
+                - <span class="publicationDate">2025-06-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [6] In his reasons for dismissing the motion, the motion judge considered the relevant factors in a r. 19.08(1) motion, citing to this court’s decision in Intact Insurance Company v. Kisel, 2015 ONCA 205, 125 O.R. (3d) 365, which in turn relied on the leading case of Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/23360/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/21446/index.do?q=%222014+ONCA+194%22">Trayanov v. Icetrading Inc.</a></span>
+                        - <span class="citation">2023 ONCA 322</span>
+                - <span class="publicationDate">2023-05-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    These factors are not exhaustive and are not to be applied as rigid rules: Franchetti, at paras. 8, 10; Kisel, at paras. 13-14; Nobosoft, at para. 3; Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 48-51. IV. issues and analysis 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/21446/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/18506/index.do?q=%222014+ONCA+194%22">Zeifman Partners Inc. v. Aiello</a></span>
+                        - <span class="citation">2020 ONCA 33</span>
+                - <span class="publicationDate">2020-01-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Those factors are set out in this court’s decision in Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 48, 49. They are: 1. whether the motion was brought promptly after the defendant learned of the default judgment; 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/18506/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16265/index.do?q=%222014+ONCA+194%22">Winters v. Hunking</a></span>
+                        - <span class="citation">2017 ONCA 909</span>
+                - <span class="publicationDate">2017-11-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    As this Court has stated, in the context of setting aside default judgments generally, the various applicable factors are not to be treated as rigid rules; the ultimate task on such a motion is “to determine whether the interests of justice favour granting the order”: Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 317 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16265/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20782/index.do?q=%222014+ONCA+194%22">Paul&#39;s Transport Inc. v. Immediate Logistics Limited</a></span>
+                        - <span class="citation">2022 ONCA 573</span>
+                - <span class="publicationDate">2022-08-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [53] The appellants submit that, on the Third Motion, the Motion Judge failed to apply the legal test for setting aside default judgment set out in Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, and, instead, treated the Third Motion as an appeal. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20782/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20741/index.do?q=%222014+ONCA+194%22">Leaf Homes Limited v. Khan</a></span>
+                        - <span class="citation">2022 ONCA 504</span>
+                - <span class="publicationDate">2022-06-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Relying on Mountain View Farms Ltd. v. McQueen, <b>2014 ONCA 194</b>, 119 O.R. (3d) 561, at paras. 47-49, among other authorities, she said that the test to set aside a default judgment includes an assessment of the following factors: 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20741/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "coa",
+            yearRangeString: "1998:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=114" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

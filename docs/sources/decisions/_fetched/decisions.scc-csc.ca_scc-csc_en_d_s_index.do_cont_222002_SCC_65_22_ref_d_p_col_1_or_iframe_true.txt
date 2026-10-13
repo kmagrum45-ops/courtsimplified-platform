@@ -1,0 +1,730 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%222002+SCC+65%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%222002+SCC+65%22&ref=&p=&col=1&or=] All Databases (43)
+ Decisions (18)
+ [LINK /scc-csc/en/n/s/index.do?cont=%222002+SCC+65%22&ref=&p=&col=1&or=] Resources (25)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%222002+SCC+65%22&ref=&p=&col=1&or=date] Date
+ 18 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/2007/index.do?q=%222002+SCC+65%22] Krieger v. Law Society of Alberta
+ - 2002 SCC 65
+ - [2002] 3 SCR 372
+ - 2002-10-10
+ Supreme Court Judgments
+ Constitutional law
+ Professional law
+ Krieger v. Law Society of Alberta, Krieger c. Law Society of Alberta, 2002 SCC 65, 2002 CSC 65, 28275, [2002] 3 SCR 372, [2002] 3 RCS 372 Krieger v. Law Society of Alberta, [2002] 3 S.C.R. 372, 2002 SCC 65 [...] Neutral citation: 2002 SCC 65. File No.: 28275. Hearing and judgment: May 17, 2002. Reasons delivered: October 10, 2002. 
+ [LINK /scc-csc/scc-csc/en/2007/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/14222/index.do?q=%222002+SCC+65%22] R. v. Anderson
+ - 2014 SCC 41
+ - [2014] 2 SCR 167
+ - 2014-06-06
+ Supreme Court Judgments
+ Constitutional law
+ Subsequent to this Court’s decision in Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, confusion has arisen as to what is meant by “prosecutorial discretion” and the law has become cloudy. [...] Applied: R. v. D.B., 2008 SCC 25, [2008] 2 S.C.R. 3; explained: Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Gill, 2012 ONCA 607, 112 O.R. (3d) 423; distinguished: R. v. Gladue, [1999] 1 S.C.R. 688; R. v. Ipeelee, 2012 SCC 13, [2012] 1 S.C.R. 433; United States of America v. Leonard, 2012 ONCA [...] [38] Unfortunately, subsequent to this Court’s decision in Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, confusion has arisen as to what is meant by “prosecutorial discretion” and the law has become cloudy. 
+ [LINK /scc-csc/scc-csc/en/14222/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/16070/index.do?q=%222002+SCC+65%22] R. v. Cawthorne
+ - 2016 SCC 32
+ - [2016] 1 SCR 983
+ - 2016-07-22
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ Referred to: Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; Miazga v. Kvello Estate, 2009 SCC 51, [2009] 3 S.C.R. 339; R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297; R. v. Power, [1994] 1 S.C.R. 601; R. v. Jewitt, [1985] 2 S.C.R. 128; R. v. O’Connor, [1995] 4 S.C.R. 411; R. v. Malmo‐Levine, 2003 SCC [...] In Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, Iacobucci and Major JJ., writing for the Court, noted that there is a “constitutional principle in this country that the Attorney General must act independently of partisan concerns when supervising prosecutorial decisions”: para. 30. 
+ [LINK /scc-csc/scc-csc/en/16070/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/7949/index.do?q=%222002+SCC+65%22] R. v. Nixon
+ - 2011 SCC 34
+ - [2011] 2 SCR 566
+ - 2011-06-24
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ its own process was fully canvassed and explained in Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372. Subject to the abuse of process doctrine, supervising one litigant’s decision-making process — rather than the conduct of litigants before the court — is beyond the legitimate reach of the court. [...] Applied: Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; disapproved: R. v. M. (R.) (2006), 83 O.R. (3d) 349; referred to: R. v. Jewitt, [1985] 2 S.C.R. 128; R. v. O’Connor, [1995] 4 S.C.R. 411; R. v. Keyowski, [1988] 1 S.C.R. 657; R. v. Conway, [1989] 1 S.C.R. 1659; Canada (Minister of Citizenship and [...] At the outset of his written reasons, the application judge noted that the Attorney General has the ultimate power to initiate, conduct and terminate prosecutions, as affirmed by this Court in Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372. He also acknowledged that the courts will rarely interfere with
+ [LINK /scc-csc/scc-csc/en/7949/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/21126/index.do?q=%222002+SCC+65%22] R. v. Varennes
+ - 2025 SCC 22
+ - 2025-07-11
+ Supreme Court Judgments
+ Criminal law
+ Applied: R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; distinguished: R. v. Hanan, 2023 SCC 12; considered: R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; referred to: R. v. Dixon, [1998] 1 S.C.R. 244; R. v. O’Connor, [1995] 4 S.C.R. 411; R. v. [...] [42] The doctrine of core prosecutorial discretion derives from the Attorney General’s constitutional role as Chief Law Officer of the Crown (Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at para. 45; Ontario v. Criminal Lawyers’ Association of Ontario, 2013 SCC 43, [2013] 3 S.C.R. 3, at para. 34). [...] [147] In Anderson, this Court wrote that after Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, there was confusion as to the meaning of “prosecutorial discretion” and that “the law ha[d] become cloudy” (para. 38). 
+ [LINK /scc-csc/scc-csc/en/21126/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/7864/index.do?q=%222002+SCC+65%22] Ontario (Public Safety and Security) v. Criminal Lawyers' Association
+ - 2010 SCC 23
+ - [2010] 1 SCR 815
+ - 2010-06-17
+ Supreme Court Judgments
+ Access to information
+ Constitutional law
+ R. v. Campbell, [1999] 1 S.C.R. 565; R. v. Power, [1994] 1 S.C.R. 601; R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Beaudry, 2007 SCC 5, [2007] 1 S.C.R. 190; Baker v. Canada (Minister of Citizenship and Immigration), [1999] 2 S.C.R. 817; [...] [1994] 1 S.C.R. 601, at p. 623, per L’Heureux-Dubé J.; R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297, at para. 64, per LeBel J.; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at para. 32; R. v. Beaudry, 2007 SCC 5, [2007] 1 S.C.R. 190, at para. 48, per Charron J. Section 14 of the Act reflects this. 
+ [LINK /scc-csc/scc-csc/en/7864/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/7834/index.do?q=%222002+SCC+65%22] R. v. Dudley
+ - 2009 SCC 58
+ - [2009] 3 SCR 570
+ - 2009-12-17
+ Supreme Court Judgments
+ Criminal law
+ Considered: R. v. Karpinski, [1957] S.C.R. 343; referred to: R. v. Beare, [1988] 2 S.C.R. 387; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; Smythe v. The Queen, [1971] S.C.R. 680; R. v. Court of Sessions of the Peace, ex parte Lafleur, [1967] 3 C.C.C. 244; R. v. Connors (1998), 121 C.C.C. (3d) 358; [...] As this Court has recognized, discretion, including prosecutorial discretion, is an “essential feature of the criminal justice system” which will not be lightly interfered with: R. v. Beare, [1988] 2 S.C.R. 387, at p. 410; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372. [66] With few exceptions, the 
+ [LINK /scc-csc/scc-csc/en/7834/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/2089/index.do?q=%222002+SCC+65%22] Paul v. British Columbia (Forest Appeals Commission)
+ - 2003 SCC 55
+ - [2003] 2 SCR 585
+ - 2003-10-03
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ 206; Crevier v. Attorney General of Quebec, [1981] 2 S.C.R. 220; Dr. Q v. College of Physicians and Surgeons of British Columbia, [2003] 1 S.C.R. 226, 2003 SCC 19; Krieger v. Law Society of Alberta, [2002] 3 S.C.R. 372, 2002 SCC 65; Buhs v. Board of Education of Humboldt Rural School Division No. 47 (2002), 217 Sask. [...] For example, in Krieger v. Law Society of Alberta, [2002] 3 S.C.R. 372, 2002 SCC 65, the Law Society could only stay within the limits of its jurisdiction to review a prosecutor’s ethical breach if it considered federal law relating to prosecutorial discretion. 
+ [LINK /scc-csc/scc-csc/en/2089/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/18855/index.do?q=%222002+SCC+65%22] Ontario (Attorney General) v. Clark
+ - 2021 SCC 18
+ - [2021] 1 SCR 607
+ - 2021-04-30
+ Supreme Court Judgments
+ General), 2001 SCC 66, [2001] 3 S.C.R. 9; Smith v. Ontario (Attorney General), 2019 ONCA 651, 147 O.R. (3d) 305; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Regan, 2002 SCC 12, [2002] 1 S.C.R. 297; Boucher v. The Queen, [1955] S.C.R. 16; R. v. Cawthorne, 2016 SCC 32, [2016] 1 S.C.R. [...] R. v. Singh , 2012 ONSC 4429; R. v. Singh , 2013 ONCA 750, 118 O.R. (3d) 253; Nelles v. Ontario, [1989] 2 S.C.R. 170; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Cawthorne, 2016 SCC 32, [2016] 1 S.C.R. 983; Odhavji Estate v. Woodhouse, 2003 SCC 69, [2003] 3 S.C.R. 263; R. v. Anderson, 2014 [...] The protection of prosecutorial independence is the cornerstone of this principle and is constitutionally entrenched in s. 7 of the Charter (Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at paras. 32 and 46; R. v. Cawthorne, 2016 SCC 32, [2016] 1 S.C.R. 983, at para. 26). 
+ [LINK /scc-csc/scc-csc/en/18855/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/13191/index.do?q=%222002+SCC+65%22] Ontario v. Criminal Lawyers’ Association of Ontario
+ - 2013 SCC 43
+ - [2013] 3 SCR 3
+ - 2013-08-01
+ Supreme Court Judgments
+ Courts
+ of the Provincial Court of Prince Edward Island, [1997] 3 S.C.R. 3; Auckland Harbour Board v. The King, [1924] A.C. 318; Ontario v. Figueroa (2003), 64 O.R. (3d) 321; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. White, 2010 SCC 59, [2010] 3 S.C.R. 374; R. v. Chemama, 2008 ONCJ 140 (CanLII). [...] As Iacobucci and Major JJ. explained in Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at para. 47: Significantly, what is common to the various elements of prosecutorial discretion is that they involve the ultimate decisions as to whether a prosecution should be brought, continued or ceased, and what 
+ [LINK /scc-csc/scc-csc/en/13191/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/7827/index.do?q=%222002+SCC+65%22] Miazga v. Kvello Estate
+ - 2009 SCC 51
+ - [2009] 3 SCR 339
+ - 2009-11-06
+ Supreme Court Judgments
+ Torts
+ Referred to: Nelles v. Ontario, [1989] 2 S.C.R. 170; Proulx v. Quebec (Attorney General), 2001 SCC 66, [2001] 3 S.C.R. 9; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. R. (D.) (1995), 98 C.C.C. (3d) 353, rev’d [1996] 2 S.C.R. 291; Heath v. Heape (1856), 1 H. & N. 478, 156 E.R. 1289; Hicks v. [...] When taken by a Crown prosecutor, this decision is one of the “core elements” of prosecutorial discretion, thus lying “beyond the legitimate reach of the court” under the constitutionally entrenched principle of independence: Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at paras. 32 and 46. The 
+ [LINK /scc-csc/scc-csc/en/7827/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/2340/index.do?q=%222002+SCC+65%22] R. v. Beaudry
+ - 2007 SCC 5
+ - [2007] 1 SCR 190
+ - 2007-01-31
+ Supreme Court Judgments
+ Criminal law
+ C.C.C. (3d) 225; R. v. Campbell, [1999] 1 S.C.R. 565; R. v. Regan, [2002] 1 S.C.R. 297, 2002 SCC 12; Krieger v. Law Society of Alberta, [2002] 3 S.C.R. 372, 2002 SCC 65; R. v. May (1984), 13 C.C.C. (3d) 257; R. v. Hearn (1989), 48 C.C.C. (3d) 376, aff’d [1989] 2 S.C.R. 1180; R. v. Charbonneau (1992), 13 C.R. (4th) 191; R. [...] In discharging their respective duties, both the police officer and the prosecutor have a discretion that must be exercised independently of any outside influence: Krieger v. Law Society of Alberta, [2002] 3 S.C.R. 372, 2002 SCC 65. The limits of each official’s discretion are inherent in that person’s role and duties. 
+ [LINK /scc-csc/scc-csc/en/2340/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/15329/index.do?q=%222002+SCC+65%22] Henry v. British Columbia (Attorney General)
+ - 2015 SCC 24
+ - [2015] 2 SCR 214
+ - 2015-05-01
+ Supreme Court Judgments
+ Constitutional law
+ R. v. Imperial Tobacco Canada Ltd., 2011 SCC 42, [2011] 3 S.C.R. 45; R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Babos, 2014 SCC 16, [2014] 1 S.C.R. 309; R. v. Nixon, 2011 SCC 34, [2011] 2 S.C.R. 566; R. v. Stinchcombe, [1991] 3 S.C.R. 326; [...] [49] It is a bedrock principle that the exercise of core prosecutorial discretion is immune from judicial review, subject only to the doctrine of abuse of process: see R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167, at para. 48; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at para. 32. Abuse of 
+ [LINK /scc-csc/scc-csc/en/15329/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/2160/index.do?q=%222002+SCC+65%22] R. v. Demers
+ - 2004 SCC 46
+ - [2004] 2 SCR 489
+ - 2004-06-30
+ Supreme Court Judgments
+ Constitutional law
+ [1992] 2 S.C.R. 606; Cunningham v. Canada, [1993] 2 S.C.R. 143; R. v. Power, [1994] 1 S.C.R. 601; Krieger v. Law Society of Alberta, [2002] 3 S.C.R. 372, 2002 SCC 65; Vriend v. Alberta, [1998] 1 S.C.R. 493; M. v. H., [1999] 2 S.C.R. 3; Guimond v. Quebec (Attorney General), [1996] 3 S.C.R. 347; Winnipeg Child and Family [...] Although this Court has recognized the importance of prosecutorial discretion (see R. v. Power, [1994] 1 S.C.R. 601; Krieger v. Law Society of Alberta, [2002] 3 S.C.R. 372, 2002 SCC 65), the constitutional validity of the impugned scheme in this case cannot depend on such discretion. 
+ [LINK /scc-csc/scc-csc/en/2160/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/15406/index.do?q=%222002+SCC+65%22] Hinse v. Canada (Attorney General)
+ - 2015 SCC 35
+ - [2015] 2 SCR 621
+ - 2015-06-19
+ Supreme Court Judgments
+ Torts
+ v. Attorney General of the Province of Ontario (1894), 23 S.C.R. 458; Therrien (Re), 2001 SCC 35, [2001] 2 S.C.R. 3; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; Bilodeau v. Canada (Ministre de la Justice), 2009 QCCA 746, [2009] R.J.Q. 1003; Operation Dismantle Inc. v. The Queen, [1985] 1 S.C.R. [...] The decision to initiate or continue criminal proceedings lies at the core of the Crown prosecutor’s powers, and the principle of independence of the prosecutor’s office shields prosecutors from the influence of improper political factors: Miazga, at para. 45; see also Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 
+ [LINK /scc-csc/scc-csc/en/15406/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/20760/index.do?q=%222002+SCC+65%22] Sanis Health Inc. v. British Columbia
+ - 2024 SCC 40
+ - 2024-11-29
+ Supreme Court Judgments
+ Constitutional law
+ (4th) 533; Dubuc v. 1663066 Ontario Inc., 2009 ONCA 914, 99 O.R. (3d) 476; In re Criminal Code (1910), 43 S.C.R. 434; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; Ontario v. Criminal Lawyers’ Association of Ontario, 2013 SCC 43, [2013] 3 S.C.R. 3; Newfoundland and Labrador (Attorney General) v. [...] Indeed, as chief law officers of the Crown, attorneys general act on behalf of the executive pursuant to the provinces’ responsibility under s. 92(14) of the Constitution Act, 1867 (see Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372, at paras. 24‐27; Ontario v. Criminal Lawyers’ Association of Ontario, 
+ [LINK /scc-csc/scc-csc/en/20760/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/21249/index.do?q=%222002+SCC+65%22] R. v. Wilson
+ - 2025 SCC 32
+ - 2025-10-24
+ Supreme Court Judgments
+ Constitutional law
+ 3 S.C.R. 838; R. v. Malmo-Levine, 2003 SCC 74, [2003] 3 S.C.R. 571; R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; R. v. Varennes, 2025 SCC 22; ATCO Gas and Pipelines Ltd. v. Alberta (Energy and Utilities Board), 2006 SCC 4, [2006] 1 S.C.R. 140; R. [...] Nor does it depend on whether the accused will later face prosecution, a decision made by Crown counsel exercising independent judgment in the public interest as a matter of prosecutorial discretion (R. v. Anderson, 2014 SCC 41, [2014] 2 S.C.R. 167, at paras. 39-40, citing Krieger v. Law Society of Alberta, 2002 SCC 65, 
+ [LINK /scc-csc/scc-csc/en/21249/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/7905/index.do?q=%222002+SCC+65%22] Reference re Assisted Human Reproduction Act
+ - 2010 SCC 61
+ - [2010] 3 SCR 457
+ - 2010-12-22
+ Supreme Court Judgments
+ Constitutional law
+ Canada (Minister of Transport), [1992] 1 S.C.R. 3; Siemens v. Manitoba (Attorney General), 2003 SCC 3, [2003] 1 S.C.R. 6; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; Law Society of British Columbia v. Mangat, 2001 SCC 67, [2001] 3 S.C.R. 113; R. v. Furtney, [1991] 3 S.C.R. 89; Rio Hotel Ltd. v. New [...] Where this is the case, the double aspect doctrine is engaged: Siemens v. Manitoba (Attorney General), 2003 SCC 3, [2003] 1 S.C.R. 6, at para. 22; Krieger v. Law Society of Alberta, 2002 SCC 65, [2002] 3 S.C.R. 372; Law Society of British Columbia v. Mangat, 2001 SCC 67, [2001] 3 S.C.R. 113; R. v. Furtney, [1991] 3 S.C.R. 
+ [LINK /scc-csc/scc-csc/en/7905/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

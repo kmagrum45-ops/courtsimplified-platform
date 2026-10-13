@@ -1,0 +1,585 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=%222012+ONCA+544%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=%222012+ONCA+544%22&ref=&p=&col=1&or=date] Date
+ 21 result(s)
+ 1.
+ [LINK /coa/coa/en/item/11477/index.do?q=%222012+ONCA+544%22] 1196158 Ontario Inc. v. 6274013 Canada Limited
+ - 2012 ONCA 544
+ - 2012-08-21
+ Decisions of the Court of Appeal
+ - Civil
+ 1196158 Ontario Inc. v. 6274013 Canada Limited, 2012 ONCA 544, C54452 COURT OF APPEAL FOR ONTARIO CITATION: 1196158 Ontario Inc. v. 6274013 Canada Limited, 2012 ONCA 544 
+ [LINK /coa/coa/en/11477/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/14450/index.do?q=%222012+ONCA+544%22] 990114 Ontario Ltd. (Paradise Bingo) v. Munsee-Delaware Nation
+ - 2015 ONCA 923
+ - 2015-12-23
+ Decisions of the Court of Appeal
+ - Civil
+ [3] The motion judge followed the principles laid down by this court’s decision in 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, and dismissed the action. [4] We see no error that would justify this court in interfering with the motion judge’s discretionary decision. 
+ [LINK /coa/coa/en/14450/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/11938/index.do?q=%222012+ONCA+544%22] Heaney v. Wiznet Inc.
+ - 2013 ONCA 115
+ - 2013-02-22
+ Decisions of the Court of Appeal
+ - Civil
+ His ruling fully accords with the principles enunciated by this court in 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544. [6] Accordingly, we see no basis for appellate interference with the motion judge’s discretionary ruling. 
+ [LINK /coa/coa/en/11938/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/11963/index.do?q=%222012+ONCA+544%22] Spendiff v. Schmiedl
+ - 2013 ONCA 120
+ - 2013-02-25
+ Decisions of the Court of Appeal
+ - Family
+ and efficient justice, with sufficient flexibility to allow parties to provide a reasonable explanation for failing to comply with the rules to have their disputes decided on the merits: see, 1196158 Ontario v. 6274013 Canada Ltd., 2012 ONCA 544, at para. 20. The hearing judge in this case engaged in this balancing test. 
+ [LINK /coa/coa/en/11963/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/20336/index.do?q=%222012+ONCA+544%22] Burgess v. University Health Network
+ - 2022 ONCA 105
+ - 2022-02-07
+ Decisions of the Court of Appeal
+ - Civil
+ The dismissal order may only be set aside if the motion judge has made a palpable and overriding error of fact, or reached a decision based on an erroneous legal principle reviewable on a correctness standard: 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 56, at para. 16. [10] Rule 48.14 of the 
+ [LINK /coa/coa/en/20336/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/17869/index.do?q=%222012+ONCA+544%22] Whitty v. Wells
+ - 2019 ONCA 397
+ - 2019-05-16
+ Decisions of the Court of Appeal
+ - Civil
+ Kerr v. CIBC World Markets et al., 2013 ONSC 7685, 316 O.A.C. 192, at para. 39; 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para. 16. [11] In our view, in the circumstances of this case, the motion judge's exercise of discretion to dismiss the appellant’s action was a reversible error. 
+ [LINK /coa/coa/en/17869/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/13446/index.do?q=%222012+ONCA+544%22] Kara v. Arnold
+ - 2014 ONCA 871
+ - 2014-12-05
+ Decisions of the Court of Appeal
+ - Civil
+ proceed, the defendant would suffer no non-compensable prejudice: see Khan v. Sun Life Assurance Co. of Canada, 2011 ONCA 650, 1 C.C.L.I. (5th) 183, at para. 1; 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para. 32; Faris v. Eftimovski, 2013 ONCA 360, 363 D.L.R. (4th) 111, at para. 32. 
+ [LINK /coa/coa/en/13446/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/14989/index.do?q=%222012+ONCA+544%22] Southwestern Sales Corporation Limited v. Spurr Bros. Ltd.
+ - 2016 ONCA 590
+ - 2016-07-26
+ Decisions of the Court of Appeal
+ - Civil
+ [6] A decision to dismiss an action for delay at a status hearing is discretionary and entitled to deference on appeal unless the decision was made on an erroneous legal principle or is infected by a palpable and overriding error of fact: 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para.
+ [LINK /coa/coa/en/14989/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/18880/index.do?q=%222012+ONCA+544%22] Samuels v. Mai
+ - 2020 ONCA 408
+ - 2020-06-24
+ Decisions of the Court of Appeal
+ - Civil
+ Second, she was required to balance two principles, namely: (a) that actions should be determined on their merits if possible; and (b) that the timely and efficient resolution of disputes requires that rules be respected and enforced: 1196158 Ontario Inc. v. 6274013 Canada Limited, 2012 ONCA 544, 112 O.R. (3d) 67, at para. 
+ [LINK /coa/coa/en/18880/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/12173/index.do?q=%222012+ONCA+544%22] Nissar v. Toronto Transit Commission
+ - 2013 ONCA 361
+ - 2013-06-04
+ Decisions of the Court of Appeal
+ - Civil
+ [29] However, for the sake of consistency and for the reasons I gave in Faris, I would instead adapt those factors informing the rule 48.14(13) test recently confirmed by this court in 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67 to determine when an action should be restored to the trial 
+ [LINK /coa/coa/en/12173/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/15354/index.do?q=%222012+ONCA+544%22] Jadid v. Toronto Transit Commission
+ - 2016 ONCA 936
+ - 2016-12-14
+ Decisions of the Court of Appeal
+ - Civil
+ interest is served by enforcing procedural rules that promote the timely and efficient resolution of disputes (1196158 Ontario Inc. v. 62474013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para. 18). It guides the exercise of judicial discretion and thereby reduces the risk of overlooking relevant considerations. 
+ [LINK /coa/coa/en/15354/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/22165/index.do?q=%222012+ONCA+544%22] Beshay v. Labib
+ - 2024 ONCA 186
+ - 2024-03-12
+ Decisions of the Court of Appeal
+ - Civil
+ [11] This legal test is well-settled: see 1196158 Ontario Inc. v. 6274013 Canada Limited, 2012 ONCA 544, 112 O.R. (3d) 67. The plaintiff must establish that there is “an acceptable explanation” for the delay, and must also demonstrate that the defendant will not suffer any non-compensable prejudice if the action is allowed 
+ [LINK /coa/coa/en/22165/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/14597/index.do?q=%222012+ONCA+544%22] Labelle v. Canada (Border Services Agency)
+ - 2016 ONCA 187
+ - 2016-03-07
+ Decisions of the Court of Appeal
+ - Civil
+ While an action may be dismissed even in the absence of prejudice (see 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para. 32), in most cases, the question of prejudice figures largely in determining whether to set aside a dismissal for delay. 
+ [LINK /coa/coa/en/14597/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/22890/index.do?q=%222012+ONCA+544%22] Barbiero v. Pollack
+ - 2024 ONCA 904
+ - 2024-12-16
+ Decisions of the Court of Appeal
+ - Civil
+ As a result, the consequences of any dilatory regard for the pace of litigation falls on the initiating litigant, absent resistance from a defendant to proceed to a final disposition on the merits (of which there is no evidence on the facts of this case): 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. 
+ [LINK /coa/coa/en/22890/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/14191/index.do?q=%222012+ONCA+544%22] Chrisjohn v. Riley
+ - 2015 ONCA 713
+ - 2015-10-26
+ Decisions of the Court of Appeal
+ - Civil
+ [20] The decision of a master or judge refusing to set aside an administrative dismissal is entitled to deference and may be set aside only if made on an erroneous legal principle or infected by a palpable and overriding error of fact: 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para. 
+ [LINK /coa/coa/en/14191/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/16886/index.do?q=%222012+ONCA+544%22] Prescott v. Barbon
+ - 2018 ONCA 504
+ - 2018-06-01
+ Decisions of the Court of Appeal
+ - Civil
+ It is entitled to deference and may be set aside only if made on an erroneous legal principle or infected by palpable and overriding error of fact: 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67; and Chrisjohn v. Riley Estate, 2015 ONCA 713, 341 O.A.C. 70. 
+ [LINK /coa/coa/en/16886/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/13527/index.do?q=%222012+ONCA+544%22] MDM Plastics Limited v. Vincor International Inc.
+ - 2015 ONCA 28
+ - 2015-01-21
+ Decisions of the Court of Appeal
+ - Civil
+ While an action may be dismissed even in the absence of prejudice (see 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para. 32), in most cases, the question of prejudice figures largely in determining whether to set aside a dismissal for delay. 
+ [LINK /coa/coa/en/13527/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/13493/index.do?q=%222012+ONCA+544%22] Abarca v. Vargas
+ - 2015 ONCA 4
+ - 2015-01-07
+ Decisions of the Court of Appeal
+ - Civil
+ [34] The general objectives of the ROCP reflect a balancing approach, as this court explained in 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67. This court has taken a similar balancing approach to the application of s. 138 of the CJA, which provides that the multiplicity of legal proceedings 
+ [LINK /coa/coa/en/13493/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/12168/index.do?q=%222012+ONCA+544%22] Faris v. Eftimovski
+ - 2013 ONCA 360
+ - 2013-06-04
+ Decisions of the Court of Appeal
+ - Civil
+ Accordingly, on appeal, the decision attracts deference but may be set aside if it discloses palpable and overriding errors of fact or is made on the basis of an erroneous legal principle: 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67, at para. 16. I cannot accept the appellant’s submission 
+ [LINK /coa/coa/en/12168/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/14100/index.do?q=%222012+ONCA+544%22] Carioca's Import & Export Inc. v. Canadian Pacific Railway Limited
+ - 2015 ONCA 592
+ - 2015-09-02
+ Decisions of the Court of Appeal
+ - Civil
+ It may therefore only be set aside if made on an erroneous legal principle or infected by a palpable and overriding error of fact: Margaret Grace Kerr v. CIBC World Markets et al., 2013 ONSC 7685, 316 O.A.C. 192, at para. 39; 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 112 O.R. (3d) 67 (C.A.), at para. 16. 
+ [LINK /coa/coa/en/14100/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/13700/index.do?q=%222012+ONCA+544%22] H.B. Fuller Company v. Rogers (Rogers Law Office)
+ - 2015 ONCA 173
+ - 2015-03-16
+ Decisions of the Court of Appeal
+ - Civil
+ The decision may be set aside if the motion judge proceeded on an erroneous legal principle or made a palpable and overriding error with respect to the facts: 1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544, 353 D.L.R. (4th) 129, at para. 16. Reversing a lower court’s discretionary decision is also appropriate 
+ [LINK /coa/coa/en/13700/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

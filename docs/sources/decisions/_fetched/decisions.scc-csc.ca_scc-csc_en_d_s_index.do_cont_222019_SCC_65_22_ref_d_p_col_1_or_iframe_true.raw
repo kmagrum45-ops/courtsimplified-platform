@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://decisions.scc-csc.ca/scc-csc/en/d/s/index.do" />
+    <title>    Advanced Search - SCC Cases
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/scc-csc/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+  font-family: poppins, "DM Sans", sans-serif;
+}
+
+.decisia-content h1 {
+    font-family: "noto serif";
+}
+
+.decisia-content a {
+    color: #8B2433;
+}
+
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+    color: #6E131A;
+}
+
+#decisia-main-content .decisia-content .decisia-box {
+    background-color: #F9F9F9;
+}
+
+#decisia-main-content .decisia-content .decisia-box h1 {
+    background-color: white;
+    color: black;
+}
+
+ol.breadcrumb {
+    display: inline-block;
+}
+
+.breadcrumb-link, .last-breadcrumb {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.breadcrumb-link, .breadcrumb-separator > span {
+    color: #8B2433;
+}
+
+#solrHiBar, #lexumSolrNavButton {
+    line-height: normal;
+}
+
+#lexumSolrNavButton .btn {
+    border: 0!important;
+    line-height: 20px;
+}
+
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+    top: 50px!important;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:poppins;
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:400;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:500;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+    font-display:swap;
+}
+
+@font-face {
+    font-family:"noto serif";
+    font-weight:600;
+    font-style:normal;
+    src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+    font-display:swap;
+}
+
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+    #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	    top: 75px;
+	}
+	
+	#decisia-footer {
+	    padding-bottom: 81px;
+	}
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/scc-csc/en/nav.do">Decisions and Resources</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/scc-csc/fr/d/s/index.do?cont=%222019+SCC+65%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/scc-csc/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+<ul class="decisia-search-tabs decisia-tabs">
+            <li>
+            <a id="decisia-search-tabs-all-databases" target="_parent" href="/scc-csc/en/a/s/index.do?cont=%222019+SCC+65%22&amp;ref=&amp;p=&amp;col=1&amp;or=">All Databases (89)</a>
+        </li>
+
+        <li class="active">Decisions (45)</li>
+
+         <li>
+             <a id="decisia-search-tabs-news" target="_parent" href="/scc-csc/en/n/s/index.do?cont=%222019+SCC+65%22&amp;ref=&amp;p=&amp;col=1&amp;or=">Resources (44)</a>
+         </li>
+</ul>
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;2019 SCC 65&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Report, Case number</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-parties-row">
+        <div class="label">
+            <label for="decisia-parties">Parties</label>
+        </div>
+        <div class="input">
+<input id="decisia-parties" class="decisia-text" type="text" name="p" value="" />
+        </div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abbott, Douglas Charles"
+         >Abbott, Douglas Charles</option>
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Anglin, Francis Alexander"
+         >Anglin, Francis Alexander</option>
+        <option value="Arbour, Louise"
+         >Arbour, Louise</option>
+        <option value="Armour, John Douglas"
+         >Armour, John Douglas</option>
+        <option value="Barclay"
+         >Barclay</option>
+        <option value="Bastarache, Michel"
+         >Bastarache, Michel</option>
+        <option value="Beetz, Jean"
+         >Beetz, Jean</option>
+        <option value="Bernier"
+         >Bernier</option>
+        <option value="Binnie, William Ian Corneil"
+         >Binnie, William Ian Corneil</option>
+        <option value="Bond"
+         >Bond</option>
+        <option value="Brodeur, Louis-Philippe"
+         >Brodeur, Louis-Philippe</option>
+        <option value="Brown, Russell"
+         >Brown, Russell</option>
+        <option value="Cannon, Lawrence Arthur Dumoulin"
+         >Cannon, Lawrence Arthur Dumoulin</option>
+        <option value="Cartwright, John Robert"
+         >Cartwright, John Robert</option>
+        <option value="Cassels"
+         >Cassels</option>
+        <option value="Charron, Louise"
+         >Charron, Louise</option>
+        <option value="Chouinard, Julien"
+         >Chouinard, Julien</option>
+        <option value="Cory, Peter deCarteret"
+         >Cory, Peter deCarteret</option>
+        <option value="Crocket, Oswald Smith"
+         >Crocket, Oswald Smith</option>
+        <option value="Cromwell, Thomas Albert"
+         >Cromwell, Thomas Albert</option>
+        <option value="Côté, Suzanne"
+         >Côté, Suzanne</option>
+        <option value="Davies, Louis Henry"
+         >Davies, Louis Henry</option>
+        <option value="Davis, Henry Hague"
+         >Davis, Henry Hague</option>
+        <option value="Deschamps, Marie"
+         >Deschamps, Marie</option>
+        <option value="Dickson, Robert George Brian"
+         >Dickson, Robert George Brian</option>
+        <option value="Dorion"
+         >Dorion</option>
+        <option value="Duff, Lyman Poore"
+         >Duff, Lyman Poore</option>
+        <option value="Dysart"
+         >Dysart</option>
+        <option value="Estey, James Wilfred"
+         >Estey, James Wilfred</option>
+        <option value="Estey, Willard Zebedee"
+         >Estey, Willard Zebedee</option>
+        <option value="Fauteux, Joseph Honoré Gérald"
+         >Fauteux, Joseph Honoré Gérald</option>
+        <option value="Fish, Morris J."
+         >Fish, Morris J.</option>
+        <option value="Fitzpatrick, Charles"
+         >Fitzpatrick, Charles</option>
+        <option value="Fournier, Télesphore"
+         >Fournier, Télesphore</option>
+        <option value="Galipault"
+         >Galipault</option>
+        <option value="Gascon, Clément"
+         >Gascon, Clément</option>
+        <option value="Gillanders"
+         >Gillanders</option>
+        <option value="Girouard, Désiré"
+         >Girouard, Désiré</option>
+        <option value="Gonthier, Charles Doherty"
+         >Gonthier, Charles Doherty</option>
+        <option value="Gwynne, John Wellington"
+         >Gwynne, John Wellington</option>
+        <option value="Hall, Emmett Matthew"
+         >Hall, Emmett Matthew</option>
+        <option value="Henry, William Alexander"
+         >Henry, William Alexander</option>
+        <option value="Howard"
+         >Howard</option>
+        <option value="Hudson, Albert Blellock"
+         >Hudson, Albert Blellock</option>
+        <option value="Hughes, Frank Joseph"
+         >Hughes, Frank Joseph</option>
+        <option value="Iacobucci, Frank"
+         >Iacobucci, Frank</option>
+        <option value="Idington, John"
+         >Idington, John</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Joyal, Glenn"
+         >Joyal, Glenn</option>
+        <option value="Judson, Wilfred"
+         >Judson, Wilfred</option>
+        <option value="Karakatsanis, Andromache"
+         >Karakatsanis, Andromache</option>
+        <option value="Kasirer, Nicholas"
+         >Kasirer, Nicholas</option>
+        <option value="Kellock, Roy Lindsay"
+         >Kellock, Roy Lindsay</option>
+        <option value="Kerwin, Patrick"
+         >Kerwin, Patrick</option>
+        <option value="Killam, Albert Clements"
+         >Killam, Albert Clements</option>
+        <option value="King, George Edwin"
+         >King, George Edwin</option>
+        <option value="L&#39;Heureux-Dubé, Claire"
+         >L&#39;Heureux-Dubé, Claire</option>
+        <option value="La Forest, Gérard V."
+         >La Forest, Gérard V.</option>
+        <option value="Lamer, Antonio"
+         >Lamer, Antonio</option>
+        <option value="Lamont, John Henderson"
+         >Lamont, John Henderson</option>
+        <option value="Laskin, Bora"
+         >Laskin, Bora</option>
+        <option value="Latchford"
+         >Latchford</option>
+        <option value="Lavergne"
+         >Lavergne</option>
+        <option value="Le Dain, Gerald Eric"
+         >Le Dain, Gerald Eric</option>
+        <option value="LeBel, Louis"
+         >LeBel, Louis</option>
+        <option value="Lemieux"
+         >Lemieux</option>
+        <option value="Locke, Charles Holland"
+         >Locke, Charles Holland</option>
+        <option value="Maclean"
+         >Maclean</option>
+        <option value="Maclennan, James"
+         >Maclennan, James</option>
+        <option value="Magee"
+         >Magee</option>
+        <option value="Major, John C."
+         >Major, John C.</option>
+        <option value="Malouin, Arthur Cyrille Albert"
+         >Malouin, Arthur Cyrille Albert</option>
+        <option value="Martin, Sheilah"
+         >Martin, Sheilah</option>
+        <option value="Martin, Sheilah L."
+         >Martin, Sheilah L.</option>
+        <option value="Martland, Ronald"
+         >Martland, Ronald</option>
+        <option value="Masten"
+         >Masten</option>
+        <option value="McIntyre, William Rogers"
+         >McIntyre, William Rogers</option>
+        <option value="McLachlin, Beverley"
+         >McLachlin, Beverley</option>
+        <option value="Middleton"
+         >Middleton</option>
+        <option value="Mignault, Pierre-Basile"
+         >Mignault, Pierre-Basile</option>
+        <option value="Mills, Davis"
+         >Mills, Davis</option>
+        <option value="Moldaver, Michael J."
+         >Moldaver, Michael J.</option>
+        <option value="Moreau, Mary"
+         >Moreau, Mary</option>
+        <option value="Nesbitt, Wallace"
+         >Nesbitt, Wallace</option>
+        <option value="Newcombe, Edmund Leslie"
+         >Newcombe, Edmund Leslie</option>
+        <option value="Nolan, Henry Grattan"
+         >Nolan, Henry Grattan</option>
+        <option value="Orde"
+         >Orde</option>
+        <option value="O’Bonsawin, Michelle"
+         >O’Bonsawin, Michelle</option>
+        <option value="Patterson, Christopher Salmon"
+         >Patterson, Christopher Salmon</option>
+        <option value="Pigeon, Louis-Philippe"
+         >Pigeon, Louis-Philippe</option>
+        <option value="Pratte, Yves"
+         >Pratte, Yves</option>
+        <option value="Rand, Ivan Cleveland"
+         >Rand, Ivan Cleveland</option>
+        <option value="Richards, William Buell"
+         >Richards, William Buell</option>
+        <option value="Rinfret, Thibaudeau"
+         >Rinfret, Thibaudeau</option>
+        <option value="Ritchie, Roland Almon"
+         >Ritchie, Roland Almon</option>
+        <option value="Ritchie, William Johnstone"
+         >Ritchie, William Johnstone</option>
+        <option value="Rivard"
+         >Rivard</option>
+        <option value="Rothstein, Marshall"
+         >Rothstein, Marshall</option>
+        <option value="Rowe, Malcolm"
+         >Rowe, Malcolm</option>
+        <option value="Sedgewick, Robert"
+         >Sedgewick, Robert</option>
+        <option value="Smith, Robert"
+         >Smith, Robert</option>
+        <option value="Sopinka, John"
+         >Sopinka, John</option>
+        <option value="Spence, Wishart Flett"
+         >Spence, Wishart Flett</option>
+        <option value="St. Germain"
+         >St. Germain</option>
+        <option value="St. Jacques"
+         >St. Jacques</option>
+        <option value="Stevenson, William"
+         >Stevenson, William</option>
+        <option value="Strong, Samuel Henry"
+         >Strong, Samuel Henry</option>
+        <option value="Taschereau, Henri-Elzéar"
+         >Taschereau, Henri-Elzéar</option>
+        <option value="Taschereau, Jean-Thomas"
+         >Taschereau, Jean-Thomas</option>
+        <option value="Taschereau, Robert"
+         >Taschereau, Robert</option>
+        <option value="Tessier"
+         >Tessier</option>
+        <option value="Thorson"
+         >Thorson</option>
+        <option value="Wagner, Richard"
+         >Wagner, Richard</option>
+        <option value="Wilson, Bertha"
+         >Wilson, Bertha</option>
+        <option value="de Grandpré, Louis-Philippe"
+         >de Grandpré, Louis-Philippe</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Status</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Granted</option>
+                <option value="2"
+                >Dismissed</option>
+                <option value="3"
+                >Oral Hearing</option>
+                <option value="4"
+                >Remanded</option>
+                <option value="5"
+                >Quashed</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-district-row">
+        <div class="label select">
+            <label for="decisia-district">On appeal from</label>
+        </div>
+        <div class="input">
+        <select id="decisia-district" name="d"  data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                  <option value="1"
+                       >Canada</option>
+                  <option value="2"
+                       >Federal Court of Appeal</option>
+                  <option value="3"
+                       >British Columbia</option>
+                  <option value="4"
+                       >Alberta</option>
+                  <option value="5"
+                       >Saskatchewan</option>
+                  <option value="6"
+                       >Manitoba</option>
+                  <option value="7"
+                       >Ontario</option>
+                  <option value="8"
+                       >Quebec</option>
+                  <option value="9"
+                       >New Brunswick</option>
+                  <option value="10"
+                       >Nova Scotia</option>
+                  <option value="11"
+                       >Prince Edward Island</option>
+                  <option value="12"
+                       >Newfoundland and Labrador</option>
+                  <option value="13"
+                       >Yukon</option>
+                  <option value="14"
+                       >Northwest Territories</option>
+                  <option value="15"
+                       >Nunavut</option>
+                  <option value="16"
+                       >Court Martial Appeal Court of Canada</option>
+                  <option value="18"
+                       >Saskatchewan, Ontario, Alberta</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-collection-row">
+        <div class="label select">
+            <label for="decisia-collection">Collection</label>
+        </div>
+        <div class="input">
+<select id="decisia-collection" name="col" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+    <option value="1"
+        selected="selected"
+    >
+        Supreme Court Judgments</option>
+    <option value="2"
+    >
+        Applications for Leave</option>
+</select>
+<div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="advanced-field decisia-subjects-row">
+        <div class="label select">
+            <label for="decisia-subjects">Subjects</label>
+        </div>
+        <div class="input">
+    <select id="decisia-subjects" name="su" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+            <option value="34"
+            >Aboriginal law</option>
+            <option value="5"
+            >Access to information</option>
+            <option value="2"
+            >Action</option>
+            <option value="51"
+            >Administrative law</option>
+            <option value="13"
+            >Agency</option>
+            <option value="40"
+            >Air law</option>
+            <option value="9"
+            >Appeal</option>
+            <option value="52"
+            >Arbitration</option>
+            <option value="37"
+            >Armed Forces</option>
+            <option value="30"
+            >Bankruptcy and insolvency</option>
+            <option value="53"
+            >Bills of exchange</option>
+            <option value="44"
+            >Civil law</option>
+            <option value="20"
+            >Civil procedure</option>
+            <option value="41"
+            >Commercial law</option>
+            <option value="29"
+            >Communications law</option>
+            <option value="19"
+            >Competition law</option>
+            <option value="27"
+            >Constitutional law</option>
+            <option value="55"
+            >Contract</option>
+            <option value="61"
+            >Contracts</option>
+            <option value="6"
+            >Courts</option>
+            <option value="16"
+            >Criminal law</option>
+            <option value="14"
+            >Customs and excise</option>
+            <option value="4"
+            >Education law</option>
+            <option value="10"
+            >Elections</option>
+            <option value="17"
+            >Environmental law</option>
+            <option value="57"
+            >Estates</option>
+            <option value="18"
+            >Evidence</option>
+            <option value="48"
+            >Expropriation</option>
+            <option value="7"
+            >Family law</option>
+            <option value="11"
+            >Financial institutions</option>
+            <option value="15"
+            >Fishery</option>
+            <option value="42"
+            >Food and drugs</option>
+            <option value="23"
+            >Guarantee and suretyship</option>
+            <option value="26"
+            >Immigration</option>
+            <option value="28"
+            >Insurance</option>
+            <option value="8"
+            >Intellectual property</option>
+            <option value="31"
+            >International law</option>
+            <option value="45"
+            >Labour law</option>
+            <option value="22"
+            >Lease</option>
+            <option value="25"
+            >Maritime law</option>
+            <option value="43"
+            >Mines and minerals</option>
+            <option value="38"
+            >Motor vehicles</option>
+            <option value="56"
+            >Municipal law</option>
+            <option value="24"
+            >Pensions</option>
+            <option value="35"
+            >Prerogative writs</option>
+            <option value="59"
+            >Prescription</option>
+            <option value="46"
+            >Priorities and hypothecs</option>
+            <option value="58"
+            >Private international law</option>
+            <option value="32"
+            >Professional law</option>
+            <option value="63"
+            >Property</option>
+            <option value="49"
+            >Property law</option>
+            <option value="50"
+            >Public utilities</option>
+            <option value="47"
+            >Sale</option>
+            <option value="36"
+            >Securities</option>
+            <option value="39"
+            >State</option>
+            <option value="62"
+            >Status of persons</option>
+            <option value="3"
+            >Statutes</option>
+            <option value="33"
+            >Taxation</option>
+            <option value="21"
+            >Torts</option>
+            <option value="12"
+            >Transportation</option>
+            <option value="54"
+            >Trust</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%222019+SCC+65%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/scc-csc/en/d/s/index.do?cont=%222019+SCC+65%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/scc-csc/en/d/s/index.do?cont=%222019+SCC+65%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>45 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18078/index.do?q=%222019+SCC+65%22">Canada (Minister of Citizenship and Immigration) v. Vavilov</a></span>
+                        - <span class="citation">2019 SCC 65</span>
+                    - <span class="report-citation">[2019] 4 SCR 653</span>
+                - <span class="publicationDate">2019-12-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Canada (Minister of Citizenship and Immigration) v. Vavilov, Canada (Ministre de la Citoyenneté et de l’Immigration) c. Vavilov, <b>2019 SCC 65</b>, 2019 CSC 65, 37748, [2019] 4 SCR 653, [2019] 4 RCS 653 SUPREME COURT OF CANADA &nbsp;&nbsp;[...]&nbsp;&nbsp;Citation: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653 Appeal Heard: December 4, 5, 6, 2018 Judgment Rendered: December 19, 2019 &nbsp;&nbsp;[...]&nbsp;&nbsp;<b>2019 SCC 65</b> File No.: 37748. 2018: December 4, 5, 6; 2019: December 19. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18078/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20504/index.do?q=%222019+SCC+65%22">York Region District School Board v. Elementary Teachers’ Federation of Ontario</a></span>
+                        - <span class="citation">2024 SCC 22</span>
+                - <span class="publicationDate">2024-06-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Accordingly, this appeal is governed by Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653. Correctness applies because the issue of constitutionality on judicial review — of whether a Charter right arises, the scope of its protection, and the appropriate framework of the analysis &nbsp;&nbsp;[...]&nbsp;&nbsp;Following the oral hearing, the court invited further submissions from the parties on the standard of review following release of this Court’s decision in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653. (1) The Majority Opinion (O’Bonsawin J., Kiteley J. Concurring) &nbsp;&nbsp;[...]&nbsp;&nbsp;Relying on the “constitutional questions” exception to the presumption of reasonableness review from Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, he explains that the “issue of constitutionality on judicial review — of whether a Charter right arises, the scope of its 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20504/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19693/index.do?q=%222019+SCC+65%22">R. v. McGregor</a></span>
+                        - <span class="citation">2023 SCC 4</span>
+                    - <span class="report-citation">[2023] 1 SCR 198</span>
+                - <span class="publicationDate">2023-02-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [22] To be sure, this Court has taken notice of scholarly writings in reconsidering the soundness of its own precedents (see Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at paras. 39 and 209; Nishi v. Rascal Trucking Ltd., 2013 SCC 33, [2013] 2 S.C.R. 438, at para. 28; &nbsp;&nbsp;[...]&nbsp;&nbsp; statutes are presumed to operate in conformity with Canada’s international obligations (see Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 114; van Ert, at p. 555). [78] The Court, however, had received no submissions on international law, and it departed from the&nbsp;&nbsp;[...]&nbsp;&nbsp; Court cannot depart from precedent “simply because a chorus of voices, even well-informed voices, expresses disagreement with our decisions” (para. 247, referring to Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 274, per Abella and Karakatsanis JJ., concurring). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19693/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19441/index.do?q=%222019+SCC+65%22">Society of Composers, Authors and Music Publishers of Canada v. Entertainment Software Association</a></span>
+                        - <span class="citation">2022 SCC 30</span>
+                    - <span class="report-citation">[2022] 2 SCR 303</span>
+                - <span class="publicationDate">2022-07-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Intellectual property<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, the Court recognized five categories for correctness review. &nbsp;&nbsp;[...]&nbsp;&nbsp;Regarding the standard of review, the Court of Appeal noted that the jurisprudence prior to Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, required reviewing the Board’s interpretation of s. 2.4(1.1) on a standard of correctness. &nbsp;&nbsp;[...]&nbsp;&nbsp;[115] Karakatsanis J. — In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, this Court sought to bring coherence and predictability to the law governing judicial review. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19441/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20256/index.do?q=%222019+SCC+65%22">Ontario (Attorney General) v. Ontario (Information and Privacy Commissioner)</a></span>
+                        - <span class="citation">2024 SCC 4</span>
+                - <span class="publicationDate">2024-02-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Access to information<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; referred to: Mason v. Canada (Citizenship and Immigration), 2023 SCC 21; Northern Regional Health Authority v. Horrocks, 2021 SCC 42; Agraira v. Canada (Public Safety and Emergency Preparedness), 2013 SCC 36, [2013] 2 &nbsp;&nbsp;[...]&nbsp;&nbsp;[17] Reasonableness review focuses both on the decision maker’s reasoning process and the outcome (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at paras. 83-84). A reasonable decision is “justified in relation to the constellation of law and facts that are relevant to the &nbsp;&nbsp;[...]&nbsp;&nbsp;Indeed, according to Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, “[r]easonableness review is methodologically distinct from correctness review” (para. 12; Mason v. Canada (Citizenship and Immigration), 2023 SCC 21, at para. 58). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20256/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20731/index.do?q=%222019+SCC+65%22">TransAlta Generation Partnership v. Alberta</a></span>
+                        - <span class="citation">2024 SCC 37</span>
+                - <span class="publicationDate">2024-11-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    As set out in the companion case Auer v. Auer, 2024 SCC 36, the reasonableness standard under Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, presumptively applies when reviewing the vires of subordinate legislation. &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: Auer v. Auer, 2024 SCC 36; referred to: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Edmonton (City) v. Edmonton East (Capilano) Shopping Centres Ltd., 2016 SCC 47, [2016] 2 S.C.R. 293; Katz Group Canada Inc. v. Ontario (Health and Long‐Term Care), 2013 SCC 64, &nbsp;&nbsp;[...]&nbsp;&nbsp;[4] In the companion case, Auer v. Auer, 2024 SCC 36, our Court holds that, as established in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, the reasonableness standard presumptively applies when reviewing the vires of subordinate legislation. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20731/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18680/index.do?q=%222019+SCC+65%22">Wastech Services Ltd. v. Greater Vancouver Sewerage and Drainage District</a></span>
+                        - <span class="citation">2021 SCC 7</span>
+                    - <span class="report-citation">[2021] 1 SCR 32</span>
+                - <span class="publicationDate">2021-02-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In light of Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, it follows that the standard of review to be applied by the Court in this case is correctness. &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: Bhasin v. Hrynew, 2014 SCC 71, [2014] 3 S.C.R. 494; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; referred to: Northland Utilities (NWT) Limited v. Hay River (Town of), 2021 NWTCA 1; Ontario First Nations (2008)&nbsp;&nbsp;[...]&nbsp;&nbsp;I am mindful, however, that this Court’s judgment in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, which was released shortly after this appeal was heard, set out a revised framework for determining the standard of review a court should apply when reviewing the merits of an 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18680/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18079/index.do?q=%222019+SCC+65%22">Bell Canada v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2019 SCC 66</span>
+                    - <span class="report-citation">[2019] 4 SCR 845</span>
+                - <span class="publicationDate">2019-12-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Reference re Broadcasting Regulatory Policy CRTC 2010‐167 and Broadcasting Order CRTC 2010‐168, 2012 SCC 68, [2012] 3 S.C.R. 489; McLean v. British Columbia (Securities Commission), 2013 SCC 67, [2013] 3 S.C.R. 895. &nbsp;&nbsp;[...]&nbsp;&nbsp;The applicable standard must be determined in accordance with the framework set out in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, a case this Court heard together with these statutory appeals in order to “consider the law applicable to the judicial review of administrative&nbsp;&nbsp;[...]&nbsp;&nbsp;[61] As set out in our concurring reasons in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, as a general rule, administrative decisions are to be reviewed for reasonableness. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18079/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21114/index.do?q=%222019+SCC+65%22">Pepa v. Canada (Citizenship and Immigration)</a></span>
+                        - <span class="citation">2025 SCC 21</span>
+                - <span class="publicationDate">2025-06-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Immigration<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190. &nbsp;&nbsp;[...]&nbsp;&nbsp;[136] Before Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, the standard of review would have been determined based on whether this question constitutes a “[t]rue questio[n] of jurisdiction” (para. 65, citing Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190, at para.&nbsp;&nbsp;[...]&nbsp;&nbsp;The standard of review that applies to the IAD’s interpretation of its enabling statute is reasonableness, in accordance with Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 25. B. Reasonableness Review [173] Having concluded that the reasonableness standard applies, 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21114/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19439/index.do?q=%222019+SCC+65%22">Law Society of Saskatchewan v. Abrametz</a></span>
+                        - <span class="citation">2022 SCC 29</span>
+                    - <span class="report-citation">[2022] 2 SCR 220</span>
+                - <span class="publicationDate">2022-07-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, the Court held that when the legislature provides for a statutory appeal mechanism from an administrative decision maker to a court, this indicates that appellate standards are to apply. &nbsp;&nbsp;[...]&nbsp;&nbsp;[27] In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, the Court held that when the legislature provides for a statutory appeal mechanism from an administrative decision maker to a court, this indicates that appellate standards are to apply: paras. 33 and 36-52. &nbsp;&nbsp;[...]&nbsp;&nbsp;[129] Without referring to any precedents on procedural fairness review, my colleague relies on Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, for the proposition that appellate standards of review apply in the present case. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19439/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20730/index.do?q=%222019+SCC+65%22">Auer v. Auer</a></span>
+                        - <span class="citation">2024 SCC 36</span>
+                - <span class="publicationDate">2024-11-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    The chambers judge held that following Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, reasonableness is the presumptive standard of review for assessing the vires of subordinate legislation, but that reasonableness review should be informed by the principles outlined in Katz &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; explained: Katz Group Canada Inc. v. Ontario (Health and Long‐Term Care), 2013 SCC 64, [2013] 3 S.C.R. 810; referred to: Green v. Law Society of Manitoba, 2017 SCC 20, [2017] 1 S.C.R. 360; West Fraser Mills Ltd. v. &nbsp;&nbsp;[...]&nbsp;&nbsp;Doing so requires the Court to resolve debates about the continued relevance of Katz Group Canada Inc. v. Ontario (Health and Long‐Term Care), 2013 SCC 64, [2013] 3 S.C.R. 810, in light of our Court’s decision in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653. [3] I conclude 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20730/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20336/index.do?q=%222019+SCC+65%22">Yatar v. TD Insurance Meloche Monnex</a></span>
+                        - <span class="citation">2024 SCC 8</span>
+                - <span class="publicationDate">2024-03-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Strickland v. Canada (Attorney General), 2015 SCC 37, [2015] 2 S.C.R. 713; referred to: Smith v. Co‐operators General Insurance Co., 2002 SCC 30, [2002] 2 S.C.R. 129; Canadian Pacific Ltd. v. Matsqui Indian Band, [1995] 1&nbsp;&nbsp;[...]&nbsp;&nbsp;[3] As per Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, a right of appeal does not preclude an individual from seeking judicial review for questions not dealt with in the appeal. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20336/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21282/index.do?q=%222019+SCC+65%22">Dorsey v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2025 SCC 38</span>
+                - <span class="publicationDate">2025-11-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Prerogative writs<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     v. National Special Handling Unit Review Committee, [1985] 2 S.C.R. 662; R. v. Gamble, [1988] 2 S.C.R. 595; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Mapara v. Ferndale Institution (Warden), 2012 BCCA 127, 318 B.C.A.C. 139; Lord v. Coulter, 2007 BCSC 1758, 72 Admin. &nbsp;&nbsp;[...]&nbsp;&nbsp;Likewise, decisions are not unreasonable merely because certain indicia point in the opposite direction, and it is for a hearing judge, with access to the full record, to make a holistic determination (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at paras. 102 and 105). C. &nbsp;&nbsp;[...]&nbsp;&nbsp;Rather, such decisions should be subject to review under procedures established by Parliament, as well as judicial review under the Vavilov framework (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653). II. Facts [104] In 2019, Mr. Dorsey and Mr. Salah both applied for transfers 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21282/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19773/index.do?q=%222019+SCC+65%22">R. v. McColman</a></span>
+                        - <span class="citation">2023 SCC 8</span>
+                    - <span class="report-citation">[2023] 1 SCR 309</span>
+                - <span class="publicationDate">2023-03-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    R. 255; referred to: Kienapple v. The Queen, [1975] 1 S.C.R. 729; R. v. Hufsky, [1988] 1 S.C.R. 621; R. v. Ladouceur, [1990] 1 S.C.R. 1257; R. v. Nolet, 2010 SCC 24, [2010] 1 S.C.R. 851; Scott v. R., 2021 QCCS 3866; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Rizzo &amp; &nbsp;&nbsp;[...]&nbsp;&nbsp; with the scheme of the Act, the object of the Act, and the intention of Parliament’”: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 117, citing Rizzo &amp; Rizzo Shoes Ltd. (Re), [1998] 1 S.C.R. 27, at para. 21, and Bell ExpressVu Limited Partnership v. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19773/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20081/index.do?q=%222019+SCC+65%22">Mason v. Canada (Citizenship and Immigration)</a></span>
+                        - <span class="citation">2023 SCC 21</span>
+                - <span class="publicationDate">2023-09-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Immigration<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; considered: Society of Composers, Authors and Music Publishers of Canada v. Entertainment Software Association, 2022 SCC 30; Németh v. Canada (Justice), 2010 SCC 56, [2010] 3 S.C.R. 281; referred to: Dunsmuir v. New &nbsp;&nbsp;[...]&nbsp;&nbsp;[1] These appeals require the Court to apply the framework for judicial review developed in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, to two administrative decisions involving a question of statutory interpretation in the immigration context. &nbsp;&nbsp;[...]&nbsp;&nbsp;[125] In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, this Court held that reviewing courts should derogate from the presumption of reasonableness review where required by (1) a clear indication of legislative intent or (2) the rule of law (para. 10). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20081/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20518/index.do?q=%222019+SCC+65%22">Dow Chemical Canada ULC v. Canada</a></span>
+                        - <span class="citation">2024 SCC 23</span>
+                - <span class="publicationDate">2024-06-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Courts<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Moreover, adopting Dow’s theory would unsettle the Court’s jurisprudence on the standard of review set forth in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653. When a taxpayer challenges an assessment, the Tax Court will conduct a de novo review of that assessment. &nbsp;&nbsp;[...]&nbsp;&nbsp;[5] Dow’s submissions, if accepted, would disturb settled jurisprudence, including this Court’s decision in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, by changing rules on standard of review, in particular for the “appeal” before the Tax Court pursuant to s. 169(1) of the &nbsp;&nbsp;[...]&nbsp;&nbsp;Rather, she emphasized that this determination must be made in light of our Court’s ruling in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653. [146] The Tax Court judge’s opinion on the question of law was appealed to the Federal Court of Appeal, which rejected the Tax Court 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20518/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/21588/index.do?q=%222019+SCC+65%22">Democracy Watch v. Canada (Attorney General)</a></span>
+                        - <span class="citation">2026 SCC 28</span>
+                - <span class="publicationDate">2026-07-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     [1969] 2 A.C. 147; considered: Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Crevier v. Attorney General of Quebec, [1981] 2 S.C.R. 220; Canadian Union of Public Employees, Local 963 v. New Brunswick Liquor &nbsp;&nbsp;[...]&nbsp;&nbsp;Judicial review is constitutionally guaranteed, and as such, “legislatures cannot shield administrative decision making from curial scrutiny entirely”: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 24. [4] But what does it mean to say that legislatures cannot shield 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/21588/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20674/index.do?q=%222019+SCC+65%22">International Air Transport Association v. Canada (Transportation Agency)</a></span>
+                        - <span class="citation">2024 SCC 30</span>
+                - <span class="publicationDate">2024-10-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Evidence<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     AG, C-581/10 and C-629/10, [2013] 1 C.M.L.R. 42 (p. 1191); R. v. McGregor, 2023 SCC 4; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; R. v. Kirkpatrick, 2022 SCC 33; Yugraneft Corp. v. Rexx Management Corp., 2010 SCC 19, [2010] 1 S.C.R. 649; Kasikili/Sedudu Island &nbsp;&nbsp;[...]&nbsp;&nbsp;While academic articles can provide useful insights and perspectives, they can only be persuasive, not binding (R. v. McGregor, 2023 SCC 4, at para. 102; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 274, per Abella and Karakatsanis JJ., concurring; see also R. v. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20674/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20177/index.do?q=%222019+SCC+65%22">Commission scolaire francophone des Territoires du Nord-Ouest v. Northwest Territories (Education, Culture and Employment)</a></span>
+                        - <span class="citation">2023 SCC 31</span>
+                - <span class="publicationDate">2023-12-08</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                     de l’école Rose‐des‐vents v. British Columbia (Education), 2015 SCC 21, [2015] 2 S.C.R. 139; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Law Society of British Columbia v. Trinity Western University, 2018 SCC 32, [2018] 2 S.C.R. 293; Loyola High School v. Quebec &nbsp;&nbsp;[...]&nbsp;&nbsp;I see no reason to depart from this standard of review in this case (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at paras. 16‐17). [61] Under the Doré approach, a reviewing court must begin by determining whether the administrative decision at issue “engages the Charter by 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20177/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20493/index.do?q=%222019+SCC+65%22">Canadian Broadcasting Corp. v. Named Person</a></span>
+                        - <span class="citation">2024 SCC 21</span>
+                - <span class="publicationDate">2024-06-07</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    R. v. Bacon, 2020 BCCA 140, 386 C.C.C. (3d) 256; R. v. Henry, 2005 SCC 76, [2005] 3 S.C.R. 609; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; Nishi v. Rascal Trucking Ltd., 2013 SCC 33, [2013] 2 S.C.R. 438; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; Vetrovec v. The &nbsp;&nbsp;[...]&nbsp;&nbsp;Such cases do not suffice to show that one of our precedents can be overturned either because it is unworkable and undermines one of the purposes of stare decisis (see, e.g., R. v. Henry, 2005 SCC 76, [2005] 3 S.C.R. 609, at paras. 42‐44; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20493/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18086/index.do?q=%222019+SCC+65%22">Canada Post Corp. v. Canadian Union of Postal Workers</a></span>
+                        - <span class="citation">2019 SCC 67</span>
+                    - <span class="report-citation">[2019] 4 SCR 900</span>
+                - <span class="publicationDate">2019-12-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; referred to: Bell ExpressVu Limited Partnership v. Rex, 2002 SCC 42, [2002] 2 S.C.R. 559; Rizzo &amp; Rizzo Shoes Ltd. (Re), [1998] 1 S.C.R. 27; Bell Canada v. Canada (Attorney General), 2019 SCC 66, [2019] 4 S.C.R. 653; &nbsp;&nbsp;[...]&nbsp;&nbsp;[2] The appeal before this Court provides an opportunity to apply the framework for judicial review set out in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653. The standard of review is reasonableness. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18086/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20398/index.do?q=%222019+SCC+65%22">Société des casinos du Québec inc. v. Association des cadres de la Société des casinos du Québec</a></span>
+                        - <span class="citation">2024 SCC 13</span>
+                - <span class="publicationDate">2024-04-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Administrative law<br/>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, the Court established a presumption that the standard of reasonableness applies to the judicial review of an administrative decision maker’s decision. &nbsp;&nbsp;[...]&nbsp;&nbsp;Applied: Dunmore v. Ontario (Attorney General), 2001 SCC 94, [2001] 3 S.C.R. 1016; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; distinguished: Ontario (Attorney General) v. Fraser, 2011 SCC 20, [2011] 2 S.C.R. 3; Mounted Police Association of Ontario v. Canada (Attorney &nbsp;&nbsp;[...]&nbsp;&nbsp;[92] In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, our Court established a presumption that the standard of reasonableness applies to the judicial review of an administrative decision maker’s decision (paras. 16 and 23‐32). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20398/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/19043/index.do?q=%222019+SCC+65%22">Northern Regional Health Authority v. Horrocks</a></span>
+                        - <span class="citation">2021 SCC 42</span>
+                    - <span class="report-citation">[2021] 3 SCR 107</span>
+                - <span class="publicationDate">2021-10-22</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Applied: Weber v. Ontario Hydro, [1995] 2 S.C.R. 929; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>; Agraira v. Canada (Public Safety and Emergency Preparedness), 2013 SCC 36, [2013] 2 S.C.R. 559; considered: St. Anne Nackawic Pulp &amp; Paper Co. v. Canadian Paper Workers Union, Local 219, [1986]&nbsp;&nbsp;[...]&nbsp;&nbsp;[7] Decisions concerning the jurisdictional lines between two or more administrative bodies must be correct (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, at para. 53). This standard safeguards the rule of law, which “requires courts to intervene where one administrative body has interpreted the 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/19043/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/20723/index.do?q=%222019+SCC+65%22">R. v. Archambault</a></span>
+                        - <span class="citation">2024 SCC 35</span>
+                - <span class="publicationDate">2024-11-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Criminal law<br/>
+                            Statutes<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    L.R. (7th) 1; R. v. S.S., 2021 ONCA 479, 493 C.R.R. (2d) 251; R. v. C.T.B., 2021 NSCA 58; R. v. Friesen, 2020 SCC 9, [2020] 1 S.C.R. 424; R. v. M. (C.A.), [1996] 1 S.C.R. 500; Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653; R. v. Bertrand Marchand, 2023 SCC 26; R. v. D.A.I., &nbsp;&nbsp;[...]&nbsp;&nbsp; is presumed to use language such that the same words have the same meaning both within a statute and across statutes” (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 44, citing R. Sullivan, Sullivan on the Construction of Statutes (6th ed. 2014), at p. 217). &nbsp;&nbsp;[...]&nbsp;&nbsp;The presumption of consistent expression provides that the meaning of recurring patterns of expression is presumed to remain the same “both within a statute and across statutes” (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 44). [286] In Tran, this Court was 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/20723/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/scc-csc/scc-csc/en/item/18781/index.do?q=%222019+SCC+65%22">References re Greenhouse Gas Pollution Pricing Act</a></span>
+                        - <span class="citation">2021 SCC 11</span>
+                    - <span class="report-citation">[2021] 1 SCR 175</span>
+                - <span class="publicationDate">2021-03-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Supreme Court Judgments</span>
+            </div> 
+            <div class="subject">
+                    <span>
+                            Constitutional law<br/>
+                    </span>
+            </div> 
+                <p class="snippet" >
+                    This gives rise to confusion and uncertainty, which are inimical to the rule of law (Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, at para. 72). [274] The second additional concern is that Henry VIII clauses endow the executive with authority to act arbitrarily. &nbsp;&nbsp;[...]&nbsp;&nbsp;[426] As Abella and Karakatsanis JJ. forcefully expressed in their concurring judgment in Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, the doctrine of “[s]tare decisis places significant limits on this Court’s ability to overturn its precedents” (para. 255). &nbsp;&nbsp;[...]&nbsp;&nbsp;In Canada (Minister of Citizenship and Immigration) v. Vavilov, <b>2019 SCC 65</b>, [2019] 4 S.C.R. 653, this Court made clear that there is no separate “jurisdictional questions” category of correctness review that would rebut the presumption, even for delegated legislation (paras. 65‐66). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/scc-csc/scc-csc/en/18781/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "scc-csc",
+            yearRangeString: "1877:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=11" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

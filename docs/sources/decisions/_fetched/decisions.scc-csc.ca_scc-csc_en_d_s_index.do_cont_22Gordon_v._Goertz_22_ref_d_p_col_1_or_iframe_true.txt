@@ -1,0 +1,645 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Gordon+v.+Goertz%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Gordon+v.+Goertz%22&ref=&p=&col=1&or=] All Databases (37)
+ Decisions (9)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Gordon+v.+Goertz%22&ref=&p=&col=1&or=] Resources (28)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Gordon+v.+Goertz%22&ref=&p=&col=1&or=date] Date
+ 9 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/1380/index.do?q=%22Gordon+v.+Goertz%22] Gordon v. Goertz
+ - [1996] 2 SCR 27
+ - 1996-05-02
+ Supreme Court Judgments
+ Family law
+ Gordon v. Goertz, Gordon c. Goertz, 24622, [1996] 2 SCR 27, [1996] 2 RCS 27 Gordon v. Goertz, [1996] 2 S.C.R. 27 [...] Indexed as: Gordon v. Goertz File No.: 24622. 1995: December 6; 1996: May 2. Present: Lamer C.J. and La Forest, L'Heureux‐Dubé, Sopinka, Gonthier, Cory, McLachlin, Iacobucci and Major JJ. 
+ [LINK /scc-csc/scc-csc/en/1380/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/19396/index.do?q=%22Gordon+v.+Goertz%22] Barendregt v. Grebliunas
+ - 2022 SCC 22
+ - [2022] 1 SCR 517
+ - 2022-05-20
+ Supreme Court Judgments
+ Evidence
+ Family law
+ Moreover, the trial judge did not err in his relocation analysis, which was consonant with the mobility framework set out in Gordon v. Goertz, [1996] 2 S.C.R. 27, as refined over the past two decades. His factual findings and the weight he ascribed to factors bearing on the children’s best interests warranted deference on [...] It concerns the application of Gordon v. Goertz, [1996] 2 S.C.R. 27, as refined by the case law over the past two decades and viewed in light of the recent amendments of the Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.). [...] First, it is in my view inappropriate to comment on the Gordon v. Goertz, [1996] 2 S.C.R. 27, framework in the context of this appeal. 
+ [LINK /scc-csc/scc-csc/en/19396/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/1899/index.do?q=%22Gordon+v.+Goertz%22] Van de Perre v. Edwards
+ - 2001 SCC 60
+ - [2001] 2 SCR 1014
+ - 2001-09-28
+ Supreme Court Judgments
+ Civil procedure
+ Family law
+ Referred to: Hickey v. Hickey, [1999] 2 S.C.R. 518; L. (A.) v. K. (D.) (2000), 190 D.L.R. (4th) 108, 2000 BCCA 455; Gordon v. Goertz, [1996] 2 S.C.R. 27; Van Mol (Guardian ad Litem of) v. Ashmore (1999), 168 D.L.R. (4th) 637, leave to appeal refused, [2000] 1 S.C.R. vi; Tyabji v. Sandana (1994), 2 R.F.L. (4th) 265; R. v. [...] The Court of Appeal discussed, and the respondents relied heavily on, the decision of McLachlin J. (as she then was) in Gordon v. Goertz, [1996] 2 S.C.R. 27. In that case, the Court found that the trial judge had only mentioned one factor to be considered in determining the best interests of the child. 
+ [LINK /scc-csc/scc-csc/en/1899/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/19572/index.do?q=%22Gordon+v.+Goertz%22] F. v. N.
+ - 2022 SCC 51
+ - [2022] 3 SCR 616
+ - 2022-12-02
+ Supreme Court Judgments
+ Family law
+ 2 S.C.R. 235; R. v. G.F., 2021 SCC 20, [2021] 1 S.C.R. 801; Waxman v. Waxman (2004), 186 O.A.C. 201; Onuoha v. Onuoha, 2021 ONSC 2228, 54 R.F.L. (8th) 1; Gordon v. Goertz, [1996] 2 S.C.R. 27; Young v. Young, [1993] 4 S.C.R. 3; Catholic Children’s Aid Society of Metropolitan Toronto v. M. (C.), [1994] 2 S.C.R. 165; A. [...] It should never be considered lightly, given “the particular role and emotional bonding the child enjoys” with their primary caregiver (Gordon v. Goertz, [1996] 2 S.C.R. 27, at para. 121, per L’Heureux‐Dubé J.). I accept, as well, that a child’s loss of contact with a primary caregiver who cannot return to the home [...] She provided reasonable and legitimate reasons for not returning to Dubai, reasons entitled to respect (see Gordon v. Goertz, [1996] 2 S.C.R. 27, at para. 48). (3) Conclusion [170] I conclude that the mother established that the children would likely be harmed if returned to Dubai. 
+ [LINK /scc-csc/scc-csc/en/19572/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/19412/index.do?q=%22Gordon+v.+Goertz%22] B.J.T. v. J.D.
+ - 2022 SCC 24
+ - [2022] 1 SCR 668
+ - 2022-06-03
+ Supreme Court Judgments
+ Family law
+ Applied: Van de Perre v. Edwards, 2001 SCC 60, [2001] 2 S.C.R. 1014; considered: King v. Low, [1985] 1 S.C.R. 87; referred to: Hickey v. Hickey, [1999] 2 S.C.R. 518; Gordon v. Goertz, [1996] 2 S.C.R. 27; P. (D.) v. S. (C.), [1993] 4 S.C.R. 141; New Brunswick (Minister of Health and Community Services) v. G. (J.), [1999] 3 [...] Those factors include “not only physical and economic well-being, but also emotional, psychological, intellectual and moral well-being” (Gordon v. Goertz, [1996] 2 S.C.R. 27, at para. 120, per L’Heureux‐Dubé J., dissenting, citing J. D. Payne, Payne on Divorce (3rd ed. 1993), at p. 279). 
+ [LINK /scc-csc/scc-csc/en/19412/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/1449/index.do?q=%22Gordon+v.+Goertz%22] R. v. Dawson
+ - [1996] 3 SCR 783
+ - 1996-11-21
+ Supreme Court Judgments
+ Criminal law
+ Referred to: Re Lorenz (1905), 9 C.C.C. 158; R. v. Chartrand, [1994] 2 S.C.R. 864; Augustus v. Gosset, [1995] R.J.Q. 335; Gordon v. Goertz, [1996] 2 S.C.R. 27; R. v. Cowan (1910), 17 O.W.R. 553; R. v. Anagnostis, [1970] 1 O.R. 595; R. v. Miller (1982), 36 O.R. (2d) 387; R. v. Enkirch (1982), 1 C.C.C. (3d) 165; R. v. Cook [...] Indeed, all rights of custody and access exist only to the extent that they permit the custodial or access parent to act in the best interests of the child: Gordon v. Goertz, [1996] 2 S.C.R. 27, at para. 69, per L’Heureux-Dubé J. It follows that although the parties and the courts below speak of ss. 281 to 283 as provisions
+ [LINK /scc-csc/scc-csc/en/1449/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/15665/index.do?q=%22Gordon+v.+Goertz%22] Kanthasamy v. Canada (Citizenship and Immigration)
+ - 2015 SCC 61
+ - [2015] 3 SCR 909
+ - 2015-12-10
+ Supreme Court Judgments
+ Immigration
+ 2004 FCA 49, [2004] 3 F.C.R. 195; Canadian Foundation for Children, Youth and the Law v. Canada (Attorney General), 2004 SCC 4, [2004] 1 S.C.R. 76; Gordon v. Goertz, [1996] 2 S.C.R. 27; A.C. v. Manitoba (Director of Child and Family Services), 2009 SCC 30, [2009] 2 S.C.R. 181; A.B. v. Bragg Communications Inc., 2012 [...] [35] The “best interests” principle is “highly contextual” because of the “multitude of factors that may impinge on the child’s best interest”: Canadian Foundation for Children, Youth and the Law v. Canada (Attorney General), [2004] 1 S.C.R. 76, at para. 11; Gordon v. Goertz, [1996] 2 S.C.R. 27, at para. 20. It must 
+ [LINK /scc-csc/scc-csc/en/15665/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/1381/index.do?q=%22Gordon+v.+Goertz%22] W. (V.) v. S. (D.)
+ - [1996] 2 SCR 108
+ - 1996-05-02
+ Supreme Court Judgments
+ Family law
+ Referred to: Gordon v. Goertz, [1996] 1 S.C.R. 27. By L'Heureux‐Dubé J. Applied: Thomson v. Thomson, [1994] 3 S.C.R. 551; referred to: Messier v. Palomba, [1992] R.D.J. 548; Équipements Lefco Inc. v. Roche Ltée, [1993] R.D.J. 234; Hamel v. Cie Trust Royal, [1990] R.J.Q. 2178; Montana v. Développements du Saguenay Ltée, [...] 1 McLachlin J. -- I agree with L'Heureux-Dubé J., subject to my comments in Gordon v. Goertz, [1996] 1 S.C.R. 27, on the rights and obligations of custodial parents. 
+ [LINK /scc-csc/scc-csc/en/1381/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/20798/index.do?q=%22Gordon+v.+Goertz%22] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Directrice de la protection de la jeunesse du CISSS A
+ - 2024 SCC 43
+ - 2024-12-20
+ Supreme Court Judgments
+ [1996] 2 S.C.R. 171; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Lamothe v. Ruffo, [1998] R.J.Q. 1815; Gordon v. Goertz, [1996] 2 S.C.R. 27; A.C. v. Manitoba (Director of Child and Family Services), 2009 SCC 30, [2009] 2 S.C.R. 181; Barendregt v. Grebliunas, 2022 SCC 22; [...] This is an intrinsically contextual analysis that must take into account, “[i]n addition to the moral, intellectual, emotional and material needs of the child, his age, health, personality and family environment and the other aspects of his situation” (s. 3 para. 2; see also Gordon v. Goertz, [1996] 2 S.C.R. 27, at paras. 
+ [LINK /scc-csc/scc-csc/en/20798/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

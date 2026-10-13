@@ -1,0 +1,783 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22Simpsons-Sears%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22Simpsons-Sears%22&ref=&p=&col=1&or=] All Databases (106)
+ Decisions (57)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22Simpsons-Sears%22&ref=&p=&col=1&or=] Resources (49)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Simpsons-Sears%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Simpsons-Sears%22&ref=&d=&p=&col=1&or=&page=3] 3
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Simpsons-Sears%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22Simpsons-Sears%22&ref=&p=&col=1&or=date] Date
+ 57 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/6103/index.do?q=%22Simpsons-Sears%22] Simpsons-Sears Ltd. v. Provincial Secretary (N.B.) et al.
+ - [1978] 2 SCR 869
+ - 1978-01-19
+ Supreme Court Judgments
+ Constitutional law
+ Simpsons-Sears Ltd. v. Provincial Secretary (N.B.) et al., Simpsons-Sears Ltée c. Secrétaire provincial (N.-B.) et autre, [1978] 2 SCR 869, [1978] 2 RCS 869 [...] Simpsons-Sears Ltd. v. Provincial Secretary (N.B.) et al., [1978] 2 S.C.R. 869 [...] In my view practically all the points raised by counsel for Simpsons-Sears boil down to the submission that the actual users of the catalogues, the ultimate consumers intended to be taxed, were the persons to whom those catalogues were given by Simpsons-Sears. 
+ [LINK /scc-csc/scc-csc/en/6103/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/101/index.do?q=%22Simpsons-Sears%22] Ont. Human Rights Comm. v. Simpsons-Sears
+ - [1985] 2 SCR 536
+ - 1985-12-17
+ Supreme Court Judgments
+ Constitutional law
+ Ont. Human Rights Comm. v. Simpsons-Sears, Commission ontarienne des droits de la personne c. Simpsons-Sears, 17328, [1985] 2 SCR 536, [1985] 2 RCS 536 [...] Ont. Human Rights Comm. v. Simpsons-Sears, [1985] 2 S.C.R. 536 Ontario Human Rights Commission and Theresa O'Malley (Vincent) Appellants; [...] 2. Mrs. O'Malley, now Vincent, was first employed in 1971 by the respondent, Simpsons‐Sears, in Quebec City. After moving to Kingston she worked full‐time as a saleswoman in the respondent's Kingston store from 1975 until October 1978. 
+ [LINK /scc-csc/scc-csc/en/101/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/5449/index.do?q=%22Simpsons-Sears%22] Minister of Finance of New Brunswick et al. v. Simpsons-Sears Ltd.
+ - [1982] 1 SCR 144
+ - 1982-01-26
+ Supreme Court Judgments
+ Constitutional law
+ Minister of Finance of New Brunswick et al. v. Simpsons-Sears Ltd., Ministre des Finances du Nouveau-Brunswick et autre c. Simpsons-Sears Ltée, 16209, [1982] 1 SCR 144, [1982] 1 RCS 144 [...] Minister of Finance of New Brunswick et al. v. Simpsons-Sears Ltd., [1982] 1 S.C.R. 144 Date: 1982-01-26 The Minister of Finance of the Province of New Brunswick and the Minister of Justice of the Province of New Brunswick Appellants; [...] Assuming that, as urged by the appellant, the recipients of the catalogues are the ultimate users, it seems clear to me that Simpsons-Sears is a person who has caused those goods to be brought into the province for the use of other persons at its expense, seeing that under s. 1(b) consumption “includes use”. 
+ [LINK /scc-csc/scc-csc/en/5449/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/1632/index.do?q=%22Simpsons-Sears%22] Union of New Brunswick Indians v. New Brunswick (Minister of Finance)
+ - [1998] 1 SCR 1161
+ - 1998-06-18
+ Supreme Court Judgments
+ Aboriginal law
+ 24 The next case to consider the problem was Simpsons-Sears, supra, involving the New Brunswick statute at issue on this appeal. [...] As stated in Simpsons-Sears, the tax is imposed by s. 4. There is no reference in s. 4 to a sale of any description. [...] Moreover, as Ritchie J. pointed out in Simpsons-Sears, at p. 889: Incidental use such as that which the appellant [Simpsons-Sears] makes of its catalogue is not, in my opinion, “consumption” within the meaning of this section or of s. 4 of the statute. 
+ [LINK /scc-csc/scc-csc/en/1632/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/455/index.do?q=%22Simpsons-Sears%22] Brooks v. Canada Safeway Ltd.
+ - [1989] 1 SCR 1219
+ - 1989-05-04
+ Supreme Court Judgments
+ Constitutional law
+ The third argument, that the plan cannot be discriminatory because the respondent had no intention to discriminate, has little or no force in light of the decision of this Court in Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536. In that case, the Court held that the effect of an [...] I refer, for example, to Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., supra; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114, and Insurance Corporation of British Columbia v. Heerspink, [1982] 2 S.C.R. 145. [...] As McIntyre J., speaking for this Court, recently explained in Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, the Act must be so interpreted as to advance the broad policy considerations underlying it. 
+ [LINK /scc-csc/scc-csc/en/455/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/6280/index.do?q=%22Simpsons-Sears%22] CN v. Canada (Canadian Human Rights Commission)
+ - [1987] 1 SCR 1114
+ - 1987-06-25
+ Supreme Court Judgments
+ Constitutional law
+ Statutes
+ In Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, the Court set out explicitly the governing principles in the interpretation of human rights statutes. [...] In Simpsons-Sears, at p. 547, this Court spoke clearly as to the purpose of the Ontario Code, holding that the reach was wider than intentional discrimination: [...] As discussed above, the Supreme Court in the Simpsons-Sears and Bhinder decisions has already recognized that Canadian human rights legislation is directed not only at intentional discrimination, but at unintentional discrimination as well. 
+ [LINK /scc-csc/scc-csc/en/6280/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/102/index.do?q=%22Simpsons-Sears%22] Bhinder v. CN
+ - [1985] 2 SCR 561
+ - 1985-12-17
+ Supreme Court Judgments
+ Constitutional law
+ Ontario Human Rights Commission v. Borough of Etobicoke, [1982] 1 S.C.R. 202 applied; Ontario Human Rights Commission and O’Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536, distinguished. By the minority Ontario Human Rights Commission and O’Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Ontario Human Rights [...] He adopts the reasoning expressed in Ontario Human Rights Commission and O’Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536, (released concurrently by this Court) in concluding that the definitions of discriminatory practices in the Canadian Human Rights Act, ss. 7 and 10, extend to both unintentional and adverse effect [...] 41. In the case of the Ontario Human Rights Commission and O’Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536, in which judgment is given concurrently with this case, we were confronted with a case under The Ontario Human Rights Code, R.S.O. 1970, c. 318, which dealt with the same issues that are raised here. 
+ [LINK /scc-csc/scc-csc/en/102/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/1789/index.do?q=%22Simpsons-Sears%22] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montréal (City); Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Boisbriand (City)
+ - 2000 SCC 27
+ - [2000] 1 SCR 665
+ - 2000-05-03
+ Supreme Court Judgments
+ Labour law
+ The Court has also held that because of its quasi-constitutional status, the Charter must be interpreted in light of both its context and objectives: Ontario Human Rights Commission and O’Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536; Robichaud v. Canada (Treasury Board), supra; British Columbia (Public Service [...] In this sense, not only the provisions at issue but the entire statute must be examined (see in this regard Ontario Human Rights Commission and O’Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at p. 547). 29 More generally, in Driedger on the Construction of Statutes (3rd ed. 1994), at pp. 383-84, Professor R. Sullivan [...] 33 The preamble of a statute often provides a good indication of that statute’s objectives: Ontario Human Rights Commission and O’Malley v. Simpsons-Sears Ltd., supra; Interpretation Act, R.S.Q., c. I-16, s. 40. Thus, in the case at bar, it is helpful to examine the following three paragraphs of the preamble to the Charter:
+ [LINK /scc-csc/scc-csc/en/1789/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/576/index.do?q=%22Simpsons-Sears%22] Kerrybrooke Development Ltd. v. Ellis-Don Ltd.
+ - [1990] 1 SCR 275
+ - 1990-03-01
+ Supreme Court Judgments
+ Torts
+ Simpsons‐Sears Limited/Simpsons‐Sears Limitée Respondents and Ellis‐Don Limited, Brian Kirk and Daryl Zorn Respondents 
+ [LINK /scc-csc/scc-csc/en/576/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/1552/index.do?q=%22Simpsons-Sears%22] Eldridge v. British Columbia (Attorney General)
+ - [1997] 3 SCR 624
+ - 1997-10-09
+ Supreme Court Judgments
+ Constitutional law
+ In Simpsons‐Sears, the Court was faced with the question of whether a rule requiring employees to be available for work on Friday evenings and Saturdays discriminated against those observing a Saturday Sabbath. [...] The definition of adverse effects discrimination set out in Simpsons‐Sears, moreover, has been expressly adopted in the context of s. 15(1); see Egan, supra, at para. 138 (per Cory J.). [...] 66 Unlike in Simpsons‐Sears and Rodriguez, in the present case the adverse effects suffered by deaf persons stem not from the imposition of a burden not faced by the mainstream population, but rather from a failure to ensure that they benefit equally from a service offered to everyone. 
+ [LINK /scc-csc/scc-csc/en/1552/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/1379/index.do?q=%22Simpsons-Sears%22] Newfoundland Association of Public Employees v. Newfoundland (Green Bay Health Care Centre)
+ - [1996] 2 SCR 3
+ - 1996-05-02
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ Labour law
+ Relations Board, [1984] 2 S.C.R. 412; Insurance Corporation of British Columbia v. Heerspink, [1982] 2 S.C.R. 145; Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114; Canadian Odeon Theatres Ltd. [...] In Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, McIntyre J. said, at p. 547, "[t]he Code aims at the removal of discrimination. [...] See Simpsons-Sears Ltd., Dickason, and Canadian National Railway Co. These statements support the notion that protection against discrimination is the overriding policy concern of human rights legislation. 
+ [LINK /scc-csc/scc-csc/en/1379/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/641/index.do?q=%22Simpsons-Sears%22] Central Alberta Dairy Pool v. Alberta (Human Rights Commission)
+ - [1990] 2 SCR 489
+ - 1990-09-13
+ Supreme Court Judgments
+ Constitutional law
+ Overturned: Bhinder v. Canadian National Railway Co., [1985] 2 S.C.R. 561; considered: Ontario Human Rights Commission and O'Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Ontario Human Rights Commission v. Etobicoke, [1982] 1 S.C.R. 202; Saskatchewan (Human Rights Commission) v. Saskatoon (City), [1989] 2 S.C.R. 1297; [...] The Board's decision preceded this Court's judgments in Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, and Bhinder v. Canadian National Railway Co, [1985] 2 S.C.R. 561. [...] In Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, a work rule was attacked that was neutral on its face but discriminatory in its effect on Mrs. O'Malley. 
+ [LINK /scc-csc/scc-csc/en/641/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/236/index.do?q=%22Simpsons-Sears%22] Robichaud v. Canada (Treasury Board)
+ - [1987] 2 SCR 84
+ - 1987-07-29
+ Supreme Court Judgments
+ Constitutional law
+ Applied: Ontario Human Rights Commission and O'Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; referred to: Insurance Corporation of British Columbia v. Heerspink, [1982] 2 S.C.R. 145; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114; Bhinder v. Canadian National Railway [...] As McIntyre J., speaking for this Court, recently explained in Ontario Human Rights Commission and O'Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536, the Act must be so interpreted as to advance the broad policy considerations underlying it. 
+ [LINK /scc-csc/scc-csc/en/236/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/16919/index.do?q=%22Simpsons-Sears%22] British Columbia Human Rights Tribunal v. Schrenk
+ - 2017 SCC 62
+ - [2017] 2 SCR 795
+ - 2017-12-15
+ Supreme Court Judgments
+ Distinguished: McCormick v. Fasken Martineau DuMoulin LLP, 2014 SCC 39, [2014] 2 S.C.R. 108; referred to: Winnipeg School Division No. 1 v. Craton, [1985] 2 S.C.R. 150; Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Robichaud v. Canada (Treasury Board), [1987] 2 S.C.R. 84; Moore v. British [...] For this reason, human rights laws are given broad and liberal interpretations so as better to achieve their goals (Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at pp. 546-47; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114, at pp. 1133-36; [...] [85] It is well-established that the Code has a quasi-constitutional character and should be interpreted generously to give effect to its broad public purposes (Winnipeg School Division No. 1 v. Craton, [1985] 2 S.C.R. 150; Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at p. 547). These 
+ [LINK /scc-csc/scc-csc/en/16919/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/1398/index.do?q=%22Simpsons-Sears%22] Béliveau St-Jacques v. Fédération des employées et employés de services publics inc.
+ - [1996] 2 SCR 345
+ - 1996-06-20
+ Supreme Court Judgments
+ Constitutional law
+ Labour law
+ As McIntyre J., speaking for this Court, recently explained in Ontario Human Rights Commission and O’Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536, the Act must be so interpreted as to advance the broad policy considerations underlying it. [...] See also Singh v. Minister of Employment and Immigration, [1985] 1 S.C.R. 177; Ontario Human Rights Commission and O’Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Scowby v. Glendinning, [1986] 2 S.C.R. 226; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114; University of [...] In this sense, not only the provisions at issue but the entire statute must be examined (see in this regard Ontario Human Rights Commission and O'Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536, at p. 547). In Quebec, s. 53 indeed provides that if any doubt as to interpretation arises, it must be resolved in keeping with
+ [LINK /scc-csc/scc-csc/en/1398/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/1006/index.do?q=%22Simpsons-Sears%22] University of British Columbia v. Berg
+ - [1993] 2 SCR 353
+ - 1993-05-19
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ of British Columbia v. Heerspink, [1982] 2 S.C.R. 145; Charter v. Race Relations Board, [1973] 1 All E.R. 512; Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Robichaud v. Canada (Treasury Board), [1987] 2 S.C.R. 84; Canada (Attorney General) v. Rosin, [1991] 1 F.C. 391; Re Ontario [...] He held that the reasoning in Beattie applied in this case and dismissed Berg's submission that it was not a sound decision and that (following the decisions of this Court in Insurance Corporation of British Columbia v. Heerspink, [1982] 2 S.C.R. 145, Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. [...] In Ontario Human Rights Commission v. Simpsons-Sears Ltd., supra, McIntyre J. observed (at p. 547) that "[l]egislation of this type is of a special nature, not quite constitutional but certainly more than the ordinary -- and it is for the courts to seek out its purpose and give it effect." 
+ [LINK /scc-csc/scc-csc/en/1006/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/1361/index.do?q=%22Simpsons-Sears%22] Gould v. Yukon Order of Pioneers
+ - [1996] 1 SCR 571
+ - 1996-03-21
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ more than ordinary; see Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at p. 547. Similarly, in Robichaud v. Canada (Treasury Board), [1987] 2 S.C.R. 84, at p. 89, I stated that such legislation "must be so interpreted as to advance the broad policy considerations underlying it". [...] As McIntyre J., speaking for this Court, recently explained in Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, the Act must be so interpreted as to advance the broad policy considerations underlying it. [...] In Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, McIntyre J. held, on behalf of a unanimous Court (at pp. 546-47): 
+ [LINK /scc-csc/scc-csc/en/1361/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/13663/index.do?q=%22Simpsons-Sears%22] McCormick v. Fasken Martineau DuMoulin LLP
+ - 2014 SCC 39
+ - [2014] 2 SCR 108
+ - 2014-05-22
+ Supreme Court Judgments
+ Board) v. Figliola, 2011 SCC 52, [2011] 3 S.C.R. 422; Winnipeg School Division No. 1 v. Craton, [1985] 2 S.C.R. 150; Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114; Council of Canadians with [...] [17] The Code is quasi-constitutional legislation that attracts a generous interpretation to permit the achievement of its broad public purposes: Winnipeg School Division No. 1 v. Craton, [1985] 2 S.C.R. 150; Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at p. 547, per McIntyre J.; Canadian 
+ [LINK /scc-csc/scc-csc/en/13663/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/895/index.do?q=%22Simpsons-Sears%22] Zurich Insurance Co. v. Ontario (Human Rights Commission)
+ - [1992] 2 SCR 321
+ - 1992-06-25
+ Supreme Court Judgments
+ Constitutional law
+ 3 S.C.R. 191; Bell Canada v. Canada (Canadian Radio‐television and Telecommunications Commission), [1989] 1 S.C.R. 1722; Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Brossard (Town) v. Quebec (Commission des droits de la personne), [1988] 2 S.C.R. 279; Bhinder v. Canadian National Railway [...] (Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at p. 547). One of the reasons such legislation has been so described is that it is often the final refuge of the disadvantaged and the disenfranchised. [...] The approach of this Court to the interpretation of human rights legislation is typified by the statement of McIntyre J. in Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536, at p. 547: Legislation of this type is of a special nature, not quite constitutional but certainly more than the ordinary -‐
+ [LINK /scc-csc/scc-csc/en/895/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/969/index.do?q=%22Simpsons-Sears%22] Canada (Attorney General) v. Mossop
+ - [1993] 1 SCR 554
+ - 1993-02-25
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ Referred to: Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Bhinder v. Canadian National Railway Co., [1985] 2 S.C.R. 561; Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114; Robichaud v. Canada (Treasury Board), [1987] 2 S.C.R. 84; Zurich Insurance [...] Relying on decisions from this Court in Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, Bhinder v. Canadian National Railway Co., [1985] 2 S.C.R. 561, Canadian National Railway Co. v. Canada (Canadian Human Rights Commission), [1987] 1 S.C.R. 1114, and Robichaud v. Canada (Treasury Board), [...] McIntyre J. clearly was of this view when, speaking for a unanimous Court in Ontario Human Rights Commission v. Simpsons‐Sears, supra, at pp. 546‐47, he wrote: It is not, in my view, a sound approach to say that according to established rules of construction no broader meaning can be given to the Code than the narrowest 
+ [LINK /scc-csc/scc-csc/en/969/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/2008/index.do?q=%22Simpsons-Sears%22] B. v. Ontario (Human Rights Commission)
+ - 2002 SCC 66
+ - [2002] 3 SCR 403
+ - 2002-10-31
+ Supreme Court Judgments
+ Constitutional law
+ Referred to: Brossard (Town) v. Quebec (Commission des droits de la personne), [1988] 2 S.C.R. 279; Cashin v. Canadian Broadcasting Corp., [1988] 3 F.C. 494; Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252; Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536; Gould v. Yukon Order of Pioneers, [...] 44 In reference to this very preamble, McIntyre J., in Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, said at pp. 546-47: There we find enunciated the broad policy of the Code and it is this policy which should have effect. 
+ [LINK /scc-csc/scc-csc/en/2008/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/910/index.do?q=%22Simpsons-Sears%22] Central Okanagan School District No. 23 v. Renaud
+ - [1992] 2 SCR 970
+ - 1992-09-24
+ Supreme Court Judgments
+ Constitutional law
+ Considered: Ontario Human Rights Commission and O'Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Central Alberta Dairy Pool v. Alberta (Human Rights Commission), [1990] 2 S.C.R. 489; distinguished: Trans World Airlines, Inc. v. Hardison, 432 U.S. 63 (1977); Ansonia Board of Education v. Philbrook, 479 U.S. 60 (1986); [...] While this duty has been recognized and discussed as it relates generally to employers (Ontario Human Rights Commission and O'Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at pp. 552-56, and Central Alberta Dairy Pool v. Alberta (Human Rights Commission), [1990] 2 S.C.R. 489, at pp. 520-29), little judicial 
+ [LINK /scc-csc/scc-csc/en/910/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/7996/index.do?q=%22Simpsons-Sears%22] Halifax (Regional Municipality) v. Nova Scotia (Human Rights Commission)
+ - 2012 SCC 10
+ - [2012] 1 SCR 364
+ - 2012-03-16
+ Supreme Court Judgments
+ Administrative law
+ [1988] 2 S.C.R. 1048; C.B. Powell Limited v. Canada (Border Services Agency), 2010 FCA 61, [2011] 2 F.C.R. 332; Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Irvine v. Canada (Restrictive Trade Practices Commission), [1987] 1 S.C.R. 181; Canada (Attorney General) v. Canada (Commission [...] conducted without regard to the provision’s context within a specialized, quasi-constitutional human rights regime: Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at pp. 546-47; Canada (Canadian Human Rights Commission) v. Canada (Attorney General), at para. 33; and Mullan (2001), at p. 58. 
+ [LINK /scc-csc/scc-csc/en/7996/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/2339/index.do?q=%22Simpsons-Sears%22] McGill University Health Centre (Montreal General Hospital) v. Syndicat des employés de l'Hôpital général de Montréal
+ - 2007 SCC 4
+ - [2007] 1 SCR 161
+ - 2007-01-26
+ Supreme Court Judgments
+ Constitutional law
+ Labour law
+ v. Bergevin, [1994] 2 S.C.R. 525; Central Alberta Dairy Pool v. Alberta (Human Rights Commission), [1990] 2 S.C.R. 489; Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Ontario Human Rights Commission v. Borough of Etobicoke, [1982] 1 S.C.R. 202; Parry Sound (District) Social Services [...] For example, an employer’s right to require that employees work on certain days of the week was recognized in Ontario Human Rights Commission v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536 (“O’Malley”), at pp. 555‐56, and in Central Alberta Dairy Pool, at p. 520. 
+ [LINK /scc-csc/scc-csc/en/2339/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/1439/index.do?q=%22Simpsons-Sears%22] Battlefords and District Co-operative Ltd. v. Gibbs
+ - [1996] 3 SCR 566
+ - 1996-10-31
+ Supreme Court Judgments
+ Constitutional law
+ Applied: Brooks v. Canada Safeway Ltd., [1989] 1 S.C.R. 1219; referred to: Insurance Corp. of British Columbia v. Heerspink, [1982] 2 S.C.R. 145; Ontario Human Rights Commission and O’Malley v. Simpsons‐Sears Ltd., [1985] 2 S.C.R. 536; Zurich Insurance Co. v. Ontario (Human Rights Commission), [1992] 2 S.C.R. 321; Andrews [...] In Ontario Human Rights Commission and O’Malley v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536, at pp. 546-47, this Court stated: To begin with, we must consider the nature and purpose of human rights legislation. 
+ [LINK /scc-csc/scc-csc/en/1439/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

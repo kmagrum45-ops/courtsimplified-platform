@@ -1,0 +1,786 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%22RJR-MacDonald%22&ref=&p=&col=1&or=] All Databases (267)
+ Decisions (104)
+ [LINK /scc-csc/en/n/s/index.do?cont=%22RJR-MacDonald%22&ref=&p=&col=1&or=] Resources (163)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&d=&p=&col=1&or=&page=3] 3
+ [LINK /scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&d=&p=&col=1&or=&page=4] 4
+ [LINK /scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&d=&p=&col=1&or=&page=5] 5
+ [LINK /scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%22RJR-MacDonald%22&ref=&p=&col=1&or=date] Date
+ 104 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/1111/index.do?q=%22RJR-MacDonald%22] RJR -- MacDonald Inc. v. Canada (Attorney General)
+ - [1994] 1 SCR 311
+ - 1994-03-03
+ Supreme Court Judgments
+ Action
+ RJR -- MacDonald Inc. v. Canada (Attorney General), RJR -- Macdonald Inc. c. Canada (Procureur général), 23490, 23460, [1994] 1 SCR 311, [1994] 1 RCS 311 [...] RJR – MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311 RJR – MacDonald Inc. Applicant [...] Indexed as: RJR – MacDonald Inc. v. Canada (Attorney General) File Nos.: 23460, 23490. 1993: October 4; 1994: March 3. 
+ [LINK /scc-csc/scc-csc/en/1111/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/1290/index.do?q=%22RJR-MacDonald%22] RJR-MacDonald Inc. v. Canada (Attorney General)
+ - [1995] 3 SCR 199
+ - 1995-09-21
+ Supreme Court Judgments
+ Constitutional law
+ RJR-MacDonald Inc. v. Canada (Attorney General), RJR-MacDonald Inc. c. Canada (Procureur général), 23490, 23460, [1995] 3 SCR 199, [1995] 3 RCS 199 [...] RJR-MacDonald Inc. v. Canada (Attorney General) 199 RJR-MacDonald Inc. Appellant [...] Indexed as: RJR-MacDonald Inc. v. Canada (Attorney General) File Nos.: 23460, 23490. 1994: November 29, 30; 1995: September 21. 
+ [LINK /scc-csc/scc-csc/en/1290/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/16981/index.do?q=%22RJR-MacDonald%22] R. v. Canadian Broadcasting Corp.
+ - 2018 SCC 5
+ - [2018] 1 SCR 196
+ - 2018-02-09
+ Supreme Court Judgments
+ (Indeed, in RJR — MacDonald, the Court identified two exceptions which may call for “an extensive review of the merits” at the first stage of the analysis.[20]) In this case, the parties have at every level of court agreed that, where a mandatory interlocutory injunction is sought, the appropriate inquiry at the first stage [...] [17] RJR — MacDonald, at pp. 334-35. [18] RJR — MacDonald, at pp. 334 and 348. [19] RJR — MacDonald, at p. 334. [...] [27] RJR — MacDonald, at pp. 338-39. [28] Injunctions and Specific Performance, at paras. 1.530 and 1.540. 
+ [LINK /scc-csc/scc-csc/en/16981/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/1822/index.do?q=%22RJR-MacDonald%22] Harper v. Canada (Attorney General)
+ - 2000 SCC 57
+ - [2000] 2 SCR 764
+ - 2000-11-10
+ Supreme Court Judgments
+ Action
+ As Sopinka and Cory JJ. stated in RJR--MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, at pp. 348-49: [...] Moreover, applying RJR--MacDonald, we must take as given at this stage that the legislation imposing spending limits on third parties will serve a valid public purpose. [...] 34 In RJR–MacDonald, at pp. 333-34, Sopinka and Cory JJ. considered the factors that must govern the balancing process: 
+ [LINK /scc-csc/scc-csc/en/1822/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/18417/index.do?q=%22RJR-MacDonald%22] Reference re Genetic Non‑Discrimination Act
+ - 2020 SCC 17
+ - [2020] 2 SCR 283
+ - 2020-07-10
+ Supreme Court Judgments
+ Constitutional law
+ [145] Further, I must also respectfully disagree with Justice Kasirer’s contention that RJR‐MacDonald is distinguishable from this case. To the contrary, I believe that RJR‐MacDonald provides a full answer to this case. [...] [148] Here, like in RJR‐MacDonald, Parliament employed indirect means to suppress the threat to health it identified. [...] [249] Of course, Parliament can use indirect means in the exercise of its criminal law power, as was the case in RJR-MacDonald. Yet, contrary to the amicus curiae’s suggestion, RJR-MacDonald is of little assistance in this case. 
+ [LINK /scc-csc/scc-csc/en/18417/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/1542/index.do?q=%22RJR-MacDonald%22] R. v. Hydro-Québec
+ - [1997] 3 SCR 213
+ - 1997-09-18
+ Supreme Court Judgments
+ Constitutional law
+ It may, as La Forest J. noted in RJR-MacDonald, supra, at pp. 263-64, “validly contain exemptions for certain conduct without losing its status as criminal law”. [...] 58 The appellant relies on this Court’s decision in RJR-MacDonald, supra, arguing that the statutory regime in this case is analogous to that upheld (on division of powers grounds) in RJR-MacDonald. [...] ” This approach has been consistently followed ever since and, as RJR-MacDonald relates, it has been applied by the courts in a wide variety of settings. 
+ [LINK /scc-csc/scc-csc/en/1542/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/2312/index.do?q=%22RJR-MacDonald%22] Baier v. Alberta
+ - 2006 SCC 38
+ - [2006] 2 SCR 311
+ - 2006-07-10
+ Supreme Court Judgments
+ Civil procedure
+ Applied: RJR — MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311. Statutes and Regulations Cited [...] 13 In RJR — MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, Sopinka and Cory JJ. wrote, at p. 329: [...] On the basis of the interpretation of this Court’s authority as established in RJR — MacDonald, I am satisfied that the effect of the judgment of the Court of Appeal may be stayed by this Court. 
+ [LINK /scc-csc/scc-csc/en/2312/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/1141/index.do?q=%22RJR-MacDonald%22] 143471 Canada Inc. v. Quebec (Attorney General); Tabah v. Quebec (Attorney General)
+ - [1994] 2 SCR 339
+ - 1994-05-26
+ Supreme Court Judgments
+ Civil procedure
+ In RJR ‐‐ MacDonald, supra, this Court noted that this view of harm is of limited application when a breach of the Charter is alleged. [...] In RJR ‐‐ MacDonald the Court wrote (at p. 346): In our view, the concept of inconvenience should be widely construed in Charter cases. [...] See RJR -- MacDonald, supra, at p. 342. In summary then, there is some small privacy interest in commercial documents. 
+ [LINK /scc-csc/scc-csc/en/1141/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/1722/index.do?q=%22RJR-MacDonald%22] U.F.C.W., Local 1518, v. KMart Canada Ltd.
+ - [1999] 2 SCR 1083
+ - 1999-09-09
+ Supreme Court Judgments
+ Constitutional law
+ Labour law
+ See RJR-MacDonald, at para. 144. The characterization of the objective by the respondent and the Attorney General is too broad. [...] In RJR-MacDonald, at para. 136, McLachlin J. held that: As with context, however, care must be taken not to extend the notion of deference too far. [...] See RJR-MacDonald, supra, and Rocket, supra. 66 Unlike other aspects of industrial relations, leafleting is not strictly confined to labour and management. 
+ [LINK /scc-csc/scc-csc/en/1722/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/1621/index.do?q=%22RJR-MacDonald%22] Thomson Newspapers Co. v. Canada (Attorney General)
+ - [1998] 1 SCR 877
+ - 1998-05-29
+ Supreme Court Judgments
+ Constitutional law
+ Also McLachlin J., in writing for the majority in RJR-MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 137, expressed the unanimous view of the Court: [...] In RJR-MacDonald, supra, at para. 160, McLachlin J. stated: “if the government fails to explain why a significantly less intrusive and equally effective measure was not chosen, the law may fail” (emphasis added). [...] This sets this case apart from cases involving advertisers (such as Irwin Toy, Libman or RJR-MacDonald), where advertisers encouraged choices which served their particular interests. 
+ [LINK /scc-csc/scc-csc/en/1621/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/2348/index.do?q=%22RJR-MacDonald%22] R. v. Bryan
+ - 2007 SCC 12
+ - [2007] 1 SCR 527
+ - 2007-03-15
+ Supreme Court Judgments
+ Constitutional law
+ Referred to: Harper v. Canada (Attorney General), [2004] 1 S.C.R. 827, 2004 SCC 33; R. v. Oakes, [1986] 1 S.C.R. 103; RJR‐MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199; Thomson Newspapers Co. v. Canada (Attorney General), [1998] 1 S.C.R. 877. [...] 42 The standard for this stage of the analysis is still best encapsulated by the well-known passage from RJR-MacDonald, at para. 160: The impairment must be “minimal”, that is, the law must be carefully tailored so that rights are impaired no more than necessary. [...] The government must provide “a reasoned demonstration of the good which the law may achieve in relation to the seriousness of the infringement” (RJR-MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 129). 
+ [LINK /scc-csc/scc-csc/en/2348/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/1436/index.do?q=%22RJR-MacDonald%22] Canadian Broadcasting Corp. v. New Brunswick (Attorney General)
+ - [1996] 3 SCR 480
+ - 1996-10-31
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ It was also my view in RJR-MacDonald, supra, that a common-sense analysis was sufficient to satisfy the rational connection branch. [...] In RJR-MacDonald, supra, I noted that the evidentiary requirements of s. 1 analysis will vary substantially with the nature of the right infringed. [...] I put the matter this way in RJR-MacDonald, at para. 72: Although freedom of expression is undoubtedly a fundamental value, there are other fundamental values that are also deserving of protection and consideration by the courts. 
+ [LINK /scc-csc/scc-csc/en/1436/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/17446/index.do?q=%22RJR-MacDonald%22] Frank v. Canada (Attorney General)
+ - 2019 SCC 1
+ - [2019] 1 SCR 3
+ - 2019-01-11
+ Supreme Court Judgments
+ To discharge this burden, the AGC must satisfy the civil standard of proof on a balance of probabilities (Oakes, at p. 137; RJR-MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at paras. 137-38). [...] Essentially, the government must show that there is a causal connection between the limit and the intended purpose (RJR-MacDonald, at para. 153). In cases in which a causal connection is not scientifically measurable, one can be made out on the basis of reason or logic, as opposed to concrete proof (RJR-MacDonald, at para. [...] as little as reasonably possible in furthering the legislative objective (RJR-MacDonald, at para. 160; Oakes, at p. 139). In other words, the measure must be “carefully tailored” to ensure that rights are impaired no more than is reasonably necessary (RJR-MacDonald, at para. 160; Mounted Police Association, at para. 149). 
+ [LINK /scc-csc/scc-csc/en/17446/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/1628/index.do?q=%22RJR-MacDonald%22] M & D Farm Ltd. v. Manitoba Agricultural Credit Corp.
+ - [1998] 1 SCR 1074
+ - 1998-04-29
+ Supreme Court Judgments
+ Appeal
+ Applied: RJR ‐‐ MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311. Statutes and Regulations Cited [...] In RJR -- MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, it was held, at p. 329, by Sopinka and Cory JJ. on behalf of the Court as follows: [...] Accordingly, if the appeal is granted, and the order of Clearwater J. dated March 20, 1997 is restored, alienation of the property by the respondent at this stage would “tend to negate or diminish the effect of the judgment of this Court” within the meaning of RJR -- MacDonald, supra. Were the respondent to dispose of the 
+ [LINK /scc-csc/scc-csc/en/1628/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/7808/index.do?q=%22RJR-MacDonald%22] Alberta v. Hutterian Brethren of Wilson Colony
+ - 2009 SCC 37
+ - [2009] 2 SCR 567
+ - 2009-07-24
+ Supreme Court Judgments
+ Constitutional law
+ [54] In RJR-MacDonald, the minimal impairment analysis was explained as follows, at para. 160: [...] In RJR- MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, McLachlin J. cautioned that “[c]are must be taken not to overstate the objective. [...] The connection must be established on a balance of probabilities (RJR-MacDonald, at para. 153; see also Nicholas Emiliou, The Principle of Proportionality in European Law: A Comparative Study (1996), at p. 27). 
+ [LINK /scc-csc/scc-csc/en/7808/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/1794/index.do?q=%22RJR-MacDonald%22] Reference re Firearms Act (Can.)
+ - 2000 SCC 31
+ - [2000] 1 SCR 783
+ - 2000-06-15
+ Supreme Court Judgments
+ Constitutional law
+ 27 As a general rule, legislation may be classified as criminal law if it possesses three prerequisites: a valid criminal law purpose backed by a prohibition and a penalty: RJR-MacDonald, supra; Hydro-Québec, supra; and Reference re Validity of Section 5(a) of the Dairy Industry Act, [1949] S.C.R. 1 (the “Margarine [...] Criminal law, as this Court has stated in numerous cases, constitutes a broad area of federal jurisdiction: RJR-MacDonald, supra; Hydro-Québec, supra; and Margarine Reference, supra. The criminal law stands on its own as federal jurisdiction. [...] As such, the regulation of guns as dangerous products is a valid purpose within the criminal law power: see R. v. Felawka, [1993] 4 S.C.R. 199; RJR-MacDonald, supra; R. v. Wetmore, [1983] 2 S.C.R. 284; and Cosman’s Furniture, supra. 
+ [LINK /scc-csc/scc-csc/en/1794/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/2146/index.do?q=%22RJR-MacDonald%22] Harper v. Canada (Attorney General)
+ - 2004 SCC 33
+ - [2004] 1 SCR 827
+ - 2004-05-18
+ Supreme Court Judgments
+ Constitutional law
+ The “impairment must be ‘minimal’, that is, the law must be carefully tailored so that rights are impaired no more than necessary”: RJR-MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 160. [...] In RJR-MacDonald, the Court held, in the absence of direct scientific evidence showing a causal link between advertising bans and a decrease in tobacco consumption/use, that as a matter of logic advertising bans and package warnings lead to a reduction in tobacco use; see paras. 155-58. [...] The oft-cited quote from RJR-MacDonald, supra, at para. 160, sets out the appropriate standard: The impairment must be “minimal”, that is, the law must be carefully tailored so that rights are impaired no more than necessary. 
+ [LINK /scc-csc/scc-csc/en/2146/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/7905/index.do?q=%22RJR-MacDonald%22] Reference re Assisted Human Reproduction Act
+ - 2010 SCC 61
+ - [2010] 3 SCR 457
+ - 2010-12-22
+ Supreme Court Judgments
+ Constitutional law
+ To this end, criminal laws for the protection of health must address a “legitimate public health evil”: RJR-MacDonald, at para. 32; see also Schneider v. The Queen, [1982] 2 S.C.R. 112, at p. 142. [...] In RJR-MacDonald, La Forest J. emphasized that the harm of tobacco consumption was “dramatic and substantial” (para. 32). [...] In RJR‐MacDonald, on the other hand, given the well‐established health risks associated with tobacco consumption, the exercise of the criminal law power was found to be justified. 
+ [LINK /scc-csc/scc-csc/en/7905/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/1367/index.do?q=%22RJR-MacDonald%22] Ross v. New Brunswick School District No. 15
+ - [1996] 1 SCR 825
+ - 1996-04-03
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ 88 In RJR-MacDonald, supra, I noted that "the evidentiary requirements under s. 1 will vary substantially depending upon both the nature of the legislation and the nature of the right infringed" (p. 272). [...] As to the standard of proof required under s. 1, McLachlin J., in RJR-MacDonald, supra, stated that proof to the standard of science was not required, and accepted the civil standard of proof on a balance of probabilities. [...] 103 In RJR-MacDonald, supra, at p. 342, McLachlin J. reasoned that an impairment must be minimal to the extent that it impairs the right no more than is necessary. 
+ [LINK /scc-csc/scc-csc/en/1367/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/16701/index.do?q=%22RJR-MacDonald%22] Google Inc. v. Equustek Solutions Inc.
+ - 2017 SCC 34
+ - [2017] 1 SCR 824
+ - 2017-06-28
+ Supreme Court Judgments
+ The test for interlocutory injunctions established in RJR ― MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, does not apply to an order that is effectively final, and the test for a permanent injunction has not been satisfied. [...] [61] In RJR ― MacDonald, this Court set out the test for interlocutory injunctions ― a serious question to be tried, irreparable harm, and the balance of convenience ― but also described an exception (at pp. 338-39): [...] [65] Following RJR ― MacDonald (at pp. 338-39), an extensive review of the merits is therefore required at the first stage of the analysis (Schooff v. British Columbia (Medical Services Commission), 2010 BCCA 396, 323 D.L.R. (4th) 680, at paras. 26-27). 
+ [LINK /scc-csc/scc-csc/en/16701/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/1685/index.do?q=%22RJR-MacDonald%22] Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Montreal (City); Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Boisbriand (City)
+ - [1999] 1 SCR 381
+ - 1999-02-24
+ Supreme Court Judgments
+ Action
+ Referred to: Industrial Development Bank v. Canadian Plywood Corp., [1972] 1 W.W.R. 298; G. (L.) v. B. (G.), [1995] 3 S.C.R. 367; Keable v. Attorney General of Canada, [1978] 2 S.C.R. 135; RJR-MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311; Corner Brook Pulp and Paper Ltd. v. Bowater Inc. (1989), 246 [...] 12 This interpretation of s. 65 was confirmed again by this Court in RJR-MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, where Sopinka and Cory JJ. stated at pp. 328-29: [...] The result is that while s. 65(1) must be given effect according to its terms, the section as a whole is to be read restrictively in accordance with the interpretation authoritatively settled by the Court in Keable, supra, G. (L.) v. B. (G.), supra, and RJR-MacDonald, supra, as previously stated. 14 Even a broader reading 
+ [LINK /scc-csc/scc-csc/en/1685/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/1551/index.do?q=%22RJR-MacDonald%22] Libman v. Quebec (Attorney General)
+ - [1997] 3 SCR 569
+ - 1997-10-09
+ Supreme Court Judgments
+ Constitutional law
+ Elections
+ Scientific proof is not required to meet this standard: “the balance of probabilities may be established by the application of common sense to what is known, even though what is known may be deficient from a scientific point of view” (RJR‐MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at p. 333). [...] 58 In RJR‐MacDonald, supra, McLachlin J. explained the application of the minimal impairment test as follows, at p. 342: [...] areas (Irwin Toy, supra, at pp. 993‐94; McKinney v. University of Guelph, [1990] 3 S.C.R. 229, at pp. 304‐5; Stoffman v. Vancouver General Hospital, [1990] 3 S.C.R. 483, at p. 521; RJR‐MacDonald, supra, at pp. 279 and 331‐32). La Forest J.’s comment on the subject in RJR‐MacDonald, supra, at p. 277, is perfectly apposite: 
+ [LINK /scc-csc/scc-csc/en/1551/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/21476/index.do?q=%22RJR-MacDonald%22] Quebec (Attorney General) v. Lalande
+ - 2026 SCC 13
+ - 2026-05-01
+ Supreme Court Judgments
+ Constitutional law
+ Applied: R. v. Oakes, [1986] 1 S.C.R. 103; referred to: R. v. K.R.J., 2016 SCC 31, [2016] 1 S.C.R. 906; Alberta v. Hutterian Brethren of Wilson Colony, 2009 SCC 37, [2009] 2 S.C.R. 567; RJR-MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199. By Côté and Rowe JJ. (dissenting) [...] from constitutional scrutiny and relieves the appellant of his burden, under s. 1 of the Charter, of demonstrating that the law has been “carefully tailored so that rights are impaired no more than necessary” (RJR-MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at para. 160, cited by C.A., at para. 78). [...] This is especially so given that it is not the Court’s role to determine the conditions of electoral redistribution in Quebec or to prescribe a specific solution to a complex problem of democratic representation involving the reconciliation of competing interests (ibid.; RJR-MacDonald Inc. v. Canada (Attorney General), 
+ [LINK /scc-csc/scc-csc/en/21476/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/14577/index.do?q=%22RJR-MacDonald%22] Mounted Police Association of Ontario v. Canada (Attorney General)
+ - 2015 SCC 1
+ - [2015] 1 SCR 3
+ - 2015-01-16
+ Supreme Court Judgments
+ Constitutional law
+ The onus rests on the party seeking to uphold the limitation of the Charter right, and the burden of proof is a preponderance of probabilities (RJR-MacDonald Inc. v. Canada (Attorney General), [1995] 3 S.C.R. 199, at paras. 137-38 (“RJR-MacDonald (1995)”). [...] For this reason, courts have not always insisted on direct proof of a relationship between the infringing measure and the legislative objective, accepting conclusions supported by logic and reason (RJR-MacDonald (1995), at para. 154; Ross v. New Brunswick School District No. 15, [1996] 1 S.C.R. 825, at para. 101). [...] (RJR-MacDonald (1995), at para. 160; see also Hutterian Brethren, at paras. 53-55; Health Services, at para. 150.) 
+ [LINK /scc-csc/scc-csc/en/14577/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/17448/index.do?q=%22RJR-MacDonald%22] R. v. Beaudry
+ - 2019 SCC 2
+ - [2019] 1 SCR 95
+ - 2019-01-14
+ Supreme Court Judgments
+ Referred to: Manitoba (Attorney General) v. Metropolitan Stores Ltd., [1987] 1 S.C.R. 110; RJR — MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311. MOTION to stay the declaration of invalidity issued by the Court Martial Appeal Court of Canada (Bell C.J. and Gagné and Ouellette JJ.A.), 2018 CMAC 4, [2018] [...] [2] The applicable criteria set out in Manitoba (Attorney General) v. Metropolitan Stores Ltd., [1987] 1 S.C.R. 110, and RJR — MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311, are not in dispute. 
+ [LINK /scc-csc/scc-csc/en/17448/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

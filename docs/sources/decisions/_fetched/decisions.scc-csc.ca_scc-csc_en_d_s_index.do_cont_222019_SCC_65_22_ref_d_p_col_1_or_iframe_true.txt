@@ -1,0 +1,785 @@
+ Advanced Search - SCC Cases
+.decisia-content {
+ font-family: poppins, "DM Sans", sans-serif;
+}
+.decisia-content h1 {
+ font-family: "noto serif";
+}
+.decisia-content a {
+ color: #8B2433;
+}
+.decisia-content a:hover, #decisia-footer a:hover, #decisia-footer a:hover span {
+ color: #6E131A;
+}
+#decisia-main-content .decisia-content .decisia-box {
+ background-color: #F9F9F9;
+}
+#decisia-main-content .decisia-content .decisia-box h1 {
+ background-color: white;
+ color: black;
+}
+ol.breadcrumb {
+ display: inline-block;
+}
+.breadcrumb-link, .last-breadcrumb {
+ text-decoration: none;
+ font-weight: 500;
+ font-size: .9rem;
+}
+.breadcrumb-link, .breadcrumb-separator > span {
+ color: #8B2433;
+}
+#solrHiBar, #lexumSolrNavButton {
+ line-height: normal;
+}
+#lexumSolrNavButton .btn {
+ border: 0!important;
+ line-height: 20px;
+}
+#solrHiBar[style*='top: 25px'], #lexumSolrButtonContainer[style*='top: 25px'] {
+ top: 50px!important;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:poppins;
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/Poppins-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:400;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Regular.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:500;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-Medium.ttf)format('truetype');
+ font-display:swap;
+}
+@font-face {
+ font-family:"noto serif";
+ font-weight:600;
+ font-style:normal;
+ src:url(/clients/scc-csc/fonts/NotoSerif-SemiBold.ttf)format('truetype');
+ font-display:swap;
+}
+@media only screen and ((max-device-width: 545px) or (max-width: 545px)) {
+ #decisia-footer .decisia-lexum a, #decisia-footer .qweri-lexum a {
+	 top: 75px;
+	}
+	#decisia-footer {
+	 padding-bottom: 81px;
+	}
+}
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ [LINK /scc-csc/en/nav.do] Decisions and Resources
+ &gt;
+ Advanced Search
+ /scc-csc/fr/d/s/index.do?cont=%222019+SCC+65%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /scc-csc/en/q.do] Help
+ Advanced Search
+ [LINK /scc-csc/en/a/s/index.do?cont=%222019+SCC+65%22&ref=&p=&col=1&or=] All Databases (89)
+ Decisions (45)
+ [LINK /scc-csc/en/n/s/index.do?cont=%222019+SCC+65%22&ref=&p=&col=1&or=] Resources (44)
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Report, Case number
+ Date between
+ and
+ Parties
+ Judges
+ <option value="Abbott, Douglas Charles"
+ >Abbott, Douglas Charles
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Anglin, Francis Alexander"
+ >Anglin, Francis Alexander
+ <option value="Arbour, Louise"
+ >Arbour, Louise
+ <option value="Armour, John Douglas"
+ >Armour, John Douglas
+ <option value="Barclay"
+ >Barclay
+ <option value="Bastarache, Michel"
+ >Bastarache, Michel
+ <option value="Beetz, Jean"
+ >Beetz, Jean
+ <option value="Bernier"
+ >Bernier
+ <option value="Binnie, William Ian Corneil"
+ >Binnie, William Ian Corneil
+ <option value="Bond"
+ >Bond
+ <option value="Brodeur, Louis-Philippe"
+ >Brodeur, Louis-Philippe
+ <option value="Brown, Russell"
+ >Brown, Russell
+ <option value="Cannon, Lawrence Arthur Dumoulin"
+ >Cannon, Lawrence Arthur Dumoulin
+ <option value="Cartwright, John Robert"
+ >Cartwright, John Robert
+ <option value="Cassels"
+ >Cassels
+ <option value="Charron, Louise"
+ >Charron, Louise
+ <option value="Chouinard, Julien"
+ >Chouinard, Julien
+ <option value="Cory, Peter deCarteret"
+ >Cory, Peter deCarteret
+ <option value="Crocket, Oswald Smith"
+ >Crocket, Oswald Smith
+ <option value="Cromwell, Thomas Albert"
+ >Cromwell, Thomas Albert
+ <option value="Côté, Suzanne"
+ >Côté, Suzanne
+ <option value="Davies, Louis Henry"
+ >Davies, Louis Henry
+ <option value="Davis, Henry Hague"
+ >Davis, Henry Hague
+ <option value="Deschamps, Marie"
+ >Deschamps, Marie
+ <option value="Dickson, Robert George Brian"
+ >Dickson, Robert George Brian
+ <option value="Dorion"
+ >Dorion
+ <option value="Duff, Lyman Poore"
+ >Duff, Lyman Poore
+ <option value="Dysart"
+ >Dysart
+ <option value="Estey, James Wilfred"
+ >Estey, James Wilfred
+ <option value="Estey, Willard Zebedee"
+ >Estey, Willard Zebedee
+ <option value="Fauteux, Joseph Honoré Gérald"
+ >Fauteux, Joseph Honoré Gérald
+ <option value="Fish, Morris J."
+ >Fish, Morris J.
+ <option value="Fitzpatrick, Charles"
+ >Fitzpatrick, Charles
+ <option value="Fournier, Télesphore"
+ >Fournier, Télesphore
+ <option value="Galipault"
+ >Galipault
+ <option value="Gascon, Clément"
+ >Gascon, Clément
+ <option value="Gillanders"
+ >Gillanders
+ <option value="Girouard, Désiré"
+ >Girouard, Désiré
+ <option value="Gonthier, Charles Doherty"
+ >Gonthier, Charles Doherty
+ <option value="Gwynne, John Wellington"
+ >Gwynne, John Wellington
+ <option value="Hall, Emmett Matthew"
+ >Hall, Emmett Matthew
+ <option value="Henry, William Alexander"
+ >Henry, William Alexander
+ <option value="Howard"
+ >Howard
+ <option value="Hudson, Albert Blellock"
+ >Hudson, Albert Blellock
+ <option value="Hughes, Frank Joseph"
+ >Hughes, Frank Joseph
+ <option value="Iacobucci, Frank"
+ >Iacobucci, Frank
+ <option value="Idington, John"
+ >Idington, John
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Joyal, Glenn"
+ >Joyal, Glenn
+ <option value="Judson, Wilfred"
+ >Judson, Wilfred
+ <option value="Karakatsanis, Andromache"
+ >Karakatsanis, Andromache
+ <option value="Kasirer, Nicholas"
+ >Kasirer, Nicholas
+ <option value="Kellock, Roy Lindsay"
+ >Kellock, Roy Lindsay
+ <option value="Kerwin, Patrick"
+ >Kerwin, Patrick
+ <option value="Killam, Albert Clements"
+ >Killam, Albert Clements
+ <option value="King, George Edwin"
+ >King, George Edwin
+ <option value="L'Heureux-Dubé, Claire"
+ >L'Heureux-Dubé, Claire
+ <option value="La Forest, Gérard V."
+ >La Forest, Gérard V.
+ <option value="Lamer, Antonio"
+ >Lamer, Antonio
+ <option value="Lamont, John Henderson"
+ >Lamont, John Henderson
+ <option value="Laskin, Bora"
+ >Laskin, Bora
+ <option value="Latchford"
+ >Latchford
+ <option value="Lavergne"
+ >Lavergne
+ <option value="Le Dain, Gerald Eric"
+ >Le Dain, Gerald Eric
+ <option value="LeBel, Louis"
+ >LeBel, Louis
+ <option value="Lemieux"
+ >Lemieux
+ <option value="Locke, Charles Holland"
+ >Locke, Charles Holland
+ <option value="Maclean"
+ >Maclean
+ <option value="Maclennan, James"
+ >Maclennan, James
+ <option value="Magee"
+ >Magee
+ <option value="Major, John C."
+ >Major, John C.
+ <option value="Malouin, Arthur Cyrille Albert"
+ >Malouin, Arthur Cyrille Albert
+ <option value="Martin, Sheilah"
+ >Martin, Sheilah
+ <option value="Martin, Sheilah L."
+ >Martin, Sheilah L.
+ <option value="Martland, Ronald"
+ >Martland, Ronald
+ <option value="Masten"
+ >Masten
+ <option value="McIntyre, William Rogers"
+ >McIntyre, William Rogers
+ <option value="McLachlin, Beverley"
+ >McLachlin, Beverley
+ <option value="Middleton"
+ >Middleton
+ <option value="Mignault, Pierre-Basile"
+ >Mignault, Pierre-Basile
+ <option value="Mills, Davis"
+ >Mills, Davis
+ <option value="Moldaver, Michael J."
+ >Moldaver, Michael J.
+ <option value="Moreau, Mary"
+ >Moreau, Mary
+ <option value="Nesbitt, Wallace"
+ >Nesbitt, Wallace
+ <option value="Newcombe, Edmund Leslie"
+ >Newcombe, Edmund Leslie
+ <option value="Nolan, Henry Grattan"
+ >Nolan, Henry Grattan
+ <option value="Orde"
+ >Orde
+ <option value="O’Bonsawin, Michelle"
+ >O’Bonsawin, Michelle
+ <option value="Patterson, Christopher Salmon"
+ >Patterson, Christopher Salmon
+ <option value="Pigeon, Louis-Philippe"
+ >Pigeon, Louis-Philippe
+ <option value="Pratte, Yves"
+ >Pratte, Yves
+ <option value="Rand, Ivan Cleveland"
+ >Rand, Ivan Cleveland
+ <option value="Richards, William Buell"
+ >Richards, William Buell
+ <option value="Rinfret, Thibaudeau"
+ >Rinfret, Thibaudeau
+ <option value="Ritchie, Roland Almon"
+ >Ritchie, Roland Almon
+ <option value="Ritchie, William Johnstone"
+ >Ritchie, William Johnstone
+ <option value="Rivard"
+ >Rivard
+ <option value="Rothstein, Marshall"
+ >Rothstein, Marshall
+ <option value="Rowe, Malcolm"
+ >Rowe, Malcolm
+ <option value="Sedgewick, Robert"
+ >Sedgewick, Robert
+ <option value="Smith, Robert"
+ >Smith, Robert
+ <option value="Sopinka, John"
+ >Sopinka, John
+ <option value="Spence, Wishart Flett"
+ >Spence, Wishart Flett
+ <option value="St. Germain"
+ >St. Germain
+ <option value="St. Jacques"
+ >St. Jacques
+ <option value="Stevenson, William"
+ >Stevenson, William
+ <option value="Strong, Samuel Henry"
+ >Strong, Samuel Henry
+ <option value="Taschereau, Henri-Elzéar"
+ >Taschereau, Henri-Elzéar
+ <option value="Taschereau, Jean-Thomas"
+ >Taschereau, Jean-Thomas
+ <option value="Taschereau, Robert"
+ >Taschereau, Robert
+ <option value="Tessier"
+ >Tessier
+ <option value="Thorson"
+ >Thorson
+ <option value="Wagner, Richard"
+ >Wagner, Richard
+ <option value="Wilson, Bertha"
+ >Wilson, Bertha
+ <option value="de Grandpré, Louis-Philippe"
+ >de Grandpré, Louis-Philippe
+ Status
+ <option value="1"
+ >Granted
+ <option value="2"
+ >Dismissed
+ <option value="3"
+ >Oral Hearing
+ <option value="4"
+ >Remanded
+ <option value="5"
+ >Quashed
+ On appeal from
+ <option value="1"
+ >Canada
+ <option value="2"
+ >Federal Court of Appeal
+ <option value="3"
+ >British Columbia
+ <option value="4"
+ >Alberta
+ <option value="5"
+ >Saskatchewan
+ <option value="6"
+ >Manitoba
+ <option value="7"
+ >Ontario
+ <option value="8"
+ >Quebec
+ <option value="9"
+ >New Brunswick
+ <option value="10"
+ >Nova Scotia
+ <option value="11"
+ >Prince Edward Island
+ <option value="12"
+ >Newfoundland and Labrador
+ <option value="13"
+ >Yukon
+ <option value="14"
+ >Northwest Territories
+ <option value="15"
+ >Nunavut
+ <option value="16"
+ >Court Martial Appeal Court of Canada
+ <option value="18"
+ >Saskatchewan, Ontario, Alberta
+ Collection
+ <option value="1"
+ selected="selected"
+ >
+ Supreme Court Judgments
+ <option value="2"
+ >
+ Applications for Leave
+ Subjects
+ <option value="34"
+ >Aboriginal law
+ <option value="5"
+ >Access to information
+ <option value="2"
+ >Action
+ <option value="51"
+ >Administrative law
+ <option value="13"
+ >Agency
+ <option value="40"
+ >Air law
+ <option value="9"
+ >Appeal
+ <option value="52"
+ >Arbitration
+ <option value="37"
+ >Armed Forces
+ <option value="30"
+ >Bankruptcy and insolvency
+ <option value="53"
+ >Bills of exchange
+ <option value="44"
+ >Civil law
+ <option value="20"
+ >Civil procedure
+ <option value="41"
+ >Commercial law
+ <option value="29"
+ >Communications law
+ <option value="19"
+ >Competition law
+ <option value="27"
+ >Constitutional law
+ <option value="55"
+ >Contract
+ <option value="61"
+ >Contracts
+ <option value="6"
+ >Courts
+ <option value="16"
+ >Criminal law
+ <option value="14"
+ >Customs and excise
+ <option value="4"
+ >Education law
+ <option value="10"
+ >Elections
+ <option value="17"
+ >Environmental law
+ <option value="57"
+ >Estates
+ <option value="18"
+ >Evidence
+ <option value="48"
+ >Expropriation
+ <option value="7"
+ >Family law
+ <option value="11"
+ >Financial institutions
+ <option value="15"
+ >Fishery
+ <option value="42"
+ >Food and drugs
+ <option value="23"
+ >Guarantee and suretyship
+ <option value="26"
+ >Immigration
+ <option value="28"
+ >Insurance
+ <option value="8"
+ >Intellectual property
+ <option value="31"
+ >International law
+ <option value="45"
+ >Labour law
+ <option value="22"
+ >Lease
+ <option value="25"
+ >Maritime law
+ <option value="43"
+ >Mines and minerals
+ <option value="38"
+ >Motor vehicles
+ <option value="56"
+ >Municipal law
+ <option value="24"
+ >Pensions
+ <option value="35"
+ >Prerogative writs
+ <option value="59"
+ >Prescription
+ <option value="46"
+ >Priorities and hypothecs
+ <option value="58"
+ >Private international law
+ <option value="32"
+ >Professional law
+ <option value="63"
+ >Property
+ <option value="49"
+ >Property law
+ <option value="50"
+ >Public utilities
+ <option value="47"
+ >Sale
+ <option value="36"
+ >Securities
+ <option value="39"
+ >State
+ <option value="62"
+ >Status of persons
+ <option value="3"
+ >Statutes
+ <option value="33"
+ >Taxation
+ <option value="21"
+ >Torts
+ <option value="12"
+ >Transportation
+ <option value="54"
+ >Trust
+ Search 
+ 1
+ [LINK /scc-csc/en/d/s/index.do?cont=%222019+SCC+65%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /scc-csc/en/d/s/index.do?cont=%222019+SCC+65%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /scc-csc/en/d/s/index.do?cont=%222019+SCC+65%22&ref=&p=&col=1&or=date] Date
+ 45 result(s)
+ 1.
+ [LINK /scc-csc/scc-csc/en/item/18078/index.do?q=%222019+SCC+65%22] Canada (Minister of Citizenship and Immigration) v. Vavilov
+ - 2019 SCC 65
+ - [2019] 4 SCR 653
+ - 2019-12-19
+ Supreme Court Judgments
+ Administrative law
+ Canada (Minister of Citizenship and Immigration) v. Vavilov, Canada (Ministre de la Citoyenneté et de l’Immigration) c. Vavilov, 2019 SCC 65, 2019 CSC 65, 37748, [2019] 4 SCR 653, [2019] 4 RCS 653 SUPREME COURT OF CANADA [...] Citation: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653 Appeal Heard: December 4, 5, 6, 2018 Judgment Rendered: December 19, 2019 [...] 2019 SCC 65 File No.: 37748. 2018: December 4, 5, 6; 2019: December 19. 
+ [LINK /scc-csc/scc-csc/en/18078/1/document.do] 
+ 2.
+ [LINK /scc-csc/scc-csc/en/item/20504/index.do?q=%222019+SCC+65%22] York Region District School Board v. Elementary Teachers’ Federation of Ontario
+ - 2024 SCC 22
+ - 2024-06-21
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ Accordingly, this appeal is governed by Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653. Correctness applies because the issue of constitutionality on judicial review — of whether a Charter right arises, the scope of its protection, and the appropriate framework of the analysis [...] Following the oral hearing, the court invited further submissions from the parties on the standard of review following release of this Court’s decision in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653. (1) The Majority Opinion (O’Bonsawin J., Kiteley J. Concurring) [...] Relying on the “constitutional questions” exception to the presumption of reasonableness review from Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, he explains that the “issue of constitutionality on judicial review — of whether a Charter right arises, the scope of its 
+ [LINK /scc-csc/scc-csc/en/20504/1/document.do] 
+ 3.
+ [LINK /scc-csc/scc-csc/en/item/19693/index.do?q=%222019+SCC+65%22] R. v. McGregor
+ - 2023 SCC 4
+ - [2023] 1 SCR 198
+ - 2023-02-17
+ Supreme Court Judgments
+ [22] To be sure, this Court has taken notice of scholarly writings in reconsidering the soundness of its own precedents (see Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at paras. 39 and 209; Nishi v. Rascal Trucking Ltd., 2013 SCC 33, [2013] 2 S.C.R. 438, at para. 28; [...] statutes are presumed to operate in conformity with Canada’s international obligations (see Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 114; van Ert, at p. 555). [78] The Court, however, had received no submissions on international law, and it departed from the [...] Court cannot depart from precedent “simply because a chorus of voices, even well-informed voices, expresses disagreement with our decisions” (para. 247, referring to Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 274, per Abella and Karakatsanis JJ., concurring). 
+ [LINK /scc-csc/scc-csc/en/19693/1/document.do] 
+ 4.
+ [LINK /scc-csc/scc-csc/en/item/19441/index.do?q=%222019+SCC+65%22] Society of Composers, Authors and Music Publishers of Canada v. Entertainment Software Association
+ - 2022 SCC 30
+ - [2022] 2 SCR 303
+ - 2022-07-15
+ Supreme Court Judgments
+ Administrative law
+ Intellectual property
+ In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, the Court recognized five categories for correctness review. [...] Regarding the standard of review, the Court of Appeal noted that the jurisprudence prior to Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, required reviewing the Board’s interpretation of s. 2.4(1.1) on a standard of correctness. [...] [115] Karakatsanis J. — In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, this Court sought to bring coherence and predictability to the law governing judicial review. 
+ [LINK /scc-csc/scc-csc/en/19441/1/document.do] 
+ 5.
+ [LINK /scc-csc/scc-csc/en/item/20256/index.do?q=%222019+SCC+65%22] Ontario (Attorney General) v. Ontario (Information and Privacy Commissioner)
+ - 2024 SCC 4
+ - 2024-02-02
+ Supreme Court Judgments
+ Access to information
+ Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; referred to: Mason v. Canada (Citizenship and Immigration), 2023 SCC 21; Northern Regional Health Authority v. Horrocks, 2021 SCC 42; Agraira v. Canada (Public Safety and Emergency Preparedness), 2013 SCC 36, [2013] 2 [...] [17] Reasonableness review focuses both on the decision maker’s reasoning process and the outcome (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at paras. 83-84). A reasonable decision is “justified in relation to the constellation of law and facts that are relevant to the [...] Indeed, according to Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, “[r]easonableness review is methodologically distinct from correctness review” (para. 12; Mason v. Canada (Citizenship and Immigration), 2023 SCC 21, at para. 58). 
+ [LINK /scc-csc/scc-csc/en/20256/1/document.do] 
+ 6.
+ [LINK /scc-csc/scc-csc/en/item/20731/index.do?q=%222019+SCC+65%22] TransAlta Generation Partnership v. Alberta
+ - 2024 SCC 37
+ - 2024-11-08
+ Supreme Court Judgments
+ Administrative law
+ As set out in the companion case Auer v. Auer, 2024 SCC 36, the reasonableness standard under Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, presumptively applies when reviewing the vires of subordinate legislation. [...] Applied: Auer v. Auer, 2024 SCC 36; referred to: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Edmonton (City) v. Edmonton East (Capilano) Shopping Centres Ltd., 2016 SCC 47, [2016] 2 S.C.R. 293; Katz Group Canada Inc. v. Ontario (Health and Long‐Term Care), 2013 SCC 64, [...] [4] In the companion case, Auer v. Auer, 2024 SCC 36, our Court holds that, as established in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, the reasonableness standard presumptively applies when reviewing the vires of subordinate legislation. 
+ [LINK /scc-csc/scc-csc/en/20731/1/document.do] 
+ 7.
+ [LINK /scc-csc/scc-csc/en/item/18680/index.do?q=%222019+SCC+65%22] Wastech Services Ltd. v. Greater Vancouver Sewerage and Drainage District
+ - 2021 SCC 7
+ - [2021] 1 SCR 32
+ - 2021-02-05
+ Supreme Court Judgments
+ In light of Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, it follows that the standard of review to be applied by the Court in this case is correctness. [...] Applied: Bhasin v. Hrynew, 2014 SCC 71, [2014] 3 S.C.R. 494; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235; referred to: Northland Utilities (NWT) Limited v. Hay River (Town of), 2021 NWTCA 1; Ontario First Nations (2008) [...] I am mindful, however, that this Court’s judgment in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, which was released shortly after this appeal was heard, set out a revised framework for determining the standard of review a court should apply when reviewing the merits of an 
+ [LINK /scc-csc/scc-csc/en/18680/1/document.do] 
+ 8.
+ [LINK /scc-csc/scc-csc/en/item/18079/index.do?q=%222019+SCC+65%22] Bell Canada v. Canada (Attorney General)
+ - 2019 SCC 66
+ - [2019] 4 SCR 845
+ - 2019-12-19
+ Supreme Court Judgments
+ Administrative law
+ Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Reference re Broadcasting Regulatory Policy CRTC 2010‐167 and Broadcasting Order CRTC 2010‐168, 2012 SCC 68, [2012] 3 S.C.R. 489; McLean v. British Columbia (Securities Commission), 2013 SCC 67, [2013] 3 S.C.R. 895. [...] The applicable standard must be determined in accordance with the framework set out in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, a case this Court heard together with these statutory appeals in order to “consider the law applicable to the judicial review of administrative [...] [61] As set out in our concurring reasons in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, as a general rule, administrative decisions are to be reviewed for reasonableness. 
+ [LINK /scc-csc/scc-csc/en/18079/1/document.do] 
+ 9.
+ [LINK /scc-csc/scc-csc/en/item/21114/index.do?q=%222019+SCC+65%22] Pepa v. Canada (Citizenship and Immigration)
+ - 2025 SCC 21
+ - 2025-06-27
+ Supreme Court Judgments
+ Administrative law
+ Immigration
+ Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190. [...] [136] Before Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, the standard of review would have been determined based on whether this question constitutes a “[t]rue questio[n] of jurisdiction” (para. 65, citing Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190, at para. [...] The standard of review that applies to the IAD’s interpretation of its enabling statute is reasonableness, in accordance with Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 25. B. Reasonableness Review [173] Having concluded that the reasonableness standard applies, 
+ [LINK /scc-csc/scc-csc/en/21114/1/document.do] 
+ 10.
+ [LINK /scc-csc/scc-csc/en/item/19439/index.do?q=%222019+SCC+65%22] Law Society of Saskatchewan v. Abrametz
+ - 2022 SCC 29
+ - [2022] 2 SCR 220
+ - 2022-07-08
+ Supreme Court Judgments
+ Administrative law
+ In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, the Court held that when the legislature provides for a statutory appeal mechanism from an administrative decision maker to a court, this indicates that appellate standards are to apply. [...] [27] In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, the Court held that when the legislature provides for a statutory appeal mechanism from an administrative decision maker to a court, this indicates that appellate standards are to apply: paras. 33 and 36-52. [...] [129] Without referring to any precedents on procedural fairness review, my colleague relies on Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, for the proposition that appellate standards of review apply in the present case. 
+ [LINK /scc-csc/scc-csc/en/19439/1/document.do] 
+ 11.
+ [LINK /scc-csc/scc-csc/en/item/20730/index.do?q=%222019+SCC+65%22] Auer v. Auer
+ - 2024 SCC 36
+ - 2024-11-08
+ Supreme Court Judgments
+ Administrative law
+ The chambers judge held that following Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, reasonableness is the presumptive standard of review for assessing the vires of subordinate legislation, but that reasonableness review should be informed by the principles outlined in Katz [...] Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; explained: Katz Group Canada Inc. v. Ontario (Health and Long‐Term Care), 2013 SCC 64, [2013] 3 S.C.R. 810; referred to: Green v. Law Society of Manitoba, 2017 SCC 20, [2017] 1 S.C.R. 360; West Fraser Mills Ltd. v. [...] Doing so requires the Court to resolve debates about the continued relevance of Katz Group Canada Inc. v. Ontario (Health and Long‐Term Care), 2013 SCC 64, [2013] 3 S.C.R. 810, in light of our Court’s decision in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653. [3] I conclude 
+ [LINK /scc-csc/scc-csc/en/20730/1/document.do] 
+ 12.
+ [LINK /scc-csc/scc-csc/en/item/20336/index.do?q=%222019+SCC+65%22] Yatar v. TD Insurance Meloche Monnex
+ - 2024 SCC 8
+ - 2024-03-15
+ Supreme Court Judgments
+ Administrative law
+ Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Strickland v. Canada (Attorney General), 2015 SCC 37, [2015] 2 S.C.R. 713; referred to: Smith v. Co‐operators General Insurance Co., 2002 SCC 30, [2002] 2 S.C.R. 129; Canadian Pacific Ltd. v. Matsqui Indian Band, [1995] 1 [...] [3] As per Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, a right of appeal does not preclude an individual from seeking judicial review for questions not dealt with in the appeal. 
+ [LINK /scc-csc/scc-csc/en/20336/1/document.do] 
+ 13.
+ [LINK /scc-csc/scc-csc/en/item/21282/index.do?q=%222019+SCC+65%22] Dorsey v. Canada (Attorney General)
+ - 2025 SCC 38
+ - 2025-11-21
+ Supreme Court Judgments
+ Prerogative writs
+ v. National Special Handling Unit Review Committee, [1985] 2 S.C.R. 662; R. v. Gamble, [1988] 2 S.C.R. 595; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Mapara v. Ferndale Institution (Warden), 2012 BCCA 127, 318 B.C.A.C. 139; Lord v. Coulter, 2007 BCSC 1758, 72 Admin. [...] Likewise, decisions are not unreasonable merely because certain indicia point in the opposite direction, and it is for a hearing judge, with access to the full record, to make a holistic determination (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at paras. 102 and 105). C. [...] Rather, such decisions should be subject to review under procedures established by Parliament, as well as judicial review under the Vavilov framework (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653). II. Facts [104] In 2019, Mr. Dorsey and Mr. Salah both applied for transfers 
+ [LINK /scc-csc/scc-csc/en/21282/1/document.do] 
+ 14.
+ [LINK /scc-csc/scc-csc/en/item/19773/index.do?q=%222019+SCC+65%22] R. v. McColman
+ - 2023 SCC 8
+ - [2023] 1 SCR 309
+ - 2023-03-23
+ Supreme Court Judgments
+ Constitutional law
+ Criminal law
+ R. 255; referred to: Kienapple v. The Queen, [1975] 1 S.C.R. 729; R. v. Hufsky, [1988] 1 S.C.R. 621; R. v. Ladouceur, [1990] 1 S.C.R. 1257; R. v. Nolet, 2010 SCC 24, [2010] 1 S.C.R. 851; Scott v. R., 2021 QCCS 3866; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Rizzo & [...] with the scheme of the Act, the object of the Act, and the intention of Parliament’”: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 117, citing Rizzo & Rizzo Shoes Ltd. (Re), [1998] 1 S.C.R. 27, at para. 21, and Bell ExpressVu Limited Partnership v. 
+ [LINK /scc-csc/scc-csc/en/19773/1/document.do] 
+ 15.
+ [LINK /scc-csc/scc-csc/en/item/20081/index.do?q=%222019+SCC+65%22] Mason v. Canada (Citizenship and Immigration)
+ - 2023 SCC 21
+ - 2023-09-27
+ Supreme Court Judgments
+ Administrative law
+ Immigration
+ Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; considered: Society of Composers, Authors and Music Publishers of Canada v. Entertainment Software Association, 2022 SCC 30; Németh v. Canada (Justice), 2010 SCC 56, [2010] 3 S.C.R. 281; referred to: Dunsmuir v. New [...] [1] These appeals require the Court to apply the framework for judicial review developed in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, to two administrative decisions involving a question of statutory interpretation in the immigration context. [...] [125] In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, this Court held that reviewing courts should derogate from the presumption of reasonableness review where required by (1) a clear indication of legislative intent or (2) the rule of law (para. 10). 
+ [LINK /scc-csc/scc-csc/en/20081/1/document.do] 
+ 16.
+ [LINK /scc-csc/scc-csc/en/item/20518/index.do?q=%222019+SCC+65%22] Dow Chemical Canada ULC v. Canada
+ - 2024 SCC 23
+ - 2024-06-28
+ Supreme Court Judgments
+ Courts
+ Moreover, adopting Dow’s theory would unsettle the Court’s jurisprudence on the standard of review set forth in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653. When a taxpayer challenges an assessment, the Tax Court will conduct a de novo review of that assessment. [...] [5] Dow’s submissions, if accepted, would disturb settled jurisprudence, including this Court’s decision in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, by changing rules on standard of review, in particular for the “appeal” before the Tax Court pursuant to s. 169(1) of the [...] Rather, she emphasized that this determination must be made in light of our Court’s ruling in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653. [146] The Tax Court judge’s opinion on the question of law was appealed to the Federal Court of Appeal, which rejected the Tax Court 
+ [LINK /scc-csc/scc-csc/en/20518/1/document.do] 
+ 17.
+ [LINK /scc-csc/scc-csc/en/item/21588/index.do?q=%222019+SCC+65%22] Democracy Watch v. Canada (Attorney General)
+ - 2026 SCC 28
+ - 2026-07-30
+ Supreme Court Judgments
+ Constitutional law
+ [1969] 2 A.C. 147; considered: Dunsmuir v. New Brunswick, 2008 SCC 9, [2008] 1 S.C.R. 190; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Crevier v. Attorney General of Quebec, [1981] 2 S.C.R. 220; Canadian Union of Public Employees, Local 963 v. New Brunswick Liquor [...] Judicial review is constitutionally guaranteed, and as such, “legislatures cannot shield administrative decision making from curial scrutiny entirely”: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 24. [4] But what does it mean to say that legislatures cannot shield 
+ [LINK /scc-csc/scc-csc/en/21588/1/document.do] 
+ 18.
+ [LINK /scc-csc/scc-csc/en/item/20674/index.do?q=%222019+SCC+65%22] International Air Transport Association v. Canada (Transportation Agency)
+ - 2024 SCC 30
+ - 2024-10-04
+ Supreme Court Judgments
+ Evidence
+ AG, C-581/10 and C-629/10, [2013] 1 C.M.L.R. 42 (p. 1191); R. v. McGregor, 2023 SCC 4; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; R. v. Kirkpatrick, 2022 SCC 33; Yugraneft Corp. v. Rexx Management Corp., 2010 SCC 19, [2010] 1 S.C.R. 649; Kasikili/Sedudu Island [...] While academic articles can provide useful insights and perspectives, they can only be persuasive, not binding (R. v. McGregor, 2023 SCC 4, at para. 102; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 274, per Abella and Karakatsanis JJ., concurring; see also R. v. 
+ [LINK /scc-csc/scc-csc/en/20674/1/document.do] 
+ 19.
+ [LINK /scc-csc/scc-csc/en/item/20177/index.do?q=%222019+SCC+65%22] Commission scolaire francophone des Territoires du Nord-Ouest v. Northwest Territories (Education, Culture and Employment)
+ - 2023 SCC 31
+ - 2023-12-08
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ de l’école Rose‐des‐vents v. British Columbia (Education), 2015 SCC 21, [2015] 2 S.C.R. 139; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Law Society of British Columbia v. Trinity Western University, 2018 SCC 32, [2018] 2 S.C.R. 293; Loyola High School v. Quebec [...] I see no reason to depart from this standard of review in this case (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at paras. 16‐17). [61] Under the Doré approach, a reviewing court must begin by determining whether the administrative decision at issue “engages the Charter by 
+ [LINK /scc-csc/scc-csc/en/20177/1/document.do] 
+ 20.
+ [LINK /scc-csc/scc-csc/en/item/20493/index.do?q=%222019+SCC+65%22] Canadian Broadcasting Corp. v. Named Person
+ - 2024 SCC 21
+ - 2024-06-07
+ Supreme Court Judgments
+ Criminal law
+ R. v. Bacon, 2020 BCCA 140, 386 C.C.C. (3d) 256; R. v. Henry, 2005 SCC 76, [2005] 3 S.C.R. 609; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; Nishi v. Rascal Trucking Ltd., 2013 SCC 33, [2013] 2 S.C.R. 438; R. v. Jordan, 2016 SCC 27, [2016] 1 S.C.R. 631; Vetrovec v. The [...] Such cases do not suffice to show that one of our precedents can be overturned either because it is unworkable and undermines one of the purposes of stare decisis (see, e.g., R. v. Henry, 2005 SCC 76, [2005] 3 S.C.R. 609, at paras. 42‐44; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 
+ [LINK /scc-csc/scc-csc/en/20493/1/document.do] 
+ 21.
+ [LINK /scc-csc/scc-csc/en/item/18086/index.do?q=%222019+SCC+65%22] Canada Post Corp. v. Canadian Union of Postal Workers
+ - 2019 SCC 67
+ - [2019] 4 SCR 900
+ - 2019-12-20
+ Supreme Court Judgments
+ Administrative law
+ Applied: Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; referred to: Bell ExpressVu Limited Partnership v. Rex, 2002 SCC 42, [2002] 2 S.C.R. 559; Rizzo & Rizzo Shoes Ltd. (Re), [1998] 1 S.C.R. 27; Bell Canada v. Canada (Attorney General), 2019 SCC 66, [2019] 4 S.C.R. 653; [...] [2] The appeal before this Court provides an opportunity to apply the framework for judicial review set out in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653. The standard of review is reasonableness. 
+ [LINK /scc-csc/scc-csc/en/18086/1/document.do] 
+ 22.
+ [LINK /scc-csc/scc-csc/en/item/20398/index.do?q=%222019+SCC+65%22] Société des casinos du Québec inc. v. Association des cadres de la Société des casinos du Québec
+ - 2024 SCC 13
+ - 2024-04-19
+ Supreme Court Judgments
+ Administrative law
+ Constitutional law
+ In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, the Court established a presumption that the standard of reasonableness applies to the judicial review of an administrative decision maker’s decision. [...] Applied: Dunmore v. Ontario (Attorney General), 2001 SCC 94, [2001] 3 S.C.R. 1016; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; distinguished: Ontario (Attorney General) v. Fraser, 2011 SCC 20, [2011] 2 S.C.R. 3; Mounted Police Association of Ontario v. Canada (Attorney [...] [92] In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, our Court established a presumption that the standard of reasonableness applies to the judicial review of an administrative decision maker’s decision (paras. 16 and 23‐32). 
+ [LINK /scc-csc/scc-csc/en/20398/1/document.do] 
+ 23.
+ [LINK /scc-csc/scc-csc/en/item/19043/index.do?q=%222019+SCC+65%22] Northern Regional Health Authority v. Horrocks
+ - 2021 SCC 42
+ - [2021] 3 SCR 107
+ - 2021-10-22
+ Supreme Court Judgments
+ Applied: Weber v. Ontario Hydro, [1995] 2 S.C.R. 929; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65; Agraira v. Canada (Public Safety and Emergency Preparedness), 2013 SCC 36, [2013] 2 S.C.R. 559; considered: St. Anne Nackawic Pulp & Paper Co. v. Canadian Paper Workers Union, Local 219, [1986] [...] [7] Decisions concerning the jurisdictional lines between two or more administrative bodies must be correct (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, at para. 53). This standard safeguards the rule of law, which “requires courts to intervene where one administrative body has interpreted the 
+ [LINK /scc-csc/scc-csc/en/19043/1/document.do] 
+ 24.
+ [LINK /scc-csc/scc-csc/en/item/20723/index.do?q=%222019+SCC+65%22] R. v. Archambault
+ - 2024 SCC 35
+ - 2024-11-01
+ Supreme Court Judgments
+ Criminal law
+ Statutes
+ L.R. (7th) 1; R. v. S.S., 2021 ONCA 479, 493 C.R.R. (2d) 251; R. v. C.T.B., 2021 NSCA 58; R. v. Friesen, 2020 SCC 9, [2020] 1 S.C.R. 424; R. v. M. (C.A.), [1996] 1 S.C.R. 500; Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653; R. v. Bertrand Marchand, 2023 SCC 26; R. v. D.A.I., [...] is presumed to use language such that the same words have the same meaning both within a statute and across statutes” (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 44, citing R. Sullivan, Sullivan on the Construction of Statutes (6th ed. 2014), at p. 217). [...] The presumption of consistent expression provides that the meaning of recurring patterns of expression is presumed to remain the same “both within a statute and across statutes” (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 44). [286] In Tran, this Court was 
+ [LINK /scc-csc/scc-csc/en/20723/1/document.do] 
+ 25.
+ [LINK /scc-csc/scc-csc/en/item/18781/index.do?q=%222019+SCC+65%22] References re Greenhouse Gas Pollution Pricing Act
+ - 2021 SCC 11
+ - [2021] 1 SCR 175
+ - 2021-03-25
+ Supreme Court Judgments
+ Constitutional law
+ This gives rise to confusion and uncertainty, which are inimical to the rule of law (Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at para. 72). [274] The second additional concern is that Henry VIII clauses endow the executive with authority to act arbitrarily. [...] [426] As Abella and Karakatsanis JJ. forcefully expressed in their concurring judgment in Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, the doctrine of “[s]tare decisis places significant limits on this Court’s ability to overturn its precedents” (para. 255). [...] In Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, this Court made clear that there is no separate “jurisdictional questions” category of correctness review that would rebut the presumption, even for delegated legislation (paras. 65‐66). 
+ [LINK /scc-csc/scc-csc/en/18781/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "scc-csc",
+ yearRangeString: "1877:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "11"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";
