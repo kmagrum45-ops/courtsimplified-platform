@@ -812,8 +812,19 @@ const NOTICE_FITS: Partial<Record<RuleCitation["sourceId"], (story: string, city
   "city-of-toronto-act-2006": (story, city) => PUBLIC_WAY.test(story) && (inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
   "municipal-act-2001": (story, city) => PUBLIC_WAY.test(story) && !(inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
   "occupiers-liability-act": (story) => /\b(?:snow|ice|icy)\b/i.test(story) && /\b(?:property|premises|store|shop|parking|lot|driveway|building|landlord|mall|restaurant|plaza)\b/i.test(story),
-  "crown-liability-and-proceedings-act-2019": (story) => /\b(?:crown|province|provincial|ontario government|government of ontario|ministry|minister|opp)\b/i.test(story),
+  // Not "province" alone: a saved address says which province (walkthrough
+  // run 38482600205: a Toronto sidewalk fall led with the Crown's notice).
+  "crown-liability-and-proceedings-act-2019": (story) =>
+    /\b(?:the crown|ontario government|government of ontario|provincial government|the province|ministry|minister|opp|ontario provincial police)\b/i.test(story),
 };
+
+/**
+ * The person's words without the field names of saved answers ("city":,
+ * "province":), so a field's name never counts as something they said.
+ */
+function proseOf(words: string): string {
+  return words.replace(/"[A-Za-z_][A-Za-z0-9_]*"\s*:/g, " ");
+}
 
 /**
  * Whether a time limit about a notice fits the person's words, read from the
@@ -821,7 +832,8 @@ const NOTICE_FITS: Partial<Record<RuleCitation["sourceId"], (story: string, city
  * one of these notices. Uses the same tests as the notice rules above.
  */
 const LIBEL = /\b(?:libel\w*|slander\w*|defam\w*|newspaper|broadcast|radio|television|tv)\b/i;
-export function noticeFit(what: string, story: string, city = ""): "fits" | "not" | null {
+export function noticeFit(what: string, words: string, city = ""): "fits" | "not" | null {
+  const story = proseOf(words);
   if (!story.trim()) return null;
   const test = (fits: boolean) => (fits ? "fits" : "not");
   if (/\bCity of Toronto\b/.test(what)) return test(NOTICE_FITS["city-of-toronto-act-2006"]!(story, city));
@@ -833,7 +845,8 @@ export function noticeFit(what: string, story: string, city = ""): "fits" | "not
 }
 
 /** A step's extra rule lines, narrowed to the notices the person's words fit (all of them when the words fit none). */
-export function alsoFor(also: RuleCitation[], story = "", city = ""): RuleCitation[] {
+export function alsoFor(also: RuleCitation[], words = "", city = ""): RuleCitation[] {
+  const story = proseOf(words);
   if (!story.trim()) return also;
   const judged = also.filter((cite) => NOTICE_FITS[cite.sourceId]);
   const fitting = judged.filter((cite) => NOTICE_FITS[cite.sourceId]!(story, city));

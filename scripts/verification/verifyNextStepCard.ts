@@ -157,6 +157,12 @@ async function main() {
     check("a Toronto sidewalk fall leads with the City of Toronto notice", toronto.main.deadlines.some((d) => /City of Toronto/.test(d.what)));
     check("and drops the Crown, libel and general-municipality notices", ![...toronto.main.deadlines, ...toronto.conditional.deadlines, ...toronto.main.periods, ...toronto.conditional.periods].some((d) => /Ontario Crown|libel|a municipality/.test(d.what)));
     check("the general two years stays", [...toronto.main.deadlines, ...toronto.conditional.deadlines].some((d) => /general deadline/.test(d.what)));
+    // The words also carry saved answers as JSON; a field named "province" or
+    // "city" is not something the person said (walkthrough run 38482600205).
+    const withFields = cardLimits(notices as never, false, `${story} {"province":"Ontario","city":"Toronto"}`, "Toronto");
+    check("saved field names do not count as the person's words", ![...withFields.main.periods, ...withFields.conditional.periods].some((d) => /Ontario Crown/.test(d.what)));
+    const newspaper = cardLimits(notices as never, false, 'a newspaper printed lies about me {"city":"Ottawa"}', "Ottawa");
+    check("a field named city does not make a libel story a road claim", ![...newspaper.main.deadlines].some((d) => /municipality|City of Toronto/.test(d.what)));
     const vague = cardLimits(notices as never, false, "something happened to me", "Ottawa");
     check("a story that fits no notice keeps every notice", vague.main.deadlines.length + vague.conditional.deadlines.length + vague.main.periods.length + vague.conditional.periods.length === 5);
   }
