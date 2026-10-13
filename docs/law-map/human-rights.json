@@ -136,7 +136,7 @@
       "id": "hr.statute.jrpa",
       "kind": "statute",
       "title": "Judicial Review Procedure Act",
-      "says": "The Judicial Review Procedure Act is the law that lets a party ask the Divisional Court to review a Tribunal decision.",
+      "says": "The Judicial Review Procedure Act lets a person apply for judicial review, on which the court may grant relief in the nature of mandamus, prohibition or certiorari, or a declaration or injunction about the exercise of a statutory power, despite any right of appeal.",
       "source": {
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
@@ -146,13 +146,18 @@
       },
       "leadsTo": [
         "hr.option.judicial-review"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 2(1) names neither the Divisional Court (that is s. 6) nor the Tribunal; it defines the relief the court may grant.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.statute.chra",
       "kind": "statute",
       "title": "Canadian Human Rights Act (federal matters)",
-      "says": "Discrimination by federally regulated organizations (for example banks, airlines, telephone companies, the federal government) falls under the Canadian Human Rights Act, not the Ontario Code. Complaints go to the Canadian Human Rights Commission.",
+      "says": "Under the Canadian Human Rights Act, any individual or group with reasonable grounds to believe that a person is engaging or has engaged in a discriminatory practice may file a complaint with the Canadian Human Rights Commission, in a form acceptable to the Commission.",
       "source": {
         "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
@@ -162,7 +167,12 @@
       },
       "leadsTo": [
         "hr.pre.federal-time"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 40(1) gives no examples of federally regulated organizations and does not mention the Ontario Code.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.statute.lra-arbitrator",
@@ -173,12 +183,16 @@
         "citation": "Labour Relations Act, 1995, S.O. 1995, c. 1, Sched. A",
         "url": "https://www.ontario.ca/laws/statute/95l01",
         "pinpoint": "s. 48 (12) (j)",
-        "expect": "interpret and apply human rights and other employment-related statutes",
+        "expect": "to interpret and apply human rights and other employment",
         "corpusId": "labour-relations-act-1995"
       },
       "leadsTo": [
         "hr.pre.unionized-worker"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.pre.social-area-and-ground",
@@ -208,7 +222,7 @@
       "id": "hr.pre.federal-or-provincial",
       "kind": "pre-step",
       "title": "Check: Ontario or federal law?",
-      "says": "The Ontario Code covers provincially regulated employers, landlords and service providers. Federally regulated organizations are covered by the Canadian Human Rights Act instead.",
+      "says": "The Canadian Human Rights Act applies within matters under the legislative authority of Parliament; its purpose is to give effect there to the principle of equal opportunity, free from discriminatory practices based on the listed grounds.",
       "source": {
         "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
@@ -220,7 +234,12 @@
         "hr.statute.chra",
         "hr.pre.unionized-worker",
         "hr.pre.hrlsc"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 2 states the purpose of the federal Act within Parliament's legislative authority; it says nothing about the Ontario Code or provincial employers, landlords and service providers.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.pre.federal-time",
@@ -233,6 +252,10 @@
         "pinpoint": "s. 41 (1) (e)",
         "expect": "more than one year",
         "corpusId": "canadian-human-rights-act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1463,7 +1486,8 @@
         "citation": "O. Reg. 290/98 (Business Practices Permissible to Landlords in Selecting Prospective Tenants for Residential Accommodation)",
         "url": "https://www.ontario.ca/laws/regulation/980290",
         "pinpoint": "s. 1",
-        "expect": "request credit references and rental history information"
+        "expect": "request credit references and rental history information",
+        "corpusId": "oreg-290-98-landlord-tenant-selection"
       }
     },
     {
@@ -2636,13 +2660,18 @@
       "id": "hr.deadline.judicial-review",
       "kind": "deadline",
       "title": "Time limit for judicial review",
-      "says": "An application for judicial review must be made no later than 30 days after the decision, unless the court extends the time.",
+      "says": "Unless another Act provides otherwise, an application for judicial review must be made no later than 30 days after the date the decision was made. The court may extend the time if satisfied there are apparent grounds for relief and that no substantial prejudice or hardship will result to anyone affected by the delay.",
       "source": {
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
         "pinpoint": "s. 5 (1)",
         "expect": "no later than 30 days after the date the decision",
         "corpusId": "judicial-review-procedure-act"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops 'Unless another Act provides otherwise' and the conditions for an extension in s. 5(2).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3156,16 +3185,21 @@
       "id": "hr.decision.danyluk",
       "kind": "decision",
       "title": "Danyluk v. Ainsworth Technologies",
-      "says": "The Supreme Court set out the test for issue estoppel and the discretion not to apply it where that would be unfair.",
+      "says": "The Supreme Court restated the three preconditions for issue estoppel: the same question has been decided; the judicial decision said to create the estoppel was final; and the parties to that decision, or their privies, are the same as the parties (or privies) in the proceeding where estoppel is raised.",
       "source": {
         "decision": "Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44",
         "pinpoint": "para. 25",
         "corpusId": "decision-danyluk",
-        "expect": "the same question has been decided in earlier proceedings"
+        "expect": "that the same question has been decided"
       },
       "leadsTo": [
         "hr.motion.dismiss-other-proceeding"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 25 sets out the three preconditions for issue estoppel only; the discretion not to apply it comes later in the reasons (two-step analysis), not at para. 25. Unanimous reasons of Binnie J.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.tranchemontagne",

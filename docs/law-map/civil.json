@@ -3390,13 +3390,18 @@
       "id": "civ.enf.other-province",
       "kind": "enforcement",
       "title": "Enforcing an Ontario judgment elsewhere, or an outside judgment here",
-      "says": "Judgments from other Canadian provinces can be registered and enforced in Ontario under the Reciprocal Enforcement of Judgments Act and related statutes.",
+      "says": "A person who got a money judgment in a court of a reciprocating state can apply, within six years after the date of the judgment, to an Ontario court with jurisdiction over the subject-matter, or to the Superior Court of Justice, to have the judgment registered there; the court may order it registered, subject to the Act.",
       "source": {
         "citation": "Reciprocal Enforcement of Judgments Act, R.S.O. 1990, c. R.5",
         "url": "https://www.ontario.ca/laws/statute/90r05",
         "pinpoint": "s. 2(1)",
-        "expect": "may apply to have the judgment registered",
+        "expect": "to have the judgment registered in that court",
         "corpusId": "reciprocal-enforcement-of-judgments-act"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 2(1) covers judgments of a 'reciprocating state' only, within six years, on application to an Ontario court; it does not name other provinces generally or 'related statutes'.",
+        "fixed": "2026-10-13"
       }
     },
     {

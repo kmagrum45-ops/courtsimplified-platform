@@ -394,7 +394,8 @@
       "source": {
         "citation": "O. Reg. 9/18, Standard Forms of Lease",
         "url": "https://www.ontario.ca/laws/regulation/r18009",
-        "expect": "standard form of lease"
+        "expect": "standard form of lease",
+        "corpusId": "oreg-9-18-standard-lease"
       }
     },
     {

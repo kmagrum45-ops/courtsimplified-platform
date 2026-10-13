@@ -1223,13 +1223,18 @@
       "id": "sc.fees.waiver-reg",
       "kind": "statute",
       "title": "Court fee waiver regulation",
-      "says": "Ontario Regulation 2/05 under the Administration of Justice Act sets who qualifies for a court fee waiver and how to request one (forms FW-A-3 and FW-A-4).",
+      "says": "Ontario Regulation 2/05 sets out who meets the conditions for a court fee waiver: a person whose household income comes mainly from Ontario Works, ODSP, Old Age Security with the Guaranteed Income Supplement, the Canada Pension Plan or a War Veterans allowance; a person whose legal aid application for the proceeding Legal Aid Ontario has approved; or a person whose household income, liquid assets and net worth are below the set limits.",
       "source": {
         "citation": "O. Reg. 2/05 (Court Fee Waivers), Administration of Justice Act",
         "url": "https://www.ontario.ca/laws/regulation/050002",
-        "pinpoint": "s. 2",
-        "expect": "fee waiver certificate",
+        "pinpoint": "s. 2 (1)",
+        "expect": "meets the prescribed conditions referred to in subsections",
         "corpusId": "oreg-2-05-court-fee-waivers"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 2 sets who meets the prescribed conditions; it does not cover how to request a waiver or name forms FW-A-3/FW-A-4, and 'fee waiver certificate' is not in s. 2.",
+        "fixed": "2026-10-13"
       }
     },
     {

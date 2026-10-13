@@ -101,7 +101,7 @@
       "id": "emp.statute.ohsa",
       "kind": "statute",
       "title": "Occupational Health and Safety Act",
-      "says": "The Occupational Health and Safety Act sets duties for workplace safety, including employer duties about workplace violence and workplace harassment, and protects workers from reprisal for raising safety rights.",
+      "says": "The Occupational Health and Safety Act defines workplace harassment as a course of vexatious comment or conduct against a worker in a workplace, including virtually, that is known or ought reasonably to be known to be unwelcome, and it includes workplace sexual harassment. The Act also defines workplace violence.",
       "source": {
         "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
         "url": "https://www.ontario.ca/laws/statute/90o01",
@@ -111,13 +111,18 @@
       },
       "leadsTo": [
         "emp.ohsa.harassment-definition"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 1(1) is definitions only; employer duties and reprisal protection are in other sections.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.wsia",
       "kind": "statute",
       "title": "Workplace Safety and Insurance Act, 1997",
-      "says": "The Workplace Safety and Insurance Act sets up no-fault benefits for workers injured at work. In exchange, workers covered by the insurance plan generally cannot sue their employer for a workplace injury.",
+      "says": "A worker employed by a Schedule 1 employer, the worker's survivors and a Schedule 1 employer cannot start a lawsuit about the worker's injury or disease against any Schedule 1 employer or its directors, executive officers or workers; a Schedule 2 worker and survivors cannot sue the worker's own Schedule 2 employer or its directors, executive officers or workers. Exceptions apply, for example where another employer supplied a vehicle, machinery or equipment without workers to operate it.",
       "source": {
         "citation": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
         "url": "https://www.ontario.ca/laws/statute/97w16",
@@ -127,7 +132,12 @@
       },
       "leadsTo": [
         "emp.wsib.bar"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 28 does not describe benefits as no-fault, and the bar depends on Schedule 1 or Schedule 2 status, with conditions and exceptions in s. 28(3)-(4).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.limitations",
@@ -170,7 +180,7 @@
       "id": "emp.statute.clc",
       "kind": "statute",
       "title": "Canada Labour Code (federally regulated work)",
-      "says": "Employees in federally regulated work (for example banks, airlines, interprovincial trucking, telecommunications) are covered by the Canada Labour Code, not the Ontario Employment Standards Act. The Code has its own unjust dismissal complaint process.",
+      "says": "Under the Canada Labour Code, a person who has been dismissed and considers the dismissal unjust may make a written complaint to the Head, if they completed 12 consecutive months of continuous employment with the employer and are not a member of a group of employees subject to a collective agreement.",
       "source": {
         "citation": "Canada Labour Code, R.S.C. 1985, c. L-2",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/",
@@ -181,24 +191,34 @@
       "leadsTo": [
         "emp.esa.federal-exclusion",
         "emp.clc.unjust-dismissal"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 240(1) gives no examples of federal industries and does not mention the Ontario Employment Standards Act; it sets conditions (12 consecutive months, not under a collective agreement).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.eia",
       "kind": "statute",
       "title": "Employment Insurance Act",
-      "says": "The federal Employment Insurance Act provides benefits to people who lose work. Decisions about benefits can be reconsidered and then appealed to the Social Security Tribunal.",
+      "says": "A claimant, another person who is the subject of a Commission decision, or the claimant's employer may ask the Commission to reconsider the decision within 30 days after it is communicated to them, or any further time the Commission allows; the Commission must reconsider it.",
       "source": {
         "citation": "Employment Insurance Act, S.C. 1996, c. 23",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/E-5.6/",
         "pinpoint": "s. 112 (1)",
-        "expect": "may make a request to the Commission for a reconsideration",
+        "expect": "for a reconsideration of that decision",
         "corpusId": "employment-insurance-act"
       },
       "leadsTo": [
         "emp.ei.roe",
         "emp.ei.reconsideration"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "s. 112(1) covers reconsideration only; it does not describe benefits generally, and under s. 113 an appeal of a reconsideration decision now goes to the Employment Insurance Board of Appeal, not the Social Security Tribunal.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.coverage",
@@ -3195,13 +3215,17 @@
       "leadsTo": [
         "emp.ohsa.policy",
         "emp.ohsa.investigation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ohsa.policy",
       "kind": "test",
       "title": "Employer must have a harassment policy and program",
-      "says": "An employer must prepare a workplace harassment policy, review it at least once a year, and develop a program to put it into effect, including how workers report incidents and how they are investigated.",
+      "says": "An employer must prepare a workplace violence policy and a workplace harassment policy and review them as often as necessary, but at least once a year. The policies must be in writing and posted in a conspicuous place or in a readily accessible electronic format, unless five or fewer workers are regularly employed there and an inspector has not ordered otherwise.",
       "source": {
         "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
         "url": "https://www.ontario.ca/laws/statute/90o01",
@@ -3211,7 +3235,12 @@
       },
       "leadsTo": [
         "emp.ohsa.investigation"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 32.0.1(1) requires the violence and harassment policies and annual review; the program to implement the harassment policy (reporting, investigation) is s. 32.0.6, a different section.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.ohsa.investigation",
@@ -3228,7 +3257,11 @@
       "leadsTo": [
         "emp.ohsa.reprisal",
         "emp.test.constructive-series"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ohsa.reprisal",
@@ -3241,23 +3274,32 @@
         "pinpoint": "s. 50 (1)",
         "expect": "No employer or person acting on behalf of an employer",
         "corpusId": "occupational-health-and-safety-act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "emp.wsib.bar",
       "kind": "test",
       "title": "No lawsuit against an employer for a workplace injury",
-      "says": "Workers of an employer covered by the insurance plan, and their survivors, cannot sue the employer (or other covered employers and their workers) for a workplace injury or occupational disease. The claim goes to the WSIB instead.",
+      "says": "A worker employed by a Schedule 1 employer and the worker's survivors cannot sue any Schedule 1 employer, or a director, executive officer or worker of any Schedule 1 employer, about the worker's injury or disease. A Schedule 2 worker and survivors cannot sue the worker's own Schedule 2 employer or its directors, executive officers or workers. Exceptions apply, for example where another employer supplied a vehicle, machinery or equipment without workers to operate it.",
       "source": {
         "citation": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
         "url": "https://www.ontario.ca/laws/statute/97w16",
         "pinpoint": "s. 28 (1)",
-        "expect": "is not entitled to commence an action",
+        "expect": "are not entitled to commence an action",
         "corpusId": "workplace-safety-and-insurance-act-1997"
       },
       "leadsTo": [
         "emp.wsib.right-to-sue"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 28 does not say the claim goes to the WSIB; the bar applies to Schedule 1 workers (Schedule 2 workers only against their own employer) and is subject to s. 28(3)-(4).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.wsib.right-to-sue",
@@ -3270,24 +3312,33 @@
         "pinpoint": "s. 31 (1)",
         "expect": "whether, because of this Act, the right to commence an",
         "corpusId": "workplace-safety-and-insurance-act-1997"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "emp.ei.roe",
       "kind": "step",
       "title": "Record of Employment",
-      "says": "When an employee has an interruption of earnings, the employer must issue a Record of Employment, generally within five days, which Service Canada uses to decide EI benefits.",
+      "says": "An employer must complete a record of employment for a person in insurable employment who has an interruption of earnings. A paper record goes to the employee and the Commission no later than five days after the later of the first day of the interruption and the day the employer becomes aware of it. An electronic record goes to the Commission no later than five days after the end of the pay period in which the interruption began, or 15 days after it began if that is earlier and there are 13 or fewer pay periods a year.",
       "source": {
         "citation": "Employment Insurance Regulations, SOR/96-332",
         "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-96-332/",
         "pinpoint": "s. 19 (3)",
-        "expect": "within five days",
+        "expect": "not later than five days after the later of",
         "corpusId": "employment-insurance-regulations"
       },
       "leadsTo": [
         "emp.ei.roe",
         "emp.ei.reconsideration"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "'Generally within five days' and Service Canada's use of the record are not in s. 19; the five days run from the later of the first day of the interruption and the day the employer becomes aware of it (paper), with a different rule for electronic records (s. 19(3.1)).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.ei.reconsideration",
@@ -3298,24 +3349,33 @@
         "citation": "Employment Insurance Act, S.C. 1996, c. 23",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/E-5.6/",
         "pinpoint": "s. 112 (1)",
-        "expect": "within 30 days after the day on which a decision",
+        "expect": "30 days after the day on which a decision is communicated",
         "corpusId": "employment-insurance-act"
       },
       "leadsTo": [
         "emp.ei.appeal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ei.appeal",
       "kind": "option",
       "title": "Appeal to the Social Security Tribunal",
-      "says": "A reconsideration decision can be appealed to the General Division of the Social Security Tribunal, within 30 days for EI decisions.",
+      "says": "An appeal of an EI reconsideration decision goes to the Employment Insurance Board of Appeal within 30 days after the decision is communicated to the appellant. The Board may allow more time, but never more than one year after the decision was communicated.",
       "source": {
         "citation": "Department of Employment and Social Development Act, S.C. 2005, c. 34",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/H-5.7/",
-        "pinpoint": "s. 52 (1)",
-        "expect": "within 30 days after the day on which it is",
+        "pinpoint": "s. 43.11 (1)",
+        "expect": "must be brought to the Board of Appeal",
         "corpusId": "department-of-employment-and-social-development-act"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "In the saved DESDA text, s. 43.11(1) (2023, c. 26) sends appeals of section 112 reconsideration decisions to the Employment Insurance Board of Appeal within 30 days; EI Act s. 113 says the same. s. 52(1) speaks of 'an appeal of a decision' and does not say reconsideration decisions go to the General Division.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3329,6 +3389,10 @@
         "pinpoint": "s. 240 (2)",
         "expect": "within ninety days from the date on which the person",
         "corpusId": "canada-labour-code"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {

@@ -2468,13 +2468,18 @@
       "id": "vic.post.ccra-info",
       "kind": "step",
       "title": "Information from federal corrections",
-      "says": "For offenders serving two years or more, a registered victim may request information from the Correctional Service of Canada and Parole Board of Canada, including release dates and conditions, and may present a victim statement at parole hearings.",
+      "says": "At a victim's request, the Commissioner of Corrections must disclose the offender's name, offence and convicting court, sentence start date and length, and eligibility and review dates for temporary absences and parole; must disclose release dates, conditions and destination if that would not have a negative impact on public safety; and may disclose further information where the victim's interest clearly outweighs the offender's privacy.",
       "source": {
         "citation": "Corrections and Conditional Release Act, S.C. 1992, c. 20",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/c-44.6/",
         "pinpoint": "s. 26 (1)",
         "expect": "at the request of a victim",
         "corpusId": "corrections-and-conditional-release-act"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 26(1) is about disclosure by the Commissioner of Corrections; it does not mention sentences of two years or more, registration, the Parole Board, or victim statements at hearings, and release dates and conditions are disclosed only if not a negative impact on public safety.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2684,6 +2689,10 @@
         "decision": "Nelles v. Ontario, [1989] 2 S.C.R. 170",
         "expect": "absolute immunity from a suit for malicious prosecution",
         "corpusId": "decision-nelles"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2695,7 +2704,11 @@
         "decision": "Miazga v. Kvello Estate, 2009 SCC 51",
         "pinpoint": "para. 3",
         "corpusId": "decision-miazga",
-        "expect": "absence of reasonable and probable cause"
+        "expect": "undertaken without reasonable and probable cause"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2705,8 +2718,13 @@
       "says": "The Supreme Court of Canada held that Charter damages may be awarded against the Crown for wrongful non-disclosure by prosecutors, where the claimant meets the fault standard the Court set out.",
       "source": {
         "decision": "Henry v. British Columbia (Attorney General), 2015 SCC 24",
-        "expect": "Wrongful non-disclosure",
-        "corpusId": "decision-henry"
+        "expect": "proof of malice is not required",
+        "corpusId": "decision-henry",
+        "pinpoint": "para. 31"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2804,6 +2822,10 @@
         "pinpoint": "s. 15 (1)",
         "expect": "The death of a person",
         "corpusId": "special-investigations-unit-act-2019"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2814,7 +2836,12 @@
       "source": {
         "decision": "Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41",
         "expect": "tort of negligent investigation",
-        "corpusId": "decision-hill-hamilton"
+        "corpusId": "decision-hill-hamilton",
+        "pinpoint": "para. 3"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3048,7 +3075,12 @@
       "source": {
         "decision": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24",
         "expect": "he bears the burden of proving that the plaintiff consented",
-        "corpusId": "decision-scalera"
+        "corpusId": "decision-scalera",
+        "pinpoint": "para. 2"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3071,6 +3103,10 @@
         "decision": "Saadati v. Moorhead, 2017 SCC 28",
         "expect": "recognized psychiatric illness",
         "corpusId": "decision-saadati"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3125,13 +3161,14 @@
     {
       "id": "vic.ovbr.civil-prescribed",
       "kind": "statute",
-      "title": "Prescribed crimes regulation",
-      "says": "The crimes to which the Ontario damages and notification provisions apply are listed in a regulation made under the Act.",
+      "title": "Crimes the Victims' Bill of Rights provisions cover",
+      "says": "A regulation says which crimes these provisions of the Victims' Bill of Rights, 1995 apply to. For paragraphs 3 and 4 of s. 2 (1) of the Act, every crime in the Criminal Code is covered. For s. 3 (1) of the Act, only the crimes in the Criminal Code sections listed in s. 2 of the regulation are covered.",
       "source": {
-        "citation": "O. Reg. 456/96 (Prescribed Crimes) under the Victims' Bill of Rights, 1995",
+        "citation": "O. Reg. 456/96 (General) under the Victims' Bill of Rights, 1995",
         "url": "https://www.ontario.ca/laws/regulation/960456",
-        "pinpoint": "s. 1",
-        "expect": "prescribed crimes"
+        "pinpoint": "ss. 1-2",
+        "expect": "All crimes described in the Criminal Code (Canada) are prescribed",
+        "corpusId": "oreg-456-96-prescribed-crimes"
       }
     },
     {
@@ -3218,13 +3255,18 @@
       "id": "vic.civil.civil-remedies",
       "kind": "option",
       "title": "Forfeited proceeds of crime and victim compensation",
-      "says": "Under Ontario's Civil Remedies Act, 2001, the Attorney General can ask the Superior Court to forfeit property that is proceeds of unlawful activity; money from forfeited property can be used to compensate persons who suffered losses from that activity.",
+      "says": "Where property forfeited to Ontario under this Part is money or is converted to money, it goes into a special account. After the Crown's costs are paid (unless the Director elects to put compensation first), the Minister of Finance may, subject to the regulations, make payments from it to compensate persons, or estates of deceased persons, who suffered pecuniary or non-pecuniary losses as a result of the unlawful activity.",
       "source": {
         "citation": "Civil Remedies Act, 2001, S.O. 2001, c. 28",
         "url": "https://www.ontario.ca/laws/statute/01r28",
-        "pinpoint": "s. 6",
-        "expect": "compensate persons who suffered pecuniary or non-pecuniary losses",
+        "pinpoint": "s. 6 (3)",
+        "expect": "who suffered pecuniary or non-pecuniary losses",
         "corpusId": "civil-remedies-act-2001"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 6 is about the special purpose account; the Attorney General's forfeiture application to the Superior Court is s. 3. Payments to people who suffered losses are discretionary ('may'), subject to the regulations, and after the Crown's costs unless the Director elects otherwise.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3378,6 +3420,10 @@
         "pinpoint": "para. 67",
         "expect": "the following principles and guidelines should be adhered to",
         "corpusId": "decision-antic"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3390,6 +3436,10 @@
         "pinpoint": "para. 6",
         "expect": "the principles of restraint and review",
         "corpusId": "decision-zora"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3402,18 +3452,27 @@
         "pinpoint": "para. 87",
         "expect": "does not create a residual ground for detention",
         "corpusId": "decision-st-cloud"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "vic.dec.myers",
       "kind": "decision",
       "title": "R. v. Myers",
-      "says": "The Supreme Court of Canada explained the 90-day detention review: the judge asks whether continued detention is still justified on the grounds in s. 515(10), and considers any unreasonable delay.",
+      "says": "The Supreme Court of Canada held that the 90-day detention review under s. 525 of the Criminal Code is a safeguard: the reviewing judge has an independent responsibility to consider whether the accused's continued detention is justified, and the review is designed to prevent unreasonable delay and to speed up the trials of people held in custody.",
       "source": {
         "decision": "R. v. Myers, 2019 SCC 18",
-        "pinpoint": "para. 1",
-        "expect": "Pre-trial detention is the exception, not the rule",
+        "pinpoint": "para. 4",
+        "expect": "whether the continued detention of the accused is justified",
         "corpusId": "decision-myers-bail"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 1 states only the general principle (release is the default, detention the exception); the description of the s. 525 review is at para. 4 and later. Unanimous reasons of Wagner C.J.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3425,6 +3484,10 @@
         "decision": "R. v. Morales, [1992] 3 S.C.R. 711",
         "expect": "just cause",
         "corpusId": "decision-morales"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3436,6 +3499,10 @@
         "decision": "R. v. Hall, 2002 SCC 64",
         "expect": "confidence in the administration of justice",
         "corpusId": "decision-hall-bail"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {

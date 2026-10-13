@@ -3250,12 +3250,18 @@
       "id": "fam.enf.passport",
       "kind": "enforcement",
       "title": "Federal licence and passport denial",
-      "says": "The Director can ask the federal government to deny or suspend a payor's passport and some federal licences under the Family Orders and Agreements Enforcement Assistance Act.",
+      "says": "If a support payor is in persistent arrears, the provincial enforcement service may apply to the federal Minister asking that no new schedule licences be issued to the payor, that those held be suspended and that they not be renewed; a passport counts as a licence for this purpose. The application can be made only 30 days after the payor received a notice of intent.",
       "source": {
         "citation": "Family Orders and Agreements Enforcement Assistance Act, R.S.C. 1985, c. 4 (2nd Supp.)",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/F-1.4/",
-        "expect": "passport",
-        "corpusId": "family-orders-and-agreements-enforcement-assistance-act"
+        "expect": "a provincial enforcement service may apply to the Minister",
+        "corpusId": "family-orders-and-agreements-enforcement-assistance-act",
+        "pinpoint": "s. 67 (1)"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the condition that the payor be in persistent arrears and the notice steps; the applicant is the provincial enforcement service, and the request is that schedule licences not be issued, be suspended and not be renewed.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3380,12 +3386,18 @@
       "id": "fam.enf.interjurisdictional",
       "kind": "enforcement",
       "title": "Support across provinces and countries",
-      "says": "Support orders can be registered and enforced, and support applications made, between Ontario and other provinces or countries through the Interjurisdictional Support Orders Act, 2002.",
+      "says": "Support orders, temporary support orders and orders varying them that were made in reciprocating jurisdictions in and outside Canada can be registered and enforced in Ontario under the Interjurisdictional Support Orders Act, 2002; this does not apply to provisional orders.",
       "source": {
         "citation": "Interjurisdictional Support Orders Act, 2002, S.O. 2002, c. 13",
         "url": "https://www.ontario.ca/laws/statute/02i13",
         "expect": "reciprocating jurisdiction",
-        "corpusId": "interjurisdictional-support-orders-act-2002"
+        "corpusId": "interjurisdictional-support-orders-act-2002",
+        "pinpoint": "s. 17 (1)"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "The Act works only with 'reciprocating jurisdictions' (prescribed by regulation), not any other province or country; provisional orders are excluded from registration.",
+        "fixed": "2026-10-13"
       }
     },
     {

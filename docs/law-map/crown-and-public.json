@@ -161,7 +161,7 @@
       "id": "crown.statute.jrpa",
       "kind": "statute",
       "title": "Judicial Review Procedure Act",
-      "says": "This Act lets a person ask a court to review a decision made under a statutory power, for example by a government official, a tribunal or a municipal body, and to set it aside if it was made unlawfully or unfairly.",
+      "says": "On an application for judicial review, the court may, despite any right of appeal, grant relief in the nature of mandamus, prohibition or certiorari, or a declaration or injunction about the exercise, refusal to exercise or proposed exercise of a statutory power. Where a decision made under a statutory power of decision is unauthorized or otherwise invalid, the court may set it aside.",
       "source": {
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
@@ -172,7 +172,12 @@
       "leadsTo": [
         "crown.jr.time-limit",
         "crown.jr.start"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 2 lists the relief available (mandamus, prohibition, certiorari, declaration, injunction about a statutory power) and lets the court set aside an invalid decision; it does not give examples of officials or bodies or a test of 'unlawfully or unfairly'.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.sppa",
@@ -198,7 +203,7 @@
       "id": "crown.statute.ombudsman",
       "kind": "statute",
       "title": "Ombudsman Act",
-      "says": "The Ombudsman of Ontario is an independent officer of the Legislature who investigates complaints about the administration of provincial government bodies and, since 2016, municipalities, school boards and universities.",
+      "says": "The Ombudsman's function is to investigate any decision or recommendation made, or act done or omitted, in the course of the administration of a public sector body that affects a person or body of persons in their personal capacity. The Ombudsman may investigate on a complaint from a person affected, on a complaint referred by a member of the Assembly, or on the Ombudsman's own motion.",
       "source": {
         "citation": "Ombudsman Act, R.S.O. 1990, c. O.6",
         "url": "https://www.ontario.ca/laws/statute/90o06",
@@ -208,7 +213,12 @@
       },
       "leadsTo": [
         "crown.ombudsman.complaint"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 14(1) states the Ombudsman's function only; 'independent officer of the Legislature' is s. 2 and the list of bodies (and 2016) comes from the definition of public sector body in s. 1, not s. 14.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.limitations",
@@ -253,7 +263,7 @@
       "id": "crown.statute.federal-clpa",
       "kind": "statute",
       "title": "Crown Liability and Proceedings Act (Canada)",
-      "says": "Claims against the federal government (for example the RCMP, Canada Border Services Agency or Correctional Service Canada) fall under the federal Crown Liability and Proceedings Act, not the Ontario Act. The federal Crown is liable for torts committed by its servants as if it were a person.",
+      "says": "Outside Quebec, the federal Crown is liable for the damages it would be liable for if it were a person, in respect of a tort committed by a servant of the Crown, or a breach of duty attaching to the ownership, occupation, possession or control of property.",
       "source": {
         "citation": "Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/c-50/",
@@ -264,7 +274,12 @@
       "leadsTo": [
         "crown.federal.court",
         "crown.federal.name-ag"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 3 sets the federal Crown's liability; the examples (RCMP, CBSA, CSC) and 'not the Ontario Act' are not in it, and outside Quebec liability also covers breach of a property-related duty.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.statute.mag-act",
@@ -319,7 +334,7 @@
       "id": "crown.statute.siu-act",
       "kind": "statute",
       "title": "Special Investigations Unit Act, 2019",
-      "says": "The Special Investigations Unit (SIU) is a civilian agency that investigates police and certain other officials when an incident involves death, serious injury, firearm discharge at a person, or an allegation of sexual assault. It decides whether criminal charges are laid; it does not award compensation.",
+      "says": "The SIU Director may have an investigation conducted into any incident in which a person dies, is seriously injured, has a firearm discharged at them, or reports being sexually assaulted, if the incident may have resulted from criminal conduct by an official.",
       "source": {
         "citation": "Special Investigations Unit Act, 2019, S.O. 2019, c. 1, Sched. 5",
         "url": "https://www.ontario.ca/laws/statute/19s01e",
@@ -329,7 +344,12 @@
       },
       "leadsTo": [
         "crown.police.complaint.siu-stay"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "s. 15(1) is discretionary ('may cause an investigation') and applies only if the incident may have resulted from criminal conduct by an official; sexual assault is 'as reported by the person'. 'Civilian agency', charging decisions and compensation are not in s. 15(1).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.test.crown-tort-liability",
@@ -1568,7 +1588,11 @@
       "leadsTo": [
         "crown.pre.s17-applies",
         "crown.decision.odhavji"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.decision.odhavji",
@@ -1580,6 +1604,10 @@
         "pinpoint": "para. 23",
         "expect": "deliberate and unlawful conduct in his or her capacity as a public officer",
         "corpusId": "decisions/odhavji-estate-v-woodhouse-2003-SCC-69.html.txt"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1854,13 +1882,18 @@
       "id": "crown.statute.minimum-maintenance",
       "kind": "statute",
       "title": "Minimum Maintenance Standards for Municipal Highways",
-      "says": "A provincial regulation sets minimum standards for municipal roads, such as how often roads are patrolled and how quickly potholes and snow must be dealt with. Meeting these standards is a defence.",
+      "says": "This regulation sets out the minimum standards of repair for highways under municipal jurisdiction, for the purpose of clause 44 (3) (c) of the Municipal Act, 2001. It does not apply to Class 6 highways.",
       "source": {
         "citation": "O. Reg. 239/02, Minimum Maintenance Standards for Municipal Highways",
         "url": "https://www.ontario.ca/laws/regulation/020239",
-        "pinpoint": "s. 1",
-        "expect": "minimum standards",
+        "pinpoint": "s. 2 (1)",
+        "expect": "the minimum standards of repair for highways under municipal jurisdiction",
         "corpusId": "oreg-239-02-municipal-highway-maintenance"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 1 is definitions; 'minimum standards' is in s. 2(1). Patrolling, potholes and snow are separate sections (3, 4, 6), and s. 2(1) states the purpose (clause 44(3)(c) of the Municipal Act, 2001) rather than that meeting the standards is a defence.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2748,7 +2781,7 @@
       "id": "crown.option.jr-of-leca",
       "kind": "option",
       "title": "Judicial review of a LECA decision",
-      "says": "A decision of the Complaints Director (for example refusing to investigate) has no appeal under the Act, but may be challenged by judicial review in the Divisional Court.",
+      "says": "A decision made under a statutory power, such as one by the Complaints Director, can be challenged by an application for judicial review, on which the court may grant relief in the nature of mandamus, prohibition or certiorari, or a declaration or injunction, despite any right of appeal. Whether the governing Act gives an appeal is a matter for that Act.",
       "source": {
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
@@ -2758,7 +2791,12 @@
       },
       "leadsTo": [
         "crown.jr.start"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "JRPA s. 2(1) says nothing about the Complaints Director or about whether that Act gives an appeal; it lets the court grant relief 'despite any right of appeal'. The Divisional Court is in s. 6, not s. 2.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.jr.time-limit",
@@ -2769,13 +2807,17 @@
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
         "pinpoint": "s. 5 (1)",
-        "expect": "not later than 30 days after the date the decision was made",
+        "expect": "no later than 30 days after the date the decision",
         "corpusId": "judicial-review-procedure-act"
       },
       "leadsTo": [
         "crown.jr.extension",
         "crown.jr.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "crown.jr.extension",
@@ -2788,6 +2830,10 @@
         "pinpoint": "s. 5 (2)",
         "expect": "apparent grounds for relief",
         "corpusId": "judicial-review-procedure-act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2815,26 +2861,36 @@
       "id": "crown.jr.court",
       "kind": "step",
       "title": "Which court hears judicial review",
-      "says": "Judicial review is heard by the Divisional Court. In urgent cases, with leave, a single judge of the Superior Court of Justice may hear it.",
+      "says": "An application for judicial review is made to the Divisional Court. It may instead be made to the Superior Court of Justice with leave of a judge of that court, where it is made to appear that the case is one of urgency and that the delay required for an application to the Divisional Court \"is likely to involve a failure of justice\".",
       "source": {
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
         "pinpoint": "s. 6 (1)",
         "expect": "shall be made to the Divisional Court",
         "corpusId": "judicial-review-procedure-act"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the conditions in s. 6(2): going to the Superior Court of Justice needs leave of a judge, urgency, and that the delay of the Divisional Court is likely to involve a failure of justice.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.jr.interim",
       "kind": "motion",
       "title": "Interim order while judicial review is pending",
-      "says": "On a judicial review application, the court may make any interim order it considers proper pending the final decision, such as a stay of the decision.",
+      "says": "On a judicial review application, the court may make any interim order it considers proper until the application is finally decided.",
       "source": {
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
         "pinpoint": "s. 4",
         "expect": "make such interim order as it considers proper",
         "corpusId": "judicial-review-procedure-act"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 4 does not mention a stay as an example.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3037,7 +3093,7 @@
       "id": "crown.ombudsman.complaint",
       "kind": "start",
       "title": "Complaint to the Ombudsman of Ontario",
-      "says": "A person may complain to the Ombudsman about a decision, recommendation, act or omission in the administration of a provincial body, municipality, school board or university. The Ombudsman investigates and makes recommendations; it does not award damages and its recommendations are not binding orders.",
+      "says": "A person affected may complain to the Ombudsman about a decision or recommendation made, or an act done or omitted, in the course of the administration of a public sector body that affects them in their personal capacity, and the Ombudsman may investigate it.",
       "source": {
         "citation": "Ombudsman Act, R.S.O. 1990, c. O.6",
         "url": "https://www.ontario.ca/laws/statute/90o06",
@@ -3048,19 +3104,29 @@
       "leadsTo": [
         "crown.ombudsman.exhaust",
         "crown.ombudsman.refuse"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 14(1) does not list municipalities, school boards or universities (that is the definition in s. 1), and says nothing about damages or whether recommendations bind.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.ombudsman.exhaust",
       "kind": "pre-step",
       "title": "Use available appeals first",
-      "says": "The Ombudsman generally does not investigate where the person has a right of appeal or review on the merits to a court or tribunal until that right has been used or the time for it has passed.",
+      "says": "The Ombudsman has no power to investigate a decision, act or omission where an Act gives a right of appeal or objection, or a right to apply for a hearing or review, on the merits to a court or tribunal, until that right has been exercised in the case or the time for exercising it has expired.",
       "source": {
         "citation": "Ombudsman Act, R.S.O. 1990, c. O.6",
         "url": "https://www.ontario.ca/laws/statute/90o06",
         "pinpoint": "s. 14 (4)",
-        "expect": "until after that right of appeal has been exercised",
+        "expect": "until that right of appeal or objection or application has been exercised",
         "corpusId": "ombudsman-act"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "s. 14(4) is not a general practice: nothing in the Act empowers the Ombudsman to investigate until the right of appeal, objection, hearing or review on the merits has been exercised or its time has expired.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3071,16 +3137,20 @@
       "source": {
         "citation": "Ombudsman Act, R.S.O. 1990, c. O.6",
         "url": "https://www.ontario.ca/laws/statute/90o06",
-        "pinpoint": "s. 17 (1)",
+        "pinpoint": "s. 17 (2)",
         "expect": "more than twelve months",
         "corpusId": "ombudsman-act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "crown.option.fippa-request",
       "kind": "option",
       "title": "Requesting provincial government records",
-      "says": "A person may request access to records held by a provincial ministry or agency by a written request under the Freedom of Information and Protection of Privacy Act. Records can help prepare a claim.",
+      "says": "A person seeking access to a record makes a written request to the institution they believe has custody or control of it, says the request is made under the Freedom of Information and Protection of Privacy Act, gives enough detail for an experienced employee to identify the record, and pays the prescribed fee when making the request.",
       "source": {
         "citation": "Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. F.31",
         "url": "https://www.ontario.ca/laws/statute/90f31",
@@ -3090,48 +3160,68 @@
       },
       "leadsTo": [
         "crown.deadline.fippa-30-days"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 24(1) also requires saying the request is made under the Act, giving enough detail, and paying the prescribed fee; 'records can help prepare a claim' is not in the provision.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.deadline.fippa-30-days",
       "kind": "deadline",
       "title": "30 days to answer an access request",
-      "says": "The institution generally gives written notice of whether access is granted within 30 days after receiving the request.",
+      "says": "Subject to sections 27, 28 and 57, the head of the institution must, within 45 business days after the request is received, give the requester written notice of whether access will be given and, if so, give access. A request counts as received only once the requester has met section 24 (1). Requests made before the 2026 amendment came into force follow the section as it read before.",
       "source": {
         "citation": "Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. F.31",
         "url": "https://www.ontario.ca/laws/statute/90f31",
         "pinpoint": "s. 26",
-        "expect": "within thirty days after the request is received",
+        "expect": "within 45 business days after the request is received",
         "corpusId": "fippa"
       },
       "leadsTo": [
         "crown.option.ipc-appeal"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "As amended in 2026, s. 26(1) gives 45 business days, not 30 days, subject to ss. 27, 28 and 57; a request counts as received only once s. 24(1) is met; earlier requests keep the old rule (s. 26(3)).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "crown.option.ipc-appeal",
       "kind": "option",
       "title": "Appeal to the Information and Privacy Commissioner",
-      "says": "A requester may appeal an access decision to the Information and Privacy Commissioner within 30 days after receiving notice of the decision.",
+      "says": "A requester may appeal a head's decision to the Information and Privacy Commissioner by filing a written notice of appeal within 30 business days after notice of the decision was given, and pays the prescribed fee. Notices given before the 2026 amendment came into force follow the earlier rule. The Commissioner may extend the time where the limit is a barrier under the Accessibility for Ontarians with Disabilities Act, 2005.",
       "source": {
         "citation": "Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. F.31",
         "url": "https://www.ontario.ca/laws/statute/90f31",
         "pinpoint": "s. 50 (2)",
-        "expect": "within thirty days after the notice was given",
+        "expect": "within 30 business days after the notice was given",
         "corpusId": "fippa"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "As amended in 2026, s. 50(2) gives 30 business days after the notice was given (not 30 days after receiving it), by filing a written notice of appeal; a fee applies and the Commissioner may extend the time where the limit is a barrier under the AODA.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.option.mfippa-request",
       "kind": "option",
       "title": "Requesting municipal and police records",
-      "says": "Records held by a municipality or a police service board are requested under the Municipal Freedom of Information and Protection of Privacy Act, with similar 30-day timelines and appeals to the Commissioner.",
+      "says": "Under the Municipal Freedom of Information and Protection of Privacy Act, a person seeking access to a record makes a written request to the institution they believe has custody or control of it, says the request is made under that Act, gives enough detail for an experienced employee to identify the record, and pays the prescribed fee when making the request.",
       "source": {
         "citation": "Municipal Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. M.56",
         "url": "https://www.ontario.ca/laws/statute/90m56",
         "pinpoint": "s. 17 (1)",
         "expect": "A person seeking access to a record shall",
         "corpusId": "mfippa"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "'Similar 30-day timelines' is wrong: MFIPPA now gives 45 business days to respond (s. 19) and 30 business days to appeal (s. 39(2)), and neither is in s. 17(1). s. 17(1) does not name police service boards.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3287,52 +3377,72 @@
       "id": "crown.federal.court",
       "kind": "step",
       "title": "Where to sue the federal Crown",
-      "says": "A claim against the federal Crown may be brought in the Federal Court or in the superior court of the province (in Ontario, the Superior Court of Justice), which has concurrent jurisdiction.",
+      "says": "Where a claim is made against the federal Crown, the superior court of the province in which the claim arises has jurisdiction alongside the Federal Court, except where the Federal Court has exclusive jurisdiction.",
       "source": {
         "citation": "Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/c-50/",
         "pinpoint": "s. 21 (1)",
         "expect": "the superior court of the province",
         "corpusId": "crown-liability-and-proceedings-act-canada"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the exception: the provincial superior court has concurrent jurisdiction except where the Federal Court has exclusive jurisdiction, and only the court of the province where the claim arises. 'In Ontario, the Superior Court of Justice' is not in the provision.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.federal.name-ag",
       "kind": "step",
       "title": "Naming and serving the federal Crown",
-      "says": "A proceeding against the federal Crown is brought against the Attorney General of Canada, and is served on the Deputy Attorney General of Canada, as the federal Act and the court rules provide.",
+      "says": "Proceedings against the federal Crown may be taken in the name of the Attorney General of Canada or, where an Act of Parliament authorizes proceedings against a Crown agency in its own name, in the name of that agency. The originating document is served on the Deputy Attorney General of Canada or on the chief executive officer of the agency named.",
       "source": {
         "citation": "Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/c-50/",
         "pinpoint": "s. 23 (1)",
         "expect": "the Attorney General of Canada",
         "corpusId": "crown-liability-and-proceedings-act-canada"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "s. 23 says proceedings 'may be taken' in the name of the Attorney General of Canada or, where an Act of Parliament authorizes it, in the name of a Crown agency, with service on the Deputy Attorney General or the agency's chief executive officer; it does not refer to court rules.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.federal.limitation",
       "kind": "deadline",
       "title": "Limitation periods for federal Crown claims",
-      "says": "For a claim against the federal Crown arising in Ontario, the provincial limitation rules (the Limitations Act, 2002) generally apply.",
+      "says": "Except as otherwise provided in this or any other Act of Parliament, the laws on prescription and limitation of actions in force in a province between subject and subject apply to proceedings by or against the federal Crown for a cause of action arising in that province.",
       "source": {
         "citation": "Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/c-50/",
         "pinpoint": "s. 32",
         "expect": "the laws relating to prescription and the limitation of actions",
         "corpusId": "crown-liability-and-proceedings-act-canada"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 32 does not name the Limitations Act, 2002; it applies the province's limitation laws 'between subject and subject', except as otherwise provided by federal Act.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "crown.federal.jr",
       "kind": "deadline",
       "title": "Judicial review of federal decisions: 30 days",
-      "says": "A federal board, commission or tribunal's decision is challenged by judicial review in the Federal Court within 30 days after it was first communicated, or a longer time a judge allows.",
+      "says": "An application for judicial review of a decision or order of a federal board, commission or other tribunal must be made within 30 days after it was first communicated to the office of the Deputy Attorney General of Canada or to the party directly affected, or within any further time a judge of the Federal Court fixes or allows.",
       "source": {
         "citation": "Federal Courts Act, R.S.C. 1985, c. F-7",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/f-7/",
         "pinpoint": "s. 18.1 (2)",
         "expect": "within 30 days after the time the decision or order",
         "corpusId": "federal-courts-act"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 18.1(2) sets the time only; it does not name the court (which is set elsewhere, and some tribunals go to the Federal Court of Appeal), and the 30 days run from communication to the Deputy Attorney General's office or the party directly affected.",
+        "fixed": "2026-10-13"
       }
     }
   ]

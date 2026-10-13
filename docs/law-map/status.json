@@ -5,37 +5,37 @@
       "area": "civil",
       "title": "Superior Court of Justice (civil actions and applications)",
       "total": 255,
-      "matches": 246,
+      "matches": 247,
       "elsewhere": 0,
-      "differs": 1,
+      "differs": 0,
       "not-saved": 0,
       "lead": 8,
       "inSite": 107,
-      "reviewed": 247
+      "reviewed": 248
     },
     {
       "area": "crown-and-public",
       "title": "Claims against the government, cities, police and public bodies",
       "total": 199,
-      "matches": 195,
+      "matches": 199,
       "elsewhere": 0,
-      "differs": 4,
+      "differs": 0,
       "not-saved": 0,
       "lead": 0,
       "inSite": 57,
-      "reviewed": 176
+      "reviewed": 199
     },
     {
       "area": "employment",
       "title": "Employment",
       "total": 199,
-      "matches": 182,
+      "matches": 187,
       "elsewhere": 0,
-      "differs": 5,
+      "differs": 0,
       "not-saved": 0,
       "lead": 12,
       "inSite": 28,
-      "reviewed": 173
+      "reviewed": 187
     },
     {
       "area": "family",
@@ -47,28 +47,28 @@
       "not-saved": 2,
       "lead": 2,
       "inSite": 164,
-      "reviewed": 266
+      "reviewed": 268
     },
     {
       "area": "human-rights",
       "title": "Human rights (Human Rights Tribunal of Ontario)",
       "total": 197,
-      "matches": 162,
+      "matches": 164,
       "elsewhere": 0,
-      "differs": 1,
-      "not-saved": 11,
+      "differs": 0,
+      "not-saved": 10,
       "lead": 23,
       "inSite": 3,
-      "reviewed": 156
+      "reviewed": 163
     },
     {
       "area": "landlord-tenant",
       "title": "Landlord and Tenant Board (residential tenancies)",
       "total": 210,
-      "matches": 201,
+      "matches": 202,
       "elsewhere": 0,
       "differs": 0,
-      "not-saved": 4,
+      "not-saved": 3,
       "lead": 5,
       "inSite": 5,
       "reviewed": 201
@@ -83,95 +83,22 @@
       "not-saved": 0,
       "lead": 4,
       "inSite": 102,
-      "reviewed": 266
+      "reviewed": 267
     },
     {
       "area": "victims-and-criminal",
       "title": "Victims of crime, bail and the civil side of criminal matters",
       "total": 208,
-      "matches": 200,
+      "matches": 202,
       "elsewhere": 0,
-      "differs": 1,
-      "not-saved": 3,
+      "differs": 0,
+      "not-saved": 2,
       "lead": 4,
       "inSite": 16,
-      "reviewed": 186
+      "reviewed": 201
     }
   ],
-  "differs": [
-    {
-      "area": "civil",
-      "id": "civ.enf.other-province",
-      "pinpoint": "reciprocal-enforcement-of-judgments-act s. 2(1)",
-      "expect": "may apply to have the judgment registered"
-    },
-    {
-      "area": "crown-and-public",
-      "id": "crown.jr.time-limit",
-      "pinpoint": "judicial-review-procedure-act s. 5 (1)",
-      "expect": "not later than 30 days after the date the decision was made"
-    },
-    {
-      "area": "crown-and-public",
-      "id": "crown.ombudsman.exhaust",
-      "pinpoint": "ombudsman-act s. 14 (4)",
-      "expect": "until after that right of appeal has been exercised"
-    },
-    {
-      "area": "crown-and-public",
-      "id": "crown.deadline.fippa-30-days",
-      "pinpoint": "fippa s. 26",
-      "expect": "within thirty days after the request is received"
-    },
-    {
-      "area": "crown-and-public",
-      "id": "crown.option.ipc-appeal",
-      "pinpoint": "fippa s. 50 (2)",
-      "expect": "within thirty days after the notice was given"
-    },
-    {
-      "area": "employment",
-      "id": "emp.statute.eia",
-      "pinpoint": "employment-insurance-act s. 112 (1)",
-      "expect": "may make a request to the Commission for a reconsideration"
-    },
-    {
-      "area": "employment",
-      "id": "emp.wsib.bar",
-      "pinpoint": "workplace-safety-and-insurance-act-1997 s. 28 (1)",
-      "expect": "is not entitled to commence an action"
-    },
-    {
-      "area": "employment",
-      "id": "emp.ei.roe",
-      "pinpoint": "employment-insurance-regulations s. 19 (3)",
-      "expect": "within five days"
-    },
-    {
-      "area": "employment",
-      "id": "emp.ei.reconsideration",
-      "pinpoint": "employment-insurance-act s. 112 (1)",
-      "expect": "within 30 days after the day on which a decision"
-    },
-    {
-      "area": "employment",
-      "id": "emp.ei.appeal",
-      "pinpoint": "department-of-employment-and-social-development-act s. 52 (1)",
-      "expect": "within 30 days after the day on which it is"
-    },
-    {
-      "area": "human-rights",
-      "id": "hr.statute.lra-arbitrator",
-      "pinpoint": "labour-relations-act-1995 s. 48 (12) (j)",
-      "expect": "interpret and apply human rights and other employment-related statutes"
-    },
-    {
-      "area": "victims-and-criminal",
-      "id": "vic.civil.civil-remedies",
-      "pinpoint": "civil-remedies-act-2001 s. 6",
-      "expect": "compensate persons who suffered pecuniary or non-pecuniary losses"
-    }
-  ],
+  "differs": [],
   "elsewhere": [],
   "notSaved": [
     {
@@ -181,10 +108,6 @@
     {
       "citation": "Ontario: Child support (government guide)",
       "url": "https://www.ontario.ca/page/child-support"
-    },
-    {
-      "citation": "O. Reg. 290/98 (Business Practices Permissible to Landlords in Selecting Prospective Tenants for Residential Accommodation)",
-      "url": "https://www.ontario.ca/laws/regulation/980290"
     },
     {
       "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
@@ -203,20 +126,12 @@
       "url": "https://tribunalsontario.ca/ltb/rules-practice-directions-and-interpretation-guidelines/"
     },
     {
-      "citation": "O. Reg. 9/18, Standard Forms of Lease",
-      "url": "https://www.ontario.ca/laws/regulation/r18009"
-    },
-    {
       "citation": "Ministry of the Attorney General, Crown Prosecution Manual, Directive: Charge Screening",
       "url": "https://www.ontario.ca/document/crown-prosecution-manual"
     },
     {
       "citation": "Criminal Proceedings Rules for the Superior Court of Justice (Ontario), SI/2012-7",
       "url": "https://laws-lois.justice.gc.ca/eng/regulations/SI-2012-7/"
-    },
-    {
-      "citation": "O. Reg. 456/96 (Prescribed Crimes) under the Victims' Bill of Rights, 1995",
-      "url": "https://www.ontario.ca/laws/regulation/960456"
     }
   ],
   "leads": [
