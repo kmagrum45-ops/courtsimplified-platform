@@ -19,11 +19,13 @@ If a task cannot be completed without a secret becoming visible, stop and say so
 
 ## 2. Legal content — never unsourced
 
-Every legal statement must cite a specific, real, publicly resolvable source: a statute or regulation section, a court rule, a court form, a reported decision, or an official government/court/law-society publication. Retrieve and read the actual source before writing anything from it — never from your own knowledge of the law.
+Every legal statement that reaches a user must cite a specific, real, publicly resolvable source: a statute or regulation section, a court rule, a court form, a reported decision, or an official government/court/law-society publication, retrieved and read.
+
+**Draft from knowledge; publish only what is verified (site owner, 2026-10-13).** Claude's own legal knowledge is to be used, not kept out: it decides what to build, what to look up, which provisions and leading decisions matter, and how a case moves from step to step. Claude may write all of that as a draft (the law map, `docs/law-map/`), marked unverified. Nothing from a draft reaches a user, a stage, a card, a template or an answer until each statement is matched word for word to the retrieved official text and passes the checks. Where recall and the source disagree, the source wins and the draft is corrected; where no source can be retrieved, the item is flagged as unconfirmed and stays out. Each batch is also checked by a separate agent that did not write it, so the work never grades itself (there is no licensed reviewer yet, by the owner's choice). Managing Claude's knowledge, not limiting it, is the point.
 
 Acceptable sources: ontario.ca, ontariocourts.ca, ontariocourtforms.on.ca, CanLII (canlii.org), the Courts of Justice Act, the Rules of the Small Claims Court (O. Reg. 258/98), Justice Ontario, and Law Society of Ontario public materials.
 
-Every citation must be verified to resolve before it ships. A citation that cannot be checked does not go in. Never cite a case, section number, or form number from recall — if it wasn't actually retrieved and read, it doesn't get written down. No invented case names, no approximated citations, no paraphrased holdings attributed to a decision that wasn't read.
+Every citation must be verified to resolve before it ships. A citation that cannot be checked does not go in. Never ship a case, section number, or form number from recall — a recalled one is a lead to retrieve, and if it wasn't actually retrieved and read, it doesn't reach a user. No invented case names, no approximated citations, no paraphrased holdings attributed to a decision that wasn't read.
 
 CanLII blocks automated scraping. Do not attempt to scrape it. Cite decisions retrieved through legitimate access, and record the neutral citation plus the date verified.
 
