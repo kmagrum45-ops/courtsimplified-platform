@@ -252,7 +252,37 @@ function NextStepCard({
   );
 }
 
-function AnswerView({ answer, court, userWords = "" }: { answer: RenderedAnswer; court: string; userWords?: string }) {
+/**
+ * The "What to do next" paragraph the card above already shows (build order
+ * Step 2B, 2026-10-12): the full answer printed it again word for word under
+ * the card, and the walkthrough flagged that on 7 of 10 cases.
+ */
+export function cardLeadOf(answer: RenderedAnswer): string {
+  const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
+  return toDo.split(/\n\s*\n/)[0]?.trim() ?? "";
+}
+
+/** A section's text without the paragraph the card already shows. */
+export function withoutCardLead(heading: string, text: string, cardLead: string): string {
+  if (!cardLead || heading !== "What to do next") return text;
+  const paragraphs = text.split(/\n\s*\n/);
+  if ((paragraphs[0] ?? "").trim() !== cardLead) return text;
+  return paragraphs.slice(1).join("\n\n").trim();
+}
+
+function AnswerView({
+  answer,
+  court,
+  userWords = "",
+  underCard = false,
+}: {
+  answer: RenderedAnswer;
+  court: string;
+  userWords?: string;
+  /** Shown under the next-step card, which already shows the first step. */
+  underCard?: boolean;
+}) {
+  const cardLead = underCard ? cardLeadOf(answer) : "";
   return (
     <div className="mt-4 space-y-4" data-testid="stage-answer">
       <h4 className="text-base font-bold text-[#10231f]">{answer.question}</h4>
@@ -262,12 +292,17 @@ function AnswerView({ answer, court, userWords = "" }: { answer: RenderedAnswer;
           the rules that apply to it, in the official words.
         </p>
       ) : null}
-      {answer.sections.map((section) => (
-        <div key={section.heading}>
-          <p className="text-sm font-semibold text-[#16302b]">{section.heading}</p>
-          <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{section.text}</p>
-        </div>
-      ))}
+      {answer.sections.map((section) => {
+        const text = withoutCardLead(section.heading, section.text, cardLead);
+        return (
+          <div key={section.heading}>
+            <p className="text-sm font-semibold text-[#16302b]">{section.heading}</p>
+            <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
+              {text || "The first step is in \"Your next step\" above."}
+            </p>
+          </div>
+        );
+      })}
       <FormsNamedHere texts={answer.sections.map((section) => section.text)} court={court} userWords={userWords} />
       {answer.sources.length > 0 && (
         <div>
@@ -831,7 +866,7 @@ export default function StageAnswerPanel({
           <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">
             The full answer for this step, with every rule and source
           </summary>
-          <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />
+          <AnswerView answer={result.answer} court={courtPath} userWords={userWords} underCard />
         </details>
       ) : result?.outcome === "rendered" ? (
         <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />

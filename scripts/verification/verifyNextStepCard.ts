@@ -28,6 +28,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
+import { withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
@@ -96,6 +97,16 @@ async function main() {
   const fullAt = panel.indexOf('data-testid="stage-answer-full"');
   check("the card comes before the full answer", cardAt > 0 && fullAt > cardAt);
   check("the full answer is still there, folded under the card", /<details data-testid="stage-answer-full"[\s\S]{0,400}<AnswerView/.test(panel));
+  // Say it once (Step 2B, 2026-10-12; walkthrough: 7 of 10 cases printed the
+  // card's paragraph again under the full answer).
+  check("the full answer under the card is told the card shows the first step", /<AnswerView answer=\{result\.answer\} court=\{courtPath\} userWords=\{userWords\} underCard \/>/.test(panel));
+  check(
+    "the card's paragraph is dropped from the full answer, the rest kept",
+    withoutCardLead("What to do next", "File Form 9A.\n\nThen serve it.", "File Form 9A.") === "Then serve it." &&
+      withoutCardLead("What to do next", "File Form 9A.", "File Form 9A.") === "" &&
+      withoutCardLead("Your deadline", "File Form 9A.", "File Form 9A.") === "File Form 9A." &&
+      withoutCardLead("What to do next", "Something else.\n\nMore.", "File Form 9A.") === "Something else.\n\nMore.",
+  );
 
   if (failures > 0) {
     console.log(`\n${failures} check(s) failed.`);
