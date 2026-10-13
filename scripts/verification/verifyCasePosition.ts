@@ -188,6 +188,17 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
   const full = storyHintsForDates("I was served on September 20, 2026 at my house.");
   check("a complete story date is offered for the matching question", full["sc-date-claim-served"]?.value === "2026-09-20");
   check("a story with no such moment gives no hint", Object.keys(storyHintsForDates("He owes me money for a painting job.")).length === 0);
+  // Step 2B, 2026-10-12: a full story date is kept with the case as soon as it
+  // is shown (the waiting "Yes, save this date" prompt was flagged as asking
+  // again on 8 walkthrough cases), but only the date is saved -- never the
+  // step -- and a date with no year never reaches storyDates.
+  {
+    const panel = readFileSync(path.resolve(__dirname, "../../app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+    check("full story dates are kept with the case without a click", /autoKeptFor/.test(panel) && /savePosition\(caseId, \{ dateAnswers: fill \}\)/.test(panel));
+    check("keeping a story date never saves the step", !/savePosition\(caseId, \{ dateAnswers: fill, stepId/.test(panel));
+    check("a story date with no year is never kept or counted", /if \(hint\.value && !hint\.yearAssumed\) out\[id\]/.test(panel));
+    check("the kept date still shows the words it came from, with Change", /keptFromStory\[question\.id\]/.test(panel));
+  }
   // Civil and family dates are asked too (2026-10-05), so the reader's own
   // words are quoted beside those questions as well.
   const family = storyHintsForDates("My ex wants to move with our son. I was served with the application on September 25, 2026 at work.");
