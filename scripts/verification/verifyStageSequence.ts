@@ -13,7 +13,9 @@
  *   - a step a case cannot reach from where cases start;
  *   - a move that crosses sides (a plaintiff's step leading to a defendant's);
  *   - a "time" move whose rule names no period of time;
- *   - plain words that grade a case or predict an outcome.
+ *   - plain words that grade a case or predict an outcome;
+ *   - a step the panel's "What can happen next" would show empty to either
+ *     side, or a cited source shown without the date it was saved.
  *
  * Each check asserts a property, so adding a step or a move never fails it;
  * only a broken chain does (CLAUDE.md s. 5).
@@ -23,7 +25,12 @@
 
 import { ALL_STAGES, isSpecialStage, type CaseStage } from "../../src/lib/case-system/stage-map/stageMap";
 import * as CITATIONS from "../../src/lib/case-system/stage-map/citations";
-import { FINAL_STEPS, STAGE_MOVES, STARTING_POINTS, isSequenced, movesFrom, movesInto } from "../../src/lib/case-system/stage-map/stageSequence";
+import { readFileSync } from "node:fs";
+import nodePath from "node:path";
+
+import { FINAL_STEPS, STAGE_MOVES, STARTING_POINTS, isSequenced, movesFrom, movesInto, nextStepsFor } from "../../src/lib/case-system/stage-map/stageSequence";
+import { SOURCE_SAVED_ON } from "../../src/lib/content-library/nextStepPractical";
+import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -83,6 +90,13 @@ const timeless = STAGE_MOVES.filter((m) => m.by === "time" && !m.rules.some((rul
 check("a move made by time running out cites a rule that sets that time", timeless.length === 0, timeless.join(", "));
 const grading = STAGE_MOVES.filter((m) => /\b(strong|weak|likely|unlikely|chance|win|lose|merit|should)\b/i.test(m.when)).map((m) => m.when);
 check("no move's words grade a case, predict an outcome or tell the person what they should do", grading.length === 0, grading.join(" | "));
+// The site's production list of case-strength terms (the one the journey
+// invariants use), over every sentence the panel can show.
+const blocked = [...STAGE_MOVES.map((m) => m.when), ...FINAL_STEPS.map((f) => f.why)]
+  .map((text) => ({ text, result: validateCaseStrengthLanguage(text) }))
+  .filter(({ result }) => !result.valid)
+  .map(({ text, result }) => `"${result.matchedTerm}": ${text}`);
+check("no move or final step uses a term on the site's case-strength list", blocked.length === 0, blocked.join(" | "));
 
 // The property this file exists for, on a real case: a served defendant can
 // follow the chain from being served to a trial date.
@@ -92,6 +106,18 @@ const civilPath = ["civil:defendant:served-defence-period-running", "civil:defen
 check("a served Superior Court defendant can follow the chain to a judgment", civilPath.every((id, i) => i === 0 || movesFrom(civilPath[i - 1]).some((m) => m.to === id)));
 const familyPath = ["family:respondent:served-time-to-answer-running", "family:respondent:answer-filed", "family:both:case-conference-scheduled", "family:both:settlement-conference-scheduled", "family:both:trial-scheduled", "family:both:final-order-made"];
 check("a served family respondent can follow the chain through the conferences to a final order", familyPath.every((id, i) => i === 0 || movesFrom(familyPath[i - 1]).some((m) => m.to === id)));
+
+console.log("\n6. The step panel shows it");
+const blank = sequenced.flatMap((stage) => [false, true].filter((responding) => {
+  const view = nextStepsFor(stage.id, responding);
+  return view.moves.length === 0 && !view.final;
+}).map((responding) => `${stage.id} (${responding ? "responding" : "starting"})`));
+check("\"What can happen next\" shows every step's moves, or why it stops, to either side", blank.length === 0, blank.join(", "));
+const manifest = JSON.parse(readFileSync(nodePath.join(import.meta.dirname, "..", "..", "docs/sources/corpus/manifest.json"), "utf8")) as { entries: { id: string; retrievedAt: string }[] };
+const savedOn = new Map(manifest.entries.map((entry) => [entry.id, entry.retrievedAt.slice(0, 10)]));
+const chainSources = [...new Set([...STAGE_MOVES.flatMap((m) => m.rules), ...FINAL_STEPS.flatMap((f) => f.rules)].map((rule) => rule.sourceId))];
+const undated = chainSources.filter((id) => !SOURCE_SAVED_ON[id] || SOURCE_SAVED_ON[id] !== savedOn.get(id));
+check("every source the chain cites is shown with the date it was saved (manifest.json)", undated.length === 0, undated.map((id) => `${id}: shows ${SOURCE_SAVED_ON[id] ?? "no date"}, saved ${savedOn.get(id) ?? "?"}`).join("; "));
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;

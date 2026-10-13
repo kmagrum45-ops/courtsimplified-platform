@@ -16,6 +16,7 @@ import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
+import WhatComesNext from "../../_components/WhatComesNext";
 import GetHelp from "../../_components/GetHelp";
 import { savePositionQueued } from "./positionSave";
 import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
@@ -249,6 +250,7 @@ function NextStepCard({
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
         </p>
       ) : null}
+      <WhatComesNext stepId={stepId} responding={responding} />
       {limitNotesFor(court as PracticalCourt, userWords).map((line) => (
         <p key={line.cite.pinpoint} data-testid="next-step-limit" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
           {line.say}{" "}
