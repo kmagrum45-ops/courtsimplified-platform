@@ -638,6 +638,12 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   // The notice of examination is served under r. 8.01 (10)-(12); no service line is shown for it here.
   "plaintiff:debtor-examination": { forms: ["20H", "20P", "20A"], fees: ["sc-writ-exam"], files: true, serve: null },
   "defendant:judgment-being-enforced": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [R_15_01_MOTION_FORM, SC_HEARING_DATE] },
+  "plaintiff:wants-to-discontinue": { forms: ["11.3A"], fees: [], files: true, serve: "ordinary" },
+  // The amended version of the claim or defence already filed (Form 7A, 9A or 10A), marked "Amended".
+  "both:amending-a-claim-or-defence": { forms: [], fees: [], files: true, serve: "ordinary" },
+  "both:motion-to-strike-out": { forms: ["15A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
+  // A written submission to the court, not a form; the step's own rule says how long and by when.
+  "plaintiff:court-considering-dismissal": NOTHING,
 
   // ---- Civil: before filing
   "civil:before-filing:deciding-whether-to-sue": { forms: ["14A", "14C"], fees: ["civ-claim"], files: true, serve: null, also: [CIV_START] },

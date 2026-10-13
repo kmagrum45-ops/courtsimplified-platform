@@ -78,6 +78,15 @@ import {
   R_20_10_EXAMINATION,
   R_20_10_ORDER_AS_TO_PAYMENT,
   R_20_02_STAY_VARY,
+  R_11_3_01_DISCONTINUE,
+  R_11_3_02_EFFECT,
+  R_13_09_AFTER_CONFERENCE,
+  R_12_01_AMEND,
+  R_12_01_NO_RESPONSE_NEEDED,
+  R_12_02_STRIKE,
+  R_12_02_ORDERS,
+  R_12_02_OWN_INITIATIVE,
+  R_12_02_SUBMISSION,
   type RuleCitation,
 } from "./citations";
 
@@ -202,6 +211,19 @@ const LAW_MAP_MOVES: StageMove[] = [
   move("plaintiff:judgment-in-my-favour-unpaid", "plaintiff:debtor-examination", "you", "If the judgment is not paid, the clerk issues a notice of examination (Form 20H) at your request.", R_20_10_EXAMINATION),
   move("defendant:judgment-against-me", "defendant:judgment-being-enforced", "other-side", "If the judgment is not paid, the creditor may enforce it, for example by garnishment.", R_20_08_GARNISHMENT),
   move("defendant:default-judgment-against-me", "defendant:judgment-being-enforced", "other-side", "If the judgment is not paid, the creditor may enforce it, for example by garnishment.", R_20_08_GARNISHMENT),
+  // Discontinuing, amending, striking out (rules 11.3, 12, 13.09)
+  move("plaintiff:defence-period-expired-no-defence", "plaintiff:wants-to-discontinue", "you", "Against a defendant who did not file a defence in time, you can discontinue by serving a notice of discontinued claim (Form 11.3A) on the defendants served with the claim and filing it with proof of service.", R_11_3_01_DISCONTINUE),
+  move("plaintiff:settlement-conference-held", "plaintiff:wants-to-discontinue", "you", "After a settlement conference, a claim against a party not in default is withdrawn or discontinued only with that party's written consent or the court's leave.", R_13_09_AFTER_CONFERENCE),
+  move("plaintiff:defence-filed", "both:amending-a-claim-or-defence", "you", "A claim or defence is amended by filing an amended version marked \"Amended\", with additions underlined and other changes identified.", R_12_01_AMEND),
+  move("defendant:defence-filed", "both:amending-a-claim-or-defence", "you", "A claim or defence is amended by filing an amended version marked \"Amended\", with additions underlined and other changes identified.", R_12_01_AMEND),
+  move("both:amending-a-claim-or-defence", "plaintiff:awaiting-settlement-conference", "either", "The case goes on with the amended document; a party served with it does not have to amend their own claim or defence.", R_12_01_NO_RESPONSE_NEEDED),
+  move("both:amending-a-claim-or-defence", "defendant:awaiting-settlement-conference", "either", "The case goes on with the amended document; a party served with it does not have to amend their own claim or defence.", R_12_01_NO_RESPONSE_NEEDED),
+  move("plaintiff:defence-filed", "both:motion-to-strike-out", "either", "A party can ask the court, on motion, to strike out or amend a document that discloses no reasonable cause of action or defence, may delay a fair trial, or is an abuse of process.", R_12_02_STRIKE),
+  move("defendant:defence-filed", "both:motion-to-strike-out", "either", "A party can ask the court, on motion, to strike out or amend a document that discloses no reasonable cause of action or defence, may delay a fair trial, or is an abuse of process.", R_12_02_STRIKE),
+  move("both:motion-to-strike-out", "plaintiff:awaiting-settlement-conference", "court", "The motion is heard, in person, by video or phone, or in writing, and the case goes on with whatever order is made.", R_15_02_HEARING),
+  move("both:motion-to-strike-out", "defendant:awaiting-settlement-conference", "court", "The motion is heard, in person, by video or phone, or in writing, and the case goes on with whatever order is made.", R_15_02_HEARING),
+  move("both:motion-to-strike-out", "defendant:judgment-against-me", "court", "If a defence is struck out, the court can grant judgment.", R_12_02_ORDERS),
+  move("plaintiff:claim-issued-not-served", "plaintiff:court-considering-dismissal", "court", "The court can, on its own, consider staying or dismissing an action that on its face is inflammatory, a waste of time, a nuisance or an abuse of process; the clerk mails the plaintiff a notice first.", R_12_02_OWN_INITIATIVE, R_12_02_SUBMISSION),
 ];
 
 /**
@@ -430,6 +452,8 @@ export const FINAL_STEPS: FinalStep[] = [
   { stage: "plaintiff:debtor-examination", why: "After the examination the court may make an order as to payment; the other ways to enforce (garnishment, writs) are in this step's card.", rules: [R_20_10_ORDER_AS_TO_PAYMENT, R_20_03_ENFORCEMENT] },
   { stage: "defendant:judgment-being-enforced", why: "The debtor may ask the court to stay enforcement or change the payments if their circumstances have changed; after an examination the court may make an order as to payment.", rules: [R_20_02_STAY_VARY, R_20_10_ORDER_AS_TO_PAYMENT] },
   { stage: "plaintiff:action-dismissed-for-delay", why: "If every party consents, the clerk can restore the action to the list (Form 11.2A); the case then picks up where it was.", rules: [R_11_2_01_RESTORE_ON_CONSENT] },
+  { stage: "plaintiff:wants-to-discontinue", why: "The claim ends against the defendants it is discontinued against; a discontinuance is not a defence to a later action on the matter, unless an order granting leave says otherwise.", rules: [R_11_3_02_EFFECT] },
+  { stage: "plaintiff:court-considering-dismissal", why: "The court decides on the written submissions; if the plaintiff files none within 20 days, it can make the order without further notice.", rules: [R_12_02_SUBMISSION] },
   { stage: "civil:both:appeal-in-progress", why: "The appeal is perfected and decided by the appellate court; the appellate steps are this step's own deadlines.", rules: [stepRule("civil:both:appeal-in-progress", "r. 61.09 (1)")] },
   { stage: "civil:plaintiff:judgment-unpaid", why: "The judgment is enforced from here; a writ of seizure and sale lasts six years and can be renewed.", rules: [stepRule("civil:plaintiff:judgment-unpaid", "r. 60.07 (6)")] },
   { stage: "civil:defendant:judgment-being-enforced", why: "Delivering a notice of appeal stays the payment of money under the order (except support) until the appeal is decided.", rules: [stepRule("civil:defendant:judgment-being-enforced", "r. 63.01 (1)")] },
