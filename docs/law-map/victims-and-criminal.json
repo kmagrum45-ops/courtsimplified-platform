@@ -2473,7 +2473,8 @@
         "citation": "Corrections and Conditional Release Act, S.C. 1992, c. 20",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/c-44.6/",
         "pinpoint": "s. 26 (1)",
-        "expect": "at the request of a victim"
+        "expect": "at the request of a victim",
+        "corpusId": "corrections-and-conditional-release-act"
       }
     },
     {
@@ -2801,7 +2802,8 @@
         "citation": "Special Investigations Unit Act, 2019, S.O. 2019, c. 1, Sched. 5",
         "url": "https://www.ontario.ca/laws/statute/19s01e",
         "pinpoint": "s. 15 (1)",
-        "expect": "The death of a person"
+        "expect": "The death of a person",
+        "corpusId": "special-investigations-unit-act-2019"
       }
     },
     {
@@ -3221,7 +3223,8 @@
         "citation": "Civil Remedies Act, 2001, S.O. 2001, c. 28",
         "url": "https://www.ontario.ca/laws/statute/01r28",
         "pinpoint": "s. 6",
-        "expect": "compensate persons who suffered pecuniary or non-pecuniary losses"
+        "expect": "compensate persons who suffered pecuniary or non-pecuniary losses",
+        "corpusId": "civil-remedies-act-2001"
       }
     },
     {

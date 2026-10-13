@@ -141,7 +141,8 @@
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
         "pinpoint": "s. 2 (1)",
-        "expect": "application for judicial review"
+        "expect": "application for judicial review",
+        "corpusId": "judicial-review-procedure-act"
       },
       "leadsTo": [
         "hr.option.judicial-review"
@@ -156,7 +157,8 @@
         "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
         "pinpoint": "s. 40 (1)",
-        "expect": "may file with the Commission a complaint"
+        "expect": "may file with the Commission a complaint",
+        "corpusId": "canadian-human-rights-act"
       },
       "leadsTo": [
         "hr.pre.federal-time"
@@ -171,7 +173,8 @@
         "citation": "Labour Relations Act, 1995, S.O. 1995, c. 1, Sched. A",
         "url": "https://www.ontario.ca/laws/statute/95l01",
         "pinpoint": "s. 48 (12) (j)",
-        "expect": "interpret and apply human rights and other employment-related statutes"
+        "expect": "interpret and apply human rights and other employment-related statutes",
+        "corpusId": "labour-relations-act-1995"
       },
       "leadsTo": [
         "hr.pre.unionized-worker"
@@ -210,7 +213,8 @@
         "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
         "pinpoint": "s. 2",
-        "expect": "the purpose of this Act"
+        "expect": "the purpose of this Act",
+        "corpusId": "canadian-human-rights-act"
       },
       "leadsTo": [
         "hr.statute.chra",
@@ -227,7 +231,8 @@
         "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
         "pinpoint": "s. 41 (1) (e)",
-        "expect": "more than one year"
+        "expect": "more than one year",
+        "corpusId": "canadian-human-rights-act"
       }
     },
     {
@@ -2636,7 +2641,8 @@
         "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
         "url": "https://www.ontario.ca/laws/statute/90j01",
         "pinpoint": "s. 5 (1)",
-        "expect": "no later than 30 days after the date the decision"
+        "expect": "no later than 30 days after the date the decision",
+        "corpusId": "judicial-review-procedure-act"
       }
     },
     {

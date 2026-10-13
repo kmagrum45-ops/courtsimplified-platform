@@ -3395,7 +3395,8 @@
         "citation": "Reciprocal Enforcement of Judgments Act, R.S.O. 1990, c. R.5",
         "url": "https://www.ontario.ca/laws/statute/90r05",
         "pinpoint": "s. 2(1)",
-        "expect": "may apply to have the judgment registered"
+        "expect": "may apply to have the judgment registered",
+        "corpusId": "reciprocal-enforcement-of-judgments-act"
       }
     },
     {

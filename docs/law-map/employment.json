@@ -106,7 +106,8 @@
         "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
         "url": "https://www.ontario.ca/laws/statute/90o01",
         "pinpoint": "s. 1 (1)",
-        "expect": "engaging in a course of vexatious comment or conduct"
+        "expect": "engaging in a course of vexatious comment or conduct",
+        "corpusId": "occupational-health-and-safety-act"
       },
       "leadsTo": [
         "emp.ohsa.harassment-definition"
@@ -121,7 +122,8 @@
         "citation": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
         "url": "https://www.ontario.ca/laws/statute/97w16",
         "pinpoint": "s. 28 (1)",
-        "expect": "not entitled to commence an action"
+        "expect": "not entitled to commence an action",
+        "corpusId": "workplace-safety-and-insurance-act-1997"
       },
       "leadsTo": [
         "emp.wsib.bar"
@@ -173,7 +175,8 @@
         "citation": "Canada Labour Code, R.S.C. 1985, c. L-2",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/",
         "pinpoint": "s. 240 (1)",
-        "expect": "may make a complaint in writing to the Head"
+        "expect": "may make a complaint in writing to the Head",
+        "corpusId": "canada-labour-code"
       },
       "leadsTo": [
         "emp.esa.federal-exclusion",
@@ -189,7 +192,8 @@
         "citation": "Employment Insurance Act, S.C. 1996, c. 23",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/E-5.6/",
         "pinpoint": "s. 112 (1)",
-        "expect": "may make a request to the Commission for a reconsideration"
+        "expect": "may make a request to the Commission for a reconsideration",
+        "corpusId": "employment-insurance-act"
       },
       "leadsTo": [
         "emp.ei.roe",
@@ -3185,7 +3189,8 @@
         "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
         "url": "https://www.ontario.ca/laws/statute/90o01",
         "pinpoint": "s. 1 (1)",
-        "expect": "engaging in a course of vexatious comment or conduct"
+        "expect": "engaging in a course of vexatious comment or conduct",
+        "corpusId": "occupational-health-and-safety-act"
       },
       "leadsTo": [
         "emp.ohsa.policy",
@@ -3201,7 +3206,8 @@
         "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
         "url": "https://www.ontario.ca/laws/statute/90o01",
         "pinpoint": "s. 32.0.1 (1)",
-        "expect": "a policy with respect to workplace harassment"
+        "expect": "a policy with respect to workplace harassment",
+        "corpusId": "occupational-health-and-safety-act"
       },
       "leadsTo": [
         "emp.ohsa.investigation"
@@ -3216,7 +3222,8 @@
         "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
         "url": "https://www.ontario.ca/laws/statute/90o01",
         "pinpoint": "s. 32.0.7 (1)",
-        "expect": "an investigation is conducted into incidents and complaints of workplace"
+        "expect": "an investigation is conducted into incidents and complaints of workplace",
+        "corpusId": "occupational-health-and-safety-act"
       },
       "leadsTo": [
         "emp.ohsa.reprisal",
@@ -3232,7 +3239,8 @@
         "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
         "url": "https://www.ontario.ca/laws/statute/90o01",
         "pinpoint": "s. 50 (1)",
-        "expect": "No employer or person acting on behalf of an employer"
+        "expect": "No employer or person acting on behalf of an employer",
+        "corpusId": "occupational-health-and-safety-act"
       }
     },
     {
@@ -3244,7 +3252,8 @@
         "citation": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
         "url": "https://www.ontario.ca/laws/statute/97w16",
         "pinpoint": "s. 28 (1)",
-        "expect": "is not entitled to commence an action"
+        "expect": "is not entitled to commence an action",
+        "corpusId": "workplace-safety-and-insurance-act-1997"
       },
       "leadsTo": [
         "emp.wsib.right-to-sue"
@@ -3259,7 +3268,8 @@
         "citation": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
         "url": "https://www.ontario.ca/laws/statute/97w16",
         "pinpoint": "s. 31 (1)",
-        "expect": "whether, because of this Act, the right to commence an"
+        "expect": "whether, because of this Act, the right to commence an",
+        "corpusId": "workplace-safety-and-insurance-act-1997"
       }
     },
     {
@@ -3271,7 +3281,8 @@
         "citation": "Employment Insurance Regulations, SOR/96-332",
         "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-96-332/",
         "pinpoint": "s. 19 (3)",
-        "expect": "within five days"
+        "expect": "within five days",
+        "corpusId": "employment-insurance-regulations"
       },
       "leadsTo": [
         "emp.ei.roe",
@@ -3287,7 +3298,8 @@
         "citation": "Employment Insurance Act, S.C. 1996, c. 23",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/E-5.6/",
         "pinpoint": "s. 112 (1)",
-        "expect": "within 30 days after the day on which a decision"
+        "expect": "within 30 days after the day on which a decision",
+        "corpusId": "employment-insurance-act"
       },
       "leadsTo": [
         "emp.ei.appeal"
@@ -3302,7 +3314,8 @@
         "citation": "Department of Employment and Social Development Act, S.C. 2005, c. 34",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/H-5.7/",
         "pinpoint": "s. 52 (1)",
-        "expect": "within 30 days after the day on which it is"
+        "expect": "within 30 days after the day on which it is",
+        "corpusId": "department-of-employment-and-social-development-act"
       }
     },
     {
@@ -3314,7 +3327,8 @@
         "citation": "Canada Labour Code, R.S.C. 1985, c. L-2",
         "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/",
         "pinpoint": "s. 240 (2)",
-        "expect": "within ninety days from the date on which the person"
+        "expect": "within ninety days from the date on which the person",
+        "corpusId": "canada-labour-code"
       }
     },
     {

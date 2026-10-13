@@ -1228,7 +1228,8 @@
         "citation": "O. Reg. 2/05 (Court Fee Waivers), Administration of Justice Act",
         "url": "https://www.ontario.ca/laws/regulation/050002",
         "pinpoint": "s. 2",
-        "expect": "fee waiver certificate"
+        "expect": "fee waiver certificate",
+        "corpusId": "oreg-2-05-court-fee-waivers"
       }
     },
     {

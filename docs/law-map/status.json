@@ -7,8 +7,8 @@
       "total": 255,
       "matches": 246,
       "elsewhere": 0,
-      "differs": 0,
-      "not-saved": 1,
+      "differs": 1,
+      "not-saved": 0,
       "lead": 8,
       "inSite": 107,
       "reviewed": 247
@@ -17,10 +17,10 @@
       "area": "crown-and-public",
       "title": "Claims against the government, cities, police and public bodies",
       "total": 199,
-      "matches": 178,
+      "matches": 195,
       "elsewhere": 0,
-      "differs": 0,
-      "not-saved": 21,
+      "differs": 4,
+      "not-saved": 0,
       "lead": 0,
       "inSite": 57,
       "reviewed": 176
@@ -29,10 +29,10 @@
       "area": "employment",
       "title": "Employment",
       "total": 199,
-      "matches": 173,
+      "matches": 182,
       "elsewhere": 0,
-      "differs": 0,
-      "not-saved": 14,
+      "differs": 5,
+      "not-saved": 0,
       "lead": 12,
       "inSite": 28,
       "reviewed": 173
@@ -41,10 +41,10 @@
       "area": "family",
       "title": "Family law",
       "total": 272,
-      "matches": 266,
+      "matches": 268,
       "elsewhere": 0,
       "differs": 0,
-      "not-saved": 4,
+      "not-saved": 2,
       "lead": 2,
       "inSite": 164,
       "reviewed": 266
@@ -53,10 +53,10 @@
       "area": "human-rights",
       "title": "Human rights (Human Rights Tribunal of Ontario)",
       "total": 197,
-      "matches": 157,
+      "matches": 162,
       "elsewhere": 0,
-      "differs": 0,
-      "not-saved": 17,
+      "differs": 1,
+      "not-saved": 11,
       "lead": 23,
       "inSite": 3,
       "reviewed": 156
@@ -77,10 +77,10 @@
       "area": "small-claims",
       "title": "Small Claims Court",
       "total": 271,
-      "matches": 266,
+      "matches": 267,
       "elsewhere": 0,
       "differs": 0,
-      "not-saved": 1,
+      "not-saved": 0,
       "lead": 4,
       "inSite": 102,
       "reviewed": 266
@@ -89,78 +89,91 @@
       "area": "victims-and-criminal",
       "title": "Victims of crime, bail and the civil side of criminal matters",
       "total": 208,
-      "matches": 198,
+      "matches": 200,
       "elsewhere": 0,
-      "differs": 0,
-      "not-saved": 6,
+      "differs": 1,
+      "not-saved": 3,
       "lead": 4,
       "inSite": 16,
       "reviewed": 186
     }
   ],
-  "differs": [],
+  "differs": [
+    {
+      "area": "civil",
+      "id": "civ.enf.other-province",
+      "pinpoint": "reciprocal-enforcement-of-judgments-act s. 2(1)",
+      "expect": "may apply to have the judgment registered"
+    },
+    {
+      "area": "crown-and-public",
+      "id": "crown.jr.time-limit",
+      "pinpoint": "judicial-review-procedure-act s. 5 (1)",
+      "expect": "not later than 30 days after the date the decision was made"
+    },
+    {
+      "area": "crown-and-public",
+      "id": "crown.ombudsman.exhaust",
+      "pinpoint": "ombudsman-act s. 14 (4)",
+      "expect": "until after that right of appeal has been exercised"
+    },
+    {
+      "area": "crown-and-public",
+      "id": "crown.deadline.fippa-30-days",
+      "pinpoint": "fippa s. 26",
+      "expect": "within thirty days after the request is received"
+    },
+    {
+      "area": "crown-and-public",
+      "id": "crown.option.ipc-appeal",
+      "pinpoint": "fippa s. 50 (2)",
+      "expect": "within thirty days after the notice was given"
+    },
+    {
+      "area": "employment",
+      "id": "emp.statute.eia",
+      "pinpoint": "employment-insurance-act s. 112 (1)",
+      "expect": "may make a request to the Commission for a reconsideration"
+    },
+    {
+      "area": "employment",
+      "id": "emp.wsib.bar",
+      "pinpoint": "workplace-safety-and-insurance-act-1997 s. 28 (1)",
+      "expect": "is not entitled to commence an action"
+    },
+    {
+      "area": "employment",
+      "id": "emp.ei.roe",
+      "pinpoint": "employment-insurance-regulations s. 19 (3)",
+      "expect": "within five days"
+    },
+    {
+      "area": "employment",
+      "id": "emp.ei.reconsideration",
+      "pinpoint": "employment-insurance-act s. 112 (1)",
+      "expect": "within 30 days after the day on which a decision"
+    },
+    {
+      "area": "employment",
+      "id": "emp.ei.appeal",
+      "pinpoint": "department-of-employment-and-social-development-act s. 52 (1)",
+      "expect": "within 30 days after the day on which it is"
+    },
+    {
+      "area": "human-rights",
+      "id": "hr.statute.lra-arbitrator",
+      "pinpoint": "labour-relations-act-1995 s. 48 (12) (j)",
+      "expect": "interpret and apply human rights and other employment-related statutes"
+    },
+    {
+      "area": "victims-and-criminal",
+      "id": "vic.civil.civil-remedies",
+      "pinpoint": "civil-remedies-act-2001 s. 6",
+      "expect": "compensate persons who suffered pecuniary or non-pecuniary losses"
+    }
+  ],
   "elsewhere": [],
   "notSaved": [
-    {
-      "citation": "Reciprocal Enforcement of Judgments Act, R.S.O. 1990, c. R.5",
-      "url": "https://www.ontario.ca/laws/statute/90r05"
-    },
-    {
-      "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
-      "url": "https://www.ontario.ca/laws/statute/90j01"
-    },
-    {
-      "citation": "Ombudsman Act, R.S.O. 1990, c. O.6",
-      "url": "https://www.ontario.ca/laws/statute/90o06"
-    },
-    {
-      "citation": "Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/c-50/"
-    },
-    {
-      "citation": "Special Investigations Unit Act, 2019, S.O. 2019, c. 1, Sched. 5",
-      "url": "https://www.ontario.ca/laws/statute/19s01e"
-    },
-    {
-      "citation": "O. Reg. 239/02, Minimum Maintenance Standards for Municipal Highways",
-      "url": "https://www.ontario.ca/laws/regulation/020239"
-    },
-    {
-      "citation": "Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. F.31",
-      "url": "https://www.ontario.ca/laws/statute/90f31"
-    },
-    {
-      "citation": "Municipal Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. M.56",
-      "url": "https://www.ontario.ca/laws/statute/90m56"
-    },
-    {
-      "citation": "Federal Courts Act, R.S.C. 1985, c. F-7",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/f-7/"
-    },
-    {
-      "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
-      "url": "https://www.ontario.ca/laws/statute/90o01"
-    },
-    {
-      "citation": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
-      "url": "https://www.ontario.ca/laws/statute/97w16"
-    },
-    {
-      "citation": "Canada Labour Code, R.S.C. 1985, c. L-2",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
-    },
-    {
-      "citation": "Employment Insurance Act, S.C. 1996, c. 23",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/E-5.6/"
-    },
-    {
-      "citation": "Employment Insurance Regulations, SOR/96-332",
-      "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-96-332/"
-    },
-    {
-      "citation": "Department of Employment and Social Development Act, S.C. 2005, c. 34",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/H-5.7/"
-    },
     {
       "citation": "Spousal Support Advisory Guidelines (Department of Justice Canada, July 2008)",
       "url": "https://www.justice.gc.ca/eng/fl-df/spousal-epoux/ssag-ldfpae.html"
@@ -168,22 +181,6 @@
     {
       "citation": "Ontario: Child support (government guide)",
       "url": "https://www.ontario.ca/page/child-support"
-    },
-    {
-      "citation": "Family Orders and Agreements Enforcement Assistance Act, R.S.C. 1985, c. 4 (2nd Supp.)",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/F-1.4/"
-    },
-    {
-      "citation": "Interjurisdictional Support Orders Act, 2002, S.O. 2002, c. 13",
-      "url": "https://www.ontario.ca/laws/statute/02i13"
-    },
-    {
-      "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/"
-    },
-    {
-      "citation": "Labour Relations Act, 1995, S.O. 1995, c. 1, Sched. A",
-      "url": "https://www.ontario.ca/laws/statute/95l01"
     },
     {
       "citation": "O. Reg. 290/98 (Business Practices Permissible to Landlords in Selecting Prospective Tenants for Residential Accommodation)",
@@ -210,10 +207,6 @@
       "url": "https://www.ontario.ca/laws/regulation/r18009"
     },
     {
-      "citation": "O. Reg. 2/05 (Court Fee Waivers), Administration of Justice Act",
-      "url": "https://www.ontario.ca/laws/regulation/050002"
-    },
-    {
       "citation": "Ministry of the Attorney General, Crown Prosecution Manual, Directive: Charge Screening",
       "url": "https://www.ontario.ca/document/crown-prosecution-manual"
     },
@@ -222,16 +215,8 @@
       "url": "https://laws-lois.justice.gc.ca/eng/regulations/SI-2012-7/"
     },
     {
-      "citation": "Corrections and Conditional Release Act, S.C. 1992, c. 20",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/c-44.6/"
-    },
-    {
       "citation": "O. Reg. 456/96 (Prescribed Crimes) under the Victims' Bill of Rights, 1995",
       "url": "https://www.ontario.ca/laws/regulation/960456"
-    },
-    {
-      "citation": "Civil Remedies Act, 2001, S.O. 2001, c. 28",
-      "url": "https://www.ontario.ca/laws/statute/01r28"
     }
   ],
   "leads": [
