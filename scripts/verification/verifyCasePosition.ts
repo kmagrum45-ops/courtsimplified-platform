@@ -188,6 +188,21 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
   const full = storyHintsForDates("I was served on September 20, 2026 at my house.");
   check("a complete story date is offered for the matching question", full["sc-date-claim-served"]?.value === "2026-09-20");
   check("a story with no such moment gives no hint", Object.keys(storyHintsForDates("He owes me money for a painting job.")).length === 0);
+  // 2026-10-12 (free finish line): wordings and sentence layouts that were not linked.
+  {
+    const now = new Date("2026-10-12T12:00:00Z");
+    const mail = storyHintsForDates("i got the plaintiffs claim in the mail on september 28", now);
+    check("'got the plaintiffs claim in the mail on september 28' is the service date", mail["sc-date-claim-served"]?.value === "2026-09-28", JSON.stringify(mail));
+    const door = storyHintsForDates("someone handed me the plaintiffs claim at my door on october 1", now);
+    check("'handed me the plaintiffs claim at my door on october 1' is the service date", door["sc-date-claim-served"]?.value === "2026-10-01", JSON.stringify(door));
+    const apart = storyHintsForDates("i slipped and hurt my elbow realy bad. the store should have put salt down. this happened january 13 2025 at 2 pm in ottawa", now);
+    check("a date in its own 'this happened ...' sentence is the injury date", apart["sc-date-injury"]?.value === "2025-01-13", JSON.stringify(apart));
+    check("... and the day the claim is based on", apart["case-date-act-or-omission"]?.value === "2025-01-13");
+    const family = storyHintsForDates("my ex started a case and i got served on october 2 2026", now);
+    check("a family service date reaches the family question", family["case-date-served-with-application"]?.value === "2026-10-02", JSON.stringify(family));
+    const motion = storyHintsForDates("i was served a motion on october 2 2026", now);
+    check("not when the story is about a motion", !motion["case-date-served-with-application"]);
+  }
   // Step 2B, 2026-10-12: a full story date is kept with the case as soon as it
   // is shown (the waiting "Yes, save this date" prompt was flagged as asking
   // again on 8 walkthrough cases), but only the date is saved -- never the
