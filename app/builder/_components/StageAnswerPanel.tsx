@@ -2,10 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { isServiceDateQuestion } from "@/src/lib/case-system/casePosition";
+import { dateQuestionsForStep, isServiceDateQuestion } from "@/src/lib/case-system/casePosition";
 import {
   effectiveServiceDate,
   serviceMethodFromStory,
+  arrivalNotSendDate,
   serviceRulesFor,
   type ServiceCourt,
   type ServiceMethod,
@@ -342,14 +343,6 @@ function savePosition(caseId: string, patch: Record<string, unknown>): Promise<b
 }
 
 /**
- * The card's opening paragraph, without what does not concern this person
- * (held-back walkthrough, 2026-10-09): the portal sentence when the card's
- * own filing lines already name their portal ("Toronto uses ..." shown to a
- * Hamilton plaintiff), and the mortgage-action form for someone whose case is
- * not about a mortgage. Whole sentences or that one aside are dropped, never
- * reworded; the full answer below keeps every word.
- */
-/**
  * Which time limits lead the next-step card, and in what order (2026-10-13).
  *
  * Lead: the ones with no "if", plus the "if" ones that name the person's own
@@ -390,6 +383,49 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
   return { main, conditional };
 }
 
+/**
+ * Service dates the story gives as the day the papers ARRIVED, for a way of
+ * serving that counts from the day they were SENT (2026-10-13). Never counted
+ * from; see arrivalNotSendDate.
+ */
+export function arrivalOnlyDates(args: {
+  stageId: string;
+  court: ServiceCourt | null;
+  storyText: string;
+  storyHints: Record<string, StoryHint>;
+  methods: Record<string, ServiceMethod | undefined>;
+}): Record<string, string> {
+  if (!args.court) return {};
+  const storyMethod = serviceMethodFromStory(args.court, args.storyText);
+  const out: Record<string, string> = {};
+  for (const question of dateQuestionsForStep(args.stageId)) {
+    if (!isServiceDateQuestion(question.id, question.question)) continue;
+    const hint = args.storyHints[question.id];
+    if (hint?.value && arrivalNotSendDate(args.methods[question.id] ?? storyMethod, hint.quote)) out[question.id] = hint.quote;
+  }
+  return out;
+}
+
+/** Saved dates without the story's arrival-only service dates (unless saved with how they were served). */
+function withoutArrivalDates(
+  answers: Record<string, string>,
+  arrival: Record<string, string>,
+  storyHints: Record<string, StoryHint>,
+  service: Record<string, unknown>,
+): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(answers).filter(([id, value]) => !(arrival[id] && !service[id] && storyHints[id]?.value === value)),
+  );
+}
+
+/**
+ * The card's opening paragraph, without what does not concern this person
+ * (held-back walkthrough, 2026-10-09): the portal sentence when the card's
+ * own filing lines already name their portal ("Toronto uses ..." shown to a
+ * Hamilton plaintiff), and the mortgage-action form for someone whose case is
+ * not about a mortgage. Whole sentences or that one aside are dropped, never
+ * reworded; the full answer below keeps every word.
+ */
 export function forThisPerson(paragraph: string, { userWords, filingShown }: { userWords: string; filingShown: boolean }): string {
   let text = paragraph;
   if (!/\bmortgage/i.test(userWords)) {
@@ -514,8 +550,22 @@ export default function StageAnswerPanel({
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [dateAnswers, setDateAnswers] = useState<Record<string, string>>(initialDateAnswers);
-  const [dateDraft, setDateDraft] = useState<Record<string, string>>(initialDateAnswers);
+  const initialServiceCourt: ServiceCourt | null = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
+  const initialCountable = () =>
+    withoutArrivalDates(
+      initialDateAnswers,
+      arrivalOnlyDates({
+        stageId,
+        court: initialServiceCourt,
+        storyText: storyText ?? "",
+        storyHints,
+        methods: Object.fromEntries(Object.entries(initialService).map(([id, entry]) => [id, entry.method])),
+      }),
+      storyHints,
+      initialService,
+    );
+  const [dateAnswers, setDateAnswers] = useState<Record<string, string>>(initialCountable);
+  const [dateDraft, setDateDraft] = useState<Record<string, string>>(initialCountable);
   // How the papers were served, per service date (Step 2D, 2026-10-12): the
   // deadline counts from the day service is effective, not the day typed.
   const [serviceMethod, setServiceMethod] = useState<Record<string, ServiceMethod>>(() =>
@@ -546,17 +596,31 @@ export default function StageAnswerPanel({
   const [editing, setEditing] = useState<Record<string, boolean>>({});
   const offeredKey = JSON.stringify(offeredDates);
   const hintsKey = JSON.stringify(storyHints);
+  /*
+   * A service date the story gives as the day the papers ARRIVED, when the
+   * way they came (mail, courier) counts from the day they were SENT
+   * (2026-10-13: "i got the plaintiffs claim in the mail on september 28" was
+   * counted as if mailed that day). Never counted from; the person is asked
+   * for the mailing date, with what they wrote shown beside it.
+   */
+  const methodKey = JSON.stringify(serviceMethod);
+  const arrivalOnly = useMemo(
+    () => arrivalOnlyDates({ stageId, court: serviceCourt, storyText: storyText ?? "", storyHints, methods: serviceMethod }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [hintsKey, stageId, methodKey, storyText],
+  );
+  const arrivalKey = JSON.stringify(arrivalOnly);
   const storyDates = useMemo(() => {
     const out: Record<string, { value: string; basis: string }> = {};
     for (const [id, hint] of Object.entries(storyHints)) {
-      if (hint.value && !hint.yearAssumed) out[id] = { value: hint.value, basis: `from your story: “${hint.quote}”` };
+      if (hint.value && !hint.yearAssumed && !arrivalOnly[id]) out[id] = { value: hint.value, basis: `from your story: “${hint.quote}”` };
     }
     for (const [id, offered] of Object.entries(offeredDates)) {
-      if (offered.value && !offered.yearAssumed) out[id] = { value: offered.value, basis: offered.basis };
+      if (offered.value && !offered.yearAssumed && !arrivalOnly[id]) out[id] = { value: offered.value, basis: offered.basis };
     }
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [offeredKey, hintsKey]);
+  }, [offeredKey, hintsKey, arrivalKey]);
   const withStoryDates = (answers: Record<string, string>, dropped: Record<string, boolean> = rejected) => {
     const fromStory: Record<string, string> = {};
     for (const [id, date] of Object.entries(storyDates)) if (!dropped[id]) fromStory[id] = date.value;
@@ -568,7 +632,11 @@ export default function StageAnswerPanel({
   // confirmed dates are saved with the case) are counted when they arrive.
   const initialKey = JSON.stringify(initialDateAnswers);
   useEffect(() => {
-    const arriving = Object.entries(initialDateAnswers).filter(([key, value]) => value && !(key in dateAnswers));
+    // A saved service date that is the story's arrival day, saved without how
+    // it was served, is not counted from (see arrivalOnly).
+    const arriving = Object.entries(withoutArrivalDates(initialDateAnswers, arrivalOnly, storyHints, initialService)).filter(
+      ([key, value]) => value && !(key in dateAnswers),
+    );
     if (!arriving.length) return;
     const next = { ...Object.fromEntries(arriving), ...dateAnswers };
     setDateAnswers(next);
@@ -932,8 +1000,8 @@ export default function StageAnswerPanel({
                   ) : null}
                   <label className="block">
                     <span className="text-sm font-semibold text-[#16302b]">
-                      {serviceCourt && serviceMethod[question.id]
-                        ? `Enter ${serviceRulesFor(serviceCourt).find((rule) => rule.method === serviceMethod[question.id])?.dateToEnter ?? "the date"}`
+                      {serviceCourt && (serviceMethod[question.id] ?? (isServiceDateQuestion(question.id, question.question) ? storyServiceMethod : null))
+                        ? `Enter ${serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.dateToEnter ?? "the date"}`
                         : question.question}
                     </span>
                     <span className="block text-xs text-[#4d675f]">Used for: {question.sets.join("; ")}</span>
@@ -945,6 +1013,14 @@ export default function StageAnswerPanel({
                       className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
                     />
                   </label>
+                  {arrivalOnly[question.id] && !value && serviceCourt ? (
+                    <p className="mt-2 text-sm leading-6 text-[#16302b]" data-testid={`stage-answer-arrival-${question.id}`}>
+                      {`You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. For papers sent this way, the rules count from ${
+                        serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.dateToEnter ??
+                        "the day they were sent"
+                      }, so we don't count from the day they arrived. The envelope or the other side's proof of service often shows it, and the court office can tell you.`}
+                    </p>
+                  ) : null}
                   {hint && !hint.value && !suggestion && !value ? (
                     <p className="mt-2 text-sm text-[#4d675f]" data-testid={`stage-answer-story-hint-${question.id}`}>
                       You wrote: &ldquo;{hint.quote}&rdquo; Pick that date above, with its year.

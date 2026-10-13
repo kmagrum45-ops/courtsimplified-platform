@@ -29,6 +29,7 @@ import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/notic
 import { suggestedStageFor } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { practicalFor, type PracticalCourt } from "../../src/lib/content-library/nextStepPractical";
 import { PERSONAS, type Persona } from "../../tests/browser/walkthrough/personas";
+import { arrivalOnlyDates } from "../../app/builder/_components/StageAnswerPanel";
 
 /** The day the cases are read on, so "no year" dates resolve the same way every run. */
 const TODAY = new Date("2026-10-12T12:00:00Z");
@@ -65,7 +66,12 @@ export function scoreCase(persona: Persona): CaseScore {
   // A date without a year is offered with "which year?" -- one click, by the
   // site owner's rule never to count from a guessed year (2026-10-08). It
   // counts here as counted; `oneClick` says how many needed that click.
-  const known = questions.filter((question) => hints[question.id]?.value);
+  // A service date the story gives as the day papers ARRIVED by mail or
+  // courier is not counted from (the rule counts from the day they were sent);
+  // asking for the mailing date is right, so it is not a miss (2026-10-13).
+  const arrival = arrivalOnlyDates({ stageId: step ?? "", court, storyText: persona.story, storyHints: hints, methods: {} });
+  const known = questions.filter((question) => hints[question.id]?.value && !arrival[question.id]);
+  const onlyArrival = questions.length > 0 && questions.every((question) => !hints[question.id]?.value || arrival[question.id]) && Object.keys(arrival).length > 0;
   const oneClick = known.filter((question) => hints[question.id]?.yearAssumed).length;
   const storyHasFullDate = FULL_DATE.test(persona.story);
   return {
@@ -76,10 +82,10 @@ export function scoreCase(persona: Persona): CaseScore {
     file: Boolean(practical && practical.filing.length > 0 && practical.serving.length > 0 && (practical.fees.length > 0 || practical.feeNotes.length > 0)),
     // n/a when the step needs no date, or the story gives no day to count
     // from ("last week", "in july") -- then asking is right, not a repeat.
-    counted: questions.length === 0 || !DAY_DATE.test(persona.story) ? null : known.length > 0,
+    counted: questions.length === 0 || !DAY_DATE.test(persona.story) || onlyArrival ? null : known.length > 0,
     oneClick,
     // A question left to ask while the story holds a full date nobody linked to it.
-    repeats: storyHasFullDate && known.length === 0 ? questions.map((question) => question.id) : [],
+    repeats: storyHasFullDate && known.length === 0 && !onlyArrival ? questions.map((question) => question.id) : [],
   };
 }
 
@@ -109,7 +115,11 @@ function main() {
  * below them fails CI. Raise them as the work lands; never lower them to
  * make a change pass.
  */
-export const FLOOR = { form: 19, file: 18, counted: 8, noRepeat: 20 };
+// counted 8 -> 7 on 2026-10-13: not a regression. The renovation case's
+// "got the claim in the mail on september 28" is the day it arrived, and the
+// site now asks for the mailing date instead of counting from the arrival
+// day, so that case is n/a, not a pass (7 of 7 counted).
+export const FLOOR = { form: 19, file: 19, counted: 7, noRepeat: 20 };
 
 function check(scores: CaseScore[]) {
   const got = {
