@@ -88,6 +88,8 @@ check("no move's words grade a case, predict an outcome or tell the person what 
 // follow the chain from being served to a trial date.
 const path = ["defendant:served-defence-period-running", "defendant:defence-filed", "defendant:awaiting-settlement-conference", "defendant:trial-date-set"];
 check("a served Small Claims defendant can follow the chain to a trial date", path.every((id, i) => i === 0 || movesFrom(path[i - 1]).some((m) => m.to === id)));
+const civilPath = ["civil:defendant:served-defence-period-running", "civil:defendant:defence-delivered", "civil:both:discovery", "civil:plaintiff:ready-to-set-down", "civil:both:pretrial-scheduled", "civil:both:trial-date-set", "civil:both:judgment-given"];
+check("a served Superior Court defendant can follow the chain to a judgment", civilPath.every((id, i) => i === 0 || movesFrom(civilPath[i - 1]).some((m) => m.to === id)));
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;
