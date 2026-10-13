@@ -7,7 +7,7 @@
       "id": "emp.statute.esa",
       "kind": "statute",
       "title": "Employment Standards Act, 2000",
-      "says": "The Employment Standards Act, 2000 sets the minimum rights of most employees who work in Ontario: wages, hours, overtime, vacation, public holidays, leaves, and notice and pay when a job ends.",
+      "says": "The Employment Standards Act, 2000 sets employment standards that apply to an employee and employer when the employee's work is to be performed in Ontario, or in and outside Ontario where the outside work continues work done in Ontario, subject to listed exceptions.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 3 (1)",
@@ -32,13 +32,18 @@
         "emp.reprisal.prohibited",
         "emp.claim.choose-forum",
         "emp.collect.offences"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 3 (1) only says when the Act's standards apply (work performed in Ontario); it does not list wages, hours, overtime, vacation, holidays, leaves or termination as the Act's contents.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.reg-288",
       "kind": "statute",
       "title": "O. Reg. 288/01 (Termination and Severance of Employment)",
-      "says": "This regulation under the Employment Standards Act lists employees who are not entitled to termination or severance pay, and sets the notice periods for mass terminations.",
+      "says": "Section 2 (1) of this regulation lists employees who are not entitled to notice of termination or termination pay under Part XV of the Employment Standards Act, such as employees hired for a definite term or task and employees guilty of wilful misconduct that is not trivial and was not condoned.",
       "source": {
         "corpusId": "termination-and-severance-of-employment",
         "pinpoint": "s. 2 (1)",
@@ -47,13 +52,18 @@
       "leadsTo": [
         "emp.term.excluded-employees",
         "emp.term.mass-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 2 (1) lists employees not entitled to notice of termination or termination pay only; it says nothing about severance pay or mass-termination notice periods.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.reg-285",
       "kind": "statute",
       "title": "O. Reg. 285/01 (exemptions and special rules)",
-      "says": "This regulation sets out which jobs are exempt from some parts of the Employment Standards Act, for example hours of work and overtime for managers and supervisors, and special rules for some industries.",
+      "says": "Section 8 of this regulation lists employees to whom the overtime pay Part of the Employment Standards Act does not apply, including a person whose work is supervisory or managerial in character and who may do other tasks only on an irregular or exceptional basis.",
       "source": {
         "corpusId": "oreg-285-01-esa-exemptions",
         "pinpoint": "s. 8",
@@ -61,13 +71,18 @@
       },
       "leadsTo": [
         "emp.esa.exemptions-overtime"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 8 exempts listed employees from the overtime Part (Part VIII) only; hours-of-work exemptions are in section 4 and industry special rules are elsewhere in the regulation.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.hrc",
       "kind": "statute",
       "title": "Human Rights Code",
-      "says": "The Human Rights Code gives every person the right to equal treatment in employment without discrimination on listed grounds, and freedom from harassment at work on those grounds.",
+      "says": "The Human Rights Code gives every person the right to equal treatment in employment without discrimination on listed grounds, and gives every employee the right to freedom from harassment in the workplace by the employer, the employer's agent or another employee on the grounds listed in subsection 5 (2).",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 5 (1)",
@@ -75,7 +90,12 @@
       },
       "leadsTo": [
         "emp.hr.equal-treatment"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 5 (2) protects employees from workplace harassment on a list of grounds that does not include sex, so 'on those grounds' overstates it (sexual harassment is covered in s. 7).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.ohsa",
@@ -119,13 +139,17 @@
       },
       "leadsTo": [
         "emp.civil.limitation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.cja",
       "kind": "statute",
       "title": "Courts of Justice Act",
-      "says": "The Courts of Justice Act sets up Ontario's courts, including the Small Claims Court, and governs interest, costs and appeals in court cases such as wrongful dismissal actions.",
+      "says": "Under the Courts of Justice Act, the Small Claims Court hears actions for the payment of money where the amount claimed, not counting interest and costs, does not exceed the prescribed amount.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 23 (1)",
@@ -133,7 +157,12 @@
       },
       "leadsTo": [
         "emp.civil.court-choice"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 23 (1) only sets the Small Claims Court's monetary jurisdiction; it does not establish the courts generally or govern interest, costs or appeals.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.statute.clc",
@@ -181,7 +210,11 @@
         "emp.esa.federal-exclusion",
         "emp.esa.excluded-individuals",
         "emp.esa.employee-definition"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.federal-exclusion",
@@ -195,7 +228,11 @@
       },
       "leadsTo": [
         "emp.statute.clc"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.excluded-individuals",
@@ -209,7 +246,11 @@
       },
       "leadsTo": [
         "emp.esa.employee-definition"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.employee-definition",
@@ -224,13 +265,17 @@
       "leadsTo": [
         "emp.esa.misclassification",
         "emp.test.employee-vs-contractor"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.related-employers",
       "kind": "test",
       "title": "Related businesses treated as one employer",
-      "says": "Where associated or related businesses are carried on by or through an employer and other persons, they can all be treated as one employer under the Act, so each can be responsible for the employee's entitlements.",
+      "says": "Where associated or related activities or businesses are or were carried on by or through an employer and one or more other persons, they are all treated as one employer under the Act, and they are jointly and severally liable for wages owing to an employee of any of them (with exceptions for some shareholders and the Crown).",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 4 (2)",
@@ -238,7 +283,12 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "The Act says related employers 'shall all be treated as one employer', not that they 'can' be; the item turns a mandatory rule into a discretionary one.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.misclassification",
@@ -253,7 +303,11 @@
       "leadsTo": [
         "emp.test.employee-vs-contractor",
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.no-contracting-out",
@@ -268,7 +322,11 @@
       "leadsTo": [
         "emp.esa.greater-benefit",
         "emp.test.termination-clause"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.greater-benefit",
@@ -282,7 +340,11 @@
       },
       "leadsTo": [
         "emp.test.reasonable-notice-presumption"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.civil-remedies-preserved",
@@ -297,7 +359,11 @@
       "leadsTo": [
         "emp.claim.election-complaint-first",
         "emp.claim.election-court-first"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.civil-notice-director",
@@ -311,7 +377,11 @@
       },
       "leadsTo": [
         "emp.sup.trial"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.exemptions-overtime",
@@ -325,17 +395,26 @@
       },
       "leadsTo": [
         "emp.wages.overtime"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.esa.unionized",
       "kind": "test",
       "title": "Unionized employees use the grievance process",
-      "says": "If the employer is bound by a collective agreement, the Act is enforced as part of that agreement, and an employee represented by the union cannot file an ESA complaint about it. These matters go through the union's grievance process.",
+      "says": "If the employer is bound by a collective agreement, the Act is enforceable as if it were part of that agreement, and an employee represented by the union may not file an ESA complaint about those matters unless the Director permits it.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 99 (2)",
         "expect": "may not file a complaint alleging a contravention of this"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 99 does not mention a grievance process and the item drops subsection (6), under which the Director may still permit a represented employee to file a complaint.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -355,7 +434,11 @@
         "emp.wages.three-hour",
         "emp.wages.equal-pay",
         "emp.tips.payment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.pay-day",
@@ -370,7 +453,11 @@
       "leadsTo": [
         "emp.wages.statement",
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.final-pay",
@@ -385,7 +472,11 @@
       "leadsTo": [
         "emp.wages.final-statement",
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.statement",
@@ -399,7 +490,11 @@
       },
       "leadsTo": [
         "emp.wages.records"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.final-statement",
@@ -413,7 +508,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.deductions",
@@ -427,13 +526,17 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.records",
       "kind": "test",
       "title": "Employer must keep employment records",
-      "says": "An employer must record information about each employee, including the dates and times worked and the hours worked each day and week. These records matter when wages or overtime are disputed.",
+      "says": "An employer must record information about each employee, including the dates and times worked and the hours worked each day and week; for an employee paid a salary, the employer may instead record only certain excess hours, or nothing about hours if the hours and overtime rules do not apply.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 15 (1)",
@@ -441,7 +544,12 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 15 sets out what must be recorded but says nothing about the records mattering in disputes, and it lets an employer of a salaried employee skip the daily and weekly hours record in some cases.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.minimum",
@@ -455,7 +563,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.three-hour",
@@ -469,7 +581,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hours.limits",
@@ -483,7 +599,11 @@
       },
       "leadsTo": [
         "emp.hours.rest"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hours.rest",
@@ -497,7 +617,11 @@
       },
       "leadsTo": [
         "emp.hours.eating"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hours.eating",
@@ -511,7 +635,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.overtime",
@@ -525,7 +653,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.wages.equal-pay",
@@ -558,7 +690,11 @@
       },
       "leadsTo": [
         "emp.tips.no-withholding"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.tips.no-withholding",
@@ -573,13 +709,17 @@
       "leadsTo": [
         "emp.tips.pooling",
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.tips.pooling",
       "kind": "test",
       "title": "Tip pools",
-      "says": "An employer may collect tips and redistribute them among some or all employees, but the employer and its directors or shareholders cannot share in the pool, except a sole proprietor or partner who regularly does the same work to a substantial degree.",
+      "says": "An employer may collect tips and redistribute them among some or all employees, but the employer and its directors or shareholders cannot share in the pool, except a sole proprietor, partner, director or shareholder who regularly does to a substantial degree the same work as the employees sharing in it (or as tipped employees of other employers in the same industry).",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 14.4 (3)",
@@ -587,7 +727,12 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "The item says only a sole proprietor or partner may share in the pool, but subsection 14.4 (5) gives directors and shareholders the same exception when they regularly do the same work to a substantial degree.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.ph.list",
@@ -601,7 +746,11 @@
       },
       "leadsTo": [
         "emp.ph.day-off"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ph.day-off",
@@ -617,7 +766,11 @@
         "emp.ph.last-first-rule",
         "emp.ph.pay-calc",
         "emp.ph.working"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ph.last-first-rule",
@@ -631,7 +784,11 @@
       },
       "leadsTo": [
         "emp.ph.pay-calc"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ph.pay-calc",
@@ -645,13 +802,17 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ph.working",
       "kind": "test",
       "title": "Working on a public holiday",
-      "says": "An employee may agree to work a public holiday. The employer then pays regular wages and gives a substitute day off with public holiday pay, or, if both agree, pays public holiday pay plus premium pay for hours worked. Some workplaces (hospitals, continuous operations, hotels, restaurants and similar) can require the work.",
+      "says": "An employee and employer may agree that the employee will work a public holiday that would ordinarily be a working day. The employer then pays regular wages for the hours worked and gives a substitute day off with public holiday pay, or, if both agree, pays public holiday pay plus premium pay for each hour worked.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 27 (2)",
@@ -659,7 +820,12 @@
       },
       "leadsTo": [
         "emp.ph.non-working-day"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 27 covers only an agreement to work a holiday; nothing in it lets hospitals, continuous operations, hotels or restaurants require the work (that is a different section).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.ph.non-working-day",
@@ -673,7 +839,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.vac.time",
@@ -688,7 +858,11 @@
       "leadsTo": [
         "emp.vac.pay",
         "emp.vac.forego"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.vac.pay",
@@ -703,7 +877,11 @@
       "leadsTo": [
         "emp.vac.when-paid",
         "emp.vac.on-termination"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.vac.when-paid",
@@ -717,7 +895,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.vac.on-termination",
@@ -731,7 +913,11 @@
       },
       "leadsTo": [
         "emp.wages.final-pay"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.vac.forego",
@@ -742,6 +928,10 @@
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 41 (2)",
         "expect": "Nothing in subsection (1) allows the employer to forego paying"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -767,7 +957,11 @@
         "emp.leave.reservist",
         "emp.leave.benefits-continue",
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.parental",
@@ -782,7 +976,11 @@
       "leadsTo": [
         "emp.leave.benefits-continue",
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.family-medical",
@@ -797,7 +995,11 @@
       "leadsTo": [
         "emp.leave.benefits-continue",
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.family-caregiver",
@@ -811,7 +1013,11 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.child-death",
@@ -825,7 +1031,11 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.domestic-violence",
@@ -839,7 +1049,11 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.sick",
@@ -853,7 +1067,11 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.family-responsibility",
@@ -867,7 +1085,11 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.bereavement",
@@ -892,7 +1114,7 @@
       "id": "emp.leave.infectious-disease",
       "kind": "test",
       "title": "Infectious disease emergency leave",
-      "says": "The Act provides unpaid, job-protected leave in specified circumstances related to a designated infectious disease, such as being under medical investigation, isolation or caring for a family member.",
+      "says": "An employee is entitled to a leave of absence without pay when not performing their duties for listed reasons related to a designated infectious disease, such as being under medical investigation or treatment, being in quarantine or isolation, or providing care or support to a listed family member.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 50.1 (1)",
@@ -900,13 +1122,18 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 50.1 gives a leave of absence without pay for listed reasons but does not itself say the leave is 'job-protected'; reinstatement is dealt with in a different section.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.reservist",
       "kind": "test",
       "title": "Reservist leave",
-      "says": "An employee who is a Canadian Forces reservist is entitled to unpaid leave for deployment, military skills training and related treatment or recovery.",
+      "says": "An employee who is a reservist is entitled to unpaid leave when deployed to a Canadian Forces operation outside Canada, or inside Canada to help with an emergency, when taking part in military skills training, or for treatment or recovery from related illness or injury; for most of these, the employee must first have been employed for the prescribed period or, if none is prescribed, at least two consecutive months.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 50.2 (1)",
@@ -914,7 +1141,12 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "The item drops the condition in subsection 50.2 (3) that the employee must have been employed for the prescribed period (or at least two consecutive months) before starting most kinds of reservist leave, and narrows 'deployment' without saying it covers operations outside Canada or domestic emergencies.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.job-search",
@@ -928,7 +1160,11 @@
       },
       "leadsTo": [
         "emp.term.mass-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.benefits-continue",
@@ -942,7 +1178,11 @@
       },
       "leadsTo": [
         "emp.leave.reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.leave.reinstatement",
@@ -957,7 +1197,11 @@
       "leadsTo": [
         "emp.reprisal.prohibited",
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.noncompete.ban",
@@ -971,7 +1215,11 @@
       },
       "leadsTo": [
         "emp.test.restrictive-covenants"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.monitoring.policy",
@@ -982,17 +1230,26 @@
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 41.1.1 (1)",
         "expect": "written policy in place for all employees with respect to"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "emp.hiring.job-postings",
       "kind": "test",
       "title": "Rules for public job postings",
-      "says": "An employer that publicly advertises a job must include the expected pay or pay range, cannot require Canadian experience, must disclose use of artificial intelligence to screen applicants, and must say whether the posting is for an existing vacancy.",
+      "says": "An employer that advertises a publicly advertised job posting must include the expected pay or pay range for the position, unless the posting meets criteria set out in the regulations.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 8.2 (1)",
         "expect": "information about the expected compensation for the position"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 8.2 only requires expected compensation or a pay range in a publicly advertised posting (with prescribed exceptions); Canadian experience, AI disclosure and vacancy information are in sections 8.3 to 8.5, not the cited section.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1008,7 +1265,11 @@
       "leadsTo": [
         "emp.reprisal.onus",
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.reprisal.onus",
@@ -1022,7 +1283,11 @@
       },
       "leadsTo": [
         "emp.order.compensation-reinstatement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.notice-required",
@@ -1042,7 +1307,11 @@
         "emp.term.pay-in-lieu",
         "emp.term.excluded-employees",
         "emp.term.frustration-illness"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.what-is-termination",
@@ -1058,13 +1327,17 @@
         "emp.term.temporary-layoff",
         "emp.test.constructive-dismissal",
         "emp.term.notice-periods"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.temporary-layoff",
       "kind": "test",
       "title": "Temporary layoff",
-      "says": "A temporary layoff is generally up to 13 weeks in any 20 consecutive weeks. It can be longer (under 35 weeks in 52) in listed situations, such as when the employer keeps paying benefits or recalls the employee within a time set in an agreement. A layoff longer than that is a termination.",
+      "says": "A temporary layoff is generally up to 13 weeks in any 20 consecutive weeks. It can be longer (under 35 weeks in 52) in listed situations, such as when the employer keeps paying benefits or recalls the employee within a time set in an agreement, and in some cases 35 weeks or more with a recall agreement (and, for non-union employees, Director approval). A layoff longer than a temporary layoff is a termination.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 56 (2)",
@@ -1073,7 +1346,12 @@
       "leadsTo": [
         "emp.term.notice-periods",
         "emp.sev.what-is-severance"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "The item says any layoff longer than 35 weeks in 52 is a termination, but clauses 56 (2) (c) and (d) make some layoffs of 35 or more weeks temporary where there is a recall agreement with the union, or a recall agreement plus Director approval of an extended layoff.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.notice-periods",
@@ -1088,7 +1366,11 @@
       "leadsTo": [
         "emp.term.during-notice",
         "emp.term.pay-in-lieu"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.period-includes-leave",
@@ -1102,7 +1384,11 @@
       },
       "leadsTo": [
         "emp.term.notice-periods"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.mass-notice",
@@ -1136,7 +1422,11 @@
       },
       "leadsTo": [
         "emp.term.during-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.during-notice",
@@ -1151,7 +1441,11 @@
       "leadsTo": [
         "emp.wages.final-pay",
         "emp.wages.final-statement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.pay-in-lieu",
@@ -1167,7 +1461,11 @@
         "emp.term.benefits-deemed",
         "emp.wages.final-pay",
         "emp.sev.eligibility"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.benefits-deemed",
@@ -1181,7 +1479,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.excluded-employees",
@@ -1196,13 +1498,17 @@
       "leadsTo": [
         "emp.test.esa-wilful-misconduct",
         "emp.sev.excluded"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.esa-wilful-misconduct",
       "kind": "test",
       "title": "ESA \"wilful misconduct\" standard",
-      "says": "To deny ESA termination and severance pay, the employer must show wilful misconduct, disobedience or wilful neglect of duty that is not trivial and has not been condoned. This is a separate standard from \"just cause\" at common law.",
+      "says": "An employee who has been guilty of wilful misconduct, disobedience or wilful neglect of duty that is not trivial and has not been condoned by the employer is not entitled to ESA notice of termination or termination pay.",
       "source": {
         "corpusId": "termination-and-severance-of-employment",
         "pinpoint": "s. 2 (1)",
@@ -1210,7 +1516,12 @@
       },
       "leadsTo": [
         "emp.test.just-cause"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 2 (1) of O. Reg. 288/01 excludes such employees from notice of termination and termination pay only (not severance pay), and it says nothing about who must prove it or about common-law just cause.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.term.frustration-illness",
@@ -1224,7 +1535,11 @@
       },
       "leadsTo": [
         "emp.term.notice-required"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sev.what-is-severance",
@@ -1238,7 +1553,11 @@
       },
       "leadsTo": [
         "emp.sev.eligibility"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sev.eligibility",
@@ -1253,13 +1572,17 @@
       "leadsTo": [
         "emp.sev.calculation",
         "emp.sev.excluded"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sev.excluded",
       "kind": "test",
       "title": "Employees excluded from severance pay",
-      "says": "Prescribed employees are not entitled to severance pay, for example (under the regulation) employees guilty of wilful misconduct that is not trivial and not condoned, and some construction employees.",
+      "says": "Employees prescribed by regulation are not entitled to severance pay under the Act.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 64 (3)",
@@ -1267,7 +1590,12 @@
       },
       "leadsTo": [
         "emp.test.esa-wilful-misconduct"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 64 (3) only says prescribed employees are not entitled to severance pay; the examples given come from the regulation, not the cited provision.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sev.calculation",
@@ -1282,7 +1610,11 @@
       "leadsTo": [
         "emp.sev.instalments",
         "emp.wages.final-pay"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sev.instalments",
@@ -1296,7 +1628,11 @@
       },
       "leadsTo": [
         "emp.claim.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.choose-forum",
@@ -1332,7 +1668,11 @@
       },
       "leadsTo": [
         "emp.claim.withdraw-two-weeks"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.withdraw-two-weeks",
@@ -1346,7 +1686,11 @@
       },
       "leadsTo": [
         "emp.civil.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.election-court-first",
@@ -1360,7 +1704,11 @@
       },
       "leadsTo": [
         "emp.civil.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.file",
@@ -1376,7 +1724,11 @@
         "emp.claim.two-year-limit",
         "emp.claim.recovery-limit",
         "emp.claim.investigation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.two-year-limit",
@@ -1390,7 +1742,11 @@
       },
       "leadsTo": [
         "emp.claim.recovery-limit"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.recovery-limit",
@@ -1404,7 +1760,11 @@
       },
       "leadsTo": [
         "emp.claim.investigation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.investigation",
@@ -1443,7 +1803,11 @@
       },
       "leadsTo": [
         "emp.claim.settlement"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.claim.settlement",
@@ -1454,6 +1818,10 @@
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 112 (1)",
         "expect": "inform an employment standards officer in writing of the terms"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1471,7 +1839,11 @@
         "emp.review.employer",
         "emp.review.employee",
         "emp.collect.filing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.order.compensation-reinstatement",
@@ -1486,7 +1858,11 @@
       "leadsTo": [
         "emp.review.employer",
         "emp.review.employee"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.order.directors",
@@ -1521,7 +1897,11 @@
       "leadsTo": [
         "emp.review.employer",
         "emp.collect.filing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.order.compliance",
@@ -1535,7 +1915,11 @@
       },
       "leadsTo": [
         "emp.review.employer"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.order.notice-of-contravention",
@@ -1549,7 +1933,11 @@
       },
       "leadsTo": [
         "emp.review.notice-of-contravention"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.order.refusal",
@@ -1563,7 +1951,11 @@
       },
       "leadsTo": [
         "emp.review.employee"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.review.employer",
@@ -1577,7 +1969,11 @@
       },
       "leadsTo": [
         "emp.review.deadline"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.review.employee",
@@ -1591,7 +1987,11 @@
       },
       "leadsTo": [
         "emp.review.deadline"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.review.deadline",
@@ -1635,7 +2035,7 @@
       "id": "emp.review.final",
       "kind": "step",
       "title": "Board decision is final",
-      "says": "A Board decision on a review is final and binding, though a court can still review it (judicial review at the Divisional Court).",
+      "says": "A Board decision on a review is final and binding on the parties, but a court may still review it; a Board decision interpreting the Act is not overturned unless it is unreasonable.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 119 (13)",
@@ -1643,7 +2043,12 @@
       },
       "leadsTo": [
         "emp.collect.filing"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 119 (14) says a court may review a Board decision but does not name the Divisional Court, and it adds that the Board's interpretation of the Act is overturned only if unreasonable.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.review.notice-of-contravention",
@@ -1708,6 +2113,10 @@
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 132",
         "expect": "is guilty of an offence and on conviction is liable"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1744,17 +2153,26 @@
       },
       "leadsTo": [
         "emp.civil.ultimate-limit"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.civil.ultimate-limit",
       "kind": "deadline",
       "title": "15-year ultimate limit",
-      "says": "No court case can be started more than 15 years after the act or omission the claim is based on, whatever the discovery date.",
+      "says": "No court case can be started more than 15 years after the day of the act or omission the claim is based on, whatever the discovery date, except that this period does not run while the claimant is incapable or a minor without a litigation guardian, or while the other side wilfully conceals the claim or misleads the claimant about it.",
       "source": {
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 15 (2)",
         "expect": "after the 15th anniversary of the day on which the"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The item states the 15-year bar as absolute, but subsection 15 (4) stops it running while the claimant is incapable or a minor without a litigation guardian, or while the other side wilfully conceals the loss or misleads the claimant.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1766,13 +2184,17 @@
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 22 (1)",
         "expect": "applies despite any agreement to vary or exclude it"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "emp.civil.demand-letter",
       "kind": "option",
       "title": "Demand letter before suing",
-      "says": "No law requires a letter before suing for wrongful dismissal, but a written demand setting out what is claimed is a common first step and can lead to negotiation or settlement. Settlement talks do not stop the two-year limitation period from running.",
+      "says": "Unless the Limitations Act provides otherwise, a court case about a claim cannot be started after the second anniversary of the day the claim was discovered.",
       "source": {
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 4",
@@ -1781,7 +2203,12 @@
       "leadsTo": [
         "emp.civil.start",
         "emp.option.settle-release"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 4 only sets the two-year basic limitation period; it says nothing about demand letters, negotiation or whether settlement talks affect the period.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.civil.court-choice",
@@ -1808,7 +2235,7 @@
       "id": "emp.civil.start",
       "kind": "start",
       "title": "Starting a wrongful dismissal case",
-      "says": "A wrongful dismissal case is a lawsuit for breach of the employment contract, usually for damages equal to pay and benefits for the reasonable notice period not given. It starts in Small Claims Court or the Superior Court depending on the amount.",
+      "says": "The Small Claims Court hears actions for the payment of money, such as a wrongful dismissal claim, where the amount claimed does not exceed the prescribed amount, not counting interest and costs.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 23 (1)",
@@ -1819,13 +2246,18 @@
         "emp.test.reasonable-notice-presumption",
         "emp.test.resignation",
         "emp.esa.civil-notice-director"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 23 (1) of the Courts of Justice Act only sets the Small Claims Court's monetary jurisdiction; it does not define wrongful dismissal or its measure of damages, and it does not say a larger claim goes to the Superior Court (that is elsewhere).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sc.claim",
       "kind": "start",
       "title": "Plaintiff's claim (Small Claims Court)",
-      "says": "A Small Claims Court case starts by filing a plaintiff's claim (Form 7A) with the clerk, with a copy for each defendant, in the right territorial division (where the claim arose or where the defendant lives or carries on business).",
+      "says": "A Small Claims Court case starts by filing a plaintiff's claim (Form 7A) with the clerk, with a copy for each defendant unless the claim is filed electronically. The claim states the parties, the nature of the claim with reasonable detail, the amount and the relief requested.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 7.01 (1)",
@@ -1834,7 +2266,12 @@
       "form": "7A",
       "leadsTo": [
         "emp.sc.defence"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 7.01 says how a claim is commenced and what it contains; the territorial division where a claim may be brought is set by a different rule (6.01), and the copy-per-defendant requirement does not apply to electronic filing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sc.defence",
@@ -1850,7 +2287,11 @@
       "leadsTo": [
         "emp.sc.default",
         "emp.sc.settlement-conference"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sc.default",
@@ -1861,13 +2302,17 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 11.01 (1)",
         "expect": "the clerk may note the defendant in default"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "emp.sc.settlement-conference",
       "kind": "step",
       "title": "Settlement conference (Small Claims)",
-      "says": "A settlement conference is held in every defended action. Its purposes include narrowing the issues, encouraging settlement and full disclosure of the facts and evidence.",
+      "says": "A settlement conference is held in every defended action, within 90 days after the first defence is filed, unless the defence admits liability for the whole claim and proposes terms of payment. The clerk fixes the date and serves notice on the parties.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 13.01 (1)",
@@ -1876,13 +2321,18 @@
       "leadsTo": [
         "emp.sc.offer",
         "emp.sc.trial"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 13.01 requires a settlement conference in every defended action, within 90 days after the first defence (unless the defence admits all liability and proposes terms of payment); the purposes of the conference are in a different rule (13.03).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sc.offer",
       "kind": "option",
       "title": "Offer to settle and costs (Small Claims)",
-      "says": "A party may make a written offer to settle. If a plaintiff's offer is not accepted and the plaintiff does as well or better at trial, the court may award up to twice the costs; similar rules apply to defendants' offers.",
+      "says": "If a plaintiff's offer to settle is not accepted and the plaintiff obtains a judgment as favourable as or more favourable than the offer, the court may award the plaintiff up to twice the costs of the action (not counting disbursements), provided the offer was made at least seven days before trial and was not withdrawn and did not expire before trial; a similar rule applies to defendants' offers.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 14.07 (1)",
@@ -1890,7 +2340,12 @@
       },
       "leadsTo": [
         "emp.sc.trial"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.07 does not itself provide for making a written offer (that is rule 14.01), and the item drops the conditions that the offer was made at least seven days before trial and was not withdrawn and did not expire before trial.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sc.trial",
@@ -1905,35 +2360,49 @@
       "leadsTo": [
         "emp.sc.appeal",
         "emp.enf.sc"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sc.appeal",
       "kind": "option",
       "title": "Appeal from Small Claims Court",
-      "says": "A final Small Claims Court order for more than the prescribed amount ($5,000, excluding costs) can be appealed to the Divisional Court.",
+      "says": "A final Small Claims Court order for the payment of money above the prescribed amount (excluding costs), or for recovery of personal property worth more than the prescribed amount, can be appealed to the Divisional Court.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 31",
         "expect": "An appeal lies to the Divisional Court from a final"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 31 refers only to 'the prescribed amount'; the $5,000 figure is not in the cited section.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "emp.enf.sc",
       "kind": "enforcement",
       "title": "Enforcing a Small Claims judgment",
-      "says": "A creditor can enforce a Small Claims judgment through examination of the debtor, garnishment and writs of seizure and sale of personal property or land.",
+      "says": "A creditor may enforce a Small Claims Court order for the payment of money by garnishment of debts that other people owe the debtor, such as wages or bank accounts held for the debtor; leave of the court is needed if more than six years have passed since the order.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.08 (1)",
         "expect": "garnishment of debts payable to the debtor by other persons"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 20.08 deals only with garnishment; examinations of the debtor and writs of seizure and sale are in other rules.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "emp.sup.claim",
       "kind": "start",
       "title": "Statement of claim (Superior Court)",
-      "says": "An action in the Superior Court of Justice is started by issuing a statement of claim (Form 14A), which must then be served within six months.",
+      "says": "An action in the Superior Court of Justice is started by issuing a statement of claim (Form 14A); where there is not enough time to prepare one, it can be started by a notice of action (Form 14C), followed by a statement of claim within 30 days.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 14.03 (1)",
@@ -1943,13 +2412,18 @@
       "leadsTo": [
         "emp.sup.defence",
         "emp.sup.simplified"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 14.03 names the statement of claim as the originating process (or a notice of action where time is short) but says nothing about serving it within six months, which is a different rule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.simplified",
       "kind": "step",
       "title": "Simplified procedure ($200,000 or less)",
-      "says": "The simplified procedure under Rule 76 applies when the claim is only for money or property and totals $200,000 or less, excluding interest and costs. It limits discovery and has no jury.",
+      "says": "The simplified procedure under Rule 76 must be used when the claim is only for money, real property or personal property and the total is $200,000 or less, excluding interest and costs; a plaintiff may also choose it for other actions.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 76.02 (1)",
@@ -1957,7 +2431,12 @@
       },
       "leadsTo": [
         "emp.sup.defence"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 76.02 (1) sets when the simplified procedure must be used; it says nothing about limits on discovery or juries.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.defence",
@@ -1974,7 +2453,11 @@
         "emp.sup.documents",
         "emp.sup.summary-judgment",
         "emp.sup.counterclaim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.counterclaim",
@@ -1988,7 +2471,11 @@
       },
       "leadsTo": [
         "emp.sup.documents"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.documents",
@@ -2004,7 +2491,11 @@
       "leadsTo": [
         "emp.sup.mediation",
         "emp.sup.pretrial"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.mediation",
@@ -2019,7 +2510,11 @@
       "leadsTo": [
         "emp.option.settle-release",
         "emp.sup.pretrial"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.summary-judgment",
@@ -2053,7 +2548,11 @@
       },
       "leadsTo": [
         "emp.sup.judgment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.pretrial",
@@ -2068,13 +2567,17 @@
       "leadsTo": [
         "emp.sup.offer",
         "emp.sup.trial"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.trial",
       "kind": "step",
       "title": "Trial (Superior Court)",
-      "says": "If not settled or decided on a motion, the action goes to trial. A party who intends to call expert evidence at trial must follow the expert report rules.",
+      "says": "In an action under the simplified procedure, a party who intends to call expert evidence at trial must comply with rule 53.03, and the expert's report is attached to an affidavit in which the expert adopts it as evidence.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 76.09.1 (1)",
@@ -2082,13 +2585,18 @@
       },
       "leadsTo": [
         "emp.sup.judgment"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 76.09.1 applies only to actions under the simplified procedure and says nothing about cases going to trial if not settled or decided on a motion.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.judgment",
       "kind": "step",
       "title": "Judgment, interest and costs",
-      "says": "A person entitled to a payment order is entitled to prejudgment interest from when the cause of action arose. Costs are in the court's discretion.",
+      "says": "A person entitled to an order for the payment of money is entitled to claim prejudgment interest on it, at the prejudgment interest rate, from the date the cause of action arose to the date of the order, except on items the Act excludes, such as punitive damages and costs.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 128 (1)",
@@ -2098,7 +2606,12 @@
         "emp.sup.costs",
         "emp.sup.appeal",
         "emp.enf.sup"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 128 (1) gives prejudgment interest only; costs are dealt with in section 131, and the item drops the listed exclusions from interest (for example punitive damages and costs).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.costs",
@@ -2109,13 +2622,17 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 131 (1)",
         "expect": "are in the discretion of the court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "emp.sup.appeal",
       "kind": "option",
       "title": "Appeal from a Superior Court judgment",
-      "says": "A final Superior Court order for $50,000 or less (excluding costs) is appealed to the Divisional Court; larger final orders go to the Court of Appeal. The notice of appeal is served within 30 days.",
+      "says": "An appeal of a final Superior Court order to the Divisional Court covers an order for a single payment of not more than $50,000 (excluding costs), periodic payments of not more than $50,000 in the first 12 months, or dismissing a claim within those amounts.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 19 (1.2)",
@@ -2123,7 +2640,12 @@
       },
       "leadsTo": [
         "emp.sup.appeal-deadline"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 19 (1.2) only defines which final orders (up to $50,000) go to the Divisional Court; it does not say larger orders go to the Court of Appeal or set a 30-day service deadline (those are elsewhere).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.sup.appeal-deadline",
@@ -2134,17 +2656,26 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 61.04 (1)",
         "expect": "within 30 days after the making of the order appealed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "emp.enf.sup",
       "kind": "enforcement",
       "title": "Enforcing a Superior Court judgment",
-      "says": "A judgment can be enforced by a writ of seizure and sale, garnishment of debts owed to the debtor, and examination in aid of execution.",
+      "says": "A creditor under an order for the payment of money may enforce it by garnishment of debts that other people owe the debtor; if six years or more have passed since the order, leave of the court is needed first.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.08 (1)",
         "expect": "A creditor under an order for the payment or recovery"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 60.08 deals only with garnishment; writs of seizure and sale and examinations in aid of execution are in other rules.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2160,13 +2691,17 @@
       "leadsTo": [
         "emp.test.bardal-factors",
         "emp.test.termination-clause"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.bardal-factors",
       "kind": "test",
       "title": "How long reasonable notice is (Bardal factors)",
-      "says": "Courts set reasonable notice case by case, looking at the character of the employment, length of service, the employee's age, and the availability of similar work given the employee's experience, training and qualifications. No one factor is given disproportionate weight.",
+      "says": "Courts set reasonable notice case by case, considering factors including, but not limited to, the character of the employment, length of service, the employee's age and the availability of similar employment given the employee's experience, training and qualifications.",
       "source": {
         "decision": "Honda Canada Inc. v. Keays, 2008 SCC 39",
         "corpusId": "decision-honda",
@@ -2177,13 +2712,18 @@
         "emp.dec.bardal",
         "emp.test.damages-period",
         "emp.test.mitigation"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 25 lists the factors as 'including, but not limited to' those four; the statement that no one factor gets disproportionate weight comes from the headnote, not the cited paragraph of the reasons.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.termination-clause",
       "kind": "test",
       "title": "When a termination clause is enforceable",
-      "says": "A clause limiting the employee to less than reasonable notice is enforced only if it clearly does so and complies with the ESA. The termination provisions are read as a whole when the contract was signed; if any part breaches the ESA, none of them is enforced, and a severability clause does not save them.",
+      "says": "The termination provisions of an employment agreement are read as a whole, wherever they appear in it, to decide whether they breach the ESA; courts will not enforce termination provisions that are in whole or in part illegal.",
       "source": {
         "decision": "Waksdale v. Swegon North America Inc., 2020 ONCA 391",
         "corpusId": "decision-waksdale",
@@ -2193,7 +2733,12 @@
       "leadsTo": [
         "emp.dec.wood",
         "emp.test.reasonable-notice-presumption"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 10 says the termination provisions are read as a whole and are not enforced if in whole or in part illegal; the 'clearly' requirement is not in the decision, and the points about timing and severability come from other paragraphs (8, 11 and 14).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.just-cause",
@@ -2224,13 +2769,17 @@
         "emp.test.constructive-series",
         "emp.term.what-is-termination",
         "emp.test.mitigation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.constructive-series",
       "kind": "test",
       "title": "Constructive dismissal by a series of acts",
-      "says": "Constructive dismissal can be a single unilateral act breaching an essential term, or a series of acts that taken together show the employer no longer intended to be bound by the contract (for example, a poisoned work environment).",
+      "says": "Constructive dismissal can be a single unilateral act that breaches an essential term of the contract, or a series of acts that, taken together, show the employer intended no longer to be bound by the contract.",
       "source": {
         "decision": "Potter v. New Brunswick Legal Aid Services Commission, 2015 SCC 10",
         "corpusId": "decision-potter",
@@ -2239,7 +2788,12 @@
       },
       "leadsTo": [
         "emp.dec.brake"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Potter describes a series of acts showing the employer no longer intended to be bound, or treatment making continued employment intolerable, but does not mention a 'poisoned work environment'.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.damages-period",
@@ -2254,13 +2808,17 @@
       },
       "leadsTo": [
         "emp.test.mitigation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.mitigation",
       "kind": "test",
       "title": "Duty to mitigate",
-      "says": "A dismissed employee must make reasonable efforts to find similar work, and money earned during the notice period is generally deducted from damages. The employer must prove a failure to mitigate. An employee is not expected to return to work in an atmosphere of hostility, embarrassment or humiliation.",
+      "says": "Where an employer offers a dismissed employee a different position as a way to reduce damages, the question is whether a reasonable person in the employee's position would have accepted it; the employer must prove this, and the employee is not obliged to work in an atmosphere of hostility, embarrassment or humiliation.",
       "source": {
         "decision": "Brake v. PJ-M2R Restaurant Inc., 2017 ONCA 402",
         "corpusId": "decision-brake",
@@ -2270,7 +2828,12 @@
       "leadsTo": [
         "emp.dec.evans",
         "emp.test.fixed-term"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 74 of Brake deals with whether a reasonable person would accept the employer's offer of a different position; it says nothing about a general duty to look for similar work or deducting earnings from damages.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.fixed-term",
@@ -2285,7 +2848,7 @@
       "id": "emp.test.manner-of-dismissal",
       "kind": "test",
       "title": "Damages for bad faith in the manner of dismissal",
-      "says": "If the employer acts in bad faith in the manner of dismissal (for example, untruthful, misleading or unduly insensitive) and this causes mental distress, damages reflect the actual harm, not an extension of the notice period.",
+      "says": "If the employee proves that the manner of dismissal caused mental distress that was in the contemplation of the parties, damages are awarded to reflect the actual harm, not through an extension of the notice period. Examples given include attacking the employee's reputation at the time of dismissal, misrepresenting the reason for it, or dismissing to deprive the employee of a pension or other right.",
       "source": {
         "decision": "Honda Canada Inc. v. Keays, 2008 SCC 39",
         "corpusId": "decision-honda",
@@ -2294,7 +2857,12 @@
       },
       "leadsTo": [
         "emp.test.punitive"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 59 gives different examples of compensable conduct (attacking reputation, misrepresenting the reason, dismissing to deprive a pension or other right) and requires that the mental distress was in the contemplation of the parties; 'untruthful, misleading or unduly insensitive' is not in the cited paragraph.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.punitive",
@@ -2306,6 +2874,10 @@
         "corpusId": "decision-honda",
         "pinpoint": "para. 68",
         "expect": "harsh, vindictive, reprehensible and malicious"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2321,7 +2893,11 @@
       },
       "leadsTo": [
         "emp.test.damages-period"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.employee-vs-contractor",
@@ -2360,7 +2936,11 @@
       },
       "leadsTo": [
         "emp.civil.court-choice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.issue-estoppel",
@@ -2374,24 +2954,33 @@
       },
       "leadsTo": [
         "emp.claim.choose-forum"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.restrictive-covenants",
       "kind": "test",
       "title": "Non-solicitation and confidentiality clauses",
-      "says": "Non-compete clauses with employees are void under the ESA (with narrow exceptions). Non-solicitation and confidentiality terms are not banned by the ESA but are enforced at common law only if reasonable.",
+      "says": "An employer must not enter into an agreement with an employee that is or includes a non-compete agreement, and such a non-compete is void, except in the sale-of-business situation and for executives as defined in the section.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 67.2 (2)",
         "expect": "the non-compete agreement is void"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 67.2 deals only with non-compete agreements; it says nothing about non-solicitation or confidentiality terms or how courts treat them.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "emp.test.resignation",
       "kind": "test",
       "title": "Resignation vs dismissal",
-      "says": "Whether an employee quit or was dismissed depends on the facts. Under the ESA, an employee who resigns in response to a constructive dismissal within a reasonable period is treated as terminated.",
+      "says": "Under the ESA, an employer terminates an employee's employment if it constructively dismisses the employee and the employee resigns in response within a reasonable period.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 56 (1)",
@@ -2399,13 +2988,18 @@
       },
       "leadsTo": [
         "emp.test.constructive-dismissal"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 56 (1) says when an employer terminates employment for ESA purposes; it does not say whether someone quit or was dismissed 'depends on the facts'.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.option.working-notice",
       "kind": "option",
       "title": "Employer: working notice",
-      "says": "An employer may end employment by giving written notice and letting the notice period run, keeping the wage rate and terms unchanged during it.",
+      "says": "An employer may end the employment of an employee continuously employed for three months or more by giving written notice under section 57 or 58 and letting the notice expire, or by paying termination pay under section 61 instead.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 54",
@@ -2413,28 +3007,43 @@
       },
       "leadsTo": [
         "emp.term.during-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 54 lets the employer end employment after written notice expires (or by paying under s. 61); keeping the wage rate and terms unchanged during notice is in section 60, and the rule applies to employees continuously employed three months or more.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.option.settle-release",
       "kind": "option",
       "title": "Settlement and release",
-      "says": "The parties can settle a termination at any time, often by a lump sum in exchange for a signed release. A settlement cannot give the employee less than ESA minimums, because a waiver of an employment standard is void.",
+      "says": "An employer and employee cannot contract out of or waive an employment standard, and any agreement that does so is void.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 5 (1)",
         "expect": "no employer or agent of an employer and no employee"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 5 (1) only makes any contracting out or waiver of an employment standard void; it says nothing about settling at any time, lump sums or releases.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "emp.option.discontinue",
       "kind": "option",
       "title": "Discontinuing or withdrawing",
-      "says": "A plaintiff may withdraw (discontinue) a court case, and an employee may withdraw an ESA complaint. Withdrawing an ESA complaint within two weeks keeps the right to sue.",
+      "says": "An employee who filed an ESA complaint about unpaid wages, benefits, or termination or severance pay can still start a civil case on that matter if they withdraw the complaint within two weeks after filing it.",
       "source": {
         "corpusId": "esa-2000-ontario",
         "pinpoint": "s. 97 (4)",
         "expect": "withdraws the complaint within two weeks after it is filed"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Subsection 97 (4) is about withdrawing an ESA complaint within two weeks to keep the right to sue; it says nothing about discontinuing a court case.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2452,7 +3061,11 @@
         "emp.hr.accommodation",
         "emp.hr.apply",
         "emp.hr.civil-claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hr.harassment",
@@ -2467,7 +3080,11 @@
       "leadsTo": [
         "emp.hr.sexual-harassment",
         "emp.hr.apply"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hr.sexual-harassment",
@@ -2481,7 +3098,11 @@
       },
       "leadsTo": [
         "emp.hr.apply"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hr.accommodation",
@@ -2495,7 +3116,11 @@
       },
       "leadsTo": [
         "emp.hr.apply"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hr.apply",
@@ -2509,7 +3134,11 @@
       },
       "leadsTo": [
         "emp.hr.election"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hr.election",
@@ -2523,7 +3152,11 @@
       },
       "leadsTo": [
         "emp.hr.civil-claim"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.hr.civil-claim",
@@ -2537,7 +3170,11 @@
       },
       "leadsTo": [
         "emp.civil.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.ohsa.harassment-definition",
@@ -2692,7 +3329,11 @@
       },
       "leadsTo": [
         "emp.test.reasonable-notice-presumption"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.waksdale",
@@ -2707,7 +3348,11 @@
       },
       "leadsTo": [
         "emp.test.termination-clause"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.wood",
@@ -2726,7 +3371,7 @@
       "id": "emp.dec.honda",
       "kind": "decision",
       "title": "Honda Canada Inc. v. Keays",
-      "says": "The Supreme Court held that damages for bad faith in the manner of dismissal compensate actual harm rather than extending notice, and that punitive damages are for exceptional cases.",
+      "says": "The Supreme Court held that damages for conduct in the manner of dismissal, where it caused mental distress that was in the contemplation of the parties, are awarded to reflect the actual harm rather than through an extension of the notice period.",
       "source": {
         "decision": "Honda Canada Inc. v. Keays, 2008 SCC 39",
         "corpusId": "decision-honda",
@@ -2736,7 +3381,12 @@
       "leadsTo": [
         "emp.test.manner-of-dismissal",
         "emp.test.punitive"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 59 deals only with damages for conduct in the manner of dismissal; the statement about punitive damages comes from a different part of the decision (para. 68), and para. 59 speaks of conduct causing foreseeable mental distress rather than 'bad faith'.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.potter",
@@ -2751,7 +3401,11 @@
       },
       "leadsTo": [
         "emp.test.constructive-dismissal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.mckinley",
@@ -2791,7 +3445,11 @@
       },
       "leadsTo": [
         "emp.test.damages-period"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.evans",
@@ -2810,7 +3468,7 @@
       "id": "emp.dec.brake",
       "kind": "decision",
       "title": "Brake v. PJ-M2R Restaurant Inc.",
-      "says": "The Court of Appeal applied Potter to a demotion and held that an employee is not required to accept a demotion offer as mitigation where a reasonable person would not.",
+      "says": "The Court of Appeal, applying Evans v. Teamsters, held that a constructively dismissed employee need not accept the employer's offer of a demoted position as mitigation unless a reasonable person in the employee's position would have accepted it; the employer bears the burden of proving this.",
       "source": {
         "decision": "Brake v. PJ-M2R Restaurant Inc., 2017 ONCA 402",
         "corpusId": "decision-brake",
@@ -2820,7 +3478,12 @@
       "leadsTo": [
         "emp.test.constructive-dismissal",
         "emp.test.mitigation"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Paragraph 74 applies Evans v. Teamsters, not Potter; it sets out the reasonable-person test for accepting the employer's offer, with the burden on the employer.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.hryniak",
@@ -2835,7 +3498,11 @@
       },
       "leadsTo": [
         "emp.sup.summary-judgment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.uber",
@@ -2850,7 +3517,11 @@
       },
       "leadsTo": [
         "emp.test.arbitration-clause"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.danyluk",
@@ -2864,7 +3535,11 @@
       },
       "leadsTo": [
         "emp.test.issue-estoppel"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.bhasin",
@@ -2879,7 +3554,11 @@
       },
       "leadsTo": [
         "emp.test.honest-performance"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.howard",

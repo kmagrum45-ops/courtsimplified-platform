@@ -29,7 +29,11 @@ verified").
   proves the item points at the right provision; the review proves the plain
   words do not say more than it does. The first sample (250 items,
   2026-10-13) found 11 wrong and about 94 that said more than the cited
-  subsection; all were corrected from the source.
+  subsection; all were corrected from the source. The full review the same
+  day read the remaining 1,566 against their provisions: 1,237 correct as
+  written, 46 wrong (mostly a dropped condition), 283 saying more than the
+  cited section; every one corrected from the source. Every item that matches
+  the saved law has now been reviewed.
 - **In the site** is shown beside the status when a stage or citation already
   quotes that provision.
 - Only items that match the source AND have been reviewed are built into stages, cards and answers,

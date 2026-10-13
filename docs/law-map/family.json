@@ -7,7 +7,7 @@
       "id": "fam.statute.flr",
       "kind": "statute",
       "title": "Family Law Rules",
-      "says": "The Family Law Rules set out the steps, forms and deadlines for family cases in the Ontario Court of Justice, the Superior Court of Justice and its Family Court branch.",
+      "says": "The Family Law Rules apply to family law cases in the Family Court of the Superior Court of Justice, the Superior Court of Justice and the Ontario Court of Justice, including cases under the Divorce Act, the Family Law Act and the Children's Law Reform Act.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 1(2)",
@@ -15,94 +15,139 @@
       },
       "leadsTo": [
         "fam.court.choose"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 1(2) only says which family cases and courts the rules apply to; it says nothing about the rules setting out steps, forms and deadlines.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.statute.fla",
       "kind": "statute",
       "title": "Family Law Act",
-      "says": "Ontario's Family Law Act covers dividing property between married spouses, the matrimonial home, child and spousal support, domestic contracts and restraining orders.",
+      "says": "Under the Family Law Act, when spouses divorce, their marriage is declared a nullity, or they separate with no reasonable prospect of living together again, the spouse with the smaller net family property is entitled to one-half the difference between the two.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 5(1)",
         "expect": "net family property"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "FLA s. 5(1) is only the equalization entitlement; support, the matrimonial home, domestic contracts and restraining orders are in other Parts of the Act.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.statute.clra",
       "kind": "statute",
       "title": "Children's Law Reform Act",
-      "says": "Ontario's Children's Law Reform Act covers parentage, decision-making responsibility, parenting time and contact for children when the parents are not divorcing, or are not married.",
+      "says": "Part III of the Children's Law Reform Act deals with decision-making responsibility, parenting time, contact and guardianship for children, decided on the basis of the children's best interests; it also aims to avoid competing cases in more than one place, discourage child abduction and enforce parenting and contact orders.",
       "source": {
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 19",
         "expect": "The purposes of this Part are"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "CLRA s. 19 sets out the purposes of Part III (decision-making responsibility, parenting time, contact, guardianship by best interests, jurisdiction, abduction, enforcement); it does not mention parentage or say the Act applies when parents are not divorcing or not married.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.statute.da",
       "kind": "statute",
       "title": "Divorce Act",
-      "says": "The federal Divorce Act covers divorce and, for married spouses who are divorcing, parenting orders, child support and spousal support.",
+      "says": "Under the federal Divorce Act, a court may grant a divorce, on the application of either or both spouses, on the ground that the marriage has broken down.",
       "source": {
         "corpusId": "divorce-act",
         "pinpoint": "s. 8(1)",
         "expect": "grant a divorce to the spouse or spouses"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Divorce Act s. 8(1) only gives the court power to grant a divorce on the ground of marriage breakdown; parenting orders and support are in other sections.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.statute.frsaea",
       "kind": "statute",
       "title": "Family Responsibility and Support Arrears Enforcement Act, 1996",
-      "says": "This Ontario law sets up the Family Responsibility Office, which enforces support orders, and gives it tools such as support deduction orders, default hearings and licence suspension.",
+      "says": "Under this Ontario law, the Director (the Family Responsibility Office) must enforce support orders that are filed in the Director's office, along with any related support deduction order, and pay what is collected to the person it is owed to.",
       "source": {
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 5(1)",
         "expect": "enforce support orders"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 5(1) only states the Director's duty to enforce filed support orders and pay out what is collected; it does not set up the office or list support deduction orders, default hearings or licence suspension.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.statute.fcsg",
       "kind": "statute",
       "title": "Federal Child Support Guidelines",
-      "says": "The Federal Child Support Guidelines set child support amounts when the support is ordered under the Divorce Act.",
+      "says": "The objectives of the Federal Child Support Guidelines are a fair standard of support so children keep benefiting from both spouses' means after separation, less conflict through more objective calculation, a more efficient legal process, and consistent treatment of similar families.",
       "source": {
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 1",
         "expect": "to establish a fair standard of support for children"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 1 states the Guidelines' objectives; it does not say they apply to support ordered under the Divorce Act (that comes from the definition of 'Act' in s. 2(1)).",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.statute.ocsg",
       "kind": "statute",
       "title": "Child Support Guidelines (Ontario)",
-      "says": "Ontario's Child Support Guidelines set child support amounts when support is ordered under the Family Law Act, for example between parents who were never married.",
+      "says": "The objectives of Ontario's Child Support Guidelines are a fair standard of support so children benefit from their parents' financial means, more objective calculation to reduce conflict, guidance that makes the legal process more efficient, and consistent treatment of families in similar circumstances.",
       "source": {
         "corpusId": "ontario-child-support-guidelines-full",
         "pinpoint": "s. 1",
         "expect": "to establish a fair standard of support for children"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 1 states the regulation's objectives; it does not say it applies to support ordered under the Family Law Act or to parents who never married.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.statute.cja",
       "kind": "statute",
       "title": "Courts of Justice Act",
-      "says": "The Courts of Justice Act sets up the courts, including the Family Court branch of the Superior Court of Justice, and the Office of the Children's Lawyer.",
+      "says": "The Courts of Justice Act creates a branch of the Superior Court of Justice called the Family Court.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 21.1(1)",
         "expect": "Family Court"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "CJA s. 21.1(1) only creates the Family Court branch of the Superior Court of Justice; it says nothing about setting up the other courts or the Office of the Children's Lawyer.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.statute.cyfsa",
       "kind": "statute",
       "title": "Child, Youth and Family Services Act, 2017",
-      "says": "Child protection cases, where a children's aid society is involved, run under the Child, Youth and Family Services Act, 2017 and their own parts of the Family Law Rules. They are a separate kind of case from disputes between family members.",
+      "says": "The Child, Youth and Family Services Act, 2017 sets out when a child is in need of protection, for example where the child has suffered physical harm caused by the person in charge of the child, or there is a risk the child will suffer it.",
       "source": {
         "corpusId": "child-youth-and-family-services-act-2017",
         "pinpoint": "s. 74(2)",
         "expect": "child is in need of protection"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "CYFSA s. 74(2) defines when a child is in need of protection; it says nothing about children's aid societies running the case, the Family Law Rules, or child protection being separate from disputes between family members.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -142,7 +187,7 @@
       "id": "fam.court.family-court",
       "kind": "pre-step",
       "title": "Family Court branch of the Superior Court",
-      "says": "In the parts of Ontario where the Family Court branch of the Superior Court of Justice sits, family proceedings listed in the Schedule to section 21.8 of the Courts of Justice Act must start, be heard and be decided there.",
+      "says": "In the parts of Ontario where the Family Court branch of the Superior Court of Justice has jurisdiction, the family proceedings listed in the Schedule to section 21.8 of the Courts of Justice Act, except appeals and prosecutions, must be started, heard and decided in the Family Court.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 21.8(1)",
@@ -150,13 +195,18 @@
       },
       "leadsTo": [
         "fam.court.where-start"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the exception in s. 21.8(1): appeals and prosecutions are not required to be started and heard in the Family Court.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.court.ocj-limits",
       "kind": "pre-step",
       "title": "Ontario Court of Justice cannot divide property",
-      "says": "For dividing property under Part I of the Family Law Act, the word \"court\" does not include the Ontario Court of Justice. Property and matrimonial home claims go to the Superior Court of Justice or its Family Court branch.",
+      "says": "For dividing property under Part I of the Family Law Act, the word \"court\" does not include the Ontario Court of Justice.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 4(1)",
@@ -164,7 +214,12 @@
       },
       "leadsTo": [
         "fam.court.where-start"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 4(1) only excludes the Ontario Court of Justice from 'court' for Part I (family property); matrimonial home claims are Part II, and which court they go to is not stated in s. 4(1).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.court.ocj-matrimonial-home",
@@ -175,6 +230,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 17",
         "expect": "does not include the Ontario Court of Justice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -189,7 +248,11 @@
       },
       "leadsTo": [
         "fam.court.where-start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.court.clra-jurisdiction",
@@ -200,6 +263,10 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 22(1)",
         "expect": "the child is habitually resident in Ontario"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -215,7 +282,11 @@
       "leadsTo": [
         "fam.start.mip",
         "fam.start.application"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.mip",
@@ -230,7 +301,11 @@
       "leadsTo": [
         "fam.conf.case",
         "fam.start.mip-exempt"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.mip-exception",
@@ -241,13 +316,17 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 8.1(2)",
         "expect": "Subrules (4) to (7) do not apply to"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.start.application",
       "kind": "start",
       "title": "Starting a case: the application",
-      "says": "A person starts a family case by filing an application. Form 8 is the general application. Form 8A is used for a divorce. Form 8B is used for a child protection case. The court clerk issues it and puts a court date or case conference date on it as the rules require.",
+      "says": "A person starts a family case by filing an application in one of the forms the rule lists (Form 8, 8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 33D.1, 34L or 34N). When it is filed, the clerk sets a court date (except where the case management rules say otherwise) and seals the application.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 8(1)",
@@ -259,25 +338,35 @@
         "fam.start.fs",
         "fam.start.serve",
         "fam.start.auto-order"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 8(1) only lists the application forms; what each form is for is not stated there, and r. 8(4) has the clerk set a court date (with case-management exceptions) and seal the application, saying nothing about a case conference date or issuing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.form.8",
       "kind": "form",
       "title": "Form 8: Application (General)",
-      "says": "Form 8 is the general application used to start most family cases other than divorce-only or child protection cases.",
+      "says": "Form 8 is one of the application forms that rule 8(1) lists for starting a family case.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 8(1)",
         "expect": "To start a case, a person shall file an application (Form 8"
       },
-      "form": "8"
+      "form": "8",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 8(1) only lists Form 8 among the application forms; it does not say Form 8 is the general application or which cases it is used for.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.form.8a",
       "kind": "form",
       "title": "Form 8A: Application (Divorce)",
-      "says": "Form 8A is the divorce application. Either spouse can start a divorce case naming the other as respondent, or both spouses can file a joint application with no respondent.",
+      "says": "Either spouse can start a divorce case by filing an application naming the other spouse as respondent, or both spouses can file a joint application with no respondent.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 36(1)",
@@ -286,19 +375,29 @@
       "form": "8A",
       "leadsTo": [
         "fam.divorce.simple"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 36(1) does not mention Form 8A; it only says either spouse may start a divorce case naming the other as respondent, or by a joint application with no respondent.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.form.8b",
       "kind": "form",
       "title": "Form 8B: Application (Child Protection and Status Review)",
-      "says": "Form 8B is used by a children's aid society to start a child protection case.",
+      "says": "Form 8B is one of the application forms that rule 8(1) lists for starting a family case.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 8(1)",
         "expect": "8A, 8B, 8B.1"
       },
-      "form": "8B"
+      "form": "8B",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 8(1) only lists Form 8B among the application forms; it does not say who uses it or that it starts a child protection case.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.parenting-affidavit",
@@ -313,7 +412,11 @@
       "form": "35.1",
       "leadsTo": [
         "fam.start.serve"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.auto-order",
@@ -328,13 +431,17 @@
       "leadsTo": [
         "fam.start.serve"
       ],
-      "form": "8.0.1"
+      "form": "8.0.1",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.serve",
       "kind": "step",
       "title": "Serving the application",
-      "says": "The application must be served right away on every other party, by special service unless the party is an official or agency listed in the rule. Special service means, for example, leaving a copy with the person, or mailing it with an acknowledgment of service card that the person signs and returns.",
+      "says": "The application must be served right away on every other party, by special service unless the party is one of the officials, agencies or others listed in rule 8(6).",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 8(5)",
@@ -346,7 +453,12 @@
         "fam.answer.file",
         "fam.start.server",
         "fam.start.service-not-required"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 8(5) requires immediate special service except on the listed officials and agencies, but the description of what special service is comes from r. 6(3), not r. 8.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.special-service",
@@ -358,19 +470,28 @@
         "pinpoint": "r. 6(3)",
         "expect": "special service"
       },
-      "form": "6"
+      "form": "6",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.service-proof",
       "kind": "step",
       "title": "Proving service (Form 6B)",
-      "says": "Service is proved with an affidavit of service in Form 6B, signed by the person who served the document.",
+      "says": "Service can be proved in several ways, including a written acceptance of service, an affidavit of service (Form 6B), the signed return postcard, or a lawyer's or paralegal's certificate of service (Form 6C).",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 6(19)",
         "expect": "affidavit of service"
       },
-      "form": "6B"
+      "form": "6B",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 6(19) says service may be proved by any of several methods, of which an affidavit of service (Form 6B) is one; it does not say the affidavit is signed by the person who served.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.start.substituted-service",
@@ -393,7 +514,7 @@
       "id": "fam.start.fs",
       "kind": "step",
       "title": "Financial statement with the application",
-      "says": "A party who makes or answers a claim for support must serve and file a financial statement (Form 13) with the application, answer or motion. A party in a property claim uses Form 13.1.",
+      "says": "A party who claims support, property or exclusive possession of the matrimonial home serves and files a financial statement with the document that contains the claim (Form 13 for support only, Form 13.1 if there is a property or matrimonial home claim); the other party serves and files one within the time for responding. A claim only for table-amount child support does not need one, unless the rules require it.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 13(1)",
@@ -404,7 +525,12 @@
         "fam.disc.certificate",
         "fam.disc.support-docs",
         "fam.disc.property-docs"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the r. 13(1.3) exception: a party whose only support claim is table-amount child support does not have to file a financial statement, and the responding party files within the time for answering, not with the claim document.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.form.13",
@@ -416,7 +542,11 @@
         "pinpoint": "r. 13(1.1)",
         "expect": "shall be in Form 13"
       },
-      "form": "13"
+      "form": "13",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.form.13-1",
@@ -428,7 +558,11 @@
         "pinpoint": "r. 13(1.2)",
         "expect": "shall be in Form 13.1"
       },
-      "form": "13.1"
+      "form": "13.1",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.fs.property",
@@ -440,7 +574,11 @@
         "pinpoint": "r. 13(1.2)",
         "expect": "shall be in Form 13.1, whether a claim for support"
       },
-      "form": "13.1"
+      "form": "13.1",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.fs.respondent-time",
@@ -451,6 +589,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 13(1)",
         "expect": "within the time for serving and filing an answer"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -485,6 +627,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 10(2)",
         "expect": "the time for serving and filing an answer is 60 days"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -499,7 +645,11 @@
       },
       "leadsTo": [
         "fam.answer.reply"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.answer.reply",
@@ -514,7 +664,11 @@
       "form": "10A",
       "leadsTo": [
         "fam.conf.case"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.answer.none",
@@ -529,7 +683,11 @@
       "leadsTo": [
         "fam.default.consequences",
         "fam.default.uncontested"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.answer.amend",
@@ -540,13 +698,17 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 11(3)",
         "expect": "the court shall give permission to a party to amend"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.answer.withdraw",
       "kind": "option",
       "title": "Withdrawing a claim",
-      "says": "A party can withdraw all or part of their own claim by serving and filing a notice of withdrawal (Form 12). Costs can follow a withdrawal.",
+      "says": "A party can withdraw all or part of their application, answer or reply by serving a notice of withdrawal (Form 12) on every other party and filing it. The withdrawing party pays the other parties' costs of the withdrawn part up to the date of withdrawal, unless the court orders or the parties agree otherwise. A special party or child party needs the court's permission to withdraw.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 12(1)",
@@ -555,13 +717,18 @@
       "form": "12",
       "leadsTo": [
         "fam.answer.withdraw-costs"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "r. 12(3) says a withdrawing party shall pay the other parties' costs up to the withdrawal unless the court orders or the parties agree otherwise, not merely that costs 'can' follow; and a special party's or child party's claim can be withdrawn only with the court's permission (r. 12(2)).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.default.consequences",
       "kind": "test",
       "title": "Consequences of not following the rules or an order",
-      "says": "When a party does not answer, or their documents are struck out, they are not entitled to further notice, cannot take part in the case unless the court allows, the court can deal with the case in their absence, and an uncontested trial date can be set.",
+      "says": "When the court strikes out a party's application, answer, motion to change or response, then unless the court orders otherwise the party is not entitled to further notice of steps (except service of the order), cannot take part in the case, the court can deal with the case in their absence, and a date can be set for an uncontested trial.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 1(8.4)",
@@ -569,7 +736,12 @@
       },
       "leadsTo": [
         "fam.default.uncontested"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 1(8.4) applies when a party's application, answer, motion to change or response is struck out; not answering at all is covered by r. 10(5), not r. 1(8.4).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.default.failure-rules",
@@ -583,13 +755,17 @@
       },
       "leadsTo": [
         "fam.default.consequences"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.default.uncontested",
       "kind": "step",
       "title": "Uncontested trial",
-      "says": "When the respondent has not answered or their answer was struck, the applicant can ask for an uncontested trial. It is usually done on written evidence, using an affidavit for uncontested trial (Form 23C).",
+      "says": "At an uncontested trial, evidence can be given by affidavit in Form 14A or Form 23C (and Forms 35.1 and 35.1A where they apply) without a separate order, unless the court directs that oral evidence must be given.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 23(22)",
@@ -598,7 +774,12 @@
       "form": "23C",
       "leadsTo": [
         "fam.end.order"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 23(22) only says which affidavit evidence (Form 14A or 23C, and 35.1/35.1A if applicable) can be used at an uncontested trial without an order, unless the court directs oral evidence; it says nothing about when an applicant can ask for an uncontested trial.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.form.23c",
@@ -610,7 +791,11 @@
         "pinpoint": "r. 23(22)",
         "expect": "evidence by affidavit in Form 14A or Form 23C"
       },
-      "form": "23C"
+      "form": "23C",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.certificate",
@@ -627,7 +812,11 @@
         "fam.disc.nfp",
         "fam.disc.update",
         "fam.disc.insufficient"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.nfp",
@@ -642,7 +831,11 @@
       "form": "13B",
       "leadsTo": [
         "fam.disc.comparison"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.comparison",
@@ -654,7 +847,11 @@
         "pinpoint": "r. 13(14.2)",
         "expect": "joint comparison of net family property statements (Form 13C)"
       },
-      "form": "13C"
+      "form": "13C",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.update",
@@ -665,6 +862,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 13(12)",
         "expect": "a party shall update their financial information"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -680,7 +881,11 @@
       "leadsTo": [
         "fam.disc.order-docs",
         "fam.disc.questioning"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.duty",
@@ -691,6 +896,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 8",
         "expect": "each party shall serve on the other and file with the court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -706,7 +915,11 @@
       "leadsTo": [
         "fam.disc.questioning",
         "fam.disc.confidential"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.non-party",
@@ -717,6 +930,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 19(11)",
         "expect": "If a document is in a non-party’s control"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -729,7 +946,11 @@
         "pinpoint": "r. 20(5)",
         "expect": "It would be unfair to the party who wants the questioning"
       },
-      "form": "20"
+      "form": "20",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.request-admit",
@@ -744,13 +965,17 @@
       "form": "22",
       "leadsTo": [
         "fam.disc.admit-time"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.ocl",
       "kind": "option",
       "title": "Office of the Children's Lawyer",
-      "says": "In a Divorce Act or Children's Law Reform Act case about decision-making responsibility, parenting time or contact, the Children's Lawyer may investigate and report to the court, or act as the child's legal representative. The court can ask the Children's Lawyer to act.",
+      "says": "In a Divorce Act or Children's Law Reform Act case about decision-making responsibility, parenting time or contact, the Children's Lawyer may investigate, or meet with the child to learn the child's views and preferences, and may report and make recommendations to the court. The Children's Lawyer may do this on their own initiative, at the court's request or at anyone's request.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 112(1)",
@@ -758,7 +983,12 @@
       },
       "leadsTo": [
         "fam.disc.ocl-report"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "CJA s. 112 lets the Children's Lawyer investigate, meet the child to learn the child's views and preferences, and report; it does not say the Children's Lawyer acts as the child's legal representative.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.ocl-report",
@@ -769,6 +999,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 21(e)",
         "expect": "within 30 days after being served with the report"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -780,13 +1014,17 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 30(1)",
         "expect": "appoint a person"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.conf.case",
       "kind": "step",
       "title": "Case conference",
-      "says": "In each case where an answer is filed, a judge holds at least one conference. No motion can be served or heard before a conference on the substantive issues, except in urgent cases. At a case conference the judge and the parties look at the issues, explore settlement, make sure there is disclosure, and set the next steps.",
+      "says": "In each case where an answer is filed, a judge holds at least one conference (in child protection cases a case conference is optional, and the rule does not apply to international child abduction cases). The purposes of a case conference include exploring settlement, identifying the issues in dispute, ensuring disclosure and setting the next steps.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(1)",
@@ -801,7 +1039,12 @@
         "fam.conf.notice",
         "fam.conf.costs",
         "fam.conf.agreement"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 17 does not contain the bar on serving or hearing motions before a conference on the substantive issues (that is in rule 14); r. 17(1) also has exceptions for child protection and international child abduction cases.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.conf.purpose",
@@ -812,6 +1055,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(4)",
         "expect": "exploring the chances of settling the case"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -824,7 +1071,11 @@
         "pinpoint": "r. 17(13.1)",
         "expect": "not later than six days before the date scheduled"
       },
-      "form": "17A"
+      "form": "17A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.conf.confirm",
@@ -860,7 +1111,11 @@
         "fam.sj.motion",
         "fam.conf.confidential",
         "fam.conf.trial-precondition"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.conf.trial-mgmt",
@@ -875,17 +1130,26 @@
       "form": "17E",
       "leadsTo": [
         "fam.trial.record"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.conf.no-same-judge",
       "kind": "test",
       "title": "Settlement conference judge does not hear the trial",
-      "says": "A judge who conducts a settlement conference about an issue cannot hear that issue at trial, unless the parties agree.",
+      "says": "A judge who conducts a settlement conference about an issue cannot hear that issue, except in a child protection case where the need for protection was found without a trial and a trial is needed only on which order to make.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(24)",
         "expect": "shall not hear the issue"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "r. 17(24) has no exception for the parties' agreement; the only exception (r. 17(25)) is for certain child protection trials.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -897,6 +1161,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(8)",
         "expect": "At a case conference, settlement conference or trial management conference the judge may"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -918,13 +1186,17 @@
         "fam.motion.evidence",
         "fam.motion.response-time",
         "fam.motion.abuse"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.motion.before-cc",
       "kind": "test",
       "title": "No motion before a case conference, except urgent",
-      "says": "A party cannot bring a motion before a case conference has been held on the issues, unless the court finds urgency or hardship, or it is in the interests of justice.",
+      "says": "Until a conference dealing with the substantive issues has been completed, no motion can be served or heard, unless the court finds urgency or hardship or that a case conference is not required for another reason in the interest of justice. Some motions are not covered by this bar, such as motions made without notice, on consent, unopposed or by Form 14B, contempt motions, summary judgment motions and motions in child protection cases.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 14(4.2)",
@@ -932,13 +1204,18 @@
       },
       "leadsTo": [
         "fam.motion.notice"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the r. 14(6) list of motions the bar does not apply to (for example motions on consent, unopposed or Form 14B motions, motions without notice, contempt, summary judgment and child protection motions), so 'cannot bring a motion' overstates the rule.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.motion.without-notice",
       "kind": "motion",
       "title": "Motion without notice",
-      "says": "A motion can be made without notice if notice is unnecessary or not reasonably possible, if there is an immediate danger that a child will be removed from Ontario, if there is an immediate danger to the health or safety of a child or the moving party, or if serving notice would probably have serious consequences.",
+      "says": "A motion can be made without notice if notice is unnecessary or not reasonably possible; if there is an immediate danger that a child will be removed from Ontario, or to the health or safety of a child or the moving party, and the delay of serving notice would probably have serious consequences; or if serving notice would probably have serious consequences.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 14(12)",
@@ -947,7 +1224,12 @@
       "form": "14D",
       "leadsTo": [
         "fam.motion.without-notice-return"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the condition in r. 14(12)(b) and (c) that the delay of serving notice would probably have serious consequences; an immediate danger alone is not enough.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.motion.evidence",
@@ -959,7 +1241,11 @@
         "pinpoint": "r. 14(18)",
         "expect": "only information within the personal knowledge"
       },
-      "form": "14A"
+      "form": "14A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.motion.confirm",
@@ -982,13 +1268,18 @@
       "id": "fam.motion.form14b",
       "kind": "form",
       "title": "Form 14B: Motion Form",
-      "says": "Form 14B is a short motion form for procedural, uncomplicated or unopposed matters, which can often be dealt with by a judge on the documents.",
+      "says": "If a motion is limited to procedural, uncomplicated or unopposed matters, the party making it may use a motion form (Form 14B) instead of a notice of motion and affidavit.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 14(10)",
         "expect": "a motion form (Form 14B) instead of a notice of motion"
       },
-      "form": "14B"
+      "form": "14B",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 14(10) only lets a party use Form 14B instead of a notice of motion and affidavit for procedural, uncomplicated or unopposed matters; it does not say such motions are dealt with on the documents.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.motion.costs",
@@ -999,6 +1290,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(1)",
         "expect": "Promptly after dealing with a step in a case"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1017,7 +1312,11 @@
         "fam.offer.accept",
         "fam.offer.confidential",
         "fam.offer.breach"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.offer.accept",
@@ -1028,6 +1327,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 18(9)",
         "expect": "The only valid way of accepting an offer"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1039,6 +1342,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(12)",
         "expect": "full recovery of costs from that date"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1057,7 +1364,11 @@
         "fam.costs.confer",
         "fam.costs.unreasonable",
         "fam.costs.bad-faith"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.costs.unreasonable",
@@ -1068,6 +1379,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(7)",
         "expect": "has behaved unreasonably during a step"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1079,6 +1394,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(10)",
         "expect": "shall decide costs on a full recovery basis"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1090,13 +1409,17 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(14)",
         "expect": "the reasonableness and proportionality of the following"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.sj.motion",
       "kind": "motion",
       "title": "Summary judgment",
-      "says": "After the respondent has served an answer or the time for an answer has passed, a party can ask for a final order without a trial on all or part of a claim.",
+      "says": "After the respondent has served an answer or the time for an answer has passed, a party can make a motion for summary judgment, a final order without a trial on all or part of any claim or defence. This is available in any case that does not include a divorce claim, including a child protection case.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 16(1)",
@@ -1107,7 +1430,12 @@
         "fam.sj.no-divorce",
         "fam.sj.response",
         "fam.sj.legal-issue"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops r. 16(2)-(3): summary judgment is available only in a case that does not include a divorce claim; in a divorce case the uncontested divorce procedure or splitting the divorce claim is used instead.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.sj.test",
@@ -1121,7 +1449,11 @@
       },
       "leadsTo": [
         "fam.end.order"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.trial.record",
@@ -1135,7 +1467,11 @@
       },
       "leadsTo": [
         "fam.trial.hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.trial.hearing",
@@ -1150,7 +1486,11 @@
       "leadsTo": [
         "fam.end.order",
         "fam.appeal.ocj"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.trial.summons",
@@ -1162,7 +1502,11 @@
         "pinpoint": "r. 23(3)",
         "expect": "shall serve on the witness a summons to witness (Form 23)"
       },
-      "form": "23"
+      "form": "23",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.end.order",
@@ -1182,17 +1526,26 @@
         "fam.appeal.scj",
         "fam.end.order-approval",
         "fam.end.change-order"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.end.consent",
       "kind": "option",
       "title": "Settling by consent",
-      "says": "If the parties agree, the court can make an order without anyone coming to court. In a case, this is usually done with a motion form (Form 14B) and the signed consent. To change a final order or agreement on consent, the parties use a consent motion to change (Form 15C, or 15D for child support only).",
+      "says": "If the parties agree, the court can make an order under the rules or an Act without the parties or anyone else coming to court.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 25(1)",
         "expect": "without having the parties or any other person come to court"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 25(1) only lets the court make an order on consent without anyone coming to court; Form 14B and the consent motion to change (Forms 15C and 15D) are not mentioned in rule 25.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1205,7 +1558,11 @@
         "pinpoint": "s. 35(1)",
         "expect": "may file the contract with the clerk"
       },
-      "form": "26B"
+      "form": "26B",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.divorce.grounds",
@@ -1222,7 +1579,11 @@
         "fam.divorce.split",
         "fam.divorce.joint",
         "fam.divorce.registry"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.divorce.separate-apart",
@@ -1233,6 +1594,10 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 8(3)",
         "expect": "not more than ninety days with reconciliation as its primary purpose"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1250,7 +1615,11 @@
         "fam.divorce.bar",
         "fam.divorce.effective",
         "fam.divorce.certificate"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.divorce.bar",
@@ -1261,17 +1630,26 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 11(1)(b)",
         "expect": "reasonable arrangements have been made for the support"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.divorce.collusion",
       "kind": "test",
       "title": "Collusion and reconciliation",
-      "says": "The court must refuse a divorce if there was collusion, and must, where possible, consider whether the spouses could reconcile.",
+      "says": "The court must satisfy itself that there was no collusion in the divorce application, and must dismiss the application if it finds there was collusion in presenting it.",
       "source": {
         "corpusId": "divorce-act",
         "pinpoint": "s. 11(1)(a)",
         "expect": "collusion"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 11(1)(a) only requires the court to dismiss the application if it finds collusion; the duty to consider the possibility of reconciliation is in s. 10(1), not s. 11.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1302,6 +1680,10 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 12(7)",
         "expect": "certificate"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1313,24 +1695,33 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 21.1(3)",
         "expect": "within fifteen days after that affidavit is filed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.divorce.duties-lawyers",
       "kind": "test",
       "title": "Duties of parties in a divorce",
-      "says": "Parties in a Divorce Act case must act in the best interests of the child, protect children from conflict, try to resolve matters through a family dispute resolution process where appropriate, and give complete, accurate and up-to-date information.",
+      "says": "To the extent it is appropriate, parties to a Divorce Act proceeding must try to resolve the matters that could be the subject of an order through a family dispute resolution process.",
       "source": {
         "corpusId": "divorce-act",
         "pinpoint": "s. 7.3",
         "expect": "family dispute resolution process"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Divorce Act s. 7.3 only sets the duty to try a family dispute resolution process where appropriate; the best-interests, protection-from-conflict and information duties are separate sections (7.1, 7.2, 7.4), and the information duty applies only 'if required to do so under this Act'.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.parent.order",
       "kind": "test",
       "title": "Parenting orders: decision-making and parenting time",
-      "says": "A court can make a parenting order giving decision-making responsibility (major decisions about health, education, culture and religion, and activities) and parenting time to one or more parents or others.",
+      "says": "A court can make a parenting order about parenting time or decision-making responsibility for a child of the marriage, on the application of either or both spouses, or of another person who is a parent of the child or stands or intends to stand in a parent's place; that other person needs the court's leave to apply.",
       "source": {
         "corpusId": "divorce-act",
         "pinpoint": "s. 16.1(1)",
@@ -1339,13 +1730,18 @@
       "leadsTo": [
         "fam.parent.best-interests-da",
         "fam.parent.best-interests-clra"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 16.1(1) does not define decision-making responsibility (that is s. 2(1)), and it allows applications by a spouse or by a non-spouse parent or person standing in a parent's place, who needs the court's leave (s. 16.1(3)); 'to one or more parents or others' is not in it.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.clra-order",
       "kind": "start",
       "title": "Parenting order under the Children's Law Reform Act",
-      "says": "A parent, or another person with leave of the court, can apply for a parenting order for decision-making responsibility or parenting time with a child, and others can apply for a contact order.",
+      "says": "A parent can apply for a parenting order about decision-making responsibility and parenting time. A person who is not a parent, such as a grandparent, can apply for a parenting order about decision-making responsibility, or for a contact order. The application comes with an affidavit setting out the applicant's proposed plan for the child and other required information.",
       "source": {
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 21(1)",
@@ -1355,7 +1751,12 @@
       "leadsTo": [
         "fam.parent.best-interests-clra",
         "fam.start.parenting-affidavit"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Under CLRA s. 21 a non-parent can apply for a parenting order only about decision-making responsibility (not parenting time), and the section requires no leave of the court for a non-parent.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.best-interests-clra",
@@ -1370,7 +1771,11 @@
       "leadsTo": [
         "fam.parent.factors",
         "fam.parent.family-violence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.best-interests-da",
@@ -1385,7 +1790,11 @@
       "leadsTo": [
         "fam.parent.factors",
         "fam.parent.family-violence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.factors",
@@ -1396,6 +1805,10 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 24(3)",
         "expect": "the child's views and preferences"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1407,13 +1820,17 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 24(6)",
         "expect": "as much time with each parent as is consistent"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.parent.family-violence",
       "kind": "test",
       "title": "Family violence and parenting",
-      "says": "Family violence is defined broadly and includes physical abuse, sexual abuse, threats, harassment, coercive and controlling behaviour, psychological and financial abuse, and exposing a child to it. The court considers its nature, how serious and frequent it was, and its effect on the child when deciding parenting.",
+      "says": "Family violence is defined broadly: conduct by a family member toward another that is violent or threatening, is a pattern of coercive and controlling behaviour, or causes fear for someone's safety, and for a child includes direct or indirect exposure to it. It includes physical, sexual, psychological and financial abuse, threats, harassment and stalking, and need not be a criminal offence.",
       "source": {
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 18(1)",
@@ -1421,7 +1838,12 @@
       },
       "leadsTo": [
         "fam.parent.best-interests-clra"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "CLRA s. 18 defines family violence (with the list in s. 18(2)); the court's consideration of its nature, seriousness, frequency and effect on the child is in s. 24(4), not s. 18.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.family-violence-da",
@@ -1432,6 +1854,10 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 2(1)",
         "expect": "coercive and controlling behaviour"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1443,6 +1869,10 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 24(5)",
         "expect": "past conduct"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1454,17 +1884,26 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 28(7)",
         "expect": "written parenting plan submitted by the parties"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.parent.contact",
       "kind": "option",
       "title": "Contact order for others",
-      "says": "A person other than a parent, such as a grandparent, can apply for a contact order with the court's permission (leave) where appropriate.",
+      "says": "A person other than a parent, such as a grandparent, can apply to the court for a contact order with a child.",
       "source": {
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 21(3)",
         "expect": "contact order"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "CLRA s. 21(3) lets any non-parent, including a grandparent, apply for a contact order; it does not require the court's permission (leave).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1476,6 +1915,10 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 34(1)",
         "expect": "for the supervision, by a person, a children’s aid society"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1491,7 +1934,11 @@
       "leadsTo": [
         "fam.parent.relocation-objection",
         "fam.parent.relocation-test"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.relocation-notice-da",
@@ -1507,7 +1954,11 @@
         "fam.parent.relocation-objection",
         "fam.parent.relocation-test",
         "fam.parent.relocation-objection-da"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.relocation-objection",
@@ -1521,7 +1972,11 @@
       },
       "leadsTo": [
         "fam.parent.relocation-test"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.relocation-test",
@@ -1536,17 +1991,26 @@
       "leadsTo": [
         "fam.parent.relocation-burden",
         "fam.dec.barendregt"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.relocation-burden",
       "kind": "test",
       "title": "Burden of proof in relocation",
-      "says": "If the child spends substantially equal time with each party, the person who wants to move must show the move is in the child's best interests. If the child spends the vast majority of time with the moving party, the other party must show the move is not in the child's best interests.",
+      "says": "If the parties substantially comply with an order, arbitral award or agreement providing that the child spends substantially equal time with each party, the party who wants to relocate the child must prove the move is in the child's best interests. If they substantially comply with one providing that the child spends the vast majority of time with the moving party, the party opposing must prove it is not. In any other case, the parties share the burden of proving whether the move is in the child's best interests.",
       "source": {
         "corpusId": "divorce-act",
         "pinpoint": "s. 16.93(1)",
         "expect": "substantially equal time"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "s. 16.93 turns on the parties substantially complying with an order, arbitral award or agreement that provides for equal time or for the vast majority of time with the moving party, not on how time is actually spent; it also omits s. 16.93(3) for other cases.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1561,7 +2025,11 @@
       },
       "leadsTo": [
         "fam.parent.relocation-burden-clra"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.abduction",
@@ -1583,18 +2051,23 @@
       "id": "fam.parent.police-enforce",
       "kind": "enforcement",
       "title": "Police help to locate and deliver a child",
-      "says": "If there are reasonable and probable grounds to believe that someone is unlawfully withholding a child from a person entitled to decision-making responsibility, parenting time or contact, or is about to remove the child from Ontario against an order or agreement, the court can direct a police service to locate, apprehend and deliver the child. The application can be made without notice.",
+      "says": "If the court is satisfied there are reasonable and probable grounds to believe that someone is unlawfully withholding a child from a person entitled to decision-making responsibility, parenting time or contact, or that someone is about to remove the child from Ontario against a court order or separation agreement (or a person with parenting time or contact proposes to remove the child and the child would probably not be returned), the court can direct a police service to locate, apprehend and deliver the child. The application can be made without notice if the court is satisfied that action must be taken without delay.",
       "source": {
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 36(2)",
         "expect": "direct a police service"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "s. 36(3) allows the application without notice only where the court is satisfied that action must be taken without delay; the condition is dropped.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.cs.duty",
       "kind": "test",
       "title": "Every parent must support their child",
-      "says": "Every parent has an obligation to provide support for their unmarried child who is a minor or is enrolled in full-time education, to the extent the parent is capable of doing so.",
+      "says": "Every parent must support their unmarried child, to the extent the parent is capable, if the child is a minor, is enrolled in a full-time program of education, or cannot withdraw from the parents' charge because of illness, disability or other cause. The obligation does not extend to a child 16 or older who has withdrawn from parental control.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 31(1)",
@@ -1602,7 +2075,12 @@
       },
       "leadsTo": [
         "fam.cs.table"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops s. 31(1)(c) (a child unable to withdraw from parental charge because of illness, disability or other cause) and the s. 31(2) exception: the obligation does not extend to a child 16 or older who has withdrawn from parental control.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.cs.table",
@@ -1620,7 +2098,11 @@
         "fam.cs.split",
         "fam.cs.undue-hardship",
         "fam.cs.income"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.cs.table-ontario",
@@ -1631,6 +2113,10 @@
         "corpusId": "ontario-child-support-guidelines-full",
         "pinpoint": "s. 3(1)",
         "expect": "the amount set out in the applicable table"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1642,6 +2128,10 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 7(1)",
         "expect": "provide for an amount to cover all or any portion of the following expenses"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1653,6 +2143,10 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 3(2)",
         "expect": "the age of majority or over"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1664,6 +2158,10 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 9",
         "expect": "not less than 40% of parenting time"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1675,17 +2173,26 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 8",
         "expect": "difference between the amount"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.cs.over-150k",
       "kind": "test",
       "title": "Income over $150,000",
-      "says": "When the paying parent's income is over $150,000, the amount is the table amount for the first $150,000 plus, for the rest, either the table percentage or an amount the court considers appropriate.",
+      "says": "When the paying spouse's income is over $150,000, the amount is the usual table amount under section 3; if the court considers that inappropriate, it is the table amount on the first $150,000, plus for the rest of the income an amount the court considers appropriate given the children's circumstances and each spouse's ability to contribute, plus any special or extraordinary expenses.",
       "source": {
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 4",
         "expect": "is over $150,000"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Under s. 4 the amount is the ordinary s. 3 amount (full table) unless the court considers it inappropriate; only then is it the table amount on the first $150,000 plus an amount the court considers appropriate on the balance, plus any s. 7 expenses.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1697,17 +2204,26 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 10(1)",
         "expect": "undue hardship"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.cs.income",
       "kind": "test",
       "title": "Determining income",
-      "says": "Income is usually based on the parent's total income on line 150 of the T1 tax return (as adjusted by Schedule III), and the court can use a three-year pattern where that is fairer.",
+      "says": "Subject to sections 17 to 20, a parent's annual income is worked out from the sources of income listed under \"Total income\" in the T1 General tax form, adjusted as Schedule III sets out.",
       "source": {
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 16",
         "expect": "Total income"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 16 refers to the sources of income under the heading 'Total income' in the T1 General form (no line number), and the three-year pattern of income is s. 17, not s. 16.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1719,6 +2235,10 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 19(1)",
         "expect": "intentionally under-employed or unemployed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1730,6 +2250,10 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 21(1)",
         "expect": "income tax return"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1741,6 +2265,10 @@
         "corpusId": "federal-child-support-guidelines-full",
         "pinpoint": "s. 25(1)",
         "expect": "once a year"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1758,7 +2286,11 @@
         "fam.dec.michel",
         "fam.dec.colucci",
         "fam.dec.dbs"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.cs.flapply",
@@ -1774,7 +2306,11 @@
       "leadsTo": [
         "fam.cs.table-ontario",
         "fam.start.fs"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.cs.recalc",
@@ -1799,7 +2335,11 @@
       },
       "leadsTo": [
         "fam.ss.factors-fla"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.ss.spouse-definition",
@@ -1813,7 +2353,11 @@
       },
       "leadsTo": [
         "fam.ss.duty"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.ss.factors-fla",
@@ -1828,7 +2372,11 @@
       "leadsTo": [
         "fam.ssag",
         "fam.dec.moge"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.ss.purposes-fla",
@@ -1839,6 +2387,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 33(8)",
         "expect": "recognize the spouse's contribution to the relationship"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1854,7 +2406,11 @@
       "leadsTo": [
         "fam.ss.da-objectives",
         "fam.dec.moge"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.ss.da-objectives",
@@ -1869,7 +2425,11 @@
       "leadsTo": [
         "fam.dec.bracklow",
         "fam.dec.moge"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.ss.misconduct",
@@ -1880,6 +2440,10 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 15.2(5)",
         "expect": "shall not take into consideration any misconduct"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1891,6 +2455,10 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 15.3(1)",
         "expect": "give priority to child support"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1923,13 +2491,17 @@
         "fam.prop.nfp",
         "fam.prop.limitation",
         "fam.prop.unequal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.prop.nfp",
       "kind": "test",
       "title": "Net family property",
-      "says": "Net family property is the value of all property a spouse owns on the valuation date, minus debts and liabilities, minus the value of property (other than a matrimonial home) owned on the date of marriage, after deducting the debts on that date.",
+      "says": "Net family property is the value of all property a spouse owns on the valuation date, other than excluded property, minus the spouse's debts and liabilities, and minus the value of property (other than a matrimonial home) owned on the date of marriage after deducting the debts on that date, not counting debts directly related to acquiring or significantly improving a matrimonial home.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 4(1)",
@@ -1938,7 +2510,12 @@
       "leadsTo": [
         "fam.prop.excluded",
         "fam.prop.valuation-date"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the exception for excluded property under s. 4(2) and the rule that date-of-marriage debts related to acquiring or significantly improving a matrimonial home are not deducted, both of which change the calculation.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.prop.valuation-date",
@@ -1949,6 +2526,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 4(1)",
         "expect": "no reasonable prospect that they will resume cohabitation"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1960,6 +2541,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 4(2)",
         "expect": "does not form part of the spouse's net family property"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1971,6 +2556,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 4(3)",
         "expect": "The onus of proving a deduction"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1982,6 +2571,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 5(6)",
         "expect": "unconscionable"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2012,6 +2605,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 2(8)",
         "expect": "apparent grounds for relief"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2023,6 +2620,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 9(1)",
         "expect": "be paid in instalments during a period not exceeding ten years"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2034,13 +2635,17 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 12",
         "expect": "restraining the depletion"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.prop.trust-claims",
       "kind": "test",
       "title": "Unjust enrichment and trust claims (unmarried spouses)",
-      "says": "Unmarried spouses have no equalization claim under the Family Law Act. A property claim between them is usually based on unjust enrichment, which can lead to a money award or a trust over property.",
+      "says": "In Kerr v. Baranow, the Supreme Court said that when the parties were engaged in a joint family venture and the claimant's contributions are linked to building up wealth, a money award for unjust enrichment is calculated as a share of the accumulated wealth proportionate to the claimant's contributions; the first step is to identify whether there was a joint family venture.",
       "source": {
         "decision": "Kerr v. Baranow, 2011 SCC 10",
         "corpusId": "decision-kerr",
@@ -2049,7 +2654,12 @@
       },
       "leadsTo": [
         "fam.dec.kerr"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Kerr para. 87 does not discuss unmarried spouses' lack of an equalization claim or trusts; it says that where the parties were in a joint family venture and the claimant's contributions are linked to the generation of wealth, the monetary award is a share of the accumulated wealth proportionate to the claimant's contributions.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.prop.pension",
@@ -2060,6 +2670,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 10.1(1)",
         "expect": "imputed value"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2075,17 +2689,26 @@
       "leadsTo": [
         "fam.home.possession",
         "fam.home.dispose"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.home.possession",
       "kind": "test",
       "title": "Equal right to possession",
-      "says": "Both spouses have an equal right to possession of a matrimonial home, no matter who owns it, until there is a separation agreement or court order.",
+      "says": "Both spouses have an equal right to possession of a matrimonial home. If only one spouse has an interest in it, the other spouse's right of possession is personal against the first spouse and ends when they stop being spouses, unless a separation agreement or court order provides otherwise.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 19(1)",
         "expect": "an equal right to possession of a matrimonial home"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Under s. 19(2), where only one spouse has an interest in the home, the other spouse's right of possession is personal against the first spouse and ends when they cease to be spouses unless a separation agreement or court order provides otherwise; it does not last 'until' an agreement or order.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2097,6 +2720,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 21(1)",
         "expect": "No spouse shall dispose of or encumber an interest in a matrimonial home"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2112,17 +2739,26 @@
       "form": "8",
       "leadsTo": [
         "fam.home.offence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.home.designation",
       "kind": "option",
       "title": "Designating a matrimonial home",
-      "says": "Spouses can designate one property as a matrimonial home by registering a designation, and the other properties then stop being matrimonial homes.",
+      "says": "One or both spouses can designate property as a matrimonial home in the prescribed form and register the designation. When a designation made by both spouses is registered, any other matrimonial home not designated by both stops being a matrimonial home; a designation registered by one spouse alone leaves the other matrimonial homes in place.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 20(1)",
         "expect": "designate"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Under s. 20(4)-(5), other matrimonial homes stop being matrimonial homes only when a designation made by both spouses is registered; if one spouse alone registers a designation, other matrimonial homes remain matrimonial homes.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2138,7 +2774,11 @@
       "leadsTo": [
         "fam.dc.formalities",
         "fam.dc.setaside"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.dc.formalities",
@@ -2149,6 +2789,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 55(1)",
         "expect": "made in writing, signed by the parties and witnessed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2164,7 +2808,11 @@
       "leadsTo": [
         "fam.dec.miglin",
         "fam.dec.rick"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.dc.child-best",
@@ -2175,6 +2823,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 56(1)",
         "expect": "best interests of the child"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2186,6 +2838,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 33(4)",
         "expect": "unconscionable circumstances"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2202,7 +2858,11 @@
       "leadsTo": [
         "fam.ro.breach",
         "fam.ro.form"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.ro.clra",
@@ -2216,24 +2876,33 @@
       },
       "leadsTo": [
         "fam.ro.breach"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.ro.breach",
       "kind": "enforcement",
       "title": "Breaking a restraining order",
-      "says": "Disobeying a court order without lawful excuse, other than an order to pay money, is a criminal offence under the Criminal Code unless another penalty is set by law. Breaking a family restraining order can be reported to the police.",
+      "says": "Disobeying a lawful court order without lawful excuse, other than an order to pay money, is a Criminal Code offence, unless another punishment or way of proceeding is expressly set by law.",
       "source": {
         "corpusId": "criminal-code",
         "pinpoint": "s. 127(1)",
         "expect": "disobeys a lawful order made by a court of justice"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Criminal Code s. 127(1) makes disobeying a court order an offence; it says nothing about family restraining orders or reporting a breach to the police.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.change.motion",
       "kind": "start",
       "title": "Motion to change a final order or agreement",
-      "says": "A party who wants to change a final order or a filed agreement about support, decision-making responsibility or parenting time starts a motion to change (Form 15) with a change information form (Form 15A), and serves them by special service.",
+      "says": "A party who wants to change a final order, a support agreement filed with the court, or a filed family arbitration award serves and files a motion to change (Form 15) with all required attachments, together with a blank response (Form 15B) and blank consent (Form 15C), by special service (regular service is allowed on the listed officials and agencies).",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 15(5)",
@@ -2248,7 +2917,12 @@
         "fam.change.no-response",
         "fam.change.15d",
         "fam.change.test-spousal"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 15 does not mention a change information form (Form 15A), and the agreements it covers are support agreements filed under FLA s. 35 (and filed family arbitration awards), not agreements about decision-making responsibility or parenting time.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.response",
@@ -2263,19 +2937,28 @@
       "form": "15B",
       "leadsTo": [
         "fam.conf.case"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.consent",
       "kind": "option",
       "title": "Changing an order on consent",
-      "says": "If the parties agree, they can file a consent motion to change (Form 15C), or Form 15D for child support only, and the court can change the order without a hearing.",
+      "says": "If the parties and any assignee agree to a change, they file a consent motion to change (Form 15C) with a motion form (Form 14B), five copies of a draft order and stamped envelopes (plus support deduction forms if support is involved); if the change is only to child support, they file a consent motion to change child support (Form 15D) instead.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 15(17)",
         "expect": "a consent motion to change (Form 15C)"
       },
-      "form": "15C"
+      "form": "15C",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 15(17)-(18) set out what the parties file on a consent motion to change (Form 15C with a Form 14B, draft orders and envelopes, or Form 15D for child support only); they do not say the court changes the order without a hearing.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.test",
@@ -2289,7 +2972,11 @@
       },
       "leadsTo": [
         "fam.dec.colucci"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.test-parenting",
@@ -2300,13 +2987,17 @@
         "corpusId": "divorce-act",
         "pinpoint": "s. 17(5)",
         "expect": "change in the circumstances of the child"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.change.arrears",
       "kind": "option",
       "title": "Reducing or rescinding arrears",
-      "says": "On an application to change a child support order under the Family Law Act, if there has been a change in circumstances under the Guidelines or new evidence, the court can change the order, including retroactively, and can relieve the payor from paying part or all of the arrears or interest. The approach for decreasing support and arrears is set out in Colucci v. Colucci.",
+      "says": "On an application to change a child support order under the Family Law Act, if there has been a change in circumstances within the meaning of the child support guidelines, or new evidence that was not available before, the court can discharge, vary or suspend the order, going forward or retroactively, and can relieve the payor from paying part or all of the arrears or interest.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 37(2.1)",
@@ -2314,7 +3005,12 @@
       },
       "leadsTo": [
         "fam.dec.colucci"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "FLA s. 37(2.1) does not mention Colucci v. Colucci; that sentence is not supported by the cited provision.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.fla",
@@ -2325,13 +3021,17 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 37(2)",
         "expect": "material change in the dependant's or respondent's circumstances"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.appeal.ocj",
       "kind": "option",
       "title": "Appeal from the Ontario Court of Justice",
-      "says": "A final order of the Ontario Court of Justice under the Family Law Act or Children's Law Reform Act can be appealed to the Superior Court of Justice.",
+      "says": "An appeal from an order of the Ontario Court of Justice under this Part of the Family Law Act goes to the Superior Court of Justice; an appeal from an order of the Family Court of the Superior Court of Justice under this Part goes to the Divisional Court.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 48(1)",
@@ -2340,7 +3040,12 @@
       "leadsTo": [
         "fam.appeal.time",
         "fam.appeal.temporary"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "FLA s. 48(1) covers appeals from Ontario Court of Justice orders 'under this Part' of the Family Law Act only; it says nothing about Children's Law Reform Act orders and is not limited to final orders.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.appeal.time",
@@ -2356,13 +3061,17 @@
       "leadsTo": [
         "fam.appeal.transcript",
         "fam.appeal.stay"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.appeal.scj",
       "kind": "option",
       "title": "Appeal from the Superior Court",
-      "says": "A final order of the Superior Court of Justice in a family case is appealed to the Court of Appeal for Ontario. An appeal from a temporary (interlocutory) order goes to the Divisional Court, and needs the court's permission (leave).",
+      "says": "An appeal goes to the Divisional Court from a final order of a Family Court judge made only under an Ontario Act or regulation, from certain final orders of a Superior Court judge described in the Act, and, with leave, from an interlocutory (temporary) order of a Superior Court judge.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 19(1)",
@@ -2371,7 +3080,12 @@
       "leadsTo": [
         "fam.appeal.time",
         "fam.appeal.higher-courts"
-      ]
+      ],
+      "review": {
+        "verdict": "wrong",
+        "problem": "CJA s. 19(1) sends some final orders to the Divisional Court, including final orders of a Superior Court judge described in s. 19(1.1)-(1.2) and final orders of a Family Court judge made only under an Ontario Act or regulation, so not every final family order of the Superior Court goes to the Court of Appeal.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.appeal.divorce",
@@ -2398,13 +3112,17 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 38(33)",
         "expect": "does not stay a support order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.enf.fro",
       "kind": "enforcement",
       "title": "Filing with the Family Responsibility Office",
-      "says": "Support orders made by Ontario courts are filed with the Director of the Family Responsibility Office, who enforces them and pays out the money to the person entitled, unless both parties withdraw.",
+      "says": "The Director of the Family Responsibility Office must enforce support orders that are filed in the Director's office, with any related support deduction order, and pay the amounts collected to the person they are owed to.",
       "source": {
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 5(1)",
@@ -2418,28 +3136,43 @@
         "fam.enf.withdraw",
         "fam.enf.first-notice",
         "fam.enf.payment-methods"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 5(1) only states the Director's duty to enforce support orders that are filed in the Director's office and pay out what is collected; it does not say Ontario orders are filed there or deal with withdrawal.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.sdo",
       "kind": "enforcement",
       "title": "Support deduction order",
-      "says": "Every support order made by an Ontario court comes with a support deduction order, so that the payor's employer or other income source deducts support and pays it to the Family Responsibility Office.",
+      "says": "An Ontario court that makes a support order must also make a support deduction order, even if no income source for the payor can be identified at the time.",
       "source": {
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 10(1)",
         "expect": "support deduction order"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 10(1) only requires an Ontario court that makes a support order to also make a support deduction order; how income sources deduct and pay is not in s. 10.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.enf.withdraw",
       "kind": "option",
       "title": "Withdrawing from the Family Responsibility Office",
-      "says": "Both parties can agree in writing to withdraw a support order from the Family Responsibility Office and handle payments themselves.",
+      "says": "A support order filed with the Family Responsibility Office can be withdrawn at any time by written notice, signed by the recipient and the payor if the payor is in compliance, or by the recipient alone if the payor is not, unless the order says it cannot be withdrawn. An order assigned to an agency can be withdrawn only by or with the consent of that agency.",
       "source": {
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 16(1)",
         "expect": "withdraw"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "s. 16 lets a filed order be withdrawn by written notice signed by both parties only if the payor is in compliance (by the recipient alone if not), never if the support order says it cannot be withdrawn, and only with the agency's consent while it is assigned.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2455,7 +3188,11 @@
       "leadsTo": [
         "fam.enf.default-hearing-rule",
         "fam.enf.default-imprison"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.default-hearing-rule",
@@ -2470,7 +3207,11 @@
       "form": "30",
       "leadsTo": [
         "fam.enf.default-dispute"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.licence",
@@ -2484,7 +3225,11 @@
       },
       "leadsTo": [
         "fam.enf.refrain"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.refrain",
@@ -2495,6 +3240,10 @@
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 35(1)",
         "expect": "refrain from directing the suspension"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2517,6 +3266,10 @@
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 47",
         "expect": "consumer reporting agency"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2532,7 +3285,11 @@
       "form": "29A",
       "leadsTo": [
         "fam.enf.wages-exempt"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.writ",
@@ -2544,7 +3301,11 @@
         "pinpoint": "r. 28(1)",
         "expect": "The clerk shall issue a writ of seizure and sale (Form 28)"
       },
-      "form": "28"
+      "form": "28",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.statement-money",
@@ -2556,7 +3317,11 @@
         "pinpoint": "r. 26(5)",
         "expect": "A statement of money owed shall be in Form 26"
       },
-      "form": "26"
+      "form": "26",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.financial-exam",
@@ -2568,7 +3333,11 @@
         "pinpoint": "r. 27(1)",
         "expect": "a recipient may serve a request for a financial statement (Form 27)"
       },
-      "form": "27"
+      "form": "27",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.contempt",
@@ -2584,17 +3353,26 @@
       "leadsTo": [
         "fam.enf.contempt-powers",
         "fam.dec.carey"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.contempt-ocj",
       "kind": "enforcement",
       "title": "Contempt of Ontario Court of Justice orders",
-      "says": "The Ontario Court of Justice can punish a wilful contempt of its family orders, including by a fine or imprisonment of up to 90 days.",
+      "says": "In addition to its other contempt powers, the Ontario Court of Justice can punish wilful contempt of or resistance to its process, rules or orders under the Family Law Act (other than restraining orders under section 46) by a fine of up to $5,000, imprisonment of up to 90 days, or both.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 49(1)",
         "expect": "wilful contempt"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops two limits in s. 49(1): it does not apply to restraining orders under s. 46, and the fine cannot exceed $5,000.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2612,7 +3390,7 @@
       "id": "fam.cm.tracks",
       "kind": "step",
       "title": "Case management",
-      "says": "Family cases are case managed under rule 39 (Family Court branch), rule 40 (Ontario Court of Justice) or rule 41 (Superior Court of Justice outside the Family Court branch). Some steps, such as the first court date, are set by the clerk.",
+      "says": "In the Family Court of the Superior Court of Justice, applications covered by rule 39 (except those in subrule (7)) and motions to change a final order or agreement are fast track cases. On or before the first court date the clerk confirms the documents are served and filed, refers the parties to information sources, and schedules or refers the case depending on whether an answer or response was filed.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 39(4)",
@@ -2621,7 +3399,12 @@
       "leadsTo": [
         "fam.cm.dismissal",
         "fam.cm.dismissal-ocj"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 39(4) only says which cases in the Family Court are fast track; it does not mention rules 40 and 41, and the clerk's first-court-date duties are in r. 39(5).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.cm.dismissal",
@@ -2655,7 +3438,11 @@
       },
       "leadsTo": [
         "fam.cm.set-aside-dismissal"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.cm.rule14",
@@ -2670,17 +3457,26 @@
       "leadsTo": [
         "fam.cm.rule14-reply",
         "fam.cm.vexatious"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.cm.vexatious",
       "kind": "motion",
       "title": "Vexatious litigant order",
-      "says": "The Superior Court can order that a person who has persistently and without reasonable grounds started vexatious proceedings cannot start or continue proceedings without leave. Even when the order is sought because of a family case, it is governed by Rule 2.2 of the Rules of Civil Procedure, not the Family Law Rules.",
+      "says": "A judge of the Superior Court of Justice or the Court of Appeal who is satisfied that a person has persistently and without reasonable grounds started vexatious proceedings, or conducted a proceeding in a vexatious way, can order that the person may not start new proceedings, or continue earlier ones, in any court without leave of a Superior Court judge. The order is made on notice to the person, as the rules of court provide.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 140(1)",
         "expect": "persistently and without reasonable grounds"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "CJA s. 140 says the order is made 'as provided in the rules of court' and may be made by a judge of the Superior Court or the Court of Appeal in any branch; it does not say Rule 2.2 of the Rules of Civil Procedure governs rather than the Family Law Rules.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2692,6 +3488,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 2(2)",
         "expect": "to deal with cases justly"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2703,6 +3503,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 3(1)",
         "expect": "The first day is the day after the first event"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2714,17 +3518,26 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 3(5)",
         "expect": "may make an order to lengthen or shorten any time"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.cm.arbitration",
       "kind": "option",
       "title": "Family arbitration and mediation",
-      "says": "Parties can resolve issues by mediation or by a family arbitration that meets the Family Law Act's requirements; an arbitration award can be enforced through the court.",
+      "says": "Family arbitrations, family arbitration agreements and family arbitration awards are governed by the Family Law Act and the Arbitration Act, 1991; if the two conflict, the Family Law Act prevails.",
       "source": {
         "corpusId": "family-law-act",
         "pinpoint": "s. 59.1(1)",
         "expect": "family arbitration"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "FLA s. 59.1(1) only says family arbitrations, agreements and awards are governed by the Family Law Act and the Arbitration Act, 1991; mediation and court enforcement of awards are in other sections.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2747,29 +3560,43 @@
         "corpusId": "decision-barendregt",
         "pinpoint": "para. 152",
         "expect": "whether relocation is in the best interests of the child"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.dec.michel",
       "kind": "decision",
       "title": "Michel v. Graydon",
-      "says": "The Supreme Court of Canada held that a court can order retroactive child support even after the child is no longer a child of the marriage, and discussed the factors for retroactive awards.",
+      "says": "In Michel v. Graydon, the Supreme Court of Canada held that section 152 of British Columbia's Family Law Act lets a court retroactively vary a child support order even after the child has become an adult and the order has expired, and that a court must look at the statute under which the application is brought.",
       "source": {
         "decision": "Michel v. Graydon, 2020 SCC 24",
         "corpusId": "decision-michel",
         "expect": "retroactive child support"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Michel held that British Columbia's Family Law Act s. 152 lets a court retroactively vary a child support order after the beneficiary is no longer a child; it left D.B.S. standing that under s. 15.1 of the Divorce Act an original retroactive award is not available once the child is no longer a child of the marriage, so the general statement is wrong.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "fam.dec.colucci",
       "kind": "decision",
       "title": "Colucci v. Colucci",
-      "says": "The Supreme Court of Canada set out the framework for applications to retroactively decrease child support and to reduce arrears, including the payor's duty of disclosure.",
+      "says": "In Colucci v. Colucci, the Supreme Court of Canada set out the framework for a payor's application under s. 17 of the Divorce Act to retroactively decrease child support: a past material change in circumstances, a presumed start date at effective notice (up to three years before formal notice), discretion to depart from it, and recalculation under the Guidelines; effective notice requires disclosure of supporting documents.",
       "source": {
         "decision": "Colucci v. Colucci, 2021 SCC 24",
         "corpusId": "decision-colucci",
         "pinpoint": "para. 113",
         "expect": "to retroactively decrease child support"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 113 sets out only the framework for a payor's application to retroactively decrease child support; rescinding arrears is dealt with elsewhere in the decision.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2782,6 +3609,10 @@
         "corpusId": "decision-kerr",
         "pinpoint": "para. 87",
         "expect": "joint family venture"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2793,6 +3624,10 @@
         "decision": "Moge v. Moge, [1992] 3 S.C.R. 813",
         "corpusId": "decision-moge",
         "expect": "fair and equitable distribution of resources"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2805,18 +3640,27 @@
         "corpusId": "decision-miglin",
         "pinpoint": "para. 80",
         "expect": "circumstances in which the agreement was negotiated and executed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.dec.hryniak",
       "kind": "decision",
       "title": "Hryniak v. Mauldin",
-      "says": "The Supreme Court of Canada said a judge on a summary judgment motion decides whether there is a genuine issue requiring a trial, and that summary judgment can be a proportionate way to decide a case. Courts apply it to family summary judgment under rule 16.",
+      "says": "In Hryniak v. Mauldin, the Supreme Court of Canada said there is no genuine issue requiring a trial when the judge can reach a fair and just decision on the merits on a summary judgment motion: when the process lets the judge make the necessary findings of fact, apply the law to the facts, and is a proportionate, quicker and less expensive way to a just result.",
       "source": {
         "decision": "Hryniak v. Mauldin, 2014 SCC 7",
         "corpusId": "decision-hryniak",
         "pinpoint": "para. 49",
         "expect": "no genuine issue requiring a trial"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Hryniak para. 49 describes when there is no genuine issue requiring a trial under the civil summary judgment rule; it says nothing about courts applying it under Family Law Rule 16.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2828,6 +3672,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 6(4.1)",
         "expect": "shall be carried out by a person other than the party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2839,6 +3687,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 6(16)",
         "expect": "order that service is not required"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2850,6 +3702,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 8.1(8)",
         "expect": "because of urgency or hardship or for some other reason"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2861,6 +3717,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 12(3)",
         "expect": "shall pay the costs of every other party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2875,7 +3735,11 @@
       },
       "leadsTo": [
         "fam.divorce.simple"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.divorce.joint",
@@ -2890,7 +3754,11 @@
       "form": "8A",
       "leadsTo": [
         "fam.divorce.simple"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.divorce.registry",
@@ -2901,6 +3769,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 36(4)",
         "expect": "Central Registry of Divorce Proceedings"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2948,7 +3820,11 @@
         "pinpoint": "r. 14(14)",
         "expect": "within 14 days or on a date chosen by the court"
       },
-      "form": "14D"
+      "form": "14D",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.motion.abuse",
@@ -2959,6 +3835,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 14(21)",
         "expect": "making numerous motions without merit"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2973,7 +3853,11 @@
       },
       "leadsTo": [
         "fam.conf.case"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.conf.notice",
@@ -2988,7 +3872,11 @@
       "form": "17",
       "leadsTo": [
         "fam.conf.case"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.conf.trial-precondition",
@@ -2999,6 +3887,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(10)",
         "expect": "A case shall not be scheduled for trial unless"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3010,6 +3902,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(18)",
         "expect": "Costs shall not be awarded at a conference unless"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3021,6 +3917,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(19)",
         "expect": "No agreement reached at a conference is effective until"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3032,6 +3932,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 17(23)",
         "expect": "shall be disclosed to any other judge"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3043,6 +3947,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 16(2)",
         "expect": "that does not include a divorce claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3054,6 +3962,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 16(4.1)",
         "expect": "may not rest on mere allegations or denials"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3065,6 +3977,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 16(12)",
         "expect": "decide a question of law before trial"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3079,7 +3995,11 @@
       },
       "leadsTo": [
         "fam.disc.certificate"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.property-docs",
@@ -3093,7 +4013,11 @@
       },
       "leadsTo": [
         "fam.disc.certificate"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.order-docs",
@@ -3107,7 +4031,11 @@
       },
       "leadsTo": [
         "fam.default.failure-rules"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.admit-time",
@@ -3119,7 +4047,11 @@
         "pinpoint": "r. 22(4)",
         "expect": "unless the party serves a response (Form 22A) within 20 days"
       },
-      "form": "22A"
+      "form": "22A",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.disc.confidential",
@@ -3130,6 +4062,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 20(24)",
         "expect": "only for the purposes of the case in which the evidence was obtained"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3141,6 +4077,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(9)",
         "expect": "the court shall award costs against the party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3152,6 +4092,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(20)",
         "expect": "make an order for security for costs"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3163,6 +4107,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(25)",
         "expect": "to cover part or all of the expenses of carrying on the case"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3174,6 +4122,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 24(17)",
         "expect": "with a view to settling costs"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3185,6 +4137,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 18(8)",
         "expect": "shall not be mentioned to the judge hearing the claim"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3196,6 +4152,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 18(13)",
         "expect": "turn the parts of the offer within the court’s jurisdiction into an order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3207,6 +4167,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 25(19)",
         "expect": "was obtained by fraud"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3218,6 +4182,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 25(8)",
         "expect": "within 10 days after the draft order is served for approval"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3261,6 +4229,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 38(1)",
         "expect": "Rules 61, 62 and 63 of the Rules of Civil Procedure apply"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3278,7 +4250,11 @@
         "fam.enf.writ",
         "fam.enf.garnish",
         "fam.enf.default-hearing-rule"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.other-orders",
@@ -3292,7 +4268,11 @@
       },
       "leadsTo": [
         "fam.enf.contempt"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.default-dispute",
@@ -3320,6 +4300,10 @@
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 41(10)",
         "expect": "which shall not be more than 180 days"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3335,7 +4319,11 @@
       "leadsTo": [
         "fam.enf.refrain",
         "fam.enf.licence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.enf.absconding",
@@ -3346,6 +4334,10 @@
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 49(1)",
         "expect": "the payor is about to leave Ontario"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3357,6 +4349,10 @@
         "corpusId": "family-responsibility-support-arrears-enforcement-act",
         "pinpoint": "s. 48",
         "expect": "restraining the disposition or wasting of assets"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3368,6 +4364,10 @@
         "corpusId": "wages-act",
         "pinpoint": "s. 7(3)",
         "expect": "Fifty per cent of a person’s wages are exempt"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3379,6 +4379,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 31(5)",
         "expect": "be imprisoned for any period and on any conditions that are just"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3410,6 +4414,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 39(14.1)",
         "expect": "set aside an order of the clerk"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3421,6 +4429,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 1.4(7)",
         "expect": "No later than 15 days after receiving the notice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3432,6 +4444,10 @@
         "corpusId": "family-law-act",
         "pinpoint": "s. 24(5)",
         "expect": "contravenes an order for exclusive possession is guilty"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3444,7 +4460,11 @@
         "pinpoint": "r. 25(11.1)",
         "expect": "shall be in Form 25F or 25G"
       },
-      "form": "25F"
+      "form": "25F",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.parent.relocation-burden-clra",
@@ -3455,6 +4475,10 @@
         "corpusId": "childrens-law-reform-act",
         "pinpoint": "s. 39.4(5)",
         "expect": "the party who intends to relocate the child has the burden"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3488,19 +4512,28 @@
       },
       "leadsTo": [
         "fam.dec.miglin"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.15d",
       "kind": "form",
       "title": "Form 15D: consent motion to change child support",
-      "says": "When the parties (and any assignee) agree to change only child support, they file a consent motion to change child support (Form 15D) with draft orders and a support deduction order information form. No financial statements are needed.",
+      "says": "When the parties and any assignee agree to change only a child support obligation, they file a consent motion to change child support (Form 15D) with its attachments, five copies of a draft order, stamped envelopes, a support deduction order information form and a draft support deduction order.",
       "source": {
         "corpusId": "family-law-rules",
         "pinpoint": "r. 15(18)",
         "expect": "consent motion to change child support (Form 15D)"
       },
-      "form": "15D"
+      "form": "15D",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "r. 15(18) lists what is filed with a Form 15D consent (draft orders, envelopes, a support deduction order information form and a draft support deduction order); that no financial statements are needed comes from r. 13(4.2), not rule 15.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.serve",
@@ -3514,7 +4547,11 @@
       },
       "leadsTo": [
         "fam.change.response"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "fam.change.no-response",
@@ -3525,6 +4562,10 @@
         "corpusId": "family-law-rules",
         "pinpoint": "r. 15(15)",
         "expect": "may file a motion form (Form 14B) asking that the court make the order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3537,6 +4578,10 @@
         "corpusId": "decision-dbs",
         "pinpoint": "para. 5",
         "expect": "retroactive awards cannot simply be regarded as exceptional orders"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3549,18 +4594,27 @@
         "corpusId": "decision-bracklow",
         "pinpoint": "para. 49",
         "expect": "three conceptual bases for entitlement to spousal support"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "fam.dec.rick",
       "kind": "decision",
       "title": "Rick v. Brandsema",
-      "says": "The Supreme Court of Canada held that spouses negotiating a separation agreement have a duty to make full and honest disclosure of relevant financial information, and that a deliberate failure to disclose can make the agreement vulnerable.",
+      "says": "In Rick v. Brandsema, the Supreme Court of Canada held that separating spouses negotiating an agreement have a duty to make full and honest disclosure of all relevant financial information, and that a deliberate failure to disclose may make the agreement open to court intervention where the resulting settlement is substantially at variance from the objectives of the governing legislation.",
       "source": {
         "decision": "Rick v. Brandsema, 2009 SCC 10",
         "corpusId": "decision-rick",
         "pinpoint": "para. 47",
         "expect": "full and honest disclosure of all relevant financial information"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "Drops the condition in Rick para. 47: a deliberate failure to disclose may make the agreement vulnerable to judicial intervention only where the resulting settlement is substantially at variance from the objectives of the governing legislation.",
+        "fixed": "2026-10-13"
       }
     },
     {

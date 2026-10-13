@@ -16,17 +16,26 @@
       "leadsTo": [
         "ltb.coverage.exemptions",
         "ltb.jurisdiction.exclusive"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.statute.reg516",
       "kind": "statute",
       "title": "O. Reg. 516/06 (General regulation)",
-      "says": "The general regulation under the Act fills in details, such as the months when heat is a vital service, what counts as persistent late payment, and limits on postponing an eviction.",
+      "says": "The general regulation under the Act fills in details. For example, it sets September 1 to June 15 as the part of the year when heat is a vital service.",
       "source": {
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 4(1)",
         "expect": "September 1 to June 15"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The cited s. 4 (1) only prescribes the period when heat is a vital service; persistent late payment and postponing eviction are in other sections (8.1, 8.4) not cited.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -38,6 +47,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 184(1)",
         "expect": "applies with respect to all proceedings before the Board"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -66,11 +79,16 @@
       "id": "ltb.statute.hrc",
       "kind": "statute",
       "title": "Human Rights Code (housing)",
-      "says": "The Human Rights Code gives every person the right to equal treatment in the occupancy of housing, without discrimination on listed grounds. If the Code and the Residential Tenancies Act conflict, the Code wins.",
+      "says": "The Human Rights Code gives every person the right to equal treatment in the occupancy of housing, without discrimination on listed grounds such as race, sex, age, family status, disability or receiving public assistance.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 2(1)",
         "expect": "equal treatment with respect to the occupancy of accommodation"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Code s. 2 (1) says nothing about which law prevails in a conflict with the Residential Tenancies Act.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -102,7 +120,11 @@
       "leadsTo": [
         "ltb.coverage.a1",
         "ltb.option.small-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.coverage.a1",
@@ -117,7 +139,11 @@
       "form": "A1",
       "leadsTo": [
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.coverage.rent-control-exempt",
@@ -131,7 +157,11 @@
       },
       "leadsTo": [
         "ltb.rent.guideline"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.coverage.social-housing",
@@ -142,24 +172,33 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 7(1)",
         "expect": "do not apply with respect to a rental unit described below"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.coverage.rgi-not-decided",
       "kind": "test",
       "title": "Board does not decide rent-geared-to-income eligibility",
-      "says": "The Board does not decide whether a tenant is eligible for rent-geared-to-income help or how much that rent is. Those questions go through the housing provider's own review process.",
+      "says": "The Board does not decide, or review decisions about, whether a tenant is eligible for rent-geared-to-income help or how much that rent is.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 203",
         "expect": "eligibility for rent-geared-to-income assistance"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 203 says only that the Board does not decide these questions; it does not say they go through the housing provider's review process.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "ltb.jurisdiction.exclusive",
       "kind": "test",
       "title": "The Board's exclusive jurisdiction",
-      "says": "The Landlord and Tenant Board has exclusive jurisdiction to decide all applications under the Act. Disputes about eviction and the rights the Act gives go to the Board, not to a court.",
+      "says": "The Landlord and Tenant Board has exclusive jurisdiction to decide all applications under the Act and all matters the Act gives it power over.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 168(2)",
@@ -169,7 +208,12 @@
         "ltb.jurisdiction.monetary-limit",
         "ltb.decision.jesan",
         "ltb.decision.kaiman"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 168 (2) does not say disputes go to the Board 'not to a court'; s. 207 (2) lets a person with a claim over the Board's limit go to court.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.jurisdiction.questions-of-law",
@@ -180,6 +224,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 174",
         "expect": "all questions of law and fact"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -195,7 +243,11 @@
       "leadsTo": [
         "ltb.jurisdiction.over-limit",
         "ltb.jurisdiction.extinguish"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.jurisdiction.small-claims-limit",
@@ -206,6 +258,10 @@
         "corpusId": "oreg-626-00-monetary-jurisdiction",
         "pinpoint": "s. 1 (1)",
         "expect": "maximum amount of a claim in the Small Claims Court is $50,000"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -221,7 +277,11 @@
       "leadsTo": [
         "ltb.decision.letestu",
         "ltb.option.small-claims"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.jurisdiction.extinguish",
@@ -232,6 +292,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 207(3)",
         "expect": "are extinguished once the Board issues its order"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -243,13 +307,17 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 58",
         "expect": "is five dollars"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.option.small-claims",
       "kind": "option",
       "title": "Small Claims Court for matters outside the Board",
-      "says": "Claims that are not within the Board's jurisdiction, such as claims about a unit the Act does not cover, or claims over the Board's limit, can be brought in the Small Claims Court (up to its limit). Small Claims Court is a branch of the Superior Court of Justice.",
+      "says": "The Small Claims Court is a branch of the Superior Court of Justice.",
       "source": {
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 22(1)",
@@ -257,7 +325,12 @@
       },
       "leadsTo": [
         "ltb.option.small-claims-limitation"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "CJA s. 22 (1) only continues the Small Claims Court as a branch of the Superior Court; it says nothing about which landlord-tenant claims can be brought there.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.option.small-claims-jurisdiction",
@@ -268,6 +341,10 @@
         "corpusId": "cja-courts-of-justice-act",
         "pinpoint": "s. 23(1)",
         "expect": "where the amount claimed does not exceed the prescribed amount"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -293,7 +370,7 @@
       "id": "ltb.lease.standard-lease",
       "kind": "test",
       "title": "Standard form of lease",
-      "says": "Written tenancy agreements for the classes of tenancies set by regulation (most private residential units) must use the government's standard form of lease.",
+      "says": "A tenancy agreement for a class of tenancies set by regulation, entered into on or after the date set for that class, must be in the form prescribed for that class (the standard lease).",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 12.1(1)",
@@ -302,7 +379,12 @@
       "form": "Standard Form of Lease",
       "leadsTo": [
         "ltb.lease.standard-lease-demand"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 12.1 (1) applies to prescribed classes of tenancies; it does not say these are 'most private residential units'.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.lease.standard-lease-reg",
@@ -340,6 +422,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 12(4)",
         "expect": "the tenant's obligation to pay rent is suspended"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -351,6 +437,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 14",
         "expect": "prohibiting the presence of animals"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -362,6 +452,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 15",
         "expect": "becomes due upon a default of the tenant"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -373,6 +467,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 16",
         "expect": "take reasonable steps to minimize the person's losses"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -384,6 +482,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 17",
         "expect": "serious, substantial or fundamental breach of a material covenant"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -395,6 +497,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 38(1)",
         "expect": "deemed to have renewed it as a monthly tenancy agreement"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -409,7 +515,11 @@
       },
       "leadsTo": [
         "ltb.lease.assignment-application"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.lease.assignment-application",
@@ -424,7 +534,11 @@
       "form": "A2",
       "leadsTo": [
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.lease.unauthorized-occupant",
@@ -439,7 +553,11 @@
       "form": "A2",
       "leadsTo": [
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.lease.death-of-tenant",
@@ -450,6 +568,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 91(1)",
         "expect": "deemed to be terminated 30 days after the death"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -464,7 +586,11 @@
       },
       "leadsTo": [
         "ltb.deposit.amount"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.deposit.amount",
@@ -479,7 +605,11 @@
       "leadsTo": [
         "ltb.deposit.interest",
         "ltb.deposit.last-month"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.deposit.interest",
@@ -490,6 +620,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 106(6)",
         "expect": "shall pay interest to the tenant annually"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -501,6 +635,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 106(10)",
         "expect": "in payment of the rent for the last rent period"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -512,6 +650,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 107(1)",
         "expect": "if vacant possession of the rental unit is not given"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -523,6 +665,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 134(1)",
         "expect": "a fee, premium, commission, bonus, penalty, key deposit"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -534,6 +680,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 108",
         "expect": "provide post-dated cheques or other negotiable instruments"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -545,6 +695,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 109(1)",
         "expect": "on request, a receipt for the payment of any rent"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -561,7 +715,11 @@
       "leadsTo": [
         "ltb.rent.notice-void",
         "ltb.rent.12-month"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.rent.notice-void",
@@ -572,6 +730,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 116(4)",
         "expect": "An increase in rent is void if the landlord has not given the notice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -586,7 +748,11 @@
       },
       "leadsTo": [
         "ltb.rent.guideline"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.rent.guideline",
@@ -617,6 +783,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 113",
         "expect": "the rent first charged to the tenant"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -629,7 +799,11 @@
         "pinpoint": "s. 121(1)",
         "expect": "may agree to increase the rent charged to the tenant"
       },
-      "form": "N10"
+      "form": "N10",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.rent.added-service",
@@ -640,6 +814,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 123(1)",
         "expect": "A parking space"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -656,7 +834,11 @@
       "leadsTo": [
         "ltb.rent.agi-timing",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.rent.agi-timing",
@@ -667,6 +849,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 126(3)",
         "expect": "at least 90 days before the effective date"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -682,7 +868,11 @@
       "form": "T3",
       "leadsTo": [
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.rent.deemed-lawful",
@@ -712,13 +902,17 @@
       },
       "leadsTo": [
         "ltb.t6.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.duty.vital-services",
       "kind": "test",
       "title": "Vital services",
-      "says": "A landlord must not withhold, or deliberately interfere with, the reasonable supply of a vital service the landlord must supply. Vital services are hot or cold water, fuel, electricity, gas, and heat from September 1 to June 15.",
+      "says": "During the tenancy, and until an eviction order is enforced, a landlord must not withhold, or deliberately interfere with, the reasonable supply of a vital service, care service or food that the landlord must supply under the tenancy agreement.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 21(1)",
@@ -727,7 +921,12 @@
       "leadsTo": [
         "ltb.duty.vital-definition",
         "ltb.t2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 21 (1) does not define vital services; the list of services and the heat period come from s. 2 (1) and O. Reg. 516/06 s. 4, which are not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.duty.vital-definition",
@@ -738,6 +937,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 2(1)",
         "expect": "hot or cold water, fuel, electricity, gas"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -749,6 +952,10 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 4(1)",
         "expect": "September 1 to June 15"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -764,7 +971,11 @@
       "leadsTo": [
         "ltb.duty.repairs-enjoyment",
         "ltb.t2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.duty.repairs-enjoyment",
@@ -775,6 +986,10 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 8(6)",
         "expect": "shall exceed 25 per cent of the monthly rent"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -789,7 +1004,11 @@
       },
       "leadsTo": [
         "ltb.t2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.duty.locks",
@@ -803,7 +1022,11 @@
       },
       "leadsTo": [
         "ltb.t2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.duty.no-self-help",
@@ -817,7 +1040,11 @@
       },
       "leadsTo": [
         "ltb.offence.illegal-eviction"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.entry.only-26-27",
@@ -832,7 +1059,11 @@
       "leadsTo": [
         "ltb.entry.without-notice",
         "ltb.entry.with-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.entry.without-notice",
@@ -843,6 +1074,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 26(1)",
         "expect": "in cases of emergency"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -857,7 +1092,11 @@
       },
       "leadsTo": [
         "ltb.entry.notice-contents"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.entry.notice-contents",
@@ -868,6 +1107,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 27(3)",
         "expect": "between the hours of 8 a.m. and 8 p.m."
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -879,6 +1122,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 33",
         "expect": "ordinary cleanliness of the rental unit"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -890,6 +1137,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 34",
         "expect": "repair of undue damage"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -902,7 +1153,11 @@
         "pinpoint": "s. 35(1)",
         "expect": "without the consent of the landlord"
       },
-      "form": "L8"
+      "form": "L8",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.t6.start",
@@ -919,7 +1174,11 @@
         "ltb.t-apps.limitation",
         "ltb.t6.remedies",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.t2.start",
@@ -936,7 +1195,11 @@
         "ltb.t-apps.limitation",
         "ltb.t2.remedies",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.t-apps.limitation",
@@ -947,6 +1210,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 29(2)",
         "expect": "more than one year after the day the alleged conduct"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -961,7 +1228,11 @@
       },
       "leadsTo": [
         "ltb.t6.pay-rent-into-board"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.t6.pay-rent-into-board",
@@ -972,6 +1243,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 195(1)",
         "expect": "to pay all or part of the rent for the tenant's rental unit into the Board"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -983,6 +1258,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 31(1)",
         "expect": "administrative fine not exceeding the greater of $10,000"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -999,7 +1278,11 @@
       "leadsTo": [
         "ltb.t1.limitation",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.t1.limitation",
@@ -1010,6 +1293,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 135(4)",
         "expect": "more than one year after the person collected or retained money"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1021,6 +1308,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 135(1.1)",
         "expect": "is deemed to have retained money in contravention of this Act"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1038,7 +1329,11 @@
         "ltb.t5.limitation",
         "ltb.t5.remedies",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.t5.limitation",
@@ -1049,6 +1344,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 57(2)",
         "expect": "more than one year after the former tenant vacated"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1060,6 +1359,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 57(3)",
         "expect": "general compensation in an amount not exceeding the equivalent of 12 months"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1072,13 +1375,17 @@
         "pinpoint": "s. 57.1(1)",
         "expect": "failed to do so"
       },
-      "form": "T5"
+      "form": "T5",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.term.only-under-act",
       "kind": "test",
       "title": "A tenancy ends only under the Act",
-      "says": "A tenancy can be ended only in the ways the Act allows: by notice, by agreement, or by Board order.",
+      "says": "A tenancy can be ended only in the ways the Act allows. If a notice of termination is given under the Act and the tenant moves out, the tenancy ends on the date in the notice; no notice is needed if the landlord and tenant agree to end the tenancy.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 37(1)",
@@ -1088,7 +1395,12 @@
         "ltb.term.notice-form",
         "ltb.n11.agreement",
         "ltb.n9.tenant-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 37 mentions ending a tenancy by notice and by agreement, but says nothing about ending it by Board order, and it does not say those are the only ways.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.term.notice-form",
@@ -1102,7 +1414,11 @@
       },
       "leadsTo": [
         "ltb.term.notice-void-30"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.term.notice-void-30",
@@ -1129,6 +1445,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 45",
         "expect": "does not waive a notice of termination"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1140,6 +1460,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 212(2)",
         "expect": "does not significantly prejudice a party's ability"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1156,7 +1480,11 @@
       "leadsTo": [
         "ltb.n9.periods",
         "ltb.l3.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n9.periods",
@@ -1184,7 +1512,11 @@
         "pinpoint": "s. 47.1(3)",
         "expect": "at least 28 days before the date the termination is specified"
       },
-      "form": "N15"
+      "form": "N15",
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n11.agreement",
@@ -1200,7 +1532,11 @@
       "leadsTo": [
         "ltb.n11.void-at-signing",
         "ltb.l3.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n11.void-at-signing",
@@ -1211,6 +1547,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 37(5)",
         "expect": "at the time the tenancy agreement is entered into"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1228,7 +1568,11 @@
         "ltb.n4.contents",
         "ltb.n4.void-by-paying",
         "ltb.l1.when"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n4.contents",
@@ -1239,6 +1583,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 59(2)",
         "expect": "shall set out the amount of rent due"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1250,6 +1598,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 59(3)",
         "expect": "The notice of termination is void if"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1275,7 +1627,7 @@
       "id": "ltb.l1.start",
       "kind": "start",
       "title": "Landlord application to evict for unpaid rent (L1)",
-      "says": "After the N4 termination date, a landlord can apply to end the tenancy, evict the tenant and collect arrears.",
+      "says": "A landlord who has given a notice of termination under the Act can apply to the Board for an order ending the tenancy and evicting the tenant.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 69(1)",
@@ -1286,7 +1638,12 @@
         "ltb.l1.discontinue",
         "ltb.s82.tenant-issues",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 69 (1) lets a landlord who gave a notice of termination apply to end the tenancy and evict; it does not mention collecting arrears, and the wait until after the N4 termination date is in s. 74 (1), not s. 69.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l1.discontinue",
@@ -1300,7 +1657,11 @@
       },
       "leadsTo": [
         "ltb.l1.void-before-enforceable"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l1.void-before-enforceable",
@@ -1314,7 +1675,11 @@
       },
       "leadsTo": [
         "ltb.l1.motion-after-enforceable"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l1.motion-after-enforceable",
@@ -1344,6 +1709,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 74(12)",
         "expect": "has previously made a motion under that subsection"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1360,13 +1729,17 @@
       "leadsTo": [
         "ltb.l9.limitation",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l10.former-tenant",
       "kind": "start",
       "title": "Landlord application against a former tenant (L10)",
-      "says": "A landlord can apply for arrears, compensation, damage or other costs from a former tenant, no later than one year after the tenant moved out.",
+      "says": "A landlord can apply for rent arrears, or for compensation for use and occupation after the tenancy ended, from a former tenant no later than one year after the tenant stopped living in the unit.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 87(1.1)",
@@ -1375,7 +1748,12 @@
       "form": "L10",
       "leadsTo": [
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 87 (1.1) and (3.1) set the one-year limit only for arrears of rent and compensation for use and occupation; damage and other costs are not in s. 87.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l9.limitation",
@@ -1402,6 +1780,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 86",
         "expect": "compensation for the use and occupation of a rental unit"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1417,7 +1799,11 @@
       "leadsTo": [
         "ltb.s82.timing",
         "ltb.s82.orders"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.s82.timing",
@@ -1428,6 +1814,10 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 8.3",
         "expect": "no later than seven days before the hearing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1439,6 +1829,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 82(3)",
         "expect": "any order in respect of the issue"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1455,7 +1849,11 @@
       "leadsTo": [
         "ltb.n8.persistent-definition",
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n8.persistent-definition",
@@ -1466,6 +1864,10 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 8.1(1)",
         "expect": "on at least three occasions within any six-month period"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1482,7 +1884,11 @@
       "leadsTo": [
         "ltb.n5.remedy-period",
         "ltb.n5.second"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n5.damage",
@@ -1498,7 +1904,11 @@
       "leadsTo": [
         "ltb.n5.remedy-period",
         "ltb.n5.second"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n5.overcrowding",
@@ -1524,7 +1934,7 @@
       "id": "ltb.n5.remedy-period",
       "kind": "option",
       "title": "Seven days to fix the problem",
-      "says": "A first N5 is void if, within seven days of receiving it, the tenant stops the conduct or corrects the problem (or, for damage, repairs or pays or makes arrangements the landlord accepts).",
+      "says": "A first N5 for interference is void if, within seven days of receiving it, the tenant stops the conduct or activity or corrects the problem set out in the notice.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 64(3)",
@@ -1532,7 +1942,12 @@
       },
       "leadsTo": [
         "ltb.n5.no-early-application"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 64 (3) covers only the interference notice; the rule for damage (repairing, paying or making arrangements the landlord accepts) is in s. 62 (3), which is not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n5.no-early-application",
@@ -1546,7 +1961,11 @@
       },
       "leadsTo": [
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n5.second",
@@ -1561,7 +1980,11 @@
       "form": "N5",
       "leadsTo": [
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n6.illegal-act",
@@ -1577,7 +2000,11 @@
       "leadsTo": [
         "ltb.n6.no-conviction",
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n6.no-conviction",
@@ -1588,6 +2015,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 75",
         "expect": "whether or not the tenant or other person has been convicted"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1603,7 +2034,11 @@
       "form": "N6",
       "leadsTo": [
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n7.safety",
@@ -1619,7 +2054,11 @@
       "leadsTo": [
         "ltb.l2.start",
         "ltb.enforce.expedite"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n7.wilful-damage",
@@ -1654,7 +2093,11 @@
       "form": "N7",
       "leadsTo": [
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n12.notice",
@@ -1672,7 +2115,11 @@
         "ltb.n12.tenant-early",
         "ltb.n12.affidavit",
         "ltb.decision.salter"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n12.tenant-early",
@@ -1683,13 +2130,17 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 48(4)",
         "expect": "at least 10 days after the date the tenant's notice is given"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.n12.compensation",
       "kind": "test",
       "title": "Compensation for an N12",
-      "says": "A landlord who gives an N12 must pay the tenant one month's rent or offer another acceptable unit, by the termination date. This is not required for a notice given on or after September 21, 2026 that gives at least 120 days and ends on the last day of a period or term.",
+      "says": "A landlord who gives an N12 must pay the tenant one month's rent or offer another unit the tenant accepts. This is not required for a notice given on or after the day the 2025 amendment came into force (September 21, 2026) that gives at least 120 days and ends on the last day of a period or term.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 48.1(2)",
@@ -1697,7 +2148,12 @@
       },
       "leadsTo": [
         "ltb.n12.compensation-timing"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 48.1 does not say when the compensation must be paid; the 'by the termination date' rule is in s. 55.1, which is not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n12.compensation-timing",
@@ -1708,13 +2164,17 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 55.1",
         "expect": "no later than on the termination date specified in the notice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.n12.purchaser",
       "kind": "pre-step",
       "title": "Notice for a purchaser's own use (N12)",
-      "says": "In a building of three or fewer units, or a condo unit, a landlord who has signed an agreement of purchase and sale can give notice on behalf of a buyer who in good faith requires the unit to live in. One month's compensation applies.",
+      "says": "In a building of three or fewer units, or for a condominium unit, a landlord who has signed an agreement of purchase and sale can give notice on behalf of a buyer who in good faith requires the unit for the buyer, the buyer's spouse, a child or parent of either, or a caregiver to live in.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 49(1)",
@@ -1723,13 +2183,18 @@
       "form": "N12",
       "leadsTo": [
         "ltb.n12.affidavit"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 49 lets the landlord give notice for a purchaser but says nothing about compensation; the one month's compensation is in s. 49.1, not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n12.affidavit",
       "kind": "step",
       "title": "Affidavit filed with an N12 application",
-      "says": "A landlord applying based on an N12 must file, with the application, an affidavit by the person who will move in, certifying that they in good faith require the unit for their own use (for at least one year, for a landlord's own use).",
+      "says": "The Board will not make an eviction order based on an N12 unless the landlord has filed an affidavit sworn by the person who will move in, certifying that they in good faith require the unit for their own use (for at least one year, when the notice is for the landlord's own use).",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 72(1)",
@@ -1738,17 +2203,27 @@
       "leadsTo": [
         "ltb.n12.previous-notices",
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 72 (1) bars an eviction order until the affidavit is filed; the requirement to file it at the same time as the application is in s. 71.1 (1), not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n12.previous-notices",
       "kind": "step",
       "title": "Disclosing previous own-use and renovation notices",
-      "says": "An application based on an N12 or N13 must say whether the landlord gave any other N12 or N13 in the past two years, with details. The Board refuses to accept the application otherwise, and can consider past notices in judging good faith.",
+      "says": "An application based on an N12 or N13 must say whether the landlord gave any other N12 or N13 notice in the two years before filing, with details of each. The Board refuses to accept the application for filing if this is not done.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 71.1(3)",
         "expect": "within two years prior to filing the application"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 71.1 sets the disclosure and refusal-to-file rules; it says nothing about the Board considering past notices when deciding good faith (that is s. 72 / s. 73 (2)).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1766,7 +2241,11 @@
         "ltb.n13.compensation",
         "ltb.n13.first-refusal",
         "ltb.n13.board-conditions"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.n13.compensation",
@@ -1777,6 +2256,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 52(1)",
         "expect": "three months rent"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1788,6 +2271,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 54(1)",
         "expect": "an amount equal to three months rent"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1799,6 +2286,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 53(2)",
         "expect": "shall give the landlord notice in writing before vacating"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1813,13 +2304,17 @@
       },
       "leadsTo": [
         "ltb.l2.start"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l2.start",
       "kind": "start",
       "title": "Landlord application to end a tenancy for other reasons (L2)",
-      "says": "After serving an N5, N6, N7, N8, N12 or N13 (or certain other notices), a landlord can apply to end the tenancy and evict the tenant. The landlord may also claim money for damage or costs.",
+      "says": "After giving a notice of termination under the Act, such as an N5, N6, N7, N8, N12 or N13, a landlord can apply to the Board for an order ending the tenancy and evicting the tenant.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 69(1)",
@@ -1829,7 +2324,12 @@
       "leadsTo": [
         "ltb.l2.deadline",
         "ltb.process.file"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 69 (1) covers only the application to end the tenancy and evict; claims for damage or other costs are under ss. 88.1, 88.2 and 89, not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l2.deadline",
@@ -1856,6 +2356,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 71",
         "expect": "may apply immediately to the Board"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1867,6 +2371,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 89(1)",
         "expect": "wilfully or negligently causes or caused undue damage"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1878,6 +2386,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 88.1(1)",
         "expect": "substantially interferes or interfered with"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1889,6 +2401,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 88.2(1)",
         "expect": "failed to pay utility costs"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1900,6 +2416,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 76(1)",
         "expect": "serious allergic reaction"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1911,6 +2431,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 79",
         "expect": "has abandoned a rental unit"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1922,6 +2446,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 88(1)",
         "expect": "abandons or vacates a rental unit without giving notice"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1938,13 +2466,17 @@
       "leadsTo": [
         "ltb.l3.set-aside",
         "ltb.enforce.sheriff"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l3.set-aside",
       "kind": "motion",
       "title": "Motion to set aside an L3 order",
-      "says": "The tenant can make a motion to set aside an order made without a hearing within 10 days after it is issued. The motion stops enforcement until the Board decides. The Board sets the order aside if there was no agreement or notice, or if it would not be unfair to do so.",
+      "says": "The tenant can make a motion, on notice to the landlord, to set aside an order made without a hearing within 10 days after it is issued. The motion stops enforcement until the Board decides. After a hearing, the Board sets the order aside if there was no agreement or notice, or if the conditions set by regulation are met; otherwise it lifts the stay.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 77(6)",
@@ -1952,7 +2484,12 @@
       },
       "leadsTo": [
         "ltb.l3.set-aside-test"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 77 (8) (b) says the Board sets aside the order if 'the prescribed circumstances, conditions or tests' are met; the 'would not be unfair' test is in O. Reg. 516/06 s. 8.2, not in the cited section.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l3.set-aside-test",
@@ -1963,6 +2500,10 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 8.2(1)",
         "expect": "it would not be unfair to do so"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -1979,7 +2520,11 @@
       "leadsTo": [
         "ltb.l4.set-aside",
         "ltb.enforce.sheriff"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.l4.set-aside",
@@ -2006,6 +2551,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 206(1)",
         "expect": "the parties have reached a written agreement"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2036,6 +2585,10 @@
       "source": {
         "corpusId": "ltb-landlord-and-tenant-board",
         "expect": "submit applications, check file status, upload evidence"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2047,6 +2600,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 186(1)",
         "expect": "A tenant may combine several applications into one application"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2058,6 +2615,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 187(1)",
         "expect": "other persons directly affected by the application"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2069,13 +2630,17 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 197(1)",
         "expect": "frivolous or vexatious"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.process.notice-hearing",
       "kind": "step",
       "title": "Notice of hearing",
-      "says": "The Board gives the other parties a copy of the application within the time in the Rules, or may order the applicant to serve the application and notice of hearing and file a certificate of service. Parties receive reasonable notice of the hearing.",
+      "says": "The Board can order the applicant to give the other parties a copy of the application or of the notice of hearing. When it does, the applicant must file a certificate of service on the Board's form, in the circumstances set out in the Rules.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 189(3)",
@@ -2085,7 +2650,12 @@
       "leadsTo": [
         "ltb.process.service",
         "ltb.process.sppa-notice"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 189 (3) is only about filing a certificate of service; the Board giving a copy is s. 188 (1) and reasonable notice of the hearing is SPPA s. 6, neither cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.process.sppa-notice",
@@ -2099,7 +2669,11 @@
       },
       "leadsTo": [
         "ltb.process.absence"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.process.service",
@@ -2110,17 +2684,26 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 191(1)",
         "expect": "by leaving it in the mail box"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.process.time",
       "kind": "test",
       "title": "Time limits and computing time",
-      "says": "Time is computed under the Rules. The Board can extend or shorten many time requirements, but not notice periods for termination or most filing deadlines.",
+      "says": "Some time requirements cannot be extended or shortened by the Board, including all notice periods for ending tenancies and all deadlines for filing applications other than those the Act expressly lets the Board extend or shorten.",
       "source": {
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 56",
         "expect": "All time requirements related to notice requirements for terminating tenancies"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "O. Reg. 516/06 s. 56 only lists time requirements the Board may not extend or shorten; it says nothing about how time is computed or that the Board can extend 'many' others.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2135,17 +2718,26 @@
       },
       "leadsTo": [
         "ltb.process.hearing"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.process.hearing-type",
       "kind": "step",
       "title": "Written, electronic or in-person hearings",
-      "says": "The Board can hold written or electronic (video or phone) hearings under its Rules. A party can object to an electronic hearing that would cause significant prejudice.",
+      "says": "If its rules deal with electronic hearings, the Board can hold an electronic hearing. It must not do so if a party shows that holding an electronic rather than an oral hearing is expected to cause that party significant prejudice, unless the hearing deals only with procedural matters.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 5.2(2)",
         "expect": "likely to cause the party significant prejudice"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 5.2 deals only with electronic hearings; written hearings are in s. 5.1 and 'video or phone' is not in the text.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2179,6 +2771,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 183",
         "expect": "the most expeditious method"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2193,7 +2789,11 @@
       },
       "leadsTo": [
         "ltb.process.summons"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.process.summons",
@@ -2204,6 +2804,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 12(1)",
         "expect": "A tribunal may require any person, including a party, by summons"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2215,6 +2819,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 201(1)",
         "expect": "view premises that are the subject of the hearing"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2226,17 +2834,26 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 202(1)",
         "expect": "ascertain the real substance of all transactions"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.process.adjournment",
       "kind": "motion",
       "title": "Adjournment",
-      "says": "A hearing may be adjourned on the Board's own motion, or when a party shows it is required for an adequate hearing. The LTB Rules set out how to request one.",
+      "says": "A hearing may be adjourned by the Board on its own motion, or when a party shows the Board that the adjournment is needed for an adequate hearing to be held.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 21",
         "expect": "required to permit an adequate hearing to be held"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 21 says nothing about the LTB Rules setting out how to request an adjournment.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2251,7 +2868,11 @@
       },
       "leadsTo": [
         "ltb.review.request"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.process.open",
@@ -2262,6 +2883,10 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 9(1)",
         "expect": "shall be open to the public"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2289,6 +2914,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 195(4)",
         "expect": "may refuse to consider the evidence and submissions"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2300,17 +2929,26 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 204(1)",
         "expect": "whatever conditions it considers fair in the circumstances"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.process.amend-withdraw",
       "kind": "option",
       "title": "Amending or withdrawing an application",
-      "says": "An application can be amended, or withdrawn, under the Act and the Rules. The Board may also amend an application on its own motion where that is not unfair.",
+      "says": "Before, during or after a hearing, the Board may, on its own motion and on notice to the parties, amend an application if it considers that appropriate and the amendment would not be unfair to any party.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 201(1)",
         "expect": "amend an application if the Board considers it appropriate"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 201 (1) covers only the Board amending an application on its own motion; amendment and withdrawal by the applicant are in s. 200, not cited.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -2327,7 +2965,11 @@
         "ltb.relief.mandatory-refusal",
         "ltb.relief.postpone-limits",
         "ltb.relief.compensation-first"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.relief.mandatory-refusal",
@@ -2338,6 +2980,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 83(3)",
         "expect": "the landlord is in serious breach of the landlord's responsibilities"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2349,6 +2995,10 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 8.4",
         "expect": "there are compelling grounds to postpone the enforcement"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2360,6 +3010,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 83(4)",
         "expect": "until the landlord has complied with section 48.1"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2371,13 +3025,17 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 80(1)",
         "expect": "may not be effective earlier than the date of termination"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.order.final",
       "kind": "step",
       "title": "The Board's order",
-      "says": "The Board sends each party a copy of its order. An order is final and binding unless reviewed or appealed.",
+      "says": "Except where the Act provides otherwise, and subject to the Board's power to review its own orders under section 21.2 of the Statutory Powers Procedure Act, a Board order is final and binding.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 209(1)",
@@ -2388,7 +3046,12 @@
         "ltb.appeal.divisional",
         "ltb.enforce.sheriff",
         "ltb.enforce.money"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 209 (1) does not say the Board sends each party a copy of its order (that is s. 208), and it makes the order final subject to SPPA s. 21.2 review rather than 'unless reviewed or appealed'.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.order.payment",
@@ -2399,6 +3062,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 205(1)",
         "expect": "shall pay to the other any sum of money that is owed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2410,13 +3077,17 @@
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 17(1)",
         "expect": "shall give reasons in writing therefor if requested by a party"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.review.request",
       "kind": "motion",
       "title": "Request to review an order",
-      "says": "A party can ask the Board to review all or part of an order, for example for a serious error or because the party was not reasonably able to take part in the hearing. The Board's power to review comes from the SPPA and its Rules.",
+      "says": "If its rules deal with reviews, the Board may, if it considers it advisable, review all or part of its own decision or order, and may confirm, vary, suspend or cancel it. The review takes place within a reasonable time after the decision or order is made.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 21.2(1)",
@@ -2424,7 +3095,12 @@
       },
       "leadsTo": [
         "ltb.review.deadline"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 21.2 (1) lets the tribunal review its decision if its rules deal with it; it does not list grounds such as serious error or inability to take part, and says nothing of a party's request.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.review.deadline",
@@ -2470,25 +3146,34 @@
         "ltb.appeal.notice",
         "ltb.appeal.stay",
         "ltb.appeal.powers"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.appeal.notice",
       "kind": "step",
       "title": "Starting the appeal",
-      "says": "An appeal to the Divisional Court starts by serving a notice of appeal (Form 61A.3) with the required certificate. The appellant also gives the Board the appeal documents.",
+      "says": "An appeal to the Divisional Court starts by serving a notice of appeal (Form 61A.3), with the certificate required by rule 61.05 (1), on every party whose interest may be affected and on anyone entitled by statute to be heard, within 30 days after the order unless a statute or the rules provide otherwise.",
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 61.04(1)",
         "expect": "61A.3 (Divisional Court)"
       },
-      "form": "61A.3"
+      "form": "61A.3",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 61.04 (1) says nothing about giving the Board the appeal documents; that duty is in RTA s. 210 (2), not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.appeal.stay",
       "kind": "step",
       "title": "Appeal stays the order",
-      "says": "An appeal from a tribunal's decision operates as a stay unless another law says otherwise or the tribunal or court orders otherwise. For a stayed LTB order, the court registrar issues a certificate of stay (Form 63B) that can be filed with the Sheriff.",
+      "says": "An appeal from a tribunal's decision to a court operates as a stay unless another Act or regulation that applies expressly says otherwise, or the tribunal or the court orders otherwise.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 25(1)",
@@ -2497,7 +3182,12 @@
       "form": "63B",
       "leadsTo": [
         "ltb.appeal.certificate-stay"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 25 (1) sets the automatic stay only; the certificate of stay (Form 63B) filed with the Sheriff comes from Rules of Civil Procedure r. 63.03 (5.1), not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.appeal.certificate-stay",
@@ -2508,6 +3198,10 @@
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 63.03(5.1)",
         "expect": "If an order of the Landlord and Tenant Board is stayed"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2519,6 +3213,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 210(4)",
         "expect": "remit the matter to the Board"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2550,6 +3248,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 81",
         "expect": "expires six months after the day on which the order takes effect"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2561,13 +3263,17 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 84",
         "expect": "request that the sheriff expedite the enforcement"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.enforce.property",
       "kind": "enforcement",
       "title": "Tenant's belongings after eviction",
-      "says": "After the Sheriff enforces an eviction, the landlord must make the tenant's property available for 72 hours, near the unit, between 8 a.m. and 8 p.m., before disposing of it.",
+      "says": "After an eviction order is enforced, the landlord must not sell, keep or dispose of the tenant's property for 72 hours, and during those 72 hours must make it available to be picked up at a place close to the unit during the hours set by regulation.",
       "source": {
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 41(2)",
@@ -2575,7 +3281,12 @@
       },
       "leadsTo": [
         "ltb.enforce.property-hours"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Section 41 (3) says the property must be available 'during the prescribed hours'; the 8 a.m. to 8 p.m. hours are in O. Reg. 516/06 s. 46, not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.enforce.property-hours",
@@ -2586,13 +3297,17 @@
         "corpusId": "oreg-516-06-rta-general",
         "pinpoint": "s. 46",
         "expect": "between the hours of 8 a.m. and 8 p.m."
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.enforce.money",
       "kind": "enforcement",
       "title": "Collecting a money order",
-      "says": "A certified copy of a Board order can be filed in the Superior Court of Justice (including its Small Claims Court branch). Once filed it is treated as an order of that court and can be enforced like one.",
+      "says": "The Board or a party can file a certified copy of a Board order in the Superior Court of Justice. Once filed it is treated as an order of that court and can be enforced as one.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 19(1)",
@@ -2602,7 +3317,12 @@
         "ltb.enforce.garnishment",
         "ltb.enforce.examination",
         "ltb.enforce.writ"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 19 (1) refers only to filing in the Superior Court of Justice; it does not mention the Small Claims Court branch.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.enforce.garnishment",
@@ -2613,6 +3333,10 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.08(1)",
         "expect": "by garnishment of debts payable to the debtor"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2624,19 +3348,28 @@
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.10(1)",
         "expect": "If there is default under an order for the payment or recovery of money"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "ltb.enforce.writ",
       "kind": "enforcement",
       "title": "Writ of seizure and sale",
-      "says": "The creditor can ask the clerk for a writ of seizure and sale of personal property or land, supported by an affidavit for enforcement request (Form 20P).",
+      "says": "If the order for money is not paid, the creditor can ask the clerk to issue a writ of seizure and sale of personal property (Form 20C) to a bailiff, supported by an affidavit for enforcement request (Form 20P) stating the amount still owing.",
       "source": {
         "corpusId": "oreg-258-98-small-claims-rules",
         "pinpoint": "r. 20.06(1)",
         "expect": "affidavit for enforcement request (Form 20P)"
       },
-      "form": "20P"
+      "form": "20P",
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Rule 20.06 (1) covers only a writ of seizure and sale of personal property; a writ against land is under r. 20.07, not cited.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "ltb.enforce.deduct-from-rent",
@@ -2647,6 +3380,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 207(5)",
         "expect": "the order may provide that if the landlord"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2661,7 +3398,11 @@
       },
       "leadsTo": [
         "ltb.offence.fines"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "ltb.offence.fines",
@@ -2672,6 +3413,10 @@
         "corpusId": "residential-tenancies-act-2006",
         "pinpoint": "s. 238(1)",
         "expect": "a fine of not more than $100,000"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2684,6 +3429,10 @@
         "corpusId": "decision-kaiman",
         "pinpoint": "para. 14",
         "expect": "the appellants were entitled to commence their proceeding in the Superior Court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2696,6 +3445,10 @@
         "corpusId": "decision-letestu",
         "pinpoint": "para. 16",
         "expect": "no basis for importing the limitation period"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2708,6 +3461,10 @@
         "corpusId": "decision-jesan",
         "pinpoint": "para. 60",
         "expect": "must have their possessory rights determined before that Board"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
