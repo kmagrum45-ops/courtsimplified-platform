@@ -687,7 +687,7 @@ assert.deepEqual(
 
 const applicabilityRouteSource = readFileSync("app/api/cases/form-applicability/route.ts", "utf8");
 assert.match(applicabilityRouteSource, /getAuthenticatedUser\(request\)[\s\S]*getAuthenticatedOwnedCase\(request, user, caseId\)/, "Form applicability must load the authenticated owner case before update");
-assert.match(applicabilityRouteSource, /\.update\(\{ master_result: masterResult \}\)[\s\S]*\.eq\("id", caseId\)/, "Only the merged canonical master_result may be updated for the selected case");
+assert.match(applicabilityRouteSource, /updateMasterResult\(supabase, \{ caseId \}, \(stored\) => mergeFormApplicability\(stored, patch\)\)/, "Only the merged canonical master_result may be updated for the selected case, over what is stored now");
 assert.match(applicabilityRouteSource, /resolveExactFormMapping\(/, "Live recommendations must use the exact mapping resolver");
 assert.match(applicabilityRouteSource, /\.eq\("authority_bundle_version", "ontario-beta-form-mapping-v1"\)/, "The live journey must be limited to the verified exact core-form bundle");
 assert.match(applicabilityRouteSource, /getCanonicalFormLookup\(\{ canonicalFormId: resolved\.canonicalFormId, courtType: resolved\.canonicalFormCourtType \}\)/, "Live recommendations must retain exact canonical ID and court type");

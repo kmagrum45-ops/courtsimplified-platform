@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import { NextResponse } from "next/server";
 
 import { userStory } from "@/src/lib/case-system/userStory";
@@ -56,15 +57,10 @@ export function createCaseReadPost(overrides: Partial<Dependencies> = {}) {
     save: async (request, user, caseId, picture) => {
       const supabase = authenticatedClient(request);
       if (!supabase) return false;
-      const { data } = await supabase.from("cases").select("master_result").eq("id", caseId).eq("user_id", user.id).maybeSingle();
-      if (!data) return false;
-      const current = (data.master_result && typeof data.master_result === "object" ? data.master_result : {}) as Record<string, unknown>;
-      const { error } = await supabase
-        .from("cases")
-        .update({ master_result: { ...current, casePicture: picture } })
-        .eq("id", caseId)
-        .eq("user_id", user.id);
-      return !error;
+      // Never over a stage or date saved while the reading was running
+      // (updateCaseRecord.ts).
+      const saved = await updateMasterResult(supabase, { caseId, userId: user.id }, (current) => ({ ...current, casePicture: picture }));
+      return saved.ok;
     },
     ...overrides,
   };

@@ -32,6 +32,7 @@ import { documentsOf, readCaseRecord, recordedDateAnswers, storedIntakeValues } 
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { practicalFor } from "../../src/lib/content-library/nextStepPractical";
+import { updateMasterResult } from "../../src/lib/case-system/updateCaseRecord";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -175,7 +176,7 @@ check(
   "the overview shows the stage the person confirmed",
   /confirmedStage=\{/.test(read("app/cases/[id]/page.tsx")) && /confirmedStage=\{/.test(builder) && /confirmedStage \|\| analysis\.caseStage/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx")),
 );
-check("family answers given after the save are saved", /familyStatus: triageState \} \}\)/.test(builder));
+check("family answers given after the save are saved, only over what was read", /updateMasterResult\(supabase, \{ caseId: id \}/.test(builder) && /familyStatus: triageState \}/.test(builder));
 check(
   "a timeline step whose date the case holds is filled in",
   /recordedDates=\{recordedDateAnswers\(record\)\}/.test(read("app/cases/[id]/timeline/page.tsx")) &&
@@ -220,8 +221,60 @@ for (const file of ["caseDrafts.ts", "respondingDocumentDraft.ts", "startingDocu
   check("starting a family case shows the fee, filing and service", Boolean(start?.fees.length && start.filing.length && start.serving.length));
 }
 
-if (failures > 0) {
-  console.log(`\n${failures} check(s) failed.`);
-  process.exit(1);
+// 2026-10-13: a write that lost the race reads again and re-applies its change
+// on top, instead of erasing the other save. A fake database: the first write
+// finds the row changed (another save landed), the second goes through.
+async function raceCheck() {
+  let stored: { master_result: Record<string, unknown>; updated_at: string } = { master_result: { position: { confirmedStage: null } }, updated_at: "t1" };
+  let writes = 0;
+  const fake = {
+    from: () => {
+      const filters: Record<string, string> = {};
+      let values: Record<string, unknown> | null = null;
+      const chain = {
+        eq(column: string, value: string) {
+          filters[column] = value;
+          return chain;
+        },
+        async maybeSingle() {
+          return { data: { ...stored }, error: null };
+        },
+        async select() {
+          writes += 1;
+          if (writes === 1) {
+            // Another save (the person confirming their stage) lands first.
+            stored = { master_result: { ...stored.master_result, position: { confirmedStage: "responding" } }, updated_at: "t2" };
+          }
+          if (filters.updated_at !== stored.updated_at) return { data: [], error: null };
+          stored = { master_result: values as Record<string, unknown>, updated_at: "t3" };
+          return { data: [{ id: "c" }], error: null };
+        },
+      };
+      return {
+        select: () => chain,
+        update: (next: Record<string, unknown>) => {
+          values = next.master_result as Record<string, unknown>;
+          return chain;
+        },
+      };
+    },
+  };
+  const result = await updateMasterResult(fake, { caseId: "c" }, (master) => ({ ...master, casePicture: { read: true } }));
+  check("a save that lost the race tries again and succeeds", result.ok && writes === 2);
+  check("the other save's stage survives", (stored.master_result.position as { confirmedStage: string }).confirmedStage === "responding");
+  check("and this save's change is there too", Boolean(stored.master_result.casePicture));
+  for (const [file, pattern] of [
+    ["app/api/case/read/route.ts", /updateMasterResult\(supabase, \{ caseId, userId: user\.id \}/],
+    ["app/api/cases/drafts/route.ts", /updateMasterResult\(owned\.supabase/],
+    ["app/api/cases/form-applicability/route.ts", /updateMasterResult\(supabase, \{ caseId \}/],
+  ] as const) {
+    check(`${file} writes through updateMasterResult`, pattern.test(read(file)));
+  }
 }
-console.log("\nAll case-record checks passed.");
+void raceCheck().then(() => {
+  if (failures > 0) {
+    console.log(`\n${failures} check(s) failed.`);
+    process.exit(1);
+  }
+  console.log("\nAll case-record checks passed.");
+});

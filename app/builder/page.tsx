@@ -20,6 +20,7 @@ import GuidedSmallClaimsIntake, {
 } from "./_components/GuidedSmallClaimsIntake";
 import { readSourcedAnswers } from "./_components/SourcedQuestions";
 import { savePositionQueued } from "./_components/positionSave";
+import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
 import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
@@ -879,11 +880,19 @@ function BuilderPageContent() {
          * (their working drafts; /api/cases/drafts). Read them now, not from the
          * copy loaded at mount, or a re-save would quietly erase work done since.
          */
-        const { data: userOwnedRow } = await supabase
+        /*
+         * Write only over what was just read (2026-10-13): a stage, date,
+         * forms answer or reading saved between this read and this write was
+         * erased. If anything wrote in between, read again and rebuild on top
+         * (the same rule as updateCaseRecord.ts on the server).
+         */
+        const buildAndWrite = async (): Promise<{ error: { message: string } | null; conflict: boolean }> => {
+        const { data: userOwnedRow, error: readError } = await supabase
           .from("cases")
-          .select("master_result")
+          .select("master_result,updated_at")
           .eq("id", activeId)
           .maybeSingle();
+        if (readError) return { error: readError, conflict: false };
         const storedMaster = asRecord(userOwnedRow?.master_result);
         const userOwned: Record<string, unknown> = Object.fromEntries(
           // formApplicability (the Forms page answers) and intakeAnswers (the
@@ -908,10 +917,7 @@ function BuilderPageContent() {
           }));
         }
 
-        // Writing the same row twice is harmless, so a failed write is tried
-        // twice more before the user is told it failed (2026-10-08: two
-        // walkthrough runs stopped on "could not be saved").
-        const writeCase = () => supabase
+        let write = supabase
           .from("cases")
           .update({
             // Named for who the case is with, not the engine's summary.
@@ -926,14 +932,22 @@ function BuilderPageContent() {
               familyStatus: triageState,
               ...userOwned,
             },
-            updated_at: now,
+            updated_at: new Date().toISOString(),
           })
           .eq("id", activeId);
-        let { error } = await writeCase();
-        for (let attempt = 1; error && attempt <= 2; attempt += 1) {
-          await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
-          ({ error } = await writeCase());
+        if (userOwnedRow?.updated_at) write = write.eq("updated_at", userOwnedRow.updated_at);
+        const { data: written, error: writeError } = await write.select("id");
+        if (writeError) return { error: writeError, conflict: false };
+        return { error: null, conflict: !(Array.isArray(written) && written.length > 0) };
+        };
+        // A failed write is tried again after a pause; a write that lost to
+        // another save is rebuilt on top of it straight away.
+        let outcome = await buildAndWrite();
+        for (let attempt = 1; (outcome.error || outcome.conflict) && attempt <= 4; attempt += 1) {
+          if (outcome.error) await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
+          outcome = await buildAndWrite();
         }
+        const error = outcome.error ?? (outcome.conflict ? { message: "Your case changed while it was saving. Please try again." } : null);
 
         if (error) {
           setSaveError(error.message);
@@ -1000,11 +1014,11 @@ function BuilderPageContent() {
     if (!id) return;
     const timer = setTimeout(() => {
       void (async () => {
-        const { data } = await supabase.from("cases").select("master_result").eq("id", id).maybeSingle();
-        if (!data) return;
-        const stored = asRecord(data.master_result);
-        if (JSON.stringify(stored.familyStatus) === JSON.stringify(triageState)) return;
-        await supabase.from("cases").update({ master_result: { ...stored, familyStatus: triageState } }).eq("id", id);
+        // Only over what was read (updateCaseRecord.ts), so a stage or date
+        // saved at the same moment is kept.
+        await updateMasterResult(supabase, { caseId: id }, (stored) =>
+          JSON.stringify(stored.familyStatus) === JSON.stringify(triageState) ? { reject: "unchanged" } : { ...stored, familyStatus: triageState },
+        );
       })();
     }, 800);
     return () => clearTimeout(timer);
