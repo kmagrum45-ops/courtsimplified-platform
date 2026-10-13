@@ -395,7 +395,12 @@
         "citation": "O. Reg. 9/18, Standard Forms of Lease",
         "url": "https://www.ontario.ca/laws/regulation/r18009",
         "expect": "standard form of lease",
-        "corpusId": "oreg-9-18-standard-lease"
+        "corpusId": "oreg-9-18-standard-lease",
+        "pinpoint": "ss. 1, 3"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3472,11 +3477,16 @@
       "id": "ltb.decision.matthews",
       "kind": "decision",
       "title": "Matthews v. Algoma Timberlakes Corp.",
-      "says": "A Court of Appeal decision cited for the rule that parties cannot contract out of the Residential Tenancies Act. Lead to be retrieved and read.",
+      "says": "A Court of Appeal decision cited for the rule that parties cannot contract out of the Residential Tenancies Act.",
       "source": {
         "decision": "Matthews v. Algoma Timberlakes Corp., 2010 ONCA 468",
         "pinpoint": "para. 24",
-        "corpusId": "decisions/matthews-v-algoma-timberlakes-2010-ONCA-468.txt"
+        "corpusId": "decisions/matthews-v-algoma-timberlakes-2010-ONCA-468.txt",
+        "expect": "will not have the effect of avoiding the application"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3501,10 +3511,17 @@
       "id": "ltb.decision.onyskiw",
       "kind": "decision",
       "title": "Onyskiw v. CJM Property Management Ltd.",
-      "says": "A Court of Appeal decision on when a tenant's claim against a landlord can proceed in court rather than at the Board. Lead to be retrieved and read.",
+      "says": "The Court of Appeal for Ontario rejected the argument that a landlord is automatically in breach of its duty to repair and maintain under s. 20(1) of the Residential Tenancies Act as soon as a service is interrupted. Context matters, and the length of the interruption is only one factor; it upheld as reasonable the Board's refusal of a rent abatement where the landlord had acted diligently.",
       "source": {
         "decision": "Onyskiw v. CJM Property Management Ltd., 2016 ONCA 477",
-        "corpusId": "decisions/onyskiw-v-cjm-property-management-2016-ONCA-477.txt"
+        "corpusId": "decisions/onyskiw-v-cjm-property-management-2016-ONCA-477.txt",
+        "expect": "automatically in breach of its obligation to repair",
+        "pinpoint": "paras. 60, 69-70"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "The decision is not about whether a tenant's claim can proceed in court rather than at the Board; it is about the landlord's duty to repair and maintain under s. 20(1) of the RTA (an elevator out of service for 96 days) and a rent abatement.",
+        "fixed": "2026-10-13"
       }
     },
     {

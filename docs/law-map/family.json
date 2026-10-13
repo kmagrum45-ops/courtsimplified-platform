@@ -3558,11 +3558,17 @@
       "id": "fam.dec.gordon",
       "kind": "decision",
       "title": "Gordon v. Goertz",
-      "says": "The Supreme Court of Canada set out the two-step approach for changing a custody order when a parent wants to move: first a material change in circumstances, then a fresh look at the child's best interests. The relocation sections of the Divorce Act now set out much of this test.",
+      "says": "The Supreme Court of Canada set out the two-step approach for changing a custody or access order when the custodial parent wants to move: first, a material change in the circumstances affecting the child; then a fresh inquiry into the child's best interests.",
       "source": {
         "decision": "Gordon v. Goertz, [1996] 2 S.C.R. 27",
         "pinpoint": "para. 49",
-        "corpusId": "decisions/gordon-v-goertz-1996-2-SCR-27.html.txt"
+        "corpusId": "decisions/gordon-v-goertz-1996-2-SCR-27.html.txt",
+        "expect": "threshold requirement of demonstrating a material change"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The last sentence (the Divorce Act relocation sections now set out much of this test) is not in the decision.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -4639,9 +4645,13 @@
       "says": "The Supreme Court of Canada set out what must be proved for civil contempt: a clear order, actual knowledge of it, and an intentional act or failure to act that breaches it, each proved beyond a reasonable doubt.",
       "source": {
         "decision": "Carey v. Laiken, 2015 SCC 17",
-        "pinpoint": "para. 32",
+        "pinpoint": "paras. 32-35",
         "expect": "beyond a reasonable doubt",
         "corpusId": "decisions/carey-v-laiken-2015-SCC-17.html.txt"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     }
   ]

@@ -2677,8 +2677,13 @@
       "says": "The Supreme Court of Canada described prosecutorial discretion, including decisions to start, continue or stay a prosecution, and held that courts and others generally do not review these core decisions except for abuse of process.",
       "source": {
         "decision": "Krieger v. Law Society of Alberta, 2002 SCC 65",
-        "pinpoint": "para. 47",
-        "corpusId": "decisions/krieger-v-law-society-alberta-2002-SCC-65.html.txt"
+        "pinpoint": "paras. 32, 45-47",
+        "corpusId": "decisions/krieger-v-law-society-alberta-2002-SCC-65.html.txt",
+        "expect": "whether a prosecution should be brought, continued or ceased"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3170,6 +3175,10 @@
         "pinpoint": "ss. 1-2",
         "expect": "All crimes described in the Criminal Code (Canada) are prescribed",
         "corpusId": "oreg-456-96-prescribed-crimes"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3510,11 +3519,17 @@
       "id": "vic.dec.jordan",
       "kind": "decision",
       "title": "R. v. Jordan",
-      "says": "The Supreme Court of Canada set presumptive ceilings for the time from charge to the end of trial (18 months in provincial court, 30 months in superior court), beyond which delay is presumed unreasonable and the charge may be stayed.",
+      "says": "The Supreme Court of Canada majority set presumptive ceilings on the time from charge to the actual or anticipated end of trial, not counting delay caused or waived by the defence: 18 months for cases tried in provincial court and 30 months for cases in superior court (or in provincial court after a preliminary inquiry). Delay over the ceiling is presumed unreasonable; unless the Crown shows exceptional circumstances, a stay follows.",
       "source": {
         "decision": "R. v. Jordan, 2016 SCC 27",
-        "pinpoint": "para. 5",
-        "corpusId": "decisions/r-v-jordan-2016-SCC-27.html.txt"
+        "pinpoint": "paras. 5, 46-49",
+        "corpusId": "decisions/r-v-jordan-2016-SCC-27.html.txt",
+        "expect": "presumptive ceiling on the time it should take"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Drops conditions in the framework: defence delay is deducted, the 30-month ceiling also covers provincial court trials after a preliminary inquiry, and the Crown can rebut the presumption with exceptional circumstances before a stay follows. Majority reasons (5-4).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -3524,7 +3539,13 @@
       "says": "The Supreme Court of Canada upheld the Criminal Code regime for admitting a complainant's private records held by the accused in sexual offence cases, including the complainant's right to participate in the hearing.",
       "source": {
         "decision": "R. v. J.J., 2022 SCC 28",
-        "corpusId": "decisions/r-v-jj-2022-SCC-28.html.txt"
+        "corpusId": "decisions/r-v-jj-2022-SCC-28.html.txt",
+        "expect": "designed to protect the interests of complainants in their own private records",
+        "pinpoint": "paras. 3, 13"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     }
   ]

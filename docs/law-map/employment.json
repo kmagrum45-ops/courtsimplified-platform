@@ -2768,16 +2768,22 @@
       "id": "emp.test.just-cause",
       "kind": "test",
       "title": "Just cause for dismissal",
-      "says": "An employer can dismiss without notice only for just cause: misconduct so serious that it is incompatible with the employment relationship, judged in context and with proportionality. The employer has to prove it.",
+      "says": "The Supreme Court held that whether an employee's dishonesty justifies dismissal without notice is decided in context: the test is whether the dishonesty gave rise to a breakdown in the employment relationship, with proportionality between the misconduct and the sanction.",
       "source": {
         "decision": "McKinley v. BC Tel, 2001 SCC 38",
-        "pinpoint": "para. 48",
-        "corpusId": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt"
+        "pinpoint": "paras. 48, 53, 57",
+        "corpusId": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt",
+        "expect": "gave rise to a breakdown in the employment relationship"
       },
       "leadsTo": [
         "emp.test.esa-wilful-misconduct",
         "emp.test.reasonable-notice-presumption"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 48 states the test for dismissal for dishonesty (breakdown in the employment relationship), not for all misconduct; the employer's burden of proof appears only in quoted passages (the trial judge's charge, Butler), not in the Court's holding at para. 48.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.constructive-dismissal",
@@ -2867,7 +2873,13 @@
       "says": "If a fixed-term contract has no enforceable early termination clause, an employee ended early may be owed pay for the rest of the term, and the Ontario Court of Appeal has held there is no duty to mitigate in that situation.",
       "source": {
         "decision": "Howard v. Benson Group Inc., 2016 ONCA 256",
-        "corpusId": "decisions/howard-v-benson-group-2016-ONCA-256.txt"
+        "corpusId": "decisions/howard-v-benson-group-2016-ONCA-256.txt",
+        "expect": "that obligation will not be subject to mitigation",
+        "pinpoint": "para. 44"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2932,14 +2944,18 @@
       "says": "Whether a worker is an employee depends on the whole relationship: mainly whether the worker is in business on their own account, considering control, who owns the tools, possibility of profit and risk of loss. Labels in the contract do not decide it.",
       "source": {
         "decision": "671122 Ontario Ltd. v. Sagaz Industries Canada Inc., 2001 SCC 59",
-        "pinpoint": "para. 47",
+        "pinpoint": "paras. 47-49",
         "expect": "in business on his own account",
         "corpusId": "decisions/671122-ontario-v-sagaz-2001-SCC-59.html.txt"
       },
       "leadsTo": [
         "emp.test.dependent-contractor",
         "emp.esa.misclassification"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.test.dependent-contractor",
@@ -2948,7 +2964,13 @@
       "says": "Ontario courts recognize an intermediate category of \"dependent contractor\", who is owed reasonable notice at common law when the relationship ends, based on the worker's economic dependence on one business.",
       "source": {
         "decision": "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916",
-        "corpusId": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt"
+        "corpusId": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt",
+        "expect": "they are owed reasonable notice upon termination",
+        "pinpoint": "para. 30"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3443,12 +3465,17 @@
       "says": "The Court of Appeal summarized how termination clauses are interpreted: the ESA is remedial, and a clause is judged on its wording when signed, not on what the employer actually paid.",
       "source": {
         "decision": "Wood v. Fred Deeley Imports Ltd., 2017 ONCA 158",
-        "pinpoint": "para. 28",
-        "corpusId": "decisions/wood-v-fred-deeley-imports-2017-ONCA-158.txt"
+        "pinpoint": "paras. 28, 44",
+        "corpusId": "decisions/wood-v-fred-deeley-imports-2017-ONCA-158.txt",
+        "expect": "depends only on the wording of the clause itself"
       },
       "leadsTo": [
         "emp.test.termination-clause"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.honda",
@@ -3494,15 +3521,21 @@
       "id": "emp.dec.mckinley",
       "kind": "decision",
       "title": "McKinley v. BC Tel",
-      "says": "The Supreme Court held that whether dishonesty or other misconduct justifies dismissal is decided contextually, with proportionality between the misconduct and the sanction.",
+      "says": "The Supreme Court held that whether an employee's dishonesty justifies dismissal is decided in context, with proportionality between the misconduct and the sanction.",
       "source": {
         "decision": "McKinley v. BC Tel, 2001 SCC 38",
-        "pinpoint": "para. 48",
-        "corpusId": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt"
+        "pinpoint": "paras. 48, 53",
+        "corpusId": "decisions/mckinley-v-bc-tel-2001-SCC-38.html.txt",
+        "expect": "requires an assessment of the context"
       },
       "leadsTo": [
         "emp.test.just-cause"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Para. 48 concerns dishonesty only; 'or other misconduct' is not in the cited paragraph. Proportionality is at para. 53.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.bardal",
@@ -3543,11 +3576,16 @@
       "source": {
         "decision": "Evans v. Teamsters Local Union No. 31, 2008 SCC 20",
         "pinpoint": "para. 30",
-        "corpusId": "decisions/evans-v-teamsters-local-31-2008-SCC-20.html.txt"
+        "corpusId": "decisions/evans-v-teamsters-local-31-2008-SCC-20.html.txt",
+        "expect": "whether a reasonable person would accept such an opportunity"
       },
       "leadsTo": [
         "emp.test.mitigation"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.brake",
@@ -3652,11 +3690,17 @@
       "says": "The Court of Appeal held that an employee under a fixed-term contract with no enforceable early termination clause is owed the balance of the term, with no duty to mitigate.",
       "source": {
         "decision": "Howard v. Benson Group Inc., 2016 ONCA 256",
-        "corpusId": "decisions/howard-v-benson-group-2016-ONCA-256.txt"
+        "corpusId": "decisions/howard-v-benson-group-2016-ONCA-256.txt",
+        "expect": "that obligation will not be subject to mitigation",
+        "pinpoint": "para. 44"
       },
       "leadsTo": [
         "emp.test.fixed-term"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.sagaz",
@@ -3671,7 +3715,11 @@
       },
       "leadsTo": [
         "emp.test.employee-vs-contractor"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.mckee",
@@ -3680,11 +3728,17 @@
       "says": "The Court of Appeal confirmed the intermediate category of dependent contractor, who is owed reasonable notice.",
       "source": {
         "decision": "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916",
-        "corpusId": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt"
+        "corpusId": "decisions/mckee-v-reids-heritage-homes-2009-ONCA-916.txt",
+        "expect": "they are owed reasonable notice upon termination",
+        "pinpoint": "para. 30"
       },
       "leadsTo": [
         "emp.test.dependent-contractor"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "emp.dec.north",
@@ -3694,11 +3748,16 @@
       "source": {
         "decision": "North v. Metaswitch Networks Corporation, 2017 ONCA 790",
         "pinpoint": "para. 44",
-        "corpusId": "decisions/north-v-metaswitch-networks-2017-ONCA-790.txt"
+        "corpusId": "decisions/north-v-metaswitch-networks-2017-ONCA-790.txt",
+        "expect": "cannot have any effect on clauses of the contract"
       },
       "leadsTo": [
         "emp.test.termination-clause"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     }
   ]
 }

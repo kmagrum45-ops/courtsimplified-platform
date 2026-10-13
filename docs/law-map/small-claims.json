@@ -4429,41 +4429,66 @@
       "id": "sc.decision.mountain-view",
       "kind": "decision",
       "title": "Mountain View Farms Ltd. v. McQueen (setting aside default judgment)",
-      "says": "The Court of Appeal for Ontario set out the factors considered on a motion to set aside a default judgment, including how promptly the motion was brought, the explanation for the default, whether there is an arguable defence, and prejudice to each side. A lead to be retrieved and read.",
+      "says": "The Court of Appeal for Ontario set out the factors considered on a motion to set aside a default judgment, including how promptly the motion was brought, the explanation for the default, whether there is an arguable defence, and prejudice to each side. A",
       "source": {
         "decision": "Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194",
-        "corpusId": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt"
+        "corpusId": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt",
+        "expect": "whether the motion was brought promptly",
+        "pinpoint": "paras. 47-51"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
       "id": "sc.decision.1196158",
       "kind": "decision",
       "title": "1196158 Ontario Inc. v. 6274013 Canada Ltd. (default judgment factors)",
-      "says": "A Court of Appeal for Ontario decision often cited for the factors on setting aside a default judgment. A lead to be retrieved and read.",
+      "says": "A Court of Appeal for Ontario decision on dismissing an action for delay at a status hearing under rule 48.14 of the Rules of Civil Procedure: the plaintiff must show an acceptable explanation for the delay and that the defendant would suffer no non-compensable prejudice. The test is conjunctive, and an unexplained delay can lead to dismissal even without proof of actual prejudice.",
       "source": {
         "decision": "1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544",
-        "corpusId": "decisions/1196158-ontario-v-6274013-canada-2012-ONCA-544.txt"
+        "corpusId": "decisions/1196158-ontario-v-6274013-canada-2012-ONCA-544.txt",
+        "expect": "The test is conjunctive, not disjunctive",
+        "pinpoint": "para. 32"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "The decision is about dismissal of an action for delay at a rule 48.14 status hearing (Rules of Civil Procedure), not setting aside a default judgment.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "sc.decision.grover",
       "kind": "decision",
       "title": "Grover v. Hodgins (no summary judgment in Small Claims Court)",
-      "says": "The Court of Appeal for Ontario held that the Small Claims Court motion to strike under rule 12.02 is not a summary judgment procedure. A lead to be retrieved and read.",
+      "says": "The Court of Appeal for Ontario held that the Small Claims Court has jurisdiction to award legal or equitable relief where the relief requested is a payment of money within the court's monetary limit (then $25,000) or the return of personal property valued within that limit.",
       "source": {
         "decision": "Grover v. Hodgins, 2011 ONCA 72",
-        "corpusId": "decisions/grover-v-hodgins-2011-ONCA-72.txt"
+        "corpusId": "decisions/grover-v-hodgins-2011-ONCA-72.txt",
+        "expect": "has jurisdiction to award legal or equitable relief",
+        "pinpoint": "para. 49"
+      },
+      "review": {
+        "verdict": "wrong",
+        "problem": "The decision is about whether the Small Claims Court can grant equitable relief; it does not mention rule 12.02 or summary judgment.",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "sc.decision.housen",
       "kind": "decision",
       "title": "Housen v. Nikolaisen (standard of review on appeal)",
-      "says": "The Supreme Court of Canada set the standards an appeal court applies: correctness for questions of law and palpable and overriding error for findings of fact. A lead to be retrieved and read.",
+      "says": "The Supreme Court of Canada set the standards an appeal court applies: correctness for questions of law and palpable and overriding error for findings of fact. A",
       "source": {
         "decision": "Housen v. Nikolaisen, 2002 SCC 33",
-        "pinpoint": "para. 8",
-        "corpusId": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt"
+        "pinpoint": "paras. 8, 10",
+        "corpusId": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt",
+        "expect": "the standard of review on a question of law is that of correctness"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     }
   ]

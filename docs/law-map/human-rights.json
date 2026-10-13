@@ -977,11 +977,17 @@
       "says": "Discrimination can be found even where there was no intent to discriminate; the focus is on the effect of the conduct on the person.",
       "source": {
         "decision": "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536",
-        "corpusId": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt"
+        "corpusId": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt",
+        "expect": "courts below were in error in finding an intent",
+        "pinpoint": "paras. 12-14"
       },
       "leadsTo": [
         "hr.test.constructive"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.burden-of-proof",
@@ -990,12 +996,17 @@
       "says": "Each element must be proved on a balance of probabilities. The protected ground need only be one factor, not the only factor.",
       "source": {
         "decision": "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc., 2015 SCC 39",
-        "pinpoint": "para. 65",
-        "corpusId": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt"
+        "pinpoint": "paras. 48-52, 56, 65",
+        "corpusId": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt",
+        "expect": "three elements of discrimination on a balance of probabilities"
       },
       "leadsTo": [
         "hr.decision.pieters"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.constructive",
@@ -1116,14 +1127,21 @@
       "id": "hr.test.accommodation-process",
       "kind": "test",
       "title": "Accommodation has a procedural and a substantive part",
-      "says": "The duty to accommodate includes a fair process of seeking out and assessing accommodation (gathering information, considering options) and the accommodation itself. The person seeking accommodation is expected to cooperate, and a union may share the duty.",
+      "says": "The search for accommodation is a multi-party inquiry. The person seeking accommodation must help secure an appropriate accommodation and accept a reasonable one, and a union whose involvement is needed may share the duty to accommodate.",
       "source": {
         "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970",
-        "corpusId": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt"
+        "corpusId": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt",
+        "expect": "The search for accommodation is a multi-party inquiry",
+        "pinpoint": "heading 'Duty of Complainant' (and the union's duty just before it)"
       },
       "leadsTo": [
         "hr.decision.meiorin"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Renaud does not describe a procedural duty of gathering information and assessing options (that split is not in this decision); it supports only the multi-party search, the complainant's duty to help and accept a reasonable proposal, and the union's shared duty.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.test.harassment",
@@ -1488,9 +1506,13 @@
       "source": {
         "citation": "O. Reg. 290/98 (Business Practices Permissible to Landlords in Selecting Prospective Tenants for Residential Accommodation)",
         "url": "https://www.ontario.ca/laws/regulation/980290",
-        "pinpoint": "s. 1",
+        "pinpoint": "ss. 1-2",
         "expect": "request credit references and rental history information",
         "corpusId": "oreg-290-98-landlord-tenant-selection"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3030,7 +3052,11 @@
       },
       "leadsTo": [
         "hr.defence.bfor"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.grismer",
@@ -3040,11 +3066,16 @@
       "source": {
         "decision": "British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868",
         "pinpoint": "para. 20",
-        "corpusId": "decisions/bc-superintendent-v-bc-council-grismer-1999-3-SCR-868.html.txt"
+        "corpusId": "decisions/bc-superintendent-v-bc-council-grismer-1999-3-SCR-868.html.txt",
+        "expect": "rationally connected to the function being performed"
       },
       "leadsTo": [
         "hr.test.respondent-justification"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.elk-valley",
@@ -3054,11 +3085,16 @@
       "source": {
         "decision": "Stewart v. Elk Valley Coal Corp., 2017 SCC 30",
         "pinpoint": "para. 24",
-        "corpusId": "decisions/stewart-v-elk-valley-coal-2017-SCC-30.html.txt"
+        "corpusId": "decisions/stewart-v-elk-valley-coal-2017-SCC-30.html.txt",
+        "expect": "the protected characteristic was a factor in the adverse impact"
       },
       "leadsTo": [
         "hr.test.prima-facie"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.simpsons-sears",
@@ -3068,11 +3104,16 @@
       "source": {
         "decision": "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536",
         "pinpoint": "para. 18",
-        "corpusId": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt"
+        "corpusId": "decisions/ohrc-v-simpsons-sears-1985-2-SCR-536.html.txt",
+        "expect": "rule or standard which is on its face neutral"
       },
       "leadsTo": [
         "hr.test.no-intent-needed"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.renaud",
@@ -3081,11 +3122,17 @@
       "says": "The Supreme Court held that a union can share the duty to accommodate and that the employee seeking accommodation must help find a reasonable accommodation.",
       "source": {
         "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970",
-        "corpusId": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt"
+        "corpusId": "decisions/central-okanagan-v-renaud-1992-2-SCR-970.html.txt",
+        "expect": "The search for accommodation is a multi-party inquiry",
+        "pinpoint": "heading 'Duty of Complainant'"
       },
       "leadsTo": [
         "hr.test.accommodation-process"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.hydro-quebec",
@@ -3094,26 +3141,37 @@
       "says": "The Supreme Court held that undue hardship does not require proof that accommodation is impossible; the test is whether the employer cannot accommodate without undue hardship, for example where the employee cannot work in the reasonably foreseeable future.",
       "source": {
         "decision": "Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d'Hydro-Québec, section locale 2000 (SCFP-FTQ), 2008 SCC 43",
-        "pinpoint": "para. 16",
-        "corpusId": "decisions/hydro-quebec-v-syndicat-2008-SCC-43.html.txt"
+        "pinpoint": "paras. 16-18",
+        "corpusId": "decisions/hydro-quebec-v-syndicat-2008-SCC-43.html.txt",
+        "expect": "The test is not whether it was impossible"
       },
       "leadsTo": [
         "hr.test.undue-hardship"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.bombardier",
       "kind": "decision",
       "title": "Quebec (CDPDJ) v. Bombardier",
-      "says": "The Supreme Court held that each element of discrimination is proved on a balance of probabilities and that the ground need only be a factor, which can be shown by circumstantial evidence.",
+      "says": "The Supreme Court held that each element of discrimination is proved on a balance of probabilities, and that the ground need only be a factor (a connection, not a causal link). Circumstantial evidence can be used, but it must be tangibly related to the decision or conduct complained of.",
       "source": {
         "decision": "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center), 2015 SCC 39",
-        "pinpoint": "para. 65",
-        "corpusId": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt"
+        "pinpoint": "paras. 48-52, 56, 65, 88",
+        "corpusId": "decisions/quebec-cdpdj-v-bombardier-2015-SCC-39.html.txt",
+        "expect": "three elements of discrimination on a balance of probabilities"
       },
       "leadsTo": [
         "hr.test.burden-of-proof"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Drops the Court's condition: circumstantial evidence must be tangibly related to the decision or conduct complained of (para. 88). The 'factor' point is at paras. 48-52, not para. 65.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.pieters",
@@ -3122,12 +3180,17 @@
       "says": "The Court of Appeal for Ontario confirmed that a protected ground need only be one factor in the treatment and that discrimination can be inferred from circumstantial evidence.",
       "source": {
         "decision": "Peel Law Association v. Pieters, 2013 ONCA 396",
-        "pinpoint": "para. 59",
-        "corpusId": "decisions/peel-law-association-v-pieters-2013-ONCA-396.txt"
+        "pinpoint": "paras. 59-60, 72",
+        "corpusId": "decisions/peel-law-association-v-pieters-2013-ONCA-396.txt",
+        "expect": "between the adverse treatment and the ground of discrimination"
       },
       "leadsTo": [
         "hr.test.burden-of-proof"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.janzen",
@@ -3136,11 +3199,17 @@
       "says": "The Supreme Court held that sexual harassment in the workplace is a form of sex discrimination.",
       "source": {
         "decision": "Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252",
-        "corpusId": "decisions/janzen-v-platy-1989-1-SCR-1252.html.txt"
+        "corpusId": "decisions/janzen-v-platy-1989-1-SCR-1252.html.txt",
+        "expect": "found sexual harassment to be sex discrimination",
+        "pinpoint": "Part V, 'Is Sexual Harassment Sex Discrimination?'"
       },
       "leadsTo": [
         "hr.area.workplace-sexual-harassment"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.noble",
@@ -3162,25 +3231,37 @@
       "says": "The Supreme Court held there is no independent tort (civil wrong) of discrimination; the Code's own procedures are the route for Code-only claims.",
       "source": {
         "decision": "Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181",
-        "corpusId": "decisions/seneca-college-v-bhadauria-1981-2-SCR-181.html.txt"
+        "corpusId": "decisions/seneca-college-v-bhadauria-1981-2-SCR-181.html.txt",
+        "expect": "The Code itself has laid out the procedures",
+        "pinpoint": "p. 195"
       },
       "leadsTo": [
         "hr.civil.no-standalone-action"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.figliola",
       "kind": "decision",
       "title": "British Columbia (WCB) v. Figliola",
-      "says": "The Supreme Court discussed when a human rights tribunal may decline to re-decide a matter already decided by another body that had power to decide it, applying principles behind s. 45.1-type provisions.",
+      "says": "The Supreme Court majority held that under s. 27(1)(f) of the B.C. Human Rights Code a tribunal asks whether another body had concurrent jurisdiction to decide human rights issues, whether the issue it decided was essentially the same, and whether the complainant had the opportunity to know and meet the case, to avoid relitigating what is essentially the same dispute.",
       "source": {
         "decision": "British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52",
-        "pinpoint": "para. 37",
-        "corpusId": "decisions/bc-wcb-v-figliola-2011-SCC-52.html.txt"
+        "pinpoint": "paras. 36-37",
+        "corpusId": "decisions/bc-wcb-v-figliola-2011-SCC-52.html.txt",
+        "expect": "whether there was concurrent jurisdiction to decide human rights issues"
       },
       "leadsTo": [
         "hr.motion.dismiss-other-proceeding"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The decision interprets s. 27(1)(f) of the B.C. Human Rights Code; 's. 45.1-type provisions' is not in it. It is a 5-4 decision; the questions are set out by the majority.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.penner",
@@ -3189,12 +3270,18 @@
       "says": "The Supreme Court addressed when a decision in one proceeding prevents re-litigation of the same issue in another (issue estoppel), including fairness of applying it.",
       "source": {
         "decision": "Penner v. Niagara (Regional Police Services Board), 2013 SCC 19",
-        "corpusId": "decisions/penner-v-niagara-police-2013-SCC-19.html.txt"
+        "corpusId": "decisions/penner-v-niagara-police-2013-SCC-19.html.txt",
+        "expect": "court retains discretion to not apply issue estoppel",
+        "pinpoint": "paras. 29, 39"
       },
       "leadsTo": [
         "hr.motion.dismiss-other-proceeding",
         "hr.decision.danyluk"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.danyluk",
@@ -3223,11 +3310,17 @@
       "says": "The Supreme Court held that an Ontario tribunal with power to decide questions of law can apply the Human Rights Code and decline to apply a provision that conflicts with it.",
       "source": {
         "decision": "Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14",
-        "corpusId": "decisions/tranchemontagne-v-ontario-2006-SCC-14.html.txt"
+        "corpusId": "decisions/tranchemontagne-v-ontario-2006-SCC-14.html.txt",
+        "expect": "presumed to have the power to look beyond their enabling statutes",
+        "pinpoint": "paras. 14, 35"
       },
       "leadsTo": [
         "hr.statute.primacy"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.horrocks",
@@ -3236,11 +3329,17 @@
       "says": "The Supreme Court addressed whether a labour arbitrator or a human rights tribunal has jurisdiction over workplace human rights disputes in a unionized setting, depending on the statutes in each province.",
       "source": {
         "decision": "Northern Regional Health Authority v. Horrocks, 2021 SCC 42",
-        "corpusId": "decisions/northern-regional-health-v-horrocks-2021-SCC-42.html.txt"
+        "corpusId": "decisions/northern-regional-health-v-horrocks-2021-SCC-42.html.txt",
+        "expect": "resolving jurisdictional contests between labour arbitrators and competing statutory tribunals",
+        "pinpoint": "paras. 39-40"
       },
       "leadsTo": [
         "hr.pre.unionized-worker"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.vavilov",
@@ -3250,11 +3349,16 @@
       "source": {
         "decision": "Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65",
         "pinpoint": "para. 35",
-        "corpusId": "decisions/canada-mci-v-vavilov-2019-SCC-65.html.txt"
+        "corpusId": "decisions/canada-mci-v-vavilov-2019-SCC-65.html.txt",
+        "expect": "courts are bound to respect that designation"
       },
       "leadsTo": [
         "hr.test.jr-standard"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.arunachalam",
@@ -3289,24 +3393,37 @@
       "says": "The Court of Appeal for Ontario upheld the HRTO's approach to whether conduct falls within a social area ('with respect to employment') and its balancing of Code rights with freedom of expression.",
       "source": {
         "decision": "Taylor-Baptiste v. Ontario Public Service Employees Union, 2015 ONCA 495",
-        "corpusId": "decisions/taylor-baptiste-v-opseu-2015-ONCA-495.txt"
+        "corpusId": "decisions/taylor-baptiste-v-opseu-2015-ONCA-495.txt",
+        "expect": "decision was reasonable and I would not interfere",
+        "pinpoint": "paras. 3-8"
       },
       "leadsTo": [
         "hr.pre.social-area-and-ground"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "hr.decision.shaw-phipps",
       "kind": "decision",
       "title": "Shaw v. Phipps",
-      "says": "The Court of Appeal for Ontario upheld an HRTO finding of racial profiling based on circumstantial evidence.",
+      "says": "The Court of Appeal for Ontario dismissed an appeal and left in place an HRTO finding that a police officer discriminated against a man because of his colour. It noted that an intention to discriminate need not be proved and that discrimination is often proven by circumstantial evidence and inference.",
       "source": {
         "decision": "Shaw v. Phipps, 2012 ONCA 155",
-        "corpusId": "decisions/shaw-v-phipps-2012-ONCA-155.txt"
+        "corpusId": "decisions/shaw-v-phipps-2012-ONCA-155.txt",
+        "expect": "proven by circumstantial evidence and inference",
+        "pinpoint": "paras. 5, 34, 43"
       },
       "leadsTo": [
         "hr.test.burden-of-proof"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The court does not call the finding 'racial profiling'; it dismissed the appeal, leaving in place the finding that the officer discriminated against Mr. Phipps because of his colour, and noted intent is not required and discrimination is often proven by circumstantial evidence and inference.",
+        "fixed": "2026-10-13"
+      }
     }
   ]
 }

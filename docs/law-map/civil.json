@@ -1539,8 +1539,13 @@
       "says": "The Court of Appeal for Ontario described the factors a court considers on a motion to set aside a default judgment, including whether the motion was brought promptly, whether there is a plausible excuse for the default, whether the defence has an air of reality, and prejudice to each side.",
       "source": {
         "decision": "Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194",
-        "pinpoint": "para. 47",
-        "corpusId": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt"
+        "pinpoint": "paras. 47-51",
+        "corpusId": "decisions/mountain-view-farms-v-mcqueen-2014-ONCA-194.txt",
+        "expect": "whether the motion was brought promptly"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -2321,7 +2326,12 @@
       "source": {
         "decision": "RJR-MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311",
         "pinpoint": "p. 334",
-        "corpusId": "decisions/rjr-macdonald-v-canada-1994-1-SCR-311.html.txt"
+        "corpusId": "decisions/rjr-macdonald-v-canada-1994-1-SCR-311.html.txt",
+        "expect": "Metropolitan Stores adopted a three-stage test"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -3555,8 +3565,13 @@
       "says": "The Supreme Court of Canada set out the standards of review on appeal: correctness for questions of law, and palpable and overriding error for questions of fact and of mixed fact and law where there is no extricable legal error.",
       "source": {
         "decision": "Housen v. Nikolaisen, 2002 SCC 33",
-        "pinpoint": "para. 10",
-        "corpusId": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt"
+        "pinpoint": "paras. 8, 10, 36",
+        "corpusId": "decisions/housen-v-nikolaisen-2002-SCC-33.html.txt",
+        "expect": "the standard of review on a question of law is that of correctness"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
       }
     },
     {
@@ -4160,11 +4175,17 @@
       "id": "civ.claim.conversion",
       "kind": "test",
       "title": "Conversion",
-      "says": "Conversion is a wrongful act of dealing with another person's goods in a way that is inconsistent with that person's right of possession or ownership, such as taking, keeping or disposing of them. Liability does not depend on knowing the goods belonged to someone else.",
+      "says": "Conversion is a wrongful interference with another person's goods, such as taking, using or destroying them in a way that is inconsistent with the owner's right of possession. It is strict liability: it is no defence that the wrongful act was done in all innocence.",
       "source": {
         "decision": "Boma Manufacturing Ltd. v. Canadian Imperial Bank of Commerce, [1996] 3 S.C.R. 727",
         "pinpoint": "para. 31",
-        "corpusId": "decisions/boma-manufacturing-v-cibc-1996-3-SCR-727.html.txt"
+        "corpusId": "decisions/boma-manufacturing-v-cibc-1996-3-SCR-727.html.txt",
+        "expect": "wrongful interference with the goods of another"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The court's examples are taking, using or destroying goods inconsistently with the owner's right of possession; 'keeping or disposing' and 'possession or ownership' are not in para. 31. It says strict liability: no defence that the act was done in all innocence.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -4208,11 +4229,16 @@
       "source": {
         "decision": "Bruno Appliance and Furniture, Inc. v. Hryniak, 2014 SCC 8",
         "pinpoint": "para. 21",
-        "corpusId": "decisions/bruno-appliance-v-hryniak-2014-SCC-8.html.txt"
+        "corpusId": "decisions/bruno-appliance-v-hryniak-2014-SCC-8.html.txt",
+        "expect": "four elements of the tort of civil fraud"
       },
       "leadsTo": [
         "civ.step.pleading.particulars"
-      ]
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-13"
+      }
     },
     {
       "id": "civ.claim.negligent-misrep",
