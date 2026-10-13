@@ -494,6 +494,17 @@ const CIV_MOTION = rcp(
   "r. 37.01",
   "A motion shall be made by a notice of motion (in Form 37A) unless the nature of the motion or the circumstances make a notice of motion unnecessary or these rules provide otherwise.",
 );
+/*
+ * 2026-10-13, walkthrough (urgent safety case, nothing filed yet): the motion
+ * card named Forms 14 and 14A but not that a temporary order is for a claim
+ * made in an application, nor that the usual wait for a case conference can
+ * be skipped when it is urgent.
+ */
+const FAM_MOTION_IN_APPLICATION = flr("r. 14 (1)", "A person who wants any of the following may make a motion: 1. A temporary order for a claim made in an application.");
+const FAM_MOTION_URGENT = flr(
+  "r. 14 (4), (4.2)",
+  "No notice of motion or supporting evidence may be served and no motion may be heard before a conference dealing with the substantive issues in the case has been completed. ... Subrule (4) does not apply if the court is of the opinion that there is a situation of urgency or hardship",
+);
 const FAM_MOTION = flr("r. 14 (9)", "A motion, whether made with or without notice, (a) requires a notice of motion (Form 14) and an affidavit (Form 14A); and (b) may be supported by additional evidence.");
 
 /*
@@ -696,7 +707,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "family:both:trial-management-conference-scheduled": { forms: ["17E", "17F"], fees: [], files: true, serve: "ordinary" },
   "family:both:missed-or-unconfirmed-conference": NOTHING,
   "family:both:financial-disclosure-missing": NOTHING,
-  "family:both:bringing-a-motion": { forms: ["14", "14A", "14C"], fees: [], files: true, serve: "ordinary", also: [FAM_MOTION] },
+  "family:both:bringing-a-motion": { forms: ["14", "14A", "14C"], fees: [], files: true, serve: "ordinary", also: [FAM_MOTION, FAM_MOTION_IN_APPLICATION, FAM_MOTION_URGENT] },
   "family:both:responding-to-a-motion": { forms: ["14A"], fees: [], files: true, serve: "ordinary", also: [FAM_MOTION] },
   "family:both:order-made-without-notice": NOTHING,
   "family:both:asking-to-change-final-order": { forms: ["15", "15C", "13"], fees: [], files: true, serve: "special" },
