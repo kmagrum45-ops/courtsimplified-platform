@@ -489,6 +489,55 @@ export const R_14_02_ANY_TIME = scc(
   "r. 14.02 (1)",
   "An offer to settle may be made at any time.",
 );
+// Discontinuing, amending and striking out (rules 11.3, 12, 13.09), from the law map, 2026-10-13.
+export const R_11_3_01_DISCONTINUE = scc(
+  "r. 11.3.01 (1)",
+  "A plaintiff may discontinue his or her claim against a defendant who fails to file a defence to all or part of the claim with the clerk within the prescribed time by, (a) serving a notice of discontinued claim (Form 11.3A) on all defendants who were served with the claim; and (b) filing the notice with proof of service.",
+);
+export const R_11_3_01_DISABILITY = scc(
+  "r. 11.3.01 (2)",
+  "A claim may not be discontinued by or against a person under disability, except with leave of the court.",
+);
+export const R_11_3_02_EFFECT = scc(
+  "r. 11.3.02",
+  "The discontinuance of a claim is not a defence to a subsequent action on the matter, unless an order granting leave to discontinue provides otherwise.",
+);
+export const R_13_09_AFTER_CONFERENCE = scc(
+  "r. 13.09",
+  "After a settlement conference has been held, a claim against a party who is not in default shall not be withdrawn or discontinued by the party who brought the claim without, (a) the written consent of the party against whom the claim is brought; or (b) leave of the court.",
+);
+export const R_12_01_AMEND = scc(
+  "r. 12.01 (1)",
+  "A plaintiff's or defendant's claim and a defence to a plaintiff's or defendant's claim may be amended by filing with the clerk an amended claim or defence that meets the following requirements: 1. It shall be marked \"Amended\". 2. Any additions shall be underlined, and any other changes identified.",
+);
+export const R_12_01_SERVE = scc(
+  "r. 12.01 (2)",
+  "The amended claim or defence shall be served by the party making the amendment on all parties, including any parties in default, in accordance with subrule 8.01 (14).",
+);
+export const R_12_01_TIME = scc(
+  "r. 12.01 (3)",
+  "Filing and service of the amended claim or defence shall take place at least 30 days before the originally scheduled trial date, unless, (a) the court, on motion, allows a shorter notice period; or (b) a clerk's order permitting the amendment is obtained under subrule 11.2.01 (1).",
+);
+export const R_12_01_NO_RESPONSE_NEEDED = scc(
+  "r. 12.01 (5)",
+  "A party who is served with an amended claim or defence is not required to amend the party's defence or claim.",
+);
+export const R_12_02_STRIKE = scc(
+  "r. 12.02 (1)",
+  "The court may, on motion, strike out or amend all or part of any document that, (a) discloses no reasonable cause of action or defence; (b) may delay or make it difficult to have a fair trial; or (c) is inflammatory, a waste of time, a nuisance or an abuse of the court's process.",
+);
+export const R_12_02_ORDERS = scc(
+  "r. 12.02 (2)",
+  "In connection with an order striking out or amending a document under subrule (1), the court may do one or more of the following: 1. In the case of a claim, order that the action be stayed or dismissed. 2. In the case of a defence, strike out the defence and grant judgment.",
+);
+export const R_12_02_OWN_INITIATIVE = scc(
+  "r. 12.02 (3)",
+  "The court may, on its own initiative, make the order referred to in paragraph 1 of subrule (2) staying or dismissing an action, if the action appears on its face to be inflammatory, a waste of time, a nuisance or an abuse of the court's process.",
+);
+export const R_12_02_SUBMISSION = scc(
+  "r. 12.02 (4)",
+  "Unless the court orders otherwise, an order under subrule (3) shall be made on the basis of written submissions in accordance with the following procedures: 1. The court shall direct the clerk to send notice by mail to the plaintiff that the court is considering making the order. 2. The plaintiff may, within 20 days after receiving the notice, file with the court a written submission, no more than four pages in length, responding to the notice. 3. If the plaintiff does not file a written submission that complies with paragraph 2, the court may make the order without any further notice to the plaintiff or to any other party.",
+);
 export const R_14_02_COSTS_7_DAYS = scc(
   "r. 14.02 (2)",
   "The costs consequences referred to in rule 14.07 apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences.",

@@ -129,6 +129,7 @@ export type DeadlineEventKey =
   | "served-with-notice-of-garnishment"
   | "co-owner-notice-served"
   | "stay-or-dismiss-notice-received"
+  | "sc-dismissal-notice-received"
   | "stay-or-dismiss-submission-received"
   | "childrens-lawyer-report-served"
   | "served-with-request-for-financial-statement"
@@ -206,6 +207,7 @@ const CASE_PAGE_QUESTIONS: Partial<Record<DeadlineEventKey, string>> = {
   "licence-suspension-first-notice-served": "If you were served with a first notice that your driver's licence may be suspended, what date was it served?",
   "served-with-notice-of-garnishment": "If you were served with a notice of garnishment, what date was it served?",
   "stay-or-dismiss-notice-received": "If you received a notice that your case or motion may be stayed or dismissed (Form 1.4A), what date did you receive it?",
+  "sc-dismissal-notice-received": "If the clerk sent you a notice that the court is considering staying or dismissing your claim, what date did you receive it?",
   "stay-or-dismiss-submission-received": "If you received the other party's written submission about the stay or dismissal, what date did you receive it?",
   "childrens-lawyer-report-served": "If the Children's Lawyer's report was served, what date was it served?",
   "served-with-request-for-financial-statement": "If you were served with a request for a financial statement (Form 27), what date was it served?",
@@ -432,6 +434,7 @@ export const DEADLINE_EVENTS = {
         ["served-with-notice-of-garnishment", "the day the notice of garnishment was served"],
         ["co-owner-notice-served", "the notice to co-owner of debt (r. 29 (9) holds the money 30 days but does not fix when they start)"],
         ["stay-or-dismiss-notice-received", "the day the notice that the case or motion may be stayed or dismissed (Form 1.4A) was received"],
+        ["sc-dismissal-notice-received", "the day the plaintiff received the clerk's notice that the court is considering staying or dismissing the action"],
         ["stay-or-dismiss-submission-received", "the day a copy of the other party's written submission under rule 1.4 was received"],
         ["childrens-lawyer-report-served", "the day the Children's Lawyer's report was served"],
         ["served-with-request-for-financial-statement", "the day the request for a financial statement (Form 27) was served"],
