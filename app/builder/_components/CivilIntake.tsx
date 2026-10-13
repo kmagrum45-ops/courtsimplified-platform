@@ -1,6 +1,8 @@
 "use client";
 
 import TidyWordingReview from "./TidyWordingReview";
+import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
+import { civilGuidedFields } from "./guidedFields";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 
 import { useEffect, useRef, useState } from "react";
@@ -597,6 +599,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  // One question at a time by default (Step 2C, 2026-10-12); the whole form
+  // is one click away and holds exactly the same answers.
+  const [mode, setMode] = useState<"chat" | "form">("chat");
   /** Set only on "immediate-danger". Blocks analysis and shows crisis resources. */
   const [safetyHalt, setSafetyHalt] = useState("");
   /** Set on "distress". Shown alongside the intake, which continues. */
@@ -825,6 +830,36 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     }
   }
 
+  const guidedFields = civilGuidedFields({ issues: issueOptions, documents: documentOptions });
+  const guidedValues: GuidedValues = {
+    facts: input.facts,
+    yourRole: input.yourRole,
+    documents: input.documents,
+    issues: input.issues,
+    amountClaimed: input.amountClaimed,
+    serviceDetails: input.serviceDetails,
+    courtFileNumber: input.courtFileNumber,
+    legalRemedy: input.legalRemedy,
+    otherParty: input.otherParty,
+    urgent: input.urgent,
+  };
+  function answerGuided(key: string, value: string | string[]) {
+    const list = Array.isArray(value) ? value : [value];
+    const one = Array.isArray(value) ? value.join(", ") : value;
+    switch (key) {
+      case "facts": updateField("facts", one); void startSourced(one, input.yourRole || undefined); break;
+      case "yourRole": updateField("yourRole", one); break;
+      case "documents": updateField("documents", list.filter((item): item is CivilDocument => documentOptions.some((option) => option.value === item))); break;
+      case "issues": updateField("issues", list.filter((item): item is CivilIssue => issueOptions.some((option) => option.value === item))); break;
+      case "amountClaimed": updateField("amountClaimed", one); break;
+      case "serviceDetails": updateField("serviceDetails", one); break;
+      case "courtFileNumber": updateField("courtFileNumber", one); break;
+      case "legalRemedy": updateField("legalRemedy", one); break;
+      case "otherParty": updateField("otherParty", one); break;
+      case "urgent": updateField("urgent", one); break;
+    }
+  }
+
   return (
     <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <h2 className="text-2xl font-bold text-[#10231f]">Civil Intake</h2>
@@ -890,6 +925,21 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       )}
 
       <div className="mt-6 grid gap-5">
+        {mode === "chat" ? (
+          <GuidedFormChat
+            fields={guidedFields}
+            values={guidedValues}
+            onAnswer={answerGuided}
+            onDone={handleAnalyze}
+            onShowForm={() => setMode("form")}
+            busy={isAnalyzing || sourced.state === "loading"}
+          />
+        ) : (
+          <button type="button" onClick={() => setMode("chat")} className="justify-self-start text-sm font-semibold text-[#2f7d67] underline">
+            Answer one question at a time instead
+          </button>
+        )}
+        <div hidden={mode === "chat"} className="grid gap-5">
         <div className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">Location confirmed on Home</h3>
           <p className="mt-2 text-sm text-[#4d675f]">Location: {input.city}, {input.province}.</p>
@@ -1166,6 +1216,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           )}
         </div>
 
+        </div>
+
         <SourcedQuestionsCard
           state={sourced.state}
           questions={sourced.questions}
@@ -1196,6 +1248,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             </button>
           </p>
         ) : null}
+        {/* In the one-at-a-time view, its own Continue is the one to press. */}
+        {mode === "form" ? (
         <button
           type="button"
           onClick={handleAnalyze}
@@ -1204,6 +1258,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         >
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Finding questions for your situation…" : "Continue to your next steps"}
         </button>
+        ) : null}
       </div>
     </section>
   );

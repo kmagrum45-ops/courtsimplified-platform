@@ -100,28 +100,82 @@ async function runSpellingCheck(page: Page, persona: Persona, steps: Step[]) {
   }
 }
 
+/**
+ * Family and civil open one question at a time (GuidedFormChat, Step 2C,
+ * 2026-10-12). Played the way a person would: the story, their side, what
+ * the case is about and what has been filed, from the persona; anything else
+ * skipped. Returns true when the chat was played, so the form steps below
+ * don't tick the same boxes again (a second click would untick them).
+ */
+async function playGuidedChat(page: Page, persona: Persona, steps: Step[]): Promise<boolean> {
+  const chat = page.getByTestId("guided-form-chat");
+  if (!(await chat.isVisible({ timeout: 60_000 }).catch(() => false))) return false;
+  await capture(page, persona, steps, "guided-chat");
+  for (let turn = 0; turn < 20; turn += 1) {
+    const question = page.getByTestId("guided-form-question");
+    if (!(await question.isVisible().catch(() => false))) break;
+    const key = await question.getAttribute("data-key");
+    if (key === "facts") {
+      await question.getByRole("textbox").fill(persona.story);
+      await question.getByTestId("guided-form-next").click();
+      continue;
+    }
+    if (key === "yourRole") {
+      const option = question.getByTestId(`guided-option-${persona.role}`);
+      if (await option.count()) {
+        await option.click();
+        continue;
+      }
+    }
+    if (key === "issues" || key === "documents" || key === "filedDocuments") {
+      const wanted = key === "issues" ? persona.issues ?? [] : persona.documents ?? [];
+      let ticked = false;
+      for (const item of wanted) {
+        const byValue = question.getByTestId(`guided-check-${item}`);
+        const box = (await byValue.count()) ? byValue : question.getByRole("checkbox", { name: item, exact: true });
+        if (await box.count()) {
+          await box.first().check();
+          ticked = true;
+        }
+      }
+      if (ticked) {
+        await question.getByTestId("guided-form-next").click();
+        continue;
+      }
+    }
+    await question.getByTestId("guided-form-skip").click();
+  }
+  await capture(page, persona, steps, "guided-chat-done");
+  // The rest of the persona (stage, other fields) goes in through the form.
+  await page.getByTestId("guided-form-show-form").click();
+  return true;
+}
+
 async function familyOrCivil(page: Page, persona: Persona, steps: Step[]) {
+  const playedChat = await playGuidedChat(page, persona, steps);
   await expect(page.getByLabel("Case stage").first()).toBeVisible({ timeout: 60_000 });
   await capture(page, persona, steps, "intake-form");
 
-  // The story: shown as prose with an "Edit case story" toggle.
-  const storyField = page.getByLabel("Case story", { exact: true });
-  if (!(await storyField.isVisible().catch(() => false))) {
-    await page.getByRole("button", { name: "Edit case story" }).click();
-  }
-  await storyField.fill(persona.story);
+  if (!playedChat) {
+    // The story: shown as prose with an "Edit case story" toggle.
+    const storyField = page.getByLabel("Case story", { exact: true });
+    if (!(await storyField.isVisible().catch(() => false))) {
+      await page.getByRole("button", { name: "Edit case story" }).click();
+    }
+    await storyField.fill(persona.story);
 
-  if (persona.path === "family") {
-    await page.getByTestId("family-role-select").selectOption(persona.role);
-    for (const issue of persona.issues ?? []) await page.getByTestId(`family-issue-${issue}`).click();
-  } else {
-    await page.getByLabel("Your role").selectOption(persona.role);
-    for (const label of persona.issues ?? []) {
+    if (persona.path === "family") {
+      await page.getByTestId("family-role-select").selectOption(persona.role);
+      for (const issue of persona.issues ?? []) await page.getByTestId(`family-issue-${issue}`).click();
+    } else {
+      await page.getByLabel("Your role").selectOption(persona.role);
+      for (const label of persona.issues ?? []) {
+        await page.getByRole("button", { name: label, exact: true }).first().click();
+      }
+    }
+    for (const label of persona.documents ?? []) {
       await page.getByRole("button", { name: label, exact: true }).first().click();
     }
-  }
-  for (const label of persona.documents ?? []) {
-    await page.getByRole("button", { name: label, exact: true }).first().click();
   }
   await page.getByLabel("Case stage").first().selectOption(persona.stage);
   for (const [label, value] of Object.entries(persona.fields ?? {})) await fillLabelled(page, label, value);
