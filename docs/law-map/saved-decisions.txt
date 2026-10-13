@@ -1,0 +1,71 @@
+decision-bhasin | 2014 SCC 71 | Bhasin v. Hrynew
+decision-clements | 2012 SCC 32 | Clements v. Clements
+decision-callow | 2020 SCC 45 | C.M. Callow Inc. v. Zollinger
+decision-cooper | 2001 SCC 79 | Cooper v. Hobart
+decision-fidler | 2006 SCC 30 | Fidler v. Sun Life Assurance Co.
+decision-garland | 2004 SCC 25 | Garland v. Consumers’ Gas Co.
+decision-grant-thornton | 2021 SCC 31 | Grant Thornton LLP v. New Brunswick
+decision-grant-torstar | 2009 SCC 61 | Grant v. Torstar Corp.
+decision-honda | 2008 SCC 39 | Honda Canada Inc. v. Keays
+decision-kerr | 2011 SCC 10 | Kerr v. Baranow
+decision-mustapha | 2008 SCC 27 | Mustapha v. Culligan of Canada Ltd.
+decision-pecore | 2007 SCC 17 | Pecore v. Pecore
+decision-pioneer | 2019 SCC 42 | Pioneer Corp. v. Godfrey
+decision-ryan | [1999] 1 S.C.R. 201 | Ryan v. Victoria (City)
+decision-sattva | 2014 SCC 53 | Sattva Capital Corp. v. Creston Moly Corp.
+decision-southcott | 2012 SCC 51 | Southcott Estates Inc. v. Toronto Catholic District School Board
+decision-tercon | 2010 SCC 4 | Tercon Contractors Ltd. v. British Columbia (Transportation and Highways)
+decision-uber | 2020 SCC 16 | Uber Technologies Inc. v. Heller
+decision-whiten | 2002 SCC 18 | Whiten v. Pilot Insurance Co.
+decision-hill | [1995] 2 S.C.R. 1130 | Hill v. Church of Scientology of Toronto
+decision-machtinger | [1992] 1 S.C.R. 986 | Machtinger v. HOJ Industries Ltd.
+decision-myers | [1981] 2 S.C.R. 21 | Myers v. Peel County Board of Education
+decision-cognos | [1993] 1 S.C.R. 87 | Queen v. Cognos Inc.
+decision-red-deer | [1976] 2 S.C.R. 324 | Red Deer College v. Michaels
+decision-waldick | [1991] 2 S.C.R. 456 | Waldick v. Malcolm
+decision-danyluk | 2001 SCC 44 | Danyluk v. Ainsworth Technologies Inc.
+decision-kaiman | 2009 ONCA 77 | Kaiman v. Graham
+decision-letestu | 2017 ONCA 442 | Letestu Estate v. Ritlyn Investments Limited
+decision-jesan | 2020 ONCA 714 | Jesan Real Estate Ltd. v. Doyle
+decision-jaffer | 2010 ONCA 654 | Jaffer v. York University
+decision-brake | 2017 ONCA 402 | Brake v. PJ-M2R Restaurant Inc.
+decision-ward | 2010 SCC 27 | Vancouver (City) v. Ward
+decision-henry | 2015 SCC 24 | Henry v. British Columbia (Attorney General)
+decision-moore-bc | 2012 SCC 61 | Moore v. British Columbia (Education)
+decision-saadati | 2017 SCC 28 | Saadati v. Moorhead
+decision-rankin | 2018 SCC 19 | Rankin (Rankin’s Garage & Sales) v. J.J.
+decision-marchi | 2021 SCC 41 | Nelson (City) v. Marchi
+decision-hryniak | 2014 SCC 7 | Hryniak v. Mauldin
+decision-pintea | 2017 SCC 23 | Pintea v. Johns
+decision-andrews | [1978] 2 S.C.R. 229 | Andrews v. Grand & Toy Alberta Ltd.
+decision-snell | [1990] 2 S.C.R. 311 | Snell v. Farrell
+decision-matthews | 2020 SCC 26 | Matthews v. Ocean Nutrition Canada Ltd.
+decision-potter | 2015 SCC 10 | Potter v. New Brunswick Legal Aid Services Commission
+decision-dbs | 2006 SCC 37 | D.B.S. v. S.R.G.; L.J.W. v. T.A.R.; Henry v. Henry; Hiemstra v. Hiemstra
+decision-michel | 2020 SCC 24 | Michel v. Graydon
+decision-colucci | 2021 SCC 24 | Colucci v. Colucci
+decision-barendregt | 2022 SCC 22 | Barendregt v. Grebliunas
+decision-bracklow | [1999] 1 S.C.R. 420 | Bracklow v. Bracklow
+decision-moge | [1992] 3 S.C.R. 813 | Moge v. Moge
+decision-miglin | 2003 SCC 24 | Miglin v. Miglin
+decision-rick | 2009 SCC 10 | Rick v. Brandsema
+decision-pointes | 2020 SCC 22 | 1704604 Ontario Ltd. v. Pointes Protection Association
+decision-wic-radio | 2008 SCC 40 | WIC Radio Ltd. v. Simpson
+decision-bce | 2008 SCC 69 | BCE Inc. v. 1976 Debentureholders
+decision-miazga | 2009 SCC 51 | Miazga v. Kvello Estate
+decision-nelles | [1989] 2 S.C.R. 170 | Nelles v. Ontario
+decision-vout | [1995] 2 S.C.R. 876 | Vout v. Hay
+decision-jones-tsige | 2012 ONCA 32 | Jones v. Tsige
+decision-antrim | 2013 SCC 13 | Antrim Truck Centre Ltd. v. Ontario (Transportation)
+decision-scalera | 2000 SCC 24 | Non-Marine Underwriters, Lloyd’s of London v. Scalera
+decision-merrifield | 2019 ONCA 205 | Merrifield v. Canada (Attorney General)
+decision-tms-lighting | 2014 ONCA 1 | TMS Lighting Ltd. v. KJS Transport Inc.
+decision-waksdale | 2020 ONCA 391 | Waksdale v. Swegon North America Inc.
+decision-clark | 2021 SCC 18 | Ontario (Attorney General) v. Clark
+decision-hill-hamilton | 2007 SCC 41 | Hill v. Hamilton‑Wentworth Regional Police Services Board
+decision-antic | 2017 SCC 27 | R. v. Antic
+decision-zora | 2020 SCC 14 | R. v. Zora
+decision-st-cloud | 2015 SCC 27 | R. v. St-Cloud
+decision-morales | [1992] 3 S.C.R. 711 | R. v. Morales
+decision-hall-bail | 2002 SCC 64 | R. v. Hall
+decision-myers-bail | 2019 SCC 18 | R. v. Myers

@@ -90,6 +90,9 @@ jobs:
       - name: Every step leads to the next by a rule
         run: npm run test:stage-sequence
 
+      - name: The law map is well-formed and judges no case
+        run: npm run test:law-map
+
       - name: Source links name their law
         run: npm run test:source-link-labels
 

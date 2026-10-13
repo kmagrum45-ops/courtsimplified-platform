@@ -1,0 +1,303 @@
+{
+  "generated": "2026-10-13",
+  "areas": [
+    {
+      "area": "civil",
+      "title": "Superior Court of Justice (civil actions and applications)",
+      "total": 255,
+      "matches": 246,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 1,
+      "lead": 8,
+      "inSite": 107,
+      "reviewed": 22
+    },
+    {
+      "area": "crown-and-public",
+      "title": "Claims against the government, cities, police and public bodies",
+      "total": 199,
+      "matches": 176,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 21,
+      "lead": 2,
+      "inSite": 57,
+      "reviewed": 6
+    },
+    {
+      "area": "employment",
+      "title": "Employment",
+      "total": 199,
+      "matches": 173,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 14,
+      "lead": 12,
+      "inSite": 28,
+      "reviewed": 14
+    },
+    {
+      "area": "family",
+      "title": "Family law",
+      "total": 272,
+      "matches": 266,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 4,
+      "lead": 2,
+      "inSite": 164,
+      "reviewed": 18
+    },
+    {
+      "area": "human-rights",
+      "title": "Human rights (Human Rights Tribunal of Ontario)",
+      "total": 197,
+      "matches": 156,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 17,
+      "lead": 24,
+      "inSite": 3,
+      "reviewed": 13
+    },
+    {
+      "area": "landlord-tenant",
+      "title": "Landlord and Tenant Board (residential tenancies)",
+      "total": 210,
+      "matches": 201,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 4,
+      "lead": 5,
+      "inSite": 5,
+      "reviewed": 19
+    },
+    {
+      "area": "small-claims",
+      "title": "Small Claims Court",
+      "total": 271,
+      "matches": 266,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 1,
+      "lead": 4,
+      "inSite": 102,
+      "reviewed": 9
+    },
+    {
+      "area": "victims-and-criminal",
+      "title": "Victims of crime, bail and the civil side of criminal matters",
+      "total": 208,
+      "matches": 186,
+      "elsewhere": 0,
+      "differs": 0,
+      "not-saved": 6,
+      "lead": 16,
+      "inSite": 16,
+      "reviewed": 4
+    }
+  ],
+  "differs": [],
+  "elsewhere": [],
+  "notSaved": [
+    {
+      "citation": "Reciprocal Enforcement of Judgments Act, R.S.O. 1990, c. R.5",
+      "url": "https://www.ontario.ca/laws/statute/90r05"
+    },
+    {
+      "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
+      "url": "https://www.ontario.ca/laws/statute/90j01"
+    },
+    {
+      "citation": "Ombudsman Act, R.S.O. 1990, c. O.6",
+      "url": "https://www.ontario.ca/laws/statute/90o06"
+    },
+    {
+      "citation": "Crown Liability and Proceedings Act, R.S.C. 1985, c. C-50",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/c-50/"
+    },
+    {
+      "citation": "Special Investigations Unit Act, 2019, S.O. 2019, c. 1, Sched. 5",
+      "url": "https://www.ontario.ca/laws/statute/19s01e"
+    },
+    {
+      "citation": "O. Reg. 239/02, Minimum Maintenance Standards for Municipal Highways",
+      "url": "https://www.ontario.ca/laws/regulation/020239"
+    },
+    {
+      "citation": "Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. F.31",
+      "url": "https://www.ontario.ca/laws/statute/90f31"
+    },
+    {
+      "citation": "Municipal Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. M.56",
+      "url": "https://www.ontario.ca/laws/statute/90m56"
+    },
+    {
+      "citation": "Federal Courts Act, R.S.C. 1985, c. F-7",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/f-7/"
+    },
+    {
+      "citation": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
+      "url": "https://www.ontario.ca/laws/statute/90o01"
+    },
+    {
+      "citation": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
+      "url": "https://www.ontario.ca/laws/statute/97w16"
+    },
+    {
+      "citation": "Canada Labour Code, R.S.C. 1985, c. L-2",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/L-2/"
+    },
+    {
+      "citation": "Employment Insurance Act, S.C. 1996, c. 23",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/E-5.6/"
+    },
+    {
+      "citation": "Employment Insurance Regulations, SOR/96-332",
+      "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-96-332/"
+    },
+    {
+      "citation": "Department of Employment and Social Development Act, S.C. 2005, c. 34",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/H-5.7/"
+    },
+    {
+      "citation": "Spousal Support Advisory Guidelines (Department of Justice Canada, July 2008)",
+      "url": "https://www.justice.gc.ca/eng/fl-df/spousal-epoux/ssag-ldfpae.html"
+    },
+    {
+      "citation": "Ontario: Child support (government guide)",
+      "url": "https://www.ontario.ca/page/child-support"
+    },
+    {
+      "citation": "Family Orders and Agreements Enforcement Assistance Act, R.S.C. 1985, c. 4 (2nd Supp.)",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/F-1.4/"
+    },
+    {
+      "citation": "Interjurisdictional Support Orders Act, 2002, S.O. 2002, c. 13",
+      "url": "https://www.ontario.ca/laws/statute/02i13"
+    },
+    {
+      "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/"
+    },
+    {
+      "citation": "Labour Relations Act, 1995, S.O. 1995, c. 1, Sched. A",
+      "url": "https://www.ontario.ca/laws/statute/95l01"
+    },
+    {
+      "citation": "O. Reg. 290/98 (Business Practices Permissible to Landlords in Selecting Prospective Tenants for Residential Accommodation)",
+      "url": "https://www.ontario.ca/laws/regulation/980290"
+    },
+    {
+      "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+      "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/"
+    },
+    {
+      "citation": "HRTO forms",
+      "url": "https://tribunalsontario.ca/hrto/forms-and-filing/"
+    },
+    {
+      "citation": "Landlord and Tenant Board Rules of Procedure",
+      "url": "https://tribunalsontario.ca/ltb/rules-practice-directions-and-interpretation-guidelines/"
+    },
+    {
+      "citation": "Landlord and Tenant Board Interpretation Guidelines",
+      "url": "https://tribunalsontario.ca/ltb/rules-practice-directions-and-interpretation-guidelines/"
+    },
+    {
+      "citation": "O. Reg. 9/18, Standard Forms of Lease",
+      "url": "https://www.ontario.ca/laws/regulation/r18009"
+    },
+    {
+      "citation": "O. Reg. 2/05 (Court Fee Waivers), Administration of Justice Act",
+      "url": "https://www.ontario.ca/laws/regulation/050002"
+    },
+    {
+      "citation": "Ministry of the Attorney General, Crown Prosecution Manual, Directive: Charge Screening",
+      "url": "https://www.ontario.ca/document/crown-prosecution-manual"
+    },
+    {
+      "citation": "Criminal Proceedings Rules for the Superior Court of Justice (Ontario), SI/2012-7",
+      "url": "https://laws-lois.justice.gc.ca/eng/regulations/SI-2012-7/"
+    },
+    {
+      "citation": "Corrections and Conditional Release Act, S.C. 1992, c. 20",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/c-44.6/"
+    },
+    {
+      "citation": "O. Reg. 456/96 (Prescribed Crimes) under the Victims' Bill of Rights, 1995",
+      "url": "https://www.ontario.ca/laws/regulation/960456"
+    },
+    {
+      "citation": "Civil Remedies Act, 2001, S.O. 2001, c. 28",
+      "url": "https://www.ontario.ca/laws/statute/01r28"
+    }
+  ],
+  "leads": [
+    "Mountain View Farms Ltd. v. McQueen, 2014 ONCA 194",
+    "RJR-MacDonald Inc. v. Canada (Attorney General), [1994] 1 S.C.R. 311",
+    "Fong v. Chan (1999), 46 O.R. (3d) 330 (C.A.)",
+    "Housen v. Nikolaisen, 2002 SCC 33",
+    "Hadley v. Baxendale (1854), 9 Exch. 341, 156 E.R. 145",
+    "Moore v. Sweet, 2018 SCC 52",
+    "Boma Manufacturing Ltd. v. Canadian Imperial Bank of Commerce, [1996] 3 S.C.R. 727",
+    "Bruno Appliance and Furniture, Inc. v. Hryniak, 2014 SCC 8",
+    "Odhavji Estate v. Woodhouse, 2003 SCC 69",
+    "McKinley v. BC Tel, 2001 SCC 38",
+    "Howard v. Benson Group Inc., 2016 ONCA 256",
+    "671122 Ontario Ltd. v. Sagaz Industries Canada Inc., 2001 SCC 59",
+    "McKee v. Reid's Heritage Homes Ltd., 2009 ONCA 916",
+    "Wood v. Fred Deeley Imports Ltd., 2017 ONCA 158",
+    "Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140 (Ont. H.C.)",
+    "Evans v. Teamsters Local Union No. 31, 2008 SCC 20",
+    "North v. Metaswitch Networks Corporation, 2017 ONCA 790",
+    "Gordon v. Goertz, [1996] 2 S.C.R. 27",
+    "Carey v. Laiken, 2015 SCC 17",
+    "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536",
+    "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc., 2015 SCC 39",
+    "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970",
+    "British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3",
+    "British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868",
+    "Stewart v. Elk Valley Coal Corp., 2017 SCC 30",
+    "Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d'Hydro-Québec, section locale 2000 (SCFP-FTQ), 2008 SCC 43",
+    "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center), 2015 SCC 39",
+    "Peel Law Association v. Pieters, 2013 ONCA 396",
+    "Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252",
+    "Noble v. York University, 2010 HRTO 878",
+    "Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181",
+    "British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52",
+    "Penner v. Niagara (Regional Police Services Board), 2013 SCC 19",
+    "Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44",
+    "Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14",
+    "Northern Regional Health Authority v. Horrocks, 2021 SCC 42",
+    "Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65",
+    "Arunachalam v. Best Buy Canada, 2010 HRTO 1880",
+    "ADGA Group Consultants Inc. v. Lane (2008), 91 O.R. (3d) 649 (Div. Ct.)",
+    "Taylor-Baptiste v. Ontario Public Service Employees Union, 2015 ONCA 495",
+    "Shaw v. Phipps, 2012 ONCA 155",
+    "Matthews v. Algoma Timberlakes Corp., 2010 ONCA 468",
+    "Salter v. Beljinac, 2001 CanLII 40231 (ON SCDC)",
+    "Fava v. Harrison, 2014 ONSC 3352",
+    "Onyskiw v. CJM Property Management Ltd., 2016 ONCA 477",
+    "Mejia v. Cargini, 2007 CanLII 2801 (ON SCDC)",
+    "1196158 Ontario Inc. v. 6274013 Canada Ltd., 2012 ONCA 544",
+    "Grover v. Hodgins, 2011 ONCA 72",
+    "Krieger v. Law Society of Alberta, 2002 SCC 65",
+    "Nelles v. Ontario, [1989] 2 S.C.R. 170",
+    "Miazga v. Kvello Estate, 2009 SCC 51",
+    "Henry v. British Columbia (Attorney General), 2015 SCC 24",
+    "Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41",
+    "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24",
+    "Prinzo v. Baycrest Centre for Geriatric Care (2002), 60 O.R. (3d) 474 (C.A.)",
+    "Saadati v. Moorhead, 2017 SCC 28",
+    "R. v. Antic, 2017 SCC 27",
+    "R. v. Zora, 2020 SCC 14",
+    "R. v. St-Cloud, 2015 SCC 27",
+    "R. v. Myers, 2019 SCC 18",
+    "R. v. Morales, [1992] 3 S.C.R. 711",
+    "R. v. Hall, 2002 SCC 64",
+    "R. v. Jordan, 2016 SCC 27",
+    "R. v. J.J., 2022 SCC 28"
+  ]
+}

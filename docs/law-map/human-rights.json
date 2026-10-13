@@ -1,0 +1,2648 @@
+{
+  "area": "human-rights",
+  "title": "Human rights (Human Rights Tribunal of Ontario)",
+  "updated": "2026-10-13",
+  "items": [
+    {
+      "id": "hr.statute.code",
+      "kind": "statute",
+      "title": "Human Rights Code",
+      "says": "Ontario's Human Rights Code sets out the right to equal treatment without discrimination in five social areas. No one may infringe these rights, directly or indirectly.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 9",
+        "expect": "No person shall infringe or do, directly or indirectly"
+      },
+      "leadsTo": [
+        "hr.pre.social-area-and-ground"
+      ]
+    },
+    {
+      "id": "hr.statute.primacy",
+      "kind": "statute",
+      "title": "The Code overrides other laws",
+      "says": "If another Ontario law requires or allows conduct that breaks Part I of the Code, the Code applies and wins, unless that other law says specifically that it applies despite the Code.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 47 (2)",
+        "expect": "this Act applies and prevails unless the Act or regulation"
+      }
+    },
+    {
+      "id": "hr.statute.binds-crown",
+      "kind": "statute",
+      "title": "The Code binds the Ontario government",
+      "says": "The Code applies to the Ontario government and its agencies, as well as to private persons and businesses.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 47 (1)",
+        "expect": "Act binds the Crown and every agency of the Crown"
+      }
+    },
+    {
+      "id": "hr.statute.sppa",
+      "kind": "statute",
+      "title": "Statutory Powers Procedure Act applies at the HRTO",
+      "says": "The Statutory Powers Procedure Act sets general hearing rules for the Tribunal. Where it conflicts with the Code, its regulations or the Tribunal's rules, those win.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 42 (1)",
+        "expect": "apply to a proceeding before the Tribunal unless they conflict"
+      }
+    },
+    {
+      "id": "hr.statute.hrto-rules",
+      "kind": "statute",
+      "title": "HRTO Rules of Procedure",
+      "says": "The Tribunal makes its own rules of practice and procedure. The rules must let parties make oral submissions before an application within its jurisdiction is finally decided, and a final decision must have written reasons.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 43 (1)",
+        "expect": "may make rules governing the practice and procedure before it"
+      },
+      "leadsTo": [
+        "hr.step.oral-submissions-right",
+        "hr.step.written-reasons"
+      ]
+    },
+    {
+      "id": "hr.statute.liberal-construction",
+      "kind": "statute",
+      "title": "Flexible procedure",
+      "says": "The Tribunal's part of the Code and its rules are read broadly, so the Tribunal can use alternatives to traditional courtroom procedures that lead to fair, just and quick resolution of the merits.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 41",
+        "expect": "shall be liberally construed to permit the Tribunal"
+      }
+    },
+    {
+      "id": "hr.statute.tribunal-jurisdiction",
+      "kind": "statute",
+      "title": "What the Tribunal can decide",
+      "says": "The Tribunal can decide every question of fact or law that comes up in an application before it.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 39",
+        "expect": "to determine all questions of fact or law that arise"
+      }
+    },
+    {
+      "id": "hr.statute.disposition-method",
+      "kind": "statute",
+      "title": "How the Tribunal deals with applications",
+      "says": "The Tribunal uses the procedures in its rules, or other procedures available to it, that in its opinion offer the best opportunity for a fair, just and quick resolution of the merits.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 40",
+        "expect": "best opportunity for a fair, just and expeditious resolution"
+      }
+    },
+    {
+      "id": "hr.statute.jrpa",
+      "kind": "statute",
+      "title": "Judicial Review Procedure Act",
+      "says": "The Judicial Review Procedure Act is the law that lets a party ask the Divisional Court to review a Tribunal decision.",
+      "source": {
+        "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
+        "url": "https://www.ontario.ca/laws/statute/90j01",
+        "pinpoint": "s. 2 (1)",
+        "expect": "application for judicial review"
+      },
+      "leadsTo": [
+        "hr.option.judicial-review"
+      ]
+    },
+    {
+      "id": "hr.statute.chra",
+      "kind": "statute",
+      "title": "Canadian Human Rights Act (federal matters)",
+      "says": "Discrimination by federally regulated organizations (for example banks, airlines, telephone companies, the federal government) falls under the Canadian Human Rights Act, not the Ontario Code. Complaints go to the Canadian Human Rights Commission.",
+      "source": {
+        "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
+        "pinpoint": "s. 40 (1)",
+        "expect": "may file with the Commission a complaint"
+      },
+      "leadsTo": [
+        "hr.pre.federal-time"
+      ]
+    },
+    {
+      "id": "hr.statute.lra-arbitrator",
+      "kind": "statute",
+      "title": "Labour arbitrators can apply the Code",
+      "says": "In a unionized workplace, a grievance arbitrator has the power to interpret and apply human rights laws, even if they conflict with the collective agreement.",
+      "source": {
+        "citation": "Labour Relations Act, 1995, S.O. 1995, c. 1, Sched. A",
+        "url": "https://www.ontario.ca/laws/statute/95l01",
+        "pinpoint": "s. 48 (12) (j)",
+        "expect": "interpret and apply human rights and other employment-related statutes"
+      },
+      "leadsTo": [
+        "hr.pre.unionized-worker"
+      ]
+    },
+    {
+      "id": "hr.pre.social-area-and-ground",
+      "kind": "pre-step",
+      "title": "Check: a protected ground in a protected social area",
+      "says": "Every person has a right to equal treatment in services, goods and facilities, without discrimination because of a listed ground such as race, creed, sex, sexual orientation, gender identity, age, marital status, family status or disability.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 1",
+        "expect": "equal treatment with respect to services, goods and facilities"
+      },
+      "leadsTo": [
+        "hr.area.services",
+        "hr.area.accommodation",
+        "hr.area.contracts",
+        "hr.area.employment",
+        "hr.area.vocational",
+        "hr.pre.federal-or-provincial"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 1 covers only services, goods and facilities; the other four social areas and the statement that matters outside them are not covered are not in s. 1 (they come from ss. 2 to 6).",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.pre.federal-or-provincial",
+      "kind": "pre-step",
+      "title": "Check: Ontario or federal law?",
+      "says": "The Ontario Code covers provincially regulated employers, landlords and service providers. Federally regulated organizations are covered by the Canadian Human Rights Act instead.",
+      "source": {
+        "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
+        "pinpoint": "s. 2",
+        "expect": "the purpose of this Act"
+      },
+      "leadsTo": [
+        "hr.statute.chra",
+        "hr.pre.unionized-worker",
+        "hr.pre.hrlsc"
+      ]
+    },
+    {
+      "id": "hr.pre.federal-time",
+      "kind": "deadline",
+      "title": "Federal complaint: one-year time limit",
+      "says": "The Canadian Human Rights Commission may decline to deal with a complaint filed more than one year after the last act complained of, or a longer period it allows.",
+      "source": {
+        "citation": "Canadian Human Rights Act, R.S.C. 1985, c. H-6",
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/h-6/",
+        "pinpoint": "s. 41 (1) (e)",
+        "expect": "more than one year"
+      }
+    },
+    {
+      "id": "hr.pre.unionized-worker",
+      "kind": "pre-step",
+      "title": "Unionized workers: grievance and HRTO",
+      "says": "The Tribunal may defer (put on hold) an application, as its rules allow.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45",
+        "expect": "The Tribunal may defer an application in accordance with"
+      },
+      "leadsTo": [
+        "hr.motion.deferral",
+        "hr.motion.dismiss-other-proceeding",
+        "hr.decision.horrocks"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 45 only lets the Tribunal defer an application under its rules; it does not mention grievances, unionized workers, or dismissal (dismissal is s. 45.1).",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.pre.hrlsc",
+      "kind": "pre-step",
+      "title": "Free help: Human Rights Legal Support Centre",
+      "says": "The Human Rights Legal Support Centre provides advice and assistance on Code rights, and legal services for making applications, Tribunal proceedings, judicial review, stated cases and enforcing Tribunal orders.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.13 (1)",
+        "expect": "Advice and assistance, legal and otherwise"
+      },
+      "leadsTo": [
+        "hr.statute.hrlsc",
+        "hr.start.application"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Setting priorities based on resources is in s. 45.12(b), not the cited s. 45.13(1).",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.statute.hrlsc",
+      "kind": "statute",
+      "title": "The Human Rights Legal Support Centre",
+      "says": "The Code creates the Human Rights Legal Support Centre, an independent non-profit corporation funded by Ontario.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.11 (1)",
+        "expect": "Human Rights Legal Support Centre in English"
+      }
+    },
+    {
+      "id": "hr.pre.hrlsc-priorities",
+      "kind": "pre-step",
+      "title": "The Centre sets its own priorities",
+      "says": "The Centre's objects include setting policies and priorities for its support services based on its financial resources.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.12",
+        "expect": "establish policies and priorities for the provision of support"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The conclusion 'so it does not take on every matter' is an inference s. 45.12 does not state.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.pre.choose-forum",
+      "kind": "option",
+      "title": "Choose: HRTO application or a court action",
+      "says": "A person can apply to the Tribunal, or, if they are suing in court for another legal wrong (such as wrongful dismissal), ask the court for Code remedies in that lawsuit. They cannot do both for the same right at the same time.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (11)",
+        "expect": "may not make an application under subsection (1)"
+      },
+      "leadsTo": [
+        "hr.start.application",
+        "hr.civil.remedy",
+        "hr.pre.application-barred"
+      ]
+    },
+    {
+      "id": "hr.pre.application-barred",
+      "kind": "test",
+      "title": "When an HRTO application is barred",
+      "says": "A person cannot apply to the Tribunal about a right if they have a court case asking for Code remedies about the same alleged infringement that is not finished or withdrawn, or if a court has finally decided whether the right was infringed, or the matter has been settled.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (11)",
+        "expect": "court has finally determined the issue of whether the right"
+      },
+      "leadsTo": [
+        "hr.pre.final-determination"
+      ]
+    },
+    {
+      "id": "hr.pre.final-determination",
+      "kind": "test",
+      "title": "When a court case is 'finally determined'",
+      "says": "A court case is not finally determined while an appeal is still possible and the time to appeal has not run out.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (12)",
+        "expect": "right of appeal exists and the time for appealing has"
+      }
+    },
+    {
+      "id": "hr.pre.limitation",
+      "kind": "deadline",
+      "title": "One year to apply to the HRTO",
+      "says": "An application must be made within one year after the incident. If there was a series of incidents, the year runs from the last incident in the series.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (1)",
+        "expect": "within one year after the last incident in the series"
+      },
+      "leadsTo": [
+        "hr.start.application",
+        "hr.test.late-application"
+      ]
+    },
+    {
+      "id": "hr.test.late-application",
+      "kind": "test",
+      "title": "Applying after the one-year deadline",
+      "says": "The Tribunal can accept a late application if it is satisfied the delay was in good faith and no one affected will suffer substantial prejudice because of the delay.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (2)",
+        "expect": "delay was incurred in good faith and no substantial prejudice"
+      },
+      "leadsTo": [
+        "hr.start.application"
+      ]
+    },
+    {
+      "id": "hr.area.services",
+      "kind": "test",
+      "title": "Services, goods and facilities",
+      "says": "Everyone has the right to equal treatment in services, goods and facilities (such as stores, restaurants, schools, hospitals, police and government services) without discrimination because of race, ancestry, place of origin, colour, ethnic origin, citizenship, creed, sex, sexual orientation, gender identity, gender expression, age, marital status, family status or disability.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 1",
+        "expect": "person has a right to equal treatment with respect to"
+      },
+      "leadsTo": [
+        "hr.def.services",
+        "hr.test.prima-facie",
+        "hr.start.application"
+      ]
+    },
+    {
+      "id": "hr.def.services",
+      "kind": "test",
+      "title": "Taxes and fees imposed by law are not 'services'",
+      "says": "Under the Code, 'services' does not include a levy, fee, tax or periodic payment imposed by law.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "not include a levy, fee, tax or periodic payment imposed"
+      }
+    },
+    {
+      "id": "hr.area.accommodation",
+      "kind": "test",
+      "title": "Housing (occupancy of accommodation)",
+      "says": "Everyone has the right to equal treatment in renting or living in housing without discrimination because of the listed grounds, which in housing also include receiving public assistance.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 2 (1)",
+        "expect": "with respect to the occupancy of accommodation"
+      },
+      "leadsTo": [
+        "hr.area.housing-harassment",
+        "hr.area.housing-sexual-harassment",
+        "hr.area.minors-housing",
+        "hr.defence.shared-accommodation",
+        "hr.defence.tenant-screening",
+        "hr.test.prima-facie"
+      ]
+    },
+    {
+      "id": "hr.area.housing-harassment",
+      "kind": "test",
+      "title": "Harassment in housing",
+      "says": "A person living in housing has the right to be free from harassment because of a listed ground by the landlord, the landlord's agent, or another occupant of the same building.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 2 (2)",
+        "expect": "harassment by the landlord or agent of the landlord"
+      },
+      "leadsTo": [
+        "hr.def.harassment",
+        "hr.test.harassment"
+      ]
+    },
+    {
+      "id": "hr.area.minors-housing",
+      "kind": "test",
+      "title": "16- and 17-year-olds renting on their own",
+      "says": "A 16- or 17-year-old who has withdrawn from parental control has the right to equal treatment in renting housing without discrimination because they are under 18. Their rental contract can be enforced against them as if they were 18.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 4 (1)",
+        "expect": "withdrawn from parental control has a right to equal treatment"
+      }
+    },
+    {
+      "id": "hr.area.contracts",
+      "kind": "test",
+      "title": "Contracts",
+      "says": "Every person who has legal capacity has the right to contract on equal terms without discrimination because of a listed ground.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 3",
+        "expect": "has a right to contract on equal terms"
+      },
+      "leadsTo": [
+        "hr.defence.insurance",
+        "hr.test.prima-facie"
+      ]
+    },
+    {
+      "id": "hr.area.employment",
+      "kind": "test",
+      "title": "Employment",
+      "says": "Every person has the right to equal treatment in employment without discrimination because of a listed ground. In employment, the grounds include 'record of offences'. This covers hiring, pay, conditions, discipline and firing.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 5 (1)",
+        "expect": "equal treatment with respect to employment without discrimination"
+      },
+      "leadsTo": [
+        "hr.area.workplace-harassment",
+        "hr.area.workplace-sexual-harassment",
+        "hr.area.job-ads",
+        "hr.area.job-applications",
+        "hr.area.employment-agencies",
+        "hr.area.benefit-plans",
+        "hr.defence.bfor",
+        "hr.test.prima-facie"
+      ]
+    },
+    {
+      "id": "hr.area.workplace-harassment",
+      "kind": "test",
+      "title": "Harassment at work",
+      "says": "An employee has the right to be free from harassment at work because of a listed ground by the employer, the employer's agent, or another employee.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 5 (2)",
+        "expect": "freedom from harassment in the workplace by the employer"
+      },
+      "leadsTo": [
+        "hr.def.harassment",
+        "hr.test.harassment"
+      ]
+    },
+    {
+      "id": "hr.area.vocational",
+      "kind": "test",
+      "title": "Unions and professional or trade associations",
+      "says": "Every person has the right to equal treatment in membership in a trade union, trade or occupational association, or self-governing profession, without discrimination because of a listed ground.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 6",
+        "expect": "membership in any trade union, trade or occupational association"
+      },
+      "leadsTo": [
+        "hr.test.prima-facie"
+      ]
+    },
+    {
+      "id": "hr.area.housing-sexual-harassment",
+      "kind": "test",
+      "title": "Sexual harassment in housing",
+      "says": "A person living in housing has the right to be free from harassment because of sex, sexual orientation, gender identity or gender expression by the landlord, the landlord's agent, or another occupant of the building.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 7 (1)",
+        "expect": "harassment because of sex, sexual orientation, gender identity or gender"
+      },
+      "leadsTo": [
+        "hr.test.harassment",
+        "hr.decision.janzen"
+      ]
+    },
+    {
+      "id": "hr.area.workplace-sexual-harassment",
+      "kind": "test",
+      "title": "Sexual harassment at work",
+      "says": "An employee has the right to be free from harassment at work because of sex, sexual orientation, gender identity or gender expression by the employer, the employer's agent, or another employee.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 7 (2)",
+        "expect": "harassment in the workplace because of sex"
+      },
+      "leadsTo": [
+        "hr.test.harassment",
+        "hr.decision.janzen"
+      ]
+    },
+    {
+      "id": "hr.area.sexual-solicitation",
+      "kind": "test",
+      "title": "Unwanted sexual advances by someone with power",
+      "says": "Everyone has the right to be free from a sexual solicitation or advance by a person who can give or deny them a benefit or advancement, where that person knows or ought reasonably to know it is unwelcome; and from reprisal or threats for rejecting it.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 7 (3)",
+        "expect": "sexual solicitation or advance made by a person in a"
+      },
+      "leadsTo": [
+        "hr.test.harassment"
+      ]
+    },
+    {
+      "id": "hr.area.reprisal",
+      "kind": "test",
+      "title": "Protection from reprisal",
+      "says": "Everyone has the right to claim and enforce their Code rights, to start and take part in Code proceedings, and to refuse to infringe someone else's rights, without reprisal or threat of reprisal.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 8",
+        "expect": "without reprisal or threat of reprisal for so doing"
+      },
+      "leadsTo": [
+        "hr.test.reprisal"
+      ]
+    },
+    {
+      "id": "hr.area.association",
+      "kind": "test",
+      "title": "Discrimination because of who you associate with",
+      "says": "A Code right is infringed where the discrimination is because of a person's relationship, association or dealings with someone identified by a protected ground.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 12",
+        "expect": "relationship, association or dealings with a person or persons"
+      }
+    },
+    {
+      "id": "hr.area.announced-intention",
+      "kind": "test",
+      "title": "Discriminatory signs and notices",
+      "says": "A Code right is infringed by publicly displaying a notice, sign, symbol or emblem that shows an intention to infringe Part I rights or to incite infringement. This does not interfere with freedom of expression of opinion.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 13 (1)",
+        "expect": "any notice, sign, symbol, emblem, or other similar representation"
+      }
+    },
+    {
+      "id": "hr.area.job-ads",
+      "kind": "test",
+      "title": "Discriminatory job ads",
+      "says": "The employment right is infringed by a job ad or invitation to apply that directly or indirectly classifies or indicates qualifications by a protected ground.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 23 (1)",
+        "expect": "an invitation to apply for employment or an advertisement"
+      }
+    },
+    {
+      "id": "hr.area.job-applications",
+      "kind": "test",
+      "title": "Discriminatory application forms and questions",
+      "says": "The employment right is infringed where an application form or a written or oral question to a job applicant directly or indirectly classifies or indicates qualifications by a protected ground.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 23 (2)",
+        "expect": "a form of application for employment is used"
+      },
+      "leadsTo": [
+        "hr.defence.interview-questions"
+      ]
+    },
+    {
+      "id": "hr.defence.interview-questions",
+      "kind": "test",
+      "title": "Interview questions where the Code permits",
+      "says": "An employer may ask about a protected ground at a personal job interview where discrimination on that ground is allowed by the Code (for example, a genuine job requirement).",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 23 (3)",
+        "expect": "the asking of questions at a personal employment interview"
+      }
+    },
+    {
+      "id": "hr.area.employment-agencies",
+      "kind": "test",
+      "title": "Employment agencies",
+      "says": "An employment agency infringes the employment right if it discriminates because of a protected ground in handling applications or referring applicants to employers.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 23 (4)",
+        "expect": "an employment agency discriminates against a person"
+      }
+    },
+    {
+      "id": "hr.area.benefit-plans",
+      "kind": "test",
+      "title": "Benefit and pension plans",
+      "says": "The employment right is infringed where a job is denied or made conditional on joining a benefit, pension or group insurance plan that makes a distinction on a protected ground, subject to the exceptions in the Code.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 25 (1)",
+        "expect": "requires enrolment in an employee benefit, pension or superannuation plan"
+      },
+      "leadsTo": [
+        "hr.defence.benefit-plans-age",
+        "hr.defence.preexisting-disability",
+        "hr.remedy.benefit-compensation"
+      ]
+    },
+    {
+      "id": "hr.remedy.benefit-compensation",
+      "kind": "step",
+      "title": "Compensation when excluded from a plan for disability",
+      "says": "An employer must pay an employee excluded from a benefit, pension or group insurance plan because of disability an amount equal to what the employer would contribute for an employee without a disability.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 25 (4)",
+        "expect": "compensation equivalent to the contribution that the employer would make"
+      }
+    },
+    {
+      "id": "hr.area.government-contracts",
+      "kind": "test",
+      "title": "Government contracts and grants",
+      "says": "Every Ontario government contract, subcontract, grant or loan is deemed to include a condition that employment rights under the Code will not be infringed in carrying it out.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 26 (1)",
+        "expect": "no right under section 5 will be infringed"
+      }
+    },
+    {
+      "id": "hr.def.disability",
+      "kind": "test",
+      "title": "What 'disability' means",
+      "says": "Disability is defined broadly: any degree of physical disability caused by injury, birth defect or illness; mental impairment or developmental disability; learning disability; mental disorder; or an injury or disability for which WSIB benefits were claimed or received.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "a condition of mental impairment or a developmental disability"
+      },
+      "leadsTo": [
+        "hr.def.perceived-disability",
+        "hr.test.duty-to-accommodate"
+      ]
+    },
+    {
+      "id": "hr.def.perceived-disability",
+      "kind": "test",
+      "title": "Past and perceived disability",
+      "says": "Protection for disability includes a person who has had a disability, or who is believed to have or have had one.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (3)",
+        "expect": "is believed to have or to have had a disability"
+      }
+    },
+    {
+      "id": "hr.def.pregnancy",
+      "kind": "test",
+      "title": "Pregnancy is covered under 'sex'",
+      "says": "The right to equal treatment without discrimination because of sex includes discrimination because a woman is or may become pregnant.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (2)",
+        "expect": "a woman is or may become pregnant"
+      }
+    },
+    {
+      "id": "hr.def.harassment",
+      "kind": "test",
+      "title": "What 'harassment' means",
+      "says": "Harassment means a course of vexatious comment or conduct that is known, or ought reasonably to be known, to be unwelcome.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "a course of vexatious comment or conduct"
+      },
+      "leadsTo": [
+        "hr.test.harassment"
+      ]
+    },
+    {
+      "id": "hr.def.age",
+      "kind": "test",
+      "title": "What 'age' means",
+      "says": "Under the Code, 'age' means 18 years or older. People under 18 are protected on other grounds, and 16- and 17-year-olds have a special housing right.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "means an age that is 18 years or more"
+      },
+      "leadsTo": [
+        "hr.defence.age-65",
+        "hr.area.minors-housing"
+      ]
+    },
+    {
+      "id": "hr.def.family-status",
+      "kind": "test",
+      "title": "What 'family status' means",
+      "says": "Family status means the status of being in a parent and child relationship.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "the status of being in a parent and child relationship"
+      }
+    },
+    {
+      "id": "hr.def.marital-status",
+      "kind": "test",
+      "title": "What 'marital status' means",
+      "says": "Marital status means being married, single, widowed, divorced or separated, and includes living with someone in a conjugal relationship outside marriage.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "the status of being married, single, widowed, divorced or separated"
+      }
+    },
+    {
+      "id": "hr.def.record-of-offences",
+      "kind": "test",
+      "title": "What 'record of offences' means",
+      "says": "Record of offences (an employment ground only) means a conviction for an offence for which a pardon (record suspension) was granted and not revoked, or a conviction for a provincial offence.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "an offence in respect of any provincial enactment"
+      }
+    },
+    {
+      "id": "hr.test.prima-facie",
+      "kind": "test",
+      "title": "What an applicant must show (prima facie discrimination)",
+      "says": "The applicant must show: (1) they have a characteristic protected by the Code; (2) they experienced an adverse impact in a social area; and (3) the protected characteristic was a factor in the adverse impact. The burden then shifts to the respondent to justify the conduct under the Code's exemptions.",
+      "source": {
+        "decision": "Moore v. British Columbia (Education), 2012 SCC 61",
+        "corpusId": "decision-moore-bc",
+        "pinpoint": "para. 33",
+        "expect": "the protected characteristic was a factor in the adverse impact"
+      },
+      "leadsTo": [
+        "hr.test.no-intent-needed",
+        "hr.test.burden-of-proof",
+        "hr.test.respondent-justification",
+        "hr.step.response"
+      ]
+    },
+    {
+      "id": "hr.test.no-intent-needed",
+      "kind": "test",
+      "title": "Intent is not required",
+      "says": "Discrimination can be found even where there was no intent to discriminate; the focus is on the effect of the conduct on the person.",
+      "source": {
+        "decision": "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536"
+      },
+      "leadsTo": [
+        "hr.test.constructive"
+      ]
+    },
+    {
+      "id": "hr.test.burden-of-proof",
+      "kind": "test",
+      "title": "Standard of proof",
+      "says": "Each element must be proved on a balance of probabilities. The protected ground need only be one factor, not the only factor.",
+      "source": {
+        "decision": "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc., 2015 SCC 39",
+        "pinpoint": "para. 65"
+      },
+      "leadsTo": [
+        "hr.decision.pieters"
+      ]
+    },
+    {
+      "id": "hr.test.constructive",
+      "kind": "test",
+      "title": "Constructive (adverse effect) discrimination",
+      "says": "A Code right is infringed where a requirement, qualification or factor that is not itself a protected ground excludes, restricts or prefers a group identified by a protected ground that the person belongs to, unless it is reasonable and bona fide in the circumstances, or the Code (other than s. 17) says that discriminating on that ground is not an infringement.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 11 (1)",
+        "expect": "results in the exclusion, restriction or preference of a group"
+      },
+      "leadsTo": [
+        "hr.test.constructive-undue-hardship"
+      ]
+    },
+    {
+      "id": "hr.test.constructive-undue-hardship",
+      "kind": "test",
+      "title": "Constructive discrimination: accommodation required first",
+      "says": "A requirement is not 'reasonable and bona fide' unless the Tribunal or court is satisfied the group's needs cannot be accommodated without undue hardship, considering cost, outside sources of funding, and health and safety requirements. Standards prescribed by regulation must be considered.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 11 (2)",
+        "expect": "cannot be accommodated without undue hardship on the person responsible"
+      },
+      "leadsTo": [
+        "hr.test.undue-hardship"
+      ]
+    },
+    {
+      "id": "hr.test.respondent-justification",
+      "kind": "test",
+      "title": "Respondent's justification",
+      "says": "Once discrimination is shown on its face, the respondent may justify it only within the Code's exemptions and defences, such as a bona fide requirement where accommodation to the point of undue hardship is not possible, special programs, or the listed exceptions.",
+      "source": {
+        "decision": "Moore v. British Columbia (Education), 2012 SCC 61",
+        "corpusId": "decision-moore-bc",
+        "pinpoint": "para. 33",
+        "expect": "the framework of the exemptions available under human rights statutes"
+      },
+      "leadsTo": [
+        "hr.defence.bfor",
+        "hr.defence.special-program",
+        "hr.test.duty-to-accommodate"
+      ]
+    },
+    {
+      "id": "hr.test.duty-to-accommodate",
+      "kind": "test",
+      "title": "Duty to accommodate disability",
+      "says": "A person is not found unable to perform the essential duties of a right (such as a job) because of disability unless the needs of the person cannot be accommodated without undue hardship on the person responsible, considering cost, outside sources of funding, and health and safety requirements.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 17 (2)",
+        "expect": "needs of the person cannot be accommodated without undue hardship"
+      },
+      "leadsTo": [
+        "hr.test.essential-duties",
+        "hr.test.undue-hardship",
+        "hr.test.accommodation-process",
+        "hr.decision.renaud"
+      ]
+    },
+    {
+      "id": "hr.test.essential-duties",
+      "kind": "test",
+      "title": "Essential duties",
+      "says": "A right is not infringed only because a person cannot perform the essential duties or requirements of the right because of disability, but only after accommodation to the point of undue hardship has been considered.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 17 (1)",
+        "expect": "incapable of performing or fulfilling the essential duties"
+      },
+      "leadsTo": [
+        "hr.test.duty-to-accommodate"
+      ]
+    },
+    {
+      "id": "hr.test.undue-hardship",
+      "kind": "test",
+      "title": "Undue hardship: three factors",
+      "says": "Undue hardship is measured by three things the Code lists: cost, outside sources of funding (if any), and health and safety requirements (if any). A tribunal or court must also consider any standards set by regulation.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 17 (3)",
+        "expect": "shall consider any standards prescribed by the regulations"
+      },
+      "leadsTo": [
+        "hr.decision.hydro-quebec"
+      ]
+    },
+    {
+      "id": "hr.test.accommodation-process",
+      "kind": "test",
+      "title": "Accommodation has a procedural and a substantive part",
+      "says": "The duty to accommodate includes a fair process of seeking out and assessing accommodation (gathering information, considering options) and the accommodation itself. The person seeking accommodation is expected to cooperate, and a union may share the duty.",
+      "source": {
+        "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970"
+      },
+      "leadsTo": [
+        "hr.decision.meiorin"
+      ]
+    },
+    {
+      "id": "hr.test.harassment",
+      "kind": "test",
+      "title": "What must be shown for harassment",
+      "says": "For Code harassment, the applicant shows a course of comment or conduct, connected to a protected ground, in housing or at work, that the harasser knew or ought reasonably to have known was unwelcome. Harassment under ss. 2(2), 5(2) and 7 is not automatically attributed to a corporation under s. 46.3.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 10 (1)",
+        "expect": "known or ought reasonably to be known to be unwelcome"
+      },
+      "leadsTo": [
+        "hr.test.corporate-liability"
+      ]
+    },
+    {
+      "id": "hr.test.reprisal",
+      "kind": "test",
+      "title": "What must be shown for reprisal",
+      "says": "For reprisal, the applicant shows they claimed or enforced Code rights, took part in a Code proceeding, or refused to infringe someone's rights, and that the respondent took or threatened action against them for doing so.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 8",
+        "expect": "to institute and participate in proceedings under this Act"
+      },
+      "leadsTo": [
+        "hr.decision.noble"
+      ]
+    },
+    {
+      "id": "hr.test.corporate-liability",
+      "kind": "test",
+      "title": "When a company is responsible for its employees' acts",
+      "says": "An act by an officer, employee or agent of a corporation, union, association or employers' organization in the course of employment is deemed to be the act of that organization, except for harassment under ss. 2(2), 5(2) and 7 and offences. The Tribunal must say, if asked, whether the act was done with the organization's authority or acquiescence.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 46.3 (1)",
+        "expect": "be deemed to be an act or thing done or"
+      },
+      "leadsTo": [
+        "hr.test.corporate-opinion"
+      ]
+    },
+    {
+      "id": "hr.test.corporate-opinion",
+      "kind": "test",
+      "title": "Opinion on authority or acquiescence",
+      "says": "At the organization's request, the Tribunal states in its decision whether the employee's act was done with or without the organization's authority or acquiescence.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 46.3 (2)",
+        "expect": "with or without the authority or acquiescence"
+      }
+    },
+    {
+      "id": "hr.defence.bfor",
+      "kind": "test",
+      "title": "Bona fide occupational requirement (employment)",
+      "says": "Discrimination in employment because of age, sex, record of offences or marital status is not an infringement if it is a reasonable and bona fide qualification because of the nature of the job. It is not reasonable and bona fide unless the person's circumstances cannot be accommodated without undue hardship.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 24 (1) (b)",
+        "expect": "reasonable and bona fide qualification because of the nature of"
+      },
+      "leadsTo": [
+        "hr.defence.bfor-accommodation",
+        "hr.decision.meiorin"
+      ]
+    },
+    {
+      "id": "hr.defence.bfor-accommodation",
+      "kind": "test",
+      "title": "A job requirement needs accommodation to the point of undue hardship",
+      "says": "No tribunal or court may find a qualification reasonable and bona fide unless the person's circumstances cannot be accommodated without undue hardship, considering cost, outside funding and health and safety.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 24 (2)",
+        "expect": "circumstances of the person cannot be accommodated without undue hardship"
+      },
+      "leadsTo": [
+        "hr.test.undue-hardship"
+      ]
+    },
+    {
+      "id": "hr.defence.special-employment",
+      "kind": "test",
+      "title": "Organizations serving a particular group",
+      "says": "A religious, philanthropic, educational, fraternal or social organization mainly serving a group identified by certain grounds may hire only, or prefer, people of that group if the qualification is reasonable and bona fide because of the nature of the job.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 24 (1) (a)",
+        "expect": "employs only, or gives preference in employment to, persons similarly"
+      }
+    },
+    {
+      "id": "hr.defence.personal-care",
+      "kind": "test",
+      "title": "Personal or medical care in the home",
+      "says": "An individual may refuse to employ someone for any ground where the main duty of the job is attending to the medical or personal needs of that individual or of an ill child or an aged, infirm or ill spouse or relative.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 24 (1) (c)",
+        "expect": "attending to the medical or personal needs of the person"
+      }
+    },
+    {
+      "id": "hr.defence.family-employment",
+      "kind": "test",
+      "title": "Hiring or preferring family members",
+      "says": "An employer may grant or withhold employment or advancement to a spouse, child or parent of the employer or an employee.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 24 (1) (d)",
+        "expect": "spouse, child or parent of the employer or an employee"
+      }
+    },
+    {
+      "id": "hr.defence.special-program",
+      "kind": "test",
+      "title": "Special programs",
+      "says": "A Code right is not infringed by a special program designed to relieve hardship or economic disadvantage, or to help disadvantaged persons or groups achieve equal opportunity. The Tribunal can find that a program qualifies even if the Commission has not designated it.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 14 (1)",
+        "expect": "a special program designed to relieve hardship or economic disadvantage"
+      },
+      "leadsTo": [
+        "hr.option.special-program-designation"
+      ]
+    },
+    {
+      "id": "hr.option.special-program-designation",
+      "kind": "option",
+      "title": "Asking the Commission to designate a special program",
+      "says": "A person may apply to the Ontario Human Rights Commission to designate a program as a special program. A designation lasts up to five years and can be renewed. It does not apply to programs run by the Ontario government.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 14 (2)",
+        "expect": "apply to the Commission for a designation of a program"
+      }
+    },
+    {
+      "id": "hr.defence.age-65",
+      "kind": "test",
+      "title": "Preferences for people 65 and over",
+      "says": "The age right is not infringed where being 65 or over is a requirement for preferential treatment (such as seniors' discounts).",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 15",
+        "expect": "an age of sixty-five years or over is a requirement"
+      }
+    },
+    {
+      "id": "hr.defence.citizenship",
+      "kind": "test",
+      "title": "Canadian citizenship required by law",
+      "says": "The citizenship right is not infringed where Canadian citizenship is a requirement imposed or authorized by law, and in some cultural, educational, union, athletic and senior executive settings.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 16 (1)",
+        "expect": "Canadian citizenship is a requirement, qualification or consideration imposed"
+      }
+    },
+    {
+      "id": "hr.defence.special-interest-org",
+      "kind": "test",
+      "title": "Organizations serving a particular group (services)",
+      "says": "Rights to equal treatment in services and facilities are not infringed where membership in a religious, philanthropic, educational, fraternal or social organization mainly serving a group identified by a protected ground is limited to that group.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 18",
+        "expect": "primarily engaged in serving the interests of persons identified by"
+      }
+    },
+    {
+      "id": "hr.defence.solemnization",
+      "kind": "test",
+      "title": "Religious officials and marriage",
+      "says": "A registered religious official may refuse to solemnize a marriage, or allow a sacred place to be used for one, if it would be contrary to their religious beliefs or their religious body's doctrines.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 18.1 (1)",
+        "expect": "refuses to solemnize a marriage"
+      }
+    },
+    {
+      "id": "hr.defence.separate-schools",
+      "kind": "test",
+      "title": "Separate school rights",
+      "says": "The Code does not adversely affect separate school rights under the Constitution Act, 1867 and the Education Act.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 19 (1)",
+        "expect": "any right or privilege respecting separate schools"
+      }
+    },
+    {
+      "id": "hr.defence.same-sex-facilities",
+      "kind": "test",
+      "title": "Single-sex facilities for public decency",
+      "says": "The services right is not infringed because of sex where use of services or facilities is restricted to people of the same sex on the ground of public decency.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 20 (1)",
+        "expect": "restricted to persons of the same sex on the ground"
+      }
+    },
+    {
+      "id": "hr.defence.drinking-age",
+      "kind": "test",
+      "title": "Minimum drinking age",
+      "says": "The age-based services right is not infringed by Ontario's minimum drinking age of 19.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 20 (2)",
+        "expect": "enforcing a minimum drinking age of nineteen years"
+      }
+    },
+    {
+      "id": "hr.defence.recreational-clubs",
+      "kind": "test",
+      "title": "Recreational clubs",
+      "says": "A recreational club may restrict access or give fee preferences because of age, sex, marital status or family status.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 20 (3)",
+        "expect": "where a recreational club restricts or qualifies access"
+      }
+    },
+    {
+      "id": "hr.defence.shared-accommodation",
+      "kind": "test",
+      "title": "Sharing a kitchen or bathroom with the owner",
+      "says": "The housing right is not infringed where the housing is in a home where the owner or owner's family lives and the occupant must share a bathroom or kitchen with them.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 21 (1)",
+        "expect": "required to share a bathroom or kitchen facility with the"
+      }
+    },
+    {
+      "id": "hr.defence.same-sex-building",
+      "kind": "test",
+      "title": "Single-sex residential buildings",
+      "says": "The housing right is not infringed because of sex where all units in the building (other than the owner's) are restricted to people of the same sex.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 21 (2)",
+        "expect": "is restricted to persons who are of the same sex"
+      }
+    },
+    {
+      "id": "hr.defence.tenant-screening",
+      "kind": "test",
+      "title": "Permitted tenant screening",
+      "says": "A landlord may use income information, credit checks, credit references, rental history, guarantees or similar practices in choosing tenants, but only in the way the regulation prescribes.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 21 (3)",
+        "expect": "income information, credit checks, credit references, rental history"
+      },
+      "leadsTo": [
+        "hr.reg.tenant-screening"
+      ]
+    },
+    {
+      "id": "hr.reg.tenant-screening",
+      "kind": "statute",
+      "title": "Regulation on landlords' screening practices",
+      "says": "The regulation under the Code sets out how landlords may use income information, credit checks, credit references, rental history and guarantees in selecting tenants.",
+      "source": {
+        "citation": "O. Reg. 290/98 (Business Practices Permissible to Landlords in Selecting Prospective Tenants for Residential Accommodation)",
+        "url": "https://www.ontario.ca/laws/regulation/980290",
+        "pinpoint": "s. 1",
+        "expect": "request credit references and rental history information"
+      }
+    },
+    {
+      "id": "hr.defence.insurance",
+      "kind": "test",
+      "title": "Insurance contracts",
+      "says": "Automobile, life, accident, sickness or disability insurance, group insurance (not through an employer) and life annuities may make distinctions based on age, sex, marital status, family status or disability on reasonable and bona fide grounds.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 22",
+        "expect": "reasonable and bona fide grounds because of age, sex, marital"
+      }
+    },
+    {
+      "id": "hr.defence.benefit-plans-age",
+      "kind": "test",
+      "title": "Plans that comply with the Employment Standards Act",
+      "says": "The employment right is not infringed because of age by a benefit, pension or group insurance plan that complies with the Employment Standards Act, 2000 and its regulations.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 25 (2.1)",
+        "expect": "that complies with the Employment Standards Act, 2000"
+      }
+    },
+    {
+      "id": "hr.defence.preexisting-disability",
+      "kind": "test",
+      "title": "Pre-existing disability in insurance plans",
+      "says": "A disability or life insurance plan may make a reasonable and bona fide distinction because of a pre-existing disability that substantially increases the risk.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 25 (3) (a)",
+        "expect": "a pre-existing disability that substantially increases the risk"
+      }
+    },
+    {
+      "id": "hr.start.application",
+      "kind": "start",
+      "title": "Filing an application with the HRTO",
+      "says": "A person who believes their Code rights were infringed may apply to the Human Rights Tribunal of Ontario for an order, within one year of the incident or the last incident in a series. The application must be on the Tribunal's approved form.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (1)",
+        "expect": "person may apply to the Tribunal for an order under"
+      },
+      "form": "Form 1",
+      "leadsTo": [
+        "hr.form.application",
+        "hr.step.screening",
+        "hr.step.response"
+      ]
+    },
+    {
+      "id": "hr.form.application",
+      "kind": "form",
+      "title": "Application form (Form 1)",
+      "says": "An application must be made in the form approved by the Tribunal (Form 1, the Application under section 34). The form asks for the social area, the grounds, the facts, and the remedy sought.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (3)",
+        "expect": "shall be in a form approved by the Tribunal"
+      },
+      "form": "Form 1",
+      "leadsTo": [
+        "hr.step.screening"
+      ]
+    },
+    {
+      "id": "hr.start.joint-application",
+      "kind": "start",
+      "title": "Joint applications",
+      "says": "Two or more people who each have a right to apply may file together, subject to the Tribunal's power to separate them.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (4)",
+        "expect": "may file the applications jointly"
+      },
+      "leadsTo": [
+        "hr.step.screening"
+      ]
+    },
+    {
+      "id": "hr.start.on-behalf",
+      "kind": "start",
+      "title": "Applying on behalf of someone else",
+      "says": "A person or organization (other than the Commission) may apply on behalf of another person who could have applied and who consents. The consent must be on the form the Tribunal rules specify, and the same one-year limit applies.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (5)",
+        "expect": "may apply on behalf of another person to the Tribunal"
+      },
+      "leadsTo": [
+        "hr.deadline.on-behalf",
+        "hr.option.withdraw-on-behalf",
+        "hr.step.screening"
+      ]
+    },
+    {
+      "id": "hr.deadline.on-behalf",
+      "kind": "deadline",
+      "title": "Same time limit for applications on behalf of another",
+      "says": "An application made on someone else's behalf must be made within the same time limit that applies to a person applying for themselves.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (8)",
+        "expect": "shall be made within the time period required"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 34(8) only applies the subsection (1) time period; it says nothing about the late-filing rule in s. 34(2) applying.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.option.withdraw-on-behalf",
+      "kind": "option",
+      "title": "Withdrawing an application made on your behalf",
+      "says": "The person on whose behalf an application was made may withdraw it under the Tribunal's rules.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 34 (10)",
+        "expect": "be withdrawn by the person on behalf of whom the"
+      }
+    },
+    {
+      "id": "hr.start.commission",
+      "kind": "start",
+      "title": "Application by the Ontario Human Rights Commission",
+      "says": "The Commission may apply to the Tribunal if it believes it is in the public interest and an order could provide an appropriate remedy. This does not affect an individual's own right to apply; the two are usually heard together.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 35 (1)",
+        "expect": "it is in the public interest to make an application"
+      },
+      "leadsTo": [
+        "hr.remedy.commission-orders"
+      ]
+    },
+    {
+      "id": "hr.statute.commission",
+      "kind": "statute",
+      "title": "Ontario Human Rights Commission",
+      "says": "The Commission promotes and protects human rights, approves policies, conducts inquiries, designates special programs, and may apply to or intervene at the Tribunal. It does not take individual complaints.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 29",
+        "expect": "to make applications to the Tribunal under section 35"
+      },
+      "leadsTo": [
+        "hr.step.commission-policies",
+        "hr.start.commission",
+        "hr.step.commission-intervention"
+      ]
+    },
+    {
+      "id": "hr.step.parties",
+      "kind": "step",
+      "title": "Who the parties are",
+      "says": "The parties are the applicant (or the person on whose behalf it was made), the Commission if it applied, every person against whom an order is sought, and anyone the Tribunal adds as a party.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 36",
+        "expect": "person against whom an order is sought in the application"
+      },
+      "leadsTo": [
+        "hr.motion.add-party"
+      ]
+    },
+    {
+      "id": "hr.motion.add-party",
+      "kind": "motion",
+      "title": "Adding a party",
+      "says": "The Tribunal can add any other person, or the Commission, as a party to an application.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 36",
+        "expect": "if they are added as a party by the Tribunal"
+      }
+    },
+    {
+      "id": "hr.step.commission-intervention",
+      "kind": "step",
+      "title": "Commission intervention",
+      "says": "The Commission may intervene in an individual's application on terms the Tribunal sets, and may intervene as a party if the applicant consents.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 37 (1)",
+        "expect": "The Commission may intervene in an application under section 34"
+      }
+    },
+    {
+      "id": "hr.step.screening",
+      "kind": "step",
+      "title": "Tribunal checks the application",
+      "says": "Where its rules allow it, the Tribunal or its staff may decide not to process an application that is incomplete, late, missing the fee, or has another technical defect.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 4.5 (1)",
+        "expect": "may decide not to process the documents"
+      },
+      "leadsTo": [
+        "hr.step.notice-of-intent-to-dismiss",
+        "hr.step.response"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The duty to give notice with reasons and the requirements to resume is in SPPA s. 4.5(2), not the cited s. 4.5(1); s. 4.5(1) is also subject to s. 4.5(3), which requires the tribunal to have made rules first.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.step.notice-of-intent-to-dismiss",
+      "kind": "step",
+      "title": "Notice of intent to dismiss (jurisdiction or requirements)",
+      "says": "Before dismissing a proceeding without a hearing because it is frivolous, vexatious, in bad faith, outside the Tribunal's jurisdiction, or missing a statutory requirement, the Tribunal must give notice and consider written submissions made within the time stated.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 4.6 (1)",
+        "expect": "the proceeding relates to matters that are outside the jurisdiction"
+      },
+      "leadsTo": [
+        "hr.step.submissions-on-dismissal",
+        "hr.step.response"
+      ]
+    },
+    {
+      "id": "hr.step.submissions-on-dismissal",
+      "kind": "deadline",
+      "title": "Written submissions on a proposed dismissal",
+      "says": "A party who receives a notice that the Tribunal intends to dismiss the proceeding may make written submissions about the dismissal within the time set in the notice.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 4.6 (4)",
+        "expect": "make written submissions to the tribunal with respect to the"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The duty to consider submissions before dismissing is in SPPA s. 4.6(5), not the cited s. 4.6(4).",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.step.response",
+      "kind": "step",
+      "title": "Respondent files a Response",
+      "says": "A respondent who wants to take part answers the application with a Response (Form 2) within the time set by the HRTO Rules (35 days under the Rules before the August 2026 amendments). It sets out the respondent's version of the facts and any defences, such as accommodation to the point of undue hardship or a Code exemption.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 8.1",
+        "expect": "within 35 days"
+      },
+      "form": "Form 2",
+      "leadsTo": [
+        "hr.form.response",
+        "hr.step.reply",
+        "hr.step.mediation",
+        "hr.motion.summary-hearing",
+        "hr.motion.deferral",
+        "hr.motion.dismiss-other-proceeding"
+      ]
+    },
+    {
+      "id": "hr.form.response",
+      "kind": "form",
+      "title": "Response form (Form 2)",
+      "says": "The Response is filed on the Tribunal's Form 2 and delivered to the applicant as the Rules require.",
+      "source": {
+        "citation": "HRTO forms",
+        "url": "https://tribunalsontario.ca/hrto/forms-and-filing/",
+        "pinpoint": "Form 2",
+        "expect": "Response to an Application"
+      },
+      "form": "Form 2",
+      "leadsTo": [
+        "hr.step.reply"
+      ]
+    },
+    {
+      "id": "hr.step.no-response",
+      "kind": "step",
+      "title": "If the respondent does not respond",
+      "says": "The HRTO Rules set what happens if a respondent does not file a Response on time, including that the Tribunal may continue the case without the respondent's input.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 8",
+        "expect": "deemed to have accepted"
+      },
+      "leadsTo": [
+        "hr.step.hearing"
+      ]
+    },
+    {
+      "id": "hr.step.reply",
+      "kind": "step",
+      "title": "Applicant's Reply",
+      "says": "An applicant may file a Reply to answer new matters raised in the Response, within the time set by the HRTO Rules.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 9",
+        "expect": "Reply to a Response"
+      },
+      "leadsTo": [
+        "hr.step.mediation",
+        "hr.step.case-assessment"
+      ]
+    },
+    {
+      "id": "hr.motion.deferral",
+      "kind": "motion",
+      "title": "Request to defer (put on hold)",
+      "says": "The Tribunal may defer an application, as its rules allow.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45",
+        "expect": "The Tribunal may defer an application"
+      },
+      "leadsTo": [
+        "hr.motion.dismiss-other-proceeding"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The example of deferring while a grievance, court action or other tribunal case on the same facts proceeds is not in s. 45.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.motion.dismiss-other-proceeding",
+      "kind": "motion",
+      "title": "Request to dismiss because another proceeding dealt with it",
+      "says": "The Tribunal may dismiss all or part of an application if it decides that another proceeding has appropriately dealt with the substance of the application.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.1",
+        "expect": "another proceeding has appropriately dealt with the substance"
+      },
+      "leadsTo": [
+        "hr.decision.figliola",
+        "hr.decision.penner"
+      ]
+    },
+    {
+      "id": "hr.motion.summary-hearing",
+      "kind": "motion",
+      "title": "Summary hearing request",
+      "says": "A party may ask for, or the Tribunal may hold on its own, a summary hearing to decide whether all or part of an application is dismissed because there is no reasonable prospect it will succeed.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 19A",
+        "expect": "no reasonable prospect that the Application"
+      },
+      "leadsTo": [
+        "hr.step.oral-submissions-right"
+      ]
+    },
+    {
+      "id": "hr.motion.request-for-order",
+      "kind": "motion",
+      "title": "Request for an order during the proceeding",
+      "says": "A party can ask the Tribunal for orders during a proceeding (for example, disclosure, adding a party, adjournment, or anonymizing a decision) using the Tribunal's request form and serving the other parties.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 19",
+        "expect": "Request for Order"
+      },
+      "leadsTo": [
+        "hr.motion.disclosure",
+        "hr.motion.add-party",
+        "hr.motion.adjournment"
+      ]
+    },
+    {
+      "id": "hr.motion.interim-remedy",
+      "kind": "motion",
+      "title": "Interim (temporary) order",
+      "says": "The Tribunal may make interim decisions and orders before its final decision.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 16.1 (1)",
+        "expect": "A tribunal may make interim decisions and orders"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Conditions and the no-reasons rule are in SPPA s. 16.1(2) and (3), not the cited s. 16.1(1).",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.motion.disclosure",
+      "kind": "motion",
+      "title": "Order for disclosure of documents",
+      "says": "If a party does not comply, in whole or in part, with a Tribunal order made under its rules to produce documents, information or evidence, the Tribunal may draw an adverse inference.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 43 (9)",
+        "expect": "draw an adverse inference from the failure of a party"
+      },
+      "leadsTo": [
+        "hr.step.disclosure"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The power of the rules to require production, statements and witnesses is in s. 43(3)(f); the cited s. 43(9) contains only the adverse-inference power.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.motion.inquiry",
+      "kind": "motion",
+      "title": "Request for a Tribunal inquiry",
+      "says": "A party may ask the Tribunal to appoint a person to conduct an inquiry to obtain evidence, if an inquiry is required for evidence, the evidence may help a fair, just and quick resolution, and it is appropriate. The inquirer may enter places (not homes without consent), request documents and question people.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 44 (1)",
+        "expect": "an inquiry is required in order to obtain evidence"
+      }
+    },
+    {
+      "id": "hr.motion.combine",
+      "kind": "motion",
+      "title": "Combining or hearing similar cases together",
+      "says": "If two or more proceedings involve similar questions of fact, law or policy, the Tribunal may combine them or hear them together (with consent), hear them back to back, or stay one until another is decided.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 9.1 (1)",
+        "expect": "involve the same or similar questions of fact, law or"
+      }
+    },
+    {
+      "id": "hr.motion.adjournment",
+      "kind": "motion",
+      "title": "Adjournment",
+      "says": "A hearing may be adjourned by the Tribunal on its own or where a party shows an adjournment is needed for an adequate hearing.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 21",
+        "expect": "the adjournment is required to permit an adequate hearing"
+      }
+    },
+    {
+      "id": "hr.motion.summons",
+      "kind": "motion",
+      "title": "Summons to a witness",
+      "says": "The Tribunal can summon any person, including a party, to give evidence or produce documents at a hearing. The summons must be served personally, and a Superior Court judge may issue a warrant if a summoned witness does not attend.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 12 (1)",
+        "expect": "tribunal may require any person, including a party, by summons"
+      }
+    },
+    {
+      "id": "hr.motion.closed-hearing",
+      "kind": "motion",
+      "title": "Request to close the hearing or protect privacy",
+      "says": "Hearings are open to the public unless the Tribunal finds public security, or intimate financial or personal matters, outweigh the principle of openness.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 9 (1)",
+        "expect": "intimate financial or personal matters or other matters"
+      }
+    },
+    {
+      "id": "hr.motion.costs",
+      "kind": "motion",
+      "title": "Costs at a tribunal",
+      "says": "A tribunal can order costs only if a party acted unreasonably, frivolously, vexatiously or in bad faith and the tribunal has made rules on costs.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 17.1 (2)",
+        "expect": "conduct or course of conduct of a party has been"
+      }
+    },
+    {
+      "id": "hr.step.abuse-of-process",
+      "kind": "step",
+      "title": "Preventing abuse of process",
+      "says": "The Tribunal can make orders or directions to prevent abuse of its processes and can reasonably limit repetitive examination of witnesses.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 23 (1)",
+        "expect": "as it considers proper to prevent abuse of its processes"
+      }
+    },
+    {
+      "id": "hr.step.mediation",
+      "kind": "step",
+      "title": "Mediation",
+      "says": "If it has rules for it and all parties consent, the Tribunal may direct the parties to take part in mediation or another dispute resolution process to resolve the application or an issue in it.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 4.8 (1)",
+        "expect": "all parties consent to participating in the alternative dispute resolution"
+      },
+      "leadsTo": [
+        "hr.option.settlement",
+        "hr.step.case-assessment",
+        "hr.step.mediator-not-compellable"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 4.8(1) lets the tribunal direct ADR only if it has rules for it and all parties consent; it says nothing about mediators not testifying or notes being inadmissible.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.step.mediator-not-compellable",
+      "kind": "step",
+      "title": "Mediation is confidential",
+      "says": "A Tribunal mediator cannot be compelled to give testimony or produce documents about matters learned in mediation.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 4.9 (1)",
+        "expect": "shall be compelled to give testimony or produce documents"
+      }
+    },
+    {
+      "id": "hr.step.case-assessment",
+      "kind": "step",
+      "title": "Case assessment direction",
+      "says": "If the application does not settle, the Tribunal may issue a case assessment direction setting out the issues, the evidence it needs, and how the hearing will proceed (in person, by video or in writing).",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 1.6",
+        "expect": "case assessment direction"
+      },
+      "leadsTo": [
+        "hr.step.disclosure",
+        "hr.step.notice-of-hearing"
+      ]
+    },
+    {
+      "id": "hr.step.disclosure",
+      "kind": "step",
+      "title": "Exchanging documents and witness lists before the hearing",
+      "says": "Before the hearing, each party must deliver the documents it will rely on and a list of witnesses, with a summary of their expected evidence, by the deadline in the HRTO Rules or the Tribunal's direction.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 16",
+        "expect": "list of witnesses"
+      },
+      "leadsTo": [
+        "hr.step.notice-of-hearing"
+      ]
+    },
+    {
+      "id": "hr.step.notice-of-hearing",
+      "kind": "step",
+      "title": "Notice of hearing",
+      "says": "Parties must be given reasonable notice of the hearing, including its time, place and purpose, and a warning that the Tribunal may proceed without them if they do not attend.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 6 (1)",
+        "expect": "be given reasonable notice of the hearing by the tribunal"
+      },
+      "leadsTo": [
+        "hr.step.hearing",
+        "hr.step.non-attendance"
+      ]
+    },
+    {
+      "id": "hr.step.non-attendance",
+      "kind": "step",
+      "title": "If a party does not attend",
+      "says": "If a party was properly notified and does not attend an oral hearing, the Tribunal may proceed without them, and they are not entitled to further notice.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 7 (1)",
+        "expect": "the tribunal may proceed in the absence of the party"
+      }
+    },
+    {
+      "id": "hr.step.hearing",
+      "kind": "step",
+      "title": "The hearing",
+      "says": "The Tribunal can hold the hearing in person, electronically (video or phone), in writing, or a mix. A party can object to a written hearing for good reason, or to an electronic hearing that would cause significant prejudice.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 5.2.1",
+        "expect": "any combination of written, electronic and oral hearings"
+      },
+      "leadsTo": [
+        "hr.step.oral-submissions-right",
+        "hr.step.representation",
+        "hr.step.evidence",
+        "hr.step.cross-examination",
+        "hr.step.commission-policies",
+        "hr.step.decision"
+      ]
+    },
+    {
+      "id": "hr.step.oral-submissions-right",
+      "kind": "step",
+      "title": "Right to make oral submissions",
+      "says": "An application within the Tribunal's jurisdiction cannot be finally decided without giving the parties an opportunity to make oral submissions under the rules.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 43 (2)",
+        "expect": "an opportunity to make oral submissions in accordance with the"
+      }
+    },
+    {
+      "id": "hr.step.representation",
+      "kind": "step",
+      "title": "Representation",
+      "says": "A party to a Tribunal proceeding may be represented by a representative.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 10",
+        "expect": "may be represented by a representative"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 10 does not say who may act as a representative (lawyer, licensed paralegal, others).",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.step.evidence",
+      "kind": "step",
+      "title": "Evidence at the hearing",
+      "says": "The Tribunal may admit any relevant oral testimony, document or thing, even if it would not be admissible in court, but not privileged material. It may exclude anything unduly repetitious.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 15 (1)",
+        "expect": "relevant to the subject-matter of the proceeding and may act"
+      }
+    },
+    {
+      "id": "hr.step.cross-examination",
+      "kind": "step",
+      "title": "Calling and cross-examining witnesses",
+      "says": "At an oral or electronic hearing, a party may call witnesses, present evidence and submissions, and cross-examine as reasonably required. The Tribunal's rules can also let it question witnesses and narrow the issues.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 10.1",
+        "expect": "conduct cross-examinations of witnesses at the hearing"
+      }
+    },
+    {
+      "id": "hr.step.tribunal-active-role",
+      "kind": "step",
+      "title": "The Tribunal can narrow issues and limit evidence",
+      "says": "The Tribunal's rules can let it define or narrow the issues, limit evidence and submissions, decide the order of evidence, and conduct examinations of witnesses itself.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 43 (3)",
+        "expect": "define or narrow the issues required to dispose of an"
+      }
+    },
+    {
+      "id": "hr.step.commission-policies",
+      "kind": "step",
+      "title": "Ontario Human Rights Commission policies",
+      "says": "The Tribunal may consider Commission policies, and must consider one if a party or intervenor asks it to.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.5 (2)",
+        "expect": "the Tribunal shall consider a policy approved by the Commission"
+      }
+    },
+    {
+      "id": "hr.step.decision",
+      "kind": "step",
+      "title": "The decision",
+      "says": "A final decision must have written reasons. The Tribunal sends each party a copy; a copy sent by email is deemed received the next day, and by mail on the fifth day after mailing.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 43 (2)",
+        "expect": "may not be finally disposed of without written reasons"
+      },
+      "leadsTo": [
+        "hr.remedy.compensation",
+        "hr.remedy.restitution",
+        "hr.remedy.public-interest",
+        "hr.option.reconsideration",
+        "hr.option.judicial-review",
+        "hr.enforce.file-in-court",
+        "hr.step.decision-delivery"
+      ]
+    },
+    {
+      "id": "hr.step.written-reasons",
+      "kind": "step",
+      "title": "Written reasons required",
+      "says": "An application may not be finally disposed of without written reasons.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 43 (2)",
+        "expect": "may not be finally disposed of without written reasons"
+      }
+    },
+    {
+      "id": "hr.step.decision-delivery",
+      "kind": "step",
+      "title": "When a decision is deemed received",
+      "says": "A decision sent by regular mail is deemed received on the fifth day after mailing; one sent electronically is deemed received the next day (or the next non-holiday).",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 18 (2)",
+        "expect": "deemed to be received by the party on the fifth"
+      }
+    },
+    {
+      "id": "hr.step.refer-commission",
+      "kind": "step",
+      "title": "Referral to the Commission",
+      "says": "The Tribunal may refer matters arising in a proceeding to the Commission if they are of public interest; the Commission decides whether to act.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.4 (1)",
+        "expect": "they are matters of public interest"
+      }
+    },
+    {
+      "id": "hr.remedy.compensation",
+      "kind": "step",
+      "title": "Order to pay compensation",
+      "says": "If the Tribunal finds a party infringed another party's Code right, it may order payment of compensation for loss arising from the infringement, including compensation for injury to dignity, feelings and self-respect. There is no cap on the amount in the Code.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.2 (1)",
+        "expect": "including compensation for injury to dignity, feelings and self-respect"
+      },
+      "leadsTo": [
+        "hr.decision.arunachalam",
+        "hr.decision.adga-lane",
+        "hr.remedy.interest",
+        "hr.enforce.file-in-court"
+      ]
+    },
+    {
+      "id": "hr.remedy.restitution",
+      "kind": "step",
+      "title": "Order of restitution other than money",
+      "says": "The Tribunal may order the party who infringed a right to make restitution other than money (for example, reinstatement to a job or offering housing) for loss arising out of the infringement.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.2 (1)",
+        "expect": "make restitution to the party whose right was infringed, other"
+      }
+    },
+    {
+      "id": "hr.remedy.public-interest",
+      "kind": "step",
+      "title": "Order to promote compliance (public interest remedy)",
+      "says": "The Tribunal may order any party to do anything it thinks that party ought to do to promote compliance with the Code, including about future practices (such as training or policy changes), even if no one asked for it.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.2 (2)",
+        "expect": "direct a person to do anything with respect to future"
+      }
+    },
+    {
+      "id": "hr.remedy.commission-orders",
+      "kind": "step",
+      "title": "Orders on a Commission application",
+      "says": "On a Commission application, the Tribunal may order any party to do anything to promote compliance with the Code, including about future practices.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.3 (1)",
+        "expect": "to do anything that, in the opinion of the Tribunal"
+      }
+    },
+    {
+      "id": "hr.remedy.interest",
+      "kind": "step",
+      "title": "Interest on money orders",
+      "says": "A tribunal order for payment of money must state the principal amount and, if interest is payable, the rate and the date it runs from.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 17 (2)",
+        "expect": "rate of interest and the date from which it is"
+      }
+    },
+    {
+      "id": "hr.option.settlement",
+      "kind": "option",
+      "title": "Settlement",
+      "says": "A settlement that is in writing and signed by the parties is binding on them. On the parties' joint motion, the Tribunal may make an order requiring compliance with it.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.9 (1)",
+        "expect": "agreed to in writing and signed by the parties, the"
+      },
+      "leadsTo": [
+        "hr.option.consent-order",
+        "hr.start.contravention"
+      ]
+    },
+    {
+      "id": "hr.option.consent-order",
+      "kind": "option",
+      "title": "Consent order on a settlement",
+      "says": "On the joint motion of the parties, the Tribunal may make an order requiring compliance with all or part of a signed written settlement.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.9 (2)",
+        "expect": "joint motion of the parties, make an order requiring compliance"
+      }
+    },
+    {
+      "id": "hr.option.consent-disposition",
+      "kind": "option",
+      "title": "Decision without a hearing on consent",
+      "says": "If the parties consent, a proceeding may be decided without a hearing, unless another law says otherwise.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 4.1",
+        "expect": "If the parties consent, a proceeding may be disposed of"
+      }
+    },
+    {
+      "id": "hr.option.withdraw",
+      "kind": "option",
+      "title": "Withdrawing an application",
+      "says": "An applicant may withdraw an application by notifying the Tribunal under its rules.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 1",
+        "expect": "withdraw all or part of an Application"
+      }
+    },
+    {
+      "id": "hr.start.contravention",
+      "kind": "start",
+      "title": "Application for contravention of settlement",
+      "says": "If a party believes another party broke a signed written settlement, they may apply to the Tribunal within six months after the breach (or the last breach in a series).",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.9 (3)",
+        "expect": "within six months after the contravention"
+      },
+      "leadsTo": [
+        "hr.deadline.contravention-late",
+        "hr.form.contravention",
+        "hr.remedy.contravention"
+      ]
+    },
+    {
+      "id": "hr.deadline.contravention-late",
+      "kind": "test",
+      "title": "Late contravention applications",
+      "says": "The Tribunal may accept a late contravention application if the delay was in good faith and no one affected will suffer substantial prejudice.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.9 (4)",
+        "expect": "the delay was incurred in good faith"
+      }
+    },
+    {
+      "id": "hr.form.contravention",
+      "kind": "form",
+      "title": "Contravention of settlement form",
+      "says": "A contravention-of-settlement application must be on the Tribunal's approved form. The parties are the parties to the settlement and anyone the Tribunal adds.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.9 (5)",
+        "expect": "shall be in a form approved by the Tribunal"
+      }
+    },
+    {
+      "id": "hr.remedy.contravention",
+      "kind": "step",
+      "title": "Order remedying a broken settlement",
+      "says": "If the Tribunal finds a party broke the settlement, it may make any order it considers appropriate to remedy the breach.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.9 (8)",
+        "expect": "any order that it considers appropriate to remedy the contravention"
+      },
+      "leadsTo": [
+        "hr.enforce.file-in-court"
+      ]
+    },
+    {
+      "id": "hr.option.reconsideration",
+      "kind": "option",
+      "title": "Request for reconsideration",
+      "says": "Any party may ask the Tribunal to reconsider its decision under the Tribunal rules, and the Tribunal may also reconsider on its own. Reconsideration is discretionary and is not a second hearing.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.7 (1)",
+        "expect": "may request that the Tribunal reconsider its decision"
+      },
+      "leadsTo": [
+        "hr.deadline.reconsideration",
+        "hr.option.judicial-review"
+      ]
+    },
+    {
+      "id": "hr.deadline.reconsideration",
+      "kind": "deadline",
+      "title": "Time to request reconsideration",
+      "says": "Under the HRTO Rules, a request for reconsideration is filed within 30 days of the decision, unless the Tribunal allows more time in exceptional circumstances.",
+      "source": {
+        "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
+        "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
+        "pinpoint": "r. 26.2",
+        "expect": "within 30 days of the date of the decision"
+      }
+    },
+    {
+      "id": "hr.option.correction",
+      "kind": "option",
+      "title": "Correcting a typo or calculation error",
+      "says": "The Tribunal may at any time correct a typographical error, calculation error or similar error in its decision.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 21.1",
+        "expect": "correct a typographical error, error of calculation"
+      }
+    },
+    {
+      "id": "hr.statute.finality",
+      "kind": "statute",
+      "title": "Tribunal decisions are final",
+      "says": "A Tribunal decision is final and cannot be appealed. A court on judicial review cannot set it aside unless it is patently unreasonable (subject to reconsideration and correction of errors).",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.8",
+        "expect": "unless the decision is patently unreasonable"
+      },
+      "leadsTo": [
+        "hr.option.judicial-review",
+        "hr.decision.vavilov"
+      ]
+    },
+    {
+      "id": "hr.option.judicial-review",
+      "kind": "option",
+      "title": "Judicial review in the Divisional Court",
+      "says": "A party may apply to the Divisional Court for judicial review of a Tribunal decision. It is started by a notice of application (Form 68A) and is a review of the decision, not a new hearing.",
+      "source": {
+        "corpusId": "rules-of-civil-procedure",
+        "pinpoint": "r. 68.01 (1)",
+        "expect": "the notice of application shall be in Form 68A"
+      },
+      "form": "68A",
+      "leadsTo": [
+        "hr.deadline.judicial-review",
+        "hr.step.jr-record",
+        "hr.step.jr-no-automatic-stay",
+        "hr.test.jr-standard"
+      ]
+    },
+    {
+      "id": "hr.deadline.judicial-review",
+      "kind": "deadline",
+      "title": "Time limit for judicial review",
+      "says": "An application for judicial review must be made no later than 30 days after the decision, unless the court extends the time.",
+      "source": {
+        "citation": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
+        "url": "https://www.ontario.ca/laws/statute/90j01",
+        "pinpoint": "s. 5 (1)",
+        "expect": "no later than 30 days after the date the decision"
+      }
+    },
+    {
+      "id": "hr.step.jr-record",
+      "kind": "step",
+      "title": "Application record and factum",
+      "says": "The applicant on judicial review delivers an application record and a factum within 30 days after the Tribunal's record is filed (or after the application starts, if no record is needed).",
+      "source": {
+        "corpusId": "rules-of-civil-procedure",
+        "pinpoint": "r. 68.04 (1)",
+        "expect": "within thirty days after the record is filed"
+      },
+      "leadsTo": [
+        "hr.step.jr-dismissal-for-delay"
+      ]
+    },
+    {
+      "id": "hr.step.jr-dismissal-for-delay",
+      "kind": "step",
+      "title": "Dismissal of a judicial review for delay",
+      "says": "If the applicant does not deliver the record and factum on time, the respondent may move to the registrar to have the application dismissed for delay.",
+      "source": {
+        "corpusId": "rules-of-civil-procedure",
+        "pinpoint": "r. 68.06 (1)",
+        "expect": "to have the application dismissed for delay"
+      }
+    },
+    {
+      "id": "hr.step.jr-no-automatic-stay",
+      "kind": "step",
+      "title": "Judicial review does not stop the order automatically",
+      "says": "Applying for judicial review is not an appeal, so it does not automatically stay (pause) the Tribunal's order.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 25 (2)",
+        "expect": "is not an appeal within the meaning of subsection (1)"
+      }
+    },
+    {
+      "id": "hr.test.jr-standard",
+      "kind": "test",
+      "title": "Standard of review on judicial review",
+      "says": "The Code says a Tribunal decision can be set aside only if patently unreasonable. The Supreme Court's framework for standard of review is in Vavilov; how it applies to the Code's patently unreasonable clause has been addressed by Ontario courts.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.8",
+        "expect": "not be altered or set aside in an application for"
+      },
+      "leadsTo": [
+        "hr.decision.vavilov",
+        "hr.test.rules-breach"
+      ]
+    },
+    {
+      "id": "hr.test.rules-breach",
+      "kind": "test",
+      "title": "Breaking the Tribunal's own rules is not enough on its own",
+      "says": "A failure by the Tribunal to follow its rules, or how it used its discretion under them, is not a ground to set aside its decision unless it caused a substantial wrong that affected the final result.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 43 (8)",
+        "expect": "caused a substantial wrong which affected the final disposition"
+      }
+    },
+    {
+      "id": "hr.option.stated-case",
+      "kind": "option",
+      "title": "Stated case by the Commission",
+      "says": "Where the Commission was a party or intervenor and believes a final decision is inconsistent with a Commission policy, it may ask the Tribunal to state a case on a question of law to the Divisional Court.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.6 (1)",
+        "expect": "state a case to the Divisional Court"
+      },
+      "leadsTo": [
+        "hr.deadline.stated-case-reconsideration"
+      ]
+    },
+    {
+      "id": "hr.deadline.stated-case-reconsideration",
+      "kind": "deadline",
+      "title": "Reconsideration after a stated case",
+      "says": "Within 30 days of receiving the Divisional Court's decision on a stated case, any party may ask the Tribunal to reconsider its original decision.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 45.6 (7)",
+        "expect": "30 days of receipt of the decision of the Divisional"
+      }
+    },
+    {
+      "id": "hr.enforce.file-in-court",
+      "kind": "enforcement",
+      "title": "Filing a Tribunal order in the Superior Court",
+      "says": "A certified copy of a Tribunal decision or order may be filed in the Superior Court of Justice by a party. Once filed, it is treated as an order of that court and can be enforced like one.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 19 (1)",
+        "expect": "be filed in the Superior Court of Justice by the"
+      },
+      "leadsTo": [
+        "hr.enforce.notice-of-filing",
+        "hr.enforce.sheriff",
+        "hr.enforce.writ",
+        "hr.enforce.garnishment"
+      ]
+    },
+    {
+      "id": "hr.enforce.notice-of-filing",
+      "kind": "deadline",
+      "title": "Tell the Tribunal within 10 days of filing",
+      "says": "A party who files a Tribunal order in court must notify the Tribunal within 10 days after filing.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 19 (2)",
+        "expect": "shall notify the tribunal within 10 days after the filing"
+      }
+    },
+    {
+      "id": "hr.enforce.sheriff",
+      "kind": "enforcement",
+      "title": "Sheriff enforces money orders",
+      "says": "On receiving a certified copy of a Tribunal order to pay money, the sheriff enforces it as if it were an execution issued by the Superior Court.",
+      "source": {
+        "corpusId": "statutory-powers-procedure-act",
+        "pinpoint": "s. 19 (3)",
+        "expect": "sheriff shall enforce the order as if it were an"
+      }
+    },
+    {
+      "id": "hr.enforce.writ",
+      "kind": "enforcement",
+      "title": "Writ of seizure and sale",
+      "says": "A creditor under a court order (including a filed Tribunal order) can have a writ of seizure and sale issued, which lets the sheriff seize and sell the debtor's property.",
+      "source": {
+        "corpusId": "rules-of-civil-procedure",
+        "pinpoint": "r. 60.07 (1)",
+        "expect": "creditor is entitled to the issue of one or more"
+      }
+    },
+    {
+      "id": "hr.enforce.garnishment",
+      "kind": "enforcement",
+      "title": "Garnishment",
+      "says": "A creditor under an order to pay money can enforce it by garnishing money owed to the debtor by others, such as wages or bank accounts.",
+      "source": {
+        "corpusId": "rules-of-civil-procedure",
+        "pinpoint": "r. 60.08 (1)",
+        "expect": "enforce it by garnishment of debts payable to the debtor"
+      }
+    },
+    {
+      "id": "hr.enforce.offence",
+      "kind": "enforcement",
+      "title": "Breaking a Tribunal order is an offence",
+      "says": "Contravening s. 9 of the Code, certain inquiry provisions, or a Tribunal order is an offence with a fine of up to $25,000 on conviction.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 46.2 (1)",
+        "expect": "liable to a fine of not more than $25,000"
+      },
+      "leadsTo": [
+        "hr.enforce.ag-consent"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The Attorney General consent requirement is in s. 46.2(2), not the cited s. 46.2(1).",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "hr.enforce.ag-consent",
+      "kind": "enforcement",
+      "title": "Attorney General's consent to prosecute",
+      "says": "No prosecution for an offence under the Code can be started without the written consent of the Attorney General.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 46.2 (2)",
+        "expect": "except with the consent in writing of the Attorney General"
+      }
+    },
+    {
+      "id": "hr.civil.remedy",
+      "kind": "option",
+      "title": "Code remedies in a civil lawsuit",
+      "says": "In a civil court case, if the court finds a party infringed another party's Code right, it may order compensation (including for injury to dignity, feelings and self-respect) and restitution.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 46.1 (1)",
+        "expect": "in a civil proceeding in a court, the court finds"
+      },
+      "leadsTo": [
+        "hr.civil.no-standalone-action",
+        "hr.civil.limitation",
+        "hr.pre.application-barred"
+      ]
+    },
+    {
+      "id": "hr.civil.no-standalone-action",
+      "kind": "test",
+      "title": "No lawsuit based only on the Code",
+      "says": "A person cannot start a court action based only on an infringement of a Code right. The Code claim must be attached to another cause of action, such as wrongful dismissal or breach of contract.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 46.1 (2)",
+        "expect": "not permit a person to commence an action based solely"
+      },
+      "leadsTo": [
+        "hr.decision.bhadauria"
+      ]
+    },
+    {
+      "id": "hr.civil.limitation",
+      "kind": "deadline",
+      "title": "Limitation period for a civil action",
+      "says": "A court action (including one that asks for Code remedies alongside another claim) generally must be started within two years after the claim was discovered.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 4",
+        "expect": "after the second anniversary of the day on which the"
+      }
+    },
+    {
+      "id": "hr.step.commission-inquiry",
+      "kind": "step",
+      "title": "Commission public-interest inquiries",
+      "says": "The Commission may conduct an inquiry to carry out its functions if it believes it is in the public interest.",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 31 (1)",
+        "expect": "Commission believes it is in the public interest to do"
+      }
+    },
+    {
+      "id": "hr.statute.commission-policies",
+      "kind": "statute",
+      "title": "Commission policies",
+      "says": "The Commission may approve policies giving guidance on applying Parts I and II of the Code (for example, on disability accommodation or harassment).",
+      "source": {
+        "corpusId": "human-rights-code",
+        "pinpoint": "s. 30",
+        "expect": "provide guidance in the application of Parts I and II"
+      },
+      "leadsTo": [
+        "hr.step.commission-policies"
+      ]
+    },
+    {
+      "id": "hr.decision.moore",
+      "kind": "decision",
+      "title": "Moore v. British Columbia (Education)",
+      "says": "The Supreme Court set out the three-part test for showing discrimination on its face: a protected characteristic, an adverse impact, and the characteristic being a factor in the impact.",
+      "source": {
+        "decision": "Moore v. British Columbia (Education), 2012 SCC 61",
+        "corpusId": "decision-moore-bc",
+        "pinpoint": "para. 33",
+        "expect": "are required to show that they have a characteristic protected"
+      },
+      "leadsTo": [
+        "hr.test.prima-facie"
+      ]
+    },
+    {
+      "id": "hr.decision.meiorin",
+      "kind": "decision",
+      "title": "Meiorin (BCGSEU)",
+      "says": "The Supreme Court set a single test for a workplace standard: adopted for a purpose rationally connected to the job, adopted in good faith, and reasonably necessary, meaning the employer cannot accommodate without undue hardship.",
+      "source": {
+        "decision": "British Columbia (Public Service Employee Relations Commission) v. BCGSEU, [1999] 3 S.C.R. 3",
+        "pinpoint": "para. 54",
+        "expect": "reasonably necessary to the accomplishment of that legitimate work-related purpose"
+      },
+      "leadsTo": [
+        "hr.defence.bfor"
+      ]
+    },
+    {
+      "id": "hr.decision.grismer",
+      "kind": "decision",
+      "title": "Grismer",
+      "says": "The Supreme Court applied the Meiorin test to services, not only employment (a driver's licence standard).",
+      "source": {
+        "decision": "British Columbia (Superintendent of Motor Vehicles) v. British Columbia (Council of Human Rights), [1999] 3 S.C.R. 868",
+        "pinpoint": "para. 20"
+      },
+      "leadsTo": [
+        "hr.test.respondent-justification"
+      ]
+    },
+    {
+      "id": "hr.decision.elk-valley",
+      "kind": "decision",
+      "title": "Stewart v. Elk Valley Coal",
+      "says": "The Supreme Court confirmed the three-part Moore test and that the protected ground must be a factor in the adverse treatment; it also addressed addiction and workplace drug policies.",
+      "source": {
+        "decision": "Stewart v. Elk Valley Coal Corp., 2017 SCC 30",
+        "pinpoint": "para. 24"
+      },
+      "leadsTo": [
+        "hr.test.prima-facie"
+      ]
+    },
+    {
+      "id": "hr.decision.simpsons-sears",
+      "kind": "decision",
+      "title": "O'Malley (Simpsons-Sears)",
+      "says": "The Supreme Court held that intent is not required and that rules neutral on their face can discriminate by their effect (adverse effect discrimination).",
+      "source": {
+        "decision": "Ontario Human Rights Commission v. Simpsons-Sears Ltd., [1985] 2 S.C.R. 536",
+        "pinpoint": "para. 18"
+      },
+      "leadsTo": [
+        "hr.test.no-intent-needed"
+      ]
+    },
+    {
+      "id": "hr.decision.renaud",
+      "kind": "decision",
+      "title": "Central Okanagan School District No. 23 v. Renaud",
+      "says": "The Supreme Court held that a union can share the duty to accommodate and that the employee seeking accommodation must help find a reasonable accommodation.",
+      "source": {
+        "decision": "Central Okanagan School District No. 23 v. Renaud, [1992] 2 S.C.R. 970"
+      },
+      "leadsTo": [
+        "hr.test.accommodation-process"
+      ]
+    },
+    {
+      "id": "hr.decision.hydro-quebec",
+      "kind": "decision",
+      "title": "Hydro-Québec v. Syndicat",
+      "says": "The Supreme Court held that undue hardship does not require proof that accommodation is impossible; the test is whether the employer cannot accommodate without undue hardship, for example where the employee cannot work in the reasonably foreseeable future.",
+      "source": {
+        "decision": "Hydro-Québec v. Syndicat des employé-e-s de techniques professionnelles et de bureau d'Hydro-Québec, section locale 2000 (SCFP-FTQ), 2008 SCC 43",
+        "pinpoint": "para. 16"
+      },
+      "leadsTo": [
+        "hr.test.undue-hardship"
+      ]
+    },
+    {
+      "id": "hr.decision.bombardier",
+      "kind": "decision",
+      "title": "Quebec (CDPDJ) v. Bombardier",
+      "says": "The Supreme Court held that each element of discrimination is proved on a balance of probabilities and that the ground need only be a factor, which can be shown by circumstantial evidence.",
+      "source": {
+        "decision": "Quebec (Commission des droits de la personne et des droits de la jeunesse) v. Bombardier Inc. (Bombardier Aerospace Training Center), 2015 SCC 39",
+        "pinpoint": "para. 65"
+      },
+      "leadsTo": [
+        "hr.test.burden-of-proof"
+      ]
+    },
+    {
+      "id": "hr.decision.pieters",
+      "kind": "decision",
+      "title": "Peel Law Association v. Pieters",
+      "says": "The Court of Appeal for Ontario confirmed that a protected ground need only be one factor in the treatment and that discrimination can be inferred from circumstantial evidence.",
+      "source": {
+        "decision": "Peel Law Association v. Pieters, 2013 ONCA 396",
+        "pinpoint": "para. 59"
+      },
+      "leadsTo": [
+        "hr.test.burden-of-proof"
+      ]
+    },
+    {
+      "id": "hr.decision.janzen",
+      "kind": "decision",
+      "title": "Janzen v. Platy Enterprises",
+      "says": "The Supreme Court held that sexual harassment in the workplace is a form of sex discrimination.",
+      "source": {
+        "decision": "Janzen v. Platy Enterprises Ltd., [1989] 1 S.C.R. 1252"
+      },
+      "leadsTo": [
+        "hr.area.workplace-sexual-harassment"
+      ]
+    },
+    {
+      "id": "hr.decision.noble",
+      "kind": "decision",
+      "title": "Noble v. York University (reprisal test)",
+      "says": "An HRTO decision often cited for the elements of reprisal: an action or threat, an intent (at least in part) to retaliate, and a link to a claim or enforcement of Code rights.",
+      "source": {
+        "decision": "Noble v. York University, 2010 HRTO 878",
+        "pinpoint": "para. 33"
+      },
+      "leadsTo": [
+        "hr.test.reprisal"
+      ]
+    },
+    {
+      "id": "hr.decision.bhadauria",
+      "kind": "decision",
+      "title": "Seneca College v. Bhadauria",
+      "says": "The Supreme Court held there is no independent tort (civil wrong) of discrimination; the Code's own procedures are the route for Code-only claims.",
+      "source": {
+        "decision": "Seneca College of Applied Arts and Technology v. Bhadauria, [1981] 2 S.C.R. 181"
+      },
+      "leadsTo": [
+        "hr.civil.no-standalone-action"
+      ]
+    },
+    {
+      "id": "hr.decision.figliola",
+      "kind": "decision",
+      "title": "British Columbia (WCB) v. Figliola",
+      "says": "The Supreme Court discussed when a human rights tribunal may decline to re-decide a matter already decided by another body that had power to decide it, applying principles behind s. 45.1-type provisions.",
+      "source": {
+        "decision": "British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52",
+        "pinpoint": "para. 37"
+      },
+      "leadsTo": [
+        "hr.motion.dismiss-other-proceeding"
+      ]
+    },
+    {
+      "id": "hr.decision.penner",
+      "kind": "decision",
+      "title": "Penner v. Niagara (Regional Police Services Board)",
+      "says": "The Supreme Court addressed when a decision in one proceeding prevents re-litigation of the same issue in another (issue estoppel), including fairness of applying it.",
+      "source": {
+        "decision": "Penner v. Niagara (Regional Police Services Board), 2013 SCC 19"
+      },
+      "leadsTo": [
+        "hr.motion.dismiss-other-proceeding",
+        "hr.decision.danyluk"
+      ]
+    },
+    {
+      "id": "hr.decision.danyluk",
+      "kind": "decision",
+      "title": "Danyluk v. Ainsworth Technologies",
+      "says": "The Supreme Court set out the test for issue estoppel and the discretion not to apply it where that would be unfair.",
+      "source": {
+        "decision": "Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44",
+        "pinpoint": "para. 25"
+      },
+      "leadsTo": [
+        "hr.motion.dismiss-other-proceeding"
+      ]
+    },
+    {
+      "id": "hr.decision.tranchemontagne",
+      "kind": "decision",
+      "title": "Tranchemontagne v. Ontario",
+      "says": "The Supreme Court held that an Ontario tribunal with power to decide questions of law can apply the Human Rights Code and decline to apply a provision that conflicts with it.",
+      "source": {
+        "decision": "Tranchemontagne v. Ontario (Director, Disability Support Program), 2006 SCC 14"
+      },
+      "leadsTo": [
+        "hr.statute.primacy"
+      ]
+    },
+    {
+      "id": "hr.decision.horrocks",
+      "kind": "decision",
+      "title": "Northern Regional Health Authority v. Horrocks",
+      "says": "The Supreme Court addressed whether a labour arbitrator or a human rights tribunal has jurisdiction over workplace human rights disputes in a unionized setting, depending on the statutes in each province.",
+      "source": {
+        "decision": "Northern Regional Health Authority v. Horrocks, 2021 SCC 42"
+      },
+      "leadsTo": [
+        "hr.pre.unionized-worker"
+      ]
+    },
+    {
+      "id": "hr.decision.vavilov",
+      "kind": "decision",
+      "title": "Canada (MCI) v. Vavilov",
+      "says": "The Supreme Court set the framework for the standard of review of administrative decisions, including that courts give effect to a legislature's choice of a standard.",
+      "source": {
+        "decision": "Canada (Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65",
+        "pinpoint": "para. 35"
+      },
+      "leadsTo": [
+        "hr.test.jr-standard"
+      ]
+    },
+    {
+      "id": "hr.decision.arunachalam",
+      "kind": "decision",
+      "title": "Arunachalam v. Best Buy Canada",
+      "says": "An HRTO decision often cited for the factors used to set compensation for injury to dignity, feelings and self-respect: the objective seriousness of the conduct and its effect on the particular applicant.",
+      "source": {
+        "decision": "Arunachalam v. Best Buy Canada, 2010 HRTO 1880",
+        "pinpoint": "para. 52"
+      },
+      "leadsTo": [
+        "hr.remedy.compensation"
+      ]
+    },
+    {
+      "id": "hr.decision.adga-lane",
+      "kind": "decision",
+      "title": "ADGA Group Consultants v. Lane",
+      "says": "The Divisional Court upheld an HRTO award for a disability-related dismissal, including damages for injury to dignity and the failure to take part in the procedural duty to accommodate.",
+      "source": {
+        "decision": "ADGA Group Consultants Inc. v. Lane (2008), 91 O.R. (3d) 649 (Div. Ct.)"
+      },
+      "leadsTo": [
+        "hr.remedy.compensation",
+        "hr.test.accommodation-process"
+      ]
+    },
+    {
+      "id": "hr.decision.taylor-baptiste",
+      "kind": "decision",
+      "title": "Taylor-Baptiste v. OPSEU",
+      "says": "The Court of Appeal for Ontario upheld the HRTO's approach to whether conduct falls within a social area ('with respect to employment') and its balancing of Code rights with freedom of expression.",
+      "source": {
+        "decision": "Taylor-Baptiste v. Ontario Public Service Employees Union, 2015 ONCA 495"
+      },
+      "leadsTo": [
+        "hr.pre.social-area-and-ground"
+      ]
+    },
+    {
+      "id": "hr.decision.shaw-phipps",
+      "kind": "decision",
+      "title": "Shaw v. Phipps",
+      "says": "The Court of Appeal for Ontario upheld an HRTO finding of racial profiling based on circumstantial evidence.",
+      "source": {
+        "decision": "Shaw v. Phipps, 2012 ONCA 155"
+      },
+      "leadsTo": [
+        "hr.test.burden-of-proof"
+      ]
+    }
+  ]
+}

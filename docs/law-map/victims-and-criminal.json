@@ -1,0 +1,2684 @@
+{
+  "area": "victims-and-criminal",
+  "title": "Victims of crime, bail and the civil side of criminal matters",
+  "updated": "2026-10-13",
+  "items": [
+    {
+      "id": "vic.statute.criminal-code",
+      "kind": "statute",
+      "title": "Criminal Code: who is a victim",
+      "says": "The Criminal Code sets out crimes, bail, peace bonds, trials and sentencing. It defines a victim as a person against whom an offence was committed or is said to have been committed, and who suffered physical or emotional harm, property damage or economic loss because of it.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 2 (victim)",
+        "expect": "who has suffered, or is alleged to have suffered"
+      },
+      "leadsTo": [
+        "vic.pre.report",
+        "vic.bail.start.show-cause",
+        "vic.sent.vis"
+      ]
+    },
+    {
+      "id": "vic.statute.cvbr",
+      "kind": "statute",
+      "title": "Canadian Victims Bill of Rights",
+      "says": "A federal law that gives victims of crime rights to information, protection, participation and restitution in the criminal justice system. A victim is an individual who suffered physical or emotional harm, property damage or economic loss as the result of an offence or alleged offence.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 2 (victim)",
+        "expect": "property damage or economic loss as the result"
+      },
+      "leadsTo": [
+        "vic.cvbr.respect",
+        "vic.cvbr.info-general",
+        "vic.cvbr.security",
+        "vic.cvbr.views",
+        "vic.cvbr.restitution",
+        "vic.cvbr.complaint-federal"
+      ]
+    },
+    {
+      "id": "vic.statute.ovbr",
+      "kind": "statute",
+      "title": "Ontario Victims' Bill of Rights, 1995",
+      "says": "Ontario's law that sets out principles for how justice officials treat victims of crime, and special rules for civil lawsuits by victims against people convicted of certain crimes. A victim includes certain family members when the crime causes a death.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 1 (victim)",
+        "expect": "suffers emotional or physical harm, loss of or damage"
+      },
+      "leadsTo": [
+        "vic.ovbr.principles-courtesy",
+        "vic.ovbr.civil-damages"
+      ]
+    },
+    {
+      "id": "vic.statute.crown-attorneys-act",
+      "kind": "statute",
+      "title": "Crown Attorneys Act",
+      "says": "Ontario's law that creates Crown Attorneys and assistant Crown Attorneys, who must be members of the bar of Ontario, and sets out their duties in prosecutions.",
+      "source": {
+        "corpusId": "crown-attorneys-act",
+        "pinpoint": "s. 4",
+        "expect": "who is not a member of the bar of Ontario"
+      },
+      "leadsTo": [
+        "vic.crown.agent",
+        "vic.crown.duties"
+      ]
+    },
+    {
+      "id": "vic.statute.mag-act",
+      "kind": "statute",
+      "title": "Ministry of the Attorney General Act",
+      "says": "The Attorney General oversees all matters connected with the administration of justice in Ontario, and conducts litigation for and against the Crown.",
+      "source": {
+        "corpusId": "ministry-of-the-attorney-general-act",
+        "pinpoint": "s. 5 (c)",
+        "expect": "superintend all matters connected with the administration of justice"
+      },
+      "leadsTo": [
+        "vic.crown.immunity"
+      ]
+    },
+    {
+      "id": "vic.statute.limitations",
+      "kind": "statute",
+      "title": "Limitations Act, 2002",
+      "says": "Ontario's law that sets the deadlines for starting a civil lawsuit, including a lawsuit against the person who harmed you. Some claims based on sexual assault or certain assaults have no deadline.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 4",
+        "expect": "after the second anniversary of the day on which the claim was discovered"
+      },
+      "leadsTo": [
+        "vic.civil.limit-basic",
+        "vic.civil.no-limit-sexual-assault"
+      ]
+    },
+    {
+      "id": "vic.pre.report",
+      "kind": "pre-step",
+      "title": "Reporting the offence to police",
+      "says": "Under the Canadian Victims Bill of Rights, once an offence is reported to the appropriate authorities in the criminal justice system, the investigation is treated as having begun at the time of the report, and the victim's rights under that Act apply while it is investigated or prosecuted.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 18 (2)",
+        "expect": "the investigation of the offence is deemed to begin at the time of the reporting"
+      },
+      "leadsTo": [
+        "vic.cvbr.investigation-info",
+        "vic.ovbr.principles-info",
+        "vic.pre.private-information",
+        "vic.crown.screening"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 18 (2) does not say a criminal matter usually starts with a report to police; it speaks of a report to 'the appropriate authorities in the criminal justice system' and deems the investigation to begin then.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "vic.pre.private-information",
+      "kind": "start",
+      "title": "Laying a private information",
+      "says": "Any person who believes on reasonable grounds that someone has committed an indictable offence may lay an information (a sworn written charge) before a justice of the peace. The justice must receive it.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 504",
+        "expect": "may lay an information in writing and under oath before a justice"
+      },
+      "leadsTo": [
+        "vic.step.pre-enquete"
+      ]
+    },
+    {
+      "id": "vic.step.pre-enquete",
+      "kind": "step",
+      "title": "Hearing before a charge laid by a private person goes ahead",
+      "says": "When a private person lays an information, a judge or designated justice holds a hearing in private, without the accused, to hear the person's allegations and witnesses. A summons or warrant can issue only if the Attorney General got a copy of the information, reasonable notice, and an opportunity to attend, cross-examine and call evidence.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 507.1 (3)",
+        "expect": "has heard and considered, ex parte and in camera"
+      },
+      "leadsTo": [
+        "vic.option.crown-takes-over",
+        "vic.option.crown-stay"
+      ]
+    },
+    {
+      "id": "vic.option.crown-takes-over",
+      "kind": "option",
+      "title": "Crown can take over a private prosecution",
+      "says": "A Crown Attorney watches over cases run by private prosecutors. The Crown is not to interfere unnecessarily, but takes over the whole case where justice towards the accused seems to require it.",
+      "source": {
+        "corpusId": "crown-attorneys-act",
+        "pinpoint": "s. 11 (d)",
+        "expect": "watch over cases conducted by private prosecutors"
+      },
+      "leadsTo": [
+        "vic.option.crown-stay"
+      ]
+    },
+    {
+      "id": "vic.option.crown-stay",
+      "kind": "option",
+      "title": "Crown stay of proceedings",
+      "says": "The Attorney General, or a Crown counsel instructed for that purpose, may stay a criminal proceeding at any time after it starts and before judgment. A stayed proceeding can be restarted by notice, but if no notice is given within one year it is treated as never having been started.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 579 (1)",
+        "expect": "the proceedings are stayed by the Attorney General"
+      },
+      "leadsTo": [
+        "vic.dec.krieger"
+      ]
+    },
+    {
+      "id": "vic.crown.screening",
+      "kind": "step",
+      "title": "Crown charge screening",
+      "says": "Ontario Crown prosecutors review each charge to decide whether the prosecution continues. The Crown Prosecution Manual sets out the screening standard the Crown applies, which includes whether there is a reasonable prospect of conviction and whether the prosecution is in the public interest.",
+      "source": {
+        "citation": "Ministry of the Attorney General, Crown Prosecution Manual, Directive: Charge Screening",
+        "url": "https://www.ontario.ca/document/crown-prosecution-manual",
+        "pinpoint": "Charge Screening",
+        "expect": "reasonable prospect of conviction"
+      },
+      "leadsTo": [
+        "vic.crown.duties",
+        "vic.bail.start.show-cause"
+      ]
+    },
+    {
+      "id": "vic.cvbr.respect",
+      "kind": "statute",
+      "title": "Right to respect, courtesy, compassion and fairness",
+      "says": "Every victim has the right to be treated with respect, courtesy, compassion and fairness by the authorities in the criminal justice system.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 5.1",
+        "expect": "treated with respect, courtesy, compassion and fairness"
+      }
+    },
+    {
+      "id": "vic.cvbr.timely",
+      "kind": "statute",
+      "title": "Interest in a timely trial",
+      "says": "Every victim has the right to have their interest in a timely trial, and in the timely resolution of matters relating to the offence, taken into consideration.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 5.2",
+        "expect": "their interest in a timely trial"
+      },
+      "leadsTo": [
+        "vic.dec.jordan"
+      ]
+    },
+    {
+      "id": "vic.cvbr.info-general",
+      "kind": "statute",
+      "title": "Right to general information",
+      "says": "Every victim has the right to information about the criminal justice system and their role in it, the services and programs available to them, their right to complain, and their rights under the Act.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 6",
+        "expect": "the criminal justice system and the role of victims in it"
+      },
+      "leadsTo": [
+        "vic.support.vwap",
+        "vic.support.victim-support-line"
+      ]
+    },
+    {
+      "id": "vic.cvbr.investigation-info",
+      "kind": "statute",
+      "title": "Right to information about the investigation and court dates",
+      "says": "Every victim has the right to information about the status and outcome of the investigation, and about where and when court proceedings take place, their progress and their outcome.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 7",
+        "expect": "the status and outcome of the investigation into the offence"
+      },
+      "leadsTo": [
+        "vic.ovbr.principles-info"
+      ]
+    },
+    {
+      "id": "vic.cvbr.protection-info",
+      "kind": "statute",
+      "title": "Right to information about protection measures",
+      "says": "Every victim has the right to information about the protection measures available to them in the criminal justice system.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 7.1",
+        "expect": "information about the protection measures available to them"
+      },
+      "leadsTo": [
+        "vic.trial.support-person",
+        "vic.trial.screen",
+        "vic.trial.pub-ban-sexual"
+      ]
+    },
+    {
+      "id": "vic.cvbr.restorative",
+      "kind": "statute",
+      "title": "Right to information about restorative justice",
+      "says": "Every victim has the right to information about available restorative justice processes, how they work, and that taking part is voluntary at every stage. If the victim and the accused or offender take part, the victim has the right to information about whether the agreed terms were carried out.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 7.2 (1)",
+        "expect": "the voluntary nature of participation at every stage"
+      }
+    },
+    {
+      "id": "vic.cvbr.offender-info",
+      "kind": "statute",
+      "title": "Right to information about the offender's release",
+      "says": "Every victim has the right to information about conditional release reviews of the offender, and the timing and conditions of release, and about Review Board hearings if the accused is found not criminally responsible or unfit to stand trial.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 8",
+        "expect": "the timing and conditions of that release"
+      },
+      "leadsTo": [
+        "vic.post.ovbr-notification",
+        "vic.post.ccra-info"
+      ]
+    },
+    {
+      "id": "vic.cvbr.security",
+      "kind": "statute",
+      "title": "Right to have security considered",
+      "says": "Every victim has the right to have their security considered by the authorities in the criminal justice system.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 9",
+        "expect": "have their security considered"
+      },
+      "leadsTo": [
+        "vic.bail.victim-safety-statement",
+        "vic.cvbr.intimidation"
+      ]
+    },
+    {
+      "id": "vic.cvbr.intimidation",
+      "kind": "statute",
+      "title": "Protection from intimidation and retaliation",
+      "says": "Every victim has the right to have reasonable and necessary measures taken to protect them from intimidation and retaliation.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 10",
+        "expect": "protect the victim from intimidation and retaliation"
+      },
+      "leadsTo": [
+        "vic.bail.conditions",
+        "vic.peace.start"
+      ]
+    },
+    {
+      "id": "vic.cvbr.privacy",
+      "kind": "statute",
+      "title": "Right to have privacy considered",
+      "says": "Every victim has the right to have their privacy considered by the authorities in the criminal justice system.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 11",
+        "expect": "have their privacy considered"
+      },
+      "leadsTo": [
+        "vic.trial.records-hearing"
+      ]
+    },
+    {
+      "id": "vic.cvbr.identity",
+      "kind": "statute",
+      "title": "Identity protection",
+      "says": "A victim who is a complainant or witness has the right to be asked whether they want their identity protected, to request protection, to be told when an order is made, and to be told of their right to apply to revoke or vary it.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 12",
+        "expect": "be asked whether they wish to have their identity protected"
+      },
+      "leadsTo": [
+        "vic.trial.pub-ban-sexual",
+        "vic.trial.pub-ban-other",
+        "vic.trial.identity-nondisclosure"
+      ]
+    },
+    {
+      "id": "vic.cvbr.testimonial-aids",
+      "kind": "statute",
+      "title": "Right to request testimonial aids",
+      "says": "Every victim has the right to request testimonial aids when appearing as a witness.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 13",
+        "expect": "the right to request testimonial aids"
+      },
+      "leadsTo": [
+        "vic.trial.support-person",
+        "vic.trial.screen",
+        "vic.trial.no-self-cross"
+      ]
+    },
+    {
+      "id": "vic.cvbr.views",
+      "kind": "statute",
+      "title": "Right to have views considered",
+      "says": "Every victim has the right to convey their views about decisions by authorities that affect their rights under the Act, and to have those views considered.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 14",
+        "expect": "convey their views about decisions to be made"
+      },
+      "leadsTo": [
+        "vic.sent.vis"
+      ]
+    },
+    {
+      "id": "vic.cvbr.vis",
+      "kind": "statute",
+      "title": "Right to present a victim impact statement",
+      "says": "Every victim has the right to present a victim impact statement to the court, and a victim statement to other authorities such as the Correctional Service of Canada and the Parole Board of Canada, and to have it considered.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 15",
+        "expect": "present a victim impact statement to the court"
+      },
+      "leadsTo": [
+        "vic.sent.vis"
+      ]
+    },
+    {
+      "id": "vic.cvbr.restitution",
+      "kind": "statute",
+      "title": "Right to have restitution considered",
+      "says": "Every victim has the right to have the court consider making a restitution order against the offender.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 16",
+        "expect": "consider making a restitution order against the offender"
+      },
+      "leadsTo": [
+        "vic.rest.consider"
+      ]
+    },
+    {
+      "id": "vic.cvbr.restitution-enforcement",
+      "kind": "statute",
+      "title": "Right to enforce restitution as a civil judgment",
+      "says": "A victim who is owed money under a restitution order and is not paid has the right to have the order entered as a civil court judgment that can be enforced against the offender.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 17",
+        "expect": "entered as a civil court judgment"
+      },
+      "leadsTo": [
+        "vic.enf.restitution-judgment"
+      ]
+    },
+    {
+      "id": "vic.cvbr.on-behalf",
+      "kind": "statute",
+      "title": "Who may act for a victim",
+      "says": "If the victim has died or cannot act for themselves, their rights may be exercised by a spouse, a person who lived with them in a conjugal relationship for at least one year, a relative or dependant, or a person who has custody of or cares for the victim or the victim's dependant.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 3",
+        "expect": "if the victim is dead or incapable of acting on their own behalf"
+      }
+    },
+    {
+      "id": "vic.cvbr.exception",
+      "kind": "statute",
+      "title": "Accused persons are not victims under the Act",
+      "says": "A person charged with, found guilty of, or found not criminally responsible or unfit for the offence is not a victim of that offence under the Act.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 4",
+        "expect": "if the individual is charged with the offence"
+      }
+    },
+    {
+      "id": "vic.cvbr.when-applies",
+      "kind": "statute",
+      "title": "When the rights apply",
+      "says": "The Act applies while the offence is investigated or prosecuted, while the offender is in the corrections or conditional release process, and while an accused found not criminally responsible or unfit is under a court or Review Board.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 18 (1)",
+        "expect": "while the offence is investigated or prosecuted"
+      }
+    },
+    {
+      "id": "vic.cvbr.mechanisms",
+      "kind": "statute",
+      "title": "Rights are exercised through existing legal mechanisms",
+      "says": "Victims exercise their rights under the Act through the mechanisms the law already provides. The Act is applied so as not to interfere with police or prosecutorial discretion or cause excessive delay.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 19 (1)",
+        "expect": "exercised through the mechanisms provided by law"
+      }
+    },
+    {
+      "id": "vic.cvbr.interpretation",
+      "kind": "statute",
+      "title": "Limits on how the Act is applied",
+      "says": "The Act is applied in a way that is reasonable and that does not interfere with the proper administration of justice, police discretion, prosecutorial discretion, or anyone's safety.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 20",
+        "expect": "causing interference with prosecutorial discretion"
+      }
+    },
+    {
+      "id": "vic.cvbr.no-status",
+      "kind": "statute",
+      "title": "No party status in the criminal case",
+      "says": "The Act does not make a victim a party, intervenor or observer in a criminal proceeding, and does not take that status away where the law otherwise gives it.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 27",
+        "expect": "the status of party, intervenor or observer in any proceedings"
+      }
+    },
+    {
+      "id": "vic.cvbr.no-cause-of-action",
+      "kind": "statute",
+      "title": "No lawsuit for breach of the Act",
+      "says": "No cause of action or right to damages arises from an infringement or denial of a right under the Canadian Victims Bill of Rights.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 28",
+        "expect": "No cause of action or right to damages arises"
+      },
+      "leadsTo": [
+        "vic.cvbr.complaint-federal",
+        "vic.cvbr.complaint-provincial"
+      ]
+    },
+    {
+      "id": "vic.cvbr.no-appeal",
+      "kind": "statute",
+      "title": "No appeal only because a victim's right was denied",
+      "says": "No appeal lies from a decision or order solely because a right under the Act was infringed or denied.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 29",
+        "expect": "No appeal lies from any decision or order solely"
+      }
+    },
+    {
+      "id": "vic.cvbr.complaint-federal",
+      "kind": "pre-step",
+      "title": "Complaint to a federal body",
+      "says": "A victim who believes a federal department, agency or body denied their rights may complain through that body's complaints mechanism. If not satisfied after using it, they may complain to any authority that reviews complaints about that body.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 25 (1)",
+        "expect": "has the right to file a complaint in accordance with its complaints mechanism"
+      },
+      "leadsTo": [
+        "vic.cvbr.complaint-federal-review"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 25 names no bodies; the examples (RCMP, Public Prosecution Service of Canada, Correctional Service of Canada, Parole Board) are added.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "vic.cvbr.complaint-federal-review",
+      "kind": "step",
+      "title": "Further complaint after the federal process",
+      "says": "A victim who has used up a federal body's complaints process and is not satisfied may file a complaint with an authority that has jurisdiction to review complaints about that body. The body's process must review the complaint, can make recommendations, and must tell the victim the result.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 25 (2)",
+        "expect": "who has exhausted their recourse under the complaints mechanism"
+      }
+    },
+    {
+      "id": "vic.cvbr.complaint-provincial",
+      "kind": "pre-step",
+      "title": "Complaint about an Ontario body",
+      "says": "A victim who believes a provincial department, agency or body denied their rights under the Act may complain in accordance with the laws of the province.",
+      "source": {
+        "corpusId": "canadian-victims-bill-of-rights",
+        "pinpoint": "s. 26",
+        "expect": "may file a complaint in accordance with the laws of the province"
+      },
+      "leadsTo": [
+        "vic.police.complaint",
+        "vic.ovbr.no-remedy"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 26 names no examples; 'a police service or a Crown Attorney's office' is added, and a municipal police service is not obviously a 'provincial or territorial department, agency or body'.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "vic.ovbr.principles-courtesy",
+      "kind": "statute",
+      "title": "Ontario principle: courtesy, compassion and respect",
+      "says": "Ontario's Victims' Bill of Rights sets out as a principle that justice system officials treat victims with courtesy, compassion and respect for their personal dignity and privacy.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (1), para. 1",
+        "expect": "respect for their personal dignity and privacy"
+      },
+      "leadsTo": [
+        "vic.ovbr.limits"
+      ]
+    },
+    {
+      "id": "vic.ovbr.principles-info",
+      "kind": "statute",
+      "title": "Ontario principle: access to information",
+      "says": "Under Ontario's principles, victims have access to information about services and remedies, the progress of the investigation, the charges laid (or why none were laid), court dates and outcomes, any plea arrangements, the accused's interim release and sentencing, and their right to make a victim impact statement.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (1), para. 2",
+        "expect": "the reasons why no charges are laid"
+      },
+      "leadsTo": [
+        "vic.ovbr.limits",
+        "vic.support.vwap"
+      ]
+    },
+    {
+      "id": "vic.ovbr.notification",
+      "kind": "statute",
+      "title": "Ontario principle: notice of release or escape",
+      "says": "A victim of a prescribed crime who asks is to be notified of any application for release or upcoming release of the convicted person, including temporary absence or parole, and of any escape from custody.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (1), para. 3",
+        "expect": "any escape of the convicted person from custody"
+      },
+      "leadsTo": [
+        "vic.post.ovbr-notification"
+      ]
+    },
+    {
+      "id": "vic.ovbr.same-gender",
+      "kind": "statute",
+      "title": "Ontario principle: sexual assault interviews",
+      "says": "A victim of sexual assault who asks is to be interviewed during the investigation only by police officers and officials of the same gender as the victim.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (1), para. 5",
+        "expect": "only by police officers and officials of the same gender"
+      }
+    },
+    {
+      "id": "vic.ovbr.property",
+      "kind": "statute",
+      "title": "Ontario principle: return of property",
+      "says": "A victim's property held by justice officials is to be returned promptly once it is no longer needed for the justice system.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (1), para. 6",
+        "expect": "should be returned promptly to the victim"
+      }
+    },
+    {
+      "id": "vic.ovbr.limits",
+      "kind": "statute",
+      "title": "Limits on the Ontario principles",
+      "says": "The Ontario principles are subject to available resources and information, what is reasonable in the case, what is consistent with the law and the public interest, and what is needed so that criminal proceedings are not delayed.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (2)",
+        "expect": "subject to the availability of resources and information"
+      },
+      "leadsTo": [
+        "vic.ovbr.no-remedy"
+      ]
+    },
+    {
+      "id": "vic.ovbr.no-remedy",
+      "kind": "statute",
+      "title": "No new legal remedy from the Ontario principles",
+      "says": "The principles in section 2 do not create any new cause of action, right of appeal, claim or other remedy.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (5)",
+        "expect": "No new cause of action, right of appeal, claim or other remedy"
+      }
+    },
+    {
+      "id": "vic.ovbr.fund",
+      "kind": "statute",
+      "title": "Victims' Justice Fund",
+      "says": "Ontario keeps a victims' justice fund account, funded in part by fine surcharges, and the money is used to assist victims, including by supporting programs and community agencies.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 5 (4)",
+        "expect": "shall be used to assist victims"
+      },
+      "leadsTo": [
+        "vic.support.vqrp"
+      ]
+    },
+    {
+      "id": "vic.ovbr.office",
+      "kind": "statute",
+      "title": "Office for Victims of Crime",
+      "says": "The Office for Victims of Crime advises the Attorney General on how the victims' principles are respected, on standards for victim services, and on the use of the Victims' Justice Fund.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 5.1 (4)",
+        "expect": "ways to ensure that the principles set out in subsection 2 (1)"
+      }
+    },
+    {
+      "id": "vic.bail.start.show-cause",
+      "kind": "start",
+      "title": "Bail (judicial interim release) hearing",
+      "says": "When an accused is brought before a justice (other than for murder and the other offences listed in s. 469), the justice must release them without conditions unless the prosecutor shows cause why detention, or a release with conditions, is justified.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (1)",
+        "expect": "make a release order in respect of that offence, without conditions"
+      },
+      "leadsTo": [
+        "vic.bail.principle-restraint",
+        "vic.bail.release-with-conditions",
+        "vic.bail.grounds-primary",
+        "vic.bail.reverse-onus",
+        "vic.bail.adjournment",
+        "vic.bail.pub-ban",
+        "vic.bail.evidence-safety"
+      ]
+    },
+    {
+      "id": "vic.bail.principle-restraint",
+      "kind": "test",
+      "title": "Release at the earliest opportunity, on the least onerous conditions",
+      "says": "Police, justices and judges give primary consideration to releasing the accused at the earliest reasonable opportunity, on the least onerous conditions that are appropriate, including conditions the accused can reasonably comply with, while taking the grounds for detention into account.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 493.1",
+        "expect": "at the earliest reasonable opportunity and on the least onerous conditions"
+      },
+      "leadsTo": [
+        "vic.bail.principle-clarified",
+        "vic.dec.antic",
+        "vic.dec.zora"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The last sentence (does not require release; does not apply in a reverse-onus situation) comes from s. 493.11, a separate section, not s. 493.1.",
+        "fixed": "2026-10-13"
+      }
+    },
+    {
+      "id": "vic.bail.principle-clarified",
+      "kind": "test",
+      "title": "Release is not required; conditions must address the risks",
+      "says": "A justice or judge who releases the accused imposes the least onerous conditions needed to address the risks under the detention grounds, including public safety, and does not release the accused if detention is justified.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 493.11 (2)",
+        "expect": "shall not order that the accused be released if the detention of the accused is justified"
+      }
+    },
+    {
+      "id": "vic.bail.indigenous-vulnerable",
+      "kind": "test",
+      "title": "Particular attention to Indigenous and vulnerable accused",
+      "says": "In bail decisions, police, justices and judges give particular attention to the circumstances of Indigenous accused and of accused from vulnerable populations who are overrepresented in the justice system.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 493.2",
+        "expect": "give particular attention to the circumstances of"
+      }
+    },
+    {
+      "id": "vic.bail.release-with-conditions",
+      "kind": "step",
+      "title": "Release order with conditions",
+      "says": "If release without conditions is not ordered, the justice makes a release order with conditions, unless the prosecutor shows detention is justified. The order may add a promise to pay, sureties, or a cash deposit.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (2)",
+        "expect": "make a release order that sets out the conditions directed by the justice"
+      },
+      "leadsTo": [
+        "vic.bail.ladder",
+        "vic.bail.conditions",
+        "vic.bail.surety"
+      ]
+    },
+    {
+      "id": "vic.bail.ladder",
+      "kind": "test",
+      "title": "The ladder: least onerous form of release",
+      "says": "A justice cannot order a more onerous form of release (promise to pay, sureties, deposit) unless the prosecution shows why each less onerous form would be inadequate. This rule does not apply to a reverse-onus accused.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (2.01)",
+        "expect": "for any less onerous form of release would be inadequate"
+      },
+      "leadsTo": [
+        "vic.dec.antic"
+      ]
+    },
+    {
+      "id": "vic.bail.surety",
+      "kind": "step",
+      "title": "Sureties",
+      "says": "Before requiring a surety, the justice must be satisfied it is the least onerous form of release possible. A proposed surety gives a sworn declaration (Form 12) about themselves, their relationship to the accused, and their understanding of the role.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515.1 (1)",
+        "expect": "signed declaration under oath, solemn declaration or solemn affirmation in Form 12"
+      },
+      "form": "Form 12"
+    },
+    {
+      "id": "vic.bail.factors",
+      "kind": "test",
+      "title": "Factors: intimate partner violence and record",
+      "says": "In making a bail order the justice considers relevant factors, including whether the offence involved violence against the accused's intimate partner, random and unprovoked violence, and any previous convictions involving violence. An intimate partner includes a current or former spouse, common-law partner and dating partner.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (3)",
+        "expect": "violence was used, threatened or attempted against their intimate partner"
+      }
+    },
+    {
+      "id": "vic.bail.conditions",
+      "kind": "step",
+      "title": "Conditions that protect a victim",
+      "says": "A release order can require the accused to report to police, stay in an area, not communicate directly or indirectly with any victim or witness named in the order, stay away from named places, give up passports, and follow other conditions needed for the safety and security of any victim or witness.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (4)",
+        "expect": "abstain from communicating, directly or indirectly, with any victim, witness or other person"
+      },
+      "leadsTo": [
+        "vic.bail.weapons",
+        "vic.bail.safety-conditions",
+        "vic.bail.no-contact-effective",
+        "vic.bail.breach-offence",
+        "vic.bail.copy-to-victim"
+      ]
+    },
+    {
+      "id": "vic.bail.weapons",
+      "kind": "step",
+      "title": "Weapons prohibition on release",
+      "says": "For certain offences, including those involving violence against a person, the justice must add a condition banning firearms and other weapons, and must give reasons if this condition is not added.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (4.1)",
+        "expect": "shall add to the order a condition prohibiting the accused from possessing a firearm"
+      }
+    },
+    {
+      "id": "vic.bail.safety-conditions",
+      "kind": "step",
+      "title": "Considering extra safety conditions",
+      "says": "For certain offences, including violent offences and those against an intimate partner, the justice must consider whether to add no-contact, stay-away or electronic monitoring conditions in the interest of the safety and security of any victim or witness.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (4.2)",
+        "expect": "particularly a victim of or witness to the offence"
+      }
+    },
+    {
+      "id": "vic.bail.reverse-onus",
+      "kind": "test",
+      "title": "Reverse onus: when the accused must show why release is justified",
+      "says": "For certain charges, the justice orders detention unless the accused shows cause why detention is not justified, by clearly demonstrating that their release plan addresses the risks under the detention grounds. These include indictable offences said to be committed while already on release, certain firearm and organized-crime offences, choking or strangulation in an assault or sexual assault, and breach-of-bail charges said to be committed while on release.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (6)",
+        "expect": "clearly demonstrating that their proposed release plan addresses the risks"
+      },
+      "leadsTo": [
+        "vic.bail.reverse-onus-ipv",
+        "vic.bail.grounds-primary"
+      ]
+    },
+    {
+      "id": "vic.bail.reverse-onus-ipv",
+      "kind": "test",
+      "title": "Reverse onus: intimate partner violence with a prior record",
+      "says": "The accused bears the onus where they are charged with an offence involving violence against an intimate partner and they were previously convicted of violence against an intimate partner, or were bound by a peace bond laid on behalf of an intimate partner at the time.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (6) (b.1)",
+        "expect": "violence was allegedly used, threatened or attempted against their intimate partner"
+      }
+    },
+    {
+      "id": "vic.bail.grounds-primary",
+      "kind": "test",
+      "title": "Ground 1: attendance in court",
+      "says": "Detention is justified only on one or more of three grounds. The first is where detention is necessary to make sure the accused attends court.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (10) (a)",
+        "expect": "necessary to ensure his or her attendance in court"
+      },
+      "leadsTo": [
+        "vic.bail.grounds-secondary"
+      ]
+    },
+    {
+      "id": "vic.bail.grounds-secondary",
+      "kind": "test",
+      "title": "Ground 2: protection or safety of the public, including the victim",
+      "says": "The second ground is where detention is necessary for the protection or safety of the public, including any victim or witness or anyone under 18, having regard to any substantial likelihood that the accused will commit an offence or interfere with the administration of justice if released.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (10) (b)",
+        "expect": "including any victim of or witness to the offence"
+      },
+      "leadsTo": [
+        "vic.bail.grounds-tertiary",
+        "vic.dec.morales"
+      ]
+    },
+    {
+      "id": "vic.bail.grounds-tertiary",
+      "kind": "test",
+      "title": "Ground 3: confidence in the administration of justice",
+      "says": "The third ground is where detention is necessary to maintain confidence in the administration of justice, looking at all the circumstances including the apparent strength of the prosecution's case, the gravity of the offence, how it was committed (including firearm use), the possible length of imprisonment, and outstanding charges.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (10) (c)",
+        "expect": "necessary to maintain confidence in the administration of justice"
+      },
+      "leadsTo": [
+        "vic.dec.st-cloud",
+        "vic.dec.hall",
+        "vic.bail.detention"
+      ]
+    },
+    {
+      "id": "vic.bail.detention",
+      "kind": "step",
+      "title": "Detention order",
+      "says": "If the prosecutor shows cause for detention, the justice orders the accused detained until dealt with according to law and records reasons.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (5)",
+        "expect": "the justice shall order that the accused be detained in custody"
+      },
+      "leadsTo": [
+        "vic.bail.detention-no-contact",
+        "vic.bail.review-accused",
+        "vic.bail.90-day-review"
+      ]
+    },
+    {
+      "id": "vic.bail.detention-no-contact",
+      "kind": "step",
+      "title": "No-contact order while detained",
+      "says": "A justice who detains an accused may order them not to communicate, directly or indirectly, with any victim, witness or other person named in the order. Breaking it is an offence.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (12)",
+        "expect": "may include in the order a direction that the accused abstain from communicating"
+      },
+      "leadsTo": [
+        "vic.bail.breach-offence"
+      ]
+    },
+    {
+      "id": "vic.bail.victim-safety-statement",
+      "kind": "step",
+      "title": "Victim safety must be considered on the record",
+      "says": "A justice making any bail order must state on the record that they considered the safety and security of every victim of the offence and of the community.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (13)",
+        "expect": "considered the safety and security of every victim of the offence"
+      }
+    },
+    {
+      "id": "vic.bail.copy-to-victim",
+      "kind": "step",
+      "title": "Victim may request a copy of the bail order",
+      "says": "If a victim asks, the justice must have a copy of the bail order given to the victim. When releasing an accused with conditions, the justice must ask the prosecutor whether victims were told of this right.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (14)",
+        "expect": "cause a copy of the order to be given to the victim"
+      },
+      "leadsTo": [
+        "vic.bail.ask-victims-informed"
+      ]
+    },
+    {
+      "id": "vic.bail.ask-victims-informed",
+      "kind": "step",
+      "title": "Court asks whether victims were told",
+      "says": "On making a release order with conditions, the justice must ask the prosecutor whether victims have been informed of their right to request a copy of the order.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 515 (14.1)",
+        "expect": "whether victims of the offence have been informed of their right to request a copy"
+      }
+    },
+    {
+      "id": "vic.bail.adjournment",
+      "kind": "deadline",
+      "title": "Bail hearing adjournment limit",
+      "says": "A bail hearing can be adjourned on application, but not for more than three clear days without the accused's consent.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 516 (1)",
+        "expect": "no adjournment shall be for more than three clear days"
+      }
+    },
+    {
+      "id": "vic.bail.pub-ban",
+      "kind": "motion",
+      "title": "Publication ban on bail evidence",
+      "says": "The justice may, and must if the accused applies, ban publication of the evidence, information, representations and reasons at the bail hearing until the accused is discharged at a preliminary inquiry or the trial ends.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 517 (1)",
+        "expect": "shall on application by the accused"
+      }
+    },
+    {
+      "id": "vic.bail.evidence-safety",
+      "kind": "step",
+      "title": "Evidence about victim safety at the bail hearing",
+      "says": "At a bail hearing, the justice must take into consideration any evidence submitted about the need to ensure the safety or security of any victim or witness. The prosecutor may lead evidence of the accused's record, outstanding charges, past breaches and the circumstances of the offence.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 518 (1) (d.2)",
+        "expect": "the need to ensure the safety or security of any victim of or witness"
+      }
+    },
+    {
+      "id": "vic.bail.no-contact-effective",
+      "kind": "step",
+      "title": "No-contact condition takes effect immediately",
+      "says": "A no-contact condition with a victim or witness in a release order takes effect from the moment it is made, whether or not the accused has yet left custody.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 519 (1) (c)",
+        "expect": "is effective from the moment it is made"
+      }
+    },
+    {
+      "id": "vic.bail.variation-consent",
+      "kind": "option",
+      "title": "Changing a release order by consent",
+      "says": "A release order can be varied with the written consent of the accused, the prosecutor and any sureties. A victim who wants a condition changed may raise it with the Crown; the victim is not a party who can consent.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 519.1",
+        "expect": "may be varied with the written consent of the accused, prosecutor and any sureties"
+      },
+      "leadsTo": [
+        "vic.cvbr.views"
+      ]
+    },
+    {
+      "id": "vic.bail.review-accused",
+      "kind": "motion",
+      "title": "Bail review by the accused",
+      "says": "An accused may apply to a judge, at any time before trial, to review a release or detention order.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 520 (1)",
+        "expect": "apply to a judge for a review of the order"
+      },
+      "leadsTo": [
+        "vic.bail.review-notice",
+        "vic.bail.review-powers",
+        "vic.bail.review-30-days",
+        "vic.bail.review-rules"
+      ]
+    },
+    {
+      "id": "vic.bail.review-crown",
+      "kind": "motion",
+      "title": "Bail review by the prosecutor",
+      "says": "The prosecutor may apply to a judge, at any time before trial, to review a release order. A victim may ask the Crown to consider this, but cannot bring the review themselves.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 521 (1)",
+        "expect": "the prosecutor may, at any time before the trial of the charge"
+      },
+      "leadsTo": [
+        "vic.bail.review-notice",
+        "vic.bail.review-powers"
+      ]
+    },
+    {
+      "id": "vic.bail.review-notice",
+      "kind": "deadline",
+      "title": "Notice of bail review",
+      "says": "A bail review is not heard unless the other side received at least two clear days' written notice (the prosecutor may consent to less for an accused's review).",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 520 (2)",
+        "expect": "at least two clear days notice in writing"
+      }
+    },
+    {
+      "id": "vic.bail.review-powers",
+      "kind": "test",
+      "title": "What the review judge considers",
+      "says": "On review, the judge may consider the transcript, exhibits and new evidence, and either dismisses the application or, if the applicant shows cause, vacates or varies the order.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 520 (7)",
+        "expect": "dismiss the application"
+      },
+      "leadsTo": [
+        "vic.dec.st-cloud"
+      ]
+    },
+    {
+      "id": "vic.bail.review-30-days",
+      "kind": "deadline",
+      "title": "30-day bar on repeat reviews",
+      "says": "After a bail review is heard, no further review may be brought for the same accused within 30 days of the decision without a judge's leave.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 520 (8)",
+        "expect": "before the expiry of 30 days from the date of the decision"
+      }
+    },
+    {
+      "id": "vic.bail.review-rules",
+      "kind": "step",
+      "title": "Bail review procedure in the Superior Court",
+      "says": "Bail reviews are heard in the Superior Court of Justice under the Criminal Proceedings Rules for that court, which set out the application materials and filing requirements.",
+      "source": {
+        "citation": "Criminal Proceedings Rules for the Superior Court of Justice (Ontario), SI/2012-7",
+        "url": "https://laws-lois.justice.gc.ca/eng/regulations/SI-2012-7/",
+        "pinpoint": "r. 20",
+        "expect": "judicial interim release"
+      }
+    },
+    {
+      "id": "vic.bail.469",
+      "kind": "step",
+      "title": "Bail for murder and other s. 469 offences",
+      "says": "For murder and other offences listed in s. 469, only a Superior Court judge can release the accused, and the accused must show why detention is not justified. The judge may add a no-contact direction to a detention order.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 522 (2)",
+        "expect": "shall order that the accused be detained in custody unless the accused"
+      }
+    },
+    {
+      "id": "vic.bail.breach-offence",
+      "kind": "enforcement",
+      "title": "Breaching a release order is an offence",
+      "says": "An accused who, without lawful excuse, fails to comply with a condition of a release order, or with a no-contact order made on detention, commits an offence punishable by up to two years.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 145 (5)",
+        "expect": "fails, without lawful excuse, to comply with a condition of that release order"
+      },
+      "leadsTo": [
+        "vic.bail.breach-cancel",
+        "vic.dec.zora"
+      ]
+    },
+    {
+      "id": "vic.bail.breach-cancel",
+      "kind": "enforcement",
+      "title": "Cancelling release after a breach or new offence",
+      "says": "When an accused is arrested for breaching a release order or for a new offence while on release, the justice cancels the order if satisfied the accused breached it or there are reasonable grounds to believe they committed an offence.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 524 (3)",
+        "expect": "shall cancel a summons, appearance notice, undertaking or release order"
+      },
+      "leadsTo": [
+        "vic.bail.breach-reverse-onus"
+      ]
+    },
+    {
+      "id": "vic.bail.breach-reverse-onus",
+      "kind": "test",
+      "title": "After cancellation, the accused bears the onus",
+      "says": "If the release order is cancelled, in the listed circumstances the accused is detained unless they show cause why detention is not justified.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 524 (4)",
+        "expect": "order that the accused be detained in custody unless the accused"
+      }
+    },
+    {
+      "id": "vic.bail.90-day-review",
+      "kind": "deadline",
+      "title": "90-day detention review",
+      "says": "If an accused is still detained awaiting trial 90 days after first appearing (or after a detention or review decision), the jailer must apply to a judge to fix a hearing on whether continued detention is justified.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 525 (1)",
+        "expect": "immediately after the expiry of those 90 days"
+      },
+      "leadsTo": [
+        "vic.dec.myers"
+      ]
+    },
+    {
+      "id": "vic.peace.start",
+      "kind": "start",
+      "title": "Peace bond (s. 810 recognizance): laying the information",
+      "says": "Any person who fears on reasonable grounds that another person will injure them, their intimate partner or child, or damage their property, or share an intimate image without consent, may lay an information before a justice, or have one laid on their behalf. No criminal charge is needed.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (1)",
+        "expect": "fears on reasonable grounds that another person"
+      },
+      "leadsTo": [
+        "vic.peace.appearance"
+      ]
+    },
+    {
+      "id": "vic.peace.appearance",
+      "kind": "step",
+      "title": "Parties appear before the court",
+      "says": "A justice who receives a peace bond information must have both parties appear before a justice or summary conviction court.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (2)",
+        "expect": "shall cause the parties to appear before him"
+      },
+      "leadsTo": [
+        "vic.peace.test",
+        "vic.peace.crown-role"
+      ]
+    },
+    {
+      "id": "vic.peace.crown-role",
+      "kind": "step",
+      "title": "Crown or private conduct of a peace bond",
+      "says": "A peace bond hearing may be conducted by the Crown Attorney, who acts as the Attorney General's agent under the Criminal Code, or by the person who laid the information. A peace bond is sometimes entered to resolve a criminal charge.",
+      "source": {
+        "corpusId": "crown-attorneys-act",
+        "pinpoint": "s. 10",
+        "expect": "is the agent of the Attorney General for the purposes of the Criminal Code"
+      }
+    },
+    {
+      "id": "vic.peace.test",
+      "kind": "test",
+      "title": "Test: reasonable grounds for the fear",
+      "says": "If the court is satisfied by the evidence that the person has reasonable grounds for the fear, it may order the defendant to enter into a recognizance to keep the peace and be of good behaviour for up to 12 months.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (3)",
+        "expect": "has reasonable grounds for the fear"
+      },
+      "leadsTo": [
+        "vic.peace.conditions",
+        "vic.peace.refusal",
+        "vic.form.recognizance"
+      ]
+    },
+    {
+      "id": "vic.peace.refusal",
+      "kind": "enforcement",
+      "title": "Refusing to enter the peace bond",
+      "says": "A defendant who fails or refuses to enter into the ordered recognizance may be committed to prison for up to 12 months.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (3.01)",
+        "expect": "fails or refuses to enter into the recognizance"
+      }
+    },
+    {
+      "id": "vic.peace.conditions",
+      "kind": "step",
+      "title": "Conditions in a peace bond",
+      "says": "The court may add any reasonable conditions it considers desirable to secure the defendant's good conduct, including abstaining from drugs or alcohol.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (3.02)",
+        "expect": "any reasonable conditions to the recognizance"
+      },
+      "leadsTo": [
+        "vic.peace.weapons",
+        "vic.peace.no-contact"
+      ]
+    },
+    {
+      "id": "vic.peace.weapons",
+      "kind": "step",
+      "title": "Weapons condition in a peace bond",
+      "says": "Before ordering a peace bond, the court must consider whether to ban the defendant from possessing firearms and other weapons, and must give reasons if it does not.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (3.1)",
+        "expect": "prohibited from possessing any firearm"
+      }
+    },
+    {
+      "id": "vic.peace.no-contact",
+      "kind": "step",
+      "title": "No-contact and stay-away conditions",
+      "says": "The court must consider whether, for the safety of the person who laid the information or their intimate partner or child, to bar the defendant from places where they are regularly found and from communicating with them.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (3.2)",
+        "expect": "prohibiting the defendant from communicating, in whole or in part"
+      }
+    },
+    {
+      "id": "vic.peace.vary",
+      "kind": "motion",
+      "title": "Changing peace bond conditions",
+      "says": "Either the informant or the defendant may apply to the court to vary the conditions of the recognizance.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810 (4.1)",
+        "expect": "on application of the informant or the defendant, vary the conditions"
+      }
+    },
+    {
+      "id": "vic.peace.child",
+      "kind": "start",
+      "title": "Peace bond to protect children from sexual offences",
+      "says": "Any person who fears on reasonable grounds that someone will commit a listed sexual offence against a person under 18 may lay an information before a provincial court judge. The bond can last up to 12 months, or up to two years if the defendant has a prior sexual offence against a child.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810.1 (1)",
+        "expect": "in respect of one or more persons who are under the age of 18 years"
+      },
+      "leadsTo": [
+        "vic.peace.breach"
+      ]
+    },
+    {
+      "id": "vic.peace.spio",
+      "kind": "start",
+      "title": "Peace bond for fear of a serious personal injury offence",
+      "says": "A person who fears on reasonable grounds that another will commit a serious personal injury offence may, with the Attorney General's consent, lay an information before a provincial court judge. The bond can last up to 12 months, or two years with a prior conviction for such an offence.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 810.2 (1)",
+        "expect": "with the consent of the Attorney General, lay an information"
+      },
+      "leadsTo": [
+        "vic.peace.breach"
+      ]
+    },
+    {
+      "id": "vic.peace.breach",
+      "kind": "enforcement",
+      "title": "Breaching a peace bond",
+      "says": "A person who breaches a recognizance under ss. 810 to 810.2 commits an offence punishable by up to four years on indictment, or on summary conviction.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 811",
+        "expect": "who commits a breach of the recognizance"
+      }
+    },
+    {
+      "id": "vic.form.recognizance",
+      "kind": "form",
+      "title": "Recognizance (Criminal Code form)",
+      "says": "A peace bond is entered as a recognizance in the form set out in Part XXVIII of the Criminal Code.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 2 (recognizance)",
+        "expect": "means a recognizance in Form 32"
+      },
+      "form": "Form 32"
+    },
+    {
+      "id": "vic.peace.family-alternative",
+      "kind": "option",
+      "title": "Family court restraining order (alternative)",
+      "says": "Separately from the criminal process, a person with reasonable grounds to fear for their own safety or a child's safety may apply in family court for a restraining order against a spouse or former partner.",
+      "source": {
+        "corpusId": "family-law-act",
+        "pinpoint": "s. 46 (1)",
+        "expect": "reasonable grounds to fear for his or her own safety"
+      }
+    },
+    {
+      "id": "vic.trial.open-court",
+      "kind": "step",
+      "title": "Criminal proceedings are held in open court",
+      "says": "Criminal proceedings are held in open court, but the judge may exclude the public, or have a witness testify behind a screen, where it is in the interest of the proper administration of justice. Society's interest in encouraging victims to report and take part is a factor.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486 (1)",
+        "expect": "shall be held in open court"
+      },
+      "leadsTo": [
+        "vic.records.ocj-recordings"
+      ]
+    },
+    {
+      "id": "vic.trial.support-person",
+      "kind": "motion",
+      "title": "Support person or support animal",
+      "says": "In cases of sexual offences, criminal harassment, trafficking or offences against an intimate partner, the judge must, on application by the prosecutor or the victim-witness, allow a support person or support animal near the witness while testifying, unless it would interfere with the administration of justice.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.1 (1.1)",
+        "expect": "a support person of the witness’s choice or a support animal"
+      },
+      "leadsTo": [
+        "vic.trial.inquiry"
+      ]
+    },
+    {
+      "id": "vic.trial.screen",
+      "kind": "motion",
+      "title": "Testifying outside the courtroom or behind a screen",
+      "says": "In the same kinds of cases, the judge must, on application, let a victim-witness testify outside the courtroom or behind a screen so they do not see the accused, unless it would interfere with the proper administration of justice.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.2 (1.1)",
+        "expect": "in respect of a witness who is a victim"
+      },
+      "leadsTo": [
+        "vic.trial.inquiry"
+      ]
+    },
+    {
+      "id": "vic.trial.no-self-cross",
+      "kind": "motion",
+      "title": "Self-represented accused may not cross-examine the victim",
+      "says": "In sexual offence, criminal harassment, trafficking and intimate partner cases, the judge must, on application, order that a self-represented accused not personally cross-examine the victim; a lawyer is appointed to do it.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.3 (2)",
+        "expect": "Accused not to cross-examine victim"
+      },
+      "leadsTo": [
+        "vic.trial.inquiry"
+      ]
+    },
+    {
+      "id": "vic.trial.inquiry",
+      "kind": "step",
+      "title": "Court checks that witnesses were told about these aids",
+      "says": "If no application for a support person or screen is made, the judge must ask the prosecutor whether reasonable steps were taken to tell the witness that one may be made.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.1 (1.2)",
+        "expect": "whether reasonable steps have been taken to inform the witness"
+      }
+    },
+    {
+      "id": "vic.trial.identity-nondisclosure",
+      "kind": "motion",
+      "title": "Not disclosing a witness's identity in the proceedings",
+      "says": "On application, the judge may order that information that could identify a witness not be disclosed during the proceedings, where that is in the interest of the proper administration of justice. The hearing may be in private.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.31 (1)",
+        "expect": "any information that could identify the witness not be disclosed"
+      }
+    },
+    {
+      "id": "vic.trial.pub-ban-sexual",
+      "kind": "motion",
+      "title": "Mandatory publication ban in sexual offence cases",
+      "says": "In proceedings for listed sexual and related offences, the judge must tell the victim (and witnesses under 18) of the right to apply for a ban on publishing identifying information, and must make the order on application by the victim, prosecutor or witness.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.4 (2)",
+        "expect": "inform any witness under the age of 18 years and the victim of the right"
+      },
+      "leadsTo": [
+        "vic.trial.pub-ban-other"
+      ]
+    },
+    {
+      "id": "vic.trial.pub-ban-other",
+      "kind": "motion",
+      "title": "Discretionary publication ban for other victims and witnesses",
+      "says": "For other offences, a victim or witness (or the prosecutor) may apply for a ban on publishing information that could identify them, where the judge finds it is in the interest of the proper administration of justice.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.5 (1)",
+        "expect": "any information that could identify the victim or witness shall not be published"
+      }
+    },
+    {
+      "id": "vic.trial.security-order",
+      "kind": "motion",
+      "title": "Other orders to protect a witness's security",
+      "says": "On application by the prosecutor or a witness, the judge may make any other order needed to protect a witness's security, if it is in the interest of the proper administration of justice.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 486.7 (1)",
+        "expect": "necessary to protect the security of any witness"
+      }
+    },
+    {
+      "id": "vic.trial.records-hearing",
+      "kind": "motion",
+      "title": "Protecting a complainant's private records",
+      "says": "In sexual offence cases, when the accused seeks a complainant's private records held by someone else, the judge holds a hearing in private. The complainant may appear and make submissions, cannot be compelled to testify there, has the right to a lawyer, and cannot be ordered to pay costs.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 278.13 (2)",
+        "expect": "may appear and make submissions at the hearing"
+      },
+      "leadsTo": [
+        "vic.dec.jj"
+      ]
+    },
+    {
+      "id": "vic.trial.plea-agreement",
+      "kind": "step",
+      "title": "Victims told about plea agreements",
+      "says": "For murder, serious personal injury offences and other indictable offences with a maximum of five years or more, the court asks whether victims were told about a plea agreement. If a victim was not told before the plea was accepted, the prosecutor must take reasonable steps to tell them as soon as feasible. The plea stays valid either way.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 606 (4.3)",
+        "expect": "take reasonable steps to inform the victim of the agreement"
+      },
+      "leadsTo": [
+        "vic.sent.vis"
+      ]
+    },
+    {
+      "id": "vic.sent.vis",
+      "kind": "step",
+      "title": "Victim impact statement",
+      "says": "When sentencing, the court must consider any statement a victim prepared and filed describing the physical or emotional harm, property damage or economic loss caused by the offence and its impact on them.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722 (1)",
+        "expect": "the court shall consider any statement of a victim"
+      },
+      "leadsTo": [
+        "vic.sent.vis-inquiry",
+        "vic.form.34-2",
+        "vic.sent.vis-presentation",
+        "vic.rest.consider"
+      ]
+    },
+    {
+      "id": "vic.sent.vis-inquiry",
+      "kind": "step",
+      "title": "Court asks whether the victim had the chance",
+      "says": "After a finding of guilt and before sentence, the court must ask the prosecutor whether reasonable steps were taken to give the victim an opportunity to prepare a statement.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722 (2)",
+        "expect": "the court shall inquire of the prosecutor if reasonable steps have been taken"
+      },
+      "leadsTo": [
+        "vic.sent.vis-adjourn"
+      ]
+    },
+    {
+      "id": "vic.sent.vis-adjourn",
+      "kind": "motion",
+      "title": "Adjournment to prepare a statement",
+      "says": "On application of the prosecutor or the victim, or on its own, the court may adjourn so the victim can prepare a statement or present evidence, if this would not interfere with the proper administration of justice.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722 (3)",
+        "expect": "On application of the prosecutor or a victim"
+      }
+    },
+    {
+      "id": "vic.form.34-2",
+      "kind": "form",
+      "title": "Form 34.2: Victim Impact Statement",
+      "says": "The statement is prepared in writing on Form 34.2, following the procedures of the program designated in the province. In Ontario, the Victim/Witness Assistance Program helps victims with this form.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722 (4)",
+        "expect": "using Form 34.2 in Part XXVIII"
+      },
+      "form": "Form 34.2",
+      "leadsTo": [
+        "vic.support.vwap"
+      ]
+    },
+    {
+      "id": "vic.sent.vis-presentation",
+      "kind": "step",
+      "title": "How the statement can be presented",
+      "says": "On the victim's request, the court must let them read the statement, read it with a support person or support animal nearby, read it outside the courtroom or behind a screen, or present it another appropriate way. The victim may have a photo of themselves from before the offence.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722 (5)",
+        "expect": "permit the victim to present the statement"
+      },
+      "leadsTo": [
+        "vic.sent.vis-relevance"
+      ]
+    },
+    {
+      "id": "vic.sent.vis-relevance",
+      "kind": "step",
+      "title": "Only relevant parts are considered",
+      "says": "The court takes into account the parts of the statement relevant to sentencing and disregards the rest. A copy goes to the offender and the prosecutor.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722 (8)",
+        "expect": "disregard any other portion"
+      }
+    },
+    {
+      "id": "vic.sent.vis-copy",
+      "kind": "step",
+      "title": "Copy of the statement to the offender",
+      "says": "The court clerk provides a copy of the victim impact statement to the offender or their lawyer, and to the prosecutor, as soon as practicable after a finding of guilt.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722.1",
+        "expect": "provide a copy of a statement referred to in subsection 722(1)"
+      }
+    },
+    {
+      "id": "vic.sent.community-impact",
+      "kind": "step",
+      "title": "Community impact statement",
+      "says": "A person may also file, on Form 34.3, a statement on a community's behalf describing harm or loss to the community, which the court must consider at sentencing.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 722.2 (1)",
+        "expect": "any statement made by an individual on a community’s behalf"
+      },
+      "form": "Form 34.3"
+    },
+    {
+      "id": "vic.sent.ncr-vis",
+      "kind": "step",
+      "title": "Victim statement at a Review Board or NCR disposition hearing",
+      "says": "Where an accused is found not criminally responsible or unfit, a victim may file a written statement (Form 48.2) with the court or Review Board describing the harm and the offence's impact.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 672.5 (14)",
+        "expect": "A victim of the offence may prepare and file with the court or Review Board"
+      },
+      "form": "Form 48.2"
+    },
+    {
+      "id": "vic.sent.no-contact-custody",
+      "kind": "step",
+      "title": "No-contact order during a jail sentence",
+      "says": "A sentencing judge may order the offender not to communicate with any victim, witness or other named person while in custody. Breaking the order is an offence.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 743.21 (1)",
+        "expect": "during the custodial period of the sentence"
+      }
+    },
+    {
+      "id": "vic.sent.probation-no-contact",
+      "kind": "step",
+      "title": "No-contact condition in probation",
+      "says": "A probation order may require the offender not to communicate with any victim, witness or other named person, or go to named places.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 732.1 (3) (a.1)",
+        "expect": "abstain from communicating, directly or indirectly, with any victim"
+      }
+    },
+    {
+      "id": "vic.sent.surcharge",
+      "kind": "statute",
+      "title": "Victim surcharge",
+      "says": "An offender convicted or discharged must pay a victim surcharge for each offence: 30% of any fine, or $100 (summary) or $200 (indictable) if there is no fine. The court can waive or reduce it for undue hardship or disproportion. The money is used to help victims.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 737 (1)",
+        "expect": "shall pay a victim surcharge for each offence"
+      },
+      "leadsTo": [
+        "vic.ovbr.fund"
+      ]
+    },
+    {
+      "id": "vic.rest.consider",
+      "kind": "step",
+      "title": "Court must consider restitution",
+      "says": "When an offender is convicted or discharged, the sentencing court must consider making a restitution order.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 737.1 (1)",
+        "expect": "shall consider making a restitution order under section 738 or 739"
+      },
+      "leadsTo": [
+        "vic.rest.inquiry",
+        "vic.form.34-1",
+        "vic.rest.property",
+        "vic.rest.harm"
+      ]
+    },
+    {
+      "id": "vic.rest.inquiry",
+      "kind": "step",
+      "title": "Court asks whether victims were asked about restitution",
+      "says": "After a finding of guilt and before sentence, the court must ask the prosecutor whether victims were given an opportunity to say whether they seek restitution for losses that are readily ascertainable. The court may adjourn so victims can do so.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 737.1 (2)",
+        "expect": "an opportunity to indicate whether they are seeking restitution"
+      },
+      "leadsTo": [
+        "vic.rest.reasons"
+      ]
+    },
+    {
+      "id": "vic.form.34-1",
+      "kind": "form",
+      "title": "Form 34.1: Statement on Restitution",
+      "says": "A victim may say they are seeking restitution using Form 34.1 or another approved form or method, and must establish their losses, the amount of which must be readily ascertainable.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 737.1 (4)",
+        "expect": "by completing Form 34.1 in Part XXVIII"
+      },
+      "form": "Form 34.1"
+    },
+    {
+      "id": "vic.rest.reasons",
+      "kind": "step",
+      "title": "Reasons if restitution is not ordered",
+      "says": "If a victim seeks restitution and the court does not order it, the court must give reasons on the record.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 737.1 (5)",
+        "expect": "shall include in the record a statement of the court’s reasons"
+      }
+    },
+    {
+      "id": "vic.rest.property",
+      "kind": "test",
+      "title": "Restitution for property loss or damage",
+      "says": "For damage to or loss of property, the court may order payment up to the replacement value of the property, less the value of any part returned, if the amount is readily ascertainable.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 738 (1) (a)",
+        "expect": "an amount not exceeding the replacement value of the property"
+      },
+      "leadsTo": [
+        "vic.rest.ability",
+        "vic.rest.payment"
+      ]
+    },
+    {
+      "id": "vic.rest.harm",
+      "kind": "test",
+      "title": "Restitution for bodily or psychological harm",
+      "says": "For bodily or psychological harm, the court may order payment of all pecuniary (money) damages caused by the harm, including lost income or support, if the amount is readily ascertainable. Pain and suffering is not covered by restitution; that is for a civil claim.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 738 (1) (b)",
+        "expect": "including loss of income or support, if the amount is readily ascertainable"
+      },
+      "leadsTo": [
+        "vic.rest.household",
+        "vic.civil.start-small-claims"
+      ]
+    },
+    {
+      "id": "vic.rest.household",
+      "kind": "test",
+      "title": "Restitution for household members harmed or threatened",
+      "says": "Where the offender's intimate partner, child or another household member suffered or was threatened with harm, the court may order the offender to pay reasonable expenses of moving out, temporary housing, food, child care and transportation, if readily ascertainable.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 738 (1) (c)",
+        "expect": "was a member of the offender’s household at the relevant time"
+      }
+    },
+    {
+      "id": "vic.rest.identity-image",
+      "kind": "test",
+      "title": "Restitution for identity theft and intimate image removal",
+      "says": "For identity theft or fraud, restitution can cover reasonable costs to re-establish identity and correct credit history. For sharing an intimate image without consent, it can cover reasonable costs to remove the image from the internet.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 738 (1) (e)",
+        "expect": "incurs expenses to remove the intimate image from the Internet"
+      }
+    },
+    {
+      "id": "vic.rest.good-faith",
+      "kind": "test",
+      "title": "Restitution to good-faith purchasers",
+      "says": "Where stolen property was sold to or used as loan security with a person acting in good faith and the property was returned to its owner, the court may order the offender to repay that person.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 739",
+        "expect": "to a person acting in good faith and without notice"
+      }
+    },
+    {
+      "id": "vic.rest.ability",
+      "kind": "test",
+      "title": "Ability to pay does not prevent restitution",
+      "says": "The offender's financial means or ability to pay does not stop the court from making a restitution order.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 739.1",
+        "expect": "does not prevent the court from making an order"
+      }
+    },
+    {
+      "id": "vic.rest.payment",
+      "kind": "step",
+      "title": "Payment date or instalments",
+      "says": "A restitution order must require payment of the full amount by a set day, unless the court sets an instalment schedule. Several victims can be named, with amounts and priority set out.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 739.2",
+        "expect": "pay the full amount specified in the order by the day specified"
+      },
+      "leadsTo": [
+        "vic.rest.notice",
+        "vic.enf.restitution-judgment"
+      ]
+    },
+    {
+      "id": "vic.rest.public-authority",
+      "kind": "option",
+      "title": "Order payable through a public authority",
+      "says": "At the victim's request, the court may make the order in favour of a designated public authority, which enforces it and passes payments to the victim.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 739.4 (1)",
+        "expect": "in favour of a public authority, designated by the regulations"
+      }
+    },
+    {
+      "id": "vic.rest.priority",
+      "kind": "test",
+      "title": "Restitution comes before fines and forfeiture",
+      "says": "Where the offender cannot pay both restitution and a fine, or property could be forfeited, the court makes the restitution order first and then considers the fine or forfeiture.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 740",
+        "expect": "the court shall first make the order of restitution"
+      }
+    },
+    {
+      "id": "vic.rest.deemed",
+      "kind": "enforcement",
+      "title": "Unpaid probation payments continue as restitution",
+      "says": "If a probation or conditional sentence order requiring payment ends before everything is paid, the payment requirement continues as a restitution order until paid.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 740.1",
+        "expect": "deemed to continue as a restitution order"
+      }
+    },
+    {
+      "id": "vic.rest.notice",
+      "kind": "step",
+      "title": "Victim gets notice of the restitution order",
+      "says": "The court must give the person to be paid a notice of the content of the restitution order, or a copy of it.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 741.1",
+        "expect": "cause notice of the content of the order"
+      }
+    },
+    {
+      "id": "vic.enf.restitution-judgment",
+      "kind": "enforcement",
+      "title": "Filing an unpaid restitution order as a civil judgment",
+      "says": "If the offender misses the payment date or an instalment, the person owed may file the order in any civil court with jurisdiction for the amount and enter the unpaid amount as a judgment, enforceable like any civil judgment.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 741 (1)",
+        "expect": "enter as a judgment any amount ordered to be paid that remains unpaid"
+      },
+      "leadsTo": [
+        "vic.enf.garnishment"
+      ]
+    },
+    {
+      "id": "vic.enf.money-on-arrest",
+      "kind": "enforcement",
+      "title": "Money found on the offender at arrest",
+      "says": "The court may direct that restitution be paid from money found on the offender when arrested, if no one else disputes ownership of it.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 741 (2)",
+        "expect": "taken out of moneys found in the possession of the offender"
+      }
+    },
+    {
+      "id": "vic.enf.garnishment",
+      "kind": "enforcement",
+      "title": "Enforcing in Small Claims Court: garnishment",
+      "says": "Once entered as a judgment in Small Claims Court, the amount can be enforced by the usual Small Claims steps, such as garnishment of wages or bank accounts.",
+      "source": {
+        "corpusId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 20.08 (1)",
+        "expect": "by garnishment of debts payable to the debtor"
+      }
+    },
+    {
+      "id": "vic.rest.civil-not-affected",
+      "kind": "option",
+      "title": "Restitution does not bar a civil lawsuit",
+      "says": "A restitution order does not, by itself, affect any civil remedy the victim has for the same act.",
+      "source": {
+        "corpusId": "criminal-code",
+        "pinpoint": "s. 741.2",
+        "expect": "A civil remedy for an act or omission is not affected"
+      },
+      "leadsTo": [
+        "vic.civil.start-small-claims",
+        "vic.civil.start-superior"
+      ]
+    },
+    {
+      "id": "vic.post.ovbr-notification",
+      "kind": "step",
+      "title": "Notification of release from an Ontario jail",
+      "says": "Ontario's principles call for notifying victims of prescribed crimes, on request, of an offender's release (including temporary absence and parole) and of any escape, and for Review Board notifications where an accused is found unfit or not criminally responsible.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 2 (1), para. 4",
+        "expect": "any hearing held with respect to the accused by the Review Board"
+      }
+    },
+    {
+      "id": "vic.post.ccra-info",
+      "kind": "step",
+      "title": "Information from federal corrections",
+      "says": "For offenders serving two years or more, a registered victim may request information from the Correctional Service of Canada and Parole Board of Canada, including release dates and conditions, and may present a victim statement at parole hearings.",
+      "source": {
+        "citation": "Corrections and Conditional Release Act, S.C. 1992, c. 20",
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/c-44.6/",
+        "pinpoint": "s. 26 (1)",
+        "expect": "at the request of a victim"
+      }
+    },
+    {
+      "id": "vic.records.ocj-recordings",
+      "kind": "step",
+      "title": "Getting a copy of an Ontario Court of Justice recording",
+      "says": "Members of the public and self-represented parties can get a copy of a digital audio recording of an OCJ proceeding only with a court order, after completing the request form and undertaking and paying the copy fee. The order is sought from the presiding judicial officer or, if unavailable, the regional or local administrative judge or justice.",
+      "source": {
+        "corpusId": "ocj-public-access-court-recordings",
+        "pinpoint": "Policy s. 2 (a)",
+        "expect": "with a court order and upon completion of the appropriate court request form"
+      },
+      "leadsTo": [
+        "vic.records.ocj-restrictions",
+        "vic.records.cja-136"
+      ]
+    },
+    {
+      "id": "vic.records.ocj-restrictions",
+      "kind": "step",
+      "title": "OCJ recordings that are not available",
+      "says": "Unless a judicial officer orders otherwise, there is no access to OCJ recordings of in camera or closed proceedings, proceedings with restrictions on records, Youth Criminal Justice Act proceedings, and case, settlement and trial management conferences.",
+      "source": {
+        "corpusId": "ocj-public-access-court-recordings",
+        "pinpoint": "Policy s. 3 (a)",
+        "expect": "Proceedings under the Youth Criminal Justice Act"
+      }
+    },
+    {
+      "id": "vic.records.ocj-files",
+      "kind": "step",
+      "title": "Court files, documents and exhibits",
+      "says": "Court records are managed by the Ministry of the Attorney General. Requests to see a court file are made at the court location where the matter was heard, under the Ministry's access policy. Some youth and other criminal records may not be available.",
+      "source": {
+        "corpusId": "ocj-public-access-court-recordings",
+        "pinpoint": "How to access court records",
+        "expect": "should be made at the court location where the matter was heard"
+      }
+    },
+    {
+      "id": "vic.records.scj-transcripts",
+      "kind": "step",
+      "title": "Ordering a transcript",
+      "says": "Court transcripts are certified written records of a hearing, prepared by Authorized Court Transcriptionists. Unless a judge orders otherwise, transcripts are not available for case, settlement and trial management conferences.",
+      "source": {
+        "corpusId": "scj-accessing-digital-recordings",
+        "pinpoint": "Access to Court Transcripts",
+        "expect": "are a certified written record of a court hearing"
+      },
+      "leadsTo": [
+        "vic.records.scj-recordings"
+      ]
+    },
+    {
+      "id": "vic.records.scj-recordings",
+      "kind": "step",
+      "title": "Superior Court recordings for members of the public",
+      "says": "Unless a Superior Court judge orders otherwise, members of the public, including victims who are not parties, are not given digital recordings. They may request access by seeking a court order with the Request Form/Undertaking and paying the fee.",
+      "source": {
+        "corpusId": "scj-accessing-digital-recordings",
+        "pinpoint": "Access to Digital Recordings for Members of the Public",
+        "expect": "members of the public will not be provided access to digital recordings"
+      },
+      "leadsTo": [
+        "vic.records.scj-not-official"
+      ]
+    },
+    {
+      "id": "vic.records.scj-not-official",
+      "kind": "step",
+      "title": "Recordings are not the official record",
+      "says": "Digital recordings are not an official court record and cannot be used for appeal purposes; access is at the court's discretion and subject to publication bans.",
+      "source": {
+        "corpusId": "scj-accessing-digital-recordings",
+        "pinpoint": "Access to Digital Court Recordings",
+        "expect": "are not considered an official court record"
+      }
+    },
+    {
+      "id": "vic.records.cja-136",
+      "kind": "statute",
+      "title": "No recording or broadcasting of court audio",
+      "says": "No one may take a photograph or audio recording at a court hearing, or broadcast or reproduce one, except as the Courts of Justice Act allows. Breaking this rule is an offence.",
+      "source": {
+        "corpusId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 136 (1)",
+        "expect": "take or attempt to take a photograph"
+      }
+    },
+    {
+      "id": "vic.records.civil-documents",
+      "kind": "statute",
+      "title": "Civil court documents are public",
+      "says": "On paying the fee, anyone may see a document filed in a civil proceeding, unless a law or court order says otherwise. A court may seal documents.",
+      "source": {
+        "corpusId": "cja-courts-of-justice-act",
+        "pinpoint": "s. 137 (1)",
+        "expect": "is entitled to see any document filed in a civil proceeding"
+      }
+    },
+    {
+      "id": "vic.crown.agent",
+      "kind": "statute",
+      "title": "Crown Attorney acts for the Attorney General",
+      "says": "Every Crown Attorney is the agent of the Attorney General for the purposes of the Criminal Code. The Crown represents the public, not the victim, and the victim is not the Crown's client.",
+      "source": {
+        "corpusId": "crown-attorneys-act",
+        "pinpoint": "s. 10",
+        "expect": "Attorney-General’s agent"
+      },
+      "leadsTo": [
+        "vic.dec.krieger"
+      ]
+    },
+    {
+      "id": "vic.crown.duties",
+      "kind": "statute",
+      "title": "Crown Attorney duties in prosecutions",
+      "says": "A Crown Attorney examines the charges and papers sent by justices, may cause charges to be further investigated so prosecutions are not delayed or fail for want of proof, and conducts prosecutions of indictable offences.",
+      "source": {
+        "corpusId": "crown-attorneys-act",
+        "pinpoint": "s. 11 (a)",
+        "expect": "cause such charges to be further investigated"
+      },
+      "leadsTo": [
+        "vic.crown.screening"
+      ]
+    },
+    {
+      "id": "vic.crown.immunity",
+      "kind": "statute",
+      "title": "Who can be sued over a prosecution",
+      "says": "A person who was prosecuted cannot sue a Crown Attorney personally for things done in the prosecution; the action is brought against the Attorney General instead, who stands in the Crown Attorney's place.",
+      "source": {
+        "corpusId": "ministry-of-the-attorney-general-act",
+        "pinpoint": "s. 8 (2)",
+        "expect": "may be commenced against the Attorney General"
+      },
+      "leadsTo": [
+        "vic.dec.nelles",
+        "vic.dec.miazga",
+        "vic.civil.crown-cross-ref"
+      ]
+    },
+    {
+      "id": "vic.dec.krieger",
+      "kind": "decision",
+      "title": "Krieger v. Law Society of Alberta",
+      "says": "The Supreme Court of Canada described prosecutorial discretion, including decisions to start, continue or stay a prosecution, and held that courts and others generally do not review these core decisions except for abuse of process.",
+      "source": {
+        "decision": "Krieger v. Law Society of Alberta, 2002 SCC 65",
+        "pinpoint": "para. 47"
+      }
+    },
+    {
+      "id": "vic.dec.nelles",
+      "kind": "decision",
+      "title": "Nelles v. Ontario",
+      "says": "The Supreme Court of Canada held that Crown prosecutors do not have absolute immunity from a lawsuit for malicious prosecution, while the Crown itself was immune under the law then in force.",
+      "source": {
+        "decision": "Nelles v. Ontario, [1989] 2 S.C.R. 170",
+        "expect": "absolute immunity from a suit for malicious prosecution"
+      }
+    },
+    {
+      "id": "vic.dec.miazga",
+      "kind": "decision",
+      "title": "Miazga v. Kvello Estate",
+      "says": "The Supreme Court of Canada set out the elements of malicious prosecution against a Crown prosecutor, including absence of reasonable and probable cause and malice in the sense of an improper purpose.",
+      "source": {
+        "decision": "Miazga v. Kvello Estate, 2009 SCC 51",
+        "pinpoint": "para. 3"
+      }
+    },
+    {
+      "id": "vic.dec.henry",
+      "kind": "decision",
+      "title": "Henry v. British Columbia (Attorney General)",
+      "says": "The Supreme Court of Canada held that Charter damages may be awarded against the Crown for wrongful non-disclosure by prosecutors, where the claimant meets the fault standard the Court set out.",
+      "source": {
+        "decision": "Henry v. British Columbia (Attorney General), 2015 SCC 24",
+        "expect": "Wrongful non-disclosure"
+      }
+    },
+    {
+      "id": "vic.police.complaint",
+      "kind": "start",
+      "title": "Complaint about police conduct (LECA)",
+      "says": "Any person may make a complaint about the conduct of a police officer to the Complaints Director at the Law Enforcement Complaints Agency.",
+      "source": {
+        "corpusId": "community-safety-and-policing-act",
+        "pinpoint": "s. 154 (1)",
+        "expect": "Any person may make a complaint to the Complaints Director"
+      },
+      "leadsTo": [
+        "vic.police.forward",
+        "vic.police.review",
+        "vic.police.six-months"
+      ]
+    },
+    {
+      "id": "vic.police.forward",
+      "kind": "step",
+      "title": "Complaint made elsewhere is forwarded",
+      "says": "If the complaint is made instead to a chief of police, police service board, the Minister or others listed, they must forward it to the Complaints Director and tell the complainant.",
+      "source": {
+        "corpusId": "community-safety-and-policing-act",
+        "pinpoint": "s. 155 (1)",
+        "expect": "shall forward the complaint to the Complaints Director"
+      }
+    },
+    {
+      "id": "vic.police.review",
+      "kind": "step",
+      "title": "Complaints Director reviews the complaint",
+      "says": "The Complaints Director reviews every complaint, decides whether it is about the conduct of a person covered by the Act, and if so causes it to be investigated, subject to the power to refuse.",
+      "source": {
+        "corpusId": "community-safety-and-policing-act",
+        "pinpoint": "s. 157 (2)",
+        "expect": "cause the complaint to be investigated"
+      }
+    },
+    {
+      "id": "vic.police.six-months",
+      "kind": "deadline",
+      "title": "Six-month window for police complaints",
+      "says": "The Complaints Director may refuse to investigate if the facts happened more than six months before the complaint, considering whether the complainant was a minor or had a disability, was subject to a criminal proceeding about the events, and the public interest. A complaint can also be refused if the complainant was not affected by the conduct.",
+      "source": {
+        "corpusId": "community-safety-and-policing-act",
+        "pinpoint": "s. 158 (1) (a)",
+        "expect": "occurred more than six months before the complaint is made"
+      },
+      "leadsTo": [
+        "vic.police.affected"
+      ]
+    },
+    {
+      "id": "vic.police.affected",
+      "kind": "test",
+      "title": "Who counts as affected by police conduct",
+      "says": "Only a person the conduct was directed at, a person who saw or heard it while physically present, or a person in a personal relationship with the first who suffered loss, damage, distress, danger or inconvenience is considered affected.",
+      "source": {
+        "corpusId": "community-safety-and-policing-act",
+        "pinpoint": "s. 158 (3)",
+        "expect": "A person at whom the conduct was directed"
+      }
+    },
+    {
+      "id": "vic.police.siu",
+      "kind": "statute",
+      "title": "Special Investigations Unit",
+      "says": "The Special Investigations Unit investigates incidents where police or other officials may have caused a death, serious injury, sexual assault or firearm discharge at a person through criminal conduct.",
+      "source": {
+        "citation": "Special Investigations Unit Act, 2019, S.O. 2019, c. 1, Sched. 5",
+        "url": "https://www.ontario.ca/laws/statute/19s01e",
+        "pinpoint": "s. 15 (1)",
+        "expect": "The death of a person"
+      }
+    },
+    {
+      "id": "vic.dec.hill",
+      "kind": "decision",
+      "title": "Hill v. Hamilton-Wentworth Regional Police Services Board",
+      "says": "The Supreme Court of Canada recognized the tort of negligent investigation: police owe a duty of care to a suspect being investigated, judged against the standard of a reasonable officer.",
+      "source": {
+        "decision": "Hill v. Hamilton-Wentworth Regional Police Services Board, 2007 SCC 41",
+        "expect": "tort of negligent investigation"
+      }
+    },
+    {
+      "id": "vic.civil.start-small-claims",
+      "kind": "start",
+      "title": "Suing the offender in Small Claims Court",
+      "says": "A victim can sue the person who harmed them for damages. Claims up to $50,000 go to Small Claims Court, started by filing a Plaintiff's Claim (Form 7A).",
+      "source": {
+        "corpusId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 7.01 (1)",
+        "expect": "filing a plaintiff's claim (Form 7A)"
+      },
+      "form": "7A",
+      "leadsTo": [
+        "vic.civil.limit-basic",
+        "vic.test.battery",
+        "vic.test.iims",
+        "vic.civil.conviction-proof",
+        "vic.civil.settle"
+      ]
+    },
+    {
+      "id": "vic.civil.monetary-limit",
+      "kind": "statute",
+      "title": "Small Claims Court limit",
+      "says": "The Small Claims Court hears claims for money or property up to $50,000.",
+      "source": {
+        "corpusId": "oreg-626-00-monetary-jurisdiction",
+        "pinpoint": "s. 1 (1)",
+        "expect": "$50,000"
+      }
+    },
+    {
+      "id": "vic.civil.start-superior",
+      "kind": "start",
+      "title": "Suing the offender in the Superior Court",
+      "says": "Larger claims are started in the Superior Court of Justice by a statement of claim (Form 14A).",
+      "source": {
+        "corpusId": "rules-of-civil-procedure",
+        "pinpoint": "r. 14.03 (1)",
+        "expect": "is a statement of claim (Form 14A"
+      },
+      "form": "14A",
+      "leadsTo": [
+        "vic.civil.limit-basic",
+        "vic.ovbr.civil-security-costs"
+      ]
+    },
+    {
+      "id": "vic.civil.limit-basic",
+      "kind": "deadline",
+      "title": "Two-year basic limitation period",
+      "says": "Unless the Act says otherwise, a lawsuit must start within two years of the day the claim was discovered.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 4",
+        "expect": "after the second anniversary of the day on which the claim was discovered"
+      },
+      "leadsTo": [
+        "vic.civil.discovery",
+        "vic.civil.limit-minor",
+        "vic.civil.limit-incapable",
+        "vic.civil.ultimate",
+        "vic.civil.no-limit-sexual-assault"
+      ]
+    },
+    {
+      "id": "vic.civil.discovery",
+      "kind": "test",
+      "title": "When a claim is discovered",
+      "says": "A claim is discovered on the earlier of the day the person knew, or a reasonable person in their circumstances ought to have known, that the harm happened, was caused by an act or omission of the person to be sued, and that a lawsuit would be an appropriate way to remedy it. The person is presumed to know on the day of the act unless shown otherwise.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 5 (1)",
+        "expect": "the day on which the person with the claim first knew"
+      }
+    },
+    {
+      "id": "vic.civil.limit-minor",
+      "kind": "deadline",
+      "title": "Limitation period paused for minors",
+      "says": "The two-year period does not run while the person with the claim is a minor and not represented by a litigation guardian.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 6",
+        "expect": "is a minor"
+      }
+    },
+    {
+      "id": "vic.civil.limit-incapable",
+      "kind": "deadline",
+      "title": "Limitation period paused for incapable persons",
+      "says": "The two-year period does not run while the person is incapable of starting a lawsuit because of their physical, mental or psychological condition and has no litigation guardian. Capacity is presumed unless shown otherwise.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 7 (1)",
+        "expect": "because of his or her physical, mental or psychological condition"
+      }
+    },
+    {
+      "id": "vic.civil.ultimate",
+      "kind": "deadline",
+      "title": "15-year ultimate limitation period",
+      "says": "No lawsuit may be started more than 15 years after the act or omission, subject to the Act's exceptions.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 15 (2)",
+        "expect": "15th anniversary of the day on which the act or omission"
+      }
+    },
+    {
+      "id": "vic.civil.no-limit-sexual-assault",
+      "kind": "deadline",
+      "title": "No limitation period for sexual assault claims",
+      "says": "There is no limitation period for a lawsuit based on a sexual assault.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 16 (1) (h)",
+        "expect": "a proceeding based on a sexual assault"
+      },
+      "leadsTo": [
+        "vic.civil.no-limit-sexual-misconduct",
+        "vic.civil.no-limit-assault",
+        "vic.civil.no-limit-retroactive",
+        "vic.civil.no-limit-all-claims"
+      ]
+    },
+    {
+      "id": "vic.civil.no-limit-sexual-misconduct",
+      "kind": "deadline",
+      "title": "No limitation period: other sexual misconduct",
+      "says": "There is no limitation period for a lawsuit based on other misconduct of a sexual nature if the person was a minor, or the other person had charge of them, was in a position of trust or authority, or the person was dependent on them.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 16 (1) (h.1)",
+        "expect": "any other misconduct of a sexual nature"
+      }
+    },
+    {
+      "id": "vic.civil.no-limit-assault",
+      "kind": "deadline",
+      "title": "No limitation period: assault by an intimate partner or on a minor",
+      "says": "There is no limitation period for a lawsuit based on an assault if the person was a minor at the time, or the two had an intimate relationship, or the person was dependent on the assailant.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 16 (1) (h.2)",
+        "expect": "they had an intimate relationship"
+      }
+    },
+    {
+      "id": "vic.civil.no-limit-retroactive",
+      "kind": "statute",
+      "title": "These exceptions apply to old events",
+      "says": "The no-limitation rules for sexual assault, sexual misconduct and these assaults apply whenever the act happened, even if an earlier limitation period had expired, unless the case was already dismissed with no appeal left or settled.",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 16 (1.1)",
+        "expect": "regardless of the expiry of any previously applicable limitation period"
+      }
+    },
+    {
+      "id": "vic.civil.no-limit-all-claims",
+      "kind": "statute",
+      "title": "All related claims are covered",
+      "says": "The no-limitation rules extend to all claims in the lawsuit about that act, including negligence, breach of fiduciary or other duty, and vicarious liability (for example against an employer or institution).",
+      "source": {
+        "corpusId": "limitations-act-2002",
+        "pinpoint": "s. 16 (1.3)",
+        "expect": "for breach of fiduciary or any other duty or for vicarious liability"
+      }
+    },
+    {
+      "id": "vic.test.battery",
+      "kind": "test",
+      "title": "Battery and sexual battery: what must be shown",
+      "says": "Battery is intentional, direct, harmful or offensive physical contact. In a sexual battery claim, the plaintiff proves the sexual contact; if the defendant does not dispute it happened, the defendant bears the burden of proving consent or that a reasonable person would have thought there was consent.",
+      "source": {
+        "decision": "Non-Marine Underwriters, Lloyd's of London v. Scalera, 2000 SCC 24",
+        "expect": "he bears the burden of proving that the plaintiff consented"
+      }
+    },
+    {
+      "id": "vic.test.iims",
+      "kind": "test",
+      "title": "Intentional infliction of mental suffering",
+      "says": "To claim for intentional infliction of mental suffering, the plaintiff shows conduct that was flagrant and outrageous, calculated to produce harm, and that resulted in a visible and provable illness.",
+      "source": {
+        "decision": "Prinzo v. Baycrest Centre for Geriatric Care (2002), 60 O.R. (3d) 474 (C.A.)",
+        "pinpoint": "para. 48",
+        "expect": "flagrant and outrageous"
+      }
+    },
+    {
+      "id": "vic.test.mental-injury",
+      "kind": "test",
+      "title": "Proving mental injury",
+      "says": "A claimant does not need a diagnosed psychiatric illness to recover for mental injury in negligence; the injury must be serious and prolonged and more than ordinary upset.",
+      "source": {
+        "decision": "Saadati v. Moorhead, 2017 SCC 28",
+        "expect": "recognized psychiatric illness"
+      }
+    },
+    {
+      "id": "vic.civil.conviction-proof",
+      "kind": "test",
+      "title": "A conviction is proof in the civil case",
+      "says": "Proof that a person was convicted or discharged of a crime anywhere in Canada is proof, unless there is evidence to the contrary, that they committed it, once appeals are finished or the time to appeal has passed.",
+      "source": {
+        "corpusId": "evidence-act",
+        "pinpoint": "s. 22.1 (1)",
+        "expect": "is proof, in the absence of evidence to the contrary"
+      }
+    },
+    {
+      "id": "vic.ovbr.civil-damages",
+      "kind": "statute",
+      "title": "Damages for emotional distress after a prescribed crime",
+      "says": "A person convicted of a prescribed crime is liable to every victim for emotional distress, and bodily harm resulting from the distress, arising from the crime.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 3 (1)",
+        "expect": "liable in damages to every victim of the crime for emotional distress"
+      },
+      "leadsTo": [
+        "vic.ovbr.civil-presumption",
+        "vic.ovbr.civil-prescribed"
+      ]
+    },
+    {
+      "id": "vic.ovbr.civil-presumption",
+      "kind": "test",
+      "title": "Presumed emotional distress",
+      "says": "For a prescribed crime, certain victims are presumed to have suffered emotional distress, including victims of sexual assault or attempted sexual assault, other sexual crimes, assault by a spouse, non-consensual sharing of intimate images, human trafficking, and assault on a minor or person with a disability by someone in a position of trust or on whom they were dependent.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 3 (2)",
+        "expect": "shall be presumed to have suffered emotional distress"
+      }
+    },
+    {
+      "id": "vic.ovbr.civil-prescribed",
+      "kind": "statute",
+      "title": "Prescribed crimes regulation",
+      "says": "The crimes to which the Ontario damages and notification provisions apply are listed in a regulation made under the Act.",
+      "source": {
+        "citation": "O. Reg. 456/96 (Prescribed Crimes) under the Victims' Bill of Rights, 1995",
+        "url": "https://www.ontario.ca/laws/regulation/960456",
+        "pinpoint": "s. 1",
+        "expect": "prescribed crimes"
+      }
+    },
+    {
+      "id": "vic.ovbr.civil-security-costs",
+      "kind": "motion",
+      "title": "Limits on security for costs against a victim",
+      "says": "In a victim's lawsuit against the person convicted of the crime, a judge does not order the victim to pay security for costs unless, considering the spirit and purpose of the Act, it is necessary in the interests of justice.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 4 (2)",
+        "expect": "requiring a victim to provide security for costs"
+      },
+      "leadsTo": [
+        "vic.ovbr.civil-sentence",
+        "vic.ovbr.civil-costs"
+      ]
+    },
+    {
+      "id": "vic.ovbr.civil-sentence",
+      "kind": "test",
+      "title": "The criminal sentence and damages",
+      "says": "When ordering the convicted person to pay damages, the judge does not consider the criminal sentence, except that the sentence is taken into account before ordering punitive damages.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 4 (3)",
+        "expect": "shall not consider the sentence"
+      }
+    },
+    {
+      "id": "vic.ovbr.civil-interest",
+      "kind": "test",
+      "title": "Interest on a victim's award",
+      "says": "A judge does not disallow interest on a victim's award under the Courts of Justice Act unless necessary in the interests of justice.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 4 (5)",
+        "expect": "to disallow an award of interest to a victim"
+      }
+    },
+    {
+      "id": "vic.ovbr.civil-costs",
+      "kind": "test",
+      "title": "Costs on a solicitor and client basis",
+      "says": "A judge who awards costs to a victim makes the order on a solicitor and client (higher) basis, unless that would not be in the interests of justice.",
+      "source": {
+        "corpusId": "victims-bill-of-rights-1995",
+        "pinpoint": "s. 4 (6)",
+        "expect": "shall make the order on a solicitor and client basis"
+      }
+    },
+    {
+      "id": "vic.civil.settle",
+      "kind": "option",
+      "title": "Offer to settle",
+      "says": "In Small Claims Court, a party may serve an offer to settle the claim on the terms set out in the offer at any time.",
+      "source": {
+        "corpusId": "oreg-258-98-small-claims-rules",
+        "pinpoint": "r. 14.01",
+        "expect": "an offer to settle a claim on the terms specified in the offer"
+      }
+    },
+    {
+      "id": "vic.civil.civil-remedies",
+      "kind": "option",
+      "title": "Forfeited proceeds of crime and victim compensation",
+      "says": "Under Ontario's Civil Remedies Act, 2001, the Attorney General can ask the Superior Court to forfeit property that is proceeds of unlawful activity; money from forfeited property can be used to compensate persons who suffered losses from that activity.",
+      "source": {
+        "citation": "Civil Remedies Act, 2001, S.O. 2001, c. 28",
+        "url": "https://www.ontario.ca/laws/statute/01r28",
+        "pinpoint": "s. 6",
+        "expect": "compensate persons who suffered pecuniary or non-pecuniary losses"
+      }
+    },
+    {
+      "id": "vic.civil.crown-cross-ref",
+      "kind": "option",
+      "title": "Suing the Crown or police over how the case was handled",
+      "says": "A lawsuit for damages against the Ontario Crown needs 60 days' written notice of the claim before it starts. Claims for misfeasance in public office or bad faith against the Crown or its employees need the court's leave. See the crown-and-public area for these claims.",
+      "source": {
+        "corpusId": "crown-liability-and-proceedings-act-2019",
+        "pinpoint": "s. 18 (1)",
+        "expect": "at least 60 days before the commencement of the proceeding"
+      },
+      "leadsTo": [
+        "vic.civil.crown-leave",
+        "vic.dec.hill",
+        "vic.dec.henry"
+      ]
+    },
+    {
+      "id": "vic.civil.crown-leave",
+      "kind": "pre-step",
+      "title": "Leave needed for misfeasance or bad-faith claims against the Crown",
+      "says": "A lawsuit against the Crown or a Crown employee for misfeasance in public office or a bad-faith tort may proceed only with the court's leave, and is stayed until leave is granted.",
+      "source": {
+        "corpusId": "crown-liability-and-proceedings-act-2019",
+        "pinpoint": "s. 17 (2)",
+        "expect": "may proceed only with leave of the court"
+      }
+    },
+    {
+      "id": "vic.support.vwap",
+      "kind": "option",
+      "title": "Victim/Witness Assistance Program",
+      "says": "Ontario's Victim/Witness Assistance Program gives information, assistance and support to victims and witnesses throughout the criminal court process.",
+      "source": {
+        "corpusId": "ontario-connect-supports-survivors-violence",
+        "pinpoint": "Victim/Witness Assistance Program",
+        "expect": "provides information, assistance and support to victims and witnesses"
+      }
+    },
+    {
+      "id": "vic.support.victim-support-line",
+      "kind": "option",
+      "title": "Victim Support Line",
+      "says": "The Victim Support Line offers 24/7 information and referrals for victims of crime across Ontario: 1-888-579-2888.",
+      "source": {
+        "corpusId": "ontario-connect-supports-survivors-violence",
+        "pinpoint": "Victim Support Line",
+        "expect": "information and referrals for victims of crime across Ontario"
+      }
+    },
+    {
+      "id": "vic.support.vcao",
+      "kind": "option",
+      "title": "Victim Crisis Assistance Ontario",
+      "says": "Victim Crisis Assistance Ontario provides 24/7 crisis intervention, safety planning, referrals, and help applying to the Victim Quick Response Program+.",
+      "source": {
+        "corpusId": "ontario-connect-supports-survivors-violence",
+        "pinpoint": "Victim Crisis Assistance Ontario",
+        "expect": "provides crisis intervention services to victims of crime"
+      }
+    },
+    {
+      "id": "vic.support.vqrp",
+      "kind": "option",
+      "title": "Victim Quick Response Program+",
+      "says": "The Victim Quick Response Program+ gives short-term support for essential expenses right after a violent crime (such as emergency home safety, counselling, crime-scene clean-up and funeral costs) to people with no other means. Applicants are assessed by a local service provider.",
+      "source": {
+        "corpusId": "ontario-connect-supports-survivors-violence",
+        "pinpoint": "Victim Quick Response Program+",
+        "expect": "short-term support for essential expenses for victims"
+      }
+    },
+    {
+      "id": "vic.support.vvff",
+      "kind": "option",
+      "title": "Vulnerable Victims and Family Fund",
+      "says": "This fund helps victims take part in the criminal court process, for example with travel to key court dates, interpretation and disability accommodations. Victims apply through the Victim/Witness Assistance Program.",
+      "source": {
+        "corpusId": "ontario-connect-supports-survivors-violence",
+        "pinpoint": "Vulnerable Victims and Family Fund",
+        "expect": "helps victims of crime participate more fully in the criminal court process"
+      }
+    },
+    {
+      "id": "vic.support.ila",
+      "kind": "option",
+      "title": "Free independent legal advice for sexual assault survivors",
+      "says": "Sexual assault survivors living in Ontario may be eligible for up to 4 hours of free, confidential legal advice by phone or video. It does not include representation in court.",
+      "source": {
+        "corpusId": "ontario-connect-supports-survivors-violence",
+        "pinpoint": "Independent Legal Advice",
+        "expect": "up to 4 hours of free legal advice"
+      }
+    },
+    {
+      "id": "vic.support.child-vw",
+      "kind": "option",
+      "title": "Child Victim/Witness Program",
+      "says": "The Child Victim/Witness Program supports child victims and witnesses during the criminal court process.",
+      "source": {
+        "corpusId": "ontario-connect-supports-survivors-violence",
+        "pinpoint": "Help for child victims and child witnesses",
+        "expect": "offers support and services to child victims and witnesses"
+      }
+    },
+    {
+      "id": "vic.dec.antic",
+      "kind": "decision",
+      "title": "R. v. Antic",
+      "says": "The Supreme Court of Canada set out principles for contested bail hearings, including the ladder principle: release is favoured at the earliest reasonable opportunity on the least onerous grounds, and each more onerous form of release must be justified.",
+      "source": {
+        "decision": "R. v. Antic, 2017 SCC 27",
+        "pinpoint": "para. 67",
+        "expect": "the following principles and guidelines should be adhered to"
+      }
+    },
+    {
+      "id": "vic.dec.zora",
+      "kind": "decision",
+      "title": "R. v. Zora",
+      "says": "The Supreme Court of Canada held that bail conditions must be clearly stated, minimal in number, necessary, reasonable, least onerous, and linked to the risks under the detention grounds (restraint and review), and that the breach offence requires proof of subjective fault.",
+      "source": {
+        "decision": "R. v. Zora, 2020 SCC 14",
+        "pinpoint": "para. 6",
+        "expect": "the principles of restraint and review"
+      }
+    },
+    {
+      "id": "vic.dec.st-cloud",
+      "kind": "decision",
+      "title": "R. v. St-Cloud",
+      "says": "The Supreme Court of Canada held that the third ground (confidence in the administration of justice) is a distinct ground for detention, not limited to rare cases, and that the court weighs all the circumstances without ordering detention automatically.",
+      "source": {
+        "decision": "R. v. St-Cloud, 2015 SCC 27",
+        "pinpoint": "para. 87",
+        "expect": "does not create a residual ground for detention"
+      }
+    },
+    {
+      "id": "vic.dec.myers",
+      "kind": "decision",
+      "title": "R. v. Myers",
+      "says": "The Supreme Court of Canada explained the 90-day detention review: the judge asks whether continued detention is still justified on the grounds in s. 515(10), and considers any unreasonable delay.",
+      "source": {
+        "decision": "R. v. Myers, 2019 SCC 18",
+        "pinpoint": "para. 1",
+        "expect": "Pre-trial detention is the exception, not the rule"
+      }
+    },
+    {
+      "id": "vic.dec.morales",
+      "kind": "decision",
+      "title": "R. v. Morales",
+      "says": "The Supreme Court of Canada held that the Charter right not to be denied reasonable bail without just cause allows denial of bail only in a narrow set of circumstances where necessary for the proper functioning of the bail system.",
+      "source": {
+        "decision": "R. v. Morales, [1992] 3 S.C.R. 711",
+        "expect": "just cause"
+      }
+    },
+    {
+      "id": "vic.dec.hall",
+      "kind": "decision",
+      "title": "R. v. Hall",
+      "says": "The Supreme Court of Canada upheld detention to maintain confidence in the administration of justice, while striking down a broader 'any other just cause' ground.",
+      "source": {
+        "decision": "R. v. Hall, 2002 SCC 64",
+        "expect": "confidence in the administration of justice"
+      }
+    },
+    {
+      "id": "vic.dec.jordan",
+      "kind": "decision",
+      "title": "R. v. Jordan",
+      "says": "The Supreme Court of Canada set presumptive ceilings for the time from charge to the end of trial (18 months in provincial court, 30 months in superior court), beyond which delay is presumed unreasonable and the charge may be stayed.",
+      "source": {
+        "decision": "R. v. Jordan, 2016 SCC 27",
+        "pinpoint": "para. 5"
+      }
+    },
+    {
+      "id": "vic.dec.jj",
+      "kind": "decision",
+      "title": "R. v. J.J.",
+      "says": "The Supreme Court of Canada upheld the Criminal Code regime for admitting a complainant's private records held by the accused in sexual offence cases, including the complainant's right to participate in the hearing.",
+      "source": {
+        "decision": "R. v. J.J., 2022 SCC 28"
+      }
+    }
+  ]
+}
