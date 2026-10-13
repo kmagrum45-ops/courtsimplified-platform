@@ -14,6 +14,7 @@
  * Run: node --import tsx scripts/verification/verifyReadinessGate.ts
  */
 
+import { publicSourceUrl } from "../../src/lib/content-library/publicSourceUrl";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -304,7 +305,9 @@ function main(): void {
       );
       check(
         `[${claimType.id}] ${element.elementId}: cites its own source`,
-        element.sourceUrl.startsWith("http"),
+        // The page links it through publicSourceUrl (a saved decision PDF ->
+        // the Supreme Court's own page), so that is what is checked.
+        Boolean(publicSourceUrl(element.sourceUrl)?.startsWith("https://")),
       );
     }
   }
@@ -332,6 +335,10 @@ function main(): void {
   check(
     "claim-type agnostic: remedy options come from the claim type's own data",
     defamationResult.remedyOptions.length > 0,
+  );
+  check(
+    "every remedy shown carries its source (2026-10-13)",
+    defamationResult.remedyOptions.every((remedy) => Boolean(remedy.source?.url.startsWith("https://"))),
   );
   check(
     "the gate enumerates no claim type ids",
