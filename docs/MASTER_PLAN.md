@@ -35,6 +35,32 @@ deadline engine, claim types and elements, the guided intake, the form
 library, the sourcing rules, the switches and the suites. The plan rewires
 around them.
 
+## Build order (adopted 2026-10-12, governs the order of work)
+
+The site owner set this order on 2026-10-12 to stop drift. The living copy,
+with every item and its status, is the "CourtSimplified Build Order" doc in the
+owner's Claude artifacts. Work it top to bottom; a new idea goes on the
+after-beta list; one main chat builds at a time, and any other chat takes a
+job that does not touch the same files (and says which files it touches).
+
+1. **Quick fixes** -- done 2026-10-12.
+2. **Shared pieces, built once for all three courts** (the phases below, done
+   for every court together): 2A one case record read by every page; 2B
+   questions that check the record first (driven by the walkthrough's
+   repetition findings); 2C one-question-at-a-time intake for every court
+   (GuidedFormChat over each court's own form) and the court check before
+   intake; 2D deadlines counted from the day service is effective
+   (serviceEffectiveDate.ts); 2E the next-step card complete or saying what
+   it doesn't list; 2F the free finish line (eval:free-finish-line) in CI
+   against a floor.
+3. **Lock down Small Claims**: every form tied to its steps, empty next-step
+   entries filled, missing sources finished; locked when its walkthrough
+   cases, its held-back cases and a 50-statement random check all pass.
+4. **Lock down Family**, the same way.
+5. **Civil**, the same way; then the before-beta list (live-testing switch
+   off, OpenAI data retention confirmed, backups decided, unused AI routes
+   removed, per-visitor limits on routes that need no sign-in).
+
 ## Phases (each ends with a test that must pass before the next starts)
 
 1. **One case record.** Done when no page asks for a fact already recorded,
@@ -116,3 +142,4 @@ through the decision log.
 | 2026-10-08 | Owner direction: follow this plan, phases 1-5 in order, until the finish line passes; no other build work until then. Finish line measured by the page walkthrough's 20 cases (`FINISH_LINE.md`, scored by `scripts/walkthrough/critique.ts`) PLUS 10 new held-back cases never used for fixing, run once at the end. The guided path is rebuilt to reason from the law for any case (the checked-answer engine, the case-type library, the deadline engine, the forms library), not scripted per case type. | First finish-line scorecard (2026-10-08): 0/20 on "where to file, fee, service" and "never ask twice", 1/14 on counted deadlines, 0/15 on the conversation; 5 runs did not finish. Two days had gone to the law exam and strategy, off this plan, and the build direction kept changing. |
 | 2026-10-09 | Owner direction: grow the library now so the site can answer any matter people bring, starting with claims against the Crown, bail, victims' rights and human rights (the owner's own family matter was the test). Sources are added through the existing free routes (Vendor Sources for statutes and court pages, Fetch Decisions for Supreme Court and Court of Appeal judgments), and the automatic source requests keep adding what questions show is missing. Lower-court and tribunal decisions stay manual (CanLII terms). | Tested OpenCase with a real story: the answers needed law the site had (Criminal Code, Crown Liability and Proceedings Act, Human Rights Code, Charter) plus decisions and victims' statutes it lacked. |
 | 2026-10-12 | Owner direction: "i want everything on, there are no saved cases and we are just testing plus nobody knows about or is useing the site". Switched on by default: strategy (STRATEGY / NEXT_PUBLIC_STRATEGY, off with `off`), the case reader (CASE_READER / NEXT_PUBLIC_CASE_READER, off with `off`), the full intake analysis (ANALYSIS_DEPTH, `fast` for the quick one), and AI document analysis while OWNER_LIVE_TESTING is on (AI_DOCUMENT_ANALYSIS_ENABLED=false turns it off; ZDR_CONFIRMED_AT stays null because no confirmation has arrived). | The site has no real users or saved cases; the owner wants to test the whole product as it will run. Before real users: OWNER_LIVE_TESTING back to false, and each switch reviewed. |
+| 2026-10-12 | Owner direction: the build order above (quick fixes; shared pieces for all courts; then Small Claims, Family, Civil, each locked by tests) governs the order of work; the living list is the "CourtSimplified Build Order" doc. Everything is switched on for testing (no users, no saved cases). New held-back cases replace the set used for fixes on 2026-10-09. | To stop drift: one ordered list, each item done when its test passes, shared pieces built once so all three courts get them. |
