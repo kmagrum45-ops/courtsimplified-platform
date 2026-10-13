@@ -163,31 +163,7 @@ function NextStepCard({
     filingShown: Boolean(practical?.filing.length),
   });
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
-  const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
-  const split = <T extends { what: string }>(items: T[]) => [items.filter((item) => !isConditional(item.what)), items.filter((item) => isConditional(item.what))];
-  const [mainDeadlines, laterDeadlines] = split(summary.deadlines);
-  const [mainPeriods, laterPeriods] = split(summary.periods);
-  // With nothing unconditional, the limits for the person's own side lead
-  // ("If you are responding ..." for a respondent; held-back walkthrough,
-  // 2026-10-09: a defendant's card led with "If you are bringing the motion").
-  const ownSide = (what: string) => (responding ? /\bresponding\b|\bthe other party\b/i : /\bbringing\b|\bmoving party\b/i).test(what);
-  const otherSide = (what: string) => (responding ? /\bbringing\b|\bmoving party\b/i : /\bresponding\b/i).test(what);
-  const leadDeadlines = laterDeadlines.filter((item) => ownSide(item.what));
-  const leadPeriods = laterPeriods.filter((item) => ownSide(item.what));
-  const neutral = <T extends { what: string }>(items: T[]) => items.filter((item) => !otherSide(item.what));
-  const main =
-    mainDeadlines.length + mainPeriods.length > 0
-      ? { deadlines: mainDeadlines, periods: mainPeriods }
-      : leadDeadlines.length + leadPeriods.length > 0
-        ? { deadlines: leadDeadlines, periods: leadPeriods }
-        : {
-            deadlines: neutral(laterDeadlines).slice(0, 1),
-            periods: neutral(laterDeadlines).length ? [] : neutral(laterPeriods).slice(0, 1),
-          };
-  const conditional = {
-    deadlines: laterDeadlines.filter((item) => !main.deadlines.includes(item)),
-    periods: laterPeriods.filter((item) => !main.periods.includes(item)),
-  };
+  const { main, conditional } = cardLimits(summary, responding);
   const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => (
     <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
       <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
@@ -373,6 +349,47 @@ function savePosition(caseId: string, patch: Record<string, unknown>): Promise<b
  * not about a mortgage. Whole sentences or that one aside are dropped, never
  * reworded; the full answer below keeps every word.
  */
+/**
+ * Which time limits lead the next-step card, and in what order (2026-10-13).
+ *
+ * Lead: the ones with no "if", plus the "if" ones that name the person's own
+ * side ("If you are the other party, serve and file your case conference
+ * brief"). The walkthrough's family respondent saw the confirmation (3 days
+ * before the conference) lead while her own brief, due 4 days before, was
+ * folded under "may apply later". With nothing for their side, one neutral
+ * limit leads, as before. Shown in the order they fall due: dated ones by
+ * date; "N days before" ones furthest-before first; "N days after" ones
+ * soonest first.
+ */
+export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean) {
+  const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
+  const ownSide = (what: string) =>
+    (responding ? /\bresponding\b|\bthe other party\b|\brespondent\b/i : /\bbringing\b|\bmoving party\b|\bapplicant\b|\bmade the motion\b/i).test(what);
+  const otherSide = (what: string) =>
+    (responding ? /\bbringing\b|\bmoving party\b|\bapplicant\b|\bmade the motion\b/i : /\bresponding\b|\bthe other party\b|\brespondent\b/i).test(what);
+  const leads = <T extends { what: string }>(items: T[]) => items.filter((item) => !isConditional(item.what) || (ownSide(item.what) && !otherSide(item.what)));
+  const backwards = (period: NextStepSummary["periods"][number]) => /counting backwards|\bbefore\b/i.test(`${period.countFrom} ${period.what}`);
+  const byDue = (a: NextStepSummary["periods"][number], b: NextStepSummary["periods"][number]) =>
+    backwards(a) !== backwards(b) ? (backwards(a) ? -1 : 1) : backwards(a) ? b.count - a.count : a.count - b.count;
+  let deadlines = leads(summary.deadlines);
+  let periods = leads(summary.periods);
+  if (deadlines.length + periods.length === 0) {
+    const neutralDeadlines = summary.deadlines.filter((item) => !otherSide(item.what));
+    const neutralPeriods = summary.periods.filter((item) => !otherSide(item.what));
+    deadlines = neutralDeadlines.slice(0, 1);
+    periods = neutralDeadlines.length ? [] : neutralPeriods.slice(0, 1);
+  }
+  const main = {
+    deadlines: [...deadlines].sort((a, b) => a.date.localeCompare(b.date)),
+    periods: [...periods].sort(byDue),
+  };
+  const conditional = {
+    deadlines: summary.deadlines.filter((item) => !main.deadlines.includes(item)),
+    periods: summary.periods.filter((item) => !main.periods.includes(item)),
+  };
+  return { main, conditional };
+}
+
 export function forThisPerson(paragraph: string, { userWords, filingShown }: { userWords: string; filingShown: boolean }): string {
   let text = paragraph;
   if (!/\bmortgage/i.test(userWords)) {
