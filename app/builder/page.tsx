@@ -1611,6 +1611,7 @@ function BuilderPageContent() {
               <FamilyIntake
                 onComplete={handleComplete}
                 earlierSourcedAnswers={earlierSourcedAnswers}
+                storedIntake={queryCaseId ? asRecord(existingMasterResult).intakeData : undefined}
                 onScopeChange={setFamilyScope}
                 location={confirmedLocation}
                 initialStory={homeStory}
