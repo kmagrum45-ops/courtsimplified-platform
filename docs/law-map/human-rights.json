@@ -36,7 +36,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 47 (1)",
-        "expect": "This Act binds the Crown and every agency of the Crown"
+        "expect": "Act binds the Crown and every agency of the Crown"
       }
     },
     {
@@ -54,7 +54,7 @@
       "id": "hr.statute.hrto-rules",
       "kind": "statute",
       "title": "HRTO Rules of Procedure",
-      "says": "The Tribunal makes its own rules of practice and procedure. The rules must give parties a chance to make oral submissions before an application within its jurisdiction is finally decided, and a final decision must have written reasons.",
+      "says": "The Tribunal makes its own rules of practice and procedure. The rules must let parties make oral submissions before an application within its jurisdiction is finally decided, and a final decision must have written reasons.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (1)",
@@ -91,7 +91,7 @@
       "id": "hr.statute.disposition-method",
       "kind": "statute",
       "title": "How the Tribunal deals with applications",
-      "says": "The Tribunal uses the procedures in its rules, or other procedures available to it, that it thinks give the best chance of a fair, just and quick resolution of the merits.",
+      "says": "The Tribunal uses the procedures in its rules, or other procedures available to it, that in its opinion offer the best opportunity for a fair, just and quick resolution of the merits.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 40",
@@ -147,7 +147,7 @@
       "id": "hr.pre.social-area-and-ground",
       "kind": "pre-step",
       "title": "Check: a protected ground in a protected social area",
-      "says": "The Code covers treatment because of a listed ground (such as race, disability, sex, age, creed, family status) in one of five social areas: services, goods and facilities; housing; contracts; employment; and vocational associations. A matter outside these areas is not covered by the Code.",
+      "says": "Every person has a right to equal treatment in services, goods and facilities, without discrimination because of a listed ground such as race, creed, sex, sexual orientation, gender identity, age, marital status, family status or disability.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 1",
@@ -160,7 +160,12 @@
         "hr.area.employment",
         "hr.area.vocational",
         "hr.pre.federal-or-provincial"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 1 covers only services, goods and facilities; the other four social areas and the statement that matters outside them are not covered are not in s. 1 (they come from ss. 2 to 6).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.pre.federal-or-provincial",
@@ -195,7 +200,7 @@
       "id": "hr.pre.unionized-worker",
       "kind": "pre-step",
       "title": "Unionized workers: grievance and HRTO",
-      "says": "A unionized worker can raise a human rights issue through a grievance. The Tribunal can put its own application on hold while the grievance goes ahead, and can dismiss it if the grievance has properly dealt with the substance.",
+      "says": "The Tribunal may defer (put on hold) an application, as its rules allow.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45",
@@ -205,13 +210,18 @@
         "hr.motion.deferral",
         "hr.motion.dismiss-other-proceeding",
         "hr.decision.horrocks"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 45 only lets the Tribunal defer an application under its rules; it does not mention grievances, unionized workers, or dismissal (dismissal is s. 45.1).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.pre.hrlsc",
       "kind": "pre-step",
       "title": "Free help: Human Rights Legal Support Centre",
-      "says": "The Human Rights Legal Support Centre gives advice and assistance on Code rights, and legal services for making applications, Tribunal proceedings, judicial review, stated cases and enforcing Tribunal orders. It sets its own priorities based on its resources.",
+      "says": "The Human Rights Legal Support Centre provides advice and assistance on Code rights, and legal services for making applications, Tribunal proceedings, judicial review, stated cases and enforcing Tribunal orders.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.13 (1)",
@@ -220,7 +230,12 @@
       "leadsTo": [
         "hr.statute.hrlsc",
         "hr.start.application"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Setting priorities based on resources is in s. 45.12(b), not the cited s. 45.13(1).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.statute.hrlsc",
@@ -237,11 +252,16 @@
       "id": "hr.pre.hrlsc-priorities",
       "kind": "pre-step",
       "title": "The Centre sets its own priorities",
-      "says": "The Centre's objects include setting policies and priorities for its services based on its financial resources, so it does not take on every matter.",
+      "says": "The Centre's objects include setting policies and priorities for its support services based on its financial resources.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.12",
         "expect": "establish policies and priorities for the provision of support"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The conclusion 'so it does not take on every matter' is an inference s. 45.12 does not state.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -268,7 +288,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (11)",
-        "expect": "a court has finally determined the issue of whether the right"
+        "expect": "court has finally determined the issue of whether the right"
       },
       "leadsTo": [
         "hr.pre.final-determination"
@@ -282,7 +302,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (12)",
-        "expect": "a right of appeal exists and the time for appealing has not expired"
+        "expect": "right of appeal exists and the time for appealing has"
       }
     },
     {
@@ -308,7 +328,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (2)",
-        "expect": "the delay was incurred in good faith and no substantial prejudice"
+        "expect": "delay was incurred in good faith and no substantial prejudice"
       },
       "leadsTo": [
         "hr.start.application"
@@ -322,7 +342,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 1",
-        "expect": "Every person has a right to equal treatment with respect to services"
+        "expect": "person has a right to equal treatment with respect to"
       },
       "leadsTo": [
         "hr.def.services",
@@ -338,7 +358,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 10 (1)",
-        "expect": "does not include a levy, fee, tax or periodic payment imposed by law"
+        "expect": "not include a levy, fee, tax or periodic payment imposed"
       }
     },
     {
@@ -489,7 +509,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 7 (3)",
-        "expect": "a sexual solicitation or advance made by a person in a position"
+        "expect": "sexual solicitation or advance made by a person in a"
       },
       "leadsTo": [
         "hr.test.harassment"
@@ -795,7 +815,7 @@
         "decision": "Moore v. British Columbia (Education), 2012 SCC 61",
         "corpusId": "decision-moore-bc",
         "pinpoint": "para. 33",
-        "expect": "within the framework of the exemptions available under human rights statutes"
+        "expect": "the framework of the exemptions available under human rights statutes"
       },
       "leadsTo": [
         "hr.defence.bfor",
@@ -811,7 +831,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 17 (2)",
-        "expect": "the needs of the person cannot be accommodated without undue hardship"
+        "expect": "needs of the person cannot be accommodated without undue hardship"
       },
       "leadsTo": [
         "hr.test.essential-duties",
@@ -896,7 +916,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 46.3 (1)",
-        "expect": "shall be deemed to be an act or thing done or omitted"
+        "expect": "be deemed to be an act or thing done or"
       },
       "leadsTo": [
         "hr.test.corporate-opinion"
@@ -921,7 +941,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (1) (b)",
-        "expect": "is a reasonable and bona fide qualification because of the nature of the employment"
+        "expect": "reasonable and bona fide qualification because of the nature of"
       },
       "leadsTo": [
         "hr.defence.bfor-accommodation",
@@ -936,7 +956,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (2)",
-        "expect": "the circumstances of the person cannot be accommodated without undue hardship"
+        "expect": "circumstances of the person cannot be accommodated without undue hardship"
       },
       "leadsTo": [
         "hr.test.undue-hardship"
@@ -950,7 +970,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (1) (a)",
-        "expect": "employs only, or gives preference in employment to, persons similarly identified"
+        "expect": "employs only, or gives preference in employment to, persons similarly"
       }
     },
     {
@@ -972,7 +992,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 24 (1) (d)",
-        "expect": "the spouse, child or parent of the employer or an employee"
+        "expect": "spouse, child or parent of the employer or an employee"
       }
     },
     {
@@ -997,7 +1017,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 14 (2)",
-        "expect": "may apply to the Commission for a designation of a program"
+        "expect": "apply to the Commission for a designation of a program"
       }
     },
     {
@@ -1030,7 +1050,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 18",
-        "expect": "primarily engaged in serving the interests of persons identified by a prohibited ground"
+        "expect": "primarily engaged in serving the interests of persons identified by"
       }
     },
     {
@@ -1063,7 +1083,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 20 (1)",
-        "expect": "restricted to persons of the same sex on the ground of public decency"
+        "expect": "restricted to persons of the same sex on the ground"
       }
     },
     {
@@ -1096,7 +1116,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 21 (1)",
-        "expect": "required to share a bathroom or kitchen facility with the owner"
+        "expect": "required to share a bathroom or kitchen facility with the"
       }
     },
     {
@@ -1133,7 +1153,7 @@
         "citation": "O. Reg. 290/98 (Business Practices Permissible to Landlords in Selecting Prospective Tenants for Residential Accommodation)",
         "url": "https://www.ontario.ca/laws/regulation/980290",
         "pinpoint": "s. 1",
-        "expect": "income information"
+        "expect": "request credit references and rental history information"
       }
     },
     {
@@ -1144,7 +1164,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 22",
-        "expect": "on reasonable and bona fide grounds because of age, sex, marital status"
+        "expect": "reasonable and bona fide grounds because of age, sex, marital"
       }
     },
     {
@@ -1177,7 +1197,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (1)",
-        "expect": "the person may apply to the Tribunal for an order under section 45.2"
+        "expect": "person may apply to the Tribunal for an order under"
       },
       "form": "Form 1",
       "leadsTo": [
@@ -1235,11 +1255,16 @@
       "id": "hr.deadline.on-behalf",
       "kind": "deadline",
       "title": "Same time limit for applications on behalf of another",
-      "says": "An application made on someone else's behalf must be made within the same one-year time limit, and the late-filing rule also applies.",
+      "says": "An application made on someone else's behalf must be made within the same time limit that applies to a person applying for themselves.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (8)",
         "expect": "shall be made within the time period required"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 34(8) only applies the subsection (1) time period; it says nothing about the late-filing rule in s. 34(2) applying.",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1250,7 +1275,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 34 (10)",
-        "expect": "may be withdrawn by the person on behalf of whom the application is made"
+        "expect": "be withdrawn by the person on behalf of whom the"
       }
     },
     {
@@ -1291,7 +1316,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 36",
-        "expect": "Any person against whom an order is sought in the application"
+        "expect": "person against whom an order is sought in the application"
       },
       "leadsTo": [
         "hr.motion.add-party"
@@ -1323,7 +1348,7 @@
       "id": "hr.step.screening",
       "kind": "step",
       "title": "Tribunal checks the application",
-      "says": "On receiving an application, the Tribunal or its staff may decide not to process it if it is incomplete, late, missing a fee, or has another technical defect. It must give notice with reasons and say what is needed to resume.",
+      "says": "Where its rules allow it, the Tribunal or its staff may decide not to process an application that is incomplete, late, missing the fee, or has another technical defect.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 4.5 (1)",
@@ -1332,7 +1357,12 @@
       "leadsTo": [
         "hr.step.notice-of-intent-to-dismiss",
         "hr.step.response"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The duty to give notice with reasons and the requirements to resume is in SPPA s. 4.5(2), not the cited s. 4.5(1); s. 4.5(1) is also subject to s. 4.5(3), which requires the tribunal to have made rules first.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.notice-of-intent-to-dismiss",
@@ -1353,11 +1383,16 @@
       "id": "hr.step.submissions-on-dismissal",
       "kind": "deadline",
       "title": "Written submissions on a proposed dismissal",
-      "says": "A party who receives a notice of intent to dismiss may make written submissions within the time set in the notice, and the Tribunal must consider them before dismissing.",
+      "says": "A party who receives a notice that the Tribunal intends to dismiss the proceeding may make written submissions about the dismissal within the time set in the notice.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 4.6 (4)",
-        "expect": "may make written submissions to the tribunal with respect to the dismissal"
+        "expect": "make written submissions to the tribunal with respect to the"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The duty to consider submissions before dismissing is in SPPA s. 4.6(5), not the cited s. 4.6(4).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1390,7 +1425,7 @@
         "citation": "HRTO forms",
         "url": "https://tribunalsontario.ca/hrto/forms-and-filing/",
         "pinpoint": "Form 2",
-        "expect": "Response"
+        "expect": "Response to an Application"
       },
       "form": "Form 2",
       "leadsTo": [
@@ -1421,7 +1456,7 @@
         "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
         "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
         "pinpoint": "r. 9",
-        "expect": "Reply"
+        "expect": "Reply to a Response"
       },
       "leadsTo": [
         "hr.step.mediation",
@@ -1432,7 +1467,7 @@
       "id": "hr.motion.deferral",
       "kind": "motion",
       "title": "Request to defer (put on hold)",
-      "says": "The Tribunal may defer an application, as its rules allow, for example while another proceeding (a grievance, a court action, another tribunal) dealing with the same facts goes ahead.",
+      "says": "The Tribunal may defer an application, as its rules allow.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45",
@@ -1440,7 +1475,12 @@
       },
       "leadsTo": [
         "hr.motion.dismiss-other-proceeding"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The example of deferring while a grievance, court action or other tribunal case on the same facts proceeds is not in s. 45.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.motion.dismiss-other-proceeding",
@@ -1461,7 +1501,7 @@
       "id": "hr.motion.summary-hearing",
       "kind": "motion",
       "title": "Summary hearing request",
-      "says": "A party may ask for, or the Tribunal may hold on its own, a summary hearing on whether all or part of an application should be dismissed because there is no reasonable prospect it will succeed.",
+      "says": "A party may ask for, or the Tribunal may hold on its own, a summary hearing to decide whether all or part of an application is dismissed because there is no reasonable prospect it will succeed.",
       "source": {
         "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
         "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
@@ -1493,26 +1533,36 @@
       "id": "hr.motion.interim-remedy",
       "kind": "motion",
       "title": "Interim (temporary) order",
-      "says": "The Tribunal can make interim decisions and orders, with conditions, before the final decision. Reasons are not required for an interim order.",
+      "says": "The Tribunal may make interim decisions and orders before its final decision.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 16.1 (1)",
         "expect": "A tribunal may make interim decisions and orders"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Conditions and the no-reasons rule are in SPPA s. 16.1(2) and (3), not the cited s. 16.1(1).",
+        "fixed": "2026-10-13"
       }
     },
     {
       "id": "hr.motion.disclosure",
       "kind": "motion",
       "title": "Order for disclosure of documents",
-      "says": "The Tribunal's rules can require a party or other person to produce documents or information, give statements, or produce witnesses in their control. If a party does not comply with such an order, the Tribunal may draw an adverse inference.",
+      "says": "If a party does not comply, in whole or in part, with a Tribunal order made under its rules to produce documents, information or evidence, the Tribunal may draw an adverse inference.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (9)",
-        "expect": "may draw an adverse inference from the failure of a party"
+        "expect": "draw an adverse inference from the failure of a party"
       },
       "leadsTo": [
         "hr.step.disclosure"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The power of the rules to require production, statements and witnesses is in s. 43(3)(f); the cited s. 43(9) contains only the adverse-inference power.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.motion.inquiry",
@@ -1533,7 +1583,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 9.1 (1)",
-        "expect": "involve the same or similar questions of fact, law or policy"
+        "expect": "involve the same or similar questions of fact, law or"
       }
     },
     {
@@ -1555,7 +1605,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 12 (1)",
-        "expect": "A tribunal may require any person, including a party, by summons"
+        "expect": "tribunal may require any person, including a party, by summons"
       }
     },
     {
@@ -1577,7 +1627,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 17.1 (2)",
-        "expect": "the conduct or course of conduct of a party has been unreasonable"
+        "expect": "conduct or course of conduct of a party has been"
       }
     },
     {
@@ -1595,7 +1645,7 @@
       "id": "hr.step.mediation",
       "kind": "step",
       "title": "Mediation",
-      "says": "The Tribunal offers mediation, with the parties' consent, to try to settle the application. A mediator cannot be made to testify about what they learned, and mediation notes are not admissible in a civil proceeding.",
+      "says": "If it has rules for it and all parties consent, the Tribunal may direct the parties to take part in mediation or another dispute resolution process to resolve the application or an issue in it.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 4.8 (1)",
@@ -1605,7 +1655,12 @@
         "hr.option.settlement",
         "hr.step.case-assessment",
         "hr.step.mediator-not-compellable"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 4.8(1) lets the tribunal direct ADR only if it has rules for it and all parties consent; it says nothing about mediators not testifying or notes being inadmissible.",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.step.mediator-not-compellable",
@@ -1643,7 +1698,7 @@
         "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
         "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
         "pinpoint": "r. 16",
-        "expect": "witness statements"
+        "expect": "list of witnesses"
       },
       "leadsTo": [
         "hr.step.notice-of-hearing"
@@ -1657,7 +1712,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 6 (1)",
-        "expect": "shall be given reasonable notice of the hearing by the tribunal"
+        "expect": "be given reasonable notice of the hearing by the tribunal"
       },
       "leadsTo": [
         "hr.step.hearing",
@@ -1702,18 +1757,23 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (2)",
-        "expect": "an opportunity to make oral submissions in accordance with the rules"
+        "expect": "an opportunity to make oral submissions in accordance with the"
       }
     },
     {
       "id": "hr.step.representation",
       "kind": "step",
       "title": "Representation",
-      "says": "A party may be represented by a representative (a lawyer, a licensed paralegal, or another person the law permits).",
+      "says": "A party to a Tribunal proceeding may be represented by a representative.",
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 10",
         "expect": "may be represented by a representative"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "SPPA s. 10 does not say who may act as a representative (lawyer, licensed paralegal, others).",
+        "fixed": "2026-10-13"
       }
     },
     {
@@ -1724,7 +1784,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 15 (1)",
-        "expect": "relevant to the subject-matter of the proceeding and may act on such evidence"
+        "expect": "relevant to the subject-matter of the proceeding and may act"
       }
     },
     {
@@ -1746,7 +1806,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 43 (3)",
-        "expect": "define or narrow the issues required to dispose of an application"
+        "expect": "define or narrow the issues required to dispose of an"
       }
     },
     {
@@ -1799,7 +1859,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 18 (2)",
-        "expect": "deemed to be received by the party on the fifth day"
+        "expect": "deemed to be received by the party on the fifth"
       }
     },
     {
@@ -1838,7 +1898,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.2 (1)",
-        "expect": "make restitution to the party whose right was infringed, other than through monetary compensation"
+        "expect": "make restitution to the party whose right was infringed, other"
       }
     },
     {
@@ -1849,7 +1909,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.2 (2)",
-        "expect": "may direct a person to do anything with respect to future practices"
+        "expect": "direct a person to do anything with respect to future"
       }
     },
     {
@@ -1871,7 +1931,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 17 (2)",
-        "expect": "the rate of interest and the date from which it is to be calculated"
+        "expect": "rate of interest and the date from which it is"
       }
     },
     {
@@ -1882,7 +1942,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.9 (1)",
-        "expect": "agreed to in writing and signed by the parties, the settlement is binding"
+        "expect": "agreed to in writing and signed by the parties, the"
       },
       "leadsTo": [
         "hr.option.consent-order",
@@ -1897,7 +1957,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.9 (2)",
-        "expect": "on the joint motion of the parties, make an order requiring compliance"
+        "expect": "joint motion of the parties, make an order requiring compliance"
       }
     },
     {
@@ -1920,7 +1980,7 @@
         "citation": "Human Rights Tribunal of Ontario Rules of Procedure (amended effective August 17, 2026)",
         "url": "https://tribunalsontario.ca/hrto/rules-and-practice-directions/",
         "pinpoint": "r. 1",
-        "expect": "withdraw"
+        "expect": "withdraw all or part of an Application"
       }
     },
     {
@@ -2102,7 +2162,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.8",
-        "expect": "shall not be altered or set aside in an application for judicial review"
+        "expect": "not be altered or set aside in an application for"
       },
       "leadsTo": [
         "hr.decision.vavilov",
@@ -2142,7 +2202,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 45.6 (7)",
-        "expect": "Within 30 days of receipt of the decision of the Divisional Court"
+        "expect": "30 days of receipt of the decision of the Divisional"
       }
     },
     {
@@ -2153,7 +2213,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 19 (1)",
-        "expect": "may be filed in the Superior Court of Justice by the tribunal or by a party"
+        "expect": "be filed in the Superior Court of Justice by the"
       },
       "leadsTo": [
         "hr.enforce.notice-of-filing",
@@ -2181,7 +2241,7 @@
       "source": {
         "corpusId": "statutory-powers-procedure-act",
         "pinpoint": "s. 19 (3)",
-        "expect": "the sheriff shall enforce the order as if it were an execution"
+        "expect": "sheriff shall enforce the order as if it were an"
       }
     },
     {
@@ -2192,7 +2252,7 @@
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.07 (1)",
-        "expect": "the creditor is entitled to the issue of one or more writs of seizure and sale"
+        "expect": "creditor is entitled to the issue of one or more"
       }
     },
     {
@@ -2203,14 +2263,14 @@
       "source": {
         "corpusId": "rules-of-civil-procedure",
         "pinpoint": "r. 60.08 (1)",
-        "expect": "may enforce it by garnishment of debts payable to the debtor"
+        "expect": "enforce it by garnishment of debts payable to the debtor"
       }
     },
     {
       "id": "hr.enforce.offence",
       "kind": "enforcement",
       "title": "Breaking a Tribunal order is an offence",
-      "says": "Contravening s. 9 of the Code or a Tribunal order is an offence with a fine of up to $25,000. A prosecution needs the Attorney General's written consent.",
+      "says": "Contravening s. 9 of the Code, certain inquiry provisions, or a Tribunal order is an offence with a fine of up to $25,000 on conviction.",
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 46.2 (1)",
@@ -2218,7 +2278,12 @@
       },
       "leadsTo": [
         "hr.enforce.ag-consent"
-      ]
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The Attorney General consent requirement is in s. 46.2(2), not the cited s. 46.2(1).",
+        "fixed": "2026-10-13"
+      }
     },
     {
       "id": "hr.enforce.ag-consent",
@@ -2255,7 +2320,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 46.1 (2)",
-        "expect": "does not permit a person to commence an action based solely"
+        "expect": "not permit a person to commence an action based solely"
       },
       "leadsTo": [
         "hr.decision.bhadauria"
@@ -2269,7 +2334,7 @@
       "source": {
         "corpusId": "limitations-act-2002",
         "pinpoint": "s. 4",
-        "expect": "after the second anniversary of the day on which the claim was discovered"
+        "expect": "after the second anniversary of the day on which the"
       }
     },
     {
@@ -2280,7 +2345,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 31 (1)",
-        "expect": "if the Commission believes it is in the public interest to do so"
+        "expect": "Commission believes it is in the public interest to do"
       }
     },
     {
@@ -2291,7 +2356,7 @@
       "source": {
         "corpusId": "human-rights-code",
         "pinpoint": "s. 30",
-        "expect": "to provide guidance in the application of Parts I and II"
+        "expect": "provide guidance in the application of Parts I and II"
       },
       "leadsTo": [
         "hr.step.commission-policies"
@@ -2306,7 +2371,7 @@
         "decision": "Moore v. British Columbia (Education), 2012 SCC 61",
         "corpusId": "decision-moore-bc",
         "pinpoint": "para. 33",
-        "expect": "complainants are required to show that they have a characteristic protected"
+        "expect": "are required to show that they have a characteristic protected"
       },
       "leadsTo": [
         "hr.test.prima-facie"
@@ -2457,7 +2522,7 @@
       "id": "hr.decision.figliola",
       "kind": "decision",
       "title": "British Columbia (WCB) v. Figliola",
-      "says": "The Supreme Court discussed when a human rights tribunal should not re-decide a matter already decided by another body that had power to decide it, applying principles behind s. 45.1-type provisions.",
+      "says": "The Supreme Court discussed when a human rights tribunal may decline to re-decide a matter already decided by another body that had power to decide it, applying principles behind s. 45.1-type provisions.",
       "source": {
         "decision": "British Columbia (Workers' Compensation Board) v. Figliola, 2011 SCC 52",
         "pinpoint": "para. 37"

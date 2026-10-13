@@ -23,9 +23,16 @@ verified").
     a to-do for the vendor workflow;
   - **lead**: a court decision named from knowledge; it must be retrieved and
     read (SCC and ONCA sites; never CanLII) before the site quotes it.
+- **Reviewed**: a second agent that did not write the item read the cited
+  provision and checked that `says` states only what it supports (`review`
+  on the item records the verdict and any correction). A matching phrase
+  proves the item points at the right provision; the review proves the plain
+  words do not say more than it does. The first sample (250 items,
+  2026-10-13) found 11 wrong and about 94 that said more than the cited
+  subsection; all were corrected from the source.
 - **In the site** is shown beside the status when a stage or citation already
   quotes that provision.
-- Only items that match the source are built into stages, cards and answers,
+- Only items that match the source AND have been reviewed are built into stages, cards and answers,
   and then they are quoted from the source, not from the draft.
 
 ## Format (one file per area, `<area>.json`)

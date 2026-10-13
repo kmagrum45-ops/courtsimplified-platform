@@ -161,6 +161,8 @@
     "test:rules-corpus": "node --import tsx scripts/verification/verifyRulesCorpus.ts",
     "test:stage-map": "tsx scripts/verification/verifyStageMap.ts",
     "test:stage-sequence": "node --import tsx scripts/verification/verifyStageSequence.ts",
+    "test:law-map": "node --import tsx scripts/verification/verifyLawMap.ts",
+    "law-map:check": "node --import tsx scripts/law-map/checkLawMap.ts",
     "test:deadlines": "tsx scripts/verification/verifyDeadlineEngine.ts",
     "test:readability": "tsx scripts/verification/verifyReadability.ts",
     "test:verifier": "tsx scripts/verification/verifyVerifierRejects.ts",

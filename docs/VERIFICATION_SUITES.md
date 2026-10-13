@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-136 documented, 28 without a header.
+138 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -73,6 +73,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:journey-battery` | **Journey regression battery runner — tranche 1.**<br>Categories A–D from docs/TEST_BATTERY_DESIGN.md §2: the four paths with ZERO prior coverage. |
 | `npm run test:journey-invariants` | **Self-test for the static arm of journeyInvariants.ts.**<br>WHY THIS EXISTS. The first version of the static arm scored ZERO violations against the known-defective historical code -- readinessTone(), the highRiskPenalty subtraction, and the "Document readiness impact" ordinal union. All three had been fixed in the live |
 | `npm run test:law-exam` | **The law exam's answer keys rest on the law, word for word.**<br>WHAT THIS CATCHES: an answer key written from memory. Every question in scripts/eval/lawExam/questions/ cites the official text saved in this repository, and every quote must appear in that text -- the same check the site's own quotes pass (quoteMatch.ts). A k |
+| `npm run test:law-map` | **test:law-map -- the law map (docs/law-map/) stays well-formed and never**<br>judges a case (CLAUDE.md s. 2, "Draft from knowledge; publish only what is verified", 2026-10-13). |
 | `npm run test:library-chat` | **The chat can only say what has already been verified.**<br>COSTS NOTHING. No model call. Every check drives `validateSelection` and `assembleChatAnswer` with payloads a model might return — including the ones it must never return — because those are the two functions every answer passes through, whatever the model sai |
 | `npm run test:live-stories` | **Eight live stories through the full Small Claims pipeline: general intake ->**<br>claim-type confirmation -> depth phase -> readiness gate. |
 | `npm run test:lso-demo-cases` | **The demo test cases from docs/lso-ai-audit.md section 13, as a suite.**<br>WHY. That table was written as a list of things to try by hand, and five of its twenty rows were marked "expected to fail today" — cases 3, 4, 12, 13 and 19, the honest edges of the demo. Those five are the point of the LSO rewrite, so they cannot stay as a li |
@@ -115,6 +116,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
+| `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |
 | `npm run test:source-link-labels` | **test:source-link-labels -- source links name their law, and the name is the**<br>library's own. |
