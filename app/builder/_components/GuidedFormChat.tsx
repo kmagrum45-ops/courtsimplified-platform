@@ -38,6 +38,13 @@ export type GuidedField = {
   emptyValues?: string[];
   /** Short label for "What we already have". */
   label: string;
+  /**
+   * The answer the person's own story already gives, with the words it came
+   * from (2026-10-13, walkthrough: the chat asked "How much money is
+   * involved?" after the story said $68,000). Offered for one click -- "From
+   * what you told us: ... Is that right?" -- never filled in unseen.
+   */
+  fromStory?: (values: GuidedValues) => { value: string | string[]; quote: string } | null;
 };
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
@@ -93,6 +100,8 @@ export default function GuidedFormChat({
   const [heard, setHeard] = useState<{ question: string; reply: string }[]>([]);
   const [draft, setDraft] = useState<string | string[]>("");
   const [changing, setChanging] = useState<string | null>(null);
+  // Story answers the person said were not right: asked plainly instead.
+  const [notFromStory, setNotFromStory] = useState<Set<string>>(new Set());
 
   // Known when this opened: listed, not asked (the story, the saved case).
   const [knownAtStart] = useState(() =>
@@ -169,6 +178,40 @@ export default function GuidedFormChat({
 
       {current ? (
         <div data-testid="guided-form-question" data-key={current.key} className="mt-5 rounded-2xl border-2 border-[#2f7d67] bg-white p-4">
+          {(() => {
+            const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
+            if (!offered) return null;
+            const shown = (Array.isArray(offered.value) ? offered.value : [offered.value])
+              .map((item) => current.options?.find((option) => option.value === item)?.label ?? item)
+              .join("; ");
+            return (
+              <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)}>
+                <p className="font-semibold text-[#10231f]">{current.label}: {shown.length > 160 ? `${shown.slice(0, 157)}…` : shown}</p>
+                <p className="mt-1 text-sm text-[#4d675f]">
+                  From what you told us: &ldquo;{offered.quote.length > 200 ? `${offered.quote.slice(0, 197)}…` : offered.quote}&rdquo; Is that right?
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    data-testid="guided-form-from-story-yes"
+                    onClick={() => answer(offered.value)}
+                    className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+                  >
+                    Yes, that&apos;s right
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="guided-form-from-story-no"
+                    onClick={() => setNotFromStory((now) => new Set(now).add(current.key))}
+                    className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"
+                  >
+                    No, let me answer
+                  </button>
+                </div>
+              </div>
+            );
+          })() ?? (
+          <>
           <p className="font-semibold text-[#10231f]">{current.question}</p>
           <p className="mt-1 text-sm text-[#4d675f]">Why we ask: {current.why}</p>
           {current.kind === "choice" ? (
@@ -239,6 +282,8 @@ export default function GuidedFormChat({
               {changing ? "Keep what I had" : "Skip, I'm not sure"}
             </button>
           </div>
+          </>
+          )}
         </div>
       ) : (
         <div className="mt-5">
