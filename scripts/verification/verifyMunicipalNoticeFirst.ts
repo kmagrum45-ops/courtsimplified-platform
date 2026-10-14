@@ -370,6 +370,14 @@ const NEVER = [
   "The dog knocked me over and I fell on the sidewalk in Toronto.",
   "I fell on the bus on Queen St in Toronto.",
   "I crashed at the go-kart track and fell on the track.",
+  // Re-review of db40587: the chain may not cross a clause or an idiom.
+  "I fell off a roof while working on a house on the street in Toronto.",
+  "I fell on hard times living on the street in Toronto and my landlord evicted me.",
+  "I tripped on a hose in my neighbour's yard by the sidewalk in Toronto.",
+  "I slipped on a wet floor in the hospital on the road to recovery.",
+  "I was tripping on drugs on the street when police arrested me.",
+  "I got a slip on my windshield on the street in Ottawa for parking.",
+  "I tripped on the road at the go-kart track in Toronto.",
 ];
 const fired = NEVER.filter((story) => municipalWayInjury(story) || municipalNoticeFirst(story, { now, city: "Toronto" }) !== null);
 check("private premises, transit, vehicles and provincial highways never fire", fired.length === 0, fired.join(" | "));
@@ -403,6 +411,8 @@ const ALWAYS = [
   "I called the police after I slipped on the icy sidewalk in Toronto and broke my wrist.",
   "There was a cracked sidewalk outside my apartment building in Scarborough, I tripped on October 2 2026.",
   "I tripped over my own feet because the sidewalk was so uneven in Toronto, on October 2 2026.",
+  "I slipped on black ice on the sidewalk in Ottawa on October 2 2026 and broke my wrist.",
+  "I tripped on a crack in the sidewalk on Bank Street in Ottawa on October 2 2026.",
 ];
 const silent = ALWAYS.filter((story) => !municipalNoticeFirst(story, { now }));
 check("the persona and plain sidewalk, pothole, curb stories still fire", silent.length === 0, silent.join(" | "));
@@ -459,6 +469,25 @@ console.log("\n10. The right Act is added on top; research passages are never pu
     offered.map((p) => p.id).join(", "),
   );
   check("the added City of Toronto Act passages are at most 3, on top", offered.filter(isTorontoAct).length <= 3 && offered.length <= MAX_PASSAGE_IDS);
+}
+
+// ---------------------------------------------------------------- 11. asked first (s. 4)
+
+console.log("\n11. The box asks first; the date and the bar show only after Yes or Not sure");
+{
+  const box = readFileSync(path.join(process.cwd(), "app/builder/_components/MunicipalNoticeFirst.tsx"), "utf8");
+  const { showsFullNotice } = await import("../../app/builder/_components/MunicipalNoticeFirst");
+  check("only Yes and Not sure show the full notice", showsFullNotice("yes") && showsFullNotice("not-sure") && !showsFullNotice("no") && !showsFullNotice(null));
+  const asking = box.slice(box.indexOf("if (!showsFullNotice(answer))"), box.indexOf("  return (\n    <section", box.indexOf("if (!showsFullNotice(answer))") + 1));
+  check(
+    "before an answer, and after No, nothing counted, no bar and no exceptions are drawn",
+    asking.length > 0 && !/notice\.(?:counted|notABar|injury|ruleSay|judgeDecides)/.test(asking),
+    asking.slice(0, 200),
+  );
+  check("the question says 'Is that right?' and gives its reason", /Is that right\?/.test(asking) && /Why we ask/.test(asking));
+  check("every answer can be changed", (box.match(/setAnswer\(null\)/g) ?? []).length >= 2);
+  const spec = readFileSync(path.join(process.cwd(), "tests/browser/walkthrough.spec.ts"), "utf8");
+  check("the walkthrough answers Yes only for a persona hurt on a municipal way", /persona\.onMunicipalWay\) await yes\.click\(\)/.test(spec) && /municipal-notice-no/.test(spec));
 }
 
 check("Divorce Act s. 17, FLA s. 37 and FLR r. 15 are variation provisions too", [

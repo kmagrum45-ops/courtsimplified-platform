@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import GetHelp from "../../_components/GetHelp";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
@@ -15,7 +15,17 @@ import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
  * src/lib/content-library/municipalNoticeFirst.ts from the stage map's
  * deadline and the deadline engine; never model text. Shown only when the
  * person's words show an injury on a municipal sidewalk, road or bridge.
+ *
+ * ASKED FIRST (CLAUDE.md s. 4; round 4 review, 2026-10-14). Whether the fall
+ * was on a way the municipality keeps is read from the person's words, and a
+ * reading can be wrong. So the box first asks, with the reason in one line;
+ * the counted date, the bar and the exceptions show only after "Yes" or "Not
+ * sure" (a missed notice can bar the claim, so an unsure person sees it too).
+ * "No" folds it to one line with Change. A misreading costs one click, never
+ * a wrong legal warning.
  */
+
+export type NoticeAnswer = "yes" | "no" | "not-sure" | null;
 
 function Rule({ rule }: { rule: RuleCitation }) {
   const saved = SOURCE_SAVED_ON[rule.sourceId];
@@ -31,13 +41,83 @@ function Rule({ rule }: { rule: RuleCitation }) {
   );
 }
 
+/** The storage key for one story's answer (a short hash, never the story itself). */
+export function noticeAnswerKey(story: string): string {
+  let hash = 0;
+  for (const ch of story.trim().toLowerCase()) hash = (hash * 31 + ch.charCodeAt(0)) | 0;
+  return `cs-municipal-notice:${(hash >>> 0).toString(36)}`;
+}
+
+/** Whether the full notice shows for this answer. Exported for test:municipal-notice-first. */
+export function showsFullNotice(answer: NoticeAnswer): boolean {
+  return answer === "yes" || answer === "not-sure";
+}
+
 export default function MunicipalNoticeFirst({ story, city = "" }: { story: string; city?: string }) {
   const notice = useMemo(() => municipalNoticeFirst(story, { city }), [story, city]);
+  const key = noticeAnswerKey(story);
+  const [answer, setAnswerState] = useState<NoticeAnswer>(null);
+  // Going back to the story must not ask again (walkthrough noRepeat): the
+  // answer is kept in this browser for this story, best effort only.
+  useEffect(() => {
+    try {
+      const kept = window.sessionStorage.getItem(key);
+      if (kept === "yes" || kept === "no" || kept === "not-sure") setAnswerState(kept);
+    } catch {
+      /* storage unavailable: ask */
+    }
+  }, [key]);
+  const setAnswer = (next: NoticeAnswer) => {
+    setAnswerState(next);
+    try {
+      if (next) window.sessionStorage.setItem(key, next);
+      else window.sessionStorage.removeItem(key);
+    } catch {
+      /* storage unavailable */
+    }
+  };
   if (!notice) return null;
   const passed = notice.counted?.passed ?? false;
+  const who = notice.place === "toronto" ? "the City of Toronto" : "the city or town";
+  if (!showsFullNotice(answer)) {
+    if (answer === "no") {
+      return (
+        <section data-testid="municipal-notice-first" data-answer="no" className="rounded-xl border border-[#d9d2c3] px-4 py-2 text-sm text-[#4a463d]">
+          You said it did not happen on a public sidewalk, road or bridge, so the 10-day notice to a municipality is not shown.{" "}
+          <button type="button" className="underline" onClick={() => setAnswer(null)}>
+            Change
+          </button>
+        </section>
+      );
+    }
+    return (
+      <section
+        data-testid="municipal-notice-first"
+        data-answer="unanswered"
+        className={`rounded-xl border px-4 py-3 text-sm leading-6 ${passed ? "border-[#e2a3a3] bg-[#fff5f5] text-[#5c1414]" : "border-[#f0c88a] bg-[#fffaf2] text-[#5a3a0e]"}`}
+      >
+        <h3 className="text-base font-semibold">
+          From what you told us, it sounds like you were hurt on a public sidewalk, road or bridge that {who} looks after. Is that right?
+        </h3>
+        <p className="mt-1">Why we ask: if it was, the law requires written notice to the municipality within 10 days of the injury, so this comes before anything else.</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          <button type="button" data-testid="municipal-notice-yes" className="rounded-lg border px-3 py-1 font-semibold" onClick={() => setAnswer("yes")}>
+            Yes
+          </button>
+          <button type="button" data-testid="municipal-notice-no" className="rounded-lg border px-3 py-1" onClick={() => setAnswer("no")}>
+            No, it happened somewhere else
+          </button>
+          <button type="button" data-testid="municipal-notice-not-sure" className="rounded-lg border px-3 py-1" onClick={() => setAnswer("not-sure")}>
+            Not sure
+          </button>
+        </div>
+      </section>
+    );
+  }
   return (
     <section
       data-testid="municipal-notice-first"
+      data-answer={answer ?? "unanswered"}
       role={passed ? "alert" : undefined}
       className={`rounded-xl border px-4 py-3 text-sm leading-6 ${passed ? "border-[#e2a3a3] bg-[#fff5f5] text-[#5c1414]" : "border-[#f0c88a] bg-[#fffaf2] text-[#5a3a0e]"}`}
     >
@@ -82,6 +162,12 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
         </div>
       ) : null}
       <GetHelp heading="Get help now about the notice date" why={notice.helpWhy} compact={!passed} />
+      <p className="mt-2 text-xs">
+        {answer === "not-sure" ? "Shown because you were not sure where it happened. " : "You said it happened on a public sidewalk, road or bridge. "}
+        <button type="button" className="underline" onClick={() => setAnswer(null)}>
+          Change
+        </button>
+      </p>
     </section>
   );
 }

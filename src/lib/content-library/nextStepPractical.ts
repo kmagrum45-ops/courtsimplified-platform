@@ -1711,8 +1711,18 @@ const WAY_WORD = new RegExp(`\\b${WAY}\\b`, "i");
  * 41a8364).
  */
 const PREP = "(?:on|onto|into|over|in|off|along|across|crossing|at|from|near|outside|of|by|down)\\s+(?:(?:the|a|an|some|my|our|this|that|his|her|their)\\s+)?";
-const WORDS = "(?:[a-z][a-z'’-]*\\s+){0,3}?";
-const ON_THE_WAY = new RegExp(`^\\s+(?:(?:down|over|badly|hard|backwards|forwards?|again)\\s+)?(?:${PREP}${WORDS}){0,3}?${PREP}${WORDS}${WAY}\\b`);
+/*
+ * Words inside a phrase: never a clause or an idiom ("while working on a
+ * house on the street", "on hard times living on the street"): no "-ing"
+ * word and no joining word. And a phrase BEFORE the last one must name a
+ * surface the person fell on ("slipped on black ice on the sidewalk"), so
+ * the chain cannot wander from "a hose in my neighbour's yard" or "drugs" to
+ * a street (re-review of db40587).
+ */
+const WORDS = "(?:(?!(?:while|when|after|because|before|and|to|for|but|so|on|onto|into|over|in|off|at|by|from|near|of|outside|along|across)\\b)[a-z][a-z'’-]*(?<!ing)\\s+){0,3}?";
+const SURFACE = "(?:(?:black\\s+|wet\\s+|thin\\s+)?ice|snow|slush|(?:a\\s+)?(?:patch|sheet|ridge|chunk)\\s+of\\s+(?:black\\s+)?ice|cracks?|holes?|slabs?|debris|leaves|gravel|sand|water|a\\s+puddle|puddles?)";
+const SURFACE_PHRASE = `${PREP}(?:[a-z][a-z'’-]*(?<!ing)\\s+){0,2}?${SURFACE}\\s+`;
+const ON_THE_WAY = new RegExp(`^\\s+(?:(?:down|over|badly|hard|backwards|forwards?|again)\\s+)?(?:${SURFACE_PHRASE}){0,2}${PREP}${WORDS}${WAY}\\b`);
 const NAMED_STREET_FALL = /^\s+(?:(?:on\s+(?:the\s+)?ice|on\s+(?:some\s+)?snow|badly)\s+)?(?:on|along|crossing)\s+(?:[A-Z][a-z]+\s+){1,3}(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Drive|Dr)\b/;
 /*
  * Or the way came first in the sentence and the verb takes no other place:
@@ -1727,7 +1737,7 @@ const NO_OTHER_PLACE_AFTER =
   /^\s*(?:$|[,.;!?]|and\b|then\b|but\b|(?:down|over|badly|hard)\b|on\s+(?:(?:january|february|march|april|may|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b|\d))/i;
 const REFERS_BACK = /^\s+(?:on|over|into|in)\s+(?:it|that|there|them)\b/i;
 const ELSEWHERE_IN_SENTENCE =
-  /\b(?:in|inside|at|into)\s+(?:the\s+|a\s+|an\s+|my\s+|their\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:store|shop|mall|supermarket|grocery|restaurant|plaza|community\s+cent(?:re|er)|construction\s+site|cottage|arena|condo\s+complex)\b|\bon\s+(?:the\s+|a\s+|their\s+|his\s+|her\s+|my\s+|our\s+)?(?:[\w'’-]+\s+){0,2}(?:stairs|steps|staircase|stairwell|deck|porch|track)\b|\b(?:in|on|at|into)\s+(?:the\s+|a\s+|their\s+|my\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:parking\s+(?:lot|garage)|driveway)\b|\b(?:on|in|off|onto|boarding|getting\s+(?:off|on))\s+(?:the\s+|a\s+)?(?:ttc\s+)?(?:bus|streetcar|subway|train)\b|\b(?:bus|streetcar|subway|train)\s+(?:braked|stopped|lurched|jerked|started|moved|pulled)\b|\bon\s+(?:their|his|her)\s+(?:property|land|premises)\b|\bprivate\b|\bcondo\s+complex\b|\b(?:at|on|around)\s+the\s+(?:running\s+|race\s*)?track\b|\bat\s+(?:my\s+|his\s+|her\s+|the\s+|their\s+)?school\b|\bschool\s+board\b|\b(?:deck|cottage)\b|\b(?:highway|hwy)\s*\d+|\bqew\b|\bprovincial\b/i;
+  /\b(?:in|inside|at|into)\s+(?:the\s+|a\s+|an\s+|my\s+|their\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:store|shop|mall|supermarket|grocery|restaurant|plaza|community\s+cent(?:re|er)|construction\s+site|cottage|arena|condo\s+complex|hospital|yard|backyard)\b|\bon\s+(?:the\s+|a\s+|their\s+|his\s+|her\s+|my\s+|our\s+)?(?:[\w'’-]+\s+){0,2}(?:stairs|steps|staircase|stairwell|deck|porch|track)\b|\b(?:in|on|at|into)\s+(?:the\s+|a\s+|their\s+|my\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:parking\s+(?:lot|garage)|driveway)\b|\b(?:on|in|off|onto|boarding|getting\s+(?:off|on))\s+(?:the\s+|a\s+)?(?:ttc\s+)?(?:bus|streetcar|subway|train)\b|\b(?:bus|streetcar|subway|train)\s+(?:braked|stopped|lurched|jerked|started|moved|pulled)\b|\bon\s+(?:their|his|her)\s+(?:property|land|premises)\b|\bprivate\b|\bcondo\s+complex\b|\b(?:at|on|around)\s+the\s+(?:[\w'’-]+\s+){0,2}track\b|\bat\s+(?:my\s+|his\s+|her\s+|the\s+|their\s+)?school\b|\bschool\s+board\b|\b(?:deck|cottage|roof|ladder|yard|backyard|hospital)\b|\b(?:highway|hwy)\s*\d+|\bqew\b|\bprovincial\b/i;
 /*
  * Another cause, named as the cause: a bite, a dog that knocked or jumped,
  * the police pushing -- never "walking my dog" or "called the police".
@@ -1751,6 +1761,8 @@ function fallOnWay(sentence: string, before: string): boolean {
     const at = fall.index ?? 0;
     const lead = sentence.slice(0, at);
     if (!FALLER.test(lead) && !OPENS.test(lead)) continue;
+    // "a slip on my windshield", "the trip": a noun, not a fall.
+    if (/\b(?:a|an|the|my|his|her|our|their|this|that)\s*$/i.test(lead)) continue;
     const after = sentence.slice(at + fall[0].length);
     let scope = "";
     if (ON_THE_WAY.test(after) || NAMED_STREET_FALL.test(after)) scope = sentence;
