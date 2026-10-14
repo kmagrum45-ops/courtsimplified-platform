@@ -78,26 +78,6 @@ type CaseRecord = {
   master_result?: unknown;
 };
 
-type WorkflowReadiness = {
-  recommendedRoute?: string;
-  recommendedNextRoute?: string;
-  nextBestRoute?: string;
-  stage?: string;
-  status?: string;
-};
-
-type AssemblyLike = {
-  workflow?: {
-    readiness?: WorkflowReadiness;
-  };
-  proceduralState?: {
-    stage?: string;
-    currentStage?: string;
-    warnings?: string[];
-  };
-  warnings?: string[];
-};
-
 type MasterCaseLike = {
   readiness?: unknown;
   systemWarnings?: string[];
@@ -120,18 +100,7 @@ type MasterResult = {
   proceduralStage?: string;
   currentStage?: string;
   stage?: string;
-  caseSystemAssembly?: AssemblyLike;
-  assembly?: AssemblyLike;
   masterCase?: MasterCaseLike;
-  courtSimplifiedArchitecture?: {
-    sourceOfTruth?: string;
-    architectureMode?: string;
-    active?: boolean;
-    legacyReasoningIsolated?: boolean;
-    warnings?: string[];
-  };
-  workflowReadiness?: WorkflowReadiness;
-  architectureWarnings?: string[];
   formApplicability?: FormApplicability;
 };
 
@@ -162,9 +131,6 @@ type UnifiedFormSignals = {
   missingInformation: string[];
   risksAndGaps: string[];
   guidance: string[];
-  architectureWarnings: string[];
-  workflowStage: string;
-  sourceOfTruth: string;
 };
 
 function getCourtPath(value: string | null | undefined): CourtPath {
@@ -347,20 +313,6 @@ function parseStoredMasterResult(): MasterResult | null {
 function extractUnifiedFormSignals(
   masterResult: MasterResult | null,
 ): UnifiedFormSignals {
-  const assembly = masterResult?.caseSystemAssembly || masterResult?.assembly || null;
-
-  const workflowReadiness =
-    masterResult?.workflowReadiness || assembly?.workflow?.readiness || null;
-
-  const workflowStage =
-    cleanSpaces(masterResult?.proceduralStage) ||
-    cleanSpaces(masterResult?.currentStage) ||
-    cleanSpaces(masterResult?.stage) ||
-    cleanSpaces(assembly?.proceduralState?.currentStage) ||
-    cleanSpaces(assembly?.proceduralState?.stage) ||
-    cleanSpaces(workflowReadiness?.stage) ||
-    "Case preparation";
-
   const requiredLabels = uniqueStrings([
     ...safeArray(masterResult?.requiredNextForms).map(formLabelText),
     ...safeArray(masterResult?.requiredForms).map(formLabelText),
@@ -375,13 +327,6 @@ function extractUnifiedFormSignals(
     ...safeArray(masterResult?.receivedForms).map(formLabelText),
   ]);
 
-  const architectureWarnings = uniqueStrings([
-    ...stringArray(masterResult?.architectureWarnings),
-    ...stringArray(masterResult?.courtSimplifiedArchitecture?.warnings),
-    ...stringArray(masterResult?.masterCase?.systemWarnings),
-    ...stringArray(assembly?.warnings),
-  ]);
-
   return {
     requiredLabels,
     recommendedLabels,
@@ -389,11 +334,6 @@ function extractUnifiedFormSignals(
     missingInformation: uniqueStrings(stringArray(masterResult?.missingInformation)),
     risksAndGaps: uniqueStrings(stringArray(masterResult?.risksAndGaps)),
     guidance: uniqueStrings(stringArray(masterResult?.guidance)),
-    architectureWarnings,
-    workflowStage,
-    sourceOfTruth:
-      cleanSpaces(masterResult?.courtSimplifiedArchitecture?.sourceOfTruth) ||
-      "courtSimplifiedBrain",
   };
 }
 

@@ -451,7 +451,7 @@ async function assertCanonicalSmallClaimsRelevance() {
   assert.equal(exactResult.reasoningMode, "deterministic-fallback");
   assert.equal(exactResult.authenticated, false);
   assert.equal(exactResult.result.masterResultPatch?.masterCase?.courtPath, "small-claims");
-  assert.ok(exactResult.result.masterResultPatch?.caseSystemAssembly);
+  assert.equal("caseSystemAssembly" in (exactResult.result.masterResultPatch || {}), false);
 
   const genuineFamily = await postSmallClaimsAnalysis({
     ...buildSmallClaimsIntake(),

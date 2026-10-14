@@ -64,7 +64,11 @@ job that does not touch the same files (and says which files it touches).
    2-3 because they are foundations, not features: 6A one save shape for the
    case record, written by every intake and read by every page; 6B the older
    engine chain retired as the stage map replaces it, with a list and an end
-   date; 6C per-visitor limits and a daily ceiling on the AI routes that need no
+   date (progress: the brain's unused situation answer, then the migration
+   layer, case-system assembly, workflow orchestration and the eight engines
+   only they used, about 9,000 lines, 2026-10-14; next the case-context and
+   legal-theory engines, then the area adapters, then the guided assistant);
+   6C per-visitor limits and a daily ceiling on the AI routes that need no
    sign-in, a built-in error log, and deleting a case deletes its files (done
    ahead of the before-beta list); 6D deadline reminders; 6E a recorded event
    (defence filed, date passed) re-suggests the case's step; 6F a closed or

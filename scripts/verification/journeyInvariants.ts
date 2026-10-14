@@ -202,7 +202,6 @@ const STATIC_SCAN_FILES = [
   // showed the union was declared here, not where it is consumed.
   "src/lib/case-system/architecture/masterCaseSchema.ts",
   "src/lib/case-system/contradictions/credibilityRiskEngine.ts",
-  "src/lib/case-system/litigation-intelligence/litigationReasoningEngine.ts",
   // Added during tranche 1: blind spot 8 bit a second time. This page
   // renders `{exportResult.readinessScore}%` and was invisible to the arm
   // because the list was built from the dashboard surfaces only.

@@ -786,12 +786,12 @@ function main(): void {
     "utf8",
   );
   const MIGRATION_SRC = readFileSync(
-    path.join(process.cwd(), "src/lib/case-system/orchestration/brainMigrationLayer.ts"),
+    path.join(process.cwd(), "src/lib/case-system/intelligence/courtSimplifiedBrain.ts"),
     "utf8",
   );
 
   // The two halves of the assertion that was written without checking:
-  // masterCaseBridge nests `timeline`, and brainMigrationLayer persists that
+  // masterCaseBridge nests `timeline`, and the brain (courtSimplifiedBrain.ts) persists that
   // object under `masterCase`. If either moves, the read above goes stale in
   // exactly the way it did before, so both are asserted rather than assumed.
   check(
@@ -800,8 +800,8 @@ function main(): void {
     "the entries would no longer be at masterCase.timeline",
   );
   check(
-    "brainMigrationLayer still persists it under `masterCase`",
-    /masterCase: bridge\.masterCase/.test(MIGRATION_SRC),
+    "the brain still persists it under `masterCase`",
+    /masterResultPatch: \{ \.\.\.masterResultPatch, masterCase\b/.test(MIGRATION_SRC),
     "the blob key the route reads would change",
   );
 

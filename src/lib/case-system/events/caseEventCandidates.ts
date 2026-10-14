@@ -24,7 +24,7 @@
  *
  * WHERE CANDIDATES COME FROM. `master_result.masterCase.timeline`, written by
  * `mapEvent` in masterCaseBridge from `normalizedIntake.events`, carried into
- * the persisted blob as `masterCase` by brainMigrationLayer. Each entry has a
+ * the persisted blob as `masterCase` by courtSimplifiedBrain.ts. Each entry has a
  * title, a description and `sourceText` — the sentence. It carries NO type,
  * and should not: classifying a sentence into the O. Reg. 258/98 vocabulary is
  * the user's judgment, and a parser guess would be the inference the source

@@ -75,7 +75,8 @@ async function verifySmallClaims() {
   assert.equal(masterCase?.courtPath, "small-claims");
   assert.equal(masterCase?.province, "Ontario");
   assert.equal(masterCase?.stage, "responding");
-  assert.ok(result.masterResultPatch.caseSystemAssembly);
+  // The older assembly layer was retired 2026-10-14 (CLAUDE.md s. 2a, one copy of procedure).
+  assert.equal("caseSystemAssembly" in result.masterResultPatch, false);
   assert.equal("familyMasterResult" in result.masterResultPatch, false);
 }
 
@@ -147,7 +148,8 @@ async function verifyFamily() {
   assert.equal(masterCase?.courtPath, "family");
   assert.equal(masterCase?.province, "Ontario");
   assert.equal(masterCase?.stage, "starting-case");
-  assert.ok(result.masterResultPatch.caseSystemAssembly);
+  // The older assembly layer was retired 2026-10-14 (CLAUDE.md s. 2a, one copy of procedure).
+  assert.equal("caseSystemAssembly" in result.masterResultPatch, false);
   assert.deepEqual(
     result.masterResultPatch.familyMasterResult,
     result.familyMasterResult,
@@ -378,16 +380,9 @@ async function verifyCivilCanonicalProductionRoute() {
   assert.equal(masterCase?.courtPath, "civil");
   assert.equal(masterCase?.province, "Ontario");
   assert.equal(masterCase?.stage, "starting-case");
-  assert.ok(result.masterResultPatch.caseSystemAssembly);
+  // The older assembly layer was retired 2026-10-14 (CLAUDE.md s. 2a, one copy of procedure).
+  assert.equal("caseSystemAssembly" in result.masterResultPatch, false);
   assert.equal(masterCase?.version, "1.1.0");
-  assert.equal(
-    (result.masterResultPatch.caseSystemAssembly as Record<string, unknown>).version,
-    "1.6.0",
-  );
-  assert.equal(
-    (result.masterResultPatch.courtSimplifiedArchitecture as Record<string, unknown>).migrationLayer,
-    "BrainMigrationLayer",
-  );
   assert.notDeepEqual(masterCase, result.civilMasterResult.masterCase);
   assert.deepEqual(result.masterResultPatch.civilMasterResult, result.civilMasterResult);
   assert.deepEqual(result.masterResultPatch.civilMasterCase, result.civilMasterResult.masterCase);
