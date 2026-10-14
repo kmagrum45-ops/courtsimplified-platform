@@ -68,7 +68,10 @@ export type CorpusSourceId =
   // Walkthrough run 38525903567 (SJ): the next-step card quotes the court's
   // after-judgment guide on naming the garnishee and on what an examination
   // of the debtor is for.
-  | "guide-after-judgment";
+  | "guide-after-judgment"
+  // 2026-10-14: the construction lien stages (civilStages.ts, CLAUDE.md s. 2a).
+  | "construction-act"
+  | "oreg-302-18-construction-act-procedures";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -101,6 +104,8 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "ontario-fees-family": "https://www.ontario.ca/page/family-court-fees",
   "ontario-fee-waiver": "https://www.ontario.ca/page/have-your-court-fees-waived",
   "guide-after-judgment": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
+  "construction-act": "https://www.ontario.ca/laws/statute/90c30",
+  "oreg-302-18-construction-act-procedures": "https://www.ontario.ca/laws/regulation/180302",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -136,6 +141,8 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "ontario-fees-family": "ontario.ca, Family court fees",
   "ontario-fee-waiver": "ontario.ca, Have your court fees waived",
   "guide-after-judgment": "ontario.ca, Guide to Procedures in Small Claims Court: After judgment",
+  "construction-act": "Construction Act, R.S.O. 1990, c. C.30",
+  "oreg-302-18-construction-act-procedures": "O. Reg. 302/18 (Construction Act, procedures for lien actions)",
 };
 
 export type RuleCitation = {
