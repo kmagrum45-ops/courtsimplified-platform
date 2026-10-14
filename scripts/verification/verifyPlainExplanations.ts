@@ -59,11 +59,11 @@ function check(name: string, ok: boolean, detail?: string) {
 // A synthetic provision: the checks are about the pipeline, not about any law.
 const PROVISION: ProvisionForExplaining = {
   citation: "Example Act, S.O. 2099, c. 1, s. 4(2)",
-  text: "A person may apply within six months after the event, unless the court extends the time under subsection (3). The amount shall not exceed $35,000.",
+  text: "A person may apply within six months after the event, unless the court extends the time under subsection (3). The amount shall not exceed $25,000.",
   decision: false,
 };
 const GOOD =
-  "A person can apply within six months after the event. The court can give more time under subsection (3). The amount cannot be more than $35,000.";
+  "A person can apply within six months after the event. The court can give more time under subsection (3). The amount cannot be more than $25,000.";
 const CLEAN: Verdict = { unsupported: [], missing: [] };
 
 async function main() {
@@ -71,7 +71,7 @@ async function main() {
   check("a faithful explanation passes", explanationRejection(PROVISION, GOOD) === null, String(explanationRejection(PROVISION, GOOD)));
   check(
     "a number not in the provision is refused",
-    explanationRejection(PROVISION, GOOD.replace("$35,000", "$50,000")) !== null,
+    explanationRejection(PROVISION, GOOD.replace("$25,000", "$50,000")) !== null,
   );
   check(
     "a converted number is refused (\"six months\" written as 180 days)",
@@ -134,7 +134,7 @@ async function main() {
   check("a failed or malformed check: nothing is shown", "failed" in out);
 
   out = await explainChecked(PROVISION, {
-    generate: stubGenerate([GOOD.replace("$35,000", "$40,000"), GOOD.replace("$35,000", "$45,000")]),
+    generate: stubGenerate([GOOD.replace("$25,000", "$40,000"), GOOD.replace("$25,000", "$45,000")]),
     verify: async () => CLEAN,
   });
   check("code refuses a changed number even when the check passes it", "failed" in out);

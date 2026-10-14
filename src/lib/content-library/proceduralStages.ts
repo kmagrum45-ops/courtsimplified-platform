@@ -230,8 +230,7 @@ export const PRINCIPLES: PrincipleCard[] = [
       "Small Claims Court can only hear claims up to a set dollar limit. Claims for more than that must go to the Superior Court of Justice, unless the excess is waived.",
     keyFacts: [
       "The claim limit is $50,000, excluding interest and costs.",
-      "This limit increased from $35,000 effective October 1, 2025.",
-      "The appeal threshold also rose, from $3,500 to $5,000: an appeal to the Divisional Court lies from a final order for the payment of money in excess of that amount, excluding costs (Courts of Justice Act, s. 31).",
+      "The appeal threshold is $5,000: an appeal to the Divisional Court lies from a final order for the payment of money in excess of that amount, excluding costs (Courts of Justice Act, s. 31).",
       // Was "within two years of the incident". Limitations Act, 2002 s. 4 runs
       // from the day the claim was DISCOVERED (2026-09-30 audit).
       "Under the Limitations Act, 2002, a claim generally cannot be started more than two years after the day it was discovered (s. 4).",

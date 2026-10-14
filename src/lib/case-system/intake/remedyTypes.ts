@@ -49,12 +49,12 @@ export const REMEDY_TYPES: RemedyTopic[] = [
       "See the education topic on the $50,000 limit for how that cap works.",
     citations: [
       {
-        // Same fact and citation as educationTopics.ts's sc-topic-monetary-limit --
+        // Same fact and citation as educationTopics.ts's sc-topic-monetary-limit (the regulation itself, 2026-10-13) --
         // cross-referenced rather than re-verified, since it's the identical claim.
-        sourceName: "Ontario.ca — Suing Someone in Small Claims Court",
-        officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
-        verifiedAt: "2026-08-31",
-        pinpoint: "monetary jurisdiction increased from $35,000 to $50,000, effective October 1, 2025",
+        sourceName: "O. Reg. 626/00 (Small Claims Court Jurisdiction and Appeal Limit)",
+        officialUrl: "https://www.ontario.ca/laws/docs/000626_e.doc",
+        verifiedAt: "2026-10-13",
+        pinpoint: "s. 1 (1): The maximum amount of a claim in the Small Claims Court is $50,000.",
       },
     ],
     reviewedAt: "2026-09-08",

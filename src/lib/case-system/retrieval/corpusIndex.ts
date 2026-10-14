@@ -241,14 +241,27 @@ export function sourcePassages(index: LoadedIndex, sourceId: string): CorpusChun
 /**
  * Passages of official pages that still state a figure the law has changed
  * (docs/sources/corpus/superseded.json, 2026-10-08: the Superior Court's guide
- * still says the Small Claims limit is $35,000; it has been $50,000 since
- * October 1, 2025). They are never handed out, so nothing can be confirmed
- * from them. Pure.
+ * still gives the Small Claims limit from before October 1, 2025; it is
+ * $50,000). They are never handed out, so nothing can be confirmed from them.
+ * A superseded SENTENCE (an entry with "sentence") is cut out of its passage
+ * instead, and the rest of the passage is kept. Pure.
  */
-const SUPERSEDED: { sourceId: string; phrase: string }[] = (supersededList as { entries: { sourceId: string; phrase: string }[] }).entries;
+type SupersededEntry = { sourceId: string; phrase?: string; sentence?: string };
+const SUPERSEDED: SupersededEntry[] = (supersededList as { entries: SupersededEntry[] }).entries;
 
 export function isSupersededPassage(sourceId: string, text: string): boolean {
-  return SUPERSEDED.some((entry) => entry.sourceId === sourceId && text.includes(entry.phrase));
+  return SUPERSEDED.some((entry) => entry.sourceId === sourceId && !!entry.phrase && text.includes(entry.phrase));
+}
+
+/** The passage with every superseded sentence of its source cut out (whitespace-tolerant). Pure. */
+export function withoutSupersededSentences(sourceId: string, text: string): string {
+  let out = text;
+  for (const entry of SUPERSEDED) {
+    if (entry.sourceId !== sourceId || !entry.sentence) continue;
+    const pattern = new RegExp(entry.sentence.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+") + "\\s*", "g");
+    out = out.replace(pattern, "");
+  }
+  return out;
 }
 
 /**
@@ -294,5 +307,5 @@ export function readPassage(index: LoadedIndex, id: string, score: number): Pass
   const row = index.meta.chunks.find(([chunkId]) => chunkId === id);
   if (!row || row[1] !== passageHash(chunk, source)) return null;
   if (isSupersededPassage(sourceId, chunk.text)) return null;
-  return { ...chunk, text: withoutPressure(sourceId, chunk.text), source, score };
+  return { ...chunk, text: withoutPressure(sourceId, withoutSupersededSentences(sourceId, chunk.text)), source, score };
 }
