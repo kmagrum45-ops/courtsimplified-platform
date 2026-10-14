@@ -25,11 +25,13 @@
  *      was this?" after "Judgment obtained, unpaid" was confirmed) -- and only
  *      that step's own event, never for a "no", never with no confirmed step.
  *
- *   4. A sentence with no date that says only that something did NOT happen,
- *      naming no court step or obligation,
- *      ("It's been months and he hasn't paid anything") is not offered as a
- *      step to classify (2026-10-13, JU); any sentence with a date, or a
- *      clause saying something did happen, still is.
+ *   4. Only a dateless "still waiting" sentence ("It's been months and he
+ *      hasn't paid anything", "She won't answer my calls", "Nothing has
+ *      happened since") is not offered as a step to classify (2026-10-13,
+ *      JU). Every other sentence is, including every not-done fact about a
+ *      duty ("the sidewalk wasnt salted at all", "He didn't show up to the
+ *      hearing") -- the failure this guards against is a real fact silently
+ *      dropped (review 2026-10-14).
  *
  * Run: node --import tsx scripts/verification/verifyCaseEvents.ts
  */
@@ -539,6 +541,10 @@ function main(): void {
     "She won't answer my calls or texts.",
     "Nothing has happened since.",
     "He still hasn't paid a cent.",
+    "hes paid nothing",
+    "He refuses to pay.",
+    "he wont return my texts",
+    "It's been weeks and nothing has happened.",
   ];
   // Must not misfire (review 2026-10-13): each says something did NOT
   // happen, but names a court step or an obligation, or has a clause where
@@ -558,6 +564,19 @@ function main(): void {
     "He won't let me see the kids.",
     "There has been no response to my demand letter.",
     "He never showed up to fix it.",
+    // Review 2026-10-14: the rule is a short list of "still waiting" phrases,
+    // never a list of words a fact must contain. Any not-done fact about a
+    // duty stays, whatever its words (two are from walkthrough personas).
+    "the sidewalk wasnt salted at all.",
+    "i havent seen him in 4 months.",
+    "The city never cleared the ice.",
+    "He never told me about the mould.",
+    "She didn't disclose the water damage.",
+    "The dog wasn't on a leash.",
+    "He wasn't wearing a seatbelt.",
+    "The landlord never gave me a receipt.",
+    "My boss never gave me a reason.",
+    "He hasn't paid rent since the spring.",
   ];
   const stillSteps = [
     "I won my small claims case against my old roommate in May.",

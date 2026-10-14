@@ -220,41 +220,40 @@ const ANY_DATE = new RegExp(
   ].join("|"),
   "i",
 );
-/** Words that make a clause something that did not happen. */
-const NOT_HAPPENING =
-  /\b(?:not|never|no longer|nothing|hasn'?t|hasnt|haven'?t|havent|hadn'?t|hadnt|didn'?t|didnt|doesn'?t|doesnt|don'?t|dont|won'?t|wont|wouldn'?t|wouldnt|isn'?t|isnt|wasn'?t|wasnt|can'?t|cant|refuses?|refused|ignor(?:es|ed|ing))\b/i;
-/** A clause that is only a length of time or filler: "it's been months", "still", "yet". */
-const ONLY_TIME =
-  /^(?:(?:it'?s|its|it has|it had|there'?s)\s+)?(?:been\s+)?(?:(?:a|an|many|several|a few|few|two|three|four|five|six|\d+)\s+)?(?:(?:days?|weeks?|months?|years?|a while|ages|forever|so long|long)\s*)?(?:now|already|still|yet|so far)?$/i;
 /*
- * Words naming a court step, or what someone owes or had to do: a sentence
- * with one is a fact the person may want on their timeline even when it says
- * something did NOT happen ("He didn't show up to the hearing", "The landlord
- * never returned my deposit", "I never received the plaintiff's claim").
+ * The ONLY sentences dropped: still waiting for someone to pay or reply, or
+ * "nothing has happened", optionally after "it's been <time>". Review
+ * 2026-10-13/14: a rule that dropped any negative sentence without a listed
+ * word silently lost core facts -- "the sidewalk wasnt salted at all", "i
+ * havent seen him in 4 months", "She didn't disclose the water damage", "The
+ * dog wasn't on a leash". So the rule is flipped: a short list of
+ * still-waiting phrases is dropped, and every other sentence is kept. A
+ * not-done fact about a duty is a fact the person may want recorded.
  */
-const STEP_OR_OBLIGATION =
-  /\b(?:hearings?|conferences?|trials?|motions?|mediation|served|serve|service|claims?|defen[cs]es?|answers?\b(?! (?:my|his|her|the|their|our) (?:calls?|phone|texts?|messages?|door|emails?))|applications?|papers?|deposits?|pay ?cheques?|pay ?checks?|wages?|salary|support|orders?|judg(?:e)?ments?|jobs?|work|rent|repairs?|fix(?:ed)?|roof|invoices?|loan|debt|contract|lease|custody|access|parenting|visits?|kids?|child(?:ren)?|daughters?|sons?|letters?|notices?|demand|disclosure|documents?|court|judge|lawyer|deadline)\b/i;
+const SUBJECT = "(?:he|she|they|it|we|i|my [a-z' -]{1,30}?|the [a-z' -]{1,30}?|[A-Z][a-z]+)";
+const SINCE_TIME =
+  "(?:(?:it'?s|its|it has|it'?s been|its been)\\s+(?:been\\s+)?(?:(?:a|an|many|several|a few|few|two|three|four|five|six|\\d+)\\s+)?(?:days?|weeks?|months?|years?|a while|ages|forever|so long)(?:\\s+now)?\\s*(?:,|and|,\\s*and)\\s*)";
+const STILL_WAITING = [
+  "(?:still\\s+)?(?:hasn'?t|hasnt|haven'?t|havent|has not|have not)\\s+(?:paid|paid me|paid me back|paid back)(?:\\s+(?:anything|a cent|a dime|a thing|me back|back))?",
+  "(?:still\\s+)?(?:won'?t|wont|will not|refuses to|refused to)\\s+pay(?:\\s+(?:me|me back|anything|up|back))?",
+  "(?:has|have)\\s+paid\\s+(?:me\\s+)?nothing",
+  "(?:still\\s+)?(?:won'?t|wont|will not|doesn'?t|doesnt|refuses to|refused to)\\s+(?:answer|return|respond to|reply to)\\s+(?:any of\\s+)?my\\s+(?:calls|texts|messages|emails)(?:\\s+or\\s+(?:calls|texts|messages|emails))?",
+].join("|");
+const WAITING_SENTENCE = new RegExp(
+  `^${SINCE_TIME}?(?:${SUBJECT}\\s+(?:${STILL_WAITING})|(?:he|she|they)(?:'s|s|'ve)\\s+paid\\s+(?:me\\s+)?nothing|nothing\\s+(?:has\\s+)?happened)(?:\\s+(?:since|yet|so far|still|now|at all))?\\s*[.!]*$`,
+  "i",
+);
 
 /**
- * True when a sentence gives no date, every clause in it says something did
- * NOT happen or is only a length of time ("It's been months and he hasn't paid
- * anything", "She won't answer my calls", "Nothing has happened since"), and
- * it names no court step or obligation. Kept as candidates: any date ("He
- * hasn't paid since May 14"), any clause where something happened ("He didn't
- * fix the roof and it leaked"), and any step or obligation ("He didn't show up
- * to the hearing", "My employer didn't pay my last two paychecks"). Review
- * 2026-10-13: the first version dropped those. Exported for test:case-events.
+ * True only for a dateless "still waiting" sentence: "It's been months and he
+ * hasn't paid anything", "He still hasn't paid a cent", "She won't answer my
+ * calls or texts", "Nothing has happened since". Everything else is kept,
+ * including every negative fact ("He didn't show up to the hearing", "The
+ * sidewalk wasnt salted at all"). Exported for test:case-events.
  */
 export function describesNothingHappening(sentence: string): boolean {
   if (ANY_DATE.test(sentence)) return false;
-  if (STEP_OR_OBLIGATION.test(sentence)) return false;
-  const clauses = sentence
-    .replace(/[.!?]+\s*$/, "")
-    .split(/[,;:]|\b(?:and|but|so|then|because|now|after|when|since)\b/i)
-    .map((clause) => clause.trim())
-    .filter(Boolean);
-  if (!clauses.some((clause) => NOT_HAPPENING.test(clause))) return false;
-  return clauses.every((clause) => NOT_HAPPENING.test(clause) || ONLY_TIME.test(clause));
+  return WAITING_SENTENCE.test(sentence.trim());
 }
 
 /**
