@@ -45,6 +45,7 @@
 import type { SourceItem } from "../intelligence/groundedCognition";
 import { loadCorpusIndex, readPassage, searchIndex, type LoadedIndex, type Passage } from "./corpusIndex";
 import { namedProvisions } from "./namedProvisions";
+import { fitPassagesToStory, withoutWrongForStory } from "./passagesForStory";
 import {
   embedWithModel,
   excludedForCourt,
@@ -268,7 +269,10 @@ async function searchIssues(
     const found = hits
       .map((hit) => readPassage(index, hit.id, hit.score))
       .filter((passage): passage is Passage => Boolean(passage));
-    byIssue.set(issue.id, [...found, ...followCrossReferences(index, found)].slice(0, PASSAGES_PER_ISSUE + 2));
+    // A law that cannot apply to this story (Municipal Act s. 44 for Toronto,
+    // round 4 review 2026-10-14) is never offered to the reader; the one that
+    // does takes its place (passagesForStory.ts).
+    byIssue.set(issue.id, fitPassagesToStory([...found, ...followCrossReferences(index, found)], input.story, index, { cap: PASSAGES_PER_ISSUE + 2 }));
   }
   return byIssue;
 }
@@ -312,10 +316,14 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
     results: ReadonlyMap<string, ReadResult>,
     rounds: number,
   ): ResearchResult => {
+    // Backstop: nothing that cannot apply to this story is shown or answered from.
+    const byIssueFitted = new Map([...passagesByIssue].map(([id, list]) => [id, withoutWrongForStory(list, input.story)]));
+    const fitted = new Set([...byIssueFitted.values()].flat().map((passage) => passage.id));
     const findings: ResearchFinding[] = issues.map((issue) => {
       const result = results.get(issue.id);
-      if (result?.status === "answered") {
-        return { issueId: issue.id, question: issue.question, status: "answered", answeredBy: result.answers };
+      const answers = result?.answers.filter((answer) => fitted.has(answer.passageId)) ?? [];
+      if (result?.status === "answered" && answers.length > 0) {
+        return { issueId: issue.id, question: issue.question, status: "answered", answeredBy: answers };
       }
       if (result?.status === "not-in-library" && result.missingLaw) {
         return { issueId: issue.id, question: issue.question, status: "not-in-library", answeredBy: [], missingSource: result.missingLaw };
@@ -325,7 +333,7 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
 
     // Answering passages first, in issue order; then the rest by score.
     const byId = new Map<string, Passage>();
-    for (const list of passagesByIssue.values()) for (const passage of list) if (!byId.has(passage.id)) byId.set(passage.id, passage);
+    for (const list of byIssueFitted.values()) for (const passage of list) if (!byId.has(passage.id)) byId.set(passage.id, passage);
     const answering = findings.flatMap((finding) => finding.answeredBy.map((answer) => answer.passageId));
     const ordered = [
       ...[...new Set(answering)].map((id) => byId.get(id)!).filter(Boolean),
@@ -389,7 +397,7 @@ export async function researchStory(input: RetrievalInput, deps: ResearchDeps = 
     const named = new Map<string, Passage[]>();
     for (const result of results) {
       if (result.status !== "not-in-library" || !result.missingLaw) continue;
-      const passages = namedProvisions(index, result.missingLaw);
+      const passages = fitPassagesToStory(namedProvisions(index, result.missingLaw), input.story, index);
       if (passages.length > 0) named.set(result.issueId, passages);
     }
     if (again.length > 0 || named.size > 0) {

@@ -2209,9 +2209,202 @@ const MOVING_PARTY_FORMS: Record<PracticalCourt, ReadonlySet<string>> = {
  * shown, so a gap in these patterns never hides a notice that might apply.
  */
 const PUBLIC_WAY = /\b(?:city|town|township|municipal\w*|sidewalk|road|street|highway|bridge|pothole)\b/i;
+
+/*
+ * Words that name Toronto without placing anything in it (review of
+ * f71a316, 2026-10-14): organisations named after the city, and where the
+ * person came from. Taken out before any place is read.
+ */
+const NOT_A_PLACE =
+  /\b(?:toronto[-\s]dominion(?:\s+bank)?|td(?:\s+bank|\s+canada\s+trust)?|toronto\s+hydro|toronto\s+police(?:\s+service)?|toronto\s+transit(?:\s+commission)?|ttc|toronto\s+star|toronto\s+sun|toronto\s+maple\s+leafs|toronto\s+raptors|toronto\s+blue\s+jays|university\s+of\s+toronto|toronto\s+metropolitan\s+university|toronto\s+general(?:\s+hospital)?|toronto\s+western(?:\s+hospital)?|toronto\s+pearson)\b|\b(?:moved|came|come|relocated|originally|am|is|was|were|are)\s+(?:here\s+)?from\s+(?:the\s+)?(?:city\s+of\s+)?toronto\b|\bfrom\s+toronto\b/gi;
+
+/*
+ * A place name followed by a street word is a street, not the place
+ * ("Kingston Road" and "Markham Road" are in Toronto; "East York Avenue" can
+ * be in Markham). Taken out before any place is read.
+ */
+const STREET_WORD = "(?:road|rd|street|st|avenue|ave|boulevard|blvd|drive|dr|lane|ln|way|crescent|cres|parkway|line|sideroad|trail)\\b\\.?";
+const TORONTO_NAMES = ["toronto", "scarborough", "etobicoke", "north\\s+york", "east\\s+york"];
+
+/** The person's words with organisation names and street names taken out, for reading a place. */
+function placeProse(words: string): string {
+  const names = [...TORONTO_NAMES, ...PLACE_NAMES].join("|");
+  return proseOf(words)
+    .replace(NOT_A_PLACE, " ")
+    .replace(new RegExp(`\\b(?:${names})\\s+${STREET_WORD}`, "gi"), " ");
+}
+
+const TORONTO_PLACE = new RegExp(`\\b(?:${TORONTO_NAMES.join("|")})\\b`, "i");
+
+/*
+ * A named Ontario place that is not Toronto, or the word for a kind of
+ * municipality Toronto is not (a town, township, village or county).
+ */
+const OTHER_PLACE = new RegExp(
+  `\\b(?:town|township|village|county)\\b|\\b(?:${PLACE_NAMES.filter(
+    (name) => inTorontoRegion(name.replace(/\\s\+/g, " ").replace(/\\\./g, ".")) === false,
+  ).join("|")})\\b`,
+  "i",
+);
+
+/**
+ * Where the municipality in the person's words is: "toronto" when only
+ * Toronto is named; "elsewhere" when only another Ontario place (or kind of
+ * municipality) is named; "unknown" when both are named ("I live in Toronto
+ * but slipped in Ottawa"), so both laws stay in play. When neither is named,
+ * the saved city decides; with no saved city, "unknown". Organisation names
+ * ("Toronto Hydro", "TD") and street names ("Kingston Road") never count.
+ * Review of f71a316, 2026-10-14.
+ */
+export type MunicipalPlace = "toronto" | "elsewhere" | "unknown";
+export function municipalPlaceOf(words: string, city = ""): MunicipalPlace {
+  const prose = placeProse(words);
+  const toronto = TORONTO_PLACE.test(prose);
+  const other = OTHER_PLACE.test(prose);
+  if (toronto && other) return "unknown";
+  if (toronto) return "toronto";
+  if (other) return "elsewhere";
+  const saved = inTorontoRegion(city);
+  return saved === true ? "toronto" : saved === false ? "elsewhere" : "unknown";
+}
+
+/**
+ * Toronto in the person's saved city or in their own words (organisation and
+ * street names aside). The Toronto half of the notice filter below.
+ */
+export function torontoInWords(words: string, city = ""): boolean {
+  return inTorontoRegion(city) === true || TORONTO_PLACE.test(placeProse(words));
+}
+
+/**
+ * A person who FELL ON a public way, read sentence by sentence (re-review of
+ * 8792939, 2026-10-14: word lists over the whole story both fired for a dog
+ * bite on a sidewalk and stayed silent for a sidewalk in front of a building).
+ *
+ * Why only this: City of Toronto Act s. 42 (6) and Municipal Act s. 44 (10)
+ * bar only an action "under subsection (2)", the municipality's default in
+ * keeping a highway or bridge in repair (s. 42 (1)-(2), s. 44 (1)-(2)).
+ *
+ * The rule, in one sentence of the person's words (or a sentence and the one
+ * before it, when it says "I tripped on it"):
+ *   1. the person fell: slipped, tripped, fell, stumbled, lost their footing,
+ *      rolled or twisted an ankle -- with the person (I, we, my son ...) before
+ *      the verb, so "a branch fell on my car" is not a fall;
+ *   2. ON a public way: the way word is what they fell on -- reached from the
+ *      verb through prepositions ("slipped on ice on the sidewalk"), or named
+ *      first with the verb taking no other place ("On a cracked sidewalk, I
+ *      tripped"), or a named street right after the fall ("slipped on Queen
+ *      Street") -- never a street in the same sentence that is only an
+ *      address ("fell behind on rent for my apartment on Main Street");
+ *   3. and nothing in that sentence says it happened somewhere else (in a
+ *      store or mall, on stairs or a deck, in a parking lot or driveway, on a
+ *      bus or streetcar, on their property, at school, at a cottage, a
+ *      provincial highway) or that something else caused it (a car accident,
+ *      hit by a car, a bite or a dog that knocked them, a cyclist, pushed,
+ *      assaulted, attacked, the police pushing, a shoe that broke, their own
+ *      feet when no defect in the way is named).
+ * Every fall verb in the sentence is tried ("Last fall I slipped on ...").
+ * "Broke" or "hurt" alone is never enough. The place need not be known: a
+ * fall on a sidewalk with no city named gets the line with both Acts.
+ */
+const FALL =
+  /\b(?:slip(?:ped|ping|s)?|trip(?:ped|ping|s)?|fell|fall(?:en|ing)?|stumbl\w*|lost\s+(?:my|his|her|their|our)\s+footing|(?:rolled|twisted)\s+(?:my|his|her|their)\s+ankle|caught\s+(?:my|his|her|their)\s+(?:foot|toe|heel|shoe|boot)|went\s+down)\b/gi;
+/** The person, before the verb: "I", "we", "my son", "my elderly father" (one word allowed after "my"). */
+const FALLER =
+  /\b(?:i|we|he|she|they|my\s+(?:[a-z]+\s+)?(?:son|daughter|wife|husband|partner|mother|father|mom|mum|dad|child|kid|grandmother|grandfather|grandma|grandpa|friend|aunt|uncle|sister|brother))\b/i;
+/** Or the verb opens the sentence ("Slipped on ice on a city sidewalk ..."). */
+const OPENS = /^\s*(?:(?:and|then|so|but)\s+)?$/i;
+const WAY = "(?:sidewalks?|side\\s+walks?|roads?|roadway|streets?|curbs?|kerbs?|crosswalks?|cross\\s+walks?|potholes?|boulevards?)";
+const WAY_WORD = new RegExp(`\\b${WAY}\\b`, "i");
+/*
+ * What the person fell ON: right after the verb (an adverb allowed), a chain
+ * of up to four phrases, each a preposition, an optional article and up to
+ * three lower-case words, the last ending in the way word. Lower-case only,
+ * so "on Main Street" (a capitalised name) never reaches "Street" this way:
+ * a named street counts only right after the fall (NAMED_STREET_FALL). And
+ * "with", "behind", "asleep", "out of", "in love" never start or continue
+ * the chain, so "fell in love with a house on Maple Street" and "fell
+ * asleep at the wheel on the road" are not falls on a way (re-review of
+ * 41a8364).
+ */
+const PREP = "(?:on|onto|into|over|in|off|along|across|crossing|at|from|near|outside|of|by|down|covering|coating)\\s+(?:(?:the|a|an|some|my|our|this|that|his|her|their)\\s+)?";
+/*
+ * Words inside a phrase: never a clause or an idiom ("while working on a
+ * house on the street", "on hard times living on the street"): no "-ing"
+ * word and no joining word. And a phrase BEFORE the last one must name a
+ * surface the person fell on ("slipped on black ice on the sidewalk"), so
+ * the chain cannot wander from "a hose in my neighbour's yard" or "drugs" to
+ * a street (re-review of db40587).
+ */
+const WORDS = "(?:(?!(?:while|when|after|because|before|and|to|for|but|so|on|onto|into|over|in|off|at|by|from|near|outside|along|across)\\b)[a-z][a-z'’-]*(?<!ing)\\s+){0,3}?";
+const SURFACE = "(?:(?:black\\s+|wet\\s+|thin\\s+)?ice|snow|slush|pavement|asphalt|concrete|edge|piece|part|corner|middle|side|lip|plates?|covers?|grates?|manholes?|utility\\s+covers?|(?:a\\s+)?(?:patch|sheet|ridge|chunk)\\s+of\\s+(?:black\\s+)?ice|cracks?|holes?|slabs?|debris|leaves|gravel|sand|water|a\\s+puddle|puddles?)";
+const SURFACE_PHRASE = `${PREP}(?:[a-z][a-z'’-]*(?<!ing)\\s+){0,2}?${SURFACE}\\s+`;
+const ON_THE_WAY = new RegExp(`^\\s+(?:(?:down|over|badly|hard|backwards|forwards?|again)\\s+)?(?:${SURFACE_PHRASE}){0,2}${PREP}${WORDS}${WAY}\\b`);
+const NAMED_STREET_FALL = /^\s+(?:(?:on\s+(?:the\s+)?ice|on\s+(?:some\s+)?snow|badly)\s+)?(?:on|along|crossing)\s+(?:[A-Z][a-z]+\s+){1,3}(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Drive|Dr)\b/;
+/*
+ * Or the way came first in the sentence and the verb takes no other place:
+ * "On a cracked sidewalk outside my building, I tripped and ...", "the
+ * plow left a ridge of ice on the sidewalk and I slipped on October 2",
+ * "my bike hit a pothole on Dundas and I fell".
+ */
+const WAY_BEFORE = new RegExp(`\\b(?:on|onto|in|into|along|across|over)\\s+(?:the|a|an|some)\\s+(?:[a-z][a-z'’-]*\\s+){0,3}${WAY}\\b|\\bpotholes?\\b`, "i");
+/** A defective way named before the fall, with no preposition: "There was a cracked sidewalk outside my building, I tripped". */
+const DEFECTIVE_WAY_BEFORE = new RegExp(`\\b(?:a|an|the)\\s+(?:[a-z]+\\s+){0,2}?(?:uneven|broken|cracked|raised|lifted|icy|unsalted|slippery|sunken|heaved)\\s+(?:[a-z]+\\s+){0,1}${WAY}\\b`, "i");
+const NO_OTHER_PLACE_AFTER =
+  /^\s*(?:$|[,.;!?]|and\b|then\b|but\b|(?:down|over|badly|hard)\b|on\s+(?:(?:january|february|march|april|may|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b|\d))/i;
+const REFERS_BACK = /^\s+(?:on|over|into|in)\s+(?:it|that|there|them)\b/i;
+const ELSEWHERE_IN_SENTENCE =
+  /\b(?:in|inside|at|into)\s+(?:the\s+|a\s+|an\s+|my\s+|their\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:store|shop|mall|supermarket|grocery|restaurant|plaza|community\s+cent(?:re|er)|construction\s+site|cottage|arena|condo\s+complex|hospital|yard|backyard)\b|\bon\s+(?:the\s+|a\s+|their\s+|his\s+|her\s+|my\s+|our\s+)?(?:[\w'’-]+\s+){0,2}(?:stairs|steps|staircase|stairwell|deck|porch|track)\b|\b(?:in|on|at|into)\s+(?:the\s+|a\s+|their\s+|my\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:parking\s+(?:lot|garage)|driveway)\b|\b(?:on|in|off|onto|boarding|getting\s+(?:off|on))\s+(?:the\s+|a\s+)?(?:ttc\s+)?(?:bus|streetcar|subway|train)\b|\b(?:bus|streetcar|subway|train)\s+(?:braked|stopped|lurched|jerked|started|moved|pulled)\b|\bon\s+(?:their|his|her)\s+(?:property|land|premises)\b|\bprivate\b|\bcondo\s+complex\b|\b(?:at|on|around)\s+the\s+(?:[\w'’-]+\s+){0,2}track\b|\bat\s+(?:my\s+|his\s+|her\s+|the\s+|their\s+)?school\b|\bschool\s+board\b|\b(?:deck|cottage|roof|ladder|yard|backyard|hospital)\b|\b(?:highway|hwy)\s*\d+|\bqew\b|\bprovincial\b/i;
+/*
+ * Another cause, named as the cause: a bite, a dog that knocked or jumped,
+ * the police pushing -- never "walking my dog" or "called the police".
+ */
+const OTHER_CAUSE_IN_SENTENCE =
+  /\bcar\s+accident\b|\b(?:hit|struck|knocked\s+(?:down|over)?)\s+(?:me\s+)?by\s+(?:a\s+|the\s+)?(?:car|truck|vehicle|van|bus|cyclist|bike|bicycle|dog)\b|\b(?:bit|bitten|bites?)\b|\bdogs?\s+(?:knocked|jumped|pulled|ran\s+into|tripped|lunged)\b|\bcyclist\b|\bknocked\s+(?:me|him|her|us)\b|\b(?:pushed|shoved|tackled|punched)\b|\bassault\w*|\battack\w*|\bpolice\s+(?:officers?\s+)?(?:pushed|shoved|tackled|grabbed|knocked|threw|tripped)\b|\bby\s+(?:the\s+|a\s+)?police\b|\b(?:my|his|her)\s+(?:shoe|heel|boot|sandal|flip-?flop)s?\s+(?:broke|snapped|came\s+off|gave\s+way)\b|\bbecause\s+(?:of\s+)?(?:my|his|her)\s+(?:shoe|heel|boot)s?\b/i;
+/** "My own feet" is the cause only when the sentence names no defect in the way. */
+const OWN_FEET = /\bown\s+feet\b/i;
+const DEFECT = /\b(?:uneven|broken|cracked|raised|lifted|icy|ice|potholes?|holes?|cracks?|unsalted|slippery|sunken|heaved)\b/i;
+
+/** The sentences of the person's words. */
+function sentencesOf(text: string): string[] {
+  return text
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+}
+
+function fallOnWay(sentence: string, before: string): boolean {
+  for (const fall of sentence.matchAll(FALL)) {
+    const at = fall.index ?? 0;
+    const lead = sentence.slice(0, at);
+    if (!FALLER.test(lead) && !OPENS.test(lead)) continue;
+    // "a slip on my windshield", "the trip": a noun, not a fall.
+    if (/\b(?:a|an|the|my|his|her|our|their|this|that)\s*$/i.test(lead)) continue;
+    const after = sentence.slice(at + fall[0].length);
+    let scope = "";
+    if (ON_THE_WAY.test(after) || NAMED_STREET_FALL.test(after)) scope = sentence;
+    else if ((WAY_BEFORE.test(lead) || DEFECTIVE_WAY_BEFORE.test(lead)) && NO_OTHER_PLACE_AFTER.test(after)) scope = sentence;
+    // "I tripped over my own feet because the sidewalk was so uneven": the
+    // feet are named, but so is a defect in the way, and the way is the cause.
+    else if (OWN_FEET.test(after) && DEFECT.test(sentence) && WAY_WORD.test(after)) scope = sentence;
+    else if (REFERS_BACK.test(after) && WAY_WORD.test(before)) scope = `${before} ${sentence}`;
+    if (!scope) continue;
+    if (ELSEWHERE_IN_SENTENCE.test(scope) || OTHER_CAUSE_IN_SENTENCE.test(scope)) continue;
+    if (OWN_FEET.test(scope) && !DEFECT.test(scope)) continue;
+    return true;
+  }
+  return false;
+}
+
+export function municipalWayInjury(words: string, _city = ""): boolean {
+  const sentences = sentencesOf(proseOf(words));
+  return sentences.some((sentence, at) => fallOnWay(sentence, at > 0 ? sentences[at - 1] : ""));
+}
+
 const NOTICE_FITS: Partial<Record<RuleCitation["sourceId"], (story: string, city: string) => boolean>> = {
-  "city-of-toronto-act-2006": (story, city) => PUBLIC_WAY.test(story) && (inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
-  "municipal-act-2001": (story, city) => PUBLIC_WAY.test(story) && !(inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
+  // Both fit when the words name Toronto and another place (municipalPlaceOf "unknown").
+  "city-of-toronto-act-2006": (story, city) => PUBLIC_WAY.test(story) && municipalPlaceOf(story, city) !== "elsewhere" && torontoInWords(story, city),
+  "municipal-act-2001": (story, city) => PUBLIC_WAY.test(story) && municipalPlaceOf(story, city) !== "toronto",
   "occupiers-liability-act": (story) => /\b(?:snow|ice|icy)\b/i.test(story) && /\b(?:property|premises|store|shop|parking|lot|driveway|building|landlord|mall|restaurant|plaza)\b/i.test(story),
   // Not "province" alone: a saved address says which province (walkthrough
   // run 38482600205: a Toronto sidewalk fall led with the Crown's notice).

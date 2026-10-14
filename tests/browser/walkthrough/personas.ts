@@ -27,6 +27,8 @@ export type Persona = {
   issues?: string[];
   /** The "already filed" button labels, exactly as shown. */
   documents?: string[];
+  /** Hurt on a public sidewalk, road or bridge a municipality keeps: the answer to the notice box's question ("Yes"; anyone else answers "No"). */
+  onMunicipalWay?: boolean;
   fields?: Record<string, string>;
   /** Value for the post-analysis stage confirmation select. */
   confirmStage: string;
@@ -330,6 +332,7 @@ export const PERSONAS: Persona[] = [
   {
     id: "civil-plaintiff-municipal-slip",
     path: "civil",
+    onMunicipalWay: true,
     summary: "A person who broke a wrist on an icy city sidewalk in Toronto; claim over the Small Claims limit.",
     city: "Toronto",
     story:

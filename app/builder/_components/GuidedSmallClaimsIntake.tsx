@@ -22,6 +22,8 @@ import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUr
 import { cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./proposalCard";
 import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
+import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
+import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -488,7 +490,7 @@ function previousAnsweredIds(previous: Props["previous"]): string[] {
   return Array.from(new Set(ids)).slice(-50);
 }
 
-export default function GuidedSmallClaimsIntake({ initialStory, onComplete, previous }: Props) {
+export default function GuidedSmallClaimsIntake({ location, initialStory, onComplete, previous }: Props) {
   const [facts, setFacts] = useState<IntakeFacts>(() => previousFacts(previous));
   const [answeredIds, setAnsweredIds] = useState<string[]>(() => previousAnsweredIds(previous));
   const [currentQuestion, setCurrentQuestion] = useState<IntakeQuestion | null>(null);
@@ -1001,12 +1003,14 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
   }
 
   useEffect(() => {
-    if (heldPayload && (sourced.state === "none" || sourced.state === "idle")) {
+    // A municipal notice line holds the page until the person continues
+    // (round 4 review, 2026-10-14): moving on at once would hide it.
+    if (heldPayload && (sourced.state === "none" || sourced.state === "idle") && !municipalNoticeFirst(storyRef.current, { city: location?.city ?? "" })) {
       setHeldPayload(null);
       // Nothing new to ask: still keep the answers from earlier visits.
       onComplete?.({ ...heldPayload, sourcedAnswers: sourced.answeredList() });
     }
-  }, [heldPayload, sourced.state, sourced.answeredList, onComplete]);
+  }, [heldPayload, sourced.state, sourced.answeredList, onComplete, location?.city]);
 
   function finishDepthPhase(
     stateMap: Record<string, unknown> | null,
@@ -1440,6 +1444,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
 
       {!halted && heldPayload ? (
         <div className="mt-4">
+          {/* The 10-day notice to a municipality comes before any question (round 4 review, 2026-10-14). */}
+          <MunicipalNoticeFirst story={storyRef.current} city={location?.city ?? ""} />
           <SourcedQuestionsCard
             state={sourced.state}
             questions={sourced.questions}

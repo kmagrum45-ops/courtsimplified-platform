@@ -1650,6 +1650,41 @@ Insurance Act **s. 33** (service of the notice -- the block only points to it).
 The deadline engine counts the 120 days under the Legislation Act; the
 published block is `answer:before-filing:notice-vehicle-injury` (run-15).
 
+### Toronto: the Municipal Act does not apply; City of Toronto Act s. 42 does (2026-10-14)
+
+Round 4 review (persona civil-plaintiff-municipal-slip): a Toronto sidewalk
+fall was asked a question from Municipal Act s. 44 (9). Read in the saved text
+(`municipal-act-2001`, `city-of-toronto-act-2006`), 2026-10-14:
+
+- **Municipal Act s. 7.1 (1):** "This Act does not apply to any of the
+  following, except as otherwise provided by another provision of this Act or
+  of the City of Toronto Act, 2006: 1. The City of Toronto, ..." So s. 44 is
+  never the rule for the City.
+- **City of Toronto Act s. 42 mirrors Municipal Act s. 44 subsection for
+  subsection:** 44 (1)-(3) = 42 (1)-(3) (repair, liability, defences);
+  44 (9) = 42 (5) (gross negligence, snow or ice on a sidewalk); 44 (10) =
+  42 (6) (10-day written notice; to "the city clerk" in Toronto); 44 (11) =
+  42 (7) (death); 44 (12) = 42 (8) (reasonable excuse and no prejudice, "if a
+  judge finds"). The Municipal Act's 44 (4)-(8) (minimum standards by
+  regulation) is s. 117 in the Toronto Act (42 (3) (c) points to it).
+  City of Toronto Act **s. 44** is about naming private roads -- not the
+  repair section; match by source AND section.
+- The "highway" definition in both Acts ("a common and public highway and
+  includes any bridge, ...") does not mention sidewalks. Do not write "a
+  highway includes a sidewalk" as if quoted; s. 42 (5) / 44 (9) are where
+  sidewalks appear.
+
+- The 10-day notice bars only an action "under subsection (2)" -- the
+  City's (or municipality's) default in keeping a highway or bridge in
+  repair, s. 42 (1)-(2) / s. 44 (1)-(2). It is not the notice for a fall in a
+  store, a parking lot, a landlord's stairs, a city-owned building, on transit,
+  in a car accident, or on a provincial highway (review of f71a316,
+  2026-10-14); the intake's trigger (`municipalWayInjury`) excludes those.
+
+Enforced in code by `retrieval/passagesForStory.ts` (no model is shown the
+other municipality's section) and `content-library/municipalNoticeFirst.ts`
+(the intake's notice line), `npm run test:municipal-notice-first`.
+
 ### Highway Traffic Act vendored (2026-10-05)
 
 `highway-traffic-act` (R.S.O. 1990, c. H.8, e-Laws `90h08`), declared in
