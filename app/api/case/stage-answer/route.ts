@@ -158,6 +158,9 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
     consequence: deadline.consequence,
     notABar: deadline.consequence === "bars-the-claim" ? notABarExceptions(deadline.exceptions) : [],
     statutory: deadline.regime === "legislation-act",
+    // A point after which leave is needed, not a time to act (r. 20.08 (2.1)):
+    // the card leads with it only when it is near (walkthrough run 38525903567, SJ).
+    threshold: deadline.threshold === true,
     // Each sentence of the deadline that says when service counts, with the
     // subrule it restates, from the deadline's own rule and exceptions
     // (walkthrough run 38500825561: the 4 p.m. sentence had no rule beside it).

@@ -9,6 +9,7 @@
 import type { ResearchFindingView } from "../intelligence/intelligenceTypes";
 import type { ResearchResult } from "./researchStory";
 import { passageItem } from "./storyRetrieval";
+import { sourceDisplayFor } from "../../content-library/sourceDisplay";
 
 export function findingsView(research: ResearchResult, explainable: boolean): ResearchFindingView[] {
   return research.findings.map((finding) => ({
@@ -20,12 +21,15 @@ export function findingsView(research: ResearchResult, explainable: boolean): Re
         const passage = research.passages.find((candidate) => candidate.id === answer.passageId);
         if (!passage) return null;
         const { id, label, citation, text, sourceUrl, kind } = passageItem(passage);
+        // The date the source was saved and checked (walkthrough run 38525903567).
+        const checkedOn = sourceDisplayFor(passage.sourceId)?.checkedOn;
         return {
           id,
           label,
           text,
           sourceUrl,
           quote: answer.quote,
+          ...(checkedOn ? { checkedOn } : {}),
           ...(citation ? { citation } : {}),
           ...(kind ? { kind } : {}),
           ...(explainable ? { explainable } : {}),

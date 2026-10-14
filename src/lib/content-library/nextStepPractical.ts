@@ -29,6 +29,7 @@ import type { RuleCitation } from "../case-system/stage-map/citations";
 import { R_15_01_MOTION_FORM, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
 import { COURT_LOCATIONS, COURT_LOCATIONS_RETRIEVED_AT, OCJ_COURTHOUSES, OCJ_SOURCE } from "./courts/courtLocations";
 import { addDays, dayOfWeek, formatLongDate, holidayFor } from "../case-system/deadlines/holidays";
+import { COURT_SERVICE_NOTICES } from "../case-system/deadlines/courtServiceNotices";
 
 export type PracticalCourt = "small-claims" | "civil" | "family";
 
@@ -97,6 +98,8 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   "divorce-act": "2026-09-30",
   // The passed-notice check (s. 89 (2)) and the card's own limit sources.
   "legislation-act-2006": "2026-09-27",
+  // The garnishee lines (walkthrough run 38525903567, SJ).
+  "guide-after-judgment": "2026-09-27",
 };
 
 // ---------------------------------------------------------------- fees
@@ -110,6 +113,12 @@ const FEE_LIST: Fee[] = [
   { id: "sc-defendants-claim", court: "small-claims", amount: 108, label: "Filing a defendant's claim", cite: sc("s. 1 (2), para. 3", "On the filing of a defendant’s claim, $108.") },
   { id: "sc-motion", court: "small-claims", amount: 127, label: "Filing a motion (paid by the person bringing it)", cite: sc("s. 1 (2), para. 4", "On the filing of a notice of motion served on another party, a notice of motion without notice or a notice of motion for a consent order (except a notice of motion under the Wages Act), $127.") },
   { id: "sc-defence", court: "small-claims", amount: 77, label: "Filing a defence", cite: sc("s. 1 (2), para. 5", "On the filing of a defence, $77.") },
+  /*
+   * On a defence step (walkthrough run 38525903567, SD: a homeowner who wants
+   * the contractor to pay for the repairs read about a Defendant's Claim, Form
+   * 10A, but never its fee). Only if they make one: the label says so.
+   */
+  { id: "sc-defendants-claim-if", court: "small-claims", amount: 108, label: "Only if you also make a defendant's claim (Form 10A)", cite: sc("s. 1 (2), para. 3", "On the filing of a defendant’s claim, $108.") },
   { id: "sc-trial", court: "small-claims", amount: 308, label: "Setting a trial or assessment hearing date (most people)", cite: sc("s. 1 (2), para. 6", "For the fixing of a date for a trial or an assessment hearing by an infrequent claimant, $308.") },
   { id: "sc-default", court: "small-claims", amount: 94, label: "Asking for default judgment (most people)", cite: sc("s. 1 (2), para. 8", "For the filing of a request for default judgment by an infrequent claimant, $94.") },
   { id: "sc-summons", court: "small-claims", amount: 33, label: "Issuing a summons to a witness", cite: sc("s. 1 (2), para. 10", "On the issue of a summons to a witness, $33.") },
@@ -324,18 +333,472 @@ export const FILING: Record<PracticalCourt, FilingLines> = {
       },
     ],
   },
+  /*
+   * Walkthrough run 38525903567 (senior-lawyer review): "file online through
+   * the Justice Services Online portal" was backed only by "Use the Justice
+   * Services Online portal for matters outside of Toronto.", a sentence under
+   * the page's heading about paying fees. The sentence that says documents
+   * are FILED online through these portals opens the same list; it is quoted
+   * with each line now.
+   */
   family: {
     toronto: {
       say: "In the Toronto region, file online through the Ontario Courts Public Portal.",
-      cite: cite("ontario-fees-family", "Paying family court fees online", "Use the Ontario Courts Public Portal for matters in the Toronto region."),
+      cite: cite(
+        "ontario-fees-family",
+        "Paying family court fees online",
+        "Starting October 14, 2025, there are different online portals to file court documents online depending on the region or level of court you are filing in. Use the Ontario Courts Public Portal for matters in the Toronto region.",
+      ),
     },
     elsewhere: {
       say: "Outside Toronto, file online through the Justice Services Online portal.",
-      cite: cite("ontario-fees-family", "Paying family court fees online", "Use the Justice Services Online portal for matters outside of Toronto."),
+      cite: cite(
+        "ontario-fees-family",
+        "Paying family court fees online",
+        "Starting October 14, 2025, there are different online portals to file court documents online depending on the region or level of court you are filing in. ... Use the Justice Services Online portal for matters outside of Toronto.",
+      ),
     },
     more: [],
   },
 };
+
+// ---------------------------------------------------------------- a deadline too close to file online
+
+/*
+ * Walkthrough run 38525903567 (SD, senior-lawyer review 2026-10-14): on
+ * Wednesday 14 October a defendant whose counted last day was Monday 19
+ * October was told "Outside Toronto, file online", beside the page's own
+ * quote that a deadline "3 business days or less away" cannot be filed
+ * online. The two lines were never joined to the counted date.
+ *
+ * HOW "AWAY" IS COUNTED. The saved guide's own example (outside Toronto):
+ * "if your court date is on Tuesday, February 9 , you cannot submit documents
+ * online after Wednesday, February 3". From Wednesday 3 February the business
+ * days up to and including Tuesday 9 February are Thu 4, Fri 5, Mon 8, Tue 9:
+ * four, so filing online is still open; from Thursday 4 they are three, and it
+ * is closed. So a deadline is N business days away when N business days fall
+ * after today, up to and including the deadline itself. test:next-step-practical
+ * checks this reading against the guide's example, worked from the calendar.
+ * (The Toronto paragraph's example, "after Monday, February 1", does not fit
+ * any count of business days and is not used.)
+ *
+ * WHICH DAYS ARE BUSINESS DAYS. Neither guide defines the term. A court office
+ * is closed on a Saturday, a Sunday, every holiday either calendar names
+ * (holidays.ts: r. 1.02 adds Saturday and Civic Holiday, the Legislation Act
+ * substitutes Christmas differently -- the two-calendar trap in
+ * ACCURACY_ENGINE.md), and the days the ministry announces closures
+ * (courtServiceNotices.ts: 30 September, filed online "on the next business
+ * day"). A day any of those calls closed is not a business day. That makes
+ * the count smaller, never larger, so the card can only warn early, never late.
+ */
+export function isCourtBusinessDay(date: string, strict = true): boolean {
+  const dow = dayOfWeek(date);
+  if (dow === 0 || dow === 6) return false;
+  // Strict: a weekday EITHER calendar calls a holiday is not a business day.
+  // Not strict: every weekday but an announced closure is (to see whether a
+  // weekday holiday changed the count; re-review of 6a0fce6).
+  if (strict && (holidayFor(date, "small-claims-rules") || holidayFor(date, "legislation-act"))) return false;
+  return !COURT_SERVICE_NOTICES.some((notice) => notice.closedOn === date);
+}
+
+/** Business days after `today`, up to and including `deadline` (0 when the deadline is today or has passed). */
+export function businessDaysAway(today: string, deadline: string, strict = true): number {
+  let count = 0;
+  for (let day = addDays(today, 1), guard = 0; day <= deadline && guard < 4000; day = addDays(day, 1), guard += 1) {
+    if (isCourtBusinessDay(day, strict)) count += 1;
+  }
+  return count;
+}
+
+/**
+ * The online portals refuse a deadline 3 business days away or less (both
+ * saved guides). A deadline that has passed is not one the guides speak of
+ * (review of bee9daf): it is not "too close", and the card keeps its portal
+ * lines beside "That date has already passed".
+ */
+export function tooCloseToFileOnline(today: string, deadline: string): boolean {
+  return deadline >= today && businessDaysAway(today, deadline) <= 3;
+}
+
+/**
+ * Too close only because a weekday holiday was left out of the count (Good
+ * Friday, Easter Monday, Civic Holiday...). Neither guide says whether such a
+ * day is a business day, so the card says "may be" (re-review of 6a0fce6:
+ * 24 to 31 March 2027, over Easter, was stated as certain).
+ */
+export function tooCloseOnlyByHoliday(today: string, deadline: string): boolean {
+  return tooCloseToFileOnline(today, deadline) && businessDaysAway(today, deadline, false) > 3;
+}
+
+const SC_TOO_CLOSE_CITE = cite(
+  "ontario-file-small-claims-online",
+  "Documents you cannot file online",
+  "if you need to meet a deadline established by legislation or other court rules, court practice direction or a court order that is 3 business days or less away ... If you cannot submit your documents online, you may file them: in person at the courthouse by mail by email",
+);
+const CIVIL_TOO_CLOSE_CITE = cite(
+  "ontario-file-civil-claim-online",
+  "Documents you can file online",
+  "if you need to meet a deadline established by legislation or other court rules, court practice direction or a court order that is 3 business days or fewer away",
+);
+
+/**
+ * The filing line for a deadline too close to file online, in place of the
+ * portal lines. Small Claims lists only the ways its guide names (in person,
+ * mail, email); the civil guide names none, so the civil line says to ask
+ * the court office. Family's saved pages state no business-day limit: null.
+ */
+export function tooCloseFilingLine(court: PracticalCourt, today: string, deadline: string, divisionalOnly = false): PlainLine | null {
+  if (court === "family" || !tooCloseToFileOnline(today, deadline)) return null;
+  const fewer = court === "civil" ? "fewer" : "less";
+  const last = `${divisionalOnly && court === "civil" ? "If your appeal is in the Divisional Court, your" : "Your"} last day, ${formatLongDate(deadline)},`;
+  // Hedged when the answer turns on a weekday holiday: "If so, file it ... instead" (third review).
+  if (tooCloseOnlyByHoliday(today, deadline)) {
+    const when = `${last} may be 3 business days away or ${fewer}, depending on whether a holiday in between counts as a business day, and the portal cannot be used for a deadline that close.`;
+    return court === "small-claims"
+      ? { say: `${when} If so, file it in person at the courthouse, by mail or by email instead.`, cite: SC_TOO_CLOSE_CITE }
+      : { say: `${when} If so, file it another way instead: the court office can tell you how.`, cite: CIVIL_TOO_CLOSE_CITE };
+  }
+  const when = `${last} is 3 business days away or ${fewer}, so you cannot file online for it`;
+  return court === "small-claims"
+    ? { say: `${when}. File it in person at the courthouse, by mail or by email instead.`, cite: SC_TOO_CLOSE_CITE }
+    : { say: `${when}. The court office can tell you how to file it instead.`, cite: CIVIL_TOO_CLOSE_CITE };
+}
+
+/*
+ * Serving by mail near the deadline (same review). r. 8.07 (2): mail counts
+ * only on the fifth day after mailing; r. 8.07.1 (2): a courier, the fifth day
+ * after it confirms delivery. A defence mailed four days before the last day
+ * is served after it. The card says so with the dates, and names the ways the
+ * same rule (r. 8.01 (14)) allows that count sooner: email (r. 8.08 (4)) and in
+ * person (r. 8.02 (a)). What the rules provide, never which to choose.
+ */
+export const SC_MAIL_RULE = scrCite(
+  "r. 8.07 (2)",
+  "Service of a document by mail is deemed to be effective on the fifth day following the date of mailing.",
+);
+export const SC_COURIER_RULE = scrCite(
+  "r. 8.07.1 (2)",
+  "Service of a document sent by courier is deemed to be effective on the fifth day following the date on which the courier verifies to the sender that the document was delivered.",
+);
+export const SC_SOONER_WAYS: PlainLine[] = [
+  {
+    say: "By email, service counts on the day the email is sent, or the next day if it is sent between 4 p.m. and midnight. It goes to the last email address the other side or their representative gave.",
+    cite: scrCite(
+      "r. 8.08 (1) (a), (4)",
+      "the last email address provided by the person to be served or the person's representative or, if no email address is provided, to the person's or representative's last known email address ... Service of a document by email is deemed to be effective, (a) on the day the email is sent; or (b) if the email is sent between 4 p.m. and midnight, on the following day.",
+    ),
+  },
+  {
+    say: "In person, you leave a copy with the person, if they are an individual.",
+    cite: scrCite("r. 8.02 (a)", "on an individual, other than a person under disability, by leaving a copy of the document with him or her"),
+  },
+  {
+    say: "For a corporation, you leave a copy with an officer, a director or another person authorized to act for it, or with the person in charge at one of its places of business.",
+    cite: scrCite(
+      "r. 8.02 (c)",
+      "on any other corporation, by leaving a copy of the document with, (i) an officer, a director or another person authorized to act on behalf of the corporation, or (ii) a person at any place of business of the corporation who appears to be in control or management of the place of business",
+    ),
+  },
+];
+function scrCite(pinpoint: string, quote: string): RuleCitation {
+  return cite("oreg-258-98-small-claims-rules", pinpoint, quote);
+}
+
+/*
+ * WHICH COUNTED DAYS TIME THESE LINES (review of bee9daf). The first cut took
+ * the card's earliest counted day, whatever it was: the court's 90-day target
+ * for a settlement conference became "your last day ... cannot file online",
+ * and a defendant's claim's 20 days to be ISSUED got mail timing, though
+ * issuing is not serving. Only the deadlines listed here, each a time limit
+ * the PERSON must meet by serving or filing a document, time them:
+ *   files -- the deadline is met by filing with the court (the too-close line);
+ *   serves -- it is met by serving, in a way r. 8.01 (14) lets go by mail
+ *            (the mail timing). A claim (r. 8.01 (1)) and a summons
+ *            (r. 8.01 (7)) are not mailed, so they are never "serves" here.
+ * Never a "court holds" period, a leave threshold, an issue-only limit, the
+ * other side's time, or a limit met by asking for something.
+ * test:next-step-practical checks every listed id is a reader's deadline in
+ * the stage map whose own words say serve, file, deliver, make a motion or
+ * request -- and that EVERY Small Claims and civil deadline is either listed
+ * or in NOT_TIMED with its reason, so a new deadline fails until classified.
+ *
+ * Re-review of 6a0fce6: a motion to be made, and a request filed with the
+ * clerk, are the person's own filing deadlines -- the online guides' limit
+ * covers "a deadline established by legislation or other court rules". So the
+ * motion to set aside a judgment after a missed trial (r. 17.01 (5) (a)), the
+ * motion for a new trial (r. 17.04 (1)) and the "request a trial date, or the
+ * clerk will dismiss" limits (r. 11.1.01 (1)) time the filing line. Civil
+ * carries the same limit ("3 business days or fewer away", the saved civil
+ * guide), so its filing deadlines are listed too; family's saved pages state
+ * no such limit, and family deadlines time nothing.
+ */
+/** Civil (Rules of Civil Procedure): "deliver" is "serve and file with proof of service" (r. 1.03 (1)); a motion to be made is filed. Met by filing; never mail-timed (that is Small Claims only). */
+const CIVIL_FILES: string[] = [
+  "deadline:civil:associate-judge-appeal-record-7-days",
+  "deadline:civil:associate-judge-appeal-respondent-4-days",
+  "deadline:civil:basic-limitation",
+  "deadline:civil:basic-limitation-claim-drafted",
+  "deadline:civil:basic-limitation-may-have-passed",
+  "deadline:civil:basic-limitation-notice-stage",
+  "deadline:civil:certificate-of-readiness-30-days",
+  "deadline:civil:confirmation-of-motion-5-days",
+  "deadline:civil:counterclaim-election-30-days",
+  "deadline:civil:counterclaim-election-after-discontinuance-30-days",
+  "deadline:civil:defence",
+  "deadline:civil:defence-to-counterclaim-20-days",
+  "deadline:civil:defence-to-counterclaim-new-party",
+  "deadline:civil:defence-to-crossclaim-20-days",
+  "deadline:civil:discontinuance-costs-30-days",
+  "deadline:civil:discontinuance-costs-30-days:counterclaim-pending",
+  "deadline:civil:discontinue-before-pleadings-close",
+  "deadline:civil:dismissal-costs-30-days",
+  "deadline:civil:dismissal-costs-30-days:plaintiff",
+  "deadline:civil:file-notice-of-appeal-10-days",
+  "deadline:civil:five-year-dismissal-awaiting-defence",
+  "deadline:civil:five-year-dismissal-claim-issued",
+  "deadline:civil:five-year-dismissal-defence-expired",
+  "deadline:civil:five-year-dismissal-defence-received",
+  "deadline:civil:five-year-dismissal-discovery",
+  "deadline:civil:five-year-dismissal-noted",
+  "deadline:civil:five-year-dismissal-ready-to-set-down",
+  "deadline:civil:five-year-dismissal-served-with-counterclaim",
+  "deadline:civil:five-year-dismissal-service-failed",
+  "deadline:civil:five-year-dismissal-simplified",
+  "deadline:civil:injunction-serve-7-days",
+  "deadline:civil:jury-notice:defence-delivered",
+  "deadline:civil:jury-notice:defence-received",
+  "deadline:civil:jury-notice:served-with-counterclaim",
+  "deadline:civil:late-defence-before-noting",
+  "deadline:civil:leave-motion-response-25-days",
+  "deadline:civil:leave-to-appeal-interlocutory-15-days",
+  "deadline:civil:libel-action-three-months",
+  "deadline:civil:motion-in-writing-response-10-days",
+  "deadline:civil:motion-moving-party-7-days",
+  "deadline:civil:motion-responding-factum-4-days",
+  "deadline:civil:motion-responding-record-4-days",
+  "deadline:civil:note-default-30-days",
+  "deadline:civil:perfect-appeal-no-transcript-30-days",
+  "deadline:civil:perfect-appeal-with-transcript-60-days",
+  "deadline:civil:pretrial-brief-5-days",
+  "deadline:civil:reply-10-days",
+  "deadline:civil:reply-to-defence-to-counterclaim-10-days",
+  "deadline:civil:reply-to-third-party-defence-10-days",
+  "deadline:civil:respondent-certificate-15-days",
+  "deadline:civil:respondent-factum-60-days",
+  "deadline:civil:responding-confirmation-4-days",
+  "deadline:civil:restore-trial-list-30-days",
+  "deadline:civil:set-aside-default-judgment",
+  "deadline:civil:set-aside-dismissal-forthwith",
+  "deadline:civil:set-aside-noting",
+  "deadline:civil:set-aside-order-missed-motion",
+  "deadline:civil:set-down-six-months-after-pleadings",
+  "deadline:civil:set-down-six-months-after-pleadings:defence-received",
+  "deadline:civil:set-down-six-months-after-pleadings:discovery",
+  "deadline:civil:set-down-six-months-after-pleadings:served-with-counterclaim",
+  "deadline:civil:simplified-set-down-180-days",
+  "deadline:civil:simplified-set-down-180-days:both",
+  "deadline:civil:simplified-set-down-180-days:defence-received",
+  "deadline:civil:simplified-set-down-180-days:served-with-counterclaim",
+  "deadline:civil:simplified-trial-record-10-days",
+  "deadline:civil:special-damages-update-10-days",
+  "deadline:civil:statement-of-claim-after-notice-of-action",
+  "deadline:civil:strike-serve-7-days",
+  "deadline:civil:struck-off-two-year-dismissal",
+  "deadline:civil:summary-judgment-moving-7-days",
+  "deadline:civil:summary-judgment-responding-4-days",
+  "deadline:civil:summary-judgment-responding-record-4-days",
+  "deadline:civil:third-party-defence",
+  "deadline:civil:transcript-ordered-30-days",
+];
+/** Civil deadlines that time nothing, each with why. */
+const CIVIL_NOT_TIMED: Record<string, string> = {
+  "deadline:civil:schedule-pretrial-180-days": "met by booking a date with the registrar, not by filing a document",
+  "deadline:civil:adverse-party-witness-10-days": "met by serving a summons to witness on the person, not by filing",
+  "deadline:civil:appeal-associate-judge-7-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:business-records-notice-7-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:cross-appeal-15-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:discovery-plan": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:defence-delivered": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:defence-received": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:served-with-counterclaim": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:simplified": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:expert-report-90-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:expert-report-schedule-60-days": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:defence-delivered": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:defence-received": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:discovery": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:served-with-counterclaim": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:simplified": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-statement-7-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:notice-of-appeal-30-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:notice-of-appeal-30-days:judgment-being-enforced": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:notice-of-appeal-30-days:missed-trial": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:offer-to-settle-7-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:practitioner-report-notice-10-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:renew-writ-six-years": "met at the sheriff's enforcement office, not by filing in the court file",
+  "deadline:civil:response-to-request-to-admit-20-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:serve-claim-six-months": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:serve-claim-six-months:failed-service": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:serve-third-party-claim-30-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents:defence-delivered": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents:defence-received": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents:served-with-counterclaim": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-cross-examine-notice-10-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:simplified-settlement-discussion": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-settlement-discussion:defence-delivered": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-settlement-discussion:defence-received": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-settlement-discussion:served-with-counterclaim": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-trial-management-plan-30-days": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:supplementary-expert-report-45-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:undertakings-60-days": "met by answering the undertaking to the other party, not by filing",
+  "deadline:civil:undertakings-60-days:simplified": "met by answering the undertaking to the other party, not by filing",
+  "deadline:civil:crown-notice-60-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:libel-notice-six-weeks": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:municipal-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:occupier-notice-60-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:toronto-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:defence:plaintiff-view": "binds the other side, not the person",
+  "deadline:civil:simplified-set-down-180-days:defendant-view": "binds the other side, not the person",
+};
+
+/** Small Claims deadlines that time nothing, each with why. */
+const SC_NOT_TIMED: Record<string, string> = {
+  "deadline:municipal-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:toronto-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:occupier-notice-60-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:vehicle-injury-notice-120-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:serve-claim-six-months": "a claim is served personally or by an alternative (r. 8.01 (1)), never by mail, and nothing is filed by this deadline",
+  "deadline:serve-claim-six-months:failed-service": "a claim is served personally or by an alternative (r. 8.01 (1)), never by mail, and nothing is filed by this deadline",
+  "deadline:defence-20-days:plaintiff-view": "binds the other side, not the person",
+  "deadline:settlement-conference-90-days": "the court's own timing for the settlement conference, not the person's",
+  "deadline:settlement-conference-90-days:defendant": "the court's own timing for the settlement conference, not the person's",
+  "deadline:sc-enforce-six-years-leave": "a leave threshold, not a time to serve or file",
+  "deadline:sc-enforce-six-years-leave:default-judgment": "a leave threshold, not a time to serve or file",
+  "deadline:trial-summons-10-days": "a summons is served personally (r. 8.01 (7)) and is not filed",
+  "deadline:trial-summons-10-days:defendant": "a summons is served personally (r. 8.01 (7)) and is not filed",
+  "deadline:set-aside-as-soon-as-possible": "the rule sets no fixed period, so no day is ever counted",
+  "deadline:appeal-notice": "an appeal is started in the Divisional Court under the Rules of Civil Procedure (r. 61.04), not filed in the Small Claims court file these lines describe",
+};
+
+/** Every Small Claims and civil deadline that times nothing, with why (the completeness check reads this). */
+export const NOT_TIMED: Record<string, string> = { ...SC_NOT_TIMED, ...CIVIL_NOT_TIMED };
+
+const DISMISSAL_REQUESTS = [
+  "deadline:dismissal-for-delay-two-years-claim-issued-not-served",
+  "deadline:dismissal-for-delay-two-years-service-attempted-failed",
+  "deadline:dismissal-for-delay-two-years-six-month-service-window-expired",
+  "deadline:dismissal-for-delay-two-years-served-awaiting-defence",
+  "deadline:dismissal-for-delay-two-years-defence-period-expired-no-defence",
+  "deadline:dismissal-for-delay-two-years-noted",
+  "deadline:dismissal-for-delay-two-years-assessment-of-damages-needed",
+  "deadline:dismissal-for-delay-two-years-defence-filed",
+  "deadline:dismissal-for-delay-two-years-awaiting-settlement-conference",
+  "deadline:dismissal-for-delay-two-years",
+];
+
+/*
+ * Third review of the lists (96057cc):
+ *   - a claim the court ISSUES is filed to be issued, and online review takes
+ *     up to 3 business days, so the defendant's claim (r. 10.01 (2) (a)) and a
+ *     third party claim (r. 29.02 (1)) time the filing line -- never the mail
+ *     timing (issuing is not serving);
+ *   - after a lawyer is removed, the client's Form 15B or 15C is served AND
+ *     filed with proof of service (r. 15.04 (16) refers to r. 15.03 (2), (3):
+ *     "serving on every other party and filing, with proof of service");
+ *   - responding to an amended pleading (r. 26.05 (1)) is delivering a
+ *     pleading, which is filing.
+ */
+const ALSO_FILES = [
+  "deadline:issue-defendants-claim-20-days",
+  "deadline:issue-defendants-claim-20-days:defence-filed",
+  "deadline:civil:third-party-claim-10-days",
+  "deadline:civil:third-party-claim-10-days:defence-delivered",
+  "deadline:civil:after-lawyer-removed-30-days",
+  "deadline:civil:respond-to-amended-pleading",
+];
+
+/*
+ * Appeals under r. 61 go to the Court of Appeal OR the Divisional Court, and
+ * the saved civil guide covers "civil and Divisional Court cases" only. These
+ * time the filing line only as "if your appeal is in the Divisional Court",
+ * with the portal lines kept. (The r. 61.03.1 leave motion and the r. 62.01
+ * associate-judge appeal are in the Divisional Court or the Superior Court
+ * and stay as they are.)
+ */
+export const DIVISIONAL_COURT_ONLY: ReadonlySet<string> = new Set([
+  "deadline:civil:file-notice-of-appeal-10-days",
+  "deadline:civil:perfect-appeal-no-transcript-30-days",
+  "deadline:civil:perfect-appeal-with-transcript-60-days",
+  "deadline:civil:respondent-certificate-15-days",
+  "deadline:civil:respondent-factum-60-days",
+  "deadline:civil:transcript-ordered-30-days",
+]);
+
+export const PERSON_SERVE_OR_FILE: Record<string, { files: boolean; serves: boolean }> = {
+  ...Object.fromEntries(CIVIL_FILES.map((id) => [id, { files: true, serves: false }])),
+  ...Object.fromEntries(ALSO_FILES.map((id) => [id, { files: true, serves: false }])),
+  ...Object.fromEntries(DISMISSAL_REQUESTS.map((id) => [id, { files: true, serves: false }])),
+  "deadline:set-aside-after-missed-trial": { files: true, serves: false },
+  "deadline:new-trial-motion": { files: true, serves: false },
+  "deadline:basic-limitation": { files: true, serves: false },
+  "deadline:basic-limitation-claim-drafted": { files: true, serves: false },
+  "deadline:defence-20-days": { files: true, serves: true },
+  "deadline:defence-to-defendants-claim-20-days": { files: true, serves: true },
+  "deadline:settlement-conference-disclosure-14-days": { files: true, serves: true },
+  "deadline:settlement-conference-disclosure-14-days:defendant": { files: true, serves: true },
+  "deadline:trial-evidence-30-days": { files: false, serves: true },
+  "deadline:trial-evidence-30-days:defendant": { files: false, serves: true },
+  "deadline:sc-motion-serve-7-days": { files: false, serves: true },
+  "deadline:sc-motion-file-3-days": { files: true, serves: false },
+  "deadline:sc-motion-response-2-days": { files: true, serves: true },
+  "deadline:sc-defence-with-proposal-20-days": { files: true, serves: true },
+  "deadline:sc-dispute-proposal-20-days": { files: true, serves: true },
+  "deadline:sc-offer-7-days-before-trial": { files: false, serves: true },
+  "deadline:sc-amend-30-days-before-trial": { files: true, serves: true },
+  "deadline:sc-strike-motion-serve-7-days": { files: false, serves: true },
+  "deadline:sc-strike-motion-file-3-days": { files: true, serves: false },
+  "deadline:sc-dismissal-submission-20-days": { files: true, serves: false },
+};
+
+/**
+ * The earliest counted day among the person's own deadlines met by filing
+ * (`files`) or by serving (`serves`); "" when none is counted.
+ */
+export function personDeadlineOf(items: readonly { id?: string; date: string }[], kind: "files" | "serves"): string {
+  return items
+    .filter((item) => item.id && PERSON_SERVE_OR_FILE[item.id]?.[kind] && /^\d{4}-\d{2}-\d{2}$/.test(item.date))
+    .map((item) => item.date)
+    .sort()[0] ?? "";
+}
+
+/** Whether the person's earliest filing deadline is one the guide covers only in the Divisional Court (any of them, on a tie). */
+export function filingDeadlineDivisionalOnly(items: readonly { id?: string; date: string }[]): boolean {
+  const date = personDeadlineOf(items, "files");
+  return Boolean(date) && items.some((item) => item.date === date && item.id && PERSON_SERVE_OR_FILE[item.id]?.files && DIVISIONAL_COURT_ONLY.has(item.id));
+}
+
+/**
+ * The mail warning for a Small Claims step served the ordinary way, with a
+ * counted last day still to come; empty otherwise. The first line gives the
+ * dates: mailed today, the fifth day after; the last day it can be mailed to
+ * count in time (five days before the last day).
+ */
+export function mailTimingLines(today: string, deadline: string): PlainLine[] {
+  if (deadline < today) return [];
+  const countsOn = addDays(today, 5);
+  const lastMailing = addDays(deadline, -5);
+  const late = countsOn > deadline;
+  const say = late
+    ? `Mail is too slow for this: service by mail counts only on the fifth day after mailing. Mailed today, ${formatLongDate(today)}, it would count on ${formatLongDate(countsOn)}, after your last day, ${formatLongDate(deadline)}.`
+    : `Service by mail counts only on the fifth day after mailing. To count by your last day, ${formatLongDate(deadline)}, it must be mailed no later than ${lastMailing === today ? "today, " : ""}${formatLongDate(lastMailing)}.`;
+  return [
+    { say, cite: SC_MAIL_RULE },
+    { say: "A courier is the same: service counts on the fifth day after the courier confirms delivery.", cite: SC_COURIER_RULE },
+    ...SC_SOONER_WAYS,
+  ];
+}
 
 /** The City of Toronto, including the former cities it absorbed; anything else is outside the Toronto region. */
 export function inTorontoRegion(city: string): boolean | null {
@@ -614,6 +1077,69 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
   },
 };
 
+// ---------------------------------------------------------------- an employer named only vaguely
+
+/*
+ * Walkthrough run 38525903567 (SJ, senior-lawyer review): "he works at a car
+ * dealership in kanata i think" -- the card led with the six-year leave limit
+ * and never used it. A notice of garnishment is directed to a NAMED garnishee,
+ * so an employer known only as "a car dealership, I think" is not yet one the
+ * affidavit can name; and the rules' own way to find out where a debtor works
+ * is to examine him. Both are set out as what the rules provide, side by side;
+ * the card never says which to choose, and never says whether anything will be
+ * collected (CLAUDE.md s. 3, s. 4).
+ */
+const judgmentGuide = (pinpoint: string, quote: string) => cite("guide-after-judgment", pinpoint, quote);
+export const GARNISHEE_NOT_NAMED: PlainLine[] = [
+  {
+    say: "A notice of garnishment is directed to one named garnishee, such as an employer. The affidavit for enforcement request (Form 20P) you file for it must give the garnishee's name and address.",
+    cite: scrCite(
+      "r. 20.08 (3) (a) (vi)",
+      "an affidavit for enforcement request (Form 20P) naming one debtor and one garnishee and stating, ... (vi) the name and address of the named garnishee to whom a notice of garnishment is to be directed,",
+    ),
+  },
+  {
+    say: "The court's guide says that to garnish wages you must know the employer's correct legal name and address.",
+    cite: judgmentGuide("Information needed to proceed", "If you are garnishing wages, you must know the correct legal name and address of the employer."),
+  },
+  {
+    say: "The rules also let you ask the clerk for a notice of examination (Form 20H). At an examination, the debtor can be asked about the debtor's income and property.",
+    cite: scrCite(
+      "r. 20.10 (1), (4) (b)",
+      "the clerk of a court in the territorial division in which the debtor or other person to be examined resides or carries on business shall, at the creditor's request, issue a notice of examination (Form 20H) directed to the debtor or other person. ... may be examined in relation to, (a) the reason for nonpayment; (b) the debtor's income and property;",
+    ),
+  },
+  {
+    say: "The court's guide says an examination may give you what you need to ask for a garnishment, such as where the debtor works or banks.",
+    cite: judgmentGuide(
+      "Examination Hearing",
+      "It may be that the creditor wants to enforce an order through garnishment and needs to know where the debtor works or banks. The examination may give the creditor the information needed to request a garnishment.",
+    ),
+  },
+];
+
+const WORKS_AT = /\b(?:works?|working|employed|job)\b[^.!?\n]*\b(?:at|for|in)\b/i;
+const HEDGED = /\b(?:i think|i believe|i guess|not sure|maybe|probably|somewhere|some kind of|i heard)\b/i;
+/** "at a car dealership", "for some company": a workplace named by its kind, not its name. */
+const UNNAMED_PLACE = /\b(?:works?|working|employed|job)\b[^.!?\n]*\b(?:at|for)\s+(?:a|an|some)\s+/i;
+
+/**
+ * The sentence of the person's story that names the debtor's work only
+ * vaguely (hedged, or a workplace given by its kind), or null. A named
+ * employer ("works at Kanata Toyota") is not vague.
+ */
+export function vagueEmployerSentence(story: string): string | null {
+  const sentences = proseOf(story).split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  return sentences.find((sentence) => WORKS_AT.test(sentence) && (HEDGED.test(sentence) || UNNAMED_PLACE.test(sentence))) ?? null;
+}
+
+/** The garnishee lines for a garnishment step whose story names the employer only vaguely; null otherwise. */
+export function garnisheeNotesFor(stepId: string, story: string): { quote: string; lines: PlainLine[] } | null {
+  if (STEP_PRACTICAL[stepId]?.serve !== "garnishment") return null;
+  const quote = vagueEmployerSentence(story);
+  return quote ? { quote, lines: GARNISHEE_NOT_NAMED } : null;
+}
+
 // ---------------------------------------------------------------- the steps
 
 const SC_ATTACH = scr(
@@ -824,8 +1350,8 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "plaintiff:judgment-in-my-favour-unpaid": { forms: ["20P", "20E", "20H", "20C", "20D", "20A", "20I", "20F", "20R"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment", also: [SC_GARNISHMENT_PAID, SC_PERIODIC_ENFORCEMENT, SC_PERIODIC_DEFAULT, SC_PERIODIC_ENDS] },
   "plaintiff:action-dismissed-for-delay": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   // ---- Small Claims: defendant
-  "defendant:served-defence-period-running": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
-  "defendant:defence-period-expired-not-yet-noted": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
+  "defendant:served-defence-period-running": { forms: ["9A"], fees: ["sc-defence", "sc-defendants-claim-if"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
+  "defendant:defence-period-expired-not-yet-noted": { forms: ["9A"], fees: ["sc-defence", "sc-defendants-claim-if"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
   "defendant:noted-in-default": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "defendant:default-judgment-against-me": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "defendant:defence-filed": { forms: ["13A"], fees: [], files: true, serve: "ordinary", noFee: true },
@@ -1531,6 +2057,7 @@ export const MORE_CARD_LINES: PlainLine[] = [
   CLAIM_AFTER_NOTICE["small-claims"].start,
   CROWN_WAIT.only,
   CROWN_WAIT.among,
+  ...GARNISHEE_NOT_NAMED,
 ];
 
 // ---------------------------------------------------------------- what the card shows
@@ -1565,6 +2092,12 @@ export type PracticalView = {
    * Folded forms are not among them.
    */
   leadForms: LeadForm[];
+  /**
+   * A garnishment step whose story names the debtor's work only vaguely: the
+   * person's own sentence, and what the rules say about naming the garnishee
+   * and examining the debtor (garnisheeNotesFor). Null otherwise.
+   */
+  garnishee: { quote: string; lines: PlainLine[] } | null;
 };
 
 /**
@@ -1923,6 +2456,13 @@ export function practicalFor(
   story = "",
   /** The written-notice step the case's claim points to (claim-types/noticeStep.ts), if any. */
   noticeStepId = "",
+  /**
+   * The step's counted last day and Ontario's today, when the card knows them
+   * (walkthrough run 38525903567, SD): a deadline 3 business days away or less
+   * replaces the online-portal lines, and a Small Claims step served the
+   * ordinary way gets the mail timing lines.
+   */
+  timing: { deadline?: string; serveBy?: string; today?: string; divisionalOnly?: boolean } = {},
 ): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
@@ -1953,6 +2493,11 @@ export function practicalFor(
     FAMILY_FORM_NEEDS[form.number] !== undefined &&
     !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
   const also = alsoFor(step.also ?? [], story, city);
+  // `deadline`: the person's own filing deadline; `serveBy`: their own serving deadline (personDeadlineOf).
+  const iso = (value?: string) => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value));
+  const tooClose = iso(timing.deadline) && iso(timing.today) ? tooCloseFilingLine(court, timing.today!, timing.deadline!, Boolean(timing.divisionalOnly)) : null;
+  const portalLines = [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more];
+  const mailTiming = iso(timing.serveBy) && iso(timing.today) && court === "small-claims" && step.serve === "ordinary" ? mailTimingLines(timing.today!, timing.serveBy!) : [];
   return {
     // On a responding step, Form 13 carries r. 13 (1) (b)'s condition beside it.
     forms: allForms
@@ -1987,13 +2532,15 @@ export function practicalFor(
               ? FAMILY_NO_STEP_FEE
               : [],
     feeWaiver: fees.length > 0 ? FEE_WAIVER : null,
-    filing: step.files
-      ? [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]
-      : [],
-    serving: serviceLines.length > 0 ? [...serviceLines, SERVICE[court].proof] : [],
+    // A Divisional-Court-only line keeps the portal lines: the appeal may be in the Court of Appeal.
+    filing: step.files ? (tooClose ? (timing.divisionalOnly && court === "civil" ? [...portalLines, tooClose] : [tooClose]) : portalLines) : [],
+    serving: serviceLines.length > 0 ? [...serviceLines, ...mailTiming, SERVICE[court].proof] : [],
     also,
+    garnishee: court === "small-claims" ? garnisheeNotesFor(stepId, story) : null,
   };
 }
+
+
 
 // ---------------------------------------------------------------- limits of acting alone
 

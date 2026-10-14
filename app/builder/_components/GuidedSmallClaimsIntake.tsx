@@ -19,7 +19,7 @@ import { supabase } from "../../../src/lib/supabase/client";
 import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/questionBank";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
-import { cardLabel, confirmedDrafts, sameDayAs } from "./proposalCard";
+import { cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./proposalCard";
 import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
@@ -145,9 +145,9 @@ function shownRows(drafts: readonly ProposalDraft[]): ProposalDraft[] {
   return drafts.filter((_, index) => shownWith[index] < 0);
 }
 
-function confirmedSummary(drafts: readonly ProposalDraft[], from: string): string {
+function confirmedSummary(drafts: readonly ProposalDraft[], from: string, responding = false): string {
   const kept = drafts.filter((draft) => draft.keep && draft.answer.trim());
-  return [`Confirmed from ${from}:`, ...kept.map((draft) => `• ${cardLabel(draft.questionId, draft.questionText)}: ${draft.answer.trim()}`)].join("\n");
+  return [`Confirmed from ${from}:`, ...kept.map((draft) => `• ${cardLabel(draft.questionId, draft.questionText, { responding })}: ${draft.answer.trim()}`)].join("\n");
 }
 
 type ChatMessage = {
@@ -1107,7 +1107,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         from: "user",
         text:
           confirmed.length > 0
-            ? confirmedSummary(shownRows(drafts), "what I've told you")
+            ? confirmedSummary(shownRows(drafts), "what I've told you", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
             : "None of those were right.",
       },
     ]);
@@ -1177,7 +1177,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         from: "user",
         text:
           confirmed.length > 0
-            ? confirmedSummary(shownRows(drafts), "my story")
+            ? confirmedSummary(shownRows(drafts), "my story", respondingFromAnswers([...earlierAnswers, ...drafts], facts))
             : "None of those were right.",
       },
     ]);
@@ -1274,7 +1274,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                     onChange={(event) => updateProposalDraft(index, { keep: event.target.checked })}
                     className="mt-1"
                   />
-                  <span className="font-semibold">{cardLabel(draft.questionId, draft.questionText)}</span>
+                  <span className="font-semibold">{cardLabel(draft.questionId, draft.questionText, { responding: respondingFromAnswers([...earlierAnswers, ...proposalDrafts], facts) })}</span>
                 </label>
                 {draft.choices && draft.choices.length > 0 ? (
                   <select
@@ -1304,7 +1304,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                     Also kept as{" "}
                     {proposalDrafts
                       .filter((_, other) => sameDayAs(proposalDrafts)[other] === index)
-                      .map((other) => cardLabel(other.questionId, other.questionText).toLowerCase())
+                      .map((other) => cardLabel(other.questionId, other.questionText, { responding: respondingFromAnswers([...earlierAnswers, ...proposalDrafts], facts) }).toLowerCase())
                       .join(" and ")}
                     .
                   </p>

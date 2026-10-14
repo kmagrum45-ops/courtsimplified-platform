@@ -19,6 +19,13 @@
  *    candidates directory. Candidates are whatever the last run happened to
  *    produce; serving one would make the product's legal content a function of
  *    when somebody last ran a script.
+ *
+ * 4. SHOWN WITH ITS SOURCE AND DATE (walkthrough run 38525903567). Every
+ *    source any published sentence cites resolves to a name, a page and the
+ *    date its text was saved (sourceDisplay.ts); every rendered Sources line
+ *    carries that date and every proving source is listed; a rule shown
+ *    beside a sentence (sentenceRules.ts) is still beside a published
+ *    sentence, quoted from the saved text, with the sentence's numbers.
  */
 
 import { readFileSync, readdirSync, existsSync } from "node:fs";
@@ -32,6 +39,11 @@ import {
   PUBLISHED_RELEASE,
 } from "../../src/lib/content-library/publishedLibrary";
 import type { StageAnswer } from "../../src/lib/content-library/stageAnswers";
+import { buildSourceDisplay, SOURCE_DISPLAY_FILE } from "../content/buildSourceDisplay";
+import { NOT_A_SOURCE, sourceDisplayFor } from "../../src/lib/content-library/sourceDisplay";
+import { SENTENCE_RULES } from "../../src/lib/content-library/sentenceRules";
+import { renderStageAnswer } from "../../src/lib/content-library/stageAnswerView";
+import VERDICT_SOURCES from "../../src/lib/content-library/published/verdictSources.generated.json";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const MANIFEST = path.join(ROOT, "docs", "sources", "corpus", "manifest.json");
@@ -193,6 +205,97 @@ for (const file of runtimeFiles) {
 }
 if (offenders === 0) {
   check(`no runtime file reads a candidate run (${runtimeFiles.length} scanned)`, true);
+}
+
+// ---------------------------------------------------------------------------
+// 4. Every source a published answer cites is shown, with its page and checked date
+// ---------------------------------------------------------------------------
+//
+// Walkthrough run 38525903567 (senior-lawyer review, 2026-10-14): the Sources
+// list kept only the stage map's own sources, so sentences proved from the
+// Small Claims guides (guide-after-judgment, guide-replying-to-a-claim) showed
+// none, and no list showed a checked date (CLAUDE.md s. 2). These assert the
+// property over every id any published sentence cites, not a list of ids.
+
+{
+  const saved = readFileSync(SOURCE_DISPLAY_FILE, "utf8");
+  check("sourceDisplay.generated.json matches a fresh build", saved === `${JSON.stringify(buildSourceDisplay(), null, 2)}\n`, "run: npx tsx scripts/content/buildSourceDisplay.ts");
+
+  const manifestDates = new Map(
+    (JSON.parse(readFileSync(MANIFEST, "utf8")) as { entries: { id: string; retrievedAt: string }[] }).entries.map((entry) => [entry.id, entry.retrievedAt.slice(0, 10)]),
+  );
+  type Cited = { sourceId?: string };
+  const cited = new Set<string>();
+  for (const block of PUBLISHED_BLOCKS as unknown as { citations?: Cited[]; sourceIds?: string[]; verification?: { verdicts?: Cited[] } }[]) {
+    for (const citation of block.citations ?? []) if (citation.sourceId) cited.add(citation.sourceId);
+    for (const verdict of block.verification?.verdicts ?? []) if (verdict.sourceId) cited.add(verdict.sourceId);
+    for (const id of block.sourceIds ?? []) cited.add(id);
+  }
+  for (const rows of Object.values(VERDICT_SOURCES as Record<string, { sourceId: string }[]>)) for (const row of rows) cited.add(row.sourceId);
+  for (const entry of SENTENCE_RULES) for (const rule of entry.rules) cited.add(rule.sourceId);
+  const notShown = [...cited].filter((id) => !NOT_A_SOURCE.has(id)).filter((id) => {
+    const shown = sourceDisplayFor(id);
+    return !shown || !/^https:\/\//.test(shown.url) || !shown.name.trim() || shown.checkedOn !== manifestDates.get(id);
+  });
+  check(
+    `every source a published sentence cites has a name, an https page and its saved date (${cited.size} ids)`,
+    notShown.length === 0,
+    notShown.join(", "),
+  );
+
+  // Rendered: every published answer's Sources list carries a date on every
+  // line, and names every source its sentences were proved from.
+  const missing: string[] = [];
+  for (const block of PUBLISHED_BLOCKS as unknown as { stageId: string; verification?: { verdicts?: Cited[] } }[]) {
+    // With the scope a scoped step needs and its confirmed fact, so every published answer renders.
+    const stage = ALL_STAGES.find((candidate) => candidate.id === block.stageId);
+    const facts = stage?.requiresConfirmedFact ? { [stage.requiresConfirmedFact.key]: "yes" } : {};
+    const answer = renderStageAnswer(block.stageId, facts, {}, { primaryPath: stage?.pathway ?? "small-claims", confidence: 1 });
+    if (!answer) {
+      missing.push(`${block.stageId}: did not render`);
+      continue;
+    }
+    for (const source of answer.sources) if (!/^\d{4}-\d{2}-\d{2}$/.test(source.checkedOn)) missing.push(`${block.stageId}: ${source.name} has no date`);
+    const listed = new Set(answer.sources.map((source) => source.name));
+    for (const verdict of block.verification?.verdicts ?? []) {
+      const shown = verdict.sourceId ? sourceDisplayFor(verdict.sourceId) : null;
+      if (shown && !listed.has(shown.name)) missing.push(`${block.stageId}: ${verdict.sourceId} not listed`);
+    }
+  }
+  check("every rendered Sources line has a checked date, and every proving source is listed", missing.length === 0, [...new Set(missing)].slice(0, 6).join("; "));
+
+  // SJ: the two examination sentences show their rule, quoted, beside them.
+  const sj = renderStageAnswer("plaintiff:judgment-in-my-favour-unpaid");
+  const ruleLines = sj?.sentenceRules ?? [];
+  check(
+    "SJ: the guide the answer was proved from is in its Sources list",
+    Boolean(sj?.sources.some((source) => source.name === sourceDisplayFor("guide-after-judgment")?.name)),
+  );
+  check(
+    "SJ: '30 days before' and 'at least 3 days before' each show r. 8.01 (12), with a date",
+    ["30 days before the hearing", "at least 3 days before"].every((words) =>
+      ruleLines.some((entry) => entry.sentence.includes(words) && entry.rules.some((rule) => rule.pinpoint.startsWith("r. 8.01 (12)") && /^\d{4}-\d{2}-\d{2}$/.test(rule.checkedOn))),
+    ),
+    ruleLines.map((entry) => `${entry.sentence} -> ${entry.rules.map((rule) => rule.pinpoint).join(", ")}`).join(" | "),
+  );
+
+  // Every sentence-rule entry: its sentence is still published, its quotes are
+  // in the saved text, and every number in the sentence is in a quote beside it.
+  const corpusText = (id: string) => readFileSync(path.join(ROOT, "docs", "sources", "corpus", `${id}.txt`), "utf8").replace(/\s+/g, " ");
+  const publishedText = (PUBLISHED_BLOCKS as unknown as Record<string, unknown>[]).map((block) => JSON.stringify(block)).join(" ");
+  const WORDS: Record<string, string> = { "3": "three", "5": "five", "7": "seven", "10": "10", "15": "15", "20": "20", "30": "30" };
+  const wrong: string[] = [];
+  for (const entry of SENTENCE_RULES) {
+    if (!publishedText.includes(entry.sentence)) wrong.push(`no longer published: ${entry.sentence}`);
+    for (const rule of entry.rules) {
+      for (const run of rule.quote.split(" ... ")) if (!corpusText(rule.sourceId).includes(run.replace(/\s+/g, " "))) wrong.push(`${rule.pinpoint}: quote not in the saved text`);
+    }
+    const quotes = entry.rules.map((rule) => rule.quote).join(" ");
+    for (const number of entry.sentence.match(/\d+/g) ?? []) {
+      if (!new RegExp(`\\b(?:${number}|${WORDS[number] ?? number})\\b`, "i").test(quotes)) wrong.push(`${entry.sentence}: ${number} is in no quote beside it`);
+    }
+  }
+  check("each rule shown beside a sentence: sentence still published, quote in the saved text, its numbers in the quote", wrong.length === 0, wrong.join("; "));
 }
 
 // ---------------------------------------------------------------------------
