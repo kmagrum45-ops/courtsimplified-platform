@@ -54,6 +54,12 @@ jobs:
       - name: Routing rules fixed by law (construction liens, the $50,000 limit) win over the model
         run: npm run test:fixed-regimes
 
+      - name: AI routes that need no sign-in are limited per visitor and by a daily ceiling
+        run: npm run test:ai-rate-limit
+
+      - name: Server errors are logged without anything that identifies a person
+        run: npm run test:server-error-log
+
       - name: The user's own words shown back, and story dates offered for deadlines
         run: npm run test:user-story
 

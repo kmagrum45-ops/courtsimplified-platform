@@ -28,6 +28,7 @@
  */
 
 import { NextResponse } from "next/server";
+import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import {
   resolveCasePosition,
@@ -257,6 +258,10 @@ function present(
 }
 
 export async function POST(request: Request) {
+  // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
+  const limited = await aiLimitResponse(request, "light");
+  if (limited) return limited;
+
   let body: Body;
   try {
     body = (await request.json()) as Body;

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import { checkedAnswerView } from "@/src/lib/case-system/retrieval/checkedAnswer";
 import { fileSourceRequests } from "@/src/lib/case-system/retrieval/sourceRequests";
@@ -59,6 +60,10 @@ function isBody(value: unknown): value is Body {
 }
 
 export async function POST(request: Request) {
+  // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
+  const limited = await aiLimitResponse(request, "understand");
+  if (limited) return limited;
+
   let body: unknown;
   try {
     body = await request.json();
