@@ -41,7 +41,10 @@ function check(name: string, fn: () => void | Promise<void>) {
     .then(() => console.log(`  ok   ${name}`))
     .catch((error: unknown) => {
       failures += 1;
-      console.log(`  FAIL ${name}\n       ${error instanceof Error ? error.message : String(error)}`);
+      const message = error instanceof Error ? error.message : String(error);
+      console.log(`  FAIL ${name}\n       ${message}`);
+      // Shown on the pull request's checks page, where the job log may not be readable.
+      if (process.env.GITHUB_ACTIONS) console.log(`::error title=test:fixed-regimes::${name}: ${message.replace(/\n/g, " ")}`);
     });
 }
 
@@ -50,8 +53,8 @@ const norm = (s: string) => s.replace(/\s+/g, " ").trim();
 function corpusText(id: string): string {
   const manifest = JSON.parse(
     readFileSync(path.join(process.cwd(), "docs/sources/corpus/manifest.json"), "utf8"),
-  ) as { sources: Array<{ id: string; file: string }> };
-  const entry = manifest.sources.find((s) => s.id === id);
+  ) as { entries: Array<{ id: string; file: string }> };
+  const entry = manifest.entries.find((s) => s.id === id);
   assert.ok(entry, `corpus has no source ${id}`);
   return norm(readFileSync(path.join(process.cwd(), "docs/sources/corpus", entry.file), "utf8"));
 }
@@ -190,4 +193,9 @@ async function main() {
   console.log("\nAll fixed-routing checks passed.");
 }
 
-void main();
+main().catch((error: unknown) => {
+  const message = error instanceof Error ? error.stack || error.message : String(error);
+  console.error(message);
+  if (process.env.GITHUB_ACTIONS) console.log(`::error title=test:fixed-regimes::${message.replace(/\n/g, " ")}`);
+  process.exit(1);
+});
