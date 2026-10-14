@@ -181,6 +181,24 @@ check(
   check("the forms page keeps only firm answers without asking", /suggestion\.firm &&/.test(forms) && /void saveApplicability\(patch, reasons\)/.test(forms));
   check("a kept answer shows where it came from, with Change", /From your case: \{keptReason\}/.test(forms) && /keptFromCase\[question\.field_path\] \?\?/.test(forms));
   check("a firm answer shows as kept while it saves, never as an empty question (2026-10-13)", /const firmNow = suggestedAnswers\.find/.test(forms) && /"Saving to your case\."/.test(forms));
+  // Walkthrough MC (2026-10-14): a suggestion from the case ("The step shown
+  // for your case is asking to change a final order") sat above an answer list
+  // and read as an open question. A suggestion is shown answered, "Not saved
+  // yet", with one click to save it and Change to open the list -- and it is
+  // still saved only by that click (CLAUDE.md section 4), never by itself.
+  {
+    const suggestedAt = forms.indexOf('data-testid="forms-suggested-from-case"');
+    const openListAt = forms.indexOf('<option value="" disabled>Select an answer</option>');
+    const branch = forms.slice(suggestedAt, openListAt);
+    check(
+      "a suggested answer is shown answered, before any open list, with its reason, Save and Change",
+      suggestedAt > 0 && openListAt > suggestedAt && /From your case: \{pending\.reason\} Not saved yet\./.test(branch) && /Save this answer/.test(branch) && /setChangingKept\(/.test(branch),
+    );
+    check(
+      "a suggested answer is saved only by the person's click, never automatically",
+      /onClick=\{\(\) => void saveApplicability\(\{ \[group\]: \{ \[field\]: pending\.value \} \}/.test(branch) && !/useEffect/.test(branch),
+    );
+  }
 }
 
 {
