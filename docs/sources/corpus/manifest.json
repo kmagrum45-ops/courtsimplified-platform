@@ -3671,6 +3671,18 @@
       "characters": 4495,
       "lines": 85,
       "file": "oreg-417-95-family-court-fees.txt"
+    },
+    {
+      "id": "oreg-302-18-construction-act-procedures",
+      "title": "Procedures for Actions under Part VIII of the Act (Construction Act)",
+      "citation": "O. Reg. 302/18",
+      "url": "https://www.ontario.ca/laws/docs/180302_e.doc",
+      "retrievedAt": "2026-10-14T19:49:56.324Z",
+      "sha256": "28cbfc392ffdfa6db65be14c4beced836fcc05955af5cb770ca8a848d092d5b5",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JANUARY 1, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 12258,
+      "lines": 233,
+      "file": "oreg-302-18-construction-act-procedures.txt"
     }
   ],
   "failures": []
