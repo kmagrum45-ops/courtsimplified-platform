@@ -1194,7 +1194,8 @@ export function isChangeMip(item: { id?: string }): boolean {
  */
 const CHILD_NOUN = "(?:son|daughter|daugter|kids?|children)";
 const PARENTING_CHANGE = new RegExp(
-  "\\b(?:decision-making|parenting|custody|access(?! to)|relocat\\w*|move (?:away |to \\w+ )?with|contact with|more time with|time with (?:him|her|them|my|our)" +
+  // "access to my son" is parenting; "access to her income records" is not.
+  `\\b(?:decision-making|parenting|custody|access(?! to (?!(?:my|our|the|her|his) ${CHILD_NOUN}))|relocat\\w*|move (?:away |to \\w+ )?with|contact with|more time with|time with (?:him|her|them|my|our)` +
     `|see (?:my|our|the) ${CHILD_NOUN}|live with me|visitation|visit\\w* (?:with )?(?:my|our|the) ${CHILD_NOUN}` +
     "|(?:parenting|access|visit\\w*|time-sharing|weekend) schedule)\\b",
 );

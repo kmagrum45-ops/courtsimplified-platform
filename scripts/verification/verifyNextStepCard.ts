@@ -800,7 +800,7 @@ async function main() {
     // a parenting term or a plain-words parenting request, never only naming the children.
     let termMisses = 0;
     for (const words of [
-      "custody of our son", "parenting time", "decision-making for my daughter", "i want more access", "contact with my son", "she wants to relocate", "she wants to move with the kids",
+      "custody of our son", "parenting time", "decision-making for my daughter", "i want more access", "access to the kids", "she denies me access to my son", "contact with my son", "she wants to relocate", "she wants to move with the kids",
       "i pay child support for my son and want it lowered and want more time with him", "i want my daughter to live with me", "she won't let me see my son", "i want to change the weekend schedule", "i want more visits with my son",
       "she should live with me", "i want to see my daughter more", "the access schedule", "i want visitation",
     ]) {
