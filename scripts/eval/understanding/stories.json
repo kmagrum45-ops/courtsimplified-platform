@@ -1,0 +1,68 @@
+[
+  {
+    "id": "slander-default",
+    "chosenCourt": "family",
+    "city": "Ottawa",
+    "story": "i am sueing by uncles ex girlfriend for slander and she never responded so i noted her in default which the court accepted",
+    "expected": [
+      "This is one matter: a defamation (slander) claim the person started, almost certainly in the Small Claims Court (not family law), as long as the amount claimed is $50,000 or less.",
+      "Being noted in default means the defendant missed the time to file a defence; nothing has been decided on the merits yet. It is NOT an earlier decision that binds a later case.",
+      "Because damages for slander are not a fixed (liquidated) amount, the next step is to get the damages assessed: request an assessment hearing from the clerk or bring a motion in writing for an assessment of damages (Rules of the Small Claims Court, r. 11.03), rather than a simple default judgment from the clerk.",
+      "At the assessment, the plaintiff must prove the damages with evidence (what was said, to whom, the harm); the defendant noted in default is not entitled to notice of most later steps.",
+      "Asks how much they are claiming, and what exactly was said and to whom (and when), since these decide the court and what to prove."
+    ]
+  },
+  {
+    "id": "landlord-claim-defendant",
+    "chosenCourt": "small-claims",
+    "city": "Hamilton",
+    "story": "got served with a small claims court paper from my old landlord, he says i owe him 3200 for damage to the apartment and unpaid hydro. i got it sept 30. i dont think i owe that much, the damage was there when i moved in. what do i do",
+    "expected": [
+      "The person is the defendant in a Small Claims Court action (Plaintiff's Claim, Form 7A).",
+      "The next step is to file a Defence (Form 9A) within 20 days after being served (r. 9.01), and to serve it on the plaintiff; the deadline depends on when service was effective (personal service vs. mail/courier, which is effective on a later day).",
+      "If no Defence is filed in time, the defendant can be noted in default and judgment can follow.",
+      "Options include disputing all or part of the claim in the Defence, admitting part and proposing terms of payment, and a Defendant's Claim if they have a claim of their own.",
+      "Practical: gather move-in evidence (photos, move-in inspection, messages) and hydro bills/lease terms on who pays utilities.",
+      "Asks how the claim was served (handed to them, mailed, left at home) to count the deadline."
+    ]
+  },
+  {
+    "id": "child-support-unmarried",
+    "chosenCourt": "family",
+    "city": "Ottawa",
+    "story": "my ex and i split up in june, we have 2 kids 6 and 9 who live with me. he moved out and hasnt paid anything for the kids since. we were never married. i live in ottawa. how do i get child support",
+    "expected": [
+      "Both parents owe support to their children whether or not they were married (Family Law Act, s. 31); the amount is set under the Child Support Guidelines, mainly from the paying parent's income and the number of children (the table amount), plus possible special expenses.",
+      "Court: in Ottawa a child support case is started in the Ontario Court of Justice or the Superior Court of Justice (Ottawa has no Unified Family Court branch).",
+      "The court route starts with an Application (Form 8) and a Financial Statement (Form 13); the parties must attend the Mandatory Information Program.",
+      "Alternatives to court: a written agreement (which can be filed with the court), or a government child support service to set the amount.",
+      "Asks the other parent's income (or whether it is known) and whether there is any existing agreement or order."
+    ]
+  },
+  {
+    "id": "slip-ice-parking-lot",
+    "chosenCourt": "small-claims",
+    "city": "Toronto",
+    "story": "i slipped on ice in the parking lot of a grocery store in january 2025 and broke my wrist. i needed surgery and missed 4 months of work. i never told the store in writing. my losses are around 120000. can i still sue",
+    "expected": [
+      "At about $120,000 the claim is above the $50,000 Small Claims limit, so it belongs in the Superior Court of Justice (started by a Statement of Claim, Form 14A), unless they choose to give up the excess and sue in Small Claims.",
+      "Occupiers' Liability Act, s. 6.1: for injuries from snow or ice on private premises, written notice must be given to the occupier (or contractor) within 60 days; that time has passed here. Failure to give notice is not a bar if the judge finds a reasonable excuse and the defendant was not prejudiced.",
+      "The basic limitation period is two years from when the claim was discovered (Limitations Act, 2002, s. 4), so a claim from January 2025 must be started by about January 2027: that deadline is close.",
+      "The occupier's duty is to take reasonable care that people on the premises are reasonably safe (Occupiers' Liability Act, s. 3); the plaintiff must prove the occupier fell short of that and the losses it caused.",
+      "Asks the exact date of the fall and who owns or maintains the lot (the store, a landlord, or a snow-removal contractor)."
+    ]
+  },
+  {
+    "id": "enforce-judgment-wages",
+    "chosenCourt": "small-claims",
+    "city": "London",
+    "story": "I won in small claims court in may. the judge ordered him to pay me 8,500 but he hasnt paid me anything and doesnt answer. he works full time at costco. how do i get my money",
+    "expected": [
+      "The person is the creditor with a Small Claims Court judgment that has not been paid; the next step is enforcement under Rule 20 of the Rules of the Small Claims Court.",
+      "Garnishment of wages: file an Affidavit for Enforcement Request (Form 20P) and get a Notice of Garnishment (Form 20E) issued, served on the debtor and on the employer (garnishee).",
+      "Only part of wages can be garnished: generally 20 per cent of net wages is not exempt (Wages Act, s. 7), so garnishment repays over time.",
+      "If information is needed about the debtor's income or assets, a Notice of Examination (Form 20H) can require the debtor to attend an examination hearing; other routes include a writ of seizure and sale of land or personal property.",
+      "Asks which court office issued the judgment and whether they know the employer's legal name and address for service."
+    ]
+  }
+]

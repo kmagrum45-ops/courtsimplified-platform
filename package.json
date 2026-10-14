@@ -207,6 +207,8 @@
     "test:canlii": "node --import tsx scripts/verification/verifyCanlii.ts",
     "test:law-exam": "node --import tsx scripts/verification/verifyLawExam.ts",
     "test:checked-answer": "node --import tsx scripts/verification/verifyCheckedAnswer.ts",
+    "test:case-understanding": "node --import tsx scripts/verification/verifyCaseUnderstanding.ts",
+    "eval:understanding": "node --import tsx scripts/eval/understandingCompare.ts",
     "test:small-claims-limit": "node --import tsx scripts/verification/verifySmallClaimsLimit.ts",
     "canlii:check-citations": "node --import tsx --env-file=.env.local scripts/sources/checkDecisionCitations.ts",
     "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts",

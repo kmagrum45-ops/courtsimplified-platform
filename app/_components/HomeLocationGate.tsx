@@ -13,6 +13,7 @@ import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDesc
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import AiUseNotice from "./AiUseNotice";
+import CaseUnderstandingCard, { type UnderstandResponse } from "./CaseUnderstandingCard";
 import PathwayUnavailable from "./PathwayUnavailable";
 import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
 import {
@@ -34,6 +35,13 @@ const pathLabels: Record<BuilderDraftCourtPath, string> = {
  * the user with. It stays silent and the user's own selection stands.
  */
 const SUGGESTION_CONFIDENCE_FLOOR = 0.6;
+
+/**
+ * The front door reads the whole story and checks the law it states
+ * (understanding/understandCase.ts, site owner 2026-10-14). The court-path
+ * labels and fixed notes below are the fallback when it is off or does not answer.
+ */
+const CASE_UNDERSTANDING_ON = process.env.NEXT_PUBLIC_CASE_UNDERSTANDING !== "off";
 
 type CourtPathSuggestion =
   | {
@@ -101,6 +109,8 @@ export default function HomeLocationGate() {
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
   const [suggestion, setSuggestion] = useState<CourtPathSuggestion | null>(null);
+  const [understood, setUnderstood] = useState<UnderstandResponse | null>(null);
+  const [understoodAnswers, setUnderstoodAnswers] = useState<{ question: string; answer: string }[]>([]);
   const provinceRef = useRef<HTMLSelectElement | null>(null);
   const suggestionRef = useRef<HTMLDivElement | null>(null);
 
@@ -137,6 +147,8 @@ export default function HomeLocationGate() {
       setCity("");
       setFacts("");
       setSuggestion(null);
+      setUnderstood(null);
+      setUnderstoodAnswers([]);
       /*
        * Signing out leaves a browser that the next person may use. Clearing
        * the guest session alone left nineteen unscoped keys holding case
@@ -152,15 +164,19 @@ export default function HomeLocationGate() {
   }, [hydrated, path]);
 
   useEffect(() => {
-    if (suggestion) scrollAndFocus(suggestionRef.current);
-  }, [suggestion]);
+    if (suggestion || understood) scrollAndFocus(suggestionRef.current);
+  }, [suggestion, understood]);
 
   if (!path) return null;
   const isOntarioReady = province === "Ontario" && city.trim().length > 0 && facts.trim().length > 0;
 
   /** Commits to a path and leaves the gate. Only ever called from a user action. */
-  function goToIntake(chosenPath: BuilderDraftCourtPath) {
-    const intakeStart = { courtPath: chosenPath, province: "Ontario", city: city.trim(), facts: facts.trim() };
+  function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
+    // Answers given to the front door's questions travel with the story, so
+    // the intake does not ask them again.
+    const answered = answers.filter((item) => item.answer.trim());
+    const story = [facts.trim(), ...answered.map((item) => `${item.question.trim()} ${item.answer.trim()}`)].join("\n\n");
+    const intakeStart = { courtPath: chosenPath, province: "Ontario", city: city.trim(), facts: story };
     /*
      * ONE HAND-OFF FOR EVERYONE, READ ONCE. Signed-in users used to get a
      * per-user localStorage draft here instead, and the builder restored that
@@ -181,11 +197,55 @@ export default function HomeLocationGate() {
    * guess. When the story points somewhere else we surface it and let the user
    * decide; we never silently reroute, and we never block on this check.
    */
+  /**
+   * Reads the whole story and checks what it says against the law
+   * (/api/case/understand). Returns false when it gave no answer, so the
+   * court-path check below runs instead.
+   */
+  async function understandStory(answers: { question: string; answer: string }[]): Promise<boolean> {
+    if (!CASE_UNDERSTANDING_ON || !path) return false;
+    try {
+      const response = await fetch("/api/case/understand", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          story: facts.trim(),
+          city: city.trim(),
+          chosenCourt: path,
+          ...(answers.length ? { answers } : {}),
+        }),
+      });
+      if (!response.ok) return false;
+      const result = (await response.json()) as Partial<UnderstandResponse> & { ok?: boolean };
+      if (!result.understanding || !result.answer) return false;
+      setUnderstood({ understanding: result.understanding, answer: result.answer });
+      setUnderstoodAnswers(answers);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async function updateWithAnswers(answers: { question: string; answer: string }[]) {
+    if (checking) return;
+    setChecking(true);
+    // Earlier answers stay with the story; a new answer to the same question replaces the old.
+    const merged = [...understoodAnswers.filter((old) => !answers.some((item) => item.question === old.question)), ...answers];
+    await understandStory(merged);
+    setChecking(false);
+  }
+
   async function continueToIntake() {
     if (!isOntarioReady || !path || checking) return;
 
     setChecking(true);
     setSuggestion(null);
+    setUnderstood(null);
+
+    if (await understandStory([])) {
+      setChecking(false);
+      return;
+    }
 
     try {
       const response = await fetch("/api/classify-court-path", {
@@ -297,8 +357,20 @@ export default function HomeLocationGate() {
             <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select ref={provinceRef} aria-label="Province or territory" value={province} onChange={(event) => setProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option><option value="not-sure">Not sure</option><option value="Other">Another province or territory</option></select></label>
             <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input aria-label="City or municipality" value={city} onChange={(event) => setCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
           </div>
-          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { setFacts(event.target.value); setSuggestion(null); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
+          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { setFacts(event.target.value); setSuggestion(null); setUnderstood(null); setUnderstoodAnswers([]); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
           {province && province !== "Ontario" && <div role="alert" className="mt-5 rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4 text-sm leading-6 text-[#6e5726]">CourtSimplified is currently an Ontario beta. It cannot start this Ontario court intake until Ontario is explicitly confirmed.</div>}
+
+          {understood && (
+            <div ref={suggestionRef} tabIndex={-1}>
+              <CaseUnderstandingCard
+                result={understood}
+                chosenPath={path}
+                updating={checking}
+                onAnswer={(answers) => void updateWithAnswers(answers)}
+                onContinue={(chosen, answers) => goToIntake(chosen, [...understoodAnswers.filter((old) => !answers.some((item) => item.question === old.question)), ...answers])}
+              />
+            </div>
+          )}
 
           {suggestion && suggestion.kind === "switch-path" && (
             <div
@@ -525,10 +597,10 @@ export default function HomeLocationGate() {
             not only in the builder.
           */}
           <div className="mt-5">
-            <AiUseNotice activity="read what you write and suggest which court path fits" />
+            <AiUseNotice activity="read what you write, work out your situation and next step, and check the law it states against the official text" />
           </div>
 
-          <button type="button" onClick={continueToIntake} disabled={!isOntarioReady || checking} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">{checking ? "Checking your description…" : `Continue to ${pathLabels[path]} intake`}</button>
+          <button type="button" onClick={continueToIntake} disabled={!isOntarioReady || checking} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">{checking ? "Reading your story and checking the law (this can take a minute or two)…" : understood ? "Check again" : `Continue to ${pathLabels[path]} intake`}</button>
         </div>}
       </div>
     </section>

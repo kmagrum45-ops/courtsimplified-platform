@@ -1,0 +1,83 @@
+name: CourtSimplified Front Door Comparison
+
+# Runs the old front door and the new one (understanding/understandCase.ts) on
+# the same stories and has a separate grader score both
+# (scripts/eval/understandingCompare.ts). Publishes the report to the
+# `understanding-eval-reports` branch, which Vercel never builds.
+#
+# SPENDS THE SITE'S OPENAI BALANCE. It runs only when started by hand (Actions
+# tab), or when a commit is pushed to the branch `understanding-eval-run` --
+# a branch that exists only to start this run, so a normal push never does.
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "Only these stories, comma-separated (blank = all)"
+        required: false
+        default: ""
+      only:
+        description: "old, new, or blank for both"
+        required: false
+        default: ""
+  push:
+    branches: [understanding-eval-run]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: understanding-eval
+  cancel-in-progress: false
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      AI_CALL_LOG: file
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
+
+      - run: npm ci
+
+      - name: Compare
+        id: compare
+        continue-on-error: true
+        env:
+          IDS: ${{ inputs.ids }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -o pipefail
+          args=(--confirm)
+          if [ -n "${IDS}" ]; then args+=(--ids "${IDS}"); fi
+          if [ -n "${ONLY}" ]; then args+=(--only "${ONLY}"); fi
+          node --import tsx scripts/eval/understandingCompare.ts "${args[@]}" 2>&1 | tee understanding.log
+
+      - name: Publish to understanding-eval-reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp understanding-report.md understanding-report.json understanding.log "$out/" 2>/dev/null || true
+          printf 'branch: %s\ncommit: %s\nrun: %s\noutcome: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${GITHUB_RUN_ID}" "${{ steps.compare.outcome }}" > "$out/OUTCOME.txt"
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "understanding-eval-bot"
+          git config user.email "understanding-eval-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Front door comparison for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/understanding-eval-reports
+          head -12 understanding-report.md >> "$GITHUB_STEP_SUMMARY" || true
