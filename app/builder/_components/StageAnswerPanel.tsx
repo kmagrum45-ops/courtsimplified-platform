@@ -707,6 +707,44 @@ function NextStepCard({
           )}
         </div>
       ) : null}
+      {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
+      {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
+      {/* The form, fee, filing and service for this step (Phase 2); the forms
+          the answer's text names are the fallback for a step with none recorded. */}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} /> : null}
+      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
+      {(() => {
+        // Say what the card doesn't list yet, instead of leaving a gap the
+        // person can't see (build order Step 2E, 2026-10-12). Worded so it
+        // never claims something must be filed or served at this step.
+        const missing = [
+          !practical?.forms.length && officialFormsNamedIn(toDo ? [toDo] : [], court).length === 0 ? "the form" : "",
+          !practical?.fees.length && !practical?.feeNotes.length ? "the fee" : "",
+          !practical?.filing.length ? "where and how to file" : "",
+          !practical?.serving.length ? "how to serve" : "",
+        ].filter(Boolean);
+        if (missing.length === 0) return null;
+        // A step done outside court (a notice before suing) shows the rule for
+        // it and has nothing to file at court, so there is nothing missing.
+        if (practical && practical.also.length > 0 && !practical.forms.length && !practical.filing.length && !practical.serving.length) return null;
+        const list = missing.length === 1 ? missing[0] : `${missing.slice(0, -1).join(", ")} or ${missing[missing.length - 1]}`;
+        return (
+          <p data-testid="next-step-not-listed" className="mt-3 text-sm leading-6 text-[#4d675f]">
+            This card doesn&apos;t list {list} for this step yet. If you need to file or serve something now, the court
+            office can tell you how, and the full answer below has the rules.
+          </p>
+        );
+      })()}
+      {/*
+        THE FOLDS COME AFTER THE MAIN STEP (walkthrough run 38593464953, FM and
+        FR onTopic). "Attend the mandatory information program", folded as not
+        applying to a support-only motion to change (r. 8.1 (1) para. 6), and
+        "If the application or your answer has a property claim", folded for
+        a parenting-only respondent, sat above the Form 15 / answer
+        instruction, its forms, filing and serving. Every fold -- the program,
+        limits that may apply later, claims not mentioned -- now follows the
+        step itself, never above it (test:next-step checks the order).
+      */}
       {mipNote ? (
         // The information program on a motion to change that is support-only,
         // or does not say what it changes: folded under its condition with
@@ -759,34 +797,6 @@ function NextStepCard({
           </ul>
         </details>
       ) : null}
-      {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
-      {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
-      {/* The form, fee, filing and service for this step (Phase 2); the forms
-          the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} /> : null}
-      {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
-      {(() => {
-        // Say what the card doesn't list yet, instead of leaving a gap the
-        // person can't see (build order Step 2E, 2026-10-12). Worded so it
-        // never claims something must be filed or served at this step.
-        const missing = [
-          !practical?.forms.length && officialFormsNamedIn(toDo ? [toDo] : [], court).length === 0 ? "the form" : "",
-          !practical?.fees.length && !practical?.feeNotes.length ? "the fee" : "",
-          !practical?.filing.length ? "where and how to file" : "",
-          !practical?.serving.length ? "how to serve" : "",
-        ].filter(Boolean);
-        if (missing.length === 0) return null;
-        // A step done outside court (a notice before suing) shows the rule for
-        // it and has nothing to file at court, so there is nothing missing.
-        if (practical && practical.also.length > 0 && !practical.forms.length && !practical.filing.length && !practical.serving.length) return null;
-        const list = missing.length === 1 ? missing[0] : `${missing.slice(0, -1).join(", ")} or ${missing[missing.length - 1]}`;
-        return (
-          <p data-testid="next-step-not-listed" className="mt-3 text-sm leading-6 text-[#4d675f]">
-            This card doesn&apos;t list {list} for this step yet. If you need to file or serve something now, the court
-            office can tell you how, and the full answer below has the rules.
-          </p>
-        );
-      })()}
       {answer.sources.length > 0 ? (
         <p className="mt-3 text-xs leading-5 text-[#4d675f]">
           {answer.sources.slice(0, 4).map((source, index) => (

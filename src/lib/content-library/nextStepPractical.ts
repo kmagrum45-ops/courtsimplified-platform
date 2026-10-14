@@ -1671,6 +1671,26 @@ const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; respondingNote?: bool
   "35.1": { when: PARENTING_AFFIDAVIT_WHEN, conditionNote: true, fits: (claims) => claims.parenting },
 };
 
+/*
+ * A PARENTING-ONLY RESPONDENT'S FINANCIAL STATEMENT (walkthrough run
+ * 38593464953, FR onTopic: "Form 13 -- Financial Statement (Support Claims)"
+ * listed among his forms for the step, on the card and the Forms page).
+ *
+ * The legal review of 2026-10-14 still stands: on a responding step whether
+ * r. 13 (1) (b) binds the person turns on what the other side's papers CLAIM,
+ * which the intake does not record, so Form 13 is never folded away there.
+ * But when the person's own words name parenting and nothing else, it is not
+ * "for your step" either: it moves to its own group, shown open (never a
+ * fold), under the condition r. 13 (1) (b) sets, with that rule beside it.
+ * Only when the step has a form of its own to lead with; a step whose only
+ * form is the financial statement keeps it as its form.
+ */
+export function ifPapersClaimLabel(stepId: string): string {
+  return /motion-to-change|change-final-order/.test(stepId)
+    ? "Only if the motion claims support or property (r. 13 (1) (b))"
+    : "Only if the application claims support or property (r. 13 (1) (b))";
+}
+
 /** A step on which the person answers papers served on them, so r. 13 (1) (b) can bind them. */
 export function respondingStep(stepId: string, responding: boolean): boolean {
   return responding || /:respondent:|served-with|responding-to/.test(stepId);
@@ -2140,14 +2160,23 @@ export const MORE_CARD_LINES: PlainLine[] = [
 
 // ---------------------------------------------------------------- what the card shows
 
-/** A form that leads the case's forms catalogue, with what to call it there. */
-export type LeadForm = { number: string; label: "For your step" | "After the notice" };
+/**
+ * A form that leads the case's forms catalogue, with what to call it there; a
+ * parenting-only respondent's financial statement is labelled with
+ * ifPapersClaimLabel, never "For your step".
+ */
+export type LeadForm = { number: string; label: "For your step" | "After the notice" | ReturnType<typeof ifPapersClaimLabel> };
 
 export type PracticalView = {
   /** `note`: the condition a rule sets for this form, shown beside it (Form 13 on a responding step). */
   forms: { court: PracticalCourt; number: string; note?: PlainLine }[];
   /** Forms a rule needs only with a claim the person's words do not name, with that rule. Shown folded. */
   formsIfClaimed: { court: PracticalCourt; number: string; when: PlainLine }[];
+  /**
+   * A parenting-only respondent's financial statement (ifPapersClaimLabel):
+   * its own group under r. 13 (1) (b)'s condition, shown open, never folded.
+   */
+  formsIfPapersClaim: { label: string; forms: { court: PracticalCourt; number: string; when: PlainLine }[] };
   fees: Fee[];
   feeNotes: PlainLine[];
   /** The notes lead the fees: the person's words point to a case the fee exemption covers. */
@@ -2576,6 +2605,16 @@ export function practicalFor(
     claims?.known === true &&
     FAMILY_FORM_NEEDS[form.number] !== undefined &&
     !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
+  // A parenting-only respondent's financial statement: its own open group
+  // under r. 13 (1) (b)'s condition, not "for your step" (FR, run 38593464953;
+  // ifPapersClaimLabel). Only beside a form the step leads with.
+  const ifPapersClaim = (form: { court: PracticalCourt; number: string }) =>
+    form.court === "family" &&
+    claims !== null &&
+    parentingOnly(claims) &&
+    respondingStep(stepId, responding) &&
+    FAMILY_FORM_NEEDS[form.number]?.respondingNote === true &&
+    allForms.some((other) => !folded(other) && !(other.court === "family" && FAMILY_FORM_NEEDS[other.number]?.respondingNote));
   const also = alsoFor(step.also ?? [], story, city);
   // Parenting only: the amounts are folded under their condition (FR, run 38525903567).
   const foldFees = court === "family" && claims !== null && parentingOnly(claims) && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id));
@@ -2588,7 +2627,7 @@ export function practicalFor(
   return {
     // On a responding step, Form 13 carries r. 13 (1) (b)'s condition beside it.
     forms: allForms
-      .filter((form) => !folded(form))
+      .filter((form) => !folded(form) && !ifPapersClaim(form))
       .map((form) =>
         form.court === "family" && FAMILY_FORM_NEEDS[form.number]?.respondingNote && respondingStep(stepId, responding)
           ? { ...form, note: financialStatementNoteFor(stepId) }
@@ -2597,12 +2636,17 @@ export function practicalFor(
             : form,
       ),
     formsIfClaimed: allForms.filter(folded).map((form) => ({ ...form, when: FAMILY_FORM_NEEDS[form.number].when })),
+    formsIfPapersClaim: {
+      label: ifPapersClaimLabel(stepId),
+      forms: allForms.filter((form) => !folded(form) && ifPapersClaim(form)).map((form) => ({ ...form, when: financialStatementNoteFor(stepId) })),
+    },
     feeNotesFirst: foldFees || (exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id))),
     courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
     afterNotice: claimAfterNotice(stepId, court, story, city),
     leadForms: [
-      ...allForms.filter((form) => !folded(form) && form.court === court).map((form) => ({ number: form.number, label: "For your step" as const })),
+      ...allForms.filter((form) => !folded(form) && !ifPapersClaim(form) && form.court === court).map((form) => ({ number: form.number, label: "For your step" as const })),
+      ...allForms.filter((form) => !folded(form) && ifPapersClaim(form) && form.court === court).map((form) => ({ number: form.number, label: ifPapersClaimLabel(stepId) })),
       ...(court !== "family" && claimAfterNotice(stepId, court, story, city).length > 0
         ? [{ number: CLAIM_AFTER_NOTICE[court].form, label: "After the notice" as const }]
         : []),

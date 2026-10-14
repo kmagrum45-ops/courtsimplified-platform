@@ -74,7 +74,9 @@ import {
   TEMPORARY_MOTION_FOLD_LABEL,
   motionToChangeLead,
   motionToChangeStartRules,
+  readingAnsweredByAnswer,
   routeShown,
+  stageFromAnsweredWish,
   stageFromMotionAnswer,
   stageQuestionWaits,
   standingChoice,
@@ -1223,6 +1225,25 @@ function BuilderPageContent() {
     }
   }
 
+  /*
+   * An order already in place and words asking to change it ("how do i get
+   * it lowered"): the results lead with the motion-to-change route, quoted
+   * from r. 15 (5) and (2), instead of a temporary-motion rule card
+   * (walkthrough MC, 2026-10-14; motionToChange.ts). One reading, for the
+   * page and for handleComplete's stage from the person's answers.
+   */
+  function motionLeadFor(data: StoredCaseData | null) {
+    if (courtPath !== "family") return null;
+    const familyStory = homeStory || userStory(data);
+    return motionToChangeLead(
+      courtPath,
+      // The urgent answer counts only when it says something is urgent.
+      [familyStory, data?.goal, /^\s*(?:no|none|nothing|not|n\/a)\b/i.test(data?.urgent ?? "") ? "" : data?.urgent].filter(Boolean).join("\n"),
+      existingFamilyOrder(familyStory),
+      respondingInFamilyStory(familyStory),
+    );
+  }
+
   function handleComplete(
     result: AnalysisResult,
     payload: StoredCaseData,
@@ -1264,7 +1285,13 @@ function BuilderPageContent() {
     // Any stage the person set -- "I am not sure" included -- is theirs and
     // is never replaced by one read from answers (review 2026-10-14).
     const personSetStage = storedOnCase || (sameCase ? thisVisit!.stage : null);
-    const fromAnswers = personSetStage ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested);
+    // Their own answer stating the wish to change the order they have records
+    // the motion stage, as Yes on the reading would (motionToChange.ts
+    // stageFromAnsweredWish; FM, run 38593464953).
+    const fromAnswers = personSetStage
+      ? null
+      : (stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested) ??
+        stageFromAnsweredWish(motionLeadFor(payload), motionAnswerThisVisit, storedPositionOnCase?.motionToChange, personAnswersOf(payload.extra)?.goal));
     // Kept apart from lastConfirmedRef, and saved marked as from the answers,
     // so the next run reads the answers afresh.
     setStageBasis(fromAnswers);
@@ -1337,20 +1364,16 @@ function BuilderPageContent() {
   // it lowered"): the results lead with the motion-to-change route, quoted
   // from r. 15 (5) and (2), instead of a temporary-motion rule card
   // (walkthrough MC, 2026-10-14; motionToChange.ts).
-  const familyStory = homeStory || userStory(caseData);
-  const motionLead =
-    courtPath === "family"
-      ? motionToChangeLead(
-          courtPath,
-          // The urgent answer counts only when it says something is urgent.
-          [familyStory, caseData?.goal, /^\s*(?:no|none|nothing|not|n\/a)\b/i.test(caseData?.urgent ?? "") ? "" : caseData?.urgent].filter(Boolean).join("\n"),
-          existingFamilyOrder(familyStory),
-          respondingInFamilyStory(familyStory),
-        )
-      : null;
+  const motionLead = motionLeadFor(caseData);
+  // The person's own answer to "What would you like to happen?", only as
+  // they gave or confirmed it (never the story): when it states their wish
+  // to change the order, it answers the reading (FM, run 38593464953).
+  const personGoal = personAnswersOf(caseData?.extra)?.goal ?? null;
+  const savedMotionAnswer = readCasePosition(existingMasterResult, courtPath).motionToChange;
   // The answer that stands for this reading: given this visit, else saved on
-  // the case while the reading is the same kind.
-  const motionChoice = standingChoice(motionLead, motionAnswerThisVisit, readCasePosition(existingMasterResult, courtPath).motionToChange);
+  // the case while the reading is the same kind, else their own answer.
+  const motionChoice = standingChoice(motionLead, motionAnswerThisVisit, savedMotionAnswer, personGoal);
+  const motionAnsweredByAnswer = readingAnsweredByAnswer(motionLead, motionAnswerThisVisit, savedMotionAnswer, personGoal);
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
   // words name (case reader first, then the phrase lists).
@@ -2159,6 +2182,7 @@ function BuilderPageContent() {
               <MotionToChangeRoute
                 lead={motionLead}
                 choice={motionChoice}
+                answeredByAnswer={motionAnsweredByAnswer}
                 onChoose={(choice) => {
                   setMotionAnswerThisVisit({ answer: choice, readingKind: motionLead.kind });
                   // A confirmed motion-to-change route is the motion stage: the

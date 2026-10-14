@@ -394,7 +394,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
    * case they have not touched (stageFromAnswers.ts, 2026-10-14). Only these
    * can stand as their confirmation of the stage.
    */
-  const personSet = useRef<Set<"yourRole">>(new Set());
+  // The goal too: an answer stating their wish to change an order they have
+  // answers the motion-to-change reading (motionToChange.ts, FM 2026-10-14).
+  const personSet = useRef<Set<"yourRole" | "goal">>(new Set());
   // Each document item the person chose or cleared themselves; a chat
   // answer sets the whole list. The list counts as theirs only when every
   // item on it is one they chose (review 2026-10-14).
@@ -461,7 +463,10 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       {
         label: "What do you want the court to order?",
         value: goal,
-        setter: setGoal,
+        setter: (value: React.SetStateAction<string>) => {
+          personSet.current.add("goal");
+          setGoal(value);
+        },
         placeholder:
           "Exact parenting schedule, decision-making terms, support, disclosure, property order, exclusive possession, urgent order, enforcement, costs, or other relief.",
       },
@@ -764,6 +769,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           ...(filedDocuments.length > 0 && filedDocuments.every((item) => personDocuments.current.has(item))
             ? { filed: [...filedDocuments], filedLabels: filedDocuments.map(labelForFiledDocument) }
             : {}),
+          ...(personSet.current.has("goal") && goal.trim() ? { goal } : {}),
         } satisfies PersonAnswers,
         issues,
         issueLabels: issues.map(labelForIssue),
@@ -818,7 +824,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       case "childrenInfo": setChildrenInfo(one); break;
       case "servedDate": setTimeline((current) => familyTimelineAnswer(key, one, current) ?? current); break;
       case "upcomingCourtDate": setUpcomingCourtDate(one); break;
-      case "goal": setGoal(one); break;
+      case "goal": personSet.current.add("goal"); setGoal(one); break;
       case "otherParty": setOtherParty(one); break;
       case "urgent": setUrgent(one); break;
     }

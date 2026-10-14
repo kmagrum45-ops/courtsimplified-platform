@@ -41,7 +41,7 @@ import { candidatesFromTimeline } from "../../src/lib/case-system/events/caseEve
 import { dateInSentence, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import { storySuggestsDanger } from "../../src/lib/case-system/intake/orchestrateIntakeTurn";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { storyAnswerFor, storyQuoteFor, storySuggestionFor } from "../../src/lib/case-system/family/triageStoryQuote";
+import { storyAnswerFor, storyQuoteFor, storySuggestionFor, suggestionChoicesFor } from "../../src/lib/case-system/family/triageStoryQuote";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -153,7 +153,48 @@ check("a story with no such words offers nothing", storyAnswerFor("married-to-ot
   const triage = readFileSync(path.resolve(process.cwd(), "app/builder/_components/FamilyStatusTriage.tsx"), "utf8");
   check(
     "the triage says the suggestion plainly and records it on one click",
-    /storySuggestionFor\(current\.id, story\)/.test(triage) && /data-testid="triage-story-suggestion"[\s\S]{0,400}From what you told us: <strong>\{suggestion\.say\}<\/strong>\. Is that right\?[\s\S]{0,400}onClick=\{\(\) => record\(suggestion\.value\)\}/.test(triage),
+    /suggestionChoicesFor\(current\.id, story\)/.test(triage) &&
+      /data-testid="triage-story-suggestion"[\s\S]{0,400}From what you told us: <strong>\{suggestion\.say\}<\/strong>\. Is that right\?[\s\S]{0,600}onClick=\{\(\) => record\(suggestion\.confirm\.value\)\}/.test(triage),
+  );
+
+  // Walkthrough run 38593464953, FR conversation: "not married. Is that
+  // right?" was answered by "Yes", "Yes, that's right" and "No — as you
+  // wrote". Each button beside a suggestion now names the fact it records,
+  // and the bare Yes / No are not shown beside it.
+  const recordsWhatItSays = (label: string, value: "yes" | "no", words: { yes: RegExp; no: RegExp }) =>
+    words[value].test(label) && !words[value === "yes" ? "no" : "yes"].test(label);
+  const WORDS: Record<string, { yes: RegExp; no: RegExp }> = {
+    "married-to-other-party": { yes: /\bwe were married\b/i, no: /\bwe were not married\b/i },
+    "child-together": { yes: /\bwe have a child together\b/i, no: /\bwe do not have a child together\b/i },
+    "case-involves-children": { yes: /\binvolves children\b/i, no: /\bdoes not involve children\b/i },
+  };
+  const samples: [string, string][] = [
+    ["married-to-other-party", FR],
+    ["married-to-other-party", "My husband and I got married in 2012 and separated in January 2025."],
+    ["child-together", "our two kids live with me"],
+  ];
+  for (const [id, story] of samples) {
+    const choices = suggestionChoicesFor(id, story);
+    const suggested = storySuggestionFor(id, story);
+    check(
+      `${id} '${story.slice(0, 40)}': the confirm button records the suggestion and says so; the other records the opposite and says so`,
+      Boolean(choices && suggested) &&
+        choices!.confirm.value === suggested!.value &&
+        choices!.other.value !== choices!.confirm.value &&
+        /^Yes, /.test(choices!.confirm.label) &&
+        /^No, /.test(choices!.other.label) &&
+        recordsWhatItSays(choices!.confirm.label, choices!.confirm.value, WORDS[id]) &&
+        recordsWhatItSays(choices!.other.label, choices!.other.value, WORDS[id]),
+      JSON.stringify(choices),
+    );
+  }
+  check("FR: the buttons read 'Yes, we were not married' and 'No, we were married'", suggestionChoicesFor("married-to-other-party", FR)?.confirm.label === "Yes, we were not married" && suggestionChoicesFor("married-to-other-party", FR)?.other.label === "No, we were married");
+  check("no suggestion, no suggestion buttons", suggestionChoicesFor("married-to-other-party", "he stopped paying support in may") === null);
+  check(
+    "beside a suggestion, the second button records the other answer, and the bare Yes / No are not shown (only 'not sure' stays)",
+    /data-testid="triage-story-suggestion-no"[\s\S]{0,200}onClick=\{\(\) => record\(suggestion\.other\.value\)\}[\s\S]{0,200}\{suggestion\.other\.label\}/.test(triage) &&
+      /values\.filter\(\(value\) => !suggestion \|\| value === "unsure"\)/.test(triage) &&
+      !/Yes, that&apos;s right/.test(triage),
   );
 }
 

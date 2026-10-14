@@ -42,7 +42,7 @@ import {
   type FamilyStatusRecord,
   type TriageQuestion,
 } from "../../../src/lib/case-system/family/statusTriage";
-import { storyAnswerFor, storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
+import { storyAnswerFor, storyQuoteFor, suggestionChoicesFor } from "../../../src/lib/case-system/family/triageStoryQuote";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 export type FamilyTriageState = {
@@ -178,7 +178,10 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       // What the person's own words answer is offered first, highlighted;
       // nothing is recorded until they press it.
       const fromStory = storyAnswerFor(current.id, story);
-      const suggestion = storySuggestionFor(current.id, story);
+      // With a suggestion on screen, its two buttons say what each records,
+      // and the bare Yes / No are not shown beside it (FR conversation, run
+      // 38593464953; triageStoryQuote.ts suggestionChoicesFor).
+      const suggestion = suggestionChoicesFor(current.id, story);
       const record = (value: string) => {
         if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" });
         if (current.id === "divorce-sought") update({ divorceSought: value as "yes" | "no" | "unsure" });
@@ -194,18 +197,30 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             <p className="text-sm text-[#10231f]">
               From what you told us: <strong>{suggestion.say}</strong>. Is that right?
             </p>
-            <button
-              type="button"
-              data-testid="triage-story-suggestion-yes"
-              onClick={() => record(suggestion.value)}
-              className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
-            >
-              Yes, that&apos;s right
-            </button>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <button
+                type="button"
+                data-testid="triage-story-suggestion-yes"
+                data-records={suggestion.confirm.value}
+                onClick={() => record(suggestion.confirm.value)}
+                className="rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+              >
+                {suggestion.confirm.label}
+              </button>
+              <button
+                type="button"
+                data-testid="triage-story-suggestion-no"
+                data-records={suggestion.other.value}
+                onClick={() => record(suggestion.other.value)}
+                className={chip}
+              >
+                {suggestion.other.label}
+              </button>
+            </div>
           </div>
         ) : null}
         <div className="mt-4 flex flex-wrap gap-3">
-          {values.map((value) => (
+          {values.filter((value) => !suggestion || value === "unsure").map((value) => (
             <button
               key={value}
               type="button"

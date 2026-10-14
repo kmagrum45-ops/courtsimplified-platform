@@ -54,6 +54,22 @@ const unruled = STAGE_MOVES.filter((m) => m.rules.length === 0).map((m) => `${m.
 check("every move cites at least one rule", unruled.length === 0, unruled.join(", "));
 const unverified = [...STAGE_MOVES.flatMap((m) => m.rules), ...FINAL_STEPS.flatMap((f) => f.rules)].filter((rule) => !verifiedQuotes.has(rule.quote)).map((rule) => `${rule.sourceId} ${rule.pinpoint}`);
 check("every rule is a verified quote (citations.ts or a stage's own rules)", unverified.length === 0, unverified.join(", "));
+// Walkthrough run 38593464953, FM sourced: "Final order made" was paired
+// with r. 15 (17) alone, which says what consenting parties FILE, not that an
+// order is made. A move by the court from a motion-to-change step into the
+// final order must cite a rule that speaks of the court making the order.
+const MAKES_ORDER = /\bmake (?:the|a final) order\b|\bmake the order (?:asked for|requested)\b|\border asked for\b|\border requested\b/i;
+const changeToOrder = STAGE_MOVES.filter((m) => /change/.test(m.from) && m.to === "family:both:final-order-made" && m.by === "court");
+check(
+  "every court move from a motion-to-change step to a final order cites a rule about the court making the order (never only what the parties file)",
+  changeToOrder.length > 0 && changeToOrder.every((m) => m.rules.some((rule) => MAKES_ORDER.test(rule.quote))),
+  changeToOrder.filter((m) => !m.rules.some((rule) => MAKES_ORDER.test(rule.quote))).map((m) => `${m.from}: ${m.rules.map((rule) => rule.pinpoint).join(", ")}`).join("; "),
+);
+check(
+  "the consent route to the order says it is the judge's to make ('may'), never that an order will follow",
+  changeToOrder.every((m) => !/\bwill (?:be )?(?:make|made|grant|granted|change|changed)\b/i.test(m.when)) &&
+    changeToOrder.some((m) => m.from === "family:both:asking-to-change-final-order" && /\bmay make the order asked for\b/.test(m.when) && m.rules.some((rule) => rule.pinpoint === "r. 15 (25)")),
+);
 const duplicate = STAGE_MOVES.map((m) => `${m.from} -> ${m.to}`).filter((key, i, all) => all.indexOf(key) !== i);
 check("no move is listed twice", duplicate.length === 0, duplicate.join(", "));
 

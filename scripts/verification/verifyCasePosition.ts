@@ -651,7 +651,7 @@ function personsDatesWin(source: string): boolean {
   const builder = read("app/builder/page.tsx");
   check(
     "answers: the results record a stage from answers only when the person has set none (\"not sure\" included), and show the answer beside it",
-    /personSetStage = storedOnCase \|\| /.test(builder) && /personSetStage \? null : stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
+    /personSetStage = storedOnCase \|\| /.test(builder) && /personSetStage\s*\?\s*null\s*:\s*\(?stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
   );
 
   // A stage read from answers is never taken later for one the person chose
@@ -753,7 +753,8 @@ function personsDatesWin(source: string): boolean {
   );
   check(
     "motion answer: on load the saved answer stands (standingChoice over the saved position)",
-    /standingChoice\(motionLead, motionAnswerThisVisit, readCasePosition\(existingMasterResult, courtPath\)\.motionToChange\)/.test(builder),
+    /savedMotionAnswer = readCasePosition\(existingMasterResult, courtPath\)\.motionToChange;/.test(builder) &&
+      /standingChoice\(motionLead, motionAnswerThisVisit, savedMotionAnswer\b/.test(builder),
   );
 }
 

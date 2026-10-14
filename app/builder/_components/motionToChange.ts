@@ -407,17 +407,91 @@ export function stageQuestionWaits(lead: MotionToChangeLead | null, choice: Read
 /** The person's answer to the reading, as saved on the case (casePosition.ts `motionToChange`). */
 export type SavedMotionAnswer = { answer: Exclude<ReadingChoice, null>; readingKind: MotionToChangeKind };
 
+/*
+ * THEIR OWN ANSWER ALREADY SAYS IT (walkthrough run 38593464953, FM
+ * noRepeat). The guided chat asked "What would you like to happen in the
+ * end?" and he confirmed "To get the child support lowered". The results then
+ * asked "it sounds like you want to ask the court to change the order. Is
+ * that right?" -- the same thing again.
+ *
+ * An answer the person gave or confirmed themselves (stageFromAnswers.ts
+ * `PersonAnswers.goal`, never a value read from the story and not shown to
+ * them) that states their own wish to change the order IS their answer to the
+ * "asking" reading (CLAUDE.md s. 4: they confirmed it once; a Change puts the
+ * question back). The question stays only when the wish comes from the
+ * story alone, an unconfirmed reading.
+ *
+ * The answer to "What would you like to happen?" is the person's own wish by
+ * the question's design, so a bare "To get the child support lowered" or
+ * "Lower the support" counts, as does anything asksToChangeOrder reads. The
+ * other side's motion, or a want said with a no, never does.
+ */
+const ANSWER_WISH: RegExp[] = [
+  // "To get the child support lowered", "have the order changed"
+  new RegExp(`^\\s*(?:to\\s+)?(?:get|have)\\s+${OBJECT}\\s+${CHANGED}\\b`, "i"),
+  // "To lower the support", "Reduce child support", "change the parenting schedule"
+  new RegExp(`^\\s*(?:to\\s+)?${CHANGE_VERB}\\s+${OBJECT}\\b`, "i"),
+  // "Child support lowered", "the support reduced"
+  new RegExp(`^\\s*${OBJECT}\\s+${CHANGED}\\b`, "i"),
+];
+
+/** The person's own answer states their wish to change the order (an answer they gave, never the story). */
+export function answerStatesWishToChange(answer: string | null | undefined): boolean {
+  const sentences = sentencesOf(answer ?? "");
+  if (sentences.length === 0) return false;
+  if (sentences.some((sentence) => othersMotion(sentence) !== null || NEGATED_WANT.test(sentence) || OTHER_ASKS.test(sentence))) return false;
+  return sentences.some((sentence) => myMotion(sentence) || ANSWER_WISH.some((pattern) => pattern.test(sentence)));
+}
+
+/** How a reading settled by the person's own answer is shown: no question, a Change. */
+export const ANSWERED_WISH_READING = "you want the court to change the order";
+
+/**
+ * The "asking" reading is answered by the person's own answer, not a click:
+ * nothing given this visit (a Change gives null, and asks again), nothing
+ * saved for this reading, and their answer states the wish.
+ */
+export function readingAnsweredByAnswer(
+  lead: MotionToChangeLead | null,
+  thisVisit: { answer: ReadingChoice; readingKind: MotionToChangeKind } | undefined,
+  saved: SavedMotionAnswer | undefined,
+  personGoal: string | null | undefined,
+): boolean {
+  if (!lead || lead.kind !== "asking" || thisVisit !== undefined) return false;
+  if (saved && saved.readingKind === lead.kind) return false;
+  return answerStatesWishToChange(personGoal);
+}
+
 /**
  * The answer that stands for this reading: one given this visit (null after
  * Change), else one saved on the case -- but only while the reading is the
- * same kind; a new, different reading is asked again.
+ * same kind; a new, different reading is asked again. With neither, the
+ * person's own answer stating the wish answers "yes" (readingAnsweredByAnswer).
  */
 export function standingChoice(
   lead: MotionToChangeLead | null,
   thisVisit: { answer: ReadingChoice; readingKind: MotionToChangeKind } | undefined,
   saved: SavedMotionAnswer | undefined,
+  personGoal?: string | null,
 ): ReadingChoice {
   if (!lead) return null;
+  if (readingAnsweredByAnswer(lead, thisVisit, saved, personGoal)) return "yes";
   const given = thisVisit ?? saved;
   return given && given.readingKind === lead.kind ? given.answer : null;
+}
+
+/**
+ * The stage the answered reading records, as a click on Yes would
+ * (stageFromMotionAnswer), shown with the answer it came from. Null unless
+ * the reading is answered by the person's own answer.
+ */
+export function stageFromAnsweredWish(
+  lead: MotionToChangeLead | null,
+  thisVisit: { answer: ReadingChoice; readingKind: MotionToChangeKind } | undefined,
+  saved: SavedMotionAnswer | undefined,
+  personGoal: string | null | undefined,
+): { stage: "motion"; because: string } | null {
+  if (!readingAnsweredByAnswer(lead, thisVisit, saved, personGoal)) return null;
+  const because = (personGoal ?? "").replace(/\s+/g, " ").trim();
+  return { stage: "motion", because: because.length > 120 ? `${because.slice(0, 117)}…` : because };
 }

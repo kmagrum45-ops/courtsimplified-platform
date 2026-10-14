@@ -1,4 +1,6 @@
 import { officialFormFor } from "@/src/lib/content-library/forms/officialFormLink";
+import { guidanceGapsFor } from "@/src/lib/content-library/guidanceGaps";
+import GetHelp from "./GetHelp";
 import { FEES_IF_CLAIMED_LABEL, SOURCE_SAVED_ON, practicalFor, type PlainLine, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
@@ -101,6 +103,40 @@ export default function NextStepPractical({
               );
             })}
           </ul>
+          {view.formsIfPapersClaim.forms.length > 0 ? (
+            // A parenting-only respondent's financial statement (FR, run
+            // 38593464953): not "for your step", and never folded either
+            // (legal review 2026-10-14: whether r. 13 (1) (b) binds him turns
+            // on what the other side's papers claim). Its own open group.
+            <div data-testid="next-step-forms-if-papers-claim" className="mt-2">
+              <p className="font-semibold">{view.formsIfPapersClaim.label}</p>
+              <ul className="mt-1 space-y-1">
+                {view.formsIfPapersClaim.forms.map((form) => {
+                  const official = officialFormFor(form.court, form.number);
+                  return (
+                    <li key={`${form.court}-${form.number}`}>
+                      <span className="font-semibold">Form {form.number}</span>
+                      {official ? ` — ${official.title}` : ""}
+                      {official?.pdf ? (
+                        <a href={official.pdf} target="_blank" rel="noreferrer" className="ml-2 font-semibold text-[#2f7d67] underline">
+                          PDF
+                        </a>
+                      ) : null}
+                      {official?.docx ? (
+                        <a href={official.docx} target="_blank" rel="noreferrer" className="ml-2 font-semibold text-[#2f7d67] underline">
+                          Word
+                        </a>
+                      ) : null}
+                      <span data-testid="next-step-form-note" className="block text-[#4d675f]">
+                        {form.when.say}
+                        <Source cite={form.when.cite} />
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
           {view.formsIfClaimed.length > 0 ? (
             // Forms a rule needs only with a claim the person's words do not
             // name (2026-10-13: a parenting-only respondent was shown the
@@ -132,6 +168,15 @@ export default function NextStepPractical({
           <p className="text-xs text-[#4d675f]">From the official Ontario Court Forms site. Check the version date there before you file.</p>
         </div>
       ) : null}
+
+      {guidanceGapsFor(court, story).map((gap) => (
+        // What the story raises that the site has no guidance on, said in one
+        // line with where to turn (FR limits, run 38593464953; guidanceGaps.ts).
+        <div key={gap.id} data-testid="guidance-gap" data-gap={gap.id} className="rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-[#7a4b12]">
+          <p>{gap.say}</p>
+          <GetHelp compact heading={gap.helpHeading} why={gap.why} />
+        </div>
+      ))}
 
       {/* A step with no fee of its own says so (2026-10-13: a motion to change
           showed no "What it costs" at all, because only a fee opened it). */}

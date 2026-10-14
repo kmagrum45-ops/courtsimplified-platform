@@ -75,9 +75,14 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
+import { personAnswersOf } from "../../app/builder/_components/stageFromAnswers";
 import {
+  ANSWERED_WISH_READING,
   MOTION_TO_CHANGE_LINE,
   TEMPORARY_MOTION_FOLD_LABEL,
+  answerStatesWishToChange,
+  readingAnsweredByAnswer,
+  stageFromAnsweredWish,
   chatClosingFor,
   hidesTemporaryMotionCard,
   motionToChangeLead,
@@ -856,6 +861,67 @@ console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, 
   check("'our two girls' is filled in with its count", childrenPartialFromStory("our two girls live with me")?.prefill.trim() === "Two girls.");
   const childrenField = familyGuidedFields({ issues: [], filed: [] }).find((field) => field.key === "childrenInfo");
   check("the children question reads the partial answer from the story", Boolean(childrenField?.partialFromStory) && childrenField?.partialFromStory?.({ facts: FR })?.prefill.trim() === "One daughter.");
+}
+
+/*
+ * Walkthrough run 38593464953, FM noRepeat: the guided chat recorded his
+ * confirmed "To get the child support lowered", and the results then asked
+ * "it sounds like you want to ask the court to change the order. Is that
+ * right?" again. His own answer stating the wish answers the "asking"
+ * reading; only a wish read from the story alone is still asked.
+ */
+console.log("\nFM noRepeat: the person's own answer answers the motion-to-change reading");
+{
+  const FM = "i pay 900 a month child support from a court order in 2022. i lost my job in july and now im on EI making way less. i cant keep paying 900. how do i get it lowered";
+  const asking = motionToChangeLead("family", FM, true, false)!;
+  const served = motionToChangeLead("family", "there is a support order. my ex served me a motion to change to increase support", true, true)!;
+  const ifServed = motionToChangeLead("family", "There is a support order. My ex wants to reduce child support. What do I do?", true, false)!;
+  check("the FM story reads as the person asking (the lead this fix answers)", asking?.kind === "asking");
+
+  // The goal the chat offered from his story, as it was confirmed.
+  const confirmedGoal = goalFromStory(FM)?.value ?? "";
+  check("FM: the chat's goal from his story is 'To get the child support lowered'", /^To get the child support lowered$/i.test(confirmedGoal));
+  const wishes = [confirmedGoal, "Lower the support", "I want the support reduced", "to change the parenting schedule", "child support lowered", "I need to get the support lowered"];
+  const notWishes = ["", "Joint decision-making", "Keep the order as it is", "I do not want the support lowered", "My ex wants to reduce child support", "Stop him from changing the order", "Dismiss his motion to change", "To be left alone"];
+  check("answers stating the person's own wish to change the order are read as that wish", wishes.every((goal) => answerStatesWishToChange(goal)), wishes.filter((goal) => !answerStatesWishToChange(goal)).join(" | "));
+  check("answers that do not (no change, a no, the other side's wish or motion) are not", notWishes.every((goal) => !answerStatesWishToChange(goal)), notWishes.filter((goal) => answerStatesWishToChange(goal)).join(" | "));
+
+  check("their own answer stating the wish answers the asking reading 'yes', with no question", standingChoice(asking, undefined, undefined, confirmedGoal) === "yes" && readingAnsweredByAnswer(asking, undefined, undefined, confirmedGoal));
+  check("with no answer of theirs (the wish only in the unconfirmed story reading), the question stays", standingChoice(asking, undefined, undefined, null) === null && standingChoice(asking, undefined, undefined, "") === null);
+  check("an answer that is not the wish leaves the question", standingChoice(asking, undefined, undefined, "Joint decision-making") === null);
+  check("Change (null this visit) puts the question back", standingChoice(asking, { answer: null, readingKind: "asking" }, undefined, confirmedGoal) === null);
+  check("an answer clicked this visit, or saved for this reading, stands over it", standingChoice(asking, { answer: "not-sure", readingKind: "asking" }, undefined, confirmedGoal) === "not-sure" && standingChoice(asking, undefined, { answer: "other", readingKind: "asking" }, confirmedGoal) === "other");
+  check(
+    "never for a reading that is not the person asking (served with their motion, or only the other side's wish)",
+    [served, ifServed].every((lead) => lead && lead.kind !== "asking" && standingChoice(lead, undefined, undefined, confirmedGoal) === null && !readingAnsweredByAnswer(lead, undefined, undefined, confirmedGoal)),
+  );
+  const stage = stageFromAnsweredWish(asking, undefined, undefined, confirmedGoal);
+  check("it records the motion stage as Yes would, shown with his answer", stage?.stage === "motion" && stage.stage === stageFromMotionAnswer(asking, "yes") && stage.because === confirmedGoal);
+  check("no stage from a story reading alone, or after Change", stageFromAnsweredWish(asking, undefined, undefined, null) === null && stageFromAnsweredWish(asking, { answer: null, readingKind: "asking" }, undefined, confirmedGoal) === null);
+  check("the shown reading says what it records, plainly", ANSWERED_WISH_READING === "you want the court to change the order");
+
+  const card = read("app/builder/_components/MotionToChangeRoute.tsx");
+  check(
+    "the card shows 'From your answer: ... · Change' above the route, and no question, when answered by their answer",
+    /answeredByAnswer && shown\.kind === "asking" \?[\s\S]{0,200}From your answer: \{ANSWERED_WISH_READING\} ·[\s\S]{0,300}onClick=\{\(\) => setChoice\(null\)\}[\s\S]{0,120}Change\s*<\/button>/.test(card) &&
+      // The question renders only while the choice is null, which an answered reading never is.
+      /if \(choice === null\) \{[\s\S]{0,800}Is that right\?/.test(card),
+  );
+  const builder = read("app/builder/page.tsx");
+  check(
+    "the page reads the goal only from the person's own answers (never the story), and passes it and the display flag",
+    /personGoal = personAnswersOf\(caseData\?\.extra\)\?\.goal/.test(builder) &&
+      /standingChoice\(motionLead, motionAnswerThisVisit, savedMotionAnswer, personGoal\)/.test(builder) &&
+      /answeredByAnswer=\{motionAnsweredByAnswer\}/.test(builder) &&
+      /stageFromAnsweredWish\(motionLeadFor\(payload\)/.test(builder),
+  );
+  const intake = read("app/builder/_components/FamilyIntake.tsx");
+  const kept = intake.slice(intake.indexOf("personAnswers: {"), intake.indexOf("} satisfies PersonAnswers"));
+  check(
+    "the family intake keeps the goal as the person's answer only when they set it (chat answer or typing), never a prefill",
+    /personSet\.current\.has\("goal"\)/.test(kept) && /case "goal": personSet\.current\.add\("goal"\)/.test(intake) && /personSet\.current\.add\("goal"\);\s*setGoal\(value\)/.test(intake),
+  );
+  check("a saved goal round-trips through personAnswersOf", personAnswersOf({ personAnswers: { goal: confirmedGoal } })?.goal === confirmedGoal && personAnswersOf({ personAnswers: { goal: "   " } })?.goal === undefined);
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

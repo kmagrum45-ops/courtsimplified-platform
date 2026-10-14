@@ -64,6 +64,7 @@ import {
   S_TORONTO_42_8_EXCUSE,
   S_CJA_23_1_1_LEAVE,
   S_CLPA_18_1_NOTICE,
+  F_R15_25_CONSENT_OR_UNOPPOSED,
   R_15_01_MOTION_FORM,
   R_15_01_SERVE_FILE,
   R_15_02_HEARING,
@@ -447,7 +448,9 @@ const FAMILY_MOVES: StageMove[] = [
   // Changing a final order
   move("family:both:asking-to-change-final-order", "family:both:motion-to-change-response-time-missed", "time", "The other party has 30 days after receiving the motion to change to respond (60 outside Canada and the U.S.), and that time passes.", F("both:asking-to-change-final-order", "r. 15 (10)")),
   move("family:both:asking-to-change-final-order", "family:both:case-conference-scheduled", "court", "A judge holds at least one conference on a motion to change, unless it is on consent or unopposed.", F("both:asking-to-change-final-order", "r. 17 (3)"), F("respondent:answer-filed", "r. 17 (1)")),
-  move("family:both:asking-to-change-final-order", "family:both:final-order-made", "court", "If the parties and any assignee agree to the change, they file a consent motion to change (Form 15C).", F("both:asking-to-change-final-order", "r. 15 (17)")),
+  // The order is r. 15 (25)'s, not r. 15 (17)'s: (17) is what consenting
+  // parties file (walkthrough run 38593464953, FM sourced).
+  move("family:both:asking-to-change-final-order", "family:both:final-order-made", "court", "If the parties and any assignee agree to the change, they file a consent motion to change (Form 15C). A motion to change that proceeds on consent, or is unopposed, goes to a judge, who may make the order asked for, ask for further material, or require the parties to come to court.", F("both:asking-to-change-final-order", "r. 15 (17)"), F_R15_25_CONSENT_OR_UNOPPOSED),
   move("family:both:served-with-motion-to-change", "family:both:case-conference-scheduled", "you", "If you do not agree, you serve and file a response within 30 days after receiving the motion (60 outside Canada and the U.S.).", F("both:served-with-motion-to-change", "r. 15 (10)")),
   move("family:both:served-with-motion-to-change", "family:both:motion-to-change-response-time-missed", "time", "The 30 days (60 outside Canada and the U.S.) pass without a response or a returned consent.", F("both:served-with-motion-to-change", "r. 15 (10)"), F("both:served-with-motion-to-change", "r. 15 (14)")),
   move("family:both:motion-to-change-response-time-missed", "family:both:final-order-made", "court", "The party who made the motion may file a motion form (Form 14B) asking the court to make the order requested.", F("both:motion-to-change-response-time-missed", "r. 15 (15)")),

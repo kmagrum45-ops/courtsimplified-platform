@@ -1128,6 +1128,17 @@ export const F_R3_3_CLOSED = familyRule(
   "If the last day of a period of time under these rules or an order falls on a day when court offices are closed, the period ends on the next day they are open.",
 );
 
+/*
+ * How a consent or unopposed motion to change reaches an order (walkthrough
+ * run 38593464953, FM sourced): "Final order made" was paired with r. 15 (17),
+ * which says what consenting parties file, not that an order is made. This
+ * subrule is the one that leads to the order (stageSequence.ts).
+ */
+export const F_R15_25_CONSENT_OR_UNOPPOSED = familyRule(
+  "r. 15 (25)",
+  "If a motion to change a final order or agreement proceeds on the consent of the parties and any assignee or is unopposed, the clerk shall present the filed materials to a judge and the judge may, (a) make the order asked for; (b) require one or both parties to file further material; or (c) require one or both parties to come to court.",
+);
+
 // --- Rule 76, set against the amount the user recorded (amountNotes.ts,
 // --- page review 2026-10-07).
 

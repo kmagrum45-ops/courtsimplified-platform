@@ -92,3 +92,39 @@ export function storySuggestionFor(questionId: string, story: string | undefined
   const say = value ? SUGGESTION_WORDS[questionId]?.[value] : undefined;
   return value && say ? { value, say } : null;
 }
+
+/*
+ * BUTTONS THAT SAY WHAT THEY RECORD (walkthrough run 38593464953, FR
+ * conversation). "Were you and the other person married to each other?" and,
+ * under it, "From what you told us: not married. Is that right?" were
+ * answered by "Yes", "Yes, that's right" and "No — as you wrote": "Yes" could
+ * mean "yes, married" or "yes, that's right", and "No — as you wrote" meant
+ * "not married" while sitting beside a question about being right. With a
+ * suggestion on screen, its two buttons now name the fact each one records
+ * ("Yes, we were not married" / "No, we were married"), and the bare Yes and
+ * No are not shown beside it. Recorded only on a press (CLAUDE.md s. 4).
+ */
+const ANSWER_WORDS: Record<string, { yes: string; no: string }> = {
+  "married-to-other-party": { yes: "we were married", no: "we were not married" },
+  "child-together": { yes: "we have a child together", no: "we do not have a child together" },
+  "case-involves-children": { yes: "the case involves children", no: "the case does not involve children" },
+};
+
+export type SuggestionChoice = { value: "yes" | "no"; label: string };
+
+/**
+ * The two buttons for a suggestion: confirm it ("Yes, we were not married")
+ * or record the other answer ("No, we were married"). Null when there is no
+ * suggestion, or no words for this question's answers.
+ */
+export function suggestionChoicesFor(questionId: string, story: string | undefined): { say: string; confirm: SuggestionChoice; other: SuggestionChoice } | null {
+  const suggestion = storySuggestionFor(questionId, story);
+  const words = ANSWER_WORDS[questionId];
+  if (!suggestion || !words) return null;
+  const opposite = suggestion.value === "yes" ? "no" : "yes";
+  return {
+    say: suggestion.say,
+    confirm: { value: suggestion.value, label: `Yes, ${words[suggestion.value]}` },
+    other: { value: opposite, label: `No, ${words[opposite]}` },
+  };
+}

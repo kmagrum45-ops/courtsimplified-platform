@@ -94,6 +94,7 @@ import {
   MIP_SUPPORT_ONLY_CHANGE,
   claimFit,
   familyClaimsIn,
+  parentingOnly,
   notABarExceptions,
   respondingStep,
   familyCourtOfficesIn,
@@ -123,6 +124,7 @@ import { computedDeadlinesFor } from "../../src/lib/content-library/computedDead
 import { DEADLINE_EVENTS, caseDatesFrom } from "../../src/lib/case-system/deadlines/deadlineEvents";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
+import { guidanceGapsFor } from "../../src/lib/content-library/guidanceGaps";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
 import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -418,7 +420,7 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
       [PARENTING, "i pay child support and want it lowered", ""].flatMap((words) => {
         const view = practicalFor(stage.id, "family", "", false, words);
         if (!view) return [];
-        const shown = [...view.forms, ...view.formsIfClaimed].map((form) => form.number).sort().join();
+        const shown = [...view.forms, ...view.formsIfClaimed, ...view.formsIfPapersClaim.forms].map((form) => form.number).sort().join();
         const all = (STEP_PRACTICAL[stage.id].forms.map((form) => form.split(":").pop()) as string[]).sort().join();
         return shown === all ? [] : [`${stage.id} "${words}"`];
       }),
@@ -428,37 +430,60 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   // binds the person turns on what the other side's papers CLAIM, which the
   // intake does not record -- so Form 13 is never folded there, whatever the
   // words, and r. 13 (1) (b)'s condition is beside it; on a motion to change
-  // it says "within your time to respond".
+  // it says "within your time to respond". Walkthrough run 38593464953 (FR
+  // onTopic): with parenting-only words it is not "for your step" either --
+  // it sits, open, in its own group under that condition, beside a form the
+  // step leads with. Either way, never folded and never without the rule.
   const respondingSteps = steps.filter((stage) => pathwayOf(stage) === "family" && respondingStep(stage.id, false) && STEP_PRACTICAL[stage.id].forms.some((form) => /^(?:family:)?13(?:\.1)?$/.test(form)));
   const respondingWrong: string[] = [];
   for (const stage of respondingSteps) {
     for (const responding of [false, true]) {
       for (const words of [PARENTING, "", "she wants child support from me too", "he is asking for the house", "something happened"]) {
         const view = practicalFor(stage.id, "family", "", responding, words);
-        const shown = (view?.forms ?? []).filter((form) => form.number === "13" || form.number === "13.1");
-        if (shown.length === 0 || (view?.formsIfClaimed ?? []).some((form) => form.number === "13" || form.number === "13.1")) respondingWrong.push(`${stage.id}: folded for "${words}"`);
+        const isStatement = (form: { number: string }) => form.number === "13" || form.number === "13.1";
+        const inStep = (view?.forms ?? []).filter(isStatement);
+        const inGroup = (view?.formsIfPapersClaim.forms ?? []).filter(isStatement);
+        const shown = [...inStep.map((form) => form.note), ...inGroup.map((form) => form.when)];
+        if (shown.length === 0 || (view?.formsIfClaimed ?? []).some(isStatement)) respondingWrong.push(`${stage.id}: folded for "${words}"`);
+        // Parenting-only words move it out of the step's forms only beside another form the step leads with.
+        const parentingOnlyWords = parentingOnly(familyClaimsIn(words));
+        const otherForm = (view?.forms ?? []).some((form) => !isStatement(form));
+        if (parentingOnlyWords && otherForm && inStep.length > 0) respondingWrong.push(`${stage.id}: "for your step" for parenting-only "${words}"`);
+        if (!parentingOnlyWords && inGroup.length > 0) respondingWrong.push(`${stage.id}: moved out for "${words}"`);
+        if (inGroup.length > 0 && !/^Only if the (?:application|motion) claims support or property \(r\. 13 \(1\) \(b\)\)$/.test(view!.formsIfPapersClaim.label)) respondingWrong.push(`${stage.id}: group label`);
         const motion = /motion-to-change|change-final-order/.test(stage.id);
         if (
           !shown.every(
-            (form) =>
-              form.note?.cite.pinpoint === "r. 13 (1) (b)" &&
-              /the party against whom the claim is made/.test(form.note.cite.quote) &&
-              /only if/.test(form.note.say) &&
-              (motion ? /within your time to respond/.test(form.note.say) : /within your time to answer/.test(form.note.say)),
+            (note) =>
+              note?.cite.pinpoint === "r. 13 (1) (b)" &&
+              /the party against whom the claim is made/.test(note.cite.quote) &&
+              /only if/.test(note.say) &&
+              (motion ? /within your time to respond/.test(note.say) : /within your time to answer/.test(note.say)),
           )
         )
           respondingWrong.push(`${stage.id}: condition missing or wrong words`);
       }
     }
   }
-  check("on every responding step Form 13 stays a form for the step, with r. 13 (1) (b)'s condition beside it, whatever the words", respondingSteps.length > 0 && respondingWrong.length === 0, [...new Set(respondingWrong)].slice(0, 6).join("; "));
+  check("on every responding step Form 13 is never folded and always has r. 13 (1) (b)'s condition beside it; parenting-only words put it in its own open group, not \"for your step\"", respondingSteps.length > 0 && respondingWrong.length === 0, [...new Set(respondingWrong)].slice(0, 6).join("; "));
   {
     const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
     const words = userWordsOf({ facts: [persona.story, ...Object.values(persona.fields ?? {})].join("\n"), extra: { issues: persona.issues, yourCity: persona.city } });
     const view = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words);
-    check("persona family-respondent-parenting: Form 13 is in the list with its r. 13 (1) (b) condition", Boolean(view?.forms.some((form) => form.number === "13" && form.note?.cite.pinpoint === "r. 13 (1) (b)")));
+    check(
+      "persona family-respondent-parenting: Form 13 is not a form for his step; it is in the open 'Only if the application claims support or property (r. 13 (1) (b))' group, with that rule",
+      !view?.forms.some((form) => form.number === "13") &&
+        Boolean(view?.formsIfPapersClaim.forms.some((form) => form.number === "13" && form.when.cite.pinpoint === "r. 13 (1) (b)")) &&
+        view?.formsIfPapersClaim.label === "Only if the application claims support or property (r. 13 (1) (b))" &&
+        !view.leadForms.some((lead) => lead.number === "13" && lead.label === "For your step"),
+    );
   }
   check("the card shows a form's condition beside it", /form\.note \?/.test(readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8")));
+  check(
+    "the card shows the open group under its label, each form with its rule, and never in a <details> fold",
+    /data-testid="next-step-forms-if-papers-claim"[\s\S]{0,200}\{view\.formsIfPapersClaim\.label\}[\s\S]{0,1400}form\.when\.say[\s\S]{0,80}<Source cite=\{form\.when\.cite\}/.test(readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8")) &&
+      !/<details[^>]*next-step-forms-if-papers-claim/.test(readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8")),
+  );
   // Re-check 2026-10-14: the person's side on an either-side step counts too.
   check(
     "on an either-side step the financial-statement limit folds for the mover's parenting words, never for the one responding",
@@ -693,7 +718,8 @@ console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (wal
       if (!view) continue;
       const own = view.forms.filter((form) => form.court === court).map((form) => form.number);
       const claim = view.afterNotice.length > 0 && court !== "family" ? [CLAIM_AFTER_NOTICE[court].form] : [];
-      const want = [...own.map((number) => `${number}:For your step`), ...claim.map((number) => `${number}:After the notice`)];
+      const papers = view.formsIfPapersClaim.forms.filter((form) => form.court === court).map((form) => form.number);
+      const want = [...own.map((number) => `${number}:For your step`), ...papers.map((number) => `${number}:${view.formsIfPapersClaim.label}`), ...claim.map((number) => `${number}:After the notice`)];
       if (view.leadForms.map((lead) => `${lead.number}:${lead.label}`).join() !== want.join()) leadWrong.push(`${stage.id}`);
       if (view.formsIfClaimed.some((form) => view.leadForms.some((lead) => lead.number === form.number))) leadWrong.push(`${stage.id}: folded form leads`);
     }
@@ -751,13 +777,22 @@ console.log("\nWalkthrough run 38525903567, FR: the fees for a parenting-only an
   );
   const affidavit = fr.forms.find((form) => form.number === "35.1");
   check("FR: Form 35.1 is a form for his answer, with r. 35.1 (1) beside it", Boolean(affidavit) && affidavit!.note?.cite.pinpoint === "r. 35.1 (1)");
-  check("FR: Form 13 stays, with r. 13 (1) (b) beside it", fr.forms.some((form) => form.number === "13" && form.note?.cite.pinpoint === "r. 13 (1) (b)"));
+  check(
+    "FR: Form 13 is out of his step's forms and kept, open, under r. 13 (1) (b) (walkthrough run 38593464953)",
+    !fr.forms.some((form) => form.number === "13") && fr.formsIfPapersClaim.forms.some((form) => form.number === "13" && form.when.cite.pinpoint === "r. 13 (1) (b)"),
+  );
   const supportOnly = practicalFor(STEP, "family", "Barrie", true, "she wants more child support")!;
   check("words with no parenting claim: Form 35.1 is folded with its rule, never dropped", !supportOnly.forms.some((form) => form.number === "35.1") && supportOnly.formsIfClaimed.some((form) => form.number === "35.1" && form.when.cite.pinpoint === "r. 35.1 (1)"));
   // The shared reading is unchanged by the information program's stricter test (re-review of 7f2868f).
   for (const words of ["i want my daughter to live with me", "she won't let me see my son"]) {
     const view = practicalFor(STEP, "family", "Barrie", true, words)!;
-    check(`'${words}': Form 35.1 is a form for the answer, the fees are folded, Form 13 stays`, view.forms.some((form) => form.number === "35.1") && Boolean(view.feesIfClaimed) && view.forms.some((form) => form.number === "13"));
+    check(
+      `'${words}': Form 35.1 is a form for the answer, the fees are folded, Form 13 is kept under r. 13 (1) (b)`,
+      view.forms.some((form) => form.number === "35.1") &&
+        Boolean(view.feesIfClaimed) &&
+        [...view.forms, ...view.formsIfPapersClaim.forms].some((form) => form.number === "13") &&
+        !view.formsIfClaimed.some((form) => form.number === "13"),
+    );
   }
   check("no words: Form 35.1 is listed", Boolean(practicalFor(STEP, "family", "Barrie", true)?.forms.some((form) => form.number === "35.1")));
 }
@@ -1037,6 +1072,51 @@ console.log("\n11. An employer named only vaguely: the garnishee and the examina
   check("only a garnishment step shows them", notGarnishing.length === 0, notGarnishing.join(", "));
   const nextStepPracticalUi = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
   check("the card renders them with the person's own words", /data-testid="next-step-garnishee"/.test(nextStepPracticalUi) && /You wrote: “\{view\.garnishee\.quote\}”/.test(nextStepPracticalUi));
+}
+
+/*
+ * Walkthrough run 38593464953, FR limits: his story says the mother "wants to
+ * move to ottawa with her"; Form 35.1 said "We cannot fill this one in for
+ * you yet", and nothing said the site has no guidance on the move itself or
+ * where to turn. Where the person's own words raise a topic the site has no
+ * guidance for, one plain line says so, with the help pointer. Only when the
+ * words raise it, and the line states no law.
+ */
+console.log("\nFR limits: a topic the story raises and the site does not cover is said plainly, with help");
+{
+  const FR = "my ex gf took me to court for custody of our daugter, i got served the papers last week. she wants sole custody and wants to move to ottawa with her. i want joint custody and to keep my time with her.";
+  const raises = [
+    FR,
+    'my ex took me to court for custody {"issues":["relocation"]}',
+    "she plans to relocate with the kids to Alberta",
+    "he is moving away with our son",
+    "she wants to take our daughter to live in Calgary",
+  ];
+  const doesNot = [
+    "my ex gf took me to court for custody of our daugter, i got served the papers last week. i want joint custody.",
+    "i moved out last year and she kept the house",
+    "i am moving on and want joint custody",
+    "she moved in with her new boyfriend",
+    "we are moving to a new apartment next month",
+    "",
+  ];
+  const gaps = (words: string) => guidanceGapsFor("family", words).map((gap) => gap.id);
+  check("words that raise moving with a child bring the relocation line", raises.every((words) => gaps(words).includes("relocation")), raises.filter((words) => !gaps(words).includes("relocation")).join(" | "));
+  check("words that do not, bring nothing", doesNot.every((words) => gaps(words).length === 0), doesNot.filter((words) => gaps(words).length > 0).join(" | "));
+  check("only for a court whose guidance this is (not civil or Small Claims)", guidanceGapsFor("civil", FR).length === 0 && guidanceGapsFor("small-claims", FR).length === 0);
+  const line = guidanceGapsFor("family", FR)[0];
+  check("the line says plainly that the site has no guidance on moving with a child", Boolean(line) && /^We do not have\b/.test(line.say) && /moving with a child/.test(line.say) && /yet\.$/.test(line.say));
+  check(
+    "it states no law and grades nothing (no rule, deadline, must, chances)",
+    Boolean(line) &&
+      [line.say, line.why, line.helpHeading].every((text) => !/\b(?:must|shall|law says|rule|section|s\.\s*\d|r\.\s*\d|days?|deadline|likely|unlikely|chance|strong|weak|win|lose)\b/i.test(text)),
+  );
+  const ui = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
+  check(
+    "the card and the Forms page show it, with the help pointer (GetHelp) under it",
+    /guidanceGapsFor\(court, story\)\.map\(/.test(ui) && /data-testid="guidance-gap"[\s\S]{0,300}\{gap\.say\}[\s\S]{0,120}<GetHelp\b[^>]*heading=\{gap\.helpHeading\}/.test(ui) &&
+      /<NextStepPractical\b/.test(readFileSync(path.join(ROOT, "app", "cases", "[id]", "forms", "page.tsx"), "utf8")),
+  );
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

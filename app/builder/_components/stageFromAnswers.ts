@@ -51,9 +51,12 @@ export type PersonAnswers = {
   defenceFiled?: boolean;
   /** Small Claims guided: the words of the filing answer, as they gave or confirmed them. */
   filingAnswerText?: string;
+  /** Family: "What would you like to happen?", as they answered or confirmed it (motionToChange.ts answerStatesWishToChange). */
+  goal?: string;
 };
 
-export type StageFromAnswers = { stage: Extract<UniversalStage, "starting-case" | "responding">; because: string };
+/** "motion": the person's own answer states their wish to change an order they have (motionToChange.ts stageFromAnsweredWish). */
+export type StageFromAnswers = { stage: Extract<UniversalStage, "starting-case" | "responding" | "motion">; because: string };
 
 const short = (text: string) => {
   const cleaned = text.replace(/\s+/g, " ").trim();
@@ -138,6 +141,7 @@ export function personAnswersOf(extra: unknown): PersonAnswers | null {
     ...(typeof raw.claimFiled === "boolean" ? { claimFiled: raw.claimFiled } : {}),
     ...(typeof raw.defenceFiled === "boolean" ? { defenceFiled: raw.defenceFiled } : {}),
     ...(typeof raw.filingAnswerText === "string" ? { filingAnswerText: raw.filingAnswerText } : {}),
+    ...(typeof raw.goal === "string" && raw.goal.trim() ? { goal: raw.goal } : {}),
   };
 }
 

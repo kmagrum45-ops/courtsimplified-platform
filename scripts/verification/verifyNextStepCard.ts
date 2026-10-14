@@ -837,6 +837,25 @@ async function main() {
       "the card shows the fold with its condition and the note inside it",
       /data-testid="next-step-mip-fold"[\s\S]{0,600}more than child or spousal support[\s\S]{0,600}data-testid="next-step-mip-note"/.test(panel),
     );
+    // Walkthrough run 38593464953, FM and FR onTopic: "Attend the mandatory
+    // information program" (folded as not applying, r. 8.1 (1) para. 6) and
+    // "If the application or your answer has a property claim" (folded for a
+    // parenting-only respondent) sat above the Form 15 / answer instruction.
+    // Every fold on the card comes after the main step -- its instruction,
+    // its forms, filing and serving (NextStepPractical) and the not-listed
+    // line -- never above it, whatever folds are added later.
+    const cardSource = panel.slice(panel.indexOf("function NextStepCard("), panel.indexOf("export function cardShowsLead"));
+    const mainStep = ["{firstParagraph ? <p", "<NextStepPractical", 'data-testid="next-step-not-listed"'].map((marker) => cardSource.indexOf(marker));
+    const folds = [...cardSource.matchAll(/<details data-testid="(next-step-[\w-]+)"/g)].map((match) => ({ id: match[1], at: match.index ?? -1 }));
+    check(
+      "every fold on the next-step card comes after the main step (instruction, forms, filing, serving), never above it",
+      mainStep.every((at) => at > 0) && folds.length >= 3 && folds.every((fold) => mainStep.every((at) => fold.at > at)),
+      JSON.stringify({ mainStep, folds }),
+    );
+    check(
+      "the program fold and the not-claimed fold are among them",
+      ["next-step-mip-fold", "next-step-not-claimed", "next-step-conditional"].every((id) => folds.some((fold) => fold.id === id)),
+    );
   }
 
   {

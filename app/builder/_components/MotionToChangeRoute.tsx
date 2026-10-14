@@ -3,7 +3,7 @@
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
 
-import { routeShown, type MotionToChangeLead, type ReadingChoice } from "./motionToChange";
+import { ANSWERED_WISH_READING, routeShown, type MotionToChangeLead, type ReadingChoice } from "./motionToChange";
 
 /**
  * "How do I change my order?" answered in one plain line, with the subrules it
@@ -18,15 +18,22 @@ import { routeShown, type MotionToChangeLead, type ReadingChoice } from "./motio
  * The answer lives on the page, which saves it to the case position and
  * hides the temporary-motion card only on a confirmed route that replaces it
  * (re-review 2026-10-14).
+ *
+ * Answered by their own answer (`answeredByAnswer`, motionToChange.ts
+ * readingAnsweredByAnswer; FM, run 38593464953): no question, only
+ * "From your answer: you want the court to change the order · Change" above
+ * the route. Change puts the question back.
  */
 export default function MotionToChangeRoute({
   lead,
   choice,
   onChoose,
+  answeredByAnswer = false,
 }: {
   lead: MotionToChangeLead;
   choice: ReadingChoice;
   onChoose: (choice: ReadingChoice) => void;
+  answeredByAnswer?: boolean;
 }) {
   const setChoice = onChoose;
   const shown = routeShown(lead, choice);
@@ -82,6 +89,14 @@ export default function MotionToChangeRoute({
 
   return (
     <section data-testid="motion-to-change-route" data-kind={shown.kind} className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm">
+      {answeredByAnswer && shown.kind === "asking" ? (
+        <p data-testid="motion-to-change-from-answer" className="mb-2 text-sm leading-6 text-[#16302b]">
+          From your answer: {ANSWERED_WISH_READING} ·{" "}
+          <button type="button" onClick={() => setChoice(null)} className="font-semibold text-[#2f7d67] underline">
+            Change
+          </button>
+        </p>
+      ) : null}
       <h2 className="text-lg font-bold text-[#10231f]">{shown.heading}</h2>
       <p className="mt-2 text-base font-semibold leading-7 text-[#16302b]">{shown.line}</p>
       <ul className="mt-3 space-y-3 text-sm leading-6 text-[#24463d]">
@@ -101,9 +116,11 @@ export default function MotionToChangeRoute({
           );
         })}
       </ul>
-      <button type="button" onClick={() => setChoice(null)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">
-        Change this
-      </button>
+      {answeredByAnswer && shown.kind === "asking" ? null : (
+        <button type="button" onClick={() => setChoice(null)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">
+          Change this
+        </button>
+      )}
     </section>
   );
 }
