@@ -29,7 +29,7 @@ function sentences(story: string): string[] {
  * want to sue", "should i sue", "what do i need".
  */
 const HEDGE_BEFORE =
-  /\b(?:if|whether|what|how|when|where|why|which|who|know|sure|wonder(?:ing)?|thinking (?:about|of)|considering|should|could|would|might|can|do|does|did|worried|afraid|scared|maybe|unless)\b[^,;]*$/i;
+  /\b(?:if|whether|what|how|when|where|why|which|who|know|sure|wonder(?:ing)?|thinking (?:about|of)|think|believe|guess|suppose|assume|probably|considering|should|could|would|might|can|do|does|did|worried|afraid|scared|maybe|unless)\b[^,;]*$/i;
 
 /** The clause the match sits in, up to the match: from the last comma, semicolon, "and", "but" or "so". */
 function clauseBefore(sentence: string, index: number): string {
@@ -63,7 +63,7 @@ function plainMatch(sentence: string, pattern: RegExp): RegExpExecArray | null {
     if (NOT_SO_BEFORE.test(clause)) continue;
     if (NOT_SO_AFTER.test(sentence.slice((match.index ?? 0) + match[0].length))) continue;
     // "can i sue him?": a question, whatever its words.
-    if (/\?\s*$/.test(sentence) && /^\s*(?:can|could|should|would|will|do|does|is|are|what|how|when|who)\b/i.test(clause)) continue;
+    if (/\?\s*$/.test(sentence) && /^\s*(?:can|could|should|would|will|do|does|did|is|are|am|was|were|have|has|had|what|how|when|who)\b/i.test(clause)) continue;
     return match as RegExpExecArray;
   }
   return null;
@@ -426,18 +426,50 @@ export function servedDateFromStory(story: string): StoryAnswer | null {
  * else served, or "i served my ex"). The person confirms it or answers
  * themselves; nothing is applied unseen.
  */
-const FAMILY_APPLICATION_AGAINST_ME = new RegExp(
+/*
+ * The family reader is for a family case only (review 2026-10-13): the other
+ * side is the person's ex, spouse or the child's other parent -- never "the
+ * landlord filed an application at the ltb", "the company filed an
+ * application against my friend".
+ */
+const FAMILY_PERSON =
+  "(?:he|she|my (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner|spouse))?|wife|husband|partner|spouse|common[- ]law (?:wife|husband|partner)|(?:sons?|daughters?|kids?|child|children|baby)'?s? (?:mom|mother|dad|father))|the other parent|the (?:child'?s|kids'?|children'?s) (?:mom|mother|dad|father))";
+const FAMILY_STARTED = new RegExp(
   [
-    // "i got served", "i was served the papers", "a process server gave me court papers"
-    SERVED_WORDS.source,
     "\\btook me to court\\b",
     "\\btaking me to court\\b",
     "\\bstarted a (?:court |family )?case against me\\b",
-    `\\b${OTHER_PERSON} (?:started|opened|filed|brought) (?:a |an )?(?:court |family )?(?:case|application)\\b`,
+    `\\b${FAMILY_PERSON} (?:started|opened|filed|brought) (?:a |an )?(?:court |family )?(?:case|application)\\b`,
+    `\\b${FAMILY_PERSON} filed for (?:divorce|custody|support|child support|spousal support)\\b`,
     "\\b(?:filed|brought) (?:a |an )?(?:case|application) against me\\b",
   ].join("|"),
   "i",
 );
+/** Not a family court case: a tribunal, an eviction, someone else's case. */
+const NOT_FAMILY_COURT =
+  /\b(?:ltb|lrb|board|tribunal|hrto|evict\w*|jury|summons|complaint|statement of claim|plaintiff'?s? claim|plaintifs claim|small claims)\b|\bagainst my (?!self\b)\w+|\bby (?:the|a|my) (?:bank|company|city|landlord|employer|boss|contractor|business|store|insurer)\b/i;
+/** A court paper named after the served words: "the papers", "an application", "divorce papers". */
+const COURT_PAPER = /\b(?:papers?|application|claim|documents?|court|divorce|custody|support|motion|forms?)\b/i;
+/** Only when, after the served words: "last week", "yesterday", "on october 2". */
+const ONLY_WHEN = /^[\s,]*(?:(?:last|this|on|in|yesterday|today|a few|two|three|four|\d+|about|around|just|already|at home|at my (?:house|home|door))\b[^.!?]*)?[.!]?\s*$/i;
+
+/** The sentence saying the person was served with family papers, or the other parent started a case. */
+function familyApplicationQuote(story: string): string | null {
+  for (const sentence of sentences(story)) {
+    if (NOT_FAMILY_COURT.test(sentence)) continue;
+    if (plainMatch(sentence, FAMILY_STARTED)) return sentence;
+    const served = plainMatch(sentence, SERVED_WORDS);
+    if (!served) continue;
+    const after = sentence.slice((served.index ?? 0) + served[0].length);
+    // "i received the papers from my lawyer" is their own lawyer's copy, not service.
+    if (/\bfrom (?:my|our) (?:own )?(?:lawyer|paralegal|legal aid|duty counsel)\b/i.test(sentence)) continue;
+    // Served with what: a court paper named in the words themselves or right
+    // after them, or nothing but when ("i got served last week").
+    if (COURT_PAPER.test(served[0]) || COURT_PAPER.test(after.slice(0, 60)) || ONLY_WHEN.test(after)) return sentence;
+  }
+  return null;
+}
+
 const FAMILY_ANSWER_FILED = /\bi (?:filed|served|did|sent in|submitted) my (?:answer|response)\b/i;
 const CIVIL_CLAIM_RECEIVED =
   /\b(?:(?:i|we)(?:'ve|ve| have| had)?(?: just)?(?: (?:got|get|was|were|been|getting))+(?: just)?(?: served)?(?: with)? (?:a |the |his |her |their )?statement of claim|served me (?:with )?(?:a |the )?statement of claim|i (?:just )?received (?:a |the )?statement of claim)\b/i;
@@ -448,28 +480,40 @@ const CIVIL_CLAIM_RECEIVED =
  * mentions a claim, letter, notice or order gives nothing (the person says).
  */
 const WANT_TO_START = /\bi (?:want|need|would like|plan|am going|'m going|m going) to (?:sue|take (?:him|her|them|my \w+(?: \w+)?|the \w+(?: \w+)?) to court|start a (?:court |family )?case|file (?:a |an )?(?:claim|application)|apply to (?:the )?court)\b/i;
+/*
+ * Any word of a paper or a legal process, outside the "i want to sue" words
+ * (review 2026-10-13: "we were in court last year", "the court already
+ * dismissed my first case", "my ex already has a case open", "we were at the
+ * ltb", "there's a cas file open", "he sent me a demand", "change the custody
+ * arrangement from 2022"). Any one of them, and "nothing filed" is not offered.
+ */
 const ANY_PAPER =
-  /\b(?:filed|filing|served|serve|issued|papers?|claim|statement|application|answer|defen[cs]e|notice|letter|order|judgment|hearing|court date|conference|motion|lawyer|paralegal|summons|forms?|sued|suing|started|court file)\b/i;
+  /\b(?:filed|filing|files?|served|serve|issued|papers?|claims?|statement|application|answer|defen[cs]e|notice|letter|orders?|judg(?:e)?ment|judge|hearing|court|cases?|dismissed|tribunal|board|ltb|lrb|hrto|cas|children'?s aid|demand|arrangement|change|changed|agreement|conference|motion|mediation|lawyer|paralegal|summons|police|charged|forms?|sued|suing|started|court file)\b/i;
 
 type FiledAnswer = { value: string[]; quote: string };
+
+const TRAILING_DOUBT = /\b(?:i think|i guess|i believe|i suppose|not sure|maybe|probably|i'?m not certain)\b/i;
 
 function filedFromStory(story: string, court: "family" | "civil"): FiledAnswer | null {
   const values: string[] = [];
   const quotes: string[] = [];
   const add = (value: string, quote: string | null) => {
-    if (!quote) return;
+    // A question or a doubt anywhere in the sentence is not a statement:
+    // "i filed my answer late? not sure", "i got served i think".
+    if (!quote || /\?/.test(quote) || TRAILING_DOUBT.test(quote)) return;
     values.push(value);
     if (!quotes.includes(quote)) quotes.push(quote);
   };
   if (court === "family") {
-    add("application", firstPlain(story, FAMILY_APPLICATION_AGAINST_ME));
+    add("application", familyApplicationQuote(story));
     add("answer", firstPlain(story, FAMILY_ANSWER_FILED));
   } else {
     add("statement-claim", firstPlain(story, CIVIL_CLAIM_RECEIVED));
   }
   if (values.length) return { value: values, quote: quotes.join(" ") };
   const wanting = firstPlain(story, WANT_TO_START);
-  if (!wanting) return null;
+  // "i want to sue him? or should i wait": a question is not a statement.
+  if (!wanting || /\?/.test(wanting)) return null;
   // Any other word about papers, once the "i want to sue" words are taken out.
   const rest = story.replace(new RegExp(WANT_TO_START.source, "gi"), " ");
   if (ANY_PAPER.test(rest) || /\bi(?:'m| am|m)? (?:sued|suing)\b|\bim suing\b/i.test(rest)) return null;

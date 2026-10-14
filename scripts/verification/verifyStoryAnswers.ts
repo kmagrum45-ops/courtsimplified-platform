@@ -424,6 +424,9 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     ["civil-defendant-served (served a statement of claim)", civilField, story("civil-defendant-served"), "statement-claim"],
     ["civil-plaintiff-municipal-slip (wants to sue, nothing mentioned)", civilField, story("civil-plaintiff-municipal-slip"), "nothing"],
     ["'my ex started a case and i filed my answer'", familyField, "my ex started a case for child support in june and i filed my answer", "answer"],
+    ["'i got served with divorce papers'", familyField, "i got served with divorce papers", "application"],
+    ["'she filed for custody'", familyField, "she filed for custody", "application"],
+    ["'i got served last week'", familyField, "i got served last week", "application"],
   ];
   for (const [name, field, text, value] of mustOffer) check(`${name}: offers '${value}'`, values(offered(field, text)).includes(value), JSON.stringify(offered(field, text)));
 
@@ -445,9 +448,40 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     "i sued my landlord and now i want to sue the city too",
     "i want to sue my landlord. he filed something at the board",
     "he stopped showing up. i want my money back", // wanting money is not saying nothing was sent
+    // Independent review 2026-10-13: "nothing filed" beside any legal process,
+    // and a question.
+    "i want to take my ex to court. we were in court last year and the judge gave her custody",
+    "i want to sue him again, the court already dismissed my first case",
+    "i want to start a case. my ex already has a case open",
+    "i want to sue him. he has a case against me at the tribunal",
+    "i want to sue him. we were at the ltb last month",
+    "i want to apply to court to change the custody arrangement from 2022",
+    "i want to start a family case. there's a cas file open",
+    "i want to sue. he sent me a demand",
+    "i want to sue him? or should i wait",
+    // ... and "served" as a question, a doubt, not family, not court papers,
+    // or their own lawyer's copy.
+    "have i been served?",
+    "was i served?",
+    "i think i was served",
+    "i believe i was served",
+    "i guess i got served",
+    "has the application been filed? i got served i think",
+    "i filed my answer late? not sure",
+    "the landlord filed an application at the ltb",
+    "my landlord filed an application to evict me",
+    "the company filed an application against my friend",
+    "i was served at the restaurant",
+    "i was served with a summons for jury duty",
+    "i was served a noise complaint by my landlord",
+    "i received the papers from my lawyer",
   ];
   for (const text of none) {
     check(`nothing offered as filed from '${text}'`, offered(familyField, text) === null && offered(civilField, text) === null, `${JSON.stringify(offered(familyField, text))} / ${JSON.stringify(offered(civilField, text))}`);
+  }
+  // A civil paper is not a family application (review 2026-10-13).
+  for (const text of ["we were served a statement of claim by the bank", "i got served a statement of claim"]) {
+    check(`family: no application offered from '${text}'`, offered(familyField, text) === null, JSON.stringify(offered(familyField, text)));
   }
   // An option the form does not list is never offered.
   const narrow = familyGuidedFields({ issues: [], filed: [{ value: "answer", label: "Answer" }] }).find((item) => item.key === "filedDocuments") as GuidedField;
