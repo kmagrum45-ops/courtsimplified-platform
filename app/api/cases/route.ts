@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { DOCUMENT_BUCKET, caseObjectPaths, removeObjects } from "@/src/lib/case-workspace/caseFileCleanup";
+import { recordServerError } from "@/src/lib/monitoring/serverErrorLog";
 
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
@@ -407,6 +409,14 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
+    // The case's files are collected BEFORE the row goes (its document rows
+    // cascade with it), and removed after (caseFileCleanup.ts).
+    const bucket = supabase.storage.from(DOCUMENT_BUCKET);
+    const objectPaths = await caseObjectPaths(bucket, async (table, caseId, userId) => {
+      const { data: rows } = await supabase.from(table).select("storage_path").eq("case_id", caseId).eq("user_id", userId);
+      return ((rows ?? []) as { storage_path?: string | null }[]).map((row) => row.storage_path ?? "").filter(Boolean);
+    }, user.id, id);
+
     const { data, error } = await supabase
       .from("cases")
       .delete()
@@ -414,6 +424,13 @@ export async function DELETE(req: NextRequest) {
       .eq("user_id", user.id)
       .select("id")
       .maybeSingle();
+
+    if (!error && data && objectPaths.length > 0) {
+      const failed = await removeObjects(bucket, objectPaths);
+      if (failed > 0) {
+        await recordServerError(new Error(`case delete: ${failed} of ${objectPaths.length} stored file(s) could not be removed`), { path: "/api/cases", method: "DELETE" }, { routePath: "/api/cases", routeType: "route" });
+      }
+    }
 
     if (error) {
       return NextResponse.json(
