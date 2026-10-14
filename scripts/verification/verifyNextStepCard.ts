@@ -750,7 +750,7 @@ async function main() {
       { deadlines: [{ id: "deadline:issue-defendants-claim-20-days:defence-filed", what: "If you want to make a defendant's claim (Form 10A), it can be issued without the court's leave", date: "2026-10-15", statement: "" }], periods: [] },
       null, true, "", "", "defendant:defence-filed",
     );
-    check("an issue-only limit (a defendant's claim) times nothing", issue.filing === "" && issue.serving === "");
+    check("a defendant's claim (filed to be issued) times the filing line only, never the mail timing", issue.filing === "2026-10-15" && issue.serving === "");
     const panel = readFileSync(path.resolve(__dirname, "../../app/builder/_components/StageAnswerPanel.tsx"), "utf8");
     // Walkthrough run 38525903567 (SJ): a leave threshold leads only when it is near.
     const thresholdSummary = (date?: string) => ({
@@ -789,8 +789,8 @@ async function main() {
     check("the rule beside a guide-proved sentence is shown under the card's lead and under its section", (panel.match(/<SentenceRulesBox entries=/g) ?? []).length === 2);
     check(
       "the card times its practical lines with that day and Ontario's today",
-      /practicalFor\([^)]*\{ deadline: filingDeadline\.filing, serveBy: filingDeadline\.serving, today \}\)/.test(panel) &&
-        /<NextStepPractical[^>]*deadline=\{filingDeadline\.filing\} serveBy=\{filingDeadline\.serving\} today=\{today\}/.test(panel),
+      /practicalFor\([^)]*\{ deadline: filingDeadline\.filing, serveBy: filingDeadline\.serving, today, divisionalOnly: filingDeadline\.divisionalOnly \}\)/.test(panel) &&
+        /<NextStepPractical[^>]*deadline=\{filingDeadline\.filing\} serveBy=\{filingDeadline\.serving\} divisionalOnly=\{filingDeadline\.divisionalOnly\} today=\{today\}/.test(panel),
     );
   }
 

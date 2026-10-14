@@ -448,8 +448,12 @@ console.log("\nThe company route only for a company; the year said plainly (walk
     ["I sued my former landlord, a property management outfit", "plaintiff:claim-issued-not-served", false],
     ["I'm suing my ex boss at the restaurant", "plaintiff:claim-issued-not-served", false],
   ];
+  probes.push(
+    ["I'm suing my neighbour and my landlord over the flood", "plaintiff:claim-issued-not-served", false],
+    ["I'm suing my roommate and ABC Renovations Inc.", "plaintiff:claim-issued-not-served", false],
+  );
   const misread = probes.filter(([words, stageId, responding]) => servedOnFor(words, stageId, responding).company === false).map(([words]) => words);
-  check("never 'individual' for a business owner, a landlord, or an ex boss (five probes)", misread.length === 0, misread.join(" | "));
+  check("never 'individual' for a business owner, a landlord, an ex boss, or several parties one of which is a landlord or a business (seven probes)", misread.length === 0, misread.join(" | "));
   check("'my ex' on its own, and 'my ex-wife', are individuals", servedOnFor("I am suing my ex for the car", "plaintiff:claim-issued-not-served", false).company === false && servedOnFor("I am suing my ex-wife", "plaintiff:claim-issued-not-served", false).company === false);
   check("a numbered company named as the other side is a company", servedOnFor("I am suing 1234567 Ontario Inc.", "plaintiff:claim-issued-not-served", false).company === true);
   // Every lookup of a way on the panel uses the same list, so a detected or saved route always has its option.

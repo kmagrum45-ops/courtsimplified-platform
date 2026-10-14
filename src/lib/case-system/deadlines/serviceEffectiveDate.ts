@@ -415,7 +415,11 @@ export function partyServedFrom(words: string, personWasServed: boolean): Served
   }
   // The other side: a business name or word makes it a company; a named relationship to a person makes it an individual.
   const withoutMine = text.replace(MY_BUSINESS, " ");
-  if (BUSINESS_WORDS.test(withoutMine)) return { company: true };
+  const business = BUSINESS_WORDS.test(withoutMine);
+  // Several parties named, one of them a landlord or a business: not known (third review).
+  if (business && A_PERSON.test(text)) return {};
+  if (business) return { company: true };
+  if (/\b(?:landlord|tenant|property manag\w*)\b/i.test(text)) return {};
   return A_PERSON.test(text) ? { company: false } : {};
 }
 

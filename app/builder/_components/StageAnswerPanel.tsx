@@ -49,6 +49,7 @@ import {
   noticesNarrowed,
   practicalFor,
   personDeadlineOf,
+  filingDeadlineDivisionalOnly,
   todayInOntario,
   type PlainLine,
   type PracticalCourt,
@@ -432,13 +433,13 @@ export function cardFilingDeadline(
   userWords: string,
   city: string,
   stepId: string,
-): { filing: string; serving: string } {
+): { filing: string; serving: string; divisionalOnly: boolean } {
   const { main } = cardLimits(summary, responding, userWords, city, stepId);
   const counted = [
     ...main.deadlines.map((item) => ({ id: item.id, date: item.date })),
     ...[...(arrival?.safest ?? []), ...(arrival?.latest ?? [])].map((item) => ({ id: item.id, date: item.iso })),
   ];
-  return { filing: personDeadlineOf(counted, "files"), serving: personDeadlineOf(counted, "serves") };
+  return { filing: personDeadlineOf(counted, "files"), serving: personDeadlineOf(counted, "serves"), divisionalOnly: filingDeadlineDivisionalOnly(counted) };
 }
 
 /**
@@ -485,7 +486,7 @@ function NextStepCard({
   const today = todayIso();
   // The counted last day the filing and service lines are timed against (walkthrough run 38525903567, SD).
   const filingDeadline = cardFilingDeadline(summary, arrival, responding, userWords, city, stepId);
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today });
+  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today, divisionalOnly: filingDeadline.divisionalOnly });
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   // The answer's first paragraph speaks of every notice the step covers; once
   // the notice filter has narrowed them, the card leaves it to the full
@@ -717,7 +718,7 @@ function NextStepCard({
       {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} today={today} /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the

@@ -45,6 +45,7 @@ export default function NextStepPractical({
   noticeStepId = "",
   deadline = "",
   serveBy = "",
+  divisionalOnly = false,
   today = "",
 }: {
   stepId: string;
@@ -59,10 +60,12 @@ export default function NextStepPractical({
   deadline?: string;
   /** The person's own serving deadline, for the mail timing (personDeadlineOf). */
   serveBy?: string;
+  /** The filing deadline is an appeal step the guide covers only in the Divisional Court. */
+  divisionalOnly?: boolean;
   today?: string;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today });
+  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly });
   if (!view) return null;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">

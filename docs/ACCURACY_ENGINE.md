@@ -2341,8 +2341,12 @@ content hash -- promote a candidate instead.
   deadline, serveBy, today })`). This caught me: the first cut took the card's earliest
   counted day, and the court's 90-day settlement-conference target became "your last
   day ... cannot file online", and a defendant's claim's 20 days to be ISSUED got mail
-  timing. Never time these against a "the court holds" period, a leave threshold, an
-  issue-only limit or the other side's time. A motion to be made and a request filed with
+  timing. Never time these against a "the court holds" period, a leave threshold or the
+  other side's time, and never mail-time a claim the court issues: it is FILED to be
+  issued (third review of the lists: the defendant's claim, r. 10.01 (2) (a), and a third
+  party claim, r. 29.02 (1), time the filing line only). A r. 61 appeal step may be in
+  the Court of Appeal, which the civil guide does not cover, so it is said as "if your
+  appeal is in the Divisional Court" beside the portal lines. A motion to be made and a request filed with
   the clerk ARE filing deadlines (re-review of 6a0fce6: the 30-day motion after a missed
   trial showed no warning). Every Small Claims and civil deadline must be either listed
   or in `NOT_TIMED` with its reason: test:next-step-practical fails on an unclassified one,

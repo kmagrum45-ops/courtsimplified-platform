@@ -447,13 +447,18 @@ const CIVIL_TOO_CLOSE_CITE = cite(
  * mail, email); the civil guide names none, so the civil line says to ask
  * the court office. Family's saved pages state no business-day limit: null.
  */
-export function tooCloseFilingLine(court: PracticalCourt, today: string, deadline: string): PlainLine | null {
+export function tooCloseFilingLine(court: PracticalCourt, today: string, deadline: string, divisionalOnly = false): PlainLine | null {
   if (court === "family" || !tooCloseToFileOnline(today, deadline)) return null;
   const fewer = court === "civil" ? "fewer" : "less";
-  // Hedged when the answer turns on a weekday holiday.
-  const when = tooCloseOnlyByHoliday(today, deadline)
-    ? `Your last day, ${formatLongDate(deadline)}, may be 3 business days away or ${fewer}, depending on whether a holiday in between counts as a business day. If it does not, you cannot file online for it`
-    : `Your last day, ${formatLongDate(deadline)}, is 3 business days away or ${fewer}, so you cannot file online for it`;
+  const last = `${divisionalOnly && court === "civil" ? "If your appeal is in the Divisional Court, your" : "Your"} last day, ${formatLongDate(deadline)},`;
+  // Hedged when the answer turns on a weekday holiday: "If so, file it ... instead" (third review).
+  if (tooCloseOnlyByHoliday(today, deadline)) {
+    const when = `${last} may be 3 business days away or ${fewer}, depending on whether a holiday in between counts as a business day, and the portal cannot be used for a deadline that close.`;
+    return court === "small-claims"
+      ? { say: `${when} If so, file it in person at the courthouse, by mail or by email instead.`, cite: SC_TOO_CLOSE_CITE }
+      : { say: `${when} If so, file it another way instead: the court office can tell you how.`, cite: CIVIL_TOO_CLOSE_CITE };
+  }
+  const when = `${last} is 3 business days away or ${fewer}, so you cannot file online for it`;
   return court === "small-claims"
     ? { say: `${when}. File it in person at the courthouse, by mail or by email instead.`, cite: SC_TOO_CLOSE_CITE }
     : { say: `${when}. The court office can tell you how to file it instead.`, cite: CIVIL_TOO_CLOSE_CITE };
@@ -609,7 +614,6 @@ const CIVIL_FILES: string[] = [
 const CIVIL_NOT_TIMED: Record<string, string> = {
   "deadline:civil:schedule-pretrial-180-days": "met by booking a date with the registrar, not by filing a document",
   "deadline:civil:adverse-party-witness-10-days": "met by serving a summons to witness on the person, not by filing",
-  "deadline:civil:after-lawyer-removed-30-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
   "deadline:civil:appeal-associate-judge-7-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
   "deadline:civil:business-records-notice-7-days": "met by giving notice to a party (or the mediator), not by filing with the court",
   "deadline:civil:cross-appeal-15-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
@@ -633,7 +637,6 @@ const CIVIL_NOT_TIMED: Record<string, string> = {
   "deadline:civil:offer-to-settle-7-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
   "deadline:civil:practitioner-report-notice-10-days": "met by giving notice to a party (or the mediator), not by filing with the court",
   "deadline:civil:renew-writ-six-years": "met at the sheriff's enforcement office, not by filing in the court file",
-  "deadline:civil:respond-to-amended-pleading": "its words name no document to file; what the response is depends on the pleading",
   "deadline:civil:response-to-request-to-admit-20-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
   "deadline:civil:serve-claim-six-months": "met by serving a document on a party; nothing is filed with the court by this deadline",
   "deadline:civil:serve-claim-six-months:failed-service": "met by serving a document on a party; nothing is filed with the court by this deadline",
@@ -649,8 +652,6 @@ const CIVIL_NOT_TIMED: Record<string, string> = {
   "deadline:civil:simplified-settlement-discussion:served-with-counterclaim": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
   "deadline:civil:simplified-trial-management-plan-30-days": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
   "deadline:civil:supplementary-expert-report-45-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
-  "deadline:civil:third-party-claim-10-days": "issue-only: met when the court issues the claim (review of bee9daf excluded issue-only limits)",
-  "deadline:civil:third-party-claim-10-days:defence-delivered": "issue-only: met when the court issues the claim (review of bee9daf excluded issue-only limits)",
   "deadline:civil:undertakings-60-days": "met by answering the undertaking to the other party, not by filing",
   "deadline:civil:undertakings-60-days:simplified": "met by answering the undertaking to the other party, not by filing",
   "deadline:civil:crown-notice-60-days": "a notice given before suing, outside the court; nothing is filed with the court",
@@ -675,8 +676,6 @@ const SC_NOT_TIMED: Record<string, string> = {
   "deadline:settlement-conference-90-days:defendant": "the court's own timing for the settlement conference, not the person's",
   "deadline:sc-enforce-six-years-leave": "a leave threshold, not a time to serve or file",
   "deadline:sc-enforce-six-years-leave:default-judgment": "a leave threshold, not a time to serve or file",
-  "deadline:issue-defendants-claim-20-days": "issue-only: met when the clerk issues the claim (review of bee9daf excluded issue-only limits)",
-  "deadline:issue-defendants-claim-20-days:defence-filed": "issue-only: met when the clerk issues the claim (review of bee9daf excluded issue-only limits)",
   "deadline:trial-summons-10-days": "a summons is served personally (r. 8.01 (7)) and is not filed",
   "deadline:trial-summons-10-days:defendant": "a summons is served personally (r. 8.01 (7)) and is not filed",
   "deadline:set-aside-as-soon-as-possible": "the rule sets no fixed period, so no day is ever counted",
@@ -699,8 +698,47 @@ const DISMISSAL_REQUESTS = [
   "deadline:dismissal-for-delay-two-years",
 ];
 
+/*
+ * Third review of the lists (96057cc):
+ *   - a claim the court ISSUES is filed to be issued, and online review takes
+ *     up to 3 business days, so the defendant's claim (r. 10.01 (2) (a)) and a
+ *     third party claim (r. 29.02 (1)) time the filing line -- never the mail
+ *     timing (issuing is not serving);
+ *   - after a lawyer is removed, the client's Form 15B or 15C is served AND
+ *     filed with proof of service (r. 15.04 (16) refers to r. 15.03 (2), (3):
+ *     "serving on every other party and filing, with proof of service");
+ *   - responding to an amended pleading (r. 26.05 (1)) is delivering a
+ *     pleading, which is filing.
+ */
+const ALSO_FILES = [
+  "deadline:issue-defendants-claim-20-days",
+  "deadline:issue-defendants-claim-20-days:defence-filed",
+  "deadline:civil:third-party-claim-10-days",
+  "deadline:civil:third-party-claim-10-days:defence-delivered",
+  "deadline:civil:after-lawyer-removed-30-days",
+  "deadline:civil:respond-to-amended-pleading",
+];
+
+/*
+ * Appeals under r. 61 go to the Court of Appeal OR the Divisional Court, and
+ * the saved civil guide covers "civil and Divisional Court cases" only. These
+ * time the filing line only as "if your appeal is in the Divisional Court",
+ * with the portal lines kept. (The r. 61.03.1 leave motion and the r. 62.01
+ * associate-judge appeal are in the Divisional Court or the Superior Court
+ * and stay as they are.)
+ */
+export const DIVISIONAL_COURT_ONLY: ReadonlySet<string> = new Set([
+  "deadline:civil:file-notice-of-appeal-10-days",
+  "deadline:civil:perfect-appeal-no-transcript-30-days",
+  "deadline:civil:perfect-appeal-with-transcript-60-days",
+  "deadline:civil:respondent-certificate-15-days",
+  "deadline:civil:respondent-factum-60-days",
+  "deadline:civil:transcript-ordered-30-days",
+]);
+
 export const PERSON_SERVE_OR_FILE: Record<string, { files: boolean; serves: boolean }> = {
   ...Object.fromEntries(CIVIL_FILES.map((id) => [id, { files: true, serves: false }])),
+  ...Object.fromEntries(ALSO_FILES.map((id) => [id, { files: true, serves: false }])),
   ...Object.fromEntries(DISMISSAL_REQUESTS.map((id) => [id, { files: true, serves: false }])),
   "deadline:set-aside-after-missed-trial": { files: true, serves: false },
   "deadline:new-trial-motion": { files: true, serves: false },
@@ -733,6 +771,12 @@ export function personDeadlineOf(items: readonly { id?: string; date: string }[]
     .filter((item) => item.id && PERSON_SERVE_OR_FILE[item.id]?.[kind] && /^\d{4}-\d{2}-\d{2}$/.test(item.date))
     .map((item) => item.date)
     .sort()[0] ?? "";
+}
+
+/** Whether the person's earliest filing deadline is one the guide covers only in the Divisional Court (any of them, on a tie). */
+export function filingDeadlineDivisionalOnly(items: readonly { id?: string; date: string }[]): boolean {
+  const date = personDeadlineOf(items, "files");
+  return Boolean(date) && items.some((item) => item.date === date && item.id && PERSON_SERVE_OR_FILE[item.id]?.files && DIVISIONAL_COURT_ONLY.has(item.id));
 }
 
 /**
@@ -2225,7 +2269,7 @@ export function practicalFor(
    * replaces the online-portal lines, and a Small Claims step served the
    * ordinary way gets the mail timing lines.
    */
-  timing: { deadline?: string; serveBy?: string; today?: string } = {},
+  timing: { deadline?: string; serveBy?: string; today?: string; divisionalOnly?: boolean } = {},
 ): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
@@ -2258,7 +2302,8 @@ export function practicalFor(
   const also = alsoFor(step.also ?? [], story, city);
   // `deadline`: the person's own filing deadline; `serveBy`: their own serving deadline (personDeadlineOf).
   const iso = (value?: string) => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value));
-  const tooClose = iso(timing.deadline) && iso(timing.today) ? tooCloseFilingLine(court, timing.today!, timing.deadline!) : null;
+  const tooClose = iso(timing.deadline) && iso(timing.today) ? tooCloseFilingLine(court, timing.today!, timing.deadline!, Boolean(timing.divisionalOnly)) : null;
+  const portalLines = [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more];
   const mailTiming = iso(timing.serveBy) && iso(timing.today) && court === "small-claims" && step.serve === "ordinary" ? mailTimingLines(timing.today!, timing.serveBy!) : [];
   return {
     // On a responding step, Form 13 carries r. 13 (1) (b)'s condition beside it.
@@ -2294,11 +2339,8 @@ export function practicalFor(
               ? FAMILY_NO_STEP_FEE
               : [],
     feeWaiver: fees.length > 0 ? FEE_WAIVER : null,
-    filing: step.files
-      ? tooClose
-        ? [tooClose]
-        : [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]
-      : [],
+    // A Divisional-Court-only line keeps the portal lines: the appeal may be in the Court of Appeal.
+    filing: step.files ? (tooClose ? (timing.divisionalOnly && court === "civil" ? [...portalLines, tooClose] : [tooClose]) : portalLines) : [],
     serving: serviceLines.length > 0 ? [...serviceLines, ...mailTiming, SERVICE[court].proof] : [],
     also,
     garnishee: court === "small-claims" ? garnisheeNotesFor(stepId, story) : null,

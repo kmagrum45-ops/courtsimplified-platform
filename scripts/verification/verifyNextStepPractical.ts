@@ -106,6 +106,8 @@ import {
   personDeadlineOf,
   tooCloseOnlyByHoliday,
   NOT_TIMED,
+  DIVISIONAL_COURT_ONLY,
+  filingDeadlineDivisionalOnly,
   mailTimingLines,
   tooCloseFilingLine,
   tooCloseToFileOnline,
@@ -822,7 +824,7 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
   check(
     "a result that turns on a weekday holiday is hedged ('may be'), in either calendar or both; SD is not",
     tooCloseOnlyByHoliday("2026-07-30", "2026-08-05") && /\bmay be 3 business days away or less\b/.test(civic?.say ?? "") &&
-      /\bmay be 3 business days away or less\b/.test(easter?.say ?? "") && /If it does not, you cannot file online/.test(easter?.say ?? "") &&
+      /\bmay be 3 business days away or less\b/.test(easter?.say ?? "") && /If so, file it in person at the courthouse, by mail or by email instead\./.test(easter?.say ?? "") &&
       !/\bmay be\b/.test(sdFiling[0]?.say ?? ""),
     `${civic?.say} | ${easter?.say}`,
   );
@@ -844,6 +846,15 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
 
   // Only the person's own serve-or-file deadlines time these lines (review of bee9daf).
   const listedWrong: string[] = [];
+  // A listed deadline whose own words do not say "file", and the saved rule that says the document is filed.
+  const FILES_BY_RULE: Record<string, { sourceId: string; quote: string }> = {
+    "deadline:civil:after-lawyer-removed-30-days": {
+      sourceId: "rules-of-civil-procedure",
+      quote: "A party acting in person may appoint a lawyer of record by serving on every other party and filing, with proof of service, a notice of appointment of lawyer (Form 15B)",
+    },
+  };
+  const ruleMissing = Object.entries(FILES_BY_RULE).filter(([, rule]) => !(corpus.get(rule.sourceId) ?? "").includes(flat(rule.quote))).map(([id]) => id);
+  check("r. 15.03 (2): the Form 15B notice is served and filed with proof of service (saved text)", ruleMissing.length === 0 && (corpus.get("rules-of-civil-procedure") ?? "").includes(flat("elect to act in person by serving on the lawyer and every other party and filing, with proof of service, a notice of intention to act in person (Form 15C)")), ruleMissing.join(", "));
   const scDeadlines = steps.filter((stage) => pathwayOf(stage) === "small-claims" || pathwayOf(stage) === "civil").flatMap((stage) => stage.deadlines);
   for (const [id, kind] of Object.entries(PERSON_SERVE_OR_FILE)) {
     const found = scDeadlines.filter((deadline) => deadline.id === id);
@@ -852,7 +863,7 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
       if ((deadline.actor ?? "reader") !== "reader") listedWrong.push(`${id}: binds ${deadline.actor}`);
       if (deadline.threshold) listedWrong.push(`${id}: a leave threshold`);
       if (kind.serves && !/\bserv(?:e|ed|ing)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say serve`);
-      if (kind.files && !/\b(?:file|filing|start a court case|start the action|deliver|motion|request|registrar|set (?:it|the action) down|restored? to a trial list)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say file, deliver, a motion or a request`);
+      if (kind.files && !FILES_BY_RULE[id] && !/\b(?:file|filing|start a court case|start the action|deliver|motion|request|registrar|set (?:it|the action) down|restored? to a trial list|issued?|respond)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say file, deliver, issue, a motion or a request`);
       if (kind.serves && /\b(?:claim \(Form 7A|summons)\b/i.test(deadline.what)) listedWrong.push(`${id}: a claim or summons is not mailed`);
     }
   }
@@ -885,7 +896,8 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
       const picked = personDeadlineOf(counted, kind);
       if (!picked) continue;
       const deadline = stage.deadlines[counted.findIndex((item) => item.date === picked)];
-      if ((deadline.actor ?? "reader") !== "reader" || deadline.threshold || /\bissued?\b/i.test(deadline.what) && !/\bserv|\bfil/i.test(deadline.what) || /\bcourt holds\b/i.test(deadline.what))
+      // Issuing is filing (third review), never serving.
+      if ((deadline.actor ?? "reader") !== "reader" || deadline.threshold || (kind === "serves" && /\bissued?\b/i.test(deadline.what) && !/\bserv/i.test(deadline.what)) || /\bcourt holds\b/i.test(deadline.what))
         timedWrong.push(`${stage.id}: ${kind} timed by ${deadline.id}`);
     }
   }
@@ -893,7 +905,20 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
   const court90 = steps.find((stage) => stage.id === "plaintiff:defence-filed")!.deadlines.map((deadline) => ({ id: deadline.id, date: "2026-10-15" }));
   check("plaintiff:defence-filed: the court's 90-day target times neither line", personDeadlineOf(court90.filter((item) => /settlement-conference-90/.test(item.id)), "files") === "" && personDeadlineOf(court90.filter((item) => /settlement-conference-90/.test(item.id)), "serves") === "");
   const issueOnly = steps.find((stage) => stage.id === "defendant:defence-filed")!.deadlines.filter((deadline) => /issue-defendants-claim/.test(deadline.id)).map((deadline) => ({ id: deadline.id, date: "2026-10-15" }));
-  check("defendant:defence-filed: issuing a defendant's claim gets no mail timing", issueOnly.length > 0 && personDeadlineOf(issueOnly, "serves") === "");
+  check("defendant:defence-filed: a defendant's claim (filed to be issued) times the filing line, never the mail timing", issueOnly.length > 0 && personDeadlineOf(issueOnly, "files") === "2026-10-15" && personDeadlineOf(issueOnly, "serves") === "");
+  const nowFiles = ["deadline:issue-defendants-claim-20-days", "deadline:issue-defendants-claim-20-days:defence-filed", "deadline:civil:third-party-claim-10-days", "deadline:civil:third-party-claim-10-days:defence-delivered", "deadline:civil:after-lawyer-removed-30-days", "deadline:civil:respond-to-amended-pleading"];
+  check("the defendant's claim, a third party claim, the notice after a lawyer's removal and a response to an amended pleading are filing deadlines, not mail-timed", nowFiles.every((id) => PERSON_SERVE_OR_FILE[id]?.files === true && PERSON_SERVE_OR_FILE[id]?.serves === false && !NOT_TIMED[id]));
+  // Appeals: the guide covers the Divisional Court, not the Court of Appeal.
+  const appealIds = [...DIVISIONAL_COURT_ONLY];
+  check("the r. 61 appeal deadlines are marked Divisional Court only; the r. 61.03.1 and r. 62.01 ones are not", appealIds.length === 6 && appealIds.every((id) => PERSON_SERVE_OR_FILE[id]?.files) && !DIVISIONAL_COURT_ONLY.has("deadline:civil:leave-motion-response-25-days") && !DIVISIONAL_COURT_ONLY.has("deadline:civil:associate-judge-appeal-record-7-days"));
+  const appealItems = [{ id: "deadline:civil:file-notice-of-appeal-10-days", date: "2026-10-16" }];
+  const appealFiling = practicalFor("civil:both:judgment-given", "civil", "Ottawa", false, "", "", { deadline: "2026-10-16", today: "2026-10-14", divisionalOnly: filingDeadlineDivisionalOnly(appealItems) })?.filing ?? [];
+  check(
+    "an appeal deadline too close says 'If your appeal is in the Divisional Court', and keeps the portal line",
+    filingDeadlineDivisionalOnly(appealItems) && appealFiling.includes(FILING.civil.elsewhere) && appealFiling.some((line) => /^If your appeal is in the Divisional Court, your last day/.test(line.say)),
+    appealFiling.map((line) => line.say).join(" | "),
+  );
+  check("a non-appeal civil deadline is not hedged to the Divisional Court", !filingDeadlineDivisionalOnly([{ id: "deadline:civil:defence", date: "2026-10-16" }]));
 
   // The defendant's claim fee, only if they make one (walkthrough run 38525903567, SD).
   const sdFees = sd?.fees ?? [];
