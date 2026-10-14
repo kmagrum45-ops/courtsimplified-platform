@@ -384,6 +384,32 @@ export const COMPANY_ROUTE: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(
  */
 export type ServedOn = { company?: boolean };
 
+/*
+ * Who was served, from the person's words (review of bee9daf: the first cut
+ * hid the company route from every party not described in so many words as
+ * a company). `company: false` ONLY on positive evidence that the party
+ * served is an individual; no evidence either way is "not known", which keeps
+ * every way. When the person received the papers, the party served is the
+ * person; when they served them, it is the other side, judged by its name.
+ */
+const BUSINESS_WORDS =
+  /\b(?:inc|ltd|corp|llc|limited|incorporated|corporation|company|business|numbered company|firm|\d{6,7}\s+(?:ontario|canada)\s+(?:inc|ltd|limited|corp))\b\.?/i;
+const MY_BUSINESS = /\b(?:my|our)\s+(?:(?:small|numbered|family)\s+)?(?:business|company|corporation|firm|store|shop|restaurant)\b/i;
+const ME_SERVED = /\b(?:suing me|sued me|served me|against me|i (?:was|got) served|i (?:got|received|recieved) (?:the |a )?(?:plaintiff'?s? |plaintifs )?claim|(?:the|a) claim (?:came|arrived) (?:to|at) my (?:house|home|apartment))\b/i;
+const A_PERSON = /\b(?:my (?:old |former |ex-?)?(?:roommate|room-mate|neighbou?r|tenant|landlord|friend|ex|brother|sister|cousin|uncle|aunt|father|mother|son|daughter|partner|boyfriend|girlfriend|husband|wife))\b/i;
+
+export function partyServedFrom(words: string, personWasServed: boolean): ServedOn {
+  const text = words.replace(/"[A-Za-z_][A-Za-z0-9_]*"\s*:/g, " ");
+  if (personWasServed) {
+    if (MY_BUSINESS.test(text)) return { company: true };
+    return ME_SERVED.test(text) ? { company: false } : {};
+  }
+  // The other side: a business name or word makes it a company; a named relationship to a person makes it an individual.
+  const withoutMine = text.replace(MY_BUSINESS, " ");
+  if (BUSINESS_WORDS.test(withoutMine)) return { company: true };
+  return A_PERSON.test(text) ? { company: false } : {};
+}
+
 /** The ways the rules allow for a claim or application that come by post, each with its effective day and rule. */
 export function postWaysForClaim(court: ServiceCourt, servedOn: ServedOn = {}): { label: string; effective: string | null; rule: string; quote: string }[] {
   const ways = ORIGINATING_METHODS[court]

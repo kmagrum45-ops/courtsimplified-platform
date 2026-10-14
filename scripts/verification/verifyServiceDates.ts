@@ -25,7 +25,10 @@
  * defendant told "safest" or "your home"; the Small Claims company route by
  * courier counted from the mailing day.
  * (walkthrough run 38525903567, SD) the company route offered to a person
- * served (r. 8.03 (3) is service "on the corporation"); a date with no year
+ * served (r. 8.03 (3) is service "on the corporation"), or hidden from a
+ * company or a party nobody's words describe (review of bee9daf: only
+ * positive evidence of an individual hides it; on the plaintiff side the other
+ * party's name is judged), or a panel lookup using a different list; a date with no year
  * explained as "its most recent year" instead of the day counted.
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
@@ -301,7 +304,7 @@ console.log("\nA claim or application is not served by regular mail (legal revie
     );
   }
   check("the card never says whether service was valid", !/\b(?:valid|invalid|improperly served|not properly served)\b/i.test(panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "")));
-  check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /serviceRulesFor\(serviceCourt, question\.id(?:, [^)]*\))?\)\.map\(/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));
+  check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /waysFor\(question\.id\)\.map\(/.test(panel) && /const waysFor = \(questionId: string\) =>\s+serviceCourt \? serviceRulesFor\(serviceCourt, questionId,/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));
 }
 
 console.log("\nThe 'no later than' date: only papers that may be served by mail, only for the person who received them (legal review 2026-10-14)");
@@ -385,15 +388,15 @@ console.log("\nThe company route only for a company; the year said plainly (walk
   const offeredWrong: string[] = [];
   for (const court of Object.keys(ORIGINATING_QUESTIONS) as ServiceCourt[]) {
     for (const questionId of ORIGINATING_QUESTIONS[court]) {
-      const person = serviceRulesFor(court, questionId, servedOnFor(homeowner)).map((rule) => rule.method);
-      const company = serviceRulesFor(court, questionId, servedOnFor("a supplier sued my company")).map((rule) => rule.method);
-      const chosen = serviceRulesFor(court, questionId, servedOnFor(homeowner, "corporation-mail")).map((rule) => rule.method);
+      const person = serviceRulesFor(court, questionId, servedOnFor(homeowner, "defendant:served-defence-period-running", true)).map((rule) => rule.method);
+      const company = serviceRulesFor(court, questionId, servedOnFor("a supplier sued my company", "defendant:served-defence-period-running", true)).map((rule) => rule.method);
+      const chosen = serviceRulesFor(court, questionId, servedOnFor(homeowner, "defendant:served-defence-period-running", true, "corporation-mail")).map((rule) => rule.method);
       const all = serviceRulesFor(court, questionId).map((rule) => rule.method);
       const companyWays = ORIGINATING_METHODS[court].filter((method) => COMPANY_ROUTE.has(method));
       if (person.some((method) => COMPANY_ROUTE.has(method))) offeredWrong.push(`${court} ${questionId}: company route offered to a person`);
       if (!companyWays.every((method) => company.includes(method) && chosen.includes(method) && all.includes(method))) offeredWrong.push(`${court} ${questionId}: company route lost`);
       if (person.length !== all.length - companyWays.length) offeredWrong.push(`${court} ${questionId}: a person lost a way that is not the company route`);
-      const postPerson = postWaysForClaim(court, servedOnFor(homeowner)).map((way) => way.label);
+      const postPerson = postWaysForClaim(court, servedOnFor(homeowner, "defendant:served-defence-period-running", true)).map((way) => way.label);
       if (companyWays.some((method) => postPerson.includes(SERVICE_RULES[court].find((rule) => rule.method === method)!.label))) offeredWrong.push(`${court}: company way among a person's ways by post`);
     }
   }
@@ -419,7 +422,39 @@ console.log("\nThe company route only for a company; the year said plainly (walk
     sd ? yearAssumedWords(sd.arrivedOn) : "",
   );
   const panel = readFileSync(path.join(ROOT, "app", "builder", "_components", "StageAnswerPanel.tsx"), "utf8");
-  check("the panel's select offers only the ways for who was served", /serviceRulesFor\(serviceCourt, question\.id, servedOnFor\(/.test(panel));
+  check("the panel's select offers only the ways for who was served", /serviceRulesFor\(serviceCourt, questionId, servedOnFor\(/.test(panel));
+
+  // Review of bee9daf: the company route hidden only on positive evidence of an individual.
+  const companyKept = (words: string, stageId: string, responding: boolean) => servedOnFor(words, stageId, responding).company !== false;
+  check(
+    "kept for a company: a plaintiff suing 'ABC Renovations Inc.'; 'a customer is suing my business'; 'our numbered company got a claim'",
+    servedOnFor("I am suing ABC Renovations Inc. for the botched deck", "plaintiff:claim-issued-not-served", false).company === true &&
+      servedOnFor("a customer is suing my business over a refund", "defendant:served-defence-period-running", true).company === true &&
+      servedOnFor("our numbered company got a claim in the mail", "defendant:served-defence-period-running", true).company === true,
+  );
+  check(
+    "kept when nothing says who was served ('not known' keeps every way)",
+    servedOnFor("the claim came on october 2", "defendant:served-defence-period-running", true).company === undefined && servedOnFor("I want to serve the claim", "plaintiff:claim-issued-not-served", false).company === undefined,
+  );
+  check(
+    "hidden only on positive evidence of an individual",
+    !companyKept(homeowner, "defendant:served-defence-period-running", true) && !companyKept("I sued my old roommate for the rent he owes", "plaintiff:claim-issued-not-served", false) && companyKept("I sued my old roommate's company, Roomco Ltd.", "plaintiff:claim-issued-not-served", false),
+  );
+  check("a numbered company named as the other side is a company", servedOnFor("I am suing 1234567 Ontario Inc.", "plaintiff:claim-issued-not-served", false).company === true);
+  // Every lookup of a way on the panel uses the same list, so a detected or saved route always has its option.
+  const lookups = panel.match(/serviceRulesFor\(serviceCourt, question\.id[^)]*\)/g) ?? [];
+  check("every lookup on the panel goes through the one list (waysFor)", lookups.length === 0 && (panel.match(/waysFor\(question\.id\)/g) ?? []).length >= 5);
+  const arrivalCompany = arrivalNoteFor(
+    [{ id: "sc-date-claim-served" }],
+    { "sc-date-claim-served": "our numbered company got the plaintiffs claim in the mail on september 28" },
+    {},
+    "small-claims",
+    {},
+    "mail",
+    { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote: "our numbered company got the plaintiffs claim in the mail on september 28", value: "2026-09-28", yearAssumed: true } }, storyText: "our numbered company got the plaintiffs claim in the mail on september 28" },
+    "2026-10-14",
+  );
+  check("a company served keeps the company route among the ways by post", Boolean(arrivalCompany?.postWays.some((way) => /company/i.test(way.label))));
   check("the panel no longer says 'counting that day in its most recent year'", !/"[^"\n]*most recent year[^"\n]*"/.test(panel.replace(/^\s*(?:\*|\/\/).*$/gm, "")) && (panel.match(/yearAssumedWords\(arrival\.arrivedOn\)/g) ?? []).length === 2);
 }
 

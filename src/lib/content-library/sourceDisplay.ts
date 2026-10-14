@@ -22,18 +22,21 @@ const SOURCES = (TABLE as { sources: Record<string, SourceDisplay> }).sources;
 /** Not a source of law: never listed (see above). */
 export const NOT_A_SOURCE: ReadonlySet<string> = new Set(["stage-premise"]);
 
-/**
- * The checked date for a search passage id (`corpus:<sourceId>:<n>`), for a
- * research result saved before passages carried their date. Null otherwise.
- */
-export function checkedOnForPassage(passageId: string): string | null {
-  const sourceId = /^corpus:([^:]+):\d+$/.exec(passageId)?.[1];
-  return sourceId ? (sourceDisplayFor(sourceId)?.checkedOn ?? null) : null;
-}
-
 /** The name, page and checked date for a source id, or null when it has none (or is not a source). */
 export function sourceDisplayFor(sourceId: string): SourceDisplay | null {
   if (NOT_A_SOURCE.has(sourceId)) return null;
   const row = SOURCES[sourceId];
   return row && row.name && row.url && /^\d{4}-\d{2}-\d{2}$/.test(row.checkedOn) ? row : null;
+}
+
+/**
+ * The date a passage's source was checked, as the passage carries it
+ * (findingsView sets it when the research runs; a passage is used only if its
+ * text still matches the saved file, corpusIndex.ts, so that file's saved date
+ * is the right one). A result saved before passages carried a date says so,
+ * rather than borrowing today's file date for words that may have changed
+ * (review of bee9daf).
+ */
+export function checkedOnShown(provision: { checkedOn?: string }): string {
+  return provision.checkedOn ? `checked ${provision.checkedOn}` : "checked date not recorded";
 }

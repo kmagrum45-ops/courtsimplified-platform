@@ -14,7 +14,9 @@ import {
   originatingRuleFor,
   isOriginatingService,
   postWaysForClaim,
+  partyServedFrom,
   whenEffectiveSay,
+  type ServedOn,
   type ServiceCourt,
   type ServiceMethod,
 } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
@@ -46,7 +48,7 @@ import {
   noticeStepTitle,
   noticesNarrowed,
   practicalFor,
-  filingDeadlineOf,
+  personDeadlineOf,
   todayInOntario,
   type PlainLine,
   type PracticalCourt,
@@ -270,7 +272,7 @@ export function serviceMethodDisplay(chosen: ServiceMethod | undefined, fromStor
 }
 
 /** A last day counted for the note, with whether it has passed (limitPassedState, the card's own test). */
-export type ArrivalDate = { what: string; date: string; iso: string; passed: boolean };
+export type ArrivalDate = { id?: string; what: string; date: string; iso: string; passed: boolean };
 
 export type ArrivalNote = {
   quote: string;
@@ -342,6 +344,7 @@ export function countedFromService(stageId: string, questionId: string, serviceD
   return computedDeadlinesFor(runsFromIt, caseDatesFrom({ [questionId]: serviceDay }), `arrival:${stageId}`).map((entry) => {
     const deadline = runsFromIt.find((item) => item.id === entry.deadlineId);
     return {
+      id: entry.deadlineId,
       // In the person's own words on an either-side step (reviewer 2026-10-14:
       // "The other party's time ..." on a respondent's arrival note).
       what: deadline ? limitForSide(deadline, responding).what : "",
@@ -389,12 +392,18 @@ export function passedBars(kept: Pick<NextStepSummary, "deadlines">, today: stri
 
 /**
  * Who the papers were served on, for the ways offered (walkthrough run
- * 38525903567, SD: the company route was offered to a homeowner). A company
- * when the person's words make one the party, or the company route was
- * already chosen; otherwise a person. Exported for test:service-dates.
+ * 38525903567, SD: the company route was offered to a homeowner; review of
+ * bee9daf: it was then hidden from real companies). On a step where the
+ * person received the papers the party served is the person; otherwise it
+ * is the other side (partyServedFrom). The company route is hidden only on
+ * positive evidence of an individual; a route already chosen is always kept,
+ * so a detected or saved route always has its option. Exported for
+ * test:service-dates.
  */
-export function servedOnFor(words: string, chosen?: ServiceMethod): { company: boolean } {
-  return { company: companyIsTheParty(words) || Boolean(chosen && COMPANY_ROUTE.has(chosen)) };
+export function servedOnFor(words: string, stageId: string, responding: boolean, chosen?: ServiceMethod): ServedOn {
+  if (chosen && COMPANY_ROUTE.has(chosen)) return { company: true };
+  if (companyIsTheParty(words) && receivesPapersStep(stageId, responding)) return { company: true };
+  return partyServedFrom(words, receivesPapersStep(stageId, responding));
 }
 
 /**
@@ -409,10 +418,12 @@ export function yearAssumedWords(arrivedOn: string): string {
 }
 
 /**
- * The counted last day the card's filing and service lines are timed against
- * (walkthrough run 38525903567, SD): the earliest of the card's own leading
- * counted days and the days counted from the day the papers reached the
- * person. Exported for test:next-step.
+ * The days the card's filing and mail lines are timed against (walkthrough
+ * run 38525903567, SD; review of bee9daf): the earliest of the person's own
+ * filing deadlines and of their own serving deadlines (PERSON_SERVE_OR_FILE),
+ * from the card's leading counted days and the days counted from the papers'
+ * arrival. Never the court's own timing, a leave threshold or an issue-only
+ * limit. Exported for test:next-step.
  */
 export function cardFilingDeadline(
   summary: Pick<NextStepSummary, "deadlines" | "periods">,
@@ -421,9 +432,13 @@ export function cardFilingDeadline(
   userWords: string,
   city: string,
   stepId: string,
-): string {
+): { filing: string; serving: string } {
   const { main } = cardLimits(summary, responding, userWords, city, stepId);
-  return filingDeadlineOf([...main.deadlines.map((item) => item.date), ...(arrival?.safest ?? []).map((item) => item.iso), ...(arrival?.latest ?? []).map((item) => item.iso)]);
+  const counted = [
+    ...main.deadlines.map((item) => ({ id: item.id, date: item.date })),
+    ...[...(arrival?.safest ?? []), ...(arrival?.latest ?? [])].map((item) => ({ id: item.id, date: item.iso })),
+  ];
+  return { filing: personDeadlineOf(counted, "files"), serving: personDeadlineOf(counted, "serves") };
 }
 
 /**
@@ -470,7 +485,7 @@ function NextStepCard({
   const today = todayIso();
   // The counted last day the filing and service lines are timed against (walkthrough run 38525903567, SD).
   const filingDeadline = cardFilingDeadline(summary, arrival, responding, userWords, city, stepId);
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline, today });
+  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline.filing, serveBy: filingDeadline.serving, today });
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   // The answer's first paragraph speaks of every notice the step covers; once
   // the notice filter has narrowed them, the card leaves it to the full
@@ -514,7 +529,7 @@ function NextStepCard({
   const periodItem = (period: NextStepSummary["periods"][number]) => (
     <li key={period.what} data-testid="next-step-period">
       <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
-      {askedForDates ? " Give the date below and we will count the last day for you." : ""}
+      {askedForDates ? (period.threshold ? ` ${THRESHOLD_ASK}` : " Give the date below and we will count the last day for you.") : ""}
       <LimitRule rule={period.rule} />
       <SideRules item={period} />
     </li>
@@ -702,7 +717,7 @@ function NextStepCard({
       {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline} today={today} /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} today={today} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the
@@ -932,15 +947,19 @@ export function sideSummary<T extends Pick<NextStepSummary, "deadlines" | "perio
 }
 
 /**
- * A leave threshold leads the card only when it is near: counted, and on or
- * before a year from today (passed included). Uncounted, or years away, it is
- * folded under the limits that may apply later (walkthrough run 38525903567,
- * SJ: an unpaid judgment from May led with the six-year leave limit, above
- * what the person could do now). Exported for test:next-step.
+ * A counted leave threshold more than a year away is folded under the limits
+ * that may apply later (walkthrough run 38525903567, SJ: an unpaid judgment
+ * led with the six-year leave limit, above what the person could do now).
+ * An uncounted one stays in place (review of bee9daf: without the order date
+ * nobody can say it is far off), worded "give the order date to see whether
+ * leave is needed" (thresholdAsk). Exported for test:next-step.
  */
+/** What an uncounted leave threshold asks for: not a "last day", a point after which leave is needed. */
+export const THRESHOLD_ASK = "Give the order date below to see whether leave is needed.";
+
 export function thresholdNear(item: { threshold?: boolean; date?: string }, today: string = todayIso()): boolean {
   if (!item.threshold) return true;
-  if (!item.date || !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) return false;
+  if (!item.date || !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) return true;
   const yearOut = `${Number(today.slice(0, 4)) + 1}${today.slice(4)}`;
   return item.date <= yearOut;
 }
@@ -1061,7 +1080,8 @@ export function arrivalNoteFor(
   if (!question) return null;
   const method = methods[question.id] ?? storyMethod;
   const claim = isOriginatingService(court, question.id);
-  const rule = serviceRulesFor(court, question.id).find((candidate) => candidate.method === method);
+  const servedOn = servedOnFor(bound?.storyText ?? "", bound?.stageId ?? "", Boolean(bound?.responding), method ?? undefined);
+  const rule = serviceRulesFor(court, question.id, servedOn).find((candidate) => candidate.method === method);
   const dateToEnter = rule?.dateToEnter ?? "the day they were sent";
   const hint = bound?.hints[question.id];
   const arrivedOn = bound && hint?.value ? hint.value : "";
@@ -1077,7 +1097,7 @@ export function arrivalNoteFor(
     effectiveSay: rule ? whenEffectiveSay(rule) : `service is effective on a day set from ${dateToEnter}`,
     latest: !claim && bound && arrivedOn ? latestFromArrival(bound.stageId, question.id, court, method, arrivedOn, today, bound.responding) : [],
     claimRule: claim ? originatingRuleFor(court, question.id) : null,
-    postWays: claim ? postWaysForClaim(court, { company }) : [],
+    postWays: claim ? postWaysForClaim(court, servedOn) : [],
     // Counted from the day they gave, never called the last day; called the
     // safest date only when their words say it is the FIRST copy to reach
     // the home (legal review 2026-10-14: the day the mailed copy arrived can
@@ -1278,8 +1298,11 @@ export default function StageAnswerPanel({
   // The story's way of serving, for one question, only if the rules allow it
   // for those papers: "in the mail" is never offered for a claim or an
   // application (legal review 2026-10-14; serviceRulesFor with the question).
+  // The ways offered for one question: the same list everywhere on this panel (review of bee9daf).
+  const waysFor = (questionId: string) =>
+    serviceCourt ? serviceRulesFor(serviceCourt, questionId, servedOnFor(storyText || userWords, stageId, responding, serviceMethod[questionId])) : [];
   const storyMethodFor = (questionId: string): ServiceMethod | null =>
-    serviceCourt && storyServiceMethod && serviceRulesFor(serviceCourt, questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
+    serviceCourt && storyServiceMethod && waysFor(questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
   /*
    * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,
@@ -1658,7 +1681,7 @@ export default function StageAnswerPanel({
                     {saved && serviceCourt && serviceSaved[question.id] ? (
                       (() => {
                         const entry = serviceSaved[question.id];
-                        const how = serviceRulesFor(serviceCourt, question.id).find((rule) => rule.method === entry.method);
+                        const how = waysFor(question.id).find((rule) => rule.method === entry.method);
                         const effective = effectiveServiceDate(serviceCourt, entry.method, entry.enteredOn);
                         return (
                           <p data-testid={`stage-answer-service-${question.id}`} className="text-xs text-[#16302b]">
@@ -1727,7 +1750,7 @@ export default function StageAnswerPanel({
                           ? "How the papers were served: "
                           : "From what you told us, the papers came this way: "}
                       </span>
-                      {serviceRulesFor(serviceCourt, question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.label ?? ""}.
+                      {waysFor(question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.label ?? ""}.
                       {!serviceMethod[question.id] && storyMethodShown?.quote ? (
                         <span className="block text-xs text-[#4d675f]">You wrote: &ldquo;{storyMethodShown.quote}&rdquo; If that is not how the papers were served, choose Change.</span>
                       ) : null}{" "}
@@ -1756,7 +1779,7 @@ export default function StageAnswerPanel({
                         className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
                       >
                         <option value="">Choose how</option>
-                        {serviceRulesFor(serviceCourt, question.id, servedOnFor(storyText || userWords, serviceMethod[question.id])).map((rule) => (
+                        {waysFor(question.id).map((rule) => (
                           <option key={rule.method} value={rule.method}>
                             {rule.label}
                           </option>
@@ -1767,7 +1790,7 @@ export default function StageAnswerPanel({
                   <label className="block">
                     <span className="text-sm font-semibold text-[#16302b]">
                       {serviceCourt && (serviceMethod[question.id] ?? (isServiceDateQuestion(question.id, question.question) ? storyMethodFor(question.id) : null))
-                        ? `Enter ${serviceRulesFor(serviceCourt, question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.dateToEnter ?? "the date"}`
+                        ? `Enter ${waysFor(question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.dateToEnter ?? "the date"}`
                         : question.question}
                     </span>
                     <span className="block text-xs text-[#4d675f]">Used for: {question.sets.join("; ")}</span>
@@ -1784,7 +1807,7 @@ export default function StageAnswerPanel({
                       {(() => {
                         // The same words as the card's note (walkthrough 2026-10-14, RN): what the rule
                         // says about when service is effective, never "counts from the day it was mailed".
-                        const rule = serviceRulesFor(serviceCourt, question.id).find((candidate) => candidate.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)));
+                        const rule = waysFor(question.id).find((candidate) => candidate.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)));
                         if (isOriginatingService(serviceCourt, question.id) && !rule) {
                           // A claim or application (legal review 2026-10-14): the rule on how it is served,
                           // and the ways above; never a mail rule, never whether service was valid.

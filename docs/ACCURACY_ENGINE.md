@@ -2336,12 +2336,27 @@ content hash -- promote a candidate instead.
 - **A rule beside a guide-proved sentence** (`sentenceRules.ts`): the published text is
   hash-locked, so the rule that sets a time stated from a guide is shown beside the
   sentence instead of rewriting it.
-- **The filing and mail lines are timed to the card's earliest counted day**
-  (`practicalFor(..., { deadline, today })`): 3 business days or less (counted as the
-  guide's own example counts, both holiday calendars and announced closures excluded)
-  replaces "file online" with the ways the guide allows; a Small Claims step served the
-  ordinary way gets the r. 8.07 (2) fifth-day dates. The counter question of the
-  "Open gap" above is answered for the online portal only; the counter's own closures
-  still come only from courtServiceNotices.json.
-- **A leave threshold (r. 20.08 (2.1)) leads the card only within a year** of its counted
-  day (`thresholdNear`); uncounted or further off it is folded, never removed.
+- **The filing and mail lines are timed only to the person's own serve-or-file
+  deadline** (`PERSON_SERVE_OR_FILE` in nextStepPractical.ts; `practicalFor(..., {
+  deadline, serveBy, today })`). This caught me: the first cut took the card's earliest
+  counted day, and the court's 90-day settlement-conference target became "your last
+  day ... cannot file online", and a defendant's claim's 20 days to be ISSUED got mail
+  timing. Never time these against a "the court holds" period, a leave threshold, an
+  issue-only limit or the other side's time; a new serve-or-file deadline must be added
+  to the list (test:next-step-practical checks every listed one says serve or file in its
+  own words and is the reader's). 3 business days or less (counted as the guide's own
+  example counts, both holiday calendars and announced closures excluded; "may be" when
+  only one calendar's day decided it) replaces "file online" with the ways the guide
+  allows. A day already passed is not "3 business days away": the portal lines stay. A
+  Small Claims step served the ordinary way gets the r. 8.07 (2) fifth-day dates. The
+  counter question of the "Open gap" above is answered for the online portal only.
+- **The company route is hidden only on positive evidence of an individual**
+  (`partyServedFrom`): the person when they received the papers, the other side (by its
+  name: Inc., Ltd., numbered company...) when they served them. No evidence keeps every
+  way, and every lookup on the panel uses the one list (`waysFor`).
+- **A counted leave threshold (r. 20.08 (2.1)) more than a year away is folded**
+  (`thresholdNear`); an uncounted one stays in place and asks for the order date "to see
+  whether leave is needed".
+- **A research passage's date is the one it carried when the research ran** (its text was
+  hash-checked against the saved file then). An older saved result shows "checked date not
+  recorded", never today's file date.

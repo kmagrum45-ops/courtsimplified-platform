@@ -1,6 +1,6 @@
 import type { ResearchFindingView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
-import { checkedOnForPassage } from "@/src/lib/content-library/sourceDisplay";
+import { checkedOnShown } from "@/src/lib/content-library/sourceDisplay";
 
 import CanliiCaseInfo from "./CanliiCaseInfo";
 import ExplainProvision from "./ExplainProvision";
@@ -26,11 +26,6 @@ export function tidyExcerpt(text: string): string {
   }
   if (/^[a-z]/.test(out)) out = `…${out}`;
   return out;
-}
-
-/** The date a passage's source was checked: carried by the passage, or (for a result saved before that) read from its id. */
-export function checkedOnShown(provision: { id: string; checkedOn?: string }): string | null {
-  return provision.checkedOn ?? checkedOnForPassage(provision.id);
 }
 
 export default function ResearchPanel({ findings: all }: { findings: readonly ResearchFindingView[] }) {
@@ -73,7 +68,7 @@ export default function ResearchPanel({ findings: all }: { findings: readonly Re
                       <p className="text-xs font-semibold text-[#16302b]">
                         {provision.citation || provision.label}
                         {/* CLAUDE.md s. 2: every passage carries the date its source was checked (walkthrough run 38525903567). */}
-                        {checkedOnShown(provision) ? <span className="font-normal text-[#4d675f]"> · checked {checkedOnShown(provision)}</span> : null}
+                        <span className="font-normal text-[#4d675f]"> · {checkedOnShown(provision)}</span>
                       </p>
                       <blockquote className="mt-1 border-l-2 border-[#2f7d67] pl-3">“{tidyExcerpt(provision.quote)}”</blockquote>
                       {provision.kind === "decision" ? (

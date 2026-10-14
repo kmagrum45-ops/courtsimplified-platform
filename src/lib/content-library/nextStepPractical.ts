@@ -391,25 +391,39 @@ export const FILING: Record<PracticalCourt, FilingLines> = {
  * day"). A day any of those calls closed is not a business day. That makes
  * the count smaller, never larger, so the card can only warn early, never late.
  */
-export function isCourtBusinessDay(date: string): boolean {
+export function isCourtBusinessDay(date: string, strict = true): boolean {
   const dow = dayOfWeek(date);
   if (dow === 0 || dow === 6) return false;
-  if (holidayFor(date, "small-claims-rules") || holidayFor(date, "legislation-act")) return false;
+  const scr = Boolean(holidayFor(date, "small-claims-rules"));
+  const act = Boolean(holidayFor(date, "legislation-act"));
+  // Strict: a day EITHER calendar calls a holiday is not a business day. Not
+  // strict: only a day BOTH call one (to see whether the two disagreeing changed the count).
+  if (strict ? scr || act : scr && act) return false;
   return !COURT_SERVICE_NOTICES.some((notice) => notice.closedOn === date);
 }
 
 /** Business days after `today`, up to and including `deadline` (0 when the deadline is today or has passed). */
-export function businessDaysAway(today: string, deadline: string): number {
+export function businessDaysAway(today: string, deadline: string, strict = true): number {
   let count = 0;
   for (let day = addDays(today, 1), guard = 0; day <= deadline && guard < 4000; day = addDays(day, 1), guard += 1) {
-    if (isCourtBusinessDay(day)) count += 1;
+    if (isCourtBusinessDay(day, strict)) count += 1;
   }
   return count;
 }
 
-/** The online portals refuse a deadline 3 business days away or less (both saved guides); a passed one too. */
+/**
+ * The online portals refuse a deadline 3 business days away or less (both
+ * saved guides). A deadline that has passed is not one the guides speak of
+ * (review of bee9daf): it is not "too close", and the card keeps its portal
+ * lines beside "That date has already passed".
+ */
 export function tooCloseToFileOnline(today: string, deadline: string): boolean {
-  return deadline < today || businessDaysAway(today, deadline) <= 3;
+  return deadline >= today && businessDaysAway(today, deadline) <= 3;
+}
+
+/** Too close only because a day one holiday calendar names and the other does not was left out of the count. */
+export function tooCloseOnlyByOneCalendar(today: string, deadline: string): boolean {
+  return tooCloseToFileOnline(today, deadline) && businessDaysAway(today, deadline, false) > 3;
 }
 
 const SC_TOO_CLOSE_CITE = cite(
@@ -431,10 +445,11 @@ const CIVIL_TOO_CLOSE_CITE = cite(
  */
 export function tooCloseFilingLine(court: PracticalCourt, today: string, deadline: string): PlainLine | null {
   if (court === "family" || !tooCloseToFileOnline(today, deadline)) return null;
-  const passed = deadline < today;
-  const when = passed
-    ? `The last day counted for this, ${formatLongDate(deadline)}, has passed, so do not file online for it`
-    : `Your last day, ${formatLongDate(deadline)}, is 3 business days away or ${court === "civil" ? "fewer" : "less"}, so you cannot file online for it`;
+  const fewer = court === "civil" ? "fewer" : "less";
+  // Hedged when the answer turns on a day only one holiday calendar names (Civic Holiday, a substituted day).
+  const when = tooCloseOnlyByOneCalendar(today, deadline)
+    ? `Your last day, ${formatLongDate(deadline)}, may be 3 business days away or ${fewer}, depending on whether a holiday in between counts as a business day. If it is, you cannot file online for it`
+    : `Your last day, ${formatLongDate(deadline)}, is 3 business days away or ${fewer}, so you cannot file online for it`;
   return court === "small-claims"
     ? { say: `${when}. File it in person at the courthouse, by mail or by email instead.`, cite: SC_TOO_CLOSE_CITE }
     : { say: `${when}. The court office can tell you how to file it instead.`, cite: CIVIL_TOO_CLOSE_CITE };
@@ -465,12 +480,67 @@ export const SC_SOONER_WAYS: PlainLine[] = [
     ),
   },
   {
-    say: "In person, you leave a copy with the person.",
+    say: "In person, you leave a copy with the person, if they are an individual.",
     cite: scrCite("r. 8.02 (a)", "on an individual, other than a person under disability, by leaving a copy of the document with him or her"),
+  },
+  {
+    say: "For a corporation, you leave a copy with an officer, a director or another person authorized to act for it, or with the person in charge at one of its places of business.",
+    cite: scrCite(
+      "r. 8.02 (c)",
+      "on any other corporation, by leaving a copy of the document with, (i) an officer, a director or another person authorized to act on behalf of the corporation, or (ii) a person at any place of business of the corporation who appears to be in control or management of the place of business",
+    ),
   },
 ];
 function scrCite(pinpoint: string, quote: string): RuleCitation {
   return cite("oreg-258-98-small-claims-rules", pinpoint, quote);
+}
+
+/*
+ * WHICH COUNTED DAYS TIME THESE LINES (review of bee9daf). The first cut took
+ * the card's earliest counted day, whatever it was: the court's 90-day target
+ * for a settlement conference became "your last day ... cannot file online",
+ * and a defendant's claim's 20 days to be ISSUED got mail timing, though
+ * issuing is not serving. Only the deadlines listed here, each a time limit
+ * the PERSON must meet by serving or filing a document, time them:
+ *   files -- the deadline is met by filing with the court (the too-close line);
+ *   serves -- it is met by serving, in a way r. 8.01 (14) lets go by mail
+ *            (the mail timing). A claim (r. 8.01 (1)) and a summons
+ *            (r. 8.01 (7)) are not mailed, so they are never "serves" here.
+ * Never a "court holds" period, a leave threshold, an issue-only limit, the
+ * other side's time, or a limit met by asking for something.
+ * test:next-step-practical checks every listed id is a reader's deadline in
+ * the stage map whose own words say serve or file.
+ */
+export const PERSON_SERVE_OR_FILE: Record<string, { files: boolean; serves: boolean }> = {
+  "deadline:basic-limitation": { files: true, serves: false },
+  "deadline:basic-limitation-claim-drafted": { files: true, serves: false },
+  "deadline:defence-20-days": { files: true, serves: true },
+  "deadline:defence-to-defendants-claim-20-days": { files: true, serves: true },
+  "deadline:settlement-conference-disclosure-14-days": { files: true, serves: true },
+  "deadline:settlement-conference-disclosure-14-days:defendant": { files: true, serves: true },
+  "deadline:trial-evidence-30-days": { files: false, serves: true },
+  "deadline:trial-evidence-30-days:defendant": { files: false, serves: true },
+  "deadline:sc-motion-serve-7-days": { files: false, serves: true },
+  "deadline:sc-motion-file-3-days": { files: true, serves: false },
+  "deadline:sc-motion-response-2-days": { files: true, serves: true },
+  "deadline:sc-defence-with-proposal-20-days": { files: true, serves: true },
+  "deadline:sc-dispute-proposal-20-days": { files: true, serves: true },
+  "deadline:sc-offer-7-days-before-trial": { files: false, serves: true },
+  "deadline:sc-amend-30-days-before-trial": { files: true, serves: true },
+  "deadline:sc-strike-motion-serve-7-days": { files: false, serves: true },
+  "deadline:sc-strike-motion-file-3-days": { files: true, serves: false },
+  "deadline:sc-dismissal-submission-20-days": { files: true, serves: false },
+};
+
+/**
+ * The earliest counted day among the person's own deadlines met by filing
+ * (`files`) or by serving (`serves`); "" when none is counted.
+ */
+export function personDeadlineOf(items: readonly { id?: string; date: string }[], kind: "files" | "serves"): string {
+  return items
+    .filter((item) => item.id && PERSON_SERVE_OR_FILE[item.id]?.[kind] && /^\d{4}-\d{2}-\d{2}$/.test(item.date))
+    .map((item) => item.date)
+    .sort()[0] ?? "";
 }
 
 /**
@@ -797,7 +867,7 @@ export const GARNISHEE_NOT_NAMED: PlainLine[] = [
     cite: judgmentGuide("Information needed to proceed", "If you are garnishing wages, you must know the correct legal name and address of the employer."),
   },
   {
-    say: "The rules also let you ask the clerk for a notice of examination (Form 20H). At an examination, the debtor can be asked about his income and property.",
+    say: "The rules also let you ask the clerk for a notice of examination (Form 20H). At an examination, the debtor can be asked about the debtor's income and property.",
     cite: scrCite(
       "r. 20.10 (1), (4) (b)",
       "the clerk of a court in the territorial division in which the debtor or other person to be examined resides or carries on business shall, at the creditor's request, issue a notice of examination (Form 20H) directed to the debtor or other person. ... may be examined in relation to, (a) the reason for nonpayment; (b) the debtor's income and property;",
@@ -1963,7 +2033,7 @@ export function practicalFor(
    * replaces the online-portal lines, and a Small Claims step served the
    * ordinary way gets the mail timing lines.
    */
-  timing: { deadline?: string; today?: string } = {},
+  timing: { deadline?: string; serveBy?: string; today?: string } = {},
 ): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
@@ -1994,9 +2064,10 @@ export function practicalFor(
     FAMILY_FORM_NEEDS[form.number] !== undefined &&
     !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
   const also = alsoFor(step.also ?? [], story, city);
-  const timed = Boolean(timing.deadline && timing.today && /^\d{4}-\d{2}-\d{2}$/.test(timing.deadline) && /^\d{4}-\d{2}-\d{2}$/.test(timing.today));
-  const tooClose = timed ? tooCloseFilingLine(court, timing.today!, timing.deadline!) : null;
-  const mailTiming = timed && court === "small-claims" && step.serve === "ordinary" ? mailTimingLines(timing.today!, timing.deadline!) : [];
+  // `deadline`: the person's own filing deadline; `serveBy`: their own serving deadline (personDeadlineOf).
+  const iso = (value?: string) => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value));
+  const tooClose = iso(timing.deadline) && iso(timing.today) ? tooCloseFilingLine(court, timing.today!, timing.deadline!) : null;
+  const mailTiming = iso(timing.serveBy) && iso(timing.today) && court === "small-claims" && step.serve === "ordinary" ? mailTimingLines(timing.today!, timing.serveBy!) : [];
   return {
     // On a responding step, Form 13 carries r. 13 (1) (b)'s condition beside it.
     forms: allForms
@@ -2042,15 +2113,7 @@ export function practicalFor(
   };
 }
 
-/**
- * The counted last day the card's filing and service lines are timed
- * against: the earliest of the step's counted days (the person's entered
- * dates, or the day counted from the day the papers reached them). Empty
- * when nothing is counted.
- */
-export function filingDeadlineOf(dates: readonly string[]): string {
-  return dates.filter((date) => /^\d{4}-\d{2}-\d{2}$/.test(date)).sort()[0] ?? "";
-}
+
 
 // ---------------------------------------------------------------- limits of acting alone
 

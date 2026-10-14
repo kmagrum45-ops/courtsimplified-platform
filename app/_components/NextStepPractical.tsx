@@ -44,6 +44,7 @@ export default function NextStepPractical({
   story = "",
   noticeStepId = "",
   deadline = "",
+  serveBy = "",
   today = "",
 }: {
   stepId: string;
@@ -56,10 +57,12 @@ export default function NextStepPractical({
   noticeStepId?: string;
   /** The step's counted last day and Ontario's today: a deadline too close to file online, and mail timing (walkthrough run 38525903567, SD). */
   deadline?: string;
+  /** The person's own serving deadline, for the mail timing (personDeadlineOf). */
+  serveBy?: string;
   today?: string;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, today });
+  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today });
   if (!view) return null;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">

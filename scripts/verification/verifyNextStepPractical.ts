@@ -48,6 +48,11 @@
  *     February example counts), or a too-close line naming a filing way the
  *     guide does not; no warning that mail counts on the fifth day when the
  *     last day is near; the defendant's claim fee missing from a defence step.
+ *     (review of bee9daf) these lines timed against anything but the person's
+ *     own serve-or-file deadline (PERSON_SERVE_OR_FILE: never the court's
+ *     settlement-conference target, a leave threshold or an issue-only
+ *     limit); "do not file online" for a passed day; a too-close line not
+ *     hedged when only one holiday calendar's day decided it.
  *     (SJ) an employer named only vaguely ("a car dealership ... i think")
  *     with no word that the garnishee must be named, or of the examination
  *     that is the rules' way to find out more; a line choosing or predicting.
@@ -97,6 +102,9 @@ import {
   vagueEmployerSentence,
   businessDaysAway,
   isCourtBusinessDay,
+  PERSON_SERVE_OR_FILE,
+  personDeadlineOf,
+  tooCloseOnlyByOneCalendar,
   mailTimingLines,
   tooCloseFilingLine,
   tooCloseToFileOnline,
@@ -727,7 +735,7 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
   check("an announced court closure (30 September 2026) is not a business day", !isCourtBusinessDay("2026-09-30"));
 
   // The SD case: Wednesday 14 October, last day Monday 19 October.
-  const sd = practicalFor("defendant:served-defence-period-running", "small-claims", "", true, "i got the plaintiffs claim in the mail on september 28", "", { deadline: "2026-10-19", today: "2026-10-14" });
+  const sd = practicalFor("defendant:served-defence-period-running", "small-claims", "", true, "i got the plaintiffs claim in the mail on september 28", "", { deadline: "2026-10-19", serveBy: "2026-10-19", today: "2026-10-14" });
   const sdFiling = sd?.filing ?? [];
   check(
     "SD: 3 business days away -- no online-portal line, one line saying not to file online",
@@ -753,12 +761,13 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
         const deadline = addDays(today, ahead);
         const filing = practicalFor(stepId, court, "Ottawa", false, "", "", { deadline, today })?.filing ?? [];
         const portal = filing.includes(FILING[court].elsewhere);
-        const close = deadline < today || businessDaysAway(today, deadline) <= 3;
+        // A passed day is not "3 business days or less away" (review of bee9daf): the portal lines stay.
+        const close = deadline >= today && businessDaysAway(today, deadline) <= 3;
         if (close === portal) portalWrong.push(`${court} ${today}->${deadline}`);
       }
     }
   }
-  check("too close or passed: no portal line; otherwise the portal line (two courts, ~1000 date pairs)", portalWrong.length === 0, portalWrong.slice(0, 4).join("; "));
+  check("too close: no portal line; otherwise (passed included) the portal line (two courts, ~1000 date pairs)", portalWrong.length === 0, portalWrong.slice(0, 4).join("; "));
   const familyFiling = practicalFor("family:respondent:served-time-to-answer-running", "family", "Ottawa", true, "", "", { deadline: "2026-10-15", today: "2026-10-14" })?.filing ?? [];
   check("family: no saved business-day rule, so the family filing lines are unchanged", familyFiling.includes(FILING.family.elsewhere));
   const untimed = practicalFor("defendant:served-defence-period-running", "small-claims", "Ottawa", true)?.filing ?? [];
@@ -795,11 +804,70 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
   check("mail timing: late exactly when mailed today counts after the last day (60 days x 6)", mailWrong.length === 0, mailWrong.slice(0, 4).join("; "));
   check("a passed deadline gets no mail timing", mailTimingLines("2026-10-20", "2026-10-19").length === 0);
   const mailOnly = (stepId: string, court: PracticalCourt) =>
-    (practicalFor(stepId, court, "Ottawa", false, "", "", { deadline: "2026-10-19", today: "2026-10-14" })?.serving ?? []).some((line) => line.cite === SC_MAIL_RULE && /fifth day/.test(line.say) && /last day/.test(line.say));
+    (practicalFor(stepId, court, "Ottawa", false, "", "", { deadline: "2026-10-19", serveBy: "2026-10-19", today: "2026-10-14" })?.serving ?? []).some((line) => line.cite === SC_MAIL_RULE && /fifth day/.test(line.say) && /last day/.test(line.say));
   const wrongPlace = steps
     .filter((stage) => mailOnly(stage.id, pathwayOf(stage) as PracticalCourt) !== (pathwayOf(stage) === "small-claims" && STEP_PRACTICAL[stage.id]?.serve === "ordinary"))
     .map((stage) => stage.id);
   check("mail timing only on Small Claims steps served the ordinary way", wrongPlace.length === 0, wrongPlace.slice(0, 5).join(", "));
+
+  // A passed day never says "do not file online" (review of bee9daf).
+  check("a passed deadline gets no too-close line", tooCloseFilingLine("small-claims", "2026-10-20", "2026-10-19") === null && tooCloseFilingLine("civil", "2026-10-20", "2026-10-19") === null);
+  // Hedged when only one holiday calendar's day changed the answer: Civic
+  // Holiday (Monday 3 August 2026) is in r. 1.02, not the Legislation Act.
+  const civic = tooCloseFilingLine("small-claims", "2026-07-30", "2026-08-05");
+  check(
+    "a result that turns on a day only one calendar names is hedged ('may be')",
+    tooCloseOnlyByOneCalendar("2026-07-30", "2026-08-05") && /\bmay be 3 business days away or less\b/.test(civic?.say ?? "") && !/\bmay be\b/.test(sdFiling[0]?.say ?? ""),
+    civic?.say,
+  );
+  const hedgeWrong: string[] = [];
+  for (let today = "2026-01-01"; today <= "2027-12-31"; today = addDays(today, 2)) {
+    for (const ahead of [1, 3, 4, 5, 6, 7]) {
+      const deadline = addDays(today, ahead);
+      const line = tooCloseFilingLine("small-claims", today, deadline);
+      const hedged = Boolean(line && /\bmay be\b/.test(line.say));
+      if (line && hedged !== (businessDaysAway(today, deadline, false) > 3)) hedgeWrong.push(`${today}->${deadline}`);
+    }
+  }
+  check("hedged exactly when counting only days both calendars name would put it past 3 (2026-2027)", hedgeWrong.length === 0, hedgeWrong.slice(0, 4).join("; "));
+  check(
+    "the in-person line says 'if they are an individual', and r. 8.02 (c) gives a corporation's way",
+    SC_SOONER_WAYS.some((line) => line.cite.pinpoint === "r. 8.02 (a)" && /if they are an individual/.test(line.say)) &&
+      SC_SOONER_WAYS.some((line) => line.cite.pinpoint === "r. 8.02 (c)" && /corporation/.test(line.say)),
+  );
+
+  // Only the person's own serve-or-file deadlines time these lines (review of bee9daf).
+  const listedWrong: string[] = [];
+  const scDeadlines = steps.filter((stage) => pathwayOf(stage) === "small-claims").flatMap((stage) => stage.deadlines);
+  for (const [id, kind] of Object.entries(PERSON_SERVE_OR_FILE)) {
+    const found = scDeadlines.filter((deadline) => deadline.id === id);
+    if (found.length === 0) listedWrong.push(`${id}: not a Small Claims deadline`);
+    for (const deadline of found) {
+      if ((deadline.actor ?? "reader") !== "reader") listedWrong.push(`${id}: binds ${deadline.actor}`);
+      if (deadline.threshold) listedWrong.push(`${id}: a leave threshold`);
+      if (kind.serves && !/\bserv(?:e|ed|ing)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say serve`);
+      if (kind.files && !/\b(?:file|filing|start a court case)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say file`);
+      if (kind.serves && /\b(?:claim \(Form 7A|summons)\b/i.test(deadline.what)) listedWrong.push(`${id}: a claim or summons is not mailed`);
+    }
+  }
+  check("every listed deadline is the person's own, not a threshold, and says serve or file in its own words", listedWrong.length === 0, listedWrong.join("; "));
+  // For every Small Claims step: whatever is counted, the timed deadline is a serve-or-file deadline of the person.
+  const timedWrong: string[] = [];
+  for (const stage of steps.filter((candidate) => pathwayOf(candidate) === "small-claims")) {
+    const counted = stage.deadlines.map((deadline, index) => ({ id: deadline.id, date: addDays("2026-10-15", index) }));
+    for (const kind of ["files", "serves"] as const) {
+      const picked = personDeadlineOf(counted, kind);
+      if (!picked) continue;
+      const deadline = stage.deadlines[counted.findIndex((item) => item.date === picked)];
+      if ((deadline.actor ?? "reader") !== "reader" || deadline.threshold || /\bissued?\b/i.test(deadline.what) && !/\bserv|\bfil/i.test(deadline.what) || /\bcourt holds\b/i.test(deadline.what))
+        timedWrong.push(`${stage.id}: ${kind} timed by ${deadline.id}`);
+    }
+  }
+  check("on every Small Claims step the timed deadline, if any, is a serve-or-file deadline of the person", timedWrong.length === 0, timedWrong.join("; "));
+  const court90 = steps.find((stage) => stage.id === "plaintiff:defence-filed")!.deadlines.map((deadline) => ({ id: deadline.id, date: "2026-10-15" }));
+  check("plaintiff:defence-filed: the court's 90-day target times neither line", personDeadlineOf(court90.filter((item) => /settlement-conference-90/.test(item.id)), "files") === "" && personDeadlineOf(court90.filter((item) => /settlement-conference-90/.test(item.id)), "serves") === "");
+  const issueOnly = steps.find((stage) => stage.id === "defendant:defence-filed")!.deadlines.filter((deadline) => /issue-defendants-claim/.test(deadline.id)).map((deadline) => ({ id: deadline.id, date: "2026-10-15" }));
+  check("defendant:defence-filed: issuing a defendant's claim gets no mail timing", issueOnly.length > 0 && personDeadlineOf(issueOnly, "serves") === "");
 
   // The defendant's claim fee, only if they make one (walkthrough run 38525903567, SD).
   const sdFees = sd?.fees ?? [];

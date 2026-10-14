@@ -40,7 +40,7 @@ import {
   type ResearchIssue,
 } from "../../src/lib/case-system/retrieval/researchStory";
 import { researchStepEnabled } from "../../src/lib/content-library/phaseScope";
-import { checkedOnForPassage, sourceDisplayFor } from "../../src/lib/content-library/sourceDisplay";
+import { checkedOnShown, sourceDisplayFor } from "../../src/lib/content-library/sourceDisplay";
 import { namedNumbers, namedProvisions, namedSource } from "../../src/lib/case-system/retrieval/namedProvisions";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
@@ -268,11 +268,15 @@ function finish() {
   const index = JSON.parse(read("docs/sources/retrieval/corpus-index.json")) as { sources: Record<string, unknown>; chunks: [string, string][] };
   const undated = Object.keys(index.sources).filter((id) => !/^\d{4}-\d{2}-\d{2}$/.test(sourceDisplayFor(id)?.checkedOn ?? ""));
   check(`every source in the search index has a checked date (${Object.keys(index.sources).length} sources)`, undated.length === 0, undated.slice(0, 8).join(", "));
-  const unreadable = index.chunks.filter(([id]) => !checkedOnForPassage(id)).map(([id]) => id);
-  check(`every passage id resolves to its source's date (${index.chunks.length} passages)`, unreadable.length === 0, unreadable.slice(0, 5).join(", "));
+  // Review of bee9daf: a result saved without a date never borrows today's
+  // file date, which may be newer than the words it quoted.
+  check("a passage without its date says 'checked date not recorded'", checkedOnShown({}) === "checked date not recorded" && checkedOnShown({ checkedOn: "2026-09-27" }) === "checked 2026-09-27");
+  check("no date is read from a passage id any more", !/checkedOnForPassage/.test(read("src/lib/content-library/sourceDisplay.ts")));
+  // The date the view carries is that of the file the passage text was cut from: a passage is used only if its hash still matches.
+  check("the passages carrying the date are hash-checked against the saved file", /hash no longer matches the index/.test(read("src/lib/case-system/retrieval/corpusIndex.ts")));
   check("the findings view carries the date", /checkedOn = sourceDisplayFor\(passage\.sourceId\)\?\.checkedOn/.test(read("src/lib/case-system/retrieval/findingsView.ts")));
   const panel = read("app/_components/ResearchPanel.tsx");
-  check("the panel shows 'checked <date>' beside each passage, falling back to the passage id", /checked \{checkedOnShown\(provision\)\}/.test(panel) && /checkedOnForPassage\(provision\.id\)/.test(panel));
+  check("the panel shows the checked date, or that none was recorded, beside each passage", /· \{checkedOnShown\(provision\)\}/.test(panel) && !/checkedOnForPassage/.test(panel));
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }
