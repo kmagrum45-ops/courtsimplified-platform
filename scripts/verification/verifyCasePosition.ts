@@ -53,7 +53,7 @@ import { ALL_STAGES, stagesForPathway } from "../../src/lib/case-system/stage-ma
 import { computedDeadlinesFor, countFromDate } from "../../src/lib/content-library/computedDeadline";
 import { caseStepFor, noticeStepForCase } from "../../src/lib/case-system/caseStep";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
-import { positionSavesSettled, trackPositionWork } from "../../app/builder/_components/positionSave";
+import { POSITION_SAVE_TIMEOUT_MS, positionSavesSettled, postWithTimeout, trackPositionWork } from "../../app/builder/_components/positionSave";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -370,24 +370,32 @@ function personsDatesWin(source: string): boolean {
   }
   check("step: every date the card asks at a step counts a deadline the way the Case file counts", uncounted.length === 0, uncounted.slice(0, 5).join("; "));
 
+  check(
+    "step: with no confirmed stage, pages that require one name no step, even where a notice step would fit",
+    caseStepFor({ ...civilStarting({}), position: {} }, "civil", false, { requireConfirmedStage: true }) === "",
+  );
+
+  // The pages call the one rule (calls exist; what it returns is asserted above).
   const layout = read("app/cases/[id]/layout.tsx");
   const deadlinesRoute = read("app/api/workspace/organisation/route.ts");
   const overview = read("app/cases/[id]/page.tsx");
+  const ownRules = /suggestedStageFor\(|stepFromPicture\(/;
   check(
     "step: the case layout and the deadline route take the step from caseStepFor, not their own rules",
-    /stepId: caseStepFor\(/.test(layout) &&
-      /const stepId = caseStepFor\(/.test(deadlinesRoute) &&
-      !/suggestedStageFor\(|stepFromPicture\(/.test(layout) &&
-      !/suggestedStageFor\(|stepFromPicture\(/.test(deadlinesRoute),
+    /caseStepFor\(/.test(layout) && /caseStepFor\(/.test(deadlinesRoute) && !ownRules.test(layout) && !ownRules.test(deadlinesRoute),
   );
   check(
-    "step: the Overview's card reads the same notice step and words",
-    /noticeStepId=\{noticeStepForCase\(master, courtPath\)\}/.test(overview) && /storyText=\{stepStoryText\(master, courtPath\)\}/.test(overview),
+    "step: the layout and the deadline route both require a confirmed stage before suggesting a step",
+    [layout, deadlinesRoute].every((source) => /caseStepFor\([^;]*requireConfirmedStage: true/.test(source)),
   );
+  check("step: the Overview's card reads the same notice step and words", /noticeStepForCase\(/.test(overview) && /stepStoryText\(/.test(overview));
   const caseFile = read("app/cases/[id]/case-file/page.tsx");
-  const loadingAt = caseFile.indexOf("deadlines === null ?");
+  const loadingAt = caseFile.indexOf("deadlines === null");
   const noneYetAt = caseFile.indexOf("None yet. Give the dates");
-  check("step: the Case file never says \"None yet\" while the deadlines are still being counted", loadingAt > 0 && noneYetAt > loadingAt);
+  check(
+    "step: the Case file says it is still counting rather than \"None yet\", and stops when nothing more is coming",
+    loadingAt > 0 && noneYetAt > loadingAt && /setDeadlines\(\[\]\)/.test(caseFile),
+  );
 }
 
 // ---- 6. The case page reads the case after saves on their way --------------
@@ -395,21 +403,18 @@ function personsDatesWin(source: string): boolean {
 // method were "Saved to your case"; the case page, opened while those saves
 // were still going, asked "How were the papers served?" and "Which year was
 // that?" again. The builder registers its runs of saves, the case layout
-// waits for them before reading, and the Overview reads the case again once
-// its own saves land.
+// waits for that case's saves before reading, and the Overview reads the case
+// again once its own saves land. The waiting itself is asserted by behaviour
+// at the end of this file.
 {
   const layout = read("app/cases/[id]/layout.tsx");
-  const settleAt = layout.indexOf("await positionSavesSettled()");
+  const settleAt = layout.indexOf("positionSavesSettled(");
   const readAt = layout.indexOf('.from("cases")');
-  check("saves: the case layout waits for position saves before it reads the case", settleAt > 0 && readAt > settleAt);
-  const builder = read("app/builder/page.tsx");
-  check(
-    "saves: the builder registers its stage save and its multi-part save run, retries included",
-    (builder.match(/trackPositionWork\(/g) ?? []).length >= 2 && /void trackPositionWork\(\(async \(\) => \{\s*let allSaved/.test(builder),
-  );
+  check("saves: the case layout waits for that case's position saves before it reads the case", settleAt > 0 && readAt > settleAt);
+  check("saves: the builder registers its runs of saves", (read("app/builder/page.tsx").match(/trackPositionWork\(/g) ?? []).length >= 2);
   check(
     "saves: the Overview reads the case again once its card's saves land",
-    /onSaved=\{\(\) => void positionSavesSettled\(\)\.then\(reload\)\}/.test(read("app/cases/[id]/page.tsx")),
+    /positionSavesSettled\([^)]*\)[\s\S]{0,40}reload/.test(read("app/cases/[id]/page.tsx")),
   );
 }
 
@@ -440,30 +445,60 @@ void (async () => {
       console.error(`FAIL  ${name}`);
     }
   };
+  const caseA = "case-a";
   let release: () => void = () => undefined;
-  const run = new Promise<void>((resolve) => {
+  trackPositionWork(caseA, new Promise<void>((resolve) => {
     release = resolve;
-  });
-  trackPositionWork(run);
+  }));
   let settled = false;
-  const waiting = positionSavesSettled(5_000).then(() => {
+  const waiting = positionSavesSettled(caseA, 5_000).then(() => {
     settled = true;
   });
   await new Promise((resolve) => setTimeout(resolve, 30));
   // A run registered while the reader waits is waited for too.
   let releaseLate: () => void = () => undefined;
-  trackPositionWork(new Promise<void>((resolve) => {
+  trackPositionWork(caseA, new Promise<void>((resolve) => {
     releaseLate = resolve;
   }));
   release();
   await new Promise((resolve) => setTimeout(resolve, 30));
-  assert("saves: a reader waits while a save run is still going", !settled);
+  assert("saves: a reader waits while a save run for its case is still going", !settled);
   releaseLate();
   await waiting;
-  assert("saves: the reader goes ahead once every run has finished", settled);
+  assert("saves: the reader goes ahead once every run for its case has finished", settled);
+
+  // Another case's save never holds this case up.
+  trackPositionWork("case-b", new Promise<void>(() => undefined));
+  const startedOther = Date.now();
+  await positionSavesSettled(caseA, 5_000);
+  assert("saves: a save for another case does not hold this case up", Date.now() - startedOther < 500);
+
   const started = Date.now();
-  trackPositionWork(new Promise<void>(() => undefined));
-  await positionSavesSettled(60);
+  trackPositionWork(caseA, new Promise<void>(() => undefined));
+  await positionSavesSettled(caseA, 60);
   assert("saves: a save that never finishes does not stop the case opening", Date.now() - started < 2_000);
+
+  // A save request that hangs is given up after its timeout, so it cannot
+  // hold the queue (review 2026-10-13: there was no timeout).
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = ((_url: unknown, init?: RequestInit) =>
+    new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new Error("aborted")));
+    })) as typeof fetch;
+  // AbortSignal.timeout's timer does not keep Node running; this one does,
+  // and a request that is never given up reads as "hung", a failure.
+  let keepAlive: ReturnType<typeof setTimeout> | undefined;
+  const startedPost = Date.now();
+  const ok = await Promise.race([
+    postWithTimeout("/api/cases/position", { method: "POST" }, 50),
+    new Promise<"hung">((resolve) => {
+      keepAlive = setTimeout(() => resolve("hung"), 2_000);
+    }),
+  ]);
+  clearTimeout(keepAlive);
+  globalThis.fetch = realFetch;
+  assert("saves: a save request that hangs is given up after its timeout", ok === false && Date.now() - startedPost < 2_000);
+  assert("saves: the save timeout is at most 10 seconds", POSITION_SAVE_TIMEOUT_MS > 0 && POSITION_SAVE_TIMEOUT_MS <= 10_000);
+  console.log(asyncFailures ? `\n${asyncFailures} save-timing check(s) failed.` : "\nAll save-timing checks passed.");
   if (asyncFailures) process.exitCode = 1;
 })();

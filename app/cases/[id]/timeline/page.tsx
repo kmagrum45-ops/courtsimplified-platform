@@ -85,7 +85,7 @@ export default function CaseTimelineSection() {
           // that kind of step, not asked cold (walkthrough 2026-10-13, R6).
           confirmedStep={
             record.position.confirmedStage && stepId && findStage(stepId)
-              ? { id: stepId, title: findStage(stepId)!.title }
+              ? { id: stepId, title: findStage(stepId)!.title, chosen: Boolean(record.position.stepId) }
               : null
           }
         />

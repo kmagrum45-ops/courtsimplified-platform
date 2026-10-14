@@ -57,7 +57,7 @@ type Draft = {
 };
 
 /** The step the person confirmed, by stage-map id and its name as the Timeline shows it. */
-export type ConfirmedStep = { id: string; title: string };
+export type ConfirmedStep = { id: string; title: string; chosen?: boolean };
 
 export function emptyDraft(
   candidate: Pick<ResolvedCandidate, "title" | "narrativeBasis">,

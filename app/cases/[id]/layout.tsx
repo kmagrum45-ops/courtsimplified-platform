@@ -81,7 +81,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
     // results page, or on this page's deadline box) may still be on its way.
     // Reading before it lands asked for it again (walkthrough 2026-10-13, R4:
     // "Which year was that?" after "Saved to your case").
-    await positionSavesSettled();
+    await positionSavesSettled(caseId);
     const read = () =>
       supabase
         .from("cases")

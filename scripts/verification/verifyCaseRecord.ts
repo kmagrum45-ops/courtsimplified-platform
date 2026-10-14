@@ -154,6 +154,14 @@ check(
     for (const words of [
       { story: "a contractor is suing me in small claims for 7500 he says i owe" },
       { answers: ["I don't want him to pay me anything, I just want this over."] },
+      // The plaintiff's own claim, a question, or someone paying their own
+      // costs is not the defendant asking to be paid (review 2026-10-13).
+      { answers: ["He is claiming it back from me."] },
+      { answers: ["He wants to claim the money back from me."] },
+      { answers: ["He says I should pay for his lawyer, he owes me nothing."] },
+      { answers: ["Do I have to counterclaim?"] },
+      { answers: ["The plaintiff should pay costs if he loses."] },
+      { answers: ["He has to pay for his own lawyer."] },
     ]) {
       check(`no defendant's claim offered from ${JSON.stringify(words).slice(0, 70)}`, asDefendant(words).length === 0);
     }
@@ -161,7 +169,9 @@ check(
     check("a plaintiff is never offered a defendant's claim", suggestApplicability(claimQuestion, readCaseRecord(plaintiffMaster, "small-claims"), plaintiffMaster).length === 0);
     const considering = { position: { stepId: "defendant:considering-defendants-claim" }, intakeData: { extra: { yourRole: "Defendant / responding party" } } };
     const chosen = suggestApplicability(claimQuestion, readCaseRecord(considering, "small-claims"), considering)[0];
-    check("the step 'considering a defendant's claim' settles it", chosen?.value === true && chosen.firm === true);
+    // Considering is a question, not a decision: offered, never kept without
+    // the person's confirmation (CLAUDE.md section 4; review 2026-10-13).
+    check("the step 'considering a defendant's claim' offers it as a suggestion, not a kept answer", chosen?.value === true && !chosen.firm);
   }
   const forms = readFileSync(path.join(process.cwd(), "app/forms/FormsWorkspace.tsx"), "utf8");
   check("the forms page keeps only firm answers without asking", /suggestion\.firm &&/.test(forms) && /void saveApplicability\(patch, reasons\)/.test(forms));

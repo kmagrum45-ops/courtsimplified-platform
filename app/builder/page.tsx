@@ -1234,6 +1234,7 @@ function BuilderPageContent() {
     // tried once more if it fails, so the case page does not ask again.
     // Tracked with its retry, so the case page waits for it before reading (R4).
     await trackPositionWork(
+      caseId,
       (async () => {
         if (await savePositionQueued(caseId, { confirmedStage: stage })) return;
         await new Promise((resolve) => setTimeout(resolve, 2_000));
@@ -1278,7 +1279,7 @@ function BuilderPageContent() {
     // Tracked, retries and all: "Open your case page" can be pressed while
     // these are still going, and the case page waits for them before it reads
     // (positionSave.ts, walkthrough 2026-10-13 R4).
-    void trackPositionWork((async () => {
+    void trackPositionWork(caseId, (async () => {
       let allSaved = true;
       for (const part of parts) {
         let ok = await savePositionQueued(caseId, part);

@@ -348,7 +348,9 @@ export async function GET(req: NextRequest) {
       // puts it first (caseStep.ts; walkthrough 2026-10-13, R5: the Case file
       // counted nothing for a sidewalk fall whose notice deadlines the
       // Overview had counted, because this picked the court-starting step).
-      const stepId = caseStepFor(ownedCase.master_result, record.courtPath, responding);
+      // No confirmed stage, no step: the Case file never lists deadlines for a
+      // step the person has not reached (review 2026-10-13).
+      const stepId = caseStepFor(ownedCase.master_result, record.courtPath, responding, { requireConfirmedStage: true });
       const stage = stepId ? findStage(stepId) : undefined;
       /*
        * The dates they confirmed or answered, and -- under them -- a full date
