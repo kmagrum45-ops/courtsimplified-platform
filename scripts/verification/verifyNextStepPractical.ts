@@ -37,7 +37,9 @@
  *     municipality when the notice kept is to one (or with it when not);
  *     a respondent whose words show only parenting shown Form 13 as a form
  *     for the step instead of under r. 13 (1) (b)'s condition, or Form 13
- *     folded for words about support, money or property, or for no words.
+ *     folded for words about support, money or property, or for no words;
+ *     a case's Forms tab catalogue not led by the step's own forms (and the
+ *     claim form after a notice step), or losing or reordering the rest.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -79,6 +81,7 @@ import {
   CLAIM_AFTER_NOTICE,
 } from "../../src/lib/content-library/nextStepPractical";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
+import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
 import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -566,6 +569,55 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   }
 
   check("no new plain line grades a case", MORE_CARD_LINES.every((line) => !/\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)));
+}
+
+console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (walkthrough 2026-10-14)");
+{
+  // SW: Form 1A and the rule 2.1 dismissal forms led a sidewalk-fall
+  // plaintiff's Forms tab. Property of the ordering: nothing lost, every lead
+  // form before every other, the rest in their own order.
+  const catalogue = ["1A", "2.1A", "2.1B", "4A", "7A", "14A", "14B", "16B", "37A", "59A"];
+  let orderMisses = 0;
+  for (let mask = 0; mask < 1 << catalogue.length; mask += 37) {
+    const lead = catalogue.filter((_, index) => mask & (1 << index)).reverse().map((number) => `Form ${number.toLowerCase()}`);
+    const out = leadFormsFirst(catalogue, (number) => number, lead);
+    const isLead = (number: string) => lead.some((item) => formKey(item) === formKey(number));
+    const firstOther = out.findIndex((number) => !isLead(number));
+    const rest = out.filter((number) => !isLead(number));
+    if (
+      out.length !== catalogue.length ||
+      new Set(out).size !== catalogue.length ||
+      (firstOther >= 0 && out.slice(firstOther).some(isLead)) ||
+      rest.join() !== catalogue.filter((number) => !isLead(number)).join()
+    )
+      orderMisses += 1;
+  }
+  check("leading forms move up, nothing is lost, the rest keep their order", orderMisses === 0, `misses ${orderMisses}`);
+
+  // Every step: the lead forms are the step's own unfolded forms of its court,
+  // plus the claim form after a notice -- never a folded one.
+  const leadWrong: string[] = [];
+  for (const stage of steps) {
+    const court = pathwayOf(stage) as PracticalCourt;
+    for (const words of ["", STORIES[1], 'my ex took me to court for custody {"issues":["parenting-time"]}']) {
+      const view = practicalFor(stage.id, court, "Toronto", false, words);
+      if (!view) continue;
+      const own = view.forms.filter((form) => form.court === court).map((form) => form.number);
+      const claim = view.afterNotice.length > 0 && court !== "family" ? [CLAIM_AFTER_NOTICE[court].form] : [];
+      if (view.leadForms.join() !== [...own, ...claim].join()) leadWrong.push(`${stage.id}`);
+      if (view.formsIfClaimed.some((form) => view.leadForms.includes(form.number))) leadWrong.push(`${stage.id}: folded form leads`);
+    }
+  }
+  check("on every step the catalogue is led by the step's own forms, then the claim form after a notice", leadWrong.length === 0, [...new Set(leadWrong)].slice(0, 5).join("; "));
+  const sidewalk = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
+  check("the Toronto sidewalk notice step leads with Form 14A", sidewalk?.leadForms[0] === "14A");
+  check("Form 14A's start line names it", /Form 14A/.test(CLAIM_AFTER_NOTICE.civil.start.say) && /Form 7A/.test(CLAIM_AFTER_NOTICE["small-claims"].start.say));
+
+  const formsPage = readFileSync(path.join(ROOT, "app", "cases", "[id]", "forms", "page.tsx"), "utf8");
+  const workspace = readFileSync(path.join(ROOT, "app", "forms", "FormsWorkspace.tsx"), "utf8");
+  check("the Forms tab passes the step's lead forms to the catalogue", /<FormsWorkspace\b[^>]*leadForms=\{practical\?\.leadForms/.test(formsPage));
+  check("and shows the step section for a notice step too (afterNotice)", /practical\.afterNotice\.length > 0/.test(formsPage));
+  check("the catalogue orders what it shows with leadFormsFirst", /leadFormsFirst\(kept,/.test(workspace) && /return leadFormsFirst/.test(workspace));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

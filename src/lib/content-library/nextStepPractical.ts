@@ -739,13 +739,15 @@ const NOTICE_SOURCES = new Set<RuleCitation["sourceId"]>([
   "crown-liability-and-proceedings-act-2019",
   "insurance-act",
 ]);
-export const CLAIM_AFTER_NOTICE: Record<"civil" | "small-claims", { start: PlainLine; fees: string[] }> = {
+export const CLAIM_AFTER_NOTICE: Record<"civil" | "small-claims", { start: PlainLine; fees: string[]; form: string }> = {
   civil: {
     start: { say: "After the notice, the court case itself is started with a statement of claim (Form 14A).", cite: CIV_START },
     fees: ["civ-claim"],
+    form: "14A",
   },
   "small-claims": {
     start: { say: "After the notice, the court case itself is started by filing a plaintiff's claim (Form 7A) with the clerk, with a copy for each defendant.", cite: SC_START },
+    form: "7A",
     // Both claim fees, as on every other Small Claims claim step (review 2026-10-13).
     fees: ["sc-claim", "sc-claim-frequent"],
   },
@@ -1538,6 +1540,12 @@ export type PracticalView = {
   noticeHow: PlainLine[];
   /** After a notice before suing: the form that starts the court case, and its fee (shown after the notice). */
   afterNotice: PlainLine[];
+  /**
+   * The forms of this court that lead the case's forms catalogue: the step's
+   * own, then the form that starts the court case after a notice step
+   * (walkthrough 2026-10-14, SW). Folded forms are not among them.
+   */
+  leadForms: string[];
 };
 
 /**
@@ -1743,6 +1751,10 @@ export function practicalFor(
     courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
     afterNotice: claimAfterNotice(stepId, court, story, city),
+    leadForms: [
+      ...allForms.filter((form) => !folded(form) && form.court === court).map((form) => form.number),
+      ...(court !== "family" && claimAfterNotice(stepId, court, story, city).length > 0 ? [CLAIM_AFTER_NOTICE[court].form] : []),
+    ],
     fees,
     feeNotes:
       court !== "family"

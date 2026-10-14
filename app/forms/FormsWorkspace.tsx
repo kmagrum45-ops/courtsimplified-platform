@@ -34,6 +34,7 @@ import GetHelp from "../_components/GetHelp";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
+import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -401,9 +402,16 @@ type FormsWorkspaceProps = {
   courtPath?: string | null;
   /** Rendered inside the case page: no page header, no outer page frame. */
   embedded?: boolean;
+  /**
+   * Form numbers that lead the catalogue, in order: the case's step's forms and
+   * the form that starts the court case after a notice (walkthrough 2026-10-14,
+   * SW: Form 1A and the dismissal forms led a sidewalk-fall plaintiff's list).
+   * The rest follow; nothing is removed.
+   */
+  leadForms?: string[];
 };
 
-function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false }: FormsWorkspaceProps) {
+function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [] }: FormsWorkspaceProps) {
   const searchParams = useSearchParams();
 
   const initialPath = getCourtPath(courtPathProp ?? searchParams.get("path"));
@@ -668,12 +676,14 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   const filteredForms = useMemo(() => {
     const q = normalize(search);
 
-    return enrichedForms.filter(({ form, status }) => {
+    const kept = enrichedForms.filter(({ form, status }) => {
       const searchMatch = !q || getSearchText(form).includes(q);
       const statusMatch = statusFilter === "all" || status === statusFilter;
       return searchMatch && statusMatch;
     });
-  }, [enrichedForms, search, statusFilter]);
+    return leadFormsFirst(kept, ({ form }) => cleanSpaces(form.form_number), leadForms);
+  }, [enrichedForms, search, statusFilter, leadForms]);
+  const leadKeys = useMemo(() => new Set(leadForms.map(formKey)), [leadForms]);
 
   const stats = useMemo(() => {
     return {
@@ -1261,6 +1271,11 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         >
                           {getStatusLabel(status)}
                         </span>
+                        {leadKeys.has(formKey(cleanSpaces(form.form_number))) ? (
+                          <span data-testid="form-for-your-step" className="rounded-full border border-[#2f7d67] bg-[#f2fbf7] px-3 py-1 text-xs font-bold text-[#2f7d67]">
+                            For your step
+                          </span>
+                        ) : null}
                       </div>
 
                       {/*
