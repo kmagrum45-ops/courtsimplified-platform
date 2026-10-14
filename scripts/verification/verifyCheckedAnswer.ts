@@ -23,7 +23,7 @@
  * Run: node --import tsx scripts/verification/verifyCheckedAnswer.ts
  */
 
-import { loadCorpusIndex, PRESSURE_SENTENCES, readPassage, withoutPressure, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
+import { loadCorpusIndex, PRESSURE_SENTENCES, readPassage, sourcePassages, withoutPressure, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import {
   checkedAnswer,
   checkedAnswerView,
@@ -382,6 +382,27 @@ async function main() {
   const staleRead = stale.map((id) => readPassage(index, id, 0.5));
   check("the Superior Court guide's old $35,000 limit is never given to the check", stale.length > 0 && !staleRead.some((p) => p && p.text.includes("$35,000")));
   check("the rest of that guide still is", staleRead.some(Boolean));
+  // Property, every source (2026-10-13, site owner: "get rid of all 35k references"): no passage
+  // about Small Claims that reaches the check or a reader carries the pre-October-2025 limit,
+  // whichever official page it came from. Child support tables use $35,000 as an income and are
+  // not about Small Claims, so they are untouched.
+  // Raw chunks first (cheap), then only the candidates go through readPassage.
+  const candidates = Object.keys(index.meta.sources).flatMap((sourceId) =>
+    sourcePassages(index, sourceId).filter((chunk) => /small claims/i.test(chunk.text) && /\$\s?35,000/.test(chunk.text)),
+  );
+  const oldLimit = candidates
+    .map((chunk) => readPassage(index, chunk.id, 0.5))
+    .filter((p): p is Passage => Boolean(p && /\$\s?35,000/.test(p.text)));
+  check(
+    "no Small Claims passage handed out states the old $35,000 limit",
+    candidates.length > 0 && oldLimit.length === 0,
+    oldLimit.map((p) => p.id).join(", "),
+  );
+  const suing = index.meta.chunks.map(([id]) => id).filter((id) => id.startsWith("corpus:ontario-suing-someone-small-claims:"));
+  check(
+    "ontario.ca's change notice is cut, and its $50,000 statement still reaches the check",
+    suing.length > 0 && suing.map((id) => readPassage(index, id, 0.5)).some((p) => p && p.text.includes("$50,000 or less")),
+  );
 
   // ---- 6j. Guide sentences that urge settling are never shown (2026-10-13)
   for (const entry of PRESSURE_SENTENCES) {

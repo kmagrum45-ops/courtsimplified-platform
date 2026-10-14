@@ -2225,7 +2225,7 @@ An interlocutory injunction or mandatory order under section 101 or 102 of the C
 "next:civil:not-sure","next-step","civil","not-sure","Ontario's Small Claims Court guide says that a lawyer or paralegal is in the best position to advise you about your legal rights and responsibilities, and that if you wish to consult an Ontario lawyer or paralegal, you may contact the Law Society Referral Service, operated by the Law Society of Ontario. It can give you the name of a lawyer or paralegal in your area, who will provide a free initial consultation of up to 30 minutes to help determine your rights and options.
 
 You can ask for a referral by completing the online request form at www.lawsocietyreferralservice.ca.","https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment","Case summary and generated documents","82598125","draft","","",""
-"pathway:small-claims","pathway-description","small-claims","routing","Small Claims Court handles claims for money up to $50,000, not counting interest and costs, and claims for the return of personal property worth up to $50,000. The limit rose from $35,000 on October 1, 2025.","https://www.ontario.ca/page/suing-someone-small-claims-court","Home, after court-path classification","1757502903","draft","","",""
+"pathway:small-claims","pathway-description","small-claims","routing","Small Claims Court handles claims for money up to $50,000, not counting interest and costs, and claims for the return of personal property worth up to $50,000.","https://www.ontario.ca/page/suing-someone-small-claims-court","Home, after court-path classification","1757502903","draft","","",""
 "pathway:civil","pathway-description","civil","routing","The Superior Court of Justice hears civil claims above the Small Claims Court limit; a claim within that limit can be started there only with the Superior Court's leave. Its procedure is set by the Rules of Civil Procedure, R.R.O. 1990, Reg. 194.","https://www.ontario.ca/laws/regulation/900194","Home, after court-path classification","1558860760","draft","","",""
 "pathway:family","pathway-description","family","routing","Family law cases -- such as parenting, child and spousal support, and property on the breakdown of a relationship -- are heard in the Family Court of the Superior Court of Justice, the Superior Court of Justice or the Ontario Court of Justice. Its procedure is set by the Family Law Rules, O. Reg. 114/99.","https://www.ontario.ca/laws/regulation/990114","Home, after court-path classification","43138927","draft","","",""
 "pathway:mixed","pathway-description","mixed","routing","What you have described may involve more than one of Family, Small Claims and Civil. You can choose which to start with, and you can change your choice later.","","Home, after court-path classification","1808755017","draft","","",""
@@ -4160,8 +4160,7 @@ Small Claims Court can only hear claims up to a set dollar limit. Claims for mor
 
 Key facts:
 - The claim limit is $50,000, excluding interest and costs.
-- This limit increased from $35,000 effective October 1, 2025.
-- The appeal threshold also rose, from $3,500 to $5,000: an appeal to the Divisional Court lies from a final order for the payment of money in excess of that amount, excluding costs (Courts of Justice Act, s. 31).
+- The appeal threshold is $5,000: an appeal to the Divisional Court lies from a final order for the payment of money in excess of that amount, excluding costs (Courts of Justice Act, s. 31).
 - Under the Limitations Act, 2002, a claim generally cannot be started more than two years after the day it was discovered (s. 4).
 
 How CourtSimplified uses it:
