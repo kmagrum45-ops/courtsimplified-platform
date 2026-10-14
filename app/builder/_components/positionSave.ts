@@ -68,13 +68,24 @@ export type PositionWriteClient = {
 export type DirectSaveOutcome = "saved" | "refused" | "failed";
 
 /** Applies a position patch to the case through the person's own client. Exported for test:case-position. */
-export async function savePositionDirect(db: PositionWriteClient, caseId: string, patch: PositionPatch, now: () => Date = () => new Date()): Promise<DirectSaveOutcome> {
+export async function savePositionDirect(
+  db: PositionWriteClient,
+  caseId: string,
+  patch: PositionPatch,
+  options: { now?: () => Date; abandoned?: { gaveUp: boolean } } = {},
+): Promise<DirectSaveOutcome> {
+  const now = options.now ?? (() => new Date());
   try {
     const { data, error } = await db.from("cases").select("court_path").eq("id", caseId).maybeSingle();
     if (error || !data) return "failed";
     const courtPath = data.court_path ?? null;
     let refused = false;
     const result = await updateMasterResult(db, { caseId }, (stored) => {
+      // Given up on (it ran past its time and the next save has gone ahead):
+      // it must not land later and put an older choice over a newer one
+      // (review 2026-10-14). A write already sent when it was given up loses
+      // to any newer save through updateMasterResult's updated_at check.
+      if (options.abandoned?.gaveUp) return { reject: "gave up" };
       const applied = applyPositionPatch(readCasePosition(stored, courtPath), patch, courtPath, now());
       if (!applied.ok) {
         refused = true;
@@ -89,13 +100,21 @@ export async function savePositionDirect(db: PositionWriteClient, caseId: string
   }
 }
 
-/** A promise that gives up after `ms` with `fallback` (its work may still finish). */
-function within<T>(work: Promise<T>, ms: number, fallback: T): Promise<T> {
+/**
+ * The direct save, given up after `ms`: from then on it writes nothing
+ * (`abandoned`), so a slow save cannot land after a newer one. Exported for
+ * test:case-position.
+ */
+export async function savePositionDirectWithin(db: PositionWriteClient, caseId: string, patch: PositionPatch, ms: number): Promise<DirectSaveOutcome> {
+  const abandoned = { gaveUp: false };
   let timer: ReturnType<typeof setTimeout> | undefined;
   return Promise.race([
-    work,
-    new Promise<T>((resolve) => {
-      timer = setTimeout(() => resolve(fallback), ms);
+    savePositionDirect(db, caseId, patch, { abandoned }),
+    new Promise<DirectSaveOutcome>((resolve) => {
+      timer = setTimeout(() => {
+        abandoned.gaveUp = true;
+        resolve("failed");
+      }, ms);
     }),
   ]).finally(() => {
     if (timer) clearTimeout(timer);
@@ -113,10 +132,11 @@ async function post(caseId: string, patch: Record<string, unknown>): Promise<boo
     // Imported on use: pure helpers in modules that import this one are read
     // by checks that must not construct the Supabase client.
     const { supabase } = clientForChecks ? { supabase: null } : await import("@/src/lib/supabase/client");
-    const direct = await within(
-      savePositionDirect((clientForChecks ?? supabase) as unknown as PositionWriteClient, caseId, patch as PositionPatch),
+    const direct = await savePositionDirectWithin(
+      (clientForChecks ?? supabase) as unknown as PositionWriteClient,
+      caseId,
+      patch as PositionPatch,
       POSITION_SAVE_TIMEOUT_MS,
-      "failed" as DirectSaveOutcome,
     );
     if (direct === "saved") return true;
     if (direct === "refused" || !supabase) return false;

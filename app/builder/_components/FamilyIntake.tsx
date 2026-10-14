@@ -392,7 +392,11 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
    * case they have not touched (stageFromAnswers.ts, 2026-10-14). Only these
    * can stand as their confirmation of the stage.
    */
-  const personSet = useRef<Set<"yourRole" | "filedDocuments">>(new Set());
+  const personSet = useRef<Set<"yourRole">>(new Set());
+  // Each document item the person chose or cleared themselves; a chat
+  // answer sets the whole list. The list counts as theirs only when every
+  // item on it is one they chose (review 2026-10-14).
+  const personDocuments = useRef<Set<string>>(new Set());
 
   const textareaFields: TextareaField[] = useMemo(
     () => [
@@ -755,7 +759,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         // (stageFromAnswers.ts): only fields they set, never a prefill.
         personAnswers: {
           ...(personSet.current.has("yourRole") && yourRole !== "not-sure" ? { side: yourRole } : {}),
-          ...(personSet.current.has("filedDocuments")
+          ...(filedDocuments.length > 0 && filedDocuments.every((item) => personDocuments.current.has(item))
             ? { filed: [...filedDocuments], filedLabels: filedDocuments.map(labelForFiledDocument) }
             : {}),
         } satisfies PersonAnswers,
@@ -808,7 +812,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       case "facts": setFacts(one); void sourced.start(one, yourRole !== "not-sure" ? yourRole : undefined); break;
       case "yourRole": personSet.current.add("yourRole"); setYourRole(one === "applicant" || one === "respondent" ? one : "not-sure"); break;
       case "issues": setIssues(list.filter((item): item is FamilyIssue => issueOptions.some((option) => option.value === item))); break;
-      case "filedDocuments": personSet.current.add("filedDocuments"); setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
+      case "filedDocuments": personDocuments.current = new Set(list); setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
       case "childrenInfo": setChildrenInfo(one); break;
       case "servedDate": setTimeline((current) => familyTimelineAnswer(key, one, current) ?? current); break;
       case "upcomingCourtDate": setUpcomingCourtDate(one); break;
@@ -999,7 +1003,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
                 key={option.value}
                 type="button"
                 onClick={() => {
-                  personSet.current.add("filedDocuments");
+                  personDocuments.current.add(option.value);
                   setFiledDocuments((current) =>
                     toggleArrayValue(current, option.value),
                   );

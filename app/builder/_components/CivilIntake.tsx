@@ -619,7 +619,12 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
    * case they have not touched (stageFromAnswers.ts, walkthrough SW
    * 2026-10-14). Only these can stand as their confirmation of the stage.
    */
-  const personSet = useRef<Set<"yourRole" | "documents">>(new Set());
+  const personSet = useRef<Set<"yourRole">>(new Set());
+  // Each document item the person chose or cleared themselves; a chat
+  // answer sets the whole list. The list counts as theirs only when every
+  // item on it is one they chose (review 2026-10-14: one click made a whole
+  // prefilled list theirs).
+  const personDocuments = useRef<Set<string>>(new Set());
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
@@ -805,7 +810,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         // (stageFromAnswers.ts): only fields they set, never a prefill.
         personAnswers: {
           ...(personSet.current.has("yourRole") && input.yourRole ? { side: input.yourRole } : {}),
-          ...(personSet.current.has("documents")
+          ...(input.documents.length > 0 && input.documents.every((item) => personDocuments.current.has(item))
             ? { filed: [...input.documents], filedLabels: labelsFromValues(input.documents, documentOptions) }
             : {}),
         } satisfies PersonAnswers,
@@ -865,7 +870,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     switch (key) {
       case "facts": updateField("facts", one); void startSourced(one, input.yourRole || undefined); break;
       case "yourRole": personSet.current.add("yourRole"); updateField("yourRole", one); break;
-      case "documents": personSet.current.add("documents"); updateField("documents", list.filter((item): item is CivilDocument => documentOptions.some((option) => option.value === item))); break;
+      case "documents": personDocuments.current = new Set(list); updateField("documents", list.filter((item): item is CivilDocument => documentOptions.some((option) => option.value === item))); break;
       case "issues": updateField("issues", list.filter((item): item is CivilIssue => issueOptions.some((option) => option.value === item))); break;
       case "amountClaimed": updateField("amountClaimed", one); break;
       case "serviceDetails": updateField("serviceDetails", one); break;
@@ -1031,7 +1036,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
                 key={option.value}
                 type="button"
                 onClick={() => {
-                  personSet.current.add("documents");
+                  personDocuments.current.add(option.value);
                   updateField("documents", toggleArrayValue(input.documents, option.value));
                 }}
                 className={`rounded-2xl border px-4 py-3 text-left text-sm ${

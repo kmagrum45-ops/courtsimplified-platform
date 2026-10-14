@@ -13,7 +13,7 @@ import type { MotionToChangeLead } from "./motionToChange";
 export default function MotionToChangeRoute({ lead }: { lead: MotionToChangeLead }) {
   return (
     <section data-testid="motion-to-change-route" className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm">
-      <h2 className="text-lg font-bold text-[#10231f]">Changing the order you already have</h2>
+      <h2 className="text-lg font-bold text-[#10231f]">{lead.heading}</h2>
       <p className="mt-2 text-base font-semibold leading-7 text-[#16302b]">{lead.line}</p>
       <ul className="mt-3 space-y-3 text-sm leading-6 text-[#24463d]">
         {lead.rules.map((rule) => {

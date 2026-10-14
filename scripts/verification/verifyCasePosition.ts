@@ -71,6 +71,7 @@ import {
   positionSavesSettled,
   postWithTimeout,
   savePositionDirect,
+  savePositionDirectWithin,
   savePositionQueued,
   setPositionClientForChecks,
   trackPositionWork,
@@ -605,19 +606,36 @@ function personsDatesWin(source: string): boolean {
     stageFromPersonAnswers("civil", { side: "plaintiff", filed: ["nothing"], filedLabels: ["Nothing filed yet"] })?.because === "Nothing filed yet",
   );
   check("answers: nothing junk is read back from a saved payload", JSON.stringify(personAnswersOf({ personAnswers: { side: 3, filed: "nothing", claimFiled: "no" } })) === "{}");
-  check("answers: a plain yes or no is read; anything less plain is not", yesOrNo("No, I haven't filed anything yet.") === false && yesOrNo("not yet") === false && yesOrNo("Yes") === true && yesOrNo("I think so") === null && yesOrNo("not sure") === null);
+  check("answers: a plain yes or no is read", yesOrNo("No, I haven't filed anything yet.") === false && yesOrNo("not yet") === false && yesOrNo("Yes") === true && yesOrNo("No") === false);
+  // Review 2026-10-14: hedges were read as answers.
+  for (const hedge of ["I think so", "not sure", "No idea", "no clue", "Nope, not sure", "I have no idea", "Yes I think so", "No, I don't remember", "yes maybe", "I don't know"]) {
+    check(`answers: a hedge is no answer: '${hedge}'`, yesOrNo(hedge) === null, String(yesOrNo(hedge)));
+  }
+  check(
+    "answers: a hedged filing answer settles no stage",
+    stageFromPersonAnswers(
+      "small-claims",
+      personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "No idea" },
+        ],
+        { role: "defendant" },
+      ),
+    ) === null,
+  );
 
   // Wiring: the intakes keep only what the person set; the results never
   // replace a stage already on the case with one from answers.
   for (const file of ["app/builder/_components/CivilIntake.tsx", "app/builder/_components/FamilyIntake.tsx"]) {
     const source = read(file);
     const kept = source.slice(source.indexOf("personAnswers: {"), source.indexOf("} satisfies PersonAnswers"));
-    check(`answers: ${file} keeps a side or filing answer only when the person set it`, /personSet\.current\.has\("yourRole"\)/.test(kept) && /personSet\.current\.has\("(?:documents|filedDocuments)"\)/.test(kept));
+    check(`answers: ${file} keeps a side or filing answer only when the person set it`, /personSet\.current\.has\("yourRole"\)/.test(kept) && /\.every\(\(item\) => personDocuments\.current\.has\(item\)\)/.test(kept) && /personDocuments\.current\.add\(option\.value\)/.test(source));
   }
   const builder = read("app/builder/page.tsx");
   check(
-    "answers: the results record a stage from answers only when the case has none, and show the answer beside it",
-    /stored \? null : stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
+    "answers: the results record a stage from answers only when the person has set none (\"not sure\" included), and show the answer beside it",
+    /personSetStage = storedOnCase \|\| /.test(builder) && /personSetStage \? null : stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
   );
 }
 
@@ -714,19 +732,23 @@ void (async () => {
   type Row = { court_path: string; master_result: Record<string, unknown>; updated_at: string };
   const fakeCases = (row: Row) => {
     let stamp = 0;
-    const hooks: { beforeWrite: (() => void) | null } = { beforeWrite: null };
+    const hooks: { beforeWrite: (() => void) | null; readDelayMs: number } = { beforeWrite: null, readDelayMs: 0 };
     const db = {
       from() {
         return {
           select(columns: string) {
             const chain = {
               eq: () => chain,
-              maybeSingle: async () => ({
-                data: /master_result/.test(columns)
-                  ? { master_result: JSON.parse(JSON.stringify(row.master_result)), updated_at: row.updated_at }
-                  : { court_path: row.court_path },
-                error: null,
-              }),
+              maybeSingle: async () => {
+                const delay = /master_result/.test(columns) ? hooks.readDelayMs : 0;
+                if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
+                return {
+                  data: /master_result/.test(columns)
+                    ? { master_result: JSON.parse(JSON.stringify(row.master_result)), updated_at: row.updated_at }
+                    : { court_path: row.court_path },
+                  error: null,
+                };
+              },
             };
             return chain;
           },
@@ -800,6 +822,21 @@ void (async () => {
     );
     setPositionClientForChecks(fakeCases(row).db as never);
     assert("saves: a refused save is reported as not saved", (await savePositionQueued("case-x", { confirmedStage: "winning" })) === false);
+
+    // A save given up on never lands later over a newer one (review
+    // 2026-10-14): the slow save's read outlasts its time, the next save goes
+    // ahead and lands, and the slow one must not then write its older stage.
+    const slowRow: Row = { court_path: "civil", master_result: {}, updated_at: "2026-10-14T00:00:00Z" };
+    const slow = fakeCases(slowRow);
+    slow.hooks.readDelayMs = 120;
+    const gaveUp = await savePositionDirectWithin(slow.db as never, "case-slow", { confirmedStage: "starting-case" }, 20);
+    slow.hooks.readDelayMs = 0;
+    const newer = await savePositionDirect(slow.db as never, "case-slow", { confirmedStage: "responding" });
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    assert(
+      "saves: a save given up on does not land later over a newer one",
+      gaveUp === "failed" && newer === "saved" && readCasePosition(slowRow.master_result, "civil").confirmedStage === "responding",
+    );
   } finally {
     setPositionClientForChecks(null);
     globalThis.fetch = hungFetch;

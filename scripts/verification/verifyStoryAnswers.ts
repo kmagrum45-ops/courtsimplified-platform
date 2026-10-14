@@ -68,7 +68,7 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
-import { motionToChangeLead } from "../../app/builder/_components/motionToChange";
+import { motionToChangeLead, type MotionToChangeLead } from "../../app/builder/_components/motionToChange";
 import { SERVED_LINE, storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { HELD_BACK_PERSONAS } from "../../tests/browser/walkthrough/heldBackPersonas";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -496,46 +496,78 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
 // Walkthrough MC (2026-10-14): a father with a 2022 support order asked how to
 // get it lowered; the first rule card said "Family Rule 14 governs motions for
 // temporary orders" and nothing answered him plainly. Properties: a family
-// story with an order and words asking to change it gets the motion-to-change
-// line, whose words are in the quoted r. 15 (5), with r. 15 (2) beside it,
-// both found verbatim in the saved Family Law Rules; no other story gets it;
-// it predicts nothing; and on the results it comes first, with the
-// temporary-motion card not shown beside it.
+// story with an order and words asking to change the order (support,
+// parenting, payments) gets the motion-to-change line with the consent
+// carve-out it is subject to; someone SERVED with a motion to change gets the
+// response route instead, and someone served with anything else gets neither;
+// every phrase the line names (forms, days) is in a quote beside it, and every
+// quote is word for word in the saved Family Law Rules; it predicts nothing;
+// other uses of "change" get nothing; and the temporary-motion card is hidden
+// only when the story asks for no urgency or temporary order (review
+// 2026-10-14).
 {
   const corpus = read("docs/sources/corpus/family-law-rules.txt").replace(/\s+/g, " ");
-  const mc = PERSONAS.find((persona) => persona.id === "family-motion-to-change-support");
-  const lead = mc ? motionToChangeLead("family", mc.story, true) : null;
-  check("motion to change: the father asking to lower his support order gets the route", Boolean(lead), mc ? mc.story : "persona missing");
-  if (lead) {
+  const flat = (text: string) => text.replace(/\s+/g, " ");
+  const checkLead = (name: string, lead: MotionToChangeLead | null, kind: "asking" | "responding", pinpointsWanted: string[], phrases: string[]) => {
+    check(`motion to change: ${name} gets the ${kind} route`, lead?.kind === kind, JSON.stringify(lead?.kind ?? null));
+    if (!lead || lead.kind !== kind) return;
     const pinpoints = lead.rules.map((rule) => rule.pinpoint);
-    check("motion to change: quotes r. 15 (5) and r. 15 (2)", pinpoints.includes("r. 15 (5)") && pinpoints.includes("r. 15 (2)"), pinpoints.join(", "));
+    check(`motion to change: ${name}: quotes ${pinpointsWanted.join(", ")}`, pinpointsWanted.every((pinpoint) => pinpoints.includes(pinpoint)), pinpoints.join(", "));
     check(
-      "motion to change: every quote is in the saved Family Law Rules, word for word",
-      lead.rules.every((rule) => rule.sourceId === "family-law-rules" && corpus.includes(rule.quote.replace(/\s+/g, " "))),
+      `motion to change: ${name}: every quote is in the saved Family Law Rules, word for word`,
+      lead.rules.every((rule) => rule.sourceId === "family-law-rules" && corpus.includes(flat(rule.quote))),
     );
-    const r155 = lead.rules.find((rule) => rule.pinpoint === "r. 15 (5)")?.quote ?? "";
-    check(
-      "motion to change: the plain line says only what r. 15 (5) says (a final order, a motion to change, Form 15)",
-      ["final order", "motion to change", "Form 15"].every((words) => lead.line.includes(words) && r155.includes(words)),
-      lead.line,
-    );
-    check("motion to change: the line predicts nothing", !/\b(?:likely|will (?:be|get|win)|chance|strong|weak|succeed|should)\b/i.test(lead.line), lead.line);
-  }
-  const noRoute: [string, string, boolean][] = [
-    ["family", "i want to start a case for custody of my son", false],
-    ["family", "there is a support order from 2022 and he has not paid in months", true],
-    ["family", "the court order says i have the kids every weekend", true],
-    ["civil", "i want the court order lowered", true],
-    ["small-claims", "how do i get the judgment changed", true],
+    const quoted = lead.rules.map((rule) => rule.quote).join(" ");
+    const missing = phrases.filter((phrase) => !lead.line.includes(phrase) || !quoted.includes(phrase));
+    check(`motion to change: ${name}: what the line names is in the quotes beside it`, missing.length === 0, missing.join("; "));
+    check(`motion to change: ${name}: the line predicts nothing`, !/\b(?:likely|will (?:be|get|win)|chance|strong|weak|succeed|should)\b/i.test(lead.line), lead.line);
+  };
+
+  const mc = PERSONAS.find((persona) => persona.id === "family-motion-to-change-support");
+  const mcLead = mc ? motionToChangeLead("family", mc.story, true, false) : null;
+  checkLead("the father asking to lower his support order", mcLead, "asking", ["r. 15 (5)", "r. 15 (2)", "r. 15 (17)", "r. 15 (18)"], [
+    "final order",
+    "motion to change (Form 15)",
+    "consent motion to change (Form 15C)",
+    "consent motion to change child support (Form 15D)",
+    "assignee",
+  ]);
+  check("motion to change: the father's route replaces the temporary-motion card", mcLead?.replacesTemporaryMotionCard === true);
+
+  const served = "We have a 2021 court order for child support. My ex served me a Motion to Change to increase it.";
+  checkLead("a parent served with a motion to change", motionToChangeLead("family", served, true, true), "responding", ["r. 15 (9)", "r. 15 (10)"], [
+    "response to motion to change (Form 15B)",
+    "consent motion to change (Form 15C)",
+    "30 days",
+    "60 days",
+    "Canada or the United States",
+  ]);
+  check("motion to change: the served parent is never told to bring one", motionToChangeLead("family", served, true, true)?.line.includes("you bring a motion to change") === false);
+
+  const noRoute: [string, string, boolean, boolean][] = [
+    ["family", "i want to start a case for custody of my son", false, false],
+    ["family", "there is a support order from 2022 and he has not paid in months", true, false],
+    ["family", "the court order says i have the kids every weekend", true, false],
+    ["family", "we have a custody order. i want to change my lawyer", true, false],
+    ["family", "there is a court order from 2020. i need a change of name for my daughter", true, false],
+    ["family", "there is a support order and i was served with an application to change my parenting time", true, true],
+    ["civil", "i want the court order lowered", true, false],
+    ["small-claims", "how do i get the judgment changed", true, false],
   ];
-  for (const [court, text, existingOrder] of noRoute) {
-    check(`motion to change: no route offered for ${court} '${text}'`, motionToChangeLead(court, text, existingOrder) === null);
+  for (const [court, text, existingOrder, responding] of noRoute) {
+    check(`motion to change: no route offered for ${court} '${text}'`, motionToChangeLead(court, text, existingOrder, responding) === null, JSON.stringify(motionToChangeLead(court, text, existingOrder, responding)?.kind));
   }
+  const urgent = motionToChangeLead("family", "there is a support order. i lost my job and need the support lowered right away, i need a temporary order", true, false);
+  check("motion to change: urgency or a temporary order keeps the temporary-motion card", urgent?.kind === "asking" && urgent.replacesTemporaryMotionCard === false);
+  const calm = motionToChangeLead("family", "there is a support order and i want the support reduced. nothing urgent", true, false);
+  check("motion to change: 'nothing urgent' is not urgency", calm?.replacesTemporaryMotionCard === true);
+
   const builder = read("app/builder/page.tsx");
   const leadAt = builder.indexOf("<MotionToChangeRoute");
   const stageAt = builder.indexOf("<StageConfirmation");
   check("motion to change: the route leads the results, above the stage", leadAt > 0 && stageAt > leadAt);
-  check("motion to change: the temporary-motion card is not shown with it", /!confirmedStage && !motionLead \? \(\s*<ProcedureAuthorityDisplay/.test(builder));
+  check("motion to change: the page passes whether the person was served", /motionToChangeLead\([\s\S]{0,400}respondingInFamilyStory\(familyStory\)/.test(builder));
+  check("motion to change: the temporary-motion card is hidden only when the route replaces it", /!confirmedStage && !motionLead\?\.replacesTemporaryMotionCard \? \(\s*<ProcedureAuthorityDisplay/.test(builder));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

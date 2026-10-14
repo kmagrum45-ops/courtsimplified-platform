@@ -31,6 +31,7 @@ import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/element
 import CivilIntake from "./_components/CivilIntake";
 import FamilyStatusTriage, {
   existingFamilyOrder,
+  respondingInFamilyStory,
   emptyTriageState,
   triageStateFromStored,
   type FamilyTriageState,
@@ -1153,7 +1154,10 @@ function BuilderPageContent() {
      */
     const rawSuggested = getStageForPersistence(result, payload);
     const suggested = ((STAGE_CODES as readonly string[]).includes(rawSuggested) ? rawSuggested : "not-sure") as UniversalStage;
-    const fromAnswers = stored ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested);
+    // Any stage the person set -- "I am not sure" included -- is theirs and
+    // is never replaced by one read from answers (review 2026-10-14).
+    const personSetStage = storedOnCase || (sameCase ? thisVisit!.stage : null);
+    const fromAnswers = personSetStage ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested);
     setStageBasis(fromAnswers);
     if (fromAnswers) lastConfirmedRef.current = { caseId: queryCaseId || masterCaseIdRef.current, stage: fromAnswers.stage };
     const settledStage = stored ?? fromAnswers?.stage ?? null;
@@ -1237,7 +1241,13 @@ function BuilderPageContent() {
   const familyStory = homeStory || userStory(caseData);
   const motionLead =
     courtPath === "family"
-      ? motionToChangeLead(courtPath, [familyStory, caseData?.goal].filter(Boolean).join("\n"), existingFamilyOrder(familyStory))
+      ? motionToChangeLead(
+          courtPath,
+          // The urgent answer counts only when it says something is urgent.
+          [familyStory, caseData?.goal, /^\s*(?:no|none|nothing|not|n\/a)\b/i.test(caseData?.urgent ?? "") ? "" : caseData?.urgent].filter(Boolean).join("\n"),
+          existingFamilyOrder(familyStory),
+          respondingInFamilyStory(familyStory),
+        )
       : null;
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
@@ -2071,7 +2081,7 @@ function BuilderPageContent() {
             {/* With the motion-to-change route on top, the catalogue's
                 temporary-motion card ("Family Rule 14 governs motions for
                 temporary orders") is not shown (walkthrough MC, 2026-10-14). */}
-            {!confirmedStage && !motionLead ? (
+            {!confirmedStage && !motionLead?.replacesTemporaryMotionCard ? (
               <ProcedureAuthorityDisplay
                 courtArea={courtPath}
                 procedureStage={getStageForPersistence(analysis, caseData)}

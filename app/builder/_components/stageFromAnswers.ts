@@ -188,7 +188,9 @@ export function sideInAnswer(text: string): "plaintiff" | "defendant" | null {
  */
 export function yesOrNo(text: string): boolean | null {
   const start = text.trim().toLowerCase();
-  if (/^(?:not sure|i'?m not sure|i don'?t know|unsure|maybe|i think)/.test(start)) return null;
+  // A hedge anywhere makes it no answer (review 2026-10-14: "No idea", "no
+  // clue", "Nope, not sure", "Yes I think so" were read as a plain no or yes).
+  if (/\b(?:idea|clue|sure|unsure|think|thought|remember|recall|know|maybe|perhaps|probably|guess|might|possibly)\b/.test(start)) return null;
   if (/^(?:no\b|nope\b|not yet\b|i (?:have not|haven'?t|did not|didn'?t)\b|nothing\b)/.test(start)) return false;
   if (/^(?:yes\b|yeah\b|yep\b|i (?:have|did)\b(?! not))/.test(start)) return true;
   return null;
