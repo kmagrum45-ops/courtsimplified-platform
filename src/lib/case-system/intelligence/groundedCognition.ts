@@ -398,6 +398,39 @@ export function checkCitation(
 }
 
 type AnyRecord = Record<string, unknown>;
+
+const NUMBER_WORDS: Record<string, number> = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, fourteen: 14, fifteen: 15, twenty: 20, thirty: 30, forty: 40,
+  "forty-five": 45, sixty: 60, ninety: 90,
+};
+
+/**
+ * The time periods a text states ("20 days", "two years", "six-month"), as
+ * "20-day", "2-year". Pure.
+ *
+ * Why (2026-10-14, CLAUDE.md s. 2a): the citation check proved a statement's
+ * quote is in its source, not that the statement says what the quote says. A
+ * risk reading "you have 30 days" passed when attached to a real quote giving
+ * 20. A period the statement states must be a period its own source states.
+ */
+export function periodsIn(text: string): Set<string> {
+  const out = new Set<string>();
+  const pattern = /\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fourteen|fifteen|twenty|thirty|forty|forty-five|sixty|ninety)[\s-]+(?:calendar\s+|business\s+|clear\s+)?(day|week|month|year)s?\b/gi;
+  for (const match of (text || "").matchAll(pattern)) {
+    const raw = match[1].toLowerCase();
+    const value = /^\d+$/.test(raw) ? Number(raw) : NUMBER_WORDS[raw];
+    if (value) out.add(`${value}-${match[2].toLowerCase()}`);
+  }
+  return out;
+}
+
+/** A period in `statement` that `source` does not state, or null. Pure. */
+export function periodNotInSource(statement: string, source: string): string | null {
+  const stated = periodsIn(source);
+  for (const period of periodsIn(statement)) if (!stated.has(period)) return period;
+  return null;
+}
 const str = (value: unknown) => (typeof value === "string" ? value.trim() : "");
 
 /**
@@ -417,10 +450,15 @@ export function verifyGroundedCognition<T extends AnyRecord>(
     report.dropped.push({ field, text: text.slice(0, 300), reason });
   };
 
-  /** A legal statement: needs a verified citation. */
+  /** A legal statement: needs a verified citation, and states no period its source does not. */
   const legal = (field: string, item: AnyRecord, text: string) => {
     const result = checkCitation(item as GroundedItem, pack);
     if ("source" in result) {
+      const period = periodNotInSource(text, result.source.text);
+      if (period) {
+        drop(field, text, `states a period (${period}) its cited source does not`);
+        return null;
+      }
       report.kept += 1;
       return result.source;
     }
