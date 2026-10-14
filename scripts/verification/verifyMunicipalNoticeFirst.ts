@@ -26,8 +26,10 @@
  *   - (Review of f71a316 and 8792939) the line firing for anything but the
  *     person falling ON a public way, read sentence by sentence: private
  *     premises, transit, a vehicle, a provincial highway, a dog, a cyclist,
- *     an assault, police, a broken shoe, their own feet, a street that is only
- *     an address; or staying silent for a sidewalk in front of a building, at
+ *     an assault, police pushing, a broken shoe, their own feet (with no
+ *     defect named), a street that is only an address, a way word the person
+ *     did not fall on ("fell behind on rent ... on Main Street", "fell asleep
+ *     at the wheel on the road"); or staying silent for a sidewalk in front of a building, at
  *     a bus stop, or with no city named; an agreement losing r. 15; organisation names ("Toronto Hydro",
  *     "TD") or street names ("Kingston Road") taken for Toronto; two named
  *     places not giving "unknown" with both Acts kept; added Act passages
@@ -356,6 +358,18 @@ const NEVER = [
   "My son tripped at school on the sidewalk and broke his arm. I want to sue the school board.",
   "I was hit by a car while crossing the road in Toronto on October 1 2026 and broke my leg.",
   "I broke my wrist on October 2 2026. I live on Queen Street in Toronto.",
+  // Re-review of 41a8364: the way word must be what the person fell on.
+  "I fell behind on rent for my apartment on Main Street in Ottawa and my landlord wants to evict me.",
+  "I fell in love with a house on Maple Street in Toronto and the seller backed out.",
+  "We fell out of touch after he borrowed $5,000 and moved to Elm Street in Ottawa.",
+  "I fell asleep at the wheel on the road in Ottawa and crashed.",
+  "I slipped on the ice at the arena on Main Street in Barrie.",
+  "I slipped on an icy road on the private golf course in Toronto and broke my wrist.",
+  "I slipped on the icy road inside our condo complex in Toronto and hurt my back.",
+  "I tripped on the track crossing the road in the park in Toronto and hurt my knee.",
+  "The dog knocked me over and I fell on the sidewalk in Toronto.",
+  "I fell on the bus on Queen St in Toronto.",
+  "I crashed at the go-kart track and fell on the track.",
 ];
 const fired = NEVER.filter((story) => municipalWayInjury(story) || municipalNoticeFirst(story, { now, city: "Toronto" }) !== null);
 check("private premises, transit, vehicles and provincial highways never fire", fired.length === 0, fired.join(" | "));
@@ -377,6 +391,18 @@ const ALWAYS = [
   "I stepped out of my car onto an icy curb on a city street in London and fell on October 2 2026.",
   "The city didn't fix the sidewalk outside my home. I tripped on it on October 2 2026 and broke my wrist.",
   "My bike hit a pothole on Dundas and I fell on October 2 2026.",
+  // Re-review of 41a8364.
+  "Last fall I slipped on the icy sidewalk on Bloor Street in Toronto and broke my wrist.",
+  "In the fall of 2026 I tripped on a pothole in Hamilton and hurt my knee.",
+  "I was walking my dog when I slipped on the unsalted sidewalk in Toronto and broke my wrist.",
+  "My elderly father fell on the icy sidewalk in Ottawa on October 2 2026 and broke his hip.",
+  "Slipped on ice on a city sidewalk in Ottawa on October 2 2026, broke my wrist.",
+  "I caught my foot in a crack in the sidewalk in Toronto on October 2 2026 and fell.",
+  "I caught my foot in a hole in the road in Hamilton and broke my ankle.",
+  "I tripped over my own feet on the uneven sidewalk in Toronto and broke my wrist.",
+  "I called the police after I slipped on the icy sidewalk in Toronto and broke my wrist.",
+  "There was a cracked sidewalk outside my apartment building in Scarborough, I tripped on October 2 2026.",
+  "I tripped over my own feet because the sidewalk was so uneven in Toronto, on October 2 2026.",
 ];
 const silent = ALWAYS.filter((story) => !municipalNoticeFirst(story, { now }));
 check("the persona and plain sidewalk, pothole, curb stories still fire", silent.length === 0, silent.join(" | "));
