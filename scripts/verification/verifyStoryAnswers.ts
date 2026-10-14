@@ -324,7 +324,14 @@ console.log("\n4. The chat offers what the story says, and asks a respondent the
   const asked = pendingFields(family, { facts: respondentStory, yourRole: "respondent", issues: ["parenting-time"], filedDocuments: ["application"] }, new Set());
   const served = field(family, "servedDate");
   check("a served respondent is asked the day they were served", asked.some((item) => item.key === "servedDate"), asked.map((item) => item.key).join(", "));
-  check("its why says the day starts their deadline to answer", /deadline/i.test(served.why) && /answer/i.test(served.why) && /served/i.test(served.why), served.why);
+  // Review 2026-10-13: the why said the answer deadline is counted from the
+  // day served -- law, with no source. It says what the site does with the
+  // date, and states no rule (the counted limit and its rule are on the step page).
+  check(
+    "its why says what the site does with the date, and states no law",
+    /\b(?:we|this site)\b/i.test(served.why) && /\bdate\b/i.test(served.why) && !/\bcount\w*\b[^.]*\bfrom\b|\b(?:deadline|time) to answer\b/i.test(served.why),
+    served.why,
+  );
   check("'last week' is not offered as the day", served.fromStory?.({ facts: respondentStory }) == null);
   check(
     "a story's own date is offered",

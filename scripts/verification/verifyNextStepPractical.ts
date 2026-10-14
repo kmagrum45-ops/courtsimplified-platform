@@ -24,6 +24,11 @@
  *     garnishee; a claim against a city with no line on serving one; a notice
  *     step with no "how to give the notice", or one stating an address no
  *     saved source gives; a passed bar's exceptions that are not "is not a bar".
+ *   - (2026-10-13 review) a parenting-only case whose leading fee notes do not
+ *     start with the s. 1.2 (2) exemption, or carry the $10 divorce note; the
+ *     Case file and Timeline counting notices the Overview card drops; the
+ *     Forms tab built without the person's words or notice step; the site's
+ *     own follow-up question text read as the person's words.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -60,7 +65,11 @@ import {
   respondingStep,
   familyCourtOfficesIn,
   FAMILY_COURT_BRANCH_FEE,
+  keptForNotices,
+  noticeFit,
 } from "../../src/lib/content-library/nextStepPractical";
+import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
+import { PERSONAS } from "../../tests/browser/walkthrough/personas";
 import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
@@ -254,6 +263,84 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   check("parenting-only words: the fee exemption leads the fees", parenting?.feeNotesFirst === true && parenting.feeNotes.some((line) => line.cite.pinpoint === "s. 1.2 (2)"));
   check("property words, or no words: the fees lead as before", property?.feeNotesFirst === false && plain?.feeNotesFirst === false);
   check("reordering never removes a fee", [parenting, property, plain].every((view) => view?.fees.length === STEP_PRACTICAL["family:respondent:served-time-to-answer-running"].fees.length));
+
+  // Review 2026-10-13 (5): for the family-respondent-parenting persona's own
+  // words, the exemption that applies (s. 1.2 (2)) is the FIRST note, and the
+  // federal $10 divorce note is left out (no divorce or marriage named). With
+  // a divorce named, that note comes after the fees, never leading them.
+  {
+    const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
+    const words = [persona.story, JSON.stringify({ issues: persona.issues, yourRole: persona.role, city: persona.city })].join(" ");
+    const view = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words)!;
+    const isDivorceNote = (line: PlainLine) => /\$10\b/.test(line.say);
+    check("persona family-respondent-parenting: the s. 1.2 (2) exemption is the first fee note, and the notes lead", view.feeNotesFirst && view.feeNotes[0]?.cite.pinpoint === "s. 1.2 (2)", view.feeNotes.map((line) => line.cite.pinpoint).join(", "));
+    check("persona family-respondent-parenting: no $10 divorce note (no divorce or marriage named)", !view.feeNotes.some(isDivorceNote));
+    const divorce = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true, "my wife filed for divorce and wants custody")!;
+    check("words naming a divorce: the $10 note is kept, after the fees", !divorce.feeNotesFirst && divorce.feeNotes.some(isDivorceNote) && isDivorceNote(divorce.feeNotes[divorce.feeNotes.length - 1]));
+    check("no words: every family fee note is still shown", (plain?.feeNotes.length ?? 0) === FAMILY_FEE_NOTES.length);
+    // Property, across every family step with first-instance fees: whenever
+    // the notes lead, the exemption is first and no divorce note is among them.
+    const misordered = steps
+      .filter((stage) => pathwayOf(stage) === "family")
+      .map((stage) => practicalFor(stage.id, "family", "Barrie", true, words))
+      .filter((v): v is NonNullable<typeof v> => Boolean(v && v.feeNotesFirst))
+      .filter((v) => v.feeNotes[0]?.cite.pinpoint !== "s. 1.2 (2)" || v.feeNotes.some(isDivorceNote));
+    check("on every family step, leading fee notes start with the exemption and carry no divorce note", misordered.length === 0);
+  }
+
+  // Review 2026-10-13 (2): the one notice filter (keptForNotices) used by the
+  // Overview card, its passed box, the Case file and the Timeline.
+  {
+    const notices = [
+      { what: "The general deadline to start a court case" },
+      { what: "If a municipality did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the municipal clerk" },
+      { what: "If the City of Toronto did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the city clerk" },
+      { what: "If you are claiming damages from the Ontario Crown, serve a notice of claim on the Crown" },
+    ];
+    const sidewalk = "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i want to sue the city";
+    const kept = keptForNotices(notices, sidewalk, "Toronto").map((item) => item.what);
+    check("a Toronto fall keeps the City of Toronto notice and the general limit", kept.some((w) => /City of Toronto/.test(w)) && kept.some((w) => /general deadline/.test(w)));
+    check("and drops the notices that do not fit", !kept.some((w) => /a municipality|Ontario Crown/.test(w)));
+    check("words that fit no notice keep every limit", keptForNotices(notices, "something happened to me", "Ottawa").length === notices.length);
+    const route = readFileSync(path.join(ROOT, "app", "api", "workspace", "organisation", "route.ts"), "utf8");
+    check(
+      "the Case file and Timeline count only the kept notices, with the person's words and city",
+      /keptForNotices\(stage\.deadlines, userWordsOf\(intakeDataOf\(ownedCase\.master_result\)\), record\.city\)/.test(route) &&
+        /computedDeadlinesFor\(stepLimits,/.test(route) &&
+        !/computedDeadlinesFor\(stage\.deadlines/.test(route),
+    );
+    const panelSource = readFileSync(path.join(ROOT, "app", "builder", "_components", "StageAnswerPanel.tsx"), "utf8");
+    check("the Overview card uses the same filter", /keptForNotices\(\[\.\.\.summary\.deadlines, \.\.\.summary\.periods\], story, city\)/.test(panelSource));
+  }
+
+  // Review 2026-10-13 (6): the Forms tab passes the person's words and the
+  // case's notice step, as the Overview card does, so both show the same.
+  {
+    const formsPage = readFileSync(path.join(ROOT, "app", "cases", "[id]", "forms", "page.tsx"), "utf8");
+    check(
+      "the Forms tab's practicalFor gets the person's words and the notice step",
+      /practicalFor\(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId\)/.test(formsPage) && /noticeStepForCase\(caseRecord\.master_result/.test(formsPage),
+    );
+    check("the Forms tab's card gets them too", /<NextStepPractical[\s\S]{0,200}story=\{userWords\}[\s\S]{0,80}noticeStepId=\{noticeStepId\}/.test(formsPage));
+    const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
+    const intake = { facts: persona.story, extra: { issues: persona.issues, yourCity: persona.city } };
+    const words = userWordsOf(intake);
+    const overview = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words, "");
+    check("for the same words the Forms tab and Overview views are the same", JSON.stringify(overview) === JSON.stringify(practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, userWordsOf(intake), "")));
+  }
+
+  // Review 2026-10-13 (4): the person's words never include the site's own
+  // follow-up question text, only their answers.
+  {
+    const question = "Did a municipality or the City of Toronto fail to keep a road in repair, or was there a newspaper libel or a divorce?";
+    const intake = { facts: "my landlord kept my deposit", extra: { sourcedAnswers: [{ question, answer: "no, it was my landlord" }], yourCity: "Ottawa" } };
+    const words = userWordsOf(intake);
+    check("userWordsOf keeps each follow-up answer", /no, it was my landlord/.test(words));
+    check("userWordsOf leaves out each follow-up question", !/municipality|newspaper|divorce|City of Toronto/i.test(words), words);
+    const inFacts = userWordsOf({ facts: `my landlord kept my deposit\n\nAnswers to follow-up questions about the law that applies:\nQ: ${question}\nA: no, it was my landlord` });
+    check("the same question added to the story as a Q: line is left out too, its answer kept", !/municipality|newspaper|divorce/i.test(inFacts) && /no, it was my landlord/.test(inFacts));
+    check("so the question's words fit no notice and no family claim", noticeFit("If the City of Toronto did not keep a highway (road) or bridge in repair", words, "Ottawa") !== "fits" && !familyClaimsIn(words).divorce);
+  }
 
   // C7: a form a rule ties to a claim the words do not name is folded with
   // that rule, never removed; with no words, nothing is folded.

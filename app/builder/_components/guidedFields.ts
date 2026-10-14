@@ -13,7 +13,7 @@
  */
 
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
-import { SERVED_LINE } from "../../../src/lib/case-system/casePosition";
+import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import {
   amountFromStory,
   childrenFromStory,
@@ -44,6 +44,17 @@ const has = (values: GuidedValues, key: string, ...wanted: string[]) => {
  * their Timeline and can change it there.
  */
 export { SERVED_LINE };
+
+/**
+ * A service-date answer with a month and day but no year ("october 6"): the
+ * chat asks for the year before keeping it, instead of the step page asking
+ * "Which year was that?" later. Null when the answer is complete, or has no
+ * date the site can read (the step page asks for that date in full).
+ */
+export function servedDateNeedsYear(answer: string): string | null {
+  const hint = storyHintsForDates(withServedDate("", answer))["case-date-served-with-application"];
+  return hint?.value && hint.yearAssumed ? "Please add the year, for example October 6, 2026." : null;
+}
 
 /** The service date kept in the timeline, or "" when none is. */
 export function servedDateOf(timeline: string): string {
@@ -121,9 +132,14 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "servedDate",
       label: "When you were served",
       fromStory: (values) => servedDateFromStory(storyOf(values)),
-      question: "What day were you served with the court papers? If you're not sure of the exact day, you can leave this for now.",
-      why: "We count your deadline to answer the papers from the day you were served, so this is the date we count it from.",
+      // The year is asked for here, and an answer without one is asked to
+      // add it, so the step page never asks "Which year was that?" (review
+      // 2026-10-13). The why says only what the site does with the date: it
+      // states no law (the counted limit and its rule are on the step page).
+      question: "What day were you served with the court papers, with the year (for example, October 6, 2026)? If you're not sure of the exact day, you can leave this for now.",
+      why: "We use this date to work out the timing of your next step for you.",
       kind: "text",
+      needsMore: servedDateNeedsYear,
       // Someone who has already filed their answer is past that deadline.
       when: (values) => has(values, "yourRole", "respondent") && !has(values, "filedDocuments", "answer"),
     },

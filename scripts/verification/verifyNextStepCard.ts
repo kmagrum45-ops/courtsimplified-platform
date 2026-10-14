@@ -24,6 +24,11 @@
  *     as one; a limit tied to a claim the person's words do not name (property,
  *     or the information program on a support-only motion to change) leading
  *     the card, or lost when folded.
+ *   - (2026-10-13 review) a "passed" box for a notice the card dropped; a
+ *     statutory last day on a Saturday or holiday called passed while the
+ *     next open weekday (Legislation Act s. 89 (2)) has not gone by; onSaved
+ *     told before the save is queued (so the case page's wait returns at
+ *     once); a reload of the step just chosen dropping the facts given.
  *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
@@ -34,7 +39,9 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
-import { cardLimits, passedBars, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import { cardLimits, factsForStep, passedBars, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import { closedDayLine, limitPassedState, nextWeekdayOpen } from "../../src/lib/content-library/nextStepPractical";
+import { addDays, dayOfWeek, holidayFor } from "../../src/lib/case-system/deadlines/holidays";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
@@ -194,11 +201,80 @@ async function main() {
     // "is not a bar" exceptions and urgent help; one not yet passed is not.
     const fell = await ask("civil:before-filing:notice-required-before-suing", "civil", { "sc-date-injury": "2026-09-30" });
     const summary = fell.nextStep as never as Parameters<typeof passedBars>[0];
-    const passedNow = passedBars(summary, "2026-10-13");
+    // 30 September + 10 days is Saturday 10 October; Monday 12 October 2026
+    // is Thanksgiving; so the next open weekday is Tuesday 13 October, and the
+    // statutory notice has passed only from Wednesday 14 October (s. 89 (2)).
+    const passedNow = passedBars(summary, "2026-10-14");
     const toronto = passedNow.find((deadline) => /City of Toronto/.test(deadline.what));
     check("a passed Toronto notice is shown as a passed bar", Boolean(toronto), JSON.stringify(summary?.deadlines?.map((d) => [d.what.slice(0, 40), d.date])));
     check("with s. 42 (7) and (8), quoted", (toronto?.notABar ?? []).map((rule) => rule.pinpoint).join() === "s. 42 (7),s. 42 (8)");
     check("the day before it ends, nothing is shown as passed", passedBars(summary, "2026-10-01").length === 0);
+
+    // Review 2026-10-13 (3): a statutory last day on a Saturday or holiday
+    // runs to the next open weekday if the office was closed (Legislation Act
+    // s. 89 (2)); "passed" only once that day is before today too.
+    const torontoLimit = (summary.deadlines as { what: string; date: string; statutory?: boolean }[]).find((d) => /City of Toronto/.test(d.what));
+    check("the Toronto notice is counted to Saturday 10 October 2026 and marked statutory", torontoLimit?.date === "2026-10-10" && torontoLimit?.statutory === true, JSON.stringify(torontoLimit));
+    check("injury 30 September, Toronto 10-day notice: NOT passed on 13 October 2026", !passedBars(summary, "2026-10-13").some((d) => /City of Toronto/.test(d.what)));
+    check("and passed on 14 October 2026", passedBars(summary, "2026-10-14").some((d) => /City of Toronto/.test(d.what)));
+    const state13 = limitPassedState({ date: "2026-10-10", statutory: true }, "2026-10-13");
+    check("on 13 October the card names the next open day, Tuesday 13 October 2026", !state13.passed && state13.runsTo === "2026-10-13");
+    const line = closedDayLine("2026-10-10", "2026-10-13");
+    check(
+      "that line says the counted day and the next open day, quoting s. 89 (2)",
+      /Saturday 10 October 2026/.test(line.say) && /Tuesday 13 October 2026/.test(line.say) && line.cite.pinpoint === "s. 89 (2)" && /next day the place is open/.test(line.cite.quote),
+    );
+    // Property, over the calendar: for any statutory counted day, "passed" is
+    // exactly "the next weekday that is not a holiday is before today".
+    let calendarMisses = 0;
+    for (let offset = 0; offset < 400; offset += 1) {
+      const counted = addDays("2026-01-01", offset);
+      const open = nextWeekdayOpen(counted);
+      const dow = dayOfWeek(open);
+      if (dow === 0 || dow === 6 || holidayFor(open, "legislation-act") || open < counted) calendarMisses += 1;
+      for (const today of [addDays(counted, 1), open, addDays(open, 1)]) {
+        const state = limitPassedState({ date: counted, statutory: true }, today);
+        if (state.passed !== open < today || (state.runsTo !== null) !== (counted < today && !(open < today))) calendarMisses += 1;
+      }
+      // A rules-regime date was extended by the engine already: passed the next day.
+      if (!limitPassedState({ date: counted }, addDays(counted, 1)).passed || limitPassedState({ date: counted }, counted).passed) calendarMisses += 1;
+    }
+    check("over 400 counted days, a statutory limit is passed exactly when its next open weekday is before today", calendarMisses === 0, `misses ${calendarMisses}`);
+    check("the card's deadline line uses the same test, not date < today", !/deadline\.date < today/.test(panel) && /limitPassedState\(deadline, today\)/.test(panel) && /data-testid="next-step-closed-day"/.test(panel));
+
+    // Review 2026-10-13 (1): the passed box speaks only of limits the card
+    // kept. A Toronto sidewalk fall drops the Municipal Act notice from the
+    // card, so it gets no "passed" box either.
+    const sidewalk = "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i want to sue the city";
+    const onCard = cardLimits({ deadlines: summary.deadlines as never, periods: [] }, false, sidewalk, "Toronto");
+    const boxes = passedBars({ deadlines: onCard.kept }, "2026-12-01");
+    check("a Toronto fall: the City of Toronto notice gets its passed box", boxes.some((d) => /City of Toronto/.test(d.what)));
+    check("a Toronto fall: no passed box for the dropped Municipal Act notice", !boxes.some((d) => /a municipality/.test(d.what)), boxes.map((d) => d.what.slice(0, 50)).join(" | "));
+    check(
+      "every passed box is for a limit the card shows (led or folded)",
+      boxes.every((d) => onCard.main.deadlines.includes(d as never) || onCard.conditional.deadlines.includes(d as never)),
+    );
+    check("the card builds its passed boxes from the kept limits only", /passedBars\(\{ deadlines: kept \}, today\)/.test(panel) && !/passedBars\(summary/.test(panel));
+
+    // Review 2026-10-13 (8): onSaved is told only after the save is queued,
+    // so the case page's positionSavesSettled(caseId) has the save to wait for.
+    const savesBeforeTold = [...panel.matchAll(/onSaved\?\.\(/g)].every((match) => {
+      const before = panel.slice(Math.max(0, (match.index ?? 0) - 900), match.index ?? 0);
+      return /savePosition\(caseId/.test(before);
+    });
+    check("every onSaved call comes after its save is queued", savesBeforeTold && [...panel.matchAll(/onSaved\?\.\(/g)].length >= 3);
+
+    // Review 2026-10-13 (10): a reload of the step just chosen keeps the
+    // facts already given ("Which city?" came back on the Toronto notice step).
+    check("the Toronto notice question carries Toronto as its fact", factsForStep("before-filing:notice-toronto", "").municipality === "Toronto");
+    check("a city the person typed is kept for any step", factsForStep("before-filing:notice-municipality", "Hamilton").municipality === "Hamilton");
+    check("no fact is invented for another step", Object.keys(factsForStep("before-filing:notice-municipality", "")).length === 0);
+    const effect = /useEffect\(\(\) => \{[\s\S]{0,900}\}, \[startingStep\]\);/.exec(panel)?.[0] ?? "";
+    check(
+      "the [startingStep] reload keeps the facts given (or does not reload the step on screen)",
+      /startingStep === stageId && result\) return/.test(effect) && /factsForStep\(startingStep/.test(effect) && !/load\(startingStep\)/.test(effect),
+    );
+    check("every load of the step on screen passes its facts through factsForStep", !/municipality \? \{ municipality \} : \{\}/.test(panel));
     check("a limit that is not a bar is never shown as a passed bar", passedBars({ deadlines: [{ what: "x", date: "2020-01-01", statement: "", consequence: "changes-what-happens-next" }] }, "2026-10-13").length === 0);
     check(
       "the passed-bar box has the help pointer and says the judge decides",

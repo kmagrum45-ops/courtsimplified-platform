@@ -28,6 +28,7 @@
 import type { RuleCitation } from "../case-system/stage-map/citations";
 import { R_15_01_MOTION_FORM, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
 import { COURT_LOCATIONS, COURT_LOCATIONS_RETRIEVED_AT, OCJ_COURTHOUSES, OCJ_SOURCE } from "./courts/courtLocations";
+import { addDays, dayOfWeek, formatLongDate, holidayFor } from "../case-system/deadlines/holidays";
 
 export type PracticalCourt = "small-claims" | "civil" | "family";
 
@@ -176,6 +177,26 @@ export const FAMILY_FEE_NOTES: PlainLine[] = [
     cite: cite("ontario-fees-family", "Superior Court and Family Court branch fees", "anyone filing an application or an answer with a divorce claim must include the federal government’s $10 fee"),
   },
 ];
+
+/** The no-fee rule for a case only about parenting or support (O. Reg. 293/92, s. 1.2 (2)). */
+const FAMILY_EXEMPTION_NOTE = FAMILY_FEE_NOTES[2];
+/** The federal $10 divorce fee. */
+const FAMILY_DIVORCE_FEE_NOTE = FAMILY_FEE_NOTES[3];
+
+/**
+ * The family fee notes, in the order that fits the person's words (review
+ * 2026-10-13: a parenting-only respondent read the $10 divorce fee among the
+ * notes leading the fees, with the no-fee rule that applies to them third).
+ * When the exemption leads, it comes first. The divorce note is left out when
+ * their words name no divorce or marriage (and they name something else);
+ * otherwise it is last, after the fees.
+ */
+export function familyFeeNotesFor(claims: FamilyClaims | null, exemptionLeads: boolean): PlainLine[] {
+  const noDivorce = Boolean(claims && claims.known && !claims.divorce);
+  const others = FAMILY_FEE_NOTES.filter((line) => line !== FAMILY_EXEMPTION_NOTE && line !== FAMILY_DIVORCE_FEE_NOTE);
+  const ordered = exemptionLeads ? [FAMILY_EXEMPTION_NOTE, ...others] : [...others, FAMILY_EXEMPTION_NOTE];
+  return noDivorce ? ordered : [...ordered, FAMILY_DIVORCE_FEE_NOTE];
+}
 
 /**
  * A family step that files papers but has no fee of its own (held-back
@@ -1161,6 +1182,48 @@ export const PASSED_CHECK_CLOSED: PlainLine = {
   ),
 };
 
+/**
+ * The first day on or after `date` that is not a Saturday, a Sunday or a
+ * holiday the site's calendar knows (holidays.ts, Legislation Act list) --
+ * the day a public office keeping regular weekday hours is next open.
+ */
+export function nextWeekdayOpen(date: string): string {
+  let day = date;
+  for (let guard = 0; guard < 30; guard += 1) {
+    const dow = dayOfWeek(day);
+    if (dow !== 0 && dow !== 6 && !holidayFor(day, "legislation-act")) return day;
+    day = addDays(day, 1);
+  }
+  return day;
+}
+
+/**
+ * Whether a counted last day has passed, today (2026-10-13 review).
+ *
+ * A statutory limit (Legislation Act regime) can end on a Saturday or a
+ * holiday, but s. 89 (2) runs it to the next day the place for doing it is
+ * open (PASSED_CHECK_CLOSED quotes it). So a statutory limit is "passed" only
+ * when the next weekday that is not a holiday is also before today; while it
+ * is not, `runsTo` names that day, and the card says the counted day and that
+ * if the office was closed the time runs to it. A rules-regime date is
+ * already extended past weekends and holidays by the engine, so it passes the
+ * day after it.
+ */
+export function limitPassedState(limit: { date: string; statutory?: boolean }, today: string): { passed: boolean; runsTo: string | null } {
+  if (!(limit.date < today)) return { passed: false, runsTo: null };
+  if (!limit.statutory) return { passed: true, runsTo: null };
+  const open = nextWeekdayOpen(limit.date);
+  return open < today ? { passed: true, runsTo: null } : { passed: false, runsTo: open };
+}
+
+/** The line for a statutory counted day that has passed while the next open day has not (limitPassedState's runsTo). */
+export function closedDayLine(countedDay: string, runsTo: string): PlainLine {
+  return {
+    say: `The last day counted for this was ${formatLongDate(countedDay)}. If the place where this had to be done was closed that day, the time runs to the next day it is open: ${formatLongDate(runsTo)}, if it keeps its regular weekday hours. Act today.`,
+    cite: PASSED_CHECK_CLOSED.cite,
+  };
+}
+
 /** The exceptions a rule itself gives to its bar: the quotes that say missing it "is not a bar". */
 export function notABarExceptions(exceptions: RuleCitation[]): RuleCitation[] {
   return exceptions.filter((exception) => /\bis not a bar\b/i.test(exception.quote));
@@ -1258,6 +1321,20 @@ export function noticeFit(what: string, words: string, city = ""): "fits" | "not
   return null;
 }
 
+/**
+ * The time limits a page keeps for the person's notices: when any limit's
+ * notice fits their words, the notices that do not fit are left out (a Toronto
+ * sidewalk fall keeps the City of Toronto notice and drops the general
+ * municipal, Crown, occupier and libel ones); when none fits, all are kept.
+ * Limits that are not about a notice are always kept. The one filter for the
+ * Overview card (cardLimits), its passed-date box, the Case file and the
+ * Timeline (review 2026-10-13: the other tabs counted every notice).
+ */
+export function keptForNotices<T extends { what: string }>(items: readonly T[], words: string, city = ""): T[] {
+  const anyFits = items.some((item) => noticeFit(item.what, words, city) === "fits");
+  return anyFits ? items.filter((item) => noticeFit(item.what, words, city) !== "not") : [...items];
+}
+
 /** A step's extra rule lines, narrowed to the notices the person's words fit (all of them when the words fit none). */
 export function alsoFor(also: RuleCitation[], words = "", city = ""): RuleCitation[] {
   const story = proseOf(words);
@@ -1334,7 +1411,7 @@ export function practicalFor(
           ? SC_NO_STEP_FEE
           : []
         : fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id))
-          ? FAMILY_FEE_NOTES
+          ? familyFeeNotesFor(claims, exemptionLeads)
           : fees.some((fee) => fee.id.startsWith("fam-appeal"))
             ? [FAMILY_APPEAL_FEE_NOTE]
             : fees.length === 0 && step.files

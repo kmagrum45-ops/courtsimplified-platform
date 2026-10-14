@@ -45,7 +45,20 @@ export type GuidedField = {
    * what you told us: ... Is that right?" -- never filled in unseen.
    */
   fromStory?: (values: GuidedValues) => { value: string | string[]; quote: string } | null;
+  /**
+   * For a text answer the site cannot use as given, what to add, asked
+   * before it is kept (review 2026-10-13: "october 6" for the day served was
+   * kept with no year, and the step page then asked "Which year was that?").
+   * Null when the answer can be kept. A story answer that needs more is not
+   * offered for one click; the question is asked instead.
+   */
+  needsMore?: (value: string) => string | null;
 };
+
+/** What a text answer still needs before it is kept, or null (GuidedField.needsMore). */
+export function answerNeedsMore(field: GuidedField, value: string | string[]): string | null {
+  return typeof value === "string" && value.trim() && field.needsMore ? field.needsMore(value.trim()) : null;
+}
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
 
@@ -110,6 +123,8 @@ export default function GuidedFormChat({
   const [changing, setChanging] = useState<string | null>(null);
   // Story answers the person said were not right: asked plainly instead.
   const [notFromStory, setNotFromStory] = useState<Set<string>>(new Set());
+  // What the answer just given still needs (answerNeedsMore), shown under the box.
+  const [needsMore, setNeedsMore] = useState<string | null>(null);
 
   // Known when this opened: listed, not asked (the story, the saved case).
   const [knownAtStart] = useState(() =>
@@ -128,6 +143,13 @@ export default function GuidedFormChat({
       setChanging(null);
       return;
     }
+    const more = answerNeedsMore(current, cleaned);
+    if (more) {
+      setNeedsMore(more);
+      setDraft(cleaned);
+      return;
+    }
+    setNeedsMore(null);
     if ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "") {
       setSkipped((now) => new Set(now).add(current.key));
       setHeard((now) => [...now, { question: current.question, reply: "Okay, we'll leave that for now." }]);
@@ -188,7 +210,7 @@ export default function GuidedFormChat({
         <div data-testid="guided-form-question" data-key={current.key} className="mt-5 rounded-2xl border-2 border-[#2f7d67] bg-white p-4">
           {(() => {
             const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
-            if (!offered) return null;
+            if (!offered || answerNeedsMore(current, offered.value)) return null;
             const shown = (Array.isArray(offered.value) ? offered.value : [offered.value])
               .map((item) => current.options?.find((option) => option.value === item)?.label ?? item)
               .join("; ");
@@ -270,6 +292,11 @@ export default function GuidedFormChat({
               className="mt-3 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
             />
           )}
+          {needsMore ? (
+            <p data-testid="guided-form-needs-more" className="mt-2 text-sm font-semibold text-[#8a4b12]">
+              {needsMore}
+            </p>
+          ) : null}
           <div className="mt-3 flex flex-wrap gap-2">
             {current.kind !== "choice" ? (
               <button

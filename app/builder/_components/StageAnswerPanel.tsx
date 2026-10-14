@@ -25,7 +25,10 @@ import {
   PASSED_CHECK_CLOSED,
   SOURCE_SAVED_ON,
   claimFit,
+  closedDayLine,
+  keptForNotices,
   limitNotesFor,
+  limitPassedState,
   noticeFit,
   practicalFor,
   type PracticalCourt,
@@ -182,11 +185,15 @@ function QuotedRule({ rule, quote = true }: { rule: RuleCitation; quote?: boolea
 export type ArrivalNote = { quote: string; dateToEnter: string; rule: string; ruleQuote: string };
 
 /**
- * Time limits on the card that bar a claim and whose counted last day is
- * before today (2026-10-13). Exported for test:next-step.
+ * Time limits that bar a claim and have passed (2026-10-13). Pass ONLY the
+ * limits the card kept (cardLimits().kept): a notice the card dropped as not
+ * fitting the person's words never gets a "passed" box of its own. A
+ * statutory limit whose counted day was a Saturday, Sunday or holiday has
+ * passed only once the next open weekday has too (limitPassedState;
+ * Legislation Act s. 89 (2)). Exported for test:next-step.
  */
-export function passedBars(summary: Pick<NextStepSummary, "deadlines">, today: string = todayIso()) {
-  return summary.deadlines.filter((deadline) => deadline.consequence === "bars-the-claim" && deadline.date < today);
+export function passedBars(kept: Pick<NextStepSummary, "deadlines">, today: string = todayIso()) {
+  return kept.deadlines.filter((deadline) => deadline.consequence === "bars-the-claim" && limitPassedState(deadline, today).passed);
 }
 
 /**
@@ -235,15 +242,27 @@ function NextStepCard({
     filingShown: Boolean(practical?.filing.length),
   });
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
-  const { main, conditional, mipNote } = cardLimits(summary, responding, userWords, city);
-  const passed = passedBars(summary, today);
-  const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => (
-    <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
-      <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
-      {deadline.date < today ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
-      <LimitRule rule={deadline.rule} />
-    </li>
-  );
+  const { main, conditional, mipNote, kept } = cardLimits(summary, responding, userWords, city);
+  const passed = passedBars({ deadlines: kept }, today);
+  const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => {
+    const state = limitPassedState(deadline, today);
+    return (
+      <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
+        <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
+        {state.passed ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
+        {state.runsTo ? (
+          // A statutory last day that fell on a Saturday or holiday (review
+          // 2026-10-13): not "passed" while s. 89 (2) may still run it to the
+          // next open day; the counted day and that day, with the rule quoted.
+          <span data-testid="next-step-closed-day" className="block font-semibold text-[#8a1c1c]">
+            {closedDayLine(deadline.date, state.runsTo).say}
+            <QuotedRule rule={closedDayLine(deadline.date, state.runsTo).cite} />
+          </span>
+        ) : null}
+        <LimitRule rule={deadline.rule} />
+      </li>
+    );
+  };
   const periodItem = (period: NextStepSummary["periods"][number]) => (
     <li key={period.what} data-testid="next-step-period">
       <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
@@ -477,6 +496,18 @@ function AnswerView({
   );
 }
 
+/**
+ * The facts a step's answer is loaded with: the municipality the person gave
+ * (in the "Which city?" box) or, for the Toronto notice question, Toronto --
+ * choosing that question IS the person saying it was in Toronto. Every load
+ * of a step uses this, so a reload never drops a fact already given (review
+ * 2026-10-13). Exported for test:next-step.
+ */
+export function factsForStep(stepId: string, municipality: string): Record<string, string> {
+  if (municipality.trim()) return { municipality: municipality.trim() };
+  return stepId === "before-filing:notice-toronto" ? { municipality: "Toronto" } : {};
+}
+
 /** Saves the user's own choice to the case, one save at a time (positionSave.ts). */
 function savePosition(caseId: string, patch: Record<string, unknown>): Promise<boolean> {
   return savePositionQueued(caseId, patch);
@@ -519,8 +550,10 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
    * folded beside Crown and libel notices). When none fits, nothing changes.
    */
   const fit = (what: string) => noticeFit(what, story, city);
+  // The one notice filter (keptForNotices), shared with the Case file and Timeline.
+  const keptWhat = new Set(keptForNotices([...summary.deadlines, ...summary.periods], story, city).map((item) => item.what));
   const anyFits = [...summary.deadlines, ...summary.periods].some((item) => fit(item.what) === "fits");
-  const keep = <T extends { what: string }>(items: T[]) => (anyFits ? items.filter((item) => fit(item.what) !== "not") : items);
+  const keep = <T extends { what: string }>(items: T[]) => items.filter((item) => keptWhat.has(item.what));
   if (anyFits) {
     deadlines = [...summary.deadlines.filter((item) => fit(item.what) === "fits"), ...deadlines.filter((item) => fit(item.what) !== "not" && fit(item.what) !== "fits")];
     periods = [...summary.periods.filter((item) => fit(item.what) === "fits"), ...periods.filter((item) => fit(item.what) !== "not" && fit(item.what) !== "fits")];
@@ -546,7 +579,11 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
   )
     ? MIP_SUPPORT_ONLY_CHANGE
     : null;
-  return { main, conditional, mipNote };
+  // Every dated limit the card shows, led or folded: the only ones its
+  // passed-date box may speak of (review 2026-10-13: a dropped Municipal Act
+  // notice still got its own red "passed" box).
+  const kept = [...main.deadlines, ...conditional.deadlines];
+  return { main, conditional, mipNote, kept };
 }
 
 /**
@@ -716,7 +753,7 @@ export default function StageAnswerPanel({
    * first; without it, the phrase lists below are the fallback.
    */
   picture?: CasePicture | null;
-  /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called before the save to the case. */
+  /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
     dateAnswers?: Record<string, string>;
@@ -838,14 +875,25 @@ export default function StageAnswerPanel({
     const next = { ...Object.fromEntries(arriving), ...dateAnswers };
     setDateAnswers(next);
     setDateDraft((current) => ({ ...Object.fromEntries(arriving), ...current }));
-    if (stageId) void load(stageId, municipality ? { municipality } : {}, next);
+    if (stageId) void load(stageId, factsForStep(stageId, municipality), next);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialKey]);
 
   // Show the saved (or suggested) step's answer straight away; the user can change it.
+  //
+  // Choosing a step saves it, the case page reads the case again, and
+  // initialStepId -- so startingStep -- changes to the step just chosen
+  // (review 2026-10-13). Reloading it with no facts brought back "Which city?"
+  // on the Small Claims Toronto notice step the person had just answered.
+  // The facts already given are kept (factsForStep), and a step already on
+  // screen is not reloaded at all.
   useEffect(() => {
+    if (startingStep && startingStep === stageId && result) return;
     setStageId(startingStep);
-    if (startingStep) void load(startingStep);
+    // The Toronto fact only for a step the person chose (savedStep), never
+    // for one the site suggested: the fact must come from them.
+    const given = startingStep === stageId ? municipality : "";
+    if (startingStep) void load(startingStep, startingStep === savedStep ? factsForStep(startingStep, given) : given ? { municipality: given } : {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startingStep]);
 
@@ -906,22 +954,30 @@ export default function StageAnswerPanel({
       else delete next[key];
     }
     setDateAnswers(next);
-    void load(stageId, municipality ? { municipality } : {}, next);
+    void load(stageId, factsForStep(stageId, municipality), next);
     // The page keeps what the person chose for this visit whether or not the
     // save below succeeds, so Back and Forward show the counted date again
     // (walkthrough, 2026-10-08: it was kept only after a successful save, and
     // two runs lost it on returning to the results).
-    onSaved?.({ dateAnswers: next, stepId: stageId || null, ...(Object.keys(servicePatch).length ? { service: servicePatch } : {}) });
-    if (!caseId) return;
-    setDateStatus("saving");
+    //
+    // The save is QUEUED first, then onSaved is told (review 2026-10-13): the
+    // case page's onSaved waits for positionSavesSettled(caseId) before it
+    // reads the case again, and that wait returns at once if nothing is
+    // queued yet.
     // The step is saved with the dates: counting a deadline at the suggested
     // step is the user acting on it, and the case file needs the step to show
     // the counted date (page review, 2026-10-06).
-    const saved = await savePosition(caseId, {
-      dateAnswers: asked,
-      stepId: stageId || null,
-      ...(Object.keys(servicePatch).length ? { service: servicePatch } : {}),
-    });
+    const saving = caseId
+      ? savePosition(caseId, {
+          dateAnswers: asked,
+          stepId: stageId || null,
+          ...(Object.keys(servicePatch).length ? { service: servicePatch } : {}),
+        })
+      : null;
+    onSaved?.({ dateAnswers: next, stepId: stageId || null, ...(Object.keys(servicePatch).length ? { service: servicePatch } : {}) });
+    if (!saving) return;
+    setDateStatus("saving");
+    const saved = await saving;
     setDateStatus(saved ? "saved" : "not-saved");
   }
 
@@ -965,13 +1021,15 @@ export default function StageAnswerPanel({
     if (Object.keys(keptService).length) setServiceSaved((current) => ({ ...current, ...keptService }));
     const next = { ...dateAnswers, ...counted };
     setDateAnswers(next);
-    onSaved?.({ dateAnswers: next, ...(Object.keys(keptService).length ? { service: keptService } : {}) });
-    if (!caseId) return;
     // Only the dates: the step is saved when the person acts on it, never
     // because a date was kept (case position stores only what they chose).
-    void savePosition(caseId, { dateAnswers: counted, ...(Object.keys(keptService).length ? { service: keptService } : {}) }).then((saved) =>
-      setDateStatus(saved ? "saved" : "not-saved"),
-    );
+    // Queued before onSaved is told, so a page waiting on it waits for it.
+    if (caseId) {
+      void savePosition(caseId, { dateAnswers: counted, ...(Object.keys(keptService).length ? { service: keptService } : {}) }).then((saved) =>
+        setDateStatus(saved ? "saved" : "not-saved"),
+      );
+    }
+    onSaved?.({ dateAnswers: next, ...(Object.keys(keptService).length ? { service: keptService } : {}) });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, storyDates, stageId]);
 
@@ -1024,11 +1082,14 @@ export default function StageAnswerPanel({
             // Toronto — the fact comes from them, which is what the stage's
             // confirmed-fact rule requires. Every other municipality has its
             // own question.
-            if (id) void load(id, id === "before-filing:notice-toronto" ? { municipality: "Toronto" } : {});
-            // The user picked this: kept on the page for this visit, and
-            // recorded on their case.
-            onSaved?.({ stepId: id || null });
+            const facts = factsForStep(id, "");
+            setMunicipality(facts.municipality ?? "");
+            if (id) void load(id, facts);
+            // The user picked this: recorded on their case (queued first, so
+            // a page that waits for the save before reading waits for this
+            // one), and kept on the page for this visit.
             if (caseId) void savePosition(caseId, { stepId: id || null });
+            onSaved?.({ stepId: id || null });
           }}
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
@@ -1163,7 +1224,7 @@ export default function StageAnswerPanel({
                           if (fromStory) {
                             const dropped = { ...rejected, [question.id]: true };
                             setRejected(dropped);
-                            void load(stageId, municipality ? { municipality } : {}, dateAnswers, dropped);
+                            void load(stageId, factsForStep(stageId, municipality), dateAnswers, dropped);
                           }
                         }}
                         className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]"

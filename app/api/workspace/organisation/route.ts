@@ -54,10 +54,17 @@ import {
 import { findDates, formatForCourt, type DatePrecision } from "@/src/lib/case-workspace/parseDate";
 import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
+import { keptForNotices } from "@/src/lib/content-library/nextStepPractical";
+import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import { readCasePosition, storyHintsForDates } from "@/src/lib/case-system/casePosition";
+
+/** The intake the person wrote (master_result.intakeData), for their own words. */
+function intakeDataOf(master: unknown): unknown {
+  return master && typeof master === "object" ? (master as Record<string, unknown>).intakeData : undefined;
+}
 
 export const runtime = "nodejs";
 
@@ -373,10 +380,20 @@ export async function GET(req: NextRequest) {
           : undefined;
       };
 
-      const computed = stage ? computedDeadlinesFor(stage.deadlines, dates, "workspace") : [];
+      /*
+       * The same notices the Overview card shows (keptForNotices, the card's
+       * own filter, with the person's words and city): a Toronto sidewalk
+       * fall counts the City of Toronto notice here, not the Municipal Act,
+       * Crown, occupier and libel ones the card leaves out (review 2026-10-13:
+       * the Case file and Timeline counted every notice on the step).
+       */
+      const stepLimits = stage
+        ? keptForNotices(stage.deadlines, userWordsOf(intakeDataOf(ownedCase.master_result)), record.city)
+        : [];
+      const computed = stage ? computedDeadlinesFor(stepLimits, dates, "workspace") : [];
 
       const deadlineRules = Object.fromEntries(
-        (stage?.deadlines ?? []).map((deadline) => [
+        stepLimits.map((deadline) => [
           deadline.id,
           {
             // The law's name with the section: "Limitations Act, 2002, s. 4",

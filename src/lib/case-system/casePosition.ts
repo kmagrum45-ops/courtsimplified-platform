@@ -530,16 +530,23 @@ function cueMatches(cue: Cue, text: string): boolean {
   return cue.key.test(text) && (!cue.verb || cue.verb.test(text));
 }
 
-/** Where the cue's own words sit in the text: the verb if it has one, else the first naming word it matches. */
-function cuePositions(cue: Cue, text: string): number[] {
+/** Where the cue's own words sit in the text (start and end): the verb if it has one, else the first naming word it matches. */
+function cuePositions(cue: Cue, text: string): Array<[number, number]> {
   const source = cue.verb ?? cue.key;
   if (source.source.startsWith("(?=")) {
     const first = /\\b([a-z']+)\)/i.exec(source.source)?.[1];
-    if (!first) return [0];
-    return [...text.matchAll(new RegExp(`\\b${first}`, "gi"))].map((match) => match.index ?? 0);
+    if (!first) return [[0, 0]];
+    return [...text.matchAll(new RegExp(`\\b${first}`, "gi"))].map((match) => [match.index ?? 0, (match.index ?? 0) + match[0].length]);
   }
-  return [...text.matchAll(new RegExp(source.source, "gi"))].map((match) => match.index ?? 0);
+  return [...text.matchAll(new RegExp(source.source, "gi"))].map((match) => [match.index ?? 0, (match.index ?? 0) + match[0].length]);
 }
+
+/*
+ * A date followed straight away (same clause, no comma) by a medical event is
+ * that event's date, not the injury's (review 2026-10-13: "september 30 2026 fell, october 1
+ * surgery" offered October 1, the surgery, as the day of the injury).
+ */
+const AFTER_INJURY_EVENT = /^[ \t]*(?:(?:i |we )?(?:had |got |went (?:to|for) )?(?:the |my |a |an )?)?(?:surgery|operation|hospital\w*|doctor|appointment|physio\w*|x-?rays?|mri|cast|follow-?up|clinic|er\b|emergency|treatment|stitches)\b/i;
 
 /**
  * The dated part of the story about one moment: every date in the story, with
@@ -549,6 +556,7 @@ function cuePositions(cue: Cue, text: string): number[] {
  * December 3" gives December 3 to the hearing question, not the served one.
  */
 function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT_WORDS): { sentence: string; date: string } | null {
+  const injuryCue = cue.key === STORY_CUES["sc-date-injury"];
   let best: { sentence: string; date: string; distance: number } | null = null;
   for (const sentence of sentences) {
     for (const match of sentence.matchAll(DATE_ANYWHERE)) {
@@ -558,7 +566,8 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
       const window = sentence.slice(from, end + 70);
       if (!cueMatches(cue, window)) continue;
       const other = MOMENT_WORDS[moment];
-      for (const position of cuePositions(cue, window).map((offset) => offset + from)) {
+      if (injuryCue && AFTER_INJURY_EVENT.test(sentence.slice(end))) continue;
+      for (const [position, cueEnd] of cuePositions(cue, window).map(([start, stop]) => [start + from, stop + from])) {
         const between = position < at ? sentence.slice(position, at) : sentence.slice(end, position);
         // The cue's own words may be "hearing" (a hearing question); only a
         // DIFFERENT moment's word between them disqualifies.
@@ -570,7 +579,11 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
         // defence (2026-10-11). "On September 25 his lawyer served me with a
         // defence and counterclaim" still gives the date to the counterclaim.
         if (position > at && /^[\s,]*(?:and|then|but|later)\b/i.test(between)) continue;
-        const distance = Math.abs(position - at);
+        // The gap between the cue's words and the date, measured edge to
+        // edge: "september 30 2026 fell, october 1 surgery" is "fell" right
+        // after September 30, not nearer October 1 because the gap was
+        // measured from the start of each date (review 2026-10-13).
+        const distance = position < at ? Math.max(0, at - cueEnd) : Math.max(0, position - end);
         if (!best || distance < best.distance) best = { sentence, date: match[0], distance };
       }
     }

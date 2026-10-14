@@ -29,6 +29,9 @@
  *   5. The case page reading the case before saves on their way have landed
  *      (2026-10-13, R4): it asked again for a service date and method the
  *      results page had just saved. The case layout waits for them.
+ *   6. An injury date read from a later medical event in the same line
+ *      (review 2026-10-13: "september 30 2026 fell, october 1 surgery" gave
+ *      October 1).
  *
  * Run: node --import tsx scripts/verification/verifyCasePosition.ts
  */
@@ -46,6 +49,7 @@ import {
   isDateQuestionId,
   readCasePosition,
   storyHintsForDates,
+  storyWithTimeline,
   suggestedDatesFromEvents,
 } from "../../src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
@@ -231,6 +235,32 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
   check("a family story's service date is offered for the application question", family["case-date-served-with-application"]?.value === "2026-09-25");
   const injury = storyHintsForDates("I was hit by a bus on March 3, 2026 at the crosswalk.");
   check("an injury date is offered for the injury question", injury["sc-date-injury"]?.value === "2026-03-03");
+  // Review 2026-10-13 (9): the injury date is the date tied to the injury
+  // words (fell, slipped, hurt, ...), not a later medical event in the same
+  // line. The walkthrough persona's own Timeline and story.
+  {
+    const now = new Date("2026-10-13T12:00:00");
+    const timeline = "september 30 2026 fell, october 1 surgery";
+    const story = "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i needed surgery and cant work for months. the sidewalk wasnt salted at all. i want to sue the city";
+    const fromTimeline = storyHintsForDates(timeline, now);
+    check("'september 30 2026 fell, october 1 surgery': the injury is September 30, not the surgery", fromTimeline["sc-date-injury"]?.value === "2026-09-30", JSON.stringify(fromTimeline["sc-date-injury"]));
+    check("and the day the claim is based on follows it", fromTimeline["case-date-act-or-omission"]?.value === "2026-09-30");
+    const fromStory = storyHintsForDates(story, now);
+    check("'i slipped on ice ... on september 30 and broke my wrist': September 30", fromStory["sc-date-injury"]?.value === "2026-09-30", JSON.stringify(fromStory["sc-date-injury"]));
+    const both = storyHintsForDates(storyWithTimeline(story, timeline), now);
+    check("story and Timeline together: September 30", both["sc-date-injury"]?.value === "2026-09-30", JSON.stringify(both["sc-date-injury"]));
+    // Property: whatever medical event follows, and in either order, the date
+    // next to the injury word wins.
+    const misread: string[] = [];
+    for (const word of ["fell", "slipped", "was injured", "got hurt", "had an accident", "was hit by a car"]) {
+      for (const medical of ["surgery", "hospital", "doctor appointment", "x-ray", "physio"]) {
+        for (const line of [`march 3 2026 ${word}, march 5 2026 ${medical}`, `${word} on march 3 2026, ${medical} on march 5 2026`, `${medical} on march 5 2026 after i ${word} on march 3 2026`]) {
+          if (storyHintsForDates(line, now)["sc-date-injury"]?.value !== "2026-03-03") misread.push(line);
+        }
+      }
+    }
+    check("for every injury word and later medical event, the injury date is the one by the injury word", misread.length === 0, misread.slice(0, 4).join(" | "));
+  }
   check("every cue is for a question that is really asked", Object.keys(storyHintsForDates("served application motion to change case conference settlement conference trial management conference trial motion heard notice of appeal judge made an order statement of defence request to admit mediation hit by")).every((id) => isDateQuestionId(id)));
 }
 

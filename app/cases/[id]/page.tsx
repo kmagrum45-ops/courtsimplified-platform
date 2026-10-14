@@ -240,6 +240,9 @@ export default function CaseOverviewPage() {
               // Once a date counted here is saved, the case is read again, so
               // the Timeline and Case file tabs show it without a reload
               // (walkthrough 2026-10-13, R5: the Case file said "None yet").
+              // The panel queues the save BEFORE calling onSaved, so this wait
+              // has the save to wait for (review 2026-10-13: it was called
+              // first, and the wait returned at once).
               onSaved={() => void positionSavesSettled(caseId).then(reload)}
               suggestedDates={suggestedDates}
               storyHints={storyHintsForDates(storyWithTimeline(record.story, intake?.timeline))}

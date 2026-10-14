@@ -73,13 +73,40 @@ export function relevantToFamilyCase(entry: OfficialFormEntry, userWords: string
 export function userWordsOf(intake: unknown): string {
   const record = intake && typeof intake === "object" ? (intake as Record<string, unknown>) : {};
   const fields = ["facts", "goal", "timeline", "evidence", "missingEvidence", "urgent", "otherParty"]
-    .map((key) => (typeof record[key] === "string" ? (record[key] as string) : ""))
+    .map((key) => (typeof record[key] === "string" ? withoutSiteQuestions(record[key] as string) : ""))
     .filter(Boolean);
   let extra = "";
   try {
-    extra = record.extra ? JSON.stringify(record.extra) : "";
+    extra = record.extra ? JSON.stringify(ownAnswersOnly(record.extra)) : "";
   } catch {
     extra = "";
   }
   return [...fields, extra].join(" ");
+}
+
+/*
+ * The site's own question text is not the person's words (review 2026-10-13).
+ * Follow-up answers are kept as { question, answer } (sourcedAnswers.ts), and
+ * the question is ours -- "Did the City of Toronto ... ?" -- so a word test
+ * reading it would find a road, a libel or a divorce the person never named.
+ * Only each answer is kept. The same answers, added to the story as
+ * "Q: ... / A: ..." lines (withSourcedAnswerList), lose their "Q:" lines.
+ */
+function ownAnswersOnly(extra: unknown): unknown {
+  if (!extra || typeof extra !== "object" || Array.isArray(extra)) return extra;
+  const out: Record<string, unknown> = { ...(extra as Record<string, unknown>) };
+  if (Array.isArray(out.sourcedAnswers)) {
+    out.sourcedAnswers = out.sourcedAnswers.map((item) =>
+      item && typeof item === "object" && typeof (item as { answer?: unknown }).answer === "string" ? (item as { answer: string }).answer : "",
+    );
+  }
+  return out;
+}
+
+function withoutSiteQuestions(text: string): string {
+  return text
+    .split("\n")
+    .filter((line) => !/^Q: /.test(line.trim()) && line.trim() !== "Answers to follow-up questions about the law that applies:")
+    .map((line) => line.replace(/^(\s*)A: /, "$1"))
+    .join("\n");
 }
