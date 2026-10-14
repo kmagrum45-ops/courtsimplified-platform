@@ -216,7 +216,15 @@ for (const stage of ALL_STAGES) {
       // (r. 61.04), whose holiday definition (r. 1.03) is word-for-word the Small
       // Claims one (r. 1.02), so either rules' computation provision is correct.
       const RULES_SOURCES = ["oreg-258-98-small-claims-rules", "rules-of-civil-procedure"];
-      if (!RULES_SOURCES.includes(deadline.computation.sourceId)) {
+      // A threshold (r. 20.08 (2.1)'s "more than six years have passed") is not
+      // a period for taking a step, so r. 3.01 does not count it; its
+      // anniversary arithmetic is the Legislation Act's s. 89 (7) (2026-10-13 review).
+      const thresholdAnniversary =
+        deadline.threshold === true && deadline.length.unit === "years" && deadline.computation.sourceId === "legislation-act-2006" && deadline.computation.pinpoint === "s. 89 (7)";
+      if (deadline.threshold === true && !thresholdAnniversary) {
+        fail(`${deadline.id}: a threshold in years is counted to its anniversary under Legislation Act s. 89 (7).`);
+      }
+      if (!thresholdAnniversary && !RULES_SOURCES.includes(deadline.computation.sourceId)) {
         fail(
           `${deadline.id}: counted under the Small Claims rules but the computation ` +
             `provision comes from ${deadline.computation.sourceId}.`,

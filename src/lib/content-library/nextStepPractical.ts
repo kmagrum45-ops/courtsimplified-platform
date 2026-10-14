@@ -726,24 +726,38 @@ const NOTICE_SOURCES = new Set<RuleCitation["sourceId"]>([
   "crown-liability-and-proceedings-act-2019",
   "insurance-act",
 ]);
-export const CLAIM_AFTER_NOTICE: Record<"civil" | "small-claims", { start: PlainLine; fee: string }> = {
+export const CLAIM_AFTER_NOTICE: Record<"civil" | "small-claims", { start: PlainLine; fees: string[] }> = {
   civil: {
     start: { say: "After the notice, the court case itself is started with a statement of claim (Form 14A).", cite: CIV_START },
-    fee: "civ-claim",
+    fees: ["civ-claim"],
   },
   "small-claims": {
     start: { say: "After the notice, the court case itself is started by filing a plaintiff's claim (Form 7A) with the clerk, with a copy for each defendant.", cite: SC_START },
-    fee: "sc-claim",
+    // Both claim fees, as on every other Small Claims claim step (review 2026-10-13).
+    fees: ["sc-claim", "sc-claim-frequent"],
   },
 };
-/** The lines for starting the case after a notice step, or none for a step that is not a notice before suing. */
-export function claimAfterNotice(stepId: string, court: PracticalCourt): PlainLine[] {
+/*
+ * The Crown's notice is not "first the notice, then the claim" but "at least
+ * 60 days before" the claim (CLPA s. 18 (1); review 2026-10-13). When the
+ * Crown's notice is the one that fits, the line says so; when it is one of
+ * several kept, it says so for a claim against the Crown.
+ */
+export const CROWN_WAIT: { only: PlainLine; among: PlainLine } = {
+  only: { say: "Start the court case at least 60 days after you served the notice on the Crown, not sooner.", cite: S_CLPA_18_1_NOTICE },
+  among: { say: "If your claim is against the Ontario Crown, the court case can be started only at least 60 days after the notice was served on the Crown.", cite: S_CLPA_18_1_NOTICE },
+};
+/** The lines for starting the case after a notice step, keyed to the notices the words fit; none for a step that is not a notice before suing. */
+export function claimAfterNotice(stepId: string, court: PracticalCourt, story = "", city = ""): PlainLine[] {
   const step = STEP_PRACTICAL[stepId];
   if (!step || court === "family" || step.forms.length > 0) return [];
-  if (!(step.also ?? []).some((rule) => NOTICE_SOURCES.has(rule.sourceId))) return [];
+  const notices = alsoFor(step.also ?? [], story, city).filter((rule) => NOTICE_SOURCES.has(rule.sourceId));
+  if (notices.length === 0) return [];
+  const crown = notices.some((rule) => rule.sourceId === "crown-liability-and-proceedings-act-2019");
+  const crownLine = crown ? [notices.length === 1 ? CROWN_WAIT.only : CROWN_WAIT.among] : [];
   const after = CLAIM_AFTER_NOTICE[court];
-  const fee = FEES[after.fee];
-  return [after.start, ...(fee ? [{ say: `${fee.label}: $${fee.amount}.`, cite: fee.cite }] : [])];
+  const fees = after.fees.map((id) => FEES[id]).filter(Boolean);
+  return [...crownLine, after.start, ...fees.map((fee) => ({ say: `${fee.label}: $${fee.amount}.`, cite: fee.cite }))];
 }
 
 /**
@@ -1081,9 +1095,14 @@ export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
  * support-only motion to change), otherwise "fits". Such a limit is folded
  * under "may apply later", never dropped.
  */
-export function claimFit(item: { id?: string; what: string }, words: string): "fits" | "not" {
+export function claimFit(item: { id?: string; what: string }, words: string, stepId = ""): "fits" | "not" {
   const claims = familyClaimsIn(words);
   if (!claims.known) return "fits";
+  // On a step whose own subject is a kind of claim, a line about that kind is
+  // the step itself, never "a claim you have not mentioned" (review
+  // 2026-10-13: the surviving-spouse election on the property-claim step).
+  const subject = claimKindsNamedIn(stepId.replace(/[-:]/g, " "));
+  if (subject.length > 0 && claimKindsNamedIn(item.what).some((kind) => subject.includes(kind))) return "fits";
   if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
   if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
   if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words)) return "not";
@@ -1096,7 +1115,10 @@ export function claimFit(item: { id?: string; what: string }, words: string): "f
    * 38500825561, FR). Only "If ..." lines are read this way; a limit with no
    * condition always fits.
    */
-  if (/^(?:if|where|when)\b/i.test(item.what.trim()) && !(item.id && !/family/.test(item.id))) {
+  // Only a line whose condition is a claim ("makes a ... claim", "asks to
+  // change ..."); a kind named in passing ("indexed support" in a garnishment
+  // dispute) is not one (review 2026-10-13).
+  if (/^(?:if|where|when)\b/i.test(item.what.trim()) && /\b(?:claims?|asks? to change)\b/i.test(item.what) && !(item.id && !/family/.test(item.id))) {
     const named = claimKindsNamedIn(item.what);
     if (named.length > 0 && !named.some((kind) => (kind === "support" ? moneyFits(claims, words) : claims[kind]))) return "not";
   }
@@ -1383,6 +1405,8 @@ export const MORE_CARD_LINES: PlainLine[] = [
   PASSED_CHECK_CLOSED,
   CLAIM_AFTER_NOTICE.civil.start,
   CLAIM_AFTER_NOTICE["small-claims"].start,
+  CROWN_WAIT.only,
+  CROWN_WAIT.among,
 ];
 
 // ---------------------------------------------------------------- what the card shows
@@ -1512,7 +1536,8 @@ const NOTICE_TITLES: Record<NoticeKind, string> = {
   municipality: "Giving written notice to the municipality before you sue",
   occupier: "Giving written notice to the occupier or their snow-removal contractor before you sue",
   crown: "Serving notice of your claim on the Ontario Crown before you sue",
-  libel: "Giving the newspaper or broadcaster written notice before you sue for libel",
+  // Libel and Slander Act s. 5 (1): the notice goes to the defendant (review 2026-10-13).
+  libel: "Giving written notice to the person you will sue, before suing for libel in a newspaper or broadcast",
 };
 export function noticeStepTitle(items: readonly { what: string }[], words: string, city = ""): string | null {
   if (!noticesNarrowed(items, words, city)) return null;
@@ -1605,7 +1630,7 @@ export function practicalFor(
     feeNotesFirst: exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id)),
     courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
-    afterNotice: claimAfterNotice(stepId, court),
+    afterNotice: claimAfterNotice(stepId, court, story, city),
     fees,
     feeNotes:
       court !== "family"

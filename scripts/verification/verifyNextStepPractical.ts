@@ -494,16 +494,25 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
       const after = claimAfterNotice(stepId, court);
       if (isNotice !== after.length > 0) wrong.push(stepId);
       if (isNotice) {
-        const start = CLAIM_AFTER_NOTICE[court as "civil" | "small-claims"].start;
-        if (after[0] !== start) wrong.push(`${stepId}: start line`);
-        const fee = after[1];
-        if (!fee || !/\$\d+/.test(fee.say) || fee.cite.sourceId !== (court === "civil" ? "oreg-293-92-superior-court-fees" : "oreg-332-16-small-claims-fees")) wrong.push(`${stepId}: fee`);
+        const plan = CLAIM_AFTER_NOTICE[court as "civil" | "small-claims"];
+        if (!after.includes(plan.start)) wrong.push(`${stepId}: start line`);
+        // Every claim fee the court charges for that document, each quoted (review 2026-10-13: $228 was missing).
+        const feeLines = after.filter((line) => line.cite.sourceId === (court === "civil" ? "oreg-293-92-superior-court-fees" : "oreg-332-16-small-claims-fees"));
+        if (feeLines.length !== plan.fees.length || !plan.fees.every((id) => feeLines.some((line) => line.say.includes(`$${FEES[id].amount}`)))) wrong.push(`${stepId}: fees`);
+        // The start of the case comes after the notice and any wait it needs.
+        if (after.indexOf(plan.start) < after.findIndex((line) => line.cite.sourceId === "crown-liability-and-proceedings-act-2019")) wrong.push(`${stepId}: order`);
       }
     }
     check("every notice step, and only those, names the form that starts the court case and its fee", wrong.length === 0, wrong.join(", "));
     check("the civil start line names Form 14A from r. 14.03 (1)", /Form 14A/.test(CLAIM_AFTER_NOTICE.civil.start.say) && /^r\. 14\.03 \(1\)/.test(CLAIM_AFTER_NOTICE.civil.start.cite.pinpoint) && /Form 14A/.test(CLAIM_AFTER_NOTICE.civil.start.cite.quote));
     const view = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
     check("the Toronto notice card shows it, with the $243 issuing fee", Boolean(view?.afterNotice.some((line) => /\$243/.test(line.say))));
+    check("a Small Claims notice shows both claim fees, $108 and $228", ["$108", "$228"].every((fee) => claimAfterNotice("before-filing:notice-toronto", "small-claims").some((line) => line.say.includes(fee))));
+    // Review 2026-10-13 (7): the Crown's notice is 60 days BEFORE the claim (CLPA s. 18 (1)).
+    const crownLines = claimAfterNotice("civil:before-filing:notice-required-before-suing", "civil", STORIES[4]);
+    check("a claim against the Crown: the line says to wait 60 days after the notice, from s. 18 (1)", crownLines.some((line) => /60 days after/.test(line.say) && line.cite.pinpoint === "s. 18 (1)" && /at least 60 days before/.test(line.cite.quote)));
+    check("a Toronto fall: no Crown wait line", !(view?.afterNotice ?? []).some((line) => line.cite.sourceId === "crown-liability-and-proceedings-act-2019"));
+    check("with every notice shown, the Crown wait is said for a claim against the Crown only", claimAfterNotice("civil:before-filing:notice-required-before-suing", "civil").some((line) => /^If your claim is against the Ontario Crown/.test(line.say)));
     const component = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
     const noticeAt = component.indexOf('data-testid="next-step-notice-how"');
     const ruleAt = component.indexOf('data-testid="next-step-also"');

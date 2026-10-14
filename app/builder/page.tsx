@@ -1195,6 +1195,16 @@ function BuilderPageContent() {
   // a new application (walkthrough run 38475320722).
   const offerOriginatingDraft =
     !originatingDocumentFiled && !respondingSide && !(courtPath === "family" && existingFamilyOrder(homeStory || userStory(caseData)));
+  // With an order already in place, the support-table card moves below the
+  // step panel, folded -- but only once that panel is on screen, so the card
+  // is never hidden in one place before it shows in the other (review 2026-10-13).
+  const supportTableAfterStep =
+    courtPath === "family" &&
+    existingFamilyOrder(homeStory || userStory(caseData)) &&
+    resultsVisible &&
+    Boolean(analysis) &&
+    canonicalIntakeSaved &&
+    Boolean(confirmedStage);
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
   // words name (case reader first, then the phrase lists).
@@ -1860,7 +1870,7 @@ function BuilderPageContent() {
               {/* With an order already in place, the table card is folded
                   under the next-step guidance instead (walkthrough run
                   38500825561, MC). */}
-              {!existingFamilyOrder(homeStory || userStory(caseData)) ? <ChildSupportTableCard /> : null}
+              {!supportTableAfterStep ? <ChildSupportTableCard /> : null}
             </div>
           );
         })()}
@@ -1988,9 +1998,7 @@ function BuilderPageContent() {
                 card comes after the step's guidance, folded (walkthrough run
                 38500825561, MC: "it depends on where the other parent lives"
                 led his results, before the motion-to-change step). */}
-            {confirmedStage &&
-            courtPath === "family" &&
-            existingFamilyOrder(homeStory || userStory(caseData)) &&
+            {supportTableAfterStep &&
             (familyScope?.issues ?? (Array.isArray(asRecord(caseData?.extra).issues) ? (asRecord(caseData?.extra).issues as string[]) : [])).includes(
               "child-support",
             ) ? (

@@ -193,6 +193,7 @@ export function computedDeadlinesFor(
         length: deadline.length,
         regime: deadline.regime,
         direction: deadline.direction,
+        extend: !deadline.threshold,
       });
     } catch (error) {
       // A date that is not a real date reaches here. Log and show the period.

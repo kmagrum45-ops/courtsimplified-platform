@@ -152,9 +152,9 @@ function serviceCourt0(courtPath: string): ServiceCourt | null {
   return courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
 }
 
-/** Today in Ontario, whatever the device's clock zone (walkthrough run 38500825561). */
-function todayIso(): string {
-  return todayInOntario();
+/** Today in Ontario, whatever the device's clock zone (walkthrough run 38500825561). Exported for test:next-step. */
+export function todayIso(now: Date = new Date()): string {
+  return todayInOntario(now);
 }
 
 /** The rule that sets a time limit, beside it on the card (2026-10-13: limits were shown with no source). */
@@ -200,12 +200,27 @@ function QuotedRule({ rule, quote = true }: { rule: RuleCitation; quote?: boolea
  * the plaintiffs claim in the mail"). Null when the story names no single
  * method. Exported for test:next-step.
  */
+const ABOUT_THE_PAPERS = /\b(?:papers?|claim|application|summons|served|serve|serving|statement of claim|court documents?|documents? from the court|lawsuit|sued|suing me|motion)\b/i;
 export function serviceMethodShown(court: ServiceCourt, story: string): { method: ServiceMethod; quote: string } | null {
   const method = serviceMethodFromStory(court, story);
   if (!method) return null;
   const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
-  const quote = sentences.find((sentence) => serviceMethodFromStory(court, sentence) === method) ?? "";
-  return { method, quote };
+  // Only a sentence about the court papers reaching them (review 2026-10-13:
+  // "I emailed him the invoice three times", "we met in person to sign the
+  // lease" and "i mailed my defence to the court" are not how they were served).
+  const quote = sentences.find((sentence) => serviceMethodFromStory(court, sentence) === method && ABOUT_THE_PAPERS.test(sentence) && !/\bmy (?:defen[cs]e|answer|reply)\b/i.test(sentence));
+  return quote ? { method, quote } : null;
+}
+
+/**
+ * How the "how were the papers served" line is drawn: "chosen" (the person
+ * picked it), "suggested" (read from their words, with Change), or "choose"
+ * (the open choice). Exported for test:next-step.
+ */
+export function serviceMethodDisplay(chosen: ServiceMethod | undefined, fromStory: ServiceMethod | null, changing: boolean): "chosen" | "suggested" | "choose" {
+  if (changing) return "choose";
+  if (chosen) return "chosen";
+  return fromStory ? "suggested" : "choose";
 }
 
 export type ArrivalNote = { quote: string; dateToEnter: string; rule: string; ruleQuote: string };
@@ -275,7 +290,7 @@ function NextStepCard({
       })
     : "";
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
-  const { main, conditional, notClaimed, mipNote, kept } = cardLimits(summary, responding, userWords, city);
+  const { main, conditional, notClaimed, mipNote, kept } = cardLimits(summary, responding, userWords, city, stepId);
   const mayApply = {
     deadlines: conditional.deadlines.filter((item) => !notClaimed.deadlines.includes(item)),
     periods: conditional.periods.filter((item) => !notClaimed.periods.includes(item)),
@@ -625,7 +640,7 @@ function savePosition(caseId: string, patch: Record<string, unknown>): Promise<b
  * date; "N days before" ones furthest-before first; "N days after" ones
  * soonest first.
  */
-export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "") {
+export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "") {
   const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
   const ownSide = (what: string) =>
     (responding ? /\bresponding\b|\bthe other party\b|\brespondent\b/i : /\bbringing\b|\bmoving party\b|\bapplicant\b|\bmade the motion\b/i).test(what);
@@ -665,7 +680,7 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
    * support-only motion to change led with the information program, which
    * r. 8.1 (1) para. 6 leaves out). Folded, never dropped.
    */
-  const fitsClaims = (item: { id?: string; what: string }) => claimFit(item, story) === "fits";
+  const fitsClaims = (item: { id?: string; what: string }) => claimFit(item, story, stepId) === "fits";
   const main = {
     deadlines: [...deadlines].filter(fitsClaims).sort((a, b) => a.date.localeCompare(b.date)),
     periods: [...periods].filter(fitsClaims).sort(byDue),
@@ -706,7 +721,7 @@ export function arrivalOnlyDates(args: {
   methods: Record<string, ServiceMethod | undefined>;
 }): Record<string, string> {
   if (!args.court) return {};
-  const storyMethod = serviceMethodFromStory(args.court, args.storyText);
+  const storyMethod = serviceMethodShown(args.court, args.storyText)?.method ?? null;
   const out: Record<string, string> = {};
   for (const question of dateQuestionsForStep(args.stageId)) {
     if (!isServiceDateQuestion(question.id, question.question)) continue;
@@ -913,8 +928,9 @@ export default function StageAnswerPanel({
     Object.fromEntries(Object.entries(initialService).map(([id, entry]) => [id, entry.method])),
   );
   // What the story says about how the papers came, pre-selected (Step 2D).
+  // Only from a sentence about the papers reaching them (serviceMethodShown).
   const storyServiceMethod =
-    courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? serviceMethodFromStory(courtPath, storyText ?? "") : null;
+    courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? (serviceMethodShown(courtPath, storyText ?? "")?.method ?? null) : null;
   // A method already known (chosen, or from the story) is shown as a fact with
   // a Change button; the select opens only on Change or when none is known.
   const [changingMethod, setChangingMethod] = useState<Record<string, boolean>>({});
@@ -1352,12 +1368,19 @@ export default function StageAnswerPanel({
               }
               return (
                 <div key={question.id}>
-                  {serviceCourt && isServiceDateQuestion(question.id, question.question) && !changingMethod[question.id] && (serviceMethod[question.id] ?? storyServiceMethod) ? (
+                  {serviceCourt &&
+                  isServiceDateQuestion(question.id, question.question) &&
+                  serviceMethodDisplay(serviceMethod[question.id], storyServiceMethod, Boolean(changingMethod[question.id])) !== "choose" ? (
                     <div data-testid={`stage-answer-service-method-known-${question.id}`} className="mb-2 text-sm text-[#16302b]">
-                      <span className="font-semibold">How the papers were served: </span>
+                      {/* A suggestion from their words, never stated as settled (review 2026-10-13). */}
+                      <span className="font-semibold">
+                        {serviceMethodDisplay(serviceMethod[question.id], storyServiceMethod, false) === "chosen"
+                          ? "How the papers were served: "
+                          : "From what you told us, the papers came this way: "}
+                      </span>
                       {serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.label ?? ""}.
                       {!serviceMethod[question.id] && storyMethodShown?.quote ? (
-                        <span className="block text-xs text-[#4d675f]">From what you told us: &ldquo;{storyMethodShown.quote}&rdquo;</span>
+                        <span className="block text-xs text-[#4d675f]">You wrote: &ldquo;{storyMethodShown.quote}&rdquo; If that is not how the papers were served, choose Change.</span>
                       ) : null}{" "}
                       <button
                         type="button"
