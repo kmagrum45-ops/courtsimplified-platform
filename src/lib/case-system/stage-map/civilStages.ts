@@ -2190,6 +2190,12 @@ export const LIEN_CA_31_1: RuleCitation = {
   quote: "Unless preserved under section 34, the liens arising from the supply of services or materials to an improvement expire as provided in this section.",
 };
 
+export const LIEN_CA_31_2: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 31 (2)",
+  quote: "Subject to subsection (4), the lien of a contractor, (a) for services or materials supplied to an improvement on or before the date certified or declared to be the date of the substantial performance of the contract, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date on which a copy of the certificate or declaration of the substantial performance of the contract is published as provided in section 32, and (ii) the date the contract is completed, abandoned or terminated; and (b) for services or materials supplied to the improvement where there is no certification or declaration of the substantial performance of the contract, or for services or materials supplied to the improvement after the date certified or declared to be the date of substantial performance, expires at the conclusion of the 60-day period next following the occurrence of the earlier of, (i) the date the contract is completed, and (ii) the date the contract is abandoned or terminated.",
+};
+
 export const LIEN_CA_34_1: RuleCitation = {
   sourceId: "construction-act",
   pinpoint: "s. 34 (1)",
@@ -2650,6 +2656,7 @@ const PLAINTIFF: CaseStage[] = [
     rules: [
       LIEN_CA_14_1,
       LIEN_CA_31_1,
+      LIEN_CA_31_2,
       LIEN_CA_34_1,
       LIEN_CA_36_2,
       LIEN_CA_36_3,
@@ -3369,6 +3376,7 @@ const DEFENDANT: CaseStage[] = [
     rules: [
       LIEN_CA_14_1,
       LIEN_CA_31_1,
+      LIEN_CA_31_2,
       LIEN_CA_34_1,
       LIEN_CA_36_2,
       LIEN_CA_36_3,

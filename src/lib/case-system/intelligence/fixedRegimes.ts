@@ -42,7 +42,32 @@ export type FixedRegime = {
    * yet" instead (s. 2a: gaps are said, not filled).
    */
   ownProcedure: boolean;
+  /**
+   * The stage map's own steps for this regime, when it has them
+   * (civilStages.ts). A regime with `ownProcedure` shows only these, never
+   * the ordinary steps of `court`.
+   */
+  stages?: readonly string[];
 };
+
+/** The construction lien steps in the stage map (civilStages.ts, 2026-10-14). */
+export const LIEN_STAGES = {
+  owner: "civil:defendant:lien-registered-on-title",
+  served: "civil:defendant:served-with-lien-claim",
+  claimant: "civil:plaintiff:lien-claimant",
+} as const;
+
+/**
+ * Which lien step a story most likely describes, as a suggestion the person
+ * confirms or changes (CLAUDE.md s. 4). The one bringing the lien starts at
+ * the claimant's step; an owner served with a statement of claim is in the
+ * lien action; any other owner has a lien on title and no action yet. Pure.
+ */
+export function lienStepFor(story: string, side: "starting" | "responding" | "unclear"): string {
+  if (side === "starting") return LIEN_STAGES.claimant;
+  if (/\bstatement of claim\b|\b(?:sued|suing)\s+(?:me|us)\b|\bserved\s+(?:me|us|with)\b/i.test(story || "")) return LIEN_STAGES.served;
+  return LIEN_STAGES.owner;
+}
 
 export const CONSTRUCTION_ACT_S50_1: FixedRegimeRule = {
   sourceId: "construction-act",
@@ -64,36 +89,52 @@ export const SMALL_CLAIMS_LIMIT_RULE: FixedRegimeRule = {
 
 /** Words that are only ever about a construction lien. */
 const EXPLICIT_LIEN =
-  /\b(?:construction lien|claim for lien|lien claim(?:ant)?s?|holdback|preserv(?:e|ed|ing) (?:a |the |my |his |her |their |our )?lien|perfect(?:ed|ing)? (?:a |the |my |his |her |their |our )?lien|construction act)\b/i;
+  /\b(?:construction lien|claim for lien|lien claim(?:ant)?s?|preserv(?:e|ed|ing) (?:a |the |my |his |her |their |our )?lien|perfect(?:ed|ing)? (?:a |the |my |his |her |their |our )?lien|construction act|construction lien act)\b/i;
 
-const LIEN = /\bliens?\b/i;
+/**
+ * "Holdback" alone is a payroll or rent word as often as a construction one
+ * ("the holdback on my paycheque", "the landlord kept a holdback"; review
+ * 2026-10-14). It counts only beside the work or the Act.
+ */
+const HOLDBACK_NEAR_WORK =
+  /\bholdbacks?\b[^.?!\n]{0,80}\b(?:contractors?|sub-?contractors?|renovat\w*|construction|builders?)\b|\b(?:contractors?|sub-?contractors?|renovat\w*|construction|builders?)\b[^.?!\n]{0,80}\bholdbacks?\b/i;
+
+/** The work that gives rise to a construction lien. */
+const IMPROVEMENT_WORDS = String.raw`(?:contractors?|sub-?contractors?|renovat\w*|construction|builders?|roofer|roofing|interlock|landscap\w*|paving|plumb\w*|electrician|drywall|framing|foundation|deck|addition|basement|supplier|supplied materials)`;
+
+/** The lien and the work in the same passage (about 120 characters either way), not anywhere in the story. */
+const LIEN_NEAR_WORK = new RegExp(
+  String.raw`\bliens?\b[^?!\n]{0,120}\b${IMPROVEMENT_WORDS}\b|\b${IMPROVEMENT_WORDS}\b[^?!\n]{0,120}\bliens?\b`,
+  "i",
+);
 
 /** Land or a building the lien is against. */
 const ON_LAND =
   /\bliens?\b[^.?!\n]{0,80}\b(?:house|home|property|title|land|lot|cottage|building|condo unit|premises)\b|\b(?:house|home|property|title|land|cottage|building)\b[^.?!\n]{0,80}\bliens?\b/i;
 
-/** The work that gives rise to a construction lien. */
-const IMPROVEMENT =
-  /\b(?:contractors?|sub-?contractors?|renovat\w*|construction|builders?|roofer|roofing|interlock|landscap\w*|paving|plumb\w*|electrician|drywall|framing|foundation|deck|addition|basement|supplier|supplied materials|materials)\b/i;
+/**
+ * Liens that are NOT construction liens and go elsewhere, when they sit beside
+ * the lien: a condominium's common-expense lien, a repair or storage lien on a
+ * car or goods, a tax lien, a mortgage or a judgment or support lien.
+ */
+const OTHER_LIEN_NEAR =
+  /\bliens?\b[^.?!\n]{0,80}\b(?:common expenses?|condo(?:minium)? (?:fees?|corporation|board)|repair and storage|storage|tow(?:ed|ing)?|impound\w*|tax|taxes|cra|canada revenue|ppsa|mortgage|lender|bank|line of credit|fro|family responsibility|support|writ|judgment)\b|\b(?:common expenses?|condo(?:minium)? (?:fees?|corporation|board)|repair and storage|storage|tow(?:ed|ing)?|impound\w*|tax|taxes|cra|canada revenue|ppsa|mortgage|lender|bank|line of credit|fro|family responsibility|support|writ|judgment)\b[^.?!\n]{0,80}\bliens?\b/i;
+
+const VEHICLE = /\b(?:car|truck|vehicle|motorcycle|boat|trailer|garage|mechanic'?s? shop)\b/i;
 
 /**
- * Liens that are NOT construction liens and go elsewhere: a condominium's
- * common-expense lien (the Condominium Authority Tribunal entry already
- * excludes it), a repair or storage lien on a car or goods, a tax lien.
+ * A construction lien in the person's story. Narrow by design: a false hit
+ * sends someone to the wrong court. "Mechanic's lien" is how many people name
+ * a construction lien, so it counts unless a vehicle is in the story.
  */
-const OTHER_LIEN =
-  /\b(?:common expenses?|condo(?:minium)? (?:fees?|corporation|board)|repair and storage|storage lien|mechanic'?s|tow(?:ed|ing)?|impound\w*|tax lien|cra\b|canada revenue|personal property security|ppsa)\b/i;
-
-const VEHICLE = /\b(?:car|truck|vehicle|motorcycle|boat|trailer)\b/i;
-
 export function detectsConstructionLien(story: string): boolean {
   const text = story || "";
-  if (EXPLICIT_LIEN.test(text)) return true;
-  if (!LIEN.test(text)) return false;
-  if (OTHER_LIEN.test(text)) return false;
-  // A lien on a vehicle with no land in the story is a repair/storage lien.
+  if (EXPLICIT_LIEN.test(text) || HOLDBACK_NEAR_WORK.test(text)) return true;
+  if (/\bmechanic'?s lien\b/i.test(text)) return !VEHICLE.test(text) && ON_LAND.test(text);
+  if (!/\bliens?\b/i.test(text)) return false;
+  if (OTHER_LIEN_NEAR.test(text)) return false;
   if (VEHICLE.test(text) && !ON_LAND.test(text)) return false;
-  return ON_LAND.test(text) && IMPROVEMENT.test(text);
+  return ON_LAND.test(text) && LIEN_NEAR_WORK.test(text);
 }
 
 // ---------------------------------------------------------------------------
@@ -103,16 +144,21 @@ export function detectsConstructionLien(story: string): boolean {
 const AMOUNT = String.raw`\$\s?(\d{1,3}(?:,\d{3})+|\d+)(?:\.\d{1,2})?\s*(k|thousand|million)?\b`;
 
 /**
- * Only an amount the story ties to the claim: "suing for $80,000", "owes me
- * $75k", "claim of $120,000". A house price or a salary elsewhere in the story
- * is not the amount in dispute, which is why the old code only escalated on
- * amounts and never decided (courtPathClassifier.ts, SMALL_CLAIMS_LIMIT).
+ * Only an amount the story ties to the person's own claim: "suing him for
+ * $80,000", "he owes me $75k". A house price or a salary elsewhere is not the
+ * amount in dispute, which is why the old code only escalated on amounts and
+ * never decided (courtPathClassifier.ts, SMALL_CLAIMS_LIMIT). Review
+ * 2026-10-14: "claim" alone also caught "my insurance claim of $70,000" and
+ * "the contractor claimed $80,000 for the job", so a bare "claim" is not used.
  */
 const CLAIMED_AMOUNT = new RegExp(
-  String.raw`\b(?:su(?:e|ed|ing)\s+(?:\w+\s+){0,3}for|claim(?:ing|ed)?(?:\s+(?:of|for))?|owes?\s+(?:me|us)|owed\s+(?:me|us)|owing\s+(?:me|us)|seek(?:ing)?|damages\s+of|recover)\s+(?:about\s+|around\s+|over\s+|roughly\s+|nearly\s+)?` +
+  String.raw`\b(?:su(?:e|ed|ing)\s+(?:\w+\s+){0,3}for|(?:i|we)\s+(?:want|need|plan|am going|are going)\s+to\s+(?:claim|sue for|recover)|(?:my|our)\s+claim\s+(?:is\s+)?(?:for|of)|owes?\s+(?:me|us)|owed\s+(?:me|us)|owing\s+(?:me|us)|damages\s+of)\s+(?:about\s+|around\s+|over\s+|roughly\s+|nearly\s+)?` +
     AMOUNT,
   "gi",
 );
+
+/** The person says they will give up the amount over the limit to stay in Small Claims. */
+const WAIVES_EXCESS = /\b(?:give up|giving up|waive|waiving|abandon|abandoning|forgo|forgoing)\b[^.?!\n]{0,80}\b(?:extra|excess|rest|difference|over|above|amount)\b|\bstay in small claims\b/i;
 
 function toNumber(digits: string, unit: string | undefined): number {
   let value = Number(digits.replace(/,/g, ""));
@@ -147,6 +193,7 @@ export function fixedRegimeFor(story: string): FixedRegime | null {
       id: "construction-lien",
       court: "civil",
       ownProcedure: true,
+      stages: Object.values(LIEN_STAGES),
       rule: CONSTRUCTION_ACT_S50_1,
       reasoning:
         "This involves a construction lien. Under the Construction Act, s. 50 (1), a lien claim is enforced " +
@@ -155,7 +202,7 @@ export function fixedRegimeFor(story: string): FixedRegime | null {
     };
   }
   const claimed = claimedAmounts(story);
-  if (claimed.length > 0 && Math.max(...claimed) > SMALL_CLAIMS_MAXIMUM) {
+  if (claimed.length > 0 && Math.max(...claimed) > SMALL_CLAIMS_MAXIMUM && !WAIVES_EXCESS.test(story)) {
     const largest = Math.max(...claimed);
     return {
       id: "over-small-claims-limit",

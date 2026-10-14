@@ -40,7 +40,7 @@
 
 import { checkedAnswer, type CheckedAnswer, type CheckedAnswerDeps } from "../retrieval/checkedAnswer";
 import type { RetrievalCourt } from "../retrieval/storyRetrieval";
-import { fixedRegimeFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
+import { fixedRegimeFor, lienStepFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
 import { isMapOwnedInstruction, isMapOwnedProcedure } from "../procedureOwnership";
 import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
@@ -167,7 +167,7 @@ asksForPrediction: true if they ask whether they will win, how strong their case
 step: the id of the step in the site's step map, from the list in the message, that matches where their matter stands now in the court you chose for the main matter. Choose from that court's list only. Use "" when no step fits or the matter belongs to a tribunal or outside Ontario. The site shows their next step, its form, its deadline, where to file, the fee and what comes after from that step, checked against the official rules, so choosing the right step is the most important thing you do. Read carefully which side they are on and what has actually happened: a step that has not happened (they have not been sued, nothing has been served) is not their step.
 
 points: up to ${MAX_POINTS} statements of the law that applies to THIS person now, most important first. The site already shows the next step, its form and its deadline from its checked step map, so do NOT write those: no form numbers, no response deadlines in days or weeks, no "your next step is", no "file / serve / deliver" instructions. Write, as they apply:
-- which court, named exactly (for example "the Small Claims Court", "the Superior Court of Justice", "the Ontario Court of Justice"), and why; when an amount is over a court's limit, say the limit;
+- which court, named exactly (for example "the Small Claims Court", "the Superior Court of Justice", "the Ontario Court of Justice"), and why; when an amount is over a court's limit, say the limit and that they may sue in the lower court only by giving up the amount over it;
 - what they must show, and the main facts a court looks at;
 - every limitation period or notice period that is close or may have passed (for example the general two-year limitation period), what starts it, and any exception the law gives;
 - required steps people miss that come from a statute (for example a notice that must be given before suing);
@@ -302,8 +302,8 @@ export function validStep(id: string, court: UnderstoodCourt): string | null {
 
 /**
  * A court fixed by law wins over the reading (CLAUDE.md s. 2a). A construction
- * lien is a Superior Court action with its own procedure, which the map does
- * not hold yet: the court becomes civil and no ordinary step is suggested. A
+ * lien is a Superior Court action with its own procedure: the court becomes
+ * civil and only the map's lien steps are suggested, never the ordinary ones. A
  * claimed amount over $50,000 moves a Small Claims reading to civil, and the
  * step is dropped because it was chosen from the wrong court's map. Pure.
  */
@@ -318,7 +318,15 @@ export function withFixedRegime(understanding: CaseUnderstanding, story: string)
     ...understanding,
     matters,
     mainCourt: regime.court,
-    step: regime.ownProcedure || understanding.mainCourt !== regime.court ? null : understanding.step,
+    step: regime.stages
+      ? // The regime's own steps only: the reading's step if it chose one of
+        // them, otherwise the likeliest one, for the person to confirm.
+        understanding.step && regime.stages.includes(understanding.step)
+        ? understanding.step
+        : lienStepFor(story, understanding.side)
+      : regime.ownProcedure || understanding.mainCourt !== regime.court
+        ? null
+        : understanding.step,
     regime: { id: regime.id, reasoning: regime.reasoning, ownProcedure: regime.ownProcedure },
   };
 }

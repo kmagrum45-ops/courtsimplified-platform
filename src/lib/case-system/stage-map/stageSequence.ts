@@ -29,6 +29,7 @@ import {
   LIEN_CA_36_3,
   LIEN_CA_50_1,
   LIEN_REG_1_2,
+  LIEN_REG_1_3,
   LIEN_REG_13,
   S_CLPA_17_11_WAIVER,
   S_CLPA_17_2_LEAVE,
@@ -487,6 +488,7 @@ const LIEN_MOVES: StageMove[] = [
     "other-side",
     "The lien claimant starts an action to enforce the lien and serves the statement of claim, within 90 days after it is issued unless the court extends the time.",
     LIEN_REG_1_2,
+    LIEN_REG_1_3,
   ),
 ];
 
@@ -495,7 +497,7 @@ export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...LAW_MAP_MOVES
 /** Steps where this chain stops, and why. Each is a real end, or the next move belongs to a part of the map not yet built. */
 export const FINAL_STEPS: FinalStep[] = [
   { stage: "civil:defendant:served-with-lien-claim", why: "What follows in a lien action (the motion to fix a trial or a settlement meeting, a reference, the trial) is governed by O. Reg. 302/18 and is not yet on this map.", rules: [LIEN_REG_13] },
-  { stage: "civil:plaintiff:lien-claimant", why: "A preserved lien is perfected by starting an action in the Superior Court of Justice; the lien action's own steps are not yet on this map.", rules: [LIEN_CA_36_3, LIEN_CA_50_1] },
+  { stage: "civil:plaintiff:lien-claimant", why: "A preserved lien is perfected by starting an action in the Superior Court of Justice and, where the lien attaches to the premises, registering a certificate of action on title; the lien action's own steps are not yet on this map.", rules: [LIEN_CA_36_3, LIEN_CA_50_1] },
   { stage: "plaintiff:debtor-examination", why: "After the examination the court may make an order as to payment; the other ways to enforce (garnishment, writs) are in this step's card.", rules: [R_20_10_ORDER_AS_TO_PAYMENT, R_20_03_ENFORCEMENT] },
   { stage: "defendant:judgment-being-enforced", why: "The debtor may ask the court to stay enforcement or change the payments if their circumstances have changed; after an examination the court may make an order as to payment.", rules: [R_20_02_STAY_VARY, R_20_10_ORDER_AS_TO_PAYMENT] },
   { stage: "plaintiff:action-dismissed-for-delay", why: "If every party consents, the clerk can restore the action to the list (Form 11.2A); the case then picks up where it was.", rules: [R_11_2_01_RESTORE_ON_CONSENT] },

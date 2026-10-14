@@ -189,12 +189,20 @@ async function main() {
   check("a step from another court's map is dropped", validStep("plaintiff:defence-period-expired-no-defence", "family") === null);
   check("no step for a tribunal", validStep("plaintiff:defence-period-expired-no-defence", "tribunal") === null);
   check("the step list covers all three courts", /SMALL-CLAIMS STEPS/.test(stepCatalogue()) && /CIVIL STEPS/.test(stepCatalogue()) && /FAMILY STEPS/.test(stepCatalogue()));
-  const lienRead = withFixedRegime({ ...u, mainCourt: "small-claims", step: "plaintiff:defence-period-expired-no-defence" }, LIEN);
+  const lienRead = withFixedRegime({ ...u, side: "unclear", mainCourt: "small-claims", step: "plaintiff:defence-period-expired-no-defence" }, LIEN);
   check(
-    "a construction lien goes to the Superior Court, with no ordinary step suggested",
-    lienRead.mainCourt === "civil" && lienRead.step === null && lienRead.regime?.id === "construction-lien" && lienRead.regime.ownProcedure,
+    "a construction lien goes to the Superior Court, at the map's lien step, never an ordinary one",
+    lienRead.mainCourt === "civil" && lienRead.step === "civil:defendant:lien-registered-on-title" && lienRead.regime?.id === "construction-lien" && lienRead.regime.ownProcedure,
     JSON.stringify({ court: lienRead.mainCourt, step: lienRead.step, regime: lienRead.regime }),
   );
+  const servedLien = withFixedRegime(
+    { ...u, side: "responding", step: "civil:defendant:served-defence-period-running" },
+    "The contractor registered a construction lien and now served me with a statement of claim.",
+  );
+  check("an owner served in a lien action is at the lien action's step, not the ordinary defence step", servedLien.step === "civil:defendant:served-with-lien-claim", String(servedLien.step));
+  const claimant = withFixedRegime({ ...u, side: "starting", step: null }, "I'm a subcontractor and want to register a construction lien for my unpaid framing work.");
+  check("an unpaid contractor asking about a lien is at the claimant's step", claimant.step === "civil:plaintiff:lien-claimant", String(claimant.step));
+  check("each lien step is a real step of the civil map", ["civil:defendant:lien-registered-on-title", "civil:defendant:served-with-lien-claim", "civil:plaintiff:lien-claimant"].every((id) => validStep(id, "civil") === id));
   check("no rule, no change", withFixedRegime(u, SLANDER) === u);
 
   // ---- 5. Failures fall back, never throw

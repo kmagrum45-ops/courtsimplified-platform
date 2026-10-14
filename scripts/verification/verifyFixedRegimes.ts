@@ -65,6 +65,8 @@ const LIENS = [
   "The contractor put a lien on my property after I refused to pay for the unfinished renovation.",
   "I'm a subcontractor, I did the framing and the builder never paid me $18,000. Can I put a lien on the house?",
   "A roofer registered a lien on title to our home for $9,500.",
+  // "Mechanic's lien" is what many people call a construction lien.
+  "The contractor filed a mechanic's lien on my house after the renovation.",
   "We need to know the holdback rules before paying the renovation company.",
 ];
 
@@ -74,6 +76,12 @@ const NOT_LIENS = [
   "CRA put a tax lien on my account.",
   "My contractor never finished my kitchen and owes me back $7,000.",
   "My neighbour's tree fell on my fence and damaged the house.",
+  // Independent review, 2026-10-14: each of these was read as a construction lien.
+  "The holdback on my paycheque was never returned.",
+  "Tenant here. Landlord kept my last month's rent as a holdback.",
+  "The bank has a mortgage lien on my house. Separately, the contractor who did my basement is suing me.",
+  "FRO registered a support lien on my house. I am a contractor.",
+  "My ex has a lien on the home. I bought materials for court.",
 ];
 
 function classification(over: Partial<CourtPathClassification>): CourtPathClassification {
@@ -147,6 +155,9 @@ async function main() {
     assert.deepEqual(claimedAmounts("He owes me $75k for the truck."), [75_000]);
     assert.deepEqual(claimedAmounts("We bought the house for $650,000 and the roofer owes us $4,000."), [4_000]);
     assert.deepEqual(claimedAmounts("My salary was $95,000."), []);
+    // Review 2026-10-14: an insurance claim or the other side's price is not the person's claim.
+    assert.deepEqual(claimedAmounts("My insurance claim of $70,000 was denied. I want to sue the broker for $8,000."), [8_000]);
+    assert.deepEqual(claimedAmounts("The contractor claimed $80,000 for the job. He is suing me for $5,000."), [5_000]);
   });
 
   await check("a claimed amount over $50,000 moves a small-claims answer to civil", () => {
@@ -157,6 +168,14 @@ async function main() {
     assert.equal(result.primaryPath, "civil");
     assert.equal(result.regime, "over-small-claims-limit");
     assert.match(result.reasoning, /\$50,000/);
+  });
+
+  await check("giving up the amount over the limit keeps a Small Claims answer", () => {
+    const result = applyFixedRegime(
+      classification({ primaryPath: "small-claims" }),
+      "I want to claim $60,000 but I will give up the extra to stay in Small Claims.",
+    );
+    assert.equal(result.primaryPath, "small-claims");
   });
 
   await check("a house price is not the amount claimed", () => {
