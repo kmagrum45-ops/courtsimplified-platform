@@ -32,6 +32,9 @@
  *   - (walkthrough run 38500825561) a notice-before-suing step that does not
  *     name the form that starts the court case after it, with its fee, or
  *     names it before the notice.
+ *   - (walkthrough 2026-10-14) a notice step's "then" lines without where to
+ *     file the claim for the person's city, or without how to serve a
+ *     municipality when the notice kept is to one (or with it when not).
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -514,6 +517,32 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
     check("a claim against the Crown: the line says to wait 60 days after the notice, from s. 18 (1)", crownLines.some((line) => /60 days after/.test(line.say) && line.cite.pinpoint === "s. 18 (1)" && /at least 60 days before/.test(line.cite.quote)));
     check("a Toronto fall: no Crown wait line", !(view?.afterNotice ?? []).some((line) => line.cite.sourceId === "crown-liability-and-proceedings-act-2019"));
     check("with every notice shown, the Crown wait is said for a claim against the Crown only", claimAfterNotice("civil:before-filing:notice-required-before-suing", "civil").some((line) => /^If your claim is against the Ontario Crown/.test(line.say)));
+    // Walkthrough 2026-10-14, SW: the $243 fee but not where to file the
+    // claim or how to serve the City. Property: every notice step's "then"
+    // lines carry its court's filing lines for the person's city, and the
+    // court's municipal-corporation service rule exactly when every notice
+    // the words keep is to a municipality.
+    const fileMisses: string[] = [];
+    const serveMisses: string[] = [];
+    for (const [stepId] of Object.entries(STEP_PRACTICAL)) {
+      const court: PracticalCourt = stepId.startsWith("civil:") ? "civil" : stepId.startsWith("family:") ? "family" : "small-claims";
+      for (const city of ["Toronto", "Ottawa", ""]) {
+        for (const story of STORIES) {
+          const after = claimAfterNotice(stepId, court, story, city);
+          if (after.length === 0) continue;
+          const filing = FILING[court];
+          const wanted = city === "Toronto" ? [filing.toronto] : city ? [filing.elsewhere] : [filing.toronto, filing.elsewhere];
+          if (![...wanted, ...filing.more].every((line) => after.includes(line))) fileMisses.push(`${stepId} ${city || "(no city)"}`);
+          const kept = (practicalFor(stepId, court, city, false, story)?.also ?? []).filter((rule) => NOTICE_IDS.has(rule.sourceId));
+          const municipal = kept.length > 0 && kept.every((rule) => rule.sourceId === "municipal-act-2001" || rule.sourceId === "city-of-toronto-act-2006");
+          const servesCity = after.some((line) => /^r\. (?:16\.02 \(1\) \(b\)|8\.02 \(b\))$/.test(line.cite.pinpoint) && /municipal corporation/.test(line.cite.quote));
+          if (municipal !== servesCity) serveMisses.push(`${stepId} "${story}" ${city}`);
+        }
+      }
+    }
+    check("every notice step's 'then' lines say where to file the claim, for the person's city", fileMisses.length === 0, fileMisses.slice(0, 5).join("; "));
+    check("and how to serve a municipality exactly when the notice kept is to one", serveMisses.length === 0, serveMisses.slice(0, 5).join("; "));
+    check("the Toronto fall names r. 16.02 (1) (b)", Boolean(view?.afterNotice.some((line) => line.cite.pinpoint === "r. 16.02 (1) (b)")));
     const component = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
     const noticeAt = component.indexOf('data-testid="next-step-notice-how"');
     const ruleAt = component.indexOf('data-testid="next-step-also"');

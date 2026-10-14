@@ -770,8 +770,22 @@ export function claimAfterNotice(stepId: string, court: PracticalCourt, story = 
   const crownLine = crown ? [notices.length === 1 ? CROWN_WAIT.only : CROWN_WAIT.among] : [];
   const after = CLAIM_AFTER_NOTICE[court];
   const fees = after.fees.map((id) => FEES[id]).filter(Boolean);
-  return [...crownLine, after.start, ...fees.map((fee) => ({ say: `${fee.label}: $${fee.amount}.`, cite: fee.cite }))];
+  // Where and how to file it, and -- when the notice is to a municipality --
+  // how to serve the claim on it (walkthrough 2026-10-14, SW: the card showed
+  // the $243 fee but not where to file the claim or how to serve the City).
+  // The court's own filing lines and service rules, never new words.
+  const toronto = inTorontoRegion(city);
+  const filing = FILING[court];
+  const filingLines = [...(toronto === true ? [filing.toronto] : toronto === false ? [filing.elsewhere] : [filing.toronto, filing.elsewhere]), ...filing.more];
+  // Only when every notice kept is to a municipality: words that fit no notice keep all of them.
+  const municipal = notices.every((rule) => MUNICIPAL_NOTICE_SOURCES.has(rule.sourceId));
+  const serving = municipal
+    ? SERVICE[court].originating.filter((line, index) => index === 0 || line.about === MUNICIPAL_PARTY)
+    : [];
+  return [...crownLine, after.start, ...fees.map((fee) => ({ say: `${fee.label}: $${fee.amount}.`, cite: fee.cite })), ...filingLines, ...serving];
 }
+/** The notices that are notices to a municipality (the Municipal Act's and the City of Toronto Act's). */
+const MUNICIPAL_NOTICE_SOURCES = new Set<string>(["municipal-act-2001", "city-of-toronto-act-2006"]);
 
 /**
  * Every step in the stage map has an entry; "unknown" and "out-of-scope" are
