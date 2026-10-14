@@ -54,6 +54,7 @@ import type { RuleCitation } from "../case-system/stage-map/citations";
 import { assertApprovedUserContent } from "./outputGuard";
 import { fillSlots } from "./stageAnswers";
 import { isInScope } from "../case-system/policy/a2iScope";
+import { limitPassedState, todayInOntario } from "./nextStepPractical";
 
 export type ComputedDeadlineWorking = {
   text: string;
@@ -107,6 +108,12 @@ export type ComputedDeadline = {
    * the law. Merging them would make a certain date look uncertain.
    */
   closureWarning: string | null;
+  /**
+   * Counted under the Legislation Act (a statute's own period), so a counted
+   * Saturday or holiday runs on to the next open day under s. 89 (2) and has
+   * "passed" only once that day has (limitPassedState).
+   */
+  statutory?: boolean;
 };
 
 /**
@@ -293,6 +300,7 @@ export function computedDeadlinesFor(
       uncertainty,
       caution,
       closureWarning,
+      statutory: deadline.regime === "legislation-act",
     });
   }
 
@@ -311,7 +319,7 @@ export function computedDeadlinesFor(
 export function computedDeadlineProse(
   computed: ComputedDeadline[],
   context = "computedDeadline",
-  today: string = new Date().toISOString().slice(0, 10),
+  today: string = todayInOntario(),
 ): string {
   if (computed.length === 0) return "";
 
@@ -321,7 +329,9 @@ export function computedDeadlineProse(
   for (const entry of computed) {
     if (entry.presumption) parts.push(entry.presumption);
     parts.push(entry.statement);
-    if (entry.date < today) {
+    // The card's test, not date < today (walkthrough 2026-10-14): a statutory
+    // counted Saturday has not passed while s. 89 (2)'s next open day has not.
+    if (limitPassedState(entry, today).passed) {
       const passed = guardedFill("computed-date-has-passed", {}, context);
       if (passed) parts.push(passed);
     }

@@ -37,6 +37,8 @@ export type ServiceMethod =
   | "mail"
   | "registered-mail-signature"
   | "acknowledgment-card"
+  | "corporation-mail"
+  | "corporation-courier"
   | "courier"
   | "courier-same-day"
   | "courier-next-day"
@@ -81,6 +83,26 @@ export const SERVICE_RULES: Record<ServiceCourt, ServiceRule[]> = {
       rule: `${SC}, r. 8.03 (8)`,
       quote: "is effective on the date on which receipt of the copy of the claim is verified by signature",
       addDays: 0,
+    },
+    {
+      // r. 8.03 (3): a company not found at its address on record (legal review 2026-10-14).
+      method: "corporation-mail",
+      label: "Mailed to the company at its address on record, and to its directors",
+      dateToEnter: "the day it was mailed",
+      rule: `${SC}, r. 8.03 (3), (4)`,
+      quote:
+        "service may be made on the corporation, (a) by mailing or sending by courier a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address; and (b) by mailing or sending by courier a copy of the document to each director of the corporation ... Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered.",
+      addDays: 5,
+    },
+    {
+      // The same route by courier: r. 8.03 (4) counts from the courier's confirmed delivery (final re-check 2026-10-14).
+      method: "corporation-courier",
+      label: "Couriered to the company at its address on record, and to its directors",
+      dateToEnter: "the day the courier confirmed it was delivered",
+      rule: `${SC}, r. 8.03 (3), (4)`,
+      quote:
+        "service may be made on the corporation, (a) by mailing or sending by courier a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address; and (b) by mailing or sending by courier a copy of the document to each director of the corporation ... Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered.",
+      addDays: 5,
     },
     {
       method: "mail",
@@ -132,6 +154,16 @@ export const SERVICE_RULES: Record<ServiceCourt, ServiceRule[]> = {
       rule: `${CIVIL}, r. 16.03 (4)`,
       quote: "is only effective as of the date the sender receives the card",
       addDays: 0,
+    },
+    {
+      // r. 16.03 (6): a company not found at its address on record; mail is effective under r. 16.06 (2).
+      method: "corporation-mail",
+      label: "Mailed to the company at its address on record",
+      dateToEnter: "the day it was mailed",
+      rule: `${CIVIL}, r. 16.03 (6), 16.06 (2)`,
+      quote:
+        "service may be made on the corporation by mailing a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address ... Service of a document by mail, except under subrule 16.03 (4), is effective on the fifth day after the document is mailed",
+      addDays: 5,
     },
     {
       method: "mail",
@@ -267,8 +299,101 @@ export function smallClaimsFifthDayOnClosedDay(dayName: string): string {
   );
 }
 
-export function serviceRulesFor(court: ServiceCourt): ServiceRule[] {
-  return SERVICE_RULES[court];
+/*
+ * A claim or an application is not served like other papers (legal review
+ * 2026-10-14): Small Claims r. 8.01 (1) -- personally or by an alternative
+ * under r. 8.03; civil r. 16.01 (1) -- personally or by an alternative under
+ * r. 16.03; family r. 8 (5) -- by special service, r. 6 (3). Rule 8.07 (mail)
+ * applies only "If a document is to be served by mail under these rules", so
+ * "Regular mail" with r. 8.07 (2) is not among the ways to serve a claim.
+ * Every quote below is read back from the saved text by test:service-dates.
+ */
+
+/** The service-date questions about a claim or an application, per court. */
+export const ORIGINATING_QUESTIONS: Record<ServiceCourt, ReadonlySet<string>> = {
+  "small-claims": new Set(["sc-date-claim-served", "sc-date-defendants-claim-served"]),
+  civil: new Set(["sc-date-claim-served"]),
+  family: new Set(["case-date-served-with-application", "case-date-served-with-motion-to-change"]),
+};
+
+/** Whether `questionId` asks when a claim or an application was served, in `court`. */
+export function isOriginatingService(court: ServiceCourt, questionId: string): boolean {
+  return ORIGINATING_QUESTIONS[court].has(questionId);
+}
+
+/** The ways the rules allow a claim or application to be served, among SERVICE_RULES. */
+export const ORIGINATING_METHODS: Record<ServiceCourt, readonly ServiceMethod[]> = {
+  "small-claims": ["personal", "registered-mail-signature", "residence-and-mail", "corporation-mail", "corporation-courier"],
+  civil: ["personal", "acknowledgment-card", "residence-and-mail", "corporation-mail"],
+  family: ["personal", "personal-after-4pm", "residence-and-mail"],
+};
+
+/** The rule that says how a claim or application is served, quoted. */
+export type OriginatingRule = { rule: string; quote: string; say: string };
+export const ORIGINATING_RULE: Record<ServiceCourt, OriginatingRule> = {
+  "small-claims": {
+    rule: `${SC}, r. 8.01 (1)`,
+    quote: "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.",
+    say: "A claim is to be served personally, or in one of the other ways the rules allow.",
+  },
+  civil: {
+    rule: `${CIVIL}, r. 16.01 (1)`,
+    quote: "An originating process shall be served personally as provided in rule 16.02 or by an alternative to personal service as provided in rule 16.03.",
+    say: "A statement of claim is to be served personally, or in one of the other ways the rules allow.",
+  },
+  family: {
+    rule: `${FAMILY}, r. 8 (5)`,
+    quote: "The application shall be served immediately on every other party, and special service shall be used unless the party is listed in subrule (6).",
+    say: "An application is to be served by special service: personally, or in one of the other ways the rules allow.",
+  },
+};
+
+/**
+ * A motion to change is not an application (legal review 2026-10-14): r. 15
+ * (7) says its documents are served by special service; r. 15 (8) lets
+ * officials and agencies under r. 8 (6) be served by regular service.
+ */
+export const MOTION_TO_CHANGE_RULE: OriginatingRule = {
+  rule: `${FAMILY}, r. 15 (7)`,
+  quote: "The documents referred to in subrules (5), (5.1) and (6) shall be served by special service (subrule 6 (3)), and not by regular service.",
+  say: "A motion to change is to be served by special service: personally, or in one of the other ways the rules allow.",
+};
+
+/** The rule for the papers a service-date question asks about: the motion-to-change rule for a motion to change, else the court's claim or application rule. */
+export function originatingRuleFor(court: ServiceCourt, questionId: string): OriginatingRule {
+  return court === "family" && questionId === "case-date-served-with-motion-to-change" ? MOTION_TO_CHANGE_RULE : ORIGINATING_RULE[court];
+}
+
+/** Family r. 6 (3) (c): special service by mail with a return postcard. Its effective day is not one SERVICE_RULES counts, so it is listed without one. */
+export const FAMILY_POSTCARD_WAY = {
+  label: "Mailed to you with a prepaid return postcard (Form 6) to sign and send back",
+  rule: `${FAMILY}, r. 6 (3) (c)`,
+  quote: "mailing a copy to the person, together with an acknowledgment of service in the form of a prepaid return postcard (Form 6)",
+};
+
+/** The company route for a claim (r. 8.03 (3), 16.03 (6)): offered only for a claim. Its day comes from mailing, which can be before the papers arrive. */
+export const COMPANY_ROUTE: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["corporation-mail", "corporation-courier"]);
+
+/** The ways the rules allow for a claim or application that come by post, each with its effective day and rule. */
+export function postWaysForClaim(court: ServiceCourt): { label: string; effective: string | null; rule: string; quote: string }[] {
+  const ways = ORIGINATING_METHODS[court]
+    .map((method) => SERVICE_RULES[court].find((rule) => rule.method === method))
+    .filter((rule): rule is ServiceRule => Boolean(rule) && !rule!.method.startsWith("personal"))
+    .map((rule) => ({ label: rule.label, effective: whenEffectiveSay(rule), rule: rule.rule, quote: rule.quote }));
+  return court === "family" ? [...ways, { ...FAMILY_POSTCARD_WAY, effective: null }] : ways;
+}
+
+/**
+ * The ways of serving to offer for a service date. For a claim or an
+ * application, only the ways the rules allow for one (ORIGINATING_METHODS);
+ * otherwise every way.
+ */
+export function serviceRulesFor(court: ServiceCourt, questionId = ""): ServiceRule[] {
+  if (questionId && isOriginatingService(court, questionId)) {
+    return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method));
+  }
+  // The company route is only for a claim (r. 8.03 (3), 16.03 (6)).
+  return SERVICE_RULES[court].filter((rule) => !COMPANY_ROUTE.has(rule.method));
 }
 
 /**
@@ -351,3 +476,29 @@ export function arrivalNotSendDate(method: ServiceMethod | null | undefined, quo
   if (!method || COUNTS_FROM_ARRIVAL.has(method)) return false;
   return ARRIVED.test(quote);
 }
+
+/*
+ * What the rule says about papers that ARRIVED, in its own terms (walkthrough
+ * 2026-10-14, RN: the note said "service counts from the day it was mailed",
+ * while r. 8.07 (2) says service by mail is effective on the FIFTH DAY after
+ * mailing; the deadline runs from that day, not from mailing).
+ */
+const ORDINAL: Record<number, string> = { 2: "second", 5: "fifth" };
+
+/** "service is effective on the fifth day after the day it was mailed" -- the rule's effective day, from its own period and starting day. */
+export function whenEffectiveSay(rule: Pick<ServiceRule, "addDays" | "dateToEnter">): string {
+  if (rule.addDays === 0) return `service is effective on ${rule.dateToEnter}`;
+  if (rule.addDays === 1) return `service is effective on the day after ${rule.dateToEnter}`;
+  return `service is effective on the ${ORDINAL[rule.addDays] ?? `${rule.addDays}th`} day after ${rule.dateToEnter}`;
+}
+
+/**
+ * Ways of serving whose starting day is always on or before the day the
+ * papers reached the person: a letter is mailed before it arrives. For these,
+ * a deadline counted as if the papers were mailed on the day they arrived is
+ * the LATEST the real one can be (a later start never gives an earlier last
+ * day). Courier is not here: under r. 8.07.1 (2) its day is when the courier
+ * confirms delivery to the sender, which can be after the papers arrived. Nor
+ * is "left at my home and mailed": the copy may be mailed after it was left.
+ */
+export const SENT_ON_OR_BEFORE_ARRIVAL: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["mail"]);

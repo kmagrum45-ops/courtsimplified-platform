@@ -40,7 +40,8 @@ function KeyDates({ record, courtPath }: { record: FactRecord; courtPath: string
     .sort((a, b) => a.date.localeCompare(b.date));
   if (entries.length === 0) return null;
   const service = record.position.service ?? {};
-  const rules = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? serviceRulesFor(courtPath) : [];
+  // The ways for each date's own question: a claim's company route is offered only there.
+  const rulesCourt = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
   return (
     <section data-testid="timeline-key-dates" className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
       <h2 className="text-xl font-bold text-[#10231f]">Key dates in your case</h2>
@@ -51,7 +52,7 @@ function KeyDates({ record, courtPath }: { record: FactRecord; courtPath: string
       <ul className="mt-4 space-y-3">
         {entries.map((entry) => {
           const how = service[entry.id];
-          const method = how ? rules.find((rule) => rule.method === how.method) : undefined;
+          const method = how && rulesCourt ? serviceRulesFor(rulesCourt, entry.id).find((rule) => rule.method === how.method) : undefined;
           return (
             <li key={entry.id} className="text-sm text-[#16302b]">
               <span className="font-semibold">{formatLongDate(entry.date)}</span>: {entry.label}

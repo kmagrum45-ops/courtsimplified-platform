@@ -34,6 +34,7 @@ import GetHelp from "../_components/GetHelp";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
+import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -401,9 +402,16 @@ type FormsWorkspaceProps = {
   courtPath?: string | null;
   /** Rendered inside the case page: no page header, no outer page frame. */
   embedded?: boolean;
+  /**
+   * Form numbers that lead the catalogue, in order: the case's step's forms and
+   * the form that starts the court case after a notice (walkthrough 2026-10-14,
+   * SW: Form 1A and the dismissal forms led a sidewalk-fall plaintiff's list).
+   * The rest follow; nothing is removed.
+   */
+  leadForms?: { number: string; label: string }[];
 };
 
-function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false }: FormsWorkspaceProps) {
+function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [] }: FormsWorkspaceProps) {
   const searchParams = useSearchParams();
 
   const initialPath = getCourtPath(courtPathProp ?? searchParams.get("path"));
@@ -668,12 +676,16 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   const filteredForms = useMemo(() => {
     const q = normalize(search);
 
-    return enrichedForms.filter(({ form, status }) => {
+    const kept = enrichedForms.filter(({ form, status }) => {
       const searchMatch = !q || getSearchText(form).includes(q);
       const statusMatch = statusFilter === "all" || status === statusFilter;
       return searchMatch && statusMatch;
     });
-  }, [enrichedForms, search, statusFilter]);
+    return leadFormsFirst(kept, ({ form }) => cleanSpaces(form.form_number), leadForms.map((lead) => lead.number));
+  }, [enrichedForms, search, statusFilter, leadForms]);
+  // Each leading form's own label: the step's forms "For your step", the claim
+  // form after a notice "After the notice" (legal review 2026-10-14).
+  const leadLabels = useMemo(() => new Map(leadForms.map((lead) => [formKey(lead.number), lead.label])), [leadForms]);
 
   const stats = useMemo(() => {
     return {
@@ -995,6 +1007,43 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                       </div>
                     );
                   }
+                  /*
+                   * A suggestion from the case is shown answered, waiting for
+                   * the person's one click (walkthrough MC, 2026-10-14: "Which
+                   * Family Law Rules motion document set are you preparing?"
+                   * read as an open question with an answer list beside the
+                   * step he had confirmed). It is still theirs to confirm
+                   * (CLAUDE.md section 4): nothing is saved until "Save this
+                   * answer", and Change opens the full list.
+                   */
+                  const pending = suggestionFor(question);
+                  const pendingChoice = pending
+                    ? question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(pending.value))
+                    : undefined;
+                  if (pending && pendingChoice && !changingKept[question.field_path]) {
+                    const [, group, field] = question.field_path.split(".");
+                    return (
+                      <div key={question.field_path} data-testid="forms-suggested-from-case" className="block rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
+                        <p className="font-semibold">{question.question}</p>
+                        <p className="mt-1 text-[#16302b]">{pendingChoice.label}</p>
+                        <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            data-testid="forms-suggested-save"
+                            disabled={applicabilitySaving}
+                            onClick={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
+                            className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
+                          >
+                            Save this answer
+                          </button>
+                          <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
+                            Change
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
                   return <label key={question.field_path} className="block font-semibold">{question.question}{question.explanation ? <span className="mt-1 block font-normal text-[#4f685f]">{question.explanation}</span> : null}{suggestionFor(question) ? <span className="mt-1 block font-normal text-[#2f7d67]">From your case: {suggestionFor(question)!.reason} Change it if that is not right, then save.</span> : null}<select className="mt-2 block w-full rounded-xl border border-[#d8e6df] p-3" value={selectedValue === undefined ? "" : JSON.stringify(selectedValue)} onChange={(event) => { const choice = question.choices.find((item) => JSON.stringify(item.value) === event.target.value); if (choice) updateApplicability(question, choice.value); }}><option value="" disabled>Select an answer</option>{question.choices.map((choice) => <option key={`${typeof choice.value}:${choice.value}`} value={JSON.stringify(choice.value)}>{choice.label}</option>)}</select></label>;
                 })}
               </div>
@@ -1261,6 +1310,11 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         >
                           {getStatusLabel(status)}
                         </span>
+                        {leadLabels.has(formKey(cleanSpaces(form.form_number))) ? (
+                          <span data-testid="form-for-your-step" className="rounded-full border border-[#2f7d67] bg-[#f2fbf7] px-3 py-1 text-xs font-bold text-[#2f7d67]">
+                            {leadLabels.get(formKey(cleanSpaces(form.form_number)))}
+                          </span>
+                        ) : null}
                       </div>
 
                       {/*

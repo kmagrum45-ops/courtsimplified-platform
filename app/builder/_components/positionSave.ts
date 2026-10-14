@@ -12,6 +12,9 @@
  * queue, so each one starts after the last has finished.
  */
 
+import { applyPositionPatch, readCasePosition, type PositionPatch } from "../../../src/lib/case-system/casePosition";
+import { updateMasterResult } from "../../../src/lib/case-system/updateCaseRecord";
+
 let chain: Promise<unknown> = Promise.resolve();
 
 /** How long one save may take before it is given up (and reported as not saved). */
@@ -31,11 +34,112 @@ export async function postWithTimeout(url: string, init: RequestInit, timeoutMs 
   }
 }
 
+/*
+ * STRAIGHT TO THE DATABASE FIRST (2026-10-14, walkthrough run 38511243860,
+ * RN). The Small Claims guided defendant confirmed "I was served and need to
+ * respond"; the results page said "Stage recorded", and the Overview and a
+ * reload both asked again. The run's own log shows why: all four saves of
+ * that stage (two from the click, two from the page's catch-up save, each
+ * with its retry) ended `POST /api/cases/position failed: net::ERR_ABORTED`
+ * -- every one ran past the ten-second limit, because the site's own server
+ * was answering the page's long requests (the analysis, the case reader, the
+ * research) and the save waited behind them. Nothing reached the case. The
+ * case itself had been written moments before, straight to the database,
+ * without trouble.
+ *
+ * So a position save now goes the way the case save goes: the person's own
+ * signed-in client, through updateMasterResult (writes only over what it
+ * read, so a save at the same moment is re-applied, never erased), with the
+ * same applyPositionPatch the route uses (an unknown stage, a step from
+ * another court or a date that is not a date is refused, never stored).
+ * Row-level security limits it to the owner's own case, as it does the case
+ * save. The route stays as the fallback for a write that failed outright.
+ */
+
+/** The parts of a Supabase client the direct save uses (the browser client, or a test double). */
+export type PositionWriteClient = {
+  from(table: "cases"): {
+    select(columns: string): {
+      eq(column: string, value: string): { maybeSingle(): PromiseLike<{ data: { court_path?: string | null } | null; error: unknown }> };
+    };
+  };
+};
+
+export type DirectSaveOutcome = "saved" | "refused" | "failed";
+
+/** Applies a position patch to the case through the person's own client. Exported for test:case-position. */
+export async function savePositionDirect(
+  db: PositionWriteClient,
+  caseId: string,
+  patch: PositionPatch,
+  options: { now?: () => Date; abandoned?: { gaveUp: boolean } } = {},
+): Promise<DirectSaveOutcome> {
+  const now = options.now ?? (() => new Date());
+  try {
+    const { data, error } = await db.from("cases").select("court_path").eq("id", caseId).maybeSingle();
+    if (error || !data) return "failed";
+    const courtPath = data.court_path ?? null;
+    let refused = false;
+    const result = await updateMasterResult(db, { caseId }, (stored) => {
+      // Given up on (it ran past its time and the next save has gone ahead):
+      // it must not land later and put an older choice over a newer one
+      // (review 2026-10-14). A write already sent when it was given up loses
+      // to any newer save through updateMasterResult's updated_at check.
+      if (options.abandoned?.gaveUp) return { reject: "gave up" };
+      const applied = applyPositionPatch(readCasePosition(stored, courtPath), patch, courtPath, now());
+      if (!applied.ok) {
+        refused = true;
+        return { reject: applied.error };
+      }
+      return { ...stored, position: applied.position };
+    });
+    if (result.ok) return "saved";
+    return refused ? "refused" : "failed";
+  } catch {
+    return "failed";
+  }
+}
+
+/**
+ * The direct save, given up after `ms`: from then on it writes nothing
+ * (`abandoned`), so a slow save cannot land after a newer one. Exported for
+ * test:case-position.
+ */
+export async function savePositionDirectWithin(db: PositionWriteClient, caseId: string, patch: PositionPatch, ms: number): Promise<DirectSaveOutcome> {
+  const abandoned = { gaveUp: false };
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return Promise.race([
+    savePositionDirect(db, caseId, patch, { abandoned }),
+    new Promise<DirectSaveOutcome>((resolve) => {
+      timer = setTimeout(() => {
+        abandoned.gaveUp = true;
+        resolve("failed");
+      }, ms);
+    }),
+  ]).finally(() => {
+    if (timer) clearTimeout(timer);
+  });
+}
+
+/** Set only by checks: the client the direct save uses instead of the browser's. */
+let clientForChecks: PositionWriteClient | null = null;
+export function setPositionClientForChecks(db: PositionWriteClient | null) {
+  clientForChecks = db;
+}
+
 async function post(caseId: string, patch: Record<string, unknown>): Promise<boolean> {
   try {
     // Imported on use: pure helpers in modules that import this one are read
     // by checks that must not construct the Supabase client.
-    const { supabase } = await import("@/src/lib/supabase/client");
+    const { supabase } = clientForChecks ? { supabase: null } : await import("@/src/lib/supabase/client");
+    const direct = await savePositionDirectWithin(
+      (clientForChecks ?? supabase) as unknown as PositionWriteClient,
+      caseId,
+      patch as PositionPatch,
+      POSITION_SAVE_TIMEOUT_MS,
+    );
+    if (direct === "saved") return true;
+    if (direct === "refused" || !supabase) return false;
     const {
       data: { session },
     } = await supabase.auth.getSession();

@@ -32,6 +32,17 @@
  *   - (walkthrough run 38500825561) a notice-before-suing step that does not
  *     name the form that starts the court case after it, with its fee, or
  *     names it before the notice.
+ *   - (walkthrough 2026-10-14) a notice step's "then" lines without where to
+ *     file the claim for the person's city, or without how to serve a
+ *     municipality when the notice kept is to one (or with it when not);
+ *     Form 13 folded for words about support, money or property, or for no
+ *     words;
+ *     a case's Forms tab catalogue not led by the step's own forms (and the
+ *     claim form after a notice step), or losing or reordering the rest.
+ *   - (legal review 2026-10-14) Form 13 folded on a responding step, or
+ *     shown there without r. 13 (1) (b)'s condition (with "within your time
+ *     to respond" on a motion to change); the claim form after a notice
+ *     labelled "For your step".
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -71,8 +82,10 @@ import {
   noticeFit,
   claimAfterNotice,
   CLAIM_AFTER_NOTICE,
+  RESPONDING_VIEW,
 } from "../../src/lib/content-library/nextStepPractical";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
+import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
 import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -112,6 +125,8 @@ const citations: RuleCitation[] = [
   ...lines.map((line) => line.cite),
   ...Object.values(FEES).map((fee) => fee.cite),
   ...Object.values(STEP_PRACTICAL).flatMap((step) => step.also ?? []),
+  // The responding wording's own rules (reviewer 2026-10-14).
+  ...Object.values(RESPONDING_VIEW).flatMap((view) => [view.note.cite, ...view.alsoRules]),
 ];
 
 console.log("\n1. Every quote is in the saved official text");
@@ -360,21 +375,49 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
       }),
     );
   check("folding a form never loses it (every family step, three stories)", foldedLost.length === 0, foldedLost.join("; "));
-  // Review 2026-10-13: r. 13 (1) (b) binds the party a support or property
-  // claim is made against, answer or not -- so a responding step never folds
-  // the financial statement, whatever the words; elsewhere it folds only when
-  // the words show no support or money at all.
-  const respondingFolds = steps
-    .filter((stage) => pathwayOf(stage) === "family" && respondingStep(stage.id, false))
-    .flatMap((stage) =>
-      [PARENTING, "something happened"].flatMap((words) =>
-        [false, true].flatMap((responding) =>
-          (practicalFor(stage.id, "family", "", responding, words)?.formsIfClaimed ?? []).filter((form) => form.number === "13" || form.number === "13.1").map(() => `${stage.id} "${words}"`),
-        ),
-      ),
-    );
-  check("a responding step never folds the financial statement (r. 13 (1) (b))", respondingFolds.length === 0, respondingFolds.join("; "));
-  check("a respondent to a parenting application keeps Form 13 as a form", Boolean(parenting?.forms.some((form) => form.number === "13")));
+  // Legal review 2026-10-14: on a responding step, whether r. 13 (1) (b)
+  // binds the person turns on what the other side's papers CLAIM, which the
+  // intake does not record -- so Form 13 is never folded there, whatever the
+  // words, and r. 13 (1) (b)'s condition is beside it; on a motion to change
+  // it says "within your time to respond".
+  const respondingSteps = steps.filter((stage) => pathwayOf(stage) === "family" && respondingStep(stage.id, false) && STEP_PRACTICAL[stage.id].forms.some((form) => /^(?:family:)?13(?:\.1)?$/.test(form)));
+  const respondingWrong: string[] = [];
+  for (const stage of respondingSteps) {
+    for (const responding of [false, true]) {
+      for (const words of [PARENTING, "", "she wants child support from me too", "he is asking for the house", "something happened"]) {
+        const view = practicalFor(stage.id, "family", "", responding, words);
+        const shown = (view?.forms ?? []).filter((form) => form.number === "13" || form.number === "13.1");
+        if (shown.length === 0 || (view?.formsIfClaimed ?? []).some((form) => form.number === "13" || form.number === "13.1")) respondingWrong.push(`${stage.id}: folded for "${words}"`);
+        const motion = /motion-to-change|change-final-order/.test(stage.id);
+        if (
+          !shown.every(
+            (form) =>
+              form.note?.cite.pinpoint === "r. 13 (1) (b)" &&
+              /the party against whom the claim is made/.test(form.note.cite.quote) &&
+              /only if/.test(form.note.say) &&
+              (motion ? /within your time to respond/.test(form.note.say) : /within your time to answer/.test(form.note.say)),
+          )
+        )
+          respondingWrong.push(`${stage.id}: condition missing or wrong words`);
+      }
+    }
+  }
+  check("on every responding step Form 13 stays a form for the step, with r. 13 (1) (b)'s condition beside it, whatever the words", respondingSteps.length > 0 && respondingWrong.length === 0, [...new Set(respondingWrong)].slice(0, 6).join("; "));
+  {
+    const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
+    const words = userWordsOf({ facts: [persona.story, ...Object.values(persona.fields ?? {})].join("\n"), extra: { issues: persona.issues, yourCity: persona.city } });
+    const view = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words);
+    check("persona family-respondent-parenting: Form 13 is in the list with its r. 13 (1) (b) condition", Boolean(view?.forms.some((form) => form.number === "13" && form.note?.cite.pinpoint === "r. 13 (1) (b)")));
+  }
+  check("the card shows a form's condition beside it", /form\.note \?/.test(readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8")));
+  // Re-check 2026-10-14: the person's side on an either-side step counts too.
+  check(
+    "on an either-side step the financial-statement limit folds for the mover's parenting words, never for the one responding",
+    claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:both:asking-to-change-final-order", true) === "fits" &&
+      claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:both:asking-to-change-final-order", false) === "not",
+  );
+  check("the card passes the person's side to claimFit", /claimFit\(item, story, stepId, responding\)/.test(readFileSync(path.join(ROOT, "app", "builder", "_components", "StageAnswerPanel.tsx"), "utf8")));
+  check("the financial-statement time limit is not folded on a responding step",claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:respondent:served-time-to-answer-running") === "fits");
   const startParenting = practicalFor("family:before-filing:deciding-where-to-start", "family", "", false, PARENTING);
   check(
     "starting a parenting-only case: Form 13 is folded with r. 13 (1) (a) and (b)",
@@ -514,6 +557,32 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
     check("a claim against the Crown: the line says to wait 60 days after the notice, from s. 18 (1)", crownLines.some((line) => /60 days after/.test(line.say) && line.cite.pinpoint === "s. 18 (1)" && /at least 60 days before/.test(line.cite.quote)));
     check("a Toronto fall: no Crown wait line", !(view?.afterNotice ?? []).some((line) => line.cite.sourceId === "crown-liability-and-proceedings-act-2019"));
     check("with every notice shown, the Crown wait is said for a claim against the Crown only", claimAfterNotice("civil:before-filing:notice-required-before-suing", "civil").some((line) => /^If your claim is against the Ontario Crown/.test(line.say)));
+    // Walkthrough 2026-10-14, SW: the $243 fee but not where to file the
+    // claim or how to serve the City. Property: every notice step's "then"
+    // lines carry its court's filing lines for the person's city, and the
+    // court's municipal-corporation service rule exactly when every notice
+    // the words keep is to a municipality.
+    const fileMisses: string[] = [];
+    const serveMisses: string[] = [];
+    for (const [stepId] of Object.entries(STEP_PRACTICAL)) {
+      const court: PracticalCourt = stepId.startsWith("civil:") ? "civil" : stepId.startsWith("family:") ? "family" : "small-claims";
+      for (const city of ["Toronto", "Ottawa", ""]) {
+        for (const story of STORIES) {
+          const after = claimAfterNotice(stepId, court, story, city);
+          if (after.length === 0) continue;
+          const filing = FILING[court];
+          const wanted = city === "Toronto" ? [filing.toronto] : city ? [filing.elsewhere] : [filing.toronto, filing.elsewhere];
+          if (![...wanted, ...filing.more].every((line) => after.includes(line))) fileMisses.push(`${stepId} ${city || "(no city)"}`);
+          const kept = (practicalFor(stepId, court, city, false, story)?.also ?? []).filter((rule) => NOTICE_IDS.has(rule.sourceId));
+          const municipal = kept.length > 0 && kept.every((rule) => rule.sourceId === "municipal-act-2001" || rule.sourceId === "city-of-toronto-act-2006");
+          const servesCity = after.some((line) => /^r\. (?:16\.02 \(1\) \(b\)|8\.02 \(b\))$/.test(line.cite.pinpoint) && /municipal corporation/.test(line.cite.quote));
+          if (municipal !== servesCity) serveMisses.push(`${stepId} "${story}" ${city}`);
+        }
+      }
+    }
+    check("every notice step's 'then' lines say where to file the claim, for the person's city", fileMisses.length === 0, fileMisses.slice(0, 5).join("; "));
+    check("and how to serve a municipality exactly when the notice kept is to one", serveMisses.length === 0, serveMisses.slice(0, 5).join("; "));
+    check("the Toronto fall names r. 16.02 (1) (b)", Boolean(view?.afterNotice.some((line) => line.cite.pinpoint === "r. 16.02 (1) (b)")));
     const component = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
     const noticeAt = component.indexOf('data-testid="next-step-notice-how"');
     const ruleAt = component.indexOf('data-testid="next-step-also"');
@@ -522,6 +591,75 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   }
 
   check("no new plain line grades a case", MORE_CARD_LINES.every((line) => !/\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)));
+}
+
+console.log("\nThe responding wording carries its own rules (reviewer 2026-10-14)");
+{
+  // Every responding wording that names a form cites a rule naming it, and
+  // a note about where the person lives speaks to "you", with its rule.
+  const wrong = Object.entries(RESPONDING_VIEW).flatMap(([id, view]) => {
+    const quotes = [view.note.cite, ...view.alsoRules].map((rule) => rule.quote).join(" ");
+    const forms = [...view.what.matchAll(/Form (\d+[A-Z]?)/g)].map((match) => match[1]);
+    const out: string[] = [];
+    for (const form of forms) if (!quotes.includes(`(Form ${form})`)) out.push(`${id}: Form ${form} not in a cited rule`);
+    if (/\bsigned consent\b/.test(view.what) && !/return a signed copy of the consent/.test(quotes)) out.push(`${id}: signed consent not in a cited rule`);
+    if (/\bthey\b|\btheir\b/i.test(view.note.say)) out.push(`${id}: note speaks of "they"`);
+    return out;
+  });
+  check("each responding wording's forms and signed consent are named in a cited rule, and its note says 'you'", wrong.length === 0, wrong.join("; "));
+  const view = RESPONDING_VIEW["deadline:family:motion-to-change-response:moving-party-view"];
+  check("the motion-to-change response: r. 15 (9) cited, and 'It is 60 days if you do not live in Canada or the United States' with r. 15 (10) (b)", view.alsoRules.some((rule) => rule.pinpoint.startsWith("r. 15 (9)")) && view.note.say === "It is 60 days if you do not live in Canada or the United States." && view.note.cite.pinpoint === "r. 15 (10) (b)");
+}
+
+console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (walkthrough 2026-10-14)");
+{
+  // SW: Form 1A and the rule 2.1 dismissal forms led a sidewalk-fall
+  // plaintiff's Forms tab. Property of the ordering: nothing lost, every lead
+  // form before every other, the rest in their own order.
+  const catalogue = ["1A", "2.1A", "2.1B", "4A", "7A", "14A", "14B", "16B", "37A", "59A"];
+  let orderMisses = 0;
+  for (let mask = 0; mask < 1 << catalogue.length; mask += 37) {
+    const lead = catalogue.filter((_, index) => mask & (1 << index)).reverse().map((number) => `Form ${number.toLowerCase()}`);
+    const out = leadFormsFirst(catalogue, (number) => number, lead);
+    const isLead = (number: string) => lead.some((item) => formKey(item) === formKey(number));
+    const firstOther = out.findIndex((number) => !isLead(number));
+    const rest = out.filter((number) => !isLead(number));
+    if (
+      out.length !== catalogue.length ||
+      new Set(out).size !== catalogue.length ||
+      (firstOther >= 0 && out.slice(firstOther).some(isLead)) ||
+      rest.join() !== catalogue.filter((number) => !isLead(number)).join()
+    )
+      orderMisses += 1;
+  }
+  check("leading forms move up, nothing is lost, the rest keep their order", orderMisses === 0, `misses ${orderMisses}`);
+
+  // Every step: the lead forms are the step's own unfolded forms of its court,
+  // plus the claim form after a notice -- never a folded one.
+  const leadWrong: string[] = [];
+  for (const stage of steps) {
+    const court = pathwayOf(stage) as PracticalCourt;
+    for (const words of ["", STORIES[1], 'my ex took me to court for custody {"issues":["parenting-time"]}']) {
+      const view = practicalFor(stage.id, court, "Toronto", false, words);
+      if (!view) continue;
+      const own = view.forms.filter((form) => form.court === court).map((form) => form.number);
+      const claim = view.afterNotice.length > 0 && court !== "family" ? [CLAIM_AFTER_NOTICE[court].form] : [];
+      const want = [...own.map((number) => `${number}:For your step`), ...claim.map((number) => `${number}:After the notice`)];
+      if (view.leadForms.map((lead) => `${lead.number}:${lead.label}`).join() !== want.join()) leadWrong.push(`${stage.id}`);
+      if (view.formsIfClaimed.some((form) => view.leadForms.some((lead) => lead.number === form.number))) leadWrong.push(`${stage.id}: folded form leads`);
+    }
+  }
+  check("on every step the catalogue is led by the step's own forms, then the claim form after a notice", leadWrong.length === 0, [...new Set(leadWrong)].slice(0, 5).join("; "));
+  const sidewalk = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
+  check("the Toronto sidewalk notice step leads with Form 14A, labelled 'After the notice' (never 'For your step')", sidewalk?.leadForms[0]?.number === "14A" && sidewalk.leadForms[0].label === "After the notice");
+  check("the catalogue shows each leading form's own label", /leadLabels\.get\(/.test(readFileSync(path.join(ROOT, "app", "forms", "FormsWorkspace.tsx"), "utf8")));
+  check("Form 14A's start line names it", /Form 14A/.test(CLAIM_AFTER_NOTICE.civil.start.say) && /Form 7A/.test(CLAIM_AFTER_NOTICE["small-claims"].start.say));
+
+  const formsPage = readFileSync(path.join(ROOT, "app", "cases", "[id]", "forms", "page.tsx"), "utf8");
+  const workspace = readFileSync(path.join(ROOT, "app", "forms", "FormsWorkspace.tsx"), "utf8");
+  check("the Forms tab passes the step's lead forms to the catalogue", /<FormsWorkspace\b[^>]*leadForms=\{practical\?\.leadForms/.test(formsPage));
+  check("and shows the step section for a notice step too (afterNotice)", /practical\.afterNotice\.length > 0/.test(formsPage));
+  check("the catalogue orders what it shows with leadFormsFirst", /leadFormsFirst\(kept,/.test(workspace) && /return leadFormsFirst/.test(workspace));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

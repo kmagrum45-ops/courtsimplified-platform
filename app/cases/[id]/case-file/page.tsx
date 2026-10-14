@@ -17,6 +17,8 @@
 
 import { useEffect, useState } from "react";
 import { DecisionAttribution, DecisionCaution } from "@/app/cases/_components/CourtDecisionPanel";
+import { DeadlineStandingNote } from "@/app/cases/_components/CaseWorkspace";
+import type { TimelineStanding } from "@/src/lib/case-workspace/timeline";
 import type { DecisionDetails } from "@/src/lib/case-workspace/courtDecision";
 
 import { getStageLabel } from "../../../builder/_components/builderTypes";
@@ -57,6 +59,8 @@ type TimelineItem = {
   title: string;
   source: { kind: string; description: string; rule?: string | null };
   notes?: string[];
+  /** Passed, or ran on past a closed day: the Overview card's words (route: deadlineStandingFor). */
+  standing?: TimelineStanding;
 };
 
 function whenText(event: EventRow): string {
@@ -164,6 +168,8 @@ export default function CaseFileSection() {
                   <strong>{item.displayDate}</strong>: {item.title}
                   {item.source.rule ? ` (${item.source.rule})` : ""}
                   {item.notes?.[0]?.startsWith("Counted from the date in your story") ? <em> {item.notes[0]}</em> : null}
+                  {/* The same words as the Overview card and the Timeline (walkthrough 2026-10-14, SW). */}
+                  {item.standing ? <DeadlineStandingNote standing={item.standing} /> : null}
                 </li>
               ))}
             </ul>

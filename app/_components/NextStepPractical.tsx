@@ -78,6 +78,14 @@ export default function NextStepPractical({
                       Word
                     </a>
                   ) : null}
+                  {form.note ? (
+                    // The rule's condition for this form, beside it (Form 13 on a
+                    // responding step, r. 13 (1) (b); legal review 2026-10-14).
+                    <span data-testid="next-step-form-note" className="block text-[#4d675f]">
+                      {form.note.say}
+                      <Source cite={form.note.cite} />
+                    </span>
+                  ) : null}
                 </li>
               );
             })}

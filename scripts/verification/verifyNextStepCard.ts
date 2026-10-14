@@ -44,6 +44,13 @@
  *     sentence about sending something else read as how the papers came;
  *     a step's own claim, or a kind named in passing, folded as "not
  *     mentioned"; checks pinned to source text instead of behaviour.
+ *   - (walkthrough 2026-10-14) the Timeline, Deadlines view or Case file
+ *     saying something different from the card about a counted date: no
+ *     passed warning, or "the last day" for a closed counted day.
+ *   - (final re-check 2026-10-14) a limit the other party must meet after
+ *     being served, read to the person responding on an either-side step as
+ *     "The other party's time" instead of their own ("Your time ... (Form
+ *     15B) ... (Form 15C)").
  *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
@@ -571,7 +578,7 @@ async function main() {
         serviceMethodDisplay("personal", "mail", true) === "choose" &&
         serviceMethodDisplay(undefined, "mail", true) === "choose",
     );
-    check("the panel draws it through serviceMethodDisplay, with a Change button", calls(panel, "serviceMethodDisplay", ["serviceMethod", "storyServiceMethod"]) && /stage-answer-service-method-change-/.test(panel));
+    check("the panel draws it through serviceMethodDisplay, with a Change button", calls(panel, "serviceMethodDisplay", ["serviceMethod", "storyMethodFor"]) && /stage-answer-service-method-change-/.test(panel));
     // Review 2026-10-13: a way of sending something else is not how the papers came.
     const notService = ["I emailed him the invoice three times.", "we met in person to sign the lease", "i mailed my defence to the court"];
     check(
@@ -626,6 +633,89 @@ async function main() {
     const plain = movesForWords("civil:before-filing:notice-required-before-suing", false, "something happened to me", "Ottawa");
     check("words that fit no notice change nothing", plain.lead.length + plain.others.length === all.length && plain.lead.flatMap((move) => move.rules).length + plain.others.flatMap((move) => move.rules).length === all.flatMap((move) => move.rules).length);
     check("the card passes the person's words to it", gives(panel, "WhatComesNext", { story: "userWords", city: "city" }));
+  }
+
+  {
+    // Walkthrough 2026-10-14, SW: the card said the Toronto notice's counted
+    // Saturday ran to Tuesday and "That day has passed too"; the Timeline and
+    // the Case file said "2026-10-10" and "the last day for this is Saturday"
+    // with no warning. Property: for any counted day and any today, the
+    // timeline item says what the card says, and is passed exactly when the
+    // card's test says so.
+    // Final re-check 2026-10-14: a respondent to a motion to change saw "The
+    // other party's time to serve and file a response" for their own
+    // deadline. Property: on every either-side step, a limit the OTHER party
+    // must meet after being served has a responding wording, and the card
+    // shows it to the person responding; the mover's view is unchanged.
+    {
+      const { RESPONDING_VIEW } = await import("../../src/lib/content-library/nextStepPractical");
+      const { sideSummary } = await import("../../app/builder/_components/StageAnswerPanel");
+      const missing = ALL_STAGES.filter((stage) => /:both:/.test(stage.id))
+        .flatMap((stage) => stage.deadlines)
+        .filter((deadline) => deadline.actor === "other-party" && /^served-with/.test(deadline.countFromEvent) && !RESPONDING_VIEW[deadline.id])
+        .map((deadline) => deadline.id);
+      check("every other-party limit counted from being served, on an either-side step, has the responding wording", missing.length === 0, missing.join(", "));
+      const asked = await ask("family:both:asking-to-change-final-order", "family");
+      const all = [...(asked.nextStep?.deadlines ?? []), ...(asked.nextStep?.periods ?? [])] as { id?: string; what: string }[];
+      const responder = sideSummary({ deadlines: asked.nextStep?.deadlines ?? [], periods: asked.nextStep?.periods ?? [] } as never, true) as { deadlines: { what: string }[]; periods: { what: string }[] };
+      const mover = sideSummary({ deadlines: asked.nextStep?.deadlines ?? [], periods: asked.nextStep?.periods ?? [] } as never, false) as { deadlines: { what: string }[]; periods: { what: string }[] };
+      const responderWhats = [...responder.deadlines, ...responder.periods].map((item) => item.what);
+      check(
+        "the respondent reads 'Your time to serve and file a response (Form 15B) or return a signed consent (Form 15C)', never 'The other party's time'",
+        all.some((item) => item.id === "deadline:family:motion-to-change-response:moving-party-view") &&
+          responderWhats.includes("Your time to serve and file a response (Form 15B) or return a signed consent (Form 15C)") &&
+          !responderWhats.some((what) => /^The other party's time to serve and file a response/.test(what)),
+        responderWhats.join(" | "),
+      );
+      check("the mover's view is unchanged", JSON.stringify([...mover.deadlines, ...mover.periods].map((item) => item.what)) === JSON.stringify(all.map((item) => item.what)));
+      check("the card reads its limits through sideSummary", /const summary = sideSummary\(summaryAsGiven, responding\)/.test(panel));
+      // Reviewer 2026-10-14: the responding wording carries its note in their words and r. 15 (9).
+      const sideItem = [...(responder.deadlines as { what: string; sideNote?: { say: string }; alsoRules?: { pinpoint: string }[] }[]), ...(responder.periods as { what: string; sideNote?: { say: string }; alsoRules?: { pinpoint: string }[] }[])].find((item) => /^Your time to serve and file a response/.test(item.what));
+      check("the respondent's limit carries 'if you do not live' and r. 15 (9)", Boolean(sideItem?.sideNote && /if you do not live/.test(sideItem.sideNote.say) && sideItem.alsoRules?.some((rule) => rule.pinpoint.startsWith("r. 15 (9)"))));
+      check("the card draws them beside both deadline and period items", (panel.match(/<SideRules item=\{(?:deadline|period)\} \/>/g) ?? []).length === 2);
+      const rules = readFileSync(path.resolve(__dirname, "../../docs/sources/corpus/family-law-rules.txt"), "utf8").replace(/\s+/g, " ");
+      check("r. 15 (6) names the blank response (Form 15B) and consent (Form 15C)", rules.includes("The party making the motion shall serve on the other party a blank response to motion to change (Form 15B) and a blank consent motion to change (Form 15C)"));
+    }
+    const { buildTimeline } = await import("../../src/lib/case-workspace/timeline");
+    const { timelineStandingFor, PASSED_BAR_WARNING } = await import("../../src/lib/content-library/nextStepPractical");
+    const { sourceName } = await import("../../src/lib/case-system/stage-map/citations");
+    let wordMisses = 0;
+    let passMisses = 0;
+    let warnMisses = 0;
+    let lastDayMisses = 0;
+    for (let offset = 0; offset < 400; offset += 1) {
+      const counted = addDays("2026-01-01", offset);
+      for (const later of [0, 1, 2, 3, 4, 6]) {
+        const today = addDays(counted, later);
+        for (const regime of ["legislation-act", "civil-rules"]) {
+          const statement = `Based on the date you gave us, the last day for this is ${counted}.`;
+          const limit = { regime, consequence: "bars-the-claim" };
+          const timeline = buildTimeline({
+            documents: [],
+            events: [],
+            deadlines: [{ deadlineId: "d", date: counted, statement, working: [], uncertainty: null, caution: "c", closureWarning: null }],
+            deadlineRules: { d: { rule: null, url: null, what: "w", standing: timelineStandingFor(limit, { date: counted, statement }, today, sourceName) } },
+          });
+          const item = timeline.items[0];
+          const card = deadlineLineFor({ date: counted, statutory: regime === "legislation-act", statement }, today);
+          const cardWords = card.closedDay?.say ?? card.statement ?? statement;
+          const shown = item.standing?.statement ?? item.notes.find((note) => note === cardWords || note === statement);
+          if (shown !== cardWords) wordMisses += 1;
+          if (Boolean(item.standing?.passed) !== limitPassedState({ date: counted, statutory: regime === "legislation-act" }, today).passed) passMisses += 1;
+          if (card.passed && !item.standing?.lines.includes(PASSED_BAR_WARNING)) warnMisses += 1;
+          if (card.closedDay && item.notes.includes(statement)) lastDayMisses += 1;
+        }
+      }
+    }
+    check("over 400 counted days, the Timeline's words for a date are the card's", wordMisses === 0, `misses ${wordMisses}`);
+    check("and it is passed exactly when the card's test says so", passMisses === 0, `misses ${passMisses}`);
+    check("a passed bar carries the card's warning on the Timeline", warnMisses === 0, `misses ${warnMisses}`);
+    check("a closed counted day is never called THE last day on the Timeline", lastDayMisses === 0, `misses ${lastDayMisses}`);
+    const route = readFileSync(path.resolve(__dirname, "../../app/api/workspace/organisation/route.ts"), "utf8");
+    const workspace = readFileSync(path.resolve(__dirname, "../../app/cases/_components/CaseWorkspace.tsx"), "utf8");
+    const caseFile = readFileSync(path.resolve(__dirname, "../../app/cases/[id]/case-file/page.tsx"), "utf8");
+    check("the route works out the standing with Ontario's today", /todayInOntario\(\)/.test(route) && calls(route, "timelineStandingFor", ["today"]));
+    check("the Timeline, the Deadlines view and the Case file all show it", (workspace.match(/<DeadlineStandingNote standing=\{item\.standing\}/g) ?? []).length >= 2 && /<DeadlineStandingNote standing=\{item\.standing\}/.test(caseFile));
   }
 
   if (failures > 0) {

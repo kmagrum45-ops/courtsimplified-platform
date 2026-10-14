@@ -69,7 +69,10 @@ export default function CaseFormsSection() {
 
   return (
     <div className="space-y-6">
-      {practical && practical.forms.length > 0 && courtPath ? (
+      {/* A notice step has no form of its own but names the claim form that
+          follows it (walkthrough 2026-10-14, SW: no step section, so the
+          catalogue's Form 1A led). */}
+      {practical && (practical.forms.length > 0 || practical.afterNotice.length > 0) && courtPath ? (
         <section data-testid="forms-for-next-step" className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-[#10231f]">Forms for your next step</h2>
           <p className="mt-1 text-sm text-[#4f685f]">
@@ -103,7 +106,9 @@ export default function CaseFormsSection() {
           </div>
         </section>
       ) : null}
-      <FormsWorkspace caseId={caseRecord.id} courtPath={caseRecord.court_path} embedded />
+      {/* The step's forms (and the claim form after a notice) lead the
+          catalogue; the rest follow, all still listed. */}
+      <FormsWorkspace caseId={caseRecord.id} courtPath={caseRecord.court_path} embedded leadForms={practical?.leadForms ?? []} />
     </div>
   );
 }

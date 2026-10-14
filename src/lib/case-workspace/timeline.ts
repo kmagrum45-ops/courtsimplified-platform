@@ -96,6 +96,25 @@ export type TimelineItem = {
    * a computed item. Never rewritten — see the note about outputGuard above.
    */
   notes: string[];
+  /**
+   * For a computed item: where the deadline stands today, in the Overview
+   * card's own words (deadlineStandingFor, supplied by the caller). Set only
+   * when it has passed or its counted day was a closed day; absent otherwise.
+   */
+  standing?: TimelineStanding;
+};
+
+/** The card's words for a counted deadline that has passed or ran on past a closed day (nextStepPractical.deadlineStandingFor). */
+export type TimelineStanding = {
+  passed: boolean;
+  urgent: boolean;
+  /** The date's own sentence, as it also appears in `notes` (the closed-day words where the card uses them). */
+  statement: string;
+  /** What follows it ("That date has already passed.", the passed-bar warning), already worded by the card's helper. */
+  lines: string[];
+  /** The rule quoted for the closed-day words (Legislation Act s. 89 (2)), as "Name, pinpoint". */
+  rule: string | null;
+  ruleQuote: string | null;
 };
 
 export type TimelineDocumentInput = {
@@ -132,7 +151,23 @@ export type TimelineBuildInput = {
    * deadlineId. Supplied by the caller because this module does not read the stage
    * map — that would make a pure ordering function depend on the content library.
    */
-  deadlineRules?: Readonly<Record<string, { rule: string | null; url: string | null; what: string; note?: string }>>;
+  deadlineRules?: Readonly<
+    Record<
+      string,
+      {
+        rule: string | null;
+        url: string | null;
+        what: string;
+        note?: string;
+        /**
+         * Where it stands today, worded by the card's helper. `statement` replaces the
+         * engine's sentence (a counted Saturday is never called THE last day where the
+         * card would not call it that); the rest are shown as `standing`.
+         */
+        standing?: { statement: string; passed: boolean; urgent: boolean; lines: string[]; rule: string | null; ruleQuote: string | null };
+      }
+    >
+  >;
 };
 
 export type Timeline = {
@@ -270,11 +305,23 @@ export function buildTimeline(input: TimelineBuildInput): Timeline {
        */
       notes: [
         ...(meta?.note ? [meta.note] : []),
-        computed.statement,
+        meta?.standing?.statement ?? computed.statement,
         ...(computed.uncertainty ? [computed.uncertainty] : []),
         ...(computed.closureWarning ? [computed.closureWarning] : []),
         computed.caution,
       ],
+      ...(meta?.standing && (meta.standing.passed || meta.standing.urgent || meta.standing.statement !== computed.statement)
+        ? {
+            standing: {
+              statement: meta.standing.statement,
+              passed: meta.standing.passed,
+              urgent: meta.standing.urgent,
+              lines: meta.standing.lines,
+              rule: meta.standing.rule,
+              ruleQuote: meta.standing.ruleQuote,
+            },
+          }
+        : {}),
     });
   }
 

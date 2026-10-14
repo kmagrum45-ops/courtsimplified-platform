@@ -16,7 +16,10 @@
  * anything been filed" is offered from the story as the form's own option
  * ("i got served the papers" -> application, "i want to sue the city" with
  * no paper mentioned -> nothing filed yet), never from a negation, someone
- * else served, or a story mentioning any paper (section 5).
+ * else served, or a story mentioning any paper (section 5). A family story
+ * with an order and words asking to change it ("how do i get it lowered")
+ * gets the motion-to-change route first, quoted from r. 15 (5) and (2) of the
+ * saved Family Law Rules, instead of the temporary-motion card (section 6).
  *
  * An independent review (2026-10-13) added the inputs that broke the first
  * version: negations ("i never got served"), someone else served ("he was
@@ -65,6 +68,7 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
+import { hidesTemporaryMotionCard, motionToChangeLead, routeShown, standingChoice, type MotionToChangeLead } from "../../app/builder/_components/motionToChange";
 import { SERVED_LINE, storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { HELD_BACK_PERSONAS } from "../../tests/browser/walkthrough/heldBackPersonas";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -486,6 +490,249 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
   // An option the form does not list is never offered.
   const narrow = familyGuidedFields({ issues: [], filed: [{ value: "answer", label: "Answer" }] }).find((item) => item.key === "filedDocuments") as GuidedField;
   check("a value the form does not offer is never offered", offered(narrow, story("family-respondent-parenting")) === null, JSON.stringify(offered(narrow, story("family-respondent-parenting"))));
+}
+
+// ---- 6. "How do I get it lowered?" is answered with the route, quoted ------
+// Walkthrough MC (2026-10-14): a father with a 2022 support order asked how to
+// get it lowered; the first rule card said "Family Rule 14 governs motions for
+// temporary orders" and nothing answered him plainly. Properties: a family
+// story with an order and words asking to change the order (support,
+// parenting, payments) gets the motion-to-change line with the consent
+// carve-out it is subject to; someone SERVED with a motion to change gets the
+// response route instead, and someone served with anything else gets neither;
+// every phrase the line names (forms, days) is in a quote beside it, and every
+// quote is word for word in the saved Family Law Rules; it predicts nothing;
+// other uses of "change" get nothing; and the temporary-motion card is hidden
+// only when the story asks for no urgency or temporary order (review
+// 2026-10-14).
+{
+  const corpus = read("docs/sources/corpus/family-law-rules.txt").replace(/\s+/g, " ");
+  const flat = (text: string) => text.replace(/\s+/g, " ");
+  const checkLead = (name: string, lead: MotionToChangeLead | null, kind: MotionToChangeLead["kind"], pinpointsWanted: string[], phrases: string[]) => {
+    check(`motion to change: ${name} gets the ${kind} route`, lead?.kind === kind, JSON.stringify(lead?.kind ?? null));
+    if (!lead || lead.kind !== kind) return;
+    const pinpoints = lead.rules.map((rule) => rule.pinpoint);
+    check(`motion to change: ${name}: quotes ${pinpointsWanted.join(", ")}`, pinpointsWanted.every((pinpoint) => pinpoints.includes(pinpoint)), pinpoints.join(", "));
+    check(
+      `motion to change: ${name}: every quote is in the saved Family Law Rules, word for word`,
+      lead.rules.every((rule) => rule.sourceId === "family-law-rules" && corpus.includes(flat(rule.quote))),
+    );
+    const quoted = lead.rules.map((rule) => rule.quote).join(" ");
+    const missing = phrases.filter((phrase) => !lead.line.includes(phrase) || !quoted.includes(phrase));
+    check(`motion to change: ${name}: what the line names is in the quotes beside it`, missing.length === 0, missing.join("; "));
+    check(`motion to change: ${name}: the line predicts nothing`, !/\b(?:likely|will (?:be|get|win)|chance|strong|weak|succeed|should)\b/i.test(lead.line), lead.line);
+  };
+
+  const mc = PERSONAS.find((persona) => persona.id === "family-motion-to-change-support");
+  const mcLead = mc ? motionToChangeLead("family", mc.story, true, false) : null;
+  checkLead("the father asking to lower his support order", mcLead, "asking", ["r. 15 (5)", "r. 15 (2)", "r. 15 (17)", "r. 15 (18)"], [
+    "final order",
+    "motion to change (Form 15)",
+    "consent motion to change (Form 15C)",
+    "consent motion to change child support (Form 15D)",
+    "assignee",
+  ]);
+  check("motion to change: the father's route replaces the temporary-motion card", mcLead?.replacesTemporaryMotionCard === true);
+
+  const served = "We have a 2021 court order for child support. My ex served me a Motion to Change to increase it.";
+  checkLead("a parent served with a motion to change", motionToChangeLead("family", served, true, true), "responding", ["r. 15 (9)", "r. 15 (10)"], [
+    "response to motion to change (Form 15B)",
+    "consent motion to change (Form 15C)",
+    "30 days",
+    "60 days",
+    "Canada or the United States",
+  ]);
+  check("motion to change: the served parent is never told to bring one", motionToChangeLead("family", served, true, true)?.line.includes("you bring a motion to change") === false);
+  check(
+    "motion to change: the response line names the assignee's copy (r. 15 (9) 2 ii)",
+    /assignee/.test(motionToChangeLead("family", served, true, true)?.line ?? "") && /assignee/.test(motionToChangeLead("family", served, true, true)?.rules.find((rule) => rule.pinpoint === "r. 15 (9)")?.quote ?? ""),
+  );
+
+  // Who wants the change decides the route (re-review 2026-10-14).
+  const byWho: [string, string, boolean, MotionToChangeLead["kind"] | null][] = [
+    // Their own motion (review 2026-10-14): served by them, not on them.
+    ["the person served their ex", "We have a support order. I served my ex with a motion to change last month and he hasn't answered.", false, "asking"],
+    // "he got served" is not the person; whose motion it is is not said plainly.
+    ["the person served him", "We have a support order. I served him and he got served with the motion to change on Monday.", false, null],
+    ["the person filed their own motion", "We have a support order. I filed my motion to change last week.", false, "asking"],
+    // Responding to theirs is never "you bring a motion to change" (review 2026-10-14).
+    ["filed a response to his", "We have a support order. I filed my response to his motion to change last week.", false, "responding"],
+    // Whose motion "the motion" is, is not said: no route, the side is asked
+    // (re-review 2026-10-14: a response word never decides the route).
+    ["filed a response to the motion", "We have a support order. I filed a response to the motion to change.", false, null],
+    ["filed a 15B response", "We have a support order. We filed our Form 15B response to her motion to change.", false, "responding"],
+    ["an affidavit in reply", "We have a support order. I filed an affidavit in reply to his motion to change.", false, "responding"],
+    ["served a response after getting hers", "We have a support order. I served my response on her lawyer after getting her motion to change.", false, "responding"],
+    ["reading the one he served", "We have a support order. I started reading the motion to change he served.", false, "responding"],
+    ["took the one he sent to a lawyer", "We have a support order. I brought the motion to change he sent me to a lawyer.", false, "responding"],
+    // Strong wordings read past "form" and "package" when the other side gave it.
+    ["served the form", "We have a support order. He served me the motion to change form on Friday.", false, "responding"],
+    ["a package from his lawyer", "We have a support order. I got the motion to change package from his lawyer.", false, "responding"],
+    // The person's own motion, whatever else the sentence names: never responding.
+    ["an own ask and an affidavit", "We have a support order. I want to lower support and I need an affidavit for the motion to change.", false, "asking"],
+    ["writing their affidavit", "We have a support order. I'm writing my affidavit for the motion to change now.", false, null],
+    ["waiting for his response to theirs", "We have a support order. I'm waiting for his response to the motion to change I filed.", false, "asking"],
+    ["waiting on the court", "We have a support order. I am still waiting on an answer to the motion to change from the court.", false, null],
+    ["she responds to theirs", "We have a support order. She has 30 days to respond to the motion to change I served.", false, "asking"],
+    // The other side's motion, said plainly.
+    ["served at work by her lawyer", "We have a support order. My ex's lawyer served a motion to change on me at work.", false, "responding"],
+    ["30 days to respond to hers", "We have a support order. I have 30 days to respond to her motion to change.", false, "responding"],
+    ["hers arrived by courier", "We have a support order. Her motion to change arrived by courier.", false, "responding"],
+    // Both in one sentence: being served wins (a fact with a deadline).
+    ["served, and an own ask too", "We have a support order. He served me his motion to change and I want to lower it too.", false, "responding"],
+    // Someone else served, or blank forms, kits and drafts: never "you were served".
+    ["the person's sister served", "We have a support order. My sister got served with a motion to change.", false, null],
+    ["a blank form, and an own ask", "We have a support order. I got a motion to change form from the court website and want to lower the support.", false, "asking"],
+    ["the clerk's form", "We have a support order. The clerk gave me a motion to change form to fill out.", false, null],
+    ["the person's lawyer's draft", "We have a support order. My lawyer sent me a draft motion to change to lower the support.", false, "asking"],
+    ["a kit at the court office", "We have a support order. We were given a motion to change kit at the family court office.", false, null],
+    // Every want is read, not only the first (review 2026-10-14).
+    ["a no, then an ask", "There is a support order. I don't want to change anything but I want to lower the support.", false, "asking"],
+    ["never wanted the order, now wants a change", "There is a support order. I never wanted the order, and now I want to change it.", false, "asking"],
+    ["the ex wants to reduce", "There is a support order. My ex wants to reduce child support. What do I do?", false, "if-served"],
+    ["the ex asks the court", "There is a support order. My ex is asking the court to reduce the support.", false, "if-served"],
+    ["the original respondent wants a change", "There is a court order. I'm the respondent in the original case. I want to lower the support", true, "asking"],
+    ["taken to court in 2019, now wants a change", "She took me to court in 2019 and there is a support order. Now I want to reduce support", true, "asking"],
+    ["both agree to lower it", "we have a support order and we both agree to lower it", false, "asking"],
+    // A want said with a no is not an ask (final re-check 2026-10-14).
+    ["the person does not want it lowered", "There is a support order. I do not want the support lowered.", false, null],
+    ["the ex wants it cut, the person does not", "There is a support order. He wants the support cut. I do not want the support lowered.", false, null],
+    ["the person never agreed to change it", "There is a support order. We never agreed to change it.", false, null],
+    // Served, in other words (final re-check 2026-10-14).
+    ["a motion to change in the mail", "There is a support order. I got a motion to change in the mail from her lawyer.", false, "responding"],
+    ["handed a motion to change", "There is a support order. The process server gave me a motion to change.", false, "responding"],
+  ];
+  for (const [name, text, responding, kind] of byWho) {
+    const got = motionToChangeLead("family", text, true, responding);
+    check(`motion to change: ${name} -> ${kind ?? "no route"}`, (got?.kind ?? null) === kind, JSON.stringify(got?.kind ?? null));
+    if (kind !== "asking") check(`motion to change: ${name}: never told to bring one`, !/you bring a motion to change/.test(got?.line ?? ""));
+  }
+  checkLead("the other side wanting a change", motionToChangeLead("family", "There is a support order. My ex wants to reduce child support. What do I do?", true, false), "if-served", ["r. 15 (9)", "r. 15 (10)"], [
+    "response to motion to change (Form 15B)",
+    "consent motion to change (Form 15C)",
+    "assignee",
+    "30 days",
+    "60 days",
+  ]);
+  check("motion to change: the other side's wish leaves the temporary-motion card", motionToChangeLead("family", "There is a support order. My ex wants to reduce child support. What do I do?", true, false)?.replacesTemporaryMotionCard === false);
+
+  const noRoute: [string, string, boolean, boolean][] = [
+    ["family", "i want to start a case for custody of my son", false, false],
+    ["family", "there is a support order from 2022 and he has not paid in months", true, false],
+    ["family", "the court order says i have the kids every weekend", true, false],
+    ["family", "we have a custody order. i want to change my lawyer", true, false],
+    ["family", "there is a court order from 2020. i need a change of name for my daughter", true, false],
+    ["family", "there is a support order and i was served with an application to change my parenting time", true, true],
+    ["civil", "i want the court order lowered", true, false],
+    ["small-claims", "how do i get the judgment changed", true, false],
+  ];
+  for (const [court, text, existingOrder, responding] of noRoute) {
+    check(`motion to change: no route offered for ${court} '${text}'`, motionToChangeLead(court, text, existingOrder, responding) === null, JSON.stringify(motionToChangeLead(court, text, existingOrder, responding)?.kind));
+  }
+  const urgent = motionToChangeLead("family", "there is a support order. i lost my job. i need the support lowered right away, i need a temporary order", true, false);
+  check("motion to change: urgency or a temporary order keeps the temporary-motion card", urgent?.kind === "asking" && urgent.replacesTemporaryMotionCard === false);
+  const calm = motionToChangeLead("family", "there is a support order and i want the support reduced. nothing urgent", true, false);
+  check("motion to change: 'nothing urgent' is not urgency", calm?.replacesTemporaryMotionCard === true);
+
+  // Re-review 2026-10-14, 1ab8d54. Each line: the sentence, the route it
+  // must NOT get, and what it should get.
+  const wrongRoute: [string, MotionToChangeLead["kind"], MotionToChangeLead["kind"] | null][] = [
+    // A giver handing over some other paper is not their motion.
+    ["He sent me his answer to my motion to change.", "responding", "asking"],
+    ["I was served with his response to my motion to change.", "responding", "asking"],
+    ["Her lawyer sent me a letter about my motion to change.", "responding", "asking"],
+    ["My ex served me her response to the motion to change I filed.", "responding", "asking"],
+    ["They gave me a court date for the motion to change I brought.", "responding", "asking"],
+    ["I was served with a response to the motion to change.", "responding", null],
+    // Blocking, someone else, the past: not the person's own wish.
+    ["I'm trying to stop him from changing the parenting order.", "asking", null],
+    ["I'm going to fight her attempt to reduce the support.", "asking", null],
+    ["I am hoping the judge refuses to lower the support.", "asking", null],
+    ["I need help because the father is asking to reduce support.", "asking", "if-served"],
+    ["I want to make sure nobody can change the order.", "asking", null],
+    ["We agreed to change the parenting time informally last year, and now he wants it back in writing.", "asking", null],
+    // Their motion filed, then the person's own: never the mover route.
+    ["My ex filed a motion to change and I filed my own motion to change too.", "asking", "responding"],
+    // A motion behind them: no route to answer it.
+    ["My ex brought a motion to change in 2021 and it was dismissed.", "responding", null],
+    ["Her motion to change was withdrawn last month.", "responding", null],
+  ];
+  for (const [text, never, wanted] of wrongRoute) {
+    const got = motionToChangeLead("family", `We have a support order. ${text}`, true, false)?.kind ?? null;
+    check(`motion to change: '${text}' never gets the ${never} route, gets ${wanted ?? "no route"}`, got !== never && got === wanted, String(got));
+  }
+
+  // The route is never stated as fact before the person confirms it
+  // (CLAUDE.md s. 4; re-review 2026-10-14). Every story above that gives a
+  // lead: nothing shown before an answer or on "Not sure", the read route on
+  // Yes, the other route on "No".
+  const confirmable = [
+    mc?.story ?? "",
+    served,
+    "There is a support order. My ex wants to reduce child support. What do I do?",
+    "We have a support order. I filed my motion to change last week.",
+  ].map((text) => motionToChangeLead("family", text, true, false)).filter((lead): lead is MotionToChangeLead => Boolean(lead));
+  check("confirm: every reading tested gives a lead", confirmable.length === 4);
+  for (const lead of confirmable) {
+    check(`confirm (${lead.kind}): no route before the person answers, none on "Not sure"`, routeShown(lead, null) === null && routeShown(lead, "not-sure") === null);
+    check(`confirm (${lead.kind}): Yes shows the read route; the other button shows the other route`, routeShown(lead, "yes")?.kind === lead.kind && routeShown(lead, "other")?.kind !== lead.kind && Boolean(routeShown(lead, "other")));
+    check(`confirm (${lead.kind}): the reading is put as a question, not a statement of what happened`, /^(?:the other side|you want)/.test(lead.reading) && !/^You were served/.test(lead.reading));
+  }
+  // No route or alternate claims service unless service was read and the
+  // person said yes to it (re-review 2026-10-14: "No, the other side is
+  // bringing it" showed "You were served ...").
+  const claimsService = (line: string | undefined) => /\bYou were served\b/.test(line ?? "");
+  for (const lead of confirmable) {
+    check(`service (${lead.kind}): the other route never says the person was served`, !claimsService(routeShown(lead, "other")?.line) && routeShown(lead, "other")?.kind !== "responding");
+    check(`service (${lead.kind}): Yes says "You were served" only when service was what was read`, claimsService(routeShown(lead, "yes")?.line) === (lead.kind === "responding"));
+    // The temporary-motion card: hidden only on a confirmed route that replaces it.
+    check(
+      `card (${lead.kind}): shown before an answer and on "Not sure"; hidden only on a confirmed replacing route`,
+      !hidesTemporaryMotionCard(lead, null) &&
+        !hidesTemporaryMotionCard(lead, "not-sure") &&
+        hidesTemporaryMotionCard(lead, "yes") === lead.replacesTemporaryMotionCard &&
+        hidesTemporaryMotionCard(lead, "other") === Boolean(lead.alternate?.replacesTemporaryMotionCard),
+    );
+    // A saved answer stands while the reading is the same kind; a new reading is asked.
+    const otherKind = lead.kind === "asking" ? "responding" : "asking";
+    check(
+      `restore (${lead.kind}): a saved answer stands for the same reading, not a different one; Change this visit asks again`,
+      standingChoice(lead, undefined, { answer: "yes", readingKind: lead.kind }) === "yes" &&
+        standingChoice(lead, undefined, { answer: "yes", readingKind: otherKind }) === null &&
+        standingChoice(lead, { answer: null, readingKind: lead.kind }, { answer: "yes", readingKind: lead.kind }) === null &&
+        standingChoice(null, undefined, { answer: "yes", readingKind: lead.kind }) === null,
+    );
+  }
+  check("card: no lead hides nothing", !hidesTemporaryMotionCard(null, "yes"));
+
+  // Safe misses where the owner is plain (re-review 2026-10-14).
+  const plainOwners: [string, MotionToChangeLead["kind"]][] = [
+    ["I've been served a motion to change by my ex-husband.", "responding"],
+    ["I need to answer the motion to change the mother filed.", "responding"],
+    ["I'd like to lower my payments.", "asking"],
+    ["I need to get the support lowered.", "asking"],
+    ["would like the support reduced", "asking"],
+  ];
+  for (const [text, kind] of plainOwners) {
+    const got = motionToChangeLead("family", `We have a support order.\n${text}`, true, false)?.kind ?? null;
+    check(`motion to change: '${text}' -> ${kind}`, got === kind, String(got));
+  }
+
+  const card = read("app/builder/_components/MotionToChangeRoute.tsx");
+  check(
+    "confirm: the card asks \"From what you told us, it sounds like ... Is that right?\" and renders route text only from routeShown",
+    /From what you told us, it sounds like/.test(card) && /Is that right\?/.test(card) && /const shown = routeShown\(lead, choice\)/.test(card) && !/\{lead\.line\}/.test(card) && !/lead\.rules\.map/.test(card),
+  );
+
+  const builder = read("app/builder/page.tsx");
+  const leadAt = builder.indexOf("<MotionToChangeRoute");
+  const stageAt = builder.indexOf("<StageConfirmation");
+  check("motion to change: the route leads the results, above the stage", leadAt > 0 && stageAt > leadAt);
+  check("motion to change: the page passes whether the person was served", /motionToChangeLead\([\s\S]{0,400}respondingInFamilyStory\(familyStory\)/.test(builder));
+  check(
+    "motion to change: the page hides the temporary-motion card only on the confirmed route (hidesTemporaryMotionCard), and passes the standing answer to the card",
+    /!confirmedStage && !hidesTemporaryMotionCard\(motionLead, motionChoice\) \? \(\s*<ProcedureAuthorityDisplay/.test(builder) && /choice=\{motionChoice\}/.test(builder),
+  );
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

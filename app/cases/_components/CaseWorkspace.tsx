@@ -45,6 +45,7 @@ import { supabase } from "../../../src/lib/supabase/client";
 import { VerifiedServingPanel } from "../../../src/components/case-workspace/VerifiedServingPanel";
 import { DOCUMENT_TYPES } from "../../../src/lib/case-workspace/documentTypes";
 import { COURT_DECISION_TYPE, type DecisionDetails } from "../../../src/lib/case-workspace/courtDecision";
+import type { TimelineStanding } from "../../../src/lib/case-workspace/timeline";
 import CourtDecisionPanel, { DecisionAttribution } from "./CourtDecisionPanel";
 
 // ---------------------------------------------------------------------------
@@ -96,7 +97,37 @@ type TimelineItem = {
     | { kind: "user-entered"; description: string }
     | { kind: "computed"; description: string; rule: string | null; ruleUrl: string | null };
   notes: string[];
+  /** A counted date that has passed or ran on past a closed day, in the Overview card's words (route: deadlineStandingFor). */
+  standing?: TimelineStanding;
 };
+
+/**
+ * Where a counted date stands today, shown where the date is (walkthrough
+ * 2026-10-14, SW: the Timeline listed a passed Toronto notice with no
+ * warning while the Overview card said it had passed). Exported for the Case
+ * file, so every tab says the same thing in the same words.
+ */
+export function DeadlineStandingNote({ standing }: { standing: TimelineStanding }) {
+  const tone = standing.passed || standing.urgent ? "border-[#e2a3a3] bg-[#fff5f5] text-[#5c1414]" : "border-[#d8e6df] bg-[#f6fbf9] text-[#16302b]";
+  return (
+    <div data-testid="deadline-standing" role={standing.passed || standing.urgent ? "alert" : undefined} className={`mt-2 rounded-xl border px-3 py-2 text-sm leading-6 ${tone}`}>
+      <p className="font-semibold">
+        {standing.statement}
+        {standing.lines.length > 0 ? ` ${standing.lines.join(" ")}` : ""}
+      </p>
+      {standing.rule && standing.ruleQuote ? (
+        <p className="mt-1 text-xs">
+          {standing.rule}: “{standing.ruleQuote}”
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+/** The notes without the sentence the standing note already shows. */
+function notesBesideStanding(item: TimelineItem): string[] {
+  return item.standing ? item.notes.filter((note) => note !== item.standing!.statement) : item.notes;
+}
 
 type CommunicationEntry = {
   id: string;
@@ -852,9 +883,10 @@ function TimelineView({ items }: { items: TimelineItem[] }) {
                 </span>
               ) : null}
             </div>
-            {item.notes.length > 0 ? (
+            {item.standing ? <DeadlineStandingNote standing={item.standing} /> : null}
+            {notesBesideStanding(item).length > 0 ? (
               <ul className="mt-2 space-y-1 text-xs leading-5 text-[#4c615b]">
-                {item.notes.map((note, noteIndex) => (
+                {notesBesideStanding(item).map((note, noteIndex) => (
                   <li key={noteIndex}>{note}</li>
                 ))}
               </ul>
@@ -892,8 +924,9 @@ function DeadlinesView({ items }: { items: TimelineItem[] }) {
             <div className="mt-2">
               <SourceTag source={item.source} />
             </div>
+            {item.standing ? <DeadlineStandingNote standing={item.standing} /> : null}
             <ul className="mt-2 space-y-1 text-xs leading-5 text-[#4c615b]">
-              {item.notes.map((note, noteIndex) => (
+              {notesBesideStanding(item).map((note, noteIndex) => (
                 <li key={noteIndex}>{note}</li>
               ))}
             </ul>

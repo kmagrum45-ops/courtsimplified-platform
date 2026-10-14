@@ -8,11 +8,21 @@ import {
   serviceMethodFromStory,
   arrivalNotSendDate,
   serviceRulesFor,
+  SENT_ON_OR_BEFORE_ARRIVAL,
+  ORIGINATING_RULE,
+  COMPANY_ROUTE,
+  originatingRuleFor,
+  isOriginatingService,
+  postWaysForClaim,
+  whenEffectiveSay,
   type ServiceCourt,
   type ServiceMethod,
 } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 
-import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import { findStage, stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
+import { formatLongDate } from "@/src/lib/case-system/deadlines/holidays";
+import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
@@ -26,6 +36,9 @@ import {
   SOURCE_SAVED_ON,
   claimFit,
   deadlineLineFor,
+  PASSED_BAR_WARNING,
+  companyIsTheParty,
+  limitForSide,
   keptForNotices,
   limitNotesFor,
   limitPassedState,
@@ -75,6 +88,9 @@ type LimitSource = {
   statutory?: boolean;
   /** Sentences of the deadline that say when service counts, each with the subrule it restates. */
   servedWhen?: PlainLine[];
+  /** Set by limitForSide for the person responding: the limit's note in their words, and the rules the wording relies on. */
+  sideNote?: PlainLine;
+  alsoRules?: RuleCitation[];
 };
 
 type NextStepSummary = {
@@ -223,7 +239,109 @@ export function serviceMethodDisplay(chosen: ServiceMethod | undefined, fromStor
   return fromStory ? "suggested" : "choose";
 }
 
-export type ArrivalNote = { quote: string; dateToEnter: string; rule: string; ruleQuote: string };
+/** A last day counted for the note, with whether it has passed (limitPassedState, the card's own test). */
+export type ArrivalDate = { what: string; date: string; iso: string; passed: boolean };
+
+export type ArrivalNote = {
+  quote: string;
+  /** The story gave no year for the arrival day, so the dates assume the most recent one. */
+  yearAssumed: boolean;
+  /**
+   * "claim": the papers are a claim or an application, which the rules do not
+   * let be served by regular mail (Small Claims r. 8.01 (1), civil r. 16.01 (1),
+   * family r. 8 (5) and 6 (3)). "sent": any other document sent by a way whose
+   * day is set from the day it was sent.
+   */
+  kind: "claim" | "sent";
+  dateToEnter: string;
+  rule: string;
+  ruleQuote: string;
+  /** "sent": the rule's effective day in plain words. */
+  effectiveSay: string;
+  /**
+   * "sent", by regular mail only: each last day counted as if the papers were
+   * mailed the day they arrived -- the latest the real one can be.
+   */
+  latest: ArrivalDate[];
+  /** "claim": the rule on how a claim or application is served, quoted. */
+  claimRule: { rule: string; quote: string; say: string } | null;
+  /** "claim": the ways the rules allow that come by post, each with its effective day. */
+  postWays: { label: string; effective: string | null; rule: string; quote: string }[];
+  /** "claim": each last day counted from the day the person gave. */
+  safest: ArrivalDate[];
+  /** "claim": the person's words say that day is the first copy reaching the home (signed for, left there, or first), so it may be called the safest date. */
+  firstCopy: boolean;
+  /**
+   * "claim": a company is the party (its words, or the company route was
+   * chosen). Service on it by mail is effective on the fifth day after
+   * mailing, which can be before the papers arrived, so the date is never
+   * called the safest, and the note speaks of "your address".
+   */
+  company: boolean;
+};
+
+/** Words saying the day is when the FIRST copy reached the home: signed for there, left with someone there, or "first". */
+export function firstCopyQuote(quote: string): boolean {
+  // Only words about a copy reaching the home (final re-check 2026-10-14):
+  // "I first saw the claim on october 5" or "first got" is not one.
+  return /\bsigned for\b|\bleft (?:a copy|it|them|the (?:papers|claim|application)) with\b|\bfirst (?:copy )?(?:came|arrived)\b/i.test(quote);
+}
+
+/**
+ * A step on which the person has RECEIVED papers (a defendant, a respondent,
+ * someone served with something), so a deadline running from that service
+ * is theirs (legal review 2026-10-14: the arrival note fired on plaintiff
+ * steps and said "your last day" of the defendant's deadline).
+ */
+export function receivesPapersStep(stageId: string, responding = false): boolean {
+  // `responding`: the person's side on an "either side" step (family:both:...),
+  // as respondingStep takes it (legal review 2026-10-14).
+  return (responding && /:both:/.test(stageId)) || /(?:^|:)defendant:|:respondent:|served-with|responding-to/.test(stageId);
+}
+
+/** The step's last days that run from service date `questionId`, counted from `serviceDay`, each with whether it has passed. */
+export function countedFromService(stageId: string, questionId: string, serviceDay: string, today: string = todayIso(), responding = false): ArrivalDate[] {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(serviceDay)) return [];
+  const stage = findStage(stageId);
+  if (!stage) return [];
+  const runsFromIt = stage.deadlines.filter(
+    (deadline) => (DEADLINE_EVENTS as Record<string, { questionId?: string }>)[deadline.countFromEvent]?.questionId === questionId && !/^If\b/.test(deadline.what),
+  );
+  return computedDeadlinesFor(runsFromIt, caseDatesFrom({ [questionId]: serviceDay }), `arrival:${stageId}`).map((entry) => {
+    const deadline = runsFromIt.find((item) => item.id === entry.deadlineId);
+    return {
+      // In the person's own words on an either-side step (reviewer 2026-10-14:
+      // "The other party's time ..." on a respondent's arrival note).
+      what: deadline ? limitForSide(deadline, responding).what : "",
+      date: formatLongDate(entry.date),
+      iso: entry.date,
+      passed: limitPassedState({ date: entry.date, statutory: deadline?.regime === "legislation-act" }, today).passed,
+    };
+  });
+}
+
+/**
+ * The latest each of the person's last days can be, for a document that may
+ * be served by regular mail and arrived on `arrivedOn` (walkthrough
+ * 2026-10-14, RN). The rule's effective day from the arrival day, then the
+ * step's deadlines from it. A later starting day never gives an earlier last
+ * day, so each is an upper bound. Never for a claim or an application (they
+ * are not served by regular mail: legal review 2026-10-14), and only on a
+ * step where the person received the papers. Exported for test:service-dates.
+ */
+export function latestFromArrival(
+  stageId: string,
+  questionId: string,
+  court: ServiceCourt,
+  method: ServiceMethod | null | undefined,
+  arrivedOn: string,
+  today: string = todayIso(),
+  responding = false,
+): ArrivalDate[] {
+  if (!method || !SENT_ON_OR_BEFORE_ARRIVAL.has(method) || isOriginatingService(court, questionId) || !receivesPapersStep(stageId, responding)) return [];
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(arrivedOn)) return [];
+  return countedFromService(stageId, questionId, effectiveServiceDate(court, method, arrivedOn).date, today, responding);
+}
 
 /**
  * Time limits that bar a claim and have passed (2026-10-13). Pass ONLY the
@@ -246,7 +364,7 @@ export function passedBars(kept: Pick<NextStepSummary, "deadlines">, today: stri
  * the card only chooses what goes first.
  */
 function NextStepCard({
-  summary,
+  summary: summaryAsGiven,
   answer,
   court,
   userWords,
@@ -275,6 +393,9 @@ function NextStepCard({
   /** The written-notice step the case's claim points to, so a municipal one keeps the line on serving a municipality. */
   noticeStepId?: string;
 }) {
+  // Limits written from the moving party's side read as the person's own when they respond
+  // (final re-check 2026-10-14: "The other party's time ..." for a respondent's own deadline).
+  const summary = sideSummary(summaryAsGiven, responding);
   const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
@@ -313,6 +434,7 @@ function NextStepCard({
           </span>
         ) : null}
         <LimitRule rule={deadline.rule} />
+        <SideRules item={deadline} />
       </li>
     );
   };
@@ -321,6 +443,7 @@ function NextStepCard({
       <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
       {askedForDates ? " Give the date below and we will count the last day for you." : ""}
       <LimitRule rule={period.rule} />
+      <SideRules item={period} />
     </li>
   );
   return (
@@ -352,7 +475,7 @@ function NextStepCard({
         >
           <p className="font-semibold">The last day counted for this has passed: {deadline.what.replace(/^If [^,]+, /, "").replace(/^./, (c) => c.toUpperCase())}.</p>
           <p className="mt-1">
-            Missing this time limit can stop the claim from going ahead. Act now, and talk to a lawyer or paralegal as soon as you can.
+            {PASSED_BAR_WARNING}
             {deadline.rule ? <QuotedRule rule={deadline.rule} /> : null}
           </p>
           {deadline.statutory ? (
@@ -386,17 +509,81 @@ function NextStepCard({
         // Papers that ARRIVED by mail on a day the story gives (2026-10-13,
         // walkthrough: "i got the plaintiffs claim in the mail on september 28"
         // was counted as the mailing day, and a definite date was shown).
-        <p data-testid="next-step-arrival" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
-          You wrote: “{arrival.quote}” That is the day the papers reached you. For papers sent this way, service counts from{" "}
-          {arrival.dateToEnter}, not the day they arrived, so no last day is shown until you give that date below (the postmark,
-          or the date on the other side&apos;s affidavit of service, often shows it). They were sent on or before the day they reached you,
-          so your last day is no later than one counted from the day they arrived, and may be earlier.
-          {arrival.rule ? (
-            <span className="block text-xs">
-              {arrival.rule}: “{arrival.ruleQuote}”
-            </span>
-          ) : null}
-        </p>
+        <div data-testid="next-step-arrival" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
+          <p>You wrote: “{arrival.quote}” That is the day the papers reached you.</p>
+          {arrival.kind === "claim" && arrival.claimRule ? (
+            // A claim or application (legal review 2026-10-14): not served by
+            // regular mail, so no "no later than" date from r. 8.07 (2). The
+            // rule, the ways that come by post with their days, and the
+            // safest date to act by. Never whether service was valid.
+            <>
+              <p className="mt-1">
+                {arrival.claimRule.say}
+                <span className="block text-xs">
+                  {arrival.claimRule.rule}: “{arrival.claimRule.quote}”
+                </span>
+              </p>
+              {arrival.postWays.length > 0 ? (
+                <div className="mt-1">
+                  <p>The ways the rules allow that come by post, and when each takes effect:</p>
+                  <ul data-testid="next-step-arrival-ways" className="mt-1 list-disc space-y-1 pl-5">
+                    {arrival.postWays.map((way) => (
+                      <li key={way.rule}>
+                        {way.label}
+                        {way.effective ? `: ${way.effective}.` : "."}
+                        <span className="block text-xs">
+                          {way.rule}: “{way.quote}”
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {arrival.safest.length > 0 ? (
+                <p data-testid="next-step-arrival-safest" className="mt-1">
+                  <span className="font-semibold">
+                    {arrival.firstCopy
+                      ? "The safest date to act by, counted from the first day a copy reached your home: "
+                      : "Counted from the day you gave: "}
+                    {arrival.safest.map((entry) => `${entry.what}: ${entry.date}${entry.passed ? ". That date has already passed" : ""}`).join("; ")}
+                    {arrival.yearAssumed ? " (counting that day in its most recent year)" : ""}.
+                  </span>{" "}
+                  {arrival.company
+                    ? "Count from the first day a copy reached your address: signed for there, left with someone there, or arrived in the mail. If a copy was left at your address earlier than the one you got in the mail, count from the day it was left. If it was mailed to the company, service is effective on the fifth day after mailing, which can be before it arrived. The mailing date is on the affidavit of service."
+                    : "Count from the first day a copy reached your home: signed for there, left with someone there, or arrived in the mail. If a copy was left at your home earlier than the one you got in the mail, count from the day it was left."}
+                </p>
+              ) : null}
+              <p className="mt-1">
+                How and when the papers were served is on the other side&apos;s affidavit of service. The court office can also tell you.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="mt-1">
+                For papers sent this way, {arrival.effectiveSay}, not on the day they arrived.
+                {arrival.rule ? (
+                  <span className="block text-xs">
+                    {arrival.rule}: “{arrival.ruleQuote}”
+                  </span>
+                ) : null}
+              </p>
+              {arrival.latest.length > 0 ? (
+                // The latest each last day can be, never THE last day: mailed
+                // papers were mailed on or before the day they arrived.
+                <p data-testid="next-step-arrival-latest" className="mt-1">
+                  They were mailed on or before the day they reached you. So if they came by regular mail, your last day is no later
+                  than:{" "}
+                  {arrival.latest.map((entry) => `${entry.what}: ${entry.date}${entry.passed ? ". That date has already passed" : ""}`).join("; ")}
+                  {arrival.yearAssumed ? " (counting that day in its most recent year)" : ""}. It may be earlier.
+                </p>
+              ) : null}
+              <p className="mt-1">
+                The exact last day is shown once you give {arrival.dateToEnter} below. The postmark, or the date on the other side&apos;s
+                affidavit of service, often shows it.
+              </p>
+            </>
+          )}
+        </div>
       ) : null}
       {mipNote ? (
         <p data-testid="next-step-mip-note" className="mt-3 text-sm leading-6 text-[#16302b]">
@@ -640,6 +827,33 @@ function savePosition(caseId: string, patch: Record<string, unknown>): Promise<b
  * date; "N days before" ones furthest-before first; "N days after" ones
  * soonest first.
  */
+/** The responding note and the extra rules limitForSide adds, each with its rule quoted. */
+function SideRules({ item }: { item: { sideNote?: PlainLine; alsoRules?: RuleCitation[] } }) {
+  if (!item.sideNote && !item.alsoRules?.length) return null;
+  return (
+    <span data-testid="next-step-side-rules" className="block">
+      {item.sideNote ? (
+        <span className="block">
+          {item.sideNote.say}
+          <QuotedRule rule={item.sideNote.cite} />
+        </span>
+      ) : null}
+      {(item.alsoRules ?? []).map((rule) => (
+        <QuotedRule key={rule.pinpoint} rule={rule} />
+      ))}
+    </span>
+  );
+}
+
+/** The card's limits as the person's side reads them (limitForSide). Exported for test:next-step. */
+export function sideSummary<T extends Pick<NextStepSummary, "deadlines" | "periods">>(summary: T, responding: boolean): T {
+  return {
+    ...summary,
+    deadlines: summary.deadlines.map((item) => limitForSide(item, responding)),
+    periods: summary.periods.map((item) => limitForSide(item, responding)),
+  };
+}
+
 export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "") {
   const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
   const ownSide = (what: string) =>
@@ -680,7 +894,7 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
    * support-only motion to change led with the information program, which
    * r. 8.1 (1) para. 6 leaves out). Folded, never dropped.
    */
-  const fitsClaims = (item: { id?: string; what: string }) => claimFit(item, story, stepId) === "fits";
+  const fitsClaims = (item: { id?: string; what: string }) => claimFit(item, story, stepId, responding) === "fits";
   const main = {
     deadlines: [...deadlines].filter(fitsClaims).sort((a, b) => a.date.localeCompare(b.date)),
     periods: [...periods].filter(fitsClaims).sort(byDue),
@@ -719,8 +933,12 @@ export function arrivalOnlyDates(args: {
   storyText: string;
   storyHints: Record<string, StoryHint>;
   methods: Record<string, ServiceMethod | undefined>;
+  /** The person's side on an "either side" step. */
+  responding?: boolean;
 }): Record<string, string> {
-  if (!args.court) return {};
+  // Only where the person received the papers: "the day the papers reached
+  // you" means nothing to the side that served them (legal review 2026-10-14).
+  if (!args.court || !receivesPapersStep(args.stageId, args.responding)) return {};
   const storyMethod = serviceMethodShown(args.court, args.storyText)?.method ?? null;
   const out: Record<string, string> = {};
   for (const question of dateQuestionsForStep(args.stageId)) {
@@ -743,12 +961,39 @@ export function arrivalNoteFor(
   court: ServiceCourt | null,
   methods: Record<string, ServiceMethod | undefined>,
   storyMethod: ServiceMethod | null,
+  /** The step and the story's own date for each arrival, so the latest last day can be counted (latestFromArrival). */
+  bound?: { stageId: string; hints: Record<string, StoryHint | undefined>; responding?: boolean; storyText?: string },
+  today: string = todayIso(),
 ): ArrivalNote | null {
   if (!court) return null;
   const question = questions.find((candidate) => arrival[candidate.id] && !answered[candidate.id]);
   if (!question) return null;
-  const rule = serviceRulesFor(court).find((candidate) => candidate.method === (methods[question.id] ?? storyMethod));
-  return { quote: arrival[question.id], dateToEnter: rule?.dateToEnter ?? "the day they were sent", rule: rule?.rule ?? "", ruleQuote: rule?.quote ?? "" };
+  const method = methods[question.id] ?? storyMethod;
+  const claim = isOriginatingService(court, question.id);
+  const rule = serviceRulesFor(court, question.id).find((candidate) => candidate.method === method);
+  const dateToEnter = rule?.dateToEnter ?? "the day they were sent";
+  const hint = bound?.hints[question.id];
+  const arrivedOn = bound && hint?.value ? hint.value : "";
+  const company = claim && (Boolean(method && COMPANY_ROUTE.has(method)) || companyIsTheParty(bound?.storyText ?? ""));
+  return {
+    quote: arrival[question.id],
+    yearAssumed: Boolean(hint?.yearAssumed),
+    kind: claim ? "claim" : "sent",
+    dateToEnter,
+    rule: claim ? "" : (rule?.rule ?? ""),
+    ruleQuote: claim ? "" : (rule?.quote ?? ""),
+    effectiveSay: rule ? whenEffectiveSay(rule) : `service is effective on a day set from ${dateToEnter}`,
+    latest: !claim && bound && arrivedOn ? latestFromArrival(bound.stageId, question.id, court, method, arrivedOn, today, bound.responding) : [],
+    claimRule: claim ? originatingRuleFor(court, question.id) : null,
+    postWays: claim ? postWaysForClaim(court) : [],
+    // Counted from the day they gave, never called the last day; called the
+    // safest date only when their words say it is the FIRST copy to reach
+    // the home (legal review 2026-10-14: the day the mailed copy arrived can
+    // be after service took effect on a copy left or signed for earlier).
+    safest: claim && bound && arrivedOn && receivesPapersStep(bound.stageId, bound.responding) ? countedFromService(bound.stageId, question.id, arrivedOn, today, Boolean(bound.responding)) : [],
+    firstCopy: claim && firstCopyQuote(arrival[question.id]) && !company,
+    company,
+  };
 }
 
 /**
@@ -916,6 +1161,7 @@ export default function StageAnswerPanel({
         storyText: storyText ?? "",
         storyHints,
         methods: Object.fromEntries(Object.entries(initialService).map(([id, entry]) => [id, entry.method])),
+        responding,
       }),
       storyHints,
       initialService,
@@ -937,6 +1183,11 @@ export default function StageAnswerPanel({
   const storyMethodShown = serviceCourt0(courtPath) ? serviceMethodShown(serviceCourt0(courtPath)!, storyText ?? "") : null;
   const [serviceSaved, setServiceSaved] = useState<Record<string, { method: ServiceMethod; enteredOn: string }>>(initialService);
   const serviceCourt: ServiceCourt | null = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
+  // The story's way of serving, for one question, only if the rules allow it
+  // for those papers: "in the mail" is never offered for a claim or an
+  // application (legal review 2026-10-14; serviceRulesFor with the question).
+  const storyMethodFor = (questionId: string): ServiceMethod | null =>
+    serviceCourt && storyServiceMethod && serviceRulesFor(serviceCourt, questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
   /*
    * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,
@@ -966,9 +1217,9 @@ export default function StageAnswerPanel({
    */
   const methodKey = JSON.stringify(serviceMethod);
   const arrivalOnly = useMemo(
-    () => arrivalOnlyDates({ stageId, court: serviceCourt, storyText: storyText ?? "", storyHints, methods: serviceMethod }),
+    () => arrivalOnlyDates({ stageId, court: serviceCourt, storyText: storyText ?? "", storyHints, methods: serviceMethod, responding }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [hintsKey, stageId, methodKey, storyText],
+    [hintsKey, stageId, methodKey, storyText, responding],
   );
   const arrivalKey = JSON.stringify(arrivalOnly);
   const storyDates = useMemo(() => {
@@ -1058,7 +1309,7 @@ export default function StageAnswerPanel({
     const servicePatch: Record<string, { method: ServiceMethod; enteredOn: string } | null> = {};
     for (const question of result.dateQuestions ?? []) {
       const typed = asked[question.id];
-      const method = serviceMethod[question.id] ?? storyServiceMethod ?? undefined;
+      const method = serviceMethod[question.id] ?? storyMethodFor(question.id) ?? undefined;
       if (!serviceCourt || !isServiceDateQuestion(question.id, question.question)) continue;
       if (typed && method) {
         asked[question.id] = effectiveServiceDate(serviceCourt, method, typed).date;
@@ -1141,9 +1392,10 @@ export default function StageAnswerPanel({
     const keptService: Record<string, { method: ServiceMethod; enteredOn: string }> = {};
     const counted = { ...fill };
     for (const question of result.dateQuestions ?? []) {
-      if (!fill[question.id] || !serviceCourt || !storyServiceMethod || !isServiceDateQuestion(question.id, question.question)) continue;
-      keptService[question.id] = { method: storyServiceMethod, enteredOn: fill[question.id] };
-      counted[question.id] = effectiveServiceDate(serviceCourt, storyServiceMethod, fill[question.id]).date;
+      const storyMethod = storyMethodFor(question.id);
+      if (!fill[question.id] || !serviceCourt || !storyMethod || !isServiceDateQuestion(question.id, question.question)) continue;
+      keptService[question.id] = { method: storyMethod, enteredOn: fill[question.id] };
+      counted[question.id] = effectiveServiceDate(serviceCourt, storyMethod, fill[question.id]).date;
     }
     if (Object.keys(keptService).length) setServiceSaved((current) => ({ ...current, ...keptService }));
     const next = { ...dateAnswers, ...counted };
@@ -1276,7 +1528,12 @@ export default function StageAnswerPanel({
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
             .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value) }))}
-          arrival={arrivalNoteFor(result.dateQuestions ?? [], arrivalOnly, dateAnswers, serviceCourt, serviceMethod, storyServiceMethod)}
+          arrival={arrivalNoteFor(result.dateQuestions ?? [], arrivalOnly, dateAnswers, serviceCourt, serviceMethod, storyServiceMethod, {
+            stageId,
+            hints: storyHints,
+            responding,
+            storyText: storyText ?? "",
+          })}
         />
       ) : null}
 
@@ -1309,7 +1566,7 @@ export default function StageAnswerPanel({
                     {saved && serviceCourt && serviceSaved[question.id] ? (
                       (() => {
                         const entry = serviceSaved[question.id];
-                        const how = serviceRulesFor(serviceCourt).find((rule) => rule.method === entry.method);
+                        const how = serviceRulesFor(serviceCourt, question.id).find((rule) => rule.method === entry.method);
                         const effective = effectiveServiceDate(serviceCourt, entry.method, entry.enteredOn);
                         return (
                           <p data-testid={`stage-answer-service-${question.id}`} className="text-xs text-[#16302b]">
@@ -1350,7 +1607,7 @@ export default function StageAnswerPanel({
                         data-testid={`stage-answer-date-change-${question.id}`}
                         onClick={() => {
                           setEditing({ ...editing, [question.id]: true });
-                          // Edit the day they typed, not the day service counts from.
+                          // Edit the day they typed, not the day service is effective.
                           if (serviceSaved[question.id]) setDateDraft({ ...dateDraft, [question.id]: serviceSaved[question.id].enteredOn });
                           if (fromStory) {
                             const dropped = { ...rejected, [question.id]: true };
@@ -1370,15 +1627,15 @@ export default function StageAnswerPanel({
                 <div key={question.id}>
                   {serviceCourt &&
                   isServiceDateQuestion(question.id, question.question) &&
-                  serviceMethodDisplay(serviceMethod[question.id], storyServiceMethod, Boolean(changingMethod[question.id])) !== "choose" ? (
+                  serviceMethodDisplay(serviceMethod[question.id], storyMethodFor(question.id), Boolean(changingMethod[question.id])) !== "choose" ? (
                     <div data-testid={`stage-answer-service-method-known-${question.id}`} className="mb-2 text-sm text-[#16302b]">
                       {/* A suggestion from their words, never stated as settled (review 2026-10-13). */}
                       <span className="font-semibold">
-                        {serviceMethodDisplay(serviceMethod[question.id], storyServiceMethod, false) === "chosen"
+                        {serviceMethodDisplay(serviceMethod[question.id], storyMethodFor(question.id), false) === "chosen"
                           ? "How the papers were served: "
                           : "From what you told us, the papers came this way: "}
                       </span>
-                      {serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.label ?? ""}.
+                      {serviceRulesFor(serviceCourt, question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.label ?? ""}.
                       {!serviceMethod[question.id] && storyMethodShown?.quote ? (
                         <span className="block text-xs text-[#4d675f]">You wrote: &ldquo;{storyMethodShown.quote}&rdquo; If that is not how the papers were served, choose Change.</span>
                       ) : null}{" "}
@@ -1399,7 +1656,7 @@ export default function StageAnswerPanel({
                       </span>
                       <select
                         data-testid={`stage-answer-service-method-${question.id}`}
-                        value={serviceMethod[question.id] ?? storyServiceMethod ?? ""}
+                        value={serviceMethod[question.id] ?? storyMethodFor(question.id) ?? ""}
                         onChange={(event) => {
                           setServiceMethod({ ...serviceMethod, [question.id]: event.target.value as ServiceMethod });
                           if (event.target.value) setChangingMethod({ ...changingMethod, [question.id]: false });
@@ -1407,7 +1664,7 @@ export default function StageAnswerPanel({
                         className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
                       >
                         <option value="">Choose how</option>
-                        {serviceRulesFor(serviceCourt).map((rule) => (
+                        {serviceRulesFor(serviceCourt, question.id).map((rule) => (
                           <option key={rule.method} value={rule.method}>
                             {rule.label}
                           </option>
@@ -1417,8 +1674,8 @@ export default function StageAnswerPanel({
                   ) : null}
                   <label className="block">
                     <span className="text-sm font-semibold text-[#16302b]">
-                      {serviceCourt && (serviceMethod[question.id] ?? (isServiceDateQuestion(question.id, question.question) ? storyServiceMethod : null))
-                        ? `Enter ${serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.dateToEnter ?? "the date"}`
+                      {serviceCourt && (serviceMethod[question.id] ?? (isServiceDateQuestion(question.id, question.question) ? storyMethodFor(question.id) : null))
+                        ? `Enter ${serviceRulesFor(serviceCourt, question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.dateToEnter ?? "the date"}`
                         : question.question}
                     </span>
                     <span className="block text-xs text-[#4d675f]">Used for: {question.sets.join("; ")}</span>
@@ -1432,10 +1689,20 @@ export default function StageAnswerPanel({
                   </label>
                   {arrivalOnly[question.id] && !value && serviceCourt ? (
                     <p className="mt-2 text-sm leading-6 text-[#16302b]" data-testid={`stage-answer-arrival-${question.id}`}>
-                      {`You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. For papers sent this way, the rules count from ${
-                        serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.dateToEnter ??
-                        "the day they were sent"
-                      }, so we don't count from the day they arrived. The envelope or the other side's proof of service often shows it, and the court office can tell you.`}
+                      {(() => {
+                        // The same words as the card's note (walkthrough 2026-10-14, RN): what the rule
+                        // says about when service is effective, never "counts from the day it was mailed".
+                        const rule = serviceRulesFor(serviceCourt, question.id).find((candidate) => candidate.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)));
+                        if (isOriginatingService(serviceCourt, question.id) && !rule) {
+                          // A claim or application (legal review 2026-10-14): the rule on how it is served,
+                          // and the ways above; never a mail rule, never whether service was valid.
+                          return `You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. ${originatingRuleFor(serviceCourt, question.id).say} Choose how above, and give the day it asks for. The other side's affidavit of service shows how and when, and the court office can tell you.`;
+                        }
+                        const effective = rule ? whenEffectiveSay(rule) : "service is effective on a day set from the day they were sent";
+                        return `You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. For papers sent this way, ${effective}, not on the day they arrived. Give ${
+                          rule?.dateToEnter ?? "the day they were sent"
+                        } above. The envelope or the other side's proof of service often shows it, and the court office can tell you.`;
+                      })()}
                     </p>
                   ) : null}
                   {hint && !hint.value && !suggestion && !value ? (

@@ -739,13 +739,15 @@ const NOTICE_SOURCES = new Set<RuleCitation["sourceId"]>([
   "crown-liability-and-proceedings-act-2019",
   "insurance-act",
 ]);
-export const CLAIM_AFTER_NOTICE: Record<"civil" | "small-claims", { start: PlainLine; fees: string[] }> = {
+export const CLAIM_AFTER_NOTICE: Record<"civil" | "small-claims", { start: PlainLine; fees: string[]; form: string }> = {
   civil: {
     start: { say: "After the notice, the court case itself is started with a statement of claim (Form 14A).", cite: CIV_START },
     fees: ["civ-claim"],
+    form: "14A",
   },
   "small-claims": {
     start: { say: "After the notice, the court case itself is started by filing a plaintiff's claim (Form 7A) with the clerk, with a copy for each defendant.", cite: SC_START },
+    form: "7A",
     // Both claim fees, as on every other Small Claims claim step (review 2026-10-13).
     fees: ["sc-claim", "sc-claim-frequent"],
   },
@@ -770,8 +772,22 @@ export function claimAfterNotice(stepId: string, court: PracticalCourt, story = 
   const crownLine = crown ? [notices.length === 1 ? CROWN_WAIT.only : CROWN_WAIT.among] : [];
   const after = CLAIM_AFTER_NOTICE[court];
   const fees = after.fees.map((id) => FEES[id]).filter(Boolean);
-  return [...crownLine, after.start, ...fees.map((fee) => ({ say: `${fee.label}: $${fee.amount}.`, cite: fee.cite }))];
+  // Where and how to file it, and -- when the notice is to a municipality --
+  // how to serve the claim on it (walkthrough 2026-10-14, SW: the card showed
+  // the $243 fee but not where to file the claim or how to serve the City).
+  // The court's own filing lines and service rules, never new words.
+  const toronto = inTorontoRegion(city);
+  const filing = FILING[court];
+  const filingLines = [...(toronto === true ? [filing.toronto] : toronto === false ? [filing.elsewhere] : [filing.toronto, filing.elsewhere]), ...filing.more];
+  // Only when every notice kept is to a municipality: words that fit no notice keep all of them.
+  const municipal = notices.every((rule) => MUNICIPAL_NOTICE_SOURCES.has(rule.sourceId));
+  const serving = municipal
+    ? SERVICE[court].originating.filter((line, index) => index === 0 || line.about === MUNICIPAL_PARTY)
+    : [];
+  return [...crownLine, after.start, ...fees.map((fee) => ({ say: `${fee.label}: $${fee.amount}.`, cite: fee.cite })), ...filingLines, ...serving];
 }
+/** The notices that are notices to a municipality (the Municipal Act's and the City of Toronto Act's). */
+const MUNICIPAL_NOTICE_SOURCES = new Set<string>(["municipal-act-2001", "city-of-toronto-act-2006"]);
 
 /**
  * Every step in the stage map has an entry; "unknown" and "out-of-scope" are
@@ -1058,11 +1074,16 @@ export function supportOnly(claims: FamilyClaims): boolean {
  * "Form 13 -- Financial Statement (Support Claims)" as his form). They are
  * folded under the rule that says when they are needed -- never removed.
  *
- * The financial statement is narrower to fold (review 2026-10-13): r. 13 (1)
- * (b) makes the party a support or property claim is made AGAINST serve and
- * file one within their time to answer, answer or not. So it is never folded
- * on a step where the person is responding, and elsewhere only when their
- * words show no support or money at all.
+ * The financial statement on a step where the person is RESPONDING (legal
+ * review 2026-10-14): r. 13 (1) (b) makes the party a support or property
+ * claim is made AGAINST serve and file one within their time to respond,
+ * answer or not. Whether it binds them turns on what the application or
+ * motion CLAIMS, not on the person's own words, and nothing in the intake
+ * records what the other side's papers claim. So on a responding step Form
+ * 13 is never folded: it stays in the step's forms with r. 13 (1) (b)'s
+ * condition beside it (financialStatementNoteFor). On any other step it is
+ * folded under r. 13 (1) (a) and (b) only when the person's words show no
+ * support or money at all. Never removed.
  */
 const FINANCIAL_STATEMENT_WHEN: PlainLine = {
   say: "A financial statement (Form 13 or 13.1) is needed when an application, answer or motion claims support or property, or the matrimonial home. If the other side's papers make that claim against you, you must serve and file one within your time to answer, even if you file no answer.",
@@ -1071,6 +1092,23 @@ const FINANCIAL_STATEMENT_WHEN: PlainLine = {
     "If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim; and (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not.",
   ),
 };
+/** The same condition said to the person answering the papers: r. 13 (1) (b), when the claim against them includes support or property. */
+export const FINANCIAL_STATEMENT_WHEN_RESPONDING: PlainLine = {
+  say: "A financial statement (Form 13 or 13.1) is needed from you only if the papers served on you claim support or property from you, or the matrimonial home. If they do, you must serve and file one within your time to answer, even if you file no answer. Check the claims listed in the application.",
+  cite: flr(
+    "r. 13 (1) (b)",
+    "If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, ... (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not.",
+  ),
+};
+/** The same, on a motion to change: the response to a motion, so "within your time to respond" (legal review 2026-10-14). */
+export const FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION: PlainLine = {
+  say: "A financial statement (Form 13 or 13.1) is needed from you only if the motion served on you claims support or property from you, or the matrimonial home. If it does, you must serve and file one within your time to respond, even if you file no response. Check the claims in the motion.",
+  cite: FINANCIAL_STATEMENT_WHEN_RESPONDING.cite,
+};
+/** The condition shown beside Form 13 on a responding step: the motion-to-change wording on a motion-to-change step. */
+export function financialStatementNoteFor(stepId: string): PlainLine {
+  return /motion-to-change|change-final-order/.test(stepId) ? FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION : FINANCIAL_STATEMENT_WHEN_RESPONDING;
+}
 const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
   say: "The parenting affidavit (Form 35.1) is needed when an application, answer or motion to change claims decision-making responsibility, parenting time or contact.",
   cite: FAM_PARENTING_AFFIDAVIT,
@@ -1078,9 +1116,10 @@ const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
 /** Words that show support, property or money at all; with any of them, the financial statement is never folded. */
 export const MONEY_WORDS = /\b(?:support|suport|pay|pays|paid|paying|owe|owes|owed|owing|amount|money|income|wages?|salary|alimony|property|pension|house|home|assets?|debts?)\b|\$/i;
 const moneyFits = (claims: FamilyClaims, words: string) => claims.support || claims.property || claims.home || MONEY_WORDS.test(proseOf(words));
-const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; fits: (claims: FamilyClaims, words: string, responding: boolean) => boolean }> = {
-  "13": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
-  "13.1": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
+const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; respondingNote?: boolean; fits: (claims: FamilyClaims, words: string, responding: boolean) => boolean }> = {
+  // Never folded on a responding step: the duty turns on what the other side's papers claim.
+  "13": { when: FINANCIAL_STATEMENT_WHEN, respondingNote: true, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
+  "13.1": { when: FINANCIAL_STATEMENT_WHEN, respondingNote: true, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
   "35.1": { when: PARENTING_AFFIDAVIT_WHEN, fits: (claims) => claims.parenting },
 };
 
@@ -1108,7 +1147,7 @@ export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
  * support-only motion to change), otherwise "fits". Such a limit is folded
  * under "may apply later", never dropped.
  */
-export function claimFit(item: { id?: string; what: string }, words: string, stepId = ""): "fits" | "not" {
+export function claimFit(item: { id?: string; what: string }, words: string, stepId = "", responding = false): "fits" | "not" {
   const claims = familyClaimsIn(words);
   if (!claims.known) return "fits";
   // On a step whose own subject is a kind of claim, a line about that kind is
@@ -1118,7 +1157,8 @@ export function claimFit(item: { id?: string; what: string }, words: string, ste
   if (subject.length > 0 && claimKindsNamedIn(item.what).some((kind) => subject.includes(kind))) return "fits";
   if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
   if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
-  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words)) return "not";
+  // Not on a responding step: there the duty turns on what the other side's papers claim (legal review 2026-10-14).
+  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words) && !respondingStep(stepId, responding)) return "not";
   /*
    * Any other limit the rule makes conditional on a kind of claim ("If the
    * motion asks to change temporary support", "If your answer made its own
@@ -1374,6 +1414,75 @@ export function deadlineLineFor(limit: { date: string; statutory?: boolean; stat
   };
 }
 
+/** The card's words when a time limit that bars the claim has passed (the passed box's first line). */
+export const PASSED_BAR_WARNING =
+  "Missing this time limit can stop the claim from going ahead. Act now, and talk to a lawyer or paralegal as soon as you can.";
+
+/**
+ * What every page that lists a counted deadline says about where it stands
+ * today (walkthrough run 2026-10-14, SW: the Overview card said the Toronto
+ * notice's counted Saturday ran to Tuesday 13 October "if it keeps its regular
+ * weekday hours. That day has passed too", while the Timeline and the printable
+ * Case file showed "2026-10-10" and the engine's "the last day for this is
+ * Saturday 10 October 2026" with no word that it had passed). The Timeline,
+ * the Deadlines view and the Case file take their words from here, and the
+ * card's from deadlineLineFor, which this calls: one test, one set of words.
+ *
+ * `statement` replaces the engine's sentence (it IS the engine's sentence
+ * unless the counted day is a closed day for a statutory limit); `passedLine`
+ * is the card's "That date has already passed." beside a kept statement;
+ * `barWarning` is the passed box's warning for a limit that bars the claim.
+ */
+export type DeadlineStanding = {
+  statement: string;
+  cite: RuleCitation | null;
+  passed: boolean;
+  /** The next open day is still to come or is today: the card's "Act ..." words are in `statement`. */
+  urgent: boolean;
+  passedLine: string | null;
+  barWarning: string | null;
+};
+export function deadlineStandingFor(
+  limit: { date: string; statutory?: boolean; statement: string; consequence?: string },
+  today: string,
+): DeadlineStanding {
+  const line = deadlineLineFor(limit, today);
+  return {
+    statement: line.closedDay?.say ?? line.statement ?? limit.statement,
+    cite: line.closedDay?.cite ?? null,
+    passed: line.passed,
+    urgent: !line.passed && Boolean(line.closedDay?.say.includes("Act ")),
+    passedLine: line.statement && line.passed ? "That date has already passed." : null,
+    barWarning: line.passed && limit.consequence === "bars-the-claim" ? PASSED_BAR_WARNING : null,
+  };
+}
+
+/**
+ * The standing as the Timeline, Deadlines view and Case file carry it
+ * (organisation route -> buildTimeline's deadlineRules): a stage-map limit and
+ * the engine's counted entry, with Ontario's today. Pure, so test:next-step
+ * checks the pages' words against the card's over many dates.
+ */
+export function timelineStandingFor(
+  limit: { regime?: string; consequence?: string },
+  entry: { date: string; statement: string },
+  today: string,
+  nameOf: (rule: RuleCitation) => string,
+): { statement: string; passed: boolean; urgent: boolean; lines: string[]; rule: string | null; ruleQuote: string | null } {
+  const standing = deadlineStandingFor(
+    { date: entry.date, statutory: limit.regime === "legislation-act", statement: entry.statement, consequence: limit.consequence },
+    today,
+  );
+  return {
+    statement: standing.statement,
+    passed: standing.passed,
+    urgent: standing.urgent,
+    lines: [standing.passedLine, standing.barWarning].filter((line): line is string => Boolean(line)),
+    rule: standing.cite ? `${nameOf(standing.cite)}, ${standing.cite.pinpoint}` : null,
+    ruleQuote: standing.cite?.quote ?? null,
+  };
+}
+
 /*
  * The rule beside each sentence of a deadline that says when service counts
  * (walkthrough run 38500825561, FR: "Papers left with you after 4 p.m. count
@@ -1411,6 +1520,8 @@ export function notABarExceptions(exceptions: RuleCitation[]): RuleCitation[] {
 export const MORE_CARD_LINES: PlainLine[] = [
   ...Object.values(NOTICE_HOW).flatMap((lines) => lines ?? []),
   FINANCIAL_STATEMENT_WHEN,
+  FINANCIAL_STATEMENT_WHEN_RESPONDING,
+  FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION,
   PARENTING_AFFIDAVIT_WHEN,
   MIP_SUPPORT_ONLY_CHANGE,
   FAMILY_SAME_PLACE,
@@ -1424,8 +1535,12 @@ export const MORE_CARD_LINES: PlainLine[] = [
 
 // ---------------------------------------------------------------- what the card shows
 
+/** A form that leads the case's forms catalogue, with what to call it there. */
+export type LeadForm = { number: string; label: "For your step" | "After the notice" };
+
 export type PracticalView = {
-  forms: { court: PracticalCourt; number: string }[];
+  /** `note`: the condition a rule sets for this form, shown beside it (Form 13 on a responding step). */
+  forms: { court: PracticalCourt; number: string; note?: PlainLine }[];
   /** Forms a rule needs only with a claim the person's words do not name, with that rule. Shown folded. */
   formsIfClaimed: { court: PracticalCourt; number: string; when: PlainLine }[];
   fees: Fee[];
@@ -1442,6 +1557,14 @@ export type PracticalView = {
   noticeHow: PlainLine[];
   /** After a notice before suing: the form that starts the court case, and its fee (shown after the notice). */
   afterNotice: PlainLine[];
+  /**
+   * The forms of this court that lead the case's forms catalogue: the step's
+   * own, then the form that starts the court case after a notice step
+   * (walkthrough 2026-10-14, SW), each with its label: the claim form is
+   * "After the notice", never "For your step" (legal review 2026-10-14).
+   * Folded forms are not among them.
+   */
+  leadForms: LeadForm[];
 };
 
 /**
@@ -1638,12 +1761,25 @@ export function practicalFor(
     !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
   const also = alsoFor(step.also ?? [], story, city);
   return {
-    forms: allForms.filter((form) => !folded(form)),
+    // On a responding step, Form 13 carries r. 13 (1) (b)'s condition beside it.
+    forms: allForms
+      .filter((form) => !folded(form))
+      .map((form) =>
+        form.court === "family" && FAMILY_FORM_NEEDS[form.number]?.respondingNote && respondingStep(stepId, responding)
+          ? { ...form, note: financialStatementNoteFor(stepId) }
+          : form,
+      ),
     formsIfClaimed: allForms.filter(folded).map((form) => ({ ...form, when: FAMILY_FORM_NEEDS[form.number].when })),
     feeNotesFirst: exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id)),
     courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
     afterNotice: claimAfterNotice(stepId, court, story, city),
+    leadForms: [
+      ...allForms.filter((form) => !folded(form) && form.court === court).map((form) => ({ number: form.number, label: "For your step" as const })),
+      ...(court !== "family" && claimAfterNotice(stepId, court, story, city).length > 0
+        ? [{ number: CLAIM_AFTER_NOTICE[court].form, label: "After the notice" as const }]
+        : []),
+    ],
     fees,
     feeNotes:
       court !== "family"
@@ -1682,9 +1818,65 @@ const CORPORATION_NEEDS_LAWYER: PlainLine = {
 
 export function limitNotesFor(court: PracticalCourt, userWords: string): PlainLine[] {
   const words = userWords.toLowerCase();
-  // The company must be the party, not just mentioned ("he took from our
-  // company account" is a person suing).
-  const company =
-    /\b(?:sued|suing|sue) (?:my|our) (?:company|corporation|business)\b|\b(?:my|our) (?:company|corporation) (?:is|was|has been) (?:being )?(?:sued|suing)\b|\bon behalf of (?:my|our) (?:company|corporation)\b|\b(?:my|our) (?:company|corporation) (?:wants|needs) to (?:sue|defend|respond)\b/.test(words);
-  return court === "civil" && company ? [CORPORATION_NEEDS_LAWYER] : [];
+  return court === "civil" && companyIsTheParty(words) ? [CORPORATION_NEEDS_LAWYER] : [];
+}
+
+/**
+ * The person's words make a company (a corporation) the party, not just
+ * mention one ("he took from our company account" is a person suing).
+ */
+export function companyIsTheParty(userWords: string): boolean {
+  const words = userWords.toLowerCase();
+  return /\b(?:sued|suing|sue) (?:my|our) (?:company|corporation|business)\b|\b(?:my|our) (?:company|corporation) (?:is|was|has been) (?:being )?(?:sued|suing)\b|\bon behalf of (?:my|our) (?:company|corporation)\b|\b(?:my|our) (?:company|corporation) (?:wants|needs) to (?:sue|defend|respond)\b/.test(words);
+}
+
+/*
+ * A limit written from the moving party's side, as the responding party
+ * reads it on an either-side step (final re-check 2026-10-14: a respondent
+ * to a motion to change saw "The other party's time to serve and file a
+ * response, or return a signed consent" for their own deadline). Family Law
+ * Rules r. 15 (6) names the blank response (Form 15B) and consent (Form 15C)
+ * served with the motion; r. 15 (9) says which one to use.
+ */
+export type RespondingView = {
+  what: string;
+  countFrom: string;
+  /** The stage map's qualifier said to the person responding, with its rule (reviewer, 2026-10-14: "if they do not live" under "Your time"). */
+  note: PlainLine;
+  /** The rules the responding wording itself relies on, beyond the limit's own (r. 15 (9) names Form 15B and the signed consent). */
+  alsoRules: RuleCitation[];
+};
+export const RESPONDING_VIEW: Record<string, RespondingView> = {
+  "deadline:family:motion-to-change-response:moving-party-view": {
+    what: "Your time to serve and file a response (Form 15B) or return a signed consent (Form 15C)",
+    countFrom: "the day you receive the motion to change and its supporting documents",
+    note: {
+      say: "It is 60 days if you do not live in Canada or the United States.",
+      cite: flr(
+        "r. 15 (10) (b)",
+        "(b) no later than 60 days after the party responding to the motion receives the motion to change and the supporting documents, in any other case.",
+      ),
+    },
+    alsoRules: [
+      flr(
+        "r. 15 (9), paras. 1, 2",
+        "1. If the party does not agree to the change or if the party wants to ask the court to make an additional or a different change to the final order or agreement, the party shall serve and file a response to motion to change (Form 15B), with all required attachments, within the time set out in clause (10) (a) or (b), as the case may be. 2. If the party agrees to the change or if the parties agree to a different change, the party shall complete the applicable portions of the consent motion to change (Form 15C) and shall, within the time set out in clause (10) (a) or (b), as the case may be, i. return a signed copy of the consent motion to change to the party making the motion",
+      ),
+    ],
+  },
+};
+/** The limit as the person's side reads it: the responding wording, its note and the rules it relies on, for a moving-party limit when they are responding. */
+export function limitForSide<T extends { id?: string; what: string; countFrom?: string }>(
+  item: T,
+  responding: boolean,
+): T & { sideNote?: PlainLine; alsoRules?: RuleCitation[] } {
+  const view = responding && item.id ? RESPONDING_VIEW[item.id] : undefined;
+  if (!view) return item;
+  return {
+    ...item,
+    what: view.what,
+    ...(item.countFrom !== undefined ? { countFrom: view.countFrom } : {}),
+    sideNote: view.note,
+    alsoRules: view.alsoRules,
+  };
 }

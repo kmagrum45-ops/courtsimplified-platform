@@ -31,6 +31,7 @@ import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/element
 import CivilIntake from "./_components/CivilIntake";
 import FamilyStatusTriage, {
   existingFamilyOrder,
+  respondingInFamilyStory,
   emptyTriageState,
   triageStateFromStored,
   type FamilyTriageState,
@@ -54,6 +55,15 @@ import {
   getPathLabel,
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
+import MotionToChangeRoute from "./_components/MotionToChangeRoute";
+import {
+  hidesTemporaryMotionCard,
+  motionToChangeLead,
+  standingChoice,
+  type MotionToChangeKind,
+  type ReadingChoice,
+} from "./_components/motionToChange";
+import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, type StageFromAnswers } from "./_components/stageFromAnswers";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
@@ -233,6 +243,24 @@ function BuilderPageContent() {
   // re-running the analysis after Back or an edit does not ask it again
   // (held-back walkthrough, 2026-10-09). Cleared with a new case.
   const lastConfirmedRef = useRef<{ caseId: string | null; stage: UniversalStage } | null>(null);
+  // The person's own intake answer the stage was recorded from, shown beside
+  // it (stageFromAnswers.ts); only while that stage is the one recorded.
+  const [stageBasis, setStageBasis] = useState<StageFromAnswers | null>(null);
+  /*
+   * A stage from earlier answers sits on the case (marked "answers"), and the
+   * answers given now settle none: it is replaced with "not sure", still
+   * marked, so no stale stage stays on the case and the person is asked
+   * (re-check 2026-10-14). Set per run in handleComplete.
+   */
+  const [clearAnswersStage, setClearAnswersStage] = useState(false);
+  /*
+   * The person's answer to the motion-to-change reading this visit (null
+   * after Change); undefined until they answer, when a saved one stands
+   * (standingChoice). Saved to the case position (re-review 2026-10-14).
+   */
+  const [motionAnswerThisVisit, setMotionAnswerThisVisit] = useState<{ answer: ReadingChoice; readingKind: MotionToChangeKind } | undefined>(undefined);
+  /** The case a stage from answers was saved to on this visit, if any. */
+  const answersStageSavedRef = useRef<string | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
 
   /**
@@ -1098,6 +1126,9 @@ function BuilderPageContent() {
           confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
+          // The side and filing answers the person gave or confirmed in the
+          // conversation itself (stageFromAnswers.ts), never the story alone.
+          personAnswers: personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>),
         },
       };
       handleComplete(analysisResult.analysis, payload);
@@ -1128,11 +1159,39 @@ function BuilderPageContent() {
     // unless this case already has a stage the person confirmed, which stays
     // theirs and can still be changed (Phase 1: a returning user was asked
     // to confirm their stage again on every re-run).
-    const storedOnCase = queryCaseId ? readCasePosition(existingMasterResult, courtPath).confirmedStage : null;
+    const storedPositionOnCase = queryCaseId ? readCasePosition(existingMasterResult, courtPath) : null;
+    // A stage recorded from earlier answers is not one the person chose: it
+    // is worked out again from the answers given now (review 2026-10-14: Back,
+    // a changed side, and the old "responding" stayed).
+    const storedOnCase =
+      storedPositionOnCase?.confirmedStage && storedPositionOnCase.confirmedStageFrom !== "answers" ? storedPositionOnCase.confirmedStage : null;
+    // Only a Confirm or Change click this visit (never a stage read from answers).
     const thisVisit = lastConfirmedRef.current;
     const sameCase = Boolean(thisVisit && (queryCaseId || masterCaseIdRef.current) && thisVisit.caseId === (queryCaseId || masterCaseIdRef.current));
     const stored = storedOnCase && storedOnCase !== "not-sure" ? storedOnCase : sameCase ? thisVisit!.stage : null;
-    setConfirmedStage(stored && stored !== "not-sure" ? (stored as UniversalStage) : null);
+    /*
+     * THE PERSON'S OWN ANSWER IS THEIR CONFIRMATION (2026-10-14, walkthrough
+     * SW and RN). "What has been filed: Nothing filed yet" in the intake,
+     * then "From what you told us: I have not filed anything yet. Yes, that is
+     * right" on the results asked the same thing twice. Where the side and
+     * filing answers the person gave themselves settle a stage beyond doubt,
+     * and it is the stage the site suggests, it is recorded from them, shown
+     * with that answer and a Change. Never from the story alone, and never
+     * over a stage already on the case (stageFromAnswers.ts).
+     */
+    const rawSuggested = getStageForPersistence(result, payload);
+    const suggested = ((STAGE_CODES as readonly string[]).includes(rawSuggested) ? rawSuggested : "not-sure") as UniversalStage;
+    // Any stage the person set -- "I am not sure" included -- is theirs and
+    // is never replaced by one read from answers (review 2026-10-14).
+    const personSetStage = storedOnCase || (sameCase ? thisVisit!.stage : null);
+    const fromAnswers = personSetStage ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested);
+    // Kept apart from lastConfirmedRef, and saved marked as from the answers,
+    // so the next run reads the answers afresh.
+    setStageBasis(fromAnswers);
+    const storedFromAnswers = storedPositionOnCase?.confirmedStageFrom === "answers" && storedPositionOnCase.confirmedStage !== "not-sure";
+    setClearAnswersStage(!personSetStage && !fromAnswers && (storedFromAnswers || (answersStageSavedRef.current !== null && answersStageSavedRef.current === (queryCaseId || masterCaseIdRef.current))));
+    const settledStage = stored ?? fromAnswers?.stage ?? null;
+    setConfirmedStage(settledStage && settledStage !== "not-sure" ? (settledStage as UniversalStage) : null);
     setCaseData({
       ...payload,
       masterResultPatch,
@@ -1205,6 +1264,24 @@ function BuilderPageContent() {
     Boolean(analysis) &&
     canonicalIntakeSaved &&
     Boolean(confirmedStage);
+  // An order already in place and words asking to change it ("how do i get
+  // it lowered"): the results lead with the motion-to-change route, quoted
+  // from r. 15 (5) and (2), instead of a temporary-motion rule card
+  // (walkthrough MC, 2026-10-14; motionToChange.ts).
+  const familyStory = homeStory || userStory(caseData);
+  const motionLead =
+    courtPath === "family"
+      ? motionToChangeLead(
+          courtPath,
+          // The urgent answer counts only when it says something is urgent.
+          [familyStory, caseData?.goal, /^\s*(?:no|none|nothing|not|n\/a)\b/i.test(caseData?.urgent ?? "") ? "" : caseData?.urgent].filter(Boolean).join("\n"),
+          existingFamilyOrder(familyStory),
+          respondingInFamilyStory(familyStory),
+        )
+      : null;
+  // The answer that stands for this reading: given this visit, else saved on
+  // the case while the reading is the same kind.
+  const motionChoice = standingChoice(motionLead, motionAnswerThisVisit, readCasePosition(existingMasterResult, courtPath).motionToChange);
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
   // words name (case reader first, then the phrase lists).
@@ -1285,7 +1362,23 @@ function BuilderPageContent() {
      * in their own saves. A save that fails is tried once more.
      */
     const parts: Record<string, unknown>[] = [];
-    if (confirmedStage) parts.push({ confirmedStage });
+    // A stage read from the answers is saved marked as such; one the person
+    // clicked is saved without the marker, which clears it (casePosition.ts).
+    if (confirmedStage) {
+      const fromAnswers = Boolean(stageBasis && stageBasis.stage === confirmedStage);
+      if (fromAnswers) answersStageSavedRef.current = caseId;
+      parts.push(fromAnswers ? { confirmedStage, confirmedStageFrom: "answers" } : { confirmedStage });
+    } else if (clearAnswersStage) {
+      // The answers given now settle no stage: the one from earlier answers
+      // does not stay on the case. "Not sure", still marked, means: ask.
+      parts.push({ confirmedStage: "not-sure", confirmedStageFrom: "answers" });
+    }
+    // The answer to the motion-to-change reading (null after Change removes it).
+    if (motionAnswerThisVisit) {
+      parts.push({
+        motionToChange: motionAnswerThisVisit.answer ? { answer: motionAnswerThisVisit.answer, readingKind: motionAnswerThisVisit.readingKind } : null,
+      });
+    }
     if (positionThisVisit.stepId !== undefined) parts.push({ stepId: positionThisVisit.stepId });
     if (positionThisVisit.dateAnswers && Object.keys(positionThisVisit.dateAnswers).length) parts.push({ dateAnswers: positionThisVisit.dateAnswers });
     if (positionThisVisit.service && Object.keys(positionThisVisit.service).length) parts.push({ service: positionThisVisit.service });
@@ -1309,7 +1402,7 @@ function BuilderPageContent() {
       if (!allSaved) sentPositionRef.current = "";
     })());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canonicalIntakeSaved, confirmedStage, positionThisVisit, masterCaseId]);
+  }, [canonicalIntakeSaved, confirmedStage, stageBasis, clearAnswersStage, motionAnswerThisVisit, positionThisVisit, masterCaseId]);
 
   function createSmallClaimsClaimDraft() {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
@@ -1944,12 +2037,21 @@ function BuilderPageContent() {
               or picks another before the overview appears. No next-step
               content renders until they have.
             */}
+            {motionLead ? (
+              <MotionToChangeRoute
+                lead={motionLead}
+                choice={motionChoice}
+                onChoose={(choice) => setMotionAnswerThisVisit({ answer: choice, readingKind: motionLead.kind })}
+              />
+            ) : null}
             <StageConfirmation
               suggestedStage={detectedStage}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
+              basis={stageBasis && stageBasis.stage === confirmedStage ? stageBasis.because : null}
               onConfirm={(stage) => {
                 setConfirmedStage(stage);
+                setStageBasis(null);
                 lastConfirmedRef.current = { caseId: savedCaseId() || masterCaseIdRef.current, stage };
                 // Recorded on the case so the case page shows the same stage.
                 const id = savedCaseId();
@@ -2031,7 +2133,10 @@ function BuilderPageContent() {
             ) : null}
             {/* The step answer above already cites its rules; this repeated them
                 once the stage was confirmed (page review, 2026-10-06). */}
-            {!confirmedStage ? (
+            {/* With the motion-to-change route on top, the catalogue's
+                temporary-motion card ("Family Rule 14 governs motions for
+                temporary orders") is not shown (walkthrough MC, 2026-10-14). */}
+            {!confirmedStage && !hidesTemporaryMotionCard(motionLead, motionChoice) ? (
               <ProcedureAuthorityDisplay
                 courtArea={courtPath}
                 procedureStage={getStageForPersistence(analysis, caseData)}
