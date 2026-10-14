@@ -29,6 +29,7 @@
  */
 
 import { classifyCourtPath } from "../intelligence/courtPathClassifier";
+import { fixedRegimeFor, lienStepFor } from "../intelligence/fixedRegimes";
 import type { OutOfScopeForum } from "../intelligence/outOfScopeForums";
 import { createOpenAIClient } from "../openaiClient";
 import { modelParams } from "../aiModels";
@@ -188,6 +189,23 @@ async function resolveCasePositionInner(
   story: string,
   options: PositionOptions,
 ): Promise<CasePosition> {
+  /*
+   * A construction lien has its own steps on the map (civilStages.ts,
+   * CLAUDE.md s. 2a). The Small Claims stage resolver below knows none of
+   * them, and would place a lien case on an ordinary Small Claims step. The
+   * court is fixed by law (Construction Act s. 50 (1)), so the lien step is
+   * suggested directly, from the person's side, for them to confirm.
+   */
+  const regime = fixedRegimeFor(story);
+  if (regime?.id === "construction-lien" && options.knownCourtPath !== "family") {
+    const side = options.knownRole === "plaintiff" ? "starting" : options.knownRole === "defendant" ? "responding" : "unclear";
+    return {
+      kind: "in-scope",
+      stage: { kind: "suggested", stageId: lienStepFor(story, side), confidence: 0.8, because: regime.reasoning },
+      scope: { primaryPath: "civil", confidence: 0.9 },
+    };
+  }
+
   /*
    * A case whose path is already settled does not get re-classified.
    *

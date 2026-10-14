@@ -16,10 +16,6 @@ import { formatRecordedAmount } from "../format/recordedAmount";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
 import { nameRecorded } from "../privacy/modelPayloadNames";
-import {
-  nextStepBlockFor,
-  isPlaceholder,
-} from "../../content-library/nextSteps";
 
 export type SmallClaimsIssue =
   | "unpaid-money"
@@ -524,21 +520,14 @@ function buildEvidenceFromFiles(input: SmallClaimsIntelligenceInput) {
   }));
 }
 
-/**
- * Next steps for a stage, from the reviewed catalogue. Never from the model.
- *
- * Returns [] for an unknown stage and for a block that is still an unwritten
- * placeholder — a user must never be shown the words "NEEDS LICENSEE REVIEW",
- * and showing nothing is the honest alternative to showing invented procedure.
+/*
+ * The older catalogue of next steps per coarse stage (nextSteps.ts) is no longer
+ * read here (CLAUDE.md s. 2a, 2026-10-14: one copy of procedure). The next step,
+ * its form and deadline come only from the stage map, on the case page's step
+ * panel; this document points there instead of repeating a second, coarser copy.
  */
-function catalogueNextSteps(stage: UniversalStage): string[] {
-  const block = nextStepBlockFor("small-claims", stage);
-  if (!block || isPlaceholder(block)) return [];
-  return block.text
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-}
+const NEXT_STEP_POINTER =
+  "Your next step, its form and its deadline are on your case page, from the court's rules for the step you confirm there.";
 
 function buildSummary(args: {
   input: SmallClaimsIntelligenceInput;
@@ -574,9 +563,7 @@ function buildSummary(args: {
     // renders catalogue text or nothing -- never model prose. See the note on
     // `guidance` above.
     "What to do next",
-    catalogueNextSteps(stage).length
-      ? catalogueNextSteps(stage).map((line) => `- ${line}`).join("\n")
-      : "- Continue organizing the case record.",
+    `- ${NEXT_STEP_POINTER}`,
   ].join("\n");
 }
 
@@ -766,10 +753,10 @@ export async function analyzeSmallClaimsWithBrain(
      */
     missingEvidence: [],
     // Catalogue text only. See the note on `guidance` above.
-    nextBestActions: cleanList([...defaultStageGuidance, ...catalogueNextSteps(stage)]),
+    nextBestActions: cleanList([...defaultStageGuidance]),
     userWarnings: cleanList(intelligence.systemWarnings || []),
     proceduralRisks: cleanList(intelligence.proceduralPosture.warnings || []),
-    suggestedFocus: cleanList(catalogueNextSteps(stage)),
+    suggestedFocus: [],
 
     damagesIssues: hasText(input.amountClaimed)
       ? ["Amount was captured. The next step is explaining the calculation and connecting it to proof."]
@@ -780,7 +767,7 @@ export async function analyzeSmallClaimsWithBrain(
     structuredIntelligenceSummary: sanitizeSummaryText(intelligence.structuredCaseSummary || "", "structuredIntelligenceSummary"),
     intelligenceWarnings: cleanList(intelligence.systemWarnings),
     // Catalogue text only. See the note on `guidance` above.
-    intelligenceNextActions: cleanList(catalogueNextSteps(stage)),
+    intelligenceNextActions: [],
     intelligenceEvidenceIssues: intelligence.evidenceIssueLinks,
     intelligenceFormRecommendations: intelligence.formRecommendations,
     ...(intelligence.appliedLaw?.length ? { appliedLaw: intelligence.appliedLaw } : {}),

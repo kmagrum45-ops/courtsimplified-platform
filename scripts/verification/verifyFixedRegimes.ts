@@ -31,6 +31,7 @@ import {
   fixedRegimeFor,
 } from "../../src/lib/case-system/intelligence/fixedRegimes";
 import { NO_MATTERS } from "../../src/lib/content-library/crossForumNotes";
+import { resolveCasePosition } from "../../src/lib/case-system/stage-map/resolveCasePosition";
 
 delete process.env.OPENAI_API_KEY;
 
@@ -148,6 +149,14 @@ async function main() {
     const result = await classifyCourtPath({ story: LIENS[0], allowExternalCognition: false });
     assert.equal(result.primaryPath, "civil");
     assert.equal(result.regime, "construction-lien");
+  });
+
+  await check("the case position for a lien story is the map's lien step, never a Small Claims step, with no model", async () => {
+    const owner = await resolveCasePosition(LIENS[0], { allowExternalCognition: false, knownCourtPath: "civil" });
+    assert.equal(owner.kind, "in-scope");
+    assert.ok(owner.kind === "in-scope" && owner.stage.kind === "suggested" && owner.stage.stageId === "civil:defendant:lien-registered-on-title");
+    const claimant = await resolveCasePosition(LIENS[2], { allowExternalCognition: false, knownRole: "plaintiff" });
+    assert.ok(claimant.kind === "in-scope" && claimant.stage.kind === "suggested" && claimant.stage.stageId === "civil:plaintiff:lien-claimant");
   });
 
   await check("claimed amounts read only amounts tied to the claim", () => {

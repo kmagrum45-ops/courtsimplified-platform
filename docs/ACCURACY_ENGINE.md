@@ -1223,6 +1223,26 @@ owner, not bolted on while vendoring statutes.
 **Until then:** the closure is quoted in the corpus and citable, and any content
 that tells a user a filing date should be read with it in mind.
 
+## The map decides procedure (CLAUDE.md s. 2a, 2026-10-14)
+
+The owner fixed the design: the AI reads and reasons; the stage map decides the
+next step, its form and its deadline. Where each half lives:
+
+| Piece | File | What it does |
+|---|---|---|
+| Courts fixed by law | `intelligence/fixedRegimes.ts` | Construction liens to the Superior Court (Construction Act s. 50 (1)) and a claimed amount over $50,000 out of Small Claims, decided in code and applied to every classifier result (`applyFixedRegime`), the front door (`withFixedRegime`) and the case position (`resolveCasePosition`). Narrow by design; `test:fixed-regimes` holds the false hits an independent review found. |
+| What the map owns | `procedureOwnership.ts` | `isMapOwnedInstruction` (a form number, a file/serve instruction, "your next step", "you have N days to") and `isMapOwnedProcedure` (that, plus any response period). Model text that states one is dropped: the front door's points and checked statements, the analysis's risks and next actions, the case page's story answer, strategy. The person's own restated facts drop only instructions, never a period in their past. |
+| Forms | `groundedCognition.ts` | Model-picked forms are never shown; forms come from `nextStepPractical.ts` for the step. |
+| Periods | `groundedCognition.ts` `periodNotInSource` | A period a model statement states must be one its own cited source states (an "Nth anniversary" counts as N years). |
+| The front door's step | `understanding/understandCase.ts` | The reading picks a step id from the map (`stepCatalogue`), validated against the chosen court (`validStep`); the card shows it through `StageAnswerPanel` as a suggestion. |
+| Lien steps | `stage-map/civilStages.ts` | `civil:defendant:lien-registered-on-title`, `civil:defendant:served-with-lien-claim` (20 days, O. Reg. 302/18 s. 2 (5)), `civil:plaintiff:lien-claimant`. Built from the reviewed law map items `civ.lien.*`. The lien action's later steps (settlement meeting, motion to fix trial, reference) are not yet mapped and say so. |
+
+**What it cost to learn:** the 2026-10-13 lien walkthrough looked like a wrong
+rulebook (a 20-day defence) and was not: O. Reg. 302/18 s. 2 (5) also says 20
+days. The error was the stage. The homeowner had a lien on title and had not
+been sued, so no defence was due. A checker that confirms a quote cannot catch
+that; only the step the case is at can.
+
 ## Where the bodies are buried
 
 Things that cost time to learn and would cost it again:

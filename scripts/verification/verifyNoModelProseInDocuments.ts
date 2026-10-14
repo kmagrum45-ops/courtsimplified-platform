@@ -179,10 +179,13 @@ const STRIPPED_FIELDS = [
 
   // And the positive: it must still produce something, or this passes because
   // the document went empty.
-  if (body.includes("input.facts") && body.includes("catalogueNextSteps")) {
-    pass("buildSummary still emits the user's own facts and the catalogue next steps");
+  // 2026-10-14 (CLAUDE.md s. 2a): the next steps come only from the stage map,
+  // so the document points to the step panel rather than carrying the older
+  // catalogue's copy. It must still emit the user's facts and that pointer.
+  if (body.includes("input.facts") && body.includes("NEXT_STEP_POINTER") && !body.includes("nextStepBlockFor")) {
+    pass("buildSummary still emits the user's own facts, and points to the step panel for the next step");
   } else {
-    fail("buildSummary no longer emits the user's facts or the catalogue — check above passes trivially");
+    fail("buildSummary no longer emits the user's facts or the step pointer, or reads the older next-step catalogue");
   }
 }
 
