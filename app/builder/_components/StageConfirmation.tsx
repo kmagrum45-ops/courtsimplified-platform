@@ -50,6 +50,12 @@ export type StageConfirmationProps = {
   onConfirm: (stage: UniversalStage) => void;
   /** Set once confirmed, so the component can show the settled state. */
   confirmedStage: UniversalStage | null;
+  /**
+   * The person's own intake answer the stage was recorded from, when it was
+   * (stageFromAnswers.ts): shown beside it, so the person sees why it was not
+   * asked again and can change it.
+   */
+  basis?: string | null;
 };
 
 export default function StageConfirmation({
@@ -57,6 +63,7 @@ export default function StageConfirmation({
   pathway,
   onConfirm,
   confirmedStage,
+  basis = null,
 }: StageConfirmationProps) {
   const [choice, setChoice] = useState<UniversalStage>(suggestedStage);
   const [changing, setChanging] = useState(false);
@@ -69,6 +76,7 @@ export default function StageConfirmation({
       >
         <p className="text-sm text-[#4d675f]">
           Stage recorded: <strong className="text-[#10231f]">{labelFor(confirmedStage)}</strong>
+          {basis ? <span data-testid="stage-confirmed-basis"> (from your answer: &ldquo;{basis}&rdquo;)</span> : null}
         </p>
         <button
           type="button"

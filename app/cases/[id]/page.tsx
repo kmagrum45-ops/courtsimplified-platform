@@ -26,6 +26,7 @@ import type { AnalysisResult, StoredCaseData, UniversalStage } from "../../build
 import { getStageLabel } from "../../builder/_components/builderTypes";
 import {
   CONFIRMABLE_STAGES,
+  settledStage,
   storyHintsForDates,
   storyWithTimeline,
   suggestedDatesFromEvents,
@@ -105,13 +106,16 @@ export default function CaseOverviewPage() {
 
   // The suggestion offered for confirmation: what the user's own records point
   // to, never applied until they confirm it.
+  // "Not sure" left by the intake answers (re-run answers settled nothing)
+  // is no one's choice: the case page asks (re-check 2026-10-14).
+  const unsettledFromAnswers = position.confirmedStage !== null && settledStage(position) === null;
   const suggestedStage: UniversalStage =
-    position.confirmedStage ??
+    (unsettledFromAnswers ? null : position.confirmedStage) ??
     asConfirmable(events?.stage.stage) ??
     asConfirmable(caseRecord.current_stage) ??
     "not-sure";
 
-  const confirmed = position.confirmedStage;
+  const confirmed = unsettledFromAnswers ? null : position.confirmedStage;
 
   /*
    * A stage confirmed on the results page a moment ago may still be on its

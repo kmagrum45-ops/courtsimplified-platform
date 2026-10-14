@@ -32,6 +32,15 @@
  *   6. An injury date read from a later medical event in the same line
  *      (review 2026-10-13: "september 30 2026 fell, october 1 surgery" gave
  *      October 1).
+ *   7. A confirmed stage lost because the site's own server was too busy
+ *      (2026-10-14, run 38511243860, RN: four saves aborted at ten seconds,
+ *      and the Overview asked again). A position save reaches the case even
+ *      when the route never answers, never erases a save made at the same
+ *      moment, and never stores an invalid value.
+ *   8. The stage asked twice (2026-10-14, SW, RN): the person's own intake
+ *      answers (side and what has been filed) record the stage when they
+ *      settle the one the site suggests; never from the story alone, never a
+ *      different stage, never over a stage already on the case.
  *
  * Run: node --import tsx scripts/verification/verifyCasePosition.ts
  */
@@ -45,6 +54,7 @@ import path from "node:path";
 import {
   EMPTY_POSITION,
   applyPositionPatch,
+  settledStage,
   dateQuestionsForStep,
   isDateQuestionId,
   readCasePosition,
@@ -57,7 +67,24 @@ import { ALL_STAGES, stagesForPathway } from "../../src/lib/case-system/stage-ma
 import { computedDeadlinesFor, countFromDate } from "../../src/lib/content-library/computedDeadline";
 import { caseStepFor, noticeStepForCase } from "../../src/lib/case-system/caseStep";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
-import { POSITION_SAVE_TIMEOUT_MS, positionSavesSettled, postWithTimeout, trackPositionWork } from "../../app/builder/_components/positionSave";
+import {
+  POSITION_SAVE_TIMEOUT_MS,
+  positionSavesSettled,
+  postWithTimeout,
+  savePositionDirect,
+  savePositionDirectWithin,
+  savePositionQueued,
+  setPositionClientForChecks,
+  trackPositionWork,
+} from "../../app/builder/_components/positionSave";
+import {
+  personAnswersFromGuided,
+  personAnswersOf,
+  stageFromPersonAnswers,
+  stageRecordedFromAnswers,
+  yesOrNo,
+  type PersonAnswers,
+} from "../../app/builder/_components/stageFromAnswers";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -486,6 +513,244 @@ function personsDatesWin(source: string): boolean {
   );
 }
 
+// ---- 8. The person's own intake answer is their confirmation of the stage --
+// Walkthrough 2026-10-14 (SW, RN): "What has been filed: Nothing filed yet"
+// in the intake, then "From what you told us: I have not filed anything yet.
+// Yes, that is right" on the results. Properties, across the three courts:
+// answers the person gave that settle one stage record it when the site
+// suggests the same stage; they never record a different stage; the story
+// alone (no answer given) never records one; a "not sure" or a mix of
+// documents settles nothing; and the intakes keep only fields the person set.
+{
+  const suggestions = ["starting-case", "responding", "motion", "already-started", "not-sure"] as const;
+  const cases: { name: string; court: string; answers: PersonAnswers | null; settles: string | null }[] = [
+    { name: "civil plaintiff, nothing filed", court: "civil", answers: { side: "plaintiff", filed: ["nothing"], filedLabels: ["Nothing filed yet"] }, settles: "starting-case" },
+    { name: "civil defendant served a claim", court: "civil", answers: { side: "defendant", filed: ["statement-claim"] }, settles: "responding" },
+    { name: "civil defendant whose defence is filed", court: "civil", answers: { side: "defendant", filed: ["statement-claim", "statement-defence"] }, settles: null },
+    { name: "civil plaintiff with a claim filed", court: "civil", answers: { side: "plaintiff", filed: ["statement-claim"] }, settles: null },
+    { name: "civil plaintiff, nothing filed and not sure", court: "civil", answers: { side: "plaintiff", filed: ["nothing", "not-sure"] }, settles: null },
+    { name: "civil, filings with no side given", court: "civil", answers: { filed: ["nothing"] }, settles: null },
+    { name: "family applicant, nothing filed", court: "family", answers: { side: "applicant", filed: ["nothing"] }, settles: "starting-case" },
+    { name: "family respondent served an application", court: "family", answers: { side: "respondent", filed: ["application"] }, settles: "responding" },
+    { name: "family respondent who has answered", court: "family", answers: { side: "respondent", filed: ["application", "answer"] }, settles: null },
+    { name: "family, an existing order", court: "family", answers: { side: "applicant", filed: ["order-agreement"] }, settles: null },
+    { name: "family, no answers given (story only)", court: "family", answers: null, settles: null },
+    {
+      name: "Small Claims defendant who answered no defence filed",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "No, I haven't filed anything yet." },
+        ],
+        { role: "defendant", defenceFiled: false },
+      ),
+      settles: "responding",
+    },
+    {
+      name: "Small Claims plaintiff who answered no claim filed",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Bringing the claim (plaintiff)" },
+          { questionId: "sc-claim-filed", answerText: "No" },
+        ],
+        { role: "plaintiff", claimFiled: false },
+      ),
+      settles: "starting-case",
+    },
+    {
+      name: "Small Claims: facts read from the story, no filing question answered",
+      court: "small-claims",
+      answers: personAnswersFromGuided([{ questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" }], { role: "defendant", defenceFiled: false }),
+      settles: null,
+    },
+    {
+      name: "Small Claims: \"not sure\" whether a defence was filed",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "Not sure, I think my lawyer friend did" },
+        ],
+        { role: "defendant" },
+      ),
+      settles: null,
+    },
+    {
+      name: "Small Claims: the answer and the facts disagree",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "No" },
+        ],
+        { role: "defendant", defenceFiled: true },
+      ),
+      settles: null,
+    },
+  ];
+  for (const testCase of cases) {
+    const settled = stageFromPersonAnswers(testCase.court, testCase.answers);
+    check(`answers: ${testCase.name} -> ${testCase.settles ?? "nothing settled"}`, (settled?.stage ?? null) === testCase.settles, JSON.stringify(settled));
+    for (const suggested of suggestions) {
+      const recorded = stageRecordedFromAnswers(testCase.court, testCase.answers, suggested);
+      const expected = testCase.settles && testCase.settles === suggested ? testCase.settles : null;
+      if ((recorded?.stage ?? null) !== expected) {
+        check(`answers: ${testCase.name}, suggested ${suggested}: recorded only when the two agree`, false, JSON.stringify(recorded));
+      }
+    }
+    if (settled) check(`answers: ${testCase.name} shows the answer it came from`, settled.because.trim().length > 0);
+  }
+  check(
+    "answers: the answer shown back is the person's own words",
+    stageFromPersonAnswers("civil", { side: "plaintiff", filed: ["nothing"], filedLabels: ["Nothing filed yet"] })?.because === "Nothing filed yet",
+  );
+  check("answers: nothing junk is read back from a saved payload", JSON.stringify(personAnswersOf({ personAnswers: { side: 3, filed: "nothing", claimFiled: "no" } })) === "{}");
+  check("answers: a plain yes or no is read", yesOrNo("No, I haven't filed anything yet.") === false && yesOrNo("not yet") === false && yesOrNo("Yes") === true && yesOrNo("No") === false);
+  // Review 2026-10-14: hedges were read as answers.
+  for (const hedge of [
+    "I think so",
+    "not sure",
+    "No idea",
+    "no clue",
+    "Nope, not sure",
+    "I have no idea",
+    "Yes I think so",
+    "No, I don't remember",
+    "yes maybe",
+    "I don't know",
+    "Not yet, I am thinking about it",
+    "No, not that I remember",
+    "no, i guess not",
+    "Not yet, still deciding",
+  ]) {
+    check(`answers: a hedge is no answer: '${hedge}'`, yesOrNo(hedge) === null, String(yesOrNo(hedge)));
+  }
+  check(
+    "answers: a hedged filing answer settles no stage",
+    stageFromPersonAnswers(
+      "small-claims",
+      personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "No idea" },
+        ],
+        { role: "defendant" },
+      ),
+    ) === null,
+  );
+
+  // Wiring: the intakes keep only what the person set; the results never
+  // replace a stage already on the case with one from answers.
+  for (const file of ["app/builder/_components/CivilIntake.tsx", "app/builder/_components/FamilyIntake.tsx"]) {
+    const source = read(file);
+    const kept = source.slice(source.indexOf("personAnswers: {"), source.indexOf("} satisfies PersonAnswers"));
+    check(`answers: ${file} keeps a side or filing answer only when the person set it`, /personSet\.current\.has\("yourRole"\)/.test(kept) && /\.every\(\(item\) => personDocuments\.current\.has\(item\)\)/.test(kept) && /personDocuments\.current\.add\(option\.value\)/.test(source));
+  }
+  const builder = read("app/builder/page.tsx");
+  check(
+    "answers: the results record a stage from answers only when the person has set none (\"not sure\" included), and show the answer beside it",
+    /personSetStage = storedOnCase \|\| /.test(builder) && /personSetStage \? null : stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
+  );
+
+  // A stage read from answers is never taken later for one the person chose
+  // (re-review 2026-10-14: Back, side changed to plaintiff, re-run, and the
+  // answers' "responding" stayed because it had been put where clicks go).
+  const marked = applyPositionPatch(EMPTY_POSITION, { confirmedStage: "responding", confirmedStageFrom: "answers" }, "civil", new Date("2026-10-14T12:00:00Z"));
+  const markedPosition = marked.ok ? marked.position : null;
+  check("origin: a stage from answers is stored marked as such", readCasePosition({ position: markedPosition }, "civil").confirmedStageFrom === "answers");
+  const dated = markedPosition ? applyPositionPatch(markedPosition, { dateAnswers: {} }, "civil", new Date()) : null;
+  check("origin: a date or step save leaves the marker", Boolean(dated?.ok && dated.position.confirmedStageFrom === "answers"));
+  const clicked = markedPosition ? applyPositionPatch(markedPosition, { confirmedStage: "responding" }, "civil", new Date()) : null;
+  check(
+    "origin: the person's own click on the same stage clears the marker",
+    Boolean(clicked?.ok && readCasePosition({ position: clicked.position }, "civil").confirmedStageFrom === undefined),
+  );
+  check(
+    "origin: only \"answers\" is accepted as a marker",
+    !applyPositionPatch(EMPTY_POSITION, { confirmedStage: "responding", confirmedStageFrom: "model" }, "civil", new Date()).ok &&
+      readCasePosition({ position: { confirmedStage: "responding", confirmedStageFrom: "model" } }, "civil").confirmedStageFrom === undefined &&
+      readCasePosition({ position: { confirmedStageFrom: "answers" } }, "civil").confirmedStageFrom === undefined,
+  );
+  // A re-run whose answers settle nothing leaves no marked real stage on the
+  // case (final re-check 2026-10-14): the catch-up save sends "not sure",
+  // still marked, which the case page asks about rather than shows.
+  const cleared = markedPosition ? applyPositionPatch(markedPosition, { confirmedStage: "not-sure", confirmedStageFrom: "answers" }, "civil", new Date()) : null;
+  const afterClear = cleared?.ok ? readCasePosition({ position: cleared.position }, "civil") : null;
+  check(
+    "origin: answers that now settle nothing leave no marked real stage, only a marked \"not sure\"",
+    afterClear?.confirmedStage === "not-sure" && afterClear.confirmedStageFrom === "answers",
+  );
+  check(
+    "origin: the builder sends that \"not sure\" when a marked stage is on the case (or was saved this visit) and the answers settle none",
+    /setClearAnswersStage\(!personSetStage && !fromAnswers && \(storedFromAnswers \|\|/.test(builder) &&
+      /else if \(clearAnswersStage\) \{[\s\S]{0,200}parts\.push\(\{ confirmedStage: "not-sure", confirmedStageFrom: "answers" \}\)/.test(builder),
+  );
+  const overview = read("app/cases/[id]/page.tsx");
+  check(
+    "origin: settledStage treats only a \"not sure\" left by the answers as no stage",
+    settledStage({ confirmedStage: "not-sure", confirmedStageFrom: "answers" }) === null &&
+      settledStage({ confirmedStage: "not-sure" }) === "not-sure" &&
+      settledStage({ confirmedStage: "responding", confirmedStageFrom: "answers" }) === "responding",
+  );
+  check(
+    "origin: the case page, the dashboard and the step rule all ask, rather than show, a \"not sure\" left by the answers",
+    /settledStage\(position\)/.test(overview) &&
+      /const confirmed = unsettledFromAnswers \? null : position\.confirmedStage/.test(overview) &&
+      /settledStage\(position\)/.test(read("app/dashboard/page.tsx")) &&
+      /requireConfirmedStage && !settledStage\(position\)/.test(read("src/lib/case-system/caseStep.ts")),
+  );
+  check(
+    "origin: a case whose only stage is a \"not sure\" left by the answers gets no step where one needs a confirmed stage",
+    caseStepFor({ position: { confirmedStage: "not-sure", confirmedStageFrom: "answers" }, intakeData: { extra: { story: "x" } } }, "small-claims", false, { requireConfirmedStage: true }) === "",
+  );
+  const clickRefs = builder.match(/lastConfirmedRef\.current = /g) ?? [];
+  const onConfirmBody = builder.slice(builder.indexOf("onConfirm={(stage) => {"), builder.indexOf("onConfirm={(stage) => {") + 400);
+  check(
+    "origin: only a Confirm or Change click is remembered as the person's stage this visit",
+    clickRefs.length === 1 && /lastConfirmedRef\.current = /.test(onConfirmBody),
+  );
+  check(
+    "origin: a marked stage on the case is worked out again from the answers given now",
+    /confirmedStageFrom !== "answers" \? storedPositionOnCase\.confirmedStage : null/.test(builder),
+  );
+  check(
+    "origin: a stage from answers is saved with its marker; the route passes the marker through for validation",
+    /confirmedStageFrom: "answers" \} : \{ confirmedStage \}/.test(builder) && /confirmedStageFrom: body\.confirmedStageFrom/.test(read("app/api/cases/position/route.ts")),
+  );
+
+  // The answer to the motion-to-change reading is saved, kept and validated
+  // (re-review 2026-10-14).
+  const withAnswer = applyPositionPatch(EMPTY_POSITION, { motionToChange: { answer: "yes", readingKind: "asking" } }, "family", new Date());
+  const answered = withAnswer.ok ? withAnswer.position : null;
+  check("motion answer: saved and read back", readCasePosition({ position: answered }, "family").motionToChange?.answer === "yes");
+  const afterStage = answered ? applyPositionPatch(answered, { confirmedStage: "motion" }, "family", new Date()) : null;
+  const afterDate = afterStage?.ok ? applyPositionPatch(afterStage.position, { dateAnswers: {} }, "family", new Date()) : null;
+  check(
+    "motion answer: kept through stage and date saves",
+    Boolean(afterDate?.ok && readCasePosition({ position: afterDate.position }, "family").motionToChange?.readingKind === "asking"),
+  );
+  const removed = answered ? applyPositionPatch(answered, { motionToChange: null }, "family", new Date()) : null;
+  check("motion answer: null removes it (Change)", Boolean(removed?.ok && readCasePosition({ position: removed.position }, "family").motionToChange === undefined));
+  check(
+    "motion answer: only the fixed vocabulary is accepted or read back",
+    !applyPositionPatch(EMPTY_POSITION, { motionToChange: { answer: "maybe", readingKind: "asking" } }, "family", new Date()).ok &&
+      !applyPositionPatch(EMPTY_POSITION, { motionToChange: { answer: "yes", readingKind: "winning" } }, "family", new Date()).ok &&
+      !applyPositionPatch(EMPTY_POSITION, { motionToChange: "yes" }, "family", new Date()).ok &&
+      readCasePosition({ position: { motionToChange: { answer: "yes", readingKind: "other" } } }, "family").motionToChange === undefined,
+  );
+  check(
+    "motion answer: the page saves it with the other confirmations, and the route passes it through for validation",
+    /parts\.push\(\{\s*motionToChange:/.test(builder) && /motionAnswerThisVisit, positionThisVisit, masterCaseId\]/.test(builder) &&
+      /motionToChange: body\.motionToChange/.test(read("app/api/cases/position/route.ts")),
+  );
+  check(
+    "motion answer: on load the saved answer stands (standingChoice over the saved position)",
+    /standingChoice\(motionLead, motionAnswerThisVisit, readCasePosition\(existingMasterResult, courtPath\)\.motionToChange\)/.test(builder),
+  );
+}
+
 if (failures > 0) {
   console.log(`\n${failures} check(s) failed.`);
   process.exit(1);
@@ -567,6 +832,127 @@ void (async () => {
   globalThis.fetch = realFetch;
   assert("saves: a save request that hangs is given up after its timeout", ok === false && Date.now() - startedPost < 2_000);
   assert("saves: the save timeout is at most 10 seconds", POSITION_SAVE_TIMEOUT_MS > 0 && POSITION_SAVE_TIMEOUT_MS <= 10_000);
+
+  // ---- 7. A confirmed stage reaches the case even when the site's own
+  // server is too busy to answer (walkthrough run 38511243860, RN): all four
+  // saves of the Small Claims guided defendant's stage ended
+  // "POST /api/cases/position failed: net::ERR_ABORTED", the Overview and a
+  // reload asked "Yes, that is right" again. Reproduced here: the route never
+  // answers, and the stage must still be on the case, everything else on it
+  // kept. Properties, not values: any valid patch lands; an invalid one never
+  // does; a save made at the same moment is not erased.
+  type Row = { court_path: string; master_result: Record<string, unknown>; updated_at: string };
+  const fakeCases = (row: Row) => {
+    let stamp = 0;
+    const hooks: { beforeWrite: (() => void) | null; readDelayMs: number } = { beforeWrite: null, readDelayMs: 0 };
+    const db = {
+      from() {
+        return {
+          select(columns: string) {
+            const chain = {
+              eq: () => chain,
+              maybeSingle: async () => {
+                const delay = /master_result/.test(columns) ? hooks.readDelayMs : 0;
+                if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
+                return {
+                  data: /master_result/.test(columns)
+                    ? { master_result: JSON.parse(JSON.stringify(row.master_result)), updated_at: row.updated_at }
+                    : { court_path: row.court_path },
+                  error: null,
+                };
+              },
+            };
+            return chain;
+          },
+          update(values: { master_result: Record<string, unknown> }) {
+            const filters: [string, string][] = [];
+            const chain = {
+              eq: (column: string, value: string) => {
+                filters.push([column, value]);
+                return chain;
+              },
+              select: async () => {
+                const hook = hooks.beforeWrite;
+                hooks.beforeWrite = null;
+                hook?.();
+                const expected = filters.find(([column]) => column === "updated_at")?.[1];
+                if (expected !== undefined && expected !== row.updated_at) return { data: [], error: null };
+                row.master_result = values.master_result;
+                row.updated_at = `2026-10-14T00:00:${String((stamp += 1)).padStart(2, "0")}Z`;
+                return { data: [{ id: "case" }], error: null };
+              },
+            };
+            return chain;
+          },
+        };
+      },
+    };
+    return { db, hooks };
+  };
+  const asRecordOf = (value: unknown): Record<string, unknown> => (value && typeof value === "object" ? (value as Record<string, unknown>) : {});
+  const hungFetch = globalThis.fetch;
+  globalThis.fetch = ((_url: unknown, init?: RequestInit) => {
+    return new Promise((_resolve, reject) => init?.signal?.addEventListener("abort", () => reject(new Error("net::ERR_ABORTED"))));
+  }) as typeof fetch;
+  try {
+    for (const court of ["small-claims", "civil", "family"] as const) {
+      const row: Row = { court_path: court, master_result: { intakeData: { courtPath: court }, casePicture: { kept: true } }, updated_at: "2026-10-14T00:00:00Z" };
+      const { db } = fakeCases(row);
+      setPositionClientForChecks(db as never);
+      const caseId = `rn-${court}`;
+      const saved = await savePositionQueued(caseId, { confirmedStage: "responding" });
+      await positionSavesSettled(caseId, 5_000);
+      const position = readCasePosition(row.master_result, court);
+      assert(
+        `saves (${court}): a confirmed stage is on the case though the position route never answers`,
+        saved === true && position.confirmedStage === "responding" && Boolean(asRecordOf(row.master_result).casePicture) && Boolean(asRecordOf(row.master_result).intakeData),
+      );
+    }
+
+    // A save at the same moment (the case reader's write) is not erased: the
+    // stage is re-applied on top of it.
+    const row: Row = { court_path: "small-claims", master_result: { intakeData: {} }, updated_at: "2026-10-14T00:00:00Z" };
+    const { db, hooks } = fakeCases(row);
+    hooks.beforeWrite = () => {
+      row.master_result = { ...row.master_result, casePicture: { written: "meanwhile" } };
+      row.updated_at = "2026-10-14T00:00:30Z";
+    };
+    const outcome = await savePositionDirect(db as never, "case-x", { confirmedStage: "starting-case" });
+    assert(
+      "saves: a save made between the read and the write is kept, and the stage lands on top of it",
+      outcome === "saved" && readCasePosition(row.master_result, "small-claims").confirmedStage === "starting-case" && Boolean(asRecordOf(row.master_result).casePicture),
+    );
+
+    // Refused, never stored: an unknown stage, a step from another court.
+    const before = JSON.stringify(row.master_result);
+    const unknown = await savePositionDirect(db as never, "case-x", { confirmedStage: "winning" });
+    const otherCourt = stagesForPathway("family")[0]?.id;
+    const wrongStep = await savePositionDirect(db as never, "case-x", { stepId: otherCourt });
+    assert(
+      "saves: an unknown stage or another court's step is refused and nothing is written",
+      unknown === "refused" && wrongStep === "refused" && JSON.stringify(row.master_result) === before,
+    );
+    setPositionClientForChecks(fakeCases(row).db as never);
+    assert("saves: a refused save is reported as not saved", (await savePositionQueued("case-x", { confirmedStage: "winning" })) === false);
+
+    // A save given up on never lands later over a newer one (review
+    // 2026-10-14): the slow save's read outlasts its time, the next save goes
+    // ahead and lands, and the slow one must not then write its older stage.
+    const slowRow: Row = { court_path: "civil", master_result: {}, updated_at: "2026-10-14T00:00:00Z" };
+    const slow = fakeCases(slowRow);
+    slow.hooks.readDelayMs = 120;
+    const gaveUp = await savePositionDirectWithin(slow.db as never, "case-slow", { confirmedStage: "starting-case" }, 20);
+    slow.hooks.readDelayMs = 0;
+    const newer = await savePositionDirect(slow.db as never, "case-slow", { confirmedStage: "responding" });
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    assert(
+      "saves: a save given up on does not land later over a newer one",
+      gaveUp === "failed" && newer === "saved" && readCasePosition(slowRow.master_result, "civil").confirmedStage === "responding",
+    );
+  } finally {
+    setPositionClientForChecks(null);
+    globalThis.fetch = hungFetch;
+  }
   console.log(asyncFailures ? `\n${asyncFailures} save-timing check(s) failed.` : "\nAll save-timing checks passed.");
   if (asyncFailures) process.exitCode = 1;
 })();

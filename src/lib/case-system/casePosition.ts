@@ -50,6 +50,20 @@ export type ConfirmableStage = (typeof CONFIRMABLE_STAGES)[number];
 export type CasePosition = {
   confirmedStage: ConfirmableStage | null;
   confirmedStageAt: string | null;
+  /**
+   * "answers" when the stage was recorded from the person's own intake answers
+   * rather than by a Confirm or Change click (app/builder/_components/
+   * stageFromAnswers.ts, review 2026-10-14). A later run with different
+   * answers works it out again; a click by the person clears it. Absent
+   * for a stage the person chose.
+   */
+  confirmedStageFrom?: "answers";
+  /**
+   * The person's answer to the motion-to-change reading on the results page
+   * (MotionToChangeRoute.tsx, review 2026-10-14): which reading they were
+   * asked about, and yes / the other route / not sure. Only these values.
+   */
+  motionToChange?: { answer: MotionAnswer; readingKind: MotionReadingKind };
   /** A stage-map id ("defendant:served-defence-period-running"), chosen by the user. */
   stepId: string | null;
   stepChosenAt: string | null;
@@ -63,6 +77,21 @@ export type CasePosition = {
    */
   service?: Record<string, { method: ServiceMethod; enteredOn: string }>;
 };
+
+export const MOTION_ANSWERS = ["yes", "other", "not-sure"] as const;
+export const MOTION_READING_KINDS = ["asking", "responding", "if-served"] as const;
+export type MotionAnswer = (typeof MOTION_ANSWERS)[number];
+export type MotionReadingKind = (typeof MOTION_READING_KINDS)[number];
+
+/** A saved motion-to-change answer, or undefined if anything in it is outside the fixed vocabulary. */
+export function readMotionAnswer(value: unknown): CasePosition["motionToChange"] {
+  const record = value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : null;
+  if (!record) return undefined;
+  const { answer, readingKind } = record;
+  return (MOTION_ANSWERS as readonly unknown[]).includes(answer) && (MOTION_READING_KINDS as readonly unknown[]).includes(readingKind)
+    ? { answer: answer as MotionAnswer, readingKind: readingKind as MotionReadingKind }
+    : undefined;
+}
 
 export const EMPTY_POSITION: CasePosition = {
   confirmedStage: null,
@@ -107,6 +136,15 @@ export function isStepForCourt(stepId: unknown, courtPath: string | null | undef
   return pathwayOf(stage) === courtPath;
 }
 
+/**
+ * The stage the person stands on: null for a "not sure" left by the intake
+ * answers when a later run's answers settled nothing (stageFromAnswers.ts,
+ * review 2026-10-14), which every page asks about rather than shows.
+ */
+export function settledStage(position: Pick<CasePosition, "confirmedStage" | "confirmedStageFrom">): ConfirmableStage | null {
+  return position.confirmedStage === "not-sure" && position.confirmedStageFrom === "answers" ? null : position.confirmedStage;
+}
+
 /** Reads the stored position, discarding anything that no longer validates. */
 export function readCasePosition(masterResult: unknown, courtPath?: string | null): CasePosition {
   const raw = asRecord(asRecord(masterResult).position);
@@ -118,6 +156,8 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
   return {
     confirmedStage: isConfirmable(raw.confirmedStage) ? raw.confirmedStage : null,
     confirmedStageAt: typeof raw.confirmedStageAt === "string" ? raw.confirmedStageAt : null,
+    ...(isConfirmable(raw.confirmedStage) && raw.confirmedStageFrom === "answers" ? { confirmedStageFrom: "answers" as const } : {}),
+    ...(readMotionAnswer(raw.motionToChange) ? { motionToChange: readMotionAnswer(raw.motionToChange) } : {}),
     stepId: stepValid ? (raw.stepId as string) : null,
     stepChosenAt: stepValid && typeof raw.stepChosenAt === "string" ? raw.stepChosenAt : null,
     dateAnswers,
@@ -148,6 +188,10 @@ function readService(value: unknown, courtPath?: string | null): Record<string, 
 
 export type PositionPatch = {
   confirmedStage?: unknown;
+  /** "answers" with a confirmedStage read from the intake answers; absent or null for the person's own click. */
+  confirmedStageFrom?: unknown;
+  /** { answer, readingKind } from the fixed vocabularies, or null to remove. */
+  motionToChange?: unknown;
   stepId?: unknown;
   /** A value of "" removes that answer. */
   dateAnswers?: unknown;
@@ -174,9 +218,25 @@ export function applyPositionPatch(
 
   if (patch.confirmedStage !== undefined) {
     if (!isConfirmable(patch.confirmedStage)) return { ok: false, error: "Unknown stage." };
+    if (patch.confirmedStageFrom !== undefined && patch.confirmedStageFrom !== null && patch.confirmedStageFrom !== "answers") {
+      return { ok: false, error: "Unknown stage origin." };
+    }
+    // Every stage save says where it came from: the answers, or (by saying
+    // nothing) the person's own click, which clears the marker.
+    if (patch.confirmedStageFrom === "answers") next.confirmedStageFrom = "answers";
+    else delete next.confirmedStageFrom;
     if (patch.confirmedStage !== current.confirmedStage) {
       next.confirmedStage = patch.confirmedStage;
       next.confirmedStageAt = stamp;
+    }
+  }
+
+  if (patch.motionToChange !== undefined) {
+    if (patch.motionToChange === null) delete next.motionToChange;
+    else {
+      const answer = readMotionAnswer(patch.motionToChange);
+      if (!answer) return { ok: false, error: "Unknown motion-to-change answer." };
+      next.motionToChange = answer;
     }
   }
 
