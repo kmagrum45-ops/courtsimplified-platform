@@ -338,16 +338,25 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
 async function confirmStage(page: Page, persona: Persona, steps: Step[]) {
   // One click when the site's suggestion is the persona's stage; otherwise
   // "No, choose another" and the list (StageConfirmation, 2026-10-09).
-  // A motion-to-change reading is answered first: a "Yes" to bringing or
-  // answering a motion to change records the motion stage, and the stage
-  // question waits until it is answered (walkthrough run 38525903567, FM).
-  const motionYes = page.getByTestId("motion-to-change-yes");
-  let recordedByMotion = false;
-  if (persona.confirmStage === "motion" && (await motionYes.isVisible().catch(() => false))) {
-    await motionYes.click();
+  // A motion-to-change reading is answered first, as the persona would
+  // (walkthrough run 38525903567, FM; review of 70b717b): "Yes" only when the
+  // reading's kind is the persona's side -- "asking" for an applicant,
+  // "responding" or "if-served" for a respondent -- otherwise the other route
+  // or "Not sure". A "Yes" to bringing or answering one records the motion
+  // stage; in every case the stage panel below is then answered if it shows.
+  const reading = page.getByTestId("motion-to-change-reading");
+  if (await reading.isVisible().catch(() => false)) {
+    const kind = (await reading.getAttribute("data-kind")) ?? "";
+    const side = kind === "asking" ? "applicant" : kind === "responding" || kind === "if-served" ? "respondent" : "";
+    const other = page.getByTestId("motion-to-change-other");
+    if (side && side === persona.role) await page.getByTestId("motion-to-change-yes").click();
+    else if (persona.role === "applicant" || persona.role === "respondent") {
+      if (await other.isVisible().catch(() => false)) await other.click();
+      else await page.getByTestId("motion-to-change-not-sure").click();
+    } else await page.getByTestId("motion-to-change-not-sure").click();
     await page.waitForTimeout(3_000);
-    recordedByMotion = (await page.getByTestId("stage-confirmed").count()) > 0;
   }
+  const recordedByMotion = (await page.getByTestId("stage-confirmation").count()) === 0 && (await page.getByTestId("stage-confirmed").count()) > 0;
   if (!recordedByMotion) {
     const panel = page.getByTestId("stage-confirmation");
     if ((await panel.count()) === 0) return;

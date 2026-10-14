@@ -29,7 +29,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { movingOnMotionToChange, originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "../../app/builder/_components/respondingSide";
-import { MOTION_TO_CHANGE_START_SAY, motionToChangeStartRule } from "../../app/builder/_components/motionToChange";
+import { MOTION_TO_CHANGE_START_SAY, motionToChangeStartRules } from "../../app/builder/_components/motionToChange";
 import { filingFactsFromDocuments } from "../../src/lib/case-system/intelligence/answeredQuestions";
 import { deriveCaseStage } from "../../src/lib/case-system/intake/caseStageDerivation";
 import { orderGroupsForReader, suggestedStageFor, yearChoices } from "../../app/builder/_components/StageAnswerPanel";
@@ -219,9 +219,19 @@ check("a served defendant is shown the defence step", suggestedStageFor("small-c
   check("FM: the mover's starting document is not recorded as filed, whatever the stage and order say", !originatingDocumentRecorded({ ...fm, motionToChangeMover: true }));
   check("FM: once motion materials are recorded, it is", originatingDocumentRecorded({ ...fm, caseData: { extra: { filedDocuments: ["order-agreement", "motion-materials"] } } as never, motionToChangeMover: true }));
   check("not the mover: as before", originatingDocumentRecorded(fm));
-  const rule = motionToChangeStartRule();
-  check("the Form 15 line quotes r. 15 (5) from the stage map, as saved", rule?.pinpoint === "r. 15 (5)" && flr.includes(rule.quote.replace(/\s+/g, " ")));
+  // r. 15 (5) is "Subject to subrules (17) and (18)": the line says the consent route too, and quotes all three (review of 70b717b).
+  const rules = motionToChangeStartRules() ?? [];
+  check(
+    "the Form 15 line quotes r. 15 (5), (17) and (18), word for word as saved",
+    rules.map((rule) => rule.pinpoint).join("|") === "r. 15 (5)|r. 15 (17)|r. 15 (18)" && rules.every((rule) => flr.includes(rule.quote.replace(/\s+/g, " "))),
+  );
+  check("r. 15 (5) as quoted is subject to (17) and (18)", /Subject to subrules \(17\) and \(18\)/.test(rules[0]?.quote ?? ""));
+  check(
+    "the Form 15 line states the consent exception: everyone agrees, Form 15C, or 15D for child support only",
+    /unless you, the other party and any assignee all agree/.test(MOTION_TO_CHANGE_START_SAY) && /Form 15C/.test(MOTION_TO_CHANGE_START_SAY) && /15D if only child support/.test(MOTION_TO_CHANGE_START_SAY),
+  );
   check("the Form 15 line names Form 15 and never says it was filed", /Form 15\b/.test(MOTION_TO_CHANGE_START_SAY) && !/already been filed|has been filed/.test(MOTION_TO_CHANGE_START_SAY));
+  check("the page quotes every rule beside the line", /motionToChangeStart\.map\(\(rule\) =>/.test(readFileSync(path.resolve(process.cwd(), "app/builder/page.tsx"), "utf8")));
   const builderPage = readFileSync(path.resolve(process.cwd(), "app/builder/page.tsx"), "utf8");
   check("the page passes the mover to the filed check and shows the Form 15 line", /originatingDocumentRecorded\(\{[\s\S]{0,200}motionToChangeMover,/.test(builderPage) && /data-testid="motion-to-change-start"/.test(builderPage));
   // The Timeline's "a claim has been filed" (FM): an order or agreement alone is not a filing.

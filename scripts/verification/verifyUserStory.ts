@@ -133,12 +133,15 @@ check("a story with no such words offers nothing", storyAnswerFor("married-to-ot
   const fr = storySuggestionFor("married-to-other-party", FR);
   check("FR: 'my ex gf' is offered as 'not married', to confirm", fr?.value === "no" && fr.say === "not married");
   check("FR: the sentence is quoted beside the question", storyQuoteFor("married-to-other-party", FR) === FR);
-  for (const words of ["my ex girlfriend took me to court", "my ex-boyfriend wants custody", "my former partner moved away", "my ex common-law wife filed an application", "my ex bf stopped paying"]) {
+  for (const words of ["my ex girlfriend took me to court", "my ex-boyfriend wants custody", "my ex common-law wife filed an application", "my ex bf stopped paying"]) {
     check(`'${words}' offers not married`, storyAnswerFor("married-to-other-party", words) === "no");
   }
-  for (const words of ["my brother's ex girlfriend is helping me", "her ex-boyfriend lives with her now", "my new girlfriend helps with pickups", "she was never my girlfriend, just a friend", "my ex took me to court"]) {
+  for (const words of ["my brother's ex girlfriend is helping me", "her ex-boyfriend lives with her now", "my new girlfriend helps with pickups", "my former partner moved away", "my ex partner took me to court", "she was never my girlfriend, just a friend", "my ex took me to court"]) {
     check(`'${words}' offers nothing`, storyAnswerFor("married-to-other-party", words) === null);
   }
+  // A bare "partner" is said by married people too (review of 70b717b).
+  check("'my former partner and I were married 10 years' offers Yes, never 'not married'", storyAnswerFor("married-to-other-party", "my former partner and I were married 10 years") === "yes");
+  check("'my ex common-law partner' still offers not married", storyAnswerFor("married-to-other-party", "my ex common-law partner took me to court") === "no");
   check("contradictory words still offer nothing", storyAnswerFor("married-to-other-party", "my ex gf, well my ex-wife really") === null);
   check("no suggestion without a plain answer", storySuggestionFor("married-to-other-party", "he stopped paying support in may") === null);
   const triage = readFileSync(path.resolve(process.cwd(), "app/builder/_components/FamilyStatusTriage.tsx"), "utf8");

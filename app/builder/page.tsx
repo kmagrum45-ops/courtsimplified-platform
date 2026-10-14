@@ -61,7 +61,7 @@ import {
   MOTION_TO_CHANGE_START_SAY,
   TEMPORARY_MOTION_FOLD_LABEL,
   motionToChangeLead,
-  motionToChangeStartRule,
+  motionToChangeStartRules,
   routeShown,
   stageFromMotionAnswer,
   stageQuestionWaits,
@@ -1294,7 +1294,7 @@ function BuilderPageContent() {
       : "") || "";
   const offerRespondingDraft = respondingSide && respondingDocumentStillDue(respondingStep);
   // The motion-to-change route confirmed, or the reading not yet answered.
-  const motionToChangeStart = motionToChangeStartRule();
+  const motionToChangeStart = motionToChangeStartRules();
   const motionRouteKind = motionLead ? (motionChoice === null ? motionLead.kind : (routeShown(motionLead, motionChoice)?.kind ?? null)) : null;
   // The moving party on a motion to change: its starting document is Form 15
   // (r. 15 (5)), not the original case's (walkthrough run 38525903567, FM).
@@ -2219,12 +2219,14 @@ function BuilderPageContent() {
                 // brought. No Form 15 draft exists yet, so none is offered.
                 <div className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="motion-to-change-start">
                   <p>{MOTION_TO_CHANGE_START_SAY}</p>
-                  <p className="mt-1 text-xs">
-                    <a href={officialUrl(motionToChangeStart)} target="_blank" rel="noreferrer" className="underline">
-                      {sourceName(motionToChangeStart)}
-                    </a>
-                    , {motionToChangeStart.pinpoint}: &ldquo;{motionToChangeStart.quote}&rdquo;
-                  </p>
+                  {motionToChangeStart.map((rule) => (
+                    <p key={rule.pinpoint} className="mt-1 text-xs">
+                      <a href={officialUrl(rule)} target="_blank" rel="noreferrer" className="underline">
+                        {sourceName(rule)}
+                      </a>
+                      , {rule.pinpoint}: &ldquo;{rule.quote}&rdquo;
+                    </p>
+                  ))}
                 </div>
               ) : null}
               {respondingSide && !originatingDocumentFiled ? (

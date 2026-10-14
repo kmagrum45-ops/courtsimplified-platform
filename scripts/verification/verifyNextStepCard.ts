@@ -789,6 +789,21 @@ async function main() {
       if (!leads && !card.mipNote) leadMisses += 1;
     }
     check("the information program leads exactly when the words show a change beyond support, and is folded with its note otherwise", leadMisses === 0, `misses ${leadMisses}`);
+    // Naming the children is not a parenting claim (review of 70b717b).
+    const kidsSupport = "i pay support for our kids, how do i get it lowered";
+    const kidsCard = cardLimits(change.nextStep as never, false, kidsSupport, "", "family:both:asking-to-change-final-order");
+    check(
+      "'i pay support for our kids': support only, the information program folded",
+      !changeBeyondSupport(kidsSupport) && ![...kidsCard.main.periods, ...kidsCard.main.deadlines].some((item) => isChangeMip(item as { id?: string })) && kidsCard.mipNote === MIP_SUPPORT_ONLY_CHANGE,
+    );
+    let termMisses = 0;
+    for (const words of ["custody of our son", "parenting time", "decision-making for my daughter", "access to the kids", "contact with my son", "she wants to relocate", "she wants to move with the kids"]) {
+      if (!familyClaimsIn(words).parenting) termMisses += 1;
+    }
+    for (const words of ["our kids", "my daughter", "support for my son and daughter", "our children are 9 and 11"]) {
+      if (familyClaimsIn(words).parenting) termMisses += 1;
+    }
+    check("parenting is read only from a parenting term, never from naming the children", termMisses === 0, `misses ${termMisses}`);
     // Served with the motion: the note speaks of "the motion", not "your motion".
     check("served with the motion: the note says 'the motion'", !/\byour motion\b/.test(changeMipNoteFor("i got a motion to change about child support", true).say));
     check(

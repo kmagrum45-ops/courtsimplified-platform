@@ -416,6 +416,8 @@ console.log("\nThe moving party on a motion to change (walkthrough run 385259035
   check("a person on the responding side did not, on the asking step either", !servesPapersFor(ASK, Q, "family", true));
   check("an answer making the motion the other side's means they did not serve it", !servesPapersFor(ASK, Q, "family", false, { answer: "yes", readingKind: "if-served" }) && !servesPapersFor(ASK, Q, "family", false, { answer: "other", readingKind: "asking" }));
   check("an answer confirming their own motion keeps it theirs", servesPapersFor(ASK, Q, "family", false, { answer: "yes", readingKind: "asking" }) && servesPapersFor(ASK, Q, "family", false, { answer: "other", readingKind: "if-served" }));
+  // Review of 70b717b: "Not sure" assumes neither side; the neutral question is asked.
+  check("'Not sure' to the reading: not treated as the mover", !servesPapersFor(ASK, Q, "family", false, { answer: "not-sure", readingKind: "asking" }) && !servesPapersFor(ASK, Q, "family", false, { answer: "not-sure", readingKind: "if-served" }));
   check("no other question or court is affected", !servesPapersFor(ASK, "case-date-automatic-order-issued", "family") && !servesPapersFor(ASK, Q, "civil"));
   // Property over every way: the serving side's ways are the same ways, rules and days; only the words change.
   for (const questionId of [Q, "case-date-served-with-application", ""]) {

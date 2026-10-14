@@ -804,7 +804,15 @@ console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, 
     /const stage = stageFromMotionAnswer\(motionLead, choice\);\s*if \(stage && !confirmedStage\) \{[\s\S]{0,500}saveConfirmedStage\(id, stage\)/.test(builder),
   );
   check("the recorded stage shows the answer it came from, with Change", /`Yes: \$\{motionStageBasis\}`/.test(builder));
-  check("the walkthrough answers the reading before the stage", /motion-to-change-yes/.test(read("tests/browser/walkthrough.spec.ts")));
+  const harness = read("tests/browser/walkthrough.spec.ts");
+  check(
+    "the walkthrough answers the reading by its kind and the persona's side, then goes on to the stage",
+    /data-kind=\{lead\.kind\}/.test(read("app/builder/_components/MotionToChangeRoute.tsx")) &&
+      /getAttribute\("data-kind"\)/.test(harness) &&
+      /side === persona\.role\) await page\.getByTestId\("motion-to-change-yes"\)/.test(harness) &&
+      /motion-to-change-not-sure/.test(harness) &&
+      !/persona\.confirmStage === "motion" && \(await motionYes/.test(harness),
+  );
   // 5: the chat answers "how do i get it lowered".
   const closing = chatClosingFor(FM, true);
   check("FM: the chat's closing answers how to change the order, in the route line", Boolean(closing?.say.includes(MOTION_TO_CHANGE_LINE)));
@@ -829,9 +837,18 @@ console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, 
     ["no children", "we have no kids together"],
     ["a question", "what happens to our son if she moves"],
     ["an age given (the whole sentence is offered instead)", "our daughter is 6 and lives with me"],
+    // Review of 70b717b: each of these was filled in wrongly.
+    ["a girlfriend, not a girl", "my girl friend took me to court"],
+    ["'my boy' with no count", "me and my boy went to the park"],
+    ["two kinds of child named", "our daughter and my son from before live with me"],
+    ["a child from a first marriage", "my son from my first marriage lives with me"],
+    ["a child from another relationship", "my daughter from another relationship visits"],
+    ["a boyfriend", "my boy friend says she lied"],
   ] as const) {
     check(`nothing filled in: ${why}`, childrenPartialFromStory(words) === null);
   }
+  check("a child 'from my ex' is still the case's child", childrenPartialFromStory("my son from my ex lives with me")?.prefill.trim() === "One son.");
+  check("'our two girls' is filled in with its count", childrenPartialFromStory("our two girls live with me")?.prefill.trim() === "Two girls.");
   const childrenField = familyGuidedFields({ issues: [], filed: [] }).find((field) => field.key === "childrenInfo");
   check("the children question reads the partial answer from the story", Boolean(childrenField?.partialFromStory) && childrenField?.partialFromStory?.({ facts: FR })?.prefill.trim() === "One daughter.");
 }

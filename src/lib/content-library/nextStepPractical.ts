@@ -1070,7 +1070,9 @@ export type FamilyClaims = { known: boolean; parenting: boolean; support: boolea
 
 export function familyClaimsIn(words: string): FamilyClaims {
   const text = proseOf(words).toLowerCase();
-  const parenting = /\b(?:decision-making|parenting|custody|access|relocat\w*|move (?:away |to \w+ )?with (?:her|him|them|the kids?|the children|my (?:son|daughter|kids?|children))|contact with|my (?:son|daughter|daugter|kids?|children)|our (?:son|daughter|daugter|kids?|children))\b/.test(text);
+  // A parenting claim needs a parenting term; naming the children is not one
+  // ("i pay support for our kids, how do i get it lowered": review of 70b717b).
+  const parenting = /\b(?:decision-making|parenting|custody|access|relocat\w*|move (?:away |to \w+ )?with (?:her|him|them|the kids?|the children|my (?:son|daughter|kids?|children)|our (?:son|daughter|kids?|children))|contact with)\b/.test(text);
   const support = /\b(?:child-support|spousal-support|support|suport|child support|spousal support|alimony)\b/.test(text);
   const property = /\b(?:property-division|property|equaliz\w*|net family|pension|assets?|house we (?:own|bought))\b/.test(text);
   const home = /\b(?:matrimonial-home|matrimonial home|exclusive possession)\b/.test(text);

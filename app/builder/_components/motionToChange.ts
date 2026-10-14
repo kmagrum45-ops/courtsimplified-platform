@@ -64,11 +64,15 @@ export const MOTION_TO_CHANGE_LINE =
  * exists yet, so the line says so instead of offering one.
  */
 export const MOTION_TO_CHANGE_START_SAY =
-  "A motion to change is started with a motion to change (Form 15), and what you have recorded does not show one filed. A working draft of Form 15 is not offered here yet. The official form is under \u201cCheck official forms\u201d.";
+  "A motion to change is started with a motion to change (Form 15), unless you, the other party and any assignee all agree to the change: then it is a consent motion to change (Form 15C), or Form 15D if only child support is changing. What you have recorded does not show one filed. A working draft of Form 15 is not offered here yet. The official form is under \u201cCheck official forms\u201d.";
 
-/** r. 15 (5), the rule MOTION_TO_CHANGE_START_SAY restates, from the stage map; null if it cannot be found (then nothing is shown). */
-export function motionToChangeStartRule(): RuleCitation | null {
-  return quotes(MOTION_TO_CHANGE_STEP, ["r. 15 (5)"])?.[0] ?? null;
+/**
+ * r. 15 (5), which is "Subject to subrules (17) and (18)", and those two, the
+ * rules MOTION_TO_CHANGE_START_SAY restates, from the stage map; null if any
+ * cannot be found (then nothing is shown).
+ */
+export function motionToChangeStartRules(): RuleCitation[] | null {
+  return quotes(MOTION_TO_CHANGE_STEP, ["r. 15 (5)", "r. 15 (17)", "r. 15 (18)"]);
 }
 
 /** Restates r. 15 (9) and (10). */

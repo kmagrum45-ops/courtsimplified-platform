@@ -252,14 +252,27 @@ const COUNT_WORDS: Record<string, number> = { one: 1, two: 2, three: 3, four: 4,
 const NUMBER_WORDS = ["", "one", "two", "three", "four", "five", "six"];
 const OWN_CHILD = new RegExp(
   "\\b(?:our|my)\\s+(?:(one|two|three|four|five|six|[1-6])\\s+)?(?:(?:little|baby|young|youngest|oldest|eldest|only)\\s+)?" +
-    "(daughters?|daugh?ters?|daugters?|sons?|kids?|children|childs?|boys?|girls?)\\b(?!['’]s\\b)(?!\\s+(?:of|from)\\s+(?:her|his|their)\\b)",
+    "(daughters?|daugh?ters?|daugters?|sons?|kids?|children|childs?|boys?|girls?)\\b(?!\\s*friend)(?!['’]s\\b)" +
+    // "my son from my first marriage", "her daughter from before": a child of another relationship (review of 70b717b).
+    "(?!\\s+(?:of|from)\\s+(?:her|his|their|before|(?:my |a |an |her |his |our )?(?:first|last|previous|old|former|other|another|earlier|past|prior)\\b))",
   "i",
 );
 
 export type PartialStoryAnswer = { prefill: string; question: string; quote: string };
 
+/** Every kind of child the story names ("our daughter and my son": two kinds). */
+const CHILD_KINDS: [string, RegExp][] = [
+  ["daughter", /\bdaugh?t?ers?\b|\bdaugters?\b/i],
+  ["son", /\bsons?\b/i],
+  ["child", /\b(?:kids?|children|child)\b/i],
+  ["boy", /\bboys?\b(?!\s*friend)/i],
+  ["girl", /\bgirls?\b(?!\s*friend)/i],
+];
+
 export function childrenPartialFromStory(story: string): PartialStoryAnswer | null {
   if (childrenFromStory(story)) return null;
+  // More than one kind of child named: not filled in, the whole question is asked (review of 70b717b).
+  if (CHILD_KINDS.filter(([, pattern]) => pattern.test(story)).length > 1) return null;
   for (const sentence of sentences(story)) {
     if (/\b(?:no|not any|don'?t have any|never had)\s+(?:kids|children)\b/i.test(sentence)) return null;
     const match = plainMatch(sentence, OWN_CHILD);
@@ -270,6 +283,8 @@ export function childrenPartialFromStory(story: string): PartialStoryAnswer | nu
     const plural = noun === "children" || /s$/.test(noun);
     const count = match[1] ? COUNT_WORDS[match[1].toLowerCase()] : plural ? null : 1;
     const kind = /^daug/.test(noun) ? "daughter" : /^son/.test(noun) ? "son" : /^boy/.test(noun) ? "boy" : /^girl/.test(noun) ? "girl" : "child";
+    // "me and my boy" is not plainly a child of the case: boy or girl only with a count ("our two girls").
+    if ((kind === "boy" || kind === "girl") && !match[1]) return null;
     if (count === 1) {
       const pronoun = kind === "daughter" || kind === "girl" ? "she" : kind === "son" || kind === "boy" ? "he" : "they";
       const question = pronoun === "they" ? "How old are they, and who do they live with now?" : `How old is ${pronoun}, and who does ${pronoun} live with now?`;

@@ -10,10 +10,12 @@
  * FR: "my ex gf took me to court" was followed by "Were you and the other
  * person married to each other?"). Only "my ex ..." or "my former ...": "her
  * ex-boyfriend", "my brother's ex girlfriend" and "my new girlfriend" are
- * someone else, not the other party.
+ * someone else, not the other party. A bare "partner" is not here: married
+ * people say it too ("my former partner and I were married 10 years"; review
+ * of 70b717b). Only a common-law partner is named as unmarried.
  */
 const EX_PARTNER =
-  "\\bmy (?:ex[- ]?|former )(?:gf|bf|girl ?friend|boy ?friend|common[- ]law (?:partner|wife|husband|spouse)|partner)\\b";
+  "\\bmy (?:ex[- ]?|former )(?:gf|bf|girl ?friend|boy ?friend|common[- ]law (?:partner|wife|husband|spouse))\\b";
 
 /**
  * What the user already wrote that bears on a question, quoted so they can
@@ -50,7 +52,8 @@ const STORY_ANSWERS: Record<string, { yes?: RegExp; no?: RegExp }> = {
   "married-to-other-party": {
     no: new RegExp(`\\b(?:never (?:got |been )?married|(?:were|was)n'?t married|(?:were|are) not married|not married to (?:him|her|each other)|common[- ]law)\\b|${EX_PARTNER}`, "i"),
     // "we got married", not "my ex got married again" (someone else's marriage).
-    yes: /\b(?:(?:we|(?:him|her) and i|i and (?:him|her)|(?:my )?(?:husband|wife) and i) got married|i got married to (?:him|her)|(?:we were|we're|we are) married|married (?:him|her) in|my (?:husband|wife|ex-?husband|ex-?wife)\b)/i,
+    // "my former partner and I were married 10 years" (review of 70b717b).
+    yes: /\b(?:\w+ and i (?:were|got) married|(?:we|(?:him|her) and i|i and (?:him|her)|(?:my )?(?:husband|wife) and i) got married|i got married to (?:him|her)|(?:we were|we're|we are) married|married (?:him|her) in|my (?:husband|wife|ex-?husband|ex-?wife)\b)/i,
   },
   "child-together": {
     yes: /\b(?:our (?:(?:two|three|four|2|3|4|little|youngest|oldest) )?(?:son|daughter|sons|daughters|kids?|child(?:ren)?|baby|boys|girls)|my (?:son|daughter)'?s? (?:father|mother|dad|mom))\b/i,

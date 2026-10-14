@@ -319,6 +319,8 @@ export function servesPapersFor(stageId: string, questionId: string, court: Serv
   if (court !== "family" || questionId !== MOTION_TO_CHANGE_SERVICE_QUESTION) return false;
   if (receivesPapersStep(stageId, responding)) return false;
   if (motion) {
+    // "Not sure": neither side's wording is assumed; the neutral question is asked (review of 70b717b).
+    if (motion.answer === "not-sure") return false;
     const route = motion.answer === "yes" ? motion.readingKind : motion.answer === "other" ? (motion.readingKind === "asking" ? "if-served" : "asking") : null;
     if (route && route !== "asking") return false;
   }
