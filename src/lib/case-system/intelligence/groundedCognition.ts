@@ -37,6 +37,7 @@
  * Asserted by `npm run test:grounded-analysis`.
  */
 
+import { isMapOwnedProcedure } from "../procedureOwnership";
 import { CLAIM_TYPES, DEFENCE_CONCEPTS, type ClaimType } from "../intake/claimTypes";
 import { MIN_QUOTE_CHARS, normalizeQuoteText, quoteAppearsIn } from "./quoteMatch";
 import { CIVIL_CLAIM_TYPES } from "../intake/civilClaimTypes";
@@ -549,20 +550,26 @@ export function verifyGroundedCognition<T extends AnyRecord>(
     },
   );
 
-  // Risks are legal statements, always.
+  // Risks are legal statements, always. One that states a step, form or
+  // deadline is the stage map's to say (CLAUDE.md s. 2a), not the model's.
   out.litigationRisks = (Array.isArray(model.litigationRisks) ? model.litigationRisks : []).flatMap((risk: AnyRecord) => {
     const text = `${str(risk.title)}: ${str(risk.explanation)} ${str(risk.suggestedFix)}`;
+    if (isMapOwnedProcedure(text)) {
+      drop("risk", text, "states a step, form or deadline; those come from the stage map");
+      return [];
+    }
     const source = legal("risk", risk, text);
     return source ? [{ ...risk, sourceUrl: source.sourceUrl }] : [];
   });
 
-  // Forms are legal statements, always.
-  out.formRecommendations = (Array.isArray(model.formRecommendations) ? model.formRecommendations : []).flatMap(
-    (form: AnyRecord) => {
-      const source = legal("form", form, `${str(form.title)}: ${str(form.reason)}`);
-      return source ? [{ ...form, sourceUrl: source.sourceUrl }] : [];
-    },
-  );
+  // Forms come only from the stage map (CLAUDE.md s. 2a, 2026-10-14): the
+  // step panel lists each step's forms from content-library/nextStepPractical.ts.
+  // A model-picked form is never shown, even with a supporting quote: a real
+  // form for the wrong step is exactly the error the map exists to prevent.
+  for (const form of Array.isArray(model.formRecommendations) ? model.formRecommendations : []) {
+    drop("form", `${str((form as AnyRecord).title)}: ${str((form as AnyRecord).reason)}`, "forms come from the stage map");
+  }
+  out.formRecommendations = [];
 
   // Next actions: practical steps with no legal content may stand as they
   // are; anything about law or procedure needs a verified citation.
@@ -572,7 +579,10 @@ export function verifyGroundedCognition<T extends AnyRecord>(
     const text = str(item.text);
     if (!text) continue;
     const cited = Array.isArray(item.sourceIds) && item.sourceIds.length > 0;
-    if (cited || hasLegalContent(text)) {
+    if (isMapOwnedProcedure(text)) {
+      // The next court step, its form and deadline are the stage map's (s. 2a).
+      drop("nextBestActions", text, "states a step, form or deadline; those come from the stage map");
+    } else if (cited || hasLegalContent(text)) {
       // A cited step keeps its link when the citation checks out. An uncited
       // step with legal content, or a citation that fails, is removed.
       const source = legal("nextBestActions", item, text);

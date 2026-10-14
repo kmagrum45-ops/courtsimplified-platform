@@ -365,6 +365,8 @@ export default function HomeLocationGate() {
               <CaseUnderstandingCard
                 result={understood}
                 chosenPath={path}
+                story={facts}
+                city={city}
                 updating={checking}
                 onAnswer={(answers) => void updateWithAnswers(answers)}
                 onContinue={(chosen, answers) => goToIntake(chosen, [...understoodAnswers.filter((old) => !answers.some((item) => item.question === old.question)), ...answers])}
