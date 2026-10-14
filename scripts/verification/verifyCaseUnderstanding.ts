@@ -47,6 +47,8 @@ function check(name: string, ok: boolean, detail = "") {
   else {
     failures += 1;
     console.log(`FAIL  ${name}${detail ? `\n      ${detail}` : ""}`);
+    // Shown on the pull request's checks page, where the job log may not be readable.
+    if (process.env.GITHUB_ACTIONS) console.log(`::error title=test:case-understanding::${name}${detail ? `: ${detail.replace(/\n/g, " ").slice(0, 400)}` : ""}`);
   }
 }
 
@@ -167,6 +169,7 @@ async function main() {
     !isMapOwnedProcedure("A claim must be started within two years after the day it was discovered.") &&
       !isMapOwnedProcedure("The Small Claims Court hears claims up to $50,000."),
   );
+  check("a fact about what someone did is not an instruction", !isMapOwnedProcedure("She did not file a defence, and you had her noted in default."));
   check("withoutLaw removes a due date the old filter missed", withoutLaw("You were served. Your defence is due 20 days after service.") === "You were served.");
   const realStep = parsed!.understanding.step;
   check("a real step of the chosen court is kept", realStep === "plaintiff:defence-period-expired-no-defence", String(realStep));

@@ -30,9 +30,17 @@ const FORM_NUMBER = /\bforms?\s+\d+(?:\.\d+)?[A-Z]?\b/i;
 const DAY_PERIOD =
   /\b(?:within|in|no later than)\s+(?:\d+|one|two|three|four|five|six|seven|ten|fourteen|fifteen|twenty|thirty|sixty|ninety)\s+(?:calendar\s+|business\s+)?(?:days?|weeks?)\b|\b(?:\d+|ten|fourteen|fifteen|twenty|thirty|sixty|ninety)\s+(?:calendar\s+|business\s+)?(?:days?|weeks?)\s+(?:after|from|of|before|following)\b/i;
 
-/** An instruction to take a court step: "file your Defence", "serve the claim", "deliver a statement of defence". */
-const STEP_INSTRUCTION =
-  /\b(?:you\s+(?:must|need to|should|have to|will need to|can now|may now)\s+)?(?:file|serve|deliver|issue)\s+(?:a|an|your|the|their)\s+(?:statement of\s+)?(?:defen[cs]e|claim|plaintiff'?s claim|defendant'?s claim|form|motion|notice|affidavit|answer|application|reply|request|record)\b/i;
+/**
+ * An instruction to take a court step: "You must file your Defence", "Serve
+ * the claim on ...". Only as an instruction to the reader (an imperative
+ * starting the sentence, or "you must / need to / should ..."): "she did not
+ * file a defence" is the person's own fact and stays (test:case-understanding).
+ */
+const STEP_VERB = String.raw`(?:file|serve|deliver|issue)\s+(?:a|an|your|the|their|this|that)\s+(?:statement of\s+)?(?:defen[cs]e|claim|plaintiff'?s claim|defendant'?s claim|form|motion|notice|affidavit|answer|application|reply|request|record)\b`;
+const STEP_INSTRUCTION = new RegExp(
+  String.raw`(?:^|[.;:!?]\s+)` + STEP_VERB + String.raw`|\byou\s+(?:must|need to|should|have to|will need to|will have to|can now|may now|are required to)\s+(?:\w+\s+){0,2}?` + STEP_VERB,
+  "i",
+);
 
 /** "Your next step is ...", "the next step is to ...". */
 const NEXT_STEP = /\b(?:your|the)\s+next\s+step\b/i;
