@@ -552,7 +552,20 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
   const byWho: [string, string, boolean, MotionToChangeLead["kind"] | null][] = [
     // Their own motion (review 2026-10-14): served by them, not on them.
     ["the person served their ex", "We have a support order. I served my ex with a motion to change last month and he hasn't answered.", false, "asking"],
-    ["the person served him", "We have a support order. I served him and he got served with the motion to change on Monday.", false, "asking"],
+    // "he got served" is not the person; whose motion it is is not said plainly.
+    ["the person served him", "We have a support order. I served him and he got served with the motion to change on Monday.", false, null],
+    ["the person filed their own motion", "We have a support order. I filed my motion to change last week.", false, "asking"],
+    // Responding to theirs is never "you bring a motion to change" (review 2026-10-14).
+    ["filed a response to his", "We have a support order. I filed my response to his motion to change last week.", false, "responding"],
+    ["filed a response to the motion", "We have a support order. I filed a response to the motion to change.", false, "responding"],
+    ["filed a 15B response", "We have a support order. We filed our Form 15B response to her motion to change.", false, "responding"],
+    ["an affidavit in reply", "We have a support order. I filed an affidavit in reply to his motion to change.", false, "responding"],
+    ["served a response after getting hers", "We have a support order. I served my response on her lawyer after getting her motion to change.", false, "responding"],
+    ["reading the one he served", "We have a support order. I started reading the motion to change he served.", false, "responding"],
+    ["took the one he sent to a lawyer", "We have a support order. I brought the motion to change he sent me to a lawyer.", false, "responding"],
+    // Strong wordings read past "form" and "package" when the other side gave it.
+    ["served the form", "We have a support order. He served me the motion to change form on Friday.", false, "responding"],
+    ["a package from his lawyer", "We have a support order. I got the motion to change package from his lawyer.", false, "responding"],
     // Someone else served, or blank forms, kits and drafts: never "you were served".
     ["the person's sister served", "We have a support order. My sister got served with a motion to change.", false, null],
     ["a blank form, and an own ask", "We have a support order. I got a motion to change form from the court website and want to lower the support.", false, "asking"],

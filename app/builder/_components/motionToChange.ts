@@ -84,9 +84,16 @@ const OWN_ASK: RegExp[] = [
   new RegExp(`\\bhow (?:do|can|could|would|should) (?:i|we)\\b${NOT_OTHER}{0,20}(?:\\b${CHANGE_VERB}\\s+${OBJECT}\\b|\\bget ${OBJECT}\\s+${CHANGED}\\b)`, "i"),
   // "i cant keep paying", "I can't afford the support"
   new RegExp(`${ME}${NOT_OTHER}{0,15}\\b(?:can'?t|cannot|can not) (?:keep (?:up|paying)|afford (?:to pay|the (?:support|payments?)|it))\\b`, "i"),
-  // Their own motion: "I served him with the motion to change", "my lawyer sent
-  // me a draft motion to change" (review 2026-10-14).
-  /\b(?:i|we) (?:served|filed|brought|started|issued)\b[^.!?\n]{0,50}\bmotion to change\b/i,
+  // Their own motion: "I served my ex with a motion to change", "I filed my
+  // motion to change", "my lawyer sent me a draft motion to change". The
+  // motion is the verb's direct object: nothing between them but whom it was
+  // served on and a/my/our/the, so "I filed my response to his motion to
+  // change" and "I brought the motion to change he sent me to a lawyer" are
+  // not theirs (review 2026-10-14).
+  new RegExp(
+    `\\b(?:i|we) (?:served|filed|brought|issued)\\s+(?:(?:him|her|them|my ex(?:-?(?:wife|husband|partner))?|the other (?:parent|party))\\s+(?:with\\s+)?)?(?:a |my |our |the )?(?:own )?motion to change\\b(?!\\s+(?:that\\s+)?(?:he|she|they|my ex)\\s+(?:served|sent|gave|filed|brought))`,
+    "i",
+  ),
   /\b(?:my|our) (?:own |draft )?motion to change\b|\bdraft motion to change\b/i,
 ];
 
@@ -104,17 +111,36 @@ const SERVED_STRONG: RegExp[] = [
   /\b(?:served me|served on me|served upon me|served us|i was served|i got served|i've been served|i have been served|we were served|we got served|we've been served)\b[^.!?\n]{0,40}\bmotion to change\b/i,
   /\bmotion to change\b[^.!?\n]{0,40}\b(?:served (?:on |upon )?(?:me|us)|i was served|i got served|we were served|we got served|i've been served|i have been served)\b/i,
   new RegExp(`${OTHER}[^.!?\\n]{0,30}\\b(?:served me|served us|filed|brought|started)\\b[^.!?\\n]{0,20}\\bmotion to change\\b`, "i"),
+  // Responding to theirs: "I filed my response to his motion to change", "We
+  // filed our Form 15B response to her motion to change", "I filed an
+  // affidavit in reply to his motion to change" (review 2026-10-14).
+  /\b(?:i|we)\b[^.!?\n]{0,30}\b(?:response|reply|answer|affidavit|15B)\b[^.!?\n]{0,30}\b(?:his|her|their|the|my ex'?s) motion to change\b/i,
+  // "the motion to change he served", "the motion to change he sent me"
+  /\bmotion to change (?:that )?(?:he|she|they|my ex) (?:served|sent|gave|mailed|delivered)\b/i,
+  // "I served my response on her lawyer after getting her motion to change"
+  /\b(?:getting|receiving|being served with|after i got) (?:his|her|their|my ex'?s) motion to change\b/i,
 ];
-/** Receiving one: weaker, so an own ask in the same sentence beats it. */
-const SERVED_WEAK: RegExp[] = [
-  // "I got a motion to change in the mail from her lawyer"
-  /\b(?:i|we) (?:got|received|was given|were given|was handed|were handed)\b[^.!?\n]{0,20}\bmotion to change\b/i,
-  // "The process server gave me a motion to change": only from the other side
-  // or a process server, never "my lawyer" or "the clerk".
+/**
+ * Receiving one: weaker, so an own ask in the same sentence beats it. Given
+ * by the other side (they, their lawyer, a process server): their papers,
+ * even called a form or package. Received with no giver named: not a blank
+ * form, kit, package or template ("I got a motion to change form from the
+ * court website").
+ */
+const SERVED_FROM_OTHER_SIDE: RegExp[] = [
+  // "I got the motion to change package from his lawyer"
+  new RegExp(`\\b(?:i|we) (?:got|received|was given|were given|was handed|were handed)\\b[^.!?\\n]{0,20}\\bmotion to change\\b[^.!?\\n]{0,40}\\bfrom (?:${OTHER}|(?:a |the )?process server\\b|(?:her|his|their) lawyer\\b)`, "i"),
+  // "The process server gave me a motion to change": never "my lawyer" or "the clerk".
   new RegExp(`(?:${OTHER}|\\bprocess server\\b|\\b(?:her|his|their|the other (?:side|party)'?s?) lawyer\\b)[^.!?\\n]{0,30}\\b(?:gave|handed|sent|mailed|delivered|brought) (?:me|us)\\b[^.!?\\n]{0,20}\\bmotion to change\\b`, "i"),
 ];
-/** A blank form, kit, package or template, or a draft or one's own: not papers served. */
-const NOT_SERVED_PAPERS = /\b(?:(?:draft|blank|my|our)\s+)motion to change\b|\bmotion to change\s+(?:forms?|kit|package|template|blank)\b/gi;
+const SERVED_RECEIVED: RegExp[] = [
+  // "I got a motion to change in the mail"
+  /\b(?:i|we) (?:got|received|was given|were given|was handed|were handed)\b[^.!?\n]{0,20}\bmotion to change\b/i,
+];
+/** A draft, a blank one or one's own: never papers served, whoever is named. */
+const OWN_OR_DRAFT_PAPERS = /\b(?:draft|blank|my|our)\s+motion to change\b/gi;
+/** A form, kit, package or template: not papers served unless the other side gave it (weak wordings only). */
+const BLANK_PAPERS = /\bmotion to change\s+(?:forms?|kit|package|template|blank)\b/gi;
 
 /** Urgency or a temporary order: the rule 14 card stays (interim relief is a rule 14 motion). */
 const TEMPORARY_OR_URGENT = /\b(?:temporary|interim|urgent|urgently|emergency|right away|immediately|asap|before the hearing|in the meantime)\b/i;
@@ -152,9 +178,14 @@ export function otherSideAsksToChange(story: string): boolean {
 
 export function servedWithMotionToChange(story: string): boolean {
   return sentencesOf(story).some((sentence) => {
-    const papers = sentence.replace(NOT_SERVED_PAPERS, "a document");
-    if (SERVED_STRONG.some((pattern) => pattern.test(papers))) return true;
-    return SERVED_WEAK.some((pattern) => pattern.test(papers)) && !ownAsk(sentence);
+    // "He served me the motion to change form" is served: the form filter
+    // applies only to the weaker wordings (review 2026-10-14).
+    const notOwn = sentence.replace(OWN_OR_DRAFT_PAPERS, "a document");
+    if (SERVED_STRONG.some((pattern) => pattern.test(notOwn))) return true;
+    if (ownAsk(sentence)) return false;
+    if (SERVED_FROM_OTHER_SIDE.some((pattern) => pattern.test(notOwn))) return true;
+    const papers = notOwn.replace(BLANK_PAPERS, "a document");
+    return SERVED_RECEIVED.some((pattern) => pattern.test(papers));
   });
 }
 
