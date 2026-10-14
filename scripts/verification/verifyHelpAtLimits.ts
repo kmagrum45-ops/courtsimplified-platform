@@ -17,6 +17,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { REFERRAL_RESOURCES } from "../../src/lib/content-library/referralResources";
+import { formsStageNote } from "../../src/lib/content-library/forms/caseFormOrder";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 let failures = 0;
@@ -30,7 +31,6 @@ const LIMITS: { file: string; says: RegExp }[] = [
   { file: "app/cases/[id]/layout.tsx", says: /could not be loaded just now/ },
   { file: "app/cases/[id]/layout.tsx", says: /This case could not be opened/ },
   { file: "app/forms/FormsWorkspace.tsx", says: /We can match forms to your answers here only/ },
-  { file: "app/forms/FormsWorkspace.tsx", says: /No form-routing rules cover/ },
   { file: "app/builder/_components/StageAnswerPanel.tsx", says: /Your next step/ },
 ];
 
@@ -38,6 +38,23 @@ for (const limit of LIMITS) {
   const text = readFileSync(path.join(ROOT, limit.file), "utf8");
   check(`${limit.file}: "${limit.says.source}" is still said there`, limit.says.test(text));
   check(`${limit.file}: offers help (<GetHelp>)`, /<GetHelp\b/.test(text));
+}
+
+/*
+ * The Forms tab's "no routing rules" note now comes from formsStageNote
+ * (walkthrough run 38525903567, SJ: it said "could not match forms" while
+ * listing forms for the step). The property, not the file's wording: every
+ * note that admits a limit carries a help line, and the tab renders it.
+ */
+{
+  const admits: string[] = [];
+  for (const support of [{ supported: false, reason: "no-rules-for-stage", stage: "trial" }, { supported: false, reason: "no-stage-supplied" }]) {
+    const note = formsStageNote(support, 0);
+    if (!note || !note.help) admits.push(support.reason);
+  }
+  check("the Forms tab's limit notes each carry a help line", admits.length === 0, admits.join(", "));
+  const workspace = readFileSync(path.join(ROOT, "app/forms/FormsWorkspace.tsx"), "utf8");
+  check("and the Forms tab offers help beside them (<GetHelp ... why={stageNote.help} />)", /stageNote\?\.help \? <GetHelp\b[^>]*why=\{stageNote\.help\}/.test(workspace));
 }
 
 const component = readFileSync(path.join(ROOT, "app/_components/GetHelp.tsx"), "utf8");

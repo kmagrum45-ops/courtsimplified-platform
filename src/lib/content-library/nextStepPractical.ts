@@ -29,6 +29,7 @@ import type { RuleCitation } from "../case-system/stage-map/citations";
 import { R_15_01_MOTION_FORM, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
 import { COURT_LOCATIONS, COURT_LOCATIONS_RETRIEVED_AT, OCJ_COURTHOUSES, OCJ_SOURCE } from "./courts/courtLocations";
 import { addDays, dayOfWeek, formatLongDate, holidayFor } from "../case-system/deadlines/holidays";
+import { COURT_SERVICE_NOTICES } from "../case-system/deadlines/courtServiceNotices";
 
 export type PracticalCourt = "small-claims" | "civil" | "family";
 
@@ -97,6 +98,8 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   "divorce-act": "2026-09-30",
   // The passed-notice check (s. 89 (2)) and the card's own limit sources.
   "legislation-act-2006": "2026-09-27",
+  // The garnishee lines (walkthrough run 38525903567, SJ).
+  "guide-after-judgment": "2026-09-27",
 };
 
 // ---------------------------------------------------------------- fees
@@ -110,6 +113,12 @@ const FEE_LIST: Fee[] = [
   { id: "sc-defendants-claim", court: "small-claims", amount: 108, label: "Filing a defendant's claim", cite: sc("s. 1 (2), para. 3", "On the filing of a defendant’s claim, $108.") },
   { id: "sc-motion", court: "small-claims", amount: 127, label: "Filing a motion (paid by the person bringing it)", cite: sc("s. 1 (2), para. 4", "On the filing of a notice of motion served on another party, a notice of motion without notice or a notice of motion for a consent order (except a notice of motion under the Wages Act), $127.") },
   { id: "sc-defence", court: "small-claims", amount: 77, label: "Filing a defence", cite: sc("s. 1 (2), para. 5", "On the filing of a defence, $77.") },
+  /*
+   * On a defence step (walkthrough run 38525903567, SD: a homeowner who wants
+   * the contractor to pay for the repairs read about a Defendant's Claim, Form
+   * 10A, but never its fee). Only if they make one: the label says so.
+   */
+  { id: "sc-defendants-claim-if", court: "small-claims", amount: 108, label: "Only if you also make a defendant's claim (Form 10A)", cite: sc("s. 1 (2), para. 3", "On the filing of a defendant’s claim, $108.") },
   { id: "sc-trial", court: "small-claims", amount: 308, label: "Setting a trial or assessment hearing date (most people)", cite: sc("s. 1 (2), para. 6", "For the fixing of a date for a trial or an assessment hearing by an infrequent claimant, $308.") },
   { id: "sc-default", court: "small-claims", amount: 94, label: "Asking for default judgment (most people)", cite: sc("s. 1 (2), para. 8", "For the filing of a request for default judgment by an infrequent claimant, $94.") },
   { id: "sc-summons", court: "small-claims", amount: 33, label: "Issuing a summons to a witness", cite: sc("s. 1 (2), para. 10", "On the issue of a summons to a witness, $33.") },
@@ -324,18 +333,166 @@ export const FILING: Record<PracticalCourt, FilingLines> = {
       },
     ],
   },
+  /*
+   * Walkthrough run 38525903567 (senior-lawyer review): "file online through
+   * the Justice Services Online portal" was backed only by "Use the Justice
+   * Services Online portal for matters outside of Toronto.", a sentence under
+   * the page's heading about paying fees. The sentence that says documents
+   * are FILED online through these portals opens the same list; it is quoted
+   * with each line now.
+   */
   family: {
     toronto: {
       say: "In the Toronto region, file online through the Ontario Courts Public Portal.",
-      cite: cite("ontario-fees-family", "Paying family court fees online", "Use the Ontario Courts Public Portal for matters in the Toronto region."),
+      cite: cite(
+        "ontario-fees-family",
+        "Paying family court fees online",
+        "Starting October 14, 2025, there are different online portals to file court documents online depending on the region or level of court you are filing in. Use the Ontario Courts Public Portal for matters in the Toronto region.",
+      ),
     },
     elsewhere: {
       say: "Outside Toronto, file online through the Justice Services Online portal.",
-      cite: cite("ontario-fees-family", "Paying family court fees online", "Use the Justice Services Online portal for matters outside of Toronto."),
+      cite: cite(
+        "ontario-fees-family",
+        "Paying family court fees online",
+        "Starting October 14, 2025, there are different online portals to file court documents online depending on the region or level of court you are filing in. ... Use the Justice Services Online portal for matters outside of Toronto.",
+      ),
     },
     more: [],
   },
 };
+
+// ---------------------------------------------------------------- a deadline too close to file online
+
+/*
+ * Walkthrough run 38525903567 (SD, senior-lawyer review 2026-10-14): on
+ * Wednesday 14 October a defendant whose counted last day was Monday 19
+ * October was told "Outside Toronto, file online", beside the page's own
+ * quote that a deadline "3 business days or less away" cannot be filed
+ * online. The two lines were never joined to the counted date.
+ *
+ * HOW "AWAY" IS COUNTED. The saved guide's own example (outside Toronto):
+ * "if your court date is on Tuesday, February 9 , you cannot submit documents
+ * online after Wednesday, February 3". From Wednesday 3 February the business
+ * days up to and including Tuesday 9 February are Thu 4, Fri 5, Mon 8, Tue 9:
+ * four, so filing online is still open; from Thursday 4 they are three, and it
+ * is closed. So a deadline is N business days away when N business days fall
+ * after today, up to and including the deadline itself. test:next-step-practical
+ * checks this reading against the guide's example, worked from the calendar.
+ * (The Toronto paragraph's example, "after Monday, February 1", does not fit
+ * any count of business days and is not used.)
+ *
+ * WHICH DAYS ARE BUSINESS DAYS. Neither guide defines the term. A court office
+ * is closed on a Saturday, a Sunday, every holiday either calendar names
+ * (holidays.ts: r. 1.02 adds Saturday and Civic Holiday, the Legislation Act
+ * substitutes Christmas differently -- the two-calendar trap in
+ * ACCURACY_ENGINE.md), and the days the ministry announces closures
+ * (courtServiceNotices.ts: 30 September, filed online "on the next business
+ * day"). A day any of those calls closed is not a business day. That makes
+ * the count smaller, never larger, so the card can only warn early, never late.
+ */
+export function isCourtBusinessDay(date: string): boolean {
+  const dow = dayOfWeek(date);
+  if (dow === 0 || dow === 6) return false;
+  if (holidayFor(date, "small-claims-rules") || holidayFor(date, "legislation-act")) return false;
+  return !COURT_SERVICE_NOTICES.some((notice) => notice.closedOn === date);
+}
+
+/** Business days after `today`, up to and including `deadline` (0 when the deadline is today or has passed). */
+export function businessDaysAway(today: string, deadline: string): number {
+  let count = 0;
+  for (let day = addDays(today, 1), guard = 0; day <= deadline && guard < 4000; day = addDays(day, 1), guard += 1) {
+    if (isCourtBusinessDay(day)) count += 1;
+  }
+  return count;
+}
+
+/** The online portals refuse a deadline 3 business days away or less (both saved guides); a passed one too. */
+export function tooCloseToFileOnline(today: string, deadline: string): boolean {
+  return deadline < today || businessDaysAway(today, deadline) <= 3;
+}
+
+const SC_TOO_CLOSE_CITE = cite(
+  "ontario-file-small-claims-online",
+  "Documents you cannot file online",
+  "if you need to meet a deadline established by legislation or other court rules, court practice direction or a court order that is 3 business days or less away ... If you cannot submit your documents online, you may file them: in person at the courthouse by mail by email",
+);
+const CIVIL_TOO_CLOSE_CITE = cite(
+  "ontario-file-civil-claim-online",
+  "Documents you can file online",
+  "if you need to meet a deadline established by legislation or other court rules, court practice direction or a court order that is 3 business days or fewer away",
+);
+
+/**
+ * The filing line for a deadline too close to file online, in place of the
+ * portal lines. Small Claims lists only the ways its guide names (in person,
+ * mail, email); the civil guide names none, so the civil line says to ask
+ * the court office. Family's saved pages state no business-day limit: null.
+ */
+export function tooCloseFilingLine(court: PracticalCourt, today: string, deadline: string): PlainLine | null {
+  if (court === "family" || !tooCloseToFileOnline(today, deadline)) return null;
+  const passed = deadline < today;
+  const when = passed
+    ? `The last day counted for this, ${formatLongDate(deadline)}, has passed, so do not file online for it`
+    : `Your last day, ${formatLongDate(deadline)}, is 3 business days away or ${court === "civil" ? "fewer" : "less"}, so you cannot file online for it`;
+  return court === "small-claims"
+    ? { say: `${when}. File it in person at the courthouse, by mail or by email instead.`, cite: SC_TOO_CLOSE_CITE }
+    : { say: `${when}. The court office can tell you how to file it instead.`, cite: CIVIL_TOO_CLOSE_CITE };
+}
+
+/*
+ * Serving by mail near the deadline (same review). r. 8.07 (2): mail counts
+ * only on the fifth day after mailing; r. 8.07.1 (2): a courier, the fifth day
+ * after it confirms delivery. A defence mailed four days before the last day
+ * is served after it. The card says so with the dates, and names the ways the
+ * same rule (r. 8.01 (14)) allows that count sooner: email (r. 8.08 (4)) and in
+ * person (r. 8.02 (a)). What the rules provide, never which to choose.
+ */
+export const SC_MAIL_RULE = scrCite(
+  "r. 8.07 (2)",
+  "Service of a document by mail is deemed to be effective on the fifth day following the date of mailing.",
+);
+export const SC_COURIER_RULE = scrCite(
+  "r. 8.07.1 (2)",
+  "Service of a document sent by courier is deemed to be effective on the fifth day following the date on which the courier verifies to the sender that the document was delivered.",
+);
+export const SC_SOONER_WAYS: PlainLine[] = [
+  {
+    say: "By email, service counts on the day the email is sent, or the next day if it is sent between 4 p.m. and midnight. It goes to the last email address the other side or their representative gave.",
+    cite: scrCite(
+      "r. 8.08 (1) (a), (4)",
+      "the last email address provided by the person to be served or the person's representative or, if no email address is provided, to the person's or representative's last known email address ... Service of a document by email is deemed to be effective, (a) on the day the email is sent; or (b) if the email is sent between 4 p.m. and midnight, on the following day.",
+    ),
+  },
+  {
+    say: "In person, you leave a copy with the person.",
+    cite: scrCite("r. 8.02 (a)", "on an individual, other than a person under disability, by leaving a copy of the document with him or her"),
+  },
+];
+function scrCite(pinpoint: string, quote: string): RuleCitation {
+  return cite("oreg-258-98-small-claims-rules", pinpoint, quote);
+}
+
+/**
+ * The mail warning for a Small Claims step served the ordinary way, with a
+ * counted last day still to come; empty otherwise. The first line gives the
+ * dates: mailed today, the fifth day after; the last day it can be mailed to
+ * count in time (five days before the last day).
+ */
+export function mailTimingLines(today: string, deadline: string): PlainLine[] {
+  if (deadline < today) return [];
+  const countsOn = addDays(today, 5);
+  const lastMailing = addDays(deadline, -5);
+  const late = countsOn > deadline;
+  const say = late
+    ? `Mail is too slow for this: service by mail counts only on the fifth day after mailing. Mailed today, ${formatLongDate(today)}, it would count on ${formatLongDate(countsOn)}, after your last day, ${formatLongDate(deadline)}.`
+    : `Service by mail counts only on the fifth day after mailing. To count by your last day, ${formatLongDate(deadline)}, it must be mailed no later than ${lastMailing === today ? "today, " : ""}${formatLongDate(lastMailing)}.`;
+  return [
+    { say, cite: SC_MAIL_RULE },
+    { say: "A courier is the same: service counts on the fifth day after the courier confirms delivery.", cite: SC_COURIER_RULE },
+    ...SC_SOONER_WAYS,
+  ];
+}
 
 /** The City of Toronto, including the former cities it absorbed; anything else is outside the Toronto region. */
 export function inTorontoRegion(city: string): boolean | null {
@@ -614,6 +771,69 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
   },
 };
 
+// ---------------------------------------------------------------- an employer named only vaguely
+
+/*
+ * Walkthrough run 38525903567 (SJ, senior-lawyer review): "he works at a car
+ * dealership in kanata i think" -- the card led with the six-year leave limit
+ * and never used it. A notice of garnishment is directed to a NAMED garnishee,
+ * so an employer known only as "a car dealership, I think" is not yet one the
+ * affidavit can name; and the rules' own way to find out where a debtor works
+ * is to examine him. Both are set out as what the rules provide, side by side;
+ * the card never says which to choose, and never says whether anything will be
+ * collected (CLAUDE.md s. 3, s. 4).
+ */
+const judgmentGuide = (pinpoint: string, quote: string) => cite("guide-after-judgment", pinpoint, quote);
+export const GARNISHEE_NOT_NAMED: PlainLine[] = [
+  {
+    say: "A notice of garnishment is directed to one named garnishee, such as an employer. The affidavit for enforcement request (Form 20P) you file for it must give the garnishee's name and address.",
+    cite: scrCite(
+      "r. 20.08 (3) (a) (vi)",
+      "an affidavit for enforcement request (Form 20P) naming one debtor and one garnishee and stating, ... (vi) the name and address of the named garnishee to whom a notice of garnishment is to be directed,",
+    ),
+  },
+  {
+    say: "The court's guide says that to garnish wages you must know the employer's correct legal name and address.",
+    cite: judgmentGuide("Information needed to proceed", "If you are garnishing wages, you must know the correct legal name and address of the employer."),
+  },
+  {
+    say: "The rules also let you ask the clerk for a notice of examination (Form 20H). At an examination, the debtor can be asked about his income and property.",
+    cite: scrCite(
+      "r. 20.10 (1), (4) (b)",
+      "the clerk of a court in the territorial division in which the debtor or other person to be examined resides or carries on business shall, at the creditor's request, issue a notice of examination (Form 20H) directed to the debtor or other person. ... may be examined in relation to, (a) the reason for nonpayment; (b) the debtor's income and property;",
+    ),
+  },
+  {
+    say: "The court's guide says an examination may give you what you need to ask for a garnishment, such as where the debtor works or banks.",
+    cite: judgmentGuide(
+      "Examination Hearing",
+      "It may be that the creditor wants to enforce an order through garnishment and needs to know where the debtor works or banks. The examination may give the creditor the information needed to request a garnishment.",
+    ),
+  },
+];
+
+const WORKS_AT = /\b(?:works?|working|employed|job)\b[^.!?\n]*\b(?:at|for|in)\b/i;
+const HEDGED = /\b(?:i think|i believe|i guess|not sure|maybe|probably|somewhere|some kind of|i heard)\b/i;
+/** "at a car dealership", "for some company": a workplace named by its kind, not its name. */
+const UNNAMED_PLACE = /\b(?:works?|working|employed|job)\b[^.!?\n]*\b(?:at|for)\s+(?:a|an|some)\s+/i;
+
+/**
+ * The sentence of the person's story that names the debtor's work only
+ * vaguely (hedged, or a workplace given by its kind), or null. A named
+ * employer ("works at Kanata Toyota") is not vague.
+ */
+export function vagueEmployerSentence(story: string): string | null {
+  const sentences = proseOf(story).split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  return sentences.find((sentence) => WORKS_AT.test(sentence) && (HEDGED.test(sentence) || UNNAMED_PLACE.test(sentence))) ?? null;
+}
+
+/** The garnishee lines for a garnishment step whose story names the employer only vaguely; null otherwise. */
+export function garnisheeNotesFor(stepId: string, story: string): { quote: string; lines: PlainLine[] } | null {
+  if (STEP_PRACTICAL[stepId]?.serve !== "garnishment") return null;
+  const quote = vagueEmployerSentence(story);
+  return quote ? { quote, lines: GARNISHEE_NOT_NAMED } : null;
+}
+
 // ---------------------------------------------------------------- the steps
 
 const SC_ATTACH = scr(
@@ -824,8 +1044,8 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "plaintiff:judgment-in-my-favour-unpaid": { forms: ["20P", "20E", "20H", "20C", "20D", "20A", "20I", "20F", "20R"], fees: ["sc-garnishment", "sc-writ-exam"], files: true, serve: "garnishment", also: [SC_GARNISHMENT_PAID, SC_PERIODIC_ENFORCEMENT, SC_PERIODIC_DEFAULT, SC_PERIODIC_ENDS] },
   "plaintiff:action-dismissed-for-delay": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   // ---- Small Claims: defendant
-  "defendant:served-defence-period-running": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
-  "defendant:defence-period-expired-not-yet-noted": { forms: ["9A"], fees: ["sc-defence"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
+  "defendant:served-defence-period-running": { forms: ["9A"], fees: ["sc-defence", "sc-defendants-claim-if"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
+  "defendant:defence-period-expired-not-yet-noted": { forms: ["9A"], fees: ["sc-defence", "sc-defendants-claim-if"], files: true, serve: "ordinary", also: [SC_ATTACH_DEFENCE] },
   "defendant:noted-in-default": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "defendant:default-judgment-against-me": { forms: ["15A", "11.2A"], fees: ["sc-motion"], files: true, serve: "ordinary", also: [SC_HEARING_DATE] },
   "defendant:defence-filed": { forms: ["13A"], fees: [], files: true, serve: "ordinary", noFee: true },
@@ -1531,6 +1751,7 @@ export const MORE_CARD_LINES: PlainLine[] = [
   CLAIM_AFTER_NOTICE["small-claims"].start,
   CROWN_WAIT.only,
   CROWN_WAIT.among,
+  ...GARNISHEE_NOT_NAMED,
 ];
 
 // ---------------------------------------------------------------- what the card shows
@@ -1565,6 +1786,12 @@ export type PracticalView = {
    * Folded forms are not among them.
    */
   leadForms: LeadForm[];
+  /**
+   * A garnishment step whose story names the debtor's work only vaguely: the
+   * person's own sentence, and what the rules say about naming the garnishee
+   * and examining the debtor (garnisheeNotesFor). Null otherwise.
+   */
+  garnishee: { quote: string; lines: PlainLine[] } | null;
 };
 
 /**
@@ -1730,6 +1957,13 @@ export function practicalFor(
   story = "",
   /** The written-notice step the case's claim points to (claim-types/noticeStep.ts), if any. */
   noticeStepId = "",
+  /**
+   * The step's counted last day and Ontario's today, when the card knows them
+   * (walkthrough run 38525903567, SD): a deadline 3 business days away or less
+   * replaces the online-portal lines, and a Small Claims step served the
+   * ordinary way gets the mail timing lines.
+   */
+  timing: { deadline?: string; today?: string } = {},
 ): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
@@ -1760,6 +1994,9 @@ export function practicalFor(
     FAMILY_FORM_NEEDS[form.number] !== undefined &&
     !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
   const also = alsoFor(step.also ?? [], story, city);
+  const timed = Boolean(timing.deadline && timing.today && /^\d{4}-\d{2}-\d{2}$/.test(timing.deadline) && /^\d{4}-\d{2}-\d{2}$/.test(timing.today));
+  const tooClose = timed ? tooCloseFilingLine(court, timing.today!, timing.deadline!) : null;
+  const mailTiming = timed && court === "small-claims" && step.serve === "ordinary" ? mailTimingLines(timing.today!, timing.deadline!) : [];
   return {
     // On a responding step, Form 13 carries r. 13 (1) (b)'s condition beside it.
     forms: allForms
@@ -1795,11 +2032,24 @@ export function practicalFor(
               : [],
     feeWaiver: fees.length > 0 ? FEE_WAIVER : null,
     filing: step.files
-      ? [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]
+      ? tooClose
+        ? [tooClose]
+        : [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]
       : [],
-    serving: serviceLines.length > 0 ? [...serviceLines, SERVICE[court].proof] : [],
+    serving: serviceLines.length > 0 ? [...serviceLines, ...mailTiming, SERVICE[court].proof] : [],
     also,
+    garnishee: court === "small-claims" ? garnisheeNotesFor(stepId, story) : null,
   };
+}
+
+/**
+ * The counted last day the card's filing and service lines are timed
+ * against: the earliest of the step's counted days (the person's entered
+ * dates, or the day counted from the day the papers reached them). Empty
+ * when nothing is counted.
+ */
+export function filingDeadlineOf(dates: readonly string[]): string {
+  return dates.filter((date) => /^\d{4}-\d{2}-\d{2}$/.test(date)).sort()[0] ?? "";
 }
 
 // ---------------------------------------------------------------- limits of acting alone

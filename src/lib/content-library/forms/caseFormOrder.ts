@@ -34,3 +34,34 @@ export function leadFormsFirst<T>(items: readonly T[], numberOf: (item: T) => st
     })
     .map((entry) => entry.item);
 }
+
+/**
+ * What the Forms tab says about matching forms to the case (walkthrough run
+ * 38525903567, SJ: an enforcement case read "We could not match forms to
+ * where your case is" while the catalogue below marked nine forms "For your
+ * step"). When the step's own forms are recorded, the note says so and points
+ * to them; the "no routing rules" note and the "could not match" help line
+ * are for a case with none. Never says no form applies.
+ */
+export type StageSupportNote = { note: string; help: string | null };
+export function formsStageNote(
+  stageSupport: { supported: boolean; reason?: string; stage?: string } | null,
+  leadCount: number,
+): StageSupportNote | null {
+  if (!stageSupport || stageSupport.supported) return null;
+  if (leadCount > 0) {
+    return {
+      note:
+        `The forms your next step takes are listed first below, marked as for your step (${leadCount}). ` +
+        "The questions further down match forms only when you are starting a case or responding to one, and every official form is listed for you to browse.",
+      help: null,
+    };
+  }
+  return {
+    note:
+      stageSupport.reason === "no-stage-supplied"
+        ? "No stage is recorded for this case yet, so no form-routing rules have been checked. Recording where the case is up to in Intake will let this list be checked."
+        : `No form-routing rules cover the "${stageSupport.stage}" stage yet. That is a gap in our routing data, not a finding that no forms apply to you — the full official catalogue below is still available to browse.`,
+    help: "We could not match forms to where your case is, so these services can help you choose.",
+  };
+}

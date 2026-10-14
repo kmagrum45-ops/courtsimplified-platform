@@ -790,6 +790,11 @@ export type AppliedLawItem = {
   /** The provision's own words. */
   text: string;
   sourceUrl: string;
+  /**
+   * The day the source's text was saved and checked, YYYY-MM-DD (CLAUDE.md
+   * s. 2; walkthrough run 38525903567: "What we looked into" showed none).
+   */
+  checkedOn?: string;
   /** "decision" for a court's reasons, which are shown with their own caution. */
   kind?: "legislation" | "guidance" | "decision";
   /**

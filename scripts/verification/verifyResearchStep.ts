@@ -20,6 +20,7 @@
  *   - The story reaching the reading call or the embeddings (only the
  *     issue-spotting call may see it).
  *   - A model call without structured output, unaudited, or undeclared.
+ *   - (walkthrough run 38525903567) a passage shown with no checked date.
  *
  * COSTS NOTHING: the model calls and embeddings are stubs; the built index is
  * read from disk.
@@ -39,6 +40,7 @@ import {
   type ResearchIssue,
 } from "../../src/lib/case-system/retrieval/researchStory";
 import { researchStepEnabled } from "../../src/lib/content-library/phaseScope";
+import { checkedOnForPassage, sourceDisplayFor } from "../../src/lib/content-library/sourceDisplay";
 import { namedNumbers, namedProvisions, namedSource } from "../../src/lib/case-system/retrieval/namedProvisions";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
@@ -258,6 +260,19 @@ function finish() {
   check("declared as a model call site", read("scripts/verification/verifyOutputGuard.ts").includes('"src/lib/case-system/retrieval/researchStory.ts"'));
   const brain = read("src/lib/case-system/intelligence/courtSimplifiedBrain.ts");
   check("the analysis uses the research step when it is on", /researchStepEnabled\(\)/.test(brain) && /researchStory\(/.test(brain));
+
+  // Walkthrough run 38525903567: "What we looked into" passages showed no
+  // checked date (CLAUDE.md s. 2). Every source the search can return has one,
+  // the view carries it, and the panel shows it (old saved results too).
+  console.log("\n6. Every passage shown carries its source's checked date");
+  const index = JSON.parse(read("docs/sources/retrieval/corpus-index.json")) as { sources: Record<string, unknown>; chunks: [string, string][] };
+  const undated = Object.keys(index.sources).filter((id) => !/^\d{4}-\d{2}-\d{2}$/.test(sourceDisplayFor(id)?.checkedOn ?? ""));
+  check(`every source in the search index has a checked date (${Object.keys(index.sources).length} sources)`, undated.length === 0, undated.slice(0, 8).join(", "));
+  const unreadable = index.chunks.filter(([id]) => !checkedOnForPassage(id)).map(([id]) => id);
+  check(`every passage id resolves to its source's date (${index.chunks.length} passages)`, unreadable.length === 0, unreadable.slice(0, 5).join(", "));
+  check("the findings view carries the date", /checkedOn = sourceDisplayFor\(passage\.sourceId\)\?\.checkedOn/.test(read("src/lib/case-system/retrieval/findingsView.ts")));
+  const panel = read("app/_components/ResearchPanel.tsx");
+  check("the panel shows 'checked <date>' beside each passage, falling back to the passage id", /checked \{checkedOnShown\(provision\)\}/.test(panel) && /checkedOnForPassage\(provision\.id\)/.test(panel));
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }

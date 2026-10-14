@@ -24,6 +24,9 @@
  * (final re-check 2026-10-14) "first saw" read as the first copy; a company
  * defendant told "safest" or "your home"; the Small Claims company route by
  * courier counted from the mailing day.
+ * (walkthrough run 38525903567, SD) the company route offered to a person
+ * served (r. 8.03 (3) is service "on the corporation"); a date with no year
+ * explained as "its most recent year" instead of the day counted.
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -34,7 +37,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
-import { arrivalNoteFor, arrivalOnlyDates, countedFromService, firstCopyQuote, latestFromArrival, offerStoryDate, receivesPapersStep } from "../../app/builder/_components/StageAnswerPanel";
+import { arrivalNoteFor, arrivalOnlyDates, countedFromService, firstCopyQuote, latestFromArrival, offerStoryDate, receivesPapersStep, servedOnFor, yearAssumedWords } from "../../app/builder/_components/StageAnswerPanel";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import { DEADLINE_EVENTS } from "../../src/lib/case-system/deadlines/deadlineEvents";
 import { addDays as addDaysIso } from "../../src/lib/case-system/deadlines/holidays";
@@ -298,7 +301,7 @@ console.log("\nA claim or application is not served by regular mail (legal revie
     );
   }
   check("the card never says whether service was valid", !/\b(?:valid|invalid|improperly served|not properly served)\b/i.test(panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "")));
-  check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /serviceRulesFor\(serviceCourt, question\.id\)\.map\(/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));
+  check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /serviceRulesFor\(serviceCourt, question\.id(?:, [^)]*\))?\)\.map\(/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));
 }
 
 console.log("\nThe 'no later than' date: only papers that may be served by mail, only for the person who received them (legal review 2026-10-14)");
@@ -372,6 +375,52 @@ console.log("\nA Small Claims fifth day on a closed day says what the rules say,
   check("mailed Mon Sept 28: the fifth day is Saturday Oct 3, flagged to confirm", weekend.date === "2026-10-03" && Boolean(weekend.confirm));
   check("the note quotes r. 3.01, and the quote is the saved rule", /r\. 3\.01/.test(weekend.confirm ?? "") && corpus["small-claims"].includes(flat(SC_R3_01_LAST_DAY.quote)));
   check("the note never claims the rules are silent", assertsAbsenceProblems(weekend.confirm ?? "").length === 0 && assertsAbsenceProblems(smallClaimsFifthDayOnClosedDay("Sunday")).length === 0, weekend.confirm);
+}
+
+console.log("\nThe company route only for a company; the year said plainly (walkthrough run 38525903567, SD)");
+{
+  // r. 8.03 (3) / 16.03 (6) is service "on the corporation": a person served is
+  // never offered it; a company, or a route already chosen, keeps it; unknown keeps every way.
+  const homeowner = "a contractor did my bathroom reno and now hes suing me in small claims for 7500 he says i owe. i got the plaintiffs claim in the mail on september 28";
+  const offeredWrong: string[] = [];
+  for (const court of Object.keys(ORIGINATING_QUESTIONS) as ServiceCourt[]) {
+    for (const questionId of ORIGINATING_QUESTIONS[court]) {
+      const person = serviceRulesFor(court, questionId, servedOnFor(homeowner)).map((rule) => rule.method);
+      const company = serviceRulesFor(court, questionId, servedOnFor("a supplier sued my company")).map((rule) => rule.method);
+      const chosen = serviceRulesFor(court, questionId, servedOnFor(homeowner, "corporation-mail")).map((rule) => rule.method);
+      const all = serviceRulesFor(court, questionId).map((rule) => rule.method);
+      const companyWays = ORIGINATING_METHODS[court].filter((method) => COMPANY_ROUTE.has(method));
+      if (person.some((method) => COMPANY_ROUTE.has(method))) offeredWrong.push(`${court} ${questionId}: company route offered to a person`);
+      if (!companyWays.every((method) => company.includes(method) && chosen.includes(method) && all.includes(method))) offeredWrong.push(`${court} ${questionId}: company route lost`);
+      if (person.length !== all.length - companyWays.length) offeredWrong.push(`${court} ${questionId}: a person lost a way that is not the company route`);
+      const postPerson = postWaysForClaim(court, servedOnFor(homeowner)).map((way) => way.label);
+      if (companyWays.some((method) => postPerson.includes(SERVICE_RULES[court].find((rule) => rule.method === method)!.label))) offeredWrong.push(`${court}: company way among a person's ways by post`);
+    }
+  }
+  check("a person is never offered the company route; a company, a chosen route or no words keep it", offeredWrong.length === 0, offeredWrong.join("; "));
+  const sd = arrivalNoteFor(
+    [{ id: "sc-date-claim-served" }],
+    { "sc-date-claim-served": "i got the plaintiffs claim in the mail on september 28" },
+    {},
+    "small-claims",
+    {},
+    "mail",
+    { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote: "i got the plaintiffs claim in the mail on september 28", value: "2026-09-28", yearAssumed: true } }, storyText: homeowner },
+    "2026-10-14",
+  );
+  check(
+    "SD: the arrival note's ways by post leave out the company route",
+    Boolean(sd) && sd!.postWays.length > 0 && !sd!.postWays.some((way) => /company/i.test(way.label)),
+    sd?.postWays.map((way) => way.label).join(" | "),
+  );
+  check(
+    "a date with no year says plainly which day was counted, with its year",
+    Boolean(sd) && sd!.yearAssumed && yearAssumedWords(sd!.arrivedOn).includes("Monday 28 September 2026") && !/most recent year/.test(yearAssumedWords(sd!.arrivedOn)),
+    sd ? yearAssumedWords(sd.arrivedOn) : "",
+  );
+  const panel = readFileSync(path.join(ROOT, "app", "builder", "_components", "StageAnswerPanel.tsx"), "utf8");
+  check("the panel's select offers only the ways for who was served", /serviceRulesFor\(serviceCourt, question\.id, servedOnFor\(/.test(panel));
+  check("the panel no longer says 'counting that day in its most recent year'", !/"[^"\n]*most recent year[^"\n]*"/.test(panel.replace(/^\s*(?:\*|\/\/).*$/gm, "")) && (panel.match(/yearAssumedWords\(arrival\.arrivedOn\)/g) ?? []).length === 2);
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

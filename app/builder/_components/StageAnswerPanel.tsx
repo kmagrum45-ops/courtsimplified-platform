@@ -46,6 +46,7 @@ import {
   noticeStepTitle,
   noticesNarrowed,
   practicalFor,
+  filingDeadlineOf,
   todayInOntario,
   type PlainLine,
   type PracticalCourt,
@@ -74,7 +75,10 @@ type RenderedAnswer = {
   stageId: string;
   question: string;
   sections: { heading: string; text: string }[];
-  sources: { name: string; pinpoint: string; url: string }[];
+  /** `checkedOn`: the day the source's text was saved and checked (walkthrough run 38525903567: no list showed one). */
+  sources: { name: string; pinpoint: string; url: string; checkedOn?: string }[];
+  /** The rule itself beside a sentence proved from a guide (sentenceRules.ts). */
+  sentenceRules?: { sentence: string; rules: (RuleCitation & { checkedOn?: string })[] }[];
   status: string;
   release: { runId: string; promotedAt: string };
 };
@@ -86,6 +90,8 @@ type LimitSource = {
   consequence?: "bars-the-claim" | "changes-what-happens-next";
   notABar?: RuleCitation[];
   statutory?: boolean;
+  /** A point after which the court's leave is needed (r. 20.08 (2.1)), not a time to act. */
+  threshold?: boolean;
   /** Sentences of the deadline that say when service counts, each with the subrule it restates. */
   servedWhen?: PlainLine[];
   /** Set by limitForSide for the person responding: the limit's note in their words, and the rules the wording relies on. */
@@ -188,6 +194,30 @@ function LimitRule({ rule }: { rule?: RuleCitation }) {
   );
 }
 
+/**
+ * The rule itself beside a sentence the answer proved from a guide
+ * (walkthrough run 38525903567, SJ: "serve the notice at least 30 days before
+ * the hearing" showed no source). Each rule quoted, with its checked date.
+ */
+function SentenceRulesBox({ entries }: { entries: NonNullable<RenderedAnswer["sentenceRules"]> }) {
+  if (entries.length === 0) return null;
+  return (
+    <div data-testid="stage-answer-sentence-rules" className="mt-2 rounded-xl border border-[#d8e6df] bg-[#f8fcfa] px-3 py-2 text-sm leading-6 text-[#2b4640]">
+      <p className="font-semibold text-[#16302b]">The rules for these sentences</p>
+      <ul className="mt-1 space-y-2">
+        {entries.map((entry) => (
+          <li key={entry.sentence}>
+            {entry.sentence}
+            {entry.rules.map((rule) => (
+              <QuotedRule key={rule.pinpoint} rule={rule} />
+            ))}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 /** A rule's source line, with its words folded underneath unless they are already shown. */
 function QuotedRule({ rule, quote = true }: { rule: RuleCitation; quote?: boolean }) {
   const saved = SOURCE_SAVED_ON[rule.sourceId];
@@ -246,6 +276,8 @@ export type ArrivalNote = {
   quote: string;
   /** The story gave no year for the arrival day, so the dates assume the most recent one. */
   yearAssumed: boolean;
+  /** The arrival day the dates were counted from (YYYY-MM-DD), or "" when none was read. */
+  arrivedOn: string;
   /**
    * "claim": the papers are a claim or an application, which the rules do not
    * let be served by regular mail (Small Claims r. 8.01 (1), civil r. 16.01 (1),
@@ -356,6 +388,45 @@ export function passedBars(kept: Pick<NextStepSummary, "deadlines">, today: stri
 }
 
 /**
+ * Who the papers were served on, for the ways offered (walkthrough run
+ * 38525903567, SD: the company route was offered to a homeowner). A company
+ * when the person's words make one the party, or the company route was
+ * already chosen; otherwise a person. Exported for test:service-dates.
+ */
+export function servedOnFor(words: string, chosen?: ServiceMethod): { company: boolean } {
+  return { company: companyIsTheParty(words) || Boolean(chosen && COMPANY_ROUTE.has(chosen)) };
+}
+
+/**
+ * The words after a date counted from a month and day with no year
+ * (walkthrough run 38525903567: "(counting that day in its most recent year)"
+ * read as unclear). Says plainly which day was used. Exported for test:service-dates.
+ */
+export function yearAssumedWords(arrivedOn: string): string {
+  return /^\d{4}-\d{2}-\d{2}$/.test(arrivedOn)
+    ? ` (you did not say which year, so we counted from ${formatLongDate(arrivedOn)})`
+    : " (you did not say which year, so we counted from the most recent one)";
+}
+
+/**
+ * The counted last day the card's filing and service lines are timed against
+ * (walkthrough run 38525903567, SD): the earliest of the card's own leading
+ * counted days and the days counted from the day the papers reached the
+ * person. Exported for test:next-step.
+ */
+export function cardFilingDeadline(
+  summary: Pick<NextStepSummary, "deadlines" | "periods">,
+  arrival: Pick<ArrivalNote, "safest" | "latest"> | null,
+  responding: boolean,
+  userWords: string,
+  city: string,
+  stepId: string,
+): string {
+  const { main } = cardLimits(summary, responding, userWords, city, stepId);
+  return filingDeadlineOf([...main.deadlines.map((item) => item.date), ...(arrival?.safest ?? []).map((item) => item.iso), ...(arrival?.latest ?? []).map((item) => item.iso)]);
+}
+
+/**
  * "Your next step", first (master plan Phase 2). The step, its deadline
  * counted from the person's dates (or the period and what it runs from), what
  * to do, and the forms -- the answer a lawyer gives first -- with the full
@@ -396,8 +467,10 @@ function NextStepCard({
   // Limits written from the moving party's side read as the person's own when they respond
   // (final re-check 2026-10-14: "The other party's time ..." for a respondent's own deadline).
   const summary = sideSummary(summaryAsGiven, responding);
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId);
   const today = todayIso();
+  // The counted last day the filing and service lines are timed against (walkthrough run 38525903567, SD).
+  const filingDeadline = cardFilingDeadline(summary, arrival, responding, userWords, city, stepId);
+  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId, { deadline: filingDeadline, today });
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   // The answer's first paragraph speaks of every notice the step covers; once
   // the notice filter has narrowed them, the card leaves it to the full
@@ -546,7 +619,7 @@ function NextStepCard({
                       ? "The safest date to act by, counted from the first day a copy reached your home: "
                       : "Counted from the day you gave: "}
                     {arrival.safest.map((entry) => `${entry.what}: ${entry.date}${entry.passed ? ". That date has already passed" : ""}`).join("; ")}
-                    {arrival.yearAssumed ? " (counting that day in its most recent year)" : ""}.
+                    {arrival.yearAssumed ? yearAssumedWords(arrival.arrivedOn) : ""}.
                   </span>{" "}
                   {arrival.company
                     ? "Count from the first day a copy reached your address: signed for there, left with someone there, or arrived in the mail. If a copy was left at your address earlier than the one you got in the mail, count from the day it was left. If it was mailed to the company, service is effective on the fifth day after mailing, which can be before it arrived. The mailing date is on the affidavit of service."
@@ -574,7 +647,7 @@ function NextStepCard({
                   They were mailed on or before the day they reached you. So if they came by regular mail, your last day is no later
                   than:{" "}
                   {arrival.latest.map((entry) => `${entry.what}: ${entry.date}${entry.passed ? ". That date has already passed" : ""}`).join("; ")}
-                  {arrival.yearAssumed ? " (counting that day in its most recent year)" : ""}. It may be earlier.
+                  {arrival.yearAssumed ? yearAssumedWords(arrival.arrivedOn) : ""}. It may be earlier.
                 </p>
               ) : null}
               <p className="mt-1">
@@ -626,9 +699,10 @@ function NextStepCard({
         </details>
       ) : null}
       {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
+      {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline} today={today} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the
@@ -661,6 +735,7 @@ function NextStepCard({
                 {source.name}
               </a>
               {source.pinpoint ? `, ${source.pinpoint}` : ""}
+              {source.checkedOn ? ` · checked ${source.checkedOn}` : ""}
             </span>
           ))}
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
@@ -754,6 +829,7 @@ function AnswerView({
             <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
               {text || "The first step is in \"Your next step\" above."}
             </p>
+            <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => text.includes(entry.sentence))} />
             {section.heading === "Your deadline" && servedWhen.some((line) => text.includes(line.say)) ? (
               // The rule beside each "when service counts" sentence above
               // (walkthrough run 38500825561, FR: the 4 p.m. sentence had none).
@@ -785,6 +861,7 @@ function AnswerView({
                   {source.name}
                 </a>
                 {source.pinpoint ? `, ${source.pinpoint}` : ""}
+                {source.checkedOn ? ` · checked ${source.checkedOn}` : ""}
               </li>
             ))}
           </ul>
@@ -854,7 +931,21 @@ export function sideSummary<T extends Pick<NextStepSummary, "deadlines" | "perio
   };
 }
 
-export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "") {
+/**
+ * A leave threshold leads the card only when it is near: counted, and on or
+ * before a year from today (passed included). Uncounted, or years away, it is
+ * folded under the limits that may apply later (walkthrough run 38525903567,
+ * SJ: an unpaid judgment from May led with the six-year leave limit, above
+ * what the person could do now). Exported for test:next-step.
+ */
+export function thresholdNear(item: { threshold?: boolean; date?: string }, today: string = todayIso()): boolean {
+  if (!item.threshold) return true;
+  if (!item.date || !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) return false;
+  const yearOut = `${Number(today.slice(0, 4)) + 1}${today.slice(4)}`;
+  return item.date <= yearOut;
+}
+
+export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "", today: string = todayIso()) {
   const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
   const ownSide = (what: string) =>
     (responding ? /\bresponding\b|\bthe other party\b|\brespondent\b/i : /\bbringing\b|\bmoving party\b|\bapplicant\b|\bmade the motion\b/i).test(what);
@@ -896,8 +987,8 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
    */
   const fitsClaims = (item: { id?: string; what: string }) => claimFit(item, story, stepId, responding) === "fits";
   const main = {
-    deadlines: [...deadlines].filter(fitsClaims).sort((a, b) => a.date.localeCompare(b.date)),
-    periods: [...periods].filter(fitsClaims).sort(byDue),
+    deadlines: [...deadlines].filter(fitsClaims).filter((item) => thresholdNear(item, today)).sort((a, b) => a.date.localeCompare(b.date)),
+    periods: [...periods].filter(fitsClaims).filter((item) => thresholdNear(item, today)).sort(byDue),
   };
   const conditional = {
     deadlines: keep(summary.deadlines).filter((item) => !main.deadlines.includes(item)),
@@ -978,6 +1069,7 @@ export function arrivalNoteFor(
   return {
     quote: arrival[question.id],
     yearAssumed: Boolean(hint?.yearAssumed),
+    arrivedOn,
     kind: claim ? "claim" : "sent",
     dateToEnter,
     rule: claim ? "" : (rule?.rule ?? ""),
@@ -985,7 +1077,7 @@ export function arrivalNoteFor(
     effectiveSay: rule ? whenEffectiveSay(rule) : `service is effective on a day set from ${dateToEnter}`,
     latest: !claim && bound && arrivedOn ? latestFromArrival(bound.stageId, question.id, court, method, arrivedOn, today, bound.responding) : [],
     claimRule: claim ? originatingRuleFor(court, question.id) : null,
-    postWays: claim ? postWaysForClaim(court) : [],
+    postWays: claim ? postWaysForClaim(court, { company }) : [],
     // Counted from the day they gave, never called the last day; called the
     // safest date only when their words say it is the FIRST copy to reach
     // the home (legal review 2026-10-14: the day the mailed copy arrived can
@@ -1664,7 +1756,7 @@ export default function StageAnswerPanel({
                         className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
                       >
                         <option value="">Choose how</option>
-                        {serviceRulesFor(serviceCourt, question.id).map((rule) => (
+                        {serviceRulesFor(serviceCourt, question.id, servedOnFor(storyText || userWords, serviceMethod[question.id])).map((rule) => (
                           <option key={rule.method} value={rule.method}>
                             {rule.label}
                           </option>

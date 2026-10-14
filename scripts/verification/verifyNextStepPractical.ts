@@ -43,6 +43,14 @@
  *     shown there without r. 13 (1) (b)'s condition (with "within your time
  *     to respond" on a motion to change); the claim form after a notice
  *     labelled "For your step".
+ *   - (walkthrough run 38525903567, SD) "file online" shown beside a counted
+ *     last day 3 business days away or less (counted as the guide's own
+ *     February example counts), or a too-close line naming a filing way the
+ *     guide does not; no warning that mail counts on the fifth day when the
+ *     last day is near; the defendant's claim fee missing from a defence step.
+ *     (SJ) an employer named only vaguely ("a car dealership ... i think")
+ *     with no word that the garnishee must be named, or of the examination
+ *     that is the rules' way to find out more; a line choosing or predicting.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -83,9 +91,19 @@ import {
   claimAfterNotice,
   CLAIM_AFTER_NOTICE,
   RESPONDING_VIEW,
+  SC_MAIL_RULE,
+  SC_SOONER_WAYS,
+  GARNISHEE_NOT_NAMED,
+  vagueEmployerSentence,
+  businessDaysAway,
+  isCourtBusinessDay,
+  mailTimingLines,
+  tooCloseFilingLine,
+  tooCloseToFileOnline,
 } from "../../src/lib/content-library/nextStepPractical";
+import { addDays, dayOfWeek, formatLongDate, holidayFor } from "../../src/lib/case-system/deadlines/holidays";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
-import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
+import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
 import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -210,6 +228,14 @@ for (const court of COURTS) {
       nowhere.includes(FILING[court].toronto) && nowhere.includes(FILING[court].elsewhere),
   );
 }
+// Walkthrough run 38525903567: "file online through the Justice Services
+// Online portal" was backed by a sentence about paying fees. A line that says
+// to file online must quote a sentence that speaks of filing online.
+const filesOnline = /\b(?:file|filings?)\b[^.]*\bonline\b|\bonline\b[^.]*\bfilings?\b/i;
+const unbacked = COURTS.flatMap((court) => [FILING[court].toronto, FILING[court].elsewhere])
+  .filter((line) => /\bfile online\b/i.test(line.say) && !line.cite.quote.split(/(?<=\.)\s+| \.\.\. /).some((sentence) => filesOnline.test(sentence)))
+  .map((line) => line.say);
+check("every 'file online' line quotes a sentence about filing online", unbacked.length === 0, unbacked.join(" | "));
 const served = steps.filter((stage) => STEP_PRACTICAL[stage.id]?.serve);
 const emptyService = served.filter((stage) => (practicalFor(stage.id, pathwayOf(stage) as PracticalCourt)?.serving.length ?? 0) < 2).map((stage) => stage.id);
 check("every step that serves a document shows how, and how to prove it", emptyService.length === 0, emptyService.join(", "));
@@ -660,6 +686,177 @@ console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (wal
   check("the Forms tab passes the step's lead forms to the catalogue", /<FormsWorkspace\b[^>]*leadForms=\{practical\?\.leadForms/.test(formsPage));
   check("and shows the step section for a notice step too (afterNotice)", /practical\.afterNotice\.length > 0/.test(formsPage));
   check("the catalogue orders what it shows with leadFormsFirst", /leadFormsFirst\(kept,/.test(workspace) && /return leadFormsFirst/.test(workspace));
+}
+
+console.log("\n10. A deadline too close to file online, and mail near the deadline (walkthrough run 38525903567, SD)");
+{
+  // The quotes these lines carry are in the saved text, word for word.
+  const timedLines: PlainLine[] = [
+    ...mailTimingLines("2026-10-14", "2026-10-19"),
+    tooCloseFilingLine("small-claims", "2026-10-14", "2026-10-19")!,
+    tooCloseFilingLine("civil", "2026-10-14", "2026-10-19")!,
+  ];
+  const absent = timedLines.flatMap((line) =>
+    line.cite.quote.split(" ... ").filter((run) => !(corpus.get(line.cite.sourceId) ?? "").includes(flat(run))).map((run) => `${line.cite.pinpoint}: ${run.slice(0, 60)}`),
+  );
+  check("every timing line's quote is in the saved text", absent.length === 0, absent.join("; "));
+  check("each timing line's source has its saved date", timedLines.every((line) => SOURCE_SAVED_ON[line.cite.sourceId] === savedOn.get(line.cite.sourceId)));
+
+  // How "away" is counted, worked from the guide's own example: outside
+  // Toronto, a court date on Tuesday February 9 cannot be met online after
+  // Wednesday February 3. Every year in which February 9 is a Tuesday must
+  // give exactly that: open on the 3rd, closed from the 4th.
+  const smallClaimsGuide = corpus.get("ontario-file-small-claims-online") ?? "";
+  check(
+    "the guide's example is in the saved text",
+    smallClaimsGuide.includes("if your court date is on Tuesday, February 9 , you cannot submit documents online after Wednesday, February 3"),
+  );
+  const tuesdays = Array.from({ length: 30 }, (_, index) => 2020 + index).filter((year) => dayOfWeek(`${year}-02-09`) === 2);
+  const exampleMisses = tuesdays.filter(
+    (year) => tooCloseToFileOnline(`${year}-02-03`, `${year}-02-09`) || !tooCloseToFileOnline(`${year}-02-04`, `${year}-02-09`),
+  );
+  check(`the count fits the guide's example in all ${tuesdays.length} such years`, tuesdays.length > 0 && exampleMisses.length === 0, exampleMisses.join(", "));
+
+  // A business day is never a weekend, a holiday in either calendar, or an announced closure.
+  const notBusiness: string[] = [];
+  for (let day = "2026-01-01"; day <= "2027-12-31"; day = addDays(day, 1)) {
+    const closed = dayOfWeek(day) === 0 || dayOfWeek(day) === 6 || holidayFor(day, "small-claims-rules") || holidayFor(day, "legislation-act");
+    if (closed && isCourtBusinessDay(day)) notBusiness.push(day);
+  }
+  check("no weekend or holiday (either calendar) is a business day, 2026-2027", notBusiness.length === 0, notBusiness.slice(0, 5).join(", "));
+  check("an announced court closure (30 September 2026) is not a business day", !isCourtBusinessDay("2026-09-30"));
+
+  // The SD case: Wednesday 14 October, last day Monday 19 October.
+  const sd = practicalFor("defendant:served-defence-period-running", "small-claims", "", true, "i got the plaintiffs claim in the mail on september 28", "", { deadline: "2026-10-19", today: "2026-10-14" });
+  const sdFiling = sd?.filing ?? [];
+  check(
+    "SD: 3 business days away -- no online-portal line, one line saying not to file online",
+    businessDaysAway("2026-10-14", "2026-10-19") === 3 &&
+      sdFiling.length === 1 &&
+      !sdFiling.some((line) => line === FILING["small-claims"].toronto || line === FILING["small-claims"].elsewhere) &&
+      /cannot file online/.test(sdFiling[0].say),
+    sdFiling.map((line) => line.say).join(" | "),
+  );
+  // Only the ways the guide names, each in its quote.
+  const ways = ["in person", "by mail", "by email"];
+  check(
+    "SD: the other ways named are exactly the guide's, and each is in its quote",
+    ways.every((way) => sdFiling[0]?.say.includes(way) && sdFiling[0].cite.quote.includes(way.replace("in person", "in person at the courthouse"))),
+  );
+
+  // A property over many pairs: too close (or passed) never shows a portal line; otherwise it does.
+  const portalWrong: string[] = [];
+  for (const court of ["small-claims", "civil"] as PracticalCourt[]) {
+    const stepId = steps.find((stage) => pathwayOf(stage) === court && STEP_PRACTICAL[stage.id]?.files)?.id ?? "";
+    for (let today = "2026-09-20"; today <= "2026-12-31"; today = addDays(today, 3)) {
+      for (const ahead of [-2, 0, 1, 2, 3, 4, 5, 6, 8, 12]) {
+        const deadline = addDays(today, ahead);
+        const filing = practicalFor(stepId, court, "Ottawa", false, "", "", { deadline, today })?.filing ?? [];
+        const portal = filing.includes(FILING[court].elsewhere);
+        const close = deadline < today || businessDaysAway(today, deadline) <= 3;
+        if (close === portal) portalWrong.push(`${court} ${today}->${deadline}`);
+      }
+    }
+  }
+  check("too close or passed: no portal line; otherwise the portal line (two courts, ~1000 date pairs)", portalWrong.length === 0, portalWrong.slice(0, 4).join("; "));
+  const familyFiling = practicalFor("family:respondent:served-time-to-answer-running", "family", "Ottawa", true, "", "", { deadline: "2026-10-15", today: "2026-10-14" })?.filing ?? [];
+  check("family: no saved business-day rule, so the family filing lines are unchanged", familyFiling.includes(FILING.family.elsewhere));
+  const untimed = practicalFor("defendant:served-defence-period-running", "small-claims", "Ottawa", true)?.filing ?? [];
+  check("no counted date: the portal lines are unchanged", untimed.includes(FILING["small-claims"].elsewhere));
+
+  // Mail near the deadline.
+  const sdServing = sd?.serving ?? [];
+  const mail = sdServing.find((line) => line.cite.pinpoint === "r. 8.07 (2)" && /fifth day/.test(line.say) && /last day/.test(line.say));
+  // 14 October + 5 = 19 October, the last day itself: today is the last day to mail it.
+  check(
+    "SD: the mail line says the fifth day rule and that today is the last day to mail it",
+    Boolean(mail) && mail!.say.includes(`no later than today, ${formatLongDate("2026-10-14")}`) && mail!.say.includes(formatLongDate("2026-10-19")),
+    mail?.say,
+  );
+  check(
+    "a day later, mail counts after the last day, with the dates",
+    /after your last day/.test(mailTimingLines("2026-10-15", "2026-10-19")[0]?.say ?? "") && (mailTimingLines("2026-10-15", "2026-10-19")[0]?.say ?? "").includes(formatLongDate("2026-10-20")),
+  );
+  check(
+    "SD: the sooner ways (email, in person) are shown, each with its rule",
+    SC_SOONER_WAYS.every((line) => sdServing.includes(line)) && sdServing.some((line) => line.cite.pinpoint === "r. 8.07.1 (2)"),
+  );
+  // Property: "after your last day" exactly when the fifth day after today is past the deadline; the last mailing day is five days before.
+  const mailWrong: string[] = [];
+  for (let today = "2026-10-01"; today <= "2026-11-30"; today = addDays(today, 1)) {
+    for (const ahead of [0, 3, 5, 6, 10, 20]) {
+      const deadline = addDays(today, ahead);
+      const first = mailTimingLines(today, deadline)[0];
+      const late = addDays(today, 5) > deadline;
+      if (!first || /after your last day/.test(first.say) !== late) mailWrong.push(`${today}->${deadline}`);
+      if (first && !late && !first.say.includes(formatLongDate(addDays(deadline, -5)))) mailWrong.push(`${today}->${deadline} last mailing day`);
+    }
+  }
+  check("mail timing: late exactly when mailed today counts after the last day (60 days x 6)", mailWrong.length === 0, mailWrong.slice(0, 4).join("; "));
+  check("a passed deadline gets no mail timing", mailTimingLines("2026-10-20", "2026-10-19").length === 0);
+  const mailOnly = (stepId: string, court: PracticalCourt) =>
+    (practicalFor(stepId, court, "Ottawa", false, "", "", { deadline: "2026-10-19", today: "2026-10-14" })?.serving ?? []).some((line) => line.cite === SC_MAIL_RULE && /fifth day/.test(line.say) && /last day/.test(line.say));
+  const wrongPlace = steps
+    .filter((stage) => mailOnly(stage.id, pathwayOf(stage) as PracticalCourt) !== (pathwayOf(stage) === "small-claims" && STEP_PRACTICAL[stage.id]?.serve === "ordinary"))
+    .map((stage) => stage.id);
+  check("mail timing only on Small Claims steps served the ordinary way", wrongPlace.length === 0, wrongPlace.slice(0, 5).join(", "));
+
+  // The defendant's claim fee, only if they make one (walkthrough run 38525903567, SD).
+  const sdFees = sd?.fees ?? [];
+  const dc = sdFees.find((fee) => /defendant's claim/i.test(fee.label));
+  check(
+    "SD: the defendant's claim fee is shown, conditional, with para. 3's amount",
+    Boolean(dc) && /^Only if\b/.test(dc!.label) && dc!.cite.pinpoint === "s. 1 (2), para. 3" && dc!.cite.quote.includes(`$${dc!.amount}`),
+    dc ? `${dc.label} $${dc.amount}` : "none",
+  );
+}
+
+console.log("\n9b. The Forms tab never says it could not match forms while it lists forms for the step (walkthrough run 38525903567, SJ)");
+{
+  const unsupported = [{ supported: false, reason: "no-rules-for-stage", stage: "enforcement" }, { supported: false, reason: "no-stage-supplied" }];
+  const contradicts: string[] = [];
+  for (const support of unsupported) {
+    for (const leadCount of [0, 1, 9]) {
+      const note = formsStageNote(support, leadCount);
+      if (!note) contradicts.push(`${support.reason}/${leadCount}: no note`);
+      else if (leadCount > 0 && (/could not match|No form-routing rules|no form-routing rules have been checked/i.test(`${note.note} ${note.help ?? ""}`) || !/for your step/i.test(note.note)))
+        contradicts.push(`${support.reason}/${leadCount}: ${note.note}`);
+      else if (leadCount === 0 && !note.help) contradicts.push(`${support.reason}/0: no help line`);
+      if (note && /no forms? appl(?:y|ies) to you(?!\s*[—-])/i.test(note.note.replace(/not a finding that no forms apply to you/, ""))) contradicts.push("says no form applies");
+    }
+  }
+  check("with the step's forms listed, the note points to them and never says it could not match; without, it says so and offers help", contradicts.length === 0, contradicts.join(" | "));
+  check("a stage the rules cover gets no note", formsStageNote({ supported: true }, 0) === null);
+  const workspace = readFileSync(path.join(ROOT, "app", "forms", "FormsWorkspace.tsx"), "utf8");
+  check("the Forms tab takes its note from formsStageNote with the lead forms", /formsStageNote\(stageSupport, leadForms\.length\)/.test(workspace) && !/We could not match forms/.test(workspace));
+}
+
+console.log("\n11. An employer named only vaguely: the garnishee and the examination (walkthrough run 38525903567, SJ)");
+{
+  const sjStory = "I won my small claims case against my old roommate in May. The judge said he owes me 6500 plus costs. It's been months, and he hasn't paid anything. He works at a car dealership in Kanata, I think.";
+  const sj = practicalFor("plaintiff:judgment-in-my-favour-unpaid", "small-claims", "Ottawa", false, sjStory);
+  check(
+    "SJ: the card quotes his sentence and sets out naming the garnishee and the examination",
+    sj?.garnishee?.quote === "He works at a car dealership in Kanata, I think." &&
+      sj.garnishee.lines.some((line) => /r\. 20\.08 \(3\)/.test(line.cite.pinpoint) && /name and address of the named garnishee/.test(line.cite.quote)) &&
+      sj.garnishee.lines.some((line) => /r\. 20\.10 \(1\)/.test(line.cite.pinpoint) && /Form 20H/.test(line.say)),
+    JSON.stringify(sj?.garnishee?.quote),
+  );
+  // What the rules provide, never a pick and never a prediction of collecting.
+  const pushy = GARNISHEE_NOT_NAMED.filter((line) => /\b(?:should|best|recommend|will (?:get|collect|recover)|likely|chance|guarantee|collect(?:ed)? the|get paid)\b/i.test(line.say)).map((line) => line.say);
+  check("the garnishee lines neither choose for the person nor predict collecting", pushy.length === 0, pushy.join(" | "));
+  const vague = [
+    "he works at a car dealership in kanata i think",
+    "She works for some company downtown.",
+    "I believe he is employed at a restaurant in Barrie.",
+  ];
+  const named = ["He works at Kanata Toyota on Hazeldean Road.", "my roommate never paid me back", "he is a mechanic"];
+  check("vague workplaces are read as vague", vague.every((story) => vagueEmployerSentence(story) !== null));
+  check("a named employer, or no job at all, is not", named.every((story) => vagueEmployerSentence(story) === null));
+  const notGarnishing = steps.filter((stage) => STEP_PRACTICAL[stage.id]?.serve !== "garnishment").filter((stage) => practicalFor(stage.id, pathwayOf(stage) as PracticalCourt, "Ottawa", false, sjStory)?.garnishee).map((stage) => stage.id);
+  check("only a garnishment step shows them", notGarnishing.length === 0, notGarnishing.join(", "));
+  const nextStepPracticalUi = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
+  check("the card renders them with the person's own words", /data-testid="next-step-garnishee"/.test(nextStepPracticalUi) && /You wrote: “\{view\.garnishee\.quote\}”/.test(nextStepPracticalUi));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

@@ -374,9 +374,20 @@ export const FAMILY_POSTCARD_WAY = {
 /** The company route for a claim (r. 8.03 (3), 16.03 (6)): offered only for a claim. Its day comes from mailing, which can be before the papers arrive. */
 export const COMPANY_ROUTE: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["corporation-mail", "corporation-courier"]);
 
+/**
+ * Who the papers were served on, as far as the person's words say
+ * (walkthrough run 38525903567, SD: "Mailed to the company at its address on
+ * record, and to its directors" was offered to a homeowner). `company: false`
+ * means the words do not make a company the party served, and the company
+ * route of r. 8.03 (3) / 16.03 (6) -- which is service "on the corporation" --
+ * is not offered; `undefined` (not known) keeps every way.
+ */
+export type ServedOn = { company?: boolean };
+
 /** The ways the rules allow for a claim or application that come by post, each with its effective day and rule. */
-export function postWaysForClaim(court: ServiceCourt): { label: string; effective: string | null; rule: string; quote: string }[] {
+export function postWaysForClaim(court: ServiceCourt, servedOn: ServedOn = {}): { label: string; effective: string | null; rule: string; quote: string }[] {
   const ways = ORIGINATING_METHODS[court]
+    .filter((method) => servedOn.company !== false || !COMPANY_ROUTE.has(method))
     .map((method) => SERVICE_RULES[court].find((rule) => rule.method === method))
     .filter((rule): rule is ServiceRule => Boolean(rule) && !rule!.method.startsWith("personal"))
     .map((rule) => ({ label: rule.label, effective: whenEffectiveSay(rule), rule: rule.rule, quote: rule.quote }));
@@ -388,9 +399,10 @@ export function postWaysForClaim(court: ServiceCourt): { label: string; effectiv
  * application, only the ways the rules allow for one (ORIGINATING_METHODS);
  * otherwise every way.
  */
-export function serviceRulesFor(court: ServiceCourt, questionId = ""): ServiceRule[] {
+export function serviceRulesFor(court: ServiceCourt, questionId = "", servedOn: ServedOn = {}): ServiceRule[] {
   if (questionId && isOriginatingService(court, questionId)) {
-    return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method));
+    // The company route only when the party served is a company (or not known).
+    return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method) && (servedOn.company !== false || !COMPANY_ROUTE.has(rule.method)));
   }
   // The company route is only for a claim (r. 8.03 (3), 16.03 (6)).
   return SERVICE_RULES[court].filter((rule) => !COMPANY_ROUTE.has(rule.method));

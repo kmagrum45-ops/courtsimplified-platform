@@ -1837,3 +1837,49 @@ Established while fixing the card's time limits, fees, filing and service:
   the fifth day; r. 3.01 moves the last day of a period that falls on a holiday. Say
   those two things and "confirm with the court office" (test:service-dates runs
   `assertsAbsenceProblems` on the note).
+
+## Round-4 review fixes, Small Claims (2026-10-14, walkthrough run 38525903567)
+
+- **"3 business days or less away" is counted from the guide's own example.** The
+  outside-Toronto paragraph of `ontario-file-small-claims-online`: "if your court date
+  is on Tuesday, February 9 , you cannot submit documents online after Wednesday,
+  February 3". That fits exactly one reading: count the business days AFTER today, up
+  to and including the deadline (from Wed 3 Feb: Thu, Fri, Mon, Tue = 4, still open;
+  from Thu 4 Feb: 3, closed). `businessDaysAway` (nextStepPractical.ts) does this, and
+  test:next-step-practical re-derives it for every year Feb 9 is a Tuesday. **The
+  Toronto paragraph's example ("after Monday, February 1") fits no count of business
+  days** -- do not use it. Neither guide defines "business day": the card treats a day
+  as one only if it is a weekday, not a holiday in EITHER calendar (r. 1.02 or the
+  Legislation Act -- the two-calendar trap), and not an announced court closure
+  (courtServiceNotices.json). That can only warn early, never late.
+- **The civil online guide names no other way to file** when the portal is closed to a
+  deadline; the Small Claims guide names three (in person at the courthouse, by mail,
+  by email). The civil card says "the court office can tell you how", nothing more.
+- **Mail near a deadline:** r. 8.07 (2) (mail, fifth day after mailing) and r. 8.07.1 (2)
+  (courier, fifth day after the courier confirms delivery); email counts the day it is
+  sent, or the next day after 4 p.m. (r. 8.08 (4)), to the address in r. 8.08 (1) (a).
+- **Garnishee's name and address: r. 20.08 (3) (a) (vi)** ("the name and address of the
+  named garnishee to whom a notice of garnishment is to be directed"). The after-judgment
+  guide (`guide-after-judgment`, heading "Information needed to proceed"): "If you are
+  garnishing wages, you must know the correct legal name and address of the employer."
+  Under "Examination Hearing" it says an examination may give the creditor the
+  information needed to request a garnishment, such as where the debtor works or banks.
+  The next sentence of the first passage ("the employer may have a case for ignoring
+  the order") reads as a prediction and is not quoted.
+- **The examination's timing is r. 8.01 (12)** (served 30 days, filed with proof 3 days
+  before), applied to the notice of examination by r. 20.10 (3). The unpaid-judgment
+  answer proves those sentences from the guide; the rule is shown beside them
+  (sentenceRules.ts), the published text untouched.
+- **Defendant's claim fee: O. Reg. 332/16, s. 1 (2), para. 3, $108** (same as an
+  infrequent claimant's claim, para. 1).
+- **The family fee page's "file online" sentence** is "Starting October 14, 2025, there
+  are different online portals to file court documents online depending on the region
+  or level of court you are filing in." (`ontario-fees-family`, under "Paying family
+  court fees online"); "Use the Justice Services Online portal for matters outside of
+  Toronto." alone does not say documents are filed there.
+- **Every source's checked date** comes from the manifest's `retrievedAt`; a court
+  decision's (not in the manifest) from the "Downloaded" date docs/sources/README.md
+  records for its file, or for the section whose table lists it; a past version of a
+  law (`historical/`) the same way. `scripts/content/buildSourceDisplay.ts` builds the
+  table; **re-run it after `rules:fetch` or any new decision**, or test:published-library
+  fails on the stale table.

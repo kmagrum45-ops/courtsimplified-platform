@@ -51,6 +51,11 @@
  *     being served, read to the person responding on an either-side step as
  *     "The other party's time" instead of their own ("Your time ... (Form
  *     15B) ... (Form 15C)").
+ *   - (walkthrough run 38525903567, SD) the card's filing and mail lines not
+ *     timed against its earliest counted day (so "file online" shows beside a
+ *     deadline 3 business days away); a six-year leave threshold leading the
+ *     card when it is uncounted or more than a year away (SJ); a Sources line
+ *     without its checked date.
  *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
@@ -62,6 +67,7 @@ import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
 import {
+  cardFilingDeadline,
   cardLimits,
   cardShowsLead,
   factsForStep,
@@ -716,6 +722,58 @@ async function main() {
     const caseFile = readFileSync(path.resolve(__dirname, "../../app/cases/[id]/case-file/page.tsx"), "utf8");
     check("the route works out the standing with Ontario's today", /todayInOntario\(\)/.test(route) && calls(route, "timelineStandingFor", ["today"]));
     check("the Timeline, the Deadlines view and the Case file all show it", (workspace.match(/<DeadlineStandingNote standing=\{item\.standing\}/g) ?? []).length >= 2 && /<DeadlineStandingNote standing=\{item\.standing\}/.test(caseFile));
+  }
+
+  {
+    // Walkthrough run 38525903567 (SD): the card's filing and mail lines are
+    // timed against its earliest counted day -- a led deadline or a day
+    // counted from the papers' arrival -- and the panel passes it on.
+    const summary = {
+      deadlines: [{ what: "Serve a defence on every other party and file it with the clerk, with proof of service", date: "2026-10-30", statement: "" }],
+      periods: [],
+    };
+    const arrival = { safest: [{ what: "x", date: "", iso: "2026-10-19", passed: false }], latest: [] };
+    check("the filing deadline is the earliest counted day, from the arrival note too", cardFilingDeadline(summary, arrival, true, "", "", "defendant:served-defence-period-running") === "2026-10-19");
+    check("with nothing counted, there is no filing deadline", cardFilingDeadline({ deadlines: [], periods: [] }, null, true, "", "", "defendant:served-defence-period-running") === "");
+    const panel = readFileSync(path.resolve(__dirname, "../../app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+    // Walkthrough run 38525903567 (SJ): a leave threshold leads only when it is near.
+    const thresholdSummary = (date?: string) => ({
+      deadlines: date ? [{ what: "Six years after the order", date, statement: "", threshold: true }] : [],
+      periods: date ? [] : [{ what: "Six years after the order", count: 6, unit: "years", countFrom: "the day the order was made", threshold: true }],
+    });
+    const leads = (date: string | undefined, today: string) => {
+      const limits = cardLimits(thresholdSummary(date), false, "", "", "plaintiff:judgment-in-my-favour-unpaid", today);
+      return limits.main.deadlines.length + limits.main.periods.length > 0;
+    };
+    const folded = (date: string | undefined, today: string) => {
+      const limits = cardLimits(thresholdSummary(date), false, "", "", "plaintiff:judgment-in-my-favour-unpaid", today);
+      return limits.conditional.deadlines.length + limits.conditional.periods.length === 1;
+    };
+    check("an uncounted six-year threshold never leads the card, and is folded, not lost", !leads(undefined, "2026-10-14") && folded(undefined, "2026-10-14"));
+    const thresholdWrong: string[] = [];
+    for (let today = "2026-01-01"; today <= "2026-12-31"; today = addDays(today, 7)) {
+      for (const ahead of [-30, 0, 100, 364, 366, 800, 2000]) {
+        const date = addDays(today, ahead);
+        const near = ahead <= 365;
+        if (leads(date, today) !== near || leads(date, today) === folded(date, today)) thresholdWrong.push(`${today} -> ${date}`);
+      }
+    }
+    check("a counted threshold leads exactly when it is within a year (or passed), and is folded otherwise", thresholdWrong.length === 0, thresholdWrong.slice(0, 4).join("; "));
+    check("a limit that is not a threshold is never folded by this", leads2());
+    function leads2() {
+      const limits = cardLimits({ deadlines: [{ what: "Serve a defence", date: "2030-01-01", statement: "" }], periods: [] }, true, "", "", "defendant:served-defence-period-running", "2026-10-14");
+      return limits.main.deadlines.length === 1;
+    }
+    const route = readFileSync(path.resolve(__dirname, "../../app/api/case/stage-answer/route.ts"), "utf8");
+    check("the route marks a threshold limit as one", /threshold: deadline\.threshold === true/.test(route));
+
+    // CLAUDE.md s. 2 (walkthrough run 38525903567): the card's Sources line and the full answer's list show each source's checked date.
+    check("both Sources lists show 'checked <date>' on every line", (panel.match(/source\.checkedOn \? ` · checked \$\{source\.checkedOn\}` : ""/g) ?? []).length === 2);
+    check("the rule beside a guide-proved sentence is shown under the card's lead and under its section", (panel.match(/<SentenceRulesBox entries=/g) ?? []).length === 2);
+    check(
+      "the card times its practical lines with that day and Ontario's today",
+      /practicalFor\([^)]*\{ deadline: filingDeadline, today \}\)/.test(panel) && /<NextStepPractical[^>]*deadline=\{filingDeadline\}[^>]*today=\{today\}/.test(panel),
+    );
   }
 
   if (failures > 0) {

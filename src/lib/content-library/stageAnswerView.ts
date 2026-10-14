@@ -30,7 +30,9 @@ import { assertApprovedUserContent } from "./outputGuard";
 import { publishedBlockFor, PUBLISHED_RELEASE } from "./publishedLibrary";
 import VERDICT_SOURCES from "./published/verdictSources.generated.json";
 import { fillSlots, slotsUsed, type StageAnswer } from "./stageAnswers";
-import { OFFICIAL_URLS, SOURCE_NAMES } from "../case-system/stage-map/citations";
+import { sourceDisplayFor } from "./sourceDisplay";
+import { sentenceRulesIn } from "./sentenceRules";
+import type { RuleCitation } from "../case-system/stage-map/citations";
 import { findStage, isSpecialStage } from "../case-system/stage-map/stageMap";
 import { stageRulesText } from "./stageRules";
 import { SCOPE_CONFIDENCE_FLOOR } from "../case-system/stage-map/resolveCasePosition";
@@ -46,6 +48,8 @@ export type RenderedSource = {
   name: string;
   pinpoint: string;
   url: string;
+  /** The day the source's text was saved and checked (CLAUDE.md s. 2), YYYY-MM-DD. */
+  checkedOn: string;
 };
 
 export type RenderedStageAnswer = {
@@ -70,6 +74,12 @@ export type RenderedStageAnswer = {
    * and "here is your date and here is how to check it".
    */
   computed: ComputedDeadline[];
+  /**
+   * The rule itself beside a sentence proved from a guide (sentenceRules.ts,
+   * walkthrough run 38525903567, SJ), each rule with its source and checked
+   * date. Its sources are in `sources` too.
+   */
+  sentenceRules: { sentence: string; rules: (RuleCitation & RenderedSource)[] }[];
   /** Provenance, for the footer a regulator or a curious user can read. */
   release: { runId: string; promotedAt: string };
 };
@@ -299,13 +309,24 @@ function renderPublishedBlock(
 
   if (sections.length === 0) return null;
 
+  const sentenceRules = sentenceRulesShown(sections);
   return {
     stageId,
     question: block.userQuestion,
     sections,
-    sources: withDeadlineSources(block.citations, stageId),
+    sources: withDeadlineSources(
+      [
+        ...block.citations,
+        ...sentenceRules.flatMap((entry) => entry.rules),
+        // Any source a sentence was proved from that the generated list could
+        // not place in one provision: listed by name, so none goes unshown.
+        ...(block.verification.verdicts ?? []).flatMap((verdict) => (verdict.sourceId ? [{ sourceId: verdict.sourceId, pinpoint: "" }] : [])),
+      ],
+      stageId,
+    ),
     status: status as RenderedStageAnswer["status"],
     computed,
+    sentenceRules,
     release: { runId: PUBLISHED_RELEASE.runId, promotedAt: PUBLISHED_RELEASE.promotedAt },
   };
 }
@@ -324,7 +345,7 @@ function renderPublishedBlock(
  * 2026-10-09: "the listed Limitations Act source limited to 's. 4'").
  */
 function withDeadlineSources(
-  citations: ReadonlyArray<{ sourceId: keyof typeof SOURCE_NAMES; pinpoint: string }>,
+  citations: ReadonlyArray<{ sourceId: string; pinpoint: string }>,
   stageId: string,
 ): RenderedSource[] {
   const stage = findStage(stageId);
@@ -339,16 +360,38 @@ function withDeadlineSources(
   // (scripts/content/buildVerdictSources.ts): the walkthrough flagged "a
   // defendant's claim may be issued within 20 days after your defence is
   // filed" with r. 10.01 missing from the list, though proved from it.
-  const fromVerdicts = ((VERDICT_SOURCES as Record<string, { sourceId: string; pinpoint: string }[]>)[stageId] ?? []).filter(
-    (citation): citation is { sourceId: keyof typeof SOURCE_NAMES; pinpoint: string } => citation.sourceId in SOURCE_NAMES,
-  );
-  for (const citation of [...citations, ...fromDeadlines, ...fromVerdicts]) {
+  const fromVerdicts = (VERDICT_SOURCES as Record<string, { sourceId: string; pinpoint: string }[]>)[stageId] ?? [];
+  // Walkthrough run 38525903567: this list kept only the stage map's own
+  // sources (citations.ts SOURCE_NAMES), so a sentence proved from a Small
+  // Claims guide ("guide-after-judgment") showed no source at all. Every
+  // source now resolves through the one table, with its checked date
+  // (sourceDisplay.ts); test:published-library fails on any cited source
+  // that does not.
+  // A citation with no pinpoint (a verdict's source) only when its source is not listed already.
+  const all = [...citations, ...fromDeadlines, ...fromVerdicts];
+  const ordered = [...all.filter((citation) => citation.pinpoint), ...all.filter((citation) => !citation.pinpoint)];
+  const sourcesListed = new Set<string>();
+  for (const citation of ordered) {
     const key = `${citation.sourceId}|${citation.pinpoint}`;
-    if (seen.has(key) || !SOURCE_NAMES[citation.sourceId]) continue;
+    const shown = sourceDisplayFor(citation.sourceId);
+    if (seen.has(key) || !shown || (!citation.pinpoint && sourcesListed.has(citation.sourceId))) continue;
     seen.add(key);
-    out.push({ name: SOURCE_NAMES[citation.sourceId], pinpoint: citation.pinpoint, url: OFFICIAL_URLS[citation.sourceId] });
+    sourcesListed.add(citation.sourceId);
+    out.push({ name: shown.name, pinpoint: citation.pinpoint, url: shown.url, checkedOn: shown.checkedOn });
   }
   return out;
+}
+
+/** The rules beside the rendered sentences that have them (sentenceRules.ts), each with its source and checked date. */
+function sentenceRulesShown(sections: RenderedSection[]): RenderedStageAnswer["sentenceRules"] {
+  const text = sections.map((section) => section.text).join("\n");
+  return sentenceRulesIn(text).map((entry) => ({
+    sentence: entry.sentence,
+    rules: entry.rules.flatMap((rule) => {
+      const shown = sourceDisplayFor(rule.sourceId);
+      return shown ? [{ ...rule, name: shown.name, url: shown.url, checkedOn: shown.checkedOn }] : [];
+    }),
+  }));
 }
 
 export function renderStageRulesOnly(stageId: string, dates: CaseDates = {}): RenderedStageAnswer | null {
@@ -381,6 +424,7 @@ export function renderStageRulesOnly(stageId: string, dates: CaseDates = {}): Re
     sources: withDeadlineSources(stage.rules, stageId),
     status: "rules-only",
     computed,
+    sentenceRules: [],
     release: { runId: "stage-map", promotedAt: "" },
   };
 }
