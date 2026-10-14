@@ -103,8 +103,8 @@ const PLACEHOLDER = (what: string) => `[NEEDS LICENSEE REVIEW: ${what}]`;
  *
  * The regulation itself (saved in docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt,
  * in force from October 1, 2025). Until 2026-10-12 this cited an ontario.ca page
- * written before the change ("will increase from $35,000 to $50,000"), which
- * described a future change instead of stating the current limit.
+ * written before the change, which described a future change instead of
+ * stating the current limit.
  */
 const SMALL_CLAIMS_LIMIT_SOURCE: AssistantBlockCitation = {
   sourceName: "O. Reg. 626/00 (Small Claims Court Jurisdiction and Appeal Limit), s. 1 (1)",

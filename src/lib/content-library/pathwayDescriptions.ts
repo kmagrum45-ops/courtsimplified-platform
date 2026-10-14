@@ -48,7 +48,7 @@ export const PATHWAY_DESCRIPTIONS: PathwayDescription[] = [
     pathway: "small-claims",
     label: "Small Claims Court",
     text:
-      "Small Claims Court handles claims for money up to $50,000, not counting interest and costs, and claims for the return of personal property worth up to $50,000. The limit rose from $35,000 on October 1, 2025.",
+      "Small Claims Court handles claims for money up to $50,000, not counting interest and costs, and claims for the return of personal property worth up to $50,000.",
     sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
     outOfScope: false,
   },

@@ -34,10 +34,10 @@ the user somewhere else would be testing for behavior this code doesn't attempt.
 
 **Legal fact being asserted, with a fresh citation** (not reused from memory of an earlier
 session's sourcing): Ontario Small Claims Court's monetary jurisdiction is **$50,000**, excluding
-interest and costs, effective October 1, 2025. Source: ontario.ca — "Suing someone in Small Claims
-Court" (https://www.ontario.ca/page/suing-someone-small-claims-court), verified by direct fetch
-2026-09-08: "Effective October 1, 2025, the monetary jurisdiction of Small Claims Court will
-increase from $35,000 to $50,000." This fixture's claimed amount, $68,500, exceeds that limit by
+interest and costs. Source: O. Reg. 626/00, s. 1 (1)
+(https://www.ontario.ca/laws/regulation/000626, saved in
+docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt, re-read 2026-10-13): "The maximum
+amount of a claim in the Small Claims Court is $50,000." This fixture's claimed amount, $68,500, exceeds that limit by
 $18,500.
 
 **Expected: `AnalysisResult.userWarnings` (and/or `intelligenceWarnings`) should contain a warning
