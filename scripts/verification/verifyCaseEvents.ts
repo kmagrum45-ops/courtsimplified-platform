@@ -25,6 +25,11 @@
  *      was this?" after "Judgment obtained, unpaid" was confirmed) -- and only
  *      that step's own event, never for a "no", never with no confirmed step.
  *
+ *   4. A sentence with no date that says only that something did NOT happen
+ *      ("It's been months and he hasn't paid anything") is not offered as a
+ *      step to classify (2026-10-13, JU); any sentence with a date, or a
+ *      clause saying something did happen, still is.
+ *
  * Run: node --import tsx scripts/verification/verifyCaseEvents.ts
  */
 
@@ -58,6 +63,7 @@ import {
   candidatesAwaitingAnswer,
   candidatesFromMasterResult,
   candidatesFromTimeline,
+  describesNothingHappening,
   resolveCandidates,
   type CandidateDismissalRow,
 } from "../../src/lib/case-system/events/caseEventCandidates";
@@ -521,6 +527,37 @@ function main(): void {
     fromTimeline.every((candidate) => candidate.narrativeBasis.length > 0),
   );
   check("a malformed timeline yields nothing rather than throwing", candidatesFromTimeline(null).length === 0);
+
+  // Walkthrough JU (2026-10-13): "It's been months and he hasn't paid
+  // anything." was offered as a step to classify. A sentence with no date
+  // that says only that something did NOT happen is not a step; anything
+  // that did happen, or has a date, still is.
+  const notSteps = [
+    "It's been months and he hasn't paid anything.",
+    "its been months and he hasnt paid anything",
+    "He never showed up to fix it.",
+    "She won't answer my calls or texts.",
+    "Nothing has happened since.",
+    "The landlord refuses to give back my deposit.",
+    "He still hasn't paid a cent.",
+  ];
+  const stillSteps = [
+    "I won my small claims case against my old roommate in May.",
+    "i got the plaintiffs claim in the mail on september 28",
+    "He filed a defence saying I damaged the carpet.",
+    "I didn't respond, and now I was noted in default.",
+    "He hasn't paid since May 14.",
+    "He did not pay, so I filed a claim.",
+    "The court sent a notice for a settlement conference on november 12.",
+    "Last week the judge did not grant the motion.",
+    SENTENCE,
+  ];
+  for (const sentence of notSteps) {
+    check(`not offered as a step: '${sentence}'`, describesNothingHappening(sentence) && candidatesFromTimeline([{ id: "n", sourceText: sentence }]).length === 0);
+  }
+  for (const sentence of stillSteps) {
+    check(`still offered as a step: '${sentence}'`, !describesNothingHappening(sentence) && candidatesFromTimeline([{ id: "p", sourceText: sentence }]).length === 1);
+  }
   check(
     "candidates carry no procedural type — the parser does not classify",
     fromTimeline.every((candidate) => candidate.suggestedEventType === undefined),

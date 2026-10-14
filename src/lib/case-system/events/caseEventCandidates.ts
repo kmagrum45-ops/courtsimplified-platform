@@ -202,6 +202,50 @@ export function candidatesFromMasterResult(masterResult: unknown): EventCandidat
   return candidatesFromTimeline((masterCase as Record<string, unknown>).timeline);
 }
 
+/*
+ * A date of any kind: a month ("may" only as a date: "in may", "may 14"), a
+ * numeric date or year, a weekday, or "yesterday", "last week", "3 weeks
+ * ago". "It's been months" is a length of time, not a date.
+ */
+const ANY_DATE = new RegExp(
+  [
+    "\\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\\b",
+    "\\b(?:in|on|since|of|last|by|until|early|late|mid|this|next)\\s+may\\b",
+    "\\bmay\\s+\\d",
+    "\\b\\d{1,4}[/-]\\d{1,2}(?:[/-]\\d{1,4})?\\b",
+    "\\b(?:19|20)\\d{2}\\b",
+    "\\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|yesterday|today|tonight|tomorrow)\\b",
+    "\\blast (?:week|month|year|night|spring|summer|fall|autumn|winter)\\b",
+    "\\bago\\b",
+  ].join("|"),
+  "i",
+);
+/** Words that make a clause something that did not happen. */
+const NOT_HAPPENING =
+  /\b(?:not|never|no longer|nothing|hasn'?t|hasnt|haven'?t|havent|hadn'?t|hadnt|didn'?t|didnt|doesn'?t|doesnt|don'?t|dont|won'?t|wont|wouldn'?t|wouldnt|isn'?t|isnt|wasn'?t|wasnt|can'?t|cant|refuses?|refused|ignor(?:es|ed|ing))\b/i;
+/** Words of something that did happen: a step, a paper, a move. */
+const HAPPENED =
+  /\b(?:filed|file|served|serve|issued|received|got|sent|mailed|signed|noted|ordered|won|lost|sued|suing|started|scheduled|held|heard|adjourned|dismissed|granted|garnish\w*|paid|pays|moved|went|came|arrived|handed|gave|told|called|asked|applied|made|settled|agreed|happened|took|left|broke|fell|slipped|hired|bought|sold|separated|married)\b/i;
+
+/**
+ * True when a sentence gives no date and says only that something did NOT
+ * happen ("It's been months and he hasn't paid anything", "She never showed
+ * up", "Nothing has happened since"). A clause that says something did happen
+ * ("I didn't respond, and now I was noted in default") keeps the sentence,
+ * and so does any date ("He hasn't paid since May 14"). Exported for
+ * test:case-events.
+ */
+export function describesNothingHappening(sentence: string): boolean {
+  if (ANY_DATE.test(sentence)) return false;
+  const clauses = sentence
+    .split(/[,;:]|\b(?:and|but|so|then|because|now|after|when|since)\b/i)
+    .map((clause) => clause.trim())
+    .filter(Boolean);
+  const negative = clauses.filter((clause) => NOT_HAPPENING.test(clause));
+  if (!negative.length) return false;
+  return clauses.every((clause) => NOT_HAPPENING.test(clause) || !HAPPENED.test(clause));
+}
+
 /**
  * Read candidates out of a `masterCase.timeline` array.
  *
@@ -231,6 +275,11 @@ export function candidatesFromTimeline(timeline: unknown): EventCandidate[] {
     );
 
     if (!sentence) continue;
+    // "It's been months and he hasn't paid anything" is something NOT
+    // happening, with no date: there is no step to record or classify
+    // (walkthrough JU, 2026-10-13: the Timeline asked "What kind of step was
+    // this?" of it). Such a sentence is not offered as a candidate.
+    if (describesNothingHappening(sentence)) continue;
 
     const rawTitle = typeof record.title === "string" ? record.title.trim() : "";
     const title = rawTitle && sentenceFromRecord(rawTitle) === rawTitle ? rawTitle : sentence.slice(0, 80);
