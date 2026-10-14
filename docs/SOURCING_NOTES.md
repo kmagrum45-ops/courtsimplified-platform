@@ -1955,3 +1955,16 @@ Established while fixing the card's time limits, fees, filing and service:
   law (`historical/`) the same way. `scripts/content/buildSourceDisplay.ts` builds the
   table; **re-run it after `rules:fetch` or any new decision**, or test:published-library
   fails on the stale table.
+
+### O. Reg. 302/18, lien action procedures, vendored (2026-10-14)
+
+`180302_e.doc` resolves on the `.doc` route (Vendor Sources run 38626860069, 12,258
+characters, consolidation from January 1, 2026). Worth knowing before blaming a
+"20 days" in a lien answer on the wrong rulebook: s. 2 (5) sets the time for a
+statement of defence to a lien claim at **20 days**, the same number as the civil
+rules. The 2026-10-13 lien walkthrough's error was the **stage**, not the number:
+the homeowner had a lien registered on title and had not been served with any
+claim, so no defence was due at all. Also in it: the claim is issued in the county
+where the premises are (s. 1 (1)) and served within 90 days of issue (s. 1 (2));
+a counterclaim must accompany the defence (s. 2 (2)); rule 50 (pre-trial) does not
+apply (s. 10 (9)); interlocutory steps need the court's consent (s. 13).
