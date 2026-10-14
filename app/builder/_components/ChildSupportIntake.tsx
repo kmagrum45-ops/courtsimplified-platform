@@ -49,7 +49,9 @@
  * say the user's situation IS a variation, never block, and never reroute.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+import type { ChildSupportPrefill } from "./childSupportPrefill";
 
 import {
   draftChildSupportApplication,
@@ -120,16 +122,57 @@ function Disclosure({
   );
 }
 
-export default function ChildSupportIntake() {
+/**
+ * A field that starts from what the family intake recorded (walkthrough
+ * 2026-10-13, R3). The suggestion follows the intake until the person types
+ * here; from then on it is theirs and is never overwritten. `fromIntake` is
+ * true while the field still holds the suggestion, so the screen can say
+ * where the words came from.
+ */
+function useSuggestedField(suggested: string): [string, (next: string) => void, boolean] {
+  const [value, setValue] = useState(suggested);
+  const [edited, setEdited] = useState(false);
+  useEffect(() => {
+    if (!edited) setValue(suggested);
+  }, [suggested, edited]);
+  const change = (next: string) => {
+    setEdited(true);
+    setValue(next);
+  };
+  return [value, change, !edited && suggested.trim() !== "" && value === suggested];
+}
+
+function FromIntakeNote({ show }: { show: boolean }) {
+  if (!show) return null;
+  return (
+    <p data-testid="cs-from-intake" className="mt-1 text-xs text-[#4f685f]">
+      Filled in from what you told us earlier. Change it if it is not right.
+    </p>
+  );
+}
+
+const NO_PREFILL: ChildSupportPrefill = {
+  applicantName: "",
+  respondentName: "",
+  childrenDescribed: "",
+  parentingTimeDescribed: "",
+  incomeDocumentsHeld: "",
+};
+
+export default function ChildSupportIntake({ recorded = NO_PREFILL }: { recorded?: ChildSupportPrefill } = {}) {
   // ---- The common case ----
-  const [applicantName, setApplicantName] = useState("");
+  // Fields the family intake already asked about start from its answers, as
+  // suggestions (R3); the rest start empty.
+  const [applicantName, setApplicantName, applicantNameFromIntake] = useSuggestedField(recorded.applicantName);
   const [applicantAddress, setApplicantAddress] = useState("");
-  const [respondentName, setRespondentName] = useState("");
+  const [respondentName, setRespondentName, respondentNameFromIntake] = useSuggestedField(recorded.respondentName);
   const [respondentAddress, setRespondentAddress] = useState("");
-  const [childrenDescribed, setChildrenDescribed] = useState("");
-  const [parentingTimeDescribed, setParentingTimeDescribed] = useState("");
+  const [childrenDescribed, setChildrenDescribed, childrenFromIntake] = useSuggestedField(recorded.childrenDescribed);
+  const [parentingTimeDescribed, setParentingTimeDescribed, parentingTimeFromIntake] = useSuggestedField(
+    recorded.parentingTimeDescribed,
+  );
   const [incomeForTable, setIncomeForTable] = useState<IncomeFields>(emptyIncome);
-  const [incomeDocumentsHeld, setIncomeDocumentsHeld] = useState("");
+  const [incomeDocumentsHeld, setIncomeDocumentsHeld, documentsFromIntake] = useSuggestedField(recorded.incomeDocumentsHeld);
 
   /** null = not answered. The engine treats undefined as "not recorded". */
   const [tableAmountOnly, setTableAmountOnly] = useState<boolean | null>(null);
@@ -244,6 +287,7 @@ export default function ChildSupportIntake() {
           onChange={(event) => setRespondentName(event.target.value)}
           placeholder="The other parent's full legal name"
         />
+        <FromIntakeNote show={applicantNameFromIntake || respondentNameFromIntake} />
       </div>
 
       {/* ---- 2. Where the other parent lives. Its own question, deliberately. ---- */}
@@ -289,6 +333,7 @@ export default function ChildSupportIntake() {
           value={childrenDescribed}
           onChange={(event) => setChildrenDescribed(event.target.value)}
         />
+        <FromIntakeNote show={childrenFromIntake} />
       </div>
 
       {/* ---- 4. Parenting time ---- */}
@@ -309,6 +354,7 @@ export default function ChildSupportIntake() {
           value={parentingTimeDescribed}
           onChange={(event) => setParentingTimeDescribed(event.target.value)}
         />
+        <FromIntakeNote show={parentingTimeFromIntake} />
       </div>
 
       {/* ---- 5. Income, with the agreed-figure control attached to it ---- */}
@@ -439,6 +485,7 @@ export default function ChildSupportIntake() {
           value={incomeDocumentsHeld}
           onChange={(event) => setIncomeDocumentsHeld(event.target.value)}
         />
+        <FromIntakeNote show={documentsFromIntake} />
       </div>
 
       {/* ---- The disclosures. Closed on load. ---- */}

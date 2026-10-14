@@ -20,6 +20,7 @@ import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/q
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { cardLabel, confirmedDrafts, sameDayAs } from "./proposalCard";
+import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 
 type IntakeFacts = Record<string, string | number | boolean>;
@@ -37,6 +38,8 @@ type IntakeQuestion = {
   why?: string;
   /** Set whenever `why` states a legal/procedural fact. */
   sourceUrl?: string;
+  /** Why the site asks, in plain words that state no law (questionBank.ts). Shown when `why` is absent. */
+  whyAsked?: string;
   /** Reviewed example answers from the question bank, shown under the question. */
   examples?: string[];
 };
@@ -245,7 +248,11 @@ function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
   // but nothing rendered it: "What outcome are you asking the court to order?"
   // showed no examples although four are written (site owner's walk-through).
   const examples = question?.examples ?? [];
-  if (!question?.why && examples.length === 0) return null;
+  // A reason that is law (`why`, always sourced) wins; otherwise the plain
+  // reason the site asks (`whyAsked`, which states no law). Walkthrough
+  // 2026-10-13 (V3): "Roughly when did the situation..." had neither.
+  const plainWhy = question?.why ? "" : question?.whyAsked ?? "";
+  if (!question?.why && !plainWhy && examples.length === 0) return null;
 
   // Why the question matters is shown, not folded behind a toggle
   // (walkthrough, 2026-10-08: "no visible explanation beneath 'Why does this
@@ -264,6 +271,11 @@ function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
               </a>
             </>
           ) : null}
+        </p>
+      ) : plainWhy ? (
+        <p data-testid="question-why" className="mb-1 text-[#4d675f]">
+          <span className="font-semibold text-[#2f7d67]">Why we ask: </span>
+          {plainWhy}
         </p>
       ) : null}
       {examples.length > 0 ? (
@@ -1186,6 +1198,15 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
     else if (currentQuestion) handleAnswerSubmit();
   }
 
+  // ONE QUESTION AT A TIME (walkthrough 2026-10-13, V3). The claim-type
+  // suggestion arrives in the same turn as the next question, and both were
+  // shown together: "Roughly when did the situation... happen?" above "is
+  // that right?", with one answer box between them. While the suggestion
+  // waits, the question it arrived with is held back (its message, its help
+  // and the answer box) and shown the moment the suggestion is answered.
+  const suggestionFirst = !halted && !proposalDrafts && Boolean(pendingSuggestion);
+  const heldFrom = suggestionFirst ? unansweredQuestionStart(messages, FIRST_QUESTION_INTRO) : messages.length;
+
   return (
     <div>
       {asksForAdvice ? (
@@ -1200,7 +1221,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
             follow-up questions one at a time.
           </p>
         ) : (
-          messages.map((message, index) => (
+          messages.slice(0, heldFrom).map((message, index) => (
             <div
               key={index}
               className="mb-3"
@@ -1298,7 +1319,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
         </div>
       ) : null}
 
-      {!halted && currentQuestion ? (
+      {!halted && currentQuestion && !suggestionFirst ? (
         <QuestionHelp key={currentQuestion.id} question={currentQuestion} />
       ) : null}
 
@@ -1309,10 +1330,15 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
           <p className="font-semibold text-[#3a2e0e]">
             This sounds like it may be about: {pendingSuggestion.claimTypeName} — is that right?
           </p>
+          <p data-testid="claim-type-why" className="mt-1 text-xs text-[#6b5a26]">
+            <span className="font-semibold">Why we ask: </span>
+            knowing what kind of matter this is lets us pick the follow-up questions, general
+            information and draft forms that fit it.
+          </p>
           <p className="mt-1 text-xs text-[#6b5a26]">
             AI suggestion only, not a determination of your case -- nothing is applied until you confirm it.
           </p>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
               disabled={resolvingSuggestion}
@@ -1328,6 +1354,19 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
               className="rounded-full border border-[#c9b26a] bg-white px-4 py-2 text-xs font-bold text-[#4a3b12] disabled:opacity-60"
             >
               {resolvingSuggestion ? "..." : "No, not that one"}
+            </button>
+            {/* Now that the next question waits on this one, there has to be a
+                way past it that applies nothing (suggest, never decide). */}
+            <button
+              type="button"
+              disabled={resolvingSuggestion}
+              onClick={() => {
+                setPendingSuggestion(null);
+                setRejectedSuggestionIds([]);
+              }}
+              className="rounded-full px-4 py-2 text-xs font-semibold text-[#4a3b12] underline disabled:opacity-60"
+            >
+              Not sure, skip this
             </button>
           </div>
         </div>
@@ -1351,7 +1390,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
 
       {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
 
-      {!halted && proposalDrafts ? null : !halted && (!intakeComplete || depthActive) ? (
+      {!halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive) ? (
         <div className="mt-4 flex gap-2">
           <textarea
             value={inputText}

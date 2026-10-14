@@ -74,9 +74,13 @@ const ANALYSIS_INDEPENDENT: IndependentSurface[] = [
     file: "app/builder/page.tsx",
     reason:
       "Holds its own form state and builds its own draft through " +
-      "draftChildSupportApplication. Takes no props at all, so there is nothing " +
-      "the pipeline could supply it. Was inside the !analysis section until " +
-      "2026-09-14 and vanished when a family analysis completed.",
+      "draftChildSupportApplication. Its one prop is a prefill built from what " +
+      "the family intake itself reports (FamilyScope.recorded) or the loaded " +
+      "case, never from the analysis. Was inside the !analysis section until " +
+      "2026-09-14 and vanished when a family analysis completed. Since " +
+      "2026-10-13 it shows when the intake section is off screen " +
+      "(resultsVisible) or on a reopened case: a layout rule so it is never " +
+      "beside the guided chat, not something it reads from the analysis.",
   },
   {
     component: "ChildSupportTableCard",
@@ -158,6 +162,83 @@ function guardingConditions(source: string, component: string): string[] | null 
   return conditions;
 }
 
+/**
+ * ONE QUESTION SYSTEM AT A TIME (walkthrough 2026-10-13, V1).
+ *
+ * The family triage ("Were you and the other person married to each
+ * other?") and the child-support builder were on screen beside the family
+ * intake's one-question-at-a-time chat. They now wait until the intake's
+ * questions are finished. The property, for each surface declared here:
+ *
+ *   - its mount condition names a flag;
+ *   - that flag's setter is handed to FamilyIntake as `onQuestionsDone`
+ *     (so only the intake finishing can open it); and
+ *   - FamilyIntake really calls `onQuestionsDone` when the person presses
+ *     Continue (inside handleAnalyze), so the wait always ends.
+ *
+ * It names no flag: any name passes, so long as the intake's own Continue is
+ * what sets it. A reopened saved case may also open it (`queryCaseId`).
+ */
+const WAIT_FOR_INTAKE_QUESTIONS = ["FamilyStatusTriage", "ChildSupportIntake"];
+
+function checkAfterIntakeQuestions(): void {
+  const builder = fs.readFileSync(path.resolve(process.cwd(), "app/builder/page.tsx"), "utf8");
+  const intake = fs.readFileSync(path.resolve(process.cwd(), "app/builder/_components/FamilyIntake.tsx"), "utf8");
+
+  const handed = /onQuestionsDone=\{\(\)\s*=>\s*(set\w+)\(true\)\}/.exec(builder);
+  check(
+    "FamilyIntake is handed a setter to call when its questions are finished",
+    handed !== null,
+    "app/builder/page.tsx must pass onQuestionsDone={() => setX(true)} to FamilyIntake",
+  );
+  const flag = handed ? handed[1].replace(/^set/, "").replace(/^./, (c) => c.toLowerCase()) : "";
+
+  const analyze = intake.slice(intake.indexOf("async function handleAnalyze"));
+  const analyzeBody = analyze.slice(0, analyze.indexOf("\n  }\n"));
+  check(
+    "FamilyIntake calls onQuestionsDone when the person presses Continue",
+    /onQuestionsDone\?\.\(\)/.test(analyzeBody),
+    "without the call the triage and the child-support builder would never appear",
+  );
+
+  for (const component of WAIT_FOR_INTAKE_QUESTIONS) {
+    const conditions = guardingConditions(builder, component) ?? [];
+    const joined = conditions.join(" && ");
+    check(
+      `${component}: waits for the family intake's questions, not shown beside them`,
+      flag !== "" && new RegExp(`\\b${flag}\\b`).test(joined),
+      `mount conditions: ${JSON.stringify(conditions)}; flag set by onQuestionsDone: ${flag || "(none)"}`,
+    );
+    check(
+      `${component}: still shown on a reopened saved case`,
+      /\bqueryCaseId\b/.test(joined),
+      "a saved case is past its intake; hiding these there would lose answers already started",
+    );
+  }
+
+  // BACK AFTER CONTINUE (review 2026-10-13). Back shows the guided chat
+  // again; the child-support builder reappeared beside it. Property: in a
+  // fresh session the builder is gated on the same value that hides the
+  // intake section, whatever it is called. The triage is deliberately NOT
+  // (its dismissal-never-expires rule): once shown it stays.
+  const hides = /<section hidden=\{(\w+)\}[^>]*>\s*<div className="mb-6">\s*<p[^>]*>\s*Structured intake/.exec(builder);
+  check("the intake section is hidden by a named value", hides !== null);
+  if (hides) {
+    const builderGate = (guardingConditions(builder, "ChildSupportIntake") ?? []).join(" && ");
+    check(
+      "ChildSupportIntake: never on screen beside the intake (gated on what hides it)",
+      new RegExp(`\\b${hides[1]}\\b`).test(builderGate),
+      builderGate,
+    );
+    const triageGate = (guardingConditions(builder, "FamilyStatusTriage") ?? []).join(" && ");
+    check(
+      "FamilyStatusTriage: not tied to the results view, so it never disappears once shown",
+      !new RegExp(`\\b${hides[1]}\\b`).test(triageGate),
+      triageGate,
+    );
+  }
+}
+
 function main(): void {
   check("there are declared analysis-independent surfaces", ANALYSIS_INDEPENDENT.length > 0);
 
@@ -199,6 +280,8 @@ function main(): void {
         `      Declared independent because: ${surface.reason}`,
     );
   }
+
+  checkAfterIntakeQuestions();
 
   // SELF-TEST. A parser that silently finds nothing would pass every check
   // above while proving nothing, which is the shape of a check that cannot

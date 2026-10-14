@@ -3,6 +3,11 @@
  *
  * Run: npx playwright test tests/browser/child-support-scenarios.spec.ts
  *
+ * Reaching the screen presses the family intake's Continue, which POSTs
+ * /api/family/analyze (2026-10-13, walkthrough V1: the screen now shows with
+ * the results, not beside the intake). Signed out, that route is
+ * deterministic and calls no model; see child-support-common-case.spec.ts.
+ *
  * ---------------------------------------------------------------------------
  * SCOPE NOTE ON THE FIRST SCENARIO — READ BEFORE EXTENDING IT
  * ---------------------------------------------------------------------------
@@ -54,7 +59,11 @@ test.describe("child support scenarios", () => {
     });
     // The child-support screens show only once child support is a chosen
     // issue (2026-10-04) — they used to show on every family case.
+    // The intake's own questions come first, the child-support builder after
+    // (walkthrough 2026-10-13, V1). The whole form, then Continue.
+    await page.getByTestId("guided-form-show-form").click();
     await page.getByTestId("family-issue-child-support").click();
+    await page.getByRole("button", { name: "Continue to your next steps" }).click();
 
 
     await expect(page.getByTestId("child-support-intake")).toBeVisible({ timeout: 60_000 });
@@ -146,7 +155,11 @@ test.describe("child support scenarios", () => {
     });
     // The child-support screens show only once child support is a chosen
     // issue (2026-10-04) — they used to show on every family case.
+    // The intake's own questions come first, the child-support builder after
+    // (walkthrough 2026-10-13, V1). The whole form, then Continue.
+    await page.getByTestId("guided-form-show-form").click();
     await page.getByTestId("family-issue-child-support").click();
+    await page.getByRole("button", { name: "Continue to your next steps" }).click();
 
 
     await expect(page.getByTestId("child-support-intake")).toBeVisible({ timeout: 60_000 });

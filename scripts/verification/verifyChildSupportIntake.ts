@@ -20,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { childSupportPrefill } from "../../app/builder/_components/childSupportPrefill";
 import { draftChildSupportApplication } from "../../src/lib/case-system/family/childSupportDraftEngine";
 import {
   SCOPE_NOTICES,
@@ -70,7 +71,115 @@ function main(): void {
   const builder = fs.readFileSync(BUILDER_PATH, "utf8");
   check(
     "the screen is imported and mounted in app/builder/page.tsx",
-    /import ChildSupportIntake from/.test(builder) && /<ChildSupportIntake\s*\/>/.test(builder),
+    /import ChildSupportIntake from/.test(builder) && /<ChildSupportIntake[\s/>]/.test(builder),
+  );
+
+  // ---- It starts from what the intake recorded (walkthrough 2026-10-13, R3) ----
+  //
+  // The builder asked "Tell me about the children this is for" and for income
+  // documents after the intake had recorded them. The properties: what the
+  // intake answered arrives filled in; what it did not answer stays empty;
+  // only income documents reach the income-documents question; and what the
+  // person types is never overwritten by a later suggestion.
+
+  const recorded = {
+    yourName: "Sam Lee",
+    otherParty: "Alex Lee",
+    childrenInfo: "two kids, 9 and 11, they live with their mom",
+    currentLivingSituation: "",
+    evidence: "2022 court order\nmy 2025 notice of assessment\nEI statements; texts with Alex",
+    story: "I pay support and lost my job.",
+  };
+  const prefill = childSupportPrefill(recorded);
+  check("R3: the children the intake recorded are filled in", prefill.childrenDescribed === recorded.childrenInfo);
+  check(
+    "R3: who the children live with fills the time question when the answer says it",
+    prefill.parentingTimeDescribed.length > 0,
+  );
+  check("R3: the names the intake recorded are filled in", prefill.applicantName === "Sam Lee" && prefill.respondentName === "Alex Lee");
+  const documents = prefill.incomeDocumentsHeld.split("\n").filter(Boolean);
+  check(
+    "R3: only income documents reach the income-documents question",
+    documents.length > 0 &&
+      documents.every((item) => /assessment|EI|income|pay|T4|tax/i.test(item)) &&
+      !documents.some((item) => /order|texts/i.test(item)),
+    JSON.stringify(documents),
+  );
+  const nothing = childSupportPrefill({ yourName: "", otherParty: "", childrenInfo: "", currentLivingSituation: "", evidence: "", story: "" });
+  check(
+    "R3: nothing recorded, nothing filled in (asked as before)",
+    Object.values(nothing).every((value) => value === ""),
+    JSON.stringify(nothing),
+  );
+  check(
+    "R3: the story's own sentence about the children is offered when the intake question was skipped",
+    childSupportPrefill({ ...recorded, childrenInfo: "", story: "We have two kids, 9 and 11. I lost my job." }).childrenDescribed.includes("9 and 11"),
+  );
+  // ---- Wrong is worse than empty (independent review, 2026-10-13) ----
+  // Each family of input below once produced a wrong suggestion. Asserted
+  // over several phrasings, so the property, not one sentence, is held.
+  const blank = { yourName: "", otherParty: "Alex Lee", childrenInfo: "", currentLivingSituation: "", evidence: "", story: "" };
+
+  for (const story of [
+    "The child support was $400 a month for 2 years. My son, 12, lives with me.",
+    "He paid child support of $650 for 3 years. Our daughter is 8.",
+    "I have paid $900 monthly since 2022. We have two kids, 9 and 11.",
+  ]) {
+    const got = childSupportPrefill({ ...blank, story }).childrenDescribed;
+    check(
+      `R3: a sentence about support money or duration is never the children answer (${story.slice(0, 30)}...)`,
+      got !== "" && !/\$|support|paid|a month|monthly|years?\b(?! old)/i.test(got) && /\d/.test(got),
+      JSON.stringify(got),
+    );
+  }
+
+  const otherOrRefusal = [
+    "He refuses to show his income",
+    "Messages where he admits his income went up",
+    "His tax returns for 2023",
+    "Alex's pay stubs",
+    "Their notice of assessment",
+    "She never sent her T4",
+  ];
+  const offered = childSupportPrefill({ ...blank, evidence: [...otherOrRefusal, "my pay stubs"].join("\n") }).incomeDocumentsHeld.split("\n").filter(Boolean);
+  check(
+    "R3: no item naming the other parent, or a refusal, reaches the person's own income documents",
+    offered.length === 1 && offered[0] === "my pay stubs",
+    JSON.stringify(offered),
+  );
+  const notDocuments = childSupportPrefill({ ...blank, evidence: "my income went down\nI earn less now\nmy salary" }).incomeDocumentsHeld;
+  check("R3: an item that names no document is not offered as one", notDocuments === "", JSON.stringify(notDocuments));
+
+  const withYears = childSupportPrefill({ ...blank, evidence: "Notice of assessment, 2023, 2024, bank statements" }).incomeDocumentsHeld.split("\n");
+  check(
+    "R3: a document keeps its years",
+    withYears.some((item) => /assessment/i.test(item) && /2023/.test(item) && /2024/.test(item)) &&
+      withYears.every((item) => /[a-z]/i.test(item)),
+    JSON.stringify(withYears),
+  );
+
+  for (const [childrenInfo, expectEmpty] of [
+    ["two kids, 9 and 11, they live with their mom", false],
+    ["Our daughter is 7. She is with me every other weekend.", false],
+    ["Two girls aged 6 and 8. We shared a car.", true],
+    ["One son, 4.", true],
+  ] as const) {
+    const time = childSupportPrefill({ ...blank, childrenInfo }).parentingTimeDescribed;
+    check(
+      `R3: the time field holds only words about living or the time split (${childrenInfo})`,
+      expectEmpty ? time === "" : time !== "" && !/\b\d{1,2}\b/.test(time) && !/car/i.test(time),
+      JSON.stringify(time),
+    );
+  }
+
+  check("R3: the page hands the builder the intake's record", /<ChildSupportIntake[\s\S]{0,80}recorded=\{childSupportPrefill\(/.test(builder));
+  check(
+    "R3: each prefilled field is a suggestion the person can overwrite, and a later suggestion never replaces their typing",
+    (body.match(/useSuggestedField\(recorded\.\w+\)/g) ?? []).length >= 4 && /if \(!edited\) setValue\(suggested\)/.test(body),
+  );
+  check(
+    "R3: a prefilled field says where its words came from",
+    /Filled in from what you told us earlier/.test(body) && (body.match(/<FromIntakeNote show=/g) ?? []).length >= 4,
   );
   check(
     "the screen imports the draft engine",
