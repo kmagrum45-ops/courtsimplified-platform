@@ -556,6 +556,13 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     ["the original respondent wants a change", "There is a court order. I'm the respondent in the original case. I want to lower the support", true, "asking"],
     ["taken to court in 2019, now wants a change", "She took me to court in 2019 and there is a support order. Now I want to reduce support", true, "asking"],
     ["both agree to lower it", "we have a support order and we both agree to lower it", false, "asking"],
+    // A want said with a no is not an ask (final re-check 2026-10-14).
+    ["the person does not want it lowered", "There is a support order. I do not want the support lowered.", false, null],
+    ["the ex wants it cut, the person does not", "There is a support order. He wants the support cut. I do not want the support lowered.", false, null],
+    ["the person never agreed to change it", "There is a support order. We never agreed to change it.", false, null],
+    // Served, in other words (final re-check 2026-10-14).
+    ["a motion to change in the mail", "There is a support order. I got a motion to change in the mail from her lawyer.", false, "responding"],
+    ["handed a motion to change", "There is a support order. The process server gave me a motion to change.", false, "responding"],
   ];
   for (const [name, text, responding, kind] of byWho) {
     const got = motionToChangeLead("family", text, true, responding);

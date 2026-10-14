@@ -672,6 +672,26 @@ function personsDatesWin(source: string): boolean {
       readCasePosition({ position: { confirmedStage: "responding", confirmedStageFrom: "model" } }, "civil").confirmedStageFrom === undefined &&
       readCasePosition({ position: { confirmedStageFrom: "answers" } }, "civil").confirmedStageFrom === undefined,
   );
+  // A re-run whose answers settle nothing leaves no marked real stage on the
+  // case (final re-check 2026-10-14): the catch-up save sends "not sure",
+  // still marked, which the case page asks about rather than shows.
+  const cleared = markedPosition ? applyPositionPatch(markedPosition, { confirmedStage: "not-sure", confirmedStageFrom: "answers" }, "civil", new Date()) : null;
+  const afterClear = cleared?.ok ? readCasePosition({ position: cleared.position }, "civil") : null;
+  check(
+    "origin: answers that now settle nothing leave no marked real stage, only a marked \"not sure\"",
+    afterClear?.confirmedStage === "not-sure" && afterClear.confirmedStageFrom === "answers",
+  );
+  check(
+    "origin: the builder sends that \"not sure\" when a marked stage is on the case (or was saved this visit) and the answers settle none",
+    /setClearAnswersStage\(!personSetStage && !fromAnswers && \(storedFromAnswers \|\|/.test(builder) &&
+      /else if \(clearAnswersStage\) \{[\s\S]{0,200}parts\.push\(\{ confirmedStage: "not-sure", confirmedStageFrom: "answers" \}\)/.test(builder),
+  );
+  const overview = read("app/cases/[id]/page.tsx");
+  check(
+    "origin: the case page asks, rather than shows, a \"not sure\" left by the answers",
+    /const unsettledFromAnswers = position\.confirmedStage === "not-sure" && position\.confirmedStageFrom === "answers"/.test(overview) &&
+      /const confirmed = unsettledFromAnswers \? null : position\.confirmedStage/.test(overview),
+  );
   const clickRefs = builder.match(/lastConfirmedRef\.current = /g) ?? [];
   const onConfirmBody = builder.slice(builder.indexOf("onConfirm={(stage) => {"), builder.indexOf("onConfirm={(stage) => {") + 400);
   check(

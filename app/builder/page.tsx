@@ -240,6 +240,15 @@ function BuilderPageContent() {
   // The person's own intake answer the stage was recorded from, shown beside
   // it (stageFromAnswers.ts); only while that stage is the one recorded.
   const [stageBasis, setStageBasis] = useState<StageFromAnswers | null>(null);
+  /*
+   * A stage from earlier answers sits on the case (marked "answers"), and the
+   * answers given now settle none: it is replaced with "not sure", still
+   * marked, so no stale stage stays on the case and the person is asked
+   * (re-check 2026-10-14). Set per run in handleComplete.
+   */
+  const [clearAnswersStage, setClearAnswersStage] = useState(false);
+  /** The case a stage from answers was saved to on this visit, if any. */
+  const answersStageSavedRef = useRef<string | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
 
   /**
@@ -1167,6 +1176,8 @@ function BuilderPageContent() {
     // Kept apart from lastConfirmedRef, and saved marked as from the answers,
     // so the next run reads the answers afresh.
     setStageBasis(fromAnswers);
+    const storedFromAnswers = storedPositionOnCase?.confirmedStageFrom === "answers" && storedPositionOnCase.confirmedStage !== "not-sure";
+    setClearAnswersStage(!personSetStage && !fromAnswers && (storedFromAnswers || (answersStageSavedRef.current !== null && answersStageSavedRef.current === (queryCaseId || masterCaseIdRef.current))));
     const settledStage = stored ?? fromAnswers?.stage ?? null;
     setConfirmedStage(settledStage && settledStage !== "not-sure" ? (settledStage as UniversalStage) : null);
     setCaseData({
@@ -1338,7 +1349,15 @@ function BuilderPageContent() {
     const parts: Record<string, unknown>[] = [];
     // A stage read from the answers is saved marked as such; one the person
     // clicked is saved without the marker, which clears it (casePosition.ts).
-    if (confirmedStage) parts.push(stageBasis && stageBasis.stage === confirmedStage ? { confirmedStage, confirmedStageFrom: "answers" } : { confirmedStage });
+    if (confirmedStage) {
+      const fromAnswers = Boolean(stageBasis && stageBasis.stage === confirmedStage);
+      if (fromAnswers) answersStageSavedRef.current = caseId;
+      parts.push(fromAnswers ? { confirmedStage, confirmedStageFrom: "answers" } : { confirmedStage });
+    } else if (clearAnswersStage) {
+      // The answers given now settle no stage: the one from earlier answers
+      // does not stay on the case. "Not sure", still marked, means: ask.
+      parts.push({ confirmedStage: "not-sure", confirmedStageFrom: "answers" });
+    }
     if (positionThisVisit.stepId !== undefined) parts.push({ stepId: positionThisVisit.stepId });
     if (positionThisVisit.dateAnswers && Object.keys(positionThisVisit.dateAnswers).length) parts.push({ dateAnswers: positionThisVisit.dateAnswers });
     if (positionThisVisit.service && Object.keys(positionThisVisit.service).length) parts.push({ service: positionThisVisit.service });
@@ -1362,7 +1381,7 @@ function BuilderPageContent() {
       if (!allSaved) sentPositionRef.current = "";
     })());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canonicalIntakeSaved, confirmedStage, stageBasis, positionThisVisit, masterCaseId]);
+  }, [canonicalIntakeSaved, confirmedStage, stageBasis, clearAnswersStage, positionThisVisit, masterCaseId]);
 
   function createSmallClaimsClaimDraft() {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts

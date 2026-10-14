@@ -94,6 +94,10 @@ const SERVED_MOTION_TO_CHANGE: RegExp[] = [
   /\b(?:served me|served on me|served upon me|i was served|i got served|i've been served|i have been served|got served|we were served)\b[^.!?\n]{0,40}\bmotion to change\b/i,
   /\bmotion to change\b[^.!?\n]{0,40}\b(?:served (?:on |upon )?me|i was served|i got served|i've been served|i have been served)\b/i,
   new RegExp(`${OTHER}[^.!?\\n]{0,30}\\b(?:served me|filed|brought|started|sent me|gave me)\\b[^.!?\\n]{0,20}\\bmotion to change\\b`, "i"),
+  // "I got a motion to change in the mail from her lawyer"
+  /\b(?:i|we) (?:got|received|was given|were given|was handed)\b[^.!?\n]{0,20}\bmotion to change\b/i,
+  // "The process server gave me a motion to change"
+  /\b(?:gave|handed|sent|mailed|delivered|brought) (?:me|us)\b[^.!?\n]{0,20}\bmotion to change\b/i,
 ];
 
 /** Urgency or a temporary order: the rule 14 card stays (interim relief is a rule 14 motion). */
@@ -103,12 +107,22 @@ const sentencesOf = (story: string) => story.split(/(?<=[.!?])\s+|\n+/).filter((
 
 /** The person asks, in their own words, for the order to be changed. */
 export function asksToChangeOrder(story: string): boolean {
-  return sentencesOf(story).some((sentence) => OWN_ASK.some((pattern) => pattern.test(sentence)));
+  return sentencesOf(story).some((sentence) => ownAsk(sentence));
+}
+
+/** "I do not want the support lowered", "we never agreed to change it": a want said with a no is not an ask (re-check 2026-10-14). */
+const NEGATED_WANT = new RegExp(`\\b(?:don'?t|do not|doesn'?t|does not|didn'?t|did not|never|not|won'?t|will not|wouldn'?t|would not|no longer)\\s+(?:\\w+\\s+)?${WANT}\\b`, "i");
+
+function ownAsk(sentence: string): boolean {
+  return OWN_ASK.some((pattern) => {
+    const match = pattern.exec(sentence);
+    return Boolean(match) && !NEGATED_WANT.test(match![0]);
+  });
 }
 
 /** The other side wants the order changed (and the person has not said they were served yet). */
 export function otherSideAsksToChange(story: string): boolean {
-  return sentencesOf(story).some((sentence) => OTHER_ASKS.test(sentence) && !OWN_ASK.some((pattern) => pattern.test(sentence)));
+  return sentencesOf(story).some((sentence) => OTHER_ASKS.test(sentence) && !ownAsk(sentence));
 }
 
 export function servedWithMotionToChange(story: string): boolean {
