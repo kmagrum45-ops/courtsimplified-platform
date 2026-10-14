@@ -53,8 +53,8 @@ export default function GlossaryPage() {
         the law writes it.
       </p>
       <p className="mt-3 max-w-3xl text-sm text-[#4d675f]">
-        Ontario&rsquo;s rules use plain English instead of Latin, but judges, lawyers and court decisions still use a
-        few Latin phrases. The ones you are most likely to hear are included and marked &ldquo;Latin&rdquo;.
+        Ontario&rsquo;s rules use plain English instead of Latin. A few Latin phrases still turn up now and then in
+        decisions and from lawyers, so they are listed separately at the end.
       </p>
       {verifiedAt ? <p className="mt-3 text-sm text-[#4d675f]">Checked against the saved sources on {verifiedAt}.</p> : null}
       <GlossaryList items={items} />
