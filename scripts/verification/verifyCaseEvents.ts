@@ -25,7 +25,8 @@
  *      was this?" after "Judgment obtained, unpaid" was confirmed) -- and only
  *      that step's own event, never for a "no", never with no confirmed step.
  *
- *   4. A sentence with no date that says only that something did NOT happen
+ *   4. A sentence with no date that says only that something did NOT happen,
+ *      naming no court step or obligation,
  *      ("It's been months and he hasn't paid anything") is not offered as a
  *      step to classify (2026-10-13, JU); any sentence with a date, or a
  *      clause saying something did happen, still is.
@@ -535,11 +536,28 @@ function main(): void {
   const notSteps = [
     "It's been months and he hasn't paid anything.",
     "its been months and he hasnt paid anything",
-    "He never showed up to fix it.",
     "She won't answer my calls or texts.",
     "Nothing has happened since.",
-    "The landlord refuses to give back my deposit.",
     "He still hasn't paid a cent.",
+  ];
+  // Must not misfire (review 2026-10-13): each says something did NOT
+  // happen, but names a court step or an obligation, or has a clause where
+  // something did happen -- a fact the person may want recorded.
+  const factsNotToDrop = [
+    "He didn't fix the roof and it leaked.",
+    "The contractor never finished the job.",
+    "My employer didn't pay my last two paychecks.",
+    "The landlord never returned my deposit.",
+    "The landlord refuses to give back my deposit.",
+    "He didn't show up to the hearing.",
+    "My ex did not attend the case conference.",
+    "I never received the plaintiff's claim.",
+    "He never filed a defence.",
+    "He has not complied with the order.",
+    "He doesn't pay child support.",
+    "He won't let me see the kids.",
+    "There has been no response to my demand letter.",
+    "He never showed up to fix it.",
   ];
   const stillSteps = [
     "I won my small claims case against my old roommate in May.",
@@ -555,7 +573,7 @@ function main(): void {
   for (const sentence of notSteps) {
     check(`not offered as a step: '${sentence}'`, describesNothingHappening(sentence) && candidatesFromTimeline([{ id: "n", sourceText: sentence }]).length === 0);
   }
-  for (const sentence of stillSteps) {
+  for (const sentence of [...stillSteps, ...factsNotToDrop]) {
     check(`still offered as a step: '${sentence}'`, !describesNothingHappening(sentence) && candidatesFromTimeline([{ id: "p", sourceText: sentence }]).length === 1);
   }
   check(

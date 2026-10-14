@@ -223,27 +223,38 @@ const ANY_DATE = new RegExp(
 /** Words that make a clause something that did not happen. */
 const NOT_HAPPENING =
   /\b(?:not|never|no longer|nothing|hasn'?t|hasnt|haven'?t|havent|hadn'?t|hadnt|didn'?t|didnt|doesn'?t|doesnt|don'?t|dont|won'?t|wont|wouldn'?t|wouldnt|isn'?t|isnt|wasn'?t|wasnt|can'?t|cant|refuses?|refused|ignor(?:es|ed|ing))\b/i;
-/** Words of something that did happen: a step, a paper, a move. */
-const HAPPENED =
-  /\b(?:filed|file|served|serve|issued|received|got|sent|mailed|signed|noted|ordered|won|lost|sued|suing|started|scheduled|held|heard|adjourned|dismissed|granted|garnish\w*|paid|pays|moved|went|came|arrived|handed|gave|told|called|asked|applied|made|settled|agreed|happened|took|left|broke|fell|slipped|hired|bought|sold|separated|married)\b/i;
+/** A clause that is only a length of time or filler: "it's been months", "still", "yet". */
+const ONLY_TIME =
+  /^(?:(?:it'?s|its|it has|it had|there'?s)\s+)?(?:been\s+)?(?:(?:a|an|many|several|a few|few|two|three|four|five|six|\d+)\s+)?(?:(?:days?|weeks?|months?|years?|a while|ages|forever|so long|long)\s*)?(?:now|already|still|yet|so far)?$/i;
+/*
+ * Words naming a court step, or what someone owes or had to do: a sentence
+ * with one is a fact the person may want on their timeline even when it says
+ * something did NOT happen ("He didn't show up to the hearing", "The landlord
+ * never returned my deposit", "I never received the plaintiff's claim").
+ */
+const STEP_OR_OBLIGATION =
+  /\b(?:hearings?|conferences?|trials?|motions?|mediation|served|serve|service|claims?|defen[cs]es?|answers?\b(?! (?:my|his|her|the|their|our) (?:calls?|phone|texts?|messages?|door|emails?))|applications?|papers?|deposits?|pay ?cheques?|pay ?checks?|wages?|salary|support|orders?|judg(?:e)?ments?|jobs?|work|rent|repairs?|fix(?:ed)?|roof|invoices?|loan|debt|contract|lease|custody|access|parenting|visits?|kids?|child(?:ren)?|daughters?|sons?|letters?|notices?|demand|disclosure|documents?|court|judge|lawyer|deadline)\b/i;
 
 /**
- * True when a sentence gives no date and says only that something did NOT
- * happen ("It's been months and he hasn't paid anything", "She never showed
- * up", "Nothing has happened since"). A clause that says something did happen
- * ("I didn't respond, and now I was noted in default") keeps the sentence,
- * and so does any date ("He hasn't paid since May 14"). Exported for
- * test:case-events.
+ * True when a sentence gives no date, every clause in it says something did
+ * NOT happen or is only a length of time ("It's been months and he hasn't paid
+ * anything", "She won't answer my calls", "Nothing has happened since"), and
+ * it names no court step or obligation. Kept as candidates: any date ("He
+ * hasn't paid since May 14"), any clause where something happened ("He didn't
+ * fix the roof and it leaked"), and any step or obligation ("He didn't show up
+ * to the hearing", "My employer didn't pay my last two paychecks"). Review
+ * 2026-10-13: the first version dropped those. Exported for test:case-events.
  */
 export function describesNothingHappening(sentence: string): boolean {
   if (ANY_DATE.test(sentence)) return false;
+  if (STEP_OR_OBLIGATION.test(sentence)) return false;
   const clauses = sentence
+    .replace(/[.!?]+\s*$/, "")
     .split(/[,;:]|\b(?:and|but|so|then|because|now|after|when|since)\b/i)
     .map((clause) => clause.trim())
     .filter(Boolean);
-  const negative = clauses.filter((clause) => NOT_HAPPENING.test(clause));
-  if (!negative.length) return false;
-  return clauses.every((clause) => NOT_HAPPENING.test(clause) || !HAPPENED.test(clause));
+  if (!clauses.some((clause) => NOT_HAPPENING.test(clause))) return false;
+  return clauses.every((clause) => NOT_HAPPENING.test(clause) || ONLY_TIME.test(clause));
 }
 
 /**
