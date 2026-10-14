@@ -3,6 +3,7 @@ import {
   ONTARIO_SMALL_CLAIMS_LIMIT,
 } from "../utils";
 
+import { isMapOwnedProcedure } from "../procedureOwnership";
 import {
   filingFactsFromNarrative,
   withoutAnsweredQuestions,
@@ -2636,7 +2637,12 @@ export async function runCourtSimplifiedBrain(
     // Laws the answer named that the library lacks: names only, never the story.
     await fileSourceRequests(answered.missingLaw, { courtPath: retrievalCourt });
   }
-  const situationView = answered && answered.status !== "unavailable" ? checkedAnswerView(answered) : undefined;
+  // The map owns the next step, form and deadline (CLAUDE.md s. 2a): a checked
+  // statement stating one is not shown here, beside the step panel.
+  const situationView =
+    answered && answered.status !== "unavailable"
+      ? checkedAnswerView({ ...answered, statements: answered.statements.filter((statement) => !isMapOwnedProcedure(statement.text)) })
+      : undefined;
   const appliedLaw = appliedLawEnabled()
     ? sourcePack.items
         .filter((item) => isRetrievedItem(item) && citedIds.has(item.id))

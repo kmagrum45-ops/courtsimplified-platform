@@ -623,9 +623,14 @@ export function checkedAnswerView(answer: CheckedAnswer): CheckedAnswerView {
   return { status: answer.status, statements: answer.statements, notConfirmed: answer.notConfirmed, declinedToJudge: answer.declinedToJudge };
 }
 
-/** The question asked of a person's story on their case page. */
+/**
+ * The question asked of a person's story on their case page. Not their next
+ * step, form or response deadline: those come from the stage map's step panel
+ * on the same page (CLAUDE.md s. 2a, 2026-10-14); asking for them here is the
+ * route the 2026-10-13 lien error took.
+ */
 export const STORY_QUESTION =
-  "Based on what I have told you, what law applies to my situation, what do I have to show, and what is my next step, including any time limit?";
+  "Based on what I have told you, which court does this belong in and why, what law applies to my situation, what do I have to show, and which limitation or notice periods apply?";
 
 /** True when a line carries law and so must have come through the check (used by the suite). */
 export const needsSource = hasLegalContent;

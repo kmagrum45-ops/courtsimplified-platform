@@ -45,8 +45,26 @@ const STEP_INSTRUCTION = new RegExp(
 /** "Your next step is ...", "the next step is to ...". */
 const NEXT_STEP = /\b(?:your|the)\s+next\s+step\b/i;
 
-/** True when `text` states something the stage map owns. Pure. */
-export function isMapOwnedProcedure(text: string): boolean {
+/** "You have 20 days to file", "the defendant has twenty days to respond" (review, 2026-10-14). */
+const HAS_DAYS_TO =
+  /\b(?:has|have|get|gets)\s+(?:\d+|one|two|three|four|five|six|seven|ten|fourteen|fifteen|twenty|thirty|sixty|ninety)\s+(?:calendar\s+|business\s+)?(?:days?|weeks?)\s+to\b/i;
+
+/** "You must serve the defendant personally", "you will need to serve them": any court step told to the reader. */
+const YOU_MUST_STEP =
+  /\byou\s+(?:must|need to|should|have to|will need to|will have to|are required to)\s+(?:\w+\s+){0,2}?(?:file|serve|deliver)\b/i;
+
+/**
+ * An instruction to the reader about a court step, form or deadline: what the
+ * map owns, phrased as telling the person what to do. Safe to apply to the
+ * person's own restated facts, which describe the past ("I was served 20 days
+ * after the accident" stays). Pure.
+ */
+export function isMapOwnedInstruction(text: string): boolean {
   const value = text || "";
-  return FORM_NUMBER.test(value) || DAY_PERIOD.test(value) || STEP_INSTRUCTION.test(value) || NEXT_STEP.test(value);
+  return FORM_NUMBER.test(value) || STEP_INSTRUCTION.test(value) || NEXT_STEP.test(value) || HAS_DAYS_TO.test(value) || YOU_MUST_STEP.test(value);
+}
+
+/** True when `text` states something the stage map owns, including any response period. For legal points and answers, not the person's facts. Pure. */
+export function isMapOwnedProcedure(text: string): boolean {
+  return isMapOwnedInstruction(text) || DAY_PERIOD.test(text || "");
 }

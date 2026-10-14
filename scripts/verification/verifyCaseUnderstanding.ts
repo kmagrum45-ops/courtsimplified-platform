@@ -170,6 +170,18 @@ async function main() {
       !isMapOwnedProcedure("The Small Claims Court hears claims up to $50,000."),
   );
   check("a fact about what someone did is not an instruction", !isMapOwnedProcedure("She did not file a defence, and you had her noted in default."));
+  check(
+    "common ways of stating a deadline or step are caught (review, 2026-10-14)",
+    isMapOwnedProcedure("You have 20 days to file your defence.") &&
+      isMapOwnedProcedure("The defendant has twenty days to respond.") &&
+      isMapOwnedProcedure("You must serve the defendant personally.") &&
+      isMapOwnedProcedure("You will need to serve them."),
+  );
+  check(
+    "the person's own past facts with a period or 'due' are kept",
+    withoutLaw("I was served 20 days after the accident.") === "I was served 20 days after the accident." &&
+      withoutLaw("The rent was due on the first. She stopped work due to illness.") === "The rent was due on the first. She stopped work due to illness.",
+  );
   check("withoutLaw removes a due date the old filter missed", withoutLaw("You were served. Your defence is due 20 days after service.") === "You were served.");
   const realStep = parsed!.understanding.step;
   check("a real step of the chosen court is kept", realStep === "plaintiff:defence-period-expired-no-defence", String(realStep));
