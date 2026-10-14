@@ -416,3 +416,77 @@ export function servedDateFromStory(story: string): StoryAnswer | null {
   }
   return null;
 }
+
+/*
+ * What has been filed or served, from the person's own words (walkthrough
+ * 2026-10-13, FR/SW): after "i got served the papers last week" the chat
+ * asked "Has anything been filed with the court or given to you yet?".
+ * Each value is one of the form's own options, offered only for a plain
+ * statement (plainMatch: never a question, a doubt, a negation, someone
+ * else served, or "i served my ex"). The person confirms it or answers
+ * themselves; nothing is applied unseen.
+ */
+const FAMILY_APPLICATION_AGAINST_ME = new RegExp(
+  [
+    // "i got served", "i was served the papers", "a process server gave me court papers"
+    SERVED_WORDS.source,
+    "\\btook me to court\\b",
+    "\\btaking me to court\\b",
+    "\\bstarted a (?:court |family )?case against me\\b",
+    `\\b${OTHER_PERSON} (?:started|opened|filed|brought) (?:a |an )?(?:court |family )?(?:case|application)\\b`,
+    "\\b(?:filed|brought) (?:a |an )?(?:case|application) against me\\b",
+  ].join("|"),
+  "i",
+);
+const FAMILY_ANSWER_FILED = /\bi (?:filed|served|did|sent in|submitted) my (?:answer|response)\b/i;
+const CIVIL_CLAIM_RECEIVED =
+  /\b(?:(?:i|we)(?:'ve|ve| have| had)?(?: just)?(?: (?:got|get|was|were|been|getting))+(?: just)?(?: served)?(?: with)? (?:a |the |his |her |their )?statement of claim|served me (?:with )?(?:a |the )?statement of claim|i (?:just )?received (?:a |the )?statement of claim)\b/i;
+/*
+ * "Nothing filed yet" only when the story says the person wants to start a
+ * case and says nothing at all about any paper, filing, service, court date
+ * or letter: "i want to sue the city". "i sued", "im suing", or a story that
+ * mentions a claim, letter, notice or order gives nothing (the person says).
+ */
+const WANT_TO_START = /\bi (?:want|need|would like|plan|am going|'m going|m going) to (?:sue|take (?:him|her|them|my \w+(?: \w+)?|the \w+(?: \w+)?) to court|start a (?:court |family )?case|file (?:a |an )?(?:claim|application)|apply to (?:the )?court)\b/i;
+const ANY_PAPER =
+  /\b(?:filed|filing|served|serve|issued|papers?|claim|statement|application|answer|defen[cs]e|notice|letter|order|judgment|hearing|court date|conference|motion|lawyer|paralegal|summons|forms?|sued|suing|started|court file)\b/i;
+
+type FiledAnswer = { value: string[]; quote: string };
+
+function filedFromStory(story: string, court: "family" | "civil"): FiledAnswer | null {
+  const values: string[] = [];
+  const quotes: string[] = [];
+  const add = (value: string, quote: string | null) => {
+    if (!quote) return;
+    values.push(value);
+    if (!quotes.includes(quote)) quotes.push(quote);
+  };
+  if (court === "family") {
+    add("application", firstPlain(story, FAMILY_APPLICATION_AGAINST_ME));
+    add("answer", firstPlain(story, FAMILY_ANSWER_FILED));
+  } else {
+    add("statement-claim", firstPlain(story, CIVIL_CLAIM_RECEIVED));
+  }
+  if (values.length) return { value: values, quote: quotes.join(" ") };
+  const wanting = firstPlain(story, WANT_TO_START);
+  if (!wanting) return null;
+  // Any other word about papers, once the "i want to sue" words are taken out.
+  const rest = story.replace(new RegExp(WANT_TO_START.source, "gi"), " ");
+  if (ANY_PAPER.test(rest) || /\bi(?:'m| am|m)? (?:sued|suing)\b|\bim suing\b/i.test(rest)) return null;
+  return { value: ["nothing"], quote: wanting };
+}
+
+/**
+ * Family: the filed-documents options the story gives ("application" for
+ * "i got served the papers", "answer" for "i filed my answer", "nothing"
+ * for "i want to apply to the court" with no paper mentioned at all).
+ * Null when the story does not say.
+ */
+export function familyFiledFromStory(story: string): FiledAnswer | null {
+  return filedFromStory(story, "family");
+}
+
+/** Civil: "statement-claim" for "i got served a statement of claim", "nothing" for "i want to sue the city". */
+export function civilFiledFromStory(story: string): FiledAnswer | null {
+  return filedFromStory(story, "civil");
+}

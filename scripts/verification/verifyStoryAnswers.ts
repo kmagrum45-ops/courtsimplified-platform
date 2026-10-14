@@ -12,7 +12,11 @@
  * must give nothing. A family respondent is asked the day they were served
  * (with a why about their deadline to answer), the story's date is offered
  * when it gives one, and the answer lands in the Timeline line the step page
- * already reads for dates, where it is counted as the service date.
+ * already reads for dates, where it is counted as the service date. "Has
+ * anything been filed" is offered from the story as the form's own option
+ * ("i got served the papers" -> application, "i want to sue the city" with
+ * no paper mentioned -> nothing filed yet), never from a negation, someone
+ * else served, or a story mentioning any paper (section 5).
  *
  * An independent review (2026-10-13) added the inputs that broke the first
  * version: negations ("i never got served"), someone else served ("he was
@@ -376,6 +380,78 @@ console.log("\n4. The chat offers what the story says, and asks a respondent the
   const role = field(civil, "yourRole");
   check("an answer confirmed from the story is not listed under the question it answered", !heardAs(role, true).includes(role.question) && heardAs(role, true).includes(role.label));
   check("a typed answer is still listed under its question", heardAs(role, false) === role.question);
+}
+
+console.log("\n5. What has been filed: offered from the story, as the form's own option, or nothing");
+{
+  // Walkthrough FR/SW (2026-10-13): "i got served the papers last week" was
+  // followed by "Has anything been filed with the court or given to you yet?".
+  // The labels are read from each form's own option list, so the check holds
+  // whatever values and labels the forms carry.
+  const optionsIn = (file: string) =>
+    new Map([...read(file).matchAll(/\{\s*value:\s*"([^"]+)",\s*label:\s*"([^"]+)"\s*\}/g)].map((match) => [match[1], match[2]] as [string, string]));
+  const familyLabels = optionsIn("app/builder/_components/FamilyIntake.tsx");
+  const civilLabels = optionsIn("app/builder/_components/CivilIntake.tsx");
+  const familyOptions = [...familyLabels].map(([value, label]) => ({ value, label }));
+  const civilOptions = [...civilLabels].map(([value, label]) => ({ value, label }));
+  const familyField = familyGuidedFields({ issues: [], filed: familyOptions }).find((item) => item.key === "filedDocuments") as GuidedField;
+  const civilField = civilGuidedFields({ issues: [], documents: civilOptions }).find((item) => item.key === "documents") as GuidedField;
+  check("family: 'Has anything been filed' is offered from the story", typeof familyField?.fromStory === "function");
+  check("civil: 'Has anything been filed' is offered from the story", typeof civilField?.fromStory === "function");
+  const offered = (field: GuidedField, story: string) => field.fromStory?.({ facts: story }) ?? null;
+  const values = (answer: { value: string | string[] } | null) => (answer ? ([] as string[]).concat(answer.value) : []);
+
+  // Every walkthrough story: anything offered is a form option, its label is
+  // one the persona's own documents list holds (when the persona lists them),
+  // and the quote is the story's own words.
+  for (const persona of stories) {
+    const field = persona.path === "family" ? familyField : civilField;
+    const labels = persona.path === "family" ? familyLabels : civilLabels;
+    const answer = offered(field, persona.story);
+    const listed = (persona as { documents?: string[] }).documents ?? [];
+    check(
+      `${persona.id}: anything offered as filed is a form option the persona's documents agree with, quoting the story`,
+      !answer ||
+        (values(answer).every((value) => labels.has(value) && (!listed.length || listed.includes(labels.get(value) as string))) &&
+          answer.quote.split(/(?<=[.!?])\s+/).every((part) => persona.story.includes(part))),
+      `${JSON.stringify(answer)} vs ${JSON.stringify(listed)}`,
+    );
+  }
+  // The reviewer's cases: each must be offered.
+  const story = (id: string) => [...PERSONAS, ...HELD_BACK_PERSONAS].find((persona) => persona.id === id)?.story ?? "";
+  const mustOffer: [string, GuidedField, string, string][] = [
+    ["family-respondent-parenting (served the papers)", familyField, story("family-respondent-parenting"), "application"],
+    ["civil-defendant-served (served a statement of claim)", civilField, story("civil-defendant-served"), "statement-claim"],
+    ["civil-plaintiff-municipal-slip (wants to sue, nothing mentioned)", civilField, story("civil-plaintiff-municipal-slip"), "nothing"],
+    ["'my ex started a case and i filed my answer'", familyField, "my ex started a case for child support in june and i filed my answer", "answer"],
+  ];
+  for (const [name, field, text, value] of mustOffer) check(`${name}: offers '${value}'`, values(offered(field, text)).includes(value), JSON.stringify(offered(field, text)));
+
+  // Never from a negation, someone else served, a question, a doubt, or a
+  // story that mentions any paper (then "nothing" would be a guess).
+  const none = [
+    "i never got served",
+    "i havent been served yet",
+    "he was served on may 5",
+    "my sister got served last year, not me",
+    "i served my ex on september 3",
+    "my ex got served on september 3 by me",
+    "they told me i was served on june 3 but i never got anything",
+    "what if i get served",
+    "can i sue my landlord?",
+    "i dont know if i want to sue him",
+    "i want to sue the city but i already sent them a notice letter",
+    "i want to sue him, my lawyer sent a demand letter",
+    "i sued my landlord and now i want to sue the city too",
+    "i want to sue my landlord. he filed something at the board",
+    "he stopped showing up. i want my money back", // wanting money is not saying nothing was sent
+  ];
+  for (const text of none) {
+    check(`nothing offered as filed from '${text}'`, offered(familyField, text) === null && offered(civilField, text) === null, `${JSON.stringify(offered(familyField, text))} / ${JSON.stringify(offered(civilField, text))}`);
+  }
+  // An option the form does not list is never offered.
+  const narrow = familyGuidedFields({ issues: [], filed: [{ value: "answer", label: "Answer" }] }).find((item) => item.key === "filedDocuments") as GuidedField;
+  check("a value the form does not offer is never offered", offered(narrow, story("family-respondent-parenting")) === null, JSON.stringify(offered(narrow, story("family-respondent-parenting"))));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
