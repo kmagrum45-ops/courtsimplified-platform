@@ -36,7 +36,7 @@ small-claims-guided-defendant-reno, JU = small-claims-plaintiff-judgment-unpaid.
 |---|---|---|---|---|---|
 | C1 | Notice step: no help writing the notice to the City (what it must say, who gets it, how) | SW | Card shows what the notice must contain and how to deliver it, from s. 42 (6) itself, and offers a draft notice built from the person's facts | test + run | open |
 | C2 | Card for the notice step led with general two years; Crown/libel/occupier notices shown | SW | Notice that fits leads; others dropped (#326, #327) | test:next-step-card | fixed |
-| C3 | Toronto notice explained with the Municipal Act | SW | Toronto's own deadline added (#326); the intake's tailored question cites s. 42 | run | fixed / open (intake question) |
+| C3 | Toronto notice explained with the Municipal Act | SW | Toronto's own deadline added (#326); the intake's tailored question cites s. 42 | run | fixed / blocked (intake question): "Within 10 days of your fall ..." citing Municipal Act s. 44 is written by the model at runtime (src/lib/case-system/retrieval/sourcedQuestions.ts, writeWithModel from the passages answeringPassages picks; /api/intake/sourced-questions). No static bank holds it. A code-side fix would drop Municipal Act s. 44 passages for a Toronto story in answeringPassages (NOTICE_FITS), not a prompt change |
 | C4 | Passed notice deadline: no plain warning, no urgent-help pointer, no mention of the excuse rule | SW | When a bar-the-claim deadline has passed, the card says so plainly, names the excuse/death exceptions from the rule, and points to urgent help | test | open |
 | C5 | Motion to change: application offered instead of Form 15 | MC | No application builder for an existing order (#326) | Run 3: Form 15 named | closed |
 | C6 | Motion to change: card leads with "Attend the mandatory information program" without its source, for a support-only change | MC | Check r. 8.1's own scope for motions to change; show it only where it applies, with its rule | test | open |
@@ -46,6 +46,9 @@ small-claims-guided-defendant-reno, JU = small-claims-plaintiff-judgment-unpaid.
 | C11 | Notice card never named the later claim form | SW | "Then, starting the court case": Form 14A (r. 14.03 (1)) or Form 7A (r. 7.01 (1)) and the issuing fee, after the notice | test:next-step-practical | fixed |
 | C12 | Support-table card shown before the motion-to-change step | MC | Existing order: table card folded after the step panel (page.tsx, two small edits) | test:next-step | fixed |
 | C8 | Mail service: receipt date counted as mailing date; definitive deadline shown though how it was served is unresolved | RN | A date the papers ARRIVED by mail is not counted as the mailing date; the card asks for the mailing date (postmark) and shows the range | test:case-position | open |
+| C13 | Arrival note said "service counts from the day it was mailed" (r. 8.07 (2): effective on the FIFTH day after mailing) and showed no date | RN | Both arrival notes say the rule's own effective day (whenEffectiveSay) with the rule quoted; for regular mail only, each last day counted from the arrival day is shown as "no later than ... It may be earlier" (latestFromArrival; SENT_ON_OR_BEFORE_ARRIVAL) | test:service-dates (bound over a year of dates) | fixed (awaiting merge) |
+| C14 | Timeline and printable Case file showed the passed Toronto notice as "2026-10-10" and "the last day for this is Saturday" with no warning, while the card said it had passed | SW | The organisation route adds each counted date's standing in the card's words (timelineStandingFor -> deadlineLineFor, Ontario's today); Timeline, Deadlines view and Case file show it (DeadlineStandingNote); the full answer's "has passed" uses limitPassedState | test:next-step (400 dates) | fixed (awaiting merge) |
+| C15 | Family respondent, parenting only: Form 13 shown as a form for the step | FR | Folded under r. 13 (1) (b), quoted (FINANCIAL_STATEMENT_WHEN_RESPONDING), when the words show parenting and no money; unfolded for support, money, property or no words; never removed (replaces "a responding step never folds") | test:next-step-practical | fixed (awaiting merge) |
 
 ## Where to file, fee, service
 
@@ -55,7 +58,8 @@ small-claims-guided-defendant-reno, JU = small-claims-plaintiff-judgment-unpaid.
 | F2 | Family respondent: fee shown as $171 first; the parenting-only no-fee rule buried | FR | Fee lines ordered by the person's issues; the exemption that applies leads | test | open |
 | F3 | Motion to change: fee not shown | MC | Card names the motion-to-change fee rule from the fee regulation | test | open |
 | F4 | Garnishment: serving the garnishee (employer) and its order not explained | JU | Garnishment service lines from r. 20.08 (6)-(6.1) | test:next-step-practical | open |
-| F5 | Civil: serving a municipality (r. 16.02 (1) (i)) missing | SW | Service line for a municipal corporation | test | open |
+| F5 | Civil: serving a municipality (r. 16.02 (1) (b)) missing; claim's filing not shown after the notice | SW | "Then, starting the court case": the court's filing lines for the person's city, and, when every notice kept is to a municipality, r. 16.02 (1) (b) / Small Claims r. 8.02 (b) with the personal-service rule | test:next-step-practical | fixed (awaiting merge) |
+| F6 | Case Forms tab led by Form 1A and rule 2.1 dismissal forms for an unfiled sidewalk claim | SW | The step's own forms, then the claim form after a notice (Form 14A / 7A), lead the catalogue (leadFormsFirst, "For your step"); nothing removed; the step section shows for a notice step | test:next-step-practical section 9 | fixed (awaiting merge) |
 
 ## Sources
 
