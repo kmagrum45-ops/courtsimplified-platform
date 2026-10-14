@@ -1710,7 +1710,7 @@ const WAY_WORD = new RegExp(`\\b${WAY}\\b`, "i");
  * asleep at the wheel on the road" are not falls on a way (re-review of
  * 41a8364).
  */
-const PREP = "(?:on|onto|into|over|in|off|along|across|crossing|at|from|near|outside|of|by|down)\\s+(?:(?:the|a|an|some|my|our|this|that|his|her|their)\\s+)?";
+const PREP = "(?:on|onto|into|over|in|off|along|across|crossing|at|from|near|outside|of|by|down|covering|coating)\\s+(?:(?:the|a|an|some|my|our|this|that|his|her|their)\\s+)?";
 /*
  * Words inside a phrase: never a clause or an idiom ("while working on a
  * house on the street", "on hard times living on the street"): no "-ing"
@@ -1719,8 +1719,8 @@ const PREP = "(?:on|onto|into|over|in|off|along|across|crossing|at|from|near|out
  * the chain cannot wander from "a hose in my neighbour's yard" or "drugs" to
  * a street (re-review of db40587).
  */
-const WORDS = "(?:(?!(?:while|when|after|because|before|and|to|for|but|so|on|onto|into|over|in|off|at|by|from|near|of|outside|along|across)\\b)[a-z][a-z'’-]*(?<!ing)\\s+){0,3}?";
-const SURFACE = "(?:(?:black\\s+|wet\\s+|thin\\s+)?ice|snow|slush|(?:a\\s+)?(?:patch|sheet|ridge|chunk)\\s+of\\s+(?:black\\s+)?ice|cracks?|holes?|slabs?|debris|leaves|gravel|sand|water|a\\s+puddle|puddles?)";
+const WORDS = "(?:(?!(?:while|when|after|because|before|and|to|for|but|so|on|onto|into|over|in|off|at|by|from|near|outside|along|across)\\b)[a-z][a-z'’-]*(?<!ing)\\s+){0,3}?";
+const SURFACE = "(?:(?:black\\s+|wet\\s+|thin\\s+)?ice|snow|slush|pavement|asphalt|concrete|edge|piece|part|corner|middle|side|lip|plates?|covers?|grates?|manholes?|utility\\s+covers?|(?:a\\s+)?(?:patch|sheet|ridge|chunk)\\s+of\\s+(?:black\\s+)?ice|cracks?|holes?|slabs?|debris|leaves|gravel|sand|water|a\\s+puddle|puddles?)";
 const SURFACE_PHRASE = `${PREP}(?:[a-z][a-z'’-]*(?<!ing)\\s+){0,2}?${SURFACE}\\s+`;
 const ON_THE_WAY = new RegExp(`^\\s+(?:(?:down|over|badly|hard|backwards|forwards?|again)\\s+)?(?:${SURFACE_PHRASE}){0,2}${PREP}${WORDS}${WAY}\\b`);
 const NAMED_STREET_FALL = /^\s+(?:(?:on\s+(?:the\s+)?ice|on\s+(?:some\s+)?snow|badly)\s+)?(?:on|along|crossing)\s+(?:[A-Z][a-z]+\s+){1,3}(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Drive|Dr)\b/;

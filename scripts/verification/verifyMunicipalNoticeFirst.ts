@@ -413,6 +413,15 @@ const ALWAYS = [
   "I tripped over my own feet because the sidewalk was so uneven in Toronto, on October 2 2026.",
   "I slipped on black ice on the sidewalk in Ottawa on October 2 2026 and broke my wrist.",
   "I tripped on a crack in the sidewalk on Bank Street in Ottawa on October 2 2026.",
+  // Re-review of e7d69aa: ordinary falls the stricter chain had lost.
+  "I tripped on the edge of the curb in Toronto on October 2 2026.",
+  "I tripped on a broken piece of the sidewalk outside my house in Toronto on October 2 2026.",
+  "I fell into a hole in the middle of the road in Ottawa on October 2 2026.",
+  "I slipped on snow covering the sidewalk in Ottawa on October 2 2026.",
+  "I slipped on unsalted ice at the corner of the sidewalk in Toronto on October 2 2026.",
+  "I tripped on uneven pavement on the sidewalk in Ottawa on October 2 2026.",
+  "I tripped on a metal plate in the road in Toronto on October 2 2026.",
+  "I tripped on a utility cover on the sidewalk in Toronto on October 2 2026.",
 ];
 const silent = ALWAYS.filter((story) => !municipalNoticeFirst(story, { now }));
 check("the persona and plain sidewalk, pothole, curb stories still fire", silent.length === 0, silent.join(" | "));
@@ -485,6 +494,8 @@ console.log("\n11. The box asks first; the date and the bar show only after Yes 
     asking.slice(0, 200),
   );
   check("the question says 'Is that right?' and gives its reason", /Is that right\?/.test(asking) && /Why we ask/.test(asking));
+  check("the reason's legal sentence carries its rule", /Why we ask[\s\S]*?<Rule rule=\{notice\.rule\} \/>/.test(asking));
+  check("the unanswered box is never drawn in the 'passed' alarm style", !/passed \?/.test(asking));
   check("every answer can be changed", (box.match(/setAnswer\(null\)/g) ?? []).length >= 2);
   const spec = readFileSync(path.join(process.cwd(), "tests/browser/walkthrough.spec.ts"), "utf8");
   check("the walkthrough answers Yes only for a persona hurt on a municipal way", /persona\.onMunicipalWay\) await yes\.click\(\)/.test(spec) && /municipal-notice-no/.test(spec));

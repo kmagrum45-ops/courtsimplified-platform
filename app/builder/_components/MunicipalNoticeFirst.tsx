@@ -62,7 +62,8 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
   useEffect(() => {
     try {
       const kept = window.sessionStorage.getItem(key);
-      if (kept === "yes" || kept === "no" || kept === "not-sure") setAnswerState(kept);
+      // A new or edited story starts unanswered unless this story was answered.
+      setAnswerState(kept === "yes" || kept === "no" || kept === "not-sure" ? kept : null);
     } catch {
       /* storage unavailable: ask */
     }
@@ -78,7 +79,7 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
   };
   if (!notice) return null;
   const passed = notice.counted?.passed ?? false;
-  const who = notice.place === "toronto" ? "the City of Toronto" : "the city or town";
+  const who = notice.place === "toronto" ? "the City of Toronto" : "a municipality (a city, town, township or region)";
   if (!showsFullNotice(answer)) {
     if (answer === "no") {
       return (
@@ -94,12 +95,16 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
       <section
         data-testid="municipal-notice-first"
         data-answer="unanswered"
-        className={`rounded-xl border px-4 py-3 text-sm leading-6 ${passed ? "border-[#e2a3a3] bg-[#fff5f5] text-[#5c1414]" : "border-[#f0c88a] bg-[#fffaf2] text-[#5a3a0e]"}`}
+        className="rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-4 py-3 text-sm leading-6 text-[#5a3a0e]"
       >
         <h3 className="text-base font-semibold">
           From what you told us, it sounds like you were hurt on a public sidewalk, road or bridge that {who} looks after. Is that right?
         </h3>
-        <p className="mt-1">Why we ask: if it was, the law requires written notice to the municipality within 10 days of the injury, so this comes before anything else.</p>
+        <p className="mt-1">
+          Why we ask: if it was, the law says a lawsuit about the condition of the sidewalk, road or bridge cannot go ahead unless written notice reaches
+          the municipality within 10 days of the injury, with some exceptions. So this comes before anything else.
+          <Rule rule={notice.rule} />
+        </p>
         <div className="mt-2 flex flex-wrap gap-2">
           <button type="button" data-testid="municipal-notice-yes" className="rounded-lg border px-3 py-1 font-semibold" onClick={() => setAnswer("yes")}>
             Yes

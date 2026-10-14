@@ -42,11 +42,12 @@ type Step = { n: number; step: string; url: string; text: string; screenshot: st
  * would: "Yes" only for a persona hurt on one, "No" for anyone else the box
  * appears for (a misreading the critic should then see as a question asked).
  */
-async function answerMunicipalNotice(page: Page, persona: Persona) {
+async function answerMunicipalNotice(page: Page, persona: Persona, steps?: Step[]) {
   const yes = page.getByTestId("municipal-notice-yes");
   if (!(await yes.isVisible().catch(() => false))) return;
   if (persona.onMunicipalWay) await yes.click();
   else await page.getByTestId("municipal-notice-no").click();
+  if (steps) await capture(page, persona, steps, "municipal-notice-answered");
 }
 
 async function capture(page: Page, persona: Persona, steps: Step[], step: string, note?: string) {
@@ -207,7 +208,7 @@ async function familyOrCivil(page: Page, persona: Persona, steps: Step[]) {
   // now that Continue waits too (page review, 2026-10-06).
   await expect(page.getByTestId("sourced-questions-loading")).toBeHidden({ timeout: 150_000 }).catch(() => undefined);
   await capture(page, persona, steps, "intake-filled");
-  await answerMunicipalNotice(page, persona);
+  await answerMunicipalNotice(page, persona, steps);
 
   await page.getByRole("button", { name: /Continue to your next steps/ }).click({ timeout: 150_000 });
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 180_000 });
@@ -326,7 +327,7 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
         .toBeVisible({ timeout: 60_000 })
         .catch(() => undefined);
       await capture(page, persona, steps, "guided-conversation", `${questionsAnswered} questions answered.`);
-      await answerMunicipalNotice(page, persona);
+      await answerMunicipalNotice(page, persona, steps);
       await nextSteps.first().click();
       continue;
     }
