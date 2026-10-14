@@ -200,10 +200,12 @@ definitions are still shown underneath; 13 defined terms are listed in
   written for self-represented people** (`scj-steps-to-a-civil-case`, near the
   end). It is the best single source for everyday words (affidavit, costs,
   hearsay, without prejudice).
-- **That same page still says the Small Claims limit is $35,000** (it has been
-  $50,000 since 2025-10-01, O. Reg. 626/00 and the Small Claims guides). Its
-  appeal thresholds ($50,000 Court of Appeal / Divisional Court) do match CJA
-  s. 19 (1.2). Don't quote its Small Claims limit.
+- **That same page still gives the pre-October-2025 Small Claims limit.** It is
+  $50,000 (O. Reg. 626/00 s. 1 (1)). Settled for good on 2026-10-13: its
+  passages are withheld by `superseded.json` ("phrase"), ontario.ca's "will
+  increase from ..." notice is cut from its passage ("sentence"), every site
+  citation of the limit is the regulation itself, and `test:small-claims-limit`
+  fails if the old figure appears anywhere under src/ or app/.
 - **Latin: no Ontario court publishes a glossary, and Ontario's rules and
   statutes define none.** The rules say "without notice", never "ex parte"
   (0 hits in all three rulebooks). Meanings come from other Canadian courts'

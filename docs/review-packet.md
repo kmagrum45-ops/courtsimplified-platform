@@ -15986,7 +15986,7 @@ You can ask for a referral by completing the online request form at www.lawsocie
 - **Source:** https://www.ontario.ca/page/suing-someone-small-claims-court
 
 ```
-Small Claims Court handles claims for money up to $50,000, not counting interest and costs, and claims for the return of personal property worth up to $50,000. The limit rose from $35,000 on October 1, 2025.
+Small Claims Court handles claims for money up to $50,000, not counting interest and costs, and claims for the return of personal property worth up to $50,000.
 ```
 
 ### `pathway:civil`
@@ -31128,8 +31128,7 @@ Small Claims Court can only hear claims up to a set dollar limit. Claims for mor
 
 Key facts:
 - The claim limit is $50,000, excluding interest and costs.
-- This limit increased from $35,000 effective October 1, 2025.
-- The appeal threshold also rose, from $3,500 to $5,000: an appeal to the Divisional Court lies from a final order for the payment of money in excess of that amount, excluding costs (Courts of Justice Act, s. 31).
+- The appeal threshold is $5,000: an appeal to the Divisional Court lies from a final order for the payment of money in excess of that amount, excluding costs (Courts of Justice Act, s. 31).
 - Under the Limitations Act, 2002, a claim generally cannot be started more than two years after the day it was discovered (s. 4).
 
 How CourtSimplified uses it:

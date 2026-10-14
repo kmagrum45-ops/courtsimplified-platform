@@ -118,6 +118,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
+| `npm run test:small-claims-limit` | **The Small Claims limit is $50,000 everywhere the site states it, and the old**<br>$35,000 limit appears nowhere the site ships. |
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |
 | `npm run test:source-link-labels` | **test:source-link-labels -- source links name their law, and the name is the**<br>library's own. |
 | `npm run test:source-links` | **Every "Source" link a reader can click opens a public page.**<br>COSTS NOTHING. Pure functions over the content modules; no network. |
