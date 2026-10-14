@@ -25,12 +25,16 @@ import {
   PASSED_CHECK_CLOSED,
   SOURCE_SAVED_ON,
   claimFit,
-  closedDayLine,
+  deadlineLineFor,
   keptForNotices,
   limitNotesFor,
   limitPassedState,
   noticeFit,
+  noticeStepTitle,
+  noticesNarrowed,
   practicalFor,
+  todayInOntario,
+  type PlainLine,
   type PracticalCourt,
 } from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
@@ -69,6 +73,8 @@ type LimitSource = {
   consequence?: "bars-the-claim" | "changes-what-happens-next";
   notABar?: RuleCitation[];
   statutory?: boolean;
+  /** Sentences of the deadline that say when service counts, each with the subrule it restates. */
+  servedWhen?: PlainLine[];
 };
 
 type NextStepSummary = {
@@ -141,9 +147,9 @@ export function yearChoices(isoDate: string, today: string = todayIso()): string
   return [`${year}${rest}`, `${other}${rest}`].filter((date) => !Number.isNaN(Date.parse(date)));
 }
 
+/** Today in Ontario, whatever the device's clock zone (walkthrough run 38500825561). */
 function todayIso(): string {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  return todayInOntario();
 }
 
 /** The rule that sets a time limit, beside it on the card (2026-10-13: limits were shown with no source). */
@@ -237,26 +243,38 @@ function NextStepCard({
   const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
-  const firstParagraph = forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {
-    userWords,
-    filingShown: Boolean(practical?.filing.length),
-  });
+  // The answer's first paragraph speaks of every notice the step covers; once
+  // the notice filter has narrowed them, the card leaves it to the full
+  // answer (walkthrough run 38500825561, SW: "Leave the notice to the Crown
+  // ..." led a Toronto sidewalk card). "How to give the notice" covers the
+  // kept one from its own rule.
+  const firstParagraph = cardShowsLead(summary, userWords, city)
+    ? forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {
+        userWords,
+        filingShown: Boolean(practical?.filing.length),
+      })
+    : "";
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
-  const { main, conditional, mipNote, kept } = cardLimits(summary, responding, userWords, city);
+  const { main, conditional, notClaimed, mipNote, kept } = cardLimits(summary, responding, userWords, city);
+  const mayApply = {
+    deadlines: conditional.deadlines.filter((item) => !notClaimed.deadlines.includes(item)),
+    periods: conditional.periods.filter((item) => !notClaimed.periods.includes(item)),
+  };
   const passed = passedBars({ deadlines: kept }, today);
   const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => {
-    const state = limitPassedState(deadline, today);
+    // limitPassedState decides "passed"; deadlineLineFor decides the words, so
+    // a statutory counted day on a closed day is never called THE last day
+    // (walkthrough run 38500825561, SW) -- the same conditional words as the
+    // passed box, with s. 89 (2) quoted.
+    const line = deadlineLineFor(deadline, today);
     return (
       <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
-        <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
-        {state.passed ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
-        {state.runsTo ? (
-          // A statutory last day that fell on a Saturday or holiday (review
-          // 2026-10-13): not "passed" while s. 89 (2) may still run it to the
-          // next open day; the counted day and that day, with the rule quoted.
-          <span data-testid="next-step-closed-day" className="block font-semibold text-[#8a1c1c]">
-            {closedDayLine(deadline.date, state.runsTo, today).say}
-            <QuotedRule rule={closedDayLine(deadline.date, state.runsTo, today).cite} />
+        <span className="font-semibold">{deadline.what}.</span> {line.statement}
+        {line.statement && line.passed ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
+        {line.closedDay ? (
+          <span data-testid="next-step-closed-day" className={`block font-semibold ${line.passed || line.closedDay.say.includes("Act ") ? "text-[#8a1c1c]" : "text-[#16302b]"}`}>
+            {line.closedDay.say}
+            <QuotedRule rule={line.closedDay.cite} />
           </span>
         ) : null}
         <LimitRule rule={deadline.rule} />
@@ -351,18 +369,37 @@ function NextStepCard({
           <QuotedRule rule={mipNote.cite} />
         </p>
       ) : null}
-      {conditional.deadlines.length > 0 || conditional.periods.length > 0 ? (
+      {mayApply.deadlines.length > 0 || mayApply.periods.length > 0 ? (
         // "If your action is under the simplified procedure ..." -- time limits
         // that apply only in some cases. Folded, so the card leads with the one
         // that applies now (held-back walkthrough, 2026-10-09: seven conditional
         // limits each said "Give the date below").
         <details data-testid="next-step-conditional" className="mt-3 text-sm leading-6 text-[#16302b]">
           <summary className="cursor-pointer font-semibold text-[#2f7d67]">
-            Other time limits that may apply later ({conditional.deadlines.length + conditional.periods.length})
+            Other time limits that may apply later ({mayApply.deadlines.length + mayApply.periods.length})
           </summary>
           <ul className="mt-2 space-y-2">
-            {conditional.deadlines.map(deadlineItem)}
-            {conditional.periods.map(periodItem)}
+            {mayApply.deadlines.map(deadlineItem)}
+            {mayApply.periods.map(periodItem)}
+          </ul>
+        </details>
+      ) : null}
+      {notClaimed.deadlines.length > 0 || notClaimed.periods.length > 0 ? (
+        // A limit the rule ties to a kind of claim the person's words show no
+        // sign of (walkthrough run 38500825561, FR: a parenting-only
+        // respondent read the property-papers limit among his next steps).
+        // Folded under its own heading that says why, never removed.
+        <details data-testid="next-step-not-claimed" className="mt-3 text-sm leading-6 text-[#16302b]">
+          <summary className="cursor-pointer font-semibold text-[#2f7d67]">
+            Only if the case has a kind of claim you have not mentioned ({notClaimed.deadlines.length + notClaimed.periods.length})
+          </summary>
+          <p className="mt-2 text-[#4d675f]">
+            Each of these starts with &ldquo;If&rdquo;: it applies only when the case has that claim. What you told us does not mention one. If the
+            other side&apos;s papers or your own answer make that claim, it applies to you.
+          </p>
+          <ul className="mt-2 space-y-2">
+            {notClaimed.deadlines.map(deadlineItem)}
+            {notClaimed.periods.map(periodItem)}
           </ul>
         </details>
       ) : null}
@@ -422,6 +459,29 @@ function NextStepCard({
 }
 
 /**
+ * Whether the card shows the answer's first "What to do next" paragraph: not
+ * once the notice filter has left a notice out, since that paragraph speaks
+ * of every notice the step covers (walkthrough run 38500825561, SW). The full
+ * answer keeps the paragraph whenever the card does not show it.
+ */
+export function cardShowsLead(summary: Pick<NextStepSummary, "deadlines" | "periods">, userWords: string, city: string): boolean {
+  return !noticesNarrowed([...summary.deadlines, ...summary.periods], userWords, city);
+}
+
+/** The step's title fitted to the one notice the person's words keep, or null to use the step's own question. */
+export function stepTitleFor(summary: Pick<NextStepSummary, "deadlines" | "periods">, userWords: string, city: string): string | null {
+  return noticeStepTitle([...summary.deadlines, ...summary.periods], userWords, city);
+}
+
+/** Every service-timing sentence of the step's limits with its subrule, once each. */
+export function servedWhenOf(summary: Pick<NextStepSummary, "deadlines" | "periods">): PlainLine[] {
+  const seen = new Set<string>();
+  return [...summary.deadlines, ...summary.periods]
+    .flatMap((item) => item.servedWhen ?? [])
+    .filter((line) => (seen.has(line.say) ? false : (seen.add(line.say), true)));
+}
+
+/**
  * The "What to do next" paragraph the card above already shows (build order
  * Step 2B, 2026-10-12): the full answer printed it again word for word under
  * the card, and the walkthrough flagged that on 7 of 10 cases.
@@ -444,12 +504,15 @@ function AnswerView({
   court,
   userWords = "",
   underCard = false,
+  servedWhen = [],
 }: {
   answer: RenderedAnswer;
   court: string;
   userWords?: string;
   /** Shown under the next-step card, which already shows the first step. */
   underCard?: boolean;
+  /** Service-timing sentences of the step's deadlines, each with its subrule, shown under "Your deadline" where the sentence appears. */
+  servedWhen?: PlainLine[];
 }) {
   const cardLead = underCard ? cardLeadOf(answer) : "";
   return (
@@ -469,6 +532,23 @@ function AnswerView({
             <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
               {text || "The first step is in \"Your next step\" above."}
             </p>
+            {section.heading === "Your deadline" && servedWhen.some((line) => text.includes(line.say)) ? (
+              // The rule beside each "when service counts" sentence above
+              // (walkthrough run 38500825561, FR: the 4 p.m. sentence had none).
+              <div data-testid="stage-answer-served-when" className="mt-2 rounded-xl border border-[#d8e6df] bg-[#f8fcfa] px-3 py-2 text-sm leading-6 text-[#2b4640]">
+                <p className="font-semibold text-[#16302b]">When service counts: the rules for the sentences above</p>
+                <ul className="mt-1 space-y-2">
+                  {servedWhen
+                    .filter((line) => text.includes(line.say))
+                    .map((line) => (
+                      <li key={line.say}>
+                        {line.say}
+                        <QuotedRule rule={line.cite} />
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         );
       })}
@@ -583,7 +663,14 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
   // passed-date box may speak of (review 2026-10-13: a dropped Municipal Act
   // notice still got its own red "passed" box).
   const kept = [...main.deadlines, ...conditional.deadlines];
-  return { main, conditional, mipNote, kept };
+  // The folded limits that are folded only because the words name no claim of their kind.
+  // Only "If ..." lines: the information program note (mipNote) explains its own fold.
+  const ifClaimed = (item: { id?: string; what: string }) => !fitsClaims(item) && isConditional(item.what);
+  const notClaimed = {
+    deadlines: conditional.deadlines.filter(ifClaimed),
+    periods: conditional.periods.filter(ifClaimed),
+  };
+  return { main, conditional, notClaimed, mipNote, kept };
 }
 
 /**
@@ -1055,7 +1142,11 @@ export default function StageAnswerPanel({
       {stageId && !choosingStep ? (
         <p className="mt-4 text-sm text-[#16302b]" data-testid="stage-answer-current">
           <span className="font-semibold">Your step: </span>
-          {options.find((option) => option.id === stageId)?.label ?? ""}{" "}
+          {/* Fitted to the one notice the person's words keep (walkthrough run
+              38500825561, SW), else the step's own question. */}
+          {(result?.outcome === "rendered" && result.nextStep ? stepTitleFor(result.nextStep, userWords, city) : null) ??
+            options.find((option) => option.id === stageId)?.label ??
+            ""}{" "}
           <button
             type="button"
             data-testid="stage-answer-change"
@@ -1380,7 +1471,13 @@ export default function StageAnswerPanel({
           <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">
             The full answer for this step, with every rule and source
           </summary>
-          <AnswerView answer={result.answer} court={courtPath} userWords={userWords} underCard />
+          <AnswerView
+            answer={result.answer}
+            court={courtPath}
+            userWords={userWords}
+            underCard={cardShowsLead(result.nextStep, userWords, city)}
+            servedWhen={servedWhenOf(result.nextStep)}
+          />
         </details>
       ) : result?.outcome === "rendered" ? (
         <AnswerView answer={result.answer} court={courtPath} userWords={userWords} />

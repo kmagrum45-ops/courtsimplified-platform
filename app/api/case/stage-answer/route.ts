@@ -30,7 +30,7 @@ import { findStage, isSpecialStage } from "../../../../src/lib/case-system/stage
 import { caseDatesFrom } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
 import { computedDeadlinesFor } from "../../../../src/lib/content-library/computedDeadline";
 import { dateQuestionsForStep, isDateQuestionId } from "../../../../src/lib/case-system/casePosition";
-import { notABarExceptions } from "../../../../src/lib/content-library/nextStepPractical";
+import { notABarExceptions, servedWhenLines } from "../../../../src/lib/content-library/nextStepPractical";
 import {
   STAGE_ANSWER_UNAVAILABLE_MESSAGE,
   STAGE_SCOPE_UNCONFIRMED_MESSAGE,
@@ -158,6 +158,10 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
     consequence: deadline.consequence,
     notABar: deadline.consequence === "bars-the-claim" ? notABarExceptions(deadline.exceptions) : [],
     statutory: deadline.regime === "legislation-act",
+    // Each sentence of the deadline that says when service counts, with the
+    // subrule it restates, from the deadline's own rule and exceptions
+    // (walkthrough run 38500825561: the 4 p.m. sentence had no rule beside it).
+    servedWhen: servedWhenLines(deadline.qualifier ?? "", [deadline.rule, ...deadline.exceptions]),
   });
   return {
     title: stage.title,

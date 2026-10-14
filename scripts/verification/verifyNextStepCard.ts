@@ -30,6 +30,14 @@
  *     told before the save is queued (so the case page's wait returns at
  *     once); a reload of the step just chosen dropping the facts given.
  *
+ *   - (walkthrough run 38500825561) a statutory counted day on a closed day
+ *     called THE last day on the card; "today" read in the device's zone
+ *     instead of Ontario's; a notice step titled with every notice kind once
+ *     the words keep one, or led by the every-notice paragraph; an "If" limit
+ *     about a kind of claim the words never mention leading, or lost; a
+ *     "when service counts" sentence (4 p.m.) without its subrule; the support
+ *     table shown above the motion-to-change step for an existing order.
+ *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
  * Run: npm run test:next-step
@@ -39,8 +47,17 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
-import { cardLimits, factsForStep, passedBars, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
-import { closedDayLine, limitPassedState, nextWeekdayOpen } from "../../src/lib/content-library/nextStepPractical";
+import { cardLimits, cardShowsLead, factsForStep, passedBars, servedWhenOf, stepTitleFor, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import {
+  PASSED_CHECK_CLOSED,
+  claimFit,
+  closedDayLine,
+  deadlineLineFor,
+  limitPassedState,
+  nextWeekdayOpen,
+  noticeKindOf,
+  todayInOntario,
+} from "../../src/lib/content-library/nextStepPractical";
 import { addDays, dayOfWeek, holidayFor } from "../../src/lib/case-system/deadlines/holidays";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 
@@ -114,7 +131,13 @@ async function main() {
   check("the card says which parts it doesn't list yet", /data-testid="next-step-not-listed"/.test(panel) && /"where and how to file"/.test(panel) && /"how to serve"/.test(panel));
   // Say it once (Step 2B, 2026-10-12; walkthrough: 7 of 10 cases printed the
   // card's paragraph again under the full answer).
-  check("the full answer under the card is told the card shows the first step", /<AnswerView answer=\{result\.answer\} court=\{courtPath\} userWords=\{userWords\} underCard \/>/.test(panel));
+  // The full answer drops the card's paragraph only when the card shows it
+  // (walkthrough run 38500825561: the card may now leave it out).
+  check(
+    "the full answer under the card is told whether the card shows the first step",
+    /<AnswerView[\s\S]{0,200}underCard=\{cardShowsLead\(result\.nextStep, userWords, city\)\}/.test(panel) &&
+      /const firstParagraph = cardShowsLead\(summary, userWords, city\)/.test(panel),
+  );
   check(
     "the card's paragraph is dropped from the full answer, the rest kept",
     withoutCardLead("What to do next", "File Form 9A.\n\nThen serve it.", "File Form 9A.") === "Then serve it." &&
@@ -320,6 +343,137 @@ async function main() {
     );
     const withParenting = cardLimits(change, false, "i want to change child support and parenting time");
     check("a change that touches parenting keeps the information program leading", withParenting.main.periods.some((p) => /information program/.test(p.what)) && !withParenting.mipNote);
+  }
+
+  // Walkthrough run 38500825561 (2026-10-13). Properties, not today's wording.
+  {
+    // SW 1: a statutory counted day on a closed day is never called THE last
+    // day, passed or not; "passed" is exactly limitPassedState's; the words
+    // are the passed box's conditional words with s. 89 (2).
+    const closedWords = /If the place where this (?:had|has) to be done (?:was|is) closed/;
+    check("the passed box's own words are conditional the same way", /if the place where this had to be done was closed/i.test(PASSED_CHECK_CLOSED.say));
+    let lineMisses = 0;
+    for (let offset = 0; offset < 400; offset += 1) {
+      const counted = addDays("2026-01-01", offset);
+      const closed = nextWeekdayOpen(counted) !== counted;
+      for (const today of [addDays(counted, -1), counted, addDays(counted, 1), nextWeekdayOpen(counted), addDays(nextWeekdayOpen(counted), 1), addDays(counted, 30)]) {
+        const limit = { date: counted, statutory: true, statement: `Based on the date you gave us, the last day for this is ${counted}.` };
+        const line = deadlineLineFor(limit, today);
+        if (line.passed !== limitPassedState(limit, today).passed) lineMisses += 1;
+        if (closed && (line.statement !== null || !line.closedDay || !closedWords.test(line.closedDay.say) || line.closedDay.cite.pinpoint !== "s. 89 (2)")) lineMisses += 1;
+        if (!closed && line.statement !== limit.statement) lineMisses += 1;
+        // A rules-regime date keeps the engine's statement.
+        if (deadlineLineFor({ date: counted, statement: "x" }, today).statement !== "x") lineMisses += 1;
+      }
+    }
+    check("over 400 counted days, a closed-day statutory limit is never called the last day, and 'passed' is limitPassedState's", lineMisses === 0, `misses ${lineMisses}`);
+    const sw14 = deadlineLineFor({ date: "2026-10-10", statutory: true, statement: "s" }, "2026-10-14");
+    check("SW on 14 October: passed, naming Saturday 10 and Tuesday 13 October", sw14.passed && /Saturday 10 October 2026/.test(sw14.closedDay?.say ?? "") && /Tuesday 13 October 2026/.test(sw14.closedDay?.say ?? ""));
+    const sw13 = deadlineLineFor({ date: "2026-10-10", statutory: true, statement: "s" }, "2026-10-13");
+    check("SW on 13 October: not passed, and says to act today", !sw13.passed && /Act today/.test(sw13.closedDay?.say ?? ""));
+    check("the card's deadline line takes its words from deadlineLineFor", /deadlineLineFor\(deadline, today\)/.test(panel) && !/\{deadline\.statement\}/.test(panel));
+    // The day is Ontario's: 22:30 in Toronto on 13 October is 02:30 UTC on 14 October.
+    check("today is Ontario's day, whatever the clock's zone", todayInOntario(new Date("2026-10-14T02:30:00Z")) === "2026-10-13" && todayInOntario(new Date("2026-10-14T12:00:00Z")) === "2026-10-14");
+    check("the panel's today is Ontario's", /function todayIso\(\): string \{\s*return todayInOntario\(\);/.test(panel));
+
+    // SW 2 and 3: with one notice kind kept, the title fits it and the card
+    // leaves the every-notice paragraph to the full answer.
+    const fell = await ask("civil:before-filing:notice-required-before-suing", "civil", { "sc-date-injury": "2026-09-30" });
+    const sum = fell.nextStep as never as Parameters<typeof stepTitleFor>[0];
+    const items = [...sum.deadlines, ...sum.periods];
+    const kinds = new Set(items.map((item) => noticeKindOf(item.what)).filter(Boolean));
+    check("the civil notice step covers several notice kinds", kinds.size >= 4, [...kinds].join(","));
+    const toronto = "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i want to sue the city";
+    const titled = stepTitleFor(sum, toronto, "Toronto") ?? "";
+    check("a Toronto sidewalk fall: the title names the City of Toronto notice", /City of Toronto/.test(titled) && /notice/i.test(titled), titled);
+    check("and no other notice kind", !/newspaper|libel|Crown|government|property owner|occupier/i.test(titled), titled);
+    check("a story that fits no notice keeps the step's own question", stepTitleFor(sum, "something happened to me", "Ottawa") === null);
+    // Property over every kind: a title appears only when exactly one kind is kept.
+    const stories: Record<string, string> = {
+      toronto,
+      municipality: "i fell in a pothole on a road in hamilton",
+      occupier: "i slipped on ice in the parking lot of a store",
+      crown: "an ontario provincial police cruiser hit me",
+      libel: "a newspaper printed lies about me",
+    };
+    let titleMisses = 0;
+    for (const [kind, story] of Object.entries(stories)) {
+      const title = stepTitleFor(sum, story, kind === "toronto" ? "Toronto" : "Hamilton");
+      if (title === null) titleMisses += 1;
+      for (const [other, otherWords] of Object.entries({ toronto: /Toronto/, municipality: /municipality/, occupier: /occupier/, crown: /Crown/, libel: /libel/ })) {
+        if (title && other !== kind && otherWords.test(title)) titleMisses += 1;
+      }
+    }
+    check("each notice kind, kept alone, gets a title naming only it", titleMisses === 0, `misses ${titleMisses}`);
+    check("a Toronto fall: the card leaves out the every-notice paragraph", !cardShowsLead(sum, toronto, "Toronto"));
+    check("a story that fits no notice: the card keeps it", cardShowsLead(sum, "something happened to me", "Ottawa"));
+    check("a step with no notices always keeps it", cardShowsLead({ deadlines: [], periods: [{ what: "Serve the defence", count: 20, unit: "days", countFrom: "x" }] } as never, toronto, "Toronto"));
+    check("the panel shows the fitted title on 'Your step'", /stepTitleFor\(result\.nextStep, userWords, city\)/.test(panel));
+
+    // FR 5: a limit the rule ties to a kind of claim the words show no sign of
+    // is folded under its own heading, never removed; one naming a kind they
+    // show leads as before.
+    const served = await ask("family:respondent:served-time-to-answer-running", "family");
+    const fr = served.nextStep as never as Parameters<typeof cardLimits>[0];
+    const frStory = "my ex gf took me to court for custody of our daugter, i got served the papers last week. she wants sole custody and wants to move to ottawa with her. i want joint custody and to keep my time with her.";
+    const frCard = cardLimits(fr, true, frStory);
+    const all = [...fr.deadlines, ...fr.periods];
+    check("FR: the respondent step has a property-claim limit", all.some((item) => /property claim/.test(item.what)), all.map((i) => i.what.slice(0, 40)).join(" | "));
+    check("FR: it is folded under 'a kind of claim you have not mentioned'", [...frCard.notClaimed.periods, ...frCard.notClaimed.deadlines].some((item) => /property claim/.test(item.what)));
+    check("FR: it does not lead", ![...frCard.main.periods, ...frCard.main.deadlines].some((item) => /property claim/.test(item.what)));
+    check("FR: the answer still leads", [...frCard.main.periods, ...frCard.main.deadlines].some((item) => /^Serve an answer/.test(item.what)));
+    check("FR: nothing is lost", frCard.main.periods.length + frCard.conditional.periods.length === fr.periods.length);
+    check("the card shows the not-claimed fold with its reason", /data-testid="next-step-not-claimed"/.test(panel) && /What you told us does not mention one/.test(panel));
+    // Over every family limit: an "If" line naming kinds fits a story naming one of them.
+    const kindWords: Record<string, string> = { parenting: "parenting time with my son", support: "child support", property: "the house and my pension property", home: "the matrimonial home", divorce: "a divorce" };
+    let fitMisses = 0;
+    for (const stage of ALL_STAGES.filter((item) => item.id.startsWith("family:"))) {
+      for (const deadline of stage.deadlines) {
+        if (!/^(?:if|where|when)\b/i.test(deadline.what)) continue;
+        const named = Object.entries(kindWords).filter(([kind]) =>
+          kind === "parenting" ? /\bparenting\b/i.test(deadline.what) : kind === "support" ? /\bsupport\b/i.test(deadline.what) : kind === "property" ? /\bproperty\b/i.test(deadline.what) : kind === "home" ? /matrimonial home/i.test(deadline.what) : /\bdivorce\b/i.test(deadline.what),
+        );
+        for (const [, words] of named) if (claimFit(deadline, words) !== "fits") fitMisses += 1;
+      }
+    }
+    check("every family 'If' limit fits a story that names a kind of claim it names", fitMisses === 0, `misses ${fitMisses}`);
+    // The kind-of-claim reading is for "If" lines only; with no condition, a
+    // limit folds only for the named financial-statement and property-papers
+    // rules C7 already covers.
+    check(
+      "a limit with no 'If' (and none of C7's named papers) always fits, whatever the words",
+      ALL_STAGES.flatMap((stage) => stage.deadlines)
+        .filter((d) => !/^(?:if|where|when|unless)\b/i.test(d.what) && !/mip-45-days/.test(d.id) && !/property (?:claim|papers)|support claim|financial statement/i.test(d.what))
+        .every((d) => claimFit(d, frStory) === "fits"),
+    );
+
+    // FR 6: every deadline sentence saying when service counts, wherever it
+    // appears, comes with the subrule it restates, from the deadline's own rules.
+    const frWhen = servedWhenOf(fr as never);
+    check("FR: the 4 p.m. sentence comes with r. 6 (11.1), quoted", frWhen.some((line) => /after 4 p\.m\./.test(line.say) && line.cite.pinpoint === "r. 6 (11.1)" && /after 4 p\.m\./.test(line.cite.quote)));
+    let unsourced4pm = 0;
+    let foreign = 0;
+    const { servedWhenLines } = await import("../../src/lib/content-library/nextStepPractical");
+    for (const stage of ALL_STAGES) {
+      for (const deadline of stage.deadlines) {
+        const sentences = (deadline.qualifier ?? "").split(/(?<=\.)\s+/).filter((sentence) => /after 4 p\.m\./.test(sentence));
+        const lines = servedWhenLines(deadline.qualifier ?? "", [deadline.rule, ...deadline.exceptions]);
+        for (const sentence of sentences) if (!lines.some((line) => sentence.includes(line.say) || line.say.includes(sentence.trim()))) unsourced4pm += 1;
+        for (const line of lines) if (![deadline.rule, ...deadline.exceptions].includes(line.cite)) foreign += 1;
+      }
+    }
+    check("every 'after 4 p.m.' sentence in any deadline has its rule beside it", unsourced4pm === 0, `unsourced ${unsourced4pm}`);
+    check("each such rule is one the deadline itself carries", foreign === 0);
+    check("the full answer shows them under 'Your deadline'", /data-testid="stage-answer-served-when"/.test(panel) && /servedWhen=\{servedWhenOf\(result\.nextStep\)\}/.test(panel));
+
+    // MC 7: with an order already in place, the support-table card follows the
+    // step's guidance, folded, and is not shown above it.
+    const page = readFileSync(path.resolve(__dirname, "../../app/builder/page.tsx"), "utf8");
+    const panelAt = page.indexOf("<StageAnswerPanel");
+    const foldedAt = page.indexOf('data-testid="child-support-table-folded"');
+    check("the folded support-table card comes after the step panel", panelAt > 0 && foldedAt > panelAt);
+    check("it is shown there only for an existing order", /existingFamilyOrder\(homeStory \|\| userStory\(caseData\)\)[\s\S]{0,400}data-testid="child-support-table-folded"/.test(page));
+    check("above the step, the card is not shown for an existing order", /!existingFamilyOrder\(homeStory \|\| userStory\(caseData\)\) \? <ChildSupportTableCard \/> : null/.test(page) && (page.match(/<ChildSupportTableCard \/>/g) ?? []).length === 2);
   }
 
   if (failures > 0) {

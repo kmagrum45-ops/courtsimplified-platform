@@ -1857,7 +1857,10 @@ function BuilderPageContent() {
                   )}
                 />
               )}
-              <ChildSupportTableCard />
+              {/* With an order already in place, the table card is folded
+                  under the next-step guidance instead (walkthrough run
+                  38500825561, MC). */}
+              {!existingFamilyOrder(homeStory || userStory(caseData)) ? <ChildSupportTableCard /> : null}
             </div>
           );
         })()}
@@ -1980,6 +1983,21 @@ function BuilderPageContent() {
                   courtPath,
                 })}
               />
+            ) : null}
+            {/* A support order already exists (motion to change): the table
+                card comes after the step's guidance, folded (walkthrough run
+                38500825561, MC: "it depends on where the other parent lives"
+                led his results, before the motion-to-change step). */}
+            {confirmedStage &&
+            courtPath === "family" &&
+            existingFamilyOrder(homeStory || userStory(caseData)) &&
+            (familyScope?.issues ?? (Array.isArray(asRecord(caseData?.extra).issues) ? (asRecord(caseData?.extra).issues as string[]) : [])).includes(
+              "child-support",
+            ) ? (
+              <details data-testid="child-support-table-folded" className="rounded-2xl border border-[#d8e6df] bg-white p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">How the child support table works</summary>
+                <ChildSupportTableCard />
+              </details>
             ) : null}
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} />

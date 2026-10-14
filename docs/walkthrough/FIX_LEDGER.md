@@ -32,7 +32,11 @@ small-claims-guided-defendant-reno, JU = small-claims-plaintiff-judgment-unpaid.
 | C4 | Passed notice deadline: no plain warning, no urgent-help pointer, no mention of the excuse rule | SW | When a bar-the-claim deadline has passed, the card says so plainly, names the excuse/death exceptions from the rule, and points to urgent help | test | open |
 | C5 | Motion to change: application offered instead of Form 15 | MC | No application builder for an existing order (#326) | Run 3: Form 15 named | closed |
 | C6 | Motion to change: card leads with "Attend the mandatory information program" without its source, for a support-only change | MC | Check r. 8.1's own scope for motions to change; show it only where it applies, with its rule | test | open |
-| C7 | Family respondent (parenting only): card shows property-claim and financial-statement lines | FR | Lines conditional on a property or support claim are folded unless the person's issues include one | test | open |
+| C7 | Family respondent (parenting only): card shows property-claim and financial-statement lines | FR | Lines conditional on a property or support claim are folded unless the person's issues include one; run 38500825561 still read the fold as next steps, so any "If" limit naming only claim kinds the words never show (property, support, home, divorce, parenting) now folds under its own heading saying why | test:next-step | fixed |
+| C9 | Passed statutory notice: card line called Saturday "the last day" and "passed" before the s. 89 (2) words; "today" read in UTC (22:30 in Toronto was the 14th) | SW | deadlineLineFor: a closed counted day is never THE last day, same conditional words as the passed box; today is Ontario's (todayInOntario) | test:next-step | fixed |
+| C10 | Notice step titled with every notice kind; card led by the every-notice paragraph ("Leave the notice to the Crown ...") | SW | One notice kind kept: title fitted to it (noticeStepTitle); the every-notice paragraph left to the full answer (cardShowsLead) | test:next-step | fixed |
+| C11 | Notice card never named the later claim form | SW | "Then, starting the court case": Form 14A (r. 14.03 (1)) or Form 7A (r. 7.01 (1)) and the issuing fee, after the notice | test:next-step-practical | fixed |
+| C12 | Support-table card shown before the motion-to-change step | MC | Existing order: table card folded after the step panel (page.tsx, two small edits) | test:next-step | fixed |
 | C8 | Mail service: receipt date counted as mailing date; definitive deadline shown though how it was served is unresolved | RN | A date the papers ARRIVED by mail is not counted as the mailing date; the card asks for the mailing date (postmark) and shows the range | test:case-position | open |
 
 ## Where to file, fee, service
@@ -53,6 +57,7 @@ small-claims-guided-defendant-reno, JU = small-claims-plaintiff-judgment-unpaid.
 | S2 | Mandatory information program line without its rule | FR, MC | The card shows r. 8.1 (4) beside it | test | open |
 | S3 | Timeline's holiday/office-closure explanation without source | SW | Cite Legislation Act s. 89 there | test | open |
 | S4 | "The rules don't say whether that moves" stated without a source | RN | Reword to what the rule says, with the rule | test | open |
+| S6 | "Papers left with you after 4 p.m. count as served the next day" without its rule | FR | Each when-service-counts sentence of a deadline shown with its subrule from the deadline's own exceptions (r. 6 (11.1) etc.), under "Your deadline" | test:next-step | fixed |
 | S5 | Six-month Family Law Act restriction without precise provision | MC | Cite the subsection | test | open |
 
 ## Conversation
