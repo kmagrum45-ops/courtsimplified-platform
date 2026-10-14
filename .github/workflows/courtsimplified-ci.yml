@@ -63,6 +63,9 @@ jobs:
       - name: Deleting a case deletes its stored files, and only its owner's
         run: npm run test:case-file-cleanup
 
+      - name: In-app deadline reminder
+        run: npm run test:upcoming-deadline
+
       - name: The user's own words shown back, and story dates offered for deadlines
         run: npm run test:user-story
 
