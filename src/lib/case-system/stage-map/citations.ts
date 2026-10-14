@@ -60,6 +60,7 @@ export type CorpusSourceId =
   // ontario.ca pages that say which portal files where.
   | "oreg-332-16-small-claims-fees"
   | "oreg-293-92-superior-court-fees"
+  | "oreg-417-95-family-court-fees"
   | "ontario-file-small-claims-online"
   | "ontario-file-civil-claim-online"
   | "ontario-fees-family"
@@ -90,6 +91,7 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "insurance-act": "https://www.ontario.ca/laws/statute/90i08",
   "oreg-332-16-small-claims-fees": "https://www.ontario.ca/laws/regulation/160332",
   "oreg-293-92-superior-court-fees": "https://www.ontario.ca/laws/regulation/920293",
+  "oreg-417-95-family-court-fees": "https://www.ontario.ca/laws/regulation/950417",
   "ontario-file-small-claims-online": "https://www.ontario.ca/page/file-small-claims-court-documents-online",
   "ontario-file-civil-claim-online": "https://www.ontario.ca/page/file-civil-claim-online",
   "ontario-fees-family": "https://www.ontario.ca/page/family-court-fees",
@@ -123,6 +125,7 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "insurance-act": "Insurance Act, R.S.O. 1990, c. I.8",
   "oreg-332-16-small-claims-fees": "O. Reg. 332/16 (Small Claims Court fees)",
   "oreg-293-92-superior-court-fees": "O. Reg. 293/92 (Superior Court of Justice and Court of Appeal fees)",
+  "oreg-417-95-family-court-fees": "O. Reg. 417/95 (Superior Court of Justice, Family Court fees)",
   "ontario-file-small-claims-online": "ontario.ca, File Small Claims Court documents online",
   "ontario-file-civil-claim-online": "ontario.ca, File a civil claim online",
   "ontario-fees-family": "ontario.ca, Family court fees",

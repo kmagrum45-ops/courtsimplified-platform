@@ -79,6 +79,7 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   "ontario-file-civil-claim-online": "2026-09-27",
   "ontario-fees-family": "2026-09-30",
   "ontario-fee-waiver": "2026-09-27",
+  "oreg-417-95-family-court-fees": "2026-10-14",
   "oreg-258-98-small-claims-rules": "2026-09-27",
   "rules-of-civil-procedure": "2026-09-27",
   "family-law-rules": "2026-09-30",
@@ -144,17 +145,24 @@ export const FEES: Record<string, Fee> = Object.fromEntries(FEE_LIST.map((fee) =
 
 /*
  * The Family Court branch of the Superior Court charges under its own
- * regulation, O. Reg. 417/95, which is not saved (review 2026-10-13). The
- * fee lines here speak only for O. Reg. 293/92 and the Ontario Court of
- * Justice; for the Family Court branch the card says the fee is set by a
- * regulation the site has not saved, and to ask that office.
+ * regulation, O. Reg. 417/95 (saved 2026-10-14 through Vendor Sources; it was
+ * missing, and the card said to ask the office: walkthrough ledger F3). Its
+ * filing and listing fees are the same amounts as O. Reg. 293/92 s. 1.2, and
+ * its s. 2 exempts the same parenting and support cases.
  */
+const fcb = (pinpoint: string, quote: string): RuleCitation => cite("oreg-417-95-family-court-fees", pinpoint, quote);
 export const FAMILY_COURT_BRANCH_FEE: PlainLine = {
-  say: "In the Family Court branch of the Superior Court, fees are set by a separate regulation (O. Reg. 417/95) that this site has not saved yet, so ask that court office what this step costs.",
-  cite: cite(
-    "ontario-fees-family",
-    "Superior Court of Justice and Family Court branch fees",
-    "The information in this section is an unofficial presentation of the fees prescribed by two Ontario regulations. ... Ontario Regulation 417/95 , Superior Court of Justice – Family Court – Fees",
+  say: "In the Family Court branch of the Superior Court (O. Reg. 417/95), filing an application costs $214, an answer $171 ($214 if it asks for a divorce), and listing a case for hearing $445.",
+  cite: fcb(
+    "s. 1 (1), paras. 1-4",
+    "1. On the filing of an application, $214. 2. On the filing of an answer, other than an answer referred to in paragraph 3, $171. 3. On the filing of an answer that includes a request for a divorce by a respondent, $214. 4. On the placing of an application on the list for hearing, $445.",
+  ),
+};
+export const FAMILY_COURT_BRANCH_EXEMPTION: PlainLine = {
+  say: "In the Family Court branch too, there is no fee to file an application or answer, or to list the case, in a case only about parenting or support under the Children's Law Reform Act or the Family Law Act (other than its property and home parts).",
+  cite: fcb(
+    "s. 2 (a)",
+    "no fees are payable for the filing of an application, the filing of an answer or the placing of an application on the list for hearing in respect of, (a) proceedings under the Child, Youth and Family Services Act, 2017, the Children’s Law Reform Act, the Family Law Act (except Parts I and II)",
   ),
 };
 
@@ -182,6 +190,7 @@ export const FAMILY_FEE_NOTES: PlainLine[] = [
 const FAMILY_EXEMPTION_NOTE = FAMILY_FEE_NOTES[2];
 /** The federal $10 divorce fee. */
 const FAMILY_DIVORCE_FEE_NOTE = FAMILY_FEE_NOTES[3];
+FAMILY_FEE_NOTES.splice(3, 0, FAMILY_COURT_BRANCH_EXEMPTION);
 
 /**
  * The family fee notes, in the order that fits the person's words (review
@@ -193,8 +202,9 @@ const FAMILY_DIVORCE_FEE_NOTE = FAMILY_FEE_NOTES[3];
  */
 export function familyFeeNotesFor(claims: FamilyClaims | null, exemptionLeads: boolean): PlainLine[] {
   const noDivorce = Boolean(claims && claims.known && !claims.divorce);
-  const others = FAMILY_FEE_NOTES.filter((line) => line !== FAMILY_EXEMPTION_NOTE && line !== FAMILY_DIVORCE_FEE_NOTE);
-  const ordered = exemptionLeads ? [FAMILY_EXEMPTION_NOTE, ...others] : [...others, FAMILY_EXEMPTION_NOTE];
+  const exemptions = [FAMILY_EXEMPTION_NOTE, FAMILY_COURT_BRANCH_EXEMPTION];
+  const others = FAMILY_FEE_NOTES.filter((line) => !exemptions.includes(line) && line !== FAMILY_DIVORCE_FEE_NOTE);
+  const ordered = exemptionLeads ? [...exemptions, ...others] : [...others, ...exemptions];
   return noDivorce ? ordered : [...ordered, FAMILY_DIVORCE_FEE_NOTE];
 }
 
@@ -216,7 +226,10 @@ export const FAMILY_NO_STEP_FEE: PlainLine[] = [
     say: "In the Ontario Court of Justice there is no fee to file or list a family case.",
     cite: cite("ontario-fees-family", "Ontario Court of Justice fees", "There are no filing or listing fees in family proceedings in the Ontario Court of Justice."),
   },
-  FAMILY_COURT_BRANCH_FEE,
+  {
+    say: "The Family Court branch's fee list (O. Reg. 417/95) also charges only for filing an application or an answer and for listing a case for hearing, and lists no fee for the papers at this step.",
+    cite: FAMILY_COURT_BRANCH_FEE.cite,
+  },
 ];
 
 /**
