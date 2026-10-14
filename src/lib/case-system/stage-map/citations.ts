@@ -64,7 +64,11 @@ export type CorpusSourceId =
   | "ontario-file-small-claims-online"
   | "ontario-file-civil-claim-online"
   | "ontario-fees-family"
-  | "ontario-fee-waiver";
+  | "ontario-fee-waiver"
+  // Walkthrough run 38525903567 (SJ): the next-step card quotes the court's
+  // after-judgment guide on naming the garnishee and on what an examination
+  // of the debtor is for.
+  | "guide-after-judgment";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -96,6 +100,7 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "ontario-file-civil-claim-online": "https://www.ontario.ca/page/file-civil-claim-online",
   "ontario-fees-family": "https://www.ontario.ca/page/family-court-fees",
   "ontario-fee-waiver": "https://www.ontario.ca/page/have-your-court-fees-waived",
+  "guide-after-judgment": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -130,6 +135,7 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "ontario-file-civil-claim-online": "ontario.ca, File a civil claim online",
   "ontario-fees-family": "ontario.ca, Family court fees",
   "ontario-fee-waiver": "ontario.ca, Have your court fees waived",
+  "guide-after-judgment": "ontario.ca, Guide to Procedures in Small Claims Court: After judgment",
 };
 
 export type RuleCitation = {

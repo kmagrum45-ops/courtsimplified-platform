@@ -374,9 +374,59 @@ export const FAMILY_POSTCARD_WAY = {
 /** The company route for a claim (r. 8.03 (3), 16.03 (6)): offered only for a claim. Its day comes from mailing, which can be before the papers arrive. */
 export const COMPANY_ROUTE: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["corporation-mail", "corporation-courier"]);
 
+/**
+ * Who the papers were served on, as far as the person's words say
+ * (walkthrough run 38525903567, SD: "Mailed to the company at its address on
+ * record, and to its directors" was offered to a homeowner). `company: false`
+ * means the words do not make a company the party served, and the company
+ * route of r. 8.03 (3) / 16.03 (6) -- which is service "on the corporation" --
+ * is not offered; `undefined` (not known) keeps every way.
+ */
+export type ServedOn = { company?: boolean };
+
+/*
+ * Who was served, from the person's words (review of bee9daf: the first cut
+ * hid the company route from every party not described in so many words as
+ * a company). `company: false` ONLY on positive evidence that the party
+ * served is an individual; no evidence either way is "not known", which keeps
+ * every way. When the person received the papers, the party served is the
+ * person; when they served them, it is the other side, judged by its name.
+ */
+const BUSINESS_WORDS =
+  /\b(?:inc|ltd|corp|llc|limited|incorporated|corporation|company|business|numbered company|firm|\d{6,7}\s+(?:ontario|canada)\s+(?:inc|ltd|limited|corp))\b\.?/i;
+const MY_BUSINESS = /\b(?:my|our)\s+(?:(?:small|numbered|family)\s+)?(?:business|company|corporation|firm|store|shop|restaurant)\b/i;
+const ME_SERVED = /\b(?:suing me|sued me|served me|against me|i (?:was|got) served|i (?:got|received|recieved) (?:the |a )?(?:plaintiff'?s? |plaintifs )?claim|(?:the|a) claim (?:came|arrived) (?:to|at) my (?:house|home|apartment))\b/i;
+/*
+ * A relationship that can only be with a person (re-review of 6a0fce6): not
+ * "landlord" or "tenant" (often a company), not "partner" (a business
+ * partner), and "ex" only on its own ("my ex"), never "my ex boss".
+ */
+const A_PERSON =
+  /\bmy (?:old |former |ex-)?(?:roommate|room-mate|neighbou?r|friend|brother|sister|cousin|uncle|aunt|father|mother|son|daughter|boyfriend|girlfriend|husband|wife)\b|\bmy ex\b(?![- ]?(?:boss|employer|landlord|company|business|partner|manager|supervisor|client|tenant))/i;
+
+export function partyServedFrom(words: string, personWasServed: boolean): ServedOn {
+  const text = words.replace(/"[A-Za-z_][A-Za-z0-9_]*"\s*:/g, " ");
+  if (personWasServed) {
+    if (MY_BUSINESS.test(text)) return { company: true };
+    // Any business word in their own words ("I own a renovation company",
+    // "I run a small contracting business", Inc., Ltd.): not known, never an individual.
+    if (BUSINESS_WORDS.test(text) || /\b(?:own|run|operate)\s+(?:a|an|my|our)\b/i.test(text)) return {};
+    return ME_SERVED.test(text) ? { company: false } : {};
+  }
+  // The other side: a business name or word makes it a company; a named relationship to a person makes it an individual.
+  const withoutMine = text.replace(MY_BUSINESS, " ");
+  const business = BUSINESS_WORDS.test(withoutMine);
+  // Several parties named, one of them a landlord or a business: not known (third review).
+  if (business && A_PERSON.test(text)) return {};
+  if (business) return { company: true };
+  if (/\b(?:landlord|tenant|property manag\w*)\b/i.test(text)) return {};
+  return A_PERSON.test(text) ? { company: false } : {};
+}
+
 /** The ways the rules allow for a claim or application that come by post, each with its effective day and rule. */
-export function postWaysForClaim(court: ServiceCourt): { label: string; effective: string | null; rule: string; quote: string }[] {
+export function postWaysForClaim(court: ServiceCourt, servedOn: ServedOn = {}): { label: string; effective: string | null; rule: string; quote: string }[] {
   const ways = ORIGINATING_METHODS[court]
+    .filter((method) => servedOn.company !== false || !COMPANY_ROUTE.has(method))
     .map((method) => SERVICE_RULES[court].find((rule) => rule.method === method))
     .filter((rule): rule is ServiceRule => Boolean(rule) && !rule!.method.startsWith("personal"))
     .map((rule) => ({ label: rule.label, effective: whenEffectiveSay(rule), rule: rule.rule, quote: rule.quote }));
@@ -388,9 +438,10 @@ export function postWaysForClaim(court: ServiceCourt): { label: string; effectiv
  * application, only the ways the rules allow for one (ORIGINATING_METHODS);
  * otherwise every way.
  */
-export function serviceRulesFor(court: ServiceCourt, questionId = ""): ServiceRule[] {
+export function serviceRulesFor(court: ServiceCourt, questionId = "", servedOn: ServedOn = {}): ServiceRule[] {
   if (questionId && isOriginatingService(court, questionId)) {
-    return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method));
+    // The company route only when the party served is a company (or not known).
+    return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method) && (servedOn.company !== false || !COMPANY_ROUTE.has(rule.method)));
   }
   // The company route is only for a claim (r. 8.03 (3), 16.03 (6)).
   return SERVICE_RULES[court].filter((rule) => !COMPANY_ROUTE.has(rule.method));

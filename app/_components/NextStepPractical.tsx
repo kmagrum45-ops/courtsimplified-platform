@@ -43,6 +43,10 @@ export default function NextStepPractical({
   responding = false,
   story = "",
   noticeStepId = "",
+  deadline = "",
+  serveBy = "",
+  divisionalOnly = false,
+  today = "",
 }: {
   stepId: string;
   court: string;
@@ -52,9 +56,16 @@ export default function NextStepPractical({
   story?: string;
   /** The written-notice step the case's claim points to (a municipal one keeps the municipal service line). */
   noticeStepId?: string;
+  /** The step's counted last day and Ontario's today: a deadline too close to file online, and mail timing (walkthrough run 38525903567, SD). */
+  deadline?: string;
+  /** The person's own serving deadline, for the mail timing (personDeadlineOf). */
+  serveBy?: string;
+  /** The filing deadline is an appeal step the guide covers only in the Divisional Court. */
+  divisionalOnly?: boolean;
+  today?: string;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId);
+  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly });
   if (!view) return null;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">
@@ -177,6 +188,23 @@ export default function NextStepPractical({
               </p>
             </div>
           ) : null}
+        </div>
+      ) : null}
+
+      {view.garnishee ? (
+        // An employer named only vaguely (walkthrough run 38525903567, SJ):
+        // what the rules say about naming the garnishee, and the examination
+        // that is their way to find out more. Options the rules give, side by side.
+        <div data-testid="next-step-garnishee">
+          <p className="font-semibold">Naming the employer</p>
+          <p className="mt-1">
+            You wrote: “{view.garnishee.quote}” The rules give these ways forward; which to use is your choice.
+          </p>
+          <ul className="mt-1 space-y-1">
+            {view.garnishee.lines.map((line) => (
+              <Line key={line.say} line={line} />
+            ))}
+          </ul>
         </div>
       ) : null}
 
