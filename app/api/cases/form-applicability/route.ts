@@ -148,9 +148,9 @@ function procedureStage(masterResult: Record<string, unknown>): string {
   const confirmed = text((asRecord(masterResult.position) || {}).confirmedStage);
   if (confirmed === "starting-case" || confirmed === "responding") return confirmed;
   const masterCase = asRecord(masterResult.masterCase) || {};
-  const assembly = asRecord(masterResult.caseSystemAssembly) || asRecord(masterResult.assembly) || {};
-  const proceduralState = asRecord(assembly.proceduralState) || {};
-  for (const source of [masterResult, masterCase, proceduralState]) for (const key of ["stage", "proceduralStage", "currentStage"]) { const value = text(source[key]); if (value) return value; }
+  // The older assembly copy of the stage (caseSystemAssembly.proceduralState)
+  // is not read: it was retired on 2026-10-14 (CLAUDE.md s. 2a, one copy).
+  for (const source of [masterResult, masterCase]) for (const key of ["stage", "proceduralStage", "currentStage"]) { const value = text(source[key]); if (value) return value; }
   return "";
 }
 function caseFacts(masterResult: Record<string, unknown>, area: FormsCourtPath): Record<string, unknown> {

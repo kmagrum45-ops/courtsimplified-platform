@@ -47,7 +47,8 @@ export function syntheticAuthority(
     legalTestElements: [{ id: "synthetic-element", label: "Synthetic element", explanation: "Synthetic explanation.", proofNeeded: ["Synthetic proof"], commonWeaknesses: [], evidenceExamples: [], burdenRelevance: "Synthetic burden." }],
     evidenceImplications: [],
     workflowLinks: [],
-    relatedAuthorities: { follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [], limitedBy: [], overrules: [], overruledBy: [], related: [] },
+    relatedAuthorities: { follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [], limitedBy: [], overrules: [], overruledBy: [], related: [] },
+
     aiUseRules: { canShowToUser: true, canUseForReasoning: true, canUseForDrafting: true, mustVerifyBeforeCitation: false, mustExplainLimits: true, mustAskContextQuestions: true, prohibitedUses: [] },
     suggestedAiQuestions: [],
     suggestedEvidenceQuestions: [],
@@ -265,7 +266,7 @@ async function main() {
     const realSmallClaimsCanonical = JSON.stringify(realSmallClaimsOutput.masterResultPatch);
     assert.equal(realSmallClaimsCanonical.includes(jurisdictionRegulation.id), true, `${label}: real binding regulation must reach canonical master-case assembly`);
     assert.equal(realSmallClaimsCanonical.includes(procedureGuide.id), true, `${label}: real official guide must reach canonical master-case assembly`);
-    assert.equal((realSmallClaimsOutput.masterResultPatch.caseSystemAssembly as { authorityReadiness?: { verifiedAuthorityCount?: number } } | undefined)?.authorityReadiness?.verifiedAuthorityCount, 2, `${label}: canonical assembly must receive the Small Claims authority analysis`);
+    assert.equal((realSmallClaimsOutput.masterResultPatch.masterCase as { authorityAnalysis?: { verifiedAuthorityIds?: string[] } } | undefined)?.authorityAnalysis?.verifiedAuthorityIds?.length, 2, `${label}: canonical master case must receive the Small Claims authority analysis`);
   }
 
   for (const pilotAuthority of [jurisdictionRegulation, procedureGuide]) {
@@ -363,7 +364,7 @@ async function main() {
     const realFamilyCanonical = JSON.stringify(realFamilyOutput.masterResultPatch);
     assert.equal(realFamilyCanonical.includes(familyLawRules.id), true, `${label}: real Family Law Rules must reach canonical master-case assembly`);
     assert.equal(realFamilyCanonical.includes(familyProcedureGuide.id), true, `${label}: real Family guide must reach canonical master-case assembly`);
-    assert.equal((realFamilyOutput.masterResultPatch.caseSystemAssembly as { authorityReadiness?: { verifiedAuthorityCount?: number } } | undefined)?.authorityReadiness?.verifiedAuthorityCount, 2, `${label}: canonical assembly must receive the Family authority analysis`);
+    assert.equal((realFamilyOutput.masterResultPatch.masterCase as { authorityAnalysis?: { verifiedAuthorityIds?: string[] } } | undefined)?.authorityAnalysis?.verifiedAuthorityIds?.length, 2, `${label}: canonical master case must receive the Family authority analysis`);
   }
 
   for (const pilotAuthority of [familyLawRules, familyProcedureGuide]) {
@@ -464,7 +465,7 @@ async function main() {
     const realCivilCanonical = JSON.stringify(realCivilOutput.masterResultPatch);
     assert.equal(realCivilCanonical.includes(civilProcedureRules.id), true, `${label}: binding Rules of Civil Procedure must reach canonical master-case assembly`);
     assert.equal(realCivilCanonical.includes(civilClaimsGuide.id), true, `${label}: Civil claims guide must reach canonical master-case assembly`);
-    assert.equal((realCivilOutput.masterResultPatch.caseSystemAssembly as { authorityReadiness?: { verifiedAuthorityCount?: number } } | undefined)?.authorityReadiness?.verifiedAuthorityCount, 2, `${label}: canonical assembly must receive the Civil authority analysis`);
+    assert.equal((realCivilOutput.masterResultPatch.masterCase as { authorityAnalysis?: { verifiedAuthorityIds?: string[] } } | undefined)?.authorityAnalysis?.verifiedAuthorityIds?.length, 2, `${label}: canonical master case must receive the Civil authority analysis`);
   }
 
   for (const courtPath of ["small-claims", "family"] as const) {
@@ -572,13 +573,8 @@ async function main() {
     assert.equal(reloadedMasterCase.title, persistedCase.title, `${scenario.courtPath}: unrelated selected-case title was not preserved`);
     assert.equal(reloadedMasterCase.status, "paused", `${scenario.courtPath}: unrelated selected-case status was not preserved`);
     assert.equal(reloadedMasterCase.courtPath, scenario.courtPath, `${scenario.courtPath}: canonical court area changed`);
-    assert.ok(reloadedOutput.masterResultPatch.courtSimplifiedArchitecture, `${scenario.courtPath}: BrainMigrationLayer output missing`);
-    assert.equal(
-      (reloadedOutput.masterResultPatch.courtSimplifiedArchitecture as { migrationLayer?: string }).migrationLayer,
-      "BrainMigrationLayer",
-      `${scenario.courtPath}: BrainMigrationLayer marker missing`,
-    );
-    assert.ok(reloadedOutput.masterResultPatch.caseSystemAssembly, `${scenario.courtPath}: CaseSystemAssembly output missing`);
+    // The older migration and assembly layers were retired 2026-10-14 (CLAUDE.md s. 2a); the master case is the one record.
+    assert.equal("caseSystemAssembly" in reloadedOutput.masterResultPatch, false, `${scenario.courtPath}: retired assembly copy written again`);
     for (const requiredId of scenario.requiredIds) {
       assert.equal(reloadedAuthorityIds.includes(requiredId), true, `${scenario.courtPath}: selected authority was lost on reload: ${requiredId}`);
     }
@@ -641,12 +637,8 @@ async function main() {
     }
     const canonical: string = JSON.stringify(output.masterResultPatch);
     assert.equal(canonical.includes("authority_test_"), false, `${courtPath}: synthetic authority leaked across area boundary`);
-    const assembly = output.masterResultPatch.caseSystemAssembly as {
-      legalReasoningReadiness?: { authorityCount?: number };
-      authorityReadiness?: { verifiedAuthorityCount?: number };
-    } | undefined;
-    assert.equal(assembly?.authorityReadiness?.verifiedAuthorityCount, 2, `${courtPath}: canonical assembly must receive the scoped authority analysis`);
-    assert.equal(assembly?.legalReasoningReadiness?.authorityCount, 0, `${courtPath}: generic authority categories must not be counted as sources`);
+    const masterCase = output.masterResultPatch.masterCase as { authorityAnalysis?: { verifiedAuthorityIds?: string[] } } | undefined;
+    assert.equal(masterCase?.authorityAnalysis?.verifiedAuthorityIds?.length, 2, `${courtPath}: canonical master case must receive the scoped authority analysis`);
   }
 
   console.log("Authority knowledge bridge verification passed: production readiness, Ontario Small Claims, Family, and Civil procedural-rule and official-guidance propagation, provenance, existing safety gates, deduplication, canonical exclusion, and three-area isolation.");

@@ -145,7 +145,7 @@ async function runScenario(scenario: ScenarioMatrixScenario) {
   ].map(String);
 
   record(scenario, run.status === 200 && run.body.ok === true, "route execution", "200 / ok", { status: run.status, ok: run.body.ok }, "Area adapter", "product defect", "Shared deterministic route contract");
-  record(scenario, routePath === scenario.area && masterCase.courtPath === scenario.area, "court-path isolation", scenario.area, { normalized: routePath, master: masterCase.courtPath }, "Area adapter → BrainMigrationLayer → MasterCaseSchema", "product defect", "Shared court-area isolation boundary");
+  record(scenario, routePath === scenario.area && masterCase.courtPath === scenario.area, "court-path isolation", scenario.area, { normalized: routePath, master: masterCase.courtPath }, "Area adapter → courtSimplifiedBrain → MasterCaseSchema", "product defect", "Shared court-area isolation boundary");
   record(scenario, String(normalizedIntake.rawUserText || "").includes(scenario.fixture.narrative), "narrative preservation", scenario.fixture.narrative, normalizedIntake.rawUserText, "Intake normalization", "product defect", "Shared intake narrative bridge");
   record(scenario, routeStage === scenario.stage, "explicit procedural stage", scenario.stage, routeStage, "CourtSimplifiedBrain procedural posture", "product defect", "Shared procedural-stage normalization");
   if (scenario.stage === "not-sure") {

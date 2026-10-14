@@ -433,10 +433,10 @@ function warningsFor(run: FixtureRun): string[] {
   return [...(intelligence.systemWarnings || []), ...(intelligence.legalKnowledge?.sourceWarnings || []), ...(run.body.caseInvestigation?.validation?.warnings || [])].map(String);
 }
 
-function canonicalFor(run: FixtureRun): { masterCase?: any; migration?: any; assembly?: any } {
+function canonicalFor(run: FixtureRun): { masterCase?: any; assembly?: any } {
   const result = run.body.result || {};
   const patch = result.masterResultPatch || {};
-  return { masterCase: patch.masterCase, migration: patch.courtSimplifiedArchitecture, assembly: patch.caseSystemAssembly };
+  return { masterCase: patch.masterCase, assembly: patch.caseSystemAssembly };
 }
 
 export function compactOutcomeForFixtureRun(run: FixtureRun) {
@@ -487,8 +487,8 @@ export function evaluateFixtureRun(run: FixtureRun): FixtureReport {
   for (const missing of containsEvery(fullText, fixture.expectedProofGaps)) fail(`expected proof-gap text absent: ${missing}`);
   if (fixture.canonical.required) {
     if (!canonical.masterCase) fail("canonical masterCase absent");
-    if (!canonical.migration || canonical.migration.migrationLayer !== "BrainMigrationLayer") fail("BrainMigrationLayer marker absent");
-    if (!canonical.assembly) fail("caseSystemAssembly absent");
+    // The older assembly layer was retired 2026-10-14 (CLAUDE.md s. 2a): a second copy of procedure must not come back.
+    if (canonical.assembly) fail("caseSystemAssembly present: the retired second copy of procedure is being written again");
     if (canonical.masterCase?.courtPath !== (fixture.selectedCourtPath === "guided-assistant" ? undefined : fixture.selectedCourtPath)) fail(`canonical courtPath mismatch: ${String(canonical.masterCase?.courtPath)}`);
   }
   if (fixture.canonical.preserveCaseId && canonical.masterCase?.id !== fixture.canonical.preserveCaseId) fail(`case ID expected ${fixture.canonical.preserveCaseId}, received ${String(canonical.masterCase?.id)}`);

@@ -892,6 +892,11 @@ export type CourtSimplifiedBrainInput = {
    * Absent means NO events -- never a fallback to the narrative parse. A caller
    * that forgets to supply these produces an empty procedural event list, which
    * is visible, rather than silently reverting to unconfirmed inferences.
+   *
+   * Not read since 2026-10-14: its only reader was the procedural engine
+   * inside the retired case-system assembly (CLAUDE.md s. 2a; the stage map
+   * places the case now). Kept so callers need not change; candidate for
+   * removal with the Small Claims adapter (retirement step 6).
    */
   confirmedEvents?: ProceduralEvent[];
   /**

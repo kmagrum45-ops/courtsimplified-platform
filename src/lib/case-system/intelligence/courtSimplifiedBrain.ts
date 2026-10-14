@@ -62,7 +62,7 @@ import { retrieveForStory, type RetrievalInput, type RetrievalResult } from "../
 import { researchStory, type ResearchResult } from "../retrieval/researchStory";
 import { findingsView } from "../retrieval/findingsView";
 import { fileSourceRequests } from "../retrieval/sourceRequests";
-import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
+import { buildMasterCaseFromIntelligence } from "../contracts/masterCaseBridge";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
 
 import {
@@ -2922,19 +2922,22 @@ export async function runCourtSimplifiedBrain(
   const dashboardPatch = buildDashboardPatch(intelligence);
   const recommendedNextRoute = chooseRoute(intelligence);
 
-  const migration = buildBrainMigrationLayer({
-    input,
-    intelligence,
-    existingMasterResultPatch: masterResultPatch,
-    existingDashboardPatch: dashboardPatch,
-    existingRecommendedNextRoute: recommendedNextRoute,
-  });
+  // The saved case record (masterCase): its timeline feeds the event
+  // candidates and its court path and stage are read by the forms and the
+  // guided assistant. Built directly; the older assembly, workflow and
+  // litigation-reasoning layers that used to wrap it were retired on
+  // 2026-10-14 (CLAUDE.md s. 2a: procedure comes from the stage map only).
+  const existing = input.existingMasterResult;
+  const existingCase =
+    existing && typeof existing === "object" && !Array.isArray(existing)
+      ? ((existing as Record<string, unknown>).masterCase as Parameters<typeof buildMasterCaseFromIntelligence>[0]["existingCase"]) || undefined
+      : undefined;
+  const masterCase = buildMasterCaseFromIntelligence({ intelligence, existingCase, recommendedNextRoute });
 
   return {
     intelligence,
-    masterResultPatch: migration.masterResultPatch,
-    dashboardPatch: migration.dashboardPatch,
-    recommendedNextRoute:
-      migration.recommendedNextRoute || recommendedNextRoute,
+    masterResultPatch: { ...masterResultPatch, masterCase, updatedAt: masterCase.updatedAt },
+    dashboardPatch: { ...dashboardPatch, masterCase, readiness: masterCase.readiness },
+    recommendedNextRoute,
   };
 }
