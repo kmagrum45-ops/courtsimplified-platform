@@ -394,11 +394,10 @@ export const FILING: Record<PracticalCourt, FilingLines> = {
 export function isCourtBusinessDay(date: string, strict = true): boolean {
   const dow = dayOfWeek(date);
   if (dow === 0 || dow === 6) return false;
-  const scr = Boolean(holidayFor(date, "small-claims-rules"));
-  const act = Boolean(holidayFor(date, "legislation-act"));
-  // Strict: a day EITHER calendar calls a holiday is not a business day. Not
-  // strict: only a day BOTH call one (to see whether the two disagreeing changed the count).
-  if (strict ? scr || act : scr && act) return false;
+  // Strict: a weekday EITHER calendar calls a holiday is not a business day.
+  // Not strict: every weekday but an announced closure is (to see whether a
+  // weekday holiday changed the count; re-review of 6a0fce6).
+  if (strict && (holidayFor(date, "small-claims-rules") || holidayFor(date, "legislation-act"))) return false;
   return !COURT_SERVICE_NOTICES.some((notice) => notice.closedOn === date);
 }
 
@@ -421,8 +420,13 @@ export function tooCloseToFileOnline(today: string, deadline: string): boolean {
   return deadline >= today && businessDaysAway(today, deadline) <= 3;
 }
 
-/** Too close only because a day one holiday calendar names and the other does not was left out of the count. */
-export function tooCloseOnlyByOneCalendar(today: string, deadline: string): boolean {
+/**
+ * Too close only because a weekday holiday was left out of the count (Good
+ * Friday, Easter Monday, Civic Holiday...). Neither guide says whether such a
+ * day is a business day, so the card says "may be" (re-review of 6a0fce6:
+ * 24 to 31 March 2027, over Easter, was stated as certain).
+ */
+export function tooCloseOnlyByHoliday(today: string, deadline: string): boolean {
   return tooCloseToFileOnline(today, deadline) && businessDaysAway(today, deadline, false) > 3;
 }
 
@@ -446,9 +450,9 @@ const CIVIL_TOO_CLOSE_CITE = cite(
 export function tooCloseFilingLine(court: PracticalCourt, today: string, deadline: string): PlainLine | null {
   if (court === "family" || !tooCloseToFileOnline(today, deadline)) return null;
   const fewer = court === "civil" ? "fewer" : "less";
-  // Hedged when the answer turns on a day only one holiday calendar names (Civic Holiday, a substituted day).
-  const when = tooCloseOnlyByOneCalendar(today, deadline)
-    ? `Your last day, ${formatLongDate(deadline)}, may be 3 business days away or ${fewer}, depending on whether a holiday in between counts as a business day. If it is, you cannot file online for it`
+  // Hedged when the answer turns on a weekday holiday.
+  const when = tooCloseOnlyByHoliday(today, deadline)
+    ? `Your last day, ${formatLongDate(deadline)}, may be 3 business days away or ${fewer}, depending on whether a holiday in between counts as a business day. If it does not, you cannot file online for it`
     : `Your last day, ${formatLongDate(deadline)}, is 3 business days away or ${fewer}, so you cannot file online for it`;
   return court === "small-claims"
     ? { say: `${when}. File it in person at the courthouse, by mail or by email instead.`, cite: SC_TOO_CLOSE_CITE }
@@ -509,9 +513,197 @@ function scrCite(pinpoint: string, quote: string): RuleCitation {
  * Never a "court holds" period, a leave threshold, an issue-only limit, the
  * other side's time, or a limit met by asking for something.
  * test:next-step-practical checks every listed id is a reader's deadline in
- * the stage map whose own words say serve or file.
+ * the stage map whose own words say serve, file, deliver, make a motion or
+ * request -- and that EVERY Small Claims and civil deadline is either listed
+ * or in NOT_TIMED with its reason, so a new deadline fails until classified.
+ *
+ * Re-review of 6a0fce6: a motion to be made, and a request filed with the
+ * clerk, are the person's own filing deadlines -- the online guides' limit
+ * covers "a deadline established by legislation or other court rules". So the
+ * motion to set aside a judgment after a missed trial (r. 17.01 (5) (a)), the
+ * motion for a new trial (r. 17.04 (1)) and the "request a trial date, or the
+ * clerk will dismiss" limits (r. 11.1.01 (1)) time the filing line. Civil
+ * carries the same limit ("3 business days or fewer away", the saved civil
+ * guide), so its filing deadlines are listed too; family's saved pages state
+ * no such limit, and family deadlines time nothing.
  */
+/** Civil (Rules of Civil Procedure): "deliver" is "serve and file with proof of service" (r. 1.03 (1)); a motion to be made is filed. Met by filing; never mail-timed (that is Small Claims only). */
+const CIVIL_FILES: string[] = [
+  "deadline:civil:associate-judge-appeal-record-7-days",
+  "deadline:civil:associate-judge-appeal-respondent-4-days",
+  "deadline:civil:basic-limitation",
+  "deadline:civil:basic-limitation-claim-drafted",
+  "deadline:civil:basic-limitation-may-have-passed",
+  "deadline:civil:basic-limitation-notice-stage",
+  "deadline:civil:certificate-of-readiness-30-days",
+  "deadline:civil:confirmation-of-motion-5-days",
+  "deadline:civil:counterclaim-election-30-days",
+  "deadline:civil:counterclaim-election-after-discontinuance-30-days",
+  "deadline:civil:defence",
+  "deadline:civil:defence-to-counterclaim-20-days",
+  "deadline:civil:defence-to-counterclaim-new-party",
+  "deadline:civil:defence-to-crossclaim-20-days",
+  "deadline:civil:discontinuance-costs-30-days",
+  "deadline:civil:discontinuance-costs-30-days:counterclaim-pending",
+  "deadline:civil:discontinue-before-pleadings-close",
+  "deadline:civil:dismissal-costs-30-days",
+  "deadline:civil:dismissal-costs-30-days:plaintiff",
+  "deadline:civil:file-notice-of-appeal-10-days",
+  "deadline:civil:five-year-dismissal-awaiting-defence",
+  "deadline:civil:five-year-dismissal-claim-issued",
+  "deadline:civil:five-year-dismissal-defence-expired",
+  "deadline:civil:five-year-dismissal-defence-received",
+  "deadline:civil:five-year-dismissal-discovery",
+  "deadline:civil:five-year-dismissal-noted",
+  "deadline:civil:five-year-dismissal-ready-to-set-down",
+  "deadline:civil:five-year-dismissal-served-with-counterclaim",
+  "deadline:civil:five-year-dismissal-service-failed",
+  "deadline:civil:five-year-dismissal-simplified",
+  "deadline:civil:injunction-serve-7-days",
+  "deadline:civil:jury-notice:defence-delivered",
+  "deadline:civil:jury-notice:defence-received",
+  "deadline:civil:jury-notice:served-with-counterclaim",
+  "deadline:civil:late-defence-before-noting",
+  "deadline:civil:leave-motion-response-25-days",
+  "deadline:civil:leave-to-appeal-interlocutory-15-days",
+  "deadline:civil:libel-action-three-months",
+  "deadline:civil:motion-in-writing-response-10-days",
+  "deadline:civil:motion-moving-party-7-days",
+  "deadline:civil:motion-responding-factum-4-days",
+  "deadline:civil:motion-responding-record-4-days",
+  "deadline:civil:note-default-30-days",
+  "deadline:civil:perfect-appeal-no-transcript-30-days",
+  "deadline:civil:perfect-appeal-with-transcript-60-days",
+  "deadline:civil:pretrial-brief-5-days",
+  "deadline:civil:reply-10-days",
+  "deadline:civil:reply-to-defence-to-counterclaim-10-days",
+  "deadline:civil:reply-to-third-party-defence-10-days",
+  "deadline:civil:respondent-certificate-15-days",
+  "deadline:civil:respondent-factum-60-days",
+  "deadline:civil:responding-confirmation-4-days",
+  "deadline:civil:restore-trial-list-30-days",
+  "deadline:civil:set-aside-default-judgment",
+  "deadline:civil:set-aside-dismissal-forthwith",
+  "deadline:civil:set-aside-noting",
+  "deadline:civil:set-aside-order-missed-motion",
+  "deadline:civil:set-down-six-months-after-pleadings",
+  "deadline:civil:set-down-six-months-after-pleadings:defence-received",
+  "deadline:civil:set-down-six-months-after-pleadings:discovery",
+  "deadline:civil:set-down-six-months-after-pleadings:served-with-counterclaim",
+  "deadline:civil:simplified-set-down-180-days",
+  "deadline:civil:simplified-set-down-180-days:both",
+  "deadline:civil:simplified-set-down-180-days:defence-received",
+  "deadline:civil:simplified-set-down-180-days:served-with-counterclaim",
+  "deadline:civil:simplified-trial-record-10-days",
+  "deadline:civil:special-damages-update-10-days",
+  "deadline:civil:statement-of-claim-after-notice-of-action",
+  "deadline:civil:strike-serve-7-days",
+  "deadline:civil:struck-off-two-year-dismissal",
+  "deadline:civil:summary-judgment-moving-7-days",
+  "deadline:civil:summary-judgment-responding-4-days",
+  "deadline:civil:summary-judgment-responding-record-4-days",
+  "deadline:civil:third-party-defence",
+  "deadline:civil:transcript-ordered-30-days",
+];
+/** Civil deadlines that time nothing, each with why. */
+const CIVIL_NOT_TIMED: Record<string, string> = {
+  "deadline:civil:schedule-pretrial-180-days": "met by booking a date with the registrar, not by filing a document",
+  "deadline:civil:adverse-party-witness-10-days": "met by serving a summons to witness on the person, not by filing",
+  "deadline:civil:after-lawyer-removed-30-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:appeal-associate-judge-7-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:business-records-notice-7-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:cross-appeal-15-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:discovery-plan": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:defence-delivered": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:defence-received": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:served-with-counterclaim": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:discovery-plan:simplified": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:expert-report-90-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:expert-report-schedule-60-days": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:defence-delivered": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:defence-received": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:discovery": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:served-with-counterclaim": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-180-days:simplified": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:mediation-statement-7-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:notice-of-appeal-30-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:notice-of-appeal-30-days:judgment-being-enforced": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:notice-of-appeal-30-days:missed-trial": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:offer-to-settle-7-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:practitioner-report-notice-10-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:renew-writ-six-years": "met at the sheriff's enforcement office, not by filing in the court file",
+  "deadline:civil:respond-to-amended-pleading": "its words name no document to file; what the response is depends on the pleading",
+  "deadline:civil:response-to-request-to-admit-20-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:serve-claim-six-months": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:serve-claim-six-months:failed-service": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:serve-third-party-claim-30-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents:defence-delivered": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents:defence-received": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-affidavit-of-documents:served-with-counterclaim": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:simplified-cross-examine-notice-10-days": "met by giving notice to a party (or the mediator), not by filing with the court",
+  "deadline:civil:simplified-settlement-discussion": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-settlement-discussion:defence-delivered": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-settlement-discussion:defence-received": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-settlement-discussion:served-with-counterclaim": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:simplified-trial-management-plan-30-days": "met by agreeing, meeting or holding a session with the other parties, not by a document filed with the court",
+  "deadline:civil:supplementary-expert-report-45-days": "met by serving a document on a party; nothing is filed with the court by this deadline",
+  "deadline:civil:third-party-claim-10-days": "issue-only: met when the court issues the claim (review of bee9daf excluded issue-only limits)",
+  "deadline:civil:third-party-claim-10-days:defence-delivered": "issue-only: met when the court issues the claim (review of bee9daf excluded issue-only limits)",
+  "deadline:civil:undertakings-60-days": "met by answering the undertaking to the other party, not by filing",
+  "deadline:civil:undertakings-60-days:simplified": "met by answering the undertaking to the other party, not by filing",
+  "deadline:civil:crown-notice-60-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:libel-notice-six-weeks": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:municipal-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:occupier-notice-60-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:toronto-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:civil:defence:plaintiff-view": "binds the other side, not the person",
+  "deadline:civil:simplified-set-down-180-days:defendant-view": "binds the other side, not the person",
+};
+
+/** Small Claims deadlines that time nothing, each with why. */
+const SC_NOT_TIMED: Record<string, string> = {
+  "deadline:municipal-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:toronto-notice-10-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:occupier-notice-60-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:vehicle-injury-notice-120-days": "a notice given before suing, outside the court; nothing is filed with the court",
+  "deadline:serve-claim-six-months": "a claim is served personally or by an alternative (r. 8.01 (1)), never by mail, and nothing is filed by this deadline",
+  "deadline:serve-claim-six-months:failed-service": "a claim is served personally or by an alternative (r. 8.01 (1)), never by mail, and nothing is filed by this deadline",
+  "deadline:defence-20-days:plaintiff-view": "binds the other side, not the person",
+  "deadline:settlement-conference-90-days": "the court's own timing for the settlement conference, not the person's",
+  "deadline:settlement-conference-90-days:defendant": "the court's own timing for the settlement conference, not the person's",
+  "deadline:sc-enforce-six-years-leave": "a leave threshold, not a time to serve or file",
+  "deadline:sc-enforce-six-years-leave:default-judgment": "a leave threshold, not a time to serve or file",
+  "deadline:issue-defendants-claim-20-days": "issue-only: met when the clerk issues the claim (review of bee9daf excluded issue-only limits)",
+  "deadline:issue-defendants-claim-20-days:defence-filed": "issue-only: met when the clerk issues the claim (review of bee9daf excluded issue-only limits)",
+  "deadline:trial-summons-10-days": "a summons is served personally (r. 8.01 (7)) and is not filed",
+  "deadline:trial-summons-10-days:defendant": "a summons is served personally (r. 8.01 (7)) and is not filed",
+  "deadline:set-aside-as-soon-as-possible": "the rule sets no fixed period, so no day is ever counted",
+  "deadline:appeal-notice": "an appeal is started in the Divisional Court under the Rules of Civil Procedure (r. 61.04), not filed in the Small Claims court file these lines describe",
+};
+
+/** Every Small Claims and civil deadline that times nothing, with why (the completeness check reads this). */
+export const NOT_TIMED: Record<string, string> = { ...SC_NOT_TIMED, ...CIVIL_NOT_TIMED };
+
+const DISMISSAL_REQUESTS = [
+  "deadline:dismissal-for-delay-two-years-claim-issued-not-served",
+  "deadline:dismissal-for-delay-two-years-service-attempted-failed",
+  "deadline:dismissal-for-delay-two-years-six-month-service-window-expired",
+  "deadline:dismissal-for-delay-two-years-served-awaiting-defence",
+  "deadline:dismissal-for-delay-two-years-defence-period-expired-no-defence",
+  "deadline:dismissal-for-delay-two-years-noted",
+  "deadline:dismissal-for-delay-two-years-assessment-of-damages-needed",
+  "deadline:dismissal-for-delay-two-years-defence-filed",
+  "deadline:dismissal-for-delay-two-years-awaiting-settlement-conference",
+  "deadline:dismissal-for-delay-two-years",
+];
+
 export const PERSON_SERVE_OR_FILE: Record<string, { files: boolean; serves: boolean }> = {
+  ...Object.fromEntries(CIVIL_FILES.map((id) => [id, { files: true, serves: false }])),
+  ...Object.fromEntries(DISMISSAL_REQUESTS.map((id) => [id, { files: true, serves: false }])),
+  "deadline:set-aside-after-missed-trial": { files: true, serves: false },
+  "deadline:new-trial-motion": { files: true, serves: false },
   "deadline:basic-limitation": { files: true, serves: false },
   "deadline:basic-limitation-claim-drafted": { files: true, serves: false },
   "deadline:defence-20-days": { files: true, serves: true },

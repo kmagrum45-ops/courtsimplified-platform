@@ -396,12 +396,21 @@ const BUSINESS_WORDS =
   /\b(?:inc|ltd|corp|llc|limited|incorporated|corporation|company|business|numbered company|firm|\d{6,7}\s+(?:ontario|canada)\s+(?:inc|ltd|limited|corp))\b\.?/i;
 const MY_BUSINESS = /\b(?:my|our)\s+(?:(?:small|numbered|family)\s+)?(?:business|company|corporation|firm|store|shop|restaurant)\b/i;
 const ME_SERVED = /\b(?:suing me|sued me|served me|against me|i (?:was|got) served|i (?:got|received|recieved) (?:the |a )?(?:plaintiff'?s? |plaintifs )?claim|(?:the|a) claim (?:came|arrived) (?:to|at) my (?:house|home|apartment))\b/i;
-const A_PERSON = /\b(?:my (?:old |former |ex-?)?(?:roommate|room-mate|neighbou?r|tenant|landlord|friend|ex|brother|sister|cousin|uncle|aunt|father|mother|son|daughter|partner|boyfriend|girlfriend|husband|wife))\b/i;
+/*
+ * A relationship that can only be with a person (re-review of 6a0fce6): not
+ * "landlord" or "tenant" (often a company), not "partner" (a business
+ * partner), and "ex" only on its own ("my ex"), never "my ex boss".
+ */
+const A_PERSON =
+  /\bmy (?:old |former |ex-)?(?:roommate|room-mate|neighbou?r|friend|brother|sister|cousin|uncle|aunt|father|mother|son|daughter|boyfriend|girlfriend|husband|wife)\b|\bmy ex\b(?![- ]?(?:boss|employer|landlord|company|business|partner|manager|supervisor|client|tenant))/i;
 
 export function partyServedFrom(words: string, personWasServed: boolean): ServedOn {
   const text = words.replace(/"[A-Za-z_][A-Za-z0-9_]*"\s*:/g, " ");
   if (personWasServed) {
     if (MY_BUSINESS.test(text)) return { company: true };
+    // Any business word in their own words ("I own a renovation company",
+    // "I run a small contracting business", Inc., Ltd.): not known, never an individual.
+    if (BUSINESS_WORDS.test(text) || /\b(?:own|run|operate)\s+(?:a|an|my|our)\b/i.test(text)) return {};
     return ME_SERVED.test(text) ? { company: false } : {};
   }
   // The other side: a business name or word makes it a company; a named relationship to a person makes it an individual.

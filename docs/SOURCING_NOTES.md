@@ -1851,9 +1851,10 @@ Established while fixing the card's time limits, fees, filing and service:
   days** -- do not use it. Neither guide defines "business day": the card treats a day
   as one only if it is a weekday, not a holiday in EITHER calendar (r. 1.02 or the
   Legislation Act -- the two-calendar trap), and not an announced court closure
-  (courtServiceNotices.json). That can only warn early, never late. When only a day one calendar names (Civic Holiday, a
-  substituted holiday) decided the answer, the card says the deadline "may be" 3 business
-  days away or less.
+  (courtServiceNotices.json). That can only warn early, never late. Whenever a weekday holiday (in either calendar, e.g.
+  Good Friday, Easter Monday, Civic Holiday) decided the answer, the card says the deadline
+  "may be" 3 business days away or less: neither guide says whether a holiday is a business
+  day. The civil guide carries the same limit ("3 business days or fewer away").
 - **The civil online guide names no other way to file** when the portal is closed to a
   deadline; the Small Claims guide names three (in person at the courthouse, by mail,
   by email). The civil card says "the court office can tell you how", nothing more.

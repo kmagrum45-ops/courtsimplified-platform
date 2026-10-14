@@ -440,6 +440,17 @@ console.log("\nThe company route only for a company; the year said plainly (walk
     "hidden only on positive evidence of an individual",
     !companyKept(homeowner, "defendant:served-defence-period-running", true) && !companyKept("I sued my old roommate for the rent he owes", "plaintiff:claim-issued-not-served", false) && companyKept("I sued my old roommate's company, Roomco Ltd.", "plaintiff:claim-issued-not-served", false),
   );
+  // Re-review of 6a0fce6: these were read as an individual.
+  const probes: [string, string, boolean][] = [
+    ["I own a renovation company. A client is suing me", "defendant:served-defence-period-running", true],
+    ["I run a small contracting business and a customer sued me", "defendant:served-defence-period-running", true],
+    ["I'm suing my landlord for my deposit", "plaintiff:claim-issued-not-served", false],
+    ["I sued my former landlord, a property management outfit", "plaintiff:claim-issued-not-served", false],
+    ["I'm suing my ex boss at the restaurant", "plaintiff:claim-issued-not-served", false],
+  ];
+  const misread = probes.filter(([words, stageId, responding]) => servedOnFor(words, stageId, responding).company === false).map(([words]) => words);
+  check("never 'individual' for a business owner, a landlord, or an ex boss (five probes)", misread.length === 0, misread.join(" | "));
+  check("'my ex' on its own, and 'my ex-wife', are individuals", servedOnFor("I am suing my ex for the car", "plaintiff:claim-issued-not-served", false).company === false && servedOnFor("I am suing my ex-wife", "plaintiff:claim-issued-not-served", false).company === false);
   check("a numbered company named as the other side is a company", servedOnFor("I am suing 1234567 Ontario Inc.", "plaintiff:claim-issued-not-served", false).company === true);
   // Every lookup of a way on the panel uses the same list, so a detected or saved route always has its option.
   const lookups = panel.match(/serviceRulesFor\(serviceCourt, question\.id[^)]*\)/g) ?? [];

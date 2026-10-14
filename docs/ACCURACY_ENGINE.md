@@ -2342,18 +2342,23 @@ content hash -- promote a candidate instead.
   counted day, and the court's 90-day settlement-conference target became "your last
   day ... cannot file online", and a defendant's claim's 20 days to be ISSUED got mail
   timing. Never time these against a "the court holds" period, a leave threshold, an
-  issue-only limit or the other side's time; a new serve-or-file deadline must be added
-  to the list (test:next-step-practical checks every listed one says serve or file in its
-  own words and is the reader's). 3 business days or less (counted as the guide's own
-  example counts, both holiday calendars and announced closures excluded; "may be" when
-  only one calendar's day decided it) replaces "file online" with the ways the guide
+  issue-only limit or the other side's time. A motion to be made and a request filed with
+  the clerk ARE filing deadlines (re-review of 6a0fce6: the 30-day motion after a missed
+  trial showed no warning). Every Small Claims and civil deadline must be either listed
+  or in `NOT_TIMED` with its reason: test:next-step-practical fails on an unclassified one,
+  so a new deadline is classified when it is added. Civil is listed for the filing line
+  only (its saved guide has the same 3-business-day limit); family time nothing. 3 business days or less (counted as the guide's own
+  example counts, both holiday calendars and announced closures excluded; "may be" whenever
+  a weekday holiday decided it -- neither guide says whether one is a business day) replaces "file online" with the ways the guide
   allows. A day already passed is not "3 business days away": the portal lines stay. A
   Small Claims step served the ordinary way gets the r. 8.07 (2) fifth-day dates. The
   counter question of the "Open gap" above is answered for the online portal only.
 - **The company route is hidden only on positive evidence of an individual**
   (`partyServedFrom`): the person when they received the papers, the other side (by its
-  name: Inc., Ltd., numbered company...) when they served them. No evidence keeps every
-  way, and every lookup on the panel uses the one list (`waysFor`).
+  name: Inc., Ltd., numbered company...) when they served them. Any business word in a
+  defendant's own words is "not known"; "landlord", "tenant", "partner" and "ex boss" are
+  never read as an individual. No evidence keeps every way, and every lookup on the panel
+  uses the one list (`waysFor`).
 - **A counted leave threshold (r. 20.08 (2.1)) more than a year away is folded**
   (`thresholdNear`); an uncounted one stays in place and asks for the order date "to see
   whether leave is needed".

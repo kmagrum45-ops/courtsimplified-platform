@@ -104,12 +104,15 @@ import {
   isCourtBusinessDay,
   PERSON_SERVE_OR_FILE,
   personDeadlineOf,
-  tooCloseOnlyByOneCalendar,
+  tooCloseOnlyByHoliday,
+  NOT_TIMED,
   mailTimingLines,
   tooCloseFilingLine,
   tooCloseToFileOnline,
 } from "../../src/lib/content-library/nextStepPractical";
 import { addDays, dayOfWeek, formatLongDate, holidayFor } from "../../src/lib/case-system/deadlines/holidays";
+import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
+import { DEADLINE_EVENTS, caseDatesFrom } from "../../src/lib/case-system/deadlines/deadlineEvents";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -812,13 +815,16 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
 
   // A passed day never says "do not file online" (review of bee9daf).
   check("a passed deadline gets no too-close line", tooCloseFilingLine("small-claims", "2026-10-20", "2026-10-19") === null && tooCloseFilingLine("civil", "2026-10-20", "2026-10-19") === null);
-  // Hedged when only one holiday calendar's day changed the answer: Civic
-  // Holiday (Monday 3 August 2026) is in r. 1.02, not the Legislation Act.
+  // Hedged whenever a weekday holiday decided it (re-review of 6a0fce6):
+  // Civic Holiday (one calendar) and Easter 2027 (both calendars).
   const civic = tooCloseFilingLine("small-claims", "2026-07-30", "2026-08-05");
+  const easter = tooCloseFilingLine("small-claims", "2027-03-24", "2027-03-31");
   check(
-    "a result that turns on a day only one calendar names is hedged ('may be')",
-    tooCloseOnlyByOneCalendar("2026-07-30", "2026-08-05") && /\bmay be 3 business days away or less\b/.test(civic?.say ?? "") && !/\bmay be\b/.test(sdFiling[0]?.say ?? ""),
-    civic?.say,
+    "a result that turns on a weekday holiday is hedged ('may be'), in either calendar or both; SD is not",
+    tooCloseOnlyByHoliday("2026-07-30", "2026-08-05") && /\bmay be 3 business days away or less\b/.test(civic?.say ?? "") &&
+      /\bmay be 3 business days away or less\b/.test(easter?.say ?? "") && /If it does not, you cannot file online/.test(easter?.say ?? "") &&
+      !/\bmay be\b/.test(sdFiling[0]?.say ?? ""),
+    `${civic?.say} | ${easter?.say}`,
   );
   const hedgeWrong: string[] = [];
   for (let today = "2026-01-01"; today <= "2027-12-31"; today = addDays(today, 2)) {
@@ -829,7 +835,7 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
       if (line && hedged !== (businessDaysAway(today, deadline, false) > 3)) hedgeWrong.push(`${today}->${deadline}`);
     }
   }
-  check("hedged exactly when counting only days both calendars name would put it past 3 (2026-2027)", hedgeWrong.length === 0, hedgeWrong.slice(0, 4).join("; "));
+  check("hedged exactly when counting every weekday (closures aside) would put it past 3 (2026-2027)", hedgeWrong.length === 0, hedgeWrong.slice(0, 4).join("; "));
   check(
     "the in-person line says 'if they are an individual', and r. 8.02 (c) gives a corporation's way",
     SC_SOONER_WAYS.some((line) => line.cite.pinpoint === "r. 8.02 (a)" && /if they are an individual/.test(line.say)) &&
@@ -838,19 +844,39 @@ console.log("\n10. A deadline too close to file online, and mail near the deadli
 
   // Only the person's own serve-or-file deadlines time these lines (review of bee9daf).
   const listedWrong: string[] = [];
-  const scDeadlines = steps.filter((stage) => pathwayOf(stage) === "small-claims").flatMap((stage) => stage.deadlines);
+  const scDeadlines = steps.filter((stage) => pathwayOf(stage) === "small-claims" || pathwayOf(stage) === "civil").flatMap((stage) => stage.deadlines);
   for (const [id, kind] of Object.entries(PERSON_SERVE_OR_FILE)) {
     const found = scDeadlines.filter((deadline) => deadline.id === id);
-    if (found.length === 0) listedWrong.push(`${id}: not a Small Claims deadline`);
+    if (found.length === 0) listedWrong.push(`${id}: not a Small Claims or civil deadline`);
     for (const deadline of found) {
       if ((deadline.actor ?? "reader") !== "reader") listedWrong.push(`${id}: binds ${deadline.actor}`);
       if (deadline.threshold) listedWrong.push(`${id}: a leave threshold`);
       if (kind.serves && !/\bserv(?:e|ed|ing)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say serve`);
-      if (kind.files && !/\b(?:file|filing|start a court case)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say file`);
+      if (kind.files && !/\b(?:file|filing|start a court case|start the action|deliver|motion|request|registrar|set (?:it|the action) down|restored? to a trial list)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say file, deliver, a motion or a request`);
       if (kind.serves && /\b(?:claim \(Form 7A|summons)\b/i.test(deadline.what)) listedWrong.push(`${id}: a claim or summons is not mailed`);
     }
   }
   check("every listed deadline is the person's own, not a threshold, and says serve or file in its own words", listedWrong.length === 0, listedWrong.join("; "));
+  // Completeness (re-review of 6a0fce6): every Small Claims and civil deadline is classified, once.
+  const unclassified = [...new Set(scDeadlines.map((deadline) => deadline.id))].filter((id) => Boolean(PERSON_SERVE_OR_FILE[id]) === Boolean(NOT_TIMED[id]));
+  check(
+    `every Small Claims and civil deadline is listed or declared not timed, with a reason, never both (${new Set(scDeadlines.map((deadline) => deadline.id)).size} deadlines)`,
+    unclassified.length === 0 && Object.values(NOT_TIMED).every((reason) => reason.trim().length > 20),
+    unclassified.join(", "),
+  );
+  const stray = Object.keys(NOT_TIMED).filter((id) => !scDeadlines.some((deadline) => deadline.id === id));
+  check("no reason is kept for a deadline that no longer exists", stray.length === 0, stray.join(", "));
+  const civilServes = Object.entries(PERSON_SERVE_OR_FILE).filter(([id, kind]) => id.startsWith("deadline:civil:") && kind.serves).map(([id]) => id);
+  check("civil deadlines time only the filing line (mail timing is Small Claims only)", civilServes.length === 0, civilServes.join(", "));
+  // The probe: learned of the judgment 16 September, today 14 October; r. 17.01 (5) (a) gives 30 days.
+  const missedTrial = findStage("both:missed-trial")!.deadlines.find((deadline) => deadline.id === "deadline:set-aside-after-missed-trial")!;
+  const counted = computedDeadlinesFor([missedTrial], caseDatesFrom({ [DEADLINE_EVENTS[missedTrial.countFromEvent as keyof typeof DEADLINE_EVENTS]?.questionId ?? ""]: "2026-09-16" }), "probe");
+  const probeLine = practicalFor("both:missed-trial", "small-claims", "Ottawa", true, "", "", { deadline: personDeadlineOf(counted.map((entry) => ({ id: entry.deadlineId, date: entry.date })), "files"), today: "2026-10-14" })?.filing ?? [];
+  check(
+    "probe: a missed trial learned of on 16 September, today 14 October: last day Friday 16 October, and the card says not to file online",
+    counted[0]?.date === "2026-10-16" && probeLine.length === 1 && /cannot file online/.test(probeLine[0].say),
+    `${counted[0]?.date} | ${probeLine.map((line) => line.say).join(" | ")}`,
+  );
   // For every Small Claims step: whatever is counted, the timed deadline is a serve-or-file deadline of the person.
   const timedWrong: string[] = [];
   for (const stage of steps.filter((candidate) => pathwayOf(candidate) === "small-claims")) {
