@@ -68,7 +68,7 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
-import { motionToChangeLead, routeShown, type MotionToChangeLead } from "../../app/builder/_components/motionToChange";
+import { hidesTemporaryMotionCard, motionToChangeLead, routeShown, standingChoice, type MotionToChangeLead } from "../../app/builder/_components/motionToChange";
 import { SERVED_LINE, storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { HELD_BACK_PERSONAS } from "../../tests/browser/walkthrough/heldBackPersonas";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -678,6 +678,46 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     check(`confirm (${lead.kind}): Yes shows the read route; the other button shows the other route`, routeShown(lead, "yes")?.kind === lead.kind && routeShown(lead, "other")?.kind !== lead.kind && Boolean(routeShown(lead, "other")));
     check(`confirm (${lead.kind}): the reading is put as a question, not a statement of what happened`, /^(?:the other side|you want)/.test(lead.reading) && !/^You were served/.test(lead.reading));
   }
+  // No route or alternate claims service unless service was read and the
+  // person said yes to it (re-review 2026-10-14: "No, the other side is
+  // bringing it" showed "You were served ...").
+  const claimsService = (line: string | undefined) => /\bYou were served\b/.test(line ?? "");
+  for (const lead of confirmable) {
+    check(`service (${lead.kind}): the other route never says the person was served`, !claimsService(routeShown(lead, "other")?.line) && routeShown(lead, "other")?.kind !== "responding");
+    check(`service (${lead.kind}): Yes says "You were served" only when service was what was read`, claimsService(routeShown(lead, "yes")?.line) === (lead.kind === "responding"));
+    // The temporary-motion card: hidden only on a confirmed route that replaces it.
+    check(
+      `card (${lead.kind}): shown before an answer and on "Not sure"; hidden only on a confirmed replacing route`,
+      !hidesTemporaryMotionCard(lead, null) &&
+        !hidesTemporaryMotionCard(lead, "not-sure") &&
+        hidesTemporaryMotionCard(lead, "yes") === lead.replacesTemporaryMotionCard &&
+        hidesTemporaryMotionCard(lead, "other") === Boolean(lead.alternate?.replacesTemporaryMotionCard),
+    );
+    // A saved answer stands while the reading is the same kind; a new reading is asked.
+    const otherKind = lead.kind === "asking" ? "responding" : "asking";
+    check(
+      `restore (${lead.kind}): a saved answer stands for the same reading, not a different one; Change this visit asks again`,
+      standingChoice(lead, undefined, { answer: "yes", readingKind: lead.kind }) === "yes" &&
+        standingChoice(lead, undefined, { answer: "yes", readingKind: otherKind }) === null &&
+        standingChoice(lead, { answer: null, readingKind: lead.kind }, { answer: "yes", readingKind: lead.kind }) === null &&
+        standingChoice(null, undefined, { answer: "yes", readingKind: lead.kind }) === null,
+    );
+  }
+  check("card: no lead hides nothing", !hidesTemporaryMotionCard(null, "yes"));
+
+  // Safe misses where the owner is plain (re-review 2026-10-14).
+  const plainOwners: [string, MotionToChangeLead["kind"]][] = [
+    ["I've been served a motion to change by my ex-husband.", "responding"],
+    ["I need to answer the motion to change the mother filed.", "responding"],
+    ["I'd like to lower my payments.", "asking"],
+    ["I need to get the support lowered.", "asking"],
+    ["would like the support reduced", "asking"],
+  ];
+  for (const [text, kind] of plainOwners) {
+    const got = motionToChangeLead("family", `We have a support order.\n${text}`, true, false)?.kind ?? null;
+    check(`motion to change: '${text}' -> ${kind}`, got === kind, String(got));
+  }
+
   const card = read("app/builder/_components/MotionToChangeRoute.tsx");
   check(
     "confirm: the card asks \"From what you told us, it sounds like ... Is that right?\" and renders route text only from routeShown",
@@ -689,7 +729,10 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
   const stageAt = builder.indexOf("<StageConfirmation");
   check("motion to change: the route leads the results, above the stage", leadAt > 0 && stageAt > leadAt);
   check("motion to change: the page passes whether the person was served", /motionToChangeLead\([\s\S]{0,400}respondingInFamilyStory\(familyStory\)/.test(builder));
-  check("motion to change: the temporary-motion card is hidden only when the route replaces it", /!confirmedStage && !motionLead\?\.replacesTemporaryMotionCard \? \(\s*<ProcedureAuthorityDisplay/.test(builder));
+  check(
+    "motion to change: the page hides the temporary-motion card only on the confirmed route (hidesTemporaryMotionCard), and passes the standing answer to the card",
+    /!confirmedStage && !hidesTemporaryMotionCard\(motionLead, motionChoice\) \? \(\s*<ProcedureAuthorityDisplay/.test(builder) && /choice=\{motionChoice\}/.test(builder),
+  );
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

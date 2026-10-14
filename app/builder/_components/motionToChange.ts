@@ -83,7 +83,8 @@ const WANT_PRESENT = "(?:want|wants|need|needs|would like|'d like|wish|hope|hopi
  * someone else ("the judge refuses to lower", "the father is asking to").
  * Past wants ("we agreed to change it last year") are not asks.
  */
-const SUBJECT = "\\b(?:i|we)(?:'m| am|'re| are)?\\s+(?:really\\s+|just\\s+|also\\s+|still\\s+|both\\s+|all\\s+|now\\s+)*";
+// "I'd like" has no space before the want.
+const SUBJECT = "\\b(?:i|we)(?:'m| am|'re| are)?(?:\\s+|(?='d\\b))(?:really\\s+|just\\s+|also\\s+|still\\s+|both\\s+|all\\s+|now\\s+)*";
 const BLOCKED_WORD =
   "(?:stop|stopping|prevent|preventing|fight|fighting|oppose|opposing|refuse|refusing|block|blocking|resist|challenge|avoid|make|ensure|keep|him|her|them|he|she|they|the|father|mother|judge|court|nobody|anyone|anybody|someone|somebody|no|not|never)";
 const WINDOW = `(?:(?!${BLOCKED_WORD}\\b)\\w+\\s+){0,3}?`;
@@ -98,6 +99,10 @@ const OWN_ASK: RegExp[] = [
   new RegExp(`${SUBJECT}(?:want|need|would like|'d like)\\s+${OBJECT}\\s+${CHANGED}\\b`, "i"),
   // "how do i get it lowered", "how can we change the order"
   new RegExp(`\\bhow (?:do|can|could) (?:i|we)\\s+(?:get\\s+${OBJECT}\\s+${CHANGED}|${ASK_COURT}${CHANGE_VERB}\\s+${OBJECT})\\b`, "i"),
+  // "I need to get the support lowered"
+  new RegExp(`${SUBJECT}(?:want|need|would like|'d like)\\s+to\\s+get\\s+${OBJECT}\\s+${CHANGED}\\b`, "i"),
+  // An answer given without "I": "would like the support reduced", "need it lowered"
+  new RegExp(`^\\s*(?:would like|'d like|want|need)\\s+(?:to\\s+get\\s+)?${OBJECT}\\s+${CHANGED}\\b`, "i"),
   // "i cant keep paying", "I can't afford the support"
   new RegExp(`${SUBJECT}(?:can'?t|cannot|can not) (?:keep (?:up|paying)|afford (?:to pay|the (?:support|payments?)|it))\\b`, "i"),
 ];
@@ -126,7 +131,7 @@ const OTHERS_MOTION_OWNED: RegExp[] = [
   // "his motion to change", "my ex's motion to change", "the other parent's motion to change"
   /\b(?:his|her|their|my ex'?s|my ex-?(?:wife|husband|partner)'?s|the other (?:parent|party|side)'?s|the (?:father|mother)'?s)\s+(?:own\s+)?motion to change\b/i,
   // "the motion to change he served", "the motion to change she sent me"
-  /\bmotion to change (?:that |which )?(?:he|she|they|my ex|the other (?:parent|party)) (?:served|sent|filed|brought|gave|mailed|delivered)\b/i,
+  /\bmotion to change (?:that |which )?(?:he|she|they|my ex|the other (?:parent|party)|the (?:mother|father)) (?:served|sent|filed|brought|gave|mailed|delivered)\b/i,
   // "My ex filed a motion to change", "he has brought a motion to change"
   new RegExp(`(?:${OTHER}|\\bthe other side)(?:'s lawyer)?\\s+(?:has\\s+|have\\s+|just\\s+|already\\s+)*(?:filed|brought|started|issued|served)\\s+${HANDED_MOTION}`, "i"),
 ];
@@ -139,7 +144,7 @@ const OTHERS_MOTION_HANDED: RegExp[] = [
   // "I got the motion to change package from his lawyer"
   new RegExp(`\\b(?:i|we) (?:got|received|was handed|were handed)\\s+${HANDED_MOTION}[^.!?\\n]{0,40}\\bfrom ${GIVER}`, "i"),
   // "I was served with a motion to change", "we got served with the motion to change"
-  new RegExp(`\\b(?:i|we) (?:was|were|got|have been|'ve been|had been) served (?:with\\s+)?${HANDED_MOTION}`, "i"),
+  new RegExp(`\\b(?:i|we)(?:\\s+(?:was|were|got|have been|had been)|'ve been)\\s+served (?:with\\s+)?${HANDED_MOTION}`, "i"),
   // "the motion to change was served on me"
   /\bmotion to change\b[^.!?\n]{0,30}\b(?:was|were|got) served (?:on|upon) (?:me|us)\b/i,
 ];
@@ -289,7 +294,9 @@ export function motionToChangeLead(courtPath: string, story: string, existingOrd
 
   const main = route(kind, replacesTemporaryMotionCard);
   if (!main) return null;
-  const alternateKind: MotionToChangeKind = kind === "asking" ? "responding" : "asking";
+  // "No, the other side is bringing it" is not "I was served": it gets what
+  // applies IF they are served, never "You were served" (re-review 2026-10-14).
+  const alternateKind: MotionToChangeKind = kind === "asking" ? "if-served" : "asking";
   return {
     ...main,
     alternate: route(alternateKind, replacesTemporaryMotionCard),
@@ -309,4 +316,31 @@ export function routeShown(lead: MotionToChangeLead, choice: ReadingChoice): Rou
   if (choice === "yes") return lead;
   if (choice === "other") return lead.alternate;
   return null;
+}
+
+/**
+ * The temporary-motion card is hidden only once the person has confirmed a
+ * route that replaces it -- never on a reading they have not answered, on
+ * "Not sure", or on a route that leaves it (re-review 2026-10-14).
+ */
+export function hidesTemporaryMotionCard(lead: MotionToChangeLead | null, choice: ReadingChoice): boolean {
+  return Boolean(lead && routeShown(lead, choice)?.replacesTemporaryMotionCard);
+}
+
+/** The person's answer to the reading, as saved on the case (casePosition.ts `motionToChange`). */
+export type SavedMotionAnswer = { answer: Exclude<ReadingChoice, null>; readingKind: MotionToChangeKind };
+
+/**
+ * The answer that stands for this reading: one given this visit (null after
+ * Change), else one saved on the case -- but only while the reading is the
+ * same kind; a new, different reading is asked again.
+ */
+export function standingChoice(
+  lead: MotionToChangeLead | null,
+  thisVisit: { answer: ReadingChoice; readingKind: MotionToChangeKind } | undefined,
+  saved: SavedMotionAnswer | undefined,
+): ReadingChoice {
+  if (!lead) return null;
+  const given = thisVisit ?? saved;
+  return given && given.readingKind === lead.kind ? given.answer : null;
 }

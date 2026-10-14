@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
 
@@ -16,9 +14,21 @@ import { routeShown, type MotionToChangeLead, type ReadingChoice } from "./motio
  * sounds like ... Is that right?" with Yes, the other route, and Not sure.
  * No route is shown until they answer, so a misreading costs one click, not a
  * wrong instruction. Information about the route, never a prediction.
+ *
+ * The answer lives on the page, which saves it to the case position and
+ * hides the temporary-motion card only on a confirmed route that replaces it
+ * (re-review 2026-10-14).
  */
-export default function MotionToChangeRoute({ lead }: { lead: MotionToChangeLead }) {
-  const [choice, setChoice] = useState<ReadingChoice>(null);
+export default function MotionToChangeRoute({
+  lead,
+  choice,
+  onChoose,
+}: {
+  lead: MotionToChangeLead;
+  choice: ReadingChoice;
+  onChoose: (choice: ReadingChoice) => void;
+}) {
+  const setChoice = onChoose;
   const shown = routeShown(lead, choice);
 
   if (choice === null) {

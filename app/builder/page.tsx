@@ -56,7 +56,13 @@ import {
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
 import MotionToChangeRoute from "./_components/MotionToChangeRoute";
-import { motionToChangeLead } from "./_components/motionToChange";
+import {
+  hidesTemporaryMotionCard,
+  motionToChangeLead,
+  standingChoice,
+  type MotionToChangeKind,
+  type ReadingChoice,
+} from "./_components/motionToChange";
 import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, type StageFromAnswers } from "./_components/stageFromAnswers";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
@@ -247,6 +253,12 @@ function BuilderPageContent() {
    * (re-check 2026-10-14). Set per run in handleComplete.
    */
   const [clearAnswersStage, setClearAnswersStage] = useState(false);
+  /*
+   * The person's answer to the motion-to-change reading this visit (null
+   * after Change); undefined until they answer, when a saved one stands
+   * (standingChoice). Saved to the case position (re-review 2026-10-14).
+   */
+  const [motionAnswerThisVisit, setMotionAnswerThisVisit] = useState<{ answer: ReadingChoice; readingKind: MotionToChangeKind } | undefined>(undefined);
   /** The case a stage from answers was saved to on this visit, if any. */
   const answersStageSavedRef = useRef<string | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
@@ -1267,6 +1279,9 @@ function BuilderPageContent() {
           respondingInFamilyStory(familyStory),
         )
       : null;
+  // The answer that stands for this reading: given this visit, else saved on
+  // the case while the reading is the same kind.
+  const motionChoice = standingChoice(motionLead, motionAnswerThisVisit, readCasePosition(existingMasterResult, courtPath).motionToChange);
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
   // words name (case reader first, then the phrase lists).
@@ -1358,6 +1373,12 @@ function BuilderPageContent() {
       // does not stay on the case. "Not sure", still marked, means: ask.
       parts.push({ confirmedStage: "not-sure", confirmedStageFrom: "answers" });
     }
+    // The answer to the motion-to-change reading (null after Change removes it).
+    if (motionAnswerThisVisit) {
+      parts.push({
+        motionToChange: motionAnswerThisVisit.answer ? { answer: motionAnswerThisVisit.answer, readingKind: motionAnswerThisVisit.readingKind } : null,
+      });
+    }
     if (positionThisVisit.stepId !== undefined) parts.push({ stepId: positionThisVisit.stepId });
     if (positionThisVisit.dateAnswers && Object.keys(positionThisVisit.dateAnswers).length) parts.push({ dateAnswers: positionThisVisit.dateAnswers });
     if (positionThisVisit.service && Object.keys(positionThisVisit.service).length) parts.push({ service: positionThisVisit.service });
@@ -1381,7 +1402,7 @@ function BuilderPageContent() {
       if (!allSaved) sentPositionRef.current = "";
     })());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canonicalIntakeSaved, confirmedStage, stageBasis, clearAnswersStage, positionThisVisit, masterCaseId]);
+  }, [canonicalIntakeSaved, confirmedStage, stageBasis, clearAnswersStage, motionAnswerThisVisit, positionThisVisit, masterCaseId]);
 
   function createSmallClaimsClaimDraft() {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
@@ -2016,7 +2037,13 @@ function BuilderPageContent() {
               or picks another before the overview appears. No next-step
               content renders until they have.
             */}
-            {motionLead ? <MotionToChangeRoute key={`${motionLead.kind}:${motionLead.reading}`} lead={motionLead} /> : null}
+            {motionLead ? (
+              <MotionToChangeRoute
+                lead={motionLead}
+                choice={motionChoice}
+                onChoose={(choice) => setMotionAnswerThisVisit({ answer: choice, readingKind: motionLead.kind })}
+              />
+            ) : null}
             <StageConfirmation
               suggestedStage={detectedStage}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
@@ -2109,7 +2136,7 @@ function BuilderPageContent() {
             {/* With the motion-to-change route on top, the catalogue's
                 temporary-motion card ("Family Rule 14 governs motions for
                 temporary orders") is not shown (walkthrough MC, 2026-10-14). */}
-            {!confirmedStage && !motionLead?.replacesTemporaryMotionCard ? (
+            {!confirmedStage && !hidesTemporaryMotionCard(motionLead, motionChoice) ? (
               <ProcedureAuthorityDisplay
                 courtArea={courtPath}
                 procedureStage={getStageForPersistence(analysis, caseData)}

@@ -719,6 +719,36 @@ function personsDatesWin(source: string): boolean {
     "origin: a stage from answers is saved with its marker; the route passes the marker through for validation",
     /confirmedStageFrom: "answers" \} : \{ confirmedStage \}/.test(builder) && /confirmedStageFrom: body\.confirmedStageFrom/.test(read("app/api/cases/position/route.ts")),
   );
+
+  // The answer to the motion-to-change reading is saved, kept and validated
+  // (re-review 2026-10-14).
+  const withAnswer = applyPositionPatch(EMPTY_POSITION, { motionToChange: { answer: "yes", readingKind: "asking" } }, "family", new Date());
+  const answered = withAnswer.ok ? withAnswer.position : null;
+  check("motion answer: saved and read back", readCasePosition({ position: answered }, "family").motionToChange?.answer === "yes");
+  const afterStage = answered ? applyPositionPatch(answered, { confirmedStage: "motion" }, "family", new Date()) : null;
+  const afterDate = afterStage?.ok ? applyPositionPatch(afterStage.position, { dateAnswers: {} }, "family", new Date()) : null;
+  check(
+    "motion answer: kept through stage and date saves",
+    Boolean(afterDate?.ok && readCasePosition({ position: afterDate.position }, "family").motionToChange?.readingKind === "asking"),
+  );
+  const removed = answered ? applyPositionPatch(answered, { motionToChange: null }, "family", new Date()) : null;
+  check("motion answer: null removes it (Change)", Boolean(removed?.ok && readCasePosition({ position: removed.position }, "family").motionToChange === undefined));
+  check(
+    "motion answer: only the fixed vocabulary is accepted or read back",
+    !applyPositionPatch(EMPTY_POSITION, { motionToChange: { answer: "maybe", readingKind: "asking" } }, "family", new Date()).ok &&
+      !applyPositionPatch(EMPTY_POSITION, { motionToChange: { answer: "yes", readingKind: "winning" } }, "family", new Date()).ok &&
+      !applyPositionPatch(EMPTY_POSITION, { motionToChange: "yes" }, "family", new Date()).ok &&
+      readCasePosition({ position: { motionToChange: { answer: "yes", readingKind: "other" } } }, "family").motionToChange === undefined,
+  );
+  check(
+    "motion answer: the page saves it with the other confirmations, and the route passes it through for validation",
+    /parts\.push\(\{\s*motionToChange:/.test(builder) && /motionAnswerThisVisit, positionThisVisit, masterCaseId\]/.test(builder) &&
+      /motionToChange: body\.motionToChange/.test(read("app/api/cases/position/route.ts")),
+  );
+  check(
+    "motion answer: on load the saved answer stands (standingChoice over the saved position)",
+    /standingChoice\(motionLead, motionAnswerThisVisit, readCasePosition\(existingMasterResult, courtPath\)\.motionToChange\)/.test(builder),
+  );
 }
 
 if (failures > 0) {
