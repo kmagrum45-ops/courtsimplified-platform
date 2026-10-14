@@ -4,7 +4,17 @@ import TidyWordingReview from "./TidyWordingReview";
 
 import Link from "next/link";
 import { useMemo, useState, type ReactNode } from "react";
-import { CLAIM_FIELDS_FOLDED_SUMMARY, ENFORCEMENT_DIRECTION, enforcementMissing, judgmentUnpaidFromStory } from "./enforcementIntake";
+import {
+  CLAIM_FIELDS_FOLDED_SUMMARY,
+  buildCaseDirection,
+  buildMissingPrompt,
+  enforcementShown,
+  enforcementSuggested,
+  hasText,
+  inferIssuesFromStory,
+  inferStage,
+  isDefendantRole,
+} from "./smallClaimsIntakeReading";
 
 import type {
   AnalysisResult,
@@ -130,10 +140,6 @@ const defaultInput: SmallClaimsIntelligenceInput = {
   urgent: "",
 };
 
-function hasText(value: string): boolean {
-  return value.trim().length > 0;
-}
-
 // Session 15 -- Tier 1/Tier 2 field help. Looked up once from the real,
 // reviewed QUESTION_BANK -- never new content, never edited here. Only
 // fields with a clean, unambiguous correspondence to one of these get the
@@ -234,15 +240,6 @@ function ClaimFieldsFold({ enforcing, children }: { enforcing: boolean; children
   );
 }
 
-function normalizeText(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[’‘]/g, "'")
-    .replace(/[“”]/g, '"')
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 function toggleArrayValue<T extends string>(items: T[], value: T): T[] {
   if (value === "nothing") return items.includes(value) ? [] : [value];
   if (value === "not-sure") return items.includes(value) ? [] : [value];
@@ -262,191 +259,6 @@ function formatFileSize(size: number): string {
   return `${(size / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function inferIssuesFromStory(input: SmallClaimsIntelligenceInput): SmallClaimsIssue[] {
-  const text = normalizeText(
-    [
-      input.yourRole,
-      input.facts,
-      input.timeline,
-      input.evidence,
-      input.missingEvidence,
-      input.goal,
-      input.damagesBreakdown,
-      input.urgent,
-    ].join(" "),
-  );
-
-  const issues: SmallClaimsIssue[] = [];
-
-  // Walkthrough, 2026-10-04: an unpaid invoice was labelled "harmful
-  // communications/harassment" because the user sent reminder TEXTS and
-  // EMAILS. How people communicate is not what the dispute is about, so the
-  // medium words ("messages", "texts", "email", "posted", "spread") are gone;
-  // only words that name the harm itself remain.
-  if (
-    text.includes("defamation") ||
-    text.includes("defamed") ||
-    text.includes("reputation") ||
-    text.includes("false statement") ||
-    text.includes("slander") ||
-    text.includes("libel") ||
-    text.includes("rumor") ||
-    text.includes("rumour") ||
-    text.includes("lies about me")
-  ) {
-    issues.push("defamation-reputation");
-  }
-
-  if (
-    text.includes("harass") ||
-    text.includes("threat") ||
-    text.includes("intimidat") ||
-    text.includes("stalk")
-  ) {
-    issues.push("harassment-communications");
-  }
-
-  if (
-    text.includes("unpaid") ||
-    text.includes("owed") ||
-    text.includes("invoice") ||
-    text.includes("loan") ||
-    text.includes("debt")
-  ) {
-    issues.push("unpaid-money");
-  }
-
-  if (
-    text.includes("contract") ||
-    text.includes("agreement") ||
-    text.includes("quote") ||
-    text.includes("renovation") ||
-    text.includes("service")
-  ) {
-    issues.push("contract-dispute");
-  }
-
-  if (
-    text.includes("damaged") ||
-    text.includes("repair") ||
-    text.includes("vehicle") ||
-    text.includes("property damage")
-  ) {
-    issues.push("property-damage");
-  }
-
-  if (
-    text.includes("served with a claim") ||
-    text.includes("defending") ||
-    text.includes("defence") ||
-    text.includes("defense") ||
-    text.includes("i am defendant")
-  ) {
-    issues.push("defending-claim");
-  }
-
-  if (text.includes("settle") || text.includes("settlement")) {
-    issues.push("settlement");
-  }
-
-  return Array.from(new Set(issues));
-}
-
-function inferStage(input: SmallClaimsIntelligenceInput): UniversalStage {
-  if (input.caseStage !== "not-sure") return input.caseStage;
-
-  const text = normalizeText(
-    [input.yourRole, input.facts, input.serviceDetails, input.defenceResponse].join(" "),
-  );
-
-  if (input.filedDocuments.includes("settlement-conference")) return "conference";
-  if (input.filedDocuments.includes("enforcement-documents")) return "enforcement";
-  // A judgment won and not paid (walkthrough run 38593464953, SJ).
-  if (judgmentUnpaidFromStory(text)) return "enforcement";
-  if (input.filedDocuments.includes("plaintiffs-claim")) return "already-started";
-
-  // "i was served a plaintifs claim" (walkthrough, 2026-10-04) previewed as
-  // "starting case": only "served with a claim" was recognised.
-  const servedAsDefendant = /\b(i|we)\s+(was|were|have been|got|just got)\s+served\b/.test(text);
-  if (
-    input.filedDocuments.includes("defence") ||
-    servedAsDefendant ||
-    text.includes("served with a claim") ||
-    text.includes("defendant") ||
-    text.includes("responding") ||
-    text.includes("defending")
-  ) {
-    return "responding";
-  }
-
-  return "starting-case";
-}
-
-function isDefendantRole(role: string | undefined): boolean {
-  return /defendant|responding/i.test(role ?? "");
-}
-
-function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
-  // Enforcing a judgment (walkthrough run 38593464953, SJ): the claim is
-  // decided, so evidence for it and how it was calculated are not asked for.
-  if (hasText(input.facts) && inferStage(input) === "enforcement") {
-    const still = enforcementMissing(input);
-    return still.length ? `Still useful to add: ${still.join(", ")}.` : "You have given enough to see your next steps. You can add more later.";
-  }
-  const missing: string[] = [];
-
-  if (!hasText(input.yourName)) missing.push("your legal name");
-  if (!hasText(input.otherParty)) missing.push("the other party’s name");
-  if (!hasText(input.defendantAddress)) missing.push("the other party’s address for service");
-  if (!hasText(input.facts)) missing.push("the case story");
-  // Dates and evidence already in the story count (page review, 2026-10-06:
-  // "important dates" was asked for after "the papers came on September 25").
-  const storyHasDate = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{1,2}\b|\b\d{4}-\d{2}-\d{2}\b/i.test(input.facts);
-  if (!hasText(input.timeline) && !storyHasDate) missing.push("important dates");
-  if (!hasText(input.evidence)) missing.push("what evidence you have");
-  if (!hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
-  if (!hasText(input.damagesBreakdown) && !isDefendantRole(input.yourRole)) missing.push("how the amount was calculated");
-
-  if (!missing.length) {
-    return "You have given enough to see your next steps. You can add more later.";
-  }
-
-  return `Still useful to add: ${missing.join(", ")}.`;
-}
-
-function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
-  const issues = inferIssuesFromStory(input);
-  const stage = inferStage(input);
-  // Enforcement leads with the judgment, never with building a claim
-  // (walkthrough run 38593464953, SJ: "enforcement · kind of claim not clear yet").
-  if (hasText(input.facts) && stage === "enforcement") return ENFORCEMENT_DIRECTION;
-
-  const labels: Record<SmallClaimsIssue, string> = {
-    "unpaid-money": "unpaid money",
-    "contract-dispute": "contract/agreement dispute",
-    "property-damage": "property damage",
-    "loan-or-debt": "loan/debt",
-    "work-or-services": "work/services",
-    "deposit-refund": "deposit/refund",
-    "consumer-purchase": "consumer purchase",
-    "vehicle-dispute": "vehicle dispute",
-    "defamation-reputation": "defamation/reputational harm",
-    "harassment-communications": "harmful communications/harassment",
-    "defending-claim": "responding/defence",
-    settlement: "settlement",
-    enforcement: "enforcement",
-    other: "other",
-  };
-
-  // Nothing is guessed before there is a story (page review, 2026-10-06: a
-  // blank form read "Likely direction: starting case · not yet classified").
-  if (!hasText(input.facts)) return "";
-  const issueText = issues.length
-    ? issues.map((issue) => labels[issue]).join(", ")
-    : "kind of claim not clear yet";
-
-  return `So far this looks like: ${stage.replace(/-/g, " ")} · ${issueText}`;
-}
 
 
 // SafetyCheckResponse was removed 2026-09-17. The route's response shape now
@@ -628,7 +440,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   );
 
   const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
-  const enforcing = useMemo(() => hasText(input.facts) && inferStage(input) === "enforcement", [input]);
+  const enforcing = useMemo(() => enforcementShown(input), [input]);
+  const offerEnforcement = useMemo(() => enforcementSuggested(input), [input]);
   const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
@@ -837,6 +650,19 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
 
         <div className="mt-4 rounded-2xl border border-[#cde7dc] bg-white p-4 text-sm text-[#24463d]">
           {inferredDirection ? <p className="font-semibold">{inferredDirection}</p> : null}
+          {/* The story reads as a judgment to enforce while Case stage says
+              "Not sure": offered, never applied -- only the dropdown is sent
+              (review of 859efbb; CLAUDE.md s. 4). */}
+          {offerEnforcement ? (
+            <button
+              type="button"
+              data-testid="sc-intake-use-enforcement"
+              onClick={() => updateField("caseStage", "enforcement")}
+              className="mt-2 rounded-lg border border-[#2f7d67] px-3 py-1 text-sm font-semibold text-[#2f7d67]"
+            >
+              Set Case stage to Enforcement
+            </button>
+          ) : null}
           <p className="mt-2">{missingPrompt}</p>
         </div>
       </div>

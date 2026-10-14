@@ -55,7 +55,7 @@ import { fitPassagesToStory, isMunicipalAct44, isTorontoAct, isVariationProvisio
 import { MAX_PASSAGE_IDS, answeringPassages, questionsFromPassages, storyRejection } from "../../src/lib/case-system/retrieval/sourcedQuestions";
 import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
-import { MUNICIPAL_DEADLINE_ID, NOTICE_STEP_ID, TORONTO_DEADLINE_ID, injuryDateWords, municipalNoticeFirst, turnsOnJudge, yearGivenElsewhere } from "../../src/lib/content-library/municipalNoticeFirst";
+import { MUNICIPAL_DEADLINE_ID, NOTICE_STEP_ID, TORONTO_DEADLINE_ID, injuryDateWords, municipalNoticeFirst, noticeElsewhereFromIntake, turnsOnJudge, yearGivenElsewhere } from "../../src/lib/content-library/municipalNoticeFirst";
 import { formatLongDate as formatLongDateFor } from "../../src/lib/case-system/deadlines/holidays";
 import { deadlineStandingFor, municipalPlaceOf, municipalWayInjury, nextWeekdayOpen } from "../../src/lib/content-library/nextStepPractical";
 import type { RuleCitation } from "../../src/lib/case-system/stage-map/citations";
@@ -273,8 +273,21 @@ check("no line for a person hit by a vehicle on a road (Insurance Act notice, no
     yearGivenElsewhere("2026-09-30", [{ label: "a", text: "nothing" }, { label: "b", text: "september 30 2025" }])?.label === "b"
   ));
   check("with nothing elsewhere the year is still said to be assumed", municipalNoticeFirst(TORONTO, { now, city: "Toronto" })?.injury?.yearAssumed === true);
-  const intake = readFileSync(path.join(process.cwd(), "app/builder/_components/CivilIntake.tsx"), "utf8");
-  check("the civil intake hands the box its timeline", /<MunicipalNoticeFirst story=\{input\.facts\} city=\{input\.city\} elsewhere=\{\[\{ label: "your timeline", text: input\.timeline \}\]\} \/>/.test(intake));
+  // Review of 859efbb: "check it" stays whenever the year came from elsewhere; a future year is never taken.
+  check("a year from elsewhere still says to check it", /check it/.test(injuryDateWords(withTimeline!.injury!)));
+  check("a future year is never taken", yearGivenElsewhere("2026-09-30", [{ label: "a", text: "september 30 2027 fell" }], "2026-10-14") === null && municipalNoticeFirst(TORONTO, { now, city: "Toronto", elsewhere: [{ label: "your timeline", text: "september 30 2027" }] })?.injury?.yearAssumed === true);
+  // What the intakes hand the box (noticeElsewhereFromIntake), run through the line itself.
+  const fromCivil = noticeElsewhereFromIntake({ timeline: "september 30 2025 fell, october 1 surgery" });
+  const fromGuided = noticeElsewhereFromIntake({ answers: { injuryDate: "it was september 30 2025", amount: 5000, flag: true } });
+  check(
+    "the civil intake's timeline and the guided intake's answers each give the box the year",
+    municipalNoticeFirst(TORONTO, { now, city: "Toronto", elsewhere: fromCivil })?.injury?.yearFrom === "your timeline" &&
+      municipalNoticeFirst(TORONTO, { now, city: "Toronto", elsewhere: fromGuided })?.injury?.yearFrom === "your answers" &&
+      noticeElsewhereFromIntake({ timeline: "  ", answers: {} }).length === 0,
+    JSON.stringify({ fromCivil, fromGuided }),
+  );
+  const wired = ["CivilIntake.tsx", "GuidedSmallClaimsIntake.tsx"].filter((file) => !/elsewhere=\{noticeElsewhereFromIntake\(/.test(readFileSync(path.join(process.cwd(), "app/builder/_components", file), "utf8")));
+  check("both intakes hand the box what noticeElsewhereFromIntake gives", wired.length === 0, wired.join(", "));
 }
 check("no injury date: the line still shows, with no counted day", (() => {
   const noDate = municipalNoticeFirst("I slipped on ice on a city sidewalk in Toronto and broke my wrist.", { now });
@@ -548,6 +561,20 @@ console.log("\n11. The box asks first, with the counted date said conditionally;
     conditional ?? "",
   );
   check("no counted day, no conditional line", conditionalCountedLine({ counted: null, injury: null }) === null);
+  // Review of 859efbb: "If it was, Based on ..." -- the opening word is lower-cased, and a date still to come says no "passed".
+  {
+    const early = municipalNoticeFirst(TORONTO, { now: new Date("2026-10-06T16:00:00Z"), today: "2026-10-06", city: "Toronto" });
+    const earlyLine = early ? conditionalCountedLine(early) : null;
+    check(
+      "a date still to come: 'If it was,' then the statement with a lower-case opening, no 'passed', the day it is counted from",
+      Boolean(early?.counted) && early!.counted!.passed === false && /^If it was, [a-z]/.test(earlyLine ?? "") && !/passed/.test(earlyLine ?? "") && /Saturday 10 October 2026/.test(earlyLine ?? ""),
+      earlyLine ?? "",
+    );
+    const based = conditionalCountedLine({ counted: { ...early!.counted!, statement: "Based on the date you gave us, the last day for this is Saturday 10 October 2026.", passedLine: null }, injury: early!.injury });
+    check("'Based on ...' reads 'If it was, based on ...'", /^If it was, based on the date you gave us/.test(based ?? ""), based ?? "");
+    const named = conditionalCountedLine({ counted: { ...early!.counted!, statement: "Saturday 10 October 2026 is the last day.", passedLine: null }, injury: early!.injury });
+    check("a statement opening with a day keeps its capital", /^If it was, Saturday 10 October 2026/.test(named ?? ""), named ?? "");
+  }
   check("the conditional line is never a bar warning or a grading line", !/\bbar\b|strong|weak|likely|chance/i.test(conditional ?? ""));
   check("the question says 'Is that right?' and gives its reason", /Is that right\?/.test(asking) && /Why we ask/.test(asking));
   check("the reason's legal sentence carries its rule", /Why we ask[\s\S]*?<Rule rule=\{notice\.rule\} \/>/.test(asking));

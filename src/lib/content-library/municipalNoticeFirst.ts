@@ -99,7 +99,7 @@ export function municipalNoticeFirst(
   // The story gave no year, but the person may have given it elsewhere
   // (walkthrough run 38593464953, SW: "september 30 2026 fell" in the timeline).
   if (injury?.yearAssumed) {
-    const given = yearGivenElsewhere(injury.date, options.elsewhere ?? []);
+    const given = yearGivenElsewhere(injury.date, options.elsewhere ?? [], today);
     if (given) injury = { ...injury, date: given.date, yearAssumed: false, yearFrom: given.label };
   }
   let counted: MunicipalNoticeFirst["counted"] = null;
@@ -148,12 +148,25 @@ export function turnsOnJudge(rule: RuleCitation): boolean {
 
 /** The injury date as the line says it: the long date, where its year came from, or that the year was assumed. */
 export function injuryDateWords(injury: NonNullable<MunicipalNoticeFirst["injury"]>): string {
-  if (injury.yearFrom) return `${formatLongDate(injury.date)} (the year is from ${injury.yearFrom})`;
+  if (injury.yearFrom) return `${formatLongDate(injury.date)} (the year is from ${injury.yearFrom} -- check it)`;
   return `${formatLongDate(injury.date)}${injury.yearAssumed ? " (you did not give the year; we took the most recent one -- check it)" : ""}`;
 }
 
 /** Another place the person gave dates: a guided answer, the timeline, a date field. `label` says it in the line ("your timeline"). */
 export type GivenElsewhere = { label: string; text: string };
+
+/**
+ * The places an intake hands the notice box, in order: the timeline field,
+ * then any guided answers (their string values). One function for both
+ * intakes, so test:municipal-notice-first checks what they pass.
+ */
+export function noticeElsewhereFromIntake(input: { timeline?: string; answers?: Record<string, unknown> }): GivenElsewhere[] {
+  const places: GivenElsewhere[] = [];
+  if (input.timeline?.trim()) places.push({ label: "your timeline", text: input.timeline });
+  const answers = Object.values(input.answers ?? {}).filter((value): value is string => typeof value === "string" && value.trim().length > 0);
+  if (answers.length > 0) places.push({ label: "your answers", text: answers.join("\n") });
+  return places;
+}
 
 const MONTH_WORD = "(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\\.?";
 const DATE_WITH_YEAR = new RegExp(
@@ -168,13 +181,14 @@ const DATE_WITH_YEAR = new RegExp(
  * not give the year"). The first place, in the order given, wins; a place that
  * gives the same day in two different years gives none, so nothing is guessed.
  */
-export function yearGivenElsewhere(assumed: string, places: GivenElsewhere[]): { date: string; label: string } | null {
+export function yearGivenElsewhere(assumed: string, places: GivenElsewhere[], today?: string): { date: string; label: string } | null {
   const monthDay = assumed.slice(5);
   for (const place of places) {
     const found = new Set<string>();
     for (const match of (place.text ?? "").matchAll(DATE_WITH_YEAR)) {
       const date = parseUserDate(match[1].replace(/\./g, "").replace(/,/g, " "));
-      if (date && date.slice(5) === monthDay) found.add(date);
+      // An injury is never in the future: a later year is not taken (review of 859efbb).
+      if (date && date.slice(5) === monthDay && (!today || date <= today)) found.add(date);
     }
     if (found.size === 1) return { date: [...found][0], label: place.label };
   }

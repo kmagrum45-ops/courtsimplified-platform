@@ -119,6 +119,12 @@ export const SENTENCE_RULES: SentenceRules[] = [
         "How a creditor begins the writ of seizure and sale of personal property process",
         "You pay an enforcement fee and a deposit to the enforcement office to cover the anticipated disbursements (expenses) to enforce the writ.",
       ),
+      // The land writ (review of 859efbb): the guide says it is filed in the
+      // enforcement office and has a fee; it names a deposit only for a sale of
+      // land, not for filing the writ (SOURCING_NOTES.md, round 5).
+      guide("Beginning the Writ of Seizure and Sale of Land process", "Court staff will issue the writ and return the original to you to file in the enforcement office."),
+      guide("How long the writ lasts", "There is a fee to file and renew a writ."),
+      guide("When the land can be sold", "The sale of land is a complicated and costly process, and commencing this process requires a large initial deposit for expenses associated with the sale."),
     ],
   },
   {
@@ -147,6 +153,24 @@ export const SENTENCE_RULES: SentenceRules[] = [
     rules: [COTA_42_5],
   },
 ];
+
+/**
+ * The rules beside each sentence for where the person is (review of
+ * 859efbb). The Municipal Act does not apply to the City of Toronto (s. 7.1
+ * (1)), so for a Toronto place a sentence that has the City of Toronto Act's
+ * rule shows only that; for a place elsewhere, one that has the Municipal
+ * Act's rule drops the City of Toronto Act. An unknown place keeps both.
+ * Never leaves a sentence with no rule.
+ */
+export function sentenceRulesForPlace<T extends { rules: { sourceId: string }[] }>(entries: T[], place: "toronto" | "elsewhere" | "unknown"): T[] {
+  if (place === "unknown") return entries;
+  const keep = place === "toronto" ? "city-of-toronto-act-2006" : "municipal-act-2001";
+  const drop = place === "toronto" ? "municipal-act-2001" : "city-of-toronto-act-2006";
+  return entries.map((entry) => {
+    if (!entry.rules.some((rule) => rule.sourceId === keep)) return entry;
+    return { ...entry, rules: entry.rules.filter((rule) => rule.sourceId !== drop) };
+  });
+}
 
 /** The entries whose sentence is in `text`, in the order they appear there. */
 export function sentenceRulesIn(text: string): SentenceRules[] {

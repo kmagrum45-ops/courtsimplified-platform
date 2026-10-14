@@ -23,7 +23,10 @@
  *
  * AND ENFORCEMENT LEADS WITH THE JUDGMENT (walkthrough run 38593464953, SJ):
  * the form intake for someone enforcing a judgment led with "kind of claim
- * not clear yet" and kept the claim-building fields in front.
+ * not clear yet" and kept the claim-building fields in front. (Review of
+ * 859efbb) a contract, tender, bid, appeal or custody story read as a
+ * judgment to enforce, or the story's reading sent to the analysis while the
+ * Case stage dropdown said something else.
  *
  * Run: node --import tsx scripts/verification/verifyIntakeSequencing.ts
  */
@@ -34,7 +37,17 @@ import { pathToFileURL } from "node:url";
 
 import { unansweredQuestionStart } from "../../app/builder/_components/heldQuestion";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { CLAIM_FIELDS_FOLDED_SUMMARY, ENFORCEMENT_DIRECTION, enforcementMissing, judgmentUnpaidFromStory } from "../../app/builder/_components/enforcementIntake";
+import {
+  CLAIM_FIELDS_FOLDED_SUMMARY,
+  ENFORCEMENT_DIRECTION,
+  buildCaseDirection,
+  buildMissingPrompt,
+  enforcementShown,
+  enforcementSuggested,
+  inferStage,
+  judgmentUnpaidFromStory,
+} from "../../app/builder/_components/smallClaimsIntakeReading";
+import type { SmallClaimsIntelligenceInput } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 const ROOT = path.join(__dirname, "..", "..");
 
@@ -88,31 +101,86 @@ function offsetInRender(needle: string): number {
  *     a plain reason (`whyAsked`, which needs no source) states no law.
  */
 /*
- * ENFORCEMENT LEADS WITH THE JUDGMENT (walkthrough run 38593464953, SJ). Once
- * the form intake knows the person is enforcing a judgment, it led with
- * "enforcement · kind of claim not clear yet" and kept the claim-building
- * fields. Now the heading is the judgment, the claim-building fields are
- * folded, and nothing still-to-add asks for evidence or the claim's arithmetic.
+ * ENFORCEMENT LEADS WITH THE JUDGMENT, AS A SUGGESTION (walkthrough run
+ * 38593464953, SJ; review of 859efbb). Once the form intake knew the person
+ * was enforcing a judgment, it led with "enforcement · kind of claim not clear
+ * yet" and kept the claim-building fields. Now the heading suggests the
+ * judgment and says how to change it, the claim-building fields are folded,
+ * nothing still-to-add asks for evidence or the claim's arithmetic -- and the
+ * story's reading is never what is sent: only the Case stage dropdown is.
+ * Behaviour checks on the real functions (smallClaimsIntakeReading.ts).
  */
 function checkEnforcementIntake(): void {
-  const form = readFileSync(path.join(ROOT, "app/builder/_components/SmallClaimsIntake.tsx"), "utf8");
+  const blank = {
+    caseStage: "not-sure",
+    issues: [],
+    filedDocuments: [],
+    uploadedEvidenceFiles: [],
+    yourName: "",
+    yourAddress: "",
+    yourCity: "",
+    yourProvince: "",
+    yourPostalCode: "",
+    yourPhone: "",
+    yourEmail: "",
+    otherParty: "",
+    otherPartyPhone: "",
+    otherPartyEmail: "",
+    yourRole: "Plaintiff / claimant",
+    courtLocation: "",
+    claimNumber: "",
+    amountClaimed: "",
+    defendantAddress: "",
+    agreementDetails: "",
+    paymentHistory: "",
+    damagesBreakdown: "",
+    serviceDetails: "",
+    deadlineDetails: "",
+    facts: "",
+    timeline: "",
+    evidence: "",
+    missingEvidence: "",
+    settlementEfforts: "",
+    defenceResponse: "",
+    goal: "",
+    urgent: "",
+  } as unknown as SmallClaimsIntelligenceInput;
+  const withStory = (facts: string, caseStage = "not-sure") => ({ ...blank, facts, caseStage }) as SmallClaimsIntelligenceInput;
+
   const sj = "i won my small claims case against my old roommate in may, the judge said he owes me 6500 plus costs. its been months and he hasnt paid anything. he works at a car dealership in kanata i think";
-  check("SJ: the story is a judgment won and not paid", judgmentUnpaidFromStory(sj));
+  check("SJ: the story is a court win not paid", judgmentUnpaidFromStory(sj));
   const notEnforcement = [
+    "we won the contract to renovate their kitchen and the client hasnt paid the last invoice",
+    "we won the tender but they never paid us",
+    "i won the bid on ebay and lent him the money, he never paid back",
+    "i won the case but he appealed, he hasnt paid",
+    "the court awarded me custody and he hasnt paid child support",
     "the judge ordered me to pay him 2000 and i havent paid yet",
-    "a contractor did my bathroom reno and now hes suing me in small claims for 7500 he says i owe. so i stopped paying",
+    "there is a judgment against me and i havent paid it",
     "my tenant hasnt paid rent for three months",
     "i won the lottery",
   ].filter(judgmentUnpaidFromStory);
-  check("never for the other side's win, an unpaid debt with no judgment, or a win with nothing unpaid", notEnforcement.length === 0, notEnforcement.join(" | "));
-  const asked = enforcementMissing({ yourName: "", otherParty: "", defendantAddress: "", timeline: "" }).join(" ");
-  check("still to add, when enforcing: never evidence for the claim or how the amount was calculated", !/evidence|calculated|amount claimed/i.test(asked) && /date of the judgment/.test(asked), asked);
-  const direction = form.slice(form.indexOf("function buildCaseDirection"), form.indexOf("\n}\n", form.indexOf("function buildCaseDirection")));
-  check(
-    "the heading for an enforcement stage is the judgment, returned before any claim-type text",
-    /stage === "enforcement"\) return ENFORCEMENT_DIRECTION;/.test(direction) && direction.indexOf("return ENFORCEMENT_DIRECTION") < direction.indexOf(": \"kind of claim not clear yet\"") && /judgment/i.test(ENFORCEMENT_DIRECTION),
-  );
-  // Every claim-building field sits inside the fold.
+  check("never a contract, tender or bid win, an appeal, a custody order, the other side's judgment, or an unpaid debt with no court win", notEnforcement.length === 0, notEnforcement.join(" | "));
+  check("'won in court' and 'judgment' with money unpaid are a court win", judgmentUnpaidFromStory("we won in court last spring and they still havent paid") && judgmentUnpaidFromStory("i have a judgment for 4000 and it is unpaid"));
+
+  // The heading: a suggestion, with the way to change it; for the dropdown's enforcement too.
+  const suggested = buildCaseDirection(withStory(sj));
+  check("SJ, Case stage 'Not sure': the heading suggests the judgment and says how to change it", suggested === ENFORCEMENT_DIRECTION && /^So far this looks like: /.test(suggested) && /Not right\? Choose your stage under Case stage\./.test(suggested), suggested);
+  check("Case stage 'Enforcement': the same heading, never 'kind of claim not clear yet'", buildCaseDirection(withStory("he still owes me", "enforcement")) === ENFORCEMENT_DIRECTION);
+  check("a contract story keeps the claim heading", /^So far this looks like: starting case · /.test(buildCaseDirection(withStory("we won the tender but they never paid us"))));
+  check("no story, no heading", buildCaseDirection(blank) === "");
+
+  // What is sent: only the dropdown (and documents), never the story's reading.
+  check("SJ with Case stage 'Not sure': the stage sent is not enforcement; it is offered instead", inferStage(withStory(sj)) !== "enforcement" && enforcementSuggested(withStory(sj)));
+  check("Case stage 'Enforcement' is sent as enforcement, with nothing left to offer", inferStage(withStory(sj, "enforcement")) === "enforcement" && !enforcementSuggested(withStory(sj, "enforcement")));
+  check("a dropdown set to another stage wins: no enforcement heading, nothing offered", !enforcementShown(withStory(sj, "starting-case")) && !enforcementSuggested(withStory(sj, "starting-case")));
+
+  const asked = buildMissingPrompt(withStory(sj));
+  check("still to add, when enforcement is shown: never evidence or how the amount was calculated; the date of the judgment", !/evidence|calculated|amount claimed/i.test(asked) && /date of the judgment/.test(asked), asked);
+  check("a claim story still asks for evidence", /what evidence you have/.test(buildMissingPrompt(withStory("he owes me 900 for the couch"))));
+
+  // JSX placement (as the rest of this suite): every claim-building field sits inside the fold.
+  const form = readFileSync(path.join(ROOT, "app/builder/_components/SmallClaimsIntake.tsx"), "utf8");
   const open = form.indexOf("<ClaimFieldsFold enforcing={enforcing}>");
   const close = form.indexOf("</ClaimFieldsFold>");
   const outside = ["sc-intake-evidence\"", "sc-intake-missingEvidence\"", "sc-intake-goal\"", "sc-intake-amountClaimed\"", "sc-intake-damagesBreakdown\""].filter((id) => {
@@ -120,8 +188,7 @@ function checkEnforcementIntake(): void {
     return !(at > open && at < close);
   });
   check("every claim-building field is inside the fold", open > -1 && close > open && outside.length === 0, outside.join(", "));
-  check("the fold is a <details> named as optional, and only when enforcing", /if \(!enforcing\) return <>\{children\}<\/>;/.test(form) && /<details data-testid="sc-intake-claim-fields-folded"/.test(form) && /optional/i.test(CLAIM_FIELDS_FOLDED_SUMMARY));
-  check("the missing prompt and the heading both read the stage through inferStage", /inferStage\(input\) === "enforcement"\) \{\s*const still = enforcementMissing\(input\)/.test(form) && /judgmentUnpaidFromStory\(text\)\) return "enforcement"/.test(form));
+  check("the fold is named as optional", /optional/i.test(CLAIM_FIELDS_FOLDED_SUMMARY));
 }
 
 function checkOneQuestionAtATime(): void {

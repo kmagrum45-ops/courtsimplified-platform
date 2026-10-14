@@ -1977,7 +1977,18 @@ Established while fixing the card's time limits, fees, filing and service:
   Filing the issued writ in the enforcement office, and paying an enforcement fee and a
   deposit there, are said by the court's guide (`guide-after-judgment`, under "How a
   creditor begins the writ of seizure and sale of personal property process"), which is
-  quoted as the guide beside that sentence (sentenceRules.ts).
+  quoted as the guide beside that sentence (sentenceRules.ts). **The enforcement fee
+  and deposit to enforce the writ are stated only for a writ of seizure and sale of
+  personal property.** For the land writ the guide says the issued writ is returned "to
+  file in the enforcement office" (under "Beginning the Writ of Seizure and Sale of
+  Land process") and "There is a fee to file and renew a writ." (under "How long the
+  writ lasts"); the only deposit it names for land is "a large initial deposit" for
+  commencing a sale of the land (under "When the land can be sold"), not for filing
+  the writ. All three are quoted beside the sentence, word for word.
+- **Words that deny a signature** ("i never signed for anything") must not be read as
+  "signed for" (SIGNATURE_DENIED, serviceEffectiveDate.ts); "left ... with" counts as the
+  r. 8.03 (2) route only with a member of the household ("left it with her" next door
+  does not).
 - **Form 20P / 20A, which rule:** 20P -- r. 20.10 (2) (a) (examination), r. 20.08 (3) (a)
   (garnishment), r. 20.06 (1) and 20.07 (1) (each writ), r. 20.04 (1) (certificate);
   20A -- r. 20.08 (3) (b) ("if the order was made in another territorial division") and

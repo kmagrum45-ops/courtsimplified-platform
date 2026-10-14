@@ -39,7 +39,9 @@
  * left", beside r. 8.03 (4)); a way of serving shown that the person's
  * choice or words rule out; a way's counting sentence that is not exact (the
  * earliest starting day for which the date counted from arrival is no later
- * than the real last day).
+ * than the real last day). (Review of 859efbb) a denied signature ("i never
+ * signed for anything") read as signed for; "left it with her" or "with my
+ * wife" read as the left-at-home way without a member of the household.
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -361,6 +363,13 @@ console.log("\nA claim or application is not served by regular mail (legal revie
     check("'they left a copy with my son' shows only the left-at-home way", methods("they left a copy with my son on september 26") === "residence-and-mail");
     check("a chosen way shows only that way", methods("i got it in the mail", "residence-and-mail") === "residence-and-mail");
     check("'it came in the mail' names no way, so every way by post stays (a claim is never served by regular mail)", methods("i got the plaintiffs claim in the mail on september 28") === ways.map((way) => way.method).join(","));
+    // Review of 859efbb: a denied signature, and "left"/"with" without a member of the household.
+    const all = ways.map((way) => way.method).join(",");
+    const denied = "i never signed for anything, it just came in the mail on september 28";
+    check("'i never signed for anything' names no way: every way stays, it is not the first copy, and signed-for is not pre-selected", methods(denied) === all && !firstCopyQuote(denied) && serviceMethodFromStory("small-claims", denied) !== "registered-mail-signature", `${methods(denied)} | ${serviceMethodFromStory("small-claims", denied)}`);
+    check("'no signature needed' and 'nobody signed' name no way", methods("it came by courier, no signature needed") === all && methods("nobody signed for it, it was in the mailbox") === all);
+    check("'left it with her' (a neighbour) and 'i went with my wife to the post office' name no way, and are not the first copy", methods("they left it with her next door on september 26") === all && methods("i went with my wife to the post office on september 28") === all && !firstCopyQuote("they left it with her next door on september 26"));
+    check("'left a copy with my wife' and 'left it at the house with my son' are the left-at-home way", methods("they left a copy with my wife on september 26") === "residence-and-mail" && methods("they left it at the house with my son") === "residence-and-mail");
   }
   check("'got the claim in the mail' is not the first copy; signed for, left with, or 'first' is", !firstCopyQuote("i got the plaintiffs claim in the mail on september 28") && firstCopyQuote("my wife signed for it on september 28") && firstCopyQuote("they left a copy with my son on september 26") && firstCopyQuote("the first copy came on september 26"));
   // Final re-check 2026-10-14: only home-arrival words, never "first saw" / "first got".

@@ -45,7 +45,7 @@ import {
 import type { StageAnswer } from "../../src/lib/content-library/stageAnswers";
 import { buildSourceDisplay, SOURCE_DISPLAY_FILE } from "../content/buildSourceDisplay";
 import { NOT_A_SOURCE, sourceDisplayFor } from "../../src/lib/content-library/sourceDisplay";
-import { SENTENCE_RULES } from "../../src/lib/content-library/sentenceRules";
+import { SENTENCE_RULES, sentenceRulesForPlace } from "../../src/lib/content-library/sentenceRules";
 import { renderStageAnswer } from "../../src/lib/content-library/stageAnswerView";
 import VERDICT_SOURCES from "../../src/lib/content-library/published/verdictSources.generated.json";
 
@@ -324,6 +324,20 @@ if (offenders === 0) {
         gross.every((entry) => entry.rules.length > 0 && entry.rules.every((rule) => /^s\. (?:44 \(9\)|42 \(5\))$/.test(rule.pinpoint) && /gross negligence/.test(rule.quote) && /^\d{4}-\d{2}-\d{2}$/.test(rule.checkedOn))),
       gross.map((entry) => `${entry.sentence} -> ${entry.rules.map((rule) => rule.pinpoint).join(", ")}`).join(" | "),
     );
+    // Review of 859efbb: for a Toronto place only City of Toronto Act s. 42 (5); elsewhere only Municipal Act s. 44 (9); unknown, both; never none.
+    const ids = (place: "toronto" | "elsewhere" | "unknown") => sentenceRulesForPlace(gross, place).map((entry) => entry.rules.map((rule) => rule.sourceId).join("+"));
+    check(
+      "SW: a Toronto place shows only s. 42 (5) beside the gross-negligence sentences; elsewhere only s. 44 (9); unknown keeps both; never an empty list",
+      ids("toronto").every((list) => list === "city-of-toronto-act-2006") &&
+        ids("elsewhere").every((list) => list === "municipal-act-2001" || list === "city-of-toronto-act-2006") &&
+        ids("elsewhere").some((list) => list === "municipal-act-2001") &&
+        ids("unknown").some((list) => list.includes("municipal-act-2001") && list.includes("city-of-toronto-act-2006")) &&
+        (["toronto", "elsewhere", "unknown"] as const).every((place) => sentenceRulesForPlace(gross, place).every((entry) => entry.rules.length > 0)),
+      JSON.stringify({ toronto: ids("toronto"), elsewhere: ids("elsewhere"), unknown: ids("unknown") }),
+    );
+    // The land writ is quoted from the guide beside the writ sentence (review of 859efbb).
+    const writ = SENTENCE_RULES.find((entry) => /issued writ at the enforcement office/.test(entry.sentence));
+    check("the writ sentence carries the land-writ guide quotes as well as the personal-property ones", Boolean(writ?.rules.some((rule) => /return the original to you to file in the enforcement office/.test(rule.quote)) && writ?.rules.some((rule) => /return the issued writ to you/.test(rule.quote))));
   }
 }
 

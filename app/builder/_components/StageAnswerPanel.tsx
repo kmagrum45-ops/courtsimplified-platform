@@ -15,6 +15,8 @@ import {
   isOriginatingService,
   postWaysForClaim,
   waysTheyDescribed,
+  SIGNATURE_DENIED,
+  LEFT_WITH_HOUSEHOLD,
   arrivalCountFor,
   partyServedFrom,
   whenEffectiveSay,
@@ -28,6 +30,7 @@ import {
 import { findStage, stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { formatLongDate } from "@/src/lib/case-system/deadlines/holidays";
+import { sentenceRulesForPlace } from "@/src/lib/content-library/sentenceRules";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
@@ -51,6 +54,7 @@ import {
   limitPassedState,
   noticeFit,
   noticeStepTitle,
+  municipalPlaceOf,
   noticesNarrowed,
   practicalFor,
   personDeadlineOf,
@@ -329,7 +333,9 @@ export type ArrivalNote = {
 export function firstCopyQuote(quote: string): boolean {
   // Only words about a copy reaching the home (final re-check 2026-10-14):
   // "I first saw the claim on october 5" or "first got" is not one.
-  return /\bsigned for\b|\bleft (?:a copy|it|them|the (?:papers|claim|application)) with\b|\bfirst (?:copy )?(?:came|arrived)\b/i.test(quote);
+  // A denied signature ("i never signed for anything") is not one, and "left
+  // ... with" only with a member of the household (review of 859efbb).
+  return (/\bsigned for\b/i.test(quote) && !SIGNATURE_DENIED.test(quote)) || LEFT_WITH_HOUSEHOLD.test(quote) || /\bfirst (?:copy )?(?:came|arrived)\b/i.test(quote);
 }
 
 /**
@@ -771,7 +777,7 @@ function NextStepCard({
         </details>
       ) : null}
       {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
-      {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
+      {firstParagraph ? <SentenceRulesBox entries={sentenceRulesForPlace((answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence)), municipalPlaceOf(userWords, city))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
       {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} /> : null}
@@ -901,7 +907,7 @@ function AnswerView({
             <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
               {text || "The first step is in \"Your next step\" above."}
             </p>
-            <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => text.includes(entry.sentence))} />
+            <SentenceRulesBox entries={sentenceRulesForPlace((answer.sentenceRules ?? []).filter((entry) => text.includes(entry.sentence)), municipalPlaceOf(userWords))} />
             {section.heading === "Your deadline" && servedWhen.some((line) => text.includes(line.say)) ? (
               // The rule beside each "when service counts" sentence above
               // (walkthrough run 38500825561, FR: the 4 p.m. sentence had none).

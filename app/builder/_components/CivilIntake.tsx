@@ -6,6 +6,7 @@ import { civilGuidedFields } from "./guidedFields";
 import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
+import { noticeElsewhereFromIntake } from "@/src/lib/content-library/municipalNoticeFirst";
 
 import { useEffect, useRef, useState } from "react";
 import {
@@ -1245,7 +1246,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         </div>
 
         {/* The 10-day notice to a municipality comes before any question (round 4 review, 2026-10-14). */}
-        <MunicipalNoticeFirst story={input.facts} city={input.city} elsewhere={[{ label: "your timeline", text: input.timeline }]} />
+        <MunicipalNoticeFirst story={input.facts} city={input.city} elsewhere={noticeElsewhereFromIntake({ timeline: input.timeline })} />
 
         <SourcedQuestionsCard
           state={sourced.state}

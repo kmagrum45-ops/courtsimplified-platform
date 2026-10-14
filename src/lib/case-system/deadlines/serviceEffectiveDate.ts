@@ -448,8 +448,18 @@ export function postWaysForClaim(court: ServiceCourt, servedOn: ServedOn = {}): 
  * claim is never served by regular mail (r. 8.01 (1); r. 8.07 (3) excludes
  * even registered mail under r. 8.03 (7)), so r. 8.07 (2) is never quoted for one.
  */
-const SIGNED_WORDS = /\bsigned for\b|\bregistered mail\b|\bsignature\b|\bsigned (?:the|a) (?:card|postcard)\b/i;
-const LEFT_WORDS = /\bleft (?:a copy|it|them|the (?:papers|claim|application))(?: at [a-z ]+)? with\b|\bwith (?:my|an?) (?:adult|wife|husband|son|daughter|partner|roommate|mother|father)\b/i;
+export const SIGNED_WORDS = /\bsigned for\b|\bregistered mail\b|\bsignature\b|\bsigned (?:the|a) (?:card|postcard)\b/i;
+/*
+ * A signature denied (review of 859efbb: "i never signed for anything, it just
+ * came in the mail" matched "signed for"). When it fires, the words name no
+ * way, and every way stays.
+ */
+export const SIGNATURE_DENIED = /\b(?:never|not|didn'?t|did not|don'?t|do not|no ?one|nobody|wasn'?t|was not)\b[^.;]{0,30}\bsign|\bno signature\b|\bwithout (?:a )?signature\b/i;
+// "left" with a member of the household (r. 8.03 (2) (a)), never a bare
+// "with my wife" or "left it with her" (review of 859efbb).
+const HOUSEHOLD =
+  "(?:my|our) (?:wife|husband|spouse|partner|son|daughter|kid|kids|child|children|teen|teenager|mother|mom|mum|father|dad|brother|sister|roommate|room-mate|grandmother|grandfather|family)|an adult(?: at (?:my|our|the) (?:home|house|place))?|someone (?:at|in) (?:my|our|the) (?:home|house|place)";
+export const LEFT_WITH_HOUSEHOLD = new RegExp(`\\bleft (?:a copy|it|them|the (?:papers|claim|application))(?: at (?:my|our|the) (?:home|house|place|door))? with (?:${HOUSEHOLD})\\b`, "i");
 const SIGNED_METHODS: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["registered-mail-signature", "acknowledgment-card"]);
 
 export function waysTheyDescribed(ways: PostWay[], words: string, chosen?: ServiceMethod | null): PostWay[] {
@@ -457,9 +467,10 @@ export function waysTheyDescribed(ways: PostWay[], words: string, chosen?: Servi
     const one = ways.filter((way) => way.method === chosen);
     if (one.length > 0) return one;
   }
+  if (SIGNATURE_DENIED.test(words)) return ways;
   const named = SIGNED_WORDS.test(words)
     ? ways.filter((way) => way.method && SIGNED_METHODS.has(way.method))
-    : LEFT_WORDS.test(words)
+    : LEFT_WITH_HOUSEHOLD.test(words)
       ? ways.filter((way) => way.method === "residence-and-mail")
       : [];
   return named.length > 0 ? named : ways;
@@ -571,7 +582,8 @@ export function serviceMethodFromStory(court: ServiceCourt, story: string): Serv
   const text = story.toLowerCase();
   const found = new Set<ServiceMethod>();
   if (/\b(?:handed (?:me|it|them|the)|gave (?:me )?(?:the )?(?:papers|claim|application)|at my door|in person|served me personally|personally served)\b/.test(text)) found.add("personal");
-  if (/\b(?:registered mail|signed for)\b/.test(text)) found.add(court === "small-claims" ? "registered-mail-signature" : "mail");
+  // "i never signed for anything" is not signed for (review of 859efbb).
+  if (/\b(?:registered mail|signed for)\b/.test(text) && !SIGNATURE_DENIED.test(text)) found.add(court === "small-claims" ? "registered-mail-signature" : "mail");
   else if (/\b(?:in the mail|by mail|mailed|came in the post)\b/.test(text)) found.add("mail");
   if (/\b(?:by email|emailed|in an email|an email with)\b/.test(text)) found.add("email");
   if (found.size !== 1) return null;

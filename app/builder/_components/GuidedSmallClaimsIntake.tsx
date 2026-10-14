@@ -23,6 +23,7 @@ import { cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./
 import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
+import { noticeElsewhereFromIntake } from "@/src/lib/content-library/municipalNoticeFirst";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 
 type IntakeFacts = Record<string, string | number | boolean>;
@@ -1448,7 +1449,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <MunicipalNoticeFirst
             story={storyRef.current}
             city={location?.city ?? ""}
-            elsewhere={[{ label: "your answers", text: Object.values(facts).filter((value): value is string => typeof value === "string").join("\n") }]}
+            elsewhere={noticeElsewhereFromIntake({ answers: facts })}
           />
           <SourcedQuestionsCard
             state={sourced.state}

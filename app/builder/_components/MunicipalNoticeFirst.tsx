@@ -66,7 +66,7 @@ export function showsFullNotice(answer: NoticeAnswer): boolean {
 export function conditionalCountedLine(notice: Pick<Notice, "counted" | "injury">): string | null {
   if (!notice.counted || !notice.injury) return null;
   // Lower-case only a plain opening word ("The last day ..."), never a day or a name.
-  const statement = /^(?:The|This|That|It|Act|Your)\b/.test(notice.counted.statement) ? notice.counted.statement.replace(/^./, (c) => c.toLowerCase()) : notice.counted.statement;
+  const statement = /^(?:The|This|That|It|Act|Your|Based)\b/.test(notice.counted.statement) ? notice.counted.statement.replace(/^./, (c) => c.toLowerCase()) : notice.counted.statement;
   return `If it was, ${statement}${notice.counted.passedLine ? ` ${notice.counted.passedLine}` : ""} Counted from ${injuryDateWords(notice.injury)}.`;
 }
 
