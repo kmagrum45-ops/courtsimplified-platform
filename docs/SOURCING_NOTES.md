@@ -1792,3 +1792,30 @@ suing someone"). The law exam caught the site repeating $35,000. Such passages a
 in `docs/sources/corpus/superseded.json` (source, phrase, the law in force) and
 `readPassage` never hands them out. Add an entry whenever an official page is found to
 lag the law; re-fetching does not help while the page itself is stale.
+
+## Next-step card, walkthrough fixes (2026-10-13)
+
+Established while fixing the card's time limits, fees, filing and service:
+
+- **No saved source gives the Toronto city clerk's address for a s. 42 (6) notice.**
+  `grep -ri "city clerk" docs/sources` finds only the City of Toronto Act itself. The
+  card names who receives the notice ("the city clerk"), as the section does, and states
+  no address; test:next-step-practical fails on a notice line that looks like a street
+  address or postal code. Save an official City of Toronto page before adding one.
+- **Mandatory information program and a motion to change: r. 8.1 (1) para. 6** covers
+  "A motion to change a final order or agreement under rule 15, except motions that deal
+  only with changing child or spousal support." A support-only motion to change is outside
+  it; the card folds that limit and quotes para. 6.
+- **Serving a municipality is Rules of Civil Procedure r. 16.02 (1) (b)**, not (i) (the
+  ledger's guess); (i) is an absentee.
+- **Family fee list (O. Reg. 293/92, s. 1.2 (1)) names no fee for a motion to change.**
+  The ontario.ca family fee table (which presents O. Reg. 293/92 and 417/95) names none
+  either. O. Reg. 417/95 itself is not saved; save it before stating anything about the
+  Family Court branch beyond that table.
+- **Small Claims garnishment service order: r. 20.08 (6.1)** (debtor within five days of
+  serving the garnishee), (6.2) (a financial institution at its branch), with
+  r. 8.01 (8) (a)/(b) for what goes to whom.
+- **Small Claims fifth day on a weekend:** never "the rules don't say". r. 8.07 (2) gives
+  the fifth day; r. 3.01 moves the last day of a period that falls on a holiday. Say
+  those two things and "confirm with the court office" (test:service-dates runs
+  `assertsAbsenceProblems` on the note).

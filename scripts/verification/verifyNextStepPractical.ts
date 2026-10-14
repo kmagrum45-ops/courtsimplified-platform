@@ -15,7 +15,15 @@
  *   - a fee from another court on a step;
  *   - the card choosing the wrong portal: Toronto must get only the Toronto
  *     portal, a city outside Toronto only the other, and no city both;
- *   - a plain-words line that grades a case.
+ *   - a plain-words line that grades a case;
+ *   - (2026-10-13 walkthrough) a family step that files papers but says nothing
+ *     about the fee; a parenting-only case whose fee exemption does not lead;
+ *     a form folded away and lost, or folded with no words to justify it; a
+ *     support-only motion to change led by the information program; a court
+ *     office not on the courts' own lists; a garnishment step silent on the
+ *     garnishee; a claim against a city with no line on serving one; a notice
+ *     step with no "how to give the notice", or one stating an address no
+ *     saved source gives; a passed bar's exceptions that are not "is not a bar".
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -44,7 +52,14 @@ import {
   FAMILY_NO_STEP_FEE,
   SC_NO_STEP_FEE,
   limitNotesFor,
+  MORE_CARD_LINES,
+  MIP_SUPPORT_ONLY_CHANGE,
+  claimFit,
+  familyClaimsIn,
+  notABarExceptions,
 } from "../../src/lib/content-library/nextStepPractical";
+import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
+import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS = path.join(ROOT, "docs", "sources", "corpus");
@@ -60,6 +75,7 @@ for (const file of readdirSync(CORPUS)) if (file.endsWith(".txt")) corpus.set(fi
 
 const COURTS: PracticalCourt[] = ["small-claims", "civil", "family"];
 const lines: PlainLine[] = [
+  ...MORE_CARD_LINES,
   ...FAMILY_FEE_NOTES,
   ...FAMILY_NO_STEP_FEE,
   ...SC_NO_STEP_FEE,
@@ -208,6 +224,108 @@ const emptied = ALL_STAGES.flatMap((stage) => {
 check("narrowing a step's notices to the story never leaves it with none", emptied.length === 0, emptied.join("; "));
 const toronto = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1])?.also.map((cite) => cite.sourceId) ?? [];
 check("a fall on a Toronto sidewalk shows the City of Toronto notice and not the Crown's", toronto.includes("city-of-toronto-act-2006") && !toronto.includes("crown-liability-and-proceedings-act-2019"), toronto.join(", "));
+
+console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's list)");
+{
+  const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");
+  const component = read("app/_components/NextStepPractical.tsx");
+
+  // F3: a family step that files papers always says what it costs -- a fee,
+  // or the fee list's own words that it has none -- and the card shows the
+  // fee block for either (a motion to change showed no "What it costs").
+  const familyFiling = steps.filter((stage) => pathwayOf(stage) === "family" && STEP_PRACTICAL[stage.id]?.files);
+  const silent = familyFiling.filter((stage) => {
+    const view = practicalFor(stage.id, "family", "Sudbury");
+    return !view || (view.fees.length === 0 && view.feeNotes.length === 0);
+  });
+  check("every family step that files papers says what it costs (a fee or the no-fee note)", silent.length === 0, silent.map((stage) => stage.id).join(", "));
+  check("the card shows 'What it costs' for a fee note alone", /view\.fees\.length > 0 \|\| view\.feeNotes\.length > 0/.test(component));
+
+  // F2: for words naming only parenting, the fee exemption leads; with a
+  // property claim it does not. Nothing is dropped either way.
+  const PARENTING = 'my ex took me to court for custody of our daughter {"issues":["decision-making-responsibility","parenting-time","relocation"]}';
+  const PROPERTY = "my wife wants the house and half my pension and custody";
+  const parenting = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true, PARENTING);
+  const property = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true, PROPERTY);
+  const plain = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true);
+  check("parenting-only words: the fee exemption leads the fees", parenting?.feeNotesFirst === true && parenting.feeNotes.some((line) => line.cite.pinpoint === "s. 1.2 (2)"));
+  check("property words, or no words: the fees lead as before", property?.feeNotesFirst === false && plain?.feeNotesFirst === false);
+  check("reordering never removes a fee", [parenting, property, plain].every((view) => view?.fees.length === STEP_PRACTICAL["family:respondent:served-time-to-answer-running"].fees.length));
+
+  // C7: a form a rule ties to a claim the words do not name is folded with
+  // that rule, never removed; with no words, nothing is folded.
+  const foldedLost = steps
+    .filter((stage) => pathwayOf(stage) === "family")
+    .flatMap((stage) =>
+      [PARENTING, "i pay child support and want it lowered", ""].flatMap((words) => {
+        const view = practicalFor(stage.id, "family", "", false, words);
+        if (!view) return [];
+        const shown = [...view.forms, ...view.formsIfClaimed].map((form) => form.number).sort().join();
+        const all = (STEP_PRACTICAL[stage.id].forms.map((form) => form.split(":").pop()) as string[]).sort().join();
+        return shown === all ? [] : [`${stage.id} "${words}"`];
+      }),
+    );
+  check("folding a form never loses it (every family step, three stories)", foldedLost.length === 0, foldedLost.join("; "));
+  check(
+    "parenting-only words: the support financial statement is folded under r. 13 (1)",
+    !parenting?.forms.some((form) => form.number === "13") && Boolean(parenting?.formsIfClaimed.some((form) => form.number === "13" && form.when.cite.pinpoint === "r. 13 (1)")),
+  );
+  const support = practicalFor("family:both:asking-to-change-final-order", "family", "Sudbury", false, "i pay 900 a month child support and want it lowered");
+  check("support words: the financial statement stays a form for the step", Boolean(support?.forms.some((form) => form.number === "13")) && support?.formsIfClaimed.length === 0);
+  check("no words: nothing is folded", steps.every((stage) => (practicalFor(stage.id, pathwayOf(stage) as PracticalCourt)?.formsIfClaimed.length ?? 0) === 0));
+
+  // C6: the information program and a support-only motion to change.
+  const mip = { id: "deadline:family:mip-45-days:motion-to-change", what: "Attend the mandatory information program" };
+  check("a support-only motion to change does not lead with the information program", claimFit(mip, "i pay child support and want it lowered") === "not");
+  check("a motion to change that touches parenting still does", claimFit(mip, "i want to change child support and the parenting schedule") === "fits");
+  check("a respondent's information program is not folded by this test", claimFit({ id: "deadline:family:mip-45-days:respondent", what: mip.what }, "i pay child support") === "fits");
+  check("the note quotes r. 8.1 (1) para. 6's exception", /except motions that deal only with changing child or spousal support/.test(MIP_SUPPORT_ONLY_CHANGE.cite.quote));
+  check("unknown words fold nothing", claimFit({ what: "If the application or your answer has a property claim, serve the property papers" }, "something happened") === "fits");
+  check("the claims reader does not take 'never married' as a divorce", !familyClaimsIn("we were never married").divorce && familyClaimsIn("my wife and i are getting a divorce").divorce);
+
+  // F1: every office the card names is on the courts' own location lists, and
+  // a family step with a city that has one names it; before a case, none.
+  const named = steps
+    .filter((stage) => pathwayOf(stage) === "family")
+    .flatMap((stage) => ["Barrie", "Sudbury", "Toronto", "Ottawa"].flatMap((city) => practicalFor(stage.id, "family", city)?.courtOffices?.offices ?? []));
+  const unknownOffice = named.filter((office) => !COURT_LOCATIONS.some((location) => location.name === office.name) && !OCJ_COURTHOUSES.some((courthouse) => office.name === `Ontario Court of Justice, ${courthouse.city}`));
+  check("every court office named is on the courts' location lists", named.length > 0 && unknownOffice.length === 0, unknownOffice.map((office) => office.name).join(", "));
+  const barrie = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true)?.courtOffices;
+  check("a Barrie respondent is shown the Barrie family court and the r. 5 (4) rule", Boolean(barrie?.offices.some((office) => /Barrie/.test(office.name))) && barrie?.place[0]?.cite.pinpoint === "r. 5 (4)");
+  check("a motion to change is told where it starts (r. 15 (4))", practicalFor("family:both:asking-to-change-final-order", "family", "Sudbury")?.courtOffices?.place[0]?.cite.pinpoint === "r. 15 (4)");
+  check("no court office before a case exists", steps.filter((stage) => stage.id.startsWith("family:before-filing:")).every((stage) => !practicalFor(stage.id, "family", "Barrie")?.courtOffices));
+
+  // F4: an enforcement step that serves a notice of garnishment says how to
+  // serve the garnishee, and the debtor within five days of it.
+  const garnishing = steps.filter((stage) => STEP_PRACTICAL[stage.id]?.serve === "garnishment" && pathwayOf(stage) === "small-claims");
+  const noGarnishee = garnishing.filter((stage) => {
+    const pins = (practicalFor(stage.id, "small-claims")?.serving ?? []).map((line) => line.cite.pinpoint);
+    return !pins.includes("r. 8.01 (8) (b)") || !pins.includes("r. 20.08 (6.1)");
+  });
+  check("every garnishment step says how to serve the garnishee, and the debtor after it", garnishing.length > 0 && noGarnishee.length === 0, noGarnishee.map((stage) => stage.id).join(", "));
+
+  // F5: serving a city (r. 16.02 (1) (b)) for a claim against one; not for a neighbour; with no words, shown.
+  const pins = (words: string) => (practicalFor("civil:plaintiff:claim-drafted-not-issued", "civil", "Toronto", false, words)?.serving ?? []).map((line) => line.cite.pinpoint);
+  check("a claim against the city shows how to serve a municipality", pins("i slipped on the sidewalk and want to sue the city").includes("r. 16.02 (1) (b)"));
+  check("a claim against a neighbour does not", !pins("my neighbour's tree fell on my car").includes("r. 16.02 (1) (b)"));
+  check("with no words every service line shows", pins("").includes("r. 16.02 (1) (b)"));
+
+  // C1: the notice step says what the notice must contain and who gets it,
+  // from the section itself, and names no address (no saved source gives one).
+  const notice = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
+  check("a Toronto fall is told how to give the notice, from s. 42 (6)", Boolean(notice?.noticeHow.length) && notice!.noticeHow.every((line) => line.cite.sourceId === "city-of-toronto-act-2006"));
+  const address = MORE_CARD_LINES.filter((line) => /\b\d{1,5}\s+[A-Z][a-z]+\s+(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Boulevard|Blvd\.?)\b|\bM\d[A-Z]\s?\d[A-Z]\d\b/.test(line.say));
+  check("no notice line states a clerk's address", address.length === 0, address.map((line) => line.say).join(" | "));
+  check("every notice rule a step can show has its how-to lines", ["city-of-toronto-act-2006", "municipal-act-2001", "occupiers-liability-act"].every((id) => MORE_CARD_LINES.some((line) => line.cite.sourceId === id)));
+
+  // C4: a bar's own "is not a bar" exceptions are what the card shows once it has passed.
+  const toronto = findStage("civil:before-filing:notice-required-before-suing")?.deadlines.find((deadline) => deadline.id === "deadline:civil:toronto-notice-10-days");
+  const excuses = toronto ? notABarExceptions(toronto.exceptions).map((rule) => rule.pinpoint) : [];
+  check("the Toronto notice's passed-date exceptions are s. 42 (7) and (8)", excuses.join() === "s. 42 (7),s. 42 (8)", excuses.join());
+  check("every 'is not a bar' line picked is one", notABarExceptions(ALL_STAGES.flatMap((stage) => stage.deadlines.flatMap((deadline) => deadline.exceptions))).every((rule) => /is not a bar/.test(rule.quote)));
+
+  check("no new plain line grades a case", MORE_CARD_LINES.every((line) => !/\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)));
+}
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;

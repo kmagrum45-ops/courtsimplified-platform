@@ -27,6 +27,7 @@
 
 import type { RuleCitation } from "../case-system/stage-map/citations";
 import { R_15_01_MOTION_FORM, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
+import { COURT_LOCATIONS, COURT_LOCATIONS_RETRIEVED_AT, OCJ_COURTHOUSES, OCJ_SOURCE } from "./courts/courtLocations";
 
 export type PracticalCourt = "small-claims" | "civil" | "family";
 
@@ -59,8 +60,13 @@ export type StepPractical = {
   noFee?: true;
 };
 
-/** Plain words beside a quote. Every `say` paraphrases only the `cite` it sits with. */
-export type PlainLine = { say: string; cite: RuleCitation };
+/**
+ * Plain words beside a quote. Every `say` paraphrases only the `cite` it sits with.
+ * `about`, when set, keeps the line to people whose words match it (a line
+ * about serving a city is not shown to someone suing a neighbour); with no
+ * words at all, every line is shown.
+ */
+export type PlainLine = { say: string; cite: RuleCitation; about?: RegExp };
 
 const cite = (sourceId: RuleCitation["sourceId"], pinpoint: string, quote: string): RuleCitation => ({ sourceId, pinpoint, quote });
 
@@ -87,6 +93,8 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   "family-law-act": "2026-09-30",
   "family-responsibility-support-arrears-enforcement-act": "2026-09-30",
   "divorce-act": "2026-09-30",
+  // The passed-notice check (s. 89 (2)) and the card's own limit sources.
+  "legislation-act-2006": "2026-09-27",
 };
 
 // ---------------------------------------------------------------- fees
@@ -355,12 +363,40 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
         ),
       },
     ],
+    // Walkthrough 2026-10-13 (unpaid judgment, debtor works at a dealership):
+    // the card said how to serve the debtor, not the employer (the garnishee),
+    // nor which comes first.
     garnishment: [
       {
-        say: "A notice of garnishment is served on the debtor with your sworn affidavit for enforcement request, by mail, courier or in person.",
+        say: "You serve the notice of garnishment on the garnishee (the person who owes the debtor money, such as an employer) with a blank garnishee's statement (Form 20F), by mail, courier or in person.",
         cite: scr(
-          "r. 8.01 (8)",
+          "r. 8.01 (8) (b)",
+          "A notice of garnishment (Form 20E) shall be served by the creditor, ... (b) together with a garnishee's statement (Form 20F), on the garnishee, by mail, by courier, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03",
+        ),
+      },
+      {
+        say: "You also serve it on the debtor, with your sworn affidavit for enforcement request (Form 20P), by mail, courier or in person.",
+        cite: scr(
+          "r. 8.01 (8) (a)",
           "A notice of garnishment (Form 20E) shall be served by the creditor, (a) together with a sworn affidavit for enforcement request (Form 20P), on the debtor, by mail, by courier, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03",
+        ),
+      },
+      {
+        say: "Serve the debtor within five days after you serve the garnishee.",
+        cite: scr("r. 20.08 (6.1)", "The creditor shall serve the notice of garnishment on the debtor within five days of serving it on the garnishee."),
+      },
+      {
+        say: "If the garnishee is a bank or other financial institution, serve it at the branch where the debt is payable.",
+        cite: scr(
+          "r. 20.08 (6.2)",
+          "If the garnishee is a financial institution, the notice of garnishment and all further notices required to be served under this rule shall be served at the branch at which the debt is payable.",
+        ),
+      },
+      {
+        say: "Once served, the garnishee must pay the clerk what it owes the debtor, up to the amount in the notice, within 10 days after service or 10 days after the debt becomes payable, whichever is later.",
+        cite: scr(
+          "r. 20.08 (7)",
+          "The garnishee is liable to pay to the clerk any debt of the garnishee to the debtor, up to the amount shown in the notice of garnishment, within 10 days after service of the notice on the garnishee or 10 days after the debt becomes payable, whichever is later.",
         ),
       },
     ],
@@ -378,6 +414,16 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
       {
         say: "To serve a person personally, leave a copy with them. A person under disability, such as a minor, is served another way.",
         cite: rcp("r. 16.02 (1) (a)", "on an individual, other than a person under disability, by leaving a copy of the document with the individual"),
+      },
+      // Walkthrough 2026-10-13 (Toronto sidewalk fall, suing the City): the
+      // card said how to serve a person and a company, not a city.
+      {
+        say: "To serve a city or town (a municipal corporation), hand a copy to the mayor, chair, warden or reeve, to the clerk or deputy clerk, or to a lawyer for the municipality.",
+        cite: rcp(
+          "r. 16.02 (1) (b)",
+          "on a municipal corporation, by leaving a copy of the document with the chair, mayor, warden or reeve of the municipality, with the clerk or deputy clerk of the municipality or with a lawyer for the municipality",
+        ),
+        about: /\b(?:city|town|township|municipal\w*|county|region|village|sidewalk|road|street|highway|bridge|pothole)\b/i,
       },
       {
         say: "To serve a corporation, such as an employer, hand a copy to an officer, director or agent, or to the person in charge at one of its places of business.",
@@ -771,16 +817,265 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "family:both:served-with-financial-examination-appointment": { forms: ["13"], fees: [], files: false, serve: "ordinary" },
 };
 
+// ---------------------------------------------------------------- giving a notice before suing
+
+/*
+ * What the notice must say, who gets it and how (walkthrough 2026-10-13, a
+ * Toronto sidewalk fall: "no help writing the notice to the City"). Each line
+ * says only what its section says. No address is given for a clerk: no saved
+ * official source states one, so the card names who receives it, as the
+ * statute does, and nothing more.
+ */
+const torontoNotice = (pinpoint: string, quote: string) => cite("city-of-toronto-act-2006", pinpoint, quote);
+const municipalNotice = (pinpoint: string, quote: string) => cite("municipal-act-2001", pinpoint, quote);
+const occupierNotice = (pinpoint: string, quote: string) => cite("occupiers-liability-act", pinpoint, quote);
+
+export const NOTICE_HOW: Partial<Record<RuleCitation["sourceId"], PlainLine[]>> = {
+  "city-of-toronto-act-2006": [
+    {
+      say: "Write the notice. Say what you are claiming and what your injury is, and give the date, time and place where it happened.",
+      cite: torontoNotice("s. 42 (6)", "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence"),
+    },
+    {
+      say: "Give it to the city clerk: serve it on the clerk, or send it to the clerk by registered mail. Do this within 10 days after the injury.",
+      cite: torontoNotice("s. 42 (6)", "within 10 days after the occurrence of the injury, ... has been served upon or sent by registered mail to, (a) the city clerk"),
+    },
+    {
+      say: "If the City and another municipality are jointly responsible for repairing the road or bridge, the notice goes to the city clerk and to the clerk of each of the others.",
+      cite: torontoNotice(
+        "s. 42 (6) (b)",
+        "(b) if the claim is against the City and one or more municipalities jointly responsible for the repair of the highway or bridge, the city clerk and the clerk of each of the other municipalities",
+      ),
+    },
+  ],
+  "municipal-act-2001": [
+    {
+      say: "Write the notice. Say what you are claiming and what your injury is, and give the date, time and place where it happened.",
+      cite: municipalNotice("s. 44 (10)", "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence"),
+    },
+    {
+      say: "Give it to the clerk of the municipality: serve it on the clerk, or send it to the clerk by registered mail. Do this within 10 days after the injury.",
+      cite: municipalNotice("s. 44 (10)", "within 10 days after the occurrence of the injury, ... has been served upon or sent by registered mail to, (a) the clerk of the municipality"),
+    },
+    {
+      say: "If two or more municipalities are jointly responsible for repairing the road or bridge, the notice goes to the clerk of each one.",
+      cite: municipalNotice("s. 44 (10) (b)", "(b) if the claim is against two or more municipalities jointly responsible for the repair of the highway or bridge, the clerk of each of the municipalities"),
+    },
+  ],
+  "occupiers-liability-act": [
+    {
+      say: "Write the notice. Say what you are claiming, and give the date, time and place where it happened.",
+      cite: occupierNotice("s. 6.1 (1)", "written notice of the claim, including the date, time and location of the occurrence"),
+    },
+    {
+      say: "Serve it in person on, or send it by registered mail to, the occupier or the contractor they hired to clear the snow or ice. Do this within 60 days after the injury.",
+      cite: occupierNotice(
+        "s. 6.1 (1), (2)",
+        "within 60 days after the occurrence of the injury, ... has been personally served on or sent by registered mail to at least one person listed in subsection (2). ... 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+      ),
+    },
+  ],
+};
+
+// ---------------------------------------------------------------- the person's family claims
+
+/**
+ * Which kinds of family claim the person's own words (and the issues they
+ * ticked, which reach here as words such as "child-support") mention. `known`
+ * is false when the words name none of them, and then nothing is folded or
+ * reordered on their account: a gap in these patterns never hides a line.
+ */
+export type FamilyClaims = { known: boolean; parenting: boolean; support: boolean; property: boolean; home: boolean; divorce: boolean };
+
+export function familyClaimsIn(words: string): FamilyClaims {
+  const text = proseOf(words).toLowerCase();
+  const parenting = /\b(?:decision-making|parenting|custody|access|relocat\w*|move (?:away |to \w+ )?with (?:her|him|them|the kids?|the children|my (?:son|daughter|kids?|children))|contact with|my (?:son|daughter|daugter|kids?|children)|our (?:son|daughter|daugter|kids?|children))\b/.test(text);
+  const support = /\b(?:child-support|spousal-support|support|suport|child support|spousal support|alimony)\b/.test(text);
+  const property = /\b(?:property-division|property|equaliz\w*|net family|pension|assets?|house we (?:own|bought))\b/.test(text);
+  const home = /\b(?:matrimonial-home|matrimonial home|exclusive possession)\b/.test(text);
+  // "We were never married" is not a divorce (formsInText.ts has the same test).
+  const divorce = /\bdivorce|(?<!never |not |n't |were not |weren't )\bmarried\b|\bhusband\b|\bwife\b/.test(text);
+  return { known: parenting || support || property || home || divorce, parenting, support, property, home, divorce };
+}
+
+/** The person's words name only parenting (no support, property, home or divorce). */
+export function parentingOnly(claims: FamilyClaims): boolean {
+  return claims.known && claims.parenting && !claims.support && !claims.property && !claims.home && !claims.divorce;
+}
+
+/** The person's words name support and nothing else (no parenting, property or home). */
+export function supportOnly(claims: FamilyClaims): boolean {
+  return claims.known && claims.support && !claims.parenting && !claims.property && !claims.home;
+}
+
+/*
+ * Family forms that a rule requires only with a particular claim
+ * (walkthrough 2026-10-13: a father in a parenting-only case was shown
+ * "Form 13 -- Financial Statement (Support Claims)" as his form). With words
+ * that name no such claim they are folded under the rule that says when they
+ * are needed -- never removed, since the other side's papers may make the
+ * claim.
+ */
+const FINANCIAL_STATEMENT_WHEN: PlainLine = {
+  say: "A financial statement (Form 13 or 13.1) is needed when an application, answer or motion claims support or property, or the matrimonial home.",
+  cite: FAM_FINANCIAL_STATEMENT,
+};
+const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
+  say: "The parenting affidavit (Form 35.1) is needed when an application, answer or motion to change claims decision-making responsibility, parenting time or contact.",
+  cite: FAM_PARENTING_AFFIDAVIT,
+};
+const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; fits: (claims: FamilyClaims) => boolean }> = {
+  "13": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims) => claims.support || claims.property || claims.home },
+  "13.1": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims) => claims.support || claims.property || claims.home },
+  "35.1": { when: PARENTING_AFFIDAVIT_WHEN, fits: (claims) => claims.parenting },
+};
+
+/*
+ * The mandatory information program and a support-only motion to change
+ * (walkthrough 2026-10-13: a father asking to lower child support was told
+ * first to "Attend the mandatory information program"). Rule 8.1 (1) lists
+ * a motion to change among the cases it covers, except one that deals only
+ * with changing child or spousal support.
+ */
+export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
+  say: "The mandatory information program rule covers a motion to change, except one that deals only with changing child or spousal support. What you told us is about support only, so it is not listed first. If your motion also asks to change parenting, it applies.",
+  cite: flr("r. 8.1 (1), para. 6", "6. A motion to change a final order or agreement under rule 15, except motions that deal only with changing child or spousal support."),
+};
+
+/**
+ * Whether a time limit on the card fits the claims the person's words name:
+ * "not" for a limit the rule ties to a claim their words do not include (a
+ * property limit for a parenting-only case; the information program for a
+ * support-only motion to change), otherwise "fits". Such a limit is folded
+ * under "may apply later", never dropped.
+ */
+export function claimFit(item: { id?: string; what: string }, words: string): "fits" | "not" {
+  const claims = familyClaimsIn(words);
+  if (!claims.known) return "fits";
+  if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
+  if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
+  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !claims.support && !claims.property && !claims.home) return "not";
+  return "fits";
+}
+
+// ---------------------------------------------------------------- the family court office
+
+/*
+ * Which court office (walkthrough 2026-10-13: two family cases were never told
+ * where their court is). A case that exists goes on where it was started
+ * (r. 5 (4)); a motion to change starts where a new case would (r. 15 (4),
+ * r. 5 (1)). The offices for the person's city come from the courts' own
+ * location pages (courts/courtLocations.ts, checked by test:court-locations).
+ */
+const FAMILY_SAME_PLACE: PlainLine = {
+  say: "Every step in your case, except enforcing an order, takes place in the municipality where the case was started (or moved to). The court is named on the papers.",
+  cite: flr("r. 5 (4)", "All steps in the case, other than enforcement, shall take place in the municipality where the case is started or transferred."),
+};
+const FAMILY_CHANGE_PLACE: PlainLine[] = [
+  {
+    say: "A motion to change is started where a new case would be.",
+    cite: flr("r. 15 (4)", "Rule 5 (where a case starts) applies to a motion to change a final order or agreement as if the motion were a new case."),
+  },
+  {
+    say: "That is the municipality where a party lives or, for a change about decision-making responsibility, parenting time or contact, where the child usually lives.",
+    cite: flr(
+      "r. 5 (1) (a), (b)",
+      "a case shall be started, (a) in the municipality where a party resides; (b) if the case deals with decision-making responsibility, parenting time or contact with respect to a child, in the municipality where the child habitually resides, except as provided for under section 22 of the Children’s Law Reform Act",
+    ),
+  },
+];
+
+export type CourtOffice = { court: "Superior Court of Justice" | "Ontario Court of Justice"; name: string; address: string[]; emails: string[]; url: string };
+export type CourtOffices = { place: PlainLine[]; city: string; offices: CourtOffice[]; source: { url: string; readOn: string } };
+
+/** The city in an address line such as "Barrie, Ontario L4M 3P2". */
+const cityOfAddress = (lines: string[]) => lines.map((line) => /^([^,]+),\s*Ontario\b/i.exec(line)?.[1]?.trim() ?? "").find(Boolean) ?? "";
+
+/** Family court offices in the person's city: Superior Court locations with family services, and Ontario Court of Justice courthouses. */
+export function familyCourtOfficesIn(city: string): CourtOffice[] {
+  const wanted = city.trim().toLowerCase();
+  if (!wanted) return [];
+  const torontoWanted = inTorontoRegion(city) === true;
+  const sameCity = (name: string) => {
+    const lower = name.trim().toLowerCase();
+    return lower === wanted || (torontoWanted && inTorontoRegion(name) === true);
+  };
+  const scj: CourtOffice[] = COURT_LOCATIONS.filter((location) => sameCity(cityOfAddress(location.address)) && location.services.some((service) => service.court === "family")).map((location) => ({
+    court: "Superior Court of Justice",
+    name: location.name,
+    address: location.address,
+    emails: Array.from(new Set(location.services.filter((service) => service.court === "family").flatMap((service) => service.contacts.map((contact) => contact.email).filter((email): email is string => Boolean(email))))).slice(0, 2),
+    url: location.url,
+  }));
+  const ocj: CourtOffice[] = OCJ_COURTHOUSES.filter((courthouse) => sameCity(courthouse.city)).map((courthouse) => ({
+    court: "Ontario Court of Justice",
+    name: `Ontario Court of Justice, ${courthouse.city}`,
+    address: [],
+    emails: courthouse.emails,
+    url: OCJ_SOURCE,
+  }));
+  return [...scj, ...ocj];
+}
+
+/** The court office lines for a family step, or null for a step before any case exists. */
+export function familyCourtOfficesFor(stepId: string, city: string): CourtOffices | null {
+  if (!stepId.startsWith("family:") || stepId.startsWith("family:before-filing:")) return null;
+  const place = stepId === "family:both:asking-to-change-final-order" ? FAMILY_CHANGE_PLACE : [FAMILY_SAME_PLACE];
+  return { place, city: city.trim(), offices: familyCourtOfficesIn(city), source: { url: "https://www.ontariocourts.ca/scj/court-locations/all-court-locations/", readOn: COURT_LOCATIONS_RETRIEVED_AT } };
+}
+
+// ---------------------------------------------------------------- a time limit that has passed
+
+/*
+ * When a time limit that bars a claim has passed (walkthrough 2026-10-13: the
+ * Toronto notice date passed with no plain warning, no mention of the rule's
+ * own exceptions and no pointer to urgent help). Before anything else: a
+ * statutory time limit that ends on a day the place is closed runs on to the
+ * next day it is open.
+ */
+export const PASSED_CHECK_CLOSED: PlainLine = {
+  say: "First check the date: if the place where this had to be done was closed on the last day, the time runs to the next day it is open.",
+  cite: cite(
+    "legislation-act-2006",
+    "s. 89 (2)",
+    "Time limits for registering or filing documents or for doing anything else that expire on a day when the place for doing so is not open during its regular hours of business are extended to include the next day the place is open during its regular hours of business.",
+  ),
+};
+
+/** The exceptions a rule itself gives to its bar: the quotes that say missing it "is not a bar". */
+export function notABarExceptions(exceptions: RuleCitation[]): RuleCitation[] {
+  return exceptions.filter((exception) => /\bis not a bar\b/i.test(exception.quote));
+}
+
+/** Every plain line added for the card on 2026-10-13, so test:next-step-practical reads each quote back. */
+export const MORE_CARD_LINES: PlainLine[] = [
+  ...Object.values(NOTICE_HOW).flatMap((lines) => lines ?? []),
+  FINANCIAL_STATEMENT_WHEN,
+  PARENTING_AFFIDAVIT_WHEN,
+  MIP_SUPPORT_ONLY_CHANGE,
+  FAMILY_SAME_PLACE,
+  ...FAMILY_CHANGE_PLACE,
+  PASSED_CHECK_CLOSED,
+];
+
 // ---------------------------------------------------------------- what the card shows
 
 export type PracticalView = {
   forms: { court: PracticalCourt; number: string }[];
+  /** Forms a rule needs only with a claim the person's words do not name, with that rule. Shown folded. */
+  formsIfClaimed: { court: PracticalCourt; number: string; when: PlainLine }[];
   fees: Fee[];
   feeNotes: PlainLine[];
+  /** The notes lead the fees: the person's words point to a case the fee exemption covers. */
+  feeNotesFirst: boolean;
   feeWaiver: PlainLine | null;
   filing: PlainLine[];
+  /** Family: where the case is, and the family court offices in the person's city. */
+  courtOffices: CourtOffices | null;
   serving: PlainLine[];
   also: RuleCitation[];
+  /** How to give each notice the step's rules require, for the notices that fit the person's words. */
+  noticeHow: PlainLine[];
 };
 
 /**
@@ -854,24 +1149,46 @@ export function alsoFor(also: RuleCitation[], words = "", city = ""): RuleCitati
   return also.filter((cite) => !NOTICE_FITS[cite.sourceId] || fitting.includes(cite));
 }
 
+/** A step's lines without those whose `about` the person's words do not match (all of them with no words). */
+function linesAbout(lines: PlainLine[], story: string): PlainLine[] {
+  const prose = proseOf(story);
+  if (!prose.trim()) return lines;
+  return lines.filter((line) => !line.about || line.about.test(prose));
+}
+
 export function practicalFor(stepId: string, court: PracticalCourt, city = "", responding = false, story = ""): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
   const toronto = inTorontoRegion(city);
   const filingLines = FILING[court];
-  const fees = step.fees.map((id) => FEES[id]).filter(Boolean);
-  const serviceLines = step.serve ? SERVICE[court][step.serve] : [];
+  const claims = court === "family" ? familyClaimsIn(story) : null;
+  // A parenting-only (or support-only, not property) case: the fee exemption
+  // leads the fees (walkthrough 2026-10-13: "$171" first, the no-fee rule
+  // for a parenting case buried under it).
+  const exemptionLeads = Boolean(claims && claims.known && !claims.property && !claims.home && !claims.divorce);
+  const allFees = step.fees.map((id) => FEES[id]).filter(Boolean);
+  // The divorce-answer fee is for an answer that asks for a divorce; it goes last when their words name none.
+  const fees = claims && claims.known && !claims.divorce ? [...allFees.filter((fee) => fee.id !== "fam-answer-divorce"), ...allFees.filter((fee) => fee.id === "fam-answer-divorce")] : allFees;
+  const serviceLines = step.serve ? linesAbout(SERVICE[court][step.serve], story) : [];
+  const allForms = step.forms
+    .map((form) => {
+      const [other, number] = form.includes(":") ? form.split(":") : [court, form];
+      return { court: other as PracticalCourt, number };
+    })
+    .sort((a, b) =>
+      responding && stepId.includes(":both:")
+        ? Number(MOVING_PARTY_FORMS[a.court]?.has(a.number) ?? false) - Number(MOVING_PARTY_FORMS[b.court]?.has(b.number) ?? false)
+        : 0,
+    );
+  const folded = (form: { court: PracticalCourt; number: string }) =>
+    form.court === "family" && claims?.known === true && FAMILY_FORM_NEEDS[form.number] !== undefined && !FAMILY_FORM_NEEDS[form.number].fits(claims);
+  const also = alsoFor(step.also ?? [], story, city);
   return {
-    forms: step.forms
-      .map((form) => {
-        const [other, number] = form.includes(":") ? form.split(":") : [court, form];
-        return { court: other as PracticalCourt, number };
-      })
-      .sort((a, b) =>
-        responding && stepId.includes(":both:")
-          ? Number(MOVING_PARTY_FORMS[a.court]?.has(a.number) ?? false) - Number(MOVING_PARTY_FORMS[b.court]?.has(b.number) ?? false)
-          : 0,
-      ),
+    forms: allForms.filter((form) => !folded(form)),
+    formsIfClaimed: allForms.filter(folded).map((form) => ({ ...form, when: FAMILY_FORM_NEEDS[form.number].when })),
+    feeNotesFirst: exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id)),
+    courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
+    noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
     fees,
     feeNotes:
       court !== "family"
@@ -890,7 +1207,7 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = "", r
       ? [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more]
       : [],
     serving: serviceLines.length > 0 ? [...serviceLines, SERVICE[court].proof] : [],
-    also: alsoFor(step.also ?? [], story, city),
+    also,
   };
 }
 

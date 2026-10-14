@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-138 documented, 28 without a header.
+139 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -59,7 +59,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:form-completion-paused` | **While official-form completion is paused, every door to it stays shut.**<br>FORM_COMPLETION_PAUSED (src/lib/content-library/phaseScope.ts) was set on 2026-09-27 for the LSO A2I application, which tells the Law Society that filling official court forms and drafting claim particulars are out of scope until it gives guidance. That statem |
 | `npm run test:form-explanations` | **Every official form is in the guide, explained from the rules that name it,**<br>and the rule quotes are still the regulation's own words. |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
-| `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the |
+| `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the law's own definitions verbatim. |
 | `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
 | `npm run test:guided-form-chat` | **One question at a time for family and civil (GuidedFormChat, build order**<br>Step 2C, 2026-10-12). |
@@ -135,6 +135,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:user-story` | **The user's own words are what pages show back to them, never the labelled**<br>record the analysis reads; and a date in their story without a year is still offered for counting their deadline. |
+| `npm run test:verdict-sources` | **Every provision a published answer was proved from is in its source list**<br>(2026-10-13). |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |
 | `npm run test:workspace-ai-flag` | **No document text and no file name can reach a model while document analysis is off —**<br>and it is off, and stays off. |
 | `npm run test:workspace-catalogue` | **The document-type catalogue in code and the CHECK constraint in the migration say**<br>the same thing, and no type label characterises anything legally. |

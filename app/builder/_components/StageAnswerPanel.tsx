@@ -20,10 +20,19 @@ import WhatComesNext from "../../_components/WhatComesNext";
 import GetHelp from "../../_components/GetHelp";
 import { savePositionQueued } from "./positionSave";
 import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
-import { limitNotesFor, noticeFit, practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import {
+  MIP_SUPPORT_ONLY_CHANGE,
+  PASSED_CHECK_CLOSED,
+  SOURCE_SAVED_ON,
+  claimFit,
+  limitNotesFor,
+  noticeFit,
+  practicalFor,
+  type PracticalCourt,
+} from "@/src/lib/content-library/nextStepPractical";
 import { datesFromPicture, stepFromPicture, type CasePicture } from "@/src/lib/case-system/intake/caseReader";
 import { amountNoteFor } from "@/src/lib/case-system/amountNotes";
-import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
+import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
 /**
  * "Where exactly is your case?" — the reviewed answer for the position the
@@ -50,10 +59,19 @@ type RenderedAnswer = {
   release: { runId: string; promotedAt: string };
 };
 
+/** What the route says about each limit besides its words: its id, the rule that sets it, and, for a bar, the rule's own exceptions. */
+type LimitSource = {
+  id?: string;
+  rule?: RuleCitation;
+  consequence?: "bars-the-claim" | "changes-what-happens-next";
+  notABar?: RuleCitation[];
+  statutory?: boolean;
+};
+
 type NextStepSummary = {
   title: string;
-  deadlines: { what: string; date: string; statement: string }[];
-  periods: { what: string; count: number; unit: string; countFrom: string }[];
+  deadlines: ({ what: string; date: string; statement: string } & LimitSource)[];
+  periods: ({ what: string; count: number; unit: string; countFrom: string } & LimitSource)[];
 };
 
 type Response =
@@ -125,6 +143,52 @@ function todayIso(): string {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 }
 
+/** The rule that sets a time limit, beside it on the card (2026-10-13: limits were shown with no source). */
+function LimitRule({ rule }: { rule?: RuleCitation }) {
+  if (!rule) return null;
+  const saved = SOURCE_SAVED_ON[rule.sourceId];
+  return (
+    <span data-testid="next-step-limit-rule" className="block text-xs text-[#4d675f]">
+      <a href={officialUrl(rule)} target="_blank" rel="noreferrer" className="underline">
+        {sourceName(rule)}
+      </a>
+      , {rule.pinpoint}
+      {saved ? ` · checked ${saved}` : ""}
+    </span>
+  );
+}
+
+/** A rule's source line, with its words folded underneath unless they are already shown. */
+function QuotedRule({ rule, quote = true }: { rule: RuleCitation; quote?: boolean }) {
+  const saved = SOURCE_SAVED_ON[rule.sourceId];
+  const head = (
+    <>
+      <a href={officialUrl(rule)} target="_blank" rel="noreferrer" className="underline">
+        {sourceName(rule)}
+      </a>
+      , {rule.pinpoint}
+      {saved ? ` · checked ${saved}` : ""}
+    </>
+  );
+  if (!quote) return <span className="block text-xs">{head}</span>;
+  return (
+    <details className="mt-1 text-xs">
+      <summary className="cursor-pointer">{head}</summary>
+      <span className="mt-1 block italic">“{rule.quote}”</span>
+    </details>
+  );
+}
+
+export type ArrivalNote = { quote: string; dateToEnter: string; rule: string; ruleQuote: string };
+
+/**
+ * Time limits on the card that bar a claim and whose counted last day is
+ * before today (2026-10-13). Exported for test:next-step.
+ */
+export function passedBars(summary: Pick<NextStepSummary, "deadlines">, today: string = todayIso()) {
+  return summary.deadlines.filter((deadline) => deadline.consequence === "bars-the-claim" && deadline.date < today);
+}
+
 /**
  * "Your next step", first (master plan Phase 2). The step, its deadline
  * counted from the person's dates (or the period and what it runs from), what
@@ -143,6 +207,7 @@ function NextStepCard({
   city,
   fromStory = [],
   responding = false,
+  arrival = null,
 }: {
   summary: NextStepSummary;
   answer: RenderedAnswer;
@@ -156,6 +221,8 @@ function NextStepCard({
   fromStory?: { label: string; date: string }[];
   /** The person's side, so an "either side" step leads with their own limit ("If you are responding ..."). */
   responding?: boolean;
+  /** A service date the story gives as the day the papers ARRIVED, for a way of serving that counts from the day they were sent. */
+  arrival?: ArrivalNote | null;
 }) {
   const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords);
   const today = todayIso();
@@ -165,17 +232,20 @@ function NextStepCard({
     filingShown: Boolean(practical?.filing.length),
   });
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
-  const { main, conditional } = cardLimits(summary, responding, userWords, city);
+  const { main, conditional, mipNote } = cardLimits(summary, responding, userWords, city);
+  const passed = passedBars(summary, today);
   const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => (
     <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
       <span className="font-semibold">{deadline.what}.</span> {deadline.statement}
       {deadline.date < today ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
+      <LimitRule rule={deadline.rule} />
     </li>
   );
   const periodItem = (period: NextStepSummary["periods"][number]) => (
     <li key={period.what} data-testid="next-step-period">
       <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
       {askedForDates ? " Give the date below and we will count the last day for you." : ""}
+      <LimitRule rule={period.rule} />
     </li>
   );
   return (
@@ -193,6 +263,69 @@ function NextStepCard({
           {main.deadlines.map(deadlineItem)}
           {main.periods.map(periodItem)}
         </ul>
+      ) : null}
+      {passed.map((deadline) => (
+        // A time limit that bars the claim has passed (2026-10-13, walkthrough:
+        // the Toronto notice date passed with no plain warning, no word of the
+        // rule's own exceptions and no pointer to urgent help). What the rule
+        // says, quoted; never what a judge will do.
+        <div
+          key={`passed-${deadline.what}`}
+          data-testid="next-step-passed-bar"
+          role="alert"
+          className="mt-3 rounded-xl border border-[#e2a3a3] bg-[#fff5f5] px-3 py-3 text-sm leading-6 text-[#5c1414]"
+        >
+          <p className="font-semibold">The last day counted for this has passed: {deadline.what.replace(/^If [^,]+, /, "").replace(/^./, (c) => c.toUpperCase())}.</p>
+          <p className="mt-1">
+            Missing this time limit can stop the claim from going ahead. Act now, and talk to a lawyer or paralegal as soon as you can.
+            {deadline.rule ? <QuotedRule rule={deadline.rule} /> : null}
+          </p>
+          {deadline.statutory ? (
+            <p className="mt-2">
+              {PASSED_CHECK_CLOSED.say}
+              <QuotedRule rule={PASSED_CHECK_CLOSED.cite} />
+            </p>
+          ) : null}
+          {deadline.notABar && deadline.notABar.length > 0 ? (
+            <div className="mt-2">
+              <p>The law itself says when missing it is not a bar:</p>
+              <ul className="mt-1 list-disc space-y-1 pl-5">
+                {deadline.notABar.map((rule) => (
+                  <li key={rule.pinpoint}>
+                    <span className="italic">“{rule.quote}”</span>
+                    <QuotedRule rule={rule} quote={false} />
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-1">Whether a judge finds that, in your case, is for the judge to decide. This site cannot tell you how that will go.</p>
+            </div>
+          ) : (
+            <p className="mt-2">The rule&apos;s own exceptions, if any, are in the full answer below, with its source.</p>
+          )}
+          <GetHelp heading="Get help now about the passed date" why="A lawyer or paralegal can look at your dates and your situation with you." />
+        </div>
+      ))}
+      {arrival ? (
+        // Papers that ARRIVED by mail on a day the story gives (2026-10-13,
+        // walkthrough: "i got the plaintiffs claim in the mail on september 28"
+        // was counted as the mailing day, and a definite date was shown).
+        <p data-testid="next-step-arrival" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
+          You wrote: “{arrival.quote}” That is the day the papers reached you. For papers sent this way, service counts from{" "}
+          {arrival.dateToEnter}, not the day they arrived, so no last day is shown until you give that date below (the postmark,
+          or the date on the other side&apos;s affidavit of service, often shows it). They were sent on or before the day they reached you,
+          so your last day is no later than one counted from the day they arrived, and may be earlier.
+          {arrival.rule ? (
+            <span className="block text-xs">
+              {arrival.rule}: “{arrival.ruleQuote}”
+            </span>
+          ) : null}
+        </p>
+      ) : null}
+      {mipNote ? (
+        <p data-testid="next-step-mip-note" className="mt-3 text-sm leading-6 text-[#16302b]">
+          {mipNote.say}
+          <QuotedRule rule={mipNote.cite} />
+        </p>
       ) : null}
       {conditional.deadlines.length > 0 || conditional.periods.length > 0 ? (
         // "If your action is under the simplified procedure ..." -- time limits
@@ -387,15 +520,28 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
     deadlines = [...summary.deadlines.filter((item) => fit(item.what) === "fits"), ...deadlines.filter((item) => fit(item.what) !== "not" && fit(item.what) !== "fits")];
     periods = [...summary.periods.filter((item) => fit(item.what) === "fits"), ...periods.filter((item) => fit(item.what) !== "not" && fit(item.what) !== "fits")];
   }
+  /*
+   * A limit the rule ties to a claim the person's words do not include is
+   * folded, not led with (2026-10-13, walkthrough: a parenting-only respondent
+   * led with "If the application or your answer has a property claim"; a
+   * support-only motion to change led with the information program, which
+   * r. 8.1 (1) para. 6 leaves out). Folded, never dropped.
+   */
+  const fitsClaims = (item: { id?: string; what: string }) => claimFit(item, story) === "fits";
   const main = {
-    deadlines: [...deadlines].sort((a, b) => a.date.localeCompare(b.date)),
-    periods: [...periods].sort(byDue),
+    deadlines: [...deadlines].filter(fitsClaims).sort((a, b) => a.date.localeCompare(b.date)),
+    periods: [...periods].filter(fitsClaims).sort(byDue),
   };
   const conditional = {
     deadlines: keep(summary.deadlines).filter((item) => !main.deadlines.includes(item)),
     periods: keep(summary.periods).filter((item) => !main.periods.includes(item)),
   };
-  return { main, conditional };
+  const mipNote = [...summary.deadlines, ...summary.periods].some(
+    (item) => item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && !fitsClaims(item),
+  )
+    ? MIP_SUPPORT_ONLY_CHANGE
+    : null;
+  return { main, conditional, mipNote };
 }
 
 /**
@@ -419,6 +565,37 @@ export function arrivalOnlyDates(args: {
     if (hint?.value && arrivalNotSendDate(args.methods[question.id] ?? storyMethod, hint.quote)) out[question.id] = hint.quote;
   }
   return out;
+}
+
+/**
+ * The card's note for a service date the story gives as an arrival day, not
+ * yet replaced by a date the person entered (2026-10-13). Null when there is
+ * none. Exported for test:service-dates.
+ */
+export function arrivalNoteFor(
+  questions: { id: string }[],
+  arrival: Record<string, string>,
+  answered: Record<string, string>,
+  court: ServiceCourt | null,
+  methods: Record<string, ServiceMethod | undefined>,
+  storyMethod: ServiceMethod | null,
+): ArrivalNote | null {
+  if (!court) return null;
+  const question = questions.find((candidate) => arrival[candidate.id] && !answered[candidate.id]);
+  if (!question) return null;
+  const rule = serviceRulesFor(court).find((candidate) => candidate.method === (methods[question.id] ?? storyMethod));
+  return { quote: arrival[question.id], dateToEnter: rule?.dateToEnter ?? "the day they were sent", rule: rule?.rule ?? "", ruleQuote: rule?.quote ?? "" };
+}
+
+/**
+ * Whether a date from the story may be offered as a one-click count (2026-10-13,
+ * walkthrough: "i got the plaintiffs claim in the mail on september 28" was
+ * offered as "Which year was that?" and one click counted it as the mailing
+ * day). An arrival-only date is never offered: the person gives the mailing
+ * date instead. Exported for test:service-dates.
+ */
+export function offerStoryDate(questionId: string, arrival: Record<string, string>): boolean {
+  return !arrival[questionId];
 }
 
 /** Saved dates without the story's arrival-only service dates (unless saved with how they were served). */
@@ -901,6 +1078,7 @@ export default function StageAnswerPanel({
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
             .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value) }))}
+          arrival={arrivalNoteFor(result.dateQuestions ?? [], arrivalOnly, dateAnswers, serviceCourt, serviceMethod, storyServiceMethod)}
         />
       ) : null}
 
@@ -914,11 +1092,13 @@ export default function StageAnswerPanel({
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
               const hint = storyHints[question.id];
-              const suggestion: { value: string; basis: string; yearAssumed?: boolean } | undefined =
-                offeredDates[question.id] ??
-                (hint?.value
-                  ? { value: hint.value, basis: `from your story: “${hint.quote}”`, yearAssumed: hint.yearAssumed }
-                  : undefined);
+              // An arrival day is not offered as the date to count from (see offerStoryDate).
+              const suggestion: { value: string; basis: string; yearAssumed?: boolean } | undefined = !offerStoryDate(question.id, arrivalOnly)
+                ? undefined
+                : offeredDates[question.id] ??
+                  (hint?.value
+                    ? { value: hint.value, basis: `from your story: “${hint.quote}”`, yearAssumed: hint.yearAssumed }
+                    : undefined);
               const value = dateDraft[question.id] ?? "";
               const saved = dateAnswers[question.id];
               const fromStory = !saved && !rejected[question.id] ? storyDates[question.id] : undefined;
