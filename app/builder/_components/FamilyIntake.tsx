@@ -30,6 +30,7 @@ import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
 import { familyGuidedFields, familyTimelineAnswer, familyTimelineValues } from "./guidedFields";
+import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
   consumeNarrativePrefill,
@@ -385,6 +386,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
   const submissionInFlight = useRef(false);
+  /*
+   * The side and the filed documents the PERSON set, by answering the chat or
+   * choosing on the form -- never a value prefilled from the story or a saved
+   * case they have not touched (stageFromAnswers.ts, 2026-10-14). Only these
+   * can stand as their confirmation of the stage.
+   */
+  const personSet = useRef<Set<"yourRole" | "filedDocuments">>(new Set());
 
   const textareaFields: TextareaField[] = useMemo(
     () => [
@@ -743,6 +751,14 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         yourRole,
         filedDocuments,
         filedDocumentLabels: filedDocuments.map(labelForFiledDocument),
+        // What the person answered themselves about their side and filings
+        // (stageFromAnswers.ts): only fields they set, never a prefill.
+        personAnswers: {
+          ...(personSet.current.has("yourRole") && yourRole !== "not-sure" ? { side: yourRole } : {}),
+          ...(personSet.current.has("filedDocuments")
+            ? { filed: [...filedDocuments], filedLabels: filedDocuments.map(labelForFiledDocument) }
+            : {}),
+        } satisfies PersonAnswers,
         issues,
         issueLabels: issues.map(labelForIssue),
         childrenInfo,
@@ -790,9 +806,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
     const one = Array.isArray(value) ? value.join(", ") : value;
     switch (key) {
       case "facts": setFacts(one); void sourced.start(one, yourRole !== "not-sure" ? yourRole : undefined); break;
-      case "yourRole": setYourRole(one === "applicant" || one === "respondent" ? one : "not-sure"); break;
+      case "yourRole": personSet.current.add("yourRole"); setYourRole(one === "applicant" || one === "respondent" ? one : "not-sure"); break;
       case "issues": setIssues(list.filter((item): item is FamilyIssue => issueOptions.some((option) => option.value === item))); break;
-      case "filedDocuments": setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
+      case "filedDocuments": personSet.current.add("filedDocuments"); setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
       case "childrenInfo": setChildrenInfo(one); break;
       case "servedDate": setTimeline((current) => familyTimelineAnswer(key, one, current) ?? current); break;
       case "upcomingCourtDate": setUpcomingCourtDate(one); break;
@@ -920,7 +936,10 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             aria-label="Who started the court case?"
             data-testid="family-role-select"
             value={yourRole}
-            onChange={(e) => setYourRole(e.target.value as FamilyRole)}
+            onChange={(e) => {
+              personSet.current.add("yourRole");
+              setYourRole(e.target.value as FamilyRole);
+            }}
             className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
           >
             <option value="not-sure">Not sure</option>
@@ -979,11 +998,12 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               <button
                 key={option.value}
                 type="button"
-                onClick={() =>
+                onClick={() => {
+                  personSet.current.add("filedDocuments");
                   setFiledDocuments((current) =>
                     toggleArrayValue(current, option.value),
-                  )
-                }
+                  );
+                }}
                 className={`rounded-2xl border px-4 py-3 text-left text-sm ${
                   filedDocuments.includes(option.value)
                     ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]"

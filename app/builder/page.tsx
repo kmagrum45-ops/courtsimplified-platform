@@ -54,6 +54,7 @@ import {
   getPathLabel,
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
+import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, type StageFromAnswers } from "./_components/stageFromAnswers";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
@@ -233,6 +234,9 @@ function BuilderPageContent() {
   // re-running the analysis after Back or an edit does not ask it again
   // (held-back walkthrough, 2026-10-09). Cleared with a new case.
   const lastConfirmedRef = useRef<{ caseId: string | null; stage: UniversalStage } | null>(null);
+  // The person's own intake answer the stage was recorded from, shown beside
+  // it (stageFromAnswers.ts); only while that stage is the one recorded.
+  const [stageBasis, setStageBasis] = useState<StageFromAnswers | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
 
   /**
@@ -1098,6 +1102,9 @@ function BuilderPageContent() {
           confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
+          // The side and filing answers the person gave or confirmed in the
+          // conversation itself (stageFromAnswers.ts), never the story alone.
+          personAnswers: personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>),
         },
       };
       handleComplete(analysisResult.analysis, payload);
@@ -1132,7 +1139,23 @@ function BuilderPageContent() {
     const thisVisit = lastConfirmedRef.current;
     const sameCase = Boolean(thisVisit && (queryCaseId || masterCaseIdRef.current) && thisVisit.caseId === (queryCaseId || masterCaseIdRef.current));
     const stored = storedOnCase && storedOnCase !== "not-sure" ? storedOnCase : sameCase ? thisVisit!.stage : null;
-    setConfirmedStage(stored && stored !== "not-sure" ? (stored as UniversalStage) : null);
+    /*
+     * THE PERSON'S OWN ANSWER IS THEIR CONFIRMATION (2026-10-14, walkthrough
+     * SW and RN). "What has been filed: Nothing filed yet" in the intake,
+     * then "From what you told us: I have not filed anything yet. Yes, that is
+     * right" on the results asked the same thing twice. Where the side and
+     * filing answers the person gave themselves settle a stage beyond doubt,
+     * and it is the stage the site suggests, it is recorded from them, shown
+     * with that answer and a Change. Never from the story alone, and never
+     * over a stage already on the case (stageFromAnswers.ts).
+     */
+    const rawSuggested = getStageForPersistence(result, payload);
+    const suggested = ((STAGE_CODES as readonly string[]).includes(rawSuggested) ? rawSuggested : "not-sure") as UniversalStage;
+    const fromAnswers = stored ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested);
+    setStageBasis(fromAnswers);
+    if (fromAnswers) lastConfirmedRef.current = { caseId: queryCaseId || masterCaseIdRef.current, stage: fromAnswers.stage };
+    const settledStage = stored ?? fromAnswers?.stage ?? null;
+    setConfirmedStage(settledStage && settledStage !== "not-sure" ? (settledStage as UniversalStage) : null);
     setCaseData({
       ...payload,
       masterResultPatch,
@@ -1948,8 +1971,10 @@ function BuilderPageContent() {
               suggestedStage={detectedStage}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
+              basis={stageBasis && stageBasis.stage === confirmedStage ? stageBasis.because : null}
               onConfirm={(stage) => {
                 setConfirmedStage(stage);
+                setStageBasis(null);
                 lastConfirmedRef.current = { caseId: savedCaseId() || masterCaseIdRef.current, stage };
                 // Recorded on the case so the case page shows the same stage.
                 const id = savedCaseId();

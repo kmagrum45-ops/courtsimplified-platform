@@ -3,6 +3,7 @@
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
 import { civilGuidedFields } from "./guidedFields";
+import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 
 import { useEffect, useRef, useState } from "react";
@@ -612,6 +613,13 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
   const submissionInFlight = useRef(false);
+  /*
+   * The side and the filed documents the PERSON set, by answering the chat or
+   * choosing on the form -- never a value prefilled from the story or a saved
+   * case they have not touched (stageFromAnswers.ts, walkthrough SW
+   * 2026-10-14). Only these can stand as their confirmation of the stage.
+   */
+  const personSet = useRef<Set<"yourRole" | "documents">>(new Set());
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
@@ -793,6 +801,14 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           completedAt: new Date().toISOString(),
         },
         civilInput: input,
+        // What the person answered themselves about their side and filings
+        // (stageFromAnswers.ts): only fields they set, never a prefill.
+        personAnswers: {
+          ...(personSet.current.has("yourRole") && input.yourRole ? { side: input.yourRole } : {}),
+          ...(personSet.current.has("documents")
+            ? { filed: [...input.documents], filedLabels: labelsFromValues(input.documents, documentOptions) }
+            : {}),
+        } satisfies PersonAnswers,
         // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
         sourcedAnswers: sourced.answeredList(),
         province: input.province,
@@ -848,8 +864,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     const one = Array.isArray(value) ? value.join(", ") : value;
     switch (key) {
       case "facts": updateField("facts", one); void startSourced(one, input.yourRole || undefined); break;
-      case "yourRole": updateField("yourRole", one); break;
-      case "documents": updateField("documents", list.filter((item): item is CivilDocument => documentOptions.some((option) => option.value === item))); break;
+      case "yourRole": personSet.current.add("yourRole"); updateField("yourRole", one); break;
+      case "documents": personSet.current.add("documents"); updateField("documents", list.filter((item): item is CivilDocument => documentOptions.some((option) => option.value === item))); break;
       case "issues": updateField("issues", list.filter((item): item is CivilIssue => issueOptions.some((option) => option.value === item))); break;
       case "amountClaimed": updateField("amountClaimed", one); break;
       case "serviceDetails": updateField("serviceDetails", one); break;
@@ -989,7 +1005,10 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           <span className="font-semibold text-[#16302b]">Your role</span>
           <select
             value={input.yourRole}
-            onChange={(e) => updateField("yourRole", e.target.value)}
+            onChange={(e) => {
+              personSet.current.add("yourRole");
+              updateField("yourRole", e.target.value);
+            }}
             className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
           >
             <option value="">Select your role</option>
@@ -1011,9 +1030,10 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
               <button
                 key={option.value}
                 type="button"
-                onClick={() =>
-                  updateField("documents", toggleArrayValue(input.documents, option.value))
-                }
+                onClick={() => {
+                  personSet.current.add("documents");
+                  updateField("documents", toggleArrayValue(input.documents, option.value));
+                }}
                 className={`rounded-2xl border px-4 py-3 text-left text-sm ${
                   input.documents.includes(option.value)
                     ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]"

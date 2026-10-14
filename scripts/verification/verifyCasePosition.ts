@@ -37,6 +37,10 @@
  *      and the Overview asked again). A position save reaches the case even
  *      when the route never answers, never erases a save made at the same
  *      moment, and never stores an invalid value.
+ *   8. The stage asked twice (2026-10-14, SW, RN): the person's own intake
+ *      answers (side and what has been filed) record the stage when they
+ *      settle the one the site suggests; never from the story alone, never a
+ *      different stage, never over a stage already on the case.
  *
  * Run: node --import tsx scripts/verification/verifyCasePosition.ts
  */
@@ -71,6 +75,14 @@ import {
   setPositionClientForChecks,
   trackPositionWork,
 } from "../../app/builder/_components/positionSave";
+import {
+  personAnswersFromGuided,
+  personAnswersOf,
+  stageFromPersonAnswers,
+  stageRecordedFromAnswers,
+  yesOrNo,
+  type PersonAnswers,
+} from "../../app/builder/_components/stageFromAnswers";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -496,6 +508,116 @@ function personsDatesWin(source: string): boolean {
   check(
     "saves: the Overview reads the case again once its card's saves land",
     /positionSavesSettled\([^)]*\)[\s\S]{0,40}reload/.test(read("app/cases/[id]/page.tsx")),
+  );
+}
+
+// ---- 8. The person's own intake answer is their confirmation of the stage --
+// Walkthrough 2026-10-14 (SW, RN): "What has been filed: Nothing filed yet"
+// in the intake, then "From what you told us: I have not filed anything yet.
+// Yes, that is right" on the results. Properties, across the three courts:
+// answers the person gave that settle one stage record it when the site
+// suggests the same stage; they never record a different stage; the story
+// alone (no answer given) never records one; a "not sure" or a mix of
+// documents settles nothing; and the intakes keep only fields the person set.
+{
+  const suggestions = ["starting-case", "responding", "motion", "already-started", "not-sure"] as const;
+  const cases: { name: string; court: string; answers: PersonAnswers | null; settles: string | null }[] = [
+    { name: "civil plaintiff, nothing filed", court: "civil", answers: { side: "plaintiff", filed: ["nothing"], filedLabels: ["Nothing filed yet"] }, settles: "starting-case" },
+    { name: "civil defendant served a claim", court: "civil", answers: { side: "defendant", filed: ["statement-claim"] }, settles: "responding" },
+    { name: "civil defendant whose defence is filed", court: "civil", answers: { side: "defendant", filed: ["statement-claim", "statement-defence"] }, settles: null },
+    { name: "civil plaintiff with a claim filed", court: "civil", answers: { side: "plaintiff", filed: ["statement-claim"] }, settles: null },
+    { name: "civil plaintiff, nothing filed and not sure", court: "civil", answers: { side: "plaintiff", filed: ["nothing", "not-sure"] }, settles: null },
+    { name: "civil, filings with no side given", court: "civil", answers: { filed: ["nothing"] }, settles: null },
+    { name: "family applicant, nothing filed", court: "family", answers: { side: "applicant", filed: ["nothing"] }, settles: "starting-case" },
+    { name: "family respondent served an application", court: "family", answers: { side: "respondent", filed: ["application"] }, settles: "responding" },
+    { name: "family respondent who has answered", court: "family", answers: { side: "respondent", filed: ["application", "answer"] }, settles: null },
+    { name: "family, an existing order", court: "family", answers: { side: "applicant", filed: ["order-agreement"] }, settles: null },
+    { name: "family, no answers given (story only)", court: "family", answers: null, settles: null },
+    {
+      name: "Small Claims defendant who answered no defence filed",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "No, I haven't filed anything yet." },
+        ],
+        { role: "defendant", defenceFiled: false },
+      ),
+      settles: "responding",
+    },
+    {
+      name: "Small Claims plaintiff who answered no claim filed",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Bringing the claim (plaintiff)" },
+          { questionId: "sc-claim-filed", answerText: "No" },
+        ],
+        { role: "plaintiff", claimFiled: false },
+      ),
+      settles: "starting-case",
+    },
+    {
+      name: "Small Claims: facts read from the story, no filing question answered",
+      court: "small-claims",
+      answers: personAnswersFromGuided([{ questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" }], { role: "defendant", defenceFiled: false }),
+      settles: null,
+    },
+    {
+      name: "Small Claims: \"not sure\" whether a defence was filed",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "Not sure, I think my lawyer friend did" },
+        ],
+        { role: "defendant" },
+      ),
+      settles: null,
+    },
+    {
+      name: "Small Claims: the answer and the facts disagree",
+      court: "small-claims",
+      answers: personAnswersFromGuided(
+        [
+          { questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" },
+          { questionId: "sc-defendant-defence-filed", answerText: "No" },
+        ],
+        { role: "defendant", defenceFiled: true },
+      ),
+      settles: null,
+    },
+  ];
+  for (const testCase of cases) {
+    const settled = stageFromPersonAnswers(testCase.court, testCase.answers);
+    check(`answers: ${testCase.name} -> ${testCase.settles ?? "nothing settled"}`, (settled?.stage ?? null) === testCase.settles, JSON.stringify(settled));
+    for (const suggested of suggestions) {
+      const recorded = stageRecordedFromAnswers(testCase.court, testCase.answers, suggested);
+      const expected = testCase.settles && testCase.settles === suggested ? testCase.settles : null;
+      if ((recorded?.stage ?? null) !== expected) {
+        check(`answers: ${testCase.name}, suggested ${suggested}: recorded only when the two agree`, false, JSON.stringify(recorded));
+      }
+    }
+    if (settled) check(`answers: ${testCase.name} shows the answer it came from`, settled.because.trim().length > 0);
+  }
+  check(
+    "answers: the answer shown back is the person's own words",
+    stageFromPersonAnswers("civil", { side: "plaintiff", filed: ["nothing"], filedLabels: ["Nothing filed yet"] })?.because === "Nothing filed yet",
+  );
+  check("answers: nothing junk is read back from a saved payload", JSON.stringify(personAnswersOf({ personAnswers: { side: 3, filed: "nothing", claimFiled: "no" } })) === "{}");
+  check("answers: a plain yes or no is read; anything less plain is not", yesOrNo("No, I haven't filed anything yet.") === false && yesOrNo("not yet") === false && yesOrNo("Yes") === true && yesOrNo("I think so") === null && yesOrNo("not sure") === null);
+
+  // Wiring: the intakes keep only what the person set; the results never
+  // replace a stage already on the case with one from answers.
+  for (const file of ["app/builder/_components/CivilIntake.tsx", "app/builder/_components/FamilyIntake.tsx"]) {
+    const source = read(file);
+    const kept = source.slice(source.indexOf("personAnswers: {"), source.indexOf("} satisfies PersonAnswers"));
+    check(`answers: ${file} keeps a side or filing answer only when the person set it`, /personSet\.current\.has\("yourRole"\)/.test(kept) && /personSet\.current\.has\("(?:documents|filedDocuments)"\)/.test(kept));
+  }
+  const builder = read("app/builder/page.tsx");
+  check(
+    "answers: the results record a stage from answers only when the case has none, and show the answer beside it",
+    /stored \? null : stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
   );
 }
 
