@@ -557,7 +557,9 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     ["the person filed their own motion", "We have a support order. I filed my motion to change last week.", false, "asking"],
     // Responding to theirs is never "you bring a motion to change" (review 2026-10-14).
     ["filed a response to his", "We have a support order. I filed my response to his motion to change last week.", false, "responding"],
-    ["filed a response to the motion", "We have a support order. I filed a response to the motion to change.", false, "responding"],
+    // Whose motion "the motion" is, is not said: no route, the side is asked
+    // (re-review 2026-10-14: a response word never decides the route).
+    ["filed a response to the motion", "We have a support order. I filed a response to the motion to change.", false, null],
     ["filed a 15B response", "We have a support order. We filed our Form 15B response to her motion to change.", false, "responding"],
     ["an affidavit in reply", "We have a support order. I filed an affidavit in reply to his motion to change.", false, "responding"],
     ["served a response after getting hers", "We have a support order. I served my response on her lawyer after getting her motion to change.", false, "responding"],
@@ -566,6 +568,18 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     // Strong wordings read past "form" and "package" when the other side gave it.
     ["served the form", "We have a support order. He served me the motion to change form on Friday.", false, "responding"],
     ["a package from his lawyer", "We have a support order. I got the motion to change package from his lawyer.", false, "responding"],
+    // The person's own motion, whatever else the sentence names: never responding.
+    ["an own ask and an affidavit", "We have a support order. I want to lower support and I need an affidavit for the motion to change.", false, "asking"],
+    ["writing their affidavit", "We have a support order. I'm writing my affidavit for the motion to change now.", false, null],
+    ["waiting for his response to theirs", "We have a support order. I'm waiting for his response to the motion to change I filed.", false, "asking"],
+    ["waiting on the court", "We have a support order. I am still waiting on an answer to the motion to change from the court.", false, null],
+    ["she responds to theirs", "We have a support order. She has 30 days to respond to the motion to change I served.", false, "asking"],
+    // The other side's motion, said plainly.
+    ["served at work by her lawyer", "We have a support order. My ex's lawyer served a motion to change on me at work.", false, "responding"],
+    ["30 days to respond to hers", "We have a support order. I have 30 days to respond to her motion to change.", false, "responding"],
+    ["hers arrived by courier", "We have a support order. Her motion to change arrived by courier.", false, "responding"],
+    // Both in one sentence: being served wins (a fact with a deadline).
+    ["served, and an own ask too", "We have a support order. He served me his motion to change and I want to lower it too.", false, "responding"],
     // Someone else served, or blank forms, kits and drafts: never "you were served".
     ["the person's sister served", "We have a support order. My sister got served with a motion to change.", false, null],
     ["a blank form, and an own ask", "We have a support order. I got a motion to change form from the court website and want to lower the support.", false, "asking"],

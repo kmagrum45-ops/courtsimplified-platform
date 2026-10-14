@@ -84,73 +84,56 @@ const OWN_ASK: RegExp[] = [
   new RegExp(`\\bhow (?:do|can|could|would|should) (?:i|we)\\b${NOT_OTHER}{0,20}(?:\\b${CHANGE_VERB}\\s+${OBJECT}\\b|\\bget ${OBJECT}\\s+${CHANGED}\\b)`, "i"),
   // "i cant keep paying", "I can't afford the support"
   new RegExp(`${ME}${NOT_OTHER}{0,15}\\b(?:can'?t|cannot|can not) (?:keep (?:up|paying)|afford (?:to pay|the (?:support|payments?)|it))\\b`, "i"),
-  // Their own motion: "I served my ex with a motion to change", "I filed my
-  // motion to change", "my lawyer sent me a draft motion to change". The
-  // motion is the verb's direct object: nothing between them but whom it was
-  // served on and a/my/our/the, so "I filed my response to his motion to
-  // change" and "I brought the motion to change he sent me to a lawyer" are
-  // not theirs (review 2026-10-14).
-  new RegExp(
-    `\\b(?:i|we) (?:served|filed|brought|issued)\\s+(?:(?:him|her|them|my ex(?:-?(?:wife|husband|partner))?|the other (?:parent|party))\\s+(?:with\\s+)?)?(?:a |my |our |the )?(?:own )?motion to change\\b(?!\\s+(?:that\\s+)?(?:he|she|they|my ex)\\s+(?:served|sent|gave|filed|brought))`,
-    "i",
-  ),
-  /\b(?:my|our) (?:own |draft )?motion to change\b|\bdraft motion to change\b/i,
 ];
 
 /** The other side wanting the change: "My ex is asking the court to reduce the support." */
 const OTHER_ASKS = new RegExp(`${OTHER}[^.!?\\n]{0,40}\\b(?:${WANT}|filed|is going|says)\\b[^.!?\\n]{0,30}\\b${CHANGE_VERB}`, "i");
 
-/**
- * The person was served with the other side's motion to change -- never "I
- * served my ex", never someone else served ("my sister got served"), never a
- * blank form, kit or draft ("I got a motion to change form from the court
- * website", "the clerk gave me a motion to change form", "my lawyer sent me a
- * draft motion to change"; review 2026-10-14).
+/*
+ * WHOSE MOTION IS IT? (re-review 2026-10-14, after the patterns were patched
+ * back and forth: "I filed my response to his motion" got the mover route,
+ * then "I need an affidavit for the motion to change" got the responding
+ * route). One principle: a route is given only when the sentence makes plain
+ * whose motion it is. Words like response, reply, answer or affidavit never
+ * decide it; only the motion's owner does. When it is not plain, no route is
+ * given and the side question is asked: a wrong route is a serious error,
+ * asking is cheap.
  */
-const SERVED_STRONG: RegExp[] = [
-  /\b(?:served me|served on me|served upon me|served us|i was served|i got served|i've been served|i have been served|we were served|we got served|we've been served)\b[^.!?\n]{0,40}\bmotion to change\b/i,
-  /\bmotion to change\b[^.!?\n]{0,40}\b(?:served (?:on |upon )?(?:me|us)|i was served|i got served|we were served|we got served|i've been served|i have been served)\b/i,
-  new RegExp(`${OTHER}[^.!?\\n]{0,30}\\b(?:served me|served us|filed|brought|started)\\b[^.!?\\n]{0,20}\\bmotion to change\\b`, "i"),
-  // Responding to theirs: "I filed my response to his motion to change", "We
-  // filed our Form 15B response to her motion to change", "I filed an
-  // affidavit in reply to his motion to change" (review 2026-10-14).
-  /\b(?:i|we)\b[^.!?\n]{0,30}\b(?:response|reply|answer|affidavit|15B)\b[^.!?\n]{0,30}\b(?:his|her|their|the|my ex'?s) motion to change\b/i,
-  // "the motion to change he served", "the motion to change he sent me"
-  /\bmotion to change (?:that )?(?:he|she|they|my ex) (?:served|sent|gave|mailed|delivered)\b/i,
-  // "I served my response on her lawyer after getting her motion to change"
-  /\b(?:getting|receiving|being served with|after i got) (?:his|her|their|my ex'?s) motion to change\b/i,
-];
-/**
- * Receiving one: weaker, so an own ask in the same sentence beats it. Given
- * by the other side (they, their lawyer, a process server): their papers,
- * even called a form or package. Received with no giver named: not a blank
- * form, kit, package or template ("I got a motion to change form from the
- * court website").
- */
-const SERVED_FROM_OTHER_SIDE: RegExp[] = [
-  // "I got the motion to change package from his lawyer"
-  new RegExp(`\\b(?:i|we) (?:got|received|was given|were given|was handed|were handed)\\b[^.!?\\n]{0,20}\\bmotion to change\\b[^.!?\\n]{0,40}\\bfrom (?:${OTHER}|(?:a |the )?process server\\b|(?:her|his|their) lawyer\\b)`, "i"),
-  // "The process server gave me a motion to change": never "my lawyer" or "the clerk".
-  new RegExp(`(?:${OTHER}|\\bprocess server\\b|\\b(?:her|his|their|the other (?:side|party)'?s?) lawyer\\b)[^.!?\\n]{0,30}\\b(?:gave|handed|sent|mailed|delivered|brought) (?:me|us)\\b[^.!?\\n]{0,20}\\bmotion to change\\b`, "i"),
-];
-const SERVED_RECEIVED: RegExp[] = [
-  // "I got a motion to change in the mail"
-  /\b(?:i|we) (?:got|received|was given|were given|was handed|were handed)\b[^.!?\n]{0,20}\bmotion to change\b/i,
-];
-/** A draft, a blank one or one's own: never papers served, whoever is named. */
-const OWN_OR_DRAFT_PAPERS = /\b(?:draft|blank|my|our)\s+motion to change\b/gi;
-/** A form, kit, package or template: not papers served unless the other side gave it (weak wordings only). */
-const BLANK_PAPERS = /\bmotion to change\s+(?:forms?|kit|package|template|blank)\b/gi;
 
-/** Urgency or a temporary order: the rule 14 card stays (interim relief is a rule 14 motion). */
-const TEMPORARY_OR_URGENT = /\b(?:temporary|interim|urgent|urgently|emergency|right away|immediately|asap|before the hearing|in the meantime)\b/i;
+/** Someone on the other side who serves or sends papers. */
+const GIVER =
+  "(?:\\b(?:my ex(?:-?(?:wife|husband|partner))?|ex-?(?:wife|husband|partner)|the other (?:parent|party|side))(?:'s lawyer)?|\\b(?:his|her|their) lawyer|\\bhe|\\bshe|\\bthey|\\b(?:a |the )?process server|\\bthe sheriff)\\b";
+
+/** The other side's motion, said plainly. */
+const OTHERS_MOTION: RegExp[] = [
+  // "his motion to change", "my ex's motion to change", "the other parent's motion to change"
+  /\b(?:his|her|their|my ex'?s|my ex-?(?:wife|husband|partner)'?s|the other (?:parent|party|side)'?s|the (?:father|mother)'?s)\s+(?:own\s+)?motion to change\b/i,
+  // "the motion to change he served", "the motion to change she sent me"
+  /\bmotion to change (?:that |which )?(?:he|she|they|my ex|the other (?:parent|party)) (?:served|sent|filed|brought|gave|mailed|delivered)\b/i,
+  // "my ex served me a motion to change", "the process server handed me the motion to change"
+  new RegExp(`${GIVER}[^.!?\\n]{0,30}\\b(?:served|sent|gave|handed|mailed|delivered) (?:me|us)\\b[^.!?\\n]{0,25}\\bmotion to change\\b`, "i"),
+  // "my ex's lawyer served a motion to change on me"
+  new RegExp(`${GIVER}[^.!?\\n]{0,30}\\bserved\\b[^.!?\\n]{0,25}\\bmotion to change\\b[^.!?\\n]{0,30}\\bon (?:me|us)\\b`, "i"),
+  // "I got the motion to change package from his lawyer"
+  new RegExp(`\\b(?:i|we) (?:got|received|was handed|were handed)\\b[^.!?\\n]{0,25}\\bmotion to change\\b[^.!?\\n]{0,40}\\bfrom ${GIVER}`, "i"),
+  // "I was served with a motion to change", "we got served with the motion to change"
+  /\b(?:i|we) (?:was|were|got|have been|'ve been|had been) served\b[^.!?\n]{0,30}\bmotion to change\b/i,
+  // "the motion to change was served on me"
+  /\bmotion to change\b[^.!?\n]{0,30}\b(?:was|were|got) served (?:on|upon) (?:me|us)\b/i,
+];
+
+/** The person's own motion, said plainly. */
+const MY_MOTION: RegExp[] = [
+  // "my motion to change", "our draft motion to change", "a draft motion to change"
+  /\b(?:my|our) (?:own |draft )?motion to change\b|\bdraft motion to change\b/i,
+  // "the motion to change I filed", "the motion to change we served"
+  /\bmotion to change (?:that |which )?(?:i|we) (?:filed|served|brought|issued|sent)\b/i,
+  // "I served my ex with a motion to change", "I filed a motion to change": the
+  // motion is the verb's direct object.
+  /\b(?:i|we) (?:served|filed|brought|issued)\s+(?:(?:him|her|them|my ex(?:-?(?:wife|husband|partner))?|the other (?:parent|party))\s+(?:with\s+)?)?(?:a |the )?motion to change\b(?!\s+(?:that\s+|which\s+)?(?:he|she|they|my ex)\b)/i,
+];
 
 const sentencesOf = (story: string) => story.split(/(?<=[.!?])\s+|\n+/).filter((sentence) => sentence.trim());
-
-/** The person asks, in their own words, for the order to be changed. */
-export function asksToChangeOrder(story: string): boolean {
-  return sentencesOf(story).some((sentence) => ownAsk(sentence));
-}
 
 /** "I do not want the support lowered", "we never agreed to change it": a want said with a no is not an ask (re-check 2026-10-14). */
 const NEGATED_WANT = new RegExp(`\\b(?:don'?t|do not|doesn'?t|does not|didn'?t|did not|never|not|won'?t|will not|wouldn'?t|would not|no longer)\\s+(?:\\w+\\s+)?${WANT}\\b`, "i");
@@ -171,23 +154,33 @@ function ownAsk(sentence: string): boolean {
   });
 }
 
+/** The sentence plainly says the motion to change is the other side's. */
+export function othersMotion(sentence: string): boolean {
+  return OTHERS_MOTION.some((pattern) => pattern.test(sentence));
+}
+
+/** The sentence plainly says the motion to change is the person's own, or asks for the change in their own words. */
+export function myMotion(sentence: string): boolean {
+  return MY_MOTION.some((pattern) => pattern.test(sentence)) || ownAsk(sentence);
+}
+
+/** The person asks, in their own words, for the order to be changed. */
+export function asksToChangeOrder(story: string): boolean {
+  return sentencesOf(story).some((sentence) => myMotion(sentence));
+}
+
 /** The other side wants the order changed (and the person has not said they were served yet). */
 export function otherSideAsksToChange(story: string): boolean {
   return sentencesOf(story).some((sentence) => OTHER_ASKS.test(sentence) && !ownAsk(sentence));
 }
 
+/** Served with, or holding, the other side's motion to change. */
 export function servedWithMotionToChange(story: string): boolean {
-  return sentencesOf(story).some((sentence) => {
-    // "He served me the motion to change form" is served: the form filter
-    // applies only to the weaker wordings (review 2026-10-14).
-    const notOwn = sentence.replace(OWN_OR_DRAFT_PAPERS, "a document");
-    if (SERVED_STRONG.some((pattern) => pattern.test(notOwn))) return true;
-    if (ownAsk(sentence)) return false;
-    if (SERVED_FROM_OTHER_SIDE.some((pattern) => pattern.test(notOwn))) return true;
-    const papers = notOwn.replace(BLANK_PAPERS, "a document");
-    return SERVED_RECEIVED.some((pattern) => pattern.test(papers));
-  });
+  return sentencesOf(story).some((sentence) => othersMotion(sentence));
 }
+
+/** Urgency or a temporary order: the rule 14 card stays (interim relief is a rule 14 motion). */
+const TEMPORARY_OR_URGENT = /\b(?:temporary|interim|urgent|urgently|emergency|right away|immediately|asap|before the hearing|in the meantime)\b/i;
 
 export type MotionToChangeLead = {
   kind: "asking" | "responding" | "if-served";
@@ -210,11 +203,13 @@ function quotes(stepId: string, pinpoints: string[]): RuleCitation[] | null {
  * the person was served with the other side's papers (respondingInFamilyStory).
  * Null too if a saved quote cannot be found, so nothing unquoted is shown.
  *
- *   served with a motion to change        -> how to respond (r. 15 (9), (10))
- *   their own wish to change the order    -> the motion to change, even if they
+ *   the other side's motion, said plainly -> how to respond (r. 15 (9), (10));
+ *                                            wins over everything else, because
+ *                                            being served is a fact with a deadline
+ *   their own motion or wish, said plainly -> the motion to change, even if they
  *                                            were the respondent in the original case
  *   only the other side wanting a change  -> what applies if they are served
- *   served with anything else, or nothing -> nothing
+ *   whose motion it is not plain          -> nothing (the side question is asked)
  */
 export function motionToChangeLead(courtPath: string, story: string, existingOrder: boolean, responding = false): MotionToChangeLead | null {
   if (courtPath !== "family" || !existingOrder) return null;
