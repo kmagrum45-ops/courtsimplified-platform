@@ -17,6 +17,7 @@ import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/ca
 import {
   amountFromStory,
   childrenFromStory,
+  childrenPartialFromStory,
   civilFiledFromStory,
   civilRoleFromStory,
   familyFiledFromStory,
@@ -137,6 +138,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       key: "childrenInfo",
       label: "The children",
       fromStory: (values) => childrenFromStory(storyOf(values)),
+      // "our daugter": "One daughter." filled in, only the age and home asked (FR).
+      partialFromStory: (values) => childrenPartialFromStory(storyOf(values)),
       question: "Tell us about the children: how many, how old, and who they live with now.",
       why: "Parenting and child support depend on the children's ages and where they live.",
       kind: "longtext",

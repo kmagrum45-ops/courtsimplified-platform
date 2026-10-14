@@ -705,11 +705,17 @@ function personsDatesWin(source: string): boolean {
     "origin: a case whose only stage is a \"not sure\" left by the answers gets no step where one needs a confirmed stage",
     caseStepFor({ position: { confirmedStage: "not-sure", confirmedStageFrom: "answers" }, intakeData: { extra: { story: "x" } } }, "small-claims", false, { requireConfirmedStage: true }) === "",
   );
-  const clickRefs = builder.match(/lastConfirmedRef\.current = /g) ?? [];
-  const onConfirmBody = builder.slice(builder.indexOf("onConfirm={(stage) => {"), builder.indexOf("onConfirm={(stage) => {") + 400);
+  // Property: every place that remembers a stage as the person's is inside a
+  // click handler -- the stage's Confirm or Change, or the motion-to-change
+  // reading's answer, which records the motion stage (walkthrough run
+  // 38525903567, FM) -- never where a stage is read from answers.
+  const clickRefs = [...builder.matchAll(/lastConfirmedRef\.current = /g)].map((match) => match.index ?? 0);
+  const handlers = [...builder.matchAll(/onConfirm=\{\(stage\) => \{|onChoose=\{\(choice\) => \{/g)].map((match) => match.index ?? 0);
+  const inClick = (at: number) => handlers.some((start) => start < at && at - start < 1200 && !builder.slice(start, at).includes("\n            />"));
   check(
-    "origin: only a Confirm or Change click is remembered as the person's stage this visit",
-    clickRefs.length === 1 && /lastConfirmedRef\.current = /.test(onConfirmBody),
+    "origin: only a click (Confirm, Change, or the motion-to-change answer) is remembered as the person's stage this visit",
+    clickRefs.length >= 1 && clickRefs.every(inClick) && /lastConfirmedRef\.current = /.test(builder.slice(builder.indexOf("onConfirm={(stage) => {"), builder.indexOf("onConfirm={(stage) => {") + 400)),
+    `${clickRefs.length} assignments, ${clickRefs.filter((at) => !inClick(at)).length} outside a click`,
   );
   check(
     "origin: a marked stage on the case is worked out again from the answers given now",

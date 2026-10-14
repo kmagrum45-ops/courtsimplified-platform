@@ -15,6 +15,12 @@
  * sends a user to the wrong province's table, which is the exact defect the
  * 2026-09-14 correction removed.
  *
+ * And (walkthrough run 38525903567, FM): the which-table heading said "where
+ * the other parent lives" to a parent who pays under the order. Both
+ * Guidelines select the table by the parent or spouse "against whom an order
+ * is sought" (O. Reg. 391/97 s. 2 (1); SOR/97-175 s. 3 (3)); the heading names
+ * that person and the card says it may be the reader.
+ *
  * Run: node --import tsx scripts/verification/verifyChildSupportTableCard.ts
  */
 
@@ -200,6 +206,18 @@ function main(): void {
     /against whom an order is sought ordinarily resides/i.test(flat) &&
       /not where the case is filed/i.test(flat),
   );
+
+  // ---- Whose residence: the person the order is sought against, never "the other parent" ----
+  const heading = /data-testid="child-support-which-table"[^>]*>\s*([^<]+)</.exec(body)?.[1]?.replace(/\s+/g, " ").trim() ?? "";
+  check("the which-table heading never says 'the other parent' lives", heading.length > 0 && !/other parent/i.test(heading), heading);
+  check("the which-table heading names the person the order is sought against", /the order is sought against/.test(heading), heading);
+  const federal = fs.readFileSync(path.join(SOURCES, "corpus", "federal-child-support-guidelines-full.txt"), "utf8").replace(/\s+/g, " ");
+  const ontario = fs.readFileSync(path.join(SOURCES, "corpus", "ontario-child-support-guidelines-full.txt"), "utf8").replace(/\s+/g, " ");
+  check(
+    "both Guidelines, as saved, choose the table by the one the order is sought against",
+    /if the spouse against whom an order is sought resides in Canada/.test(federal) && /if the parent or spouse against whom an order is sought ordinarily resides in Ontario/.test(ontario),
+  );
+  check("the card says that may be the reader, from s. 3 (1) (a)", /may be you/.test(flat) && /s\. 3 \(1\) \(a\)/.test(flat));
 
   // ---- Sources are linked and dated ----
 

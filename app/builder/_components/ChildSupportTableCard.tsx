@@ -96,10 +96,15 @@ export function ChildSupportTableCard() {
         </p>
       </div>
 
-      {/* ---- Which table ---- */}
+      {/* ---- Which table ----
+          Walkthrough run 38525903567, FM: "it depends on where the other parent
+          lives" was read by a parent who PAYS under the order, for whom the
+          parent the order is sought against is himself. The heading now says
+          whose residence in the words of s. 2 (1), and says it may be the
+          reader's own. */}
       <div className="mt-4 rounded-xl border border-[#d8e6df] bg-white p-4">
-        <p className="text-sm font-bold text-[#10231f]">
-          Which table — it depends on where the other parent lives
+        <p data-testid="child-support-which-table" className="text-sm font-bold text-[#10231f]">
+          Which table — it depends on where the parent the order is sought against lives
         </p>
         <p className="mt-2 text-sm text-[#4f685f]">
           Ontario does not publish a table of its own. O. Reg. 303/24 revoked the one it had,
@@ -121,13 +126,14 @@ export function ChildSupportTableCard() {
           </p>
         </blockquote>
         <p className="mt-3 text-sm text-[#4f685f]">
-          It is where <strong>the person the order is sought against</strong> ordinarily
-          resides — not where the case is filed and not where the child lives. Your own residence
-          matters only if that person lives outside Canada or where they live is unknown: then the
-          Ontario table applies when you live in Ontario (paragraph (e)). Paragraphs (c) and (d) go
-          further: a court may use a different province&rsquo;s table
-          where that residence has changed since the application, or will change in the near
-          future.
+          It is where <strong>the parent or spouse the order is sought against</strong> ordinarily
+          resides — not where the case is filed and not where the child lives. That is the parent
+          whose income the table amount is based on (s. 3 (1) (a), above), so it may be you rather
+          than the other parent. The residence of the parent applying for the order matters only if
+          the other lives outside Canada or where they live is unknown: then it is the federal table
+          for the province or territory where the parent applying lives (paragraph (e)). Paragraphs
+          (c) and (d) go further: a court may use a different province&rsquo;s table where that
+          residence has changed since the application, or will change in the near future.
         </p>
       </div>
 

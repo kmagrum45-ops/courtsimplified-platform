@@ -58,6 +58,23 @@ export const SERVED_WITH_MOTION_TO_CHANGE_STEP = "family:both:served-with-motion
 export const MOTION_TO_CHANGE_LINE =
   "To change a final order, you bring a motion to change (Form 15). If you, the other party and any assignee all agree to the change, you file a consent motion to change (Form 15C) instead, or a consent motion to change child support (Form 15D) if only child support is changing.";
 
+/*
+ * The moving party's starting document (walkthrough run 38525903567, FM):
+ * restates r. 15 (5), quoted beside it from the stage map. No Form 15 draft
+ * exists yet, so the line says so instead of offering one.
+ */
+export const MOTION_TO_CHANGE_START_SAY =
+  "A motion to change is started with a motion to change (Form 15), unless you, the other party and any assignee all agree to the change: then it is a consent motion to change (Form 15C), or Form 15D if only child support is changing. What you have recorded does not show one filed. A working draft of Form 15 is not offered here yet. The official form is under \u201cCheck official forms\u201d.";
+
+/**
+ * r. 15 (5), which is "Subject to subrules (17) and (18)", and those two, the
+ * rules MOTION_TO_CHANGE_START_SAY restates, from the stage map; null if any
+ * cannot be found (then nothing is shown).
+ */
+export function motionToChangeStartRules(): RuleCitation[] | null {
+  return quotes(MOTION_TO_CHANGE_STEP, ["r. 15 (5)", "r. 15 (17)", "r. 15 (18)"]);
+}
+
 /** Restates r. 15 (9) and (10). */
 export const RESPOND_TO_MOTION_TO_CHANGE_LINE =
   "You were served with a motion to change. If you do not agree to the change, or want the court to make a different or additional change, you serve and file a response to motion to change (Form 15B). If you agree, you complete the consent motion to change (Form 15C), return a signed copy to the party making the motion, and give a copy to the assignee, if any. Either is due no later than 30 days after you receive the motion to change and its supporting documents if you live in Canada or the United States, and no later than 60 days in any other case.";
@@ -304,6 +321,28 @@ export function motionToChangeLead(courtPath: string, story: string, existingOrd
   };
 }
 
+/*
+ * THE CHAT ANSWERS "HOW DO I GET IT LOWERED?" (walkthrough run 38525903567,
+ * FM). The guided chat ended "That's everything we need for now" with his
+ * question unanswered. When his words ask to change an order he already has,
+ * its closing line answers in the reviewed route line (r. 15 (5): a party who
+ * wants to change a final order "shall serve and file a motion to change
+ * (Form 15)", with the consent carve-out of r. 15 (17) and (18)), each
+ * subrule quoted. Only the "asking" reading: someone served with, or
+ * expecting, the other side's motion gets nothing here. Information, not a
+ * prediction; the results page still puts the reading to them (CLAUDE.md s. 4).
+ */
+export type ChatClosing = { say: string; rules: RuleCitation[] };
+
+export const CHAT_CLOSING_LEAD = "You asked how to change the order you have.";
+export const CHAT_CLOSING_NEXT = "Continue to see your next step, with its forms and time limits.";
+
+export function chatClosingFor(story: string, existingOrder: boolean, responding = false): ChatClosing | null {
+  const lead = motionToChangeLead("family", story, existingOrder, responding);
+  if (!lead || lead.kind !== "asking") return null;
+  return { say: `${CHAT_CLOSING_LEAD} ${lead.line} ${CHAT_CLOSING_NEXT}`, rules: lead.rules };
+}
+
 /** What the person has said about the reading: nothing yet, yes, the other route, or not sure. */
 export type ReadingChoice = null | "yes" | "other" | "not-sure";
 
@@ -325,6 +364,44 @@ export function routeShown(lead: MotionToChangeLead, choice: ReadingChoice): Rou
  */
 export function hidesTemporaryMotionCard(lead: MotionToChangeLead | null, choice: ReadingChoice): boolean {
   return Boolean(lead && routeShown(lead, choice)?.replacesTemporaryMotionCard);
+}
+
+/*
+ * WHILE THE READING IS UNANSWERED (walkthrough run 38525903567, FM): "Family
+ * Rule 14 governs motions for temporary orders" sat under the unanswered
+ * motion-to-change question, the wrong procedure for a final order. It is
+ * folded under its condition until the person answers. Hidden on a confirmed
+ * route that replaces it; shown as before on "Not sure", "No", a route that
+ * leaves it, an urgent story, or no reading at all.
+ */
+export type TemporaryMotionCardMode = "shown" | "folded" | "hidden";
+export const TEMPORARY_MOTION_FOLD_LABEL = "Only if you need a temporary order before the motion is decided";
+
+export function temporaryMotionCardMode(lead: MotionToChangeLead | null, choice: ReadingChoice): TemporaryMotionCardMode {
+  if (hidesTemporaryMotionCard(lead, choice)) return "hidden";
+  if (lead && choice === null && lead.replacesTemporaryMotionCard) return "folded";
+  return "shown";
+}
+
+/*
+ * ONE CLICK, NOT TWO (walkthrough run 38525903567, FM). "it sounds like you
+ * want to ask the court to change the order. Is that right?" and, right
+ * after, "From what you told us: I need to bring or answer a motion. Yes,
+ * that is right" asked the same thing twice. A confirmed motion-to-change
+ * route -- bringing one, or answering one served on you -- is the motion
+ * stage, so the person's answer to the reading records it (CLAUDE.md s. 4:
+ * they still confirm once, and can change it). "If served", "Not sure" and
+ * no answer record nothing; the stage question is asked as before.
+ */
+export function stageFromMotionAnswer(lead: MotionToChangeLead | null, choice: ReadingChoice): "motion" | null {
+  if (!lead) return null;
+  const kind = routeShown(lead, choice)?.kind;
+  return kind === "asking" || kind === "responding" ? "motion" : null;
+}
+
+/** The stage question waits while the reading is unanswered: the answer settles it (stageFromMotionAnswer). */
+export function stageQuestionWaits(lead: MotionToChangeLead | null, choice: ReadingChoice, confirmedStage: string | null): boolean {
+  return Boolean(lead) && choice === null && !confirmedStage;
 }
 
 /** The person's answer to the reading, as saved on the case (casePosition.ts `motionToChange`). */

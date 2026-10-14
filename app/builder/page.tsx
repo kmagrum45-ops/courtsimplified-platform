@@ -67,18 +67,25 @@ import {
   getPathLabel,
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
+import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import MotionToChangeRoute from "./_components/MotionToChangeRoute";
 import {
-  hidesTemporaryMotionCard,
+  MOTION_TO_CHANGE_START_SAY,
+  TEMPORARY_MOTION_FOLD_LABEL,
   motionToChangeLead,
+  motionToChangeStartRules,
+  routeShown,
+  stageFromMotionAnswer,
+  stageQuestionWaits,
   standingChoice,
+  temporaryMotionCardMode,
   type MotionToChangeKind,
   type ReadingChoice,
 } from "./_components/motionToChange";
 import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, type StageFromAnswers } from "./_components/stageFromAnswers";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
-import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
+import { movingOnMotionToChange, originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
 import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
@@ -258,6 +265,8 @@ function BuilderPageContent() {
   // The person's own intake answer the stage was recorded from, shown beside
   // it (stageFromAnswers.ts); only while that stage is the one recorded.
   const [stageBasis, setStageBasis] = useState<StageFromAnswers | null>(null);
+  // The motion-to-change reading the person said yes to, when that answer recorded the stage.
+  const [motionStageBasis, setMotionStageBasis] = useState<string | null>(null);
   /*
    * A stage from earlier answers sits on the case (marked "answers"), and the
    * answers given now settle none: it is replaced with "not sure", still
@@ -909,7 +918,9 @@ function BuilderPageContent() {
         // for civil). This read a top-level key that does not exist, so
         // form-intake cases saved no filing facts and the timeline said
         // "not enough recorded" (Phase 1 inventory, 2026-10-07).
-        const filingFacts = filingFactsFromDocuments(documentsOf(caseData));
+        // An order or agreement on record is not a filing in this matter (FM: a
+        // motion to change not yet brought read "a claim has been filed").
+        const filingFacts = filingFactsFromDocuments(documentsOf(caseData), { orderIsNotAFiling: true });
 
         const intakeFacts: Record<string, unknown> = {
           ...(filingFacts.anythingFiled ? { claimFiled: true } : {}),
@@ -1307,22 +1318,11 @@ function BuilderPageContent() {
     window.history.replaceState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
   }, [hydrated, stepParam, analysis, queryCaseId, courtPath, router]);
 
-  const originatingDocumentFiled = originatingDocumentRecorded({
-    courtPath,
-    caseData,
-    intakeFacts: draftIntakeFacts,
-    confirmedStage,
-  });
   const respondingSide = userIsResponding({
     confirmedStage,
     caseData,
     intakeFacts: draftIntakeFacts,
   });
-  // The document that STARTS a case is offered only to the side that starts it.
-  // Someone with a family order already changes it by a motion to change, not
-  // a new application (walkthrough run 38475320722).
-  const offerOriginatingDraft =
-    !originatingDocumentFiled && !respondingSide && !(courtPath === "family" && existingFamilyOrder(homeStory || userStory(caseData)));
   // With an order already in place, the support-table card moves below the
   // step panel, folded -- but only once that panel is on screen, so the card
   // is never hidden in one place before it shows in the other (review 2026-10-13).
@@ -1362,6 +1362,24 @@ function BuilderPageContent() {
         stepNamedInStory(courtPath, respondingSide, [userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n"))
       : "") || "";
   const offerRespondingDraft = respondingSide && respondingDocumentStillDue(respondingStep);
+  // The motion-to-change route confirmed, or the reading not yet answered.
+  const motionToChangeStart = motionToChangeStartRules();
+  const motionRouteKind = motionLead ? (motionChoice === null ? motionLead.kind : (routeShown(motionLead, motionChoice)?.kind ?? null)) : null;
+  // The moving party on a motion to change: its starting document is Form 15
+  // (r. 15 (5)), not the original case's (walkthrough run 38525903567, FM).
+  const motionToChangeMover = movingOnMotionToChange({ courtPath, responding: respondingSide, routeKind: motionRouteKind, stepId: respondingStep });
+  const originatingDocumentFiled = originatingDocumentRecorded({
+    courtPath,
+    caseData,
+    intakeFacts: draftIntakeFacts,
+    confirmedStage,
+    motionToChangeMover,
+  });
+  // The document that STARTS a case is offered only to the side that starts it.
+  // Someone with a family order already changes it by a motion to change, not
+  // a new application (walkthrough run 38475320722).
+  const offerOriginatingDraft =
+    !originatingDocumentFiled && !respondingSide && !(courtPath === "family" && existingFamilyOrder(homeStory || userStory(caseData)));
 
   function getActiveCaseId() {
     return masterCaseId || queryCaseId || null;
@@ -2141,23 +2159,47 @@ function BuilderPageContent() {
               <MotionToChangeRoute
                 lead={motionLead}
                 choice={motionChoice}
-                onChoose={(choice) => setMotionAnswerThisVisit({ answer: choice, readingKind: motionLead.kind })}
+                onChoose={(choice) => {
+                  setMotionAnswerThisVisit({ answer: choice, readingKind: motionLead.kind });
+                  // A confirmed motion-to-change route is the motion stage: the
+                  // answer records it, so the stage is not asked again
+                  // (walkthrough run 38525903567, FM). Never over a stage the
+                  // person already set.
+                  const stage = stageFromMotionAnswer(motionLead, choice);
+                  if (stage && !confirmedStage) {
+                    setConfirmedStage(stage);
+                    setStageBasis(null);
+                    setMotionStageBasis(routeShown(motionLead, choice)?.reading ?? null);
+                    lastConfirmedRef.current = { caseId: savedCaseId() || masterCaseIdRef.current, stage };
+                    const id = savedCaseId();
+                    if (id) void saveConfirmedStage(id, stage);
+                  }
+                }}
               />
             ) : null}
+            {stageQuestionWaits(motionLead, motionChoice, confirmedStage) ? null : (
             <StageConfirmation
               suggestedStage={detectedStage}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
-              basis={stageBasis && stageBasis.stage === confirmedStage ? stageBasis.because : null}
+              basis={
+                stageBasis && stageBasis.stage === confirmedStage
+                  ? stageBasis.because
+                  : motionStageBasis && confirmedStage === "motion"
+                    ? `Yes: ${motionStageBasis}`
+                    : null
+              }
               onConfirm={(stage) => {
                 setConfirmedStage(stage);
                 setStageBasis(null);
+                setMotionStageBasis(null);
                 lastConfirmedRef.current = { caseId: savedCaseId() || masterCaseIdRef.current, stage };
                 // Recorded on the case so the case page shows the same stage.
                 const id = savedCaseId();
                 if (id) void saveConfirmedStage(id, stage);
               }}
             />
+            )}
 
             {/* Civil and family: the stage's written overview first, then the exact step with its deadlines and rules. */}
             {/* The stage overview (NextStepsCard) repeated what the step answer
@@ -2185,6 +2227,7 @@ function BuilderPageContent() {
                 recordedAmount={recordedAmountOf(caseData)}
                 city={confirmedLocation?.city ?? ""}
                 picture={casePicture}
+                motionToChange={motionLead && motionChoice ? { answer: motionChoice, readingKind: motionLead.kind } : null}
                 noticeStepId={suggestedNoticeStep({
                   claimTypeId:
                     draftClaimTypeId ||
@@ -2236,11 +2279,22 @@ function BuilderPageContent() {
             {/* With the motion-to-change route on top, the catalogue's
                 temporary-motion card ("Family Rule 14 governs motions for
                 temporary orders") is not shown (walkthrough MC, 2026-10-14). */}
-            {!confirmedStage && !hidesTemporaryMotionCard(motionLead, motionChoice) ? (
+            {/* While the reading is unanswered, the temporary-motion card is
+                folded under its condition (walkthrough run 38525903567, FM);
+                on "Not sure" or "No" it is shown as before. */}
+            {!confirmedStage && temporaryMotionCardMode(motionLead, motionChoice) === "shown" ? (
               <ProcedureAuthorityDisplay
                 courtArea={courtPath}
                 procedureStage={getStageForPersistence(analysis, caseData)}
               />
+            ) : !confirmedStage && temporaryMotionCardMode(motionLead, motionChoice) === "folded" ? (
+              <details data-testid="temporary-motion-folded" className="rounded-2xl border border-[#d8e6df] bg-white p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">{TEMPORARY_MOTION_FOLD_LABEL}</summary>
+                <ProcedureAuthorityDisplay
+                  courtArea={courtPath}
+                  procedureStage={getStageForPersistence(analysis, caseData)}
+                />
+              </details>
             ) : null}
             <section className="rounded-2xl border border-[#d8e6df] bg-white p-5">
               <h2 className="text-lg font-bold text-[#16302b]">What CourtSimplified can help with next</h2>
@@ -2258,6 +2312,22 @@ function BuilderPageContent() {
                   a draft of it is not offered here. If that is not right, change what is recorded
                   under &ldquo;Documents already recorded&rdquo;.
                 </p>
+              ) : null}
+              {motionToChangeMover && !originatingDocumentFiled && motionToChangeStart ? (
+                // The moving party's own starting document (walkthrough run
+                // 38525903567, FM): never "already filed" for a motion not yet
+                // brought. No Form 15 draft exists yet, so none is offered.
+                <div className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="motion-to-change-start">
+                  <p>{MOTION_TO_CHANGE_START_SAY}</p>
+                  {motionToChangeStart.map((rule) => (
+                    <p key={rule.pinpoint} className="mt-1 text-xs">
+                      <a href={officialUrl(rule)} target="_blank" rel="noreferrer" className="underline">
+                        {sourceName(rule)}
+                      </a>
+                      , {rule.pinpoint}: &ldquo;{rule.quote}&rdquo;
+                    </p>
+                  ))}
+                </div>
               ) : null}
               {respondingSide && !originatingDocumentFiled ? (
                 <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="responding-side-no-originating-draft">

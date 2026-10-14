@@ -12,13 +12,17 @@
  *
  * COSTS NOTHING: no network, no model.
  *
+ * (walkthrough run 38525903567) An answer repeated back cut mid-word, or a
+ * long story pasted back with its typos; the closing answer or the partial
+ * story answer missing from the chat.
+ *
  * Run: npm run test:guided-form-chat
  */
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { acknowledgement, answerNeedsMore, isAnswered, pendingFields, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
+import { acknowledgement, answerNeedsMore, cutAtWord, isAnswered, pendingFields, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
 import { civilGuidedFields, familyGuidedFields, withServedDate } from "../../app/builder/_components/guidedFields";
 import { storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { amountFromStory, childrenFromStory, civilRoleFromStory, familyRoleFromStory, goalFromStory } from "../../app/builder/_components/storyAnswers";
@@ -187,6 +191,46 @@ console.log("\n8. The family service date is asked with its year, and its why st
   // with no source); each says what the site does with the answer.
   const statesLaw = [...family, ...civil].filter((field) => /\bcount\w*\b[^.]*\bfrom\b|\b(?:deadline|time) to (?:answer|respond|file|serve)\b/i.test(field.why));
   check("no why states what a time limit is counted from", statesLaw.length === 0, statesLaw.map((field) => `${field.key}: ${field.why}`).join(" | "));
+}
+
+console.log("\n4b. Walkthrough run 38525903567: the echo, the closing answer, the partial story answer");
+{
+  // 11: never cut mid-word; a long answer in their own words is named, not pasted back.
+  const FM = "i pay 900 a month child support from a court order in 2022. i lost my job in july and now im on EI making way less. i cant keep paying 900. how do i get it lowered";
+  const FR = "my ex gf took me to court for custody of our daugter, i got served the papers last week. she wants sole custody and wants to move to ottawa with her. i want joint custody and to keep my time with her.";
+  const facts = family.find((field) => field.key === "facts")!;
+  for (const [name, story] of [["FM", FM], ["FR", FR]] as const) {
+    const ack = acknowledgement(facts, story);
+    check(`${name}: the story is not pasted back cut short`, !ack.includes("…") && !/daugter|get it l\b/.test(ack), ack);
+    check(`${name}: it is still acknowledged`, /^Got it\b/.test(ack) && /your story/.test(ack), ack);
+  }
+  // Property over many texts and lengths: every echo is the whole text, or a whole-word prefix of it.
+  const words = "the quick brown fox jumps over a lazy dog while the support order from twenty twenty two stays in place".split(" ");
+  let cutMisses = 0;
+  for (let length = 1; length <= words.length; length += 1) {
+    const text = words.slice(0, length).join(" ");
+    for (const max of [5, 10, 17, 40, 60, 160]) {
+      const out = cutAtWord(text, max);
+      if (out === text) continue;
+      const head = out.replace(/…$/, "");
+      if (!out.endsWith("…") || head.length > max || !text.startsWith(head) || /\S/.test(text.charAt(head.length))) cutMisses += 1;
+    }
+  }
+  check("cutAtWord never ends mid-word and never exceeds its length", cutMisses === 0, `misses ${cutMisses}`);
+  const goal = family.find((field) => field.key === "goal")!;
+  check("a short answer is repeated back whole", acknowledgement(goal, "To get the child support lowered") === "Got it: To get the child support lowered.");
+  const issues = family.find((field) => field.key === "issues")!;
+  const many = acknowledgement({ ...issues, options: opt("a".repeat(70), "b".repeat(70), "c".repeat(70)) }, ["a".repeat(70), "b".repeat(70), "c".repeat(70)]);
+  const full = ["a".repeat(70), "b".repeat(70), "c".repeat(70)].join("; ");
+  const shownHead = many.replace(/^Got it: /, "").replace(/…\.$/, "");
+  check("a long list is cut at a whole label, not mid-word", /…\.$/.test(many) && full.startsWith(shownHead) && /[\s;]/.test(full.charAt(shownHead.length)), many);
+  const chat = read("app/builder/_components/GuidedFormChat.tsx");
+  check("no part of the chat slices text for display any more", !/\.slice\(0, (?:157|197)\)/.test(chat));
+  // 5: the closing answer is shown when the questions end, with its rules.
+  check("the chat shows the closing answer, with the rules it restates, before 'That's everything'", /data-testid="guided-form-closing"[\s\S]{0,1200}closing\.rules\.map[\s\S]{0,1200}That&apos;s everything we need for now/.test(chat));
+  // 9: a partial story answer is filled in, editable, and only the rest is asked.
+  check("a partial story answer is shown with its quote and asks only the rest", /data-testid="guided-form-partial-from-story"/.test(chat) && /partial \? partial\.question : current\.question/.test(chat));
+  check("the filled-in part is saved only on Next, from the box the person sees", /answer\(current\.kind === "multi" \? draft : boxValue\)/.test(chat));
 }
 
 console.log("\n5. The walkthrough plays it");
