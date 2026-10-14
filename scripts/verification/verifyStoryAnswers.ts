@@ -68,7 +68,7 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
-import { motionToChangeLead, type MotionToChangeLead } from "../../app/builder/_components/motionToChange";
+import { motionToChangeLead, routeShown, type MotionToChangeLead } from "../../app/builder/_components/motionToChange";
 import { SERVED_LINE, storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { HELD_BACK_PERSONAS } from "../../tests/browser/walkthrough/heldBackPersonas";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -629,10 +629,60 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
   for (const [court, text, existingOrder, responding] of noRoute) {
     check(`motion to change: no route offered for ${court} '${text}'`, motionToChangeLead(court, text, existingOrder, responding) === null, JSON.stringify(motionToChangeLead(court, text, existingOrder, responding)?.kind));
   }
-  const urgent = motionToChangeLead("family", "there is a support order. i lost my job and need the support lowered right away, i need a temporary order", true, false);
+  const urgent = motionToChangeLead("family", "there is a support order. i lost my job. i need the support lowered right away, i need a temporary order", true, false);
   check("motion to change: urgency or a temporary order keeps the temporary-motion card", urgent?.kind === "asking" && urgent.replacesTemporaryMotionCard === false);
   const calm = motionToChangeLead("family", "there is a support order and i want the support reduced. nothing urgent", true, false);
   check("motion to change: 'nothing urgent' is not urgency", calm?.replacesTemporaryMotionCard === true);
+
+  // Re-review 2026-10-14, 1ab8d54. Each line: the sentence, the route it
+  // must NOT get, and what it should get.
+  const wrongRoute: [string, MotionToChangeLead["kind"], MotionToChangeLead["kind"] | null][] = [
+    // A giver handing over some other paper is not their motion.
+    ["He sent me his answer to my motion to change.", "responding", "asking"],
+    ["I was served with his response to my motion to change.", "responding", "asking"],
+    ["Her lawyer sent me a letter about my motion to change.", "responding", "asking"],
+    ["My ex served me her response to the motion to change I filed.", "responding", "asking"],
+    ["They gave me a court date for the motion to change I brought.", "responding", "asking"],
+    ["I was served with a response to the motion to change.", "responding", null],
+    // Blocking, someone else, the past: not the person's own wish.
+    ["I'm trying to stop him from changing the parenting order.", "asking", null],
+    ["I'm going to fight her attempt to reduce the support.", "asking", null],
+    ["I am hoping the judge refuses to lower the support.", "asking", null],
+    ["I need help because the father is asking to reduce support.", "asking", "if-served"],
+    ["I want to make sure nobody can change the order.", "asking", null],
+    ["We agreed to change the parenting time informally last year, and now he wants it back in writing.", "asking", null],
+    // Their motion filed, then the person's own: never the mover route.
+    ["My ex filed a motion to change and I filed my own motion to change too.", "asking", "responding"],
+    // A motion behind them: no route to answer it.
+    ["My ex brought a motion to change in 2021 and it was dismissed.", "responding", null],
+    ["Her motion to change was withdrawn last month.", "responding", null],
+  ];
+  for (const [text, never, wanted] of wrongRoute) {
+    const got = motionToChangeLead("family", `We have a support order. ${text}`, true, false)?.kind ?? null;
+    check(`motion to change: '${text}' never gets the ${never} route, gets ${wanted ?? "no route"}`, got !== never && got === wanted, String(got));
+  }
+
+  // The route is never stated as fact before the person confirms it
+  // (CLAUDE.md s. 4; re-review 2026-10-14). Every story above that gives a
+  // lead: nothing shown before an answer or on "Not sure", the read route on
+  // Yes, the other route on "No".
+  const confirmable = [
+    mc?.story ?? "",
+    served,
+    "There is a support order. My ex wants to reduce child support. What do I do?",
+    "We have a support order. I filed my motion to change last week.",
+  ].map((text) => motionToChangeLead("family", text, true, false)).filter((lead): lead is MotionToChangeLead => Boolean(lead));
+  check("confirm: every reading tested gives a lead", confirmable.length === 4);
+  for (const lead of confirmable) {
+    check(`confirm (${lead.kind}): no route before the person answers, none on "Not sure"`, routeShown(lead, null) === null && routeShown(lead, "not-sure") === null);
+    check(`confirm (${lead.kind}): Yes shows the read route; the other button shows the other route`, routeShown(lead, "yes")?.kind === lead.kind && routeShown(lead, "other")?.kind !== lead.kind && Boolean(routeShown(lead, "other")));
+    check(`confirm (${lead.kind}): the reading is put as a question, not a statement of what happened`, /^(?:the other side|you want)/.test(lead.reading) && !/^You were served/.test(lead.reading));
+  }
+  const card = read("app/builder/_components/MotionToChangeRoute.tsx");
+  check(
+    "confirm: the card asks \"From what you told us, it sounds like ... Is that right?\" and renders route text only from routeShown",
+    /From what you told us, it sounds like/.test(card) && /Is that right\?/.test(card) && /const shown = routeShown\(lead, choice\)/.test(card) && !/\{lead\.line\}/.test(card) && !/lead\.rules\.map/.test(card),
+  );
 
   const builder = read("app/builder/page.tsx");
   const leadAt = builder.indexOf("<MotionToChangeRoute");

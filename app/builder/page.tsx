@@ -2016,7 +2016,7 @@ function BuilderPageContent() {
               or picks another before the overview appears. No next-step
               content renders until they have.
             */}
-            {motionLead ? <MotionToChangeRoute lead={motionLead} /> : null}
+            {motionLead ? <MotionToChangeRoute key={`${motionLead.kind}:${motionLead.reading}`} lead={motionLead} /> : null}
             <StageConfirmation
               suggestedStage={detectedStage}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
