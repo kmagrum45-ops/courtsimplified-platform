@@ -51,6 +51,13 @@
  *     being served, read to the person responding on an either-side step as
  *     "The other party's time" instead of their own ("Your time ... (Form
  *     15B) ... (Form 15C)").
+ *   - (walkthrough run 38525903567, SD) the card's filing and mail lines not
+ *     timed against its earliest counted day (so "file online" shows beside a
+ *     deadline 3 business days away), or timed against anything but the
+ *     person's own serve-or-file deadline (the court's settlement-conference
+ *     target, an issue-only limit); a counted six-year leave threshold more
+ *     than a year away leading the card, or an uncounted one folded (SJ); a
+ *     Sources line without its checked date.
  *
  *   - (walkthrough run 38525903567, FM) the information program leading a
  *     motion to change whose words show no change beyond child or spousal
@@ -68,6 +75,8 @@ import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
 import {
+  cardFilingDeadline,
+  THRESHOLD_ASK,
   cardLimits,
   cardShowsLead,
   factsForStep,
@@ -827,6 +836,73 @@ async function main() {
     check(
       "the card shows the fold with its condition and the note inside it",
       /data-testid="next-step-mip-fold"[\s\S]{0,600}more than child or spousal support[\s\S]{0,600}data-testid="next-step-mip-note"/.test(panel),
+    );
+  }
+
+  {
+    // Walkthrough run 38525903567 (SD), review of bee9daf: the card's filing
+    // and mail lines are timed against the person's own serve-or-file
+    // deadline only -- a led one or one counted from the papers' arrival --
+    // never the court's own timing or an issue-only limit.
+    const summary = {
+      deadlines: [{ id: "deadline:defence-20-days", what: "Serve a defence on every other party and file it with the clerk, with proof of service", date: "2026-10-30", statement: "" }],
+      periods: [],
+    };
+    const arrival = { safest: [{ id: "deadline:defence-20-days", what: "x", date: "", iso: "2026-10-19", passed: false }], latest: [] };
+    const sd = cardFilingDeadline(summary, arrival, true, "", "", "defendant:served-defence-period-running");
+    check("the person's own deadline, earliest first, from the arrival note too", sd.filing === "2026-10-19" && sd.serving === "2026-10-19");
+    const nothing = cardFilingDeadline({ deadlines: [], periods: [] }, null, true, "", "", "defendant:served-defence-period-running");
+    check("with nothing counted, there is no filing deadline", nothing.filing === "" && nothing.serving === "");
+    const court = cardFilingDeadline(
+      { deadlines: [{ id: "deadline:settlement-conference-90-days", what: "The court holds the settlement conference", date: "2026-10-15", statement: "" }], periods: [] },
+      null, false, "", "", "plaintiff:defence-filed",
+    );
+    check("the court's 90-day settlement conference target times nothing (plaintiff:defence-filed)", court.filing === "" && court.serving === "");
+    const issue = cardFilingDeadline(
+      { deadlines: [{ id: "deadline:issue-defendants-claim-20-days:defence-filed", what: "If you want to make a defendant's claim (Form 10A), it can be issued without the court's leave", date: "2026-10-15", statement: "" }], periods: [] },
+      null, true, "", "", "defendant:defence-filed",
+    );
+    check("a defendant's claim (filed to be issued) times the filing line only, never the mail timing", issue.filing === "2026-10-15" && issue.serving === "");
+    const panel = readFileSync(path.resolve(__dirname, "../../app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+    // Walkthrough run 38525903567 (SJ): a leave threshold leads only when it is near.
+    const thresholdSummary = (date?: string) => ({
+      deadlines: date ? [{ what: "Six years after the order", date, statement: "", threshold: true }] : [],
+      periods: date ? [] : [{ what: "Six years after the order", count: 6, unit: "years", countFrom: "the day the order was made", threshold: true }],
+    });
+    const leads = (date: string | undefined, today: string) => {
+      const limits = cardLimits(thresholdSummary(date), false, "", "", "plaintiff:judgment-in-my-favour-unpaid", today);
+      return limits.main.deadlines.length + limits.main.periods.length > 0;
+    };
+    const folded = (date: string | undefined, today: string) => {
+      const limits = cardLimits(thresholdSummary(date), false, "", "", "plaintiff:judgment-in-my-favour-unpaid", today);
+      return limits.conditional.deadlines.length + limits.conditional.periods.length === 1;
+    };
+    check("an uncounted six-year threshold stays in place, asking for the order date (review of bee9daf)", leads(undefined, "2026-10-14") && !folded(undefined, "2026-10-14"));
+    check("its words ask for the order date to see whether leave is needed", /period\.threshold \? ` \$\{THRESHOLD_ASK\}`/.test(panel) && /whether leave is needed/.test(THRESHOLD_ASK));
+    const thresholdWrong: string[] = [];
+    for (let today = "2026-01-01"; today <= "2026-12-31"; today = addDays(today, 7)) {
+      for (const ahead of [-30, 0, 100, 364, 366, 800, 2000]) {
+        const date = addDays(today, ahead);
+        const near = ahead <= 365;
+        if (leads(date, today) !== near || leads(date, today) === folded(date, today)) thresholdWrong.push(`${today} -> ${date}`);
+      }
+    }
+    check("a counted threshold leads exactly when it is within a year (or passed), and is folded otherwise", thresholdWrong.length === 0, thresholdWrong.slice(0, 4).join("; "));
+    check("a limit that is not a threshold is never folded by this", leads2());
+    function leads2() {
+      const limits = cardLimits({ deadlines: [{ what: "Serve a defence", date: "2030-01-01", statement: "" }], periods: [] }, true, "", "", "defendant:served-defence-period-running", "2026-10-14");
+      return limits.main.deadlines.length === 1;
+    }
+    const route = readFileSync(path.resolve(__dirname, "../../app/api/case/stage-answer/route.ts"), "utf8");
+    check("the route marks a threshold limit as one", /threshold: deadline\.threshold === true/.test(route));
+
+    // CLAUDE.md s. 2 (walkthrough run 38525903567): the card's Sources line and the full answer's list show each source's checked date.
+    check("both Sources lists show 'checked <date>' on every line", (panel.match(/source\.checkedOn \? ` · checked \$\{source\.checkedOn\}` : ""/g) ?? []).length === 2);
+    check("the rule beside a guide-proved sentence is shown under the card's lead and under its section", (panel.match(/<SentenceRulesBox entries=/g) ?? []).length === 2);
+    check(
+      "the card times its practical lines with that day and Ontario's today",
+      /practicalFor\([^)]*\{ deadline: filingDeadline\.filing, serveBy: filingDeadline\.serving, today, divisionalOnly: filingDeadline\.divisionalOnly \}\)/.test(panel) &&
+        /<NextStepPractical[^>]*deadline=\{filingDeadline\.filing\} serveBy=\{filingDeadline\.serving\} divisionalOnly=\{filingDeadline\.divisionalOnly\} today=\{today\}/.test(panel),
     );
   }
 

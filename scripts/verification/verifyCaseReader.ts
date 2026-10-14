@@ -137,6 +137,16 @@ async function main() {
   check("on and signed in: the saved case's words are read and the picture saved", ok.picture?.events?.[0]?.value === "noted-in-default" && readWords.includes("put me in default") && savedPicture !== null);
   check("only the picture is written (the save adds casePicture, nothing else)", savedPicture !== null && "events" in (savedPicture as Record<string, unknown>) && "readAt" in (savedPicture as Record<string, unknown>));
   check("a request carrying its own story is refused", (await post({ caseId, story: "words put in their mouth" })).status === 400);
+  // saveOnServer: false (2026-10-14): the builder writes the picture inside
+  // its one write queue for the case; the route then writes nothing and
+  // returns the picture as it would have stored it.
+  savedPicture = null;
+  const clientWrites = await (await post({ caseId, saveOnServer: false })).json();
+  check(
+    "saveOnServer: false -- nothing written by the route, and the picture to store is returned",
+    savedPicture === null && clientWrites.saved === false && "readAt" in (clientWrites.storedPicture ?? {}) && "events" in (clientWrites.storedPicture ?? {}),
+  );
+  check("saveOnServer may only be false", (await post({ caseId, saveOnServer: true })).status === 400);
   const off = await (await post({ caseId }, { enabled: () => false })).json();
   check("switched off: nothing read", off.skipped === "off");
   const out = await (await post({ caseId }, { authenticate: async () => null })).json();

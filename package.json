@@ -47,6 +47,7 @@
     "test:official-forms": "node --import tsx scripts/verification/verifyOfficialForms.ts",
     "test:case-file-summary": "node --import tsx scripts/verification/verifyCaseFileSummaryComposer.ts",
     "test:case-position": "node --import tsx scripts/verification/verifyCasePosition.ts",
+    "test:case-write-queue": "node --import tsx scripts/verification/verifyCaseWriteQueue.ts",
     "test:case-drafts": "node --import tsx scripts/verification/verifyCaseDrafts.ts",
     "forms:official": "node --import tsx scripts/forms/fetchOfficialFormLinks.ts",
     "walkthrough": "playwright test tests/browser/walkthrough.spec.ts --workers=1",

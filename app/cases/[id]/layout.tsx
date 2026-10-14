@@ -26,7 +26,7 @@
 
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import GetHelp from "../../_components/GetHelp";
 import LegalInformationNotice from "../../_components/LegalInformationNotice";
@@ -68,7 +68,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
   const [state, setState] = useState<"loading" | "ready" | "missing" | "failed">("loading");
   const [loadError, setLoadError] = useState("");
 
-  const load = useCallback(async () => {
+  const loadOnce = useCallback(async () => {
     const { supabase } = await import("@/src/lib/supabase/client");
     const {
       data: { user },
@@ -107,6 +107,36 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
     setCaseRecord(data as CaseRecord);
     setState("ready");
   }, [caseId, router]);
+
+  /*
+   * ONE READ OF THE CASE AT A TIME (2026-10-14, run 38525903567: GET
+   * /rest/v1/cases 500 57014 while the case page opened). The whole case is
+   * read here, and the page asked for it again from several places at once:
+   * the first open, the look-again 2.5 seconds later, and once after every
+   * save of the deadline box. A reload asked for while a read is going does
+   * not start a second one beside it: it runs once more after it, however
+   * many were asked for, so the newest save is still read.
+   */
+  const loadingRef = useRef<Promise<void> | null>(null);
+  const againRef = useRef(false);
+  const load = useCallback((): Promise<void> => {
+    if (loadingRef.current) {
+      againRef.current = true;
+      return loadingRef.current;
+    }
+    const run = (async () => {
+      try {
+        do {
+          againRef.current = false;
+          await loadOnce();
+        } while (againRef.current);
+      } finally {
+        loadingRef.current = null;
+      }
+    })();
+    loadingRef.current = run;
+    return run;
+  }, [loadOnce]);
 
   useEffect(() => {
     if (caseId) void load();

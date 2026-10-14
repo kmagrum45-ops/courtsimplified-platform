@@ -40,8 +40,33 @@ export const CARD_LABELS: Record<string, string> = {
   "sc-date-settlement-conference": "The settlement conference date",
 };
 
-export function cardLabel(questionId: string, questionText: string): string {
-  return CARD_LABELS[questionId] ?? questionText;
+/*
+ * The person RESPONDING to the claim (walkthrough run 38525903567, SD: "The
+ * date the claim was served: September 28" for "i got the plaintiffs claim in
+ * the mail on september 28"). That is the day the claim reached them; when
+ * service counts depends on how it was served (mail counts on the fifth day
+ * after mailing, r. 8.07 (2)), which the next-step card works out. So the
+ * label says what the day is, not that it is the day of service.
+ */
+export const RESPONDING_CARD_LABELS: Record<string, string> = {
+  "sc-date-claim-served": "The day the claim reached you",
+};
+
+export function cardLabel(questionId: string, questionText: string, side: { responding?: boolean } = {}): string {
+  return (side.responding ? RESPONDING_CARD_LABELS[questionId] : undefined) ?? CARD_LABELS[questionId] ?? questionText;
+}
+
+/**
+ * Whether the person is responding to the claim: the intake's recorded side
+ * (`facts.role`), or a side answer ("sc-orient-role") confirmed or on the card.
+ */
+export function respondingFromAnswers(
+  answers: readonly { questionId: string; answer?: string; answerText?: string; keep?: boolean }[],
+  facts: { role?: unknown } = {},
+): boolean {
+  if (facts.role === "defendant") return true;
+  const side = answers.find((item) => item.questionId === "sc-orient-role" && item.keep !== false);
+  return /\b(?:defendant|responding)\b/i.test(side?.answer ?? side?.answerText ?? "");
 }
 
 type Draft = { questionId: string; answer: string; keep: boolean };

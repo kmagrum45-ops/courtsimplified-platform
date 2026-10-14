@@ -40,6 +40,7 @@ import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/co
 import { FORM_COMPLETION_PAUSED } from "@/src/lib/content-library/phaseScope";
 import { originatingDocumentRecorded, respondingDocumentStillDue } from "../../../builder/_components/respondingSide";
 import type { StoredCaseData } from "../../../builder/_components/builderTypes";
+import { caseRouteWrite } from "../../../builder/_components/positionSave";
 import { authHeaders, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 
 type SaveState = "idle" | "saving" | "saved" | "failed";
@@ -130,7 +131,8 @@ export default function CaseDraftsSection() {
       setSaveState("saving");
       const headers = await authHeaders();
       const response = headers
-        ? await fetch("/api/cases/drafts", { method: "POST", headers, body: JSON.stringify({ caseId, draft }) }).catch(() => null)
+        ? // In the case's one write queue: the route rewrites the case's row (positionSave.ts).
+          await caseRouteWrite(caseId, "/api/cases/drafts", { method: "POST", headers, body: JSON.stringify({ caseId, draft }) })
         : null;
       if (!response?.ok) {
         const body = response ? await response.json().catch(() => ({})) : {};
@@ -179,7 +181,7 @@ export default function CaseDraftsSection() {
     if (!window.confirm(`Delete "${draft.title || "Untitled draft"}"? This cannot be undone.`)) return;
     const headers = await authHeaders();
     const response = headers
-      ? await fetch("/api/cases/drafts", { method: "DELETE", headers, body: JSON.stringify({ caseId, draftId: draft.id }) }).catch(() => null)
+      ? await caseRouteWrite(caseId, "/api/cases/drafts", { method: "DELETE", headers, body: JSON.stringify({ caseId, draftId: draft.id }) })
       : null;
     if (!response?.ok) {
       setMessage("That draft could not be deleted. Please try again.");

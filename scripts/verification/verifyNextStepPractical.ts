@@ -43,6 +43,19 @@
  *     shown there without r. 13 (1) (b)'s condition (with "within your time
  *     to respond" on a motion to change); the claim form after a notice
  *     labelled "For your step".
+ *   - (walkthrough run 38525903567, SD) "file online" shown beside a counted
+ *     last day 3 business days away or less (counted as the guide's own
+ *     February example counts), or a too-close line naming a filing way the
+ *     guide does not; no warning that mail counts on the fifth day when the
+ *     last day is near; the defendant's claim fee missing from a defence step.
+ *     (review of bee9daf) these lines timed against anything but the person's
+ *     own serve-or-file deadline (PERSON_SERVE_OR_FILE: never the court's
+ *     settlement-conference target, a leave threshold or an issue-only
+ *     limit); "do not file online" for a passed day; a too-close line not
+ *     hedged when only one holiday calendar's day decided it.
+ *     (SJ) an employer named only vaguely ("a car dealership ... i think")
+ *     with no word that the garnishee must be named, or of the examination
+ *     that is the rules' way to find out more; a line choosing or predicting.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -89,9 +102,27 @@ import {
   claimAfterNotice,
   CLAIM_AFTER_NOTICE,
   RESPONDING_VIEW,
+  SC_MAIL_RULE,
+  SC_SOONER_WAYS,
+  GARNISHEE_NOT_NAMED,
+  vagueEmployerSentence,
+  businessDaysAway,
+  isCourtBusinessDay,
+  PERSON_SERVE_OR_FILE,
+  personDeadlineOf,
+  tooCloseOnlyByHoliday,
+  NOT_TIMED,
+  DIVISIONAL_COURT_ONLY,
+  filingDeadlineDivisionalOnly,
+  mailTimingLines,
+  tooCloseFilingLine,
+  tooCloseToFileOnline,
 } from "../../src/lib/content-library/nextStepPractical";
+import { addDays, dayOfWeek, formatLongDate, holidayFor } from "../../src/lib/case-system/deadlines/holidays";
+import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
+import { DEADLINE_EVENTS, caseDatesFrom } from "../../src/lib/case-system/deadlines/deadlineEvents";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
-import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
+import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
 import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -216,6 +247,14 @@ for (const court of COURTS) {
       nowhere.includes(FILING[court].toronto) && nowhere.includes(FILING[court].elsewhere),
   );
 }
+// Walkthrough run 38525903567: "file online through the Justice Services
+// Online portal" was backed by a sentence about paying fees. A line that says
+// to file online must quote a sentence that speaks of filing online.
+const filesOnline = /\b(?:file|filings?)\b[^.]*\bonline\b|\bonline\b[^.]*\bfilings?\b/i;
+const unbacked = COURTS.flatMap((court) => [FILING[court].toronto, FILING[court].elsewhere])
+  .filter((line) => /\bfile online\b/i.test(line.say) && !line.cite.quote.split(/(?<=\.)\s+| \.\.\. /).some((sentence) => filesOnline.test(sentence)))
+  .map((line) => line.say);
+check("every 'file online' line quotes a sentence about filing online", unbacked.length === 0, unbacked.join(" | "));
 const served = steps.filter((stage) => STEP_PRACTICAL[stage.id]?.serve);
 const emptyService = served.filter((stage) => (practicalFor(stage.id, pathwayOf(stage) as PracticalCourt)?.serving.length ?? 0) < 2).map((stage) => stage.id);
 check("every step that serves a document shows how, and how to prove it", emptyService.length === 0, emptyService.join(", "));
@@ -721,6 +760,283 @@ console.log("\nWalkthrough run 38525903567, FR: the fees for a parenting-only an
     check(`'${words}': Form 35.1 is a form for the answer, the fees are folded, Form 13 stays`, view.forms.some((form) => form.number === "35.1") && Boolean(view.feesIfClaimed) && view.forms.some((form) => form.number === "13"));
   }
   check("no words: Form 35.1 is listed", Boolean(practicalFor(STEP, "family", "Barrie", true)?.forms.some((form) => form.number === "35.1")));
+}
+
+console.log("\n10. A deadline too close to file online, and mail near the deadline (walkthrough run 38525903567, SD)");
+{
+  // The quotes these lines carry are in the saved text, word for word.
+  const timedLines: PlainLine[] = [
+    ...mailTimingLines("2026-10-14", "2026-10-19"),
+    tooCloseFilingLine("small-claims", "2026-10-14", "2026-10-19")!,
+    tooCloseFilingLine("civil", "2026-10-14", "2026-10-19")!,
+  ];
+  const absent = timedLines.flatMap((line) =>
+    line.cite.quote.split(" ... ").filter((run) => !(corpus.get(line.cite.sourceId) ?? "").includes(flat(run))).map((run) => `${line.cite.pinpoint}: ${run.slice(0, 60)}`),
+  );
+  check("every timing line's quote is in the saved text", absent.length === 0, absent.join("; "));
+  check("each timing line's source has its saved date", timedLines.every((line) => SOURCE_SAVED_ON[line.cite.sourceId] === savedOn.get(line.cite.sourceId)));
+
+  // How "away" is counted, worked from the guide's own example: outside
+  // Toronto, a court date on Tuesday February 9 cannot be met online after
+  // Wednesday February 3. Every year in which February 9 is a Tuesday must
+  // give exactly that: open on the 3rd, closed from the 4th.
+  const smallClaimsGuide = corpus.get("ontario-file-small-claims-online") ?? "";
+  check(
+    "the guide's example is in the saved text",
+    smallClaimsGuide.includes("if your court date is on Tuesday, February 9 , you cannot submit documents online after Wednesday, February 3"),
+  );
+  const tuesdays = Array.from({ length: 30 }, (_, index) => 2020 + index).filter((year) => dayOfWeek(`${year}-02-09`) === 2);
+  const exampleMisses = tuesdays.filter(
+    (year) => tooCloseToFileOnline(`${year}-02-03`, `${year}-02-09`) || !tooCloseToFileOnline(`${year}-02-04`, `${year}-02-09`),
+  );
+  check(`the count fits the guide's example in all ${tuesdays.length} such years`, tuesdays.length > 0 && exampleMisses.length === 0, exampleMisses.join(", "));
+
+  // A business day is never a weekend, a holiday in either calendar, or an announced closure.
+  const notBusiness: string[] = [];
+  for (let day = "2026-01-01"; day <= "2027-12-31"; day = addDays(day, 1)) {
+    const closed = dayOfWeek(day) === 0 || dayOfWeek(day) === 6 || holidayFor(day, "small-claims-rules") || holidayFor(day, "legislation-act");
+    if (closed && isCourtBusinessDay(day)) notBusiness.push(day);
+  }
+  check("no weekend or holiday (either calendar) is a business day, 2026-2027", notBusiness.length === 0, notBusiness.slice(0, 5).join(", "));
+  check("an announced court closure (30 September 2026) is not a business day", !isCourtBusinessDay("2026-09-30"));
+
+  // The SD case: Wednesday 14 October, last day Monday 19 October.
+  const sd = practicalFor("defendant:served-defence-period-running", "small-claims", "", true, "i got the plaintiffs claim in the mail on september 28", "", { deadline: "2026-10-19", serveBy: "2026-10-19", today: "2026-10-14" });
+  const sdFiling = sd?.filing ?? [];
+  check(
+    "SD: 3 business days away -- no online-portal line, one line saying not to file online",
+    businessDaysAway("2026-10-14", "2026-10-19") === 3 &&
+      sdFiling.length === 1 &&
+      !sdFiling.some((line) => line === FILING["small-claims"].toronto || line === FILING["small-claims"].elsewhere) &&
+      /cannot file online/.test(sdFiling[0].say),
+    sdFiling.map((line) => line.say).join(" | "),
+  );
+  // Only the ways the guide names, each in its quote.
+  const ways = ["in person", "by mail", "by email"];
+  check(
+    "SD: the other ways named are exactly the guide's, and each is in its quote",
+    ways.every((way) => sdFiling[0]?.say.includes(way) && sdFiling[0].cite.quote.includes(way.replace("in person", "in person at the courthouse"))),
+  );
+
+  // A property over many pairs: too close (or passed) never shows a portal line; otherwise it does.
+  const portalWrong: string[] = [];
+  for (const court of ["small-claims", "civil"] as PracticalCourt[]) {
+    const stepId = steps.find((stage) => pathwayOf(stage) === court && STEP_PRACTICAL[stage.id]?.files)?.id ?? "";
+    for (let today = "2026-09-20"; today <= "2026-12-31"; today = addDays(today, 3)) {
+      for (const ahead of [-2, 0, 1, 2, 3, 4, 5, 6, 8, 12]) {
+        const deadline = addDays(today, ahead);
+        const filing = practicalFor(stepId, court, "Ottawa", false, "", "", { deadline, today })?.filing ?? [];
+        const portal = filing.includes(FILING[court].elsewhere);
+        // A passed day is not "3 business days or less away" (review of bee9daf): the portal lines stay.
+        const close = deadline >= today && businessDaysAway(today, deadline) <= 3;
+        if (close === portal) portalWrong.push(`${court} ${today}->${deadline}`);
+      }
+    }
+  }
+  check("too close: no portal line; otherwise (passed included) the portal line (two courts, ~1000 date pairs)", portalWrong.length === 0, portalWrong.slice(0, 4).join("; "));
+  const familyFiling = practicalFor("family:respondent:served-time-to-answer-running", "family", "Ottawa", true, "", "", { deadline: "2026-10-15", today: "2026-10-14" })?.filing ?? [];
+  check("family: no saved business-day rule, so the family filing lines are unchanged", familyFiling.includes(FILING.family.elsewhere));
+  const untimed = practicalFor("defendant:served-defence-period-running", "small-claims", "Ottawa", true)?.filing ?? [];
+  check("no counted date: the portal lines are unchanged", untimed.includes(FILING["small-claims"].elsewhere));
+
+  // Mail near the deadline.
+  const sdServing = sd?.serving ?? [];
+  const mail = sdServing.find((line) => line.cite.pinpoint === "r. 8.07 (2)" && /fifth day/.test(line.say) && /last day/.test(line.say));
+  // 14 October + 5 = 19 October, the last day itself: today is the last day to mail it.
+  check(
+    "SD: the mail line says the fifth day rule and that today is the last day to mail it",
+    Boolean(mail) && mail!.say.includes(`no later than today, ${formatLongDate("2026-10-14")}`) && mail!.say.includes(formatLongDate("2026-10-19")),
+    mail?.say,
+  );
+  check(
+    "a day later, mail counts after the last day, with the dates",
+    /after your last day/.test(mailTimingLines("2026-10-15", "2026-10-19")[0]?.say ?? "") && (mailTimingLines("2026-10-15", "2026-10-19")[0]?.say ?? "").includes(formatLongDate("2026-10-20")),
+  );
+  check(
+    "SD: the sooner ways (email, in person) are shown, each with its rule",
+    SC_SOONER_WAYS.every((line) => sdServing.includes(line)) && sdServing.some((line) => line.cite.pinpoint === "r. 8.07.1 (2)"),
+  );
+  // Property: "after your last day" exactly when the fifth day after today is past the deadline; the last mailing day is five days before.
+  const mailWrong: string[] = [];
+  for (let today = "2026-10-01"; today <= "2026-11-30"; today = addDays(today, 1)) {
+    for (const ahead of [0, 3, 5, 6, 10, 20]) {
+      const deadline = addDays(today, ahead);
+      const first = mailTimingLines(today, deadline)[0];
+      const late = addDays(today, 5) > deadline;
+      if (!first || /after your last day/.test(first.say) !== late) mailWrong.push(`${today}->${deadline}`);
+      if (first && !late && !first.say.includes(formatLongDate(addDays(deadline, -5)))) mailWrong.push(`${today}->${deadline} last mailing day`);
+    }
+  }
+  check("mail timing: late exactly when mailed today counts after the last day (60 days x 6)", mailWrong.length === 0, mailWrong.slice(0, 4).join("; "));
+  check("a passed deadline gets no mail timing", mailTimingLines("2026-10-20", "2026-10-19").length === 0);
+  const mailOnly = (stepId: string, court: PracticalCourt) =>
+    (practicalFor(stepId, court, "Ottawa", false, "", "", { deadline: "2026-10-19", serveBy: "2026-10-19", today: "2026-10-14" })?.serving ?? []).some((line) => line.cite === SC_MAIL_RULE && /fifth day/.test(line.say) && /last day/.test(line.say));
+  const wrongPlace = steps
+    .filter((stage) => mailOnly(stage.id, pathwayOf(stage) as PracticalCourt) !== (pathwayOf(stage) === "small-claims" && STEP_PRACTICAL[stage.id]?.serve === "ordinary"))
+    .map((stage) => stage.id);
+  check("mail timing only on Small Claims steps served the ordinary way", wrongPlace.length === 0, wrongPlace.slice(0, 5).join(", "));
+
+  // A passed day never says "do not file online" (review of bee9daf).
+  check("a passed deadline gets no too-close line", tooCloseFilingLine("small-claims", "2026-10-20", "2026-10-19") === null && tooCloseFilingLine("civil", "2026-10-20", "2026-10-19") === null);
+  // Hedged whenever a weekday holiday decided it (re-review of 6a0fce6):
+  // Civic Holiday (one calendar) and Easter 2027 (both calendars).
+  const civic = tooCloseFilingLine("small-claims", "2026-07-30", "2026-08-05");
+  const easter = tooCloseFilingLine("small-claims", "2027-03-24", "2027-03-31");
+  check(
+    "a result that turns on a weekday holiday is hedged ('may be'), in either calendar or both; SD is not",
+    tooCloseOnlyByHoliday("2026-07-30", "2026-08-05") && /\bmay be 3 business days away or less\b/.test(civic?.say ?? "") &&
+      /\bmay be 3 business days away or less\b/.test(easter?.say ?? "") && /If so, file it in person at the courthouse, by mail or by email instead\./.test(easter?.say ?? "") &&
+      !/\bmay be\b/.test(sdFiling[0]?.say ?? ""),
+    `${civic?.say} | ${easter?.say}`,
+  );
+  const hedgeWrong: string[] = [];
+  for (let today = "2026-01-01"; today <= "2027-12-31"; today = addDays(today, 2)) {
+    for (const ahead of [1, 3, 4, 5, 6, 7]) {
+      const deadline = addDays(today, ahead);
+      const line = tooCloseFilingLine("small-claims", today, deadline);
+      const hedged = Boolean(line && /\bmay be\b/.test(line.say));
+      if (line && hedged !== (businessDaysAway(today, deadline, false) > 3)) hedgeWrong.push(`${today}->${deadline}`);
+    }
+  }
+  check("hedged exactly when counting every weekday (closures aside) would put it past 3 (2026-2027)", hedgeWrong.length === 0, hedgeWrong.slice(0, 4).join("; "));
+  check(
+    "the in-person line says 'if they are an individual', and r. 8.02 (c) gives a corporation's way",
+    SC_SOONER_WAYS.some((line) => line.cite.pinpoint === "r. 8.02 (a)" && /if they are an individual/.test(line.say)) &&
+      SC_SOONER_WAYS.some((line) => line.cite.pinpoint === "r. 8.02 (c)" && /corporation/.test(line.say)),
+  );
+
+  // Only the person's own serve-or-file deadlines time these lines (review of bee9daf).
+  const listedWrong: string[] = [];
+  // A listed deadline whose own words do not say "file", and the saved rule that says the document is filed.
+  const FILES_BY_RULE: Record<string, { sourceId: string; quote: string }> = {
+    "deadline:civil:after-lawyer-removed-30-days": {
+      sourceId: "rules-of-civil-procedure",
+      quote: "A party acting in person may appoint a lawyer of record by serving on every other party and filing, with proof of service, a notice of appointment of lawyer (Form 15B)",
+    },
+  };
+  const ruleMissing = Object.entries(FILES_BY_RULE).filter(([, rule]) => !(corpus.get(rule.sourceId) ?? "").includes(flat(rule.quote))).map(([id]) => id);
+  check("r. 15.03 (2): the Form 15B notice is served and filed with proof of service (saved text)", ruleMissing.length === 0 && (corpus.get("rules-of-civil-procedure") ?? "").includes(flat("elect to act in person by serving on the lawyer and every other party and filing, with proof of service, a notice of intention to act in person (Form 15C)")), ruleMissing.join(", "));
+  const scDeadlines = steps.filter((stage) => pathwayOf(stage) === "small-claims" || pathwayOf(stage) === "civil").flatMap((stage) => stage.deadlines);
+  for (const [id, kind] of Object.entries(PERSON_SERVE_OR_FILE)) {
+    const found = scDeadlines.filter((deadline) => deadline.id === id);
+    if (found.length === 0) listedWrong.push(`${id}: not a Small Claims or civil deadline`);
+    for (const deadline of found) {
+      if ((deadline.actor ?? "reader") !== "reader") listedWrong.push(`${id}: binds ${deadline.actor}`);
+      if (deadline.threshold) listedWrong.push(`${id}: a leave threshold`);
+      if (kind.serves && !/\bserv(?:e|ed|ing)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say serve`);
+      if (kind.files && !FILES_BY_RULE[id] && !/\b(?:file|filing|start a court case|start the action|deliver|motion|request|registrar|set (?:it|the action) down|restored? to a trial list|issued?|respond)\b/i.test(deadline.what)) listedWrong.push(`${id}: its words do not say file, deliver, issue, a motion or a request`);
+      if (kind.serves && /\b(?:claim \(Form 7A|summons)\b/i.test(deadline.what)) listedWrong.push(`${id}: a claim or summons is not mailed`);
+    }
+  }
+  check("every listed deadline is the person's own, not a threshold, and says serve or file in its own words", listedWrong.length === 0, listedWrong.join("; "));
+  // Completeness (re-review of 6a0fce6): every Small Claims and civil deadline is classified, once.
+  const unclassified = [...new Set(scDeadlines.map((deadline) => deadline.id))].filter((id) => Boolean(PERSON_SERVE_OR_FILE[id]) === Boolean(NOT_TIMED[id]));
+  check(
+    `every Small Claims and civil deadline is listed or declared not timed, with a reason, never both (${new Set(scDeadlines.map((deadline) => deadline.id)).size} deadlines)`,
+    unclassified.length === 0 && Object.values(NOT_TIMED).every((reason) => reason.trim().length > 20),
+    unclassified.join(", "),
+  );
+  const stray = Object.keys(NOT_TIMED).filter((id) => !scDeadlines.some((deadline) => deadline.id === id));
+  check("no reason is kept for a deadline that no longer exists", stray.length === 0, stray.join(", "));
+  const civilServes = Object.entries(PERSON_SERVE_OR_FILE).filter(([id, kind]) => id.startsWith("deadline:civil:") && kind.serves).map(([id]) => id);
+  check("civil deadlines time only the filing line (mail timing is Small Claims only)", civilServes.length === 0, civilServes.join(", "));
+  // The probe: learned of the judgment 16 September, today 14 October; r. 17.01 (5) (a) gives 30 days.
+  const missedTrial = findStage("both:missed-trial")!.deadlines.find((deadline) => deadline.id === "deadline:set-aside-after-missed-trial")!;
+  const counted = computedDeadlinesFor([missedTrial], caseDatesFrom({ [DEADLINE_EVENTS[missedTrial.countFromEvent as keyof typeof DEADLINE_EVENTS]?.questionId ?? ""]: "2026-09-16" }), "probe");
+  const probeLine = practicalFor("both:missed-trial", "small-claims", "Ottawa", true, "", "", { deadline: personDeadlineOf(counted.map((entry) => ({ id: entry.deadlineId, date: entry.date })), "files"), today: "2026-10-14" })?.filing ?? [];
+  check(
+    "probe: a missed trial learned of on 16 September, today 14 October: last day Friday 16 October, and the card says not to file online",
+    counted[0]?.date === "2026-10-16" && probeLine.length === 1 && /cannot file online/.test(probeLine[0].say),
+    `${counted[0]?.date} | ${probeLine.map((line) => line.say).join(" | ")}`,
+  );
+  // For every Small Claims step: whatever is counted, the timed deadline is a serve-or-file deadline of the person.
+  const timedWrong: string[] = [];
+  for (const stage of steps.filter((candidate) => pathwayOf(candidate) === "small-claims")) {
+    const counted = stage.deadlines.map((deadline, index) => ({ id: deadline.id, date: addDays("2026-10-15", index) }));
+    for (const kind of ["files", "serves"] as const) {
+      const picked = personDeadlineOf(counted, kind);
+      if (!picked) continue;
+      const deadline = stage.deadlines[counted.findIndex((item) => item.date === picked)];
+      // Issuing is filing (third review), never serving.
+      if ((deadline.actor ?? "reader") !== "reader" || deadline.threshold || (kind === "serves" && /\bissued?\b/i.test(deadline.what) && !/\bserv/i.test(deadline.what)) || /\bcourt holds\b/i.test(deadline.what))
+        timedWrong.push(`${stage.id}: ${kind} timed by ${deadline.id}`);
+    }
+  }
+  check("on every Small Claims step the timed deadline, if any, is a serve-or-file deadline of the person", timedWrong.length === 0, timedWrong.join("; "));
+  const court90 = steps.find((stage) => stage.id === "plaintiff:defence-filed")!.deadlines.map((deadline) => ({ id: deadline.id, date: "2026-10-15" }));
+  check("plaintiff:defence-filed: the court's 90-day target times neither line", personDeadlineOf(court90.filter((item) => /settlement-conference-90/.test(item.id)), "files") === "" && personDeadlineOf(court90.filter((item) => /settlement-conference-90/.test(item.id)), "serves") === "");
+  const issueOnly = steps.find((stage) => stage.id === "defendant:defence-filed")!.deadlines.filter((deadline) => /issue-defendants-claim/.test(deadline.id)).map((deadline) => ({ id: deadline.id, date: "2026-10-15" }));
+  check("defendant:defence-filed: a defendant's claim (filed to be issued) times the filing line, never the mail timing", issueOnly.length > 0 && personDeadlineOf(issueOnly, "files") === "2026-10-15" && personDeadlineOf(issueOnly, "serves") === "");
+  const nowFiles = ["deadline:issue-defendants-claim-20-days", "deadline:issue-defendants-claim-20-days:defence-filed", "deadline:civil:third-party-claim-10-days", "deadline:civil:third-party-claim-10-days:defence-delivered", "deadline:civil:after-lawyer-removed-30-days", "deadline:civil:respond-to-amended-pleading"];
+  check("the defendant's claim, a third party claim, the notice after a lawyer's removal and a response to an amended pleading are filing deadlines, not mail-timed", nowFiles.every((id) => PERSON_SERVE_OR_FILE[id]?.files === true && PERSON_SERVE_OR_FILE[id]?.serves === false && !NOT_TIMED[id]));
+  // Appeals: the guide covers the Divisional Court, not the Court of Appeal.
+  const appealIds = [...DIVISIONAL_COURT_ONLY];
+  check("the r. 61 appeal deadlines are marked Divisional Court only; the r. 61.03.1 and r. 62.01 ones are not", appealIds.length === 6 && appealIds.every((id) => PERSON_SERVE_OR_FILE[id]?.files) && !DIVISIONAL_COURT_ONLY.has("deadline:civil:leave-motion-response-25-days") && !DIVISIONAL_COURT_ONLY.has("deadline:civil:associate-judge-appeal-record-7-days"));
+  const appealItems = [{ id: "deadline:civil:file-notice-of-appeal-10-days", date: "2026-10-16" }];
+  const appealFiling = practicalFor("civil:both:judgment-given", "civil", "Ottawa", false, "", "", { deadline: "2026-10-16", today: "2026-10-14", divisionalOnly: filingDeadlineDivisionalOnly(appealItems) })?.filing ?? [];
+  check(
+    "an appeal deadline too close says 'If your appeal is in the Divisional Court', and keeps the portal line",
+    filingDeadlineDivisionalOnly(appealItems) && appealFiling.includes(FILING.civil.elsewhere) && appealFiling.some((line) => /^If your appeal is in the Divisional Court, your last day/.test(line.say)),
+    appealFiling.map((line) => line.say).join(" | "),
+  );
+  check("a non-appeal civil deadline is not hedged to the Divisional Court", !filingDeadlineDivisionalOnly([{ id: "deadline:civil:defence", date: "2026-10-16" }]));
+
+  // The defendant's claim fee, only if they make one (walkthrough run 38525903567, SD).
+  const sdFees = sd?.fees ?? [];
+  const dc = sdFees.find((fee) => /defendant's claim/i.test(fee.label));
+  check(
+    "SD: the defendant's claim fee is shown, conditional, with para. 3's amount",
+    Boolean(dc) && /^Only if\b/.test(dc!.label) && dc!.cite.pinpoint === "s. 1 (2), para. 3" && dc!.cite.quote.includes(`$${dc!.amount}`),
+    dc ? `${dc.label} $${dc.amount}` : "none",
+  );
+}
+
+console.log("\n9b. The Forms tab never says it could not match forms while it lists forms for the step (walkthrough run 38525903567, SJ)");
+{
+  const unsupported = [{ supported: false, reason: "no-rules-for-stage", stage: "enforcement" }, { supported: false, reason: "no-stage-supplied" }];
+  const contradicts: string[] = [];
+  for (const support of unsupported) {
+    for (const leadCount of [0, 1, 9]) {
+      const note = formsStageNote(support, leadCount);
+      if (!note) contradicts.push(`${support.reason}/${leadCount}: no note`);
+      else if (leadCount > 0 && (/could not match|No form-routing rules|no form-routing rules have been checked/i.test(`${note.note} ${note.help ?? ""}`) || !/for your step/i.test(note.note)))
+        contradicts.push(`${support.reason}/${leadCount}: ${note.note}`);
+      else if (leadCount === 0 && !note.help) contradicts.push(`${support.reason}/0: no help line`);
+      if (note && /no forms? appl(?:y|ies) to you(?!\s*[—-])/i.test(note.note.replace(/not a finding that no forms apply to you/, ""))) contradicts.push("says no form applies");
+    }
+  }
+  check("with the step's forms listed, the note points to them and never says it could not match; without, it says so and offers help", contradicts.length === 0, contradicts.join(" | "));
+  check("a stage the rules cover gets no note", formsStageNote({ supported: true }, 0) === null);
+  const workspace = readFileSync(path.join(ROOT, "app", "forms", "FormsWorkspace.tsx"), "utf8");
+  check("the Forms tab takes its note from formsStageNote with the lead forms", /formsStageNote\(stageSupport, leadForms\.length\)/.test(workspace) && !/We could not match forms/.test(workspace));
+}
+
+console.log("\n11. An employer named only vaguely: the garnishee and the examination (walkthrough run 38525903567, SJ)");
+{
+  const sjStory = "I won my small claims case against my old roommate in May. The judge said he owes me 6500 plus costs. It's been months, and he hasn't paid anything. He works at a car dealership in Kanata, I think.";
+  const sj = practicalFor("plaintiff:judgment-in-my-favour-unpaid", "small-claims", "Ottawa", false, sjStory);
+  check(
+    "SJ: the card quotes his sentence and sets out naming the garnishee and the examination",
+    sj?.garnishee?.quote === "He works at a car dealership in Kanata, I think." &&
+      sj.garnishee.lines.some((line) => /r\. 20\.08 \(3\)/.test(line.cite.pinpoint) && /name and address of the named garnishee/.test(line.cite.quote)) &&
+      sj.garnishee.lines.some((line) => /r\. 20\.10 \(1\)/.test(line.cite.pinpoint) && /Form 20H/.test(line.say)),
+    JSON.stringify(sj?.garnishee?.quote),
+  );
+  // What the rules provide, never a pick and never a prediction of collecting.
+  const pushy = GARNISHEE_NOT_NAMED.filter((line) => /\b(?:should|best|recommend|will (?:get|collect|recover)|likely|chance|guarantee|collect(?:ed)? the|get paid)\b/i.test(line.say)).map((line) => line.say);
+  check("the garnishee lines neither choose for the person nor predict collecting", pushy.length === 0, pushy.join(" | "));
+  const vague = [
+    "he works at a car dealership in kanata i think",
+    "She works for some company downtown.",
+    "I believe he is employed at a restaurant in Barrie.",
+  ];
+  const named = ["He works at Kanata Toyota on Hazeldean Road.", "my roommate never paid me back", "he is a mechanic"];
+  check("vague workplaces are read as vague", vague.every((story) => vagueEmployerSentence(story) !== null));
+  check("a named employer, or no job at all, is not", named.every((story) => vagueEmployerSentence(story) === null));
+  const notGarnishing = steps.filter((stage) => STEP_PRACTICAL[stage.id]?.serve !== "garnishment").filter((stage) => practicalFor(stage.id, pathwayOf(stage) as PracticalCourt, "Ottawa", false, sjStory)?.garnishee).map((stage) => stage.id);
+  check("only a garnishment step shows them", notGarnishing.length === 0, notGarnishing.join(", "));
+  const nextStepPracticalUi = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
+  check("the card renders them with the person's own words", /data-testid="next-step-garnishee"/.test(nextStepPracticalUi) && /You wrote: “\{view\.garnishee\.quote\}”/.test(nextStepPracticalUi));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

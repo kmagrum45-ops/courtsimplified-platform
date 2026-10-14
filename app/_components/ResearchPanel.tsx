@@ -1,5 +1,6 @@
 import type { ResearchFindingView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import { publicSourceUrl } from "@/src/lib/content-library/publicSourceUrl";
+import { checkedOnShown } from "@/src/lib/content-library/sourceDisplay";
 
 import CanliiCaseInfo from "./CanliiCaseInfo";
 import ExplainProvision from "./ExplainProvision";
@@ -64,7 +65,11 @@ export default function ResearchPanel({ findings: all }: { findings: readonly Re
                   const link = publicSourceUrl(provision.sourceUrl);
                   return (
                     <li key={provision.id} className="text-sm text-[#24463d]">
-                      <p className="text-xs font-semibold text-[#16302b]">{provision.citation || provision.label}</p>
+                      <p className="text-xs font-semibold text-[#16302b]">
+                        {provision.citation || provision.label}
+                        {/* CLAUDE.md s. 2: every passage carries the date its source was checked (walkthrough run 38525903567). */}
+                        <span className="font-normal text-[#4d675f]"> · {checkedOnShown(provision)}</span>
+                      </p>
                       <blockquote className="mt-1 border-l-2 border-[#2f7d67] pl-3">“{tidyExcerpt(provision.quote)}”</blockquote>
                       {provision.kind === "decision" ? (
                         <p className="mt-1 text-xs text-[#4d675f]">

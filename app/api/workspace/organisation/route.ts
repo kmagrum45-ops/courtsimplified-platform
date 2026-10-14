@@ -184,7 +184,10 @@ export async function GET(req: NextRequest) {
 
     if (!isUuid(caseId)) return refuse(400, "A valid case id is required.");
 
-    const ownedCase = await getAuthenticatedOwnedCase(req, user, caseId);
+    // Only the timeline view reads master_result; the others (the documents
+    // count every case page asks for on opening) check ownership only, and
+    // do not read the whole record (2026-10-14, GET 57014 in run 38525903567).
+    const ownedCase = await getAuthenticatedOwnedCase(req, user, caseId, view === "timeline" ? {} : { masterKeys: [] });
     if (!ownedCase) return refuse(404, "Case not found.");
 
     const supabase = getSupabaseAdmin();

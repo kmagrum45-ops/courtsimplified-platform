@@ -50,11 +50,41 @@ export async function getAuthenticatedUser(
   }
 }
 
-/** Loads a selected case only when it belongs to the bearer-authenticated user. */
+/**
+ * The columns to read: the whole master_result, or (masterKeys) only those
+ * top-level keys of it, each by a PostgREST JSON path. Exported for
+ * test:case-write-queue.
+ */
+export function ownedCaseColumns(masterKeys?: readonly string[]): string {
+  if (!masterKeys) return "id,court_path,master_result";
+  for (const key of masterKeys) if (!/^[A-Za-z][A-Za-z0-9]*$/.test(key)) throw new Error(`Not a master_result key: ${key}`);
+  return ["id", "court_path", ...masterKeys.map((key) => `mr_${key}:master_result->${key}`)].join(",");
+}
+
+/** Builds master_result back from the keys read by JSON path (absent and null keys left out). */
+export function masterFromPaths(row: Record<string, unknown>, masterKeys: readonly string[]): Record<string, unknown> {
+  const master: Record<string, unknown> = {};
+  for (const key of masterKeys) {
+    const value = row[`mr_${key}`];
+    if (value !== null && value !== undefined) master[key] = value;
+  }
+  return master;
+}
+
+/**
+ * Loads a selected case only when it belongs to the bearer-authenticated user.
+ *
+ * `masterKeys` (2026-10-14, run 38525903567: GET /rest/v1/cases 500 57014
+ * while a case opened): a route that needs only a few parts of master_result
+ * names them, and only those are read, instead of the whole record (the
+ * analysis, the intake, the reading and their copies) on every request. Left
+ * out, the whole record is read as before.
+ */
 export async function getAuthenticatedOwnedCase(
   request: Request,
   user: User,
   caseId: string,
+  options: { masterKeys?: readonly string[] } = {},
 ): Promise<AuthenticatedOwnedCase | null> {
   const accessToken = readBearerToken(request);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -71,15 +101,16 @@ export async function getAuthenticatedOwnedCase(
     });
     const { data, error } = await supabase
       .from("cases")
-      .select("id,court_path,master_result")
+      .select(ownedCaseColumns(options.masterKeys))
       .eq("id", caseId)
       .eq("user_id", user.id)
       .maybeSingle();
-    return !error && data?.id === caseId
+    const row = (data ?? null) as unknown as Record<string, unknown> | null;
+    return !error && row?.id === caseId
       ? {
-          id: data.id,
-          court_path: data.court_path || null,
-          master_result: data.master_result || {},
+          id: row.id as string,
+          court_path: (row.court_path as string | null) || null,
+          master_result: options.masterKeys ? masterFromPaths(row, options.masterKeys) : row.master_result || {},
         }
       : null;
   } catch {

@@ -210,7 +210,8 @@ export async function POST(request: Request) {
   const user = await getAuthenticatedUser(request);
   if (!user) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
 
-  const ownedCase = await getAuthenticatedOwnedCase(request, user, caseId);
+  // Ownership and the court only: no part of master_result is used here.
+  const ownedCase = await getAuthenticatedOwnedCase(request, user, caseId, { masterKeys: [] });
   if (!ownedCase) {
     return NextResponse.json({ error: "The selected case could not be found." }, { status: 404 });
   }
@@ -324,7 +325,10 @@ export async function GET(request: Request) {
   const user = await getAuthenticatedUser(request);
   if (!user) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
 
-  const ownedCase = await getAuthenticatedOwnedCase(request, user, caseId);
+  // Only the two parts of master_result read below, not the whole record: this
+  // runs every time a case page opens (2026-10-14, GET 57014 in run
+  // 38525903567).
+  const ownedCase = await getAuthenticatedOwnedCase(request, user, caseId, { masterKeys: ["intakeFacts", "derivedFrom"] });
   if (!ownedCase) {
     return NextResponse.json({ error: "The selected case could not be found." }, { status: 404 });
   }

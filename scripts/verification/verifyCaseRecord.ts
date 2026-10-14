@@ -315,7 +315,7 @@ check(
   "the overview shows the stage the person confirmed",
   /confirmedStage=\{/.test(read("app/cases/[id]/page.tsx")) && /confirmedStage=\{/.test(builder) && /confirmedStage \|\| analysis\.caseStage/.test(read("app/builder/_components/IntelligenceOverviewPanel.tsx")),
 );
-check("family answers given after the save are saved, only over what was read", /updateMasterResult\(supabase, \{ caseId: id \}/.test(builder) && /familyStatus: triageState \}/.test(builder));
+check("family answers given after the save are saved, only over what was read", /updateMasterResult\(\s*supabase,\s*\{ caseId: id \}/.test(builder) && /familyStatus: triageState \}/.test(builder));
 check(
   "a timeline step whose date the case holds is filled in",
   /recordedDates=\{recordedDateAnswers\(record\)\}/.test(read("app/cases/[id]/timeline/page.tsx")) &&

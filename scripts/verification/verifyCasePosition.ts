@@ -411,7 +411,7 @@ function personsDatesWin(source: string): boolean {
   check("the position route writes only if nothing else wrote since it read", /write = write\.eq\("updated_at", fresh\.updated_at\)/.test(route) && /attempt < 3/.test(route));
   for (const file of ["app/builder/page.tsx", "app/builder/_components/StageAnswerPanel.tsx", "app/cases/[id]/page.tsx"]) {
     const source = read(file);
-    check(`${file} saves the position one save at a time`, /savePositionQueued\(/.test(source) && !/fetch\("\/api\/cases\/position"/.test(source));
+    check(`${file} saves the position one save at a time`, /savePositionQueued(?:Outcome)?\(/.test(source) && !/fetch\("\/api\/cases\/position"/.test(source));
   }
   check("the builder sends what was decided on the page once the case exists", /sentPositionRef/.test(read("app/builder/page.tsx")));
 }
@@ -858,12 +858,18 @@ void (async () => {
             const chain = {
               eq: () => chain,
               maybeSingle: async () => {
-                const delay = /master_result/.test(columns) ? hooks.readDelayMs : 0;
+                // As PostgREST answers: the whole record for "master_result,...",
+                // and only the named JSON path for "alias:master_result->key".
+                const whole = /^master_result\b/.test(columns);
+                const delay = whole ? hooks.readDelayMs : 0;
                 if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
+                const paths = Object.fromEntries(
+                  [...columns.matchAll(/(\w+):master_result->(\w+)/g)].map(([, alias, key]) => [alias, JSON.parse(JSON.stringify(row.master_result[key] ?? null))]),
+                );
                 return {
-                  data: /master_result/.test(columns)
+                  data: whole
                     ? { master_result: JSON.parse(JSON.stringify(row.master_result)), updated_at: row.updated_at }
-                    : { court_path: row.court_path },
+                    : { court_path: row.court_path, ...paths },
                   error: null,
                 };
               },

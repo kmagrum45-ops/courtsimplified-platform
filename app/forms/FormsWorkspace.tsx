@@ -31,10 +31,11 @@ import {
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
 import GetHelp from "../_components/GetHelp";
+import { caseRouteWrite } from "../builder/_components/positionSave";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
-import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
+import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -686,6 +687,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   // Each leading form's own label: the step's forms "For your step", the claim
   // form after a notice "After the notice" (legal review 2026-10-14).
   const leadLabels = useMemo(() => new Map(leadForms.map((lead) => [formKey(lead.number), lead.label])), [leadForms]);
+  // What the page says about matching forms, from what it has (walkthrough run 38525903567, SJ).
+  const stageNote = formsStageNote(stageSupport, leadForms.length);
 
   const stats = useMemo(() => {
     return {
@@ -746,13 +749,15 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       return;
     }
     const patch = onlyPatch ?? applicabilityPatch();
-    const response = await fetch("/api/cases/form-applicability", {
+    // The route rewrites the case's row: sent from inside the case's one write
+    // queue (positionSave.ts, 2026-10-14), never beside another save of it.
+    const response = await caseRouteWrite(caseId, "/api/cases/form-applicability", {
       method: "PATCH",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
       body: JSON.stringify({ caseId, formApplicability: patch }),
     });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) {
+    const result = response ? await response.json().catch(() => ({})) : {};
+    if (!response?.ok) {
       setApplicabilityError(result.error || "Could not save form confirmations.");
       setApplicabilitySaving(false);
       return;
@@ -939,16 +944,13 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                 have no mapping rows, and two of those gaps have no rule behind
                 them to source one from.
               */}
-              {stageSupport && !stageSupport.supported ? (
-                <p className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-[13px] text-amber-950">
-                  {stageSupport.reason === "no-stage-supplied"
-                    ? "No stage is recorded for this case yet, so no form-routing rules have been checked. Recording where the case is up to in Intake will let this list be checked."
-                    : `No form-routing rules cover the "${stageSupport.stage}" stage yet. That is a gap in our routing data, not a finding that no forms apply to you — the full official catalogue below is still available to browse.`}
+              {/* One note, from what the page has: the step's own forms when they are recorded (walkthrough run 38525903567, SJ). */}
+              {stageNote ? (
+                <p data-testid="forms-stage-note" className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-[13px] text-amber-950">
+                  {stageNote.note}
                 </p>
               ) : null}
-              {stageSupport && !stageSupport.supported ? (
-                <GetHelp compact heading="Want a person to help pick the right form?" why="We could not match forms to where your case is, so these services can help you choose." />
-              ) : null}
+              {stageNote?.help ? <GetHelp compact heading="Want a person to help pick the right form?" why={stageNote.help} /> : null}
             </div>
           </div>
         </section>

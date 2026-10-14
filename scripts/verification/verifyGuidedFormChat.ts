@@ -26,7 +26,7 @@ import { acknowledgement, answerNeedsMore, cutAtWord, isAnswered, pendingFields,
 import { civilGuidedFields, familyGuidedFields, withServedDate } from "../../app/builder/_components/guidedFields";
 import { storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { amountFromStory, childrenFromStory, civilRoleFromStory, familyRoleFromStory, goalFromStory } from "../../app/builder/_components/storyAnswers";
-import { cardLabel, confirmedDrafts, dayOf, sameDayAs } from "../../app/builder/_components/proposalCard";
+import { CARD_LABELS, RESPONDING_CARD_LABELS, cardLabel, confirmedDrafts, dayOf, respondingFromAnswers, sameDayAs } from "../../app/builder/_components/proposalCard";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");
@@ -125,6 +125,24 @@ console.log("\n7. Small Claims 'Here's what I understood' states answers once (2
 {
   check("the side is stated, not asked", cardLabel("sc-orient-role", "Are you the person or business bringing this claim, or the one responding to a claim?") === "Your side");
   check("an unlisted question keeps its own words", cardLabel("sc-x", "Some question?") === "Some question?");
+  // Walkthrough run 38525903567 (SD): "The date the claim was served: September 28"
+  // was the day the claim REACHED a defendant who got it in the mail; mailed
+  // service counts later (r. 8.07 (2)). To the side responding, no service-date
+  // label may call that day the day of service.
+  check(
+    "a defendant's claim-served date is labelled as the day it reached them, never 'was served'",
+    cardLabel("sc-date-claim-served", "q", { responding: true }) === "The day the claim reached you" &&
+      Object.keys(RESPONDING_CARD_LABELS).every((id) => !/\bwas served\b/i.test(cardLabel(id, "q", { responding: true }))),
+  );
+  check("the plaintiff's label is unchanged", cardLabel("sc-date-claim-served", "q") === CARD_LABELS["sc-date-claim-served"]);
+  check(
+    "the side is read from the recorded role or the side answer (confirmed or on the card, not unticked)",
+    respondingFromAnswers([], { role: "defendant" }) &&
+      respondingFromAnswers([{ questionId: "sc-orient-role", answer: "Responding to a claim (defendant)", keep: true }]) &&
+      respondingFromAnswers([{ questionId: "sc-orient-role", answerText: "Responding to a claim (defendant)" }]) &&
+      !respondingFromAnswers([{ questionId: "sc-orient-role", answer: "Responding to a claim (defendant)", keep: false }]) &&
+      !respondingFromAnswers([{ questionId: "sc-orient-role", answer: "Bringing the claim (plaintiff)", keep: true }], { role: "plaintiff" }),
+  );
   check("'January 13, 2025, at 2 pm' is that day", dayOf("January 13, 2025, at 2 pm") === "2025-01-13");
   check("'Sept 3rd 2026' is that day", dayOf("Sept 3rd 2026") === "2026-09-03");
   check("a month and year alone is not a day", dayOf("July 2026") === null);
@@ -145,7 +163,7 @@ console.log("\n7. Small Claims 'Here's what I understood' states answers once (2
   const untouched = confirmedDrafts(drafts, shown, originals);
   check("left alone, each question keeps its own answer", untouched[2].answer === "January 13, 2025" && untouched[2].keep);
   const intake = read("app/builder/_components/GuidedSmallClaimsIntake.tsx");
-  check("the card shows statement labels", /cardLabel\(draft\.questionId, draft\.questionText\)/.test(intake));
+  check("the card shows statement labels, for the person's side", /cardLabel\(draft\.questionId, draft\.questionText, \{ responding: respondingFromAnswers\(/.test(intake) && /confirmedSummary\(shownRows\(drafts\), "my story", respondingFromAnswers\(/.test(intake));
   check("the card hides a row shown with another, and says so", /sameDayAs\(proposalDrafts\)\[index\] >= 0 \? null/.test(intake) && /Also kept as/.test(intake));
   check("both confirm buttons resolve shown-together rows first", (intake.match(/const drafts = resolvedDrafts\(proposalDrafts\)/g) ?? []).length === 2);
 }
