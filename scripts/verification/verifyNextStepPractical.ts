@@ -67,7 +67,6 @@ import {
   notABarExceptions,
   respondingStep,
   familyCourtOfficesIn,
-  FAMILY_COURT_BRANCH_FEE,
   keptForNotices,
   noticeFit,
   claimAfterNotice,
@@ -470,16 +469,18 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   check("the Toronto notice's passed-date exceptions are s. 42 (7) and (8)", excuses.join() === "s. 42 (7),s. 42 (8)", excuses.join());
   check("every 'is not a bar' line picked is one", notABarExceptions(ALL_STAGES.flatMap((stage) => stage.deadlines.flatMap((deadline) => deadline.exceptions))).every((rule) => /is not a bar/.test(rule.quote)));
 
-  // F3, review 2026-10-13: O. Reg. 417/95 (Family Court branch fees) is not
-  // saved, so every family fee note says that court's fee is set there and to ask.
+  // F3: every family step with a first-instance fee note also says what the
+  // Family Court branch charges, from O. Reg. 417/95 itself (saved 2026-10-14;
+  // before that the note only said to ask the office).
   const branchSilent = steps
     .filter((stage) => pathwayOf(stage) === "family")
     .filter((stage) => {
       const view = practicalFor(stage.id, "family");
-      return view && view.feeNotes.length > 0 && !view.feeNotes.includes(FAMILY_APPEAL_FEE_NOTE) && !view.feeNotes.includes(FAMILY_COURT_BRANCH_FEE);
+      return view && view.feeNotes.length > 0 && !view.feeNotes.includes(FAMILY_APPEAL_FEE_NOTE) && !view.feeNotes.some((line) => line.cite.sourceId === "oreg-417-95-family-court-fees");
     });
-  check("every family step with a first-instance fee note also says the Family Court branch's fee is set by O. Reg. 417/95", branchSilent.length === 0 && FAMILY_FEE_NOTES.includes(FAMILY_COURT_BRANCH_FEE) && FAMILY_NO_STEP_FEE.includes(FAMILY_COURT_BRANCH_FEE), branchSilent.map((stage) => stage.id).join(", "));
-  const unscoped = [...FAMILY_FEE_NOTES, ...FAMILY_NO_STEP_FEE].filter((line) => line !== FAMILY_COURT_BRANCH_FEE && !/Superior Court of Justice|Ontario Court of Justice|federal/.test(line.say));
+  check("every family step with a first-instance fee note also gives the Family Court branch's fees from O. Reg. 417/95", branchSilent.length === 0, branchSilent.map((stage) => stage.id).join(", "));
+  check("no family fee note still says to ask the office for want of the regulation", ![...FAMILY_FEE_NOTES, ...FAMILY_NO_STEP_FEE].some((line) => /not saved|ask that court office/i.test(line.say)));
+  const unscoped = [...FAMILY_FEE_NOTES, ...FAMILY_NO_STEP_FEE].filter((line) => !/Superior Court of Justice|Ontario Court of Justice|Family Court branch|federal/.test(line.say));
   check("each family fee line names the court it speaks for", unscoped.length === 0, unscoped.map((line) => line.say).join(" | "));
 
   // Walkthrough run 38500825561, SW: a notice step names the court case that
