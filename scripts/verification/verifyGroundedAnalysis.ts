@@ -35,6 +35,7 @@ import {
   buildSourcePack,
   hasLegalContent,
   libraryTypeById,
+  periodNotInSource,
   verifyGroundedCognition,
 } from "../../src/lib/case-system/intelligence/groundedCognition";
 import { civilLibraryIdsForIssues } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
@@ -149,6 +150,12 @@ check("gate: a real citation with words the source does not say is removed", !ou
 check("gate: a correctly grounded risk is kept", out.includes('"title":"Grounded"'));
 check("gate: the kept risk carries its official link", (cognition.litigationRisks as { sourceUrl?: string }[])[0]?.sourceUrl === good.sourceUrl);
 check("gate: a form with no source is removed", (cognition.formRecommendations as unknown[]).length === 0);
+check(
+  "gate: a statement keeps no period its own source does not state (20 days is not 30)",
+  periodNotInSource("You have 30 days to respond.", "within 20 days of being served") === "30-day" &&
+    periodNotInSource("You have twenty days.", "within 20 days of being served") === null &&
+    periodNotInSource("Two years after the claim was discovered.", "the second anniversary of the day on which the claim was discovered") === "2-year",
+);
 check("gate: forms come from the stage map, so even a form with a verified quote is removed (CLAUDE.md s. 2a)", !out.includes("Grounded form"));
 check("gate: a legal next step with no source is removed", !out.includes("File your Defence within 20 days"));
 check("gate: a practical next step with no law in it is kept", out.includes("Gather the invoice and your texts"));
