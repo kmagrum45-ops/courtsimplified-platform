@@ -30,7 +30,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { HELD_BACK_PERSONAS } from "./walkthrough/heldBackPersonas";
-import { PERSONAS, type Persona } from "./walkthrough/personas";
+import { PERSONAS, PROBE_PERSONAS, type Persona } from "./walkthrough/personas";
 
 const OUT = path.resolve(process.cwd(), "walkthrough-output");
 
@@ -461,7 +461,14 @@ test.describe("page walkthrough", () => {
 
   // WALKTHROUGH_SET=held-back plays the ten held-back finish-line cases
   // (walkthrough/heldBackPersonas.ts) instead of the twenty tuning cases.
-  const set = process.env.WALKTHROUGH_SET === "held-back" ? HELD_BACK_PERSONAS : PERSONAS;
+  // WALKTHROUGH_SET=probe plays the one-off probe cases (PROBE_PERSONAS), which
+  // are not finish-line cases.
+  const set =
+    process.env.WALKTHROUGH_SET === "held-back"
+      ? HELD_BACK_PERSONAS
+      : process.env.WALKTHROUGH_SET === "probe"
+        ? PROBE_PERSONAS
+        : PERSONAS;
   for (const persona of shardOf(set)) {
     test(persona.id, async ({ page }) => {
       test.setTimeout(persona.mode === "guided" ? 1_200_000 : 600_000);

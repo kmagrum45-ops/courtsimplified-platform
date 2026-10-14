@@ -487,3 +487,74 @@ export const PERSONAS: Persona[] = [
     ],
   },
 ];
+
+/**
+ * Probe cases (2026-10-13, site owner): a homeowner whose interlock contractor
+ * left the job unfinished and badly done, then registered a construction lien
+ * after being told not to come back. Played through both doors a person could
+ * take (the guided Small Claims chat and the civil form) to see how the site
+ * handles a lien. Not part of the 20 finish-line cases; run them by id.
+ */
+export const PROBE_PERSONAS: Persona[] = [
+  {
+    id: "probe-lien-interlock-guided",
+    path: "small-claims",
+    mode: "guided",
+    summary: "A homeowner whose interlock contractor did bad, unfinished work, charged for extras, and registered a lien on the house after being told not to come back.",
+    city: "Ottawa",
+    story:
+      "i hired a contractor to do interlock for my driveway and backyard. he didnt finish the job and most of what he did " +
+      "was done bad, the base is bad and the slopes are wrong on all of the interlock so water goes toward the house. he " +
+      "also did extras i never agreed to in writing and charged me for them. i didnt pay the amount he wanted because i " +
+      "wanted the job finished properly first. when i told him i didnt want him doing any more work he put a lien on my house",
+    backstory:
+      "You live in Ottawa and own your house with your spouse. In June 2026 you hired a landscaping contractor (Marc Dubé, " +
+      "operating as Dubé Interlock Inc.) to do an interlock driveway and backyard patio for $24,000 under a written quote " +
+      "you signed. You paid a $10,000 deposit. He worked through July and early August. He also widened the driveway and " +
+      "added a step at the back door; he mentioned it verbally but there was no written change order or price, and he then " +
+      "invoiced $4,800 for those extras. The base was not compacted properly, pavers are sinking, and the slopes run toward " +
+      "the house. The walkway and the patio border were never finished. You withheld payment and asked him to fix it. On " +
+      "August 22, 2026 you told him by text you did not want him doing any more work. On September 9, 2026 he registered a " +
+      "claim for lien on your property for $18,800; you found out from a letter from the land registry/your mortgage lender. " +
+      "You do not know whether he has started a court action. Another contractor gave you a written estimate of $14,500 to " +
+      "rip out and redo the base and finish the work. You have the signed quote, the deposit receipt, his invoices, texts, " +
+      "photos and the repair estimate. You want the lien off your house and the cost of fixing his work. You have not filed anything.",
+    role: "Plaintiff / claimant",
+    stage: "starting-case",
+    confirmStage: "starting-case",
+    expect: [
+      "The user is the HOMEOWNER. The contractor registered a construction lien on the house on September 9, 2026 after being told on August 22, 2026 not to do more work. The homeowner also wants the cost of fixing and finishing the work.",
+      "The lien must be recognised as its own matter: a lien claim is enforced in the Superior Court of Justice, with short time limits for the contractor to preserve and then perfect it; those limits should be pointed out, with dates worked out where the rules allow, and how a lien can be removed from title (for example, by paying money or security into court, or a motion to discharge).",
+      "The homeowner's own money claim for the deficient and unfinished work is a separate matter and should be presented as an option with its court and form.",
+      "Questions should not re-ask what the story already said (contractor, interlock, unfinished, extras, lien).",
+      "The site must not say whether the lien is valid, whether he owes the extras, or who will win.",
+    ],
+  },
+  {
+    id: "probe-lien-interlock-civil",
+    path: "civil",
+    summary: "The same homeowner and lien, entering through the civil (Superior Court) form.",
+    city: "Ottawa",
+    story:
+      "i hired a contractor to do interlock for my driveway and backyard. he didnt finish the job and most of what he did " +
+      "was done bad, the base is bad and the slopes are wrong on all of the interlock. he also did extras i never agreed to " +
+      "in writing and charged me for them. i didnt pay the amount he wanted because i wanted the job finished properly first. " +
+      "when i told him on august 22 i didnt want him doing any more work he put a lien on my house on september 9 for 18800",
+    role: "not-sure",
+    stage: "not-sure",
+    issues: ["Property / land / possession issue", "Contract / agreement dispute"],
+    documents: ["Nothing filed yet"],
+    fields: {
+      "Amount claimed or disputed": "$18,800 lien; $14,500 to fix the work",
+      Timeline: "june 2026 hired, august 22 2026 told him to stop, september 9 2026 lien registered",
+      "Evidence you have": "signed quote, deposit receipt, his invoices, texts, photos, repair estimate",
+    },
+    confirmStage: "starting-case",
+    expect: [
+      "The user is the HOMEOWNER whose house has a construction lien registered on September 9, 2026; he told the contractor to stop on August 22, 2026. Nothing has been filed by either side as far as he knows.",
+      "The lien must be recognised: it is enforced in the Superior Court of Justice; the contractor's time limits to preserve and perfect the lien, and the ways an owner can get a lien off title (paying money or security into court, a motion to discharge or declare it expired), should be pointed out with dates where the rules allow.",
+      "His own claim for the cost of fixing and finishing the work should be presented as an option with its court and form, not a recommendation.",
+      "The site must not say whether the lien is valid or who will win.",
+    ],
+  },
+];

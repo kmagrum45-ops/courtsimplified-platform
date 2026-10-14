@@ -19,7 +19,7 @@ on:
         required: false
         default: ""
       set:
-        description: "tuning (the 20 cases) or held-back (the 10 finish-line cases in heldBackPersonas.ts, run only to measure)"
+        description: "tuning (the 20 cases), held-back (the 10 finish-line cases in heldBackPersonas.ts, run only to measure) or probe (one-off PROBE_PERSONAS; published to walkthrough-reports-probe so the finish-line report is untouched)"
         required: false
         default: "tuning"
       case_reader:
@@ -256,8 +256,10 @@ jobs:
           git config user.email "walkthrough-bot@users.noreply.github.com"
           git add -A
           git commit -q -m "Page walkthrough for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
-          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/walkthrough-reports
-          echo "Published to walkthrough-reports." >> "$GITHUB_STEP_SUMMARY"
+          branch=walkthrough-reports
+          [ "${{ inputs.set }}" = "probe" ] && branch=walkthrough-reports-probe
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${branch}"
+          echo "Published to ${branch}." >> "$GITHUB_STEP_SUMMARY"
           [ -f COST.md ] && cat COST.md >> "$GITHUB_STEP_SUMMARY" || true
           [ -f FINISH_LINE.md ] && sed -n '1,30p' FINISH_LINE.md >> "$GITHUB_STEP_SUMMARY" || true
           [ -f REPORT.md ] && head -30 REPORT.md >> "$GITHUB_STEP_SUMMARY" || true
