@@ -47,6 +47,10 @@
  *   - (walkthrough 2026-10-14) the Timeline, Deadlines view or Case file
  *     saying something different from the card about a counted date: no
  *     passed warning, or "the last day" for a closed counted day.
+ *   - (final re-check 2026-10-14) a limit the other party must meet after
+ *     being served, read to the person responding on an either-side step as
+ *     "The other party's time" instead of their own ("Your time ... (Form
+ *     15B) ... (Form 15C)").
  *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
@@ -638,6 +642,36 @@ async function main() {
     // with no warning. Property: for any counted day and any today, the
     // timeline item says what the card says, and is passed exactly when the
     // card's test says so.
+    // Final re-check 2026-10-14: a respondent to a motion to change saw "The
+    // other party's time to serve and file a response" for their own
+    // deadline. Property: on every either-side step, a limit the OTHER party
+    // must meet after being served has a responding wording, and the card
+    // shows it to the person responding; the mover's view is unchanged.
+    {
+      const { RESPONDING_VIEW } = await import("../../src/lib/content-library/nextStepPractical");
+      const { sideSummary } = await import("../../app/builder/_components/StageAnswerPanel");
+      const missing = ALL_STAGES.filter((stage) => /:both:/.test(stage.id))
+        .flatMap((stage) => stage.deadlines)
+        .filter((deadline) => deadline.actor === "other-party" && /^served-with/.test(deadline.countFromEvent) && !RESPONDING_VIEW[deadline.id])
+        .map((deadline) => deadline.id);
+      check("every other-party limit counted from being served, on an either-side step, has the responding wording", missing.length === 0, missing.join(", "));
+      const asked = await ask("family:both:asking-to-change-final-order", "family");
+      const all = [...(asked.nextStep?.deadlines ?? []), ...(asked.nextStep?.periods ?? [])] as { id?: string; what: string }[];
+      const responder = sideSummary({ deadlines: asked.nextStep?.deadlines ?? [], periods: asked.nextStep?.periods ?? [] } as never, true) as { deadlines: { what: string }[]; periods: { what: string }[] };
+      const mover = sideSummary({ deadlines: asked.nextStep?.deadlines ?? [], periods: asked.nextStep?.periods ?? [] } as never, false) as { deadlines: { what: string }[]; periods: { what: string }[] };
+      const responderWhats = [...responder.deadlines, ...responder.periods].map((item) => item.what);
+      check(
+        "the respondent reads 'Your time to serve and file a response (Form 15B) or return a signed consent (Form 15C)', never 'The other party's time'",
+        all.some((item) => item.id === "deadline:family:motion-to-change-response:moving-party-view") &&
+          responderWhats.includes("Your time to serve and file a response (Form 15B) or return a signed consent (Form 15C)") &&
+          !responderWhats.some((what) => /^The other party's time to serve and file a response/.test(what)),
+        responderWhats.join(" | "),
+      );
+      check("the mover's view is unchanged", JSON.stringify([...mover.deadlines, ...mover.periods].map((item) => item.what)) === JSON.stringify(all.map((item) => item.what)));
+      check("the card reads its limits through sideSummary", /const summary = sideSummary\(summaryAsGiven, responding\)/.test(panel));
+      const rules = readFileSync(path.resolve(__dirname, "../../docs/sources/corpus/family-law-rules.txt"), "utf8").replace(/\s+/g, " ");
+      check("r. 15 (6) names the blank response (Form 15B) and consent (Form 15C)", rules.includes("The party making the motion shall serve on the other party a blank response to motion to change (Form 15B) and a blank consent motion to change (Form 15C)"));
+    }
     const { buildTimeline } = await import("../../src/lib/case-workspace/timeline");
     const { timelineStandingFor, PASSED_BAR_WARNING } = await import("../../src/lib/content-library/nextStepPractical");
     const { sourceName } = await import("../../src/lib/case-system/stage-map/citations");

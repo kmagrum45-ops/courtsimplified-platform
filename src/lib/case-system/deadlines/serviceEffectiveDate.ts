@@ -38,6 +38,7 @@ export type ServiceMethod =
   | "registered-mail-signature"
   | "acknowledgment-card"
   | "corporation-mail"
+  | "corporation-courier"
   | "courier"
   | "courier-same-day"
   | "courier-next-day"
@@ -86,8 +87,18 @@ export const SERVICE_RULES: Record<ServiceCourt, ServiceRule[]> = {
     {
       // r. 8.03 (3): a company not found at its address on record (legal review 2026-10-14).
       method: "corporation-mail",
-      label: "Mailed or couriered to the company at its address on record, and to its directors",
+      label: "Mailed to the company at its address on record, and to its directors",
       dateToEnter: "the day it was mailed",
+      rule: `${SC}, r. 8.03 (3), (4)`,
+      quote:
+        "service may be made on the corporation, (a) by mailing or sending by courier a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address; and (b) by mailing or sending by courier a copy of the document to each director of the corporation ... Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered.",
+      addDays: 5,
+    },
+    {
+      // The same route by courier: r. 8.03 (4) counts from the courier's confirmed delivery (final re-check 2026-10-14).
+      method: "corporation-courier",
+      label: "Couriered to the company at its address on record, and to its directors",
+      dateToEnter: "the day the courier confirmed it was delivered",
       rule: `${SC}, r. 8.03 (3), (4)`,
       quote:
         "service may be made on the corporation, (a) by mailing or sending by courier a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address; and (b) by mailing or sending by courier a copy of the document to each director of the corporation ... Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered.",
@@ -312,7 +323,7 @@ export function isOriginatingService(court: ServiceCourt, questionId: string): b
 
 /** The ways the rules allow a claim or application to be served, among SERVICE_RULES. */
 export const ORIGINATING_METHODS: Record<ServiceCourt, readonly ServiceMethod[]> = {
-  "small-claims": ["personal", "registered-mail-signature", "residence-and-mail", "corporation-mail"],
+  "small-claims": ["personal", "registered-mail-signature", "residence-and-mail", "corporation-mail", "corporation-courier"],
   civil: ["personal", "acknowledgment-card", "residence-and-mail", "corporation-mail"],
   family: ["personal", "personal-after-4pm", "residence-and-mail"],
 };
@@ -360,6 +371,9 @@ export const FAMILY_POSTCARD_WAY = {
   quote: "mailing a copy to the person, together with an acknowledgment of service in the form of a prepaid return postcard (Form 6)",
 };
 
+/** The company route for a claim (r. 8.03 (3), 16.03 (6)): offered only for a claim. Its day comes from mailing, which can be before the papers arrive. */
+export const COMPANY_ROUTE: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["corporation-mail", "corporation-courier"]);
+
 /** The ways the rules allow for a claim or application that come by post, each with its effective day and rule. */
 export function postWaysForClaim(court: ServiceCourt): { label: string; effective: string | null; rule: string; quote: string }[] {
   const ways = ORIGINATING_METHODS[court]
@@ -379,7 +393,7 @@ export function serviceRulesFor(court: ServiceCourt, questionId = ""): ServiceRu
     return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method));
   }
   // The company route is only for a claim (r. 8.03 (3), 16.03 (6)).
-  return SERVICE_RULES[court].filter((rule) => rule.method !== "corporation-mail");
+  return SERVICE_RULES[court].filter((rule) => !COMPANY_ROUTE.has(rule.method));
 }
 
 /**

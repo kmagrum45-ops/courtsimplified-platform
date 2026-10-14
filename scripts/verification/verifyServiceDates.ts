@@ -21,6 +21,9 @@
  * of r. 15 (7); a date counted from the mailed copy's arrival called "safest",
  * or without the first-copy rule; the company route (r. 8.03 (3), 16.03 (6))
  * missing; a respondent on an either-side step given no arrival note.
+ * (final re-check 2026-10-14) "first saw" read as the first copy; a company
+ * defendant told "safest" or "your home"; the Small Claims company route by
+ * courier counted from the mailing day.
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -43,6 +46,7 @@ import {
   ORIGINATING_QUESTIONS,
   ORIGINATING_RULE,
   originatingRuleFor,
+  COMPANY_ROUTE,
   postWaysForClaim,
   serviceRulesFor,
   SERVICE_RULES,
@@ -225,7 +229,16 @@ console.log("\nA claim or application is not served by regular mail (legal revie
   }
   check("Small Claims: signed for (r. 8.03 (8)), left at home with a copy mailed (r. 8.03 (4)), and the company route (r. 8.03 (3), (4))", ["r. 8.03 (8)", "r. 8.03 (4)", "r. 8.03 (3), (4)"].every((pin) => postWaysForClaim("small-claims").some((way) => way.rule.endsWith(pin))));
   check("civil: the company route (r. 16.03 (6), mail effective under r. 16.06 (2)) is among them", postWaysForClaim("civil").some((way) => /r\. 16\.03 \(6\)/.test(way.rule) && /fifth day after/.test(way.effective ?? "")));
-  check("the company route is offered only for a claim", (Object.keys(SERVICE_RULES) as ServiceCourt[]).every((court) => !serviceRulesFor(court).some((item) => item.method === "corporation-mail") && !serviceRulesFor(court, "case-date-defence-served").some((item) => item.method === "corporation-mail")));
+  check("the company route is offered only for a claim", (Object.keys(SERVICE_RULES) as ServiceCourt[]).every((court) => !serviceRulesFor(court).some((item) => COMPANY_ROUTE.has(item.method)) && !serviceRulesFor(court, "case-date-defence-served").some((item) => COMPANY_ROUTE.has(item.method))));
+  // Final re-check 2026-10-14: r. 8.03 (4) counts the mailed route from mailing and the couriered route from the courier's confirmed delivery.
+  {
+    const byMail = SERVICE_RULES["small-claims"].find((rule) => rule.method === "corporation-mail");
+    const byCourier = SERVICE_RULES["small-claims"].find((rule) => rule.method === "corporation-courier");
+    check(
+      "Small Claims company route: by mail from the day it was mailed, by courier from the day the courier confirmed delivery, both r. 8.03 (4)",
+      byMail?.dateToEnter === "the day it was mailed" && byCourier?.dateToEnter === "the day the courier confirmed it was delivered" && [byMail, byCourier].every((rule) => /verified by courier that it was delivered/.test(rule?.quote ?? "") && rule?.addDays === 5) && serviceRulesFor("small-claims", "sc-date-claim-served").some((rule) => rule.method === "corporation-courier"),
+    );
+  }
   check("a saved company-route method is still read back", readCasePosition({ position: { service: { "sc-date-claim-served": { method: "corporation-mail", enteredOn: "2026-09-20" } } } }, "small-claims").service?.["sc-date-claim-served"]?.method === "corporation-mail");
   // A motion to change is not an application (re-check 2026-10-14): r. 15 (7), not r. 8 (5).
   const motionRule = originatingRuleFor("family", "case-date-served-with-motion-to-change");
@@ -264,10 +277,24 @@ console.log("\nA claim or application is not served by regular mail (legal revie
   check("the card says to count from the first copy reaching the home, and from a copy left earlier", /Count from the first day a copy reached your home: signed for there, left with someone there, or arrived in the\s+mail\. If a copy was left at your home earlier than the one you got in the mail, count from the day it was left\./.test(panel) && /affidavit of service\. The court office can also tell you/.test(panel));
   check("'safest' only when the words say first copy; otherwise 'counted from the day you gave'", /arrival\.firstCopy\s*\?\s*"The safest date to act by, counted from the first day a copy reached your home: "\s*:\s*"Counted from the day you gave: "/.test(panel));
   check("'got the claim in the mail' is not the first copy; signed for, left with, or 'first' is", !firstCopyQuote("i got the plaintiffs claim in the mail on september 28") && firstCopyQuote("my wife signed for it on september 28") && firstCopyQuote("they left a copy with my son on september 26") && firstCopyQuote("the first copy came on september 26"));
+  // Final re-check 2026-10-14: only home-arrival words, never "first saw" / "first got".
+  check("'I first saw the claim' and 'first got' are not the first copy reaching the home; 'first came to the house' and 'first arrived' are", !firstCopyQuote("I first saw the claim on october 5") && !firstCopyQuote("i first got the papers on october 5") && firstCopyQuote("it first came to the house on october 2") && firstCopyQuote("the claim first arrived on october 2"));
   {
     const quote = "i got the papers in the mail on september 28";
     const mailed = arrivalNoteFor([{ id: "sc-date-claim-served" }], { "sc-date-claim-served": quote }, {}, "small-claims", {}, "mail", { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote, value: "2026-09-28" } } }, "2026-10-01");
     check("the renovation note is not called the safest date", mailed?.firstCopy === false && (mailed?.safest.length ?? 0) > 0);
+    // A company: service by mail is effective five days after mailing, which can be before the papers arrived.
+    const signed = "the manager signed for it on september 28";
+    const company = arrivalNoteFor([{ id: "sc-date-claim-served" }], { "sc-date-claim-served": signed }, {}, "small-claims", {}, "registered-mail-signature", { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote: signed, value: "2026-09-28" } }, storyText: `a supplier is suing my company for 9000. ${signed}` }, "2026-10-01");
+    const byRoute = arrivalNoteFor([{ id: "sc-date-claim-served" }], { "sc-date-claim-served": signed }, {}, "small-claims", { "sc-date-claim-served": "corporation-mail" }, null, { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote: signed, value: "2026-09-28" } } }, "2026-10-01");
+    check("a company defendant is never told 'safest', even for words about signing for it; nor when the company route is chosen", company?.company === true && company.firstCopy === false && byRoute?.company === true && byRoute.firstCopy === false);
+  }
+  {
+    const source = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+    check(
+      "the company note says 'your address' and that mailed service can take effect before it arrives, with the affidavit of service",
+      source.includes("Count from the first day a copy reached your address: signed for there, left with someone there, or arrived in the mail. If a copy was left at your address earlier than the one you got in the mail, count from the day it was left. If it was mailed to the company, service is effective on the fifth day after mailing, which can be before it arrived. The mailing date is on the affidavit of service.") && /arrival\.company\s*\?/.test(source),
+    );
   }
   check("the card never says whether service was valid", !/\b(?:valid|invalid|improperly served|not properly served)\b/i.test(panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "")));
   check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /serviceRulesFor\(serviceCourt, question\.id\)\.map\(/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));

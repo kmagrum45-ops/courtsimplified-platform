@@ -1818,9 +1818,35 @@ const CORPORATION_NEEDS_LAWYER: PlainLine = {
 
 export function limitNotesFor(court: PracticalCourt, userWords: string): PlainLine[] {
   const words = userWords.toLowerCase();
-  // The company must be the party, not just mentioned ("he took from our
-  // company account" is a person suing).
-  const company =
-    /\b(?:sued|suing|sue) (?:my|our) (?:company|corporation|business)\b|\b(?:my|our) (?:company|corporation) (?:is|was|has been) (?:being )?(?:sued|suing)\b|\bon behalf of (?:my|our) (?:company|corporation)\b|\b(?:my|our) (?:company|corporation) (?:wants|needs) to (?:sue|defend|respond)\b/.test(words);
-  return court === "civil" && company ? [CORPORATION_NEEDS_LAWYER] : [];
+  return court === "civil" && companyIsTheParty(words) ? [CORPORATION_NEEDS_LAWYER] : [];
+}
+
+/**
+ * The person's words make a company (a corporation) the party, not just
+ * mention one ("he took from our company account" is a person suing).
+ */
+export function companyIsTheParty(userWords: string): boolean {
+  const words = userWords.toLowerCase();
+  return /\b(?:sued|suing|sue) (?:my|our) (?:company|corporation|business)\b|\b(?:my|our) (?:company|corporation) (?:is|was|has been) (?:being )?(?:sued|suing)\b|\bon behalf of (?:my|our) (?:company|corporation)\b|\b(?:my|our) (?:company|corporation) (?:wants|needs) to (?:sue|defend|respond)\b/.test(words);
+}
+
+/*
+ * A limit written from the moving party's side, as the responding party
+ * reads it on an either-side step (final re-check 2026-10-14: a respondent
+ * to a motion to change saw "The other party's time to serve and file a
+ * response, or return a signed consent" for their own deadline). Family Law
+ * Rules r. 15 (6) names the blank response (Form 15B) and consent (Form 15C)
+ * served with the motion; r. 15 (9) says which one to use.
+ */
+export const RESPONDING_VIEW: Record<string, { what: string; countFrom: string }> = {
+  "deadline:family:motion-to-change-response:moving-party-view": {
+    what: "Your time to serve and file a response (Form 15B) or return a signed consent (Form 15C)",
+    countFrom: "the day you receive the motion to change and its supporting documents",
+  },
+};
+/** The limit as the person's side reads it: the responding wording for a moving-party limit when they are responding. */
+export function limitForSide<T extends { id?: string; what: string; countFrom?: string }>(item: T, responding: boolean): T {
+  const view = responding && item.id ? RESPONDING_VIEW[item.id] : undefined;
+  if (!view) return item;
+  return { ...item, what: view.what, ...(item.countFrom !== undefined ? { countFrom: view.countFrom } : {}) };
 }

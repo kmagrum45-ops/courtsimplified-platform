@@ -10,6 +10,7 @@ import {
   serviceRulesFor,
   SENT_ON_OR_BEFORE_ARRIVAL,
   ORIGINATING_RULE,
+  COMPANY_ROUTE,
   originatingRuleFor,
   isOriginatingService,
   postWaysForClaim,
@@ -36,6 +37,8 @@ import {
   claimFit,
   deadlineLineFor,
   PASSED_BAR_WARNING,
+  companyIsTheParty,
+  limitForSide,
   keptForNotices,
   limitNotesFor,
   limitPassedState,
@@ -265,11 +268,20 @@ export type ArrivalNote = {
   safest: ArrivalDate[];
   /** "claim": the person's words say that day is the first copy reaching the home (signed for, left there, or first), so it may be called the safest date. */
   firstCopy: boolean;
+  /**
+   * "claim": a company is the party (its words, or the company route was
+   * chosen). Service on it by mail is effective on the fifth day after
+   * mailing, which can be before the papers arrived, so the date is never
+   * called the safest, and the note speaks of "your address".
+   */
+  company: boolean;
 };
 
 /** Words saying the day is when the FIRST copy reached the home: signed for there, left with someone there, or "first". */
 export function firstCopyQuote(quote: string): boolean {
-  return /\bfirst\b|\bsigned for\b|\bleft (?:a copy|it|them|the (?:papers|claim|application))\b/i.test(quote);
+  // Only words about a copy reaching the home (final re-check 2026-10-14):
+  // "I first saw the claim on october 5" or "first got" is not one.
+  return /\bsigned for\b|\bleft (?:a copy|it|them|the (?:papers|claim|application)) with\b|\bfirst (?:copy )?(?:came|arrived)\b/i.test(quote);
 }
 
 /**
@@ -347,7 +359,7 @@ export function passedBars(kept: Pick<NextStepSummary, "deadlines">, today: stri
  * the card only chooses what goes first.
  */
 function NextStepCard({
-  summary,
+  summary: summaryAsGiven,
   answer,
   court,
   userWords,
@@ -376,6 +388,9 @@ function NextStepCard({
   /** The written-notice step the case's claim points to, so a municipal one keeps the line on serving a municipality. */
   noticeStepId?: string;
 }) {
+  // Limits written from the moving party's side read as the person's own when they respond
+  // (final re-check 2026-10-14: "The other party's time ..." for a respondent's own deadline).
+  const summary = sideSummary(summaryAsGiven, responding);
   const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
@@ -526,8 +541,9 @@ function NextStepCard({
                     {arrival.safest.map((entry) => `${entry.what}: ${entry.date}${entry.passed ? ". That date has already passed" : ""}`).join("; ")}
                     {arrival.yearAssumed ? " (counting that day in its most recent year)" : ""}.
                   </span>{" "}
-                  Count from the first day a copy reached your home: signed for there, left with someone there, or arrived in the
-                  mail. If a copy was left at your home earlier than the one you got in the mail, count from the day it was left.
+                  {arrival.company
+                    ? "Count from the first day a copy reached your address: signed for there, left with someone there, or arrived in the mail. If a copy was left at your address earlier than the one you got in the mail, count from the day it was left. If it was mailed to the company, service is effective on the fifth day after mailing, which can be before it arrived. The mailing date is on the affidavit of service."
+                    : "Count from the first day a copy reached your home: signed for there, left with someone there, or arrived in the mail. If a copy was left at your home earlier than the one you got in the mail, count from the day it was left."}
                 </p>
               ) : null}
               <p className="mt-1">
@@ -804,7 +820,16 @@ function savePosition(caseId: string, patch: Record<string, unknown>): Promise<b
  * date; "N days before" ones furthest-before first; "N days after" ones
  * soonest first.
  */
-export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "") {
+/** The card's limits as the person's side reads them (limitForSide). Exported for test:next-step. */
+export function sideSummary<T extends Pick<NextStepSummary, "deadlines" | "periods">>(summary: T, responding: boolean): T {
+  return {
+    ...summary,
+    deadlines: summary.deadlines.map((item) => limitForSide(item, responding)),
+    periods: summary.periods.map((item) => limitForSide(item, responding)),
+  };
+}
+
+export function cardLimits(summary:Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "") {
   const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
   const ownSide = (what: string) =>
     (responding ? /\bresponding\b|\bthe other party\b|\brespondent\b/i : /\bbringing\b|\bmoving party\b|\bapplicant\b|\bmade the motion\b/i).test(what);
@@ -912,7 +937,7 @@ export function arrivalNoteFor(
   methods: Record<string, ServiceMethod | undefined>,
   storyMethod: ServiceMethod | null,
   /** The step and the story's own date for each arrival, so the latest last day can be counted (latestFromArrival). */
-  bound?: { stageId: string; hints: Record<string, StoryHint | undefined>; responding?: boolean },
+  bound?: { stageId: string; hints: Record<string, StoryHint | undefined>; responding?: boolean; storyText?: string },
   today: string = todayIso(),
 ): ArrivalNote | null {
   if (!court) return null;
@@ -924,6 +949,7 @@ export function arrivalNoteFor(
   const dateToEnter = rule?.dateToEnter ?? "the day they were sent";
   const hint = bound?.hints[question.id];
   const arrivedOn = bound && hint?.value ? hint.value : "";
+  const company = claim && (Boolean(method && COMPANY_ROUTE.has(method)) || companyIsTheParty(bound?.storyText ?? ""));
   return {
     quote: arrival[question.id],
     yearAssumed: Boolean(hint?.yearAssumed),
@@ -940,7 +966,8 @@ export function arrivalNoteFor(
     // the home (legal review 2026-10-14: the day the mailed copy arrived can
     // be after service took effect on a copy left or signed for earlier).
     safest: claim && bound && arrivedOn && receivesPapersStep(bound.stageId, bound.responding) ? countedFromService(bound.stageId, question.id, arrivedOn, today) : [],
-    firstCopy: claim && firstCopyQuote(arrival[question.id]),
+    firstCopy: claim && firstCopyQuote(arrival[question.id]) && !company,
+    company,
   };
 }
 
@@ -1480,6 +1507,7 @@ export default function StageAnswerPanel({
             stageId,
             hints: storyHints,
             responding,
+            storyText: storyText ?? "",
           })}
         />
       ) : null}
