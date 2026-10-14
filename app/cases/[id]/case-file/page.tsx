@@ -16,6 +16,7 @@
  */
 
 import { useEffect, useState } from "react";
+import { recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
 import { DecisionAttribution, DecisionCaution } from "@/app/cases/_components/CourtDecisionPanel";
 import { DeadlineStandingNote } from "@/app/cases/_components/CaseWorkspace";
 import type { TimelineStanding } from "@/src/lib/case-workspace/timeline";
@@ -85,7 +86,11 @@ export default function CaseFileSection() {
   // user gave on the Overview (page review, 2026-10-06: the printed file said
   // deadlines were only shown as periods, even after a date was given).
   const [stepDeadline, setStepDeadline] = useState<string | null>(null);
-  const datesGiven = Object.keys(position.dateAnswers ?? {}).length > 0;
+  // Every date the person gave, in the guided questions or on the Overview
+  // (the one case record; walkthrough R5: guided-only dates were ignored here).
+  const givenDates = recordedDateAnswers(record);
+  const givenKey = JSON.stringify(givenDates);
+  const datesGiven = Object.keys(givenDates).length > 0;
 
   useEffect(() => {
     if (caseRecord.court_path === "small-claims" || !stepId || !datesGiven) return;
@@ -97,14 +102,15 @@ export default function CaseFileSection() {
           stageId: stepId,
           courtPath: caseRecord.court_path,
           confirmedFacts: {},
-          dateAnswers: position.dateAnswers,
+          dateAnswers: givenDates,
         }),
       }).catch(() => null);
       const body = response?.ok ? await response.json() : null;
       const sections = (body?.answer?.sections ?? []) as { heading: string; text: string }[];
       setStepDeadline(sections.find((section) => /deadline/i.test(section.heading))?.text ?? null);
     })();
-  }, [caseRecord.court_path, stepId, position.dateAnswers, datesGiven]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [caseRecord.court_path, stepId, givenKey, datesGiven]);
 
   useEffect(() => {
     void (async () => {

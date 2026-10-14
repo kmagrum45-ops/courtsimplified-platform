@@ -82,6 +82,13 @@ check("the record gives every date as an answer", Object.keys(recordedDateAnswer
 
 // ---- Forms suggestions -------------------------------------------------------
 const yesNo = [{ value: true }, { value: false }];
+// 2026-10-14 audit: a Small Claims file number is saved as extra.claimNumber,
+// and a guided date whose year was guessed is offered, never recorded.
+check("a Small Claims court file number is read", readCaseRecord({ intakeData: { extra: { claimNumber: "SC-26-123" } } }, "small-claims").courtFileNumber === "SC-26-123");
+check(
+  "a guided date with no year is not recorded as the person's date",
+  Object.keys(readCaseRecord({ intakeAnswers: [{ questionId: "sc-date-claim-served", answerText: "October 1" }] }, "small-claims").dates).length === 0,
+);
 const defendant = readCaseRecord({ intakeData: { extra: { yourRole: "Defendant / responding party" } } }, "small-claims");
 const responding = suggestApplicability(
   [{ field_path: "formApplicability.smallClaims.respondingToPlaintiffsClaim", choices: yesNo }],
@@ -406,6 +413,7 @@ async function raceCheck() {
     ["app/api/case/read/route.ts", /updateMasterResult\(supabase, \{ caseId, userId: user\.id \}/],
     ["app/api/cases/drafts/route.ts", /updateMasterResult\(owned\.supabase/],
     ["app/api/cases/form-applicability/route.ts", /updateMasterResult\(supabase, \{ caseId \}/],
+    ["app/api/cases/position/route.ts", /updateMasterResult\(\s*supabase as unknown as CaseRecordClient,\s*\{ caseId, userId: user\.id \}/],
   ] as const) {
     check(`${file} writes through updateMasterResult`, pattern.test(read(file)));
   }

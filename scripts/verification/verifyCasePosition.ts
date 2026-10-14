@@ -403,12 +403,17 @@ function personsDatesWin(source: string): boolean {
   const route = read("app/api/cases/position/route.ts");
   check(
     "the position route writes only for the authenticated owner, through applyPositionPatch",
-    /getAuthenticatedUser\(/.test(route) && /getAuthenticatedOwnedCase\(/.test(route) && /applyPositionPatch\(/.test(route) && /\.eq\("user_id", user\.id\)/.test(route),
+    /getAuthenticatedUser\(/.test(route) && /getAuthenticatedOwnedCase\(/.test(route) && /applyPositionPatch\(/.test(route) && /userId: user\.id/.test(route),
   );
   // 2026-10-13: two saves at once erased each other (a confirmed stage lost to
   // a date save). The route writes only if the case is unchanged since it
   // read it, and the pages send one save at a time.
-  check("the position route writes only if nothing else wrote since it read", /write = write\.eq\("updated_at", fresh\.updated_at\)/.test(route) && /attempt < 3/.test(route));
+  // 2026-10-14: through the one shared save path, which holds that guard.
+  const shared = read("src/lib/case-system/updateCaseRecord.ts");
+  check(
+    "the position route writes only if nothing else wrote since it read",
+    /updateMasterResult\(/.test(route) && /write = write\.eq\("updated_at", fresh\.updated_at\)/.test(shared),
+  );
   for (const file of ["app/builder/page.tsx", "app/builder/_components/StageAnswerPanel.tsx", "app/cases/[id]/page.tsx"]) {
     const source = read(file);
     check(`${file} saves the position one save at a time`, /savePositionQueued(?:Outcome)?\(/.test(source) && !/fetch\("\/api\/cases\/position"/.test(source));

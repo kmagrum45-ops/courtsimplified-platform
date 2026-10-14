@@ -127,6 +127,9 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
   const dates: Record<string, RecordedFact<string>> = {};
   const answers = (Array.isArray(master.intakeAnswers) ? master.intakeAnswers : []) as Answer[];
   for (const [id, suggestion] of Object.entries(suggestedDatesFromAnswers(answers.filter(isAnswer)))) {
+    // A date whose year was guessed is not the person's date: it is offered on
+    // the card for them to choose the year (StageAnswerPanel), never recorded.
+    if (suggestion.yearAssumed) continue;
     dates[id] = { value: suggestion.value, source: "guided" };
   }
   for (const [id, value] of Object.entries(position.dateAnswers)) {
@@ -143,7 +146,8 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     claimTypeId: text(extra.confirmedClaimTypeId) || null,
     yourName: text(intake.yourName) || text(extra.yourName) || text(civil.yourName),
     otherParty: text(intake.otherParty) || text(extra.otherParty) || text(civil.otherParty),
-    courtFileNumber: text(civil.courtFileNumber) || text(extra.courtFileNumber) || text(intake.courtFileNumber),
+    // Small Claims saves its court file number as extra.claimNumber (SmallClaimsIntake).
+    courtFileNumber: text(civil.courtFileNumber) || text(extra.courtFileNumber) || text(intake.courtFileNumber) || text(extra.claimNumber),
     city: text(extra.yourCity) || text(extra.city) || text(civil.city),
     story: userStory(intake),
     documents,

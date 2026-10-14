@@ -29,6 +29,7 @@ import {
   settledStage,
   storyHintsForDates,
   storyWithTimeline,
+  suggestedDatesFromAnswers,
   suggestedDatesFromEvents,
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
@@ -133,7 +134,17 @@ export default function CaseOverviewPage() {
     return () => clearTimeout(timer);
   }, [confirmed, lookedAgain, reload]);
   const draftCount = readCaseDrafts(master).length;
-  const suggestedDates: Record<string, SuggestedDate> = events ? suggestedDatesFromEvents(events.events) : {};
+  // Dates the person gave in the guided questions are offered here too, as the
+  // builder offers them (walkthrough R4, 2026-10-13: the case page asked
+  // "Which year was that?" for a date already answered). Recorded events win.
+  const guidedAnswers = (Array.isArray(master.intakeAnswers) ? master.intakeAnswers : []).filter(
+    (answer): answer is { questionId: string; answerText: string } =>
+      Boolean(answer) && typeof (answer as { questionId?: unknown }).questionId === "string" && typeof (answer as { answerText?: unknown }).answerText === "string",
+  );
+  const suggestedDates: Record<string, SuggestedDate> = {
+    ...suggestedDatesFromAnswers(guidedAnswers),
+    ...(events ? suggestedDatesFromEvents(events.events) : {}),
+  };
   const analysis = asRecord(master.intakeAnalysis) as unknown as AnalysisResult;
   const intake = master.intakeData as StoredCaseData | undefined;
   const hasIntakeSummary = Boolean(
