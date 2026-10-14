@@ -239,6 +239,53 @@ export function childrenFromStory(story: string): StoryAnswer | null {
 }
 
 /*
+ * The children the story names without their ages (walkthrough run
+ * 38525903567, FR: "custody of our daugter" was followed by "Tell us about
+ * the children: how many, how old, and who they live with now"). What the
+ * words give -- how many and which -- is filled in for the person to check,
+ * and only the rest is asked. Only the person's own children ("our", "my"),
+ * never someone else's ("her daughter from before", "my sister's son"), never
+ * a negation ("we have no kids"), and never with an age given: then
+ * childrenFromStory offers the whole sentence instead.
+ */
+const COUNT_WORDS: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6 };
+const NUMBER_WORDS = ["", "one", "two", "three", "four", "five", "six"];
+const OWN_CHILD = new RegExp(
+  "\\b(?:our|my)\\s+(?:(one|two|three|four|five|six|[1-6])\\s+)?(?:(?:little|baby|young|youngest|oldest|eldest|only)\\s+)?" +
+    "(daughters?|daugh?ters?|daugters?|sons?|kids?|children|childs?|boys?|girls?)\\b(?!['’]s\\b)(?!\\s+(?:of|from)\\s+(?:her|his|their)\\b)",
+  "i",
+);
+
+export type PartialStoryAnswer = { prefill: string; question: string; quote: string };
+
+export function childrenPartialFromStory(story: string): PartialStoryAnswer | null {
+  if (childrenFromStory(story)) return null;
+  for (const sentence of sentences(story)) {
+    if (/\b(?:no|not any|don'?t have any|never had)\s+(?:kids|children)\b/i.test(sentence)) return null;
+    const match = plainMatch(sentence, OWN_CHILD);
+    if (!match) continue;
+    // "my sister's son": the possessive is someone else's.
+    if (/\b\w+['’]s\s*$/.test(sentence.slice(0, match.index ?? 0)) && !/\b(?:our|my)\s*$/i.test(sentence.slice(0, match.index ?? 0))) continue;
+    const noun = match[2].toLowerCase();
+    const plural = noun === "children" || /s$/.test(noun);
+    const count = match[1] ? COUNT_WORDS[match[1].toLowerCase()] : plural ? null : 1;
+    const kind = /^daug/.test(noun) ? "daughter" : /^son/.test(noun) ? "son" : /^boy/.test(noun) ? "boy" : /^girl/.test(noun) ? "girl" : "child";
+    if (count === 1) {
+      const pronoun = kind === "daughter" || kind === "girl" ? "she" : kind === "son" || kind === "boy" ? "he" : "they";
+      const question = pronoun === "they" ? "How old are they, and who do they live with now?" : `How old is ${pronoun}, and who does ${pronoun} live with now?`;
+      return { prefill: `One ${kind}. `, question, quote: sentence };
+    }
+    if (count && count > 1) {
+      const plural = kind === "child" ? "children" : `${kind}s`;
+      return { prefill: `${NUMBER_WORDS[count].charAt(0).toUpperCase()}${NUMBER_WORDS[count].slice(1)} ${plural}. `, question: "How old are they, and who do they live with now?", quote: sentence };
+    }
+    // "our kids": how many is not given, so the whole question is asked.
+    return null;
+  }
+  return null;
+}
+
+/*
  * Who the other side is, civil (2026-10-13). Only a named kind of person or
  * business, or a capitalised name, in words that make them the other side:
  * "sue the city", "my old boss sued me", "a statement of claim from my old

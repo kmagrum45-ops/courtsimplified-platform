@@ -52,6 +52,12 @@
  *     "The other party's time" instead of their own ("Your time ... (Form
  *     15B) ... (Form 15C)").
  *
+ *   - (walkthrough run 38525903567, FM) the information program leading a
+ *     motion to change whose words show no change beyond child or spousal
+ *     support (r. 8.1 (1) para. 6), or lost instead of folded under its
+ *     condition; the site's own record labels ("Children and parenting
+ *     details:") read as the person naming a claim.
+ *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
  * Run: npm run test:next-step
@@ -88,6 +94,15 @@ import {
 } from "../../src/lib/content-library/nextStepPractical";
 import { addDays, dayOfWeek, holidayFor } from "../../src/lib/case-system/deadlines/holidays";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { FAMILY_NARRATIVE_LABELS, userWordsOf } from "../../src/lib/content-library/forms/formsInText";
+import {
+  MIP_CHANGE_SUBJECT_UNKNOWN,
+  MIP_SUPPORT_ONLY_CHANGE,
+  changeBeyondSupport,
+  changeMipNoteFor,
+  familyClaimsIn,
+  isChangeMip,
+} from "../../src/lib/content-library/nextStepPractical";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -716,6 +731,70 @@ async function main() {
     const caseFile = readFileSync(path.resolve(__dirname, "../../app/cases/[id]/case-file/page.tsx"), "utf8");
     check("the route works out the standing with Ontario's today", /todayInOntario\(\)/.test(route) && calls(route, "timelineStandingFor", ["today"]));
     check("the Timeline, the Deadlines view and the Case file all show it", (workspace.match(/<DeadlineStandingNote standing=\{item\.standing\}/g) ?? []).length >= 2 && /<DeadlineStandingNote standing=\{item\.standing\}/.test(caseFile));
+  }
+
+  // Walkthrough run 38525903567, FM: the information program led a
+  // support-only motion to change. r. 8.1 (1) para. 6 covers "A motion to
+  // change a final order or agreement under rule 15, except motions that deal
+  // only with changing child or spousal support". The cause was the site's
+  // own label "Children and parenting details:" read as a parenting claim.
+  {
+    const flr = readFileSync(path.resolve(__dirname, "../../docs/sources/corpus/family-law-rules.txt"), "utf8").replace(/\s+/g, " ");
+    check(
+      "r. 8.1 (1) para. 6's exception is in the saved rules, word for word",
+      flr.includes("6. A motion to change a final order or agreement under rule 15, except motions that deal only with changing child or spousal support."),
+    );
+    // Every label the family intake writes before a line of its record is the site's, and is not read as the person's words.
+    const intake = readFileSync(path.resolve(__dirname, "../../app/builder/_components/FamilyIntake.tsx"), "utf8");
+    const start = intake.indexOf("function buildNarrative");
+    const narrative = intake.slice(start, intake.indexOf("Uploaded evidence metadata", start) + 40);
+    const written = [...narrative.matchAll(/[`"]([A-Z][A-Za-z ,/()-]+): (?:\$\{|")/g)].map((match) => match[1]);
+    const unlisted = written.filter((label) => !(FAMILY_NARRATIVE_LABELS as readonly string[]).includes(label));
+    check("the family record's labels are all known to userWordsOf", written.length >= 15 && unlisted.length === 0, `found ${written.length}; unlisted: ${unlisted.join(", ")}`);
+    // Property: a label alone never makes the words name a claim.
+    const labelsOnly = FAMILY_NARRATIVE_LABELS.map((label) => `${label}: x`).join("\n");
+    const fromLabels = familyClaimsIn(userWordsOf({ facts: labelsOnly }));
+    check("the site's labels alone name no kind of claim", !fromLabels.known, JSON.stringify(fromLabels));
+    const story = "i pay 900 a month child support from a court order in 2022. i lost my job in july and now im on EI making way less. i cant keep paying 900. how do i get it lowered";
+    const fm = {
+      facts: `Court path: Family\nStage: Motion stage\nExisting family documents: Existing court order or agreement\nFamily issue signals selected by user: Child support\nChildren and parenting details: two kids, 9 and 11, they live with their mom\nCase story: ${story}`,
+      goal: "To get the child support lowered",
+      extra: { story, issues: ["child-support"], issueLabels: ["Child support"], childrenInfo: "two kids, 9 and 11, they live with their mom", filedDocumentLabels: ["Existing court order or agreement"] },
+    };
+    const fmWords = userWordsOf(fm);
+    check("FM: the saved case reads as support only", familyClaimsIn(fmWords).support && !familyClaimsIn(fmWords).parenting);
+    const change = await ask("family:both:asking-to-change-final-order", "family");
+    const fmCard = cardLimits(change.nextStep as never, false, fmWords, "Sudbury", "family:both:asking-to-change-final-order");
+    const all = [...fmCard.main.deadlines, ...fmCard.main.periods] as { id?: string }[];
+    check("FM: the information program does not lead", !all.some((item) => isChangeMip(item)));
+    check(
+      "FM: it is folded under its own condition, with para. 6 and the support-only note",
+      fmCard.changeMip.periods.length + fmCard.changeMip.deadlines.length === 1 && fmCard.mipNote === MIP_SUPPORT_ONLY_CHANGE,
+    );
+    check(
+      "FM: nothing is lost (led, or folded)",
+      fmCard.main.periods.length + fmCard.conditional.periods.length === (change.nextStep?.periods.length ?? -1),
+    );
+    // Words that do not say what the motion changes: folded too, with the unknown note.
+    const unknown = cardLimits(change.nextStep as never, false, "i want to change the order", "", "family:both:asking-to-change-final-order");
+    check("words that do not say what changes: folded, with para. 6", unknown.mipNote === MIP_CHANGE_SUBJECT_UNKNOWN && unknown.changeMip.periods.length + unknown.changeMip.deadlines.length === 1);
+    check("both notes quote para. 6 from the saved rules", [MIP_SUPPORT_ONLY_CHANGE, MIP_CHANGE_SUBJECT_UNKNOWN].every((line) => line.cite.pinpoint === "r. 8.1 (1), para. 6" && flr.includes(line.cite.quote)));
+    // Property over kinds of words: it leads exactly when the words show a change beyond support.
+    const wordsList = ["", "i want to change child support", "i want to change parenting time", "change the custody order", "she wants the house", "my spousal support is too high", "change support and the weekend schedule", "the matrimonial home"];
+    let leadMisses = 0;
+    for (const words of wordsList) {
+      const card = cardLimits(change.nextStep as never, false, words, "", "family:both:asking-to-change-final-order");
+      const leads = [...card.main.periods, ...card.main.deadlines].some((item) => isChangeMip(item as { id?: string }));
+      if (leads !== changeBeyondSupport(words)) leadMisses += 1;
+      if (!leads && !card.mipNote) leadMisses += 1;
+    }
+    check("the information program leads exactly when the words show a change beyond support, and is folded with its note otherwise", leadMisses === 0, `misses ${leadMisses}`);
+    // Served with the motion: the note speaks of "the motion", not "your motion".
+    check("served with the motion: the note says 'the motion'", !/\byour motion\b/.test(changeMipNoteFor("i got a motion to change about child support", true).say));
+    check(
+      "the card shows the fold with its condition and the note inside it",
+      /data-testid="next-step-mip-fold"[\s\S]{0,600}more than child or spousal support[\s\S]{0,600}data-testid="next-step-mip-note"/.test(panel),
+    );
   }
 
   if (failures > 0) {

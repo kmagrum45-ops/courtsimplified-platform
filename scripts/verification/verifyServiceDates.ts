@@ -24,6 +24,10 @@
  * (final re-check 2026-10-14) "first saw" read as the first copy; a company
  * defendant told "safest" or "your home"; the Small Claims company route by
  * courier counted from the mailing day.
+ * (walkthrough run 38525903567, FM) The moving party on a motion to change
+ * asked the receiving side's questions ("Handed to me", "If you were served
+ * with a motion to change") instead of how it was served on the other party
+ * and the day they received it (r. 15 (10)).
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -34,7 +38,23 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
-import { arrivalNoteFor, arrivalOnlyDates, countedFromService, firstCopyQuote, latestFromArrival, offerStoryDate, receivesPapersStep } from "../../app/builder/_components/StageAnswerPanel";
+import {
+  arrivalNoteFor,
+  arrivalOnlyDates,
+  countedFromService,
+  dateQuestionTextFor,
+  firstCopyQuote,
+  latestFromArrival,
+  offerStoryDate,
+  receivesPapersStep,
+  servesPapersFor,
+  shortLabel,
+} from "../../app/builder/_components/StageAnswerPanel";
+import {
+  MOTION_TO_CHANGE_SERVICE_QUESTION,
+  MOVING_PARTY_MOTION_QUESTION,
+  forServingSide,
+} from "../../src/lib/case-system/deadlines/serviceEffectiveDate";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import { DEADLINE_EVENTS } from "../../src/lib/case-system/deadlines/deadlineEvents";
 import { addDays as addDaysIso } from "../../src/lib/case-system/deadlines/holidays";
@@ -298,7 +318,12 @@ console.log("\nA claim or application is not served by regular mail (legal revie
     );
   }
   check("the card never says whether service was valid", !/\b(?:valid|invalid|improperly served|not properly served)\b/i.test(panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "")));
-  check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /serviceRulesFor\(serviceCourt, question\.id\)\.map\(/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));
+  // The ways come from serviceRulesFor with the question and the side that served
+  // (rulesFor; walkthrough run 38525903567, FM: the moving party was offered "Handed to me").
+  check(
+    "the date box offers the ways for the question asked, from the side that served (serviceRulesFor with the question)",
+    /rulesFor\(question\.id\)\.map\(/.test(panel) && /serviceRulesFor\(serviceCourt, questionId, serving\(questionId\)\)/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel),
+  );
 }
 
 console.log("\nThe 'no later than' date: only papers that may be served by mail, only for the person who received them (legal review 2026-10-14)");
@@ -372,6 +397,46 @@ console.log("\nA Small Claims fifth day on a closed day says what the rules say,
   check("mailed Mon Sept 28: the fifth day is Saturday Oct 3, flagged to confirm", weekend.date === "2026-10-03" && Boolean(weekend.confirm));
   check("the note quotes r. 3.01, and the quote is the saved rule", /r\. 3\.01/.test(weekend.confirm ?? "") && corpus["small-claims"].includes(flat(SC_R3_01_LAST_DAY.quote)));
   check("the note never claims the rules are silent", assertsAbsenceProblems(weekend.confirm ?? "").length === 0 && assertsAbsenceProblems(smallClaimsFifthDayOnClosedDay("Sunday")).length === 0, weekend.confirm);
+}
+
+console.log("\nThe moving party on a motion to change (walkthrough run 38525903567, FM)");
+{
+  // r. 15 (10): the time runs from when the OTHER party receives the motion.
+  check(
+    "r. 15 (10) counts from when the responding party receives the motion, in the saved rules",
+    corpus.family.includes(flat("no later than 30 days after the party responding to the motion receives the motion to change and the supporting documents")),
+  );
+  const panel = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+  const ASK = "family:both:asking-to-change-final-order";
+  const SERVED = "family:both:served-with-motion-to-change";
+  const Q = MOTION_TO_CHANGE_SERVICE_QUESTION;
+  check("the asking step's date question is the motion-to-change service date", Boolean(ALL_STAGES.find((stage) => stage.id === ASK)?.deadlines.some((deadline) => DEADLINE_EVENTS[deadline.countFromEvent as keyof typeof DEADLINE_EVENTS]?.questionId === Q)));
+  check("the mover served it", servesPapersFor(ASK, Q, "family", false));
+  check("someone served with it did not", !servesPapersFor(SERVED, Q, "family", false) && !servesPapersFor(SERVED, Q, "family", true));
+  check("a person on the responding side did not, on the asking step either", !servesPapersFor(ASK, Q, "family", true));
+  check("an answer making the motion the other side's means they did not serve it", !servesPapersFor(ASK, Q, "family", false, { answer: "yes", readingKind: "if-served" }) && !servesPapersFor(ASK, Q, "family", false, { answer: "other", readingKind: "asking" }));
+  check("an answer confirming their own motion keeps it theirs", servesPapersFor(ASK, Q, "family", false, { answer: "yes", readingKind: "asking" }) && servesPapersFor(ASK, Q, "family", false, { answer: "other", readingKind: "if-served" }));
+  check("no other question or court is affected", !servesPapersFor(ASK, "case-date-automatic-order-issued", "family") && !servesPapersFor(ASK, Q, "civil"));
+  // Property over every way: the serving side's ways are the same ways, rules and days; only the words change.
+  for (const questionId of [Q, "case-date-served-with-application", ""]) {
+    const receiving = serviceRulesFor("family", questionId);
+    const serving = serviceRulesFor("family", questionId, true);
+    const same = receiving.length === serving.length && receiving.every((rule, index) => rule.method === serving[index].method && rule.rule === serving[index].rule && rule.quote === serving[index].quote && rule.addDays === serving[index].addDays);
+    check(`serving side (${questionId || "any"}): the same ways, rules and days`, same);
+    const firstPerson = serving.filter((rule) => /\b(?:me|my|I)\b|\byou got\b/.test(`${rule.label} ${rule.dateToEnter}`));
+    check(`serving side (${questionId || "any"}): no way is worded as the person's own receipt`, firstPerson.length === 0, firstPerson.map((rule) => rule.label).join(" | "));
+  }
+  check("every court's ways read from the serving side the same way", (["small-claims", "civil", "family"] as const).every((court) => SERVICE_RULES[court].every((rule) => !/\b(?:me|my)\b/.test(forServingSide(rule).label))));
+  const question = { id: Q, question: DEADLINE_EVENTS["served-with-motion-to-change"].question ?? "" };
+  check("the mover is asked the day the other party received it", /other party receive your motion to change/.test(dateQuestionTextFor(question, true)) && dateQuestionTextFor(question, true) === MOVING_PARTY_MOTION_QUESTION);
+  check("someone served is asked as before", dateQuestionTextFor(question, false) === question.question && /you were served/.test(question.question));
+  check("the mover's saved date is labelled as the other party's receipt", /other party received your motion/.test(shortLabel(MOVING_PARTY_MOTION_QUESTION)));
+  check("the moving-party question is still a service-date question", isServiceDateQuestion(Q, question.question));
+  check("the panel words the date question by dateQuestionTextFor and the side", /dateQuestionTextFor\(question, serving\(question\.id\)\)/.test(panel) && /servesPapersFor\(stageId, questionId, serviceCourt, responding, motionToChange\)/.test(panel));
+  check("the story's way of receiving papers is never offered as how the mover served", /!serving\(questionId\) && rulesFor\(questionId\)/.test(panel));
+  const builderPage = readFileSync(path.join(ROOT, "app/builder/page.tsx"), "utf8");
+  const casePage = readFileSync(path.join(ROOT, "app/cases/[id]/page.tsx"), "utf8");
+  check("both pages pass the motion-to-change answer to the panel", /motionToChange=\{motionLead && motionChoice/.test(builderPage) && /motionToChange=\{position\.motionToChange/.test(casePage));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

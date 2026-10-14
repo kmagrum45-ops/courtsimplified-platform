@@ -30,6 +30,8 @@ import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
 import { familyGuidedFields, familyTimelineAnswer, familyTimelineValues } from "./guidedFields";
+import { chatClosingFor } from "./motionToChange";
+import { existingFamilyOrder, respondingInFamilyStory } from "./FamilyStatusTriage";
 import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
@@ -923,6 +925,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             onDone={handleAnalyze}
             onShowForm={() => setMode("form")}
             busy={isAnalyzing || sourced.state === "loading"}
+            // "how do i get it lowered" is answered when the questions end
+            // (walkthrough run 38525903567, FM; motionToChange.ts chatClosingFor).
+            closing={chatClosingFor(
+              [facts, goal].filter(Boolean).join("\n"),
+              existingFamilyOrder(facts) || filedDocuments.includes("order-agreement"),
+              respondingInFamilyStory(facts),
+            )}
           />
         ) : (
           <button type="button" onClick={() => setMode("chat")} className="justify-self-start text-sm font-semibold text-[#2f7d67] underline">

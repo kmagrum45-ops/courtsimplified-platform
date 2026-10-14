@@ -1,5 +1,5 @@
 import { officialFormFor } from "@/src/lib/content-library/forms/officialFormLink";
-import { SOURCE_SAVED_ON, practicalFor, type PlainLine, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
+import { FEES_IF_CLAIMED_LABEL, SOURCE_SAVED_ON, practicalFor, type PlainLine, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
 /**
@@ -138,6 +138,25 @@ export default function NextStepPractical({
             {view.feeNotesFirst ? null : view.feeNotes.map((line) => <Line key={line.cite.pinpoint + line.say} line={line} />)}
             {view.feeWaiver ? <Line line={view.feeWaiver} /> : null}
           </ul>
+          {view.feesIfClaimed ? (
+            // Parenting-only words: the no-fee rule above leads, and the
+            // amounts wait under their condition (walkthrough run 38525903567, FR).
+            <details data-testid="next-step-fees-if-claimed" className="mt-2">
+              <summary className="cursor-pointer font-semibold text-[#2f7d67]">{FEES_IF_CLAIMED_LABEL}</summary>
+              <ul className="mt-1 space-y-1">
+                {view.feesIfClaimed.fees.map((fee) => (
+                  <li key={fee.id}>
+                    {fee.label}: <span className="font-semibold">${fee.amount}</span>
+                    <Source cite={fee.cite} />
+                  </li>
+                ))}
+                {view.feesIfClaimed.notes.map((line) => (
+                  <Line key={line.cite.pinpoint + line.say} line={line} />
+                ))}
+                {view.feesIfClaimed.waiver ? <Line line={view.feesIfClaimed.waiver} /> : null}
+              </ul>
+            </details>
+          ) : null}
         </div>
       ) : null}
 

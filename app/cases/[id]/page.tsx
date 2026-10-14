@@ -241,6 +241,7 @@ export default function CaseOverviewPage() {
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}
               initialService={position.service}
+              motionToChange={position.motionToChange ?? null}
               // Once a date counted here is saved, the case is read again, so
               // the Timeline and Case file tabs show it without a reload
               // (walkthrough 2026-10-13, R5: the Case file said "None yet").

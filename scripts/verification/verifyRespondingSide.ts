@@ -15,13 +15,23 @@
  * on the builder is gated on the combined check, so a new one cannot be added
  * ungated.
  *
+ * Also (walkthrough run 38525903567, FM): the moving party on a motion to
+ * change told "the document that starts this case has already been filed"
+ * because of the motion stage and an existing order. A motion to change is
+ * started by Form 15 (r. 15 (5)); only motion materials record it, and the
+ * page says so with the rule quoted, and an order or agreement on record is
+ * not "a claim has been filed".
+ *
  * Run: node --import tsx scripts/verification/verifyRespondingSide.ts
  */
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "../../app/builder/_components/respondingSide";
+import { movingOnMotionToChange, originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "../../app/builder/_components/respondingSide";
+import { MOTION_TO_CHANGE_START_SAY, motionToChangeStartRule } from "../../app/builder/_components/motionToChange";
+import { filingFactsFromDocuments } from "../../src/lib/case-system/intelligence/answeredQuestions";
+import { deriveCaseStage } from "../../src/lib/case-system/intake/caseStageDerivation";
 import { orderGroupsForReader, suggestedStageFor, yearChoices } from "../../app/builder/_components/StageAnswerPanel";
 import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -186,6 +196,42 @@ check("a served defendant is shown the defence step", suggestedStageFor("small-c
   for (const id of ["plaintiff:served-with-defendants-claim", "civil:plaintiff:served-with-counterclaim", "civil:defendant:served-with-crossclaim", "civil:defendant:served-with-third-party-claim"]) {
     check(`${id} exists`, Boolean(findStage(id)));
   }
+}
+
+{
+  // A motion to change is started by Form 15 (walkthrough run 38525903567, FM).
+  const flr = readFileSync(path.resolve(process.cwd(), "docs/sources/corpus/family-law-rules.txt"), "utf8").replace(/\s+/g, " ");
+  check(
+    "r. 15 (5) in the saved rules: the motion to change (Form 15) is what a party serves and files to change a final order",
+    flr.includes("a party who wants to ask the court to change a final order or agreement shall serve and file a motion to change (Form 15), with all required attachments."),
+  );
+  const ASK = "family:both:asking-to-change-final-order";
+  check("bringing a motion to change (confirmed or read)", movingOnMotionToChange({ courtPath: "family", responding: false, routeKind: "asking" }));
+  check("the asking step with no reading", movingOnMotionToChange({ courtPath: "family", responding: false, routeKind: null, stepId: ASK }));
+  check(
+    "never the responding side, another route, or another court",
+    !movingOnMotionToChange({ courtPath: "family", responding: true, routeKind: "asking" }) &&
+      !movingOnMotionToChange({ courtPath: "family", responding: false, routeKind: "responding" }) &&
+      !movingOnMotionToChange({ courtPath: "family", responding: false, routeKind: "if-served", stepId: ASK }) &&
+      !movingOnMotionToChange({ courtPath: "civil", responding: false, routeKind: "asking" }),
+  );
+  const fm = { courtPath: "family", caseData: { caseStage: "motion", extra: { filedDocuments: ["order-agreement"] } } as never, intakeFacts: { claimFiled: true }, confirmedStage: "motion" };
+  check("FM: the mover's starting document is not recorded as filed, whatever the stage and order say", !originatingDocumentRecorded({ ...fm, motionToChangeMover: true }));
+  check("FM: once motion materials are recorded, it is", originatingDocumentRecorded({ ...fm, caseData: { extra: { filedDocuments: ["order-agreement", "motion-materials"] } } as never, motionToChangeMover: true }));
+  check("not the mover: as before", originatingDocumentRecorded(fm));
+  const rule = motionToChangeStartRule();
+  check("the Form 15 line quotes r. 15 (5) from the stage map, as saved", rule?.pinpoint === "r. 15 (5)" && flr.includes(rule.quote.replace(/\s+/g, " ")));
+  check("the Form 15 line names Form 15 and never says it was filed", /Form 15\b/.test(MOTION_TO_CHANGE_START_SAY) && !/already been filed|has been filed/.test(MOTION_TO_CHANGE_START_SAY));
+  const builderPage = readFileSync(path.resolve(process.cwd(), "app/builder/page.tsx"), "utf8");
+  check("the page passes the mover to the filed check and shows the Form 15 line", /originatingDocumentRecorded\(\{[\s\S]{0,200}motionToChangeMover,/.test(builderPage) && /data-testid="motion-to-change-start"/.test(builderPage));
+  // The Timeline's "a claim has been filed" (FM): an order or agreement alone is not a filing.
+  const orderOnly = filingFactsFromDocuments(["order-agreement"], { orderIsNotAFiling: true });
+  check("an order or agreement on record is not a filing for the stage", !orderOnly.anythingFiled);
+  check("with anything else filed, it still is", filingFactsFromDocuments(["order-agreement", "application"], { orderIsNotAFiling: true }).anythingFiled);
+  check("other readers of the documents are unchanged", filingFactsFromDocuments(["order-agreement"]).anythingFiled);
+  const facts = orderOnly.anythingFiled ? { claimFiled: true } : {};
+  check("FM's stage basis never says a claim has been filed", !deriveCaseStage(facts as never).basis.some((line) => /claim has been filed/.test(line)));
+  check("the builder's stage facts pass orderIsNotAFiling", /filingFactsFromDocuments\(documentsOf\(caseData\), \{ orderIsNotAFiling: true \}\)/.test(builderPage));
 }
 
 if (failures > 0) {

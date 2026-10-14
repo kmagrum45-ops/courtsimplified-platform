@@ -22,6 +22,8 @@
 
 import { useMemo, useState } from "react";
 
+import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
+
 export type GuidedChoice = { value: string; label: string };
 
 export type GuidedField = {
@@ -53,6 +55,14 @@ export type GuidedField = {
    * offered for one click; the question is asked instead.
    */
   needsMore?: (value: string) => string | null;
+  /**
+   * Part of the answer the story gives, when it does not give all of it
+   * (walkthrough run 38525903567, FR: "our daugter" was followed by "Tell us
+   * about the children: how many, how old ..."). The part it gives is filled
+   * in, editable, and only the rest is asked. Never kept unseen: it is saved
+   * only when the person presses Next.
+   */
+  partialFromStory?: (values: GuidedValues) => { prefill: string; question: string; quote: string } | null;
 };
 
 /** What a text answer still needs before it is kept, or null (GuidedField.needsMore). */
@@ -75,14 +85,35 @@ export function pendingFields(fields: readonly GuidedField[], values: GuidedValu
   );
 }
 
-/** A plain line repeating the answer back, so the person sees it was heard. */
+/**
+ * `text` cut to at most `max` characters at the end of a whole word, with an
+ * ellipsis; unchanged when it fits. Never mid-word (walkthrough run
+ * 38525903567: "how do i get it l…").
+ */
+export function cutAtWord(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const room = text.slice(0, max + 1);
+  const lastBreak = room.search(/\s+\S*$/);
+  const head = lastBreak > 0 ? room.slice(0, lastBreak) : room.slice(0, max);
+  return `${head.replace(/[\s,;:.\u2014-]+$/, "")}…`;
+}
+
+/**
+ * A plain line repeating the answer back, so the person sees it was heard.
+ * A long answer in their own words is not pasted back cut short, typos and
+ * all (walkthrough run 38525903567, FM and FR: "Got it: ... how do i get it
+ * l…", "...our daugter..."): it is named instead. Anything else that is too
+ * long is cut at a whole word.
+ */
 export function acknowledgement(field: GuidedField, value: string | string[]): string {
   const labels = (Array.isArray(value) ? value : [value])
     .map((item) => field.options?.find((option) => option.value === item)?.label ?? item)
     .filter(Boolean);
   if (labels.length === 0) return "Okay, we'll leave that for now.";
   const shown = labels.join("; ");
-  return `Got it: ${shown.length > 160 ? `${shown.slice(0, 157)}…` : shown}.`;
+  if (shown.length <= 160) return `Got it: ${shown}.`;
+  if (field.kind === "longtext" && !Array.isArray(value)) return `Got it. We have ${field.label.charAt(0).toLowerCase()}${field.label.slice(1)}, in your own words.`;
+  return `Got it: ${cutAtWord(shown, 157)}.`;
 }
 
 /** What the transcript shows above an answer: the question, or for an answer confirmed from the story, that it came from the story. */
@@ -96,7 +127,7 @@ export function heardAs(field: GuidedField, fromStory: boolean): string {
 function display(field: GuidedField, value: GuidedValues[string]): string {
   const list = Array.isArray(value) ? value : value ? [value] : [];
   const shown = list.map((item) => field.options?.find((option) => option.value === item)?.label ?? item).join("; ");
-  return shown.length > 160 ? `${shown.slice(0, 157)}…` : shown;
+  return cutAtWord(shown, 160);
 }
 
 export default function GuidedFormChat({
@@ -107,6 +138,7 @@ export default function GuidedFormChat({
   onShowForm,
   busy = false,
   doneLabel = "Continue to your next steps",
+  closing = null,
 }: {
   fields: readonly GuidedField[];
   values: GuidedValues;
@@ -116,6 +148,8 @@ export default function GuidedFormChat({
   onShowForm: () => void;
   busy?: boolean;
   doneLabel?: string;
+  /** A plain answer to what the person asked, said when the questions are done, with the rules it restates (motionToChange.ts chatClosingFor). */
+  closing?: { say: string; rules: RuleCitation[] } | null;
 }) {
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
   const [heard, setHeard] = useState<{ question: string; reply: string }[]>([]);
@@ -125,6 +159,8 @@ export default function GuidedFormChat({
   const [notFromStory, setNotFromStory] = useState<Set<string>>(new Set());
   // What the answer just given still needs (answerNeedsMore), shown under the box.
   const [needsMore, setNeedsMore] = useState<string | null>(null);
+  // Questions whose story-filled part the person has edited (partialFromStory).
+  const [edited, setEdited] = useState<Set<string>>(new Set());
 
   // Known when this opened: listed, not asked (the story, the saved case).
   const [knownAtStart] = useState(() =>
@@ -217,9 +253,9 @@ export default function GuidedFormChat({
               .join("; ");
             return (
               <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)}>
-                <p className="font-semibold text-[#10231f]">{current.label}: {shown.length > 160 ? `${shown.slice(0, 157)}…` : shown}</p>
+                <p className="font-semibold text-[#10231f]">{current.label}: {cutAtWord(shown, 160)}</p>
                 <p className="mt-1 text-sm text-[#4d675f]">
-                  From what you told us: &ldquo;{offered.quote.length > 200 ? `${offered.quote.slice(0, 197)}…` : offered.quote}&rdquo; Is that right?
+                  From what you told us: &ldquo;{cutAtWord(offered.quote, 200)}&rdquo; Is that right?
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <button
@@ -241,9 +277,22 @@ export default function GuidedFormChat({
                 </div>
               </div>
             );
-          })() ?? (
+          })() ?? (() => {
+          // Part of the answer from the story, filled in; only the rest is asked.
+          const partial = !changing && !notFromStory.has(current.key) ? current.partialFromStory?.(values) ?? null : null;
+          const boxValue = partial && !edited.has(current.key) ? partial.prefill : typeof draft === "string" ? draft : "";
+          const editBox = (text: string) => {
+            setEdited((now) => new Set(now).add(current.key));
+            setDraft(text);
+          };
+          return (
           <>
-          <p className="font-semibold text-[#10231f]">{current.question}</p>
+          <p className="font-semibold text-[#10231f]">{partial ? partial.question : current.question}</p>
+          {partial ? (
+            <p data-testid="guided-form-partial-from-story" className="mt-1 text-sm text-[#4d675f]">
+              From what you told us: &ldquo;{cutAtWord(partial.quote, 200)}&rdquo; We filled in what that says. Change it if it is not right, and add the rest.
+            </p>
+          ) : null}
           <p className="mt-1 text-sm text-[#4d675f]">Why we ask: {current.why}</p>
           {current.kind === "choice" ? (
             <div className="mt-3 grid gap-2">
@@ -280,16 +329,16 @@ export default function GuidedFormChat({
             </div>
           ) : current.kind === "longtext" ? (
             <textarea
-              aria-label={current.question}
-              value={typeof draft === "string" ? draft : ""}
-              onChange={(event) => setDraft(event.target.value)}
+              aria-label={partial ? partial.question : current.question}
+              value={boxValue}
+              onChange={(event) => editBox(event.target.value)}
               className="mt-3 min-h-28 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
             />
           ) : (
             <input
-              aria-label={current.question}
-              value={typeof draft === "string" ? draft : ""}
-              onChange={(event) => setDraft(event.target.value)}
+              aria-label={partial ? partial.question : current.question}
+              value={boxValue}
+              onChange={(event) => editBox(event.target.value)}
               className="mt-3 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
             />
           )}
@@ -303,7 +352,7 @@ export default function GuidedFormChat({
               <button
                 type="button"
                 data-testid="guided-form-next"
-                onClick={() => answer(draft)}
+                onClick={() => answer(current.kind === "multi" ? draft : boxValue)}
                 className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
               >
                 Next
@@ -319,10 +368,30 @@ export default function GuidedFormChat({
             </button>
           </div>
           </>
-          )}
+          );
+          })()}
         </div>
       ) : (
         <div className="mt-5">
+          {closing ? (
+            <div data-testid="guided-form-closing" className="mb-3 rounded-2xl border border-[#cde7dc] bg-white p-4">
+              <p className="text-sm font-semibold leading-6 text-[#16302b]">{closing.say}</p>
+              <details className="mt-2 text-xs leading-5 text-[#4d675f]">
+                <summary className="cursor-pointer">The rules this restates</summary>
+                <ul className="mt-1 space-y-2">
+                  {closing.rules.map((rule) => (
+                    <li key={rule.pinpoint}>
+                      &ldquo;{rule.quote}&rdquo;{" "}
+                      <a href={officialUrl(rule)} target="_blank" rel="noreferrer" className="underline">
+                        {sourceName(rule)}
+                      </a>
+                      , {rule.pinpoint}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </div>
+          ) : null}
           <p className="text-sm text-[#16302b]">That&apos;s everything we need for now. You can change any answer above.</p>
           <button
             type="button"

@@ -27,6 +27,9 @@
  *
  * COSTS NOTHING: pure functions and source reads.
  *
+ * (walkthrough run 38525903567, FR) "my ex gf" not offered as "not married",
+ * or someone else's girlfriend read as the other party.
+ *
  * Run: npm run test:user-story
  */
 
@@ -38,7 +41,7 @@ import { candidatesFromTimeline } from "../../src/lib/case-system/events/caseEve
 import { dateInSentence, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import { storySuggestsDanger } from "../../src/lib/case-system/intake/orchestrateIntakeTurn";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { storyAnswerFor, storyQuoteFor } from "../../src/lib/case-system/family/triageStoryQuote";
+import { storyAnswerFor, storyQuoteFor, storySuggestionFor } from "../../src/lib/case-system/family/triageStoryQuote";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -124,6 +127,26 @@ check("someone else's marriage offers nothing", storyAnswerFor("married-to-other
 check("contradictory words offer nothing", storyAnswerFor("married-to-other-party", "my ex-husband, well we were never married really") === null);
 check("'our two kids' offers Yes for a child together", storyAnswerFor("child-together", "our two kids live with me") === "yes");
 check("a story with no such words offers nothing", storyAnswerFor("married-to-other-party", "he stopped paying support in may") === null);
+// Walkthrough run 38525903567, FR: "my ex gf took me to court" was asked "Were you married?".
+{
+  const FR = "my ex gf took me to court for custody of our daugter, i got served the papers last week.";
+  const fr = storySuggestionFor("married-to-other-party", FR);
+  check("FR: 'my ex gf' is offered as 'not married', to confirm", fr?.value === "no" && fr.say === "not married");
+  check("FR: the sentence is quoted beside the question", storyQuoteFor("married-to-other-party", FR) === FR);
+  for (const words of ["my ex girlfriend took me to court", "my ex-boyfriend wants custody", "my former partner moved away", "my ex common-law wife filed an application", "my ex bf stopped paying"]) {
+    check(`'${words}' offers not married`, storyAnswerFor("married-to-other-party", words) === "no");
+  }
+  for (const words of ["my brother's ex girlfriend is helping me", "her ex-boyfriend lives with her now", "my new girlfriend helps with pickups", "she was never my girlfriend, just a friend", "my ex took me to court"]) {
+    check(`'${words}' offers nothing`, storyAnswerFor("married-to-other-party", words) === null);
+  }
+  check("contradictory words still offer nothing", storyAnswerFor("married-to-other-party", "my ex gf, well my ex-wife really") === null);
+  check("no suggestion without a plain answer", storySuggestionFor("married-to-other-party", "he stopped paying support in may") === null);
+  const triage = readFileSync(path.resolve(process.cwd(), "app/builder/_components/FamilyStatusTriage.tsx"), "utf8");
+  check(
+    "the triage says the suggestion plainly and records it on one click",
+    /storySuggestionFor\(current\.id, story\)/.test(triage) && /data-testid="triage-story-suggestion"[\s\S]{0,400}From what you told us: <strong>\{suggestion\.say\}<\/strong>\. Is that right\?[\s\S]{0,400}onClick=\{\(\) => record\(suggestion\.value\)\}/.test(triage),
+  );
+}
 
 // The family triage quotes what the story already says, beside the question.
 const familyStory =

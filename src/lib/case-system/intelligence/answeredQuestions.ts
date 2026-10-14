@@ -88,10 +88,20 @@ export function recordedDocuments(documents: unknown): string[] {
  * Build filing facts from structured intake document tokens, as held by the
  * builder (filedDocuments for Small Claims and Family, documents for Civil).
  */
-export function filingFactsFromDocuments(documents: unknown): RecordedFilingFacts {
+/*
+ * "Existing court order or agreement" (family `order-agreement`) records that
+ * an order or agreement EXISTS, not that anything was filed in the matter now
+ * being taken (walkthrough run 38525903567, FM: a father about to bring a
+ * motion to change read "a claim has been filed" on his Timeline). An
+ * agreement is not filed at all, and a motion to change is started by its own
+ * Form 15 (r. 15 (5)). The stage derivation passes `orderIsNotAFiling`.
+ */
+export const ORDER_ON_RECORD_TOKENS: ReadonlySet<string> = new Set(["order-agreement"]);
+
+export function filingFactsFromDocuments(documents: unknown, options: { orderIsNotAFiling?: boolean } = {}): RecordedFilingFacts {
   const tokens = (Array.isArray(documents) ? documents : [])
     .map(normalizeToken)
-    .filter((token) => token && !isNonFiling(token));
+    .filter((token) => token && !isNonFiling(token) && !(options.orderIsNotAFiling && ORDER_ON_RECORD_TOKENS.has(token)));
 
   return {
     anythingFiled: tokens.length > 0,

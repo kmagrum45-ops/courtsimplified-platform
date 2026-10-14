@@ -46,6 +46,11 @@
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
+ * (walkthrough run 38525903567, FR) A parenting-only answer shown fee
+ * amounts beside the no-fee rule with nothing saying which applies, or a fee
+ * dropped when folded; Form 35.1 missing for an answer claiming parenting
+ * (r. 35.1 (1)).
+ *
  * Run: npm run test:next-step-practical
  */
 
@@ -60,6 +65,7 @@ import {
   FAMILY_FEE_NOTES,
   FEE_WAIVER,
   FEES,
+  FEES_IF_CLAIMED_LABEL,
   FILING,
   SERVICE,
   SOURCE_SAVED_ON,
@@ -281,7 +287,11 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   const plain = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true);
   check("parenting-only words: the fee exemption leads the fees", parenting?.feeNotesFirst === true && parenting.feeNotes.some((line) => line.cite.pinpoint === "s. 1.2 (2)"));
   check("property words, or no words: the fees lead as before", property?.feeNotesFirst === false && plain?.feeNotesFirst === false);
-  check("reordering never removes a fee", [parenting, property, plain].every((view) => view?.fees.length === STEP_PRACTICAL["family:respondent:served-time-to-answer-running"].fees.length));
+  // Folded (feesIfClaimed) counts as kept: a fold never removes.
+  check(
+    "reordering or folding never removes a fee",
+    [parenting, property, plain].every((view) => (view?.fees.length ?? 0) + (view?.feesIfClaimed?.fees.length ?? 0) === STEP_PRACTICAL["family:respondent:served-time-to-answer-running"].fees.length),
+  );
 
   // Review 2026-10-13 (5): for the family-respondent-parenting persona's own
   // words, the exemption that applies (s. 1.2 (2)) is the FIRST note, and the
@@ -660,6 +670,52 @@ console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (wal
   check("the Forms tab passes the step's lead forms to the catalogue", /<FormsWorkspace\b[^>]*leadForms=\{practical\?\.leadForms/.test(formsPage));
   check("and shows the step section for a notice step too (afterNotice)", /practical\.afterNotice\.length > 0/.test(formsPage));
   check("the catalogue orders what it shows with leadFormsFirst", /leadFormsFirst\(kept,/.test(workspace) && /return leadFormsFirst/.test(workspace));
+}
+
+console.log("\nWalkthrough run 38525903567, FR: the fees for a parenting-only answer, and Form 35.1");
+{
+  const FR = "my ex gf took me to court for custody of our daugter, i got served the papers last week. she wants sole custody and wants to move to ottawa with her. i want joint custody and to keep my time with her.";
+  const STEP = "family:respondent:served-time-to-answer-running";
+  const fr = practicalFor(STEP, "family", "Barrie", true, FR)!;
+  const flat = (text: string) => text.replace(/\s+/g, " ");
+  const fees293 = flat(readFileSync(path.join(ROOT, "docs", "sources", "corpus", "oreg-293-92-superior-court-fees.txt"), "utf8"));
+  const fees417 = flat(readFileSync(path.join(ROOT, "docs", "sources", "corpus", "oreg-417-95-family-court-fees.txt"), "utf8"));
+  check(
+    "the no-fee rules are in the saved regulations: O. Reg. 293/92 s. 1.2 (2) (a) and O. Reg. 417/95 s. 2 (a)",
+    fees293.includes("no fees are payable for the filing of an application, the filing of an answer or the placing of an application on the list for hearing in respect of, (a) proceedings under the Children’s Law Reform Act, the Family Law Act (except Parts I and II)") &&
+      fees417.includes("(a) proceedings under the Child, Youth and Family Services Act, 2017, the Children’s Law Reform Act, the Family Law Act (except Parts I and II)"),
+  );
+  check("FR: the no-fee rules lead, both regulations", fr.feeNotesFirst && fr.feeNotes.some((line) => line.cite.pinpoint === "s. 1.2 (2)") && fr.feeNotes.some((line) => line.cite.pinpoint === "s. 2 (a)"));
+  check("FR: nothing leading the fees states an amount", fr.fees.length === 0 && fr.feeNotes.every((line) => !/\$\d/.test(line.say)));
+  check(
+    "FR: the amounts are folded, every one kept (the answer fee, the branch's fees, the divorce fee, the waiver)",
+    Boolean(fr.feesIfClaimed) &&
+      fr.feesIfClaimed!.fees.length === STEP_PRACTICAL[STEP].fees.length &&
+      fr.feesIfClaimed!.notes.some((line) => /\$214/.test(line.say)) &&
+      fr.feesIfClaimed!.waiver !== null,
+  );
+  check(
+    "the fold's condition is what the exemption leaves out (a divorce, property, the home), never support",
+    /divorce/.test(FEES_IF_CLAIMED_LABEL) && /property/.test(FEES_IF_CLAIMED_LABEL) && /matrimonial home/.test(FEES_IF_CLAIMED_LABEL) && !/support/.test(FEES_IF_CLAIMED_LABEL),
+  );
+  for (const [why, words] of [["property", "she wants the house and my pension and custody"], ["a divorce", "my wife wants a divorce and custody"], ["no words", ""], ["support", "custody and child support"]] as const) {
+    const view = practicalFor(STEP, "family", "Barrie", true, words)!;
+    check(`with ${why}: nothing is folded and every fee shows`, view.feesIfClaimed === null && view.fees.length === STEP_PRACTICAL[STEP].fees.length);
+  }
+  const component = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
+  check("the card shows the folded fees under the condition", /data-testid="next-step-fees-if-claimed"[\s\S]{0,300}\{FEES_IF_CLAIMED_LABEL\}/.test(component));
+  // 8: Form 35.1 with a parenting answer, r. 35.1 (1).
+  const flr = flat(readFileSync(path.join(ROOT, "docs", "sources", "corpus", "family-law-rules.txt"), "utf8"));
+  check(
+    "r. 35.1 (1) in the saved rules: an answer claiming parenting comes with an affidavit in Form 35.1",
+    flr.includes("If an application, answer or motion to change a final order contains a claim respecting decision-making responsibility, parenting time or contact with respect to a child, the party making the claim shall serve and file with the document that contains the claim, (a) an affidavit in Form 35.1"),
+  );
+  const affidavit = fr.forms.find((form) => form.number === "35.1");
+  check("FR: Form 35.1 is a form for his answer, with r. 35.1 (1) beside it", Boolean(affidavit) && affidavit!.note?.cite.pinpoint === "r. 35.1 (1)");
+  check("FR: Form 13 stays, with r. 13 (1) (b) beside it", fr.forms.some((form) => form.number === "13" && form.note?.cite.pinpoint === "r. 13 (1) (b)"));
+  const supportOnly = practicalFor(STEP, "family", "Barrie", true, "she wants more child support")!;
+  check("words with no parenting claim: Form 35.1 is folded with its rule, never dropped", !supportOnly.forms.some((form) => form.number === "35.1") && supportOnly.formsIfClaimed.some((form) => form.number === "35.1" && form.when.cite.pinpoint === "r. 35.1 (1)"));
+  check("no words: Form 35.1 is listed", Boolean(practicalFor(STEP, "family", "Barrie", true)?.forms.some((form) => form.number === "35.1")));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

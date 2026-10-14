@@ -383,17 +383,48 @@ export function postWaysForClaim(court: ServiceCourt): { label: string; effectiv
   return court === "family" ? [...ways, { ...FAMILY_POSTCARD_WAY, effective: null }] : ways;
 }
 
+/*
+ * THE SIDE THAT SERVED (walkthrough run 38525903567, FM). A father bringing a
+ * motion to change was asked "How were the papers served?" with "Handed to
+ * me in person" and "If you were served with a motion to change, what date
+ * was it served?" -- the receiving side's questions. His time limit is the
+ * OTHER party's: r. 15 (10) runs "after the party responding to the motion
+ * receives the motion to change", so he is asked how the motion was served on
+ * them and the day they received it. Same rules and days; only the person
+ * the words are about changes.
+ */
+export const MOTION_TO_CHANGE_SERVICE_QUESTION = "case-date-served-with-motion-to-change";
+
+/** The date question the moving party is asked instead (r. 15 (10): from when the other party receives it). */
+export const MOVING_PARTY_MOTION_QUESTION = "What date did the other party receive your motion to change?";
+
+/** A way of serving, said about the person served rather than to them. */
+export function forServingSide(rule: ServiceRule): ServiceRule {
+  const third = (text: string) =>
+    text
+      .replace(/\bto me\b/g, "to them")
+      .replace(/\bHanded to me\b/g, "Handed to them")
+      .replace(/\bmy home\b/g, "their home")
+      .replace(/\bMailed to you\b/g, "Mailed to them")
+      .replace(/\bI \(or someone at home\) signed\b/g, "they (or someone at their home) signed")
+      .replace(/\ba card I signed\b/g, "a card they signed")
+      .replace(/\bthe day you got them\b/g, "the day they got them");
+  return { ...rule, label: third(rule.label), dateToEnter: third(rule.dateToEnter) };
+}
+
 /**
  * The ways of serving to offer for a service date. For a claim or an
  * application, only the ways the rules allow for one (ORIGINATING_METHODS);
- * otherwise every way.
+ * otherwise every way. `serving`: said from the side that served
+ * (forServingSide).
  */
-export function serviceRulesFor(court: ServiceCourt, questionId = ""): ServiceRule[] {
-  if (questionId && isOriginatingService(court, questionId)) {
-    return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method));
-  }
-  // The company route is only for a claim (r. 8.03 (3), 16.03 (6)).
-  return SERVICE_RULES[court].filter((rule) => !COMPANY_ROUTE.has(rule.method));
+export function serviceRulesFor(court: ServiceCourt, questionId = "", serving = false): ServiceRule[] {
+  const rules =
+    questionId && isOriginatingService(court, questionId)
+      ? SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method))
+      : // The company route is only for a claim (r. 8.03 (3), 16.03 (6)).
+        SERVICE_RULES[court].filter((rule) => !COMPANY_ROUTE.has(rule.method));
+  return serving ? rules.map(forServingSide) : rules;
 }
 
 /**
