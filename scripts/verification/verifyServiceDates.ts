@@ -17,6 +17,10 @@
  * r. 16.01 (1), family r. 8 (5)); the ways by post for a claim without their
  * rules; an arrival note or date on a step where the person served the
  * papers; a shown date that has passed without "That date has already passed".
+ * (re-check 2026-10-14) A motion to change given the application rule instead
+ * of r. 15 (7); a date counted from the mailed copy's arrival called "safest",
+ * or without the first-copy rule; the company route (r. 8.03 (3), 16.03 (6))
+ * missing; a respondent on an either-side step given no arrival note.
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -27,7 +31,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
-import { arrivalNoteFor, arrivalOnlyDates, countedFromService, latestFromArrival, offerStoryDate, receivesPapersStep } from "../../app/builder/_components/StageAnswerPanel";
+import { arrivalNoteFor, arrivalOnlyDates, countedFromService, firstCopyQuote, latestFromArrival, offerStoryDate, receivesPapersStep } from "../../app/builder/_components/StageAnswerPanel";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import { addDays as addDaysIso } from "../../src/lib/case-system/deadlines/holidays";
 import {
@@ -38,6 +42,7 @@ import {
   ORIGINATING_METHODS,
   ORIGINATING_QUESTIONS,
   ORIGINATING_RULE,
+  originatingRuleFor,
   postWaysForClaim,
   serviceRulesFor,
   SERVICE_RULES,
@@ -70,7 +75,7 @@ for (const court of Object.keys(SERVICE_RULES) as ServiceCourt[]) {
       check(`${court}: ${rule.method} counts from the day itself, with no rule to quote`, rule.addDays === 0 && rule.quote === "");
       continue;
     }
-    check(`${court}: ${rule.method} quote is in ${rule.rule}`, corpus[court].includes(flat(rule.quote)), rule.quote);
+    check(`${court}: ${rule.method} quote is in ${rule.rule}`, inCorpus(court, rule.quote), rule.quote);
   }
 }
 check("family: the closed-day rule is in r. 6 (11.3)", corpus.family.includes(flat(FAMILY_CLOSED_DAY_RULE.quote)));
@@ -210,15 +215,26 @@ console.log("\nA claim or application is not served by regular mail (legal revie
   // the ways to serve a claim or application, never r. 8.07 (2) regular mail.
   for (const court of Object.keys(SERVICE_RULES) as ServiceCourt[]) {
     const rule = ORIGINATING_RULE[court];
-    check(`${court}: the rule on serving a claim or application is the saved text (${rule.rule})`, corpus[court].includes(flat(rule.quote)));
+    check(`${court}: the rule on serving a claim or application is the saved text (${rule.rule})`, inCorpus(court, rule.quote));
     for (const questionId of ORIGINATING_QUESTIONS[court]) {
       const offered = serviceRulesFor(court, questionId).map((item) => item.method);
       check(`${court} ${questionId}: offers only the ways the rules allow for it, never regular mail or courier alone`, offered.length > 0 && offered.every((method) => ORIGINATING_METHODS[court].includes(method)) && !offered.includes("mail") && !offered.some((method) => method.startsWith("courier")), offered.join(", "));
     }
     const ways = postWaysForClaim(court);
-    check(`${court}: each way by post is quoted from the saved text, with its effective day where the rules set one`, ways.length > 0 && ways.every((way) => corpus[court].includes(flat(way.quote)) && (way.effective === null || /^service is effective on /.test(way.effective))));
+    check(`${court}: each way by post is quoted from the saved text, with its effective day where the rules set one`, ways.length > 0 && ways.every((way) => inCorpus(court, way.quote) && (way.effective === null || /^service is effective on /.test(way.effective))));
   }
-  check("Small Claims: signed for (r. 8.03 (8)) and left at home with a copy mailed (r. 8.03 (4))", postWaysForClaim("small-claims").map((way) => way.rule).join() === "O. Reg. 258/98, r. 8.03 (8),O. Reg. 258/98, r. 8.03 (4)");
+  check("Small Claims: signed for (r. 8.03 (8)), left at home with a copy mailed (r. 8.03 (4)), and the company route (r. 8.03 (3), (4))", ["r. 8.03 (8)", "r. 8.03 (4)", "r. 8.03 (3), (4)"].every((pin) => postWaysForClaim("small-claims").some((way) => way.rule.endsWith(pin))));
+  check("civil: the company route (r. 16.03 (6), mail effective under r. 16.06 (2)) is among them", postWaysForClaim("civil").some((way) => /r\. 16\.03 \(6\)/.test(way.rule) && /fifth day after/.test(way.effective ?? "")));
+  check("the company route is offered only for a claim", (Object.keys(SERVICE_RULES) as ServiceCourt[]).every((court) => !serviceRulesFor(court).some((item) => item.method === "corporation-mail") && !serviceRulesFor(court, "case-date-defence-served").some((item) => item.method === "corporation-mail")));
+  check("a saved company-route method is still read back", readCasePosition({ position: { service: { "sc-date-claim-served": { method: "corporation-mail", enteredOn: "2026-09-20" } } } }, "small-claims").service?.["sc-date-claim-served"]?.method === "corporation-mail");
+  // A motion to change is not an application (re-check 2026-10-14): r. 15 (7), not r. 8 (5).
+  const motionRule = originatingRuleFor("family", "case-date-served-with-motion-to-change");
+  check("family motion to change: r. 15 (7), quoted from the saved text, never the application rule", motionRule.rule.endsWith("r. 15 (7)") && inCorpus("family", motionRule.quote) && /motion to change/i.test(motionRule.say) && !/application/i.test(`${motionRule.say} ${motionRule.quote}`));
+  const ruleMismatch = [...ORIGINATING_QUESTIONS.family].filter((id) => {
+    const rule = originatingRuleFor("family", id);
+    return /application/.test(id) ? !/^The application shall/.test(rule.quote) : /motion-to-change/.test(id) ? !rule.rule.endsWith("r. 15 (7)") : true;
+  });
+  check("each family claim-type question gets the rule for its own papers", ruleMismatch.length === 0, ruleMismatch.join(", "));
   check("civil: the acknowledgment card (r. 16.03 (4)) is among them", postWaysForClaim("civil").some((way) => /r\. 16\.03 \(4\)/.test(way.rule)));
   check("family: the return postcard (r. 6 (3) (c)) is among them", postWaysForClaim("family").some((way) => /r\. 6 \(3\) \(c\)/.test(way.rule)));
   check("other papers still offer every way, regular mail included", serviceRulesFor("small-claims", "sc-date-defence-filed").some((item) => item.method === "mail"));
@@ -241,7 +257,18 @@ console.log("\nA claim or application is not served by regular mail (legal revie
     );
   }
   const panel = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
-  check("the card calls it the safest date to act by and points to the affidavit of service and the court office", /The safest date to act by, counted from the day the papers first reached you/.test(panel) && /affidavit of service\. The court office can also tell you/.test(panel));
+  // Re-check 2026-10-14: the day the MAILED copy arrived can be after service
+  // took effect on a copy left or signed for earlier. "Safest" only when the
+  // words say it is the first copy to reach the home; the rule for counting
+  // from the first copy is always said.
+  check("the card says to count from the first copy reaching the home, and from a copy left earlier", /Count from the first day a copy reached your home: signed for there, left with someone there, or arrived in the\s+mail\. If a copy was left at your home earlier than the one you got in the mail, count from the day it was left\./.test(panel) && /affidavit of service\. The court office can also tell you/.test(panel));
+  check("'safest' only when the words say first copy; otherwise 'counted from the day you gave'", /arrival\.firstCopy\s*\?\s*"The safest date to act by, counted from the first day a copy reached your home: "\s*:\s*"Counted from the day you gave: "/.test(panel));
+  check("'got the claim in the mail' is not the first copy; signed for, left with, or 'first' is", !firstCopyQuote("i got the plaintiffs claim in the mail on september 28") && firstCopyQuote("my wife signed for it on september 28") && firstCopyQuote("they left a copy with my son on september 26") && firstCopyQuote("the first copy came on september 26"));
+  {
+    const quote = "i got the papers in the mail on september 28";
+    const mailed = arrivalNoteFor([{ id: "sc-date-claim-served" }], { "sc-date-claim-served": quote }, {}, "small-claims", {}, "mail", { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote, value: "2026-09-28" } } }, "2026-10-01");
+    check("the renovation note is not called the safest date", mailed?.firstCopy === false && (mailed?.safest.length ?? 0) > 0);
+  }
   check("the card never says whether service was valid", !/\b(?:valid|invalid|improperly served|not properly served)\b/i.test(panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "")));
   check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /serviceRulesFor\(serviceCourt, question\.id\)\.map\(/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));
 }
@@ -280,6 +307,17 @@ console.log("\nThe 'no later than' date: only papers that may be served by mail,
     ),
   );
   check("no arrival note or date on a step where the person served the papers (no 'your' for the other side's deadline)", notReceiving.length === 0, notReceiving.slice(0, 4).join("; "));
+  // Re-check 2026-10-14: the person's side on an "either side" step counts.
+  check("a respondent on an either-side step receives the papers; the mover does not", receivesPapersStep("family:both:asking-to-change-final-order", true) && !receivesPapersStep("family:both:asking-to-change-final-order", false));
+  {
+    const quote = "i got her motion to change in the mail on september 28";
+    const hints = { "case-date-served-with-motion-to-change": { quote, value: "2026-09-28" } };
+    const asResponder = arrivalOnlyDates({ stageId: "family:both:asking-to-change-final-order", court: "family", storyText: quote, storyHints: hints, methods: {}, responding: true });
+    const asMover = arrivalOnlyDates({ stageId: "family:both:asking-to-change-final-order", court: "family", storyText: quote, storyHints: hints, methods: {}, responding: false });
+    const note = arrivalNoteFor([{ id: "case-date-served-with-motion-to-change" }], asResponder, {}, "family", {}, "mail", { stageId: "family:both:asking-to-change-final-order", hints, responding: true }, "2026-10-01");
+    check("a respondent to a motion to change gets the arrival note, with r. 15 (7)", Object.keys(asResponder).length === 1 && Object.keys(asMover).length === 0 && note?.claimRule?.rule.endsWith("r. 15 (7)") === true, JSON.stringify({ asResponder, asMover, rule: note?.claimRule?.rule }));
+  }
+  { const source = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8"); check("the panel passes the person's side to the arrival readers", /methods: serviceMethod, responding \}/.test(source) && /hints: storyHints,\s*responding,/.test(source)); }
   check("plaintiff awaiting a defence: an arrival sentence is not held back as the papers reaching them", Object.keys(arrivalOnlyDates({ stageId: "plaintiff:served-awaiting-defence", court: "small-claims", storyText: "i got the claim back in the mail on september 28", storyHints: { "sc-date-claim-served": { quote: "i got the claim back in the mail on september 28", value: "2026-09-28" } }, methods: {} })).length === 0);
   // Item 4: a shown date that has passed says so (limitPassedState).
   const past = latestFromArrival(stageId, qid, "civil", "mail", "2026-01-05", "2026-12-31");
@@ -306,4 +344,9 @@ function countedArrivalNote(stageId: string, questionId: string, court: ServiceC
   const quote = "i got it in the mail on september 28";
   const arrival = arrivalOnlyDates({ stageId, court, storyText: quote, storyHints: { [questionId]: { quote, value: "2026-09-28" } }, methods: {} });
   return Object.keys(arrival).length > 0;
+}
+
+/** A quote that may skip material (" ... "): each run is in the saved text. */
+function inCorpus(court: ServiceCourt, quote: string): boolean {
+  return quote.split(" ... ").every((run) => corpus[court].includes(flat(run)));
 }

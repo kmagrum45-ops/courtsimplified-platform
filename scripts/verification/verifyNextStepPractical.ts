@@ -407,7 +407,14 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
     check("persona family-respondent-parenting: Form 13 is in the list with its r. 13 (1) (b) condition", Boolean(view?.forms.some((form) => form.number === "13" && form.note?.cite.pinpoint === "r. 13 (1) (b)")));
   }
   check("the card shows a form's condition beside it", /form\.note \?/.test(readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8")));
-  check("the financial-statement time limit is not folded on a responding step", claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:respondent:served-time-to-answer-running") === "fits");
+  // Re-check 2026-10-14: the person's side on an either-side step counts too.
+  check(
+    "on an either-side step the financial-statement limit folds for the mover's parenting words, never for the one responding",
+    claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:both:asking-to-change-final-order", true) === "fits" &&
+      claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:both:asking-to-change-final-order", false) === "not",
+  );
+  check("the card passes the person's side to claimFit", /claimFit\(item, story, stepId, responding\)/.test(readFileSync(path.join(ROOT, "app", "builder", "_components", "StageAnswerPanel.tsx"), "utf8")));
+  check("the financial-statement time limit is not folded on a responding step",claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:respondent:served-time-to-answer-running") === "fits");
   const startParenting = practicalFor("family:before-filing:deciding-where-to-start", "family", "", false, PARENTING);
   check(
     "starting a parenting-only case: Form 13 is folded with r. 13 (1) (a) and (b)",

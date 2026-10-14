@@ -37,6 +37,7 @@ export type ServiceMethod =
   | "mail"
   | "registered-mail-signature"
   | "acknowledgment-card"
+  | "corporation-mail"
   | "courier"
   | "courier-same-day"
   | "courier-next-day"
@@ -81,6 +82,16 @@ export const SERVICE_RULES: Record<ServiceCourt, ServiceRule[]> = {
       rule: `${SC}, r. 8.03 (8)`,
       quote: "is effective on the date on which receipt of the copy of the claim is verified by signature",
       addDays: 0,
+    },
+    {
+      // r. 8.03 (3): a company not found at its address on record (legal review 2026-10-14).
+      method: "corporation-mail",
+      label: "Mailed or couriered to the company at its address on record, and to its directors",
+      dateToEnter: "the day it was mailed",
+      rule: `${SC}, r. 8.03 (3), (4)`,
+      quote:
+        "service may be made on the corporation, (a) by mailing or sending by courier a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address; and (b) by mailing or sending by courier a copy of the document to each director of the corporation ... Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered.",
+      addDays: 5,
     },
     {
       method: "mail",
@@ -132,6 +143,16 @@ export const SERVICE_RULES: Record<ServiceCourt, ServiceRule[]> = {
       rule: `${CIVIL}, r. 16.03 (4)`,
       quote: "is only effective as of the date the sender receives the card",
       addDays: 0,
+    },
+    {
+      // r. 16.03 (6): a company not found at its address on record; mail is effective under r. 16.06 (2).
+      method: "corporation-mail",
+      label: "Mailed to the company at its address on record",
+      dateToEnter: "the day it was mailed",
+      rule: `${CIVIL}, r. 16.03 (6), 16.06 (2)`,
+      quote:
+        "service may be made on the corporation by mailing a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address ... Service of a document by mail, except under subrule 16.03 (4), is effective on the fifth day after the document is mailed",
+      addDays: 5,
     },
     {
       method: "mail",
@@ -291,13 +312,14 @@ export function isOriginatingService(court: ServiceCourt, questionId: string): b
 
 /** The ways the rules allow a claim or application to be served, among SERVICE_RULES. */
 export const ORIGINATING_METHODS: Record<ServiceCourt, readonly ServiceMethod[]> = {
-  "small-claims": ["personal", "registered-mail-signature", "residence-and-mail"],
-  civil: ["personal", "acknowledgment-card", "residence-and-mail"],
+  "small-claims": ["personal", "registered-mail-signature", "residence-and-mail", "corporation-mail"],
+  civil: ["personal", "acknowledgment-card", "residence-and-mail", "corporation-mail"],
   family: ["personal", "personal-after-4pm", "residence-and-mail"],
 };
 
 /** The rule that says how a claim or application is served, quoted. */
-export const ORIGINATING_RULE: Record<ServiceCourt, { rule: string; quote: string; say: string }> = {
+export type OriginatingRule = { rule: string; quote: string; say: string };
+export const ORIGINATING_RULE: Record<ServiceCourt, OriginatingRule> = {
   "small-claims": {
     rule: `${SC}, r. 8.01 (1)`,
     quote: "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.",
@@ -314,6 +336,22 @@ export const ORIGINATING_RULE: Record<ServiceCourt, { rule: string; quote: strin
     say: "An application is to be served by special service: personally, or in one of the other ways the rules allow.",
   },
 };
+
+/**
+ * A motion to change is not an application (legal review 2026-10-14): r. 15
+ * (7) says its documents are served by special service; r. 15 (8) lets
+ * officials and agencies under r. 8 (6) be served by regular service.
+ */
+export const MOTION_TO_CHANGE_RULE: OriginatingRule = {
+  rule: `${FAMILY}, r. 15 (7)`,
+  quote: "The documents referred to in subrules (5), (5.1) and (6) shall be served by special service (subrule 6 (3)), and not by regular service.",
+  say: "A motion to change is to be served by special service: personally, or in one of the other ways the rules allow.",
+};
+
+/** The rule for the papers a service-date question asks about: the motion-to-change rule for a motion to change, else the court's claim or application rule. */
+export function originatingRuleFor(court: ServiceCourt, questionId: string): OriginatingRule {
+  return court === "family" && questionId === "case-date-served-with-motion-to-change" ? MOTION_TO_CHANGE_RULE : ORIGINATING_RULE[court];
+}
 
 /** Family r. 6 (3) (c): special service by mail with a return postcard. Its effective day is not one SERVICE_RULES counts, so it is listed without one. */
 export const FAMILY_POSTCARD_WAY = {
@@ -340,7 +378,8 @@ export function serviceRulesFor(court: ServiceCourt, questionId = ""): ServiceRu
   if (questionId && isOriginatingService(court, questionId)) {
     return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method));
   }
-  return SERVICE_RULES[court];
+  // The company route is only for a claim (r. 8.03 (3), 16.03 (6)).
+  return SERVICE_RULES[court].filter((rule) => rule.method !== "corporation-mail");
 }
 
 /**

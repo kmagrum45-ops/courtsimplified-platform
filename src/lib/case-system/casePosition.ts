@@ -23,7 +23,7 @@
  * Pure: no I/O. The route that writes it is app/api/cases/position.
  */
 
-import { serviceRulesFor, type ServiceCourt, type ServiceMethod } from "./deadlines/serviceEffectiveDate";
+import { SERVICE_RULES, type ServiceCourt, type ServiceMethod } from "./deadlines/serviceEffectiveDate";
 import {
   DEADLINE_EVENTS,
   parseUserDate,
@@ -132,7 +132,8 @@ function serviceCourtOf(courtPath: string | null | undefined): ServiceCourt | nu
 function isMethodFor(method: unknown, courtPath: string | null | undefined): method is ServiceMethod {
   const court = serviceCourtOf(courtPath);
   const courts = court ? [court] : (["small-claims", "civil", "family"] as const);
-  return typeof method === "string" && courts.some((one) => serviceRulesFor(one).some((rule) => rule.method === method));
+  // Every way the court's rules know, the claim-only company route included (SERVICE_RULES, not the per-question offer).
+  return typeof method === "string" && courts.some((one) => SERVICE_RULES[one].some((rule) => rule.method === method));
 }
 
 function readService(value: unknown, courtPath?: string | null): Record<string, { method: ServiceMethod; enteredOn: string }> {

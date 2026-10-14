@@ -1147,7 +1147,7 @@ export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
  * support-only motion to change), otherwise "fits". Such a limit is folded
  * under "may apply later", never dropped.
  */
-export function claimFit(item: { id?: string; what: string }, words: string, stepId = ""): "fits" | "not" {
+export function claimFit(item: { id?: string; what: string }, words: string, stepId = "", responding = false): "fits" | "not" {
   const claims = familyClaimsIn(words);
   if (!claims.known) return "fits";
   // On a step whose own subject is a kind of claim, a line about that kind is
@@ -1158,7 +1158,7 @@ export function claimFit(item: { id?: string; what: string }, words: string, ste
   if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
   if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
   // Not on a responding step: there the duty turns on what the other side's papers claim (legal review 2026-10-14).
-  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words) && !respondingStep(stepId, false)) return "not";
+  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words) && !respondingStep(stepId, responding)) return "not";
   /*
    * Any other limit the rule makes conditional on a kind of claim ("If the
    * motion asks to change temporary support", "If your answer made its own
