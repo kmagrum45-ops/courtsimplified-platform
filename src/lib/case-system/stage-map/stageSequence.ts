@@ -25,7 +25,15 @@
  */
 
 import { ALL_STAGES, type CaseStage } from "./stageMap";
-import { S_CLPA_17_11_WAIVER, S_CLPA_17_2_LEAVE, S_CLPA_17_9_GRANTED } from "./civilStages";
+import {
+  LIEN_CA_36_3,
+  LIEN_CA_50_1,
+  LIEN_REG_1_2,
+  LIEN_REG_13,
+  S_CLPA_17_11_WAIVER,
+  S_CLPA_17_2_LEAVE,
+  S_CLPA_17_9_GRANTED,
+} from "./civilStages";
 import {
   R_10_01_DEFENDANTS_CLAIM,
   R_10_03_DEFENCE_TO_DEFENDANTS_CLAIM,
@@ -471,10 +479,23 @@ const FAMILY_MOVES: StageMove[] = [
   move("family:both:served-with-licence-suspension-notice", "family:both:asking-to-change-final-order", "you", "A payor who makes a motion to change the support order may also ask the court, on notice to the Director, to order the Director not to suspend the licence.", F("both:served-with-licence-suspension-notice", "s. 35 (1)")),
 ];
 
-export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...LAW_MAP_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES, ...FAMILY_MOVES];
+/** Construction lien steps (2026-10-14, CLAUDE.md s. 2a). */
+const LIEN_MOVES: StageMove[] = [
+  move(
+    "civil:defendant:lien-registered-on-title",
+    "civil:defendant:served-with-lien-claim",
+    "other-side",
+    "The lien claimant starts an action to enforce the lien and serves the statement of claim, within 90 days after it is issued unless the court extends the time.",
+    LIEN_REG_1_2,
+  ),
+];
+
+export const STAGE_MOVES: StageMove[] = [...SMALL_CLAIMS_MOVES, ...LAW_MAP_MOVES, ...DISMISSAL_MOVES, ...CIVIL_MOVES, ...LIEN_MOVES, ...FAMILY_MOVES];
 
 /** Steps where this chain stops, and why. Each is a real end, or the next move belongs to a part of the map not yet built. */
 export const FINAL_STEPS: FinalStep[] = [
+  { stage: "civil:defendant:served-with-lien-claim", why: "What follows in a lien action (the motion to fix a trial or a settlement meeting, a reference, the trial) is governed by O. Reg. 302/18 and is not yet on this map.", rules: [LIEN_REG_13] },
+  { stage: "civil:plaintiff:lien-claimant", why: "A preserved lien is perfected by starting an action in the Superior Court of Justice; the lien action's own steps are not yet on this map.", rules: [LIEN_CA_36_3, LIEN_CA_50_1] },
   { stage: "plaintiff:debtor-examination", why: "After the examination the court may make an order as to payment; the other ways to enforce (garnishment, writs) are in this step's card.", rules: [R_20_10_ORDER_AS_TO_PAYMENT, R_20_03_ENFORCEMENT] },
   { stage: "defendant:judgment-being-enforced", why: "The debtor may ask the court to stay enforcement or change the payments if their circumstances have changed; after an examination the court may make an order as to payment.", rules: [R_20_02_STAY_VARY, R_20_10_ORDER_AS_TO_PAYMENT] },
   { stage: "plaintiff:action-dismissed-for-delay", why: "If every party consents, the clerk can restore the action to the list (Form 11.2A); the case then picks up where it was.", rules: [R_11_2_01_RESTORE_ON_CONSENT] },
@@ -508,6 +529,8 @@ export const STARTING_POINTS: { stage: string; why: string }[] = [
   { stage: "civil:defendant:served-with-third-party-claim", why: "A person brought into an action by a third party claim starts here." },
   { stage: "civil:defendant:served-with-counterclaim-as-new-party", why: "A person not yet a party, brought in by a counterclaim, starts here." },
   { stage: "civil:both:lawyer-removed-from-record", why: "Can happen at any point in an action; no step leads there on purpose." },
+  { stage: "civil:defendant:lien-registered-on-title", why: "An owner starts here when a claim for lien is registered on the title of their property." },
+  { stage: "civil:plaintiff:lien-claimant", why: "A contractor or supplier who has not been paid for work on a property starts here." },
   { stage: "family:before-filing:deciding-where-to-start", why: "Where a person starting a family case begins." },
   { stage: "family:respondent:served-time-to-answer-running", why: "Where a person served with a family application starts." },
   { stage: "family:both:served-with-motion-to-change", why: "A person served with a motion to change a final order starts here, often years after the case ended." },

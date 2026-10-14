@@ -81,6 +81,9 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   "ontario-fees-family": "2026-09-30",
   "ontario-fee-waiver": "2026-09-27",
   "oreg-417-95-family-court-fees": "2026-10-14",
+  // The construction lien steps (stageSequence.ts moves and final steps).
+  "construction-act": "2026-09-27",
+  "oreg-302-18-construction-act-procedures": "2026-10-14",
   "oreg-258-98-small-claims-rules": "2026-09-27",
   "rules-of-civil-procedure": "2026-09-27",
   "family-law-rules": "2026-09-30",
@@ -563,6 +566,7 @@ const CIVIL_FILES: string[] = [
   "deadline:civil:counterclaim-election-30-days",
   "deadline:civil:counterclaim-election-after-discontinuance-30-days",
   "deadline:civil:defence",
+  "deadline:civil:lien-defence-20-days",
   "deadline:civil:defence-to-counterclaim-20-days",
   "deadline:civil:defence-to-counterclaim-new-party",
   "deadline:civil:defence-to-crossclaim-20-days",
@@ -1422,6 +1426,11 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "civil:plaintiff:judgment-unpaid": { forms: ["60A", "60G", "60H"], fees: ["civ-writ", "civ-garnishment"], files: true, serve: null },
   // ---- Civil: defendant
   "civil:defendant:served-defence-period-running": { forms: ["18A", "18B"], fees: ["civ-intent", "civ-defence"], files: true, serve: "ordinary" },
+  // Construction lien steps (2026-10-14): the forms and fees for a lien action
+  // are not yet on the map, so none are listed rather than the ordinary ones.
+  "civil:defendant:lien-registered-on-title": NOTHING,
+  "civil:defendant:served-with-lien-claim": NOTHING,
+  "civil:plaintiff:lien-claimant": NOTHING,
   "civil:defendant:defence-delivered": { forms: ["30A"], fees: [], files: false, serve: "ordinary" },
   "civil:defendant:served-with-third-party-claim": { forms: ["29B"], fees: ["civ-defence"], files: true, serve: "ordinary" },
   "civil:defendant:served-with-counterclaim-as-new-party": { forms: ["27C"], fees: ["civ-defence"], files: true, serve: "ordinary" },

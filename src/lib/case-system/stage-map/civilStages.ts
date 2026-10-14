@@ -2170,6 +2170,146 @@ const CJA_137_2_DATE_FIRST = cja(
   "The moving party shall obtain the hearing date for the motion from the court before notice of the motion is served.",
 );
 
+// ---------------------------------------------------------------------------
+// Construction liens (2026-10-14, CLAUDE.md s. 2a). A lien is enforced in the
+// Superior Court (Construction Act s. 50 (1)) under its own procedure: the
+// Courts of Justice Act and the rules apply only where consistent with the Act
+// and O. Reg. 302/18 (s. 50 (2)). Quoted from docs/sources/corpus; drafted in
+// the law map first (docs/law-map/civil.json, civ.lien.*) and reviewed there.
+// ---------------------------------------------------------------------------
+
+export const LIEN_CA_14_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 14 (1)",
+  quote: "A person who supplies services or materials to an improvement for an owner, contractor or subcontractor, has a lien upon the interest of the owner in the premises improved for the price of those services or materials.",
+};
+
+export const LIEN_CA_31_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 31 (1)",
+  quote: "Unless preserved under section 34, the liens arising from the supply of services or materials to an improvement expire as provided in this section.",
+};
+
+export const LIEN_CA_34_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 34 (1)",
+  quote: "A lien may be preserved during the supplying of services or materials or at any time before it expires, (a) where the lien attaches to the premises, by the registration in the proper land registry office of a claim for lien on the title of the premises in accordance with this Part; and (b) where the lien does not attach to the premises, by giving to the owner a copy of the claim for lien.",
+};
+
+export const LIEN_CA_35_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 35 (1)",
+  quote: "any person who preserves a claim for lien or who gives written notice of a lien in the following circumstances is liable to any person who suffers damages as a result: 1. The person knows or ought to know that the amount of the lien has been wilfully exaggerated. 2. The person knows or ought to know that he or she does not have a lien.",
+};
+
+export const LIEN_CA_36_2: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 36 (2)",
+  quote: "A lien that has been preserved expires unless it is perfected prior to the end of the 90-day period next following the last day, under section 31, on which the lien could have been preserved.",
+};
+
+export const LIEN_CA_36_3: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 36 (3)",
+  quote: "A lien claimant perfects the lien claimant's preserved lien, (a) where the lien attaches to the premises, when the lien claimant commences an action to enforce the lien and, except where an order to vacate the registration of the lien is made, the lien claimant registers a certificate of action in the prescribed form on the title of the premises; or (b) where the lien does not attach to the premises, when the lien claimant commences an action to enforce the lien.",
+};
+
+export const LIEN_CA_37_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 37 (1)",
+  quote: "A perfected lien expires immediately after the second anniversary of the commencement of the action that perfected the lien, unless one of the following occurs on or before that anniversary: 1. An order is made for the trial of an action in which the lien may be enforced. 2. An action in which the lien may be enforced is set down for trial.",
+};
+
+export const LIEN_CA_39_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 39 (1)",
+  quote: "Any person having a lien or who is the beneficiary of a trust under Part II or who is a mortgagee may, at any time, by written request, require information to be provided within a reasonable time",
+};
+
+export const LIEN_CA_44_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 44 (1)",
+  quote: "Upon the motion of any person, without notice to any other person, the court shall make an order vacating, (a) where the lien attaches to the premises, the registration of a claim for lien and any certificate of action in respect of that lien; or (b) where the lien does not attach to the premises, the claim for lien, where the person bringing the motion pays into court, or posts security in an amount equal to, the total of, (c) the full amount claimed as owing in the claim for lien; and (d) the lesser of $250,000 or 25 per cent of the amount described in clause (c), as security for costs.",
+};
+
+export const LIEN_CA_44_2: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 44 (2)",
+  quote: "Upon the motion of any person, the court may make an order vacating the registration of a claim for lien, and any certificate of action in respect of that lien, upon the payment into court or the posting of security of an amount that the court determines to be reasonable in the circumstances to satisfy the lien.",
+};
+
+export const LIEN_CA_47_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 47 (1)",
+  quote: "The court may, on motion, order the discharge of a lien, (a) on the basis that the claim for the lien is frivolous, vexatious or an abuse of process; or (b) on any other proper ground.",
+};
+
+export const LIEN_CA_50_1: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 50 (1)",
+  quote: "A lien claim is enforceable in an action in the Superior Court of Justice.",
+};
+
+export const LIEN_CA_50_2: RuleCitation = {
+  sourceId: "construction-act",
+  pinpoint: "s. 50 (2)",
+  quote: "Except to the extent that they are inconsistent with this Act and the procedures prescribed for the purposes of this Part, the Courts of Justice Act and the rules of court apply to actions under this Part.",
+};
+
+export const LIEN_REG_1_1: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 1 (1)",
+  quote: "An action shall be commenced by the issuing of a statement of claim in a court office in the county in which the premises or part of the premises are situate.",
+};
+
+export const LIEN_REG_1_2: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 1 (2)",
+  quote: "Subject to subsection (3), a statement of claim shall be served within 90 days after it is issued.",
+};
+
+export const LIEN_REG_1_3: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 1 (3)",
+  quote: "The court may, on a motion served and filed before or after the period of time mentioned in subsection (2) has expired, extend the time for service of the statement of claim.",
+};
+
+export const LIEN_REG_2_2: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 2 (2)",
+  quote: "Subject to subsection (3), a crossclaim or counterclaim by any person shall accompany the person’s statement of defence.",
+};
+
+export const LIEN_REG_2_3: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 2 (3)",
+  quote: "The court may, on a motion served and filed before the date the statement of defence is delivered, grant leave to deliver a crossclaim or counterclaim after the statement of defence is delivered.",
+};
+
+export const LIEN_REG_2_5: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 2 (5)",
+  quote: "The time for delivering a statement of defence to a lien claim, crossclaim, counterclaim or third party claim shall be 20 days.",
+};
+
+export const LIEN_REG_5_1: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 5 (1)",
+  quote: "If a person against whom a claim is made in a statement of claim, counterclaim, crossclaim or third party claim defaults in the delivery of a defence to that claim, the person against whom the claim is made may be noted in default.",
+};
+
+export const LIEN_REG_5_2: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 5 (2)",
+  quote: "If a defendant or third party has been noted in default under subsection (1), the defendant or third party may not contest the claim of the person who named the defendant or third party as a defendant or third party, or file a statement of defence, except with leave of the court.",
+};
+
+export const LIEN_REG_13: RuleCitation = {
+  sourceId: "oreg-302-18-construction-act-procedures",
+  pinpoint: "s. 13",
+  quote: "Interlocutory steps, other than those provided for under the Act, shall not be taken without the consent of the court on proof that the steps are necessary or would expedite the resolution of the issues in dispute.",
+};
+
 const BEFORE_FILING: CaseStage[] = [
   {
     id: "civil:before-filing:deciding-whether-to-sue",
@@ -2485,6 +2625,45 @@ const BEFORE_FILING: CaseStage[] = [
 // =====================================================================
 
 const PLAINTIFF: CaseStage[] = [
+  {
+    id: "civil:plaintiff:lien-claimant",
+    pathway: "civil",
+    side: "plaintiff",
+    wentWrong: false,
+    userQuestion: "I supplied work or materials to a building project and was not paid. How does a construction lien work?",
+    title: "Unpaid contractor or supplier with a possible construction lien",
+    description:
+      "The person supplied services or materials to an improvement to land and has not been paid, and is asking about a lien under the Construction Act.",
+    cues: [
+      "can I put a lien on the house",
+      "I'm a subcontractor and wasn't paid",
+      "register a construction lien",
+      "how do I perfect my lien",
+      "the homeowner won't pay for the renovation",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "civil:before-filing:deciding-whether-to-sue",
+        by: "whether the person supplied services or materials to an improvement and is asking about a lien, or about an ordinary claim for money",
+      },
+    ],
+    rules: [
+      LIEN_CA_14_1,
+      LIEN_CA_31_1,
+      LIEN_CA_34_1,
+      LIEN_CA_36_2,
+      LIEN_CA_36_3,
+      LIEN_CA_37_1,
+      LIEN_CA_35_1,
+      LIEN_CA_39_1,
+      LIEN_CA_50_1,
+      LIEN_REG_1_1,
+      LIEN_REG_1_2,
+      LIEN_REG_1_3,
+    ],
+    deadlines: [],
+  },
+
   {
     id: "civil:plaintiff:claim-drafted-not-issued",
     pathway: "civil",
@@ -3159,7 +3338,105 @@ const PLAINTIFF: CaseStage[] = [
 // Defendant
 // =====================================================================
 
+
 const DEFENDANT: CaseStage[] = [
+  {
+    id: "civil:defendant:lien-registered-on-title",
+    pathway: "civil",
+    side: "defendant",
+    wentWrong: false,
+    userQuestion: "A contractor or supplier registered a construction lien on my property. What can I do?",
+    title: "Construction lien registered on title, no lien action served yet",
+    description:
+      "A claim for lien under the Construction Act has been registered on the title of the person's property, or a copy given to them, and no statement of claim in an action to enforce the lien has been served on them.",
+    cues: [
+      "the contractor registered a lien on my house",
+      "construction lien on my property",
+      "a lien was put on title",
+      "claim for lien",
+      "how do I get a lien off my house",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "civil:defendant:served-with-lien-claim",
+        by: "whether a statement of claim in an action to enforce the lien has been served on the owner",
+      },
+      {
+        stage: "civil:defendant:served-defence-period-running",
+        by: "whether what was received is a claim for lien registered on title or a statement of claim in a lawsuit",
+      },
+    ],
+    rules: [
+      LIEN_CA_14_1,
+      LIEN_CA_31_1,
+      LIEN_CA_34_1,
+      LIEN_CA_36_2,
+      LIEN_CA_36_3,
+      LIEN_CA_44_1,
+      LIEN_CA_44_2,
+      LIEN_CA_47_1,
+      LIEN_CA_35_1,
+      LIEN_CA_39_1,
+      LIEN_CA_50_1,
+    ],
+    deadlines: [],
+  },
+  {
+    id: "civil:defendant:served-with-lien-claim",
+    pathway: "civil",
+    side: "defendant",
+    wentWrong: false,
+    userQuestion: "I was served with a statement of claim in a construction lien action. What do I have to do, and by when?",
+    title: "Served with a statement of claim in a lien action, time to defend running",
+    description:
+      "The owner or another defendant has been served with a statement of claim in an action to enforce a construction lien, and the time to deliver a defence has not run out.",
+    cues: [
+      "served with a statement of claim for the lien",
+      "the contractor sued me to enforce the lien",
+      "lien action statement of claim",
+      "how long do I have to defend a lien claim",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "civil:defendant:lien-registered-on-title",
+        by: "whether a statement of claim in the lien action has been served, or only the claim for lien registered",
+      },
+      {
+        stage: "civil:defendant:served-defence-period-running",
+        by: "whether the statement of claim is in an action to enforce a construction lien or an ordinary action",
+      },
+    ],
+    rules: [
+      LIEN_CA_50_1,
+      LIEN_CA_50_2,
+      LIEN_REG_1_1,
+      LIEN_REG_1_2,
+      LIEN_REG_2_5,
+      LIEN_REG_2_2,
+      LIEN_REG_5_1,
+      LIEN_REG_5_2,
+      LIEN_REG_13,
+      LIEN_CA_44_1,
+      LIEN_CA_47_1,
+    ],
+    deadlines: [
+      {
+        id: "deadline:civil:lien-defence-20-days",
+        what: "Deliver a statement of defence to the lien claim",
+        countFrom: "the day you were served with the statement of claim",
+        countFromEvent: "served-with-claim",
+        length: { unit: "days", count: 20 },
+        regime: "civil-rules",
+        rule: LIEN_REG_2_5,
+        computation: C.RCP_3_01_COUNT,
+        consequence: "changes-what-happens-next",
+        qualifier:
+          "A crossclaim or counterclaim goes with the statement of defence, unless the court gives leave on a motion made before the defence is delivered. A defendant who does not deliver a defence may be noted in default, and then cannot contest the claim or file a defence without the court's leave.",
+        exceptions: [LIEN_REG_2_2, LIEN_REG_2_3, LIEN_REG_5_1, LIEN_REG_5_2, LIEN_CA_50_2],
+      },
+    ],
+  },
+
   {
     id: "civil:defendant:served-defence-period-running",
     pathway: "civil",
