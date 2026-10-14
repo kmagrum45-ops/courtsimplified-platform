@@ -60,6 +60,9 @@ jobs:
       - name: Server errors are logged without anything that identifies a person
         run: npm run test:server-error-log
 
+      - name: Deleting a case deletes its stored files, and only its owner's
+        run: npm run test:case-file-cleanup
+
       - name: The user's own words shown back, and story dates offered for deadlines
         run: npm run test:user-story
 

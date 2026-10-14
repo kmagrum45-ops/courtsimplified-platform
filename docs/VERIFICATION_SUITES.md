@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-147 documented, 28 without a header.
+148 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -23,6 +23,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
 | `npm run test:case-drafts` | **Drafts are saved on the user's own case, hold only what the user gave us,**<br>and never cross from one case to another. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
+| `npm run test:case-file-cleanup` | **test:case-file-cleanup -- deleting a case deletes its stored files, and only**<br>its owner's (src/lib/case-workspace/caseFileCleanup.ts; 2026-10-14 audit). |
 | `npm run test:case-file-summary` | **Deterministic self-test for composeCaseFileSummary().**<br>WHY THIS EXISTS. Fix 1 and Fix 2 (Session 48) removed the free-text summary slot and replaced it with two model-supplied arrays assembled by composeCaseFileSummary(). The intended evidence for that change was a five-runs-either-side interception measurement, w |
 | `npm run test:case-load-restore` | **A loaded case restores what it recorded, and invents nothing when it did not.**<br>COSTS NOTHING. Reads `app/builder/page.tsx` and the engine that writes the keys it reads. No browser, no network, no database. |
 | `npm run test:case-position` | **The case's confirmed position — stage, exact step, and the dates that set its**<br>deadlines — is stored only as the user gave it, and reaches the pages that count deadlines. |
