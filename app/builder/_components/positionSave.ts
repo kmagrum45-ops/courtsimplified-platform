@@ -16,33 +16,65 @@ import { applyPositionPatch, readCasePosition, type PositionPatch } from "../../
 import { updateMasterResult } from "../../../src/lib/case-system/updateCaseRecord";
 
 /*
- * ONE QUEUE FOR EVERY WRITE TO A CASE'S ROW (2026-10-14, walkthrough run
- * 38525903567: two of five journeys stopped on "Saving your case" and
- * "Opening your case…", the browser logging PATCH and GET /rest/v1/cases 500
- * 57014, "canceling statement due to statement timeout"). The case save
- * (builder page.tsx, saveChainRef) and these position saves were two separate
- * queues, so each was one at a time on its own, but the two -- and the
- * family-answers save, which was in neither -- wrote the same large
+ * ONE QUEUE FOR EVERY WRITE TO A CASE'S ROW THAT A PAGE STARTS (2026-10-14,
+ * walkthrough run 38525903567: two of five journeys stopped on "Saving your
+ * case" and "Opening your case…", the browser logging PATCH and GET
+ * /rest/v1/cases 500 57014, "canceling statement due to statement timeout").
+ * The case save (builder page.tsx, saveChainRef) and these position saves
+ * were two separate queues, so each was one at a time on its own, but the two
+ * -- and the family-answers save, the drafts and form-answers routes, and the
+ * case reader's write, which were in no queue -- wrote the same large
  * master_result row at the same moment. Each write of that row sends and
  * rewrites the whole record; a second UPDATE of a row waits on the first's
- * row lock, and that wait counts against the statement timeout. Now every
- * write to a case's row from the builder and the case page goes through
- * runCaseWrite, one per case at a time. A save given up on (its time ran out)
- * still holds the queue until its request has really finished, so a slow
- * write is never joined by the next one.
+ * row lock, and that wait counts against the statement timeout.
+ *
+ * Now every write to a case's row that the builder, the case pages or the
+ * Forms page start -- straight to the database or through a route that writes
+ * it (caseRouteWrite) -- goes through runCaseWrite, one per case at a time.
+ * Each request in it is given up after CASE_REQUEST_TIMEOUT_MS; a save given
+ * up on still holds the queue until its request has really ended (HOLD_CAP_MS
+ * at most); and a piece of work that never settles at all holds it for
+ * WORK_CAP_MS at most, so nothing can stall the queue for good.
+ *
+ * Not in the queue: a route the server runs on its own (none on these pages
+ * today) and the case's creation (an insert: there is no row to overlap).
  */
 const chains = new Map<string, Promise<void>>();
 
 /** How long one save may take before it is given up (and reported as not saved). */
 export const POSITION_SAVE_TIMEOUT_MS = 10_000;
 
+/**
+ * Each read or write of the case from a page is given up after this long. Above
+ * the database's own statement timeout for signed-in requests (8 s on
+ * Supabase), so a request is never abandoned while the database could still
+ * finish it.
+ */
+export const CASE_REQUEST_TIMEOUT_MS = 10_000;
+
+/** How long a route write through the queue may take before the page gives up on it. */
+export const CASE_ROUTE_TIMEOUT_MS = 20_000;
+
 /** How long a given-up write may still hold the queue before the next goes ahead regardless. */
 const HOLD_CAP_MS = 15_000;
 
-/** Set only by checks: a shorter save timeout. */
+/**
+ * How long one piece of work may hold the queue at all. The case save, its
+ * slowest legitimate run (two tries of a read and a write, each given up at
+ * CASE_REQUEST_TIMEOUT_MS, and the pause between) fits inside it.
+ */
+const WORK_CAP_MS = 45_000;
+
+/** Set only by checks: shorter limits. */
 let saveTimeoutMs = POSITION_SAVE_TIMEOUT_MS;
+let workCapMs = WORK_CAP_MS;
+let holdCapMs = HOLD_CAP_MS;
 export function setPositionSaveTimeoutForChecks(ms: number | null) {
   saveTimeoutMs = ms ?? POSITION_SAVE_TIMEOUT_MS;
+}
+export function setCaseWriteCapsForChecks(caps: { workMs?: number; holdMs?: number } | null) {
+  workCapMs = caps?.workMs ?? WORK_CAP_MS;
+  holdCapMs = caps?.holdMs ?? HOLD_CAP_MS;
 }
 
 function settledWithin(work: Promise<unknown>[], capMs: number): Promise<void> {
@@ -61,24 +93,31 @@ function settledWithin(work: Promise<unknown>[], capMs: number): Promise<void> {
 /**
  * Runs `work` once every earlier write to this case started on this page has
  * finished, and holds the next write until `work` (and anything it handed to
- * `hold`) has finished. Every write to a case's row from the builder and the
- * case page goes through here; a reader of the case waits for it
- * (positionSavesSettled).
+ * `hold`) has finished -- or until the caps above, so work that never settles
+ * cannot stall the queue. Every write to a case's row that a page starts goes
+ * through here; a reader of the case waits for it (positionSavesSettled).
  */
 export function runCaseWrite<T>(caseId: string, work: (hold: (pending: Promise<unknown>) => void) => Promise<T>): Promise<T> {
   const previous = chains.get(caseId) ?? Promise.resolve();
   const held: Promise<unknown>[] = [];
   const run = previous.then(() => work((pending) => held.push(pending)));
-  const released = run.then(
-    () => settledWithin(held, HOLD_CAP_MS),
-    () => settledWithin(held, HOLD_CAP_MS),
-  );
+  const released = previous.then(() => settledWithin([run], workCapMs)).then(() => settledWithin(held, holdCapMs));
   chains.set(caseId, released);
   void released.then(() => {
     if (chains.get(caseId) === released) chains.delete(caseId);
   });
   void track(caseId, released);
   return track(caseId, run);
+}
+
+/**
+ * A request to a route that writes the case's row (/api/cases/drafts,
+ * /api/cases/form-applicability), sent from inside the case's queue and given
+ * up after `timeoutMs`. Resolves to null when it could not be sent or was
+ * given up.
+ */
+export function caseRouteWrite(caseId: string, url: string, init: RequestInit, timeoutMs = CASE_ROUTE_TIMEOUT_MS): Promise<Response | null> {
+  return runCaseWrite(caseId, () => fetch(url, { ...init, signal: AbortSignal.timeout(timeoutMs) })).catch(() => null);
 }
 
 /**
@@ -114,15 +153,19 @@ export async function postWithTimeout(url: string, init: RequestInit, timeoutMs 
  * same applyPositionPatch the route uses (an unknown stage, a step from
  * another court or a date that is not a date is refused, never stored).
  * Row-level security limits it to the owner's own case, as it does the case
- * save. The route stays as the fallback for a write that failed outright
- * without the database answering.
+ * save. The route stays as the fallback only for a save whose request got no
+ * answer from the database at all (a network failure); when the database
+ * answered with an error, or ran past the time, the route -- the same
+ * database -- is not tried.
  */
+
+type Builder<T> = PromiseLike<T> & { abortSignal?: (signal: AbortSignal) => Builder<T> };
 
 /** The parts of a Supabase client the direct save uses (the browser client, or a test double). */
 export type PositionWriteClient = {
   from(table: "cases"): {
     select(columns: string): {
-      eq(column: string, value: string): { maybeSingle(): PromiseLike<{ data: { court_path?: string | null } | null; error: unknown }> };
+      eq(column: string, value: string): { maybeSingle(): Builder<{ data: { court_path?: string | null; position?: unknown } | null; error: unknown }> };
     };
   };
 };
@@ -145,9 +188,20 @@ const UNCHANGED = "unchanged";
 
 type DirectSaveDetail = {
   outcome: DirectSaveOutcome;
-  /** The database answered with an error, or the save ran past its time: the route goes to the same database, so it is not tried. */
+  /**
+   * The database answered with an error code, or the request ran past its
+   * time: the route goes to the same database, so it is not tried. False
+   * when the request got no answer at all (a network failure).
+   */
   databaseBusy: boolean;
 };
+
+/** Whether a client error came from the database (a Postgres or PostgREST code) or a request given up, rather than no answer at all. */
+export function databaseAnswered(error: unknown): boolean {
+  const record = (error && typeof error === "object" ? error : {}) as { code?: unknown; message?: unknown; name?: unknown };
+  if (typeof record.code === "string" && record.code.trim()) return true;
+  return /abort|timed? ?out/i.test(`${String(record.name ?? "")} ${String(record.message ?? "")}`);
+}
 
 async function directSave(
   db: PositionWriteClient,
@@ -157,33 +211,55 @@ async function directSave(
 ): Promise<DirectSaveDetail> {
   const now = options.now ?? (() => new Date());
   try {
-    const { data, error } = await db.from("cases").select("court_path").eq("id", caseId).maybeSingle();
-    if (error) return { outcome: "failed", databaseBusy: true };
+    /*
+     * ALREADY ON THE CASE? -- READ ONLY THE POSITION (2026-10-14). The court
+     * and the stored position alone (a JSON path, not the whole record) say
+     * whether this patch changes anything. When it does not, nothing more is
+     * read and nothing is written; only a real change reads the whole record
+     * (updateMasterResult) to write it back.
+     */
+    let read = db.from("cases").select("court_path,position:master_result->position").eq("id", caseId).maybeSingle();
+    if (typeof read.abortSignal === "function") read = read.abortSignal(AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS));
+    const { data, error } = await read;
+    if (error) return { outcome: "failed", databaseBusy: databaseAnswered(error) };
     if (!data) return { outcome: "failed", databaseBusy: false };
     const courtPath = data.court_path ?? null;
+    const before = readCasePosition({ position: data.position }, courtPath);
+    const preview = applyPositionPatch(before, patch, courtPath, now());
+    if (!preview.ok) return { outcome: "refused", databaseBusy: false };
+    if (canonical(preview.position) === canonical(before)) return { outcome: "saved", databaseBusy: false };
+
     let refused = false;
-    const result = await updateMasterResult(db, { caseId }, (stored) => {
-      // Given up on (it ran past its time and the next save has gone ahead):
-      // it must not land later and put an older choice over a newer one
-      // (review 2026-10-14). A write already sent when it was given up loses
-      // to any newer save through updateMasterResult's updated_at check.
-      if (options.abandoned?.gaveUp) return { reject: "gave up" };
-      const current = readCasePosition(stored, courtPath);
-      const applied = applyPositionPatch(current, patch, courtPath, now());
-      if (!applied.ok) {
-        refused = true;
-        return { reject: applied.error };
-      }
-      // Already on the case (a save sent twice, or a choice the case already
-      // holds): nothing is written. Each write rewrites the whole record, and
-      // in run 38525903567 most of them were repeats (2026-10-14).
-      if (canonical(applied.position) === canonical(current)) return { reject: UNCHANGED };
-      return { ...stored, position: applied.position };
-    });
+    const result = await updateMasterResult(
+      db,
+      { caseId },
+      (stored) => {
+        // Given up on (it ran past its time and the next save has gone ahead):
+        // it must not land later and put an older choice over a newer one
+        // (review 2026-10-14). A write already sent when it was given up loses
+        // to any newer save through updateMasterResult's updated_at check.
+        if (options.abandoned?.gaveUp) return { reject: "gave up" };
+        const current = readCasePosition(stored, courtPath);
+        const applied = applyPositionPatch(current, patch, courtPath, now());
+        if (!applied.ok) {
+          refused = true;
+          return { reject: applied.error };
+        }
+        // Already on the case by the time of the full read: nothing is written.
+        if (canonical(applied.position) === canonical(current)) return { reject: UNCHANGED };
+        return { ...stored, position: applied.position };
+      },
+      4,
+      { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS },
+    );
     if (result.ok) return { outcome: "saved", databaseBusy: false };
     if (result.reason === "rejected" && result.error === UNCHANGED) return { outcome: "saved", databaseBusy: false };
     if (refused) return { outcome: "refused", databaseBusy: false };
-    return { outcome: "failed", databaseBusy: result.reason === "error" || result.reason === "conflict" || Boolean(options.abandoned?.gaveUp) };
+    const answered =
+      result.reason === "conflict" ||
+      Boolean(options.abandoned?.gaveUp) ||
+      (result.reason === "error" && databaseAnswered({ code: result.code, message: result.error }));
+    return { outcome: "failed", databaseBusy: answered };
   } catch {
     return { outcome: "failed", databaseBusy: false };
   }
@@ -234,8 +310,11 @@ export async function savePositionDirectWithin(db: PositionWriteClient, caseId: 
 
 /** Set only by checks: the client the direct save uses instead of the browser's. */
 let clientForChecks: PositionWriteClient | null = null;
-export function setPositionClientForChecks(db: PositionWriteClient | null) {
+/** Set only by checks: what the route fallback does instead of the network. */
+let routeForChecks: ((patch: Record<string, unknown>) => Promise<boolean>) | null = null;
+export function setPositionClientForChecks(db: PositionWriteClient | null, route: ((patch: Record<string, unknown>) => Promise<boolean>) | null = null) {
   clientForChecks = db;
+  routeForChecks = route;
 }
 
 async function post(caseId: string, patch: Record<string, unknown>, hold: (pending: Promise<unknown>) => void): Promise<DirectSaveOutcome> {
@@ -249,10 +328,17 @@ async function post(caseId: string, patch: Record<string, unknown>, hold: (pendi
     const { outcome, databaseBusy } = await direct.result;
     if (outcome !== "failed") return outcome;
     // The route writes the same row in the same database. When the database
-    // itself is the trouble (an error, or past the time), it would only add
+    // itself answered with an error or ran past the time, it would only add
     // a second full read and write to a database already behind (run
-    // 38525903567).
-    if (databaseBusy || !supabase) return "failed";
+    // 38525903567). A request that got no answer at all (the network) is
+    // tried through the route.
+    if (databaseBusy) return "failed";
+    if (routeForChecks) {
+      const routed = routeForChecks(patch);
+      hold(routed);
+      return (await routed) ? "saved" : "failed";
+    }
+    if (!supabase) return "failed";
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -375,6 +461,40 @@ export function savePositionQueued(caseId: string, patch: Record<string, unknown
   return savePositionQueuedOutcome(caseId, patch).then((outcome) => outcome === "saved");
 }
 
+/*
+ * AN OLDER RETRY NEVER LANDS OVER A NEWER SAVE (review 2026-10-14). A save
+ * that failed is tried once more after a pause; meanwhile the person may have
+ * chosen again, and that newer save may already have landed. The retry would
+ * then write the older choice last. Each run of saves takes a number from a
+ * counter its page keeps; when its retry's turn comes and a newer run has
+ * started, the retry is dropped (the newer run carries what is current).
+ */
+export type SaveGenerations = { current: number };
+
+/** Starts a new run of saves; older runs' retries are dropped from now on. */
+export function nextSaveGeneration(generations: SaveGenerations): number {
+  generations.current += 1;
+  return generations.current;
+}
+
+/**
+ * One save with one retry after `pauseMs` (plus jitter) if it failed. The
+ * retry is dropped -- "superseded" -- when a newer run took a number in the
+ * meantime.
+ */
+export async function saveWithRetryUnlessSuperseded(
+  generations: SaveGenerations,
+  mine: number,
+  attempt: () => Promise<DirectSaveOutcome>,
+  pauseMs = 2_000,
+): Promise<DirectSaveOutcome | "superseded"> {
+  const first = await attempt();
+  if (first !== "failed") return first;
+  await new Promise((resolve) => setTimeout(resolve, pauseMs + Math.floor(Math.random() * Math.min(500, pauseMs + 1))));
+  if (generations.current !== mine) return "superseded";
+  return attempt();
+}
+
 /** Registers a run of saves for this case (with its retries) that a reader of the case must wait for. */
 export function trackPositionWork<T>(caseId: string, work: Promise<T>): Promise<T> {
   return track(caseId, work);
@@ -383,7 +503,9 @@ export function trackPositionWork<T>(caseId: string, work: Promise<T>): Promise<
 /**
  * Resolves once every save for this case started on this page so far has
  * finished (or after `maxWaitMs`, so nothing can stop the case opening).
- * Resolves straight away when nothing for this case is on its way.
+ * Resolves straight away when nothing for this case is on its way. The
+ * default covers an ordinary case save followed by its stage save, each a
+ * read and a write of a second or two.
  */
 export async function positionSavesSettled(caseId: string, maxWaitMs = 15_000): Promise<void> {
   const deadline = Date.now() + maxWaitMs;

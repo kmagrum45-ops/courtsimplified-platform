@@ -74,7 +74,19 @@ export function createCaseReadPost(overrides: Partial<Dependencies> = {}) {
       return NextResponse.json({ ok: false, error: "A valid request body is required." }, { status: 400 });
     }
     const caseId = typeof body.caseId === "string" ? body.caseId : "";
-    if (!UUID_PATTERN.test(caseId) || Object.keys(body).some((key) => key !== "caseId")) {
+    /*
+     * saveOnServer: false (2026-10-14): the builder writes the picture itself,
+     * inside its one write queue for the case (positionSave.ts runCaseWrite),
+     * so this write never runs beside the page's own saves of the same row.
+     * The route then only reads and returns the picture as it would have
+     * stored it (storedPicture). Without it, the route saves as before.
+     */
+    const saveOnServer = body.saveOnServer !== false;
+    if (
+      !UUID_PATTERN.test(caseId) ||
+      Object.keys(body).some((key) => key !== "caseId" && key !== "saveOnServer") ||
+      (body.saveOnServer !== undefined && body.saveOnServer !== false)
+    ) {
       return NextResponse.json({ ok: false, error: "A saved case is required." }, { status: 400 });
     }
     const user = await deps.authenticate(request).catch(() => null);
@@ -95,7 +107,9 @@ export function createCaseReadPost(overrides: Partial<Dependencies> = {}) {
       // The site carries on exactly as before without it.
       return NextResponse.json({ ok: true, picture: null, skipped: "read-failed" });
     }
-    const saved = await deps.save(request, user, caseId, { ...picture, readAt: new Date().toISOString() }).catch(() => false);
+    const storedPicture = { ...picture, readAt: new Date().toISOString() };
+    if (!saveOnServer) return NextResponse.json({ ok: true, picture, saved: false, storedPicture });
+    const saved = await deps.save(request, user, caseId, storedPicture).catch(() => false);
     return NextResponse.json({ ok: true, picture, saved });
   };
 }

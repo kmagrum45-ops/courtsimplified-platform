@@ -20,7 +20,15 @@ import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
 } from "./_components/GuidedSmallClaimsIntake";
 import { readSourcedAnswers } from "./_components/SourcedQuestions";
-import { runCaseWrite, savePositionQueued, savePositionQueuedOutcome, trackPositionWork } from "./_components/positionSave";
+import {
+  CASE_REQUEST_TIMEOUT_MS,
+  caseRouteWrite,
+  nextSaveGeneration,
+  runCaseWrite,
+  savePositionQueuedOutcome,
+  saveWithRetryUnlessSuperseded,
+  trackPositionWork,
+} from "./_components/positionSave";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
@@ -935,6 +943,9 @@ function BuilderPageContent() {
           .from("cases")
           .select("master_result,updated_at")
           .eq("id", activeId)
+          // Given up after a time, so a read that never answers cannot hold
+          // the case's write queue (review 2026-10-14).
+          .abortSignal(AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS))
           .maybeSingle();
         if (readError) return { error: readError, conflict: false };
         const storedMaster = asRecord(userOwnedRow?.master_result);
@@ -980,16 +991,26 @@ function BuilderPageContent() {
           })
           .eq("id", activeId);
         if (userOwnedRow?.updated_at) write = write.eq("updated_at", userOwnedRow.updated_at);
-        const { data: written, error: writeError } = await write.select("id");
+        const { data: written, error: writeError } = await write.abortSignal(AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS)).select("id");
         if (writeError) return { error: writeError, conflict: false };
         return { error: null, conflict: !(Array.isArray(written) && written.length > 0) };
         };
-        // A failed write is tried again after a pause; a write that lost to
-        // another save (a server route's) is rebuilt on top of it after a
-        // short one. Four retries at most, each pause longer and jittered.
+        /*
+         * A write that lost to another save (a route's) is rebuilt on top of
+         * it after a short pause, up to three times. A failed one (an error,
+         * 57014 included, or a request given up) is tried ONCE more after a
+         * jittered pause: each try holds the case's write queue, and four
+         * tries with their pauses could hold it for over a minute and a half
+         * against a database already behind (review 2026-10-14). The slowest
+         * run -- two failed tries, each a read and a write given up at
+         * CASE_REQUEST_TIMEOUT_MS -- stays inside the queue's work cap.
+         */
         let outcome = await buildAndWrite();
-        for (let attempt = 1; (outcome.error || outcome.conflict) && attempt <= 4; attempt += 1) {
-          await new Promise((resolve) => setTimeout(resolve, (outcome.error ? 1_500 : 150) * attempt + Math.floor(Math.random() * 300)));
+        let errorRetries = 0;
+        for (let attempt = 1; (outcome.error || outcome.conflict) && attempt <= 3; attempt += 1) {
+          if (outcome.error && errorRetries >= 1) break;
+          if (outcome.error) errorRetries += 1;
+          await new Promise((resolve) => setTimeout(resolve, (outcome.error ? 1_500 : 150 * attempt) + Math.floor(Math.random() * 300)));
           outcome = await buildAndWrite();
         }
         return outcome;
@@ -1011,7 +1032,16 @@ function BuilderPageContent() {
       // wrote on it (master plan Phase 3). Off unless switched on; when it is
       // off or fails, nothing changes.
       if (process.env.NEXT_PUBLIC_CASE_READER !== "off" && user && activeId) {
-        // Awaited, so the reading's own write is done before any next save.
+        // Awaited, so the reading's write is done before any next case save.
+        /*
+         * THE PICTURE IS WRITTEN HERE, IN THE CASE'S QUEUE (2026-10-14). The
+         * route used to write it itself, from the server, outside the page's
+         * one write queue, while the page's position saves ran. It now only
+         * reads (saveOnServer: false) and returns the picture as it would have
+         * stored it; this page writes that, through runCaseWrite, so the
+         * reading's AI wait never holds the queue and its write never
+         * overlaps another.
+         */
         await (async () => {
           try {
             const {
@@ -1021,11 +1051,19 @@ function BuilderPageContent() {
             const response = await fetch("/api/case/read", {
               method: "POST",
               headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-              body: JSON.stringify({ caseId: activeId }),
+              body: JSON.stringify({ caseId: activeId, saveOnServer: false }),
             });
-            const result = (await response.json()) as { picture?: unknown };
+            const result = (await response.json()) as { picture?: unknown; storedPicture?: unknown };
             const picture = readStoredPicture(result.picture);
             if (picture) setCasePicture(picture);
+            const stored = result.storedPicture;
+            if (picture && stored && typeof stored === "object" && !Array.isArray(stored)) {
+              await runCaseWrite(activeId, () =>
+                updateMasterResult(supabase, { caseId: activeId }, (current) => ({ ...current, casePicture: stored }), 4, {
+                  requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS,
+                }),
+              ).catch(() => undefined);
+            }
           } catch {
             // The page carries on as before.
           }
@@ -1065,9 +1103,16 @@ function BuilderPageContent() {
         // saved at the same moment is kept; and in the case's one write
         // queue, so it never writes while another save of the case is going
         // (run 38525903567: this write was in no queue at all).
+        // Each read and write is given up after a time, so it cannot hold
+        // the queue (review 2026-10-14).
         await runCaseWrite(id, () =>
-          updateMasterResult(supabase, { caseId: id }, (stored) =>
-            JSON.stringify(stored.familyStatus) === JSON.stringify(triageState) ? { reject: "unchanged" } : { ...stored, familyStatus: triageState },
+          updateMasterResult(
+            supabase,
+            { caseId: id },
+            (stored) =>
+              JSON.stringify(stored.familyStatus) === JSON.stringify(triageState) ? { reject: "unchanged" } : { ...stored, familyStatus: triageState },
+            4,
+            { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS },
           ),
         ).catch(() => undefined);
       })();
@@ -1342,16 +1387,23 @@ function BuilderPageContent() {
     // One save at a time with the deadline box's own saves (positionSave.ts);
     // tried once more if it fails, so the case page does not ask again.
     // Tracked with its retry, so the case page waits for it before reading (R4).
+    // Tried again only when it failed (a refused stage would be refused
+    // again), and not at all once a newer save has started: its retry would
+    // put this older stage over the newer choice (review 2026-10-14).
+    const mine = nextSaveGeneration(saveGenerationsRef);
     await trackPositionWork(
       caseId,
-      (async () => {
-        // Tried again only when it failed (a refused stage would be refused again).
-        if ((await savePositionQueuedOutcome(caseId, { confirmedStage: stage })) !== "failed") return;
-        await new Promise((resolve) => setTimeout(resolve, 2_000 + Math.floor(Math.random() * 500)));
-        await savePositionQueued(caseId, { confirmedStage: stage });
-      })(),
+      saveWithRetryUnlessSuperseded(saveGenerationsRef, mine, () => savePositionQueuedOutcome(caseId, { confirmedStage: stage })),
     );
   }
+
+  /**
+   * Every run of position saves on this page takes a number; a retry whose
+   * run is no longer the newest is dropped (positionSave.ts). Shared by the
+   * stage click and the catch-up below, which always carries the current
+   * stage.
+   */
+  const saveGenerationsRef = useRef(0);
 
 
   /*
@@ -1416,21 +1468,20 @@ function BuilderPageContent() {
      * take still never takes the stage down with it). One retry, after a
      * growing pause, for a write that failed.
      */
-    const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms + Math.floor(Math.random() * 500)));
-    const saveWithRetry = async (patch: Record<string, unknown>) => {
-      let outcome = await savePositionQueuedOutcome(caseId, patch, { onlyUnsaved: true });
-      if (outcome === "failed") {
-        await pause(2_000);
-        outcome = await savePositionQueuedOutcome(caseId, patch, { onlyUnsaved: true });
-      }
-      return outcome;
-    };
+    // A retry is dropped once a newer run of saves has started (positionSave.ts).
+    const mine = nextSaveGeneration(saveGenerationsRef);
+    const saveWithRetry = (patch: Record<string, unknown>) =>
+      saveWithRetryUnlessSuperseded(saveGenerationsRef, mine, () => savePositionQueuedOutcome(caseId, patch, { onlyUnsaved: true }));
     void trackPositionWork(caseId, (async () => {
       let allSaved = true;
       const together = await saveWithRetry(Object.assign({}, ...parts));
       if (together === "refused" && parts.length > 1) {
-        for (const part of parts) if ((await saveWithRetry(part)) !== "saved") allSaved = false;
-      } else if (together !== "saved") {
+        for (const part of parts) {
+          const outcome = await saveWithRetry(part);
+          if (outcome === "superseded") break;
+          if (outcome !== "saved") allSaved = false;
+        }
+      } else if (together === "failed" || together === "refused") {
         allSaved = false;
       }
       if (!allSaved) sentPositionRef.current = "";
@@ -1482,12 +1533,14 @@ function BuilderPageContent() {
         setSaveError("Sign in to save a draft to your case.");
         return;
       }
-      const response = await fetch("/api/cases/drafts", {
+      // The route writes the case's row: sent from inside the case's one
+      // write queue (positionSave.ts), never beside another save of it.
+      const response = await caseRouteWrite(caseId, "/api/cases/drafts", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
         body: JSON.stringify({ caseId, draft }),
       });
-      if (!response.ok) {
+      if (!response?.ok) {
         setSaveError("The draft could not be saved to your case. Please try again.");
         return;
       }

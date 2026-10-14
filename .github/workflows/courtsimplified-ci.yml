@@ -375,7 +375,7 @@ jobs:
       - name: Case position stores only what the user confirmed, and reaches the deadlines
         run: npm run test:case-position
 
-      - name: No two writes to the same case in flight at once from the builder and case pages
+      - name: Every case write the builder, case and Forms pages start goes through one queue that cannot stall
         run: npm run test:case-write-queue
 
       - name: Drafts are saved on the user's own case and hold only their record

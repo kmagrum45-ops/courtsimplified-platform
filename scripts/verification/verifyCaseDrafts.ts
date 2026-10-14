@@ -174,7 +174,9 @@ const read = (file: string) => readFileSync(path.join(process.cwd(), file), "utf
   check("a builder re-save keeps the drafts made on the case page", /\[[^\]]*"drafts"[^\]]*\] as const\)/.test(builder) && /\.\.\.userOwned/.test(builder));
   check(
     "the builder's starting drafts are saved to the case, not to this browser",
-    /fetch\("\/api\/cases\/drafts"/.test(builder) && !/writeWorkspaceDocument\(/.test(builder),
+    // Through the drafts route, sent plainly or (2026-10-14) from inside the
+    // case's one write queue (caseRouteWrite, positionSave.ts).
+    /(?:fetch\(|caseRouteWrite\([^,]+,\s*)"\/api\/cases\/drafts"/.test(builder) && !/writeWorkspaceDocument\(/.test(builder),
   );
 }
 
