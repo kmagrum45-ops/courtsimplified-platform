@@ -1187,10 +1187,17 @@ export function isChangeMip(item: { id?: string }): boolean {
  * shared by every family fold and counts "my son" as parenting, so "i pay
  * support for our kids, how do i get it lowered" would lead with the
  * information program. Here a parenting term, or a parenting request in plain
- * words, is needed.
+ * words, is needed. Each plain phrase is tied to the children or to
+ * parenting (third review of ed02093): "the payment schedule", "the FRO set
+ * a schedule", "i visit my lawyer", "i see him in court" and "access to her
+ * income records" are support-only words.
  */
-const PARENTING_CHANGE =
-  /\b(?:decision-making|parenting|custody|access|relocat\w*|move (?:away |to \w+ )?with|contact with|more time with|time with (?:him|her|them|my|our)|see (?:my|our|him|her|them)\b|live with me|visit\w*|schedule)\b/;
+const CHILD_NOUN = "(?:son|daughter|daugter|kids?|children)";
+const PARENTING_CHANGE = new RegExp(
+  "\\b(?:decision-making|parenting|custody|access(?! to)|relocat\\w*|move (?:away |to \\w+ )?with|contact with|more time with|time with (?:him|her|them|my|our)" +
+    `|see (?:my|our|the) ${CHILD_NOUN}|live with me|visitation|visit\\w* (?:with )?(?:my|our|the) ${CHILD_NOUN}` +
+    "|(?:parenting|access|visit\\w*|time-sharing|weekend) schedule)\\b",
+);
 
 export function changeBeyondSupport(words: string): boolean {
   const claims = familyClaimsIn(words);

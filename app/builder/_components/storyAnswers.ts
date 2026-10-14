@@ -272,6 +272,15 @@ const CHILD_KINDS: [string, RegExp][] = [
 
 export function childrenPartialFromStory(story: string): PartialStoryAnswer | null {
   if (childrenFromStory(story)) return null;
+  // The person's own children across the whole story: "my son. our daughter."
+  // names two kinds, so nothing is filled in (third review of ed02093).
+  const ownKinds = new Set(
+    sentences(story)
+      .map((sentence) => plainMatch(sentence, OWN_CHILD)?.[2].toLowerCase() ?? "")
+      .filter(Boolean)
+      .map((noun) => (/^daug/.test(noun) ? "daughter" : /^son/.test(noun) ? "son" : /^boy/.test(noun) ? "boy" : /^girl/.test(noun) ? "girl" : "child")),
+  );
+  if (ownKinds.size > 1) return null;
 
   for (const sentence of sentences(story)) {
     if (/\b(?:no|not any|don'?t have any|never had)\s+(?:kids|children)\b/i.test(sentence)) return null;

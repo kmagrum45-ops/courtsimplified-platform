@@ -851,6 +851,7 @@ console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, 
   check("'custody of our son. she also wants child support' fills in one son", childrenPartialFromStory("my ex wants custody of our son. she also wants child support") === null ? false : childrenPartialFromStory("my ex wants custody of our son. she also wants child support")?.prefill.trim() === "One son.");
   check("child care, child protection, the child tax benefit are not children", ["our son. i pay for child care", "our daughter. child protection called", "our son and the child tax benefit"].every((words) => childrenPartialFromStory(words)?.prefill.trim() === (/daughter/.test(words) ? "One daughter." : "One son.")));
   check("a child named in another sentence does not block the prefill", childrenPartialFromStory("custody of our daughter. my sister has kids too")?.prefill.trim() === "One daughter.");
+  check("'my son. our daughter.' names two kinds across sentences: nothing filled in", childrenPartialFromStory("my son. our daughter.") === null);
   check("a child 'from my ex' is still the case's child", childrenPartialFromStory("my son from my ex lives with me")?.prefill.trim() === "One son.");
   check("'our two girls' is filled in with its count", childrenPartialFromStory("our two girls live with me")?.prefill.trim() === "Two girls.");
   const childrenField = familyGuidedFields({ issues: [], filed: [] }).find((field) => field.key === "childrenInfo");

@@ -800,12 +800,18 @@ async function main() {
     // a parenting term or a plain-words parenting request, never only naming the children.
     let termMisses = 0;
     for (const words of [
-      "custody of our son", "parenting time", "decision-making for my daughter", "access to the kids", "contact with my son", "she wants to relocate", "she wants to move with the kids",
-      "i pay child support for my son and want it lowered and want more time with him", "i want my daughter to live with me", "she won't let me see my son", "i want to change the weekend schedule", "i want more visits",
+      "custody of our son", "parenting time", "decision-making for my daughter", "i want more access", "contact with my son", "she wants to relocate", "she wants to move with the kids",
+      "i pay child support for my son and want it lowered and want more time with him", "i want my daughter to live with me", "she won't let me see my son", "i want to change the weekend schedule", "i want more visits with my son",
+      "she should live with me", "i want to see my daughter more", "the access schedule", "i want visitation",
     ]) {
       if (!changeBeyondSupport(words)) termMisses += 1;
     }
-    for (const words of ["our kids", "my daughter", "support for my son and daughter", "our children are 9 and 11", kidsSupport]) {
+    for (const words of [
+      "our kids", "my daughter", "support for my son and daughter", "our children are 9 and 11", kidsSupport,
+      // Third review of ed02093: support-only words that named a schedule, a visit, seeing someone or access to records.
+      "the payment schedule is too much, lower my support", "i want to lower support, the FRO set a schedule", "lower support, i visit my lawyer next week",
+      "lower my support. i see him in court in may", "reduce child support. i get access to her income records?",
+    ]) {
       if (changeBeyondSupport(words)) termMisses += 1;
     }
     check("the information program leads on a parenting term or request, never on only naming the children", termMisses === 0, `misses ${termMisses}`);
