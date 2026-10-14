@@ -190,7 +190,7 @@ export function yesOrNo(text: string): boolean | null {
   const start = text.trim().toLowerCase();
   // A hedge anywhere makes it no answer (review 2026-10-14: "No idea", "no
   // clue", "Nope, not sure", "Yes I think so" were read as a plain no or yes).
-  if (/\b(?:idea|clue|sure|unsure|think|thought|remember|recall|know|maybe|perhaps|probably|guess|might|possibly)\b/.test(start)) return null;
+  if (/\b(?:idea|clue|sure|unsure|think\w*|thought|remember\w*|recall\w*|know\w*|maybe|perhaps|probably|guess\w*|might|possibly|wonder\w*|decid\w*)\b/.test(start)) return null;
   if (/^(?:no\b|nope\b|not yet\b|i (?:have not|haven'?t|did not|didn'?t)\b|nothing\b)/.test(start)) return false;
   if (/^(?:yes\b|yeah\b|yep\b|i (?:have|did)\b(?! not))/.test(start)) return true;
   return null;

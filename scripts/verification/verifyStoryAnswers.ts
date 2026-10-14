@@ -508,7 +508,7 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
 {
   const corpus = read("docs/sources/corpus/family-law-rules.txt").replace(/\s+/g, " ");
   const flat = (text: string) => text.replace(/\s+/g, " ");
-  const checkLead = (name: string, lead: MotionToChangeLead | null, kind: "asking" | "responding", pinpointsWanted: string[], phrases: string[]) => {
+  const checkLead = (name: string, lead: MotionToChangeLead | null, kind: MotionToChangeLead["kind"], pinpointsWanted: string[], phrases: string[]) => {
     check(`motion to change: ${name} gets the ${kind} route`, lead?.kind === kind, JSON.stringify(lead?.kind ?? null));
     if (!lead || lead.kind !== kind) return;
     const pinpoints = lead.rules.map((rule) => rule.pinpoint);
@@ -543,6 +543,33 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     "Canada or the United States",
   ]);
   check("motion to change: the served parent is never told to bring one", motionToChangeLead("family", served, true, true)?.line.includes("you bring a motion to change") === false);
+  check(
+    "motion to change: the response line names the assignee's copy (r. 15 (9) 2 ii)",
+    /assignee/.test(motionToChangeLead("family", served, true, true)?.line ?? "") && /assignee/.test(motionToChangeLead("family", served, true, true)?.rules.find((rule) => rule.pinpoint === "r. 15 (9)")?.quote ?? ""),
+  );
+
+  // Who wants the change decides the route (re-review 2026-10-14).
+  const byWho: [string, string, boolean, MotionToChangeLead["kind"] | null][] = [
+    ["the person served their ex", "We have a support order. I served my ex with a motion to change last month and he hasn't answered.", false, null],
+    ["the ex wants to reduce", "There is a support order. My ex wants to reduce child support. What do I do?", false, "if-served"],
+    ["the ex asks the court", "There is a support order. My ex is asking the court to reduce the support.", false, "if-served"],
+    ["the original respondent wants a change", "There is a court order. I'm the respondent in the original case. I want to lower the support", true, "asking"],
+    ["taken to court in 2019, now wants a change", "She took me to court in 2019 and there is a support order. Now I want to reduce support", true, "asking"],
+    ["both agree to lower it", "we have a support order and we both agree to lower it", false, "asking"],
+  ];
+  for (const [name, text, responding, kind] of byWho) {
+    const got = motionToChangeLead("family", text, true, responding);
+    check(`motion to change: ${name} -> ${kind ?? "no route"}`, (got?.kind ?? null) === kind, JSON.stringify(got?.kind ?? null));
+    if (kind !== "asking") check(`motion to change: ${name}: never told to bring one`, !/you bring a motion to change/.test(got?.line ?? ""));
+  }
+  checkLead("the other side wanting a change", motionToChangeLead("family", byWho[1][1], true, false), "if-served", ["r. 15 (9)", "r. 15 (10)"], [
+    "response to motion to change (Form 15B)",
+    "consent motion to change (Form 15C)",
+    "assignee",
+    "30 days",
+    "60 days",
+  ]);
+  check("motion to change: the other side's wish leaves the temporary-motion card", motionToChangeLead("family", byWho[1][1], true, false)?.replacesTemporaryMotionCard === false);
 
   const noRoute: [string, string, boolean, boolean][] = [
     ["family", "i want to start a case for custody of my son", false, false],

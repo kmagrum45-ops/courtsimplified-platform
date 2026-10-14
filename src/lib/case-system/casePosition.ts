@@ -50,6 +50,14 @@ export type ConfirmableStage = (typeof CONFIRMABLE_STAGES)[number];
 export type CasePosition = {
   confirmedStage: ConfirmableStage | null;
   confirmedStageAt: string | null;
+  /**
+   * "answers" when the stage was recorded from the person's own intake answers
+   * rather than by a Confirm or Change click (app/builder/_components/
+   * stageFromAnswers.ts, review 2026-10-14). A later run with different
+   * answers works it out again; a click by the person clears it. Absent
+   * for a stage the person chose.
+   */
+  confirmedStageFrom?: "answers";
   /** A stage-map id ("defendant:served-defence-period-running"), chosen by the user. */
   stepId: string | null;
   stepChosenAt: string | null;
@@ -118,6 +126,7 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
   return {
     confirmedStage: isConfirmable(raw.confirmedStage) ? raw.confirmedStage : null,
     confirmedStageAt: typeof raw.confirmedStageAt === "string" ? raw.confirmedStageAt : null,
+    ...(isConfirmable(raw.confirmedStage) && raw.confirmedStageFrom === "answers" ? { confirmedStageFrom: "answers" as const } : {}),
     stepId: stepValid ? (raw.stepId as string) : null,
     stepChosenAt: stepValid && typeof raw.stepChosenAt === "string" ? raw.stepChosenAt : null,
     dateAnswers,
@@ -147,6 +156,8 @@ function readService(value: unknown, courtPath?: string | null): Record<string, 
 
 export type PositionPatch = {
   confirmedStage?: unknown;
+  /** "answers" with a confirmedStage read from the intake answers; absent or null for the person's own click. */
+  confirmedStageFrom?: unknown;
   stepId?: unknown;
   /** A value of "" removes that answer. */
   dateAnswers?: unknown;
@@ -173,6 +184,13 @@ export function applyPositionPatch(
 
   if (patch.confirmedStage !== undefined) {
     if (!isConfirmable(patch.confirmedStage)) return { ok: false, error: "Unknown stage." };
+    if (patch.confirmedStageFrom !== undefined && patch.confirmedStageFrom !== null && patch.confirmedStageFrom !== "answers") {
+      return { ok: false, error: "Unknown stage origin." };
+    }
+    // Every stage save says where it came from: the answers, or (by saying
+    // nothing) the person's own click, which clears the marker.
+    if (patch.confirmedStageFrom === "answers") next.confirmedStageFrom = "answers";
+    else delete next.confirmedStageFrom;
     if (patch.confirmedStage !== current.confirmedStage) {
       next.confirmedStage = patch.confirmedStage;
       next.confirmedStageAt = stamp;

@@ -1138,7 +1138,13 @@ function BuilderPageContent() {
     // unless this case already has a stage the person confirmed, which stays
     // theirs and can still be changed (Phase 1: a returning user was asked
     // to confirm their stage again on every re-run).
-    const storedOnCase = queryCaseId ? readCasePosition(existingMasterResult, courtPath).confirmedStage : null;
+    const storedPositionOnCase = queryCaseId ? readCasePosition(existingMasterResult, courtPath) : null;
+    // A stage recorded from earlier answers is not one the person chose: it
+    // is worked out again from the answers given now (review 2026-10-14: Back,
+    // a changed side, and the old "responding" stayed).
+    const storedOnCase =
+      storedPositionOnCase?.confirmedStage && storedPositionOnCase.confirmedStageFrom !== "answers" ? storedPositionOnCase.confirmedStage : null;
+    // Only a Confirm or Change click this visit (never a stage read from answers).
     const thisVisit = lastConfirmedRef.current;
     const sameCase = Boolean(thisVisit && (queryCaseId || masterCaseIdRef.current) && thisVisit.caseId === (queryCaseId || masterCaseIdRef.current));
     const stored = storedOnCase && storedOnCase !== "not-sure" ? storedOnCase : sameCase ? thisVisit!.stage : null;
@@ -1158,8 +1164,9 @@ function BuilderPageContent() {
     // is never replaced by one read from answers (review 2026-10-14).
     const personSetStage = storedOnCase || (sameCase ? thisVisit!.stage : null);
     const fromAnswers = personSetStage ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested);
+    // Kept apart from lastConfirmedRef, and saved marked as from the answers,
+    // so the next run reads the answers afresh.
     setStageBasis(fromAnswers);
-    if (fromAnswers) lastConfirmedRef.current = { caseId: queryCaseId || masterCaseIdRef.current, stage: fromAnswers.stage };
     const settledStage = stored ?? fromAnswers?.stage ?? null;
     setConfirmedStage(settledStage && settledStage !== "not-sure" ? (settledStage as UniversalStage) : null);
     setCaseData({
@@ -1329,7 +1336,9 @@ function BuilderPageContent() {
      * in their own saves. A save that fails is tried once more.
      */
     const parts: Record<string, unknown>[] = [];
-    if (confirmedStage) parts.push({ confirmedStage });
+    // A stage read from the answers is saved marked as such; one the person
+    // clicked is saved without the marker, which clears it (casePosition.ts).
+    if (confirmedStage) parts.push(stageBasis && stageBasis.stage === confirmedStage ? { confirmedStage, confirmedStageFrom: "answers" } : { confirmedStage });
     if (positionThisVisit.stepId !== undefined) parts.push({ stepId: positionThisVisit.stepId });
     if (positionThisVisit.dateAnswers && Object.keys(positionThisVisit.dateAnswers).length) parts.push({ dateAnswers: positionThisVisit.dateAnswers });
     if (positionThisVisit.service && Object.keys(positionThisVisit.service).length) parts.push({ service: positionThisVisit.service });
@@ -1353,7 +1362,7 @@ function BuilderPageContent() {
       if (!allSaved) sentPositionRef.current = "";
     })());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canonicalIntakeSaved, confirmedStage, positionThisVisit, masterCaseId]);
+  }, [canonicalIntakeSaved, confirmedStage, stageBasis, positionThisVisit, masterCaseId]);
 
   function createSmallClaimsClaimDraft() {
     if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts

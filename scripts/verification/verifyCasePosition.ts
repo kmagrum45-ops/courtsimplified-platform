@@ -608,7 +608,22 @@ function personsDatesWin(source: string): boolean {
   check("answers: nothing junk is read back from a saved payload", JSON.stringify(personAnswersOf({ personAnswers: { side: 3, filed: "nothing", claimFiled: "no" } })) === "{}");
   check("answers: a plain yes or no is read", yesOrNo("No, I haven't filed anything yet.") === false && yesOrNo("not yet") === false && yesOrNo("Yes") === true && yesOrNo("No") === false);
   // Review 2026-10-14: hedges were read as answers.
-  for (const hedge of ["I think so", "not sure", "No idea", "no clue", "Nope, not sure", "I have no idea", "Yes I think so", "No, I don't remember", "yes maybe", "I don't know"]) {
+  for (const hedge of [
+    "I think so",
+    "not sure",
+    "No idea",
+    "no clue",
+    "Nope, not sure",
+    "I have no idea",
+    "Yes I think so",
+    "No, I don't remember",
+    "yes maybe",
+    "I don't know",
+    "Not yet, I am thinking about it",
+    "No, not that I remember",
+    "no, i guess not",
+    "Not yet, still deciding",
+  ]) {
     check(`answers: a hedge is no answer: '${hedge}'`, yesOrNo(hedge) === null, String(yesOrNo(hedge)));
   }
   check(
@@ -636,6 +651,40 @@ function personsDatesWin(source: string): boolean {
   check(
     "answers: the results record a stage from answers only when the person has set none (\"not sure\" included), and show the answer beside it",
     /personSetStage = storedOnCase \|\| /.test(builder) && /personSetStage \? null : stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
+  );
+
+  // A stage read from answers is never taken later for one the person chose
+  // (re-review 2026-10-14: Back, side changed to plaintiff, re-run, and the
+  // answers' "responding" stayed because it had been put where clicks go).
+  const marked = applyPositionPatch(EMPTY_POSITION, { confirmedStage: "responding", confirmedStageFrom: "answers" }, "civil", new Date("2026-10-14T12:00:00Z"));
+  const markedPosition = marked.ok ? marked.position : null;
+  check("origin: a stage from answers is stored marked as such", readCasePosition({ position: markedPosition }, "civil").confirmedStageFrom === "answers");
+  const dated = markedPosition ? applyPositionPatch(markedPosition, { dateAnswers: {} }, "civil", new Date()) : null;
+  check("origin: a date or step save leaves the marker", Boolean(dated?.ok && dated.position.confirmedStageFrom === "answers"));
+  const clicked = markedPosition ? applyPositionPatch(markedPosition, { confirmedStage: "responding" }, "civil", new Date()) : null;
+  check(
+    "origin: the person's own click on the same stage clears the marker",
+    Boolean(clicked?.ok && readCasePosition({ position: clicked.position }, "civil").confirmedStageFrom === undefined),
+  );
+  check(
+    "origin: only \"answers\" is accepted as a marker",
+    !applyPositionPatch(EMPTY_POSITION, { confirmedStage: "responding", confirmedStageFrom: "model" }, "civil", new Date()).ok &&
+      readCasePosition({ position: { confirmedStage: "responding", confirmedStageFrom: "model" } }, "civil").confirmedStageFrom === undefined &&
+      readCasePosition({ position: { confirmedStageFrom: "answers" } }, "civil").confirmedStageFrom === undefined,
+  );
+  const clickRefs = builder.match(/lastConfirmedRef\.current = /g) ?? [];
+  const onConfirmBody = builder.slice(builder.indexOf("onConfirm={(stage) => {"), builder.indexOf("onConfirm={(stage) => {") + 400);
+  check(
+    "origin: only a Confirm or Change click is remembered as the person's stage this visit",
+    clickRefs.length === 1 && /lastConfirmedRef\.current = /.test(onConfirmBody),
+  );
+  check(
+    "origin: a marked stage on the case is worked out again from the answers given now",
+    /confirmedStageFrom !== "answers" \? storedPositionOnCase\.confirmedStage : null/.test(builder),
+  );
+  check(
+    "origin: a stage from answers is saved with its marker; the route passes the marker through for validation",
+    /confirmedStageFrom: "answers" \} : \{ confirmedStage \}/.test(builder) && /confirmedStageFrom: body\.confirmedStageFrom/.test(read("app/api/cases/position/route.ts")),
   );
 }
 

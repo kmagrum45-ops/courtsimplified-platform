@@ -83,7 +83,7 @@ export async function POST(request: Request) {
     const master = (fresh.master_result && typeof fresh.master_result === "object" ? fresh.master_result : {}) as Record<string, unknown>;
     const result = applyPositionPatch(
       readCasePosition(master, ownedCase.court_path),
-      { confirmedStage: body.confirmedStage, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service },
+      { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service },
       ownedCase.court_path,
       new Date(),
     );
