@@ -31,6 +31,7 @@ import {
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
 import GetHelp from "../_components/GetHelp";
+import { answerViewFor, applicabilitySaveFor, type AnswerView } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import { caseRouteWrite } from "../builder/_components/positionSave";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
@@ -445,6 +446,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   // Answers kept from what the person already entered, with why (Step 2B).
   const [keptFromCase, setKeptFromCase] = useState<Record<string, string>>({});
   const [changingKept, setChangingKept] = useState<Record<string, boolean>>({});
+  const [picked, setPicked] = useState<Record<string, boolean | string>>({});
   const [verifiedRecommendations, setVerifiedRecommendations] = useState<
     VerifiedFormRecommendation[]
   >([]);
@@ -706,8 +708,19 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
   const mappingStage = applicableStage(masterResult);
 
+  // formApplicability is what the case has stored (from the server, never
+  // edited here); `picked` is what the person chose on this page, not yet saved.
   function savedAnswerFor(question: ApplicabilityQuestion): unknown {
-    return question.field_path.split(".").reduce<unknown>((value, part) => asRecord(value)?.[part], formApplicability);
+    const value = question.field_path.split(".").reduce<unknown>((current, part) => asRecord(current)?.[part], formApplicability);
+    return value === null ? undefined : value;
+  }
+
+  /** How the question stands: the case's answer, a saved one, both in conflict, a suggestion, or open (answerViewFor). */
+  function viewFor(question: ApplicabilityQuestion): AnswerView {
+    const view = answerViewFor(question.field_path, formApplicability as Record<string, unknown>, suggestedAnswers);
+    const offers = (value: unknown) => question.choices.some((choice) => JSON.stringify(choice.value) === JSON.stringify(value));
+    if ((view.kind === "case" || view.kind === "suggested") && !offers(view.value)) return { kind: "open" };
+    return view;
   }
 
   function suggestionFor(question: ApplicabilityQuestion) {
@@ -717,44 +730,41 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   }
 
   function answerFor(question: ApplicabilityQuestion): unknown {
+    if (question.field_path in picked) return picked[question.field_path];
     const saved = savedAnswerFor(question);
     return saved === undefined ? suggestionFor(question)?.value : saved;
   }
 
   function updateApplicability(question: ApplicabilityQuestion, value: boolean | string) {
-    const [, group, field] = question.field_path.split(".");
-    setFormApplicability((current) => ({ ...current, [group]: { ...(asRecord(current[group]) || {}), [field]: value } }));
+    setPicked((current) => ({ ...current, [question.field_path]: value }));
   }
 
-  /** A firm answer from the case, for a question the person has not saved a value for. */
-  function caseAnswerFor(question: ApplicabilityQuestion) {
-    const firm = suggestedAnswers.find(
-      (suggestion) =>
-        suggestion.firm &&
-        suggestion.fieldPath === question.field_path &&
-        question.choices.some((choice) => JSON.stringify(choice.value) === JSON.stringify(suggestion.value)),
-    );
-    return firm;
-  }
-
-  /** A question still waiting for the person: not answered by the case, not saved, not offered as a one-click suggestion. */
+  /** A question still waiting for the person: opened with Change, in conflict, or nothing known. */
   function questionIsOpen(question: ApplicabilityQuestion): boolean {
     if (changingKept[question.field_path]) return true;
-    if (savedAnswerFor(question) !== undefined || caseAnswerFor(question)) return false;
-    const pending = suggestionFor(question);
-    return !(pending && question.choices.some((choice) => JSON.stringify(choice.value) === JSON.stringify(pending.value)));
+    const kind = viewFor(question).kind;
+    return kind === "open" || kind === "conflict";
   }
 
-  function applicabilityPatch(): FormApplicability {
-    return applicabilityQuestions.reduce<FormApplicability>((patch, question) => {
-      const [, group, field] = question.field_path.split(".");
-      // A firm answer is the case's answer and is never stored: the server
-      // applies it from the fact it follows (caseAnswersApplied).
-      if (savedAnswerFor(question) === undefined && caseAnswerFor(question)) return patch;
+  /** The open questions' picks (or the answer shown in them), as applicabilitySaveFor sends them. */
+  function applicabilityPatch(): FormApplicability | null {
+    const chosen: Record<string, boolean | string> = {};
+    for (const question of applicabilityQuestions) {
+      if (!changingKept[question.field_path] && viewFor(question).kind !== "open") continue;
       const answer = answerFor(question);
-      if (typeof answer === "boolean" || typeof answer === "string") patch[group] = { ...(asRecord(patch[group]) || {}), [field]: answer };
-      return patch;
-    }, {});
+      if (typeof answer === "boolean" || typeof answer === "string") chosen[question.field_path] = answer;
+    }
+    return applicabilitySaveFor(chosen, formApplicability as Record<string, unknown>, suggestedAnswers);
+  }
+
+  /** One question's pick, saved now (a suggestion's one click, a conflict's choice). */
+  function savePick(question: ApplicabilityQuestion, value: boolean | string, reason?: string) {
+    const patch = applicabilitySaveFor({ [question.field_path]: value }, formApplicability as Record<string, unknown>, suggestedAnswers);
+    if (!patch) {
+      setChangingKept((current) => ({ ...current, [question.field_path]: false }));
+      return;
+    }
+    void saveApplicability(patch, reason ? { [question.field_path]: reason } : undefined);
   }
 
   async function saveApplicability(onlyPatch?: FormApplicability, kept?: Record<string, string>) {
@@ -770,6 +780,13 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       return;
     }
     const patch = onlyPatch ?? applicabilityPatch();
+    if (!patch) {
+      // Nothing differs from what the case already holds: nothing to store.
+      setChangingKept({});
+      setPicked({});
+      setApplicabilitySaving(false);
+      return;
+    }
     // The route rewrites the case's row: sent from inside the case's one write
     // queue (positionSave.ts, 2026-10-14), never beside another save of it.
     const response = await caseRouteWrite(caseId, "/api/cases/form-applicability", {
@@ -789,6 +806,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     if (kept) setKeptFromCase((current) => ({ ...current, ...kept }));
     // Saved: each answer shows as answered again, with Change.
     setChangingKept({});
+    setPicked({});
     setVerifiedRecommendations(Array.isArray(result.recommendations) ? result.recommendations : []);
     setStageSupport(
       result.stageSupport && typeof result.stageSupport === "object"
@@ -986,42 +1004,81 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   const answer = answerFor(question);
                   const selectedValue = question.choices.find((choice) => choice.value === answer)?.value;
                   /*
-                   * The case's answer, shown answered with Change and never as
-                   * a question (walkthrough run 38593464953: "Was this case
-                   * started by Notice of Action?" and "Are you responding to a
-                   * Family Application?" were shown, needing a Save or
-                   * mid-save, to people whose confirmed stage and side already
-                   * answered them). A firm answer follows from a fact the
-                   * person confirmed or entered and counts with no click: the
-                   * server applies it (caseAnswersApplied). A saved answer
-                   * shows the same way. Change opens the choices.
+                   * How the question stands (answerViewFor), each shown
+                   * answered, never as the question, unless it is open
+                   * (walkthrough run 38593464953; review of 400ad42):
+                   *   - the case's answer, from a fact the person set: counts
+                   *     with no click (the server applies it) -- Change;
+                   *   - saved to the case -- Change, and what the case now
+                   *     says when that differs, with one click to use it;
+                   *   - a value the old automatic save stored that the case
+                   *     now contradicts: both shown, the person picks one;
+                   *   - a suggestion read from their story: one click to save
+                   *     it (CLAUDE.md section 4), or Change.
                    */
-                  const firmNow = caseAnswerFor(question);
-                  const savedNow = savedAnswerFor(question);
-                  const keptValue = savedNow !== undefined ? savedNow : firmNow?.value;
-                  const keptReason =
-                    keptFromCase[question.field_path] ??
-                    (firmNow && (savedNow === undefined || JSON.stringify(savedNow) === JSON.stringify(firmNow.value))
-                      ? firmNow.reason
-                      : savedNow !== undefined
-                        ? "Your answer."
-                        : undefined);
-                  if (keptReason && keptValue !== undefined && !changingKept[question.field_path]) {
-                    const chosen = question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(keptValue));
+                  const view = changingKept[question.field_path] ? ({ kind: "open" } as const) : viewFor(question);
+                  const labelOf = (value: unknown) => question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(value))?.label ?? String(value);
+                  const changeButton = (
+                    <button
+                      type="button"
+                      data-testid="forms-kept-change"
+                      onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))}
+                      className="font-semibold text-[#2f7d67] underline"
+                    >
+                      Change
+                    </button>
+                  );
+                  if (view.kind === "case") {
                     return (
                       <div key={question.field_path} data-testid="forms-kept-from-case" aria-label={question.question} className="block">
                         <p className="text-[#16302b]">
                           <span className="font-semibold text-[#2f7d67]">From your case:</span>{" "}
-                          <span className="font-semibold">{chosen?.label ?? String(keptValue)}</span> — {lowerFirst(keptReason)}{" "}
-                          <button
-                            type="button"
-                            data-testid="forms-kept-change"
-                            onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))}
-                            className="font-semibold text-[#2f7d67] underline"
-                          >
-                            Change
-                          </button>
+                          <span className="font-semibold">{labelOf(view.value)}</span> — {lowerFirst(view.reason)} {changeButton}
                         </p>
+                      </div>
+                    );
+                  }
+                  if (view.kind === "saved") {
+                    const reason = keptFromCase[question.field_path];
+                    const caseSays = view.caseSays;
+                    return (
+                      <div key={question.field_path} data-testid="forms-saved-to-case" aria-label={question.question} className="block">
+                        <p className="text-[#16302b]">
+                          <span className="font-semibold text-[#2f7d67]">Saved to your case:</span>{" "}
+                          <span className="font-semibold">{labelOf(view.value)}</span>
+                          {reason ? <> — {lowerFirst(reason)}</> : null} {changeButton}
+                        </p>
+                        {caseSays ? (
+                          <p className="mt-1 text-[#4f685f]">
+                            Your case now says: <span className="font-semibold">{labelOf(caseSays.value)}</span> — {lowerFirst(caseSays.reason)}{" "}
+                            <button type="button" disabled={applicabilitySaving} onClick={() => savePick(question, caseSays.value)} className="font-semibold text-[#2f7d67] underline disabled:opacity-70">
+                              Use that instead
+                            </button>
+                          </p>
+                        ) : null}
+                      </div>
+                    );
+                  }
+                  if (view.kind === "conflict") {
+                    const caseSays = view.caseSays;
+                    return (
+                      <div key={question.field_path} data-testid="forms-answer-conflict" className="block rounded-2xl border border-[#f0c88a] bg-[#fffaf2] p-4">
+                        <p className="font-semibold">{question.question}</p>
+                        <p className="mt-1 text-[#16302b]">
+                          Saved to your case earlier: <span className="font-semibold">{labelOf(view.saved)}</span>.
+                        </p>
+                        <p className="mt-1 text-[#16302b]">
+                          Your case now says: <span className="font-semibold">{labelOf(caseSays.value)}</span> — {lowerFirst(caseSays.reason)}
+                        </p>
+                        <p className="mt-1 text-[#4f685f]">These differ. Which is right?</p>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          <button type="button" data-testid="forms-conflict-saved" disabled={applicabilitySaving} onClick={() => savePick(question, view.saved)} className="rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67] disabled:opacity-70">
+                            {labelOf(view.saved)}
+                          </button>
+                          <button type="button" data-testid="forms-conflict-case" disabled={applicabilitySaving} onClick={() => savePick(question, caseSays.value)} className="rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67] disabled:opacity-70">
+                            {labelOf(caseSays.value)}
+                          </button>
+                        </div>
                       </div>
                     );
                   }
@@ -1034,23 +1091,19 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                    * (CLAUDE.md section 4): nothing is saved until "Save this
                    * answer", and Change opens the full list.
                    */
-                  const pending = suggestionFor(question);
-                  const pendingChoice = pending
-                    ? question.choices.find((choice) => JSON.stringify(choice.value) === JSON.stringify(pending.value))
-                    : undefined;
-                  if (pending && pendingChoice && !changingKept[question.field_path]) {
-                    const [, group, field] = question.field_path.split(".");
+                  if (view.kind === "suggested") {
+                    const pending = view;
                     return (
                       <div key={question.field_path} data-testid="forms-suggested-from-case" className="block rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
                         <p className="font-semibold">{question.question}</p>
-                        <p className="mt-1 text-[#16302b]">{pendingChoice.label}</p>
+                        <p className="mt-1 text-[#16302b]">{labelOf(pending.value)}</p>
                         <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           <button
                             type="button"
                             data-testid="forms-suggested-save"
                             disabled={applicabilitySaving}
-                            onClick={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
+                            onClick={() => savePick(question, pending.value, pending.reason)}
                             className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
                           >
                             Save this answer

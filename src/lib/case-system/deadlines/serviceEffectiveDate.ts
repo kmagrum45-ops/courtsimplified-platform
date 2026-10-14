@@ -360,6 +360,24 @@ export const MOTION_TO_CHANGE_RULE: OriginatingRule = {
 };
 
 /** The rule for the papers a service-date question asks about: the motion-to-change rule for a motion to change, else the court's claim or application rule. */
+/**
+ * Small Claims: a claim served by registered mail or courier and signed for
+ * (review of 400ad42). The day offered from the person's words is the day the
+ * papers reached them; service is effective on the date the delivery
+ * confirmation shows the signature, and the one who signed may be anyone who
+ * appears to be a member of the household -- so the date to check is on that
+ * confirmation, and can be before the day the person got the papers.
+ */
+export const SC_SIGNED_FOR_NOTE = {
+  rules: `${SC}, r. 8.03 (7), (8)`,
+  quotes: [
+    "if the signature of the individual or any person who appears to be a member of the same household, verifying receipt of the copy, is obtained",
+    "is effective on the date on which receipt of the copy of the claim is verified by signature, as shown in a delivery confirmation provided by or obtained from Canada Post or the commercial courier",
+  ],
+  say:
+    "For a claim signed for, service is effective on the date the signature is shown on the delivery confirmation from Canada Post or the courier. Someone who appears to live with you may have signed, so check that date: it can be earlier than the day you got the papers.",
+} as const;
+
 export function originatingRuleFor(court: ServiceCourt, questionId: string): OriginatingRule {
   return court === "family" && questionId === "case-date-served-with-motion-to-change" ? MOTION_TO_CHANGE_RULE : ORIGINATING_RULE[court];
 }

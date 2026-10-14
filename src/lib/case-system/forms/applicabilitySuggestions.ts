@@ -127,11 +127,15 @@ function suggest(
   const last = fieldPath.split(".").at(-1) ?? "";
   const side = record.side?.value;
 
-  // "Are you responding to a Plaintiff's Claim / Family Application?"
+  // "Are you responding to a Plaintiff's Claim / Family Application?" Kept
+  // only when the person set their side themselves (sideIsTheirs); a side a
+  // model read from the story, or one inferred from the stage alone, is
+  // offered (review of 400ad42).
   if (/^respondingTo/.test(last) && side) {
+    const firm = sideIsTheirs(record, master);
     return side === "responding"
-      ? { value: true, reason: "Your case says you are responding to the other side's case.", firm: true }
-      : { value: false, reason: "Your case says you are the one starting it.", firm: true };
+      ? { value: true, reason: "Your case says you are responding to the other side's case.", ...(firm ? { firm } : {}) }
+      : { value: false, reason: "Your case says you are the one starting it.", ...(firm ? { firm } : {}) };
   }
 
   // "Is this a divorce application?" -- from the family questions' own answers.
@@ -216,10 +220,16 @@ function suggest(
   // responding side, or a story about being sued or served leaves it a
   // suggestion. The Forms route applies a kept answer when it reads the case
   // and never stores it, so it follows a later change of stage.
+  //
+  // Review of 400ad42: with no role, or "Not sure", the side is itself read
+  // from that stage (caseRecord sideFromParts), so "starting" proved nothing.
+  // Kept only when the person picked a starting role themselves (source
+  // "intake"); otherwise offered.
   const roleSaysDefendant = /defend|respond/i.test(String(asRecord(asRecord(master.intakeData).extra).yourRole ?? ""));
   if (last === "isCommencedByNoticeOfAction" && record.position.confirmedStage === "starting-case" && side !== "responding" && !roleSaysDefendant) {
     const reason = "You said you have not filed anything yet, so your case has not been started by a notice of action.";
-    return side === "starting" && !SUED_OR_SERVED.test(story) ? { value: false, reason, firm: true } : { value: false, reason };
+    const theirRole = record.side?.source === "intake" && side === "starting";
+    return theirRole && !SUED_OR_SERVED.test(story) ? { value: false, reason, firm: true } : { value: false, reason };
   }
   if (last === "isMortgageForeclosure" && story && !/\bmortgage|foreclos|power of sale/.test(story)) {
     return { value: false, reason: "Your story does not mention a mortgage." };
@@ -239,26 +249,132 @@ function suggest(
 }
 
 /**
- * The case's answers as the form matcher reads them: each firm answer the
- * person has not saved a value for, under every value they saved (theirs
- * wins). Never written to the case: a firm answer is re-read from the fact
- * it follows each time, so it changes when that fact does.
+ * Whether the side on the record is one the person set themselves (review of
+ * 400ad42). A role they picked in the intake ("intake") is; a stage they
+ * confirmed as "I was served" ("confirmed", responding) is. A "starting" side
+ * read only from the stage "I have not filed anything yet" is not: with no
+ * role, or "Not sure", sideFromParts infers it from that same stage. A side a
+ * model read from the story ("guided", intakeFacts.role) counts only when the
+ * person's own answer to the role question (personAnswers.side) agrees.
  */
-export function caseAnswersApplied(
-  saved: Record<string, unknown>,
-  suggestions: ReadonlyArray<ApplicabilitySuggestion>,
-): Record<string, unknown> {
-  const out: Record<string, unknown> = {};
-  for (const suggestion of suggestions) {
-    if (!suggestion.firm) continue;
-    const [, group, field] = suggestion.fieldPath.split(".");
-    if (!group || !field) continue;
-    out[group] = { ...asRecord(out[group]), [field]: suggestion.value };
+export function sideIsTheirs(record: CaseRecord, master: Record<string, unknown>): boolean {
+  const side = record.side;
+  if (!side) return false;
+  if (side.source === "intake") return true;
+  if (side.source === "confirmed") return side.value === "responding";
+  const own = String(asRecord(asRecord(asRecord(master.intakeData).extra).personAnswers).side ?? "");
+  const ownSide = /defendant|respondent|responding/i.test(own) ? "responding" : /plaintiff|claimant|applicant|moving/i.test(own) ? "starting" : null;
+  return ownSide === side.value;
+}
+
+/**
+ * The marks the Forms route keeps beside the stored answers: one per field the
+ * person saved through the page (applicabilitySaveFor / the route's PATCH).
+ * A stored value with no mark was written by the page's old automatic save
+ * (before 2026-10-14), not chosen by the person.
+ */
+export const CHOSEN_KEY = "chosen";
+
+type Stored = Record<string, unknown>;
+
+/** A save's patch with a chosen mark for each field it sets, and the mark cleared where it clears one (the Forms route's PATCH). */
+export function withChosenMarks(patch: Stored): Stored {
+  const marks: Record<string, true | null> = {};
+  for (const [group, answers] of Object.entries(patch)) {
+    for (const [field, value] of Object.entries(asRecord(answers))) marks[`formApplicability.${group}.${field}`] = value === null ? null : true;
   }
-  for (const [group, answers] of Object.entries(saved)) {
-    out[group] = { ...asRecord(out[group]), ...asRecord(answers) };
+  return { ...patch, [CHOSEN_KEY]: marks };
+}
+
+function storedValueAt(stored: Stored, fieldPath: string): boolean | string | undefined {
+  const [, group, field] = fieldPath.split(".");
+  const value = asRecord(stored[group])[field];
+  return typeof value === "boolean" || typeof value === "string" ? value : undefined;
+}
+function chosenAt(stored: Stored, fieldPath: string): boolean {
+  return asRecord(stored[CHOSEN_KEY])[fieldPath] === true;
+}
+const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+
+/**
+ * How one Forms question stands (review of 400ad42):
+ *   - "case": a firm answer, nothing stored against it -- answered, no click;
+ *   - "saved": a value saved to the case (chosen by the person, or stored
+ *     with no firm answer to compare); `caseSays` when a firm answer now
+ *     differs from one the person chose;
+ *   - "conflict": a value the old automatic save stored, which a firm answer
+ *     now contradicts -- both are shown and the person is asked;
+ *   - "suggested": a reading of the story, one click to keep;
+ *   - "open": nothing known.
+ */
+export type AnswerView =
+  | { kind: "case"; value: boolean | string; reason: string }
+  | { kind: "saved"; value: boolean | string; caseSays?: { value: boolean | string; reason: string } }
+  | { kind: "conflict"; saved: boolean | string; caseSays: { value: boolean | string; reason: string } }
+  | { kind: "suggested"; value: boolean | string; reason: string }
+  | { kind: "open" };
+
+export function answerViewFor(fieldPath: string, stored: Stored, suggestions: ReadonlyArray<ApplicabilitySuggestion>): AnswerView {
+  const suggestion = suggestions.find((item) => item.fieldPath === fieldPath);
+  const firm = suggestion?.firm ? { value: suggestion.value, reason: suggestion.reason } : undefined;
+  const saved = storedValueAt(stored, fieldPath);
+  if (saved !== undefined) {
+    if (!firm || same(saved, firm.value)) return firm && !chosenAt(stored, fieldPath) ? { kind: "case", ...firm } : { kind: "saved", value: saved };
+    return chosenAt(stored, fieldPath) ? { kind: "saved", value: saved, caseSays: firm } : { kind: "conflict", saved, caseSays: firm };
+  }
+  if (firm) return { kind: "case", ...firm };
+  if (suggestion) return { kind: "suggested", value: suggestion.value, reason: suggestion.reason };
+  return { kind: "open" };
+}
+
+/**
+ * The case's answers as the form matcher reads them. A firm answer counts
+ * with no save and is never written, so it follows the fact it comes from; a
+ * value the person chose wins; a value the old automatic save stored that a
+ * firm answer now contradicts counts as neither until the person picks one.
+ */
+export function caseAnswersApplied(stored: Stored, suggestions: ReadonlyArray<ApplicabilitySuggestion>): Record<string, unknown> {
+  const paths = new Set<string>(suggestions.filter((item) => item.firm).map((item) => item.fieldPath));
+  for (const [group, answers] of Object.entries(stored)) {
+    if (group === CHOSEN_KEY) continue;
+    for (const field of Object.keys(asRecord(answers))) paths.add(`formApplicability.${group}.${field}`);
+  }
+  const out: Record<string, unknown> = {};
+  for (const fieldPath of paths) {
+    const view = answerViewFor(fieldPath, stored, suggestions);
+    const value = view.kind === "case" || view.kind === "saved" ? view.value : undefined;
+    if (value === undefined) continue;
+    const [, group, field] = fieldPath.split(".");
+    out[group] = { ...asRecord(out[group]), [field]: value };
   }
   return out;
+}
+
+/**
+ * What a save sends for the answers the person picked on the page (review of
+ * 400ad42): a pick equal to the case's firm answer is never stored -- and
+ * clears (null) a different value stored before, so the firm answer applies
+ * again; a pick equal to a value they already chose sends nothing; anything
+ * else is sent, and the route marks it chosen. Null when nothing changes.
+ */
+export function applicabilitySaveFor(
+  picked: Record<string, boolean | string>,
+  stored: Stored,
+  suggestions: ReadonlyArray<ApplicabilitySuggestion>,
+): Record<string, Record<string, boolean | string | null>> | null {
+  const patch: Record<string, Record<string, boolean | string | null>> = {};
+  for (const [fieldPath, value] of Object.entries(picked)) {
+    const [, group, field] = fieldPath.split(".");
+    if (!group || !field) continue;
+    const firm = suggestions.find((item) => item.firm && item.fieldPath === fieldPath);
+    const saved = storedValueAt(stored, fieldPath);
+    let next: boolean | string | null | undefined = value;
+    if (firm && same(firm.value, value)) next = saved === undefined ? undefined : null;
+    else if (saved !== undefined && same(saved, value) && chosenAt(stored, fieldPath)) next = undefined;
+    if (next === undefined) continue;
+    patch[group] = { ...patch[group], [field]: next };
+  }
+  return Object.keys(patch).length ? patch : null;
 }
 
 export function suggestApplicability(

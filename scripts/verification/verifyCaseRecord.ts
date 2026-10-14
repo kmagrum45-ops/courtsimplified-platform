@@ -25,6 +25,11 @@
  *     as a question, needing a Save, or written by the page by itself,
  *     instead of counted as the case's answer with Change; or a story
  *     reading counted without the person's click;
+ *   - (review of 400ad42) a side the person did not set (read from the
+ *     stage alone, or by a model with no agreeing role answer) kept as
+ *     settled; a value the old automatic save stored winning over, or not
+ *     shown beside, a case answer that contradicts it; re-picking the case's
+ *     answer storing a value; depth answers duplicated on a return visit;
  *   - a page or route going back to its own reading of these facts: the
  *     overview's stage, the drafts' story, family answers given after a save.
  *
@@ -37,7 +42,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { documentsOf, readCaseRecord, recordedDateAnswers, storedIntakeValues } from "../../src/lib/case-system/caseRecord";
-import { caseAnswersApplied, suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
+import { answerViewFor, applicabilitySaveFor, caseAnswersApplied, suggestApplicability, withChosenMarks } from "../../src/lib/case-system/forms/applicabilitySuggestions";
+import { latestAnswerPerQuestion } from "../../app/builder/_components/stageFromAnswers";
 import { stepNamedInStory, suggestedStageFor } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { caseStepFor } from "../../src/lib/case-system/caseStep";
 import { practicalFor } from "../../src/lib/content-library/nextStepPractical";
@@ -179,21 +185,20 @@ check(
     // ...and those words reach the case at all (run 38593464953, RN: the
     // Forms page asked about a Defendant's Claim as if he had said nothing,
     // because the guided intake's completion read a stale copy of the
-    // answers, and its claim-type path sent none). Every completion carries
-    // the answers as they are now, never a render's copy.
+    // answers, and its claim-type path sent none). Negative property: no
+    // completion bypasses complete(), the one place that adds the answers.
     {
       const intake = readFileSync(path.join(process.cwd(), "app/builder/_components/GuidedSmallClaimsIntake.tsx"), "utf8");
-      const completions = [...intake.matchAll(/onComplete\?\.\(\{([^]*?)\}\)/g)].map((match) => match[1]);
-      const fromPayload = (body: string) => /^\s*\.\.\.(?:heldPayload|payload)\b/.test(body);
-      check(
-        "every guided completion carries the answers as they are now",
-        completions.length > 0 &&
-          completions.every((body) => /answers: earlierAnswersRef\.current/.test(body) || fromPayload(body)) &&
-          /const payload = \{ \.\.\.completed, answers: earlierAnswersRef\.current \}/.test(intake) &&
-          /function finishDepthPhase\([^]*?onComplete\?\.\(\{[^}]*answers: earlierAnswersRef\.current/.test(intake) &&
-          !/answers: earlierAnswers\s*[,}]/.test(intake),
-        completions.map((body) => body.slice(0, 60)).join(" | "),
-      );
+      const calls = [...intake.matchAll(/onComplete\?\.\(/g)].length;
+      check("no guided completion skips the answers (onComplete is called in one place only)", calls === 1, `${calls} calls`);
+      // A return visit answers the depth questions again: one answer per
+      // question, the latest, in the order given (review of 400ad42).
+      const deduped = latestAnswerPerQuestion([
+        { questionId: "a", answerText: "first" },
+        { questionId: "b", answerText: "b" },
+        { questionId: "a", answerText: "again" },
+      ]);
+      check("an answer given again replaces the earlier one", JSON.stringify(deduped) === JSON.stringify([{ questionId: "b", answerText: "b" }, { questionId: "a", answerText: "again" }]));
     }
     check("a plaintiff is never offered a defendant's claim", suggestApplicability(claimQuestion, readCaseRecord(plaintiffMaster, "small-claims"), plaintiffMaster).length === 0);
     const considering = { position: { stepId: "defendant:considering-defendants-claim" }, intakeData: { extra: { yourRole: "Defendant / responding party" } } };
@@ -203,46 +208,71 @@ check(
     check("the step 'considering a defendant's claim' offers it as a suggestion, not a kept answer", chosen?.value === true && !chosen.firm);
   }
   const forms = readFileSync(path.join(process.cwd(), "app/forms/FormsWorkspace.tsx"), "utf8");
-  const route = readFileSync(path.join(process.cwd(), "app/api/cases/form-applicability/route.ts"), "utf8");
-  // Walkthrough run 38593464953 (2026-10-14): "Are you responding to a Family
-  // Application?" was captured mid-save ("Saving...") and "Was this case
-  // started by Notice of Action?" needed a Save click, though confirmed facts
-  // answered both. The properties: a firm answer counts as the case's answer
-  // with no click (the matcher reads it, nothing is written for it), its
-  // block shows the answer and where it came from with Change and is never a
-  // question, and only a value the person saves beats it.
+  // Walkthrough run 38593464953 (2026-10-14) and the review of 400ad42. The
+  // properties, as behaviour of answerViewFor / caseAnswersApplied /
+  // applicabilitySaveFor (what the Forms page shows, what the matcher reads,
+  // what a save sends):
+  //   - an answer from a fact the person set counts with no click and is
+  //     never written;
+  //   - a value they chose wins, and is labelled saved;
+  //   - a value the old automatic save stored (no chosen mark) that a firm
+  //     answer now contradicts: both shown, neither counted, until they pick;
+  //   - a story reading counts only after their click;
+  //   - re-picking the case's own answer stores nothing, and clears a
+  //     different stored value so the case's answer applies again.
   {
-    const kept = forms.slice(forms.indexOf('data-testid="forms-kept-from-case"'), forms.indexOf('data-testid="forms-suggested-from-case"'));
-    check(
-      "a case answer is shown answered, with its reason and Change, never as the question or a save in progress",
-      kept.length > 0 && /From your case:/.test(kept) && /\{lowerFirst\(keptReason\)\}/.test(kept) && /Change/.test(kept) && !/>\s*\{question\.question\}/.test(kept) && !/Saving|Not saved yet|saveApplicability\(/.test(kept),
-    );
-    check(
-      "the forms page writes nothing for a firm answer: no save fires by itself, and a firm answer is left out of a save",
-      !/useEffect\([^]*?saveApplicability\([^]*?\}, \[suggestedAnswers/.test(forms) &&
-        /savedAnswerFor\(question\) === undefined && caseAnswerFor\(question\)\) return patch/.test(forms),
-    );
-    check(
-      "the matcher reads the case's answers (caseAnswersApplied) when it reads the case",
-      /caseAnswersApplied\(/.test(route) && /caseFacts\(answeredMaster, area\)/.test(route),
-    );
-    check(
-      "'Save confirmations' shows only while a question is open",
-      /applicabilityQuestions\.some\(\(question\) => questionIsOpen\(question\)\) \? <button/.test(forms),
-    );
-    const yesNoQ = [{ field_path: "formApplicability.family.respondingToFamilyApplication", choices: yesNo }];
+    const P = "formApplicability.family.respondingToFamilyApplication";
+    const yesNoQ = [{ field_path: P, choices: yesNo }];
     const respondent = { position: { confirmedStage: "responding" } };
     const firm = suggestApplicability(yesNoQ, readCaseRecord(respondent, "family"), respondent);
-    const applied = caseAnswersApplied({}, firm);
-    check("a confirmed respondent's answer counts with no save", firm[0]?.firm === true && (applied.family as Record<string, unknown>)?.respondingToFamilyApplication === true, JSON.stringify(applied));
-    const theirs = caseAnswersApplied({ family: { respondingToFamilyApplication: false } }, firm);
-    check("a value the person saved wins over the case's answer", (theirs.family as Record<string, unknown>)?.respondingToFamilyApplication === false);
-    const story = suggestApplicability(
-      [{ field_path: "formApplicability.civil.isMortgageForeclosure", choices: yesNo }],
-      readCaseRecord({ intakeData: { facts: "i slipped on ice" } }, "civil"),
-      {},
+    const at = (applied: Record<string, unknown>) => (applied.family as Record<string, unknown> | undefined)?.respondingToFamilyApplication;
+    check("a confirmed respondent's answer is the case's answer", firm[0]?.firm === true && answerViewFor(P, {}, firm).kind === "case");
+    check("...counted with no save", at(caseAnswersApplied({}, firm)) === true);
+    const chosen = { family: { respondingToFamilyApplication: false }, chosen: { [P]: true } };
+    const chosenView = answerViewFor(P, chosen, firm);
+    check(
+      "a value the person chose wins, shown as saved with what the case now says",
+      at(caseAnswersApplied(chosen, firm)) === false && chosenView.kind === "saved" && chosenView.value === false && chosenView.caseSays?.value === true,
+      JSON.stringify(chosenView),
     );
-    check("an answer read from the story is not applied without the person's click", Object.keys(caseAnswersApplied({}, story)).length === 0 && story.length === 1);
+    const autoSaved = { family: { respondingToFamilyApplication: false } };
+    const conflict = answerViewFor(P, autoSaved, firm);
+    check(
+      "an unchosen stored value the case contradicts is shown beside it and asked, and counts as neither",
+      conflict.kind === "conflict" && conflict.saved === false && conflict.caseSays.value === true && at(caseAnswersApplied(autoSaved, firm)) === undefined,
+      JSON.stringify(conflict),
+    );
+    const agreeing = { family: { respondingToFamilyApplication: true } };
+    check("an unchosen stored value equal to the case's answer is just the case's answer", answerViewFor(P, agreeing, firm).kind === "case" && at(caseAnswersApplied(agreeing, firm)) === true);
+    check("a stored value with nothing to compare is shown as saved", answerViewFor(P, autoSaved, []).kind === "saved" && at(caseAnswersApplied(autoSaved, [])) === false);
+    check("a value cleared to null is not an answer", answerViewFor(P, { family: { respondingToFamilyApplication: null } }, firm).kind === "case");
+
+    check("re-picking the case's own answer stores nothing", applicabilitySaveFor({ [P]: true }, {}, firm) === null);
+    check("picking the case's answer in a conflict clears the stored one", JSON.stringify(applicabilitySaveFor({ [P]: true }, autoSaved, firm)) === JSON.stringify({ family: { respondingToFamilyApplication: null } }));
+    check("keeping the stored one in a conflict saves it, so it is marked chosen", JSON.stringify(applicabilitySaveFor({ [P]: false }, autoSaved, firm)) === JSON.stringify({ family: { respondingToFamilyApplication: false } }));
+    check("re-saving what they already chose sends nothing", applicabilitySaveFor({ [P]: false }, chosen, firm) === null);
+    check("a different answer than the case's is sent", JSON.stringify(applicabilitySaveFor({ [P]: false }, {}, firm)) === JSON.stringify({ family: { respondingToFamilyApplication: false } }));
+
+    const M = "formApplicability.civil.isMortgageForeclosure";
+    const story = suggestApplicability([{ field_path: M, choices: yesNo }], readCaseRecord({ intakeData: { facts: "i slipped on ice" } }, "civil"), {});
+    check(
+      "an answer read from the story is a suggestion, counted only after the person's click",
+      story.length === 1 && answerViewFor(M, {}, story).kind === "suggested" && Object.keys(caseAnswersApplied({}, story)).length === 0 &&
+        JSON.stringify(applicabilitySaveFor({ [M]: false }, {}, story)) === JSON.stringify({ civil: { isMortgageForeclosure: false } }),
+    );
+
+    // The route marks what the person saves, so "chosen" means chosen.
+    const marked = withChosenMarks({ family: { respondingToFamilyApplication: false, isDivorceApplication: null } });
+    check(
+      "every saved field is marked chosen, and a cleared one unmarked",
+      JSON.stringify((marked as Record<string, unknown>).chosen) === JSON.stringify({ [P]: true, "formApplicability.family.isDivorceApplication": null }),
+    );
+
+    // Negative properties of the page source: it never saves by itself,
+    // and the case's answer never renders as the question text.
+    check("the forms page never saves by itself (no effect calls a save)", !/useEffect\(\(\) => \{[^]{0,600}?saveApplicability\(/.test(forms));
+    const caseBlock = forms.slice(forms.indexOf('data-testid="forms-kept-from-case"'), forms.indexOf('data-testid="forms-saved-to-case"'));
+    check("the case's answer is never shown as its question", caseBlock.length > 0 && !/>\s*\{question\.question\}/.test(caseBlock) && !/Saving|Not saved yet/.test(caseBlock));
   }
   // Walkthrough MC (2026-10-14): a suggestion from the case ("The step shown
   // for your case is asking to change a final order") sat above an answer list
@@ -259,7 +289,9 @@ check(
     );
     check(
       "a suggested answer is saved only by the person's click, never automatically",
-      /onClick=\{\(\) => void saveApplicability\(\{ \[group\]: \{ \[field\]: pending\.value \} \}/.test(branch) && !/useEffect/.test(branch),
+      // Negative property: no save in this block outside a click handler
+      // (behaviour: caseAnswersApplied counts no suggestion, checked above).
+      !/useEffect/.test(branch) && [...branch.matchAll(/(?:savePick|saveApplicability)\(/g)].every((match) => /onClick=\{\(\) => (?:void )?$/.test(branch.slice(0, match.index))),
     );
   }
 }
@@ -295,14 +327,45 @@ check(
   // have not filed anything yet" too): a defendant role, or a story about
   // being sued or served, keeps it a suggestion or nothing.
   const noticeQuestion = [{ field_path: "formApplicability.civil.isCommencedByNoticeOfAction", choices: [...yesNo, { value: "not-sure" }] }];
+  // Review of 400ad42: kept ONLY when the person picked a starting role
+  // themselves. With no role, or "Not sure", the side is itself inferred
+  // from "nothing filed yet" (caseRecord sideFromParts), so it proves nothing.
   for (const [story, role] of [
-    ["i want to sue the city", undefined],
-    ["", undefined],
+    ["i want to sue the city", "Plaintiff"],
+    ["", "Plaintiff / claimant"],
     ["i slipped on the ice on a city sidewalk and broke my wrist", "Plaintiff / person starting the case"],
+  ] as const) {
+    const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story, extra: { yourRole: role } } };
+    const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
+    check(`a starting role they picked + 'nothing filed yet' answers 'started by notice of action?' no, as the case's answer (story ${JSON.stringify(story)})`, found?.value === false && found.firm === true && /not filed anything/.test(found.reason), JSON.stringify(found));
+  }
+  for (const [story, role] of [
+    ["", "Not sure"],
+    ["a tree from the city fell on my car", undefined],
+    ["the bank's lawyer sent me papers about the loan", undefined],
+    ["i want to sue the city", undefined],
   ] as const) {
     const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story, extra: role ? { yourRole: role } : {} } };
     const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
-    check(`a confirmed 'nothing filed yet' answers 'started by notice of action?' no, as the case's answer (story ${JSON.stringify(story)})`, found?.value === false && found.firm === true && /not filed anything/.test(found.reason), JSON.stringify(found));
+    check(`a side read only from the stage leaves 'started by notice of action?' a suggestion: '${story}' (${role ?? "no role"})`, found?.value === false && !found.firm, JSON.stringify(found));
+  }
+  // Review of 400ad42: a side a model read from the story (intakeFacts.role,
+  // source "guided") is offered, not kept, unless the person's own answer to
+  // the role question (personAnswers.side) agrees; a confirmed "I was
+  // served" stage, or a role they picked, is kept.
+  {
+    const responding = [{ field_path: "formApplicability.smallClaims.respondingToPlaintiffsClaim", choices: yesNo }];
+    const ask = (master: Record<string, unknown>) => suggestApplicability(responding, readCaseRecord(master, "small-claims"), master)[0];
+    const modelOnly = ask({ intakeFacts: { role: "defendant" } });
+    check("a side only a model read is a suggestion", modelOnly?.value === true && !modelOnly.firm, JSON.stringify(modelOnly));
+    const agreed = ask({ intakeFacts: { role: "defendant" }, intakeData: { extra: { personAnswers: { side: "defendant" } } } });
+    check("...kept when their own role answer agrees", agreed?.value === true && agreed.firm === true, JSON.stringify(agreed));
+    const disagreed = ask({ intakeFacts: { role: "defendant" }, intakeData: { extra: { personAnswers: { side: "plaintiff" } } } });
+    check("...and not when it disagrees", !disagreed?.firm, JSON.stringify(disagreed));
+    check("a confirmed 'I was served' stage is kept", ask({ position: { confirmedStage: "responding" } })?.firm === true);
+    check("a role they picked is kept", ask({ intakeData: { extra: { yourRole: "Defendant / responding party" } } })?.firm === true);
+    const fromStage = ask({ position: { confirmedStage: "starting-case" } });
+    check("a starting side inferred from the stage alone is a suggestion", fromStage?.value === false && !fromStage.firm, JSON.stringify(fromStage));
   }
   // Must not misfire: a story naming a notice of action is never answered;
   // a defendant is never told "you have not filed anything, so no"; a story

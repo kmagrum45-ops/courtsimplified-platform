@@ -174,6 +174,18 @@ export function personAnswersFromGuided(
   return out;
 }
 
+/**
+ * One answer per question, the latest, in the order last given (review of
+ * 400ad42): a return visit starts from the saved answers and the depth
+ * questions can be answered again, which appended a second copy each time.
+ * The last answer is the one that stands everywhere (personAnswersFromGuided).
+ */
+export function latestAnswerPerQuestion<T extends { questionId: string }>(answers: ReadonlyArray<T>): T[] {
+  const lastAt = new Map<string, number>();
+  answers.forEach((answer, index) => lastAt.set(answer.questionId, index));
+  return answers.filter((answer, index) => lastAt.get(answer.questionId) === index);
+}
+
 /** The side a role answer names ("Responding to a claim (defendant)"), or null when it names neither or both. */
 export function sideInAnswer(text: string): "plaintiff" | "defendant" | null {
   const defendant = /\b(?:defendant|responding|being sued|sued me|suing me)\b/i.test(text);

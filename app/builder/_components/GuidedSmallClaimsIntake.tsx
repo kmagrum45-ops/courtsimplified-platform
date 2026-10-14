@@ -24,6 +24,7 @@ import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
+import { latestAnswerPerQuestion } from "./stageFromAnswers";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -575,9 +576,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
    */
   const earlierAnswersRef = useRef<ConfirmedStoryAnswer[]>(earlierAnswers);
   const setEarlierAnswers = (next: ConfirmedStoryAnswer[] | ((current: ConfirmedStoryAnswer[]) => ConfirmedStoryAnswer[])) => {
-    earlierAnswersRef.current = typeof next === "function" ? next(earlierAnswersRef.current) : next;
+    // One per question, the latest (a return visit answers the depth questions again).
+    earlierAnswersRef.current = latestAnswerPerQuestion(typeof next === "function" ? next(earlierAnswersRef.current) : next);
     setEarlierAnswersState(earlierAnswersRef.current);
   };
+  /** The one way the intake finishes: always with every answer as it is now. */
+  const complete = (result: GuidedIntakeCompletionResult) => onComplete?.({ ...result, answers: earlierAnswersRef.current });
   // The saved case can finish loading after this mounts; take its earlier
   // answers then too, as long as the conversation hasn't started.
   const previousTaken = useRef(Boolean(previous));
@@ -999,14 +1003,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Held while they load; released at once when there are none. A claim
   // type with its own reviewed questions (the depth phase) uses those.
   function completeWithSourced(completed: GuidedIntakeCompletionResult) {
-    const payload = { ...completed, answers: earlierAnswersRef.current };
+    const payload = completed;
     if (sourced.state === "loading" || (sourced.state === "ready" && sourced.questions.length > 0)) {
       setHeldPayload(payload);
       return;
     }
     const kept = sourced.answeredList();
     const followUpText = sourcedAnswerListText(kept);
-    onComplete?.({ ...payload, sourcedAnswers: kept, ...(followUpText ? { followUpText } : {}) });
+    complete({ ...payload, sourcedAnswers: kept, ...(followUpText ? { followUpText } : {}) });
   }
 
   function releaseHeld() {
@@ -1014,7 +1018,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     const kept = sourced.answeredList();
     const followUpText = sourcedAnswerListText(kept);
     setHeldPayload(null);
-    onComplete?.({ ...heldPayload, sourcedAnswers: kept, ...(followUpText ? { followUpText } : {}) });
+    complete({ ...heldPayload, sourcedAnswers: kept, ...(followUpText ? { followUpText } : {}) });
   }
 
   useEffect(() => {
@@ -1023,7 +1027,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     if (heldPayload && (sourced.state === "none" || sourced.state === "idle") && !municipalNoticeFirst(storyRef.current, { city: location?.city ?? "" })) {
       setHeldPayload(null);
       // Nothing new to ask: still keep the answers from earlier visits.
-      onComplete?.({ ...heldPayload, sourcedAnswers: sourced.answeredList() });
+      complete({ ...heldPayload, sourcedAnswers: sourced.answeredList() });
     }
   }, [heldPayload, sourced.state, sourced.answeredList, onComplete, location?.city]);
 
@@ -1034,8 +1038,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     setDepthActive(false);
     const payload = payloadOverride ?? completionPayload;
     if (payload) {
-      // Every answer given, current now (earlierAnswersRef): this path sent none.
-      onComplete?.({ ...payload, answers: earlierAnswersRef.current, elementStateMap: stateMap || undefined, sourcedAnswers: sourced.answeredList() });
+      // complete() adds every answer given, current now: this path sent none.
+      complete({ ...payload, elementStateMap: stateMap || undefined, sourcedAnswers: sourced.answeredList() });
     }
   }
 

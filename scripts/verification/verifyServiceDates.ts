@@ -51,6 +51,7 @@ import path from "node:path";
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import {
   arrivalAskFor,
+  signedForNoteFor,
   arrivalNoteFor,
   arrivalOnlyDates,
   countedFromService,
@@ -89,6 +90,7 @@ import {
   whenEffectiveSay,
   serviceMethodFromStory,
   smallClaimsFifthDayOnClosedDay,
+  SC_SIGNED_FOR_NOTE,
   type ServiceCourt,
 } from "../../src/lib/case-system/deadlines/serviceEffectiveDate";
 import { assertsAbsenceProblems } from "../content/blockGates";
@@ -265,6 +267,14 @@ console.log("\nThe day papers arrived is never counted as the day they were mail
       "the panel shows the day they gave first and no blank date box while how it was served is the missing piece",
       /\{arrivalAsk \? \(\s*<p data-testid=\{`stage-answer-arrival-said-/.test(panel) && /\{arrivalAsk\?\.ask === "how" \? null : \(\s*<label className="block">/.test(panel),
     );
+    // Review of 400ad42: "signed for" offers the day the claim reached him,
+    // but service is effective on the signature date on the delivery
+    // confirmation (r. 8.03 (8)), and a household member may have signed
+    // (r. 8.03 (7)). The note says so, quoted from the saved rule.
+    check("the signed-for note's rule words are the saved official text", SC_SIGNED_FOR_NOTE.quotes.every((quote) => inCorpus("small-claims", quote)));
+    check("the note points to the delivery confirmation's signature date, and says someone else may have signed", /delivery confirmation/.test(SC_SIGNED_FOR_NOTE.say) && /may have signed/.test(SC_SIGNED_FOR_NOTE.say) && !/service counts from/.test(SC_SIGNED_FOR_NOTE.say));
+    check("it shows for a Small Claims claim signed for", signedForNoteFor("small-claims", id, "registered-mail-signature"));
+    check("...and not for another way, another court, or another date", !signedForNoteFor("small-claims", id, "personal") && !signedForNoteFor("civil", id, "registered-mail-signature") && !signedForNoteFor("small-claims", "not-a-service-question", "registered-mail-signature"));
     check("a way counted from the day they got the papers takes the question out of the held-back dates (the story's date is offered instead)",
       Object.keys(arrivalOnlyDates({ stageId: "defendant:served-defence-period-running", court: "small-claims", storyText: yearless, storyHints: yearlessHints, methods: { [id]: "registered-mail-signature" } })).length === 0);
   }

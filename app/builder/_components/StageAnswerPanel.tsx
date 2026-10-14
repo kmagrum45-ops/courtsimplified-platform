@@ -15,6 +15,7 @@ import {
   isOriginatingService,
   postWaysForClaim,
   partyServedFrom,
+  SC_SIGNED_FOR_NOTE,
   whenEffectiveSay,
   MOTION_TO_CHANGE_SERVICE_QUESTION,
   MOVING_PARTY_MOTION_QUESTION,
@@ -1196,6 +1197,17 @@ export function arrivalAskFor(args: {
   return { said, ask: args.method ? "sent-day" : "how" };
 }
 
+/**
+ * Whether the date offered from the person's words needs the signed-for note
+ * (review of 400ad42): a Small Claims claim served by registered mail or
+ * courier and signed for, where service is effective on the signature date
+ * shown on the delivery confirmation (r. 8.03 (8)), and a household member may
+ * have signed (r. 8.03 (7)). Exported for test:service-dates.
+ */
+export function signedForNoteFor(court: ServiceCourt | null, questionId: string, method: ServiceMethod | null | undefined): boolean {
+  return court === "small-claims" && method === "registered-mail-signature" && isOriginatingService(court, questionId);
+}
+
 /** "September 28", for a day whose year the person did not give. */
 function monthAndDay(iso: string): string {
   const [year, month, day] = iso.split("-").map(Number);
@@ -1797,6 +1809,11 @@ export default function StageAnswerPanel({
                       Used for:{" "}
                       {question.sets.join("; ")}
                     </p>
+                    {fromStory && signedForNoteFor(serviceCourt, question.id, serviceMethod[question.id] ?? storyMethodFor(question.id)) ? (
+                      <p data-testid={`stage-answer-signed-for-${question.id}`} className="mt-1 text-xs text-[#7a4b12]">
+                        {SC_SIGNED_FOR_NOTE.say} ({SC_SIGNED_FOR_NOTE.rules})
+                      </p>
+                    ) : null}
                     <div className="mt-2 flex flex-wrap gap-2">
                       {fromStory ? (
                         <button

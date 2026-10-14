@@ -1,6 +1,6 @@
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
-import { caseAnswersApplied, suggestApplicability } from "@/src/lib/case-system/forms/applicabilitySuggestions";
+import { caseAnswersApplied, suggestApplicability, withChosenMarks } from "@/src/lib/case-system/forms/applicabilitySuggestions";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
@@ -109,7 +109,7 @@ function verifiedUseDescription(mapping: MappingRow, area: FormsCourtPath): stri
   return choice ? `Use this form when: ${choice.label}` : null;
 }
 
-function setAtPath(target: Record<string, unknown>, fieldPath: string, value: ScalarAnswer): void {
+function setAtPath(target: Record<string, unknown>, fieldPath: string, value: ScalarAnswer | null): void {
   const [, group, field] = fieldPath.split(".");
   const existing = asRecord(target[group]) || {};
   target[group] = { ...existing, [field]: value };
@@ -126,8 +126,10 @@ export function parseFormApplicability(value: unknown, area: FormsCourtPath, que
     for (const [field, answer] of Object.entries(answers)) {
       const fieldPath = `formApplicability.${group}.${field}`;
       const question = allowedPaths.get(fieldPath);
-      if (!question || !question.choices.some((choice) => choice.value === answer)) return null;
-      setAtPath(patch, fieldPath, answer as ScalarAnswer);
+      // null clears a stored answer, so the case's own answer applies again
+      // (applicabilitySaveFor: a pick equal to it is never stored).
+      if (!question || (answer !== null && !question.choices.some((choice) => choice.value === answer))) return null;
+      setAtPath(patch, fieldPath, answer as ScalarAnswer | null);
     }
   }
   return Object.keys(patch).length ? patch : null;
@@ -223,7 +225,12 @@ export async function PATCH(request: Request) {
   if (!raw || !exactKeys(raw, Array.from(ALLOWED_KEYS)) || !CASE_ID_PATTERN.test(caseId)) return NextResponse.json({ error: "A valid selected case and form applicability answers are required." }, { status: 400 });
   const current = await readinessForOwnedCase(request, caseId);
   if ("error" in current) return NextResponse.json({ error: current.error }, { status: current.status });
-  const patch = parseFormApplicability(raw.formApplicability, current.area, current.applicabilityQuestions);
+  const parsed = parseFormApplicability(raw.formApplicability, current.area, current.applicabilityQuestions);
+  // Each field saved here is the person's own choice, marked as such beside
+  // the answers (CHOSEN_KEY): a stored value without the mark came from the
+  // page's old automatic save, and is shown beside the case's answer and
+  // asked about when they differ (answerViewFor).
+  const patch = parsed ? withChosenMarks(parsed) : null;
   if (!patch) return NextResponse.json({ error: "Form applicability answers are not declared for this selected case." }, { status: 400 });
   const supabase = authenticatedClient(request);
   if (!supabase) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
