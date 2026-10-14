@@ -116,6 +116,13 @@ jobs:
               echo "pass $s" >> "$out"
             fi
           done < scripts.txt
+          for s in eval:free-finish-line build; do
+            log="$(mktemp)"
+            timeout 900 npm run "$s" > "$log" 2>&1
+            code=$?
+            echo "== $s exit $code" >> "$out"
+            if [ "$code" != "0" ]; then tail -60 "$log" >> "$out"; fi
+          done
           exit 0
       - name: Publish to understanding-ci-reports
         env:

@@ -137,12 +137,13 @@ matters: usually ONE. List more than one only when the law would need separate p
 - "tribunal": a tribunal or board (Landlord and Tenant Board, Human Rights Tribunal, WSIB, Employment Standards, etc.); name it in "forum".
 - "outside-ontario" or "unclear" only when they truly are.
 When the amount is not given and decides the court, choose the likelier court and ask for the amount.
+When a case has already been started, its court is the court where it was started: the person has to take their next step there, even if you think it belongs somewhere else (say that in a point instead, for example as a defence the person can raise).
 
 side: "starting" if they are bringing it (plaintiff, applicant), "responding" if they are defending it (defendant, respondent).
 
 stage: one plain sentence on where the matter stands now ("You have started your claim and the defendant has been noted in default; damages have not yet been assessed.").
 
-questions: up to ${MAX_QUESTIONS}, only questions whose answers change the court, the next step, a deadline, or what they must prepare. Most important first. Plain words, one thing per question. "why" says in one short sentence why it matters, without stating a rule. Never ask something they already told you.
+questions: up to ${MAX_QUESTIONS}, only questions whose answers change the court, the next step, a deadline, or what they must prepare. Most important first. Plain words, one thing per question. When a deadline runs from service, ask how the papers were served (handed to them, mailed, left at their home, emailed), since that changes the day it starts. Ask for the facts the claim or defence turns on (for example what exactly was said and to whom, the exact date of an injury, who owns a property). "why" says in one short sentence why it matters, without stating a rule. Never ask something they already told you.
 
 asksForPrediction: true if they ask whether they will win, how strong their case is, their chances, or what a judge will decide.
 
