@@ -193,6 +193,11 @@ function main(): void {
     // validateCasePicture). Nothing it writes is shown as its words: it feeds
     // the suggested step and the date offers, which the person confirms.
     "src/lib/case-system/intake/caseReaderModel.ts",
+    // Added 2026-10-14: the front door's reading of the story. JSON output;
+    // its restated facts and questions have law removed in code (withoutLaw),
+    // and its legal points are shown only after the checked answer confirms
+    // each against the official text.
+    "src/lib/case-system/understanding/understandCase.ts",
     "src/lib/case-system/stage-map/resolveCasePosition.ts",
     // Added 2026-10-04: spelling suggestions for the user's own words. JSON
     // output, validated field by field in code before anything is shown.

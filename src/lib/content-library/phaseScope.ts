@@ -303,6 +303,21 @@ export function strategyEnabled(
 
 
 /**
+ * Understand the case, then say only what is checked
+ * (understanding/understandCase.ts, site owner 2026-10-14): at the front door
+ * the strongest model reads the whole story and reasons about it, and every
+ * legal point it makes goes through the checked answer before it is shown.
+ * Replaces the topic labels and fixed connection notes there. ON unless
+ * CASE_UNDERSTANDING=off; the page skips it with
+ * NEXT_PUBLIC_CASE_UNDERSTANDING=off. Needs checked answers.
+ */
+export function caseUnderstandingEnabled(
+  env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+): boolean {
+  return env.CASE_UNDERSTANDING !== "off" && checkedAnswersEnabled(env);
+}
+
+/**
  * The case reader (intake/caseReader.ts, master plan Phase 3, 2026-10-08):
  * the AI reads the person's whole account and reports, with checked quotes,
  * their side, the procedural events and dates they describe. ON unless

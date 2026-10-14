@@ -1,0 +1,143 @@
+name: CourtSimplified Front Door Comparison
+
+# Runs the old front door and the new one (understanding/understandCase.ts) on
+# the same stories and has a separate grader score both
+# (scripts/eval/understandingCompare.ts). Publishes the report to the
+# `understanding-eval-reports` branch, which Vercel never builds.
+#
+# SPENDS THE SITE'S OPENAI BALANCE. It runs only when started by hand (Actions
+# tab), or when a commit is pushed to the branch `understanding-eval-run` --
+# a branch that exists only to start this run, so a normal push never does.
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "Only these stories, comma-separated (blank = all)"
+        required: false
+        default: ""
+      only:
+        description: "old, new, or blank for both"
+        required: false
+        default: ""
+  push:
+    branches: [understanding-eval-run]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: understanding-eval
+  cancel-in-progress: false
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      AI_CALL_LOG: file
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check today's OpenAI spend
+        env:
+          OPENAI_ADMIN_KEY: ${{ secrets.OPENAI_ADMIN_KEY }}
+        run: node scripts/ai/spendGuard.mjs
+
+      - run: npm ci
+
+      - name: Compare
+        id: compare
+        continue-on-error: true
+        env:
+          IDS: ${{ inputs.ids }}
+          # A push to the trigger branch re-runs only the new front door: the
+          # old one does not change, and its scores are in the earlier report.
+          ONLY: ${{ github.event_name == 'push' && 'new' || inputs.only }}
+        run: |
+          set -o pipefail
+          args=(--confirm)
+          # A push run takes its stories from next-run.txt (blank = all), to keep a re-check small.
+          if [ -z "${IDS}" ] && [ "${GITHUB_EVENT_NAME}" = "push" ] && [ -f scripts/eval/understanding/next-run.txt ]; then IDS="$(tr -d ' \n' < scripts/eval/understanding/next-run.txt)"; fi
+          if [ -n "${IDS}" ]; then args+=(--ids "${IDS}"); fi
+          if [ -n "${ONLY}" ]; then args+=(--only "${ONLY}"); fi
+          node --import tsx scripts/eval/understandingCompare.ts "${args[@]}" 2>&1 | tee understanding.log
+
+      - name: Publish to understanding-eval-reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp understanding-report.md understanding-report.json understanding.log "$out/" 2>/dev/null || true
+          printf 'branch: %s\ncommit: %s\nrun: %s\noutcome: %s\n' "${GITHUB_REF_NAME}" "${GITHUB_SHA}" "${GITHUB_RUN_ID}" "${{ steps.compare.outcome }}" > "$out/OUTCOME.txt"
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "understanding-eval-bot"
+          git config user.email "understanding-eval-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Front door comparison for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/understanding-eval-reports
+          head -12 understanding-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+  # The free checks the CI runs, each on its own, with output kept, so a
+  # failure can be read without the Actions log (which a Claude session
+  # cannot open). Costs nothing: no OpenAI key in this job.
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run each CI check
+        run: |
+          set +e
+          out=ci-diagnosis.txt
+          echo "== tsc" >> "$out"
+          npx tsc --noEmit --pretty false >> "$out" 2>&1; echo "tsc exit $?" >> "$out"
+          grep -oE 'npm run test:[a-z0-9:-]+' .github/workflows/courtsimplified-ci.yml | awk '{print $3}' | sort -u > scripts.txt
+          while read -r s; do
+            log="$(mktemp)"
+            timeout 600 npm run "$s" > "$log" 2>&1
+            code=$?
+            if [ "$code" != "0" ]; then
+              echo "== FAIL $s (exit $code)" >> "$out"
+              grep -E "FAIL|Error|error|✗|failed" "$log" | head -40 >> "$out"
+              tail -15 "$log" >> "$out"
+            else
+              echo "pass $s" >> "$out"
+            fi
+          done < scripts.txt
+          for s in eval:free-finish-line build; do
+            log="$(mktemp)"
+            timeout 900 npm run "$s" > "$log" 2>&1
+            code=$?
+            echo "== $s exit $code" >> "$out"
+            if [ "$code" != "0" ]; then tail -60 "$log" >> "$out"; fi
+          done
+          exit 0
+      - name: Publish to understanding-ci-reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp ci-diagnosis.txt "$out/"
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "understanding-eval-bot"
+          git config user.email "understanding-eval-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "CI diagnosis for ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/understanding-ci-reports
