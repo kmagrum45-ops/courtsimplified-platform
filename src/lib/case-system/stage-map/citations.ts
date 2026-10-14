@@ -570,6 +570,24 @@ export const R_20_08_GARNISHMENT = scc(
   "r. 20.08 (1)",
   "A creditor may enforce an order for the payment or recovery of money by garnishment of debts payable to the debtor by other persons.",
 );
+/*
+ * Six years after the order (walkthrough run 38500825561, JU: "within 6
+ * years of the order" was never connected to the known judgment date).
+ * Each read word for word from oreg-258-98-small-claims-rules.txt, 2026-10-13.
+ */
+export const R_20_08_2_1_GARNISHMENT_LEAVE = scc(
+  "r. 20.08 (2.1)",
+  "If more than six years have passed since the order was made, or if its enforcement is subject to a condition, a notice of garnishment may be issued only with leave of the court.",
+);
+export const R_20_06_1_1_WRIT_PERSONAL_LEAVE = scc(
+  "r. 20.06 (1.1)",
+  "If more than six years have passed since the order was made, a writ of seizure and sale of personal property may be issued only with leave of the court.",
+);
+export const R_20_07_1_1_WRIT_LAND_LEAVE = scc(
+  "r. 20.07 (1.1)",
+  "If more than six years have passed since the order was made, a writ of seizure and sale of land may be issued only with leave of the court.",
+);
+export const R_1_02_ORDER_INCLUDES_JUDGMENT = scc("r. 1.02 (1)", "\"order\" includes a judgment;");
 export const R_20_10_EXAMINATION = scc(
   "r. 20.10 (1)",
   "If there is default under an order for the payment or recovery of money, the clerk of a court in the territorial division in which the debtor or other person to be examined resides or carries on business shall, at the creditor's request, issue a notice of examination (Form 20H) directed to the debtor or other person.",

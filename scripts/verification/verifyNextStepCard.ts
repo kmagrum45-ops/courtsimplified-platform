@@ -36,7 +36,10 @@
  *     the words keep one, or led by the every-notice paragraph; an "If" limit
  *     about a kind of claim the words never mention leading, or lost; a
  *     "when service counts" sentence (4 p.m.) without its subrule; the support
- *     table shown above the motion-to-change step for an existing order.
+ *     table shown above the motion-to-change step for an existing order;
+ *     a way of serving the story already gives drawn as an open question; an
+ *     unpaid judgment with no six-year leave limit (r. 20.08 (2.1)); "What
+ *     can happen next" quoting a notice the person's words do not fit.
  *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
@@ -47,7 +50,10 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
-import { cardLimits, cardShowsLead, factsForStep, passedBars, servedWhenOf, stepTitleFor, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import { cardLimits, cardShowsLead, factsForStep, passedBars, servedWhenOf, serviceMethodShown, stepTitleFor, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import { movesForWords } from "../../app/_components/WhatComesNext";
+import { nextStepsFor } from "../../src/lib/case-system/stage-map/stageSequence";
+import { serviceMethodFromStory } from "../../src/lib/case-system/deadlines/serviceEffectiveDate";
 import {
   PASSED_CHECK_CLOSED,
   claimFit,
@@ -474,6 +480,64 @@ async function main() {
     check("the folded support-table card comes after the step panel", panelAt > 0 && foldedAt > panelAt);
     check("it is shown there only for an existing order", /existingFamilyOrder\(homeStory \|\| userStory\(caseData\)\)[\s\S]{0,400}data-testid="child-support-table-folded"/.test(page));
     check("above the step, the card is not shown for an existing order", /!existingFamilyOrder\(homeStory \|\| userStory\(caseData\)\) \? <ChildSupportTableCard \/> : null/.test(page) && (page.match(/<ChildSupportTableCard \/>/g) ?? []).length === 2);
+  }
+
+  // Walkthrough run 38500825561, second round (RN, JU, SW "What can happen next").
+  {
+    // RN: a way of serving the story already gives is shown as a fact with
+    // its quote and a Change button, not as an open question.
+    const stories = [
+      "i got the plaintiffs claim in the mail on september 28. it is about a reno job.",
+      "The process server handed me the papers at my door on Monday.",
+      "they sent it by email last week",
+      "My landlord says I owe him rent.",
+    ];
+    let quoteMisses = 0;
+    for (const court of ["small-claims", "civil", "family"] as const) {
+      for (const story of stories) {
+        const method = serviceMethodFromStory(court, story);
+        const shown = serviceMethodShown(court, story);
+        if ((method === null) !== (shown === null)) quoteMisses += 1;
+        if (shown && (!shown.quote || !story.includes(shown.quote) || serviceMethodFromStory(court, shown.quote) !== shown.method)) quoteMisses += 1;
+      }
+    }
+    check("a known way of serving comes with the sentence of the story that says it", quoteMisses === 0, `misses ${quoteMisses}`);
+    const rn = serviceMethodShown("small-claims", stories[0]);
+    check("RN: 'in the mail' is shown as regular mail, quoted", rn?.method === "mail" && /in the mail/.test(rn.quote));
+    const knownAt = panel.indexOf("stage-answer-service-method-known-");
+    const selectAt = panel.indexOf("stage-answer-service-method-${question.id}");
+    check(
+      "the select is drawn only when no way is known, or on Change",
+      knownAt > 0 && selectAt > knownAt && /!changingMethod\[question\.id\] && \(serviceMethod\[question\.id\] \?\? storyServiceMethod\) \?/.test(panel) && /From what you told us: &ldquo;\{storyMethodShown\.quote\}&rdquo;/.test(panel) && /stage-answer-service-method-change-/.test(panel),
+    );
+    check("the date input still asks for the date the rule counts from", /\? `Enter \$\{serviceRulesFor\(serviceCourt\)/.test(panel));
+
+    // JU: an unpaid judgment's card asks for the order date and counts the six years.
+    let unpaidMisses = 0;
+    for (const stageId of ["plaintiff:judgment-in-my-favour-unpaid", "plaintiff:default-judgment-signed"]) {
+      const stage = ALL_STAGES.find((item) => item.id === stageId);
+      const leave = stage?.deadlines.find((deadline) => deadline.rule.pinpoint === "r. 20.08 (2.1)");
+      if (!leave || leave.countFromEvent !== "order-made" || leave.length.unit !== "years" || leave.length.count !== 6) unpaidMisses += 1;
+      if (!leave?.exceptions.some((rule) => rule.pinpoint === "r. 20.06 (1.1)") || !leave?.exceptions.some((rule) => rule.pinpoint === "r. 20.07 (1.1)")) unpaidMisses += 1;
+      const asked = await ask(stageId, "small-claims");
+      if (!(asked.nextStep?.periods ?? []).some((period) => period.count === 6 && /order was made/.test(period.countFrom))) unpaidMisses += 1;
+      const counted = await ask(stageId, "small-claims", { "case-date-order-made": "2026-05-12" });
+      if (!(counted.nextStep?.deadlines ?? []).some((deadline) => /12 May 2032/.test(deadline.statement))) unpaidMisses += 1;
+    }
+    check("both unpaid-judgment steps carry the six-year leave limit, ask the order date, and count it", unpaidMisses === 0, `misses ${unpaidMisses}`);
+    // Every quote in the stage map is read back from the corpus by test:stage-map.
+
+    // SW: "What can happen next" keeps only the notice rules the words fit;
+    // a move made only of other notices folds under "Other things"; none lost.
+    const toronto = "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i want to sue the city";
+    const all = nextStepsFor("civil:before-filing:notice-required-before-suing", false).moves;
+    const narrowed = movesForWords("civil:before-filing:notice-required-before-suing", false, toronto, "Toronto");
+    check("a Toronto fall: no leading move quotes the Crown's notice", narrowed.lead.every((move) => move.rules.every((rule) => rule.sourceId !== "crown-liability-and-proceedings-act-2019")) && narrowed.lead.length > 0);
+    check("and nothing is lost", narrowed.lead.length + narrowed.others.length === all.length);
+    check("the start of the claim still leads, with r. 14.03 (1)", narrowed.lead.some((move) => move.rules.some((rule) => rule.pinpoint === "r. 14.03 (1)")));
+    const plain = movesForWords("civil:before-filing:notice-required-before-suing", false, "something happened to me", "Ottawa");
+    check("words that fit no notice change nothing", plain.lead.length + plain.others.length === all.length && plain.lead.flatMap((move) => move.rules).length + plain.others.flatMap((move) => move.rules).length === all.flatMap((move) => move.rules).length);
+    check("the card passes the person's words to it", /<WhatComesNext stepId=\{stepId\} responding=\{responding\} story=\{userWords\} city=\{city\} \/>/.test(panel));
   }
 
   if (failures > 0) {

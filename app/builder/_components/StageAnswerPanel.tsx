@@ -147,6 +147,11 @@ export function yearChoices(isoDate: string, today: string = todayIso()): string
   return [`${year}${rest}`, `${other}${rest}`].filter((date) => !Number.isNaN(Date.parse(date)));
 }
 
+/** The courts whose service rules the site holds. */
+function serviceCourt0(courtPath: string): ServiceCourt | null {
+  return courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
+}
+
 /** Today in Ontario, whatever the device's clock zone (walkthrough run 38500825561). */
 function todayIso(): string {
   return todayInOntario();
@@ -186,6 +191,21 @@ function QuotedRule({ rule, quote = true }: { rule: RuleCitation; quote?: boolea
       <span className="mt-1 block italic">“{rule.quote}”</span>
     </details>
   );
+}
+
+/**
+ * The sentence of the story that says how the papers came, for the method
+ * read from the whole story (walkthrough run 38500825561, RN: "How were the
+ * papers served?" was drawn as an open select though the story said "i got
+ * the plaintiffs claim in the mail"). Null when the story names no single
+ * method. Exported for test:next-step.
+ */
+export function serviceMethodShown(court: ServiceCourt, story: string): { method: ServiceMethod; quote: string } | null {
+  const method = serviceMethodFromStory(court, story);
+  if (!method) return null;
+  const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  const quote = sentences.find((sentence) => serviceMethodFromStory(court, sentence) === method) ?? "";
+  return { method, quote };
 }
 
 export type ArrivalNote = { quote: string; dateToEnter: string; rule: string; ruleQuote: string };
@@ -444,7 +464,7 @@ function NextStepCard({
           {answer.sources.length > 4 ? " — all sources are in the full answer below." : ""}
         </p>
       ) : null}
-      <WhatComesNext stepId={stepId} responding={responding} />
+      <WhatComesNext stepId={stepId} responding={responding} story={userWords} city={city} />
       {limitNotesFor(court as PracticalCourt, userWords).map((line) => (
         <p key={line.cite.pinpoint} data-testid="next-step-limit" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
           {line.say}{" "}
@@ -895,6 +915,10 @@ export default function StageAnswerPanel({
   // What the story says about how the papers came, pre-selected (Step 2D).
   const storyServiceMethod =
     courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? serviceMethodFromStory(courtPath, storyText ?? "") : null;
+  // A method already known (chosen, or from the story) is shown as a fact with
+  // a Change button; the select opens only on Change or when none is known.
+  const [changingMethod, setChangingMethod] = useState<Record<string, boolean>>({});
+  const storyMethodShown = serviceCourt0(courtPath) ? serviceMethodShown(serviceCourt0(courtPath)!, storyText ?? "") : null;
   const [serviceSaved, setServiceSaved] = useState<Record<string, { method: ServiceMethod; enteredOn: string }>>(initialService);
   const serviceCourt: ServiceCourt | null = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
@@ -1328,7 +1352,23 @@ export default function StageAnswerPanel({
               }
               return (
                 <div key={question.id}>
-                  {serviceCourt && isServiceDateQuestion(question.id, question.question) ? (
+                  {serviceCourt && isServiceDateQuestion(question.id, question.question) && !changingMethod[question.id] && (serviceMethod[question.id] ?? storyServiceMethod) ? (
+                    <div data-testid={`stage-answer-service-method-known-${question.id}`} className="mb-2 text-sm text-[#16302b]">
+                      <span className="font-semibold">How the papers were served: </span>
+                      {serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.label ?? ""}.
+                      {!serviceMethod[question.id] && storyMethodShown?.quote ? (
+                        <span className="block text-xs text-[#4d675f]">From what you told us: &ldquo;{storyMethodShown.quote}&rdquo;</span>
+                      ) : null}{" "}
+                      <button
+                        type="button"
+                        data-testid={`stage-answer-service-method-change-${question.id}`}
+                        onClick={() => setChangingMethod({ ...changingMethod, [question.id]: true })}
+                        className="font-semibold text-[#2f7d67] underline"
+                      >
+                        Change
+                      </button>
+                    </div>
+                  ) : serviceCourt && isServiceDateQuestion(question.id, question.question) ? (
                     <label className="mb-2 block">
                       <span className="text-sm font-semibold text-[#16302b]">How were the papers served?</span>
                       <span className="block text-xs text-[#4d675f]">
@@ -1337,9 +1377,10 @@ export default function StageAnswerPanel({
                       <select
                         data-testid={`stage-answer-service-method-${question.id}`}
                         value={serviceMethod[question.id] ?? storyServiceMethod ?? ""}
-                        onChange={(event) =>
-                          setServiceMethod({ ...serviceMethod, [question.id]: event.target.value as ServiceMethod })
-                        }
+                        onChange={(event) => {
+                          setServiceMethod({ ...serviceMethod, [question.id]: event.target.value as ServiceMethod });
+                          if (event.target.value) setChangingMethod({ ...changingMethod, [question.id]: false });
+                        }}
                         className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
                       >
                         <option value="">Choose how</option>

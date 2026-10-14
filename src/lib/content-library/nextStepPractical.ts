@@ -1530,6 +1530,22 @@ export function alsoFor(also: RuleCitation[], words = "", city = ""): RuleCitati
   return also.filter((cite) => !NOTICE_FITS[cite.sourceId] || fitting.includes(cite));
 }
 
+/**
+ * A list of rules with the notice rules the person's words do not fit left
+ * out, once their words fit some notice (walkthrough run 38500825561, SW: the
+ * Toronto card's "What can happen next" quoted the Crown's s. 18 (1) notice).
+ * Rules that are not about a notice are always kept; with words that fit no
+ * notice, nothing is left out. An empty result means every rule was a notice
+ * the words do not fit.
+ */
+export function rulesForWords(rules: RuleCitation[], words = "", city = ""): RuleCitation[] {
+  const story = proseOf(words);
+  if (!story.trim()) return rules;
+  const fitting = new Set(Object.entries(NOTICE_FITS).filter(([, fits]) => fits!(story, city)).map(([id]) => id));
+  if (fitting.size === 0) return rules;
+  return rules.filter((rule) => !NOTICE_FITS[rule.sourceId] || fitting.has(rule.sourceId));
+}
+
 /** A step's lines without those whose `about` the person's words do not match (all of them with no words). */
 function linesAbout(lines: PlainLine[], story: string, municipalNotice = false): PlainLine[] {
   const prose = proseOf(story);

@@ -1955,7 +1955,9 @@ run-22, run-23), and check readability (the grade-8 gate failed once on a longer
 sentence). Run `tsx scripts/verification/verifyPublishedLibrary.ts` before
 pushing any deadline edit. run-23 (2026-10-13): the FLA s. 37 (3) six-month
 qualifier on `family:both:asking-to-change-final-order` now names its
-subsection; only that block's `yourDeadline` changed. Two sessions promoting at
+subsection; only that block's `yourDeadline` changed. run-24 (2026-10-13): the six-year leave limit (r. 20.08 (2.1)) added to
+`plaintiff:judgment-in-my-favour-unpaid` and `plaintiff:default-judgment-signed`;
+only those two blocks' `yourDeadline` changed. Two sessions promoting at
 once will both call their run "next": check `candidates/` and the published
 `release.runId` before merging, and renumber if someone got there first.
 

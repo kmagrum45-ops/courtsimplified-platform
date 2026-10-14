@@ -1199,7 +1199,23 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [C.R_11_02_DEFAULT_JUDGMENT, C.R_11_06_SET_ASIDE],
-    deadlines: [],
+    // An unpaid judgment too: the six-year leave rule (walkthrough run 38500825561).
+    deadlines: [
+      {
+        id: "deadline:sc-enforce-six-years-leave:default-judgment",
+        what: "Have a notice of garnishment or a writ of seizure and sale issued without needing the court's permission (leave)",
+        qualifier:
+          "After that, each can be issued only with leave of the court. A notice of garnishment also needs leave if enforcing the order is subject to a condition. In these rules, an order includes a judgment.",
+        countFrom: "the day the order was made",
+        countFromEvent: "order-made",
+        length: { unit: "years", count: 6 },
+        regime: "small-claims-rules",
+        rule: C.R_20_08_2_1_GARNISHMENT_LEAVE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_20_06_1_1_WRIT_PERSONAL_LEAVE, C.R_20_07_1_1_WRIT_LAND_LEAVE, C.R_1_02_ORDER_INCLUDES_JUDGMENT],
+      },
+    ],
   },
   {
     id: "plaintiff:defence-filed",
@@ -1485,7 +1501,24 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [],
-    deadlines: [],
+    // Walkthrough run 38500825561, JU: "within 6 years of the order" was never
+    // connected to the known judgment date, and the card never asked for it.
+    deadlines: [
+      {
+        id: "deadline:sc-enforce-six-years-leave",
+        what: "Have a notice of garnishment or a writ of seizure and sale issued without needing the court's permission (leave)",
+        qualifier:
+          "After that, each can be issued only with leave of the court. A notice of garnishment also needs leave if enforcing the order is subject to a condition. In these rules, an order includes a judgment.",
+        countFrom: "the day the order was made",
+        countFromEvent: "order-made",
+        length: { unit: "years", count: 6 },
+        regime: "small-claims-rules",
+        rule: C.R_20_08_2_1_GARNISHMENT_LEAVE,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_20_06_1_1_WRIT_PERSONAL_LEAVE, C.R_20_07_1_1_WRIT_LAND_LEAVE, C.R_1_02_ORDER_INCLUDES_JUDGMENT],
+      },
+    ],
   },
   {
     id: "plaintiff:action-dismissed-for-delay",
