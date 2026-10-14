@@ -1134,6 +1134,22 @@ export const F_R3_3_CLOSED = familyRule(
  * which says what consenting parties file, not that an order is made. This
  * subrule is the one that leads to the order (stageSequence.ts).
  */
+/*
+ * How a binding judicial dispute resolution hearing ends (review of 6e7c257:
+ * the move to "Final order made" cited r. 43 (12), which is about
+ * withdrawing consent). Para. 7 and 8: an order on what is resolved, a
+ * temporary or final decision on the rest; (23): the hearing ended, and
+ * counted as a conference.
+ */
+export const F_R43_21_DECISION = familyRule(
+  "r. 43 (21), paras. 7-8",
+  "7. If an issue is resolved on consent and the judge approves the resolution, the issue shall be documented in the form of a court order that specifies the issues that were resolved on consent. 8. If the judge determines that settlement discussions are no longer likely to resolve any further issues, the judge may make a temporary or final decision on any unresolved issue.",
+);
+export const F_R43_23_ENDED = familyRule(
+  "r. 43 (23)",
+  "The judge may make an order ending the binding judicial dispute resolution hearing if the judge determines that the hearing is no longer appropriate in the circumstances, in which case, (a) the hearing shall be considered to have been a conference in the case for the purposes of these rules; and (b) the judge may give any directions respecting the continuation of the case under these rules that the judge considers necessary.",
+);
+
 export const F_R15_25_CONSENT_OR_UNOPPOSED = familyRule(
   "r. 15 (25)",
   "If a motion to change a final order or agreement proceeds on the consent of the parties and any assignee or is unopposed, the clerk shall present the filed materials to a judge and the judge may, (a) make the order asked for; (b) require one or both parties to file further material; or (c) require one or both parties to come to court.",

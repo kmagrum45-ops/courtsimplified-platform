@@ -1687,8 +1687,9 @@ const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; respondingNote?: bool
  */
 export function ifPapersClaimLabel(stepId: string): string {
   return /motion-to-change|change-final-order/.test(stepId)
-    ? "Only if the motion claims support or property (r. 13 (1) (b))"
-    : "Only if the application claims support or property (r. 13 (1) (b))";
+    ? "Only if the motion claims support, property or the matrimonial home from you (r. 13 (1) (b))"
+    : // Review of 6e7c257: the answer's own claim needs one too, r. 13 (1) (a).
+      "Only if the application claims support, property or the matrimonial home from you (r. 13 (1) (b)), or your answer makes such a claim (r. 13 (1) (a))";
 }
 
 /** A step on which the person answers papers served on them, so r. 13 (1) (b) can bind them. */

@@ -898,7 +898,10 @@ console.log("\nFM noRepeat: the person's own answer answers the motion-to-change
   const stage = stageFromAnsweredWish(asking, undefined, undefined, confirmedGoal);
   check("it records the motion stage as Yes would, shown with his answer", stage?.stage === "motion" && stage.stage === stageFromMotionAnswer(asking, "yes") && stage.because === confirmedGoal);
   check("no stage from a story reading alone, or after Change", stageFromAnsweredWish(asking, undefined, undefined, null) === null && stageFromAnsweredWish(asking, { answer: null, readingKind: "asking" }, undefined, confirmedGoal) === null);
-  check("the shown reading says what it records, plainly", ANSWERED_WISH_READING === "you want the court to change the order");
+  check(
+    "the shown reading states the recorded wish (you, the court, change) and asks nothing",
+    /\byou\b/i.test(ANSWERED_WISH_READING) && /\bcourt\b/i.test(ANSWERED_WISH_READING) && /\bchange\b/i.test(ANSWERED_WISH_READING) && !/\?/.test(ANSWERED_WISH_READING),
+  );
 
   const card = read("app/builder/_components/MotionToChangeRoute.tsx");
   check(

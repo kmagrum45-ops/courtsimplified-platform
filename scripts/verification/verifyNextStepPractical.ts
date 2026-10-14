@@ -450,7 +450,7 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
         const otherForm = (view?.forms ?? []).some((form) => !isStatement(form));
         if (parentingOnlyWords && otherForm && inStep.length > 0) respondingWrong.push(`${stage.id}: "for your step" for parenting-only "${words}"`);
         if (!parentingOnlyWords && inGroup.length > 0) respondingWrong.push(`${stage.id}: moved out for "${words}"`);
-        if (inGroup.length > 0 && !/^Only if the (?:application|motion) claims support or property \(r\. 13 \(1\) \(b\)\)$/.test(view!.formsIfPapersClaim.label)) respondingWrong.push(`${stage.id}: group label`);
+        if (inGroup.length > 0 && !/^Only if the (?:application|motion) claims support, property or the matrimonial home from you \(r\. 13 \(1\) \(b\)\)(?:, or your answer makes such a claim \(r\. 13 \(1\) \(a\)\))?$/.test(view!.formsIfPapersClaim.label)) respondingWrong.push(`${stage.id}: group label`);
         const motion = /motion-to-change|change-final-order/.test(stage.id);
         if (
           !shown.every(
@@ -471,11 +471,23 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
     const words = userWordsOf({ facts: [persona.story, ...Object.values(persona.fields ?? {})].join("\n"), extra: { issues: persona.issues, yourCity: persona.city } });
     const view = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words);
     check(
-      "persona family-respondent-parenting: Form 13 is not a form for his step; it is in the open 'Only if the application claims support or property (r. 13 (1) (b))' group, with that rule",
+      "persona family-respondent-parenting: Form 13 is not a form for his step; it is in the open group under r. 13 (1) (b) and (a), with that rule",
       !view?.forms.some((form) => form.number === "13") &&
         Boolean(view?.formsIfPapersClaim.forms.some((form) => form.number === "13" && form.when.cite.pinpoint === "r. 13 (1) (b)")) &&
-        view?.formsIfPapersClaim.label === "Only if the application claims support or property (r. 13 (1) (b))" &&
+        /\(r\. 13 \(1\) \(b\)\)/.test(view?.formsIfPapersClaim.label ?? "") &&
+        /your answer makes such a claim \(r\. 13 \(1\) \(a\)\)/.test(view?.formsIfPapersClaim.label ?? "") &&
+        /\bsupport\b/.test(view?.formsIfPapersClaim.label ?? "") &&
+        /\bproperty\b/.test(view?.formsIfPapersClaim.label ?? "") &&
+        /matrimonial home/.test(view?.formsIfPapersClaim.label ?? "") &&
         !view.leadForms.some((lead) => lead.number === "13" && lead.label === "For your step"),
+    );
+  }
+  {
+    // The group's label names r. 13 (1) (a) and (b); both, word for word, are in the saved rules (review of 6e7c257).
+    const savedFlr = readFileSync(path.join(ROOT, "docs", "sources", "corpus", "family-law-rules.txt"), "utf8").replace(/\s+/g, " ");
+    check(
+      "r. 13 (1) (a) and (b), as the group's label restates them, are in the saved Family Law Rules word for word",
+      savedFlr.includes("If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim; and (b) the party against whom the claim is made shall serve and file a financial statement"),
     );
   }
   check("the card shows a form's condition beside it", /form\.note \?/.test(readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8")));
@@ -1099,10 +1111,23 @@ console.log("\nFR limits: a topic the story raises and the site does not cover i
     "she moved in with her new boyfriend",
     "we are moving to a new apartment next month",
     "",
+    // Review of 6e7c257: adults, a noun after the pronoun, or no family word near "relocat".
+    "She moved to Toronto with her new partner",
+    "he moved with her to Calgary",
+    "I moved to Ottawa with him last year",
+    "I moved away with him after we married",
+    "moving with her sister",
+    "my daughter moved to Toronto with her boyfriend",
+    "she relocated her business",
+    "He took them to Montreal for a weekend",
   ];
   const gaps = (words: string) => guidanceGapsFor("family", words).map((gap) => gap.id);
   check("words that raise moving with a child bring the relocation line", raises.every((words) => gaps(words).includes("relocation")), raises.filter((words) => !gaps(words).includes("relocation")).join(" | "));
   check("words that do not, bring nothing", doesNot.every((words) => gaps(words).length === 0), doesNot.filter((words) => gaps(words).length > 0).join(" | "));
+  check(
+    "the help line names no paralegal (a paralegal's family scope is limited and not sourced here)",
+    guidanceGapsFor("family", FR).every((gap) => !/paralegal/i.test(`${gap.say} ${gap.why} ${gap.helpHeading}`)),
+  );
   check("only for a court whose guidance this is (not civil or Small Claims)", guidanceGapsFor("civil", FR).length === 0 && guidanceGapsFor("small-claims", FR).length === 0);
   const line = guidanceGapsFor("family", FR)[0];
   check("the line says plainly that the site has no guidance on moving with a child", Boolean(line) && /^We do not have\b/.test(line.say) && /moving with a child/.test(line.say) && /yet\.$/.test(line.say));

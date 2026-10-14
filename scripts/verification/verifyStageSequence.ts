@@ -70,6 +70,19 @@ check(
   changeToOrder.every((m) => !/\bwill (?:be )?(?:make|made|grant|granted|change|changed)\b/i.test(m.when)) &&
     changeToOrder.some((m) => m.from === "family:both:asking-to-change-final-order" && /\bmay make the order asked for\b/.test(m.when) && m.rules.some((rule) => rule.pinpoint === "r. 15 (25)")),
 );
+// Review of 6e7c257: the binding JDR hearing's move to "Final order made"
+// cited r. 43 (12), which is about withdrawing consent. Its move must cite a
+// rule saying how the hearing ends in a decision or an order, and say what
+// those rules give: a decision the judge "may" make, or the hearing ended.
+const DECIDES = /\bmay make a temporary or final decision\b|\bmake an order ending\b|\bin the form of a court order\b/i;
+const jdrToOrder = STAGE_MOVES.filter((m) => m.from === "family:both:binding-judicial-dispute-resolution" && m.to === "family:both:final-order-made");
+check(
+  "the binding JDR move to a final order cites the rules on how the hearing ends (a decision, an order, or the hearing ended), not consent",
+  jdrToOrder.length > 0 &&
+    jdrToOrder.every((m) => m.rules.length > 0 && m.rules.every((rule) => DECIDES.test(rule.quote))) &&
+    jdrToOrder.every((m) => /\bmay make a temporary or final decision\b/.test(m.when) && /\bconference\b/.test(m.when)),
+  jdrToOrder.map((m) => m.rules.map((rule) => rule.pinpoint).join(", ")).join("; "),
+);
 const duplicate = STAGE_MOVES.map((m) => `${m.from} -> ${m.to}`).filter((key, i, all) => all.indexOf(key) !== i);
 check("no move is listed twice", duplicate.length === 0, duplicate.join(", "));
 

@@ -65,6 +65,8 @@ import {
   S_CJA_23_1_1_LEAVE,
   S_CLPA_18_1_NOTICE,
   F_R15_25_CONSENT_OR_UNOPPOSED,
+  F_R43_21_DECISION,
+  F_R43_23_ENDED,
   R_15_01_MOTION_FORM,
   R_15_01_SERVE_FILE,
   R_15_02_HEARING,
@@ -443,7 +445,9 @@ const FAMILY_MOVES: StageMove[] = [
   move("family:both:responding-to-a-motion", "family:both:appealing-temporary-order", "either", "An appeal from a temporary order of the Ontario Court of Justice starts with a notice of appeal served within seven days of the order.", F("both:appealing-temporary-order", "r. 38 (6)")),
   move("family:both:order-made-without-notice", "family:both:bringing-a-motion", "court", "The order is served right away on everyone affected, and the matter comes back to court, if possible to the same judge, within 14 days or on a date the court chooses.", F("both:order-made-without-notice", "r. 14 (14)"), F("both:order-made-without-notice", "r. 14 (15)")),
   move("family:both:responding-to-summary-judgment", "family:both:final-order-made", "court", "You set out specific facts in an affidavit showing a genuine issue for trial; if there is none, the court makes a final order.", F("both:responding-to-summary-judgment", "r. 16 (4.1)"), F("both:responding-to-summary-judgment", "r. 16 (6)")),
-  move("family:both:binding-judicial-dispute-resolution", "family:both:final-order-made", "court", "Once the court orders the hearing, consent can be withdrawn only with everyone's written consent or the court's permission; the hearing ends in the court's order.", F("both:binding-judicial-dispute-resolution", "r. 43 (12)")),
+  // r. 43 (12) (withdrawing consent) was cited here; the decision and the
+  // ending are r. 43 (21) paras. 7-8 and (23) (review of 6e7c257).
+  move("family:both:binding-judicial-dispute-resolution", "family:both:final-order-made", "court", "Issues settled at the hearing and approved by the judge are put in a court order. On the issues left, the court may make a temporary or final decision, or end the hearing, which then counts as a conference in the case.", F_R43_21_DECISION, F_R43_23_ENDED),
 
   // Changing a final order
   move("family:both:asking-to-change-final-order", "family:both:motion-to-change-response-time-missed", "time", "The other party has 30 days after receiving the motion to change to respond (60 outside Canada and the U.S.), and that time passes.", F("both:asking-to-change-final-order", "r. 15 (10)")),
