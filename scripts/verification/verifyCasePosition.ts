@@ -230,7 +230,29 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
     ] as const) {
       check(`'${words}' gives the order date`, storyHintsForDates(words, now)["case-date-order-made"]?.value === iso, JSON.stringify(storyHintsForDates(words, now)["case-date-order-made"]));
     }
-    for (const words of ["i want to win my case", "he owes me 6500 for the car", "the judge will decide in may"]) {
+    // A judgment against the person is still their order (its date counts).
+    for (const words of ["i lost my case on may 14 2026", "he got a judgment against me on may 14 2026", "i got default judgment on may 14 2026"]) {
+      check(`'${words}' gives the order date`, storyHintsForDates(words, now)["case-date-order-made"]?.value === "2026-05-14", JSON.stringify(storyHintsForDates(words, now)["case-date-order-made"]));
+    }
+    // Must not misfire (review 2026-10-13): someone else's case, a hope, a
+    // doubt, a negation, a question, a tribunal. A full date here is kept and
+    // starts deadlines, so these give nothing, not even a quote.
+    for (const words of [
+      "i want to win my case",
+      "he owes me 6500 for the car",
+      "the judge will decide in may",
+      "my friend won the case on may 14 2026",
+      "my friend won his case in may",
+      "i hope i won my case on may 14 2026",
+      "if i win my case in may i want him to pay",
+      "i think we got a judgment on may 14 2026",
+      "i didn't win my case on may 14 2026",
+      "i never got a judgment, the trial is on may 14 2027",
+      "did i win my case? the trial was may 14 2026",
+      "i won my case at the ltb on may 14 2026",
+      "we got a judgment from the tribunal on may 14 2026",
+      "the judge said they have to pay the court fees by may 14 2026",
+    ]) {
       check(`'${words}' is not read as an order`, !storyHintsForDates(words, now)["case-date-order-made"], JSON.stringify(storyHintsForDates(words, now)["case-date-order-made"]));
     }
   }

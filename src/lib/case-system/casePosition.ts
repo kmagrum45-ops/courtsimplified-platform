@@ -347,8 +347,11 @@ const STORY_CUES: Record<string, RegExp> = {
   "case-date-served-with-notice-of-appeal": /\bnotice of appeal\b/i,
   // Walkthrough JU (2026-10-13): "i won my small claims case against my old
   // roommate in may, the judge said he owes me 6500" was not read as the
-  // order, so the six-year enforcement limit was never tied to May.
-  "case-date-order-made": /\b(judge|court) (?:made|gave|issued|granted) (?:an |a |the |me )?(?:order|judg(?:e)?ment)\b|\b(?:order|judg(?:e)?ment) was (?:made|given|granted)\b|\bwon (?:my|the|our) (?:small claims |court )?(?:case|claim|trial|lawsuit)\b|\b(?:got|have|obtained|was given|was awarded) (?:a |the )?judg(?:e)?ment\b|\bjudg(?:e)?ment (?:in my favou?r|for me)\b|\b(?:judge|court) (?:said|ordered|found) (?:that )?(?:he|she|they|it|the \w+) (?:owes?|has to pay|must pay|to pay)\b/i,
+  // order. The person is the subject ("i won", "we got a judgment"), or the
+  // court is, or the judgment is against or for them; never "my friend won"
+  // (review 2026-10-13). Hedges, negations and tribunals are refused by
+  // orderReject below.
+  "case-date-order-made": /\b(?:judge|court) (?:made|gave|issued|granted) (?:an |a |the |me |us )?(?:order|judg(?:e)?ment)\b|\b(?:order|judg(?:e)?ment) was (?:made|given|granted)\b|\b(?:i|we) (?:won|lost) (?:my|the|our) (?:small claims |court )?(?:case|claim|trial|lawsuit)\b|\b(?:i|we) (?:got|have|obtained|received|was given|were given|was awarded|were awarded) (?:a |the |default )?judg(?:e)?ment\b|\bjudg(?:e)?ment (?:in my favou?r|in our favou?r|for me|for us|against me|against us)\b|\b(?:judge|court) (?:said|ordered|found) (?:that )?(?:he|she|they|i|we|the \w+) owes?\b/i,
   "case-date-defence-served": /\bstatement of defen[cs]e\b/i,
   "case-date-served-with-request-to-admit": /\brequest to admit\b/i,
   "case-date-mediation-session-date": /\bmediation\b/i,
@@ -475,7 +478,25 @@ const VERBS: Array<[RegExp, RegExp]> = [
   [/\bissued\b/i, /\b(issued|dated)\b/i],
 ];
 
-type Cue = { key: RegExp; verb?: RegExp };
+type Cue = { key: RegExp; verb?: RegExp; reject?: (text: string) => boolean };
+
+/*
+ * The order-date cue's words must be said as so, about a court (review
+ * 2026-10-13): "i hope i won my case on may 14", "if i won", "i think we got
+ * a judgment" are not an order; "i won my case at the ltb" is a tribunal's.
+ * A full date found here is kept and starts deadlines, so a doubt gives
+ * nothing.
+ */
+const ORDER_HEDGE = /\b(?:not|never|no|didn'?t|didnt|hasn'?t|haven'?t|hope|hoping|hoped|think|thought|if|wish|whether|maybe|might|would|could|should|will|unless|want|wanted|expect|expecting|did)\b/i;
+const NOT_A_COURT = /\b(?:ltb|lrb|tribunal|board|arbitrat\w*|hrto|wsib)\b/i;
+function orderReject(text: string): boolean {
+  if (NOT_A_COURT.test(text)) return true;
+  const match = new RegExp(STORY_CUES["case-date-order-made"].source, "i").exec(text);
+  if (!match) return false;
+  const before = text.slice(0, match.index);
+  const clause = before.slice(Math.max(before.lastIndexOf(","), before.lastIndexOf("."), before.lastIndexOf(";"), before.lastIndexOf("?")) + 1);
+  return ORDER_HEDGE.test(clause) || /\?/.test(text.slice(match.index));
+}
 
 function genericCue(question: string): Cue | null {
   const head = question.split("?")[0].replace(/,? what date.*$/i, "");
@@ -499,6 +520,7 @@ function genericCue(question: string): Cue | null {
 /** The cue for each date question: its written one, else one built from its wording. */
 function cueFor(questionId: string, question: string): Cue | null {
   const written = STORY_CUES[questionId] ?? EXTRA_CUES[questionId];
+  if (questionId === "case-date-order-made" && written) return { key: written, reject: orderReject };
   return written ? { key: written } : genericCue(question);
 }
 
@@ -530,7 +552,7 @@ function momentOf(questionId: string, question: string): keyof typeof MOMENT_WOR
 }
 
 function cueMatches(cue: Cue, text: string): boolean {
-  return cue.key.test(text) && (!cue.verb || cue.verb.test(text));
+  return cue.key.test(text) && (!cue.verb || cue.verb.test(text)) && !cue.reject?.(text);
 }
 
 /** Where the cue's own words sit in the text (start and end): the verb if it has one, else the first naming word it matches. */
