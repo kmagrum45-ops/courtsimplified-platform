@@ -27,6 +27,7 @@
 
 import { validateCaseStrengthLanguage } from "../case-system/intelligence/caseStrengthLanguageValidator";
 import { quoteAppearsIn } from "../case-system/intelligence/quoteMatch";
+import { isMapOwnedInstruction } from "../case-system/procedureOwnership";
 
 export const COURT_DECISION_TYPE = "court-decision";
 export const DECISION_SOURCE = "CanLII";
@@ -134,10 +135,37 @@ export function unverifiedQuotesIn(text: string, decisionText: string): string[]
  * does not itself contain. Returns null when the explanation fails, so the
  * person sees nothing rather than something unchecked.
  */
+/**
+ * The numbers a text states (amounts, dates, section and paragraph numbers),
+ * digits only, so "$12,500" and "12500" compare equal. Pure.
+ */
+export function numbersIn(text: string): string[] {
+  return [...(text || "").matchAll(/\d[\d,]*(?:\.\d+)?/g)].map((match) => match[0].replace(/,/g, "").replace(/\.0+$/, "")).filter((n) => n.length > 0);
+}
+
+/**
+ * The explanation, keeping only sentences that (a) state no number the
+ * decision does not contain, and (b) do not tell the person to take a court
+ * step or name a form or deadline for them (CLAUDE.md s. 2a: those come from
+ * the step map). Review 2026-10-14: the explanation was the one part of
+ * decision help nothing checked against the decision. Pure.
+ */
+export function checkedExplanation(explanation: string, decisionText: string): string {
+  const present = new Set(numbersIn(decisionText));
+  return explanation
+    .split(/(?<=[.!?])\s+/)
+    .filter((sentence) => sentence.trim())
+    .filter((sentence) => !isMapOwnedInstruction(sentence))
+    .filter((sentence) => numbersIn(sentence).every((n) => present.has(n)))
+    .join(" ")
+    .trim();
+}
+
 export function checkedDecisionHelp(raw: unknown, decisionText: string): DecisionHelp | null {
   if (!raw || typeof raw !== "object") return null;
   const record = raw as Record<string, unknown>;
-  const explanation = typeof record.explanation === "string" ? record.explanation.trim() : "";
+  const drafted = typeof record.explanation === "string" ? record.explanation.trim() : "";
+  const explanation = drafted ? checkedExplanation(drafted, decisionText) : "";
   if (!explanation || explanation.length > 4000) return null;
   if (predictsTheirOutcome(explanation)) return null;
   if (namesNotInDecision(explanation, decisionText).length) return null;
