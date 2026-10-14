@@ -1,0 +1,309 @@
+== tsc
+tsc exit 0
+pass test:a2i-scope
+pass test:account-recovery-ux
+pass test:ai-models
+pass test:ai-route-contract
+pass test:amount-notes
+pass test:assistant-context
+pass test:assistant-law
+pass test:authority-bridge
+pass test:authority-seed-integrity
+pass test:builder-persistence
+pass test:canlii
+pass test:case-drafts
+pass test:case-file-summary
+pass test:case-outcomes
+pass test:case-position
+pass test:case-reader
+pass test:case-record
+pass test:case-rls-contract
+pass test:case-simulations
+pass test:case-understanding
+pass test:case-write-queue
+pass test:catalogue-verified
+== FAIL test:chat-hydration (exit 1)
+    throw new Error('supabaseUrl is required.')
+Error: supabaseUrl is required.
+          ^
+
+Error: supabaseUrl is required.
+    at validateSupabaseUrl (/home/runner/work/courtsimplified-platform/courtsimplified-platform/node_modules/@supabase/supabase-js/src/lib/helpers.ts:86:11)
+    at new SupabaseClient (/home/runner/work/courtsimplified-platform/courtsimplified-platform/node_modules/@supabase/supabase-js/src/SupabaseClient.ts:285:21)
+    at createClient (/home/runner/work/courtsimplified-platform/courtsimplified-platform/node_modules/@supabase/supabase-js/src/index.ts:65:10)
+    at <anonymous> (/home/runner/work/courtsimplified-platform/courtsimplified-platform/src/lib/supabase/client.ts:12:25)
+    at Object.<anonymous> (/home/runner/work/courtsimplified-platform/courtsimplified-platform/src/lib/supabase/client.ts:69:17)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object.transformer (/home/runner/work/courtsimplified-platform/courtsimplified-platform/node_modules/tsx/dist/register-CptX03bE.cjs:9:3252)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+
+Node.js v22.23.3
+pass test:checked-answer
+pass test:claim-library
+pass test:claim-type-matcher
+pass test:claim-types
+== FAIL test:cohort2-normalization (exit 1)
+  throw new Error(
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).
+
+> courtsimplified@0.1.0 test:cohort2-normalization
+> node scripts/verification/verifyCohort2CatalogueNormalization.mjs
+
+file:///home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyCohort2CatalogueNormalization.mjs:21
+  throw new Error(
+        ^
+
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).
+    at file:///home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyCohort2CatalogueNormalization.mjs:21:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.3
+== FAIL test:cohort2-split-identities (exit 1)
+  throw new Error(
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).
+
+> courtsimplified@0.1.0 test:cohort2-split-identities
+> node scripts/verification/verifyCohort2SplitCanonicalIdentities.mjs
+
+file:///home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyCohort2SplitCanonicalIdentities.mjs:18
+  throw new Error(
+        ^
+
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).
+    at file:///home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyCohort2SplitCanonicalIdentities.mjs:18:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.3
+pass test:corpus-retrieval
+pass test:court-locations
+pass test:court-path-classifier
+pass test:crisis-numbers
+pass test:cross-forum-notes
+pass test:deadlines
+pass test:depth-questions
+pass test:family-role
+pass test:form-explanations
+== FAIL test:forms-case-isolation (exit 1)
+  throw new Error(
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local) to verify live catalogue and mapping data.
+        ^
+
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local) to verify live catalogue and mapping data.
+    at assert (/home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyFormsSelectedCaseIsolation.ts:59:9)
+    at Object.<anonymous> (/home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyFormsSelectedCaseIsolation.ts:910:2)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object.transformer (/home/runner/work/courtsimplified-platform/courtsimplified-platform/node_modules/tsx/dist/register-CptX03bE.cjs:9:3252)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at loadCJSModuleWithModuleLoad (node:internal/modules/esm/translators:335:3)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:235:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+
+Node.js v22.23.3
+pass test:generate-form-authorization
+pass test:generic-library
+pass test:glossary
+pass test:grounded-analysis
+pass test:guard-coverage
+pass test:guided-form-chat
+pass test:held-back-cases
+pass test:help-at-limits
+pass test:historical-law
+pass test:intake-coverage
+pass test:inventory-coverage
+pass test:law-exam
+pass test:law-map
+pass test:municipal-notice-first
+pass test:mutations
+pass test:narrative-prefill
+pass test:next-step
+pass test:next-step-practical
+pass test:no-model-text-to-users
+pass test:notice-step
+pass test:official-forms
+== FAIL test:ontario-beta-bundle (exit 1)
+  throw new Error(
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).
+        ^
+
+Error: NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).
+    at assert (/home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyOntarioBetaProcedureAuthorityBundle.ts:29:9)
+    at Object.<anonymous> (/home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/verifyOntarioBetaProcedureAuthorityBundle.ts:361:2)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object.transformer (/home/runner/work/courtsimplified-platform/courtsimplified-platform/node_modules/tsx/dist/register-CptX03bE.cjs:9:3252)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at loadCJSModuleWithModuleLoad (node:internal/modules/esm/translators:335:3)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:235:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+
+Node.js v22.23.3
+pass test:openai-cost
+== FAIL test:output-guard (exit 1)
+FAIL  no undeclared model call sites
+1 check(s) FAILED.
+pass  storyAnswerProposals.ts: every model call declares response_format (1/1)
+pass  caseReaderModel.ts: every model call declares response_format (1/1)
+pass  resolveCasePosition.ts: every model call declares response_format (1/1)
+pass  tidyWording.ts: every model call declares response_format (1/1)
+pass  storyRetrieval.ts: every model call declares response_format (1/1)
+pass  explainProvision.ts: every model call declares response_format (1/1)
+pass  researchStory.ts: every model call declares response_format (1/1)
+pass  sourcedQuestions.ts: every model call declares response_format (1/1)
+pass  researchQuestion.ts: every model call declares response_format (1/1)
+pass  decisionHelp.ts: every model call declares response_format (1/1)
+pass  checkedAnswer.ts: every model call declares response_format (1/1)
+FAIL  no undeclared model call sites
+      found: src/lib/case-system/understanding/understandCase.ts. Add it to callSites above and confirm it returns structured output.
+
+1 check(s) FAILED.
+pass test:overview-labels
+pass test:phase-scope
+pass test:plain-explanations
+pass test:presumed-limitation
+pass test:procedural-stage-conflict
+pass test:published-library
+pass test:reachability
+pass test:readiness-gate
+pass test:reasoning-contract
+pass test:research-step
+pass test:responding-draft
+pass test:responding-side
+== FAIL test:retrieval-bundled (exit 1)
+FAIL  /api/small-claims/analyze: no trace file at .next/server/app/api/small-claims/analyze/route.js.nft.json (run npm run build first)
+FAIL  /api/civil/analyze: no trace file at .next/server/app/api/civil/analyze/route.js.nft.json (run npm run build first)
+FAIL  /api/family/analyze: no trace file at .next/server/app/api/family/analyze/route.js.nft.json (run npm run build first)
+FAIL  /api/law/explain: no trace file at .next/server/app/api/law/explain/route.js.nft.json (run npm run build first)
+FAIL  /api/intake/sourced-questions: no trace file at .next/server/app/api/intake/sourced-questions/route.js.nft.json (run npm run build first)
+FAIL  /api/assistant/law: no trace file at .next/server/app/api/assistant/law/route.js.nft.json (run npm run build first)
+6 check(s) FAILED.
+
+> courtsimplified@0.1.0 test:retrieval-bundled
+> node --import tsx scripts/verification/verifyRetrievalBundled.ts
+
+FAIL  /api/small-claims/analyze: no trace file at .next/server/app/api/small-claims/analyze/route.js.nft.json (run npm run build first)
+FAIL  /api/civil/analyze: no trace file at .next/server/app/api/civil/analyze/route.js.nft.json (run npm run build first)
+FAIL  /api/family/analyze: no trace file at .next/server/app/api/family/analyze/route.js.nft.json (run npm run build first)
+FAIL  /api/law/explain: no trace file at .next/server/app/api/law/explain/route.js.nft.json (run npm run build first)
+FAIL  /api/intake/sourced-questions: no trace file at .next/server/app/api/intake/sourced-questions/route.js.nft.json (run npm run build first)
+FAIL  /api/assistant/law: no trace file at .next/server/app/api/assistant/law/route.js.nft.json (run npm run build first)
+
+6 check(s) FAILED.
+pass test:rls-matrix
+pass test:rules-corpus
+pass test:safety-coverage
+== FAIL test:safety-regression (exit 1)
+
+> courtsimplified@0.1.0 test:safety-regression
+> node --import tsx scripts/verification/verifySafetyPassRegression.ts
+
+OPENAI_API_KEY not set -- this suite makes real OpenAI calls and cannot run without it.
+pass test:scenario-matrix
+pass test:scenario-registry
+pass test:select-questions
+pass test:service-dates
+pass test:small-claims
+pass test:small-claims-limit
+pass test:source-link-labels
+pass test:source-links
+pass test:source-requests
+== FAIL test:sourced-questions (exit 1)
+[sourcedQuestions] failed; the intake continues without them. { errorName: 'Error' }
+  FAIL  every route that reads the index ships it
+1 check(s) FAILED.
+  ok    Family shows the questions
+  ok    Family carries the answers to the analysis
+  ok    Family keeps the answers with the case
+  ok    Family starts from the case's earlier answers
+  ok    the card shows one question at a time, with why it matters
+  ok    the Small Claims analysis gets the story as sent, plus the answers
+  ok    only well-formed, answered entries are read back
+  ok    nothing saved reads as no answers
+  ok    at most 20 are kept, the newest
+  ok    the answers are added to the story under a heading
+  ok    no answers leaves the story unchanged
+  ok    the builder passes the case's earlier answers to all three intakes
+  ok    the builder saves the guided chat's answers with the case
+
+1 check(s) FAILED.
+pass test:stage-map
+pass test:stage-sequence
+pass test:story-answers
+pass test:strategy
+pass test:three-area
+pass test:tidy-wording
+pass test:topic-guides
+pass test:user-facing-scenarios
+pass test:user-story
+pass test:verdict-sources
+pass test:workspace-catalogue
+== eval:free-finish-line exit 0
+== build exit 1
+> courtsimplified@0.1.0 build
+> next build
+
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+▲ Next.js 16.2.4 (Turbopack)
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Turbopack build encountered 1 warnings:
+./src/lib/content-library/publishedGenericLibrary.ts:48:18
+Module not found: Can't resolve './published/genericAnswers.published.json'
+  [90m46 |[0m   [36mtry[0m {
+  [90m47 |[0m     [90m// eslint-disable-next-line @typescript-eslint/no-require-imports[0m
+[31m[1m>[0m [90m48 |[0m     [36mconst[0m file = require([32m"./published/genericAnswers.published.json"[0m) [36mas[0m [33mPublishedGenericF...[0m
+  [90m   |[0m                  [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m49 |[0m     [36mreturn[0m file && [33mArray[0m.isArray(file.blocks) ? file : [36mnull[0m;
+  [90m50 |[0m   } [36mcatch[0m {
+  [90m51 |[0m     [36mreturn[0m [36mnull[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/content-library/publishedGenericLibrary.ts [Client Component Browser]
+    ./src/components/case-workspace/VerifiedServingPanel.tsx [Client Component Browser]
+    ./app/cases/_components/CaseWorkspace.tsx [Client Component Browser]
+    ./app/cases/[id]/timeline/page.tsx [Client Component Browser]
+    ./app/cases/[id]/timeline/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/content-library/publishedGenericLibrary.ts [Client Component SSR]
+    ./src/components/case-workspace/VerifiedServingPanel.tsx [Client Component SSR]
+    ./app/cases/_components/CaseWorkspace.tsx [Client Component SSR]
+    ./app/cases/[id]/timeline/page.tsx [Client Component SSR]
+    ./app/cases/[id]/timeline/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+✓ Compiled successfully in 10.5s
+  Running TypeScript ...
+  Finished TypeScript in 10.8s ...
+  Collecting page data using 3 workers ...
+Error: supabaseUrl is required.
+    at instantiateModule (.next/server/chunks/[turbopack]_runtime.js:853:9)
+    at instantiateRuntimeModule (.next/server/chunks/[turbopack]_runtime.js:882:12)
+    at getOrInstantiateRuntimeModule (.next/server/chunks/[turbopack]_runtime.js:895:12)
+    at Object.m (.next/server/chunks/[turbopack]_runtime.js:898:18)
+    at Object.<anonymous> (.next/server/app/api/generate-form/route.js:8:3)
+
+> Build error occurred
+Error: Failed to collect page data for /api/generate-form
+    at ignore-listed frames {
+  type: 'Error'
+}
