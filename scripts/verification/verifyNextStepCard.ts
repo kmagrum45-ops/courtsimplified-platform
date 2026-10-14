@@ -669,6 +669,10 @@ async function main() {
       );
       check("the mover's view is unchanged", JSON.stringify([...mover.deadlines, ...mover.periods].map((item) => item.what)) === JSON.stringify(all.map((item) => item.what)));
       check("the card reads its limits through sideSummary", /const summary = sideSummary\(summaryAsGiven, responding\)/.test(panel));
+      // Reviewer 2026-10-14: the responding wording carries its note in their words and r. 15 (9).
+      const sideItem = [...(responder.deadlines as { what: string; sideNote?: { say: string }; alsoRules?: { pinpoint: string }[] }[]), ...(responder.periods as { what: string; sideNote?: { say: string }; alsoRules?: { pinpoint: string }[] }[])].find((item) => /^Your time to serve and file a response/.test(item.what));
+      check("the respondent's limit carries 'if you do not live' and r. 15 (9)", Boolean(sideItem?.sideNote && /if you do not live/.test(sideItem.sideNote.say) && sideItem.alsoRules?.some((rule) => rule.pinpoint.startsWith("r. 15 (9)"))));
+      check("the card draws them beside both deadline and period items", (panel.match(/<SideRules item=\{(?:deadline|period)\} \/>/g) ?? []).length === 2);
       const rules = readFileSync(path.resolve(__dirname, "../../docs/sources/corpus/family-law-rules.txt"), "utf8").replace(/\s+/g, " ");
       check("r. 15 (6) names the blank response (Form 15B) and consent (Form 15C)", rules.includes("The party making the motion shall serve on the other party a blank response to motion to change (Form 15B) and a blank consent motion to change (Form 15C)"));
     }

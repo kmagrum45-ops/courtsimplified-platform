@@ -36,6 +36,7 @@ import path from "node:path";
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import { arrivalNoteFor, arrivalOnlyDates, countedFromService, firstCopyQuote, latestFromArrival, offerStoryDate, receivesPapersStep } from "../../app/builder/_components/StageAnswerPanel";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { DEADLINE_EVENTS } from "../../src/lib/case-system/deadlines/deadlineEvents";
 import { addDays as addDaysIso } from "../../src/lib/case-system/deadlines/holidays";
 import {
   arrivalNotSendDate,
@@ -343,6 +344,16 @@ console.log("\nThe 'no later than' date: only papers that may be served by mail,
     const asMover = arrivalOnlyDates({ stageId: "family:both:asking-to-change-final-order", court: "family", storyText: quote, storyHints: hints, methods: {}, responding: false });
     const note = arrivalNoteFor([{ id: "case-date-served-with-motion-to-change" }], asResponder, {}, "family", {}, "mail", { stageId: "family:both:asking-to-change-final-order", hints, responding: true }, "2026-10-01");
     check("a respondent to a motion to change gets the arrival note, with r. 15 (7)", Object.keys(asResponder).length === 1 && Object.keys(asMover).length === 0 && note?.claimRule?.rule.endsWith("r. 15 (7)") === true, JSON.stringify({ asResponder, asMover, rule: note?.claimRule?.rule }));
+    // Reviewer 2026-10-14: the arrival note's dates are the person's own, in their words.
+    const whats = (note?.safest ?? []).map((entry) => entry.what);
+    check("the respondent's arrival note says 'Your time to serve and file a response (Form 15B) ...', never 'The other party's time'", whats.some((what) => /^Your time to serve and file a response \(Form 15B\)/.test(what)) && !whats.some((what) => /^The other party's time/.test(what)), whats.join(" | "));
+    // Property: on every either-side step, no date counted from the person being served is worded as the other party's when they respond.
+    const otherWorded = ALL_STAGES.filter((stage) => /:both:/.test(stage.id)).flatMap((stage) =>
+      [...new Set(stage.deadlines.filter((deadline) => /^served-with/.test(deadline.countFromEvent)).map((deadline) => (DEADLINE_EVENTS as Record<string, { questionId?: string }>)[deadline.countFromEvent]?.questionId).filter((id): id is string => Boolean(id)))].flatMap((qid) =>
+        countedFromService(stage.id, qid, "2026-09-28", "2026-10-01", true).filter((entry) => /^The other party's time/.test(entry.what)).map((entry) => `${stage.id}: ${entry.what}`),
+      ),
+    );
+    check("no date counted from being served, shown to the responding side on an either-side step, is worded as the other party's", otherWorded.length === 0, otherWorded.slice(0, 4).join("; "));
   }
   { const source = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8"); check("the panel passes the person's side to the arrival readers", /methods: serviceMethod, responding \}/.test(source) && /hints: storyHints,\s*responding,/.test(source)); }
   check("plaintiff awaiting a defence: an arrival sentence is not held back as the papers reaching them", Object.keys(arrivalOnlyDates({ stageId: "plaintiff:served-awaiting-defence", court: "small-claims", storyText: "i got the claim back in the mail on september 28", storyHints: { "sc-date-claim-served": { quote: "i got the claim back in the mail on september 28", value: "2026-09-28" } }, methods: {} })).length === 0);

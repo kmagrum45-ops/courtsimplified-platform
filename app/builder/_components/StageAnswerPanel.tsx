@@ -88,6 +88,9 @@ type LimitSource = {
   statutory?: boolean;
   /** Sentences of the deadline that say when service counts, each with the subrule it restates. */
   servedWhen?: PlainLine[];
+  /** Set by limitForSide for the person responding: the limit's note in their words, and the rules the wording relies on. */
+  sideNote?: PlainLine;
+  alsoRules?: RuleCitation[];
 };
 
 type NextStepSummary = {
@@ -297,7 +300,7 @@ export function receivesPapersStep(stageId: string, responding = false): boolean
 }
 
 /** The step's last days that run from service date `questionId`, counted from `serviceDay`, each with whether it has passed. */
-export function countedFromService(stageId: string, questionId: string, serviceDay: string, today: string = todayIso()): ArrivalDate[] {
+export function countedFromService(stageId: string, questionId: string, serviceDay: string, today: string = todayIso(), responding = false): ArrivalDate[] {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(serviceDay)) return [];
   const stage = findStage(stageId);
   if (!stage) return [];
@@ -307,7 +310,9 @@ export function countedFromService(stageId: string, questionId: string, serviceD
   return computedDeadlinesFor(runsFromIt, caseDatesFrom({ [questionId]: serviceDay }), `arrival:${stageId}`).map((entry) => {
     const deadline = runsFromIt.find((item) => item.id === entry.deadlineId);
     return {
-      what: deadline?.what ?? "",
+      // In the person's own words on an either-side step (reviewer 2026-10-14:
+      // "The other party's time ..." on a respondent's arrival note).
+      what: deadline ? limitForSide(deadline, responding).what : "",
       date: formatLongDate(entry.date),
       iso: entry.date,
       passed: limitPassedState({ date: entry.date, statutory: deadline?.regime === "legislation-act" }, today).passed,
@@ -335,7 +340,7 @@ export function latestFromArrival(
 ): ArrivalDate[] {
   if (!method || !SENT_ON_OR_BEFORE_ARRIVAL.has(method) || isOriginatingService(court, questionId) || !receivesPapersStep(stageId, responding)) return [];
   if (!/^\d{4}-\d{2}-\d{2}$/.test(arrivedOn)) return [];
-  return countedFromService(stageId, questionId, effectiveServiceDate(court, method, arrivedOn).date, today);
+  return countedFromService(stageId, questionId, effectiveServiceDate(court, method, arrivedOn).date, today, responding);
 }
 
 /**
@@ -429,6 +434,7 @@ function NextStepCard({
           </span>
         ) : null}
         <LimitRule rule={deadline.rule} />
+        <SideRules item={deadline} />
       </li>
     );
   };
@@ -437,6 +443,7 @@ function NextStepCard({
       <span className="font-semibold">{period.what}.</span> {unit(period.count, period.unit)} after {period.countFrom}.
       {askedForDates ? " Give the date below and we will count the last day for you." : ""}
       <LimitRule rule={period.rule} />
+      <SideRules item={period} />
     </li>
   );
   return (
@@ -820,6 +827,24 @@ function savePosition(caseId: string, patch: Record<string, unknown>): Promise<b
  * date; "N days before" ones furthest-before first; "N days after" ones
  * soonest first.
  */
+/** The responding note and the extra rules limitForSide adds, each with its rule quoted. */
+function SideRules({ item }: { item: { sideNote?: PlainLine; alsoRules?: RuleCitation[] } }) {
+  if (!item.sideNote && !item.alsoRules?.length) return null;
+  return (
+    <span data-testid="next-step-side-rules" className="block">
+      {item.sideNote ? (
+        <span className="block">
+          {item.sideNote.say}
+          <QuotedRule rule={item.sideNote.cite} />
+        </span>
+      ) : null}
+      {(item.alsoRules ?? []).map((rule) => (
+        <QuotedRule key={rule.pinpoint} rule={rule} />
+      ))}
+    </span>
+  );
+}
+
 /** The card's limits as the person's side reads them (limitForSide). Exported for test:next-step. */
 export function sideSummary<T extends Pick<NextStepSummary, "deadlines" | "periods">>(summary: T, responding: boolean): T {
   return {
@@ -829,7 +854,7 @@ export function sideSummary<T extends Pick<NextStepSummary, "deadlines" | "perio
   };
 }
 
-export function cardLimits(summary:Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "") {
+export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods">, responding: boolean, story = "", city = "", stepId = "") {
   const isConditional = (what: string) => /^(if|where|when|unless)\b/i.test(what.trim());
   const ownSide = (what: string) =>
     (responding ? /\bresponding\b|\bthe other party\b|\brespondent\b/i : /\bbringing\b|\bmoving party\b|\bapplicant\b|\bmade the motion\b/i).test(what);
@@ -965,7 +990,7 @@ export function arrivalNoteFor(
     // safest date only when their words say it is the FIRST copy to reach
     // the home (legal review 2026-10-14: the day the mailed copy arrived can
     // be after service took effect on a copy left or signed for earlier).
-    safest: claim && bound && arrivedOn && receivesPapersStep(bound.stageId, bound.responding) ? countedFromService(bound.stageId, question.id, arrivedOn, today) : [],
+    safest: claim && bound && arrivedOn && receivesPapersStep(bound.stageId, bound.responding) ? countedFromService(bound.stageId, question.id, arrivedOn, today, Boolean(bound.responding)) : [],
     firstCopy: claim && firstCopyQuote(arrival[question.id]) && !company,
     company,
   };

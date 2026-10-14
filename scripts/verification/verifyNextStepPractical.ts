@@ -82,6 +82,7 @@ import {
   noticeFit,
   claimAfterNotice,
   CLAIM_AFTER_NOTICE,
+  RESPONDING_VIEW,
 } from "../../src/lib/content-library/nextStepPractical";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { formKey, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
@@ -124,6 +125,8 @@ const citations: RuleCitation[] = [
   ...lines.map((line) => line.cite),
   ...Object.values(FEES).map((fee) => fee.cite),
   ...Object.values(STEP_PRACTICAL).flatMap((step) => step.also ?? []),
+  // The responding wording's own rules (reviewer 2026-10-14).
+  ...Object.values(RESPONDING_VIEW).flatMap((view) => [view.note.cite, ...view.alsoRules]),
 ];
 
 console.log("\n1. Every quote is in the saved official text");
@@ -588,6 +591,24 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   }
 
   check("no new plain line grades a case", MORE_CARD_LINES.every((line) => !/\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)));
+}
+
+console.log("\nThe responding wording carries its own rules (reviewer 2026-10-14)");
+{
+  // Every responding wording that names a form cites a rule naming it, and
+  // a note about where the person lives speaks to "you", with its rule.
+  const wrong = Object.entries(RESPONDING_VIEW).flatMap(([id, view]) => {
+    const quotes = [view.note.cite, ...view.alsoRules].map((rule) => rule.quote).join(" ");
+    const forms = [...view.what.matchAll(/Form (\d+[A-Z]?)/g)].map((match) => match[1]);
+    const out: string[] = [];
+    for (const form of forms) if (!quotes.includes(`(Form ${form})`)) out.push(`${id}: Form ${form} not in a cited rule`);
+    if (/\bsigned consent\b/.test(view.what) && !/return a signed copy of the consent/.test(quotes)) out.push(`${id}: signed consent not in a cited rule`);
+    if (/\bthey\b|\btheir\b/i.test(view.note.say)) out.push(`${id}: note speaks of "they"`);
+    return out;
+  });
+  check("each responding wording's forms and signed consent are named in a cited rule, and its note says 'you'", wrong.length === 0, wrong.join("; "));
+  const view = RESPONDING_VIEW["deadline:family:motion-to-change-response:moving-party-view"];
+  check("the motion-to-change response: r. 15 (9) cited, and 'It is 60 days if you do not live in Canada or the United States' with r. 15 (10) (b)", view.alsoRules.some((rule) => rule.pinpoint.startsWith("r. 15 (9)")) && view.note.say === "It is 60 days if you do not live in Canada or the United States." && view.note.cite.pinpoint === "r. 15 (10) (b)");
 }
 
 console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (walkthrough 2026-10-14)");

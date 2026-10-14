@@ -1838,15 +1838,45 @@ export function companyIsTheParty(userWords: string): boolean {
  * Rules r. 15 (6) names the blank response (Form 15B) and consent (Form 15C)
  * served with the motion; r. 15 (9) says which one to use.
  */
-export const RESPONDING_VIEW: Record<string, { what: string; countFrom: string }> = {
+export type RespondingView = {
+  what: string;
+  countFrom: string;
+  /** The stage map's qualifier said to the person responding, with its rule (reviewer, 2026-10-14: "if they do not live" under "Your time"). */
+  note: PlainLine;
+  /** The rules the responding wording itself relies on, beyond the limit's own (r. 15 (9) names Form 15B and the signed consent). */
+  alsoRules: RuleCitation[];
+};
+export const RESPONDING_VIEW: Record<string, RespondingView> = {
   "deadline:family:motion-to-change-response:moving-party-view": {
     what: "Your time to serve and file a response (Form 15B) or return a signed consent (Form 15C)",
     countFrom: "the day you receive the motion to change and its supporting documents",
+    note: {
+      say: "It is 60 days if you do not live in Canada or the United States.",
+      cite: flr(
+        "r. 15 (10) (b)",
+        "(b) no later than 60 days after the party responding to the motion receives the motion to change and the supporting documents, in any other case.",
+      ),
+    },
+    alsoRules: [
+      flr(
+        "r. 15 (9), paras. 1, 2",
+        "1. If the party does not agree to the change or if the party wants to ask the court to make an additional or a different change to the final order or agreement, the party shall serve and file a response to motion to change (Form 15B), with all required attachments, within the time set out in clause (10) (a) or (b), as the case may be. 2. If the party agrees to the change or if the parties agree to a different change, the party shall complete the applicable portions of the consent motion to change (Form 15C) and shall, within the time set out in clause (10) (a) or (b), as the case may be, i. return a signed copy of the consent motion to change to the party making the motion",
+      ),
+    ],
   },
 };
-/** The limit as the person's side reads it: the responding wording for a moving-party limit when they are responding. */
-export function limitForSide<T extends { id?: string; what: string; countFrom?: string }>(item: T, responding: boolean): T {
+/** The limit as the person's side reads it: the responding wording, its note and the rules it relies on, for a moving-party limit when they are responding. */
+export function limitForSide<T extends { id?: string; what: string; countFrom?: string }>(
+  item: T,
+  responding: boolean,
+): T & { sideNote?: PlainLine; alsoRules?: RuleCitation[] } {
   const view = responding && item.id ? RESPONDING_VIEW[item.id] : undefined;
   if (!view) return item;
-  return { ...item, what: view.what, ...(item.countFrom !== undefined ? { countFrom: view.countFrom } : {}) };
+  return {
+    ...item,
+    what: view.what,
+    ...(item.countFrom !== undefined ? { countFrom: view.countFrom } : {}),
+    sideNote: view.note,
+    alsoRules: view.alsoRules,
+  };
 }
