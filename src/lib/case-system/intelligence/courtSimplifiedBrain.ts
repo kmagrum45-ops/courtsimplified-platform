@@ -3,7 +3,6 @@ import {
   ONTARIO_SMALL_CLAIMS_LIMIT,
 } from "../utils";
 
-import { isMapOwnedProcedure } from "../procedureOwnership";
 import {
   filingFactsFromNarrative,
   withoutAnsweredQuestions,
@@ -48,8 +47,7 @@ import { buildElementProofAnalysis } from "./elementProofEngine";
 import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
-import { aiAnalysisTextToUsers, appliedLawEnabled, checkedAnswersEnabled, plainExplanationsEnabled, researchStepEnabled, deepIntakeAnalysis } from "../../content-library/phaseScope";
-import { checkedAnswer, checkedAnswerView, STORY_ANSWER_TIME_MS, STORY_QUESTION, type CheckedAnswer } from "../retrieval/checkedAnswer";
+import { aiAnalysisTextToUsers, appliedLawEnabled, plainExplanationsEnabled, researchStepEnabled, deepIntakeAnalysis } from "../../content-library/phaseScope";
 import {
   buildSourcePack,
   sourcePackForPrompt,
@@ -2561,18 +2559,10 @@ export async function runCourtSimplifiedBrain(
           : retrieveForStory(retrievalInput)
         ).catch(() => null);
 
-  // 2026-10-07: the person's situation answered in plain words, each
-  // statement checked against the official text (retrieval/checkedAnswer.ts).
-  // Runs beside the research step; never fails or holds up the analysis.
-  const situationAnswer: Promise<CheckedAnswer | null> =
-    input.allowExternalCognition === false || !checkedAnswersEnabled() || !deepIntakeAnalysis()
-      ? Promise.resolve(null)
-      : checkedAnswer({
-          question: STORY_QUESTION,
-          story: input.rawUserText,
-          courtPath: retrievalCourt,
-          side: retrievalInput.side,
-        }, { timeoutMs: STORY_ANSWER_TIME_MS }).catch(() => null);
+  // The situation answer that ran here (a second checked answer per analysis)
+  // was removed on 2026-10-14: no page showed it (the mappers never copied it),
+  // and the front door's /api/case/understand already answers the story,
+  // checked. One model call fewer per analysis (retirement step 1).
 
   const normalizedIntake = await normalizeIntake(input);
 
@@ -2632,17 +2622,6 @@ export async function runCourtSimplifiedBrain(
     console.info(`[researchStory] library gaps: ${retrieved.sourceRequests.join(" | ")}`);
     await fileSourceRequests(retrieved.sourceRequests, { courtPath: retrievalCourt });
   }
-  const answered = await situationAnswer;
-  if (answered?.missingLaw.length) {
-    // Laws the answer named that the library lacks: names only, never the story.
-    await fileSourceRequests(answered.missingLaw, { courtPath: retrievalCourt });
-  }
-  // The map owns the next step, form and deadline (CLAUDE.md s. 2a): a checked
-  // statement stating one is not shown here, beside the step panel.
-  const situationView =
-    answered && answered.status !== "unavailable"
-      ? checkedAnswerView({ ...answered, statements: answered.statements.filter((statement) => !isMapOwnedProcedure(statement.text)) })
-      : undefined;
   const appliedLaw = appliedLawEnabled()
     ? sourcePack.items
         .filter((item) => isRetrievedItem(item) && citedIds.has(item.id))
@@ -2921,7 +2900,6 @@ export async function runCourtSimplifiedBrain(
     // from the model's citations whether or not its own wording is shown:
     // what is shown here is the source's text, not the model's.
     ...(appliedLaw.length ? { appliedLaw } : {}),
-    ...(situationView ? { checkedAnswer: situationView } : {}),
     // The research step's questions, each with the provisions that answer it
     // (their own words, a code-checked quote) or the law the library lacks.
     ...(research ? { research } : {}),
