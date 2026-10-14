@@ -422,12 +422,29 @@ export function periodsIn(text: string): Set<string> {
     const value = /^\d+$/.test(raw) ? Number(raw) : NUMBER_WORDS[raw];
     if (value) out.add(`${value}-${match[2].toLowerCase()}`);
   }
+  for (const match of (text || "").matchAll(/\b(?:a|one)\s+(day|week|month|year)\b/gi)) out.add(`1-${match[1].toLowerCase()}`);
+  return out;
+}
+
+const ORDINALS: Record<string, number> = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7, eighth: 8, ninth: 9, tenth: 10, fifteenth: 15 };
+
+/**
+ * The periods a source states, counting "the second anniversary" as two years
+ * and "a year" as one: the Limitations Act states its basic period as an
+ * anniversary (review of this check, 2026-10-14). Pure.
+ */
+function periodsStatedBy(source: string): Set<string> {
+  const out = periodsIn(source);
+  for (const match of (source || "").matchAll(/\b(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|fifteenth)\s+anniversary\b/gi)) {
+    out.add(`${ORDINALS[match[1].toLowerCase()]}-year`);
+  }
+  if (/\b(?:a|one)\s+year\b/i.test(source || "")) out.add("1-year");
   return out;
 }
 
 /** A period in `statement` that `source` does not state, or null. Pure. */
 export function periodNotInSource(statement: string, source: string): string | null {
-  const stated = periodsIn(source);
+  const stated = periodsStatedBy(source);
   for (const period of periodsIn(statement)) if (!stated.has(period)) return period;
   return null;
 }
