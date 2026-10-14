@@ -51,6 +51,9 @@ jobs:
       - name: Court path classifier and scenario registry verification
         run: npm run test:scenario-registry
 
+      - name: Routing rules fixed by law (construction liens, the $50,000 limit) win over the model
+        run: npm run test:fixed-regimes
+
       - name: The user's own words shown back, and story dates offered for deadlines
         run: npm run test:user-story
 
