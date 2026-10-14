@@ -202,6 +202,60 @@ export function candidatesFromMasterResult(masterResult: unknown): EventCandidat
   return candidatesFromTimeline((masterCase as Record<string, unknown>).timeline);
 }
 
+/*
+ * A date of any kind: a month ("may" only as a date: "in may", "may 14"), a
+ * numeric date or year, a weekday, or "yesterday", "last week", "3 weeks
+ * ago". "It's been months" is a length of time, not a date.
+ */
+const ANY_DATE = new RegExp(
+  [
+    "\\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\\b",
+    "\\b(?:in|on|since|of|last|by|until|early|late|mid|this|next)\\s+may\\b",
+    "\\bmay\\s+\\d",
+    "\\b\\d{1,4}[/-]\\d{1,2}(?:[/-]\\d{1,4})?\\b",
+    "\\b(?:19|20)\\d{2}\\b",
+    "\\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|yesterday|today|tonight|tomorrow)\\b",
+    "\\blast (?:week|month|year|night|spring|summer|fall|autumn|winter)\\b",
+    "\\bago\\b",
+  ].join("|"),
+  "i",
+);
+/*
+ * The ONLY sentences dropped: still waiting for someone to pay or reply, or
+ * "nothing has happened", optionally after "it's been <time>". Review
+ * 2026-10-13/14: a rule that dropped any negative sentence without a listed
+ * word silently lost core facts -- "the sidewalk wasnt salted at all", "i
+ * havent seen him in 4 months", "She didn't disclose the water damage", "The
+ * dog wasn't on a leash". So the rule is flipped: a short list of
+ * still-waiting phrases is dropped, and every other sentence is kept. A
+ * not-done fact about a duty is a fact the person may want recorded.
+ */
+const SUBJECT = "(?:he|she|they|it|we|i|my [a-z' -]{1,30}?|the [a-z' -]{1,30}?|[A-Z][a-z]+)";
+const SINCE_TIME =
+  "(?:(?:it'?s|its|it has|it'?s been|its been)\\s+(?:been\\s+)?(?:(?:a|an|many|several|a few|few|two|three|four|five|six|\\d+)\\s+)?(?:days?|weeks?|months?|years?|a while|ages|forever|so long)(?:\\s+now)?\\s*(?:,|and|,\\s*and)\\s*)";
+const STILL_WAITING = [
+  "(?:still\\s+)?(?:hasn'?t|hasnt|haven'?t|havent|has not|have not)\\s+(?:paid|paid me|paid me back|paid back)(?:\\s+(?:anything|a cent|a dime|a thing|me back|back))?",
+  "(?:still\\s+)?(?:won'?t|wont|will not|refuses to|refused to)\\s+pay(?:\\s+(?:me|me back|anything|up|back))?",
+  "(?:has|have)\\s+paid\\s+(?:me\\s+)?nothing",
+  "(?:still\\s+)?(?:won'?t|wont|will not|doesn'?t|doesnt|refuses to|refused to)\\s+(?:answer|return|respond to|reply to)\\s+(?:any of\\s+)?my\\s+(?:calls|texts|messages|emails)(?:\\s+or\\s+(?:calls|texts|messages|emails))?",
+].join("|");
+const WAITING_SENTENCE = new RegExp(
+  `^${SINCE_TIME}?(?:${SUBJECT}\\s+(?:${STILL_WAITING})|(?:he|she|they)(?:'s|s|'ve)\\s+paid\\s+(?:me\\s+)?nothing|nothing\\s+(?:has\\s+)?happened)(?:\\s+(?:since|yet|so far|still|now|at all))?\\s*[.!]*$`,
+  "i",
+);
+
+/**
+ * True only for a dateless "still waiting" sentence: "It's been months and he
+ * hasn't paid anything", "He still hasn't paid a cent", "She won't answer my
+ * calls or texts", "Nothing has happened since". Everything else is kept,
+ * including every negative fact ("He didn't show up to the hearing", "The
+ * sidewalk wasnt salted at all"). Exported for test:case-events.
+ */
+export function describesNothingHappening(sentence: string): boolean {
+  if (ANY_DATE.test(sentence)) return false;
+  return WAITING_SENTENCE.test(sentence.trim());
+}
+
 /**
  * Read candidates out of a `masterCase.timeline` array.
  *
@@ -231,6 +285,11 @@ export function candidatesFromTimeline(timeline: unknown): EventCandidate[] {
     );
 
     if (!sentence) continue;
+    // "It's been months and he hasn't paid anything" is something NOT
+    // happening, with no date: there is no step to record or classify
+    // (walkthrough JU, 2026-10-13: the Timeline asked "What kind of step was
+    // this?" of it). Such a sentence is not offered as a candidate.
+    if (describesNothingHappening(sentence)) continue;
 
     const rawTitle = typeof record.title === "string" ? record.title.trim() : "";
     const title = rawTitle && sentenceFromRecord(rawTitle) === rawTitle ? rawTitle : sentence.slice(0, 80);
