@@ -20,7 +20,7 @@ import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
 } from "./_components/GuidedSmallClaimsIntake";
 import { readSourcedAnswers } from "./_components/SourcedQuestions";
-import { savePositionQueued, trackPositionWork } from "./_components/positionSave";
+import { runCaseWrite, savePositionQueued, savePositionQueuedOutcome, trackPositionWork } from "./_components/positionSave";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
@@ -921,7 +921,15 @@ function BuilderPageContent() {
          * forms answer or reading saved between this read and this write was
          * erased. If anything wrote in between, read again and rebuild on top
          * (the same rule as updateCaseRecord.ts on the server).
+         *
+         * In the case's one write queue (positionSave.ts runCaseWrite,
+         * 2026-10-14, run 38525903567): the position saves had a queue of
+         * their own and wrote this same row while this write was going, and
+         * the database cancelled both (57014). Read, write and retries all
+         * run inside the queue, so no other write to the case starts until
+         * this one has finished, and the case page waits for it.
          */
+        const outcome = await runCaseWrite(activeId, async () => {
         const buildAndWrite = async (): Promise<{ error: { message: string } | null; conflict: boolean }> => {
         const { data: userOwnedRow, error: readError } = await supabase
           .from("cases")
@@ -977,12 +985,15 @@ function BuilderPageContent() {
         return { error: null, conflict: !(Array.isArray(written) && written.length > 0) };
         };
         // A failed write is tried again after a pause; a write that lost to
-        // another save is rebuilt on top of it straight away.
+        // another save (a server route's) is rebuilt on top of it after a
+        // short one. Four retries at most, each pause longer and jittered.
         let outcome = await buildAndWrite();
         for (let attempt = 1; (outcome.error || outcome.conflict) && attempt <= 4; attempt += 1) {
-          if (outcome.error) await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
+          await new Promise((resolve) => setTimeout(resolve, (outcome.error ? 1_500 : 150) * attempt + Math.floor(Math.random() * 300)));
           outcome = await buildAndWrite();
         }
+        return outcome;
+        });
         const error = outcome.error ?? (outcome.conflict ? { message: "Your case changed while it was saving. Please try again." } : null);
 
         if (error) {
@@ -1051,10 +1062,14 @@ function BuilderPageContent() {
     const timer = setTimeout(() => {
       void (async () => {
         // Only over what was read (updateCaseRecord.ts), so a stage or date
-        // saved at the same moment is kept.
-        await updateMasterResult(supabase, { caseId: id }, (stored) =>
-          JSON.stringify(stored.familyStatus) === JSON.stringify(triageState) ? { reject: "unchanged" } : { ...stored, familyStatus: triageState },
-        );
+        // saved at the same moment is kept; and in the case's one write
+        // queue, so it never writes while another save of the case is going
+        // (run 38525903567: this write was in no queue at all).
+        await runCaseWrite(id, () =>
+          updateMasterResult(supabase, { caseId: id }, (stored) =>
+            JSON.stringify(stored.familyStatus) === JSON.stringify(triageState) ? { reject: "unchanged" } : { ...stored, familyStatus: triageState },
+          ),
+        ).catch(() => undefined);
       })();
     }, 800);
     return () => clearTimeout(timer);
@@ -1330,8 +1345,9 @@ function BuilderPageContent() {
     await trackPositionWork(
       caseId,
       (async () => {
-        if (await savePositionQueued(caseId, { confirmedStage: stage })) return;
-        await new Promise((resolve) => setTimeout(resolve, 2_000));
+        // Tried again only when it failed (a refused stage would be refused again).
+        if ((await savePositionQueuedOutcome(caseId, { confirmedStage: stage })) !== "failed") return;
+        await new Promise((resolve) => setTimeout(resolve, 2_000 + Math.floor(Math.random() * 500)));
         await savePositionQueued(caseId, { confirmedStage: stage });
       })(),
     );
@@ -1357,9 +1373,9 @@ function BuilderPageContent() {
      * EACH PART ITS OWN SAVE (2026-10-13, walkthrough run 38470954003: the
      * stage confirmed on this page was missing on the case page, on 3 of 5
      * cases). The position route accepts or rejects a save whole, so one date
-     * it could not read took the confirmed stage down with it. The stage goes
-     * first and alone; the step, the dates and how papers were served follow
-     * in their own saves. A save that fails is tried once more.
+     * it could not read took the confirmed stage down with it. The parts now
+     * go together in one write, and one by one only if that write is refused
+     * (2026-10-14, below), so a bad date still never takes the stage down.
      */
     const parts: Record<string, unknown>[] = [];
     // A stage read from the answers is saved marked as such; one the person
@@ -1389,15 +1405,33 @@ function BuilderPageContent() {
     // Tracked, retries and all: "Open your case page" can be pressed while
     // these are still going, and the case page waits for them before it reads
     // (positionSave.ts, walkthrough 2026-10-13 R4).
+    /*
+     * ONLY WHAT IS NOT YET ON THE CASE, IN ONE WRITE (2026-10-14, run
+     * 38525903567). This re-sent every part each time any one changed, on top
+     * of the deadline box's own save of the same thing, one full rewrite of
+     * the case per part: the stage again with each date, the dates again with
+     * each step. Now the parts this page already saved are left out
+     * (unsavedPositionPatch), the rest go together in one write, and they go
+     * one by one only if that write is refused (so a date the case cannot
+     * take still never takes the stage down with it). One retry, after a
+     * growing pause, for a write that failed.
+     */
+    const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms + Math.floor(Math.random() * 500)));
+    const saveWithRetry = async (patch: Record<string, unknown>) => {
+      let outcome = await savePositionQueuedOutcome(caseId, patch, { onlyUnsaved: true });
+      if (outcome === "failed") {
+        await pause(2_000);
+        outcome = await savePositionQueuedOutcome(caseId, patch, { onlyUnsaved: true });
+      }
+      return outcome;
+    };
     void trackPositionWork(caseId, (async () => {
       let allSaved = true;
-      for (const part of parts) {
-        let ok = await savePositionQueued(caseId, part);
-        if (!ok) {
-          await new Promise((resolve) => setTimeout(resolve, 2_000));
-          ok = await savePositionQueued(caseId, part);
-        }
-        if (!ok) allSaved = false;
+      const together = await saveWithRetry(Object.assign({}, ...parts));
+      if (together === "refused" && parts.length > 1) {
+        for (const part of parts) if ((await saveWithRetry(part)) !== "saved") allSaved = false;
+      } else if (together !== "saved") {
+        allSaved = false;
       }
       if (!allSaved) sentPositionRef.current = "";
     })());

@@ -89,3 +89,9 @@ name; when that is not plain, no route is offered and the side question is asked
 | V3 | Questions without a "why" (claim-type page: dates); two questions in one | RN | Claim-type page: one question at a time, each with why | run | open |
 | V4 | "How do I get it lowered?" never answered plainly | MC | Atop the results: "To change a final order, you bring a motion to change (Form 15)." with r. 15 (5) and (2) quoted (same as C13); where, fee and service stay with the step card | test:story-answers section 6 + run | fixed (merged in round 3; awaiting run) |
 | V5 | Urgency not raised by the site when the facts show it (passed notice) | SW | Same as C4 | run | open |
+
+## Journeys stopped
+
+| # | Cause | Cases | Fix | Check | Status |
+|---|---|---|---|---|---|
+| J1 | Run 38525903567 (main at 96c4b11): SW stuck on "Saving your case" (`PATCH /rest/v1/cases 500 57014`), FR stuck on "Opening your case…" (`GET /rest/v1/cases 500 57014`), RN logged both. The case save, the position saves and the family-answers save were three writers of the same large `master_result` row in two queues and none; round 3 started position saves the moment the case was saved (stage from answers, motion-to-change) and sent them straight to the database, so they overlapped the case save and each other. The catch-up save re-sent every part on each change (one full rewrite per part), and a failed direct save added the route's own read, read and write | SW, FR, RN | One write queue per case for every write from the builder and case page (positionSave.ts `runCaseWrite`); a given-up save holds the queue until its request ends; a position the case already holds writes nothing; the catch-up sends only unsaved parts, together; no route fallback when the database itself failed; the case page reads one at a time; the dashboard reads only the three JSON paths it shows | test:case-write-queue (overlap recorder) | fixed (awaiting run) |

@@ -16,7 +16,8 @@
  * HOW. Read the record and its `updated_at`; apply the change to what was
  * read; write only if `updated_at` is still the one read, stamping a new one.
  * If another save got there first, read again and re-apply the change on top.
- * A few tries, then the caller says it didn't save.
+ * A few tries, with a short pause between them, then the caller says it
+ * didn't save.
  *
  * No AI, no network of its own: it uses the caller's database client.
  */
@@ -61,7 +62,10 @@ export async function updateMasterResult(
     const { data: written, error } = await write.select("id");
     if (error) return { ok: false, reason: "error", error: String((error as { message?: string }).message ?? error) };
     if (Array.isArray(written) && written.length > 0) return { ok: true, master: next };
-    // Another save wrote first: read again and re-apply.
+    // Another save wrote first: read again and re-apply, after a short,
+    // growing, jittered pause (2026-10-14), so two writers that keep losing
+    // to each other do not re-read and re-send the whole record back to back.
+    if (attempt + 1 < tries) await new Promise((resolve) => setTimeout(resolve, 60 * (attempt + 1) + Math.floor(Math.random() * 60)));
   }
   return { ok: false, reason: "conflict" };
 }
