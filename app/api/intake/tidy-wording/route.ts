@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import {
   MAX_TIDY_FIELDS,
@@ -46,6 +47,10 @@ function isTidyBody(value: unknown): value is { fields: TidyField[] } {
 }
 
 export async function POST(request: NextRequest) {
+  // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
+  const limited = await aiLimitResponse(request, "light");
+  if (limited) return limited;
+
   let body: unknown;
   try {
     body = await request.json();

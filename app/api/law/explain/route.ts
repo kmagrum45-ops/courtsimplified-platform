@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import { explainPassage } from "@/src/lib/case-system/retrieval/explainProvision";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
@@ -25,6 +26,10 @@ export const maxDuration = 60;
 const ID = /^corpus:[A-Za-z0-9._-]{1,120}:\d{1,6}$/;
 
 export async function POST(request: NextRequest) {
+  // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
+  const limited = await aiLimitResponse(request, "light");
+  if (limited) return limited;
+
   let body: unknown;
   try {
     body = await request.json();

@@ -103,7 +103,8 @@ export const catalogue = {
  * rate-limit lease, and each person's daily lookup allowance. Read and written
  * only by the server (src/lib/canlii/canliiServer.ts).
  */
-export const serverOnly = ["ai_call_log", "site_operators", "canlii_cache", "canlii_api_state", "canlii_user_usage"];
+// 2026-10-15: per-visitor AI limits and the built-in error log (migration 20261015090000).
+export const serverOnly = ["ai_call_log", "site_operators", "canlii_cache", "canlii_api_state", "canlii_user_usage", "ai_rate_limits", "server_errors"];
 
 export const views = {
   court_form_master_view: { readers: ["anon", "authenticated"] },

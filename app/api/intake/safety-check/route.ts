@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import { runSafetyPass } from "@/src/lib/case-system/intake/safetyPass";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
@@ -63,6 +64,10 @@ export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDepende
   };
 
   return async function safetyCheckPost(request: NextRequest) {
+    // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
+    const limited = await aiLimitResponse(request, "safety");
+    if (limited) return limited;
+
     let body: unknown;
     try {
       body = await request.json();

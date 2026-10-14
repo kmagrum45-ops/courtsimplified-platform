@@ -60,6 +60,22 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
   // family path. That round trip is the check working as intended — the entry
   // named the screen that would connect it, and deleting the entry is what
   // proved the screen actually did.
+  // 2026-10-14 audit: /api/case/chat had no caller and was removed. The chat it
+  // served returns only ids of pre-written, checked blocks, which is the design
+  // CLAUDE.md s. 2a wants for the assistant; the page uses a different chat.
+  {
+    file: "src/lib/case-system/chat/libraryChat.ts",
+    reason:
+      "The ids-only assistant (every word shown is a published block). Its route had no caller and " +
+      "was removed 2026-10-14; kept, with test:library-chat, until the assistant is consolidated onto " +
+      "one chat (MASTER_PLAN build order 6B), when it is either wired to the page or deleted.",
+  },
+  {
+    file: "src/lib/case-system/chat/assembleChatAnswer.ts",
+    reason:
+      "Assembles libraryChat's selected block ids into the reply; dormant with it, for the same " +
+      "decision under MASTER_PLAN build order 6B.",
+  },
   {
     file: "src/lib/case-system/sources/statutoryProvisions.ts",
     reason:

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-142 documented, 28 without a header.
+147 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -13,6 +13,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
 | `npm run test:ai-models` | **Every model call in the app takes its model from aiModels.ts, and the**<br>parameters sent match what that kind of model accepts. |
+| `npm run test:ai-rate-limit` | **test:ai-rate-limit -- the AI routes that need no sign-in are limited per**<br>visitor and by a daily ceiling (src/lib/security/aiRateLimit.ts; 2026-10-14 audit, MASTER_PLAN build order 6C). |
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
 | `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
 | `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
@@ -29,6 +30,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-record` | **The case record reads every fact from wherever the intake that wrote it put**<br>it, a confirmed answer wins over an intake one, and the pages read it instead of asking again. Master plan Phase 1 (docs/MASTER_PLAN.md). |
 | `npm run test:case-review` | **The case review points at gaps in the user's own record, grounded in their**<br>own words, and never grades, advises or invents. |
 | `npm run test:case-reviews` | **Runs the 10 fabricated fixtures in fixtures/caseReviews/ through the**<br>SAME real pipeline runFixtures.ts uses (pipelineRunner.ts -- no second, independently-maintained copy of the turn loop), and writes one full, human-readable "case review" markdown file per case, plus an index that itemizes all 10 with a one-line description of |
+| `npm run test:case-understanding` | **The front door understands the story, and shows only law that is checked.**<br>WHAT THIS CATCHES: the reasoning step's words reaching a person without the official-text check. understandCase (understanding/understandCase.ts) lets the strongest model read the whole story and reason about it; this suite drives it with a fake reasoner and a |
 | `npm run test:case-write-queue` | **No two writes to the same case's row are in flight at once from the builder,**<br>the case pages and the Forms page, and nothing can stall their one queue. |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
@@ -54,6 +56,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
 | `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |
+| `npm run test:fixed-regimes` | **Checks the routing rules fixed by law (src/lib/case-system/intelligence/**<br>fixedRegimes.ts, CLAUDE.md s. 2a): a construction lien goes to the Superior Court whatever the amount, and a claimed amount over $50,000 leaves Small Claims -- decided in code, winning over the keyword pass and the model. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
@@ -118,6 +121,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- the 11 cases from**<br>Sessions 4 and 5 plus three from the 2026-09-28 story review, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
+| `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:small-claims-limit` | **The Small Claims limit is $50,000 everywhere the site states it, and the old**<br>$35,000 limit appears nowhere the site ships. |
