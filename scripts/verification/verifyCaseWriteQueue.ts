@@ -57,7 +57,11 @@ import {
   caseRouteWrite,
   nextSaveGeneration,
   positionSavesSettled,
+  retryCatchUp,
   runCaseWrite,
+  stageGenerations,
+  startCatchUp,
+  type PositionGenerations,
   savePositionQueued,
   savePositionQueuedOutcome,
   saveWithRetryUnlessSuperseded,
@@ -303,6 +307,50 @@ void (async () => {
     const lone = nextSaveGeneration(alone);
     const loneOutcome = await saveWithRetryUnlessSuperseded(alone, lone, () => savePositionQueuedOutcome("case-gen", { confirmedStage: "starting-case" }), 20);
     check("retries: with no newer run, a failed save is still tried again and lands", loneOutcome === "saved" && readCasePosition(genRows["case-gen"].master_result, "small-claims").confirmedStage === "starting-case");
+
+    // A catch-up carrying dates fails its first try; within the pause the
+    // person confirms the same stage again. The click supersedes the stage
+    // only: the catch-up's retry still sends the dates (review 2026-10-14:
+    // the whole retry was dropped, and a click that changes nothing never
+    // re-runs the catch-up, so the dates were lost).
+    const ccRows = { "case-cc": freshRow("small-claims") };
+    const cc = recordingClient(ccRows);
+    let failCatchUp = true;
+    cc.hooks.readError = () => {
+      if (!failCatchUp) return null;
+      failCatchUp = false;
+      return { message: "TypeError: Failed to fetch" };
+    };
+    setPositionClientForChecks(cc.db as never, async () => false);
+    const counters: PositionGenerations = { stage: 0, catchUp: 0 };
+    const catchUpPatch = { confirmedStage: "responding", dateAnswers: { "sc-date-claim-served": "2026-09-20" } };
+    const catchUpMine = startCatchUp(counters, true);
+    const catchUpRun = retryCatchUp(counters, catchUpMine, catchUpPatch, (patch) => savePositionQueuedOutcome("case-cc", patch, { onlyUnsaved: true }), 80);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    const clickCounter = stageGenerations(counters);
+    const clickMine = nextSaveGeneration(clickCounter);
+    const clickRun = saveWithRetryUnlessSuperseded(clickCounter, clickMine, () => savePositionQueuedOutcome("case-cc", { confirmedStage: "responding" }), 80);
+    const [catchUpOutcome, clickOutcome] = await Promise.all([catchUpRun, clickRun]);
+    await positionSavesSettled("case-cc", 5_000);
+    const ccPosition = readCasePosition(ccRows["case-cc"].master_result, "small-claims");
+    check(
+      "retries: a click on the stage supersedes only the stage -- a failed catch-up's dates are still sent",
+      catchUpOutcome === "saved" && clickOutcome === "saved" && ccPosition.confirmedStage === "responding" && ccPosition.dateAnswers["sc-date-claim-served"] === "2026-09-20",
+      `catch-up ${catchUpOutcome}, click ${clickOutcome}, dates ${JSON.stringify(ccPosition.dateAnswers)}`,
+    );
+    // A newer catch-up still supersedes all of an older one.
+    failCatchUp = true;
+    const olderCatchUp = startCatchUp(counters, false);
+    const olderCatchUpRun = retryCatchUp(counters, olderCatchUp, { dateAnswers: { "sc-date-claim-served": "2026-09-01" } }, (patch) => savePositionQueuedOutcome("case-cc", patch, { onlyUnsaved: true }), 80);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    const newerCatchUp = startCatchUp(counters, false);
+    const newerCatchUpRun = retryCatchUp(counters, newerCatchUp, { dateAnswers: { "sc-date-claim-served": "2026-09-02" } }, (patch) => savePositionQueuedOutcome("case-cc", patch, { onlyUnsaved: true }), 80);
+    const [olderCatchUpOutcome] = await Promise.all([olderCatchUpRun, newerCatchUpRun]);
+    await positionSavesSettled("case-cc", 5_000);
+    check(
+      "retries: a newer catch-up supersedes all of an older one's retry",
+      olderCatchUpOutcome === "superseded" && readCasePosition(ccRows["case-cc"].master_result, "small-claims").dateAnswers["sc-date-claim-served"] === "2026-09-02",
+    );
 
     // ---- 7: the route fallback: network failure yes, database error no ----
     const fbRows = { "case-fb": freshRow("small-claims") };

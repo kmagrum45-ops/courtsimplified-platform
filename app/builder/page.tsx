@@ -24,10 +24,14 @@ import {
   CASE_REQUEST_TIMEOUT_MS,
   caseRouteWrite,
   nextSaveGeneration,
+  retryCatchUp,
   runCaseWrite,
   savePositionQueuedOutcome,
   saveWithRetryUnlessSuperseded,
+  stageGenerations,
+  startCatchUp,
   trackPositionWork,
+  type PositionGenerations,
 } from "./_components/positionSave";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
@@ -1041,6 +1045,11 @@ function BuilderPageContent() {
          * stored it; this page writes that, through runCaseWrite, so the
          * reading's AI wait never holds the queue and its write never
          * overlaps another.
+         *
+         * Known gap, accepted: if the person leaves the page during the
+         * reading, the picture is not stored (the route no longer stores it
+         * itself). Nothing else is lost: the picture only feeds suggestions,
+         * and it is read again after the case's next save.
          */
         await (async () => {
           try {
@@ -1390,20 +1399,23 @@ function BuilderPageContent() {
     // Tried again only when it failed (a refused stage would be refused
     // again), and not at all once a newer save has started: its retry would
     // put this older stage over the newer choice (review 2026-10-14).
-    const mine = nextSaveGeneration(saveGenerationsRef);
+    // A click supersedes only the stage of an earlier save's retry; a
+    // catch-up's dates still go (positionSave.ts, review 2026-10-14).
+    const stageCounter = stageGenerations(saveGenerationsRef.current);
+    const mine = nextSaveGeneration(stageCounter);
     await trackPositionWork(
       caseId,
-      saveWithRetryUnlessSuperseded(saveGenerationsRef, mine, () => savePositionQueuedOutcome(caseId, { confirmedStage: stage })),
+      saveWithRetryUnlessSuperseded(stageCounter, mine, () => savePositionQueuedOutcome(caseId, { confirmedStage: stage })),
     );
   }
 
   /**
-   * Every run of position saves on this page takes a number; a retry whose
-   * run is no longer the newest is dropped (positionSave.ts). Shared by the
-   * stage click and the catch-up below, which always carries the current
-   * stage.
+   * Every run of position saves on this page takes numbers; a retry is
+   * dropped, or sent without its stage, once a newer save has started
+   * (positionSave.ts): a newer catch-up supersedes all of an older one, a
+   * newer stage save only the stage.
    */
-  const saveGenerationsRef = useRef(0);
+  const saveGenerationsRef = useRef<PositionGenerations>({ stage: 0, catchUp: 0 });
 
 
   /*
@@ -1468,17 +1480,18 @@ function BuilderPageContent() {
      * take still never takes the stage down with it). One retry, after a
      * growing pause, for a write that failed.
      */
-    // A retry is dropped once a newer run of saves has started (positionSave.ts).
-    const mine = nextSaveGeneration(saveGenerationsRef);
+    // A retry is dropped once a newer catch-up has started, and sent without
+    // its stage once only a newer stage save has (positionSave.ts).
+    const mine = startCatchUp(saveGenerationsRef.current, parts.some((part) => part.confirmedStage !== undefined));
     const saveWithRetry = (patch: Record<string, unknown>) =>
-      saveWithRetryUnlessSuperseded(saveGenerationsRef, mine, () => savePositionQueuedOutcome(caseId, patch, { onlyUnsaved: true }));
+      retryCatchUp(saveGenerationsRef.current, mine, patch, (retry) => savePositionQueuedOutcome(caseId, retry, { onlyUnsaved: true }));
     void trackPositionWork(caseId, (async () => {
       let allSaved = true;
       const together = await saveWithRetry(Object.assign({}, ...parts));
       if (together === "refused" && parts.length > 1) {
         for (const part of parts) {
           const outcome = await saveWithRetry(part);
-          if (outcome === "superseded") break;
+          if (outcome === "superseded") continue;
           if (outcome !== "saved") allSaved = false;
         }
       } else if (together === "failed" || together === "refused") {

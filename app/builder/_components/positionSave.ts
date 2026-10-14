@@ -495,6 +495,63 @@ export async function saveWithRetryUnlessSuperseded(
   return attempt();
 }
 
+/*
+ * THE STAGE AND THE REST ARE SUPERSEDED SEPARATELY (review 2026-10-14). A
+ * stage click supersedes only the stage: a catch-up carrying dates whose
+ * first try failed, followed by a click on the same stage within the pause,
+ * dropped the whole retry -- and a click that changes nothing does not
+ * re-run the catch-up, so the dates were never sent. Now the page keeps two
+ * counters: a newer catch-up supersedes an older catch-up's whole retry (it
+ * carries everything current); a newer stage save (a click, or a catch-up
+ * carrying the stage) supersedes only the stage part of it.
+ */
+export type PositionGenerations = { stage: number; catchUp: number };
+
+/** The stage counter alone, for saveWithRetryUnlessSuperseded (the stage click's retry). */
+export function stageGenerations(generations: PositionGenerations): SaveGenerations {
+  return {
+    get current() {
+      return generations.stage;
+    },
+    set current(value: number) {
+      generations.stage = value;
+    },
+  };
+}
+
+/** The patch without its stage, or null when the stage was all it carried. */
+export function withoutStage(patch: Record<string, unknown>): Record<string, unknown> | null {
+  const rest = Object.fromEntries(Object.entries(patch).filter(([key]) => key !== "confirmedStage" && key !== "confirmedStageFrom"));
+  return Object.keys(rest).length ? rest : null;
+}
+
+/** Starts a catch-up run: always a new catch-up number, and a new stage number when it carries the stage. */
+export function startCatchUp(generations: PositionGenerations, carriesStage: boolean): PositionGenerations {
+  generations.catchUp += 1;
+  if (carriesStage) generations.stage += 1;
+  return { ...generations };
+}
+
+/**
+ * A catch-up save with one retry after `pauseMs` if it failed. The retry is
+ * dropped when a newer catch-up has started; it is sent without its stage
+ * when only a newer stage save has started.
+ */
+export async function retryCatchUp(
+  generations: PositionGenerations,
+  mine: PositionGenerations,
+  patch: Record<string, unknown>,
+  attempt: (patch: Record<string, unknown>) => Promise<DirectSaveOutcome>,
+  pauseMs = 2_000,
+): Promise<DirectSaveOutcome | "superseded"> {
+  const first = await attempt(patch);
+  if (first !== "failed") return first;
+  await new Promise((resolve) => setTimeout(resolve, pauseMs + Math.floor(Math.random() * Math.min(500, pauseMs + 1))));
+  if (generations.catchUp !== mine.catchUp) return "superseded";
+  const retry = generations.stage !== mine.stage ? withoutStage(patch) : patch;
+  return retry ? attempt(retry) : "superseded";
+}
+
 /** Registers a run of saves for this case (with its retries) that a reader of the case must wait for. */
 export function trackPositionWork<T>(caseId: string, work: Promise<T>): Promise<T> {
   return track(caseId, work);
