@@ -1374,6 +1374,75 @@ export function deadlineLineFor(limit: { date: string; statutory?: boolean; stat
   };
 }
 
+/** The card's words when a time limit that bars the claim has passed (the passed box's first line). */
+export const PASSED_BAR_WARNING =
+  "Missing this time limit can stop the claim from going ahead. Act now, and talk to a lawyer or paralegal as soon as you can.";
+
+/**
+ * What every page that lists a counted deadline says about where it stands
+ * today (walkthrough run 2026-10-14, SW: the Overview card said the Toronto
+ * notice's counted Saturday ran to Tuesday 13 October "if it keeps its regular
+ * weekday hours. That day has passed too", while the Timeline and the printable
+ * Case file showed "2026-10-10" and the engine's "the last day for this is
+ * Saturday 10 October 2026" with no word that it had passed). The Timeline,
+ * the Deadlines view and the Case file take their words from here, and the
+ * card's from deadlineLineFor, which this calls: one test, one set of words.
+ *
+ * `statement` replaces the engine's sentence (it IS the engine's sentence
+ * unless the counted day is a closed day for a statutory limit); `passedLine`
+ * is the card's "That date has already passed." beside a kept statement;
+ * `barWarning` is the passed box's warning for a limit that bars the claim.
+ */
+export type DeadlineStanding = {
+  statement: string;
+  cite: RuleCitation | null;
+  passed: boolean;
+  /** The next open day is still to come or is today: the card's "Act ..." words are in `statement`. */
+  urgent: boolean;
+  passedLine: string | null;
+  barWarning: string | null;
+};
+export function deadlineStandingFor(
+  limit: { date: string; statutory?: boolean; statement: string; consequence?: string },
+  today: string,
+): DeadlineStanding {
+  const line = deadlineLineFor(limit, today);
+  return {
+    statement: line.closedDay?.say ?? line.statement ?? limit.statement,
+    cite: line.closedDay?.cite ?? null,
+    passed: line.passed,
+    urgent: !line.passed && Boolean(line.closedDay?.say.includes("Act ")),
+    passedLine: line.statement && line.passed ? "That date has already passed." : null,
+    barWarning: line.passed && limit.consequence === "bars-the-claim" ? PASSED_BAR_WARNING : null,
+  };
+}
+
+/**
+ * The standing as the Timeline, Deadlines view and Case file carry it
+ * (organisation route -> buildTimeline's deadlineRules): a stage-map limit and
+ * the engine's counted entry, with Ontario's today. Pure, so test:next-step
+ * checks the pages' words against the card's over many dates.
+ */
+export function timelineStandingFor(
+  limit: { regime?: string; consequence?: string },
+  entry: { date: string; statement: string },
+  today: string,
+  nameOf: (rule: RuleCitation) => string,
+): { statement: string; passed: boolean; urgent: boolean; lines: string[]; rule: string | null; ruleQuote: string | null } {
+  const standing = deadlineStandingFor(
+    { date: entry.date, statutory: limit.regime === "legislation-act", statement: entry.statement, consequence: limit.consequence },
+    today,
+  );
+  return {
+    statement: standing.statement,
+    passed: standing.passed,
+    urgent: standing.urgent,
+    lines: [standing.passedLine, standing.barWarning].filter((line): line is string => Boolean(line)),
+    rule: standing.cite ? `${nameOf(standing.cite)}, ${standing.cite.pinpoint}` : null,
+    ruleQuote: standing.cite?.quote ?? null,
+  };
+}
+
 /*
  * The rule beside each sentence of a deadline that says when service counts
  * (walkthrough run 38500825561, FR: "Papers left with you after 4 p.m. count

@@ -26,6 +26,7 @@ import {
   SOURCE_SAVED_ON,
   claimFit,
   deadlineLineFor,
+  PASSED_BAR_WARNING,
   keptForNotices,
   limitNotesFor,
   limitPassedState,
@@ -352,7 +353,7 @@ function NextStepCard({
         >
           <p className="font-semibold">The last day counted for this has passed: {deadline.what.replace(/^If [^,]+, /, "").replace(/^./, (c) => c.toUpperCase())}.</p>
           <p className="mt-1">
-            Missing this time limit can stop the claim from going ahead. Act now, and talk to a lawyer or paralegal as soon as you can.
+            {PASSED_BAR_WARNING}
             {deadline.rule ? <QuotedRule rule={deadline.rule} /> : null}
           </p>
           {deadline.statutory ? (

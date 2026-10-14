@@ -54,7 +54,7 @@ import {
 import { findDates, formatForCourt, type DatePrecision } from "@/src/lib/case-workspace/parseDate";
 import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
-import { keptForNotices } from "@/src/lib/content-library/nextStepPractical";
+import { keptForNotices, timelineStandingFor, todayInOntario } from "@/src/lib/content-library/nextStepPractical";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
@@ -392,10 +392,24 @@ export async function GET(req: NextRequest) {
         : [];
       const computed = stage ? computedDeadlinesFor(stepLimits, dates, "workspace") : [];
 
+      /*
+       * Where each counted date stands today, in the Overview card's words
+       * (deadlineStandingFor -> deadlineLineFor, Ontario's today): the Timeline
+       * and the Case file showed "2026-10-10" for a Toronto notice the card
+       * called passed, with the engine's "the last day for this is Saturday"
+       * and no passed warning (walkthrough run 2026-10-14, SW).
+       */
+      const today = todayInOntario();
+      const standingFor = (deadlineId: string) => {
+        const limit = stepLimits.find((deadline) => deadline.id === deadlineId);
+        const entry = computed.find((item) => item.deadlineId === deadlineId);
+        return limit && entry ? timelineStandingFor(limit, entry, today, sourceName) : undefined;
+      };
       const deadlineRules = Object.fromEntries(
         stepLimits.map((deadline) => [
           deadline.id,
           {
+            standing: standingFor(deadline.id),
             // The law's name with the section: "Limitations Act, 2002, s. 4",
             // never a bare "s. 4" (held-back walkthrough, 2026-10-09).
             rule: deadline.rule ? `${sourceName(deadline.rule)}, ${deadline.rule.pinpoint}` : null,
