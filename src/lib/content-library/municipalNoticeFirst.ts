@@ -32,6 +32,7 @@ import { S_TORONTO_42_6_NOTICE } from "../case-system/stage-map/citations";
 import { findStage, type StageDeadline } from "../case-system/stage-map/stageMap";
 import { computedDeadlinesFor } from "./computedDeadline";
 import { formatLongDate } from "../case-system/deadlines/holidays";
+import { parseUserDate } from "../case-system/deadlines/deadlineEvents";
 import {
   deadlineStandingFor,
   municipalPlaceOf,
@@ -58,8 +59,12 @@ export type MunicipalNoticeFirst = {
   ruleSay: string;
   /** Unknown place: the City of Toronto Act's same notice, so neither law is hidden. */
   alsoToronto: { say: string; rule: RuleCitation } | null;
-  /** The injury date read from the story, and the words it came from. */
-  injury: { date: string; quote: string; yearAssumed: boolean } | null;
+  /**
+   * The injury date read from the story, and the words it came from.
+   * `yearFrom`: where the year came from when the story gave none but the
+   * person gave the same day with its year elsewhere (yearGivenElsewhere).
+   */
+  injury: { date: string; quote: string; yearAssumed: boolean; yearFrom?: string } | null;
   /** The counted last day and where it stands today; null with no injury date. */
   counted: (DeadlineStanding & { date: string }) | null;
   /** The rule's own "is not a bar" exceptions, quoted. */
@@ -79,7 +84,7 @@ function deadlineFor(id: string): StageDeadline | undefined {
  */
 export function municipalNoticeFirst(
   words: string,
-  options: { city?: string; now?: Date; today?: string } = {},
+  options: { city?: string; now?: Date; today?: string; elsewhere?: GivenElsewhere[] } = {},
 ): MunicipalNoticeFirst | null {
   const city = options.city ?? "";
   if (!words || !municipalWayInjury(words, city)) return null;
@@ -90,7 +95,13 @@ export function municipalNoticeFirst(
   const today = options.today ?? todayInOntario(now);
 
   const hint = storyHintsForDates(words, now)["sc-date-injury"];
-  const injury = hint?.value ? { date: hint.value, quote: hint.quote, yearAssumed: Boolean(hint.yearAssumed) } : null;
+  let injury: MunicipalNoticeFirst["injury"] = hint?.value ? { date: hint.value, quote: hint.quote, yearAssumed: Boolean(hint.yearAssumed) } : null;
+  // The story gave no year, but the person may have given it elsewhere
+  // (walkthrough run 38593464953, SW: "september 30 2026 fell" in the timeline).
+  if (injury?.yearAssumed) {
+    const given = yearGivenElsewhere(injury.date, options.elsewhere ?? []);
+    if (given) injury = { ...injury, date: given.date, yearAssumed: false, yearFrom: given.label };
+  }
   let counted: MunicipalNoticeFirst["counted"] = null;
   if (injury) {
     const entry = computedDeadlinesFor([deadline], { "injury-occurred": injury.date }, "intakeNoticeFirst")[0];
@@ -135,7 +146,37 @@ export function turnsOnJudge(rule: RuleCitation): boolean {
   return /\bif a judge finds\b/.test(rule.quote);
 }
 
-/** The injury date as the line says it: the long date, and that the year was assumed when it was. */
+/** The injury date as the line says it: the long date, where its year came from, or that the year was assumed. */
 export function injuryDateWords(injury: NonNullable<MunicipalNoticeFirst["injury"]>): string {
+  if (injury.yearFrom) return `${formatLongDate(injury.date)} (the year is from ${injury.yearFrom})`;
   return `${formatLongDate(injury.date)}${injury.yearAssumed ? " (you did not give the year; we took the most recent one -- check it)" : ""}`;
+}
+
+/** Another place the person gave dates: a guided answer, the timeline, a date field. `label` says it in the line ("your timeline"). */
+export type GivenElsewhere = { label: string; text: string };
+
+const MONTH_WORD = "(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\\.?";
+const DATE_WITH_YEAR = new RegExp(
+  `\\b(\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}(?:st|nd|rd|th)? ${MONTH_WORD},? \\d{4}|${MONTH_WORD} \\d{1,2}(?:st|nd|rd|th)?,? \\d{4})\\b`,
+  "gi",
+);
+
+/**
+ * The same day and month as `assumed`, given WITH its year somewhere else the
+ * person wrote (walkthrough run 38593464953, SW: the story said "september
+ * 30", the timeline "september 30 2026 fell", and the line still said "you did
+ * not give the year"). The first place, in the order given, wins; a place that
+ * gives the same day in two different years gives none, so nothing is guessed.
+ */
+export function yearGivenElsewhere(assumed: string, places: GivenElsewhere[]): { date: string; label: string } | null {
+  const monthDay = assumed.slice(5);
+  for (const place of places) {
+    const found = new Set<string>();
+    for (const match of (place.text ?? "").matchAll(DATE_WITH_YEAR)) {
+      const date = parseUserDate(match[1].replace(/\./g, "").replace(/,/g, " "));
+      if (date && date.slice(5) === monthDay) found.add(date);
+    }
+    if (found.size === 1) return { date: [...found][0], label: place.label };
+  }
+  return null;
 }

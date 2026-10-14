@@ -3,7 +3,8 @@
 import TidyWordingReview from "./TidyWordingReview";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
+import { CLAIM_FIELDS_FOLDED_SUMMARY, ENFORCEMENT_DIRECTION, enforcementMissing, judgmentUnpaidFromStory } from "./enforcementIntake";
 
 import type {
   AnalysisResult,
@@ -222,6 +223,17 @@ function FieldHelp({ question }: { question?: IntakeQuestion }) {
   );
 }
 
+/** The claim-building fields: shown as they are, or folded and optional when the person is enforcing a judgment. */
+function ClaimFieldsFold({ enforcing, children }: { enforcing: boolean; children: ReactNode }) {
+  if (!enforcing) return <>{children}</>;
+  return (
+    <details data-testid="sc-intake-claim-fields-folded" className="rounded-3xl border border-[#d8e6df] bg-white p-5">
+      <summary className="cursor-pointer font-bold text-[#16302b]">{CLAIM_FIELDS_FOLDED_SUMMARY}</summary>
+      <div className="mt-5 grid gap-5">{children}</div>
+    </details>
+  );
+}
+
 function normalizeText(value: string): string {
   return value
     .toLowerCase()
@@ -349,6 +361,8 @@ function inferStage(input: SmallClaimsIntelligenceInput): UniversalStage {
 
   if (input.filedDocuments.includes("settlement-conference")) return "conference";
   if (input.filedDocuments.includes("enforcement-documents")) return "enforcement";
+  // A judgment won and not paid (walkthrough run 38593464953, SJ).
+  if (judgmentUnpaidFromStory(text)) return "enforcement";
   if (input.filedDocuments.includes("plaintiffs-claim")) return "already-started";
 
   // "i was served a plaintifs claim" (walkthrough, 2026-10-04) previewed as
@@ -373,6 +387,12 @@ function isDefendantRole(role: string | undefined): boolean {
 }
 
 function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
+  // Enforcing a judgment (walkthrough run 38593464953, SJ): the claim is
+  // decided, so evidence for it and how it was calculated are not asked for.
+  if (hasText(input.facts) && inferStage(input) === "enforcement") {
+    const still = enforcementMissing(input);
+    return still.length ? `Still useful to add: ${still.join(", ")}.` : "You have given enough to see your next steps. You can add more later.";
+  }
   const missing: string[] = [];
 
   if (!hasText(input.yourName)) missing.push("your legal name");
@@ -397,6 +417,9 @@ function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
 function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
   const issues = inferIssuesFromStory(input);
   const stage = inferStage(input);
+  // Enforcement leads with the judgment, never with building a claim
+  // (walkthrough run 38593464953, SJ: "enforcement · kind of claim not clear yet").
+  if (hasText(input.facts) && stage === "enforcement") return ENFORCEMENT_DIRECTION;
 
   const labels: Record<SmallClaimsIssue, string> = {
     "unpaid-money": "unpaid money",
@@ -605,6 +628,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   );
 
   const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
+  const enforcing = useMemo(() => hasText(input.facts) && inferStage(input) === "enforcement", [input]);
   const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
   const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
   const inferredDisputeCategory = useMemo(() => {
@@ -964,7 +988,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               placeholder="List dates in order. If you do not know exact dates, estimate."
             />
           </label>
+        </div>
 
+        {/* Enforcing a judgment: the claim-building fields are folded, never
+            leading (walkthrough run 38593464953, SJ: "What do you want the
+            court to order?" and "Breakdown of amount claimed" were asked of
+            someone who already has a judgment). */}
+        <ClaimFieldsFold enforcing={enforcing}>
+        <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
             <span className="font-semibold text-[#16302b]">
               Evidence you have
@@ -1040,6 +1071,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             />
           </label>
         </div>
+        </ClaimFieldsFold>
 
         <div className="rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

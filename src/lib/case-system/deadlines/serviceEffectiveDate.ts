@@ -423,14 +423,62 @@ export function partyServedFrom(words: string, personWasServed: boolean): Served
   return A_PERSON.test(text) ? { company: false } : {};
 }
 
+/** A way the rules allow for a claim or application that comes by post. `method` is absent for a way SERVICE_RULES does not count (the family postcard). */
+export type PostWay = { method?: ServiceMethod; label: string; effective: string | null; rule: string; quote: string };
+
 /** The ways the rules allow for a claim or application that come by post, each with its effective day and rule. */
-export function postWaysForClaim(court: ServiceCourt, servedOn: ServedOn = {}): { label: string; effective: string | null; rule: string; quote: string }[] {
+export function postWaysForClaim(court: ServiceCourt, servedOn: ServedOn = {}): PostWay[] {
   const ways = ORIGINATING_METHODS[court]
     .filter((method) => servedOn.company !== false || !COMPANY_ROUTE.has(method))
     .map((method) => SERVICE_RULES[court].find((rule) => rule.method === method))
     .filter((rule): rule is ServiceRule => Boolean(rule) && !rule!.method.startsWith("personal"))
-    .map((rule) => ({ label: rule.label, effective: whenEffectiveSay(rule), rule: rule.rule, quote: rule.quote }));
+    .map((rule): PostWay => ({ method: rule.method, label: rule.label, effective: whenEffectiveSay(rule), rule: rule.rule, quote: rule.quote }));
   return court === "family" ? [...ways, { ...FAMILY_POSTCARD_WAY, effective: null }] : ways;
+}
+
+/*
+ * ONLY THE WAY THE PERSON DESCRIBED (walkthrough run 38593464953, SD). The
+ * arrival note listed every way by post and then said "count from the day it
+ * was left" -- a sentence in no rule's words, with no source, beside r. 8.03
+ * (4), which counts that route from the fifth day after MAILING. Now each
+ * way shown carries its own counting sentence (arrivalCountFor), and a way is
+ * shown only when it is the one the person chose, or the one their words name
+ * ("signed for", "left a copy with"). Words that name none ("it came in the
+ * mail") keep every way the rules allow for a claim that comes by post: a
+ * claim is never served by regular mail (r. 8.01 (1); r. 8.07 (3) excludes
+ * even registered mail under r. 8.03 (7)), so r. 8.07 (2) is never quoted for one.
+ */
+const SIGNED_WORDS = /\bsigned for\b|\bregistered mail\b|\bsignature\b|\bsigned (?:the|a) (?:card|postcard)\b/i;
+const LEFT_WORDS = /\bleft (?:a copy|it|them|the (?:papers|claim|application))(?: at [a-z ]+)? with\b|\bwith (?:my|an?) (?:adult|wife|husband|son|daughter|partner|roommate|mother|father)\b/i;
+const SIGNED_METHODS: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["registered-mail-signature", "acknowledgment-card"]);
+
+export function waysTheyDescribed(ways: PostWay[], words: string, chosen?: ServiceMethod | null): PostWay[] {
+  if (chosen) {
+    const one = ways.filter((way) => way.method === chosen);
+    if (one.length > 0) return one;
+  }
+  const named = SIGNED_WORDS.test(words)
+    ? ways.filter((way) => way.method && SIGNED_METHODS.has(way.method))
+    : LEFT_WORDS.test(words)
+      ? ways.filter((way) => way.method === "residence-and-mail")
+      : [];
+  return named.length > 0 ? named : ways;
+}
+
+/**
+ * What the date counted from the day the papers ARRIVED means under one way,
+ * in that rule's own terms: the rule's starting day (dateToEnter), and the
+ * latest it can be for the arrival count to be on or before the real last
+ * day. Service is effective `addDays` after the starting day, so counting
+ * from arrival is never later than the real count exactly when the starting
+ * day is on or after arrival minus `addDays` (a later start never gives an
+ * earlier last day). Null for a way SERVICE_RULES does not count.
+ */
+export function arrivalCountFor(court: ServiceCourt, method: ServiceMethod | undefined, arrivedOn: IsoDate): { startDay: string; notBefore: IsoDate } | null {
+  if (!method || !/^\d{4}-\d{2}-\d{2}$/.test(arrivedOn)) return null;
+  const rule = SERVICE_RULES[court].find((candidate) => candidate.method === method);
+  if (!rule || rule.method.startsWith("personal")) return null;
+  return { startDay: rule.dateToEnter, notBefore: addDays(arrivedOn, -rule.addDays) };
 }
 
 /*

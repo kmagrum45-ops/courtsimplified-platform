@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import GetHelp from "../../_components/GetHelp";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
-import { injuryDateWords, municipalNoticeFirst, turnsOnJudge } from "@/src/lib/content-library/municipalNoticeFirst";
+import { injuryDateWords, municipalNoticeFirst, turnsOnJudge, type GivenElsewhere, type MunicipalNoticeFirst as Notice } from "@/src/lib/content-library/municipalNoticeFirst";
 import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
 
 /**
@@ -18,11 +18,13 @@ import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
  *
  * ASKED FIRST (CLAUDE.md s. 4; round 4 review, 2026-10-14). Whether the fall
  * was on a way the municipality keeps is read from the person's words, and a
- * reading can be wrong. So the box first asks, with the reason in one line;
- * the counted date, the bar and the exceptions show only after "Yes" or "Not
- * sure" (a missed notice can bar the claim, so an unsure person sees it too).
- * "No" folds it to one line with Change. A misreading costs one click, never
- * a wrong legal warning.
+ * reading can be wrong. So the box first asks, with the reason in one line
+ * and, under it, the counted date said conditionally ("If it was, the last
+ * day ... has passed", walkthrough run 38593464953, SW: the counted warning
+ * waited behind the question). The full box -- the bar warning and the
+ * exceptions -- shows only after "Yes" or "Not sure" (a missed notice can bar
+ * the claim, so an unsure person sees it too). "No" folds it to one line with
+ * Change. A misreading costs one click, never a wrong legal warning.
  */
 
 export type NoticeAnswer = "yes" | "no" | "not-sure" | null;
@@ -53,8 +55,27 @@ export function showsFullNotice(answer: NoticeAnswer): boolean {
   return answer === "yes" || answer === "not-sure";
 }
 
-export default function MunicipalNoticeFirst({ story, city = "" }: { story: string; city?: string }) {
-  const notice = useMemo(() => municipalNoticeFirst(story, { city }), [story, city]);
+/**
+ * The counted day while the question waits, said conditionally (walkthrough
+ * run 38593464953, SW: the counted urgent warning waited behind the question).
+ * The full box's own counted statement and passed line, after "If it was,":
+ * nothing is applied, and the bar and the exceptions still wait for Yes or
+ * Not sure (CLAUDE.md s. 4). Null with no counted day. Exported for
+ * test:municipal-notice-first.
+ */
+export function conditionalCountedLine(notice: Pick<Notice, "counted" | "injury">): string | null {
+  if (!notice.counted || !notice.injury) return null;
+  // Lower-case only a plain opening word ("The last day ..."), never a day or a name.
+  const statement = /^(?:The|This|That|It|Act|Your)\b/.test(notice.counted.statement) ? notice.counted.statement.replace(/^./, (c) => c.toLowerCase()) : notice.counted.statement;
+  return `If it was, ${statement}${notice.counted.passedLine ? ` ${notice.counted.passedLine}` : ""} Counted from ${injuryDateWords(notice.injury)}.`;
+}
+
+export default function MunicipalNoticeFirst({ story, city = "", elsewhere = [] }: { story: string; city?: string; elsewhere?: GivenElsewhere[] }) {
+  // Where else the person gave dates (the timeline, guided answers), so a year
+  // given there is used rather than called missing (walkthrough run 38593464953, SW).
+  const elsewhereKey = JSON.stringify(elsewhere);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const notice = useMemo(() => municipalNoticeFirst(story, { city, elsewhere }), [story, city, elsewhereKey]);
   const key = noticeAnswerKey(story);
   const [answer, setAnswerState] = useState<NoticeAnswer>(null);
   // Going back to the story must not ask again (walkthrough noRepeat): the
@@ -105,6 +126,12 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
           or sent by registered mail to, the municipality's clerk within 10 days of the injury, with some exceptions. So this comes before anything else.
           <Rule rule={notice.rule} />
         </p>
+        {conditionalCountedLine(notice) ? (
+          <p data-testid="municipal-notice-conditional-date" className="mt-1 font-semibold">
+            {conditionalCountedLine(notice)}
+            {notice.counted?.cite ? <Rule rule={notice.counted.cite} /> : null}
+          </p>
+        ) : null}
         <div className="mt-2 flex flex-wrap gap-2">
           <button type="button" data-testid="municipal-notice-yes" className="rounded-lg border px-3 py-1 font-semibold" onClick={() => setAnswer("yes")}>
             Yes

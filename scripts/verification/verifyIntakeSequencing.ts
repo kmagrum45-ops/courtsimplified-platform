@@ -21,6 +21,10 @@
  * opening question says why it is asked, in words that state no law unless
  * sourced.
  *
+ * AND ENFORCEMENT LEADS WITH THE JUDGMENT (walkthrough run 38593464953, SJ):
+ * the form intake for someone enforcing a judgment led with "kind of claim
+ * not clear yet" and kept the claim-building fields in front.
+ *
  * Run: node --import tsx scripts/verification/verifyIntakeSequencing.ts
  */
 
@@ -30,6 +34,9 @@ import { pathToFileURL } from "node:url";
 
 import { unansweredQuestionStart } from "../../app/builder/_components/heldQuestion";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
+import { CLAIM_FIELDS_FOLDED_SUMMARY, ENFORCEMENT_DIRECTION, enforcementMissing, judgmentUnpaidFromStory } from "../../app/builder/_components/enforcementIntake";
+
+const ROOT = path.join(__dirname, "..", "..");
 
 let failures = 0;
 
@@ -80,6 +87,43 @@ function offsetInRender(needle: string): number {
  *   - every opening (orientation) question in the bank carries a reason, and
  *     a plain reason (`whyAsked`, which needs no source) states no law.
  */
+/*
+ * ENFORCEMENT LEADS WITH THE JUDGMENT (walkthrough run 38593464953, SJ). Once
+ * the form intake knows the person is enforcing a judgment, it led with
+ * "enforcement · kind of claim not clear yet" and kept the claim-building
+ * fields. Now the heading is the judgment, the claim-building fields are
+ * folded, and nothing still-to-add asks for evidence or the claim's arithmetic.
+ */
+function checkEnforcementIntake(): void {
+  const form = readFileSync(path.join(ROOT, "app/builder/_components/SmallClaimsIntake.tsx"), "utf8");
+  const sj = "i won my small claims case against my old roommate in may, the judge said he owes me 6500 plus costs. its been months and he hasnt paid anything. he works at a car dealership in kanata i think";
+  check("SJ: the story is a judgment won and not paid", judgmentUnpaidFromStory(sj));
+  const notEnforcement = [
+    "the judge ordered me to pay him 2000 and i havent paid yet",
+    "a contractor did my bathroom reno and now hes suing me in small claims for 7500 he says i owe. so i stopped paying",
+    "my tenant hasnt paid rent for three months",
+    "i won the lottery",
+  ].filter(judgmentUnpaidFromStory);
+  check("never for the other side's win, an unpaid debt with no judgment, or a win with nothing unpaid", notEnforcement.length === 0, notEnforcement.join(" | "));
+  const asked = enforcementMissing({ yourName: "", otherParty: "", defendantAddress: "", timeline: "" }).join(" ");
+  check("still to add, when enforcing: never evidence for the claim or how the amount was calculated", !/evidence|calculated|amount claimed/i.test(asked) && /date of the judgment/.test(asked), asked);
+  const direction = form.slice(form.indexOf("function buildCaseDirection"), form.indexOf("\n}\n", form.indexOf("function buildCaseDirection")));
+  check(
+    "the heading for an enforcement stage is the judgment, returned before any claim-type text",
+    /stage === "enforcement"\) return ENFORCEMENT_DIRECTION;/.test(direction) && direction.indexOf("return ENFORCEMENT_DIRECTION") < direction.indexOf(": \"kind of claim not clear yet\"") && /judgment/i.test(ENFORCEMENT_DIRECTION),
+  );
+  // Every claim-building field sits inside the fold.
+  const open = form.indexOf("<ClaimFieldsFold enforcing={enforcing}>");
+  const close = form.indexOf("</ClaimFieldsFold>");
+  const outside = ["sc-intake-evidence\"", "sc-intake-missingEvidence\"", "sc-intake-goal\"", "sc-intake-amountClaimed\"", "sc-intake-damagesBreakdown\""].filter((id) => {
+    const at = form.indexOf(`data-testid="${id}`);
+    return !(at > open && at < close);
+  });
+  check("every claim-building field is inside the fold", open > -1 && close > open && outside.length === 0, outside.join(", "));
+  check("the fold is a <details> named as optional, and only when enforcing", /if \(!enforcing\) return <>\{children\}<\/>;/.test(form) && /<details data-testid="sc-intake-claim-fields-folded"/.test(form) && /optional/i.test(CLAIM_FIELDS_FOLDED_SUMMARY));
+  check("the missing prompt and the heading both read the stage through inferStage", /inferStage\(input\) === "enforcement"\) \{\s*const still = enforcementMissing\(input\)/.test(form) && /judgmentUnpaidFromStory\(text\)\) return "enforcement"/.test(form));
+}
+
 function checkOneQuestionAtATime(): void {
   const intro = "INTRO";
   const story = { from: "user" as const, text: "my story" };
@@ -230,6 +274,7 @@ function main(): void {
   }
 
   checkOneQuestionAtATime();
+  checkEnforcementIntake();
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;

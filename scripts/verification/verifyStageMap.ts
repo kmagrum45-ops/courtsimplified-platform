@@ -22,6 +22,10 @@
  *      brief names, the three pre-suit notice deadlines, and the two special
  *      stages.
  *
+ *   Also (walkthrough run 38593464953, SW): a deadline that says "liable only
+ *   for gross negligence" without the subsection that says it beside it
+ *   (Municipal Act s. 44 (9); City of Toronto Act s. 42 (5) for the City).
+ *
  * *** THESE ARE PROPERTIES, NOT TODAY'S VALUES ***
  *
  * Per CLAUDE.md: a check must fail on a regression, never on the work we want
@@ -366,6 +370,32 @@ if (questions.length === 0) {
 }
 
 // ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// A gross-negligence statement carries the subsection that makes it
+// (walkthrough run 38593464953, SW: "There, the municipality is liable only
+// for gross negligence." showed no source). Property over every deadline:
+// text that says it carries, among its rule and exceptions, a citation whose
+// quote says "gross negligence" -- from the City of Toronto Act when the text
+// is about the City of Toronto, else from the Municipal Act.
+{
+  let grossChecked = 0;
+  for (const stage of ALL_STAGES) {
+    for (const deadline of stage.deadlines) {
+      const text = `${deadline.what} ${deadline.qualifier ?? ""}`;
+      if (!/liable only for gross negligence/.test(text)) continue;
+      grossChecked += 1;
+      const cited = [deadline.rule, ...(deadline.exceptions ?? [])].filter((rule): rule is RuleCitation => Boolean(rule) && /gross negligence/.test(rule!.quote));
+      // Judged by the sentence itself: "the City is liable only ..." is Toronto's.
+      const toronto = text.split(/(?<=\.)\s+/).some((sentence) => /liable only for gross negligence/.test(sentence) && /\bthe City\b/.test(sentence));
+      const wanted = toronto ? { sourceId: "city-of-toronto-act-2006", pinpoint: "s. 42 (5)" } : { sourceId: "municipal-act-2001", pinpoint: "s. 44 (9)" };
+      if (!cited.some((rule) => rule.sourceId === wanted.sourceId && rule.pinpoint === wanted.pinpoint)) {
+        fail(`${stage.id} ${deadline.id}: says "liable only for gross negligence" without ${wanted.sourceId} ${wanted.pinpoint} beside it`);
+      }
+    }
+  }
+  if (grossChecked === 0) fail("no deadline says 'liable only for gross negligence': the gross-negligence check found nothing to check");
+}
 
 console.log("");
 console.log("STAGE MAP");

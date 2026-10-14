@@ -34,6 +34,11 @@
  *     "TD") or street names ("Kingston Road") taken for Toronto; two named
  *     places not giving "unknown" with both Acts kept; added Act passages
  *     pushing a research passage out; the judge line under the death rule.
+ *   - (walkthrough run 38593464953, SW) "you did not give the year" when the
+ *     person gave the same day with its year elsewhere (the timeline); the
+ *     counted warning held back behind the question instead of shown there
+ *     conditionally ("If it was, ..."), or the unanswered box drawing the bar
+ *     or the exceptions.
  *
  * COSTS NOTHING: no model call. Real passages are read from the built index.
  *
@@ -50,7 +55,8 @@ import { fitPassagesToStory, isMunicipalAct44, isTorontoAct, isVariationProvisio
 import { MAX_PASSAGE_IDS, answeringPassages, questionsFromPassages, storyRejection } from "../../src/lib/case-system/retrieval/sourcedQuestions";
 import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
-import { MUNICIPAL_DEADLINE_ID, NOTICE_STEP_ID, TORONTO_DEADLINE_ID, municipalNoticeFirst, turnsOnJudge } from "../../src/lib/content-library/municipalNoticeFirst";
+import { MUNICIPAL_DEADLINE_ID, NOTICE_STEP_ID, TORONTO_DEADLINE_ID, injuryDateWords, municipalNoticeFirst, turnsOnJudge, yearGivenElsewhere } from "../../src/lib/content-library/municipalNoticeFirst";
+import { formatLongDate as formatLongDateFor } from "../../src/lib/case-system/deadlines/holidays";
 import { deadlineStandingFor, municipalPlaceOf, municipalWayInjury, nextWeekdayOpen } from "../../src/lib/content-library/nextStepPractical";
 import type { RuleCitation } from "../../src/lib/case-system/stage-map/citations";
 
@@ -243,6 +249,33 @@ const unknownLine = municipalNoticeFirst(UNKNOWN, { now });
 check("unknown place: the Municipal Act line, with the City of Toronto Act's same notice beside it", unknownLine?.rule.sourceId === "municipal-act-2001" && unknownLine.alsoToronto?.rule.pinpoint === "s. 42 (6)");
 check("no line for a story that is not an injury on a municipal way", municipalNoticeFirst(NOT_MUNICIPAL, { now }) === null && municipalNoticeFirst(PARENTING_NO_ORDER, { now }) === null);
 check("no line for a person hit by a vehicle on a road (Insurance Act notice, not this)", municipalNoticeFirst("I was hit by a car while crossing the road in Toronto on October 1 2026 and broke my leg", { now }) === null);
+// Walkthrough run 38593464953, SW: the story said "september 30", the
+// timeline "september 30 2026 fell, october 1 surgery", and the line still
+// said "you did not give the year". A year the person gave anywhere is used.
+{
+  const elsewhere = [{ label: "your timeline", text: "september 30 2025 fell, october 1 surgery" }];
+  const withTimeline = municipalNoticeFirst(TORONTO, { now, city: "Toronto", elsewhere });
+  check(
+    "a year given in the timeline is used, and named as its source, never called missing",
+    withTimeline?.injury?.date === "2025-09-30" && withTimeline.injury.yearAssumed === false && withTimeline.injury.yearFrom === "your timeline" &&
+      /the year is from your timeline/.test(injuryDateWords(withTimeline.injury)) && !/did not give the year/.test(injuryDateWords(withTimeline.injury)),
+    JSON.stringify(withTimeline?.injury),
+  );
+  check("the counted day follows the year given (2025-09-30 gives 2025-10-10)", withTimeline?.counted?.date === "2025-10-10", withTimeline?.counted?.date);
+  check("ISO, day-first and 'Sept.' forms count; a different day does not", (
+    yearGivenElsewhere("2026-09-30", [{ label: "a", text: "2025-09-30" }])?.date === "2025-09-30" &&
+    yearGivenElsewhere("2026-09-30", [{ label: "a", text: "fell 30 September 2025" }])?.date === "2025-09-30" &&
+    yearGivenElsewhere("2026-09-30", [{ label: "a", text: "Sept. 30, 2025: fell" }])?.date === "2025-09-30" &&
+    yearGivenElsewhere("2026-09-30", [{ label: "a", text: "october 1 2025 surgery" }]) === null
+  ));
+  check("one place giving the same day in two years gives none (nothing guessed); the first place that settles it wins", (
+    yearGivenElsewhere("2026-09-30", [{ label: "a", text: "september 30 2025 and september 30 2024" }]) === null &&
+    yearGivenElsewhere("2026-09-30", [{ label: "a", text: "nothing" }, { label: "b", text: "september 30 2025" }])?.label === "b"
+  ));
+  check("with nothing elsewhere the year is still said to be assumed", municipalNoticeFirst(TORONTO, { now, city: "Toronto" })?.injury?.yearAssumed === true);
+  const intake = readFileSync(path.join(process.cwd(), "app/builder/_components/CivilIntake.tsx"), "utf8");
+  check("the civil intake hands the box its timeline", /<MunicipalNoticeFirst story=\{input\.facts\} city=\{input\.city\} elsewhere=\{\[\{ label: "your timeline", text: input\.timeline \}\]\} \/>/.test(intake));
+}
 check("no injury date: the line still shows, with no counted day", (() => {
   const noDate = municipalNoticeFirst("I slipped on ice on a city sidewalk in Toronto and broke my wrist.", { now });
   return Boolean(noDate) && noDate!.counted === null && noDate!.injury === null;
@@ -482,17 +515,40 @@ console.log("\n10. The right Act is added on top; research passages are never pu
 
 // ---------------------------------------------------------------- 11. asked first (s. 4)
 
-console.log("\n11. The box asks first; the date and the bar show only after Yes or Not sure");
+console.log("\n11. The box asks first, with the counted date said conditionally; the bar and the exceptions show only after Yes or Not sure");
 {
   const box = readFileSync(path.join(process.cwd(), "app/builder/_components/MunicipalNoticeFirst.tsx"), "utf8");
   const { showsFullNotice } = await import("../../app/builder/_components/MunicipalNoticeFirst");
   check("only Yes and Not sure show the full notice", showsFullNotice("yes") && showsFullNotice("not-sure") && !showsFullNotice("no") && !showsFullNotice(null));
   const asking = box.slice(box.indexOf("if (!showsFullNotice(answer))"), box.indexOf("  return (\n    <section", box.indexOf("if (!showsFullNotice(answer))") + 1));
+  // Walkthrough run 38593464953, SW: the counted warning waited behind the
+  // question. Before an answer the box now draws ONE counted line, the full
+  // box's own statement and passed line, said conditionally ("If it was, ...");
+  // never the bar warning, the exceptions or the judge line.
+  const withoutConditional = asking.replace(/\{conditionalCountedLine\(notice\) \? \([\s\S]*?\) : null\}/, "");
   check(
-    "before an answer, and after No, nothing counted, no bar and no exceptions are drawn",
-    asking.length > 0 && !/notice\.(?:counted|notABar|injury|ruleSay|judgeDecides)/.test(asking),
+    "before an answer, and after No, only the conditional counted line is drawn: no bar, no exceptions, no judge line",
+    asking.length > 0 &&
+      /conditionalCountedLine\(notice\)/.test(asking) &&
+      !/notice\.(?:counted|notABar|injury|ruleSay|judgeDecides)/.test(withoutConditional) &&
+      !/barWarning|notABar|judgeDecides/.test(asking),
     asking.slice(0, 200),
   );
+  const { conditionalCountedLine } = await import("../../app/builder/_components/MunicipalNoticeFirst");
+  const swNotice = municipalNoticeFirst(TORONTO, { now: new Date("2026-10-14T16:00:00Z"), city: "Toronto" });
+  const conditional = swNotice ? conditionalCountedLine(swNotice) : null;
+  check(
+    "SW: the conditional line starts 'If it was,', carries the full box's statement and passed line word for word, and its injury date",
+    Boolean(swNotice?.counted) &&
+      /^If it was, /.test(conditional ?? "") &&
+      (conditional ?? "").toLowerCase().includes(swNotice!.counted!.statement.toLowerCase()) &&
+      (!swNotice!.counted!.passedLine || (conditional ?? "").includes(swNotice!.counted!.passedLine)) &&
+      /Saturday 10 October 2026/.test(conditional ?? "") &&
+      (conditional ?? "").includes(swNotice!.injury ? formatLongDateFor(swNotice!.injury.date) : "--"),
+    conditional ?? "",
+  );
+  check("no counted day, no conditional line", conditionalCountedLine({ counted: null, injury: null }) === null);
+  check("the conditional line is never a bar warning or a grading line", !/\bbar\b|strong|weak|likely|chance/i.test(conditional ?? ""));
   check("the question says 'Is that right?' and gives its reason", /Is that right\?/.test(asking) && /Why we ask/.test(asking));
   check("the reason's legal sentence carries its rule", /Why we ask[\s\S]*?<Rule rule=\{notice\.rule\} \/>/.test(asking));
   check("the unanswered box is never drawn in the 'passed' alarm style", !/passed \?/.test(asking));

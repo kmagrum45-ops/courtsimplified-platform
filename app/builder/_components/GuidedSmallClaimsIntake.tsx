@@ -1445,7 +1445,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       {!halted && heldPayload ? (
         <div className="mt-4">
           {/* The 10-day notice to a municipality comes before any question (round 4 review, 2026-10-14). */}
-          <MunicipalNoticeFirst story={storyRef.current} city={location?.city ?? ""} />
+          <MunicipalNoticeFirst
+            story={storyRef.current}
+            city={location?.city ?? ""}
+            elsewhere={[{ label: "your answers", text: Object.values(facts).filter((value): value is string => typeof value === "string").join("\n") }]}
+          />
           <SourcedQuestionsCard
             state={sourced.state}
             questions={sourced.questions}

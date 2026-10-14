@@ -1955,3 +1955,34 @@ Established while fixing the card's time limits, fees, filing and service:
   law (`historical/`) the same way. `scripts/content/buildSourceDisplay.ts` builds the
   table; **re-run it after `rules:fetch` or any new decision**, or test:published-library
   fails on the stale table.
+
+## Round-5 fixes, Small Claims and civil (2026-10-14, walkthrough run 38593464953)
+
+- **A claim that "came in the mail" is never counted under r. 8.07 (2).** r. 8.01 (1):
+  a plaintiff's claim is served personally or by an alternative under r. 8.03; r. 8.07
+  applies only "If a document is to be served by mail under these rules", and
+  **r. 8.07 (3): "This rule does not apply when a claim is served by registered mail
+  under subrule 8.03 (7)."** The ways a claim reaches an individual's home by post are
+  r. 8.03 (7)/(8) (registered mail or courier, effective on the date receipt is verified
+  by signature) and r. 8.03 (2)/(4) (a copy left with an adult, another mailed or
+  couriered the same or next day; effective on the fifth day after mailing). r. 8.03 (4)
+  covers both (2) and (3) (the company route). So "count from the day it was left" is in
+  no rule's words; the arrival note now gives each way's own day, and the date counted
+  from arrival is no later than the real last day exactly when the rule's starting day
+  is on or after (arrival minus the rule's days) -- test:service-dates checks that
+  arithmetic over every way and a year of arrival days.
+- **The enforcement office, its fee and its deposit are in no Small Claims rule.**
+  r. 20.06 (1) and 20.07 (1) only say the clerk issues the writ "to a bailiff" / "to the
+  sheriff specified by the creditor", on an affidavit for enforcement request (Form 20P).
+  Filing the issued writ in the enforcement office, and paying an enforcement fee and a
+  deposit there, are said by the court's guide (`guide-after-judgment`, under "How a
+  creditor begins the writ of seizure and sale of personal property process"), which is
+  quoted as the guide beside that sentence (sentenceRules.ts).
+- **Form 20P / 20A, which rule:** 20P -- r. 20.10 (2) (a) (examination), r. 20.08 (3) (a)
+  (garnishment), r. 20.06 (1) and 20.07 (1) (each writ), r. 20.04 (1) (certificate);
+  20A -- r. 20.08 (3) (b) ("if the order was made in another territorial division") and
+  r. 20.10 (2) (b) (same words, "jurisdiction"), filed where the debtor "resides or
+  carries on business" (r. 20.08 (3), 20.10 (1)).
+- **Gross negligence on a sidewalk:** Municipal Act s. 44 (9); City of Toronto Act
+  s. 42 (5) (same words, "the City"). Both are the stage map's own citations
+  (S_MUNICIPAL_44_9_SIDEWALK, S_TORONTO_42_5_SIDEWALK) and sentenceRules.ts reuses them.

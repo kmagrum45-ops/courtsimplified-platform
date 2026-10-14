@@ -14,6 +14,8 @@ import {
   originatingRuleFor,
   isOriginatingService,
   postWaysForClaim,
+  waysTheyDescribed,
+  arrivalCountFor,
   partyServedFrom,
   whenEffectiveSay,
   MOTION_TO_CHANGE_SERVICE_QUESTION,
@@ -215,7 +217,7 @@ function SentenceRulesBox({ entries }: { entries: NonNullable<RenderedAnswer["se
           <li key={entry.sentence}>
             {entry.sentence}
             {entry.rules.map((rule) => (
-              <QuotedRule key={rule.pinpoint} rule={rule} />
+              <QuotedRule key={`${rule.sourceId}-${rule.pinpoint}-${rule.quote.slice(0, 40)}`} rule={rule} />
             ))}
           </li>
         ))}
@@ -303,8 +305,13 @@ export type ArrivalNote = {
   latest: ArrivalDate[];
   /** "claim": the rule on how a claim or application is served, quoted. */
   claimRule: { rule: string; quote: string; say: string } | null;
-  /** "claim": the ways the rules allow that come by post, each with its effective day. */
-  postWays: { label: string; effective: string | null; rule: string; quote: string }[];
+  /**
+   * "claim": the ways the rules allow that come by post, each with its
+   * effective day -- only the way the person chose or their words name, else
+   * every one (waysTheyDescribed). `countSay`: what the date counted from the
+   * arrival day means under that way, in the rule's own terms, or null.
+   */
+  postWays: { label: string; effective: string | null; rule: string; quote: string; countSay: string | null }[];
   /** "claim": each last day counted from the day the person gave. */
   safest: ArrivalDate[];
   /** "claim": the person's words say that day is the first copy reaching the home (signed for, left there, or first), so it may be called the safest date. */
@@ -645,14 +652,32 @@ function NextStepCard({
                   {arrival.claimRule.rule}: “{arrival.claimRule.quote}”
                 </span>
               </p>
+              {arrival.safest.length > 0 ? (
+                <p data-testid="next-step-arrival-safest" className="mt-1 font-semibold">
+                  {arrival.firstCopy
+                    ? "The safest date to act by, counted from the first day a copy reached your home: "
+                    : "The date to act by, counted from the day the papers reached you: "}
+                  {arrival.safest.map((entry) => `${entry.what}: ${entry.date}${entry.passed ? ". That date has already passed" : ""}`).join("; ")}
+                  {arrival.yearAssumed ? yearAssumedWords(arrival.arrivedOn) : ""}.
+                </p>
+              ) : null}
               {arrival.postWays.length > 0 ? (
+                // Each way with its own rule and its own counting sentence, never a
+                // "count from" sentence in no rule's words (walkthrough run
+                // 38593464953, SD: "count from the day it was left" sat beside
+                // r. 8.03 (4), which counts from the fifth day after mailing).
                 <div className="mt-1">
-                  <p>The ways the rules allow that come by post, and when each takes effect:</p>
+                  <p>
+                    {arrival.postWays.length === 1
+                      ? "The way you described, and when it takes effect:"
+                      : "Whether that is your last day depends on how they came. The ways the rules allow that come by post, and when each takes effect:"}
+                  </p>
                   <ul data-testid="next-step-arrival-ways" className="mt-1 list-disc space-y-1 pl-5">
                     {arrival.postWays.map((way) => (
-                      <li key={way.rule}>
+                      <li key={`${way.rule}-${way.label}`}>
                         {way.label}
                         {way.effective ? `: ${way.effective}.` : "."}
+                        {arrival.safest.length > 0 && way.countSay ? <span data-testid="next-step-arrival-count"> {way.countSay}</span> : null}
                         <span className="block text-xs">
                           {way.rule}: “{way.quote}”
                         </span>
@@ -661,22 +686,8 @@ function NextStepCard({
                   </ul>
                 </div>
               ) : null}
-              {arrival.safest.length > 0 ? (
-                <p data-testid="next-step-arrival-safest" className="mt-1">
-                  <span className="font-semibold">
-                    {arrival.firstCopy
-                      ? "The safest date to act by, counted from the first day a copy reached your home: "
-                      : "Counted from the day you gave: "}
-                    {arrival.safest.map((entry) => `${entry.what}: ${entry.date}${entry.passed ? ". That date has already passed" : ""}`).join("; ")}
-                    {arrival.yearAssumed ? yearAssumedWords(arrival.arrivedOn) : ""}.
-                  </span>{" "}
-                  {arrival.company
-                    ? "Count from the first day a copy reached your address: signed for there, left with someone there, or arrived in the mail. If a copy was left at your address earlier than the one you got in the mail, count from the day it was left. If it was mailed to the company, service is effective on the fifth day after mailing, which can be before it arrived. The mailing date is on the affidavit of service."
-                    : "Count from the first day a copy reached your home: signed for there, left with someone there, or arrived in the mail. If a copy was left at your home earlier than the one you got in the mail, count from the day it was left."}
-                </p>
-              ) : null}
               <p className="mt-1">
-                How and when the papers were served is on the other side&apos;s affidavit of service. The court office can also tell you.
+                How and when the papers were served, and the date they were mailed, are on the other side&apos;s affidavit of service. The court office can also tell you.
               </p>
             </>
           ) : (
@@ -1146,7 +1157,15 @@ export function arrivalNoteFor(
     effectiveSay: rule ? whenEffectiveSay(rule) : `service is effective on a day set from ${dateToEnter}`,
     latest: !claim && bound && arrivedOn ? latestFromArrival(bound.stageId, question.id, court, method, arrivedOn, today, bound.responding) : [],
     claimRule: claim ? originatingRuleFor(court, question.id) : null,
-    postWays: claim ? postWaysForClaim(court, servedOn) : [],
+    postWays: claim
+      ? waysTheyDescribed(postWaysForClaim(court, servedOn), arrival[question.id], method).map((way) => ({
+          label: way.label,
+          effective: way.effective,
+          rule: way.rule,
+          quote: way.quote,
+          countSay: arrivalCountSay(court, way.method, arrivedOn),
+        }))
+      : [],
     // Counted from the day they gave, never called the last day; called the
     // safest date only when their words say it is the FIRST copy to reach
     // the home (legal review 2026-10-14: the day the mailed copy arrived can
@@ -1155,6 +1174,21 @@ export function arrivalNoteFor(
     firstCopy: claim && firstCopyQuote(arrival[question.id]) && !company,
     company,
   };
+}
+
+/**
+ * What the date counted from the arrival day means under one way of serving
+ * (walkthrough run 38593464953, SD): the rule's own starting day, and the
+ * earliest it can be for that date to be no later than the real last day.
+ * Each such sentence sits under its way, with that way's rule quoted beside
+ * it. Exported for test:service-dates.
+ */
+export function arrivalCountSay(court: ServiceCourt, method: ServiceMethod | undefined, arrivedOn: string): string | null {
+  const count = arrivalCountFor(court, method, arrivedOn);
+  if (!count) return null;
+  // Signed for at the door: the signature day is the day the papers reached them.
+  if (method === "registered-mail-signature") return `If ${count.startDay} was the day the papers reached you, the date above is your last day.`;
+  return `If ${count.startDay} was on or after ${formatLongDate(count.notBefore)}, the date above is no later than your last day. If it was earlier, your last day may be earlier.`;
 }
 
 /**

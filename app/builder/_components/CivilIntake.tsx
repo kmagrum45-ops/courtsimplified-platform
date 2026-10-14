@@ -1245,7 +1245,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         </div>
 
         {/* The 10-day notice to a municipality comes before any question (round 4 review, 2026-10-14). */}
-        <MunicipalNoticeFirst story={input.facts} city={input.city} />
+        <MunicipalNoticeFirst story={input.facts} city={input.city} elsewhere={[{ label: "your timeline", text: input.timeline }]} />
 
         <SourcedQuestionsCard
           state={sourced.state}

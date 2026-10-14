@@ -26,6 +26,10 @@
  *    carries that date and every proving source is listed; a rule shown
  *    beside a sentence (sentenceRules.ts) is still beside a published
  *    sentence, quoted from the saved text, with the sentence's numbers.
+ *    (walkthrough run 38593464953) A form number counts whole ("20P"); the
+ *    SJ next-step sentences naming a form, the affidavit, the certificate or
+ *    a writ each show a source; the SW gross-negligence sentences show
+ *    Municipal Act s. 44 (9) / City of Toronto Act s. 42 (5).
  */
 
 import { readFileSync, readdirSync, existsSync } from "node:fs";
@@ -291,11 +295,36 @@ if (offenders === 0) {
       for (const run of rule.quote.split(" ... ")) if (!corpusText(rule.sourceId).includes(run.replace(/\s+/g, " "))) wrong.push(`${rule.pinpoint}: quote not in the saved text`);
     }
     const quotes = entry.rules.map((rule) => rule.quote).join(" ");
-    for (const number of entry.sentence.match(/\d+/g) ?? []) {
-      if (!new RegExp(`\\b(?:${number}|${WORDS[number] ?? number})\\b`, "i").test(quotes)) wrong.push(`${entry.sentence}: ${number} is in no quote beside it`);
+    // A form number counts whole: "20P" must be "20P" in a quote (walkthrough run 38593464953, SJ).
+    for (const number of entry.sentence.match(/\d+[A-Z]?\b/g) ?? []) {
+      if (!new RegExp(`\\b(?:${number}|${WORDS[number] ?? number})\\b`, /[A-Z]$/.test(number) ? "" : "i").test(quotes)) wrong.push(`${entry.sentence}: ${number} is in no quote beside it`);
     }
   }
   check("each rule shown beside a sentence: sentence still published, quote in the saved text, its numbers in the quote", wrong.length === 0, wrong.join("; "));
+
+  // SJ (walkthrough run 38593464953): every sentence of the next-step paragraph
+  // that names a form, the affidavit, the certificate or the writ filing has a
+  // source beside it. Asserted over the paragraph itself, so a new sentence of
+  // that kind fails until it has one.
+  {
+    const lead = (PUBLISHED_BLOCKS as unknown as { stageId: string; whatToDoNext?: string }[]).find((block) => block.stageId === "plaintiff:judgment-in-my-favour-unpaid")?.whatToDoNext ?? "";
+    const named = lead.split(/(?<=\.)\s+/).filter((sentence) => /\[Form \d+[A-Z]?|Affidavit|Certificate|writ/i.test(sentence));
+    const bare = named.filter((sentence) => !ruleLines.some((entry) => entry.sentence === sentence && entry.rules.length > 0));
+    check("SJ: each next-step sentence naming a form, the affidavit, the certificate or a writ shows its source, with a date", named.length >= 4 && bare.length === 0 && ruleLines.every((entry) => entry.rules.every((rule) => /^\d{4}-\d{2}-\d{2}$/.test(rule.checkedOn))), bare.join(" | "));
+  }
+  // SW (walkthrough run 38593464953): the gross-negligence sentence shows the Act's own subsection.
+  {
+    const notice = (PUBLISHED_BLOCKS as unknown as Record<string, unknown>[]).find((block) => JSON.stringify(block).includes("There, the municipality is liable only for gross negligence."));
+    const stageId = String(notice?.stageId ?? "");
+    const shown = notice ? renderStageAnswer(stageId, {}, {}, { primaryPath: ALL_STAGES.find((stage) => stage.id === stageId)?.pathway ?? "small-claims", confidence: 1 })?.sentenceRules ?? [] : [];
+    const gross = shown.filter((entry) => /liable only for gross negligence/.test(entry.sentence));
+    check(
+      "SW: each 'liable only for gross negligence' sentence shows Municipal Act s. 44 (9) or City of Toronto Act s. 42 (5), quoted, with a date",
+      gross.length >= 2 &&
+        gross.every((entry) => entry.rules.length > 0 && entry.rules.every((rule) => /^s\. (?:44 \(9\)|42 \(5\))$/.test(rule.pinpoint) && /gross negligence/.test(rule.quote) && /^\d{4}-\d{2}-\d{2}$/.test(rule.checkedOn))),
+      gross.map((entry) => `${entry.sentence} -> ${entry.rules.map((rule) => rule.pinpoint).join(", ")}`).join(" | "),
+    );
+  }
 }
 
 // ---------------------------------------------------------------------------

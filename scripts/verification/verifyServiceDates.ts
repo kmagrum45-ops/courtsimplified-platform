@@ -34,6 +34,12 @@
  * positive evidence of an individual hides it; on the plaintiff side the other
  * party's name is judged), or a panel lookup using a different list; a date with no year
  * explained as "its most recent year" instead of the day counted.
+ * (walkthrough run 38593464953, SD) a "count from" sentence on the arrival
+ * note in no rule's words and with no source ("count from the day it was
+ * left", beside r. 8.03 (4)); a way of serving shown that the person's
+ * choice or words rule out; a way's counting sentence that is not exact (the
+ * earliest starting day for which the date counted from arrival is no later
+ * than the real last day).
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -45,6 +51,7 @@ import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import {
+  arrivalCountSay,
   arrivalNoteFor,
   arrivalOnlyDates,
   countedFromService,
@@ -77,8 +84,11 @@ import {
   originatingRuleFor,
   COMPANY_ROUTE,
   postWaysForClaim,
+  waysTheyDescribed,
+  arrivalCountFor,
   serviceRulesFor,
   SERVICE_RULES,
+  type ServiceMethod,
   effectiveServiceDate,
   whenEffectiveSay,
   serviceMethodFromStory,
@@ -303,8 +313,55 @@ console.log("\nA claim or application is not served by regular mail (legal revie
   // took effect on a copy left or signed for earlier. "Safest" only when the
   // words say it is the first copy to reach the home; the rule for counting
   // from the first copy is always said.
-  check("the card says to count from the first copy reaching the home, and from a copy left earlier", /Count from the first day a copy reached your home: signed for there, left with someone there, or arrived in the\s+mail\. If a copy was left at your home earlier than the one you got in the mail, count from the day it was left\./.test(panel) && /affidavit of service\. The court office can also tell you/.test(panel));
-  check("'safest' only when the words say first copy; otherwise 'counted from the day you gave'", /arrival\.firstCopy\s*\?\s*"The safest date to act by, counted from the first day a copy reached your home: "\s*:\s*"Counted from the day you gave: "/.test(panel));
+  // Walkthrough run 38593464953, SD: "count from the day it was left" was in no
+  // rule's words, had no source, and sat beside r. 8.03 (4), which counts that
+  // route from the fifth day after mailing. Every counting sentence on the
+  // arrival note now sits under its own way, with that way's rule quoted.
+  {
+    const arrivalBlock = panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "");
+    const looseCounts = (arrivalBlock.match(/"[^"\n]*\b[Cc]ount (?:from|it from)\b[^"\n]*"/g) ?? []);
+    check("the arrival note has no 'count from' sentence of its own: each counting sentence is a way's countSay, under that way's rule", looseCounts.length === 0 && /way\.countSay/.test(arrivalBlock) && /\{way\.rule\}: “\{way\.quote\}”/.test(arrivalBlock), looseCounts.join(" | "));
+    check("the affidavit of service is named as where the mailing date is", /the date they were mailed, are on the other side&apos;s affidavit of service\. The court office can also tell you/.test(panel));
+  }
+  check("'safest' only when the words say first copy; otherwise the date to act by, counted from the day the papers reached them", /arrival\.firstCopy\s*\?\s*"The safest date to act by, counted from the first day a copy reached your home: "\s*:\s*"The date to act by, counted from the day the papers reached you: "/.test(panel));
+  {
+    // Property, over every court, way and arrival day in a year: the
+    // countSay's earliest starting day is exactly the one for which counting
+    // from arrival is never later than counting from the real effective day.
+    const misses: string[] = [];
+    for (const court of Object.keys(ORIGINATING_QUESTIONS) as ServiceCourt[]) {
+      for (const way of postWaysForClaim(court)) {
+        if (!way.method) continue;
+        const rule = SERVICE_RULES[court].find((item) => item.method === way.method)!;
+        for (let offset = 0; offset < 366; offset += 5) {
+          const arrived = addDaysIso("2026-01-01", offset);
+          const count = arrivalCountFor(court, way.method, arrived);
+          if (!count) { misses.push(`${court} ${way.method}: no count`); continue; }
+          for (let back = -3; back <= 9; back += 1) {
+            const start = addDaysIso(arrived, -back);
+            const real = effectiveServiceDate(court, way.method, start).date;
+            const startOk = start >= count.notBefore;
+            // From arrival is no later than real exactly when the real effective day is on or after arrival.
+            if (startOk && real < arrived) misses.push(`${court} ${way.method} arrived ${arrived} start ${start}: real ${real} before arrival`);
+            // Before that day, the rule's own day (before any closed-day move) comes before arrival: "may be earlier".
+            if (!startOk && addDaysIso(start, rule.addDays) >= arrived) misses.push(`${court} ${way.method} arrived ${arrived} start ${start}: the rule's day is not before arrival`);
+          }
+        }
+      }
+    }
+    check("each way's counting sentence is exact: on or after its day the arrival count is safe, before it the real count is earlier", misses.length === 0, misses.slice(0, 4).join("; "));
+    const sentences = (Object.keys(ORIGINATING_QUESTIONS) as ServiceCourt[]).flatMap((court) => postWaysForClaim(court).map((way) => arrivalCountSay(court, way.method, "2026-09-28")).filter((say): say is string => Boolean(say)));
+    check("no counting sentence says service or the rules 'count from' a day", sentences.length > 0 && sentences.every((say) => !/count(?:s)? from/i.test(say)), sentences.join(" | "));
+  }
+  {
+    // Only the way the person described: a chosen way, or the one their words name; else every way by post.
+    const ways = postWaysForClaim("small-claims", { company: false });
+    const methods = (words: string, chosen?: ServiceMethod) => waysTheyDescribed(ways, words, chosen).map((way) => way.method).join(",");
+    check("'my wife signed for it' shows only the signed-for way", methods("my wife signed for it on september 28") === "registered-mail-signature");
+    check("'they left a copy with my son' shows only the left-at-home way", methods("they left a copy with my son on september 26") === "residence-and-mail");
+    check("a chosen way shows only that way", methods("i got it in the mail", "residence-and-mail") === "residence-and-mail");
+    check("'it came in the mail' names no way, so every way by post stays (a claim is never served by regular mail)", methods("i got the plaintiffs claim in the mail on september 28") === ways.map((way) => way.method).join(","));
+  }
   check("'got the claim in the mail' is not the first copy; signed for, left with, or 'first' is", !firstCopyQuote("i got the plaintiffs claim in the mail on september 28") && firstCopyQuote("my wife signed for it on september 28") && firstCopyQuote("they left a copy with my son on september 26") && firstCopyQuote("the first copy came on september 26"));
   // Final re-check 2026-10-14: only home-arrival words, never "first saw" / "first got".
   check("'I first saw the claim' and 'first got' are not the first copy reaching the home; 'first came to the house' and 'first arrived' are", !firstCopyQuote("I first saw the claim on october 5") && !firstCopyQuote("i first got the papers on october 5") && firstCopyQuote("it first came to the house on october 2") && firstCopyQuote("the claim first arrived on october 2"));
@@ -319,11 +376,21 @@ console.log("\nA claim or application is not served by regular mail (legal revie
     check("a company defendant is never told 'safest', even for words about signing for it; nor when the company route is chosen", company?.company === true && company.firstCopy === false && byRoute?.company === true && byRoute.firstCopy === false);
   }
   {
-    const source = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
-    check(
-      "the company note says 'your address' and that mailed service can take effect before it arrives, with the affidavit of service",
-      source.includes("Count from the first day a copy reached your address: signed for there, left with someone there, or arrived in the mail. If a copy was left at your address earlier than the one you got in the mail, count from the day it was left. If it was mailed to the company, service is effective on the fifth day after mailing, which can be before it arrived. The mailing date is on the affidavit of service.") && /arrival\.company\s*\?/.test(source),
-    );
+    // A company: the company route's own counting sentence, r. 8.03 (3), (4), says a mailing more than five days before arrival makes the last day earlier.
+    const signed = "the manager got it in the mail on september 28";
+    const company = arrivalNoteFor([{ id: "sc-date-claim-served" }], { "sc-date-claim-served": signed }, {}, "small-claims", {}, "mail", { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote: signed, value: "2026-09-28" } }, storyText: `a supplier is suing my company for 9000. ${signed}` }, "2026-10-01");
+    const route = company?.postWays.find((way) => /r\. 8\.03 \(3\), \(4\)/.test(way.rule) && /^Mailed/.test(way.label));
+    check("the company route carries its own counting sentence under r. 8.03 (3), (4): mailed before Wednesday 23 September makes the last day earlier", Boolean(route?.countSay && /on or after Wednesday 23 September 2026/.test(route.countSay) && /may be earlier/.test(route.countSay)), route?.countSay ?? "");
+  }
+  {
+    // SD (walkthrough run 38593464953): the homeowner who got the claim in the mail.
+    const quote = "i got the plaintiffs claim in the mail on september 28";
+    const story = `a contractor did my bathroom reno and now hes suing me in small claims for 7500 he says i owe. ${quote}`;
+    const sdNote = arrivalNoteFor([{ id: "sc-date-claim-served" }], { "sc-date-claim-served": quote }, {}, "small-claims", {}, "mail", { stageId: "defendant:served-defence-period-running", hints: { "sc-date-claim-served": { quote, value: "2026-09-28", yearAssumed: true } }, storyText: story }, "2026-10-14");
+    check("SD: the date to act by is Monday 19 October 2026, counted from the day the papers reached him", sdNote?.safest[0]?.iso === "2026-10-19", JSON.stringify(sdNote?.safest));
+    check("SD: every way shown has its rule and its own counting sentence, and none is the company route or r. 8.07 (2)", Boolean(sdNote) && sdNote!.postWays.length > 0 && sdNote!.postWays.every((way) => way.rule && way.quote && way.countSay) && !sdNote!.postWays.some((way) => /company|8\.07/.test(`${way.label} ${way.rule}`)));
+    check("SD: the left-at-home way says mailed before Wednesday 23 September 2026 makes the last day earlier (r. 8.03 (4))", Boolean(sdNote?.postWays.some((way) => /r\. 8\.03 \(4\)$/.test(way.rule) && /day the copy was mailed was on or after Wednesday 23 September 2026/.test(way.countSay ?? ""))));
+    check("SD: the signed-for way says the date is the last day if signed for the day it arrived (r. 8.03 (8))", Boolean(sdNote?.postWays.some((way) => /r\. 8\.03 \(8\)$/.test(way.rule) && /was the day the papers reached you, the date above is your last day/.test(way.countSay ?? ""))));
   }
   check("the card never says whether service was valid", !/\b(?:valid|invalid|improperly served|not properly served)\b/i.test(panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "")));
   // The ways come from one list (waysFor, review of bee9daf), for who was served and from the
