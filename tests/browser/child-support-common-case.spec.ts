@@ -50,7 +50,11 @@ test.describe("child support — the common case", () => {
     });
     // The child-support screens show only once child support is a chosen
     // issue (2026-10-04) — they used to show on every family case.
+    // The intake's own questions come first, the child-support builder after
+    // (walkthrough 2026-10-13, V1). The whole form, then Continue.
+    await page.getByTestId("guided-form-show-form").click();
     await page.getByTestId("family-issue-child-support").click();
+    await page.getByRole("button", { name: "Continue to your next steps" }).click();
 
 
     const screen = page.getByTestId("child-support-intake");

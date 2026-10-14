@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import FamilyIntake, { type FamilyScope } from "./_components/FamilyIntake";
 import { ChildSupportTableCard } from "./_components/ChildSupportTableCard";
 import ChildSupportIntake from "./_components/ChildSupportIntake";
+import { childSupportPrefill } from "./_components/childSupportPrefill";
 import SmallClaimsIntake, {
   requestSmallClaimsAnalysis,
 } from "./_components/SmallClaimsIntake";
@@ -271,6 +272,12 @@ function BuilderPageContent() {
   // Issues and side from the family intake (or the saved case). Decides
   // whether the child-support draft fits this case at all.
   const [familyScope, setFamilyScope] = useState<FamilyScope | null>(null);
+  // The family intake's questions are finished: the person pressed Continue
+  // (FamilyIntake's onQuestionsDone). Until then the family triage and the
+  // child-support builder wait, so one thing is asked at a time (walkthrough
+  // 2026-10-13, V1: the marriage question sat beside the one-at-a-time chat).
+  // A saved case reopened (queryCaseId) is past its intake, so they show.
+  const [familyQuestionsDone, setFamilyQuestionsDone] = useState(false);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
   const [existingMasterResult, setExistingMasterResult] = useState<
     Record<string, unknown>
@@ -1611,8 +1618,19 @@ function BuilderPageContent() {
 
           It takes `triageState` and `setTriageState` and nothing else. No part
           of the analysis pipeline reaches it.
+
+          AFTER THE QUESTIONS, NOT BESIDE THEM (walkthrough 2026-10-13, V1).
+          "Were you and the other person married to each other?" sat above the
+          one-question-at-a-time chat, so two question systems asked at once.
+          It now waits until the family intake's questions are finished
+          (familyQuestionsDone, set when the person presses Continue) or a
+          saved case is reopened. That is not pipeline state: it is set before
+          any analysis runs and never cleared, so the triage still never
+          vanishes once shown. Answers given after the case is saved are
+          written by the familyStatus effect above, so nothing is lost by
+          asking later.
         */}
-        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (
+        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (familyQuestionsDone || Boolean(queryCaseId)) && (
           <FamilyStatusTriage
             state={triageState}
             onChange={setTriageState}
@@ -1677,6 +1695,7 @@ function BuilderPageContent() {
                 earlierSourcedAnswers={earlierSourcedAnswers}
                 storedIntake={queryCaseId ? asRecord(existingMasterResult).intakeData : undefined}
                 onScopeChange={setFamilyScope}
+                onQuestionsDone={() => setFamilyQuestionsDone(true)}
                 location={confirmedLocation}
                 initialStory={homeStory}
               />
@@ -1802,7 +1821,24 @@ function BuilderPageContent() {
                   order they already have makes a motion to change instead
                   (walkthrough run 38475320722: a father lowering a 2022 support
                   order was offered "This produces your application"). */}
-              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && <ChildSupportIntake />}
+              {/* After the intake's questions, not beside them (V1), and
+                  starting from what the intake recorded, as suggestions the
+                  person can change (R3). */}
+              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && (familyQuestionsDone || Boolean(queryCaseId)) && (
+                <ChildSupportIntake
+                  recorded={childSupportPrefill(
+                    familyScope?.recorded ?? {
+                      yourName: typeof caseData?.yourName === "string" ? caseData.yourName : "",
+                      otherParty: typeof caseData?.otherParty === "string" ? caseData.otherParty : "",
+                      childrenInfo: typeof savedExtra?.childrenInfo === "string" ? savedExtra.childrenInfo : "",
+                      currentLivingSituation:
+                        typeof savedExtra?.currentLivingSituation === "string" ? savedExtra.currentLivingSituation : "",
+                      evidence: typeof caseData?.evidence === "string" ? caseData.evidence : "",
+                      story: homeStory || userStory(caseData),
+                    },
+                  )}
+                />
+              )}
               <ChildSupportTableCard />
             </div>
           );

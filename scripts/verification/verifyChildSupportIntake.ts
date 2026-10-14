@@ -20,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { childSupportPrefill } from "../../app/builder/_components/childSupportPrefill";
 import { draftChildSupportApplication } from "../../src/lib/case-system/family/childSupportDraftEngine";
 import {
   SCOPE_NOTICES,
@@ -70,7 +71,58 @@ function main(): void {
   const builder = fs.readFileSync(BUILDER_PATH, "utf8");
   check(
     "the screen is imported and mounted in app/builder/page.tsx",
-    /import ChildSupportIntake from/.test(builder) && /<ChildSupportIntake\s*\/>/.test(builder),
+    /import ChildSupportIntake from/.test(builder) && /<ChildSupportIntake[\s/>]/.test(builder),
+  );
+
+  // ---- It starts from what the intake recorded (walkthrough 2026-10-13, R3) ----
+  //
+  // The builder asked "Tell me about the children this is for" and for income
+  // documents after the intake had recorded them. The properties: what the
+  // intake answered arrives filled in; what it did not answer stays empty;
+  // only income documents reach the income-documents question; and what the
+  // person types is never overwritten by a later suggestion.
+
+  const recorded = {
+    yourName: "Sam Lee",
+    otherParty: "Alex Lee",
+    childrenInfo: "two kids, 9 and 11, they live with their mom",
+    currentLivingSituation: "",
+    evidence: "2022 court order\nmy 2025 notice of assessment\nEI statements; texts with Alex",
+    story: "I pay support and lost my job.",
+  };
+  const prefill = childSupportPrefill(recorded);
+  check("R3: the children the intake recorded are filled in", prefill.childrenDescribed === recorded.childrenInfo);
+  check(
+    "R3: who the children live with fills the time question when the answer says it",
+    prefill.parentingTimeDescribed.length > 0,
+  );
+  check("R3: the names the intake recorded are filled in", prefill.applicantName === "Sam Lee" && prefill.respondentName === "Alex Lee");
+  const documents = prefill.incomeDocumentsHeld.split("\n").filter(Boolean);
+  check(
+    "R3: only income documents reach the income-documents question",
+    documents.length > 0 &&
+      documents.every((item) => /assessment|EI|income|pay|T4|tax/i.test(item)) &&
+      !documents.some((item) => /order|texts/i.test(item)),
+    JSON.stringify(documents),
+  );
+  const nothing = childSupportPrefill({ yourName: "", otherParty: "", childrenInfo: "", currentLivingSituation: "", evidence: "", story: "" });
+  check(
+    "R3: nothing recorded, nothing filled in (asked as before)",
+    Object.values(nothing).every((value) => value === ""),
+    JSON.stringify(nothing),
+  );
+  check(
+    "R3: the story's own sentence about the children is offered when the intake question was skipped",
+    childSupportPrefill({ ...recorded, childrenInfo: "", story: "We have two kids, 9 and 11. I lost my job." }).childrenDescribed.includes("9 and 11"),
+  );
+  check("R3: the page hands the builder the intake's record", /<ChildSupportIntake[\s\S]{0,80}recorded=\{childSupportPrefill\(/.test(builder));
+  check(
+    "R3: each prefilled field is a suggestion the person can overwrite, and a later suggestion never replaces their typing",
+    (body.match(/useSuggestedField\(recorded\.\w+\)/g) ?? []).length >= 4 && /if \(!edited\) setValue\(suggested\)/.test(body),
+  );
+  check(
+    "R3: a prefilled field says where its words came from",
+    /Filled in from what you told us earlier/.test(body) && (body.match(/<FromIntakeNote show=/g) ?? []).length >= 4,
   );
   check(
     "the screen imports the draft engine",
