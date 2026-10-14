@@ -26,6 +26,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { EVENT_TO_DATE_QUESTION, dateInSentence } from "@/src/lib/case-system/casePosition";
+import { suggestedEventForSentence } from "@/src/lib/case-system/events/stepEvent";
 
 import { supabase } from "../../../src/lib/supabase/client";
 import {
@@ -51,19 +52,38 @@ type Draft = {
   occurredAtRaw: string;
   occurredAtNormalized: string;
   dateCertainty: "exact" | "approximate" | "unknown";
+  /** Why the kind of step is pre-selected, shown beside it; gone once they choose. */
+  suggestedBasis?: string;
 };
 
-function emptyDraft(candidate: ResolvedCandidate): Draft {
+/** The step the person confirmed, by stage-map id and its name as the Timeline shows it. */
+export type ConfirmedStep = { id: string; title: string };
+
+export function emptyDraft(
+  candidate: Pick<ResolvedCandidate, "title" | "narrativeBasis">,
+  confirmedStep: ConfirmedStep | null = null,
+  recordedDates: Record<string, string> = {},
+): Draft {
   // The date the person wrote in this sentence is filled in, not asked again
   // (dateInSentence: a full date fills the picker, a date without a year only
   // the words). They still press "Record this".
   const written = dateInSentence(candidate.narrativeBasis);
+  /*
+   * A sentence naming the event of the step they confirmed is offered as
+   * that kind of step (walkthrough 2026-10-13, R6: "I won my small claims
+   * case" was asked "What kind of step was this?" after "Judgment obtained,
+   * unpaid" was confirmed). Pre-selected with where it came from; recorded
+   * only on "Record this" (CLAUDE.md section 4).
+   */
+  const suggestion = suggestedEventForSentence(candidate.narrativeBasis, confirmedStep);
+  const known = suggestion && !written?.iso ? recordedDates[EVENT_TO_DATE_QUESTION[suggestion.eventType] ?? ""] : undefined;
   return {
-    eventType: "",
+    eventType: suggestion?.eventType ?? "",
     title: candidate.title,
-    occurredAtRaw: written?.raw ?? "",
-    occurredAtNormalized: written?.iso ?? "",
-    dateCertainty: written?.iso ? "exact" : written ? "approximate" : "unknown",
+    occurredAtRaw: known ?? written?.raw ?? "",
+    occurredAtNormalized: known ?? written?.iso ?? "",
+    dateCertainty: known || written?.iso ? "exact" : written ? "approximate" : "unknown",
+    ...(suggestion ? { suggestedBasis: suggestion.basis } : {}),
   };
 }
 
@@ -81,8 +101,14 @@ export default function EventCandidateSurface({
   caseId,
   onRecorded,
   recordedDates = {},
+  confirmedStep = null,
 }: {
   caseId: string;
+  /**
+   * The step the person confirmed. A sentence that names the event of that
+   * step is offered as that kind of step instead of being asked cold (R6).
+   */
+  confirmedStep?: ConfirmedStep | null;
   /**
    * Dates the case already holds, by date-question id. Choosing a step type
    * whose date is recorded fills it in (master plan Phase 1: the timeline
@@ -141,7 +167,7 @@ export default function EventCandidateSurface({
   }, [load]);
 
   const draftFor = (candidate: ResolvedCandidate): Draft =>
-    drafts[candidate.fingerprint] ?? emptyDraft(candidate);
+    drafts[candidate.fingerprint] ?? emptyDraft(candidate, confirmedStep, recordedDates);
 
   const setDraft = (candidate: ResolvedCandidate, patch: Partial<Draft>) =>
     setDrafts((current) => ({
@@ -289,8 +315,9 @@ export default function EventCandidateSurface({
       <h2 className="text-xl font-bold text-[#10231f]">Things that may have happened in your case</h2>
       <p className="mt-2 text-sm text-[#4f685f]">
         These are sentences from what you wrote. They might describe steps in the court process.
-        Nothing here is recorded on your case until you confirm it, and we have not decided what
-        any of them means — that is yours to say.
+        Nothing here is recorded on your case until you confirm it. Where a sentence describes the
+        step you confirmed, we suggest that kind of step and say why; what each one means is yours
+        to say.
       </p>
 
       {error ? (
@@ -317,7 +344,9 @@ export default function EventCandidateSurface({
 
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <label className="text-sm">
-                  <span className="font-semibold text-[#10231f]">What kind of step was this?</span>
+                  <span className="font-semibold text-[#10231f]">
+                    {draft.suggestedBasis ? "Kind of step (suggested)" : "What kind of step was this?"}
+                  </span>
                   <select
                     data-testid="event-candidate-type"
                     value={draft.eventType}
@@ -327,8 +356,8 @@ export default function EventCandidateSurface({
                       setDraft(
                         candidate,
                         known && !draft.occurredAtNormalized
-                          ? { eventType, occurredAtRaw: known, occurredAtNormalized: known, dateCertainty: "exact" }
-                          : { eventType },
+                          ? { eventType, occurredAtRaw: known, occurredAtNormalized: known, dateCertainty: "exact", suggestedBasis: undefined }
+                          : { eventType, suggestedBasis: undefined },
                       );
                     }}
                     className="mt-1 w-full rounded-xl border border-[#d8e6df] bg-white p-2"
@@ -340,6 +369,11 @@ export default function EventCandidateSurface({
                       </option>
                     ))}
                   </select>
+                  {draft.suggestedBasis ? (
+                    <span data-testid="event-candidate-suggested" className="mt-1 block text-xs text-[#4f685f]">
+                      {draft.suggestedBasis}
+                    </span>
+                  ) : null}
                 </label>
 
                 <label className="text-sm">

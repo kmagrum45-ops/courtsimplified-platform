@@ -21,6 +21,14 @@
  *   3. The wiring going dead again: the stage-answer route ignoring dates, the
  *      workspace deadlines reading something other than the stored position,
  *      or a builder re-save erasing a position written after the page loaded.
+ *   4. Pages naming different steps (2026-10-13, R5): the case layout, the
+ *      Timeline/Case file deadline route and the Overview's card must work the
+ *      step out the same way (caseStep.ts), so a deadline counted on the
+ *      Overview is the one the Case file shows; and the Case file must not say
+ *      "None yet" while the deadlines are still being counted.
+ *   5. The case page reading the case before saves on their way have landed
+ *      (2026-10-13, R4): it asked again for a service date and method the
+ *      results page had just saved. The case layout waits for them.
  *
  * Run: node --import tsx scripts/verification/verifyCasePosition.ts
  */
@@ -42,7 +50,10 @@ import {
 } from "../../src/lib/case-system/casePosition";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
 import { ALL_STAGES, stagesForPathway } from "../../src/lib/case-system/stage-map/stageMap";
-import { countFromDate } from "../../src/lib/content-library/computedDeadline";
+import { computedDeadlinesFor, countFromDate } from "../../src/lib/content-library/computedDeadline";
+import { caseStepFor, noticeStepForCase } from "../../src/lib/case-system/caseStep";
+import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
+import { positionSavesSettled, trackPositionWork } from "../../app/builder/_components/positionSave";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -265,7 +276,9 @@ function personsDatesWin(source: string): boolean {
     // The property (CLAUDE.md section 5): the person's own dates reach the
     // count and win over anything offered under them (2026-10-09: dates from
     // the story were added underneath).
-    /readCasePosition\(/.test(route) && /position\.stepId\s*\|\|/.test(route) && /findStage\(stepId\)/.test(route) && personsDatesWin(route),
+    // Since 2026-10-13 the step comes from caseStepFor, whose "a chosen step
+    // always wins" is asserted by behaviour in section 5 below.
+    /readCasePosition\(/.test(route) && /caseStepFor\(ownedCase\.master_result/.test(route) && /findStage\(stepId\)/.test(route) && personsDatesWin(route),
   );
   check("workspace deadlines no longer match a stage id to a court path", !/candidate\.id === ownedCase\.court_path/.test(route));
 }
@@ -308,6 +321,98 @@ function personsDatesWin(source: string): boolean {
   check("the builder sends what was decided on the page once the case exists", /sentPositionRef/.test(read("app/builder/page.tsx")));
 }
 
+// ---- 5. Every case page names the step the Overview's card shows ----------
+// Walkthrough 2026-10-13, R5: a sidewalk fall's Overview card opened on the
+// notice step and counted its deadlines from the saved injury date; the Case
+// file named the court-starting step and said "None yet". The layout, the
+// Timeline/Case file deadline route and the card now take the step from one
+// place (caseStep.ts). Properties: a chosen step always wins; for someone
+// starting a case whose claim needs notice, the step is that notice step;
+// a responding party never gets a notice step; every date the card asks at a
+// step counts at least one deadline the way the Case file counts them.
+{
+  const story = "I slipped on ice on the sidewalk on Queen Street in Toronto on September 30 and broke my wrist. I want to sue the city.";
+  const civilStarting = (position: Record<string, unknown>) => ({
+    intakeData: { courtPath: "civil", extra: { civilInput: { facts: story, yourRole: "Plaintiff" } } },
+    position: { confirmedStage: "starting-case", ...position },
+  });
+  const notice = noticeStepForCase(civilStarting({}), "civil");
+  check("step: a starting case whose story needs notice has a notice step", Boolean(notice));
+  check(
+    "step: with no step chosen, every page's step is the notice step the card opens on",
+    caseStepFor(civilStarting({}), "civil", false, { requireConfirmedStage: true }) === notice &&
+      caseStepFor(civilStarting({}), "civil", false) === notice,
+  );
+  const chosen = stagesForPathway("civil").find((stage) => stage.id !== notice)!.id;
+  check("step: a step the person chose always wins", caseStepFor(civilStarting({ stepId: chosen }), "civil", false) === chosen);
+  check(
+    "step: a responding party is never put on a notice step",
+    caseStepFor({ ...civilStarting({}), position: { confirmedStage: "responding" } }, "civil", true) !== notice,
+  );
+  check(
+    "step: no confirmed stage and none chosen: no step where the page requires a confirmed stage",
+    caseStepFor({ intakeData: { extra: { story: "x" } } }, "small-claims", false, { requireConfirmedStage: true }) === "",
+  );
+  // The counted deadline reaches the Case file for the notice step's own date.
+  const injuryAsked = dateQuestionsForStep(notice ?? "").find((question) => /injur/i.test(question.id));
+  const counted = injuryAsked
+    ? computedDeadlinesFor(findStage(notice as string)!.deadlines, caseDatesFrom({ [injuryAsked.id]: "2026-09-30" }), "workspace")
+    : [];
+  check("step: the injury date saved on the Overview counts the notice step's deadlines for the Case file", counted.length > 0);
+  let uncounted: string[] = [];
+  for (const pathway of ["small-claims", "civil", "family"] as const) {
+    for (const stage of stagesForPathway(pathway)) {
+      for (const question of dateQuestionsForStep(stage.id)) {
+        const out = computedDeadlinesFor(stage.deadlines, caseDatesFrom({ [question.id]: "2026-10-01" }), "workspace");
+        if (out.length === 0) uncounted.push(`${stage.id} / ${question.id}`);
+      }
+    }
+  }
+  check("step: every date the card asks at a step counts a deadline the way the Case file counts", uncounted.length === 0, uncounted.slice(0, 5).join("; "));
+
+  const layout = read("app/cases/[id]/layout.tsx");
+  const deadlinesRoute = read("app/api/workspace/organisation/route.ts");
+  const overview = read("app/cases/[id]/page.tsx");
+  check(
+    "step: the case layout and the deadline route take the step from caseStepFor, not their own rules",
+    /stepId: caseStepFor\(/.test(layout) &&
+      /const stepId = caseStepFor\(/.test(deadlinesRoute) &&
+      !/suggestedStageFor\(|stepFromPicture\(/.test(layout) &&
+      !/suggestedStageFor\(|stepFromPicture\(/.test(deadlinesRoute),
+  );
+  check(
+    "step: the Overview's card reads the same notice step and words",
+    /noticeStepId=\{noticeStepForCase\(master, courtPath\)\}/.test(overview) && /storyText=\{stepStoryText\(master, courtPath\)\}/.test(overview),
+  );
+  const caseFile = read("app/cases/[id]/case-file/page.tsx");
+  const loadingAt = caseFile.indexOf("deadlines === null ?");
+  const noneYetAt = caseFile.indexOf("None yet. Give the dates");
+  check("step: the Case file never says \"None yet\" while the deadlines are still being counted", loadingAt > 0 && noneYetAt > loadingAt);
+}
+
+// ---- 6. The case page reads the case after saves on their way --------------
+// Walkthrough 2026-10-13, R4: the results page said the service date and
+// method were "Saved to your case"; the case page, opened while those saves
+// were still going, asked "How were the papers served?" and "Which year was
+// that?" again. The builder registers its runs of saves, the case layout
+// waits for them before reading, and the Overview reads the case again once
+// its own saves land.
+{
+  const layout = read("app/cases/[id]/layout.tsx");
+  const settleAt = layout.indexOf("await positionSavesSettled()");
+  const readAt = layout.indexOf('.from("cases")');
+  check("saves: the case layout waits for position saves before it reads the case", settleAt > 0 && readAt > settleAt);
+  const builder = read("app/builder/page.tsx");
+  check(
+    "saves: the builder registers its stage save and its multi-part save run, retries included",
+    (builder.match(/trackPositionWork\(/g) ?? []).length >= 2 && /void trackPositionWork\(\(async \(\) => \{\s*let allSaved/.test(builder),
+  );
+  check(
+    "saves: the Overview reads the case again once its card's saves land",
+    /onSaved=\{\(\) => void positionSavesSettled\(\)\.then\(reload\)\}/.test(read("app/cases/[id]/page.tsx")),
+  );
+}
+
 if (failures > 0) {
   console.log(`\n${failures} check(s) failed.`);
   process.exit(1);
@@ -324,3 +429,41 @@ for (const stepId of ["plaintiff:trial-date-set", "defendant:trial-date-set"]) {
     process.exitCode = 1;
   } else console.log(`PASS  ${stepId} asks for the trial date`);
 }
+
+// The waiting itself (R4), asynchronous so it runs after the checks above.
+void (async () => {
+  let asyncFailures = 0;
+  const assert = (name: string, ok: boolean) => {
+    if (ok) console.log(`PASS  ${name}`);
+    else {
+      asyncFailures += 1;
+      console.error(`FAIL  ${name}`);
+    }
+  };
+  let release: () => void = () => undefined;
+  const run = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  trackPositionWork(run);
+  let settled = false;
+  const waiting = positionSavesSettled(5_000).then(() => {
+    settled = true;
+  });
+  await new Promise((resolve) => setTimeout(resolve, 30));
+  // A run registered while the reader waits is waited for too.
+  let releaseLate: () => void = () => undefined;
+  trackPositionWork(new Promise<void>((resolve) => {
+    releaseLate = resolve;
+  }));
+  release();
+  await new Promise((resolve) => setTimeout(resolve, 30));
+  assert("saves: a reader waits while a save run is still going", !settled);
+  releaseLate();
+  await waiting;
+  assert("saves: the reader goes ahead once every run has finished", settled);
+  const started = Date.now();
+  trackPositionWork(new Promise<void>(() => undefined));
+  await positionSavesSettled(60);
+  assert("saves: a save that never finishes does not stop the case opening", Date.now() - started < 2_000);
+  if (asyncFailures) process.exitCode = 1;
+})();

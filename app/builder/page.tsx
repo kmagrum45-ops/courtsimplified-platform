@@ -19,7 +19,7 @@ import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
 } from "./_components/GuidedSmallClaimsIntake";
 import { readSourcedAnswers } from "./_components/SourcedQuestions";
-import { savePositionQueued } from "./_components/positionSave";
+import { savePositionQueued, trackPositionWork } from "./_components/positionSave";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
@@ -1232,9 +1232,14 @@ function BuilderPageContent() {
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
     // One save at a time with the deadline box's own saves (positionSave.ts);
     // tried once more if it fails, so the case page does not ask again.
-    if (await savePositionQueued(caseId, { confirmedStage: stage })) return;
-    await new Promise((resolve) => setTimeout(resolve, 2_000));
-    await savePositionQueued(caseId, { confirmedStage: stage });
+    // Tracked with its retry, so the case page waits for it before reading (R4).
+    await trackPositionWork(
+      (async () => {
+        if (await savePositionQueued(caseId, { confirmedStage: stage })) return;
+        await new Promise((resolve) => setTimeout(resolve, 2_000));
+        await savePositionQueued(caseId, { confirmedStage: stage });
+      })(),
+    );
   }
 
 
@@ -1270,7 +1275,10 @@ function BuilderPageContent() {
     const key = JSON.stringify({ caseId, parts });
     if (sentPositionRef.current === key) return;
     sentPositionRef.current = key;
-    void (async () => {
+    // Tracked, retries and all: "Open your case page" can be pressed while
+    // these are still going, and the case page waits for them before it reads
+    // (positionSave.ts, walkthrough 2026-10-13 R4).
+    void trackPositionWork((async () => {
       let allSaved = true;
       for (const part of parts) {
         let ok = await savePositionQueued(caseId, part);
@@ -1281,7 +1289,7 @@ function BuilderPageContent() {
         if (!ok) allSaved = false;
       }
       if (!allSaved) sentPositionRef.current = "";
-    })();
+    })());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canonicalIntakeSaved, confirmedStage, positionThisVisit, masterCaseId]);
 

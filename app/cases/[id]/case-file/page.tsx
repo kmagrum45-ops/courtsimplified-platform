@@ -162,6 +162,10 @@ export default function CaseFileSection() {
             </ul>
           ) : stepDeadline ? (
             <p className="whitespace-pre-line">{stepDeadline}</p>
+          ) : deadlines === null ? (
+            // Still being counted: "None yet" here was read as the dates being
+            // lost (walkthrough 2026-10-13, R5, captured while "Preparing…").
+            <p data-testid="case-file-deadlines-loading">Working out your deadlines from the dates you gave…</p>
           ) : (
             <p>
               {caseRecord.court_path === "small-claims"

@@ -30,6 +30,7 @@ import path from "node:path";
 
 import { createCaseReadPost } from "../../app/api/case/read/route";
 import { validMessages } from "../../app/api/cases/chat/route";
+import { caseStepFor } from "../../src/lib/case-system/caseStep";
 import { CASE_EVENTS, datesFromPicture, readStoredPicture, stepFromPicture, stepsNamedByEvents, validateCasePicture } from "../../src/lib/case-system/intake/caseReader";
 import { caseWordsFrom } from "../../src/lib/case-system/intake/caseReaderModel";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
@@ -158,9 +159,15 @@ async function main() {
       /last\.analysis === analysis && last\.caseData === caseData/.test(builder) &&
       /queryCaseId \|\| masterCaseIdRef\.current/.test(builder),
   );
-  for (const file of ["app/cases/[id]/page.tsx", "app/cases/[id]/layout.tsx"]) {
-    check(`${file} uses the stored picture`, /readStoredPicture\(master\.casePicture\)/.test(readFileSync(path.join(ROOT, file), "utf8")));
-  }
+  check("app/cases/[id]/page.tsx uses the stored picture", /readStoredPicture\(master\.casePicture\)/.test(readFileSync(path.join(ROOT, "app/cases/[id]/page.tsx"), "utf8")));
+  // The layout's step comes from caseStepFor (2026-10-13, R5). The property:
+  // a stored picture's events decide the case's step there too.
+  check(
+    "the case layout's step reads the stored picture",
+    /stepId: caseStepFor\(/.test(readFileSync(path.join(ROOT, "app/cases/[id]/layout.tsx"), "utf8")) &&
+      caseStepFor({ casePicture: picture, position: { confirmedStage: "responding" } }, "small-claims", true, { requireConfirmedStage: true }) ===
+        "defendant:noted-in-default",
+  );
 
   console.log("\n7. The conversation is saved with the case");
   check("user and assistant messages are accepted", validMessages([{ role: "user", content: "hi" }, { role: "assistant", content: "hello" }])?.length === 2);

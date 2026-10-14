@@ -31,10 +31,10 @@ import {
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
-import { savePositionQueued } from "../../builder/_components/positionSave";
+import { positionSavesSettled, savePositionQueued } from "../../builder/_components/positionSave";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
-import { suggestedNoticeStep } from "@/src/lib/case-system/claim-types/noticeStep";
+import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 
 type EventsResponse = {
   events: Array<{
@@ -236,9 +236,15 @@ export default function CaseOverviewPage() {
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}
               initialService={position.service}
+              // Once a date counted here is saved, the case is read again, so
+              // the Timeline and Case file tabs show it without a reload
+              // (walkthrough 2026-10-13, R5: the Case file said "None yet").
+              onSaved={() => void positionSavesSettled().then(reload)}
               suggestedDates={suggestedDates}
               storyHints={storyHintsForDates([record.story, intake?.timeline].filter(Boolean).join("\n"))}
-              storyText={[record.story, intake?.goal, intake?.urgent].filter(Boolean).join("\n")}
+              // The same words and notice step the case layout reads for the
+              // step (caseStep.ts), so every tab names the step shown here.
+              storyText={stepStoryText(master, courtPath)}
               userWords={userWordsOf(intake)}
               // Amount, city, claim type and story from the one case record
               // (build order Step 2A, 2026-10-12). The city used to be read
@@ -250,11 +256,7 @@ export default function CaseOverviewPage() {
               // The notice step the builder suggested, here too (page review,
               // 2026-10-07: the case page silently dropped the snow-and-ice
               // notice step and its deadline).
-              noticeStepId={suggestedNoticeStep({
-                claimTypeId: record.claimTypeId,
-                story: record.story,
-                courtPath,
-              })}
+              noticeStepId={noticeStepForCase(master, courtPath)}
             />
           ) : (
             <NextStepsCard pathway={courtPath} stage={confirmed} userWords={userWordsOf(master.intakeData)} />

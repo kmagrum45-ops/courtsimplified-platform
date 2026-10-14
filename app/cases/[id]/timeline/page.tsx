@@ -81,6 +81,13 @@ export default function CaseTimelineSection() {
           caseId={caseRecord.id}
           onRecorded={() => setRefresh((value) => value + 1)}
           recordedDates={recordedDateAnswers(record)}
+          // The step they confirmed: a sentence naming its event is offered as
+          // that kind of step, not asked cold (walkthrough 2026-10-13, R6).
+          confirmedStep={
+            record.position.confirmedStage && stepId && findStage(stepId)
+              ? { id: stepId, title: findStage(stepId)!.title }
+              : null
+          }
         />
       ) : null}
       <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
