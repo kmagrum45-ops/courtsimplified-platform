@@ -22,10 +22,6 @@ import { JURISDICTION_ROUTES } from "../../../src/lib/case-system/intake/jurisdi
 import { routesForConfirmedClaimType } from "../../../src/lib/case-system/intake/jurisdictionRouteRelevance";
 import { splitLead } from "../../../src/lib/case-system/format/previewText";
 import {
-  SMALL_CLAIMS_RULES_SOURCE,
-  STARTING_A_SMALL_CLAIMS_ACTION,
-} from "../../../src/lib/content-library/smallClaimsStartingSteps";
-import {
   DEFAULT_PROCEEDING_ROUTES,
   SETTING_ASIDE_DEFAULT,
   SMALL_CLAIMS_RULES_URL,
@@ -296,14 +292,6 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       ? routesForConfirmedClaimType(JURISDICTION_ROUTES, confirmedClaimTypeId, parseRecordedAmount(amount))
       : [];
 
-  // 2026-09-28. What the rules say about starting an action. Gated on the
-  // user's own record: bringing a claim, nothing filed yet. General
-  // information, the same for every such user.
-  const showStartingSteps =
-    analysis.courtPath === "small-claims" &&
-    /plaintiff/i.test(role) &&
-    caseStage === "starting-case" &&
-    !documents.includes("plaintiffs-claim");
 
   /*
    * Rule 11, shown when the user has recorded a default step.
@@ -405,27 +393,10 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       {analysis.research && analysis.research.findings.length > 0 && <Card title="What we looked into"><ResearchPanel findings={analysis.research.findings} /></Card>}
       {/* 2026-10-06: the same passage was quoted under "What we looked into" and again here (walkthrough: rule 7.01 three times on one page). Only what the research did not already show is listed. */}
       {lawNotAlreadyShown.length > 0 && <Card title="The law behind this"><AppliedLawPanel items={lawNotAlreadyShown} /></Card>}
-      {showStartingSteps && (
-        <Card title="What the rules say about starting a Small Claims action">
-          <p className="mb-3 text-sm leading-6 text-[#4d675f]">
-            General information from the Rules of the Small Claims Court. You fill in and file the
-            form yourself; the Plaintiff&apos;s Claim section below walks through what it asks for.
-          </p>
-          <ol className="list-decimal space-y-2 pl-5">
-            {STARTING_A_SMALL_CLAIMS_ACTION.map((step) => (
-              <li key={step.id}>
-                <span className="font-semibold text-[#10231f]">{step.title}.</span> {step.text}{" "}
-                <span className="text-xs text-[#4d675f]">({step.pinpoint})</span>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-3 text-xs">
-            <a className="font-semibold text-[#2f7d67] underline" href={SMALL_CLAIMS_RULES_SOURCE.sourceUrl} target="_blank" rel="noreferrer">
-              {SMALL_CLAIMS_RULES_SOURCE.sourceName}
-            </a>
-          </p>
-        </Card>
-      )}
+      {/* The "What the rules say about starting a Small Claims action" card was
+          removed on 2026-10-14 (CLAUDE.md s. 2a, one copy of procedure): the
+          step panel shows the starting step, its form and deadlines from the
+          stage map, so the same steps were on the page twice. */}
       {courtPoints.length > 0 && <Card title="Points the court may need clarified"><SourcedList items={courtPoints} /></Card>}
       {commonDefences.length > 0 && <Card title="Defences that commonly come up"><p className="mb-3 text-sm leading-6 text-[#4d675f]">General information about defences that commonly arise for this type of claim -- not a prediction about what the other side will argue in this case.</p><SourcedList items={commonDefences} /></Card>}
       {showDefaultProceedings && (

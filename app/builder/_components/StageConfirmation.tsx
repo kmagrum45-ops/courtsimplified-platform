@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import type { UniversalStage } from "./builderTypes";
-import { nextStepBlockFor, isPlaceholder } from "@/src/lib/content-library/nextSteps";
 
 /**
  * Suggest-then-confirm for the detected case stage.
@@ -60,7 +59,6 @@ export type StageConfirmationProps = {
 
 export default function StageConfirmation({
   suggestedStage,
-  pathway,
   onConfirm,
   confirmedStage,
   basis = null,
@@ -92,8 +90,6 @@ export default function StageConfirmation({
     );
   }
 
-  const block = nextStepBlockFor(pathway, choice);
-  const hasContent = Boolean(block && !isPlaceholder(block));
   const choosing = changing || suggestedStage === "not-sure";
 
   /*
@@ -161,12 +157,10 @@ export default function StageConfirmation({
         </select>
       </label>
 
-      {!hasContent && (
-        <p className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-4 py-3 text-sm leading-6 text-[#7a4b12]">
-          We do not have reviewed next steps for that stage yet, so we will not show any.
-          You can still use the rest of your case file.
-        </p>
-      )}
+      {/* No "we have no next steps for that stage" warning here (2026-10-14):
+          the step panel shows each exact step from the stage map, and says
+          so itself when a step is not covered (CLAUDE.md s. 2a). This list's
+          coarse stages had their own copy of next steps, which disagreed. */}
 
       <button
         type="button"
