@@ -54,6 +54,8 @@ import {
   getPathLabel,
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
+import MotionToChangeRoute from "./_components/MotionToChangeRoute";
+import { motionToChangeLead } from "./_components/motionToChange";
 import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, type StageFromAnswers } from "./_components/stageFromAnswers";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
@@ -1228,6 +1230,15 @@ function BuilderPageContent() {
     Boolean(analysis) &&
     canonicalIntakeSaved &&
     Boolean(confirmedStage);
+  // An order already in place and words asking to change it ("how do i get
+  // it lowered"): the results lead with the motion-to-change route, quoted
+  // from r. 15 (5) and (2), instead of a temporary-motion rule card
+  // (walkthrough MC, 2026-10-14; motionToChange.ts).
+  const familyStory = homeStory || userStory(caseData);
+  const motionLead =
+    courtPath === "family"
+      ? motionToChangeLead(courtPath, [familyStory, caseData?.goal].filter(Boolean).join("\n"), existingFamilyOrder(familyStory))
+      : null;
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
   // words name (case reader first, then the phrase lists).
@@ -1967,6 +1978,7 @@ function BuilderPageContent() {
               or picks another before the overview appears. No next-step
               content renders until they have.
             */}
+            {motionLead ? <MotionToChangeRoute lead={motionLead} /> : null}
             <StageConfirmation
               suggestedStage={detectedStage}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
@@ -2056,7 +2068,10 @@ function BuilderPageContent() {
             ) : null}
             {/* The step answer above already cites its rules; this repeated them
                 once the stage was confirmed (page review, 2026-10-06). */}
-            {!confirmedStage ? (
+            {/* With the motion-to-change route on top, the catalogue's
+                temporary-motion card ("Family Rule 14 governs motions for
+                temporary orders") is not shown (walkthrough MC, 2026-10-14). */}
+            {!confirmedStage && !motionLead ? (
               <ProcedureAuthorityDisplay
                 courtArea={courtPath}
                 procedureStage={getStageForPersistence(analysis, caseData)}

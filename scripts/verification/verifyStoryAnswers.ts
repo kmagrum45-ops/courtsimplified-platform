@@ -16,7 +16,10 @@
  * anything been filed" is offered from the story as the form's own option
  * ("i got served the papers" -> application, "i want to sue the city" with
  * no paper mentioned -> nothing filed yet), never from a negation, someone
- * else served, or a story mentioning any paper (section 5).
+ * else served, or a story mentioning any paper (section 5). A family story
+ * with an order and words asking to change it ("how do i get it lowered")
+ * gets the motion-to-change route first, quoted from r. 15 (5) and (2) of the
+ * saved Family Law Rules, instead of the temporary-motion card (section 6).
  *
  * An independent review (2026-10-13) added the inputs that broke the first
  * version: negations ("i never got served"), someone else served ("he was
@@ -65,6 +68,7 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
+import { motionToChangeLead } from "../../app/builder/_components/motionToChange";
 import { SERVED_LINE, storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { HELD_BACK_PERSONAS } from "../../tests/browser/walkthrough/heldBackPersonas";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -486,6 +490,52 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
   // An option the form does not list is never offered.
   const narrow = familyGuidedFields({ issues: [], filed: [{ value: "answer", label: "Answer" }] }).find((item) => item.key === "filedDocuments") as GuidedField;
   check("a value the form does not offer is never offered", offered(narrow, story("family-respondent-parenting")) === null, JSON.stringify(offered(narrow, story("family-respondent-parenting"))));
+}
+
+// ---- 6. "How do I get it lowered?" is answered with the route, quoted ------
+// Walkthrough MC (2026-10-14): a father with a 2022 support order asked how to
+// get it lowered; the first rule card said "Family Rule 14 governs motions for
+// temporary orders" and nothing answered him plainly. Properties: a family
+// story with an order and words asking to change it gets the motion-to-change
+// line, whose words are in the quoted r. 15 (5), with r. 15 (2) beside it,
+// both found verbatim in the saved Family Law Rules; no other story gets it;
+// it predicts nothing; and on the results it comes first, with the
+// temporary-motion card not shown beside it.
+{
+  const corpus = read("docs/sources/corpus/family-law-rules.txt").replace(/\s+/g, " ");
+  const mc = PERSONAS.find((persona) => persona.id === "family-motion-to-change-support");
+  const lead = mc ? motionToChangeLead("family", mc.story, true) : null;
+  check("motion to change: the father asking to lower his support order gets the route", Boolean(lead), mc ? mc.story : "persona missing");
+  if (lead) {
+    const pinpoints = lead.rules.map((rule) => rule.pinpoint);
+    check("motion to change: quotes r. 15 (5) and r. 15 (2)", pinpoints.includes("r. 15 (5)") && pinpoints.includes("r. 15 (2)"), pinpoints.join(", "));
+    check(
+      "motion to change: every quote is in the saved Family Law Rules, word for word",
+      lead.rules.every((rule) => rule.sourceId === "family-law-rules" && corpus.includes(rule.quote.replace(/\s+/g, " "))),
+    );
+    const r155 = lead.rules.find((rule) => rule.pinpoint === "r. 15 (5)")?.quote ?? "";
+    check(
+      "motion to change: the plain line says only what r. 15 (5) says (a final order, a motion to change, Form 15)",
+      ["final order", "motion to change", "Form 15"].every((words) => lead.line.includes(words) && r155.includes(words)),
+      lead.line,
+    );
+    check("motion to change: the line predicts nothing", !/\b(?:likely|will (?:be|get|win)|chance|strong|weak|succeed|should)\b/i.test(lead.line), lead.line);
+  }
+  const noRoute: [string, string, boolean][] = [
+    ["family", "i want to start a case for custody of my son", false],
+    ["family", "there is a support order from 2022 and he has not paid in months", true],
+    ["family", "the court order says i have the kids every weekend", true],
+    ["civil", "i want the court order lowered", true],
+    ["small-claims", "how do i get the judgment changed", true],
+  ];
+  for (const [court, text, existingOrder] of noRoute) {
+    check(`motion to change: no route offered for ${court} '${text}'`, motionToChangeLead(court, text, existingOrder) === null);
+  }
+  const builder = read("app/builder/page.tsx");
+  const leadAt = builder.indexOf("<MotionToChangeRoute");
+  const stageAt = builder.indexOf("<StageConfirmation");
+  check("motion to change: the route leads the results, above the stage", leadAt > 0 && stageAt > leadAt);
+  check("motion to change: the temporary-motion card is not shown with it", /!confirmedStage && !motionLead \? \(\s*<ProcedureAuthorityDisplay/.test(builder));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
