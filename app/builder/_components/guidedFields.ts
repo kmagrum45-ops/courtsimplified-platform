@@ -13,6 +13,7 @@
  */
 
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
+import { SERVED_LINE } from "../../../src/lib/case-system/casePosition";
 import {
   amountFromStory,
   childrenFromStory,
@@ -42,20 +43,30 @@ const has = (values: GuidedValues, key: string, ...wanted: string[]) => {
  * deadline count with no new place to store it. The person sees the line in
  * their Timeline and can change it there.
  */
-export const SERVED_LINE = "I was served with the court papers on: ";
+export { SERVED_LINE };
 
 /** The service date kept in the timeline, or "" when none is. */
 export function servedDateOf(timeline: string): string {
-  const line = timeline.split("\n").find((entry) => entry.startsWith(SERVED_LINE));
-  return line ? line.slice(SERVED_LINE.length).trim() : "";
+  const line = timeline.split("\n").find((entry) => entry.trim().startsWith(SERVED_LINE.trim()));
+  return line ? line.trim().slice(SERVED_LINE.trim().length).trim() : "";
 }
 
 /** The timeline with its service-date line set to this date (replaced, never doubled). */
 export function withServedDate(timeline: string, date: string): string {
-  const kept = timeline.split("\n").filter((entry) => !entry.startsWith(SERVED_LINE));
+  const kept = timeline.split("\n").filter((entry) => !entry.trim().startsWith(SERVED_LINE.trim()));
   while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
   const cleaned = date.trim();
   return [...kept, ...(cleaned ? [`${SERVED_LINE}${cleaned}`] : [])].join("\n");
+}
+
+/** The family chat's answers that are kept in the Timeline, read back from it. */
+export function familyTimelineValues(timeline: string): GuidedValues {
+  return { servedDate: servedDateOf(timeline) };
+}
+
+/** The Timeline after a chat answer the Timeline keeps; null for any other answer. */
+export function familyTimelineAnswer(key: string, value: string, timeline: string): string | null {
+  return key === "servedDate" ? withServedDate(timeline, value) : null;
 }
 
 export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: GuidedChoice[] }): GuidedField[] {

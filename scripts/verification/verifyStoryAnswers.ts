@@ -14,6 +14,15 @@
  * when it gives one, and the answer lands in the Timeline line the step page
  * already reads for dates, where it is counted as the service date.
  *
+ * An independent review (2026-10-13) added the inputs that broke the first
+ * version: negations ("i never got served"), someone else served ("he was
+ * served on may 5"), the person not being the one suing ("the city sued my
+ * neighbour"), words before a name ("Yesterday Bob"), capitalised words that
+ * are not names ("my husband Is abusive"), impossible days ("june 31"),
+ * harm offered as a goal ("i want to die"), and "apply" for legal aid; and
+ * the chat's own service date losing to the story's, or to a motion
+ * mentioned elsewhere.
+ *
  * WHAT FAILURE IT CATCHES: the chat asking a question the story answers
  * ("Are you suing someone?" after "i want to sue the city"), a reader
  * offering a guess or a question as an answer ("I need to do before it" as a
@@ -33,7 +42,14 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { heardAs, pendingFields, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
-import { civilGuidedFields, familyGuidedFields, servedDateOf, withServedDate } from "../../app/builder/_components/guidedFields";
+import {
+  civilGuidedFields,
+  familyGuidedFields,
+  familyTimelineAnswer,
+  familyTimelineValues,
+  servedDateOf,
+  withServedDate,
+} from "../../app/builder/_components/guidedFields";
 import {
   amountFromStory,
   childrenFromStory,
@@ -45,7 +61,7 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
-import { storyHintsForDates } from "../../src/lib/case-system/casePosition";
+import { SERVED_LINE, storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { HELD_BACK_PERSONAS } from "../../tests/browser/walkthrough/heldBackPersonas";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
 
@@ -175,6 +191,21 @@ console.log("\n2. Plain statements the walkthrough reviewer named are read");
     ["i want a court order for my weekends back", "weekends"],
   ];
   for (const [story, word] of goals) check(`goal in '${story}' says '${word}'`, !!goalFromStory(story)?.value.includes(word), shown(goalFromStory(story)));
+  // 4: the words before a name are not part of it (independent review, 2026-10-13).
+  for (const [story, name] of [["Yesterday Bob sued me", "Bob"], ["In June Bob sued me for 4000", "Bob"], ["Last Tuesday Mark Lee served me", "Mark Lee"]] as const) {
+    const answer = otherPartyFromStory(story);
+    check(`'${story}': the other side is '${name}' or nothing, never the words before it`, answer === null || answer.value === name, shown(answer));
+  }
+  check("'I sued Visa' names Visa", otherPartyFromStory("I sued Visa")?.value === "Visa", shown(otherPartyFromStory("I sued Visa")));
+  // 5: a name set off by commas, or after "named", is still read.
+  check("'my husband, Mark Lee.' gives Mark Lee", otherPartyNameFromStory("I left my husband, Mark Lee.")?.value === "Mark Lee", shown(otherPartyNameFromStory("I left my husband, Mark Lee.")));
+  check("'my ex named Sarah' gives Sarah", otherPartyNameFromStory("my ex named Sarah took me to court")?.value === "Sarah", shown(otherPartyNameFromStory("my ex named Sarah took me to court")));
+  // 11: applying to the court is starting it.
+  for (const story of ["i want to apply for a divorce", "i want to apply to the court for custody", "i need to apply for child support"]) {
+    check(`family '${story}' is the applicant`, familyRoleFromStory(story)?.value === "applicant", shown(familyRoleFromStory(story)));
+  }
+  // 6: a real date with the served words is still read.
+  check("'i was served on february 29 2024' is read", servedDateFromStory("i was served on february 29 2024")?.value === "February 29, 2024");
   check("a family name the story gives is offered", otherPartyNameFromStory("my ex, Sarah Jones, took me to court")?.value === "Sarah Jones", shown(otherPartyNameFromStory("my ex, Sarah Jones, took me to court")));
 }
 
@@ -206,6 +237,71 @@ console.log("\n3. Questions, doubts and 'what if's give nothing");
     ["day served", servedDateFromStory, "we separated on march 3 2024 and i got served last week"],
     ["day served", servedDateFromStory, "what happens if i get served on monday"],
     ["amount", amountFromStory, "i pay support from a court order in 2022"],
+    // Independent review, 2026-10-13. 1: negation, not yet, only reported.
+    ["family side", familyRoleFromStory, "i never got served"],
+    ["family side", familyRoleFromStory, "i havent been served yet"],
+    ["family side", familyRoleFromStory, "i have not been served but i heard my ex filed an application"],
+    ["family side", familyRoleFromStory, "they told me i was served on june 3 but i never got anything"],
+    ["family side", familyRoleFromStory, "i will be served on monday march 3"],
+    ["day served", servedDateFromStory, "i never got served"],
+    ["day served", servedDateFromStory, "i havent been served yet"],
+    ["day served", servedDateFromStory, "i have not been served but i heard my ex filed an application"],
+    ["day served", servedDateFromStory, "they told me i was served on june 3 but i never got anything"],
+    ["day served", servedDateFromStory, "i will be served on monday march 3"],
+    // 2: someone else was served, or the person served someone.
+    ["family side", familyRoleFromStory, "he was served on may 5"],
+    ["family side", familyRoleFromStory, "my sister got served last year, not me"],
+    ["family side", familyRoleFromStory, "my ex got served on september 3 by me"],
+    ["family side", familyRoleFromStory, "i served my ex on september 3"],
+    ["civil side", civilRoleFromStory, "he was served on may 5"],
+    ["day served", servedDateFromStory, "he was served on may 5"],
+    ["day served", servedDateFromStory, "my sister got served last year, not me"],
+    ["day served", servedDateFromStory, "my ex got served on september 3 by me"],
+    ["day served", servedDateFromStory, "i served my ex on september 3"],
+    // 3: the person is not the one suing, or "took" is not to court.
+    ["civil other side", otherPartyFromStory, "the city sued my neighbour"],
+    ["civil other side", otherPartyFromStory, "i took my partner to the hospital after the fall"],
+    ["civil other side", otherPartyFromStory, "i took my boss to lunch and he fired me"],
+    ["civil other side", otherPartyFromStory, "i'd never sue my boss"],
+    ["civil other side", otherPartyFromStory, "i'm not going to sue the city"],
+    // 5: a capitalised word after "my husband" is not a name.
+    ["family name", otherPartyNameFromStory, "my husband Is abusive"],
+    ["family name", otherPartyNameFromStory, "my ex is Ottawa based"],
+    ["family name", otherPartyNameFromStory, "my wife Divorce papers came"],
+    ["family name", otherPartyNameFromStory, "my ex My lawyer says"],
+    ["family name", otherPartyNameFromStory, "my husband CAS called me"],
+    ["family name", otherPartyNameFromStory, "my mom's dad Bob is helping"],
+    // 6: impossible days, "2 weeks ago", and dates of other moments.
+    ["day served", servedDateFromStory, "i was served on june 31"],
+    ["day served", servedDateFromStory, "i was served on may 99"],
+    ["day served", servedDateFromStory, "i was served at my door on 2026-09-31"],
+    ["day served", servedDateFromStory, "i got the papers from the city in march 2 weeks ago"],
+    ["day served", servedDateFromStory, "i was served with papers about the house we bought on june 3 2020"],
+    ["day served", servedDateFromStory, "i was served the papers about the car i sold on may 4"],
+    ["day served", servedDateFromStory, "i was served about the lease we signed on may 4"],
+    ["day served", servedDateFromStory, "i was served with papers about my son who was born on may 4"],
+    ["day served", servedDateFromStory, "i got served about the house we rented on may 4"],
+    ["day served", servedDateFromStory, "i got served over the contractor i hired on may 4"],
+    ["day served", servedDateFromStory, "i got served about the accident that happened on may 4"],
+    ["day served", servedDateFromStory, "i got served after we moved on may 4"],
+    // 10: harm, nothing after the verb, answering or helping.
+    ["goal", goalFromStory, "i want to die"],
+    ["goal", goalFromStory, "i want to kill him"],
+    ["goal", goalFromStory, "i want to hurt her"],
+    ["goal", goalFromStory, "i just want to end it"],
+    ["goal", goalFromStory, "i want to end my life"],
+    ["goal", goalFromStory, "i want to harm him"],
+    ["goal", goalFromStory, "i sued the city? no i want to"],
+    ["goal", goalFromStory, "i want to answer the application"],
+    ["goal", goalFromStory, "i want to respond to the claim my ex filed"],
+    ["goal", goalFromStory, "the city sued my neighbour. i want to help him"],
+    // 11: "apply" for something that is not a court order.
+    ["family side", familyRoleFromStory, "i want to apply for legal aid"],
+    ["family side", familyRoleFromStory, "i need to apply for a job"],
+    ["civil side", civilRoleFromStory, "i want to apply for legal aid"],
+    ["civil side", civilRoleFromStory, "i need to apply for a job"],
+    ["goal", goalFromStory, "i want to apply for legal aid"],
+    ["goal", goalFromStory, "i need to apply for a job"],
     ["children", childrenFromStory, "on september 29 a process server gave me papers about our 2 girls"],
   ];
   for (const [name, reader, story] of none) check(`${name}: nothing from '${story}'`, reader(story) === null, shown(reader(story)));
@@ -248,17 +344,31 @@ console.log("\n4. The chat offers what the story says, and asks a respondent the
     hints["case-date-served-with-application"]?.value === "2026-10-06",
     JSON.stringify(hints["case-date-served-with-application"]),
   );
-  const familySource = read("app/builder/_components/FamilyIntake.tsx");
-  check("the family form writes the answer into its Timeline", /case "servedDate": setTimeline\(\(current\) => withServedDate\(current, one\)\)/.test(familySource));
-  check("the family form reads it back from its Timeline", /servedDate: servedDateOf\(timeline\)/.test(familySource));
+  // The family form's own reducer for answers kept in the Timeline (behaviour, not code text).
+  const written = familyTimelineAnswer("servedDate", "October 6, 2026", "We separated in 2024.");
+  check("a service-date answer becomes the Timeline's served line", written !== null && familyTimelineValues(written).servedDate === "October 6, 2026", String(written));
+  check("any other answer is not kept in the Timeline", familyTimelineAnswer("goal", "joint custody", "x") === null);
+  check("a served line the person indented is still read", servedDateOf(`  ${SERVED_LINE}October 6, 2026`) === "October 6, 2026");
+  check("what the step page reads for dates includes the Timeline", storyWithTimeline("my story", timeline).includes(timeline) && storyWithTimeline("my story", undefined) === "my story");
+  // Where they are used: imports only (CLAUDE.md s. 5: a check asserts a property, not code text).
+  const importsFrom = (file: string, name: string, from: RegExp) =>
+    new RegExp(`import\\s*\\{[^}]*\\b${name}\\b[^}]*\\}\\s*from\\s*"${from.source}"`).test(read(file));
+  check("the family form uses the Timeline reducer", importsFrom("app/builder/_components/FamilyIntake.tsx", "familyTimelineAnswer", /\.\/guidedFields/) && importsFrom("app/builder/_components/FamilyIntake.tsx", "familyTimelineValues", /\.\/guidedFields/));
   for (const page of ["app/builder/page.tsx", "app/cases/[id]/page.tsx"]) {
-    check(`${page} reads the Timeline for dates`, /storyHintsForDates\(\[[^\]]*\.timeline\]/.test(read(page)));
+    check(`${page} reads dates from the story with the Timeline`, importsFrom(page, "storyWithTimeline", /[^"]*casePosition/));
   }
+
+  // The person's own answer wins over the story, and a motion elsewhere does not drop it (review items 7, 8).
+  const conflict = storyHintsForDates(storyWithTimeline("i was served on september 20 2026.", withServedDate("", "September 22, 2026")));
+  check("the chat's service date wins over a different date in the story", conflict["case-date-served-with-application"]?.value === "2026-09-22", JSON.stringify(conflict["case-date-served-with-application"]));
+  const motion = storyHintsForDates(storyWithTimeline("my ex brought a motion last year. now i am served with an application.", withServedDate("", "September 22, 2026")));
+  check("a story that mentions a motion keeps the chat's service date", motion["case-date-served-with-application"]?.value === "2026-09-22", JSON.stringify(motion["case-date-served-with-application"]));
+  const vague = storyHintsForDates(storyWithTimeline("i was served on september 20 2026.", withServedDate("", "last monday")));
+  check("an answer with no usable date is quoted, and no story date is filled in its place", vague["case-date-served-with-application"]?.value === null, JSON.stringify(vague["case-date-served-with-application"]));
 
   const role = field(civil, "yourRole");
   check("an answer confirmed from the story is not listed under the question it answered", !heardAs(role, true).includes(role.question) && heardAs(role, true).includes(role.label));
   check("a typed answer is still listed under its question", heardAs(role, false) === role.question);
-  check("the chat's 'Yes' records the answer as from the story", /answer\(offered\.value, true\)/.test(read("app/builder/_components/GuidedFormChat.tsx")));
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

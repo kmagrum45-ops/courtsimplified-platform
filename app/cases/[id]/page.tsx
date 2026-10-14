@@ -27,6 +27,7 @@ import { getStageLabel } from "../../builder/_components/builderTypes";
 import {
   CONFIRMABLE_STAGES,
   storyHintsForDates,
+  storyWithTimeline,
   suggestedDatesFromEvents,
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
@@ -237,7 +238,7 @@ export default function CaseOverviewPage() {
               initialDateAnswers={position.dateAnswers}
               initialService={position.service}
               suggestedDates={suggestedDates}
-              storyHints={storyHintsForDates([record.story, intake?.timeline].filter(Boolean).join("\n"))}
+              storyHints={storyHintsForDates(storyWithTimeline(record.story, intake?.timeline))}
               storyText={[record.story, intake?.goal, intake?.urgent].filter(Boolean).join("\n")}
               userWords={userWordsOf(intake)}
               // Amount, city, claim type and story from the one case record

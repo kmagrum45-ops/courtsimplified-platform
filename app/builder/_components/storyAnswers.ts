@@ -42,12 +42,26 @@ function clauseBefore(sentence: string, index: number): string {
   return before.slice(cut + 1);
 }
 
+/*
+ * Words that turn what follows into something that did not happen, has not
+ * happened yet, or is only reported: "i never got served", "i havent been
+ * served yet", "i will be served", "they told me i was served", "i'd never
+ * sue my boss" (review, 2026-10-13).
+ */
+const NOT_SO_BEFORE =
+  /\b(?:not|never|no|dont|don't|didnt|didn't|havent|haven't|hasnt|hasn't|wont|won't|will|going to|gonna|i'd|isnt|isn't|wasnt|wasn't|arent|aren't|told me|said|says|heard|supposedly|apparently)\b/i;
+/** After the words: "not me", "by me", "yet", "but i never got anything". */
+const NOT_SO_AFTER =
+  /^\s*yet\b|\b(?:not me|by me|never (?:got|received|saw) (?:it|them|anything|any(?: court)? papers|the papers)|did ?n'?t (?:get|receive) (?:it|them|anything|any(?: court)? papers|the papers)|did not (?:get|receive) (?:it|them|anything|any(?: court)? papers|the papers))\b/i;
+
 /** The first place the pattern matches as something the person says is so, not asks or wonders. */
 function plainMatch(sentence: string, pattern: RegExp): RegExpExecArray | null {
   const global = new RegExp(pattern.source, pattern.flags.includes("g") ? pattern.flags : `${pattern.flags}g`);
   for (const match of sentence.matchAll(global)) {
     const clause = clauseBefore(sentence, match.index ?? 0);
     if (HEDGE_BEFORE.test(clause)) continue;
+    if (NOT_SO_BEFORE.test(clause)) continue;
+    if (NOT_SO_AFTER.test(sentence.slice((match.index ?? 0) + match[0].length))) continue;
     // "can i sue him?": a question, whatever its words.
     if (/\?\s*$/.test(sentence) && /^\s*(?:can|could|should|would|will|do|does|is|are|what|how|when|who)\b/i.test(clause)) continue;
     return match as RegExpExecArray;
@@ -65,7 +79,10 @@ const OTHER_PERSON = "(?:he|she|they|my (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlf
 const SUED_ME = new RegExp(
   [
     "\\bsu(?:ing|ed|es) me\\b",
-    "\\b(?:got|was|been|were|get|getting) (?:just )?served\\b",
+    // "i got served", "i've been served", "we were served": the person is the one
+    // served, never "he was served" or "my ex got served by me" (review, 2026-10-13).
+    "\\b(?:i|we)(?:'ve|ve| have| had)?(?: just)?(?: (?:got|get|was|were|been|getting))+(?: just)? served\\b",
+    "\\bi(?:'m| am|m) being (?:sued|served)\\b",
     "\\bserved me\\b",
     "\\btook me to court\\b",
     "\\btaking me to court\\b",
@@ -73,7 +90,7 @@ const SUED_ME = new RegExp(
     `\\b${OTHER_PERSON} (?:started|opened|filed|brought) (?:a |an )?(?:court |family )?(?:case|application|claim)\\b`,
     "\\b(?:filed|brought) (?:a |an )?(?:claim|case|application) against me\\b",
     "\\bi got served\\b",
-    "\\b(?:got|received) (?:a |the )?statement of claim\\b",
+    "\\bi (?:just )?(?:got|received) (?:a |the )?statement of claim\\b",
     "\\b(?:a )?process server (?:gave|handed|served|brought) me\\b",
     "\\b(?:gave|handed) me (?:the |some )?(?:court )?(?:papers|application|claim)\\b",
     "\\bi (?:filed|served|did) my (?:answer|statement of defen[cs]e|defen[cs]e)\\b",
@@ -84,7 +101,7 @@ const SUED_ME = new RegExp(
 /** They start the case (or have started it): a plain statement, so it wins over a want. */
 const I_START = new RegExp(
   [
-    "\\bi (?:want|need|would like|plan|am going|'m going|m going) to (?:sue|take (?:him|her|them|my \\w+(?: \\w+)?) to court|start a (?:court |family )?case|file (?:a |an )?(?:claim|application)|apply)\\b",
+    "\\bi (?:want|need|would like|plan|am going|'m going|m going) to (?:sue|take (?:him|her|them|my \\w+(?: \\w+)?) to court|start a (?:court |family )?case|file (?:a |an )?(?:claim|application)|apply to (?:the )?court|apply for (?:a |an )?(?:divorce|custody|(?:child |spousal )?support|order|decision-making(?: responsibility)?|parenting(?: time)?))\\b",
     "\\bi(?:'m| am|m) suing\\b",
     "\\bim suing\\b",
     "\\bi sued\\b",
@@ -169,13 +186,22 @@ const TYPOS: [RegExp, string][] = [
 const tidy = (text: string) => TYPOS.reduce((out, [typo, right]) => out.replace(typo, right), text);
 const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
+const HARM = /\b(?:die|dead|death|kill|killing|murder|hurt|harm|suicide|end it|end it all|end my life|end things|beat (?:him|her|them)|shoot|stab|revenge|punch)\b/i;
+
 /** What the person says they want ("i want my money back", "I want joint custody"). */
 export function goalFromStory(story: string): StoryAnswer | null {
   const all = sentences(story);
   for (const sentence of all) {
     const want = plainMatch(sentence, /\bi (?:want|need|would like|am asking for|just want|only want)\b/i);
     if (want) {
-      const value = sentence.slice(want.index).replace(/^i /i, "I ").replace(/[.!]+$/, "").trim();
+      const value = sentence.slice(want.index).replace(/^i /i, "I ").replace(/[.!?]+$/, "").trim();
+      // Never offered as something to put in court papers: harm to anyone
+      // (the safety pass reads these words; this reader leaves them alone).
+      if (HARM.test(value)) continue;
+      // "no i want to": nothing after the verb is not a goal.
+      if (/^I (?:want|need|would like|just want|only want|am asking for)(?: to)?$/i.test(value)) continue;
+      // Answering or getting help is the step, not the outcome; "apply" only for a court order.
+      if (/^I (?:want|need|would like|just want|only want) (?:nothing|to (?:answer|respond|reply|help|defend|fight)\b|to apply\b(?! (?:to (?:the )?court|for (?:a |an )?(?:divorce|custody|(?:child |spousal )?support|order))))/i.test(value)) continue;
       // "I want to sue the city" is how, not what they want ordered; "I need
       // a lawyer" or "I need to know" is help with the case, not an outcome.
       if (/^I (?:want|need|would like|just want) to (?:sue|take|file|start|know|understand|ask|bring|do|figure|find|go|see|talk|speak|get advice|get help|learn)\b/i.test(value)) continue;
@@ -249,14 +275,18 @@ function partyValue(phrase: string, story: string): string {
 
 const WHEN = "(?:\\s+(?:in|on|last|this)\\s+\\w+(?:\\s+\\d{1,2})?)?";
 const PARTY_TEMPLATES: ((target: string) => string)[] = [
-  // "sue the city", "suing my former business partner", "sued the trucking company"
-  (target) => `\\b(?:sue|suing|sued|claim against|take|taking|took)\\s+(${target})`,
+  // "i want to sue the city", "im suing my former business partner", "i sued
+  // the trucking company": the person is the one suing (review, 2026-10-13:
+  // "the city sued my neighbour" named the neighbour).
+  (target) => `\\b[Ii](?:'m|m| am)?(?: (?:want|need|would like|plan|am going|'m going|m going|have|decided) to| will| also| just)? (?:sue|suing|sued|make a claim against|start a claim against|file a claim against)\\s+(${target})`,
+  // "i want to take my landlord to court": take only with "to court".
+  (target) => `\\b[Ii](?:'m|m| am)?(?: (?:want|need|would like|plan|am going|'m going|m going|have|decided) to| will)? (?:take|taking|took) (${target}) to (?:court|small claims(?: court)?)\\b`,
   // "my old boss sued me", "the landlord is suing me", "John Smith took me to court"
   (target) => `(${target})\\s+(?:sued|is suing|are suing|has sued|took|is taking|started a (?:court )?case against|filed a claim against|served) me\\b`,
   // "a statement of claim in august from a supplier"
   (target) => `\\b(?:claim|papers|statement of claim|letter|lawsuit|demand)${WHEN}\\s+from\\s+(${target})`,
   // "i hired a contractor", "i paid a roofer"
-  (target) => `\\bi (?:hired|paid|rented from|bought (?:it |a \\w+ )?from|lent money to|loaned money to)\\s+(${target})`,
+  (target) => `\\b[Ii] (?:hired|paid|rented from|bought (?:it |a \\w+ )?from|lent money to|loaned money to)\\s+(${target})`,
 ];
 /*
  * Each pattern twice: a kind of party in any case ("the city", "My landlord"),
@@ -274,7 +304,9 @@ export function otherPartyFromStory(story: string): StoryAnswer | null {
     for (const sentence of sentences(story)) {
       const match = plainMatch(sentence, pattern);
       if (!match) continue;
-      const phrase = match[1];
+      // "Yesterday Bob sued me", "Last Tuesday Mark Lee": the words before the name are not it.
+      const phrase = match[1].replace(LEAD_WORDS, "");
+      if (!phrase) continue;
       // "He sued me", "Then the city": a pronoun or a sentence's first word is not a name.
       const kind = new RegExp(`^${PARTY_PHRASE}$`, "i").test(phrase);
       if (!kind && (/^(?:I|My|The|A|An|He|She|They|We|It|Then|Now|So|And|But|This|That|Someone|Somebody|Everyone|Nobody)\b/.test(phrase) || MONTH_NAMES.test(phrase))) continue;
@@ -284,6 +316,9 @@ export function otherPartyFromStory(story: string): StoryAnswer | null {
   return null;
 }
 
+const LEAD_WORDS =
+  /^(?:(?:yesterday|today|tonight|tomorrow|last|next|this|in|on|then|now|so|ok|okay|and|but|also|recently|later|after|before|when|once|early|late|monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|march|april|may|june|july|august|september|october|november|december|week|month|year|morning|night)\s+)+/i;
+
 const MONTH_NAMES = /^(?:january|february|march|april|may|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|saturday|sunday|ontario|canada)\b/i;
 
 /**
@@ -291,25 +326,50 @@ const MONTH_NAMES = /^(?:january|february|march|april|may|june|july|august|septe
  * Sarah Jones,", "my husband Mark"). The question asks for a name, so "my ex
  * gf" is not an answer to it.
  */
+const NOT_A_NAME =
+  /^(?:I|Is|He|She|They|We|The|A|An|My|His|Her|It|Was|Has|Had|And|But|So|Then|Now|Divorce|Custody|Support|Court|Police|Lawyer|Judge|Mom|Dad|Ontario|Canada)\b/;
+
 export function otherPartyNameFromStory(story: string): StoryAnswer | null {
-  const pattern = new RegExp(
-    `\\bmy (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner))?|wife|husband|partner|spouse|common[- ]law (?:wife|husband|partner)|\\w+'?s? (?:mom|mother|dad|father))(?:'s name is|,|\\s+named|\\s+called|\\s+is)?\\s+(${NAME})`,
-  );
+  // Only "my ex, Sarah Jones," / "my husband Mark." (a name set off and closed
+  // by a comma or the end) or "named / called / 's name is" (review,
+  // 2026-10-13: "my husband Is abusive" gave "Is"). The other parent of a
+  // child only: "my mom's dad" is not the other side.
+  const relation = "[Mm]y (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner))?|wife|husband|partner|spouse|common[- ]law (?:wife|husband|partner)|(?:sons?|daughters?|kids?|child|children|baby|boy|girl)'?s? (?:mom|mother|dad|father))";
+  const person = "([A-Z][a-z'-]+(?: [A-Z][a-z'-]+){0,2})";
+  const patterns = [
+    new RegExp(`\\b${relation}(?:'s name is|\\s+(?:is )?named|\\s+(?:is )?called)\\s+${person}\\b`),
+    new RegExp(`\\b${relation},?\\s+${person}(?=\\s*(?:,|\\.|;|$))`),
+  ];
   for (const sentence of sentences(story)) {
-    const match = pattern.exec(sentence);
-    if (!match) continue;
-    const name = match[1].trim();
-    if (MONTH_NAMES.test(name) || /^(?:I|He|She|They|We|The|A)\b/.test(name)) continue;
-    return { value: name, quote: sentence };
+    for (const pattern of patterns) {
+      const match = pattern.exec(sentence);
+      if (!match) continue;
+      const name = match[1].trim();
+      if (NOT_A_NAME.test(name) || MONTH_NAMES.test(name) || Object.keys(CITIES).includes(name.toLowerCase())) continue;
+      return { value: name, quote: sentence };
+    }
   }
   return null;
 }
 
 const MONTH_WORD = "(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";
-const SERVED_DATE = new RegExp(`\\b(${MONTH_WORD})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?(?:,?\\s+(\\d{4}))?\\b|\\b(\\d{4})-(\\d{1,2})-(\\d{1,2})\\b`, "gi");
-const SERVED_WORDS = /\b(?:served|process server|(?:gave|handed) me (?:the |some )?(?:court )?(?:papers|application|claim)|(?:got|received) (?:the |a )?(?:court )?(?:papers|application|statement of claim))\b/i;
+// "march 2 weeks ago" is not March 2 (review, 2026-10-13).
+const SERVED_DATE = new RegExp(`\\b(${MONTH_WORD})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?(?!\\s*(?:weeks?|days?|months?|years?|hours?|wks?|yrs?)\\b)(?:,?\\s+(\\d{4}))?\\b|\\b(\\d{4})-(\\d{1,2})-(\\d{1,2})\\b`, "gi");
+// The person is the one served (review, 2026-10-13: "he was served on may 5"
+// and "i served my ex on september 3" were offered as their own service date).
+const SERVED_WORDS =
+  /\b(?:(?:i|we)(?:'ve|ve| have| had)?(?: just)?(?: (?:got|was|were|been))+(?: just)? served|served me|(?:a )?process server (?:gave|handed|served|brought) me|(?:gave|handed) me (?:the |some )?(?:court )?(?:papers|application|claim)|i (?:just )?(?:got|received) (?:the |a |some )?(?:court )?(?:papers|application|statement of claim))\b/i;
 /** Words of a different moment: between the served words and a date, the date is that moment's. */
-const OTHER_MOMENT = /\b(?:filed|issued|hearing|conference|trial|mediation|scheduled|court date|motion date|questioning|discovery|moved|separated|married|split)\b/i;
+const OTHER_MOMENT =
+  /\b(?:filed|issued|hearing|conference|trial|mediation|scheduled|court date|motion date|questioning|discovery|moved|separated|married|split|bought|sold|signed|born|happened|rented|hired|started|ended|fired|paid|lent|closed|died|turns?)\b/i;
+
+/** A real calendar day: no June 31, May 99 or 2026-09-31. */
+function realDay(month: number, day: number, year?: number): boolean {
+  if (month < 1 || month > 12 || day < 1) return false;
+  // Without a year, 2024 (a leap year) keeps February 29 possible.
+  const last = new Date(Date.UTC(year ?? 2024, month, 0)).getUTCDate();
+  return day <= last;
+}
 const HOW_SERVED = /\b(?:in person|by (?:registered )?mail|by email|by courier|by a process server|at my (?:house|home|door|work|office))\b/i;
 const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 
@@ -321,15 +381,23 @@ const MONTHS = ["january", "february", "march", "april", "may", "june", "july", 
  */
 export function servedDateFromStory(story: string): StoryAnswer | null {
   for (const sentence of sentences(story)) {
-    const served = SERVED_WORDS.exec(sentence);
-    if (!served || !plainMatch(sentence, SERVED_WORDS)) continue;
+    // The served words plainMatch accepted, not merely the first ones.
+    const served = plainMatch(sentence, SERVED_WORDS);
+    if (!served) continue;
+    const servedAt = served.index ?? 0;
     let best: { text: string; distance: number } | null = null;
     for (const match of sentence.matchAll(SERVED_DATE)) {
       const at = match.index ?? 0;
       const end = at + match[0].length;
-      const between = at > served.index ? sentence.slice(served.index + served[0].length, at) : sentence.slice(end, served.index);
+      const between = at > servedAt ? sentence.slice(servedAt + served[0].length, at) : sentence.slice(end, servedAt);
       if (OTHER_MOMENT.test(between)) continue;
-      if (at < served.index) {
+      // "the house we bought on june 3": the words just before the date name its moment.
+      if (OTHER_MOMENT.test(clauseBefore(sentence, at).slice(-40))) continue;
+      const month = match[1] ? MONTHS.findIndex((name) => name.startsWith(match[1].toLowerCase().slice(0, 3))) + 1 : Number(match[5]);
+      const day = Number(match[1] ? match[2] : match[6]);
+      const year = match[1] ? (match[3] ? Number(match[3]) : undefined) : Number(match[4]);
+      if (!realDay(month, day, year)) continue;
+      if (at < servedAt) {
         // "we separated on march 3 2024 and i got served last week": a date
         // whose clause closes with "and" before the served words is that
         // clause's, and so is one inside "the hearing is on november 20".
@@ -339,7 +407,7 @@ export function servedDateFromStory(story: string): StoryAnswer | null {
       const text = match[1]
         ? `${capital(MONTHS.find((month) => month.startsWith(match[1].toLowerCase().slice(0, 3))) ?? match[1])} ${Number(match[2])}${match[3] ? `, ${match[3]}` : ""}`
         : `${match[4]}-${match[5].padStart(2, "0")}-${match[6].padStart(2, "0")}`;
-      const distance = Math.abs(at - served.index);
+      const distance = Math.abs(at - servedAt);
       if (!best || distance < best.distance) best = { text, distance };
     }
     if (!best) continue;
