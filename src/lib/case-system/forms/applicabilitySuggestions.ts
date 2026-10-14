@@ -48,6 +48,63 @@ const STEP_ANSWERS: Record<string, Record<string, { value: string; reason: strin
 
 type Question = { field_path: string; choices: ReadonlyArray<{ value: unknown }> };
 
+/**
+ * A defendant asking, in their own words, for the other side to pay THEM:
+ * "I want him to pay for the repairs", "I want to claim back the $5,200",
+ * "counterclaim", "sue him back". The person is the one asking (first
+ * person), so the plaintiff's own claim ("He wants to claim the money back
+ * from me", "he says I owe 7500") is not read as theirs. A bare "should pay" /
+ * "has to pay for" counts only when it is them being paid, or the repairs or
+ * damage they paid for ("The plaintiff should pay costs if he loses" and "He
+ * has to pay for his own lawyer" are not a claim back). Review 2026-10-13:
+ * each of those misfired in the first version.
+ */
+const PARTY = "(?:him|her|them|the contractor|the plaintiff|the other side)";
+const SUBJECT = "(?:he|she|they|the contractor|the plaintiff)";
+const ME = "\\b(?:i|we)\\b[^.!?\\n]{0,50}";
+const CLAIM_BACK = [
+  new RegExp(`${ME}\\b(?:want|wanted|would like|'d like|need|am asking|ask|hope|hoping|plan|planning|am going)\\b[^.!?\\n]{0,40}\\b${PARTY}\\b[^.!?\\n]{0,15}\\bto (?:pay|cover|reimburse|refund|compensate)\\b`, "i"),
+  new RegExp(`${ME}\\b(?:have|make|get) ${PARTY} (?:to )?(?:pay|cover|reimburse|refund|compensate)\\b`, "i"),
+  new RegExp(`\\b${SUBJECT} owes? (?:me|us)\\b(?! nothing| anything)`, "i"),
+  new RegExp(`\\b${SUBJECT} (?:should|has to|must|needs to|ought to) (?:pay|cover|reimburse|refund|compensate) (?:me|us)\\b`, "i"),
+  new RegExp(`\\b${SUBJECT} (?:should|has to|must|needs to|ought to) (?:pay|cover) for (?:the |my |our )?(?:repairs?|fixing|fix|damage|redoing|redo)\\b`, "i"),
+  new RegExp(`${ME}\\bclaim(?:ing)? (?:it |that |the money |the cost |the costs |\\$?[\\d,]+ )?back\\b`, "i"),
+  new RegExp(`${ME}\\bclaim(?:ing)? against ${PARTY}\\b`, "i"),
+  /\bcounter-?claim/i,
+  /\bdefendant'?s claim\b/i,
+  new RegExp(`${ME}\\bsu(?:e|ing) ${PARTY} (?:back|for)\\b`, "i"),
+];
+/** A "no" anywhere up to the end of the words: "I don't want him to pay me anything". */
+const SAYS_NO = /\b(?:no|not|never|nothing|don'?t|do not|doesn'?t|does not|won'?t|will not|didn'?t|did not|can'?t|cannot)\b/i;
+
+function sentencesOf(text: string): string[] {
+  return text
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+}
+
+function claimBackInOwnWords(master: Record<string, unknown>, story: string): string | null {
+  const intake = asRecord(master.intakeData);
+  const answers = Array.isArray(master.intakeAnswers) ? master.intakeAnswers : [];
+  const own = [
+    ...answers.map((answer) => asRecord(answer).answerText).filter((value): value is string => typeof value === "string"),
+    ...[intake.goal, asRecord(intake.extra).goal].filter((value): value is string => typeof value === "string"),
+    story,
+  ];
+  for (const text of own) {
+    for (const sentence of sentencesOf(text)) {
+      // A question is not a request ("Do I have to counterclaim?").
+      if (sentence.includes("?")) continue;
+      for (const pattern of CLAIM_BACK) {
+        const match = pattern.exec(sentence);
+        if (match && !SAYS_NO.test(sentence.slice(0, match.index + match[0].length))) return sentence.length > 160 ? `${sentence.slice(0, 157)}…` : sentence;
+      }
+    }
+  }
+  return null;
+}
+
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
 
@@ -94,6 +151,23 @@ function suggest(
   // No amount typed, but the story asks for money: offered, not kept.
   if (last === "requestedRemedyType" && /\$\s?\d|\b(?:pay(?:\s+(?:me|for|back))?|owe[sd]?|refund|compensat\w*|reimburs\w*)\b/i.test(record.story)) {
     return { value: "ordinary-money-claim", reason: "Your story asks for money." };
+  }
+
+  // "Are you making a Defendant's Claim?" -- from a defendant's own words
+  // asking the other side to pay them (walkthrough, 2026-10-13, R7: a
+  // homeowner sued by a contractor said in the intake she wanted him to pay
+  // for the repairs, and the Forms page asked about a Defendant's Claim as if
+  // nothing had been said). Wanting money back can also be raised in the
+  // defence, so this stays a suggestion they confirm, never a kept answer;
+  // the step "considering a defendant's claim" is offered the same way.
+  if (last === "isMakingDefendantsClaim" && side === "responding") {
+    if (record.position.stepId === "defendant:considering-defendants-claim") {
+      // Considering is a question, not a decision: offered, never kept
+      // without their confirmation (CLAUDE.md section 4; review 2026-10-13).
+      return { value: true, reason: "Your step is considering a defendant's claim." };
+    }
+    const asked = claimBackInOwnWords(master, record.story);
+    if (asked) return { value: true, reason: `You wrote: “${asked}”` };
   }
 
   // The step the person picked settles some of these outright.

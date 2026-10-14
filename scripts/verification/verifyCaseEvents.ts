@@ -19,6 +19,12 @@
  *   2. Every other type asserts a procedural characterisation of the user's
  *      case, which CLAUDE.md section 2 requires to cite a real provision.
  *
+ *   3. A sentence that names the event of the step the person confirmed is
+ *      offered as that kind of step, with why, instead of being asked cold
+ *      (2026-10-13, R6: "I won my small claims case" asked "What kind of step
+ *      was this?" after "Judgment obtained, unpaid" was confirmed) -- and only
+ *      that step's own event, never for a "no", never with no confirmed step.
+ *
  * Run: node --import tsx scripts/verification/verifyCaseEvents.ts
  */
 
@@ -59,6 +65,8 @@ import {
   deriveCaseStageWithEvents,
   stageFactsFromEvents,
 } from "../../src/lib/case-system/events/caseStageFromEvents";
+import { STEP_EVENT, suggestedEventForSentence } from "../../src/lib/case-system/events/stepEvent";
+import { stagesForPathway } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   analysisFreshness,
   freshnessMessage,
@@ -805,6 +813,121 @@ function main(): void {
     ),
     "the route has no case to read events from unless the client names one",
   );
+
+  // ---- the confirmed step's own event (walkthrough 2026-10-13, R6) --------
+  // A sentence that names the event of the step the person confirmed is
+  // offered as that kind of step, with why; every other sentence is still
+  // theirs to classify. Properties, not today's list: every mapped step is a
+  // real Small Claims step mapped to a sourced type (never the untyped one),
+  // the suggestion is only ever the confirmed step's own event, and a "no",
+  // a different event, or no confirmed step offers nothing.
+  {
+    const smallClaimsSteps = new Map(stagesForPathway("small-claims").map((stage) => [stage.id, stage]));
+    for (const [stepId, eventType] of Object.entries(STEP_EVENT)) {
+      check(
+        `step-event: ${stepId} is a Small Claims step mapped to a sourced type`,
+        smallClaimsSteps.has(stepId) && eventType !== "other-user-described" && CASE_EVENT_TYPES.some((definition) => definition.type === eventType),
+      );
+    }
+    const judgment = { id: "plaintiff:judgment-in-my-favour-unpaid", title: "Judgment obtained, unpaid", chosen: true };
+    for (const sentence of [
+      "I won my small claims case against my old roommate in May.",
+      "i won my small claims case and the judge said he owes me 6500",
+      "The court ordered him to pay me $6,500 plus costs.",
+    ]) {
+      const found = suggestedEventForSentence(sentence, judgment);
+      check(
+        `step-event: "${sentence.slice(0, 50)}" at the chosen judgment step is offered as a judgment, with why`,
+        found?.eventType === "order-or-judgment-received" && /you confirmed “Judgment obtained, unpaid”/.test(found.basis),
+        JSON.stringify(found),
+      );
+    }
+    // Each event, said plainly, at its own step.
+    for (const [stepId, sentence] of [
+      ["defendant:served-defence-period-running", "He served me with the plaintiff's claim on May 3."],
+      ["defendant:served-defence-period-running", "i got the plaintiffs claim in the mail on september 28"],
+      ["plaintiff:defendant-noted-in-default", "He was noted in default last week."],
+      ["defendant:defence-filed", "I filed my defence on June 2."],
+      ["plaintiff:trial-date-set", "The trial date is set for March 3."],
+      ["both:responding-to-a-motion", "He served a notice of motion on me."],
+      ["defendant:judgment-against-me", "Judgment was given against me in March."],
+    ] as const) {
+      check(`step-event: "${sentence}" is offered at ${stepId}`, suggestedEventForSentence(sentence, { id: stepId, title: stepId })?.eventType === STEP_EVENT[stepId]);
+    }
+    // "You confirmed" only of a step the person chose (review 2026-10-13).
+    {
+      const suggestedStep = suggestedEventForSentence("I won my small claims case.", { ...judgment, chosen: false });
+      check(
+        "step-event: a step the site suggested is never called one the person confirmed",
+        Boolean(suggestedStep) && !/you confirmed/i.test(suggestedStep!.basis) && /your step on the Overview is “Judgment obtained, unpaid”/.test(suggestedStep!.basis),
+        JSON.stringify(suggestedStep),
+      );
+    }
+    // A question, a no, a maybe, a wish, someone else's case, or the same word
+    // in another sense offers nothing at ANY step (review 2026-10-13: each of
+    // these misfired in the first version).
+    const mustSuggestNothing = [
+      "It's been months, and he hasn't paid anything.",
+      "We haven't had a judgment yet.",
+      "He never served me.",
+      "I served in the army for 10 years.",
+      "I served him dinner",
+      "I need to get him served.",
+      "Has he been served? I don't know.",
+      "We won the lottery in 2019",
+      "I don't trust his judgement about money.",
+      "I want a judgment so he has to pay.",
+      "He won his case against his landlord last year.",
+      "The car was in default on the lease.",
+      "I got a motion sensor installed.",
+      "I don't know whether he filed his defence.",
+      "When is the trial date?",
+      "I'm asking for judgment in my favour.",
+    ];
+    // A judgment's direction matters: winning is never a judgment against
+    // the person, losing never one in their favour; and the plaintiff's
+    // defence to a defendant's claim is not the defendant's defence.
+    for (const [stepId, sentence] of [
+      ["defendant:judgment-against-me", "I won my case."],
+      ["defendant:default-judgment-against-me", "I won my case."],
+      ["plaintiff:judgment-in-my-favour-unpaid", "Judgment was given against me in March."],
+      ["plaintiff:judgment-in-my-favour-unpaid", "The judge ordered me to pay him."],
+      ["defendant:defence-filed", "I filed a defence to his defendant's claim."],
+    ] as const) {
+      check(`step-event: "${sentence}" is not offered at ${stepId}`, suggestedEventForSentence(sentence, { id: stepId, title: stepId }) === null);
+    }
+    for (const sentence of mustSuggestNothing) {
+      const offered = Object.keys(STEP_EVENT).filter((stepId) => suggestedEventForSentence(sentence, { id: stepId, title: stepId, chosen: true }));
+      check(`step-event: nothing offered for "${sentence}"`, offered.length === 0, offered.join(", "));
+    }
+    check(
+      "step-event: no step, no suggestion",
+      suggestedEventForSentence("I won my small claims case.", null) === null,
+    );
+    // Whatever the sentence, the only type ever offered is the step's own: a
+    // sentence naming several events never borrows another's.
+    const mixed = "He served me, I filed a defence, there was a settlement conference, the trial date is set and I won the judgment.";
+    for (const [stepId, eventType] of Object.entries(STEP_EVENT)) {
+      const found = suggestedEventForSentence(mixed, { id: stepId, title: stepId });
+      check(`step-event: ${stepId} only ever offers its own event`, !found || found.eventType === eventType, JSON.stringify(found));
+    }
+    const unmapped = stagesForPathway("small-claims").find((stage) => !STEP_EVENT[stage.id]);
+    check(
+      "step-event: a step that is not itself an event offers nothing",
+      Boolean(unmapped) && suggestedEventForSentence(mixed, { id: unmapped!.id, title: unmapped!.title }) === null,
+    );
+    // The pages call it (what it returns is asserted above).
+    const surface = readFileSync(path.join(process.cwd(), "app/builder/_components/EventCandidateSurface.tsx"), "utf8");
+    const timeline = readFileSync(path.join(process.cwd(), "app/cases/[id]/timeline/page.tsx"), "utf8");
+    check(
+      "step-event: the Timeline's surface uses the suggestion, shows its reason, and records only on 'Record this'",
+      /suggestedEventForSentence\(/.test(surface) && /suggestedBasis/.test(surface) && /confirm\(candidate\)/.test(surface),
+    );
+    check(
+      "step-event: the Timeline passes its step, whether a stage is confirmed, and whether the step was chosen",
+      /confirmedStep=/.test(timeline) && /confirmedStage/.test(timeline) && /position\.stepId/.test(timeline),
+    );
+  }
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;

@@ -31,10 +31,9 @@
  */
 
 import { readCaseRecord, recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
-import { readStoredPicture, stepFromPicture } from "@/src/lib/case-system/intake/caseReader";
+import { caseStepFor } from "@/src/lib/case-system/caseStep";
 import { decisionAttribution } from "@/src/lib/case-workspace/courtDecision";
 import { COURT_DECISION_TYPE, DECISION_COLUMNS, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
-import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@supabase/supabase-js";
@@ -345,13 +344,13 @@ export async function GET(req: NextRequest) {
       // The same step the case page shows: theirs, else the one their story
       // names (the case reader's, then the phrases), else their stage's.
       const responding = record.side?.value === "responding";
-      const masterRecord = (ownedCase.master_result ?? {}) as Record<string, unknown>;
-      const stepId =
-        position.stepId ||
-        (record.courtPath ? stepFromPicture(record.courtPath, readStoredPicture(masterRecord.casePicture), responding) : "") ||
-        (record.courtPath && position.confirmedStage
-          ? suggestedStageFor(record.courtPath, position.confirmedStage, responding, record.story)
-          : "");
+      // Worked out the Overview card's way, notice step first where the card
+      // puts it first (caseStep.ts; walkthrough 2026-10-13, R5: the Case file
+      // counted nothing for a sidewalk fall whose notice deadlines the
+      // Overview had counted, because this picked the court-starting step).
+      // No confirmed stage, no step: the Case file never lists deadlines for a
+      // step the person has not reached (review 2026-10-13).
+      const stepId = caseStepFor(ownedCase.master_result, record.courtPath, responding, { requireConfirmedStage: true });
       const stage = stepId ? findStage(stepId) : undefined;
       /*
        * The dates they confirmed or answered, and -- under them -- a full date

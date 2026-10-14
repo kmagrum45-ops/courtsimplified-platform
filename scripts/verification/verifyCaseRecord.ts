@@ -30,7 +30,8 @@ import path from "node:path";
 
 import { documentsOf, readCaseRecord, recordedDateAnswers, storedIntakeValues } from "../../src/lib/case-system/caseRecord";
 import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
-import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
+import { stepNamedInStory, suggestedStageFor } from "../../src/lib/case-system/stage-map/suggestedStep";
+import { caseStepFor } from "../../src/lib/case-system/caseStep";
 import { practicalFor } from "../../src/lib/content-library/nextStepPractical";
 import { updateMasterResult } from "../../src/lib/case-system/updateCaseRecord";
 
@@ -118,6 +119,60 @@ check(
   const mortgage = [{ field_path: "formApplicability.civil.isMortgageForeclosure", choices: yesNo }];
   const noMention = readCaseRecord({ intakeData: { courtPath: "civil", extra: { civilInput: { facts: "I sued my business partner." } } } }, "civil");
   check("what the story doesn't mention stays a suggestion", suggestApplicability(mortgage, noMention, {})[0]?.firm !== true);
+  // A defendant's own request for the other side to pay them answers "Are
+  // you making a Defendant's Claim?" as a suggestion with the words quoted
+  // (walkthrough 2026-10-13, R7: asked cold after the intake recorded the
+  // request for repair money). The property, over several wordings: a
+  // defendant who asks for money back is offered "yes" and never a kept
+  // answer; the plaintiff's own demand, a "no", or a plaintiff offers nothing.
+  {
+    const claimQuestion = [{ field_path: "formApplicability.smallClaims.isMakingDefendantsClaim", choices: yesNo }];
+    const asDefendant = (words: { story?: string; answers?: string[]; goal?: string }) => {
+      const master = {
+        intakeData: { extra: { yourRole: "Defendant / responding party", story: words.story ?? "", goal: words.goal }, facts: words.story ?? "" },
+        intakeAnswers: (words.answers ?? []).map((answerText, index) => ({ questionId: `q-${index}`, answerText })),
+      };
+      return suggestApplicability(claimQuestion, readCaseRecord(master, "small-claims"), master);
+    };
+    const asking = [
+      { answers: ["I got another estimate for $5,200 and I want him to pay for the repairs."] },
+      { story: "He is suing me. I want to claim back what I paid." },
+      { goal: "Dispute the claim and counterclaim for the leak damage." },
+      { answers: ["Yes, I want to sue him back for the cost of fixing it."] },
+      { answers: ["I want to dispute it and maybe have him pay for the repairs."] },
+      { answers: ["He should pay for fixing the shower, it cost me $5,200."] },
+    ];
+    for (const words of asking) {
+      const found = asDefendant(words)[0];
+      const quoted = [words.story, words.goal, ...(words.answers ?? [])].filter(Boolean).join(" ");
+      check(
+        `a defendant asking for money back is offered a defendant's claim: ${JSON.stringify(words).slice(0, 70)}`,
+        found?.value === true && !found.firm && /You wrote: “/.test(found.reason) && quoted.includes(found.reason.replace(/^You wrote: “|”$/g, "").replace(/…$/, "")),
+        JSON.stringify(found),
+      );
+    }
+    for (const words of [
+      { story: "a contractor is suing me in small claims for 7500 he says i owe" },
+      { answers: ["I don't want him to pay me anything, I just want this over."] },
+      // The plaintiff's own claim, a question, or someone paying their own
+      // costs is not the defendant asking to be paid (review 2026-10-13).
+      { answers: ["He is claiming it back from me."] },
+      { answers: ["He wants to claim the money back from me."] },
+      { answers: ["He says I should pay for his lawyer, he owes me nothing."] },
+      { answers: ["Do I have to counterclaim?"] },
+      { answers: ["The plaintiff should pay costs if he loses."] },
+      { answers: ["He has to pay for his own lawyer."] },
+    ]) {
+      check(`no defendant's claim offered from ${JSON.stringify(words).slice(0, 70)}`, asDefendant(words).length === 0);
+    }
+    const plaintiffMaster = { intakeData: { extra: { yourRole: "Plaintiff / claimant" } }, intakeAnswers: [{ questionId: "q", answerText: "I want him to pay for the repairs." }] };
+    check("a plaintiff is never offered a defendant's claim", suggestApplicability(claimQuestion, readCaseRecord(plaintiffMaster, "small-claims"), plaintiffMaster).length === 0);
+    const considering = { position: { stepId: "defendant:considering-defendants-claim" }, intakeData: { extra: { yourRole: "Defendant / responding party" } } };
+    const chosen = suggestApplicability(claimQuestion, readCaseRecord(considering, "small-claims"), considering)[0];
+    // Considering is a question, not a decision: offered, never kept without
+    // the person's confirmation (CLAUDE.md section 4; review 2026-10-13).
+    check("the step 'considering a defendant's claim' offers it as a suggestion, not a kept answer", chosen?.value === true && !chosen.firm);
+  }
   const forms = readFileSync(path.join(process.cwd(), "app/forms/FormsWorkspace.tsx"), "utf8");
   check("the forms page keeps only firm answers without asking", /suggestion\.firm &&/.test(forms) && /void saveApplicability\(patch, reasons\)/.test(forms));
   check("a kept answer shows where it came from, with Change", /From your case: \{keptReason\}/.test(forms) && /keptFromCase\[question\.field_path\] \?\?/.test(forms));
@@ -168,7 +223,14 @@ const read = (file: string) => readFileSync(path.join(root, file), "utf8");
 const builder = read("app/builder/page.tsx");
 check("the builder takes filing facts from where intakes write documents", /filingFactsFromDocuments\(documentsOf\(/.test(builder));
 check("a re-save keeps the Forms answers and the guided answers", /"formApplicability"/.test(builder) && /"intakeAnswers"/.test(builder));
-check("the Deadlines view falls back to the step the confirmed stage points to", /suggestedStageFor\(/.test(read("app/api/workspace/organisation/route.ts")));
+// Since 2026-10-13 (R5) the route takes its step from caseStepFor; the
+// property is that with no step chosen the confirmed stage still gives one.
+check(
+  "the Deadlines view falls back to the step the confirmed stage points to",
+  /caseStepFor\(ownedCase\.master_result/.test(read("app/api/workspace/organisation/route.ts")) &&
+    caseStepFor({ position: { confirmedStage: "responding" }, intakeData: { extra: { yourRole: "Defendant" } } }, "small-claims", true) ===
+      suggestedStageFor("small-claims", "responding", true, ""),
+);
 check("the case pages carry the record", /readCaseRecord\(/.test(read("app/cases/[id]/layout.tsx")));
 check("the Forms route offers answers from the record", /suggestApplicability\(/.test(read("app/api/cases/form-applicability/route.ts")));
 check("the Forms page uses the case's step, not its own", !/suggestedStageFor/.test(read("app/cases/[id]/forms/page.tsx")));
