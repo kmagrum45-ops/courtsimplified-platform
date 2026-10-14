@@ -207,6 +207,15 @@ const LEGISLATION_SOURCES: CorpusSource[] = [
     why: "The regulation that sets Superior Court and Court of Appeal fees, behind the civil and family fee pages.",
   },
   {
+    id: "oreg-417-95-family-court-fees",
+    title: "Superior Court of Justice - Family Court - Fees",
+    citation: "O. Reg. 417/95",
+    url: "https://www.ontario.ca/laws/docs/950417_e.doc",
+    format: "elaws-doc",
+    mustContain: ["CONSOLIDATION PERIOD"],
+    why: "The fees in the Superior Court's Family Court branches (Ottawa, Hamilton, Kingston, London and others), which O. Reg. 293/92 does not set; the family next-step card says to ask the office until this is saved (walkthrough ledger F3).",
+  },
+  {
     id: "oreg-333-08-motor-vehicle-dealers-general",
     title: "Motor Vehicle Dealers Act, 2002 - General",
     citation: "O. Reg. 333/08",
