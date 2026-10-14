@@ -154,7 +154,9 @@ check(
   "gate: a statement keeps no period its own source does not state (20 days is not 30)",
   periodNotInSource("You have 30 days to respond.", "within 20 days of being served") === "30-day" &&
     periodNotInSource("You have twenty days.", "within 20 days of being served") === null &&
-    periodNotInSource("Two years after the claim was discovered.", "the second anniversary of the day on which the claim was discovered") === "2-year",
+    periodNotInSource("Two years after the claim was discovered.", "the second anniversary of the day on which the claim was discovered") === null &&
+    periodNotInSource("Three years after the claim was discovered.", "the second anniversary of the day on which the claim was discovered") === "3-year" &&
+    periodNotInSource("You have a year to appeal.", "within 30 days after the order") === "1-year",
 );
 check("gate: forms come from the stage map, so even a form with a verified quote is removed (CLAUDE.md s. 2a)", !out.includes("Grounded form"));
 check("gate: a legal next step with no source is removed", !out.includes("File your Defence within 20 days"));
