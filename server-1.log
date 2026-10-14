@@ -1,0 +1,6 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3100
+- Network:       http://10.1.0.196:3100
+✓ Ready in 147ms
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+[groundedCognition] 6 unverified statement(s) removed: missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); link.explanation (presented as a fact but states law or procedure); nextBestActions (no source cited)

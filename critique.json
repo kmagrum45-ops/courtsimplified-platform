@@ -1,0 +1,424 @@
+{
+  "probe-lien-interlock-civil": {
+    "findings": [
+      {
+        "step": "guided-chat-done",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "How much money is involved, if any?",
+        "problem": "The story already gives the $300,000 contract price and $60,000 lien, but the conversation asks for an amount again without distinguishing those amounts from the homeowner's repair claim.",
+        "fix": "Carry forward the contract price and lien amount, and ask only for the repair-and-completion amount if it is needed and not yet known."
+      },
+      {
+        "step": "intake-form",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "Human Rights ground, if any",
+        "problem": "The full intake presents discrimination, government-conduct and other unrelated fields despite already having a contractor-and-lien story.",
+        "fix": "Show fields relevant to the construction dispute and reveal unrelated issue sections only if the user identifies those issues."
+      },
+      {
+        "step": "intake-form",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "Plaintiff\nDefendant\nApplicant\nRespondent\nMoving party\nResponding party",
+        "problem": "The homeowner must choose among unexplained procedural roles even though no court proceeding is known to have started.",
+        "fix": "Identify them as the homeowner for now and explain any procedural role when they choose a court step."
+      },
+      {
+        "step": "intake-filled",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "When did you enter into the contract for the interlock work?",
+        "problem": "The supplied timeline already says the contractor was hired in June 2026, but the follow-up asks for the contract timing without acknowledging that answer.",
+        "fix": "Use June 2026 for the applicable-law screening and ask for a more precise contract date only if necessary, explaining why."
+      },
+      {
+        "step": "intake-filled",
+        "category": "not-their-case",
+        "severity": "medium",
+        "quote": "its version as of June 29, 2018 continues to apply if the contract was entered into before July 1, 2018",
+        "problem": "The page foregrounds an older-law transition that does not fit the supplied June 2026 hiring timeline.",
+        "fix": "Use the supplied timeline to select the applicable Construction Act provisions and explain the current lien procedures instead."
+      },
+      {
+        "step": "intake-filled",
+        "category": "missing",
+        "severity": "high",
+        "quote": "A few questions the law raises for your situation",
+        "problem": "The tailored section recognizes the Construction Act but gives no urgent explanation of the registered lien, its Superior Court enforcement, preservation and perfection time limits, or the owner's options to remove it from title.",
+        "fix": "Provide a sourced homeowner-specific lien overview, calculate dates where the established triggering facts permit, explain any missing triggering facts, and identify payment or security into court and discharge or expiry procedures without judging lien validity."
+      },
+      {
+        "step": "failed-here",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "A complete Civil intake is required.",
+        "problem": "This requirement conflicts with the earlier assurances 'That's everything we need for now' and 'skip any you do not know' without explaining what additional information became mandatory.",
+        "fix": "Make skip behavior and completion requirements consistent, and explain any genuinely essential unanswered question before offering continuation."
+      },
+      {
+        "step": "failed-here",
+        "category": "broken",
+        "severity": "high",
+        "quote": "A complete Civil intake is required.",
+        "problem": "The attempted continuation leaves the user on intake with a generic error that does not identify which fields prevent progress.",
+        "fix": "Preserve all answers, identify and link to each missing required field, and allow progress where unknown information is not essential."
+      },
+      {
+        "step": "failed-here",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Continue to your next steps",
+        "problem": "When continuation fails, the homeowner receives neither a usable fallback nor a help referral for the potentially time-sensitive lien.",
+        "fix": "Explain the limitation and provide accessible lien information plus an appropriate Ontario legal-help referral while the intake problem is resolved."
+      }
+    ],
+    "overall": "The pages collect the homeowner's account and offer a clearly labelled, optional spelling review without grading the dispute. They do not deliver usable next steps: the journey stalls on a vague intake requirement, and the tailored question repeats known timing while explaining an irrelevant historical rule. The priority is to fix continuation, reuse supplied facts, and provide sourced homeowner-specific lien triage with conditional deadline calculations and removal options. Once the next-step page is accessible, it should separately present the homeowner's repair-and-completion claim as an option with the appropriate court and form, not as a recommendation.",
+    "finishLine": {
+      "nextForm": {
+        "result": "n/a",
+        "why": "The journey remains on intake after 'A complete Civil intake is required' and never displays a next-step card."
+      },
+      "deadline": {
+        "result": "n/a",
+        "why": "No deadline guidance or fixed period is reached; the only tailored legal explanation concerns the pre-July 2018 transition."
+      },
+      "fileFeeService": {
+        "result": "n/a",
+        "why": "The blocked journey never reaches a filing or service step where filing instructions, fees and service methods would be shown."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "The site asks 'When did you enter into the contract for the interlock work?' after receiving the June 2026 hiring timeline, and asks about money already described in the story."
+      },
+      "onTopic": {
+        "result": "pass",
+        "why": "The visible opening content stays on 'Civil Intake'; unrelated fields appear farther down the full form, with no demonstrated off-topic guidance above the fold."
+      },
+      "sourced": {
+        "result": "pass",
+        "why": "The substantive legal explanation shown cites 'Construction Act, R.S.O. 1990, c. C.30, s. 87.3 (1)-(3)', although it is not useful for the supplied timeline."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "Nothing shown grades the homeowner's claim, predicts lien validity or an outcome, or pushes settlement."
+      },
+      "limits": {
+        "result": "fail",
+        "why": "The blocking message 'A complete Civil intake is required' neither explains the site's inability to proceed nor points the homeowner to help."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The conversation initially acknowledges answers and asks one question at a time, but repeats known information and ends with an unexplained completion barrier despite 'That's everything we need for now.'"
+      }
+    }
+  },
+  "probe-lien-interlock-guided": {
+    "findings": [
+      {
+        "step": "claim-type-suggestion",
+        "category": "missing",
+        "severity": "medium",
+        "quote": "Roughly when did the situation that led to this claim happen?",
+        "problem": "A broad timing question does not distinguish the dates needed for construction-lien deadlines from the dates relevant to the homeowner's money claim.",
+        "fix": "Ask one targeted date question at a time, explaining why the last-work, termination and lien-registration dates matter."
+      },
+      {
+        "step": "claim-type-suggestion",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Confirmed from my story:",
+        "problem": "Two separate confirmation blocks repeat the same heading and instructions before the current question.",
+        "fix": "Combine confirmed information into one compact summary and show only the outstanding question prominently."
+      },
+      {
+        "step": "after-analysis",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "From what you told us: I was served and need to respond.",
+        "problem": "The page treats discovering a registered lien as being served with a court claim, although service has not been established.",
+        "fix": "Distinguish lien registration from commencement and service of a court action, and record service as unconfirmed."
+      },
+      {
+        "step": "after-analysis",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Create Defence (Form 9A) draft",
+        "problem": "The offered draft is a Small Claims defence rather than a form appropriate to this Superior Court construction-lien matter.",
+        "fix": "Stop offering Form 9A and identify the appropriate Superior Court document only after establishing what proceeding, if any, has been commenced and served."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Where you are: Served with a claim, time to defend still running",
+        "problem": "Neither service nor a still-running defence period is supported by the homeowner's information.",
+        "fix": "Show that a lien is registered and court service is unconfirmed, without asserting that a defence deadline has begun or remains open."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Court\nSmall Claims Court",
+        "problem": "The snapshot assigns a construction lien and an over-limit dispute to Small Claims Court.",
+        "fix": "Identify Superior Court of Justice as the court for lien enforcement and explain that the $60,000 dispute exceeds the $50,000 Small Claims limit."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Your role\nDefendant / responding party",
+        "problem": "The saved role contradicts the intake's confirmed 'Bringing the claim (plaintiff)' without explaining the separate lien and homeowner-claim roles.",
+        "fix": "Keep separate roles for the contractor's lien proceeding and the homeowner's own money claim rather than silently replacing the confirmed role."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "what deadlines govern responding and preserving or perfecting the lien?",
+        "problem": "The visible page raises lien deadlines but supplies no usable preservation or perfection periods, trigger explanation or calculated dates.",
+        "fix": "Explain the contractor's preservation and perfection requirements under the Construction Act, obtain the necessary trigger dates and calculate deadlines where supported without deciding validity."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "order that the registration of the claim for lien be vacated",
+        "problem": "A statutory extract does not give the homeowner practical options for removing the lien from title, including posting money or security and seeking an appropriate discharge order.",
+        "fix": "Explain the available lien-removal routes in plain language, with the Superior Court procedure, applicable forms, sources and conditions for each."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "missing",
+        "severity": "high",
+        "quote": "You can also file a Defendant's Claim [Form 10A]",
+        "problem": "The page substitutes a Small Claims defendant's claim for an explanation of the homeowner's separate claim for fixing and finishing the work.",
+        "fix": "Present the homeowner's money claim as a separate Superior Court option, naming the Statement of Claim, Form 14A, and explaining how an existing lien action could affect the pleading choice."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "jargon",
+        "severity": "medium",
+        "quote": "a certificate of search under the Land Titles Act",
+        "problem": "The lien information consists of technical statutory language without explaining the documents or what the homeowner should obtain.",
+        "fix": "Explain in plain words how to obtain and use the parcel register, registered lien and any certificate of action, alongside the statutory source."
+      },
+      {
+        "step": "stage-confirmed",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "Serve a defence on every other party and file it with the clerk, with proof of service.",
+        "problem": "The same defence instruction and period recur in the next-step card, possible next events and full answer.",
+        "fix": "State the actionable instruction once and reserve expandable detail for genuinely additional explanations and sources."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Have you filed a Defence (Form 9A) with the court yet?",
+        "problem": "The conversation continues down the Small Claims defence route after the homeowner says they have only a land-registry letter and are unsure whether any claim exists.",
+        "fix": "Acknowledge that a registry letter is not proof of court service and switch to checking the registered lien and any Superior Court action."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "which facts in the Plaintiff's Claim do you agree with",
+        "problem": "The site asks the homeowner to analyse a pleading they have just said they have not seen.",
+        "fix": "Skip pleading-specific questions until a court claim has been identified and obtained."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "missing",
+        "severity": "high",
+        "quote": "That's everything needed for now.",
+        "problem": "Intake declares completion without establishing the disputed amount, repair claim amount or work-stoppage date needed to route and explain this matter.",
+        "fix": "Ask for the missing amounts and deadline-trigger facts before declaring intake complete."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "missing",
+        "severity": "high",
+        "quote": "A claim worth more than that goes to the Superior Court of Justice",
+        "problem": "The generic jurisdiction explanation is not applied to this homeowner's over-limit dispute and request to remove a construction lien.",
+        "fix": "Explain directly that this matter cannot continue on the current Small Claims path and separate the lien proceeding from the homeowner's compensation claim."
+      },
+      {
+        "step": "back-to-intake",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "The agreement — for example: Contract, Texts or emails accepting the quote.",
+        "problem": "The evidence list duplicates the contract and payment categories under different headings.",
+        "fix": "Merge overlapping categories into one checklist tailored to defective work, disputed extras and the registered lien."
+      },
+      {
+        "step": "forward-to-results",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Where you are: Served with a claim, time to defend still running",
+        "problem": "Returning from intake preserves the unsupported served-claim stage despite the homeowner's explicit uncertainty about receiving any court claim.",
+        "fix": "Reconcile the results with the saved answer and remove the Small Claims defence instruction."
+      },
+      {
+        "step": "forward-to-results",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "How were the papers served?",
+        "problem": "The results ask again about service after intake recorded that the homeowner does not know of any served claim and only received a registry letter.",
+        "fix": "Carry forward the unconfirmed-service answer and offer a targeted way to verify it rather than repeating the generic service intake."
+      },
+      {
+        "step": "case-overview",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "ONTARIO SMALL CLAIMS COURT",
+        "problem": "The saved case prominently commits the homeowner's lien matter to the wrong court and repeats the inappropriate Form 9A next step.",
+        "fix": "Save and display a Superior Court lien matter with a separate homeowner money-claim option and a next step based on confirmed documents."
+      },
+      {
+        "step": "case-timeline",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Served with a claim, time to defend still running",
+        "problem": "The timeline repeats a court-service stage that the homeowner's account does not establish.",
+        "fix": "Show lien registration as the known event and keep commencement and service of a court action explicitly unconfirmed."
+      },
+      {
+        "step": "case-timeline",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Nothing dated yet.",
+        "problem": "The timeline omits the already supplied September 9, 2026 lien-registration date while proposing ordinary story sentences as possible court steps.",
+        "fix": "Offer the known lien-registration event and date for confirmation before unrelated narrative statements."
+      },
+      {
+        "step": "case-timeline",
+        "category": "repetition",
+        "severity": "medium",
+        "quote": "When, in your words",
+        "problem": "The hiring-event card asks for timing already supplied as June 2026.",
+        "fix": "Prefill the known approximate date and ask only for confirmation or any genuinely missing precision."
+      },
+      {
+        "step": "case-documents",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "ONTARIO SMALL CLAIMS COURT",
+        "problem": "The documents page retains the incorrect court identity and tells the homeowner to narrow legal research to the court their incorrectly saved case is in.",
+        "fix": "Correct the case court before using it to guide document organisation or CanLII searches."
+      },
+      {
+        "step": "case-forms",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Form 9A — DefencePDFWord",
+        "problem": "The forms page presents a Small Claims defence, fee and service procedure as the homeowner's next step.",
+        "fix": "Replace the Small Claims next-step package with the applicable Superior Court lien or money-claim procedure after confirming the proceeding and requested relief."
+      },
+      {
+        "step": "case-forms",
+        "category": "contradiction",
+        "severity": "medium",
+        "quote": "What ordinary claim are you starting?",
+        "problem": "The eligibility questionnaire asks about starting a claim while the same page identifies the homeowner as responding and recommends a defence.",
+        "fix": "Separate questions for the homeowner's own claim from questions about responding to any contractor action."
+      },
+      {
+        "step": "case-forms",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Nothing about these forms is flagged for you to check yet.",
+        "problem": "The page gives no warning that Small Claims forms cannot address the registered lien and that the dispute exceeds the court's limit.",
+        "fix": "Flag the court and remedy mismatch prominently and stop treating Small Claims forms as suitable for this case."
+      },
+      {
+        "step": "case-drafts",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Defence (Form 9A)",
+        "problem": "The drafts page offers the wrong court's defence despite the absence of an identified served claim.",
+        "fix": "Suppress Form 9A and offer only drafts appropriate to the confirmed Superior Court proceeding and homeowner's chosen relief."
+      },
+      {
+        "step": "case-case-file",
+        "category": "contradiction",
+        "severity": "high",
+        "quote": "Starting a new case",
+        "problem": "The printable file says the homeowner is starting a case while its exact step says they have been sued and the header says they are responding.",
+        "fix": "Use consistent, separately labelled stages for the registered lien, any contractor action and the homeowner's own claim."
+      },
+      {
+        "step": "case-case-file",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Deadlines worked out from your dates\n\nNone yet.",
+        "problem": "The printable file provides no lien-deadline explanation or known lien-registration event, instead directing the homeowner back to an inappropriate defence calculator.",
+        "fix": "Include the known lien date, explain which trigger facts are still needed and display supported preservation and perfection calculations."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "not-their-case",
+        "severity": "high",
+        "quote": "Where you are: Served with a claim, time to defend still running",
+        "problem": "Reloading preserves the wrong court and unsupported service stage rather than correcting them from the saved intake.",
+        "fix": "Persist the accurate lien status and separate claim options consistently across reloads."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Nothing in your records needs sorting out right now.",
+        "problem": "The site gives an all-clear despite unresolved court eligibility, unknown court service and missing lien-deadline facts.",
+        "fix": "List those unresolved procedural facts as items to verify without assessing the merits."
+      },
+      {
+        "step": "reload-reopens-case",
+        "category": "missing",
+        "severity": "high",
+        "quote": "Want a person to check this step with you?",
+        "problem": "Generic referral links do not disclose that the current Small Claims workflow cannot properly handle this lien and over-limit dispute.",
+        "fix": "State that limitation prominently and direct the homeowner to an Ontario lawyer experienced in construction liens and Superior Court litigation."
+      }
+    ],
+    "overall": "These pages preserve the homeowner's story and avoid grading the merits, but they guide him into the wrong court and an unsupported defence stage. The most important correction is to treat the registered construction lien separately from both any served court action and the homeowner's compensation claim. The site should establish the missing amounts and deadline-trigger facts, explain lien-removal options and provide the appropriate Superior Court forms and procedures. Those corrections must persist across results, saved-case tabs, printing and reloads, with a clear construction-lien help referral where the site cannot provide full guidance.",
+    "finishLine": {
+      "nextForm": {
+        "result": "fail",
+        "why": "The next-step card names 'Form 9A — Defence' even though this is a Superior Court lien matter and service of a court claim is unconfirmed."
+      },
+      "deadline": {
+        "result": "fail",
+        "why": "Despite the known September 9, 2026 registration date, the journey gives no usable lien preservation or perfection calculation and ends with 'Deadlines worked out from your dates — None yet.'"
+      },
+      "fileFeeService": {
+        "result": "fail",
+        "why": "The pages show 'Filing a defence: $77' and Small Claims filing and service instructions, but not the filing, fee and service package applicable to this homeowner's actual Superior Court options."
+      },
+      "noRepeat": {
+        "result": "fail",
+        "why": "Results ask 'How were the papers served?' after intake recorded uncertainty about any served claim, and the timeline asks when hiring happened despite the saved June 2026 answer."
+      },
+      "onTopic": {
+        "result": "fail",
+        "why": "The saved pages prominently display 'ONTARIO SMALL CLAIMS COURT' and an unsupported served-claim defence step instead of the construction-lien matter."
+      },
+      "sourced": {
+        "result": "pass",
+        "why": "The visible procedural material carries citations or official sources, including 'O. Reg. 258/98 ... r. 9.01' and 'Construction Act ... s. 45 (1)-(2)', although sourcing does not make its routing appropriate."
+      },
+      "noGrading": {
+        "result": "pass",
+        "why": "The visible pages do not assess lien validity, liability for extras or prospects of success, and expressly say procedural possibilities are 'not a prediction of what will happen in your case.'"
+      },
+      "limits": {
+        "result": "fail",
+        "why": "Although generic help links appear, the site never says its current workflow cannot handle this lien and over-limit claim, instead continuing to call it a 'Small Claims case'."
+      },
+      "conversation": {
+        "result": "fail",
+        "why": "The conversation summarises the defective work but ignores 'I only found out about the lien from a letter from the land registry' and continues asking about an unseen Plaintiff's Claim and Form 9A."
+      }
+    }
+  }
+}
