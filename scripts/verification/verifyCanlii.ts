@@ -544,6 +544,19 @@ async function main() {
         checkedDecisionHelp({ explanation: "The judge said \"the deposit must be returned with interest\".", passages: [] }, decision) !== null,
     );
     check(
+      "an explanation sentence with a number the decision lacks, or telling the person to file, is dropped (review 2026-10-14)",
+      (() => {
+        const help = checkedDecisionHelp(
+          {
+            explanation: "The court ordered the deposit returned on March 1. The award was $9,800. You must file a Defence within 20 days.",
+            passages: [],
+          },
+          decision,
+        );
+        return help?.explanation === "The court ordered the deposit returned on March 1.";
+      })(),
+    );
+    check(
       "a full name is caught even when one of its words appears in the decision",
       namesNotInDecision("The tenant was Jane Kowalski.", `${decision} Jane signed the lease.`).length === 1,
     );

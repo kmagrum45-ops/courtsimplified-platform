@@ -208,6 +208,12 @@ function statesLaw(sentence: string): boolean {
   return STATES_LAW.test(sentence) || isMapOwnedInstruction(sentence);
 }
 
+/** A section, rule, regulation, form number or Act named in a question. */
+const CITES_LAW = {
+  test: (text: string) =>
+    /\b(?:s|ss|r|rr)\.\s*\d|\b(?:section|subsection|rule|regulation|form)\s+\d|\bo\.\s*reg\b/i.test(text) || /\b[A-Z][\w']+(?:\s+[A-Z][\w']+)*\s+Act\b/.test(text),
+};
+
 /** Drops the sentences of `text` that state law. Pure. */
 export function withoutLaw(text: string): string {
   return text
@@ -250,11 +256,14 @@ export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
       const value = (item ?? {}) as Record<string, unknown>;
       const question = str(value.question, 300);
       const why = withoutLaw(str(value.why, 300));
-      // A question asks; it states nothing, so only its "why" is screened
-      // ("Did you already file Form 9A?" is a fair question).
+      // A question asks; its "why" is screened like the facts. The question
+      // itself is shown without the official-text check, so it may not cite a
+      // provision or a form: a model-written citation in a question reached
+      // people once (Toronto notice, walkthrough C3, 2026-10-13).
       return { question, ...(why ? { why } : {}) };
     })
     .filter((item): item is UnderstoodQuestion => Boolean(item && item.question.length >= 8))
+    .filter((item) => !CITES_LAW.test(item.question))
     .slice(0, MAX_QUESTIONS);
   const points = (Array.isArray(record.points) ? record.points : [])
     .map((item) => {

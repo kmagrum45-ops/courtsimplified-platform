@@ -71,7 +71,8 @@ const reasoned = {
   stage: "The defendant has been noted in default; damages have not been assessed.",
   questions: [
     { question: "How much are you claiming?", why: "It decides which court hears the claim." },
-    { question: "Did you already file Form 11A?", why: "The deadline is within 30 days under the rules." },
+    { question: "Have you asked the clerk for anything since she was noted in default?", why: "The deadline is within 30 days under the rules." },
+    { question: "Did you already file Form 11A under the Courts of Justice Act?", why: "It changes the next step." },
   ],
   asksForPrediction: false,
   step: "plaintiff:defence-period-expired-no-defence",
@@ -100,6 +101,7 @@ async function main() {
   check("a sentence of law in the restated facts is removed (it is shown unchecked)", !/r\. 11\.03|must now prove/.test(u.summary), u.summary);
   check("a fact that states law is removed", !u.facts.some((fact) => /\br\.\s*\d|must/i.test(fact.value)));
   check("a question is kept; a 'why' that states a rule is removed", u.questions.length === 2 && !u.questions[1].why && Boolean(u.questions[0].why), JSON.stringify(u.questions));
+  check("a question that cites a form or an Act is not shown (it is never checked against the official text)", !u.questions.some((q) => /Form 11A/.test(q.question)));
   check("the court and side come from the reasoning", u.mainCourt === "small-claims" && u.side === "starting");
   check("withoutLaw keeps plain facts", withoutLaw("You were served on September 30. She never responded.") === "You were served on September 30. She never responded.");
   check("withoutLaw removes a stated rule", withoutLaw("You were served. You must file a defence within 20 days.") === "You were served.");
