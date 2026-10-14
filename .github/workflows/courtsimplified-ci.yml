@@ -184,6 +184,9 @@ jobs:
       - name: Checked answers show only statements the official text supports
         run: npm run test:checked-answer
 
+      - name: The Small Claims limit is $50,000 everywhere, and the old limit appears nowhere
+        run: npm run test:small-claims-limit
+
       - name: Law exam answer keys quote the law word for word
         run: npm run test:law-exam
 
