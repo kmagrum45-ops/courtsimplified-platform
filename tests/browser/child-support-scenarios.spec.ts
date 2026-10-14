@@ -3,6 +3,11 @@
  *
  * Run: npx playwright test tests/browser/child-support-scenarios.spec.ts
  *
+ * Reaching the screen presses the family intake's Continue, which POSTs
+ * /api/family/analyze (2026-10-13, walkthrough V1: the screen now shows with
+ * the results, not beside the intake). Signed out, that route is
+ * deterministic and calls no model; see child-support-common-case.spec.ts.
+ *
  * ---------------------------------------------------------------------------
  * SCOPE NOTE ON THE FIRST SCENARIO — READ BEFORE EXTENDING IT
  * ---------------------------------------------------------------------------

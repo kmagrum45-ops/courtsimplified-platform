@@ -77,7 +77,10 @@ const ANALYSIS_INDEPENDENT: IndependentSurface[] = [
       "draftChildSupportApplication. Its one prop is a prefill built from what " +
       "the family intake itself reports (FamilyScope.recorded) or the loaded " +
       "case, never from the analysis. Was inside the !analysis section until " +
-      "2026-09-14 and vanished when a family analysis completed.",
+      "2026-09-14 and vanished when a family analysis completed. Since " +
+      "2026-10-13 it shows when the intake section is off screen " +
+      "(resultsVisible) or on a reopened case: a layout rule so it is never " +
+      "beside the guided chat, not something it reads from the analysis.",
   },
   {
     component: "ChildSupportTableCard",
@@ -210,6 +213,28 @@ function checkAfterIntakeQuestions(): void {
       `${component}: still shown on a reopened saved case`,
       /\bqueryCaseId\b/.test(joined),
       "a saved case is past its intake; hiding these there would lose answers already started",
+    );
+  }
+
+  // BACK AFTER CONTINUE (review 2026-10-13). Back shows the guided chat
+  // again; the child-support builder reappeared beside it. Property: in a
+  // fresh session the builder is gated on the same value that hides the
+  // intake section, whatever it is called. The triage is deliberately NOT
+  // (its dismissal-never-expires rule): once shown it stays.
+  const hides = /<section hidden=\{(\w+)\}[^>]*>\s*<div className="mb-6">\s*<p[^>]*>\s*Structured intake/.exec(builder);
+  check("the intake section is hidden by a named value", hides !== null);
+  if (hides) {
+    const builderGate = (guardingConditions(builder, "ChildSupportIntake") ?? []).join(" && ");
+    check(
+      "ChildSupportIntake: never on screen beside the intake (gated on what hides it)",
+      new RegExp(`\\b${hides[1]}\\b`).test(builderGate),
+      builderGate,
+    );
+    const triageGate = (guardingConditions(builder, "FamilyStatusTriage") ?? []).join(" && ");
+    check(
+      "FamilyStatusTriage: not tied to the results view, so it never disappears once shown",
+      !new RegExp(`\\b${hides[1]}\\b`).test(triageGate),
+      triageGate,
     );
   }
 }

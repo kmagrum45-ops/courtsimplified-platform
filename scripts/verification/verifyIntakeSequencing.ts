@@ -105,21 +105,37 @@ function checkOneQuestionAtATime(): void {
   const flag = /const (\w+) = [^;]*Boolean\(pendingSuggestion\)/.exec(render)?.[1] ?? "";
   check("V3: the page knows when the claim-type suggestion is waiting", flag !== "");
   if (flag) {
+    // Names are not pinned (CLAUDE.md s. 5): whatever the end of the shown
+    // transcript is called, it must come from unansweredQuestionStart while
+    // the suggestion waits, and be where the message list stops. What that
+    // function holds back is asserted by running it, above.
+    const word = (name: string) => new RegExp(`\\b${name}\\b`);
+    const cut = /const (\w+) = ([^;]*\bunansweredQuestionStart\(messages[^;]*);/.exec(render);
     check(
       "V3: the transcript stops before the held question while the suggestion waits",
-      new RegExp(`${flag} \\? unansweredQuestionStart\\(messages`).test(render) && /messages\.slice\(0, heldFrom\)\.map\(/.test(render),
+      cut !== null &&
+        word(flag).test(cut[2]) &&
+        new RegExp(`messages\\.slice\\(0, ${cut[1]}\\)\\.map\\(`).test(render),
+      cut ? `end of transcript: ${cut[1]} = ${cut[2]}` : "nothing computes where the shown transcript ends",
     );
-    check(
-      "V3: the held question's help is not shown while the suggestion waits",
-      new RegExp(`currentQuestion && !${flag} \\? \\(\\s*<QuestionHelp`).test(render),
-    );
-    check(
-      "V3: no answer box while the suggestion waits",
-      new RegExp(`!halted && \\(proposalDrafts \\|\\| ${flag}\\) \\? null`).test(render),
-    );
+    // The condition guarding each is the JSX expression just before it.
+    const guardOf = (tag: string) => {
+      const at = render.indexOf(tag);
+      const open = render.lastIndexOf("{", at);
+      return at < 0 || open < 0 ? "" : render.slice(open, at);
+    };
+    check("V3: the held question's help is not shown while the suggestion waits", word(flag).test(guardOf("<QuestionHelp")), guardOf("<QuestionHelp"));
+    const inputGuard = render.slice(render.lastIndexOf("{!halted", render.indexOf("<textarea")), render.indexOf("<textarea"));
+    check("V3: no answer box while the suggestion waits", word(flag).test(inputGuard), inputGuard);
   }
   const box = render.slice(render.indexOf("This sounds like it may be about"), render.indexOf("noClaimTypeMatch ? ("));
   check("V3: the claim-type suggestion says why it is asked", /Why we ask/.test(box));
+  // Confirming sets the claim type the drafts and depth questions use; a
+  // reason that says it changes nothing else would be untrue (review 2026-10-13).
+  check(
+    "V3: the suggestion's reason does not claim the answer changes nothing",
+    !/changes? nothing|no effect|does(?:n't| not) change anything/i.test(box.replace(/\s+/g, " ")),
+  );
   check(
     "V3: the suggestion can be passed without applying anything",
     /onClick=\{\(\) => \{\s*setPendingSuggestion\(null\);/.test(box) && /skip/i.test(box),

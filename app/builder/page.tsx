@@ -1823,8 +1823,17 @@ function BuilderPageContent() {
                   order was offered "This produces your application"). */}
               {/* After the intake's questions, not beside them (V1), and
                   starting from what the intake recorded, as suggestions the
-                  person can change (R3). */}
-              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && (familyQuestionsDone || Boolean(queryCaseId)) && (
+                  person can change (R3).
+                  ONLY WHILE THE INTAKE IS OFF SCREEN (review 2026-10-13): Back
+                  after Continue shows the guided chat again, and the builder
+                  reappeared beside it. So, in a fresh session, it shows with
+                  the results (resultsVisible, the same value that hides the
+                  intake section), not merely once the questions are done.
+                  Trade-off, accepted: if the analysis fails, the builder waits
+                  until it succeeds. The triage keeps its never-disappears rule
+                  and is NOT gated this way. A reopened saved case still shows
+                  it. Its draft never reads the analysis. */}
+              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
                 <ChildSupportIntake
                   recorded={childSupportPrefill(
                     familyScope?.recorded ?? {

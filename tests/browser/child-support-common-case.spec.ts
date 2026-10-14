@@ -20,9 +20,17 @@
  * defects — EventCandidateSurface's logic was correct and mounted behind a
  * condition that never held.
  *
- * NO SIGN-IN AND NO SEEDED CASE. The screen makes no API call, so there is no
- * user row to create and none to delete. Nothing this spec does can leave state
- * for the next run to pass on.
+ * NO SIGN-IN AND NO SEEDED CASE. The child-support screen itself makes no API
+ * call. Reaching it does: since 2026-10-13 (walkthrough V1) the screen shows
+ * after the family intake, with the results, so the spec presses Continue and
+ * the page POSTs /api/family/analyze. Signed out, that route runs the
+ * deterministic engine only (allowExternalCognition needs a signed-in user:
+ * app/api/family/analyze/route.ts), so no model is called and nothing is
+ * spent. The case save inserts a row only for a signed-in user, so there is
+ * still no user row to create or delete and nothing left for the next run.
+ * The route is not stubbed: a canned answer would have to copy the whole
+ * FamilyCanonicalIntakeResult shape and would drift from it, while the
+ * signed-out route already gives a real one for free.
  *
  * Run: npx playwright test tests/browser/child-support-common-case.spec.ts
  */

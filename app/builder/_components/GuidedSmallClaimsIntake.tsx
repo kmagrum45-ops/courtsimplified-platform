@@ -1332,8 +1332,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete, prev
           </p>
           <p data-testid="claim-type-why" className="mt-1 text-xs text-[#6b5a26]">
             <span className="font-semibold">Why we ask: </span>
-            knowing what kind of matter this is lets us pick the follow-up questions and the general
-            information that fit it. Your answer here changes nothing else.
+            knowing what kind of matter this is lets us pick the follow-up questions, general
+            information and draft forms that fit it.
           </p>
           <p className="mt-1 text-xs text-[#6b5a26]">
             AI suggestion only, not a determination of your case -- nothing is applied until you confirm it.
