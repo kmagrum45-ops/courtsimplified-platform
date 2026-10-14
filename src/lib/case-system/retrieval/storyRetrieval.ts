@@ -39,6 +39,7 @@ import type { SourceItem } from "../intelligence/groundedCognition";
 import { loadCorpusIndex, readPassage, searchIndex, sourcePassages, type LoadedIndex, type Passage } from "./corpusIndex";
 import { findProvision, parsePinpoint, referencedProvisions } from "./crossReferences";
 import { readableUrl } from "./corpusChunker";
+import { withoutWrongForStory } from "./passagesForStory";
 
 export type RetrievalCourt = "small-claims" | "civil" | "family";
 
@@ -236,7 +237,8 @@ export async function retrieveForStory(
     const found = hits
       .map((hit) => readPassage(index, hit.id, hit.score))
       .filter((passage): passage is Passage => Boolean(passage));
-    const passages = [...found, ...followCrossReferences(index, found)];
+    // Never a law that cannot apply to this story (passagesForStory.ts, round 4 review 2026-10-14).
+    const passages = withoutWrongForStory([...found, ...followCrossReferences(index, found)], input.story);
     return { queries, passages, items: passages.map(passageItem) };
   };
 

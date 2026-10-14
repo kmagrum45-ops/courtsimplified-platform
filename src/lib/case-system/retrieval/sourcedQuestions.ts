@@ -45,6 +45,8 @@ import { loadCorpusIndex, readPassage, type LoadedIndex, type Passage } from "./
 import { numberNotInSource, outcomeTermNotInProvision, provisionOf } from "./explainProvision";
 import { researchStory, type ResearchDeps, type ResearchResult } from "./researchStory";
 import { passageItem, type RetrievalInput } from "./storyRetrieval";
+import { fitPassagesToStory, isMunicipalAct44, isTorontoAct, withoutWrongForStory, wrongForStory } from "./passagesForStory";
+import { municipalPlaceOf } from "../../content-library/nextStepPractical";
 
 export const MAX_SOURCED_QUESTIONS = 5;
 const MAX_PASSAGES_OFFERED = 10;
@@ -211,14 +213,38 @@ export function parseVerdicts(content: unknown): CheckVerdict[] {
     .map((entry) => ({ id: clean(entry.id, 20), ok: entry.ok === true, problem: clean(entry.problem, 200) || undefined }));
 }
 
-/** The passages the research found to answer a question, in its order. Pure; exported for the suite. */
-export function answeringPassages(research: ResearchResult): Passage[] {
+/**
+ * The passages the research found to answer a question, in its order, fitted
+ * to the story (passagesForStory.ts, round 4 review 2026-10-14): never one
+ * that cannot apply to it (Municipal Act s. 44 for a Toronto story, the City
+ * of Toronto Act outside Toronto, the variation of an order when the story
+ * shows none); and, with the index, for an injury on a municipal way, the
+ * right municipality's notice sections first. `story` defaults to none, which
+ * changes nothing. Exported for the suite.
+ */
+export function answeringPassages(research: ResearchResult, story = "", index: LoadedIndex | null = null): Passage[] {
   const byId = new Map(research.passages.map((passage) => [passage.id, passage]));
   const ids = [...new Set(research.findings.flatMap((finding) => finding.answeredBy.map((answer) => answer.passageId)))];
-  return ids
-    .map((id) => byId.get(id))
-    .filter((passage): passage is Passage => Boolean(passage))
-    .slice(0, MAX_PASSAGES_OFFERED);
+  const found = ids.map((id) => byId.get(id)).filter((passage): passage is Passage => Boolean(passage));
+  return fitPassagesToStory(found, story, index, true).slice(0, MAX_PASSAGES_OFFERED);
+}
+
+/**
+ * Why a drafted question must not be asked for THIS story, or null: its
+ * passage cannot apply to the story, or its words name the other
+ * municipality's Act (round 4 review, 2026-10-14: "The Municipal Act, 2001
+ * says a municipality is not liable ..." for a Toronto sidewalk fall). The
+ * backstop after the passage picker. Pure; exported for the suite.
+ */
+export function storyRejection(story: string, draft: { question: string; why: string; passageId: string }, passage?: Pick<Passage, "id" | "pinpoint">): string | null {
+  const place = municipalPlaceOf(story);
+  const offered = passage ?? { id: draft.passageId, pinpoint: "" };
+  const wrong = wrongForStory(offered, story, place);
+  if (wrong) return `wrong law for the story: ${wrong}`;
+  const words = `${draft.question} ${draft.why}`;
+  if (place === "toronto" && (/\bMunicipal Act\b/i.test(words) || isMunicipalAct44(offered))) return "wrong law for the story: Municipal Act named for a Toronto story";
+  if (place === "elsewhere" && (/\bCity of Toronto Act\b/i.test(words) || isTorontoAct(offered))) return "wrong law for the story: City of Toronto Act named outside Toronto";
+  return null;
 }
 
 // ------------------------------------------------------------ the pipeline
@@ -248,7 +274,8 @@ export type ResearchForQuestions = {
 export async function researchForQuestions(input: RetrievalInput, deps: SourcedQuestionDeps = {}): Promise<ResearchForQuestions> {
   try {
     const research = deps.research ? await deps.research(input) : await researchStory(input, deps.researchDeps ?? {});
-    const passages = answeringPassages(research);
+    const index = deps.researchDeps && "index" in deps.researchDeps ? deps.researchDeps.index ?? null : loadCorpusIndex();
+    const passages = answeringPassages(research, input.story, index);
     return {
       passageIds: passages.map((passage) => passage.id),
       situation: (research.issues[0]?.situation ?? "").slice(0, 300),
@@ -269,10 +296,13 @@ export async function researchForQuestions(input: RetrievalInput, deps: SourcedQ
  */
 export async function questionsFromPassages(
   input: RetrievalInput,
-  passages: readonly Passage[],
+  offeredPassages: readonly Passage[],
   situation: string,
   deps: SourcedQuestionDeps = {},
 ): Promise<SourcedQuestionsResult> {
+  let passages: readonly Passage[] = offeredPassages;
+  // Phase 2 takes passage ids from the browser: fit them to the story again.
+  passages = withoutWrongForStory(passages, input.story);
   if (passages.length === 0) return empty("nothing answered");
   const work = async (): Promise<SourcedQuestionsResult> => {
     const drafts = parseDrafts(await (deps.write ?? writeWithModel)(input, passages));
@@ -283,7 +313,8 @@ export async function questionsFromPassages(
     const passed: (Draft & { id: string; passage: Passage })[] = [];
     for (const draft of drafts) {
       const passage = offered.get(draft.passageId);
-      const rejection = questionRejection(draft, passage) ?? (seen.has(norm(draft.question)) ? "duplicate" : null);
+      const rejection =
+        questionRejection(draft, passage) ?? storyRejection(input.story, draft, passage) ?? (seen.has(norm(draft.question)) ? "duplicate" : null);
       if (rejection) {
         counts.refusedByCode += 1;
         refusals.push(`code: ${rejection}`);
@@ -352,7 +383,7 @@ export async function sourcedQuestions(input: RetrievalInput, deps: SourcedQuest
     // A stubbed research hands over its passages directly.
     const research = await deps.research(input).catch(() => null);
     if (!research) return empty("error");
-    passages = answeringPassages(research);
+    passages = answeringPassages(research, input.story, deps.researchDeps?.index ?? null);
     found = {
       passageIds: passages.map((passage) => passage.id),
       situation: research.issues[0]?.situation ?? "",

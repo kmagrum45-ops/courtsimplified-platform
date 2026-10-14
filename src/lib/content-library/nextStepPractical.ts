@@ -1592,9 +1592,64 @@ const MOVING_PARTY_FORMS: Record<PracticalCourt, ReadonlySet<string>> = {
  * shown, so a gap in these patterns never hides a notice that might apply.
  */
 const PUBLIC_WAY = /\b(?:city|town|township|municipal\w*|sidewalk|road|street|highway|bridge|pothole)\b/i;
+
+/**
+ * Toronto in the person's saved city or in their own words, including the
+ * former cities it absorbed (inTorontoRegion). The one Toronto test for the
+ * notice filter below, the intake's notice line and the research's passage
+ * picker (round 4 review, 2026-10-14: a Toronto sidewalk fall was asked a
+ * question from Municipal Act s. 44, which s. 7.1 (1) says does not apply to
+ * the City of Toronto).
+ */
+export function torontoInWords(words: string, city = ""): boolean {
+  return inTorontoRegion(city) === true || inTorontoRegion(proseOf(words)) === true;
+}
+
+/*
+ * A named Ontario place that is not Toronto, or the word for a kind of
+ * municipality Toronto is not (a town, township, village, county or region).
+ */
+const OTHER_PLACE = new RegExp(
+  `\\b(?:town|township|village|county|region)\\b|\\b(?:${PLACE_NAMES.filter(
+    (name) => inTorontoRegion(name.replace(/\\s\+/g, " ").replace(/\\\./g, ".")) === false,
+  ).join("|")})\\b`,
+  "i",
+);
+
+/**
+ * Where the municipality in the person's words is: "toronto" when Toronto is
+ * named (or is their saved city); "elsewhere" when it is not and another
+ * Ontario place or kind of municipality is (or their saved city is outside
+ * Toronto); "unknown" when the words say neither. Unknown keeps both laws in
+ * play, so a gap in these patterns never hides the one that applies.
+ */
+export type MunicipalPlace = "toronto" | "elsewhere" | "unknown";
+export function municipalPlaceOf(words: string, city = ""): MunicipalPlace {
+  if (torontoInWords(words, city)) return "toronto";
+  if (inTorontoRegion(city) === false || OTHER_PLACE.test(proseOf(words))) return "elsewhere";
+  return "unknown";
+}
+
+/**
+ * A person hurt on a municipal sidewalk, road, street or bridge, in their own
+ * words: a public way, an injury, and a municipality (by name or kind). Not
+ * an injury from a vehicle being driven (SOURCING_NOTES 2026-10-05: that
+ * notice is Insurance Act s. 258.3), and not premises a private occupier
+ * holds unless a municipality is named.
+ */
+const WAY = /\b(?:sidewalks?|side walk|roads?|roadway|streets?|highway|bridge|pothole|curb|crosswalk)\b/i;
+const HURT = /\b(?:slip(?:ped|ping)?|fell|fall(?:en|ing)?|trip(?:ped|ping)?|hurt|injur\w*|broke|broken|fractur\w*|sprain\w*)\b/i;
+const MUNICIPAL_BODY = /\b(?:city|town|township|village|municipal\w*|county|region)\b/i;
+const BY_VEHICLE = /\b(?:hit by|struck by|ran (?:me )?over|collision|crash(?:ed)?|rear-?ended)\b/i;
+export function municipalWayInjury(words: string, city = ""): boolean {
+  const prose = proseOf(words);
+  if (!WAY.test(prose) || !HURT.test(prose) || BY_VEHICLE.test(prose)) return false;
+  return MUNICIPAL_BODY.test(prose) || municipalPlaceOf(prose, city) !== "unknown";
+}
+
 const NOTICE_FITS: Partial<Record<RuleCitation["sourceId"], (story: string, city: string) => boolean>> = {
-  "city-of-toronto-act-2006": (story, city) => PUBLIC_WAY.test(story) && (inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
-  "municipal-act-2001": (story, city) => PUBLIC_WAY.test(story) && !(inTorontoRegion(city) === true || /\btoronto\b/i.test(story)),
+  "city-of-toronto-act-2006": (story, city) => PUBLIC_WAY.test(story) && torontoInWords(story, city),
+  "municipal-act-2001": (story, city) => PUBLIC_WAY.test(story) && !torontoInWords(story, city),
   "occupiers-liability-act": (story) => /\b(?:snow|ice|icy)\b/i.test(story) && /\b(?:property|premises|store|shop|parking|lot|driveway|building|landlord|mall|restaurant|plaza)\b/i.test(story),
   // Not "province" alone: a saved address says which province (walkthrough
   // run 38482600205: a Toronto sidewalk fall led with the Crown's notice).

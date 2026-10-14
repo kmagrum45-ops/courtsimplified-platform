@@ -5,6 +5,7 @@ import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
 import { civilGuidedFields } from "./guidedFields";
 import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
+import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 
 import { useEffect, useRef, useState } from "react";
 import {
@@ -1242,6 +1243,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         </div>
 
         </div>
+
+        {/* The 10-day notice to a municipality comes before any question (round 4 review, 2026-10-14). */}
+        <MunicipalNoticeFirst story={input.facts} city={input.city} />
 
         <SourcedQuestionsCard
           state={sourced.state}

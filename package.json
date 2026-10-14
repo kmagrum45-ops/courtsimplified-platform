@@ -152,6 +152,7 @@
     "test:research-step": "node --import tsx scripts/verification/verifyResearchStep.ts",
     "test:source-requests": "node --import tsx scripts/verification/verifySourceRequests.ts",
     "test:sourced-questions": "node --import tsx scripts/verification/verifySourcedQuestions.ts",
+    "test:municipal-notice-first": "node --import tsx scripts/verification/verifyMunicipalNoticeFirst.ts",
     "test:assistant-law": "node --import tsx scripts/verification/verifyAssistantLaw.ts",
     "test:retrieval-bundled": "node --import tsx scripts/verification/verifyRetrievalBundled.ts",
     "test:catalogue-verified": "node --import tsx scripts/verification/verifyCatalogueVerification.ts",
