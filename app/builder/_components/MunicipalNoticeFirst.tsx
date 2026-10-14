@@ -101,8 +101,8 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
           From what you told us, it sounds like you were hurt on a public sidewalk, road or bridge that {who} looks after. Is that right?
         </h3>
         <p className="mt-1">
-          Why we ask: if it was, the law says a lawsuit about the condition of the sidewalk, road or bridge cannot go ahead unless written notice reaches
-          the municipality within 10 days of the injury, with some exceptions. So this comes before anything else.
+          Why we ask: if it was, the law says a lawsuit about the condition of the sidewalk, road or bridge cannot go ahead unless written notice is served on,
+          or sent by registered mail to, the municipality's clerk within 10 days of the injury, with some exceptions. So this comes before anything else.
           <Rule rule={notice.rule} />
         </p>
         <div className="mt-2 flex flex-wrap gap-2">
