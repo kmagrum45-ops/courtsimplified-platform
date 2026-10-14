@@ -1,6 +1,7 @@
 "use client";
 
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
 import GetHelp from "../_components/GetHelp";
@@ -2142,7 +2143,18 @@ function BuilderPageContent() {
         {/* Small Claims only: the event vocabulary and table are Small Claims (see CaseTimeline canRecord). */}
         {savedCaseId() && courtPath === "small-claims" && !loadingExistingCase && !caseLoadError ? (
           <div className="mt-8">
-            <EventCandidateSurface caseId={savedCaseId() as string} recordedDates={savedPosition.dateAnswers} />
+            <EventCandidateSurface
+              caseId={savedCaseId() as string}
+              recordedDates={savedPosition.dateAnswers}
+              // The step they confirmed, as on the case Timeline: a sentence
+              // naming its event is offered as that step, not asked cold
+              // (walkthrough R6/R17, the builder's copy still asked).
+              confirmedStep={
+                confirmedStage && savedPosition.stepId && findStage(savedPosition.stepId)
+                  ? { id: savedPosition.stepId, title: findStage(savedPosition.stepId)!.title, chosen: true }
+                  : null
+              }
+            />
           </div>
         ) : null}
 

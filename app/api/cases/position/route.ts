@@ -19,6 +19,7 @@ import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
 import { applyPositionPatch, readCasePosition } from "../../../../src/lib/case-system/casePosition";
+import { updateMasterResult, type CaseRecordClient } from "../../../../src/lib/case-system/updateCaseRecord";
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
 
@@ -71,35 +72,26 @@ export async function POST(request: Request) {
    * read; if another save got there first, we read again and re-apply this
    * change on top. Three tries, then the person is told it didn't save.
    */
-  let position: ReturnType<typeof readCasePosition> | null = null;
-  for (let attempt = 0; attempt < 3 && !position; attempt += 1) {
-    const { data: fresh, error: readError } = await supabase
-      .from("cases")
-      .select("master_result,updated_at")
-      .eq("id", caseId)
-      .eq("user_id", user.id)
-      .maybeSingle();
-    if (readError || !fresh) return NextResponse.json({ error: "The selected case could not be found." }, { status: 404 });
-    const master = (fresh.master_result && typeof fresh.master_result === "object" ? fresh.master_result : {}) as Record<string, unknown>;
-    const result = applyPositionPatch(
-      readCasePosition(master, ownedCase.court_path),
-      { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service },
-      ownedCase.court_path,
-      new Date(),
-    );
-    if (!result.ok) return NextResponse.json({ error: result.error }, { status: 400 });
-
-    let write = supabase
-      .from("cases")
-      .update({ master_result: { ...master, position: result.position }, updated_at: new Date().toISOString() })
-      .eq("id", caseId)
-      .eq("user_id", user.id);
-    if (fresh.updated_at) write = write.eq("updated_at", fresh.updated_at);
-    const { data: written, error } = await write.select("id");
-    if (error) return NextResponse.json({ error: "Could not save that." }, { status: 500 });
-    if (Array.isArray(written) && written.length > 0) position = result.position;
+  // One shared save path for the case record (updateCaseRecord.ts, 2026-10-14
+  // audit): the same guarded read-change-write, with a short pause between
+  // retries, instead of this route's own copy of it.
+  const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service };
+  const saved = await updateMasterResult(
+    supabase as unknown as CaseRecordClient,
+    { caseId, userId: user.id },
+    (master) => {
+      const result = applyPositionPatch(readCasePosition(master, ownedCase.court_path), patch, ownedCase.court_path, new Date());
+      return result.ok ? { ...master, position: result.position } : { reject: result.error };
+    },
+    3,
+  );
+  if (!saved.ok) {
+    if (saved.reason === "rejected") return NextResponse.json({ error: saved.error }, { status: 400 });
+    if (saved.reason === "not-found") return NextResponse.json({ error: "The selected case could not be found." }, { status: 404 });
+    if (saved.reason === "conflict") return NextResponse.json({ error: "Could not save that just now. Please try again." }, { status: 409 });
+    return NextResponse.json({ error: "Could not save that." }, { status: 500 });
   }
-  if (!position) return NextResponse.json({ error: "Could not save that just now. Please try again." }, { status: 409 });
+  const position = readCasePosition(saved.master, ownedCase.court_path);
 
   return NextResponse.json({ position });
 }
