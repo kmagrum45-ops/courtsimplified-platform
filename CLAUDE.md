@@ -61,6 +61,19 @@ It may NEVER say, in any wording, that the user has or does not have a case, or 
 
 Everything else in this file still binds the guidance: every legal statement is sourced (above), every output is a suggestion the user confirms (section 4), and each advice-giving feature sits behind its own switch so it can be turned off for real users until the Law Society's A2I approval covers it. Code gates written under the old test (outcome language, "you should", the wrong-reader and advice-deflection checks) are being revisited to match this rule; until each is, it still applies to the surface it guards. Design context: `docs/AI_INTAKE_DESIGN.md` (written under the old test).
 
+## 2a. Smart AI reasons; the map decides procedure (site owner, 2026-10-14)
+
+This is the one design. Do not propose another; if something does not fit it, say so and ask.
+
+- **The AI does the thinking:** the strongest model reads the whole story, reasons about it, asks what is missing, explains in plain words and writes practical guidance.
+- **Court and process:** code rules for regimes fixed by law (construction liens to the Superior Court under the Construction Act, residential tenancies to the LTB, the $50,000 Small Claims limit, the exclusive tribunals) run before the AI and win over it. The AI decides only within them, as a suggestion the person confirms (s. 4).
+- **Procedure comes only from the map:** the next step, its form, deadline, where and how to file, fee, service and what comes after come from `stage-map/stageMap.ts`, `stageSequence.ts`, `content-library/nextStepPractical.ts` and the deadline engine. The AI chooses the stage and explains it. It never writes a step, form or deadline of its own, in any field, on any page.
+- **Gaps are said, not filled:** a step the map lacks shows as "not covered yet" and goes into the law map (`docs/law-map/`) to be verified and added.
+- **Other legal statements** go through the checked answer and pass only if their rule belongs to the person's court and regime.
+- **One copy:** no other store of procedure (database procedure rows, the older 9-stage blocks) is shown to a user.
+
+Decision: `docs/MASTER_PLAN.md`, 2026-10-14.
+
 ## 3. Never assess case strength
 
 The platform organizes facts and identifies gaps. It does not judge how a case will go.
