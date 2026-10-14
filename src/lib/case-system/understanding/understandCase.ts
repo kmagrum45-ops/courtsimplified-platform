@@ -40,7 +40,7 @@
 
 import { checkedAnswer, type CheckedAnswer, type CheckedAnswerDeps } from "../retrieval/checkedAnswer";
 import type { RetrievalCourt } from "../retrieval/storyRetrieval";
-import { fixedRegimeFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
+import { fixedRegimeFor, lienStepFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
 import { isMapOwnedInstruction, isMapOwnedProcedure } from "../procedureOwnership";
 import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
@@ -302,8 +302,8 @@ export function validStep(id: string, court: UnderstoodCourt): string | null {
 
 /**
  * A court fixed by law wins over the reading (CLAUDE.md s. 2a). A construction
- * lien is a Superior Court action with its own procedure, which the map does
- * not hold yet: the court becomes civil and no ordinary step is suggested. A
+ * lien is a Superior Court action with its own procedure: the court becomes
+ * civil and only the map's lien steps are suggested, never the ordinary ones. A
  * claimed amount over $50,000 moves a Small Claims reading to civil, and the
  * step is dropped because it was chosen from the wrong court's map. Pure.
  */
@@ -318,7 +318,15 @@ export function withFixedRegime(understanding: CaseUnderstanding, story: string)
     ...understanding,
     matters,
     mainCourt: regime.court,
-    step: regime.ownProcedure || understanding.mainCourt !== regime.court ? null : understanding.step,
+    step: regime.stages
+      ? // The regime's own steps only: the reading's step if it chose one of
+        // them, otherwise the likeliest one, for the person to confirm.
+        understanding.step && regime.stages.includes(understanding.step)
+        ? understanding.step
+        : lienStepFor(story, understanding.side)
+      : regime.ownProcedure || understanding.mainCourt !== regime.court
+        ? null
+        : understanding.step,
     regime: { id: regime.id, reasoning: regime.reasoning, ownProcedure: regime.ownProcedure },
   };
 }

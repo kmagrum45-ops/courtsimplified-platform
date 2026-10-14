@@ -42,7 +42,32 @@ export type FixedRegime = {
    * yet" instead (s. 2a: gaps are said, not filled).
    */
   ownProcedure: boolean;
+  /**
+   * The stage map's own steps for this regime, when it has them
+   * (civilStages.ts). A regime with `ownProcedure` shows only these, never
+   * the ordinary steps of `court`.
+   */
+  stages?: readonly string[];
 };
+
+/** The construction lien steps in the stage map (civilStages.ts, 2026-10-14). */
+export const LIEN_STAGES = {
+  owner: "civil:defendant:lien-registered-on-title",
+  served: "civil:defendant:served-with-lien-claim",
+  claimant: "civil:plaintiff:lien-claimant",
+} as const;
+
+/**
+ * Which lien step a story most likely describes, as a suggestion the person
+ * confirms or changes (CLAUDE.md s. 4). The one bringing the lien starts at
+ * the claimant's step; an owner served with a statement of claim is in the
+ * lien action; any other owner has a lien on title and no action yet. Pure.
+ */
+export function lienStepFor(story: string, side: "starting" | "responding" | "unclear"): string {
+  if (side === "starting") return LIEN_STAGES.claimant;
+  if (/\bstatement of claim\b|\b(?:sued|suing)\s+(?:me|us)\b|\bserved\s+(?:me|us|with)\b/i.test(story || "")) return LIEN_STAGES.served;
+  return LIEN_STAGES.owner;
+}
 
 export const CONSTRUCTION_ACT_S50_1: FixedRegimeRule = {
   sourceId: "construction-act",
@@ -147,6 +172,7 @@ export function fixedRegimeFor(story: string): FixedRegime | null {
       id: "construction-lien",
       court: "civil",
       ownProcedure: true,
+      stages: Object.values(LIEN_STAGES),
       rule: CONSTRUCTION_ACT_S50_1,
       reasoning:
         "This involves a construction lien. Under the Construction Act, s. 50 (1), a lien claim is enforced " +

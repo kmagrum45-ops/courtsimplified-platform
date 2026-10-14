@@ -144,7 +144,7 @@ export default function CaseUnderstandingCard({
       {understanding.regime && (
         <section className="rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4" data-testid="case-understanding-regime">
           <p className="text-sm leading-6 text-[#4a3b17]">{understanding.regime.reasoning}</p>
-          {understanding.regime.ownProcedure ? (
+          {understanding.regime.ownProcedure && !understanding.step ? (
             <p className="mt-2 text-sm leading-6 text-[#4a3b17]" data-testid="case-understanding-not-covered">
               Our step-by-step guide does not cover this kind of proceeding yet, so we are not listing steps, forms or
               deadlines for it. The law below is checked against the official text.
@@ -153,7 +153,7 @@ export default function CaseUnderstandingCard({
         </section>
       )}
 
-      {suggested && !understanding.regime?.ownProcedure && (
+      {suggested && (!understanding.regime?.ownProcedure || understanding.step) && (
         <section data-testid="case-understanding-next-step">
           <StageAnswerPanel
             courtPath={suggested}
