@@ -550,7 +550,18 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
 
   // Who wants the change decides the route (re-review 2026-10-14).
   const byWho: [string, string, boolean, MotionToChangeLead["kind"] | null][] = [
-    ["the person served their ex", "We have a support order. I served my ex with a motion to change last month and he hasn't answered.", false, null],
+    // Their own motion (review 2026-10-14): served by them, not on them.
+    ["the person served their ex", "We have a support order. I served my ex with a motion to change last month and he hasn't answered.", false, "asking"],
+    ["the person served him", "We have a support order. I served him and he got served with the motion to change on Monday.", false, "asking"],
+    // Someone else served, or blank forms, kits and drafts: never "you were served".
+    ["the person's sister served", "We have a support order. My sister got served with a motion to change.", false, null],
+    ["a blank form, and an own ask", "We have a support order. I got a motion to change form from the court website and want to lower the support.", false, "asking"],
+    ["the clerk's form", "We have a support order. The clerk gave me a motion to change form to fill out.", false, null],
+    ["the person's lawyer's draft", "We have a support order. My lawyer sent me a draft motion to change to lower the support.", false, "asking"],
+    ["a kit at the court office", "We have a support order. We were given a motion to change kit at the family court office.", false, null],
+    // Every want is read, not only the first (review 2026-10-14).
+    ["a no, then an ask", "There is a support order. I don't want to change anything but I want to lower the support.", false, "asking"],
+    ["never wanted the order, now wants a change", "There is a support order. I never wanted the order, and now I want to change it.", false, "asking"],
     ["the ex wants to reduce", "There is a support order. My ex wants to reduce child support. What do I do?", false, "if-served"],
     ["the ex asks the court", "There is a support order. My ex is asking the court to reduce the support.", false, "if-served"],
     ["the original respondent wants a change", "There is a court order. I'm the respondent in the original case. I want to lower the support", true, "asking"],
@@ -569,14 +580,14 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
     check(`motion to change: ${name} -> ${kind ?? "no route"}`, (got?.kind ?? null) === kind, JSON.stringify(got?.kind ?? null));
     if (kind !== "asking") check(`motion to change: ${name}: never told to bring one`, !/you bring a motion to change/.test(got?.line ?? ""));
   }
-  checkLead("the other side wanting a change", motionToChangeLead("family", byWho[1][1], true, false), "if-served", ["r. 15 (9)", "r. 15 (10)"], [
+  checkLead("the other side wanting a change", motionToChangeLead("family", "There is a support order. My ex wants to reduce child support. What do I do?", true, false), "if-served", ["r. 15 (9)", "r. 15 (10)"], [
     "response to motion to change (Form 15B)",
     "consent motion to change (Form 15C)",
     "assignee",
     "30 days",
     "60 days",
   ]);
-  check("motion to change: the other side's wish leaves the temporary-motion card", motionToChangeLead("family", byWho[1][1], true, false)?.replacesTemporaryMotionCard === false);
+  check("motion to change: the other side's wish leaves the temporary-motion card", motionToChangeLead("family", "There is a support order. My ex wants to reduce child support. What do I do?", true, false)?.replacesTemporaryMotionCard === false);
 
   const noRoute: [string, string, boolean, boolean][] = [
     ["family", "i want to start a case for custody of my son", false, false],

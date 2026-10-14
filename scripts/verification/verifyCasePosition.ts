@@ -54,6 +54,7 @@ import path from "node:path";
 import {
   EMPTY_POSITION,
   applyPositionPatch,
+  settledStage,
   dateQuestionsForStep,
   isDateQuestionId,
   readCasePosition,
@@ -688,9 +689,21 @@ function personsDatesWin(source: string): boolean {
   );
   const overview = read("app/cases/[id]/page.tsx");
   check(
-    "origin: the case page asks, rather than shows, a \"not sure\" left by the answers",
-    /const unsettledFromAnswers = position\.confirmedStage === "not-sure" && position\.confirmedStageFrom === "answers"/.test(overview) &&
-      /const confirmed = unsettledFromAnswers \? null : position\.confirmedStage/.test(overview),
+    "origin: settledStage treats only a \"not sure\" left by the answers as no stage",
+    settledStage({ confirmedStage: "not-sure", confirmedStageFrom: "answers" }) === null &&
+      settledStage({ confirmedStage: "not-sure" }) === "not-sure" &&
+      settledStage({ confirmedStage: "responding", confirmedStageFrom: "answers" }) === "responding",
+  );
+  check(
+    "origin: the case page, the dashboard and the step rule all ask, rather than show, a \"not sure\" left by the answers",
+    /settledStage\(position\)/.test(overview) &&
+      /const confirmed = unsettledFromAnswers \? null : position\.confirmedStage/.test(overview) &&
+      /settledStage\(position\)/.test(read("app/dashboard/page.tsx")) &&
+      /requireConfirmedStage && !settledStage\(position\)/.test(read("src/lib/case-system/caseStep.ts")),
+  );
+  check(
+    "origin: a case whose only stage is a \"not sure\" left by the answers gets no step where one needs a confirmed stage",
+    caseStepFor({ position: { confirmedStage: "not-sure", confirmedStageFrom: "answers" }, intakeData: { extra: { story: "x" } } }, "small-claims", false, { requireConfirmedStage: true }) === "",
   );
   const clickRefs = builder.match(/lastConfirmedRef\.current = /g) ?? [];
   const onConfirmBody = builder.slice(builder.indexOf("onConfirm={(stage) => {"), builder.indexOf("onConfirm={(stage) => {") + 400);

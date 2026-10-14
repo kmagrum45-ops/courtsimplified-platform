@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 
 import { supabase } from "../../src/lib/supabase/client";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
-import { readCasePosition } from "../../src/lib/case-system/casePosition";
+import { readCasePosition, settledStage } from "../../src/lib/case-system/casePosition";
 import { readCaseDrafts } from "../../src/lib/case-system/drafts/caseDrafts";
 import { getStageLabel } from "../builder/_components/builderTypes";
 import { COURT_LABELS, caseTitle, formatDate, type CaseRecord } from "../cases/_components/CaseHomeContext";
@@ -48,8 +48,9 @@ const START_OPTIONS = [
 
 function stageLine(record: CaseRecord): string {
   const position = readCasePosition(record.master_result, record.court_path);
-  if (position.confirmedStage) {
-    return getStageLabel(position.confirmedStage) || "Stage confirmed";
+  const stage = settledStage(position);
+  if (stage) {
+    return getStageLabel(stage) || "Stage confirmed";
   }
   return "Where the case is: not confirmed yet";
 }

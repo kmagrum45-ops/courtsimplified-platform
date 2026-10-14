@@ -24,7 +24,7 @@
  * Pure. Asserted by `npm run test:case-position`.
  */
 
-import { readCasePosition } from "./casePosition";
+import { readCasePosition, settledStage } from "./casePosition";
 import { readCaseRecord } from "./caseRecord";
 import { suggestedNoticeStep } from "./claim-types/noticeStep";
 import { readStoredPicture, stepFromPicture } from "./intake/caseReader";
@@ -85,6 +85,6 @@ export function caseStepFor(
   if (!courtPath) return "";
   const position = readCasePosition(asRecord(masterResult), courtPath);
   if (position.stepId) return position.stepId;
-  if (options.requireConfirmedStage && !position.confirmedStage) return "";
+  if (options.requireConfirmedStage && !settledStage(position)) return "";
   return suggestedStepForCase(masterResult, courtPath, responding);
 }

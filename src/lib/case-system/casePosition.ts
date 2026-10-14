@@ -115,6 +115,15 @@ export function isStepForCourt(stepId: unknown, courtPath: string | null | undef
   return pathwayOf(stage) === courtPath;
 }
 
+/**
+ * The stage the person stands on: null for a "not sure" left by the intake
+ * answers when a later run's answers settled nothing (stageFromAnswers.ts,
+ * review 2026-10-14), which every page asks about rather than shows.
+ */
+export function settledStage(position: Pick<CasePosition, "confirmedStage" | "confirmedStageFrom">): ConfirmableStage | null {
+  return position.confirmedStage === "not-sure" && position.confirmedStageFrom === "answers" ? null : position.confirmedStage;
+}
+
 /** Reads the stored position, discarding anything that no longer validates. */
 export function readCasePosition(masterResult: unknown, courtPath?: string | null): CasePosition {
   const raw = asRecord(asRecord(masterResult).position);
