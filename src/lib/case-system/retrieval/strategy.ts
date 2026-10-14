@@ -56,7 +56,9 @@ export function strategyQuestions(side: "plaintiff" | "defendant"): { seat: Stra
       seat: "procedure",
       title: "Steps, tools and timing",
       question:
-        `What are the next steps in this matter in order, with their deadlines and forms, and what procedural tools does the law give me (motions, offers to settle and their cost consequences, ways to get documents or evidence from the other side)? ${NO_GRADING}`,
+        // The next step, its form and deadline are shown from the stage map
+        // (CLAUDE.md s. 2a, 2026-10-14), so this seat covers the tools only.
+        `What procedural tools does the law give me in this kind of matter (motions, offers to settle and their cost consequences, ways to get documents or evidence from the other side), and what does each require? Do not list my next step, its form or its deadline: the site shows those separately from the court's checked step map. ${NO_GRADING}`,
     },
   ];
 }
