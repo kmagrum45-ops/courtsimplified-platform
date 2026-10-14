@@ -1,7 +1,7 @@
 {
   "area": "civil",
   "title": "Superior Court of Justice (civil actions and applications)",
-  "updated": "2026-10-13",
+  "updated": "2026-10-14",
   "items": [
     {
       "id": "civ.statute.rcp",
@@ -4364,6 +4364,356 @@
       "review": {
         "verdict": "ok",
         "date": "2026-10-13"
+      }
+    },
+    {
+      "id": "civ.lien.statute",
+      "kind": "statute",
+      "title": "Construction Act: who has a lien",
+      "says": "A person who supplies services or materials to an improvement for an owner, contractor or subcontractor has a lien on the owner's interest in the improved premises for the price of those services or materials.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 14(1)",
+        "expect": "has a lien upon the interest of the owner"
+      },
+      "leadsTo": [
+        "civ.lien.preserve",
+        "civ.lien.expiry-unpreserved"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.expiry-unpreserved",
+      "kind": "deadline",
+      "title": "A contractor's lien expires if not preserved",
+      "says": "Unless it is preserved, a contractor's lien expires at the end of the 60-day period after the earlier of the publication of the certificate or declaration of substantial performance and the date the contract is completed, abandoned or terminated; where there is no such certificate or declaration, or for supply after the certified date, the 60 days run from the earlier of completion and abandonment or termination.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 31(2)",
+        "expect": "expires at the conclusion of the 60-day period"
+      },
+      "leadsTo": [
+        "civ.lien.preserve"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.preserve",
+      "kind": "step",
+      "title": "Preserving a lien",
+      "says": "A lien may be preserved while the services or materials are being supplied or at any time before it expires: where it attaches to the premises, by registering a claim for lien on title in the proper land registry office; where it does not, by giving the owner a copy of the claim for lien.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 34(1)",
+        "expect": "by the registration in the proper land registry office"
+      },
+      "leadsTo": [
+        "civ.lien.perfect-deadline",
+        "civ.lien.vacate-full",
+        "civ.lien.vacate-reasonable",
+        "civ.lien.discharge",
+        "civ.lien.information",
+        "civ.lien.exaggerated"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.perfect-deadline",
+      "kind": "deadline",
+      "title": "A preserved lien must be perfected",
+      "says": "A preserved lien expires unless it is perfected before the end of the 90-day period after the last day on which it could have been preserved under section 31.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 36(2)",
+        "expect": "expires unless it is perfected prior to the end of the 90-day period"
+      },
+      "leadsTo": [
+        "civ.lien.how-perfected"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.how-perfected",
+      "kind": "step",
+      "title": "How a lien is perfected",
+      "says": "Where the lien attaches to the premises, the lien claimant perfects it by starting an action to enforce it and, unless an order vacating the registration has been made, registering a certificate of action in the prescribed form on title; where it does not attach, by starting the action.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 36(3)",
+        "expect": "registers a certificate of action in the prescribed form"
+      },
+      "leadsTo": [
+        "civ.lien.court",
+        "civ.lien.perfected-expiry"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.court",
+      "kind": "start",
+      "title": "Which court hears a lien claim",
+      "says": "A lien claim is enforceable in an action in the Superior Court of Justice.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 50(1)",
+        "expect": "enforceable in an action in the Superior Court of Justice"
+      },
+      "leadsTo": [
+        "civ.lien.procedure",
+        "civ.lien.claim-where"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.procedure",
+      "kind": "statute",
+      "title": "Which procedure applies to a lien action",
+      "says": "Except where they are inconsistent with the Construction Act and the procedures prescribed for Part VIII, the Courts of Justice Act and the rules of court apply to actions under Part VIII.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 50(2)",
+        "expect": "the Courts of Justice Act and the rules of court apply"
+      },
+      "leadsTo": [
+        "civ.lien.claim-where",
+        "civ.lien.interlocutory"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "s. 50(2) says 'the procedures prescribed for the purposes of this Part'; naming the regulation is not in the cited text.",
+        "fixed": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.perfected-expiry",
+      "kind": "deadline",
+      "title": "A perfected lien expires after two years unless the action moves to trial",
+      "says": "A perfected lien expires immediately after the second anniversary of the start of the action that perfected it, unless on or before that anniversary an order is made for the trial of an action in which the lien may be enforced or such an action is set down for trial.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 37(1)",
+        "expect": "expires immediately after the second anniversary"
+      },
+      "leadsTo": [
+        "civ.lien.trial-motion"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.vacate-full",
+      "kind": "motion",
+      "title": "Removing a lien from title by paying the full amount into court",
+      "says": "On a motion by any person, without notice, the court shall vacate the registration of the claim for lien (and any certificate of action) where the person pays into court, or posts security for, the full amount claimed in the claim for lien plus the lesser of $250,000 or 25 per cent of that amount as security for costs.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 44(1)",
+        "expect": "the lesser of $250,000 or 25 per cent"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.vacate-reasonable",
+      "kind": "motion",
+      "title": "Removing a lien from title by paying a reasonable amount into court",
+      "says": "On a motion by any person, the court may vacate the registration of a claim for lien and any certificate of action on payment into court, or posting of security, of an amount the court decides is reasonable in the circumstances to satisfy the lien.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 44(2)",
+        "expect": "an amount that the court determines to be reasonable"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.discharge",
+      "kind": "motion",
+      "title": "Asking the court to discharge a lien",
+      "says": "On a motion, the court may order a lien discharged on the basis that the claim for lien is frivolous, vexatious or an abuse of process, or on any other proper ground.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 47(1)",
+        "expect": "frivolous, vexatious or an abuse of process"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.exaggerated",
+      "kind": "test",
+      "title": "Liability for an exaggerated or baseless lien",
+      "says": "A person who preserves a claim for lien, or gives written notice of a lien, is liable to anyone who suffers damages as a result where the person knows or ought to know that the amount of the lien has been wilfully exaggerated, or that they do not have a lien.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 35(1)",
+        "expect": "has been wilfully exaggerated"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.information",
+      "kind": "option",
+      "title": "Asking for information about the contract",
+      "says": "A person who has a lien, a trust beneficiary under Part II or a mortgagee may, by written request at any time, require information to be provided within a reasonable time not exceeding 21 days, including from the owner or contractor the names of the parties to the contract, the contract price and a state of accounts.",
+      "source": {
+        "corpusId": "construction-act",
+        "pinpoint": "s. 39(1)",
+        "expect": "require information to be provided within a reasonable time"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.claim-where",
+      "kind": "start",
+      "title": "Where a lien action is started",
+      "says": "A lien action is started by issuing a statement of claim in a court office in the county where the premises, or part of them, are located.",
+      "source": {
+        "corpusId": "oreg-302-18-construction-act-procedures",
+        "pinpoint": "s. 1(1)",
+        "expect": "in the county in which the premises"
+      },
+      "leadsTo": [
+        "civ.lien.claim-serve"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.claim-serve",
+      "kind": "deadline",
+      "title": "Serving the statement of claim in a lien action",
+      "says": "Subject to the court's power to extend the time on a motion made before or after it expires, the statement of claim in a lien action must be served within 90 days after it is issued.",
+      "source": {
+        "corpusId": "oreg-302-18-construction-act-procedures",
+        "pinpoint": "s. 1(2)",
+        "expect": "served within 90 days after it is issued"
+      },
+      "leadsTo": [
+        "civ.lien.defence-time"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.defence-time",
+      "kind": "deadline",
+      "title": "Time to deliver a defence in a lien action",
+      "says": "The time for delivering a statement of defence to a lien claim, crossclaim, counterclaim or third party claim is 20 days.",
+      "source": {
+        "corpusId": "oreg-302-18-construction-act-procedures",
+        "pinpoint": "s. 2(5)",
+        "expect": "statement of defence to a lien claim"
+      },
+      "leadsTo": [
+        "civ.lien.counterclaim",
+        "civ.lien.default",
+        "civ.lien.trial-motion"
+      ],
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.counterclaim",
+      "kind": "step",
+      "title": "A counterclaim goes in with the defence",
+      "says": "Unless the court grants leave on a motion served and filed before the defence is delivered, a crossclaim or counterclaim in a lien action must accompany the person's statement of defence.",
+      "source": {
+        "corpusId": "oreg-302-18-construction-act-procedures",
+        "pinpoint": "s. 2(2)",
+        "expect": "crossclaim or counterclaim by any person shall accompany"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.default",
+      "kind": "step",
+      "title": "Default in a lien action",
+      "says": "If a person against whom a claim is made in a statement of claim, counterclaim, crossclaim or third party claim does not deliver a defence to that claim, they may be noted in default.",
+      "source": {
+        "corpusId": "oreg-302-18-construction-act-procedures",
+        "pinpoint": "s. 5(1)",
+        "expect": "may be noted in default"
+      },
+      "leadsTo": [
+        "civ.lien.trial-motion"
+      ],
+      "review": {
+        "verdict": "unsupported",
+        "problem": "The second half (no contest without leave) is s. 5(2), which is not cited.",
+        "fixed": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.trial-motion",
+      "kind": "motion",
+      "title": "Fixing a trial date or settlement meeting in a lien action",
+      "says": "After all statements of defence, including defences to all crossclaims, counterclaims and third party claims, have been delivered, or the time for delivering them has expired, any party may move without notice to have a day, time and place fixed for the trial, for a settlement meeting, or both.",
+      "source": {
+        "corpusId": "oreg-302-18-construction-act-procedures",
+        "pinpoint": "s. 9(1)",
+        "expect": "to have a day, time and place fixed for the trial"
+      },
+      "review": {
+        "verdict": "unsupported",
+        "problem": "Dropped condition: s. 9(1) para. 1 requires all statements of defence, including defences to all crossclaims, counterclaims and third party claims.",
+        "fixed": "2026-10-14"
+      }
+    },
+    {
+      "id": "civ.lien.interlocutory",
+      "kind": "statute",
+      "title": "Interlocutory steps in a lien action need the court's consent",
+      "says": "Interlocutory steps, other than those provided for under the Act, may not be taken in a lien action without the court's consent on proof that they are necessary or would speed up the resolution of the issues in dispute.",
+      "source": {
+        "corpusId": "oreg-302-18-construction-act-procedures",
+        "pinpoint": "s. 13",
+        "expect": "shall not be taken without the consent of the court"
+      },
+      "review": {
+        "verdict": "ok",
+        "date": "2026-10-14"
       }
     }
   ]
