@@ -57,6 +57,7 @@ import {
 import { getOutOfScopeForum, type OutOfScopeForum } from "./outOfScopeForums";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import { modelParams } from "../aiModels";
+import { fixedRegimeFor, type FixedRegimeId } from "./fixedRegimes";
 import {
   ISSUE_KINDS,
   NO_MATTERS,
@@ -92,6 +93,12 @@ export type CourtPathClassification = {
    * the model wrote can reach a user through this field.
    */
   matters: StoryMatters;
+  /**
+   * Set when a rule fixed by law decided the court (fixedRegimes.ts, CLAUDE.md
+   * s. 2a): the model's answer did not. Downstream, a regime with
+   * `ownProcedure` must not be shown the ordinary steps of `primaryPath`.
+   */
+  regime?: FixedRegimeId | null;
 };
 
 export type CourtPathClassifierInput = {
@@ -879,9 +886,49 @@ export async function classifyCourtPath(
   // context is what tells it which call site the row belongs to. The body is a
   // separate function rather than an inlined arrow so the transform is a rename
   // plus four lines, reviewable at a glance, and the original body is untouched.
-  return withAiCallContext({ callType: "court-path-classifier" }, () =>
+  const result = await withAiCallContext({ callType: "court-path-classifier" }, () =>
     classifyCourtPathInner(input),
   );
+  return applyFixedRegime(result, clean(input.story));
+}
+
+/**
+ * Rules fixed by law win over the keyword pass and the model (fixedRegimes.ts,
+ * CLAUDE.md s. 2a). Applied to every path's result, including the offline and
+ * failed-model fallbacks, so the rule holds whether or not a model ran.
+ *
+ * - A construction lien is a Superior Court action whatever the amount. A
+ *   family story that also mentions one keeps family first, with civil beside it.
+ * - A claimed amount over $50,000 moves a Small Claims (or undecided) answer to
+ *   civil. Family and out-of-scope answers are left alone: the limit is the
+ *   Small Claims Court's, and says nothing about a tribunal or family court.
+ *
+ * Exported as a test seam, like coerceModelPayload.
+ */
+export function applyFixedRegime(
+  result: CourtPathClassification,
+  story: string,
+): CourtPathClassification {
+  const regime = fixedRegimeFor(story);
+  if (!regime) return { ...result, regime: result.regime ?? null };
+
+  if (regime.id === "construction-lien") {
+    if (result.primaryPath === "family") {
+      return { ...result, secondaryPath: "civil", regime: regime.id };
+    }
+  } else if (!["small-claims", "unknown", "mixed"].includes(result.primaryPath)) {
+    return { ...result, regime: null };
+  }
+
+  return {
+    ...result,
+    primaryPath: regime.court,
+    secondaryPath: null,
+    outOfScopeForum: null,
+    confidence: Math.max(result.confidence, 0.9),
+    reasoning: regime.reasoning,
+    regime: regime.id,
+  };
 }
 
 async function classifyCourtPathInner(

@@ -36,6 +36,7 @@
     "test:classifier-gating": "node --import tsx scripts/verification/verifyClassifierGating.ts",
     "test:cohort2-normalization": "node scripts/verification/verifyCohort2CatalogueNormalization.mjs",
     "test:cohort2-split-identities": "node scripts/verification/verifyCohort2SplitCanonicalIdentities.mjs",
+    "test:fixed-regimes": "node --import tsx scripts/verification/verifyFixedRegimes.ts",
     "test:court-path-classifier": "node --import tsx scripts/verification/verifyCourtPathClassifier.ts",
     "test:depth-questions": "node --import tsx scripts/verification/verifyDepthQuestions.ts",
     "test:evidence-guidance": "node --import tsx scripts/verification/verifyEvidenceGuidanceClaims.ts",
