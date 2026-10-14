@@ -122,7 +122,7 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
     id: "months-supplied-by-legislation-act",
     text:
       "The Small Claims rules say how to count days. The Legislation Act supplies the " +
-      "month arithmetic, because Part VI of that Act applies to every Act and regulation.",
+      "month arithmetic, because Part VI of that Act applies to every Act and regulation (s. 46).",
     cites: C.S_LEGISLATION_46_APPLIES,
   },
   "counted-years": {
@@ -180,7 +180,7 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
     id: "statutory-saturday-is-not-a-holiday",
     text:
       "Checked whether the last day is a holiday. For a deadline set by a statute the " +
-      "holidays are the days listed in the Legislation Act, and Saturday is not one of " +
+      "holidays are the days listed in the Legislation Act, 2006 (s. 88 (2)), and Saturday is not one of " +
       "the days that list names.",
     cites: C.S_LEGISLATION_88_HOLIDAYS,
   },
@@ -195,12 +195,14 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
   "uncertain-statutory-saturday": {
     id: "uncertain-statutory-saturday",
     text:
+      // Walkthrough 2026-10-13: shown on the timeline with no source. Each
+      // half now names the subsection that says it.
       "{result} is a Saturday. This deadline is set by a statute rather than by the Small " +
-      "Claims rules, and the list of holidays in the Legislation Act names Sunday and the " +
-      "named holidays, not Saturday — so this period ends on the Saturday. It is extended " +
+      "Claims rules, and the list of holidays in the Legislation Act, 2006 names Sunday and the " +
+      "named holidays, not Saturday (s. 88 (2)) — so this period ends on the Saturday. It is extended " +
       "to the next day the office is open if the place where it must be done is not open " +
-      "that day during its regular hours, which is worth confirming with that office.",
-    cites: C.S_LEGISLATION_89_1_HOLIDAY,
+      "that day during its regular hours (s. 89 (2)), which is worth confirming with that office.",
+    cites: C.S_LEGISLATION_89_2_CLOSED,
   },
   "uncertain-backward-count-lands-on-holiday": {
     id: "uncertain-backward-count-lands-on-holiday",
@@ -354,7 +356,7 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
     id: "months-supplied-by-legislation-act-for-the-rules",
     text:
       "These rules say how to count days. The Legislation Act supplies the month and year " +
-      "arithmetic, because Part VI of that Act applies to every Act and regulation.",
+      "arithmetic, because Part VI of that Act applies to every Act and regulation (s. 46).",
     cites: C.S_LEGISLATION_46_APPLIES,
   },
   "uncertain-family-court-office-closure": {
