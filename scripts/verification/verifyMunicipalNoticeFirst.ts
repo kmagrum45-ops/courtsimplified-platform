@@ -23,8 +23,12 @@
  *     vary an existing order (CLRA s. 29 and its kin); any story that might
  *     have an earlier order ("custody papers from 2019", "the judge gave me",
  *     "through FRO") losing them.
- *   - (Review of f71a316) the line firing for private premises, transit, a
- *     vehicle or a provincial highway; organisation names ("Toronto Hydro",
+ *   - (Review of f71a316 and 8792939) the line firing for anything but the
+ *     person falling ON a public way, read sentence by sentence: private
+ *     premises, transit, a vehicle, a provincial highway, a dog, a cyclist,
+ *     an assault, police, a broken shoe, their own feet, a street that is only
+ *     an address; or staying silent for a sidewalk in front of a building, at
+ *     a bus stop, or with no city named; an agreement losing r. 15; organisation names ("Toronto Hydro",
  *     "TD") or street names ("Kingston Road") taken for Toronto; two named
  *     places not giving "unknown" with both Acts kept; added Act passages
  *     pushing a research passage out; the judge line under the death rule.
@@ -307,6 +311,15 @@ check("an order in the story: CLRA s. 29 kept", withoutWrongForStory([...CLRA29,
   check("no positive sign that there is no order: kept", plain.every((story) => withoutWrongForStory(VARIATIONS, story).length === VARIATIONS.length));
   const none = ["There is no court order yet and she wants custody.", "We have never been to court; she wants sole custody."];
   check("'no order' or 'never been to court': left out", none.every((story) => withoutWrongForStory(VARIATIONS, story).length === 0));
+  // r. 15 changes an agreement too (re-review of 8792939).
+  const AGREEMENTS = [
+    "We have a separation agreement but we have never been to court.",
+    "There is no court order, only a separation agreement we signed. I want to change the support.",
+    "We never went to court; we made a parenting agreement with a mediator.",
+    "There's no support order but we agreed in writing he pays $500.",
+  ];
+  const lostAgreement = AGREEMENTS.filter((story) => withoutWrongForStory(VARIATIONS, story).length !== VARIATIONS.length);
+  check("an agreement keeps r. 15 and the other variation provisions, even with 'no order' or 'never been to court'", lostAgreement.length === 0, lostAgreement.join(" | "));
 }
 
 // ---------------------------------------------------------------- 8. only an injury ON a municipal way
@@ -330,6 +343,19 @@ const NEVER = [
   "A tree branch fell on my car parked on the street in Toronto on October 2 2026 and I was hurt.",
   "I slipped on ice at the mall on Highway 7 in Vaughan on October 2 2026 and broke my wrist.",
   "I fell on the provincial highway shoulder on October 2 2026 and hurt my knee.",
+  // Re-review of 8792939: read sentence by sentence.
+  "I live on Elm Street in Ottawa and my contractor broke my fence.",
+  "A dog bit me on the sidewalk in Toronto and I fell and broke my wrist.",
+  "A cyclist knocked me down and I fell on the sidewalk in Toronto. I want to sue the city.",
+  "I was assaulted on the street in Toronto and fell, breaking my arm.",
+  "The police pushed me and I fell on the sidewalk in Toronto.",
+  "I fell on the sidewalk in Toronto because my shoe broke.",
+  "I tripped on my own feet crossing the street in Toronto and sprained my ankle.",
+  "I slipped on the sidewalk outside the Tim Hortons in Barrie, on their property, and broke my wrist.",
+  "I fell off the cottage deck on Lake Road in the township and broke my leg.",
+  "My son tripped at school on the sidewalk and broke his arm. I want to sue the school board.",
+  "I was hit by a car while crossing the road in Toronto on October 1 2026 and broke my leg.",
+  "I broke my wrist on October 2 2026. I live on Queen Street in Toronto.",
 ];
 const fired = NEVER.filter((story) => municipalWayInjury(story) || municipalNoticeFirst(story, { now, city: "Toronto" }) !== null);
 check("private premises, transit, vehicles and provincial highways never fire", fired.length === 0, fired.join(" | "));
@@ -342,9 +368,22 @@ const ALWAYS = [
   "I tripped in a pothole on Dundas Street in Toronto on October 2 2026 and sprained my ankle.",
   "I tripped on a raised slab of sidewalk in Hamilton on October 2 2026 and broke my wrist.",
   "I fell off the curb in a crosswalk in Toronto on October 2 2026 and hurt my knee. I want to sue the city.",
+  // Re-review of 8792939: the place and the cause are read from the sentence of the fall.
+  "I tripped on a sidewalk lifted by tree roots in Ottawa on October 2 2026 and broke my wrist. I want to sue the city.",
+  "I slipped on the icy sidewalk at the bus stop on Queen Street in Toronto on October 2 2026 and broke my hip.",
+  "On a cracked sidewalk outside my apartment building in Scarborough, I tripped and broke my wrist on October 2 2026.",
+  "On the unsalted sidewalk in front of my building in Toronto, I fell on October 2 2026 and hurt my back. I want to sue the city.",
+  "The snowplow driver left a ridge of ice on the sidewalk in Hamilton and I slipped on October 2 2026.",
+  "I stepped out of my car onto an icy curb on a city street in London and fell on October 2 2026.",
+  "The city didn't fix the sidewalk outside my home. I tripped on it on October 2 2026 and broke my wrist.",
+  "My bike hit a pothole on Dundas and I fell on October 2 2026.",
 ];
 const silent = ALWAYS.filter((story) => !municipalNoticeFirst(story, { now }));
 check("the persona and plain sidewalk, pothole, curb stories still fire", silent.length === 0, silent.join(" | "));
+check(
+  "a fall on a sidewalk with no city named gets the unknown-place line with both Acts",
+  municipalNoticeFirst("The city didn't fix the sidewalk outside my home. I tripped on it on October 2 2026 and broke my wrist.", { now })?.alsoToronto?.rule.sourceId === "city-of-toronto-act-2006",
+);
 check(
   "a non-municipal injury gets no injected Act passages either",
   NEVER.every((story) => !answeringPassages(research([...CLRA24]), story, index).some((passage) => isTorontoAct(passage) || isMunicipalAct44(passage))),

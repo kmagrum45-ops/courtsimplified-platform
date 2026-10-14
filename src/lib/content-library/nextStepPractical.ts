@@ -1660,35 +1660,63 @@ export function torontoInWords(words: string, city = ""): boolean {
 }
 
 /**
- * A person hurt ON a municipal sidewalk, road, street, curb or crosswalk, or
- * in a pothole, in their own words. City of Toronto Act s. 42 (6) and
- * Municipal Act s. 44 (10) bar only an action "under subsection (2)", which
- * is the municipality's default in keeping a highway or bridge in repair
- * (s. 42 (1)-(2), s. 44 (1)-(2)). So (review of f71a316, 2026-10-14) it is
- * never said for: private premises or another occupier (a store, mall,
- * parking lot, driveway, stairs, a landlord's building, a workplace, a
- * community centre, a construction site); transit (bus, streetcar, subway,
- * the TTC); a vehicle (a car accident, a tree on a car -- the vehicle notice is
- * Insurance Act s. 258.3, SOURCING_NOTES 2026-10-05); or a provincial
- * highway (Highway 401, "provincial"). A gap here leaves the line out; the
- * next-step card still covers the notice step.
+ * A person who FELL ON a public way, read sentence by sentence (re-review of
+ * 8792939, 2026-10-14: word lists over the whole story both fired for a dog
+ * bite on a sidewalk and stayed silent for a sidewalk in front of a building).
+ *
+ * Why only this: City of Toronto Act s. 42 (6) and Municipal Act s. 44 (10)
+ * bar only an action "under subsection (2)", the municipality's default in
+ * keeping a highway or bridge in repair (s. 42 (1)-(2), s. 44 (1)-(2)).
+ *
+ * The rule, in one sentence of the person's words (or a sentence and the one
+ * before it, when it says "I tripped on it"):
+ *   1. the person fell: slipped, tripped, fell, stumbled, lost their footing,
+ *      rolled or twisted an ankle -- with the person (I, we, my son ...) before
+ *      the verb, so "a branch fell on my car" is not a fall;
+ *   2. on a public way: a sidewalk, road, street, curb, crosswalk, pothole or
+ *      boulevard, or a named street right after the fall ("slipped on Queen
+ *      Street") -- never a street given as an address;
+ *   3. and nothing in that sentence says it happened somewhere else (in a
+ *      store or mall, on stairs or a deck, in a parking lot or driveway, on a
+ *      bus or streetcar, on their property, at school, at a cottage, a
+ *      provincial highway) or that something else caused it (a car accident,
+ *      hit by a car, a dog or bite, a cyclist, pushed, assaulted, attacked,
+ *      police, a shoe that broke, their own feet).
+ * "Broke" or "hurt" alone is never enough. The place need not be known: a
+ * fall on a sidewalk with no city named gets the line with both Acts.
  */
-const ON_WAY =
-  /\b(?:on|off|in|into|onto|from|at|over|across|along|crossing)\s+(?:the\s+|a\s+|an\s+|my\s+|our\s+|this\s+|that\s+|some\s+)?(?:(?:icy|iced|snowy|slippery|wet|city|public|municipal|broken|uneven|cracked|damaged|raised|unsalted|unplowed|frozen|sloped)\s+)*(?:sidewalks?|side\s+walks?|curbs?|kerbs?|crosswalks?|cross\s+walks?|potholes?|roads?|roadway|streets?)\b|\bpotholes?\b|\bicy\s+sidewalks?\b|\b(?:slab|piece|section|part|edge|crack|hole|lip)\s+(?:of|in)\s+(?:the\s+)?(?:sidewalk|road|street|curb)\b|\b(?:sidewalk|curb)\s+(?:was|were)\s+(?:icy|broken|uneven|cracked|not\s+salted|unsalted)\b/i;
-const NAMED_STREET_ON = /\b(?:on|along|crossing)\s+(?:[A-Z][a-z]+\s+){1,3}(?:Street|St|Road|Rd|Avenue|Ave)\b/;
-const HURT = /\b(?:slip(?:ped|ping|s)?|fell|fall(?:en)?|trip(?:ped|ping|s)?|hurt|injur\w*|broke|broken|fractur\w*|sprain\w*)\b/i;
-const MUNICIPAL_BODY = /\b(?:city|town|township|village|municipal\w*)\b/i;
-const NOT_THE_WAY =
-  /\b(?:stores?|shops?|supermarket|grocery|malls?|plaza|parking\s+(?:lot|garage)|driveways?|inside|indoors|stairs?|staircase|stairwell|landlord|building|lobby|porch|yard|at\s+(?:my\s+)?work|workplace|job\s+site|community\s+cent(?:re|er)|construction\s+site|restaurant|apartment|condo|premises|private\s+property)\b/i;
-const TRANSIT = /\b(?:bus(?:es)?|streetcars?|subway|ttc|transit|lrt|go\s+train|trains?)\b/i;
-const VEHICLE = /\b(?:cars?|vehicles?|trucks?|vans?|motorcycles?|driving|driver|drove|car\s+accident|motor\s+vehicle\s+accident|collision|crash\w*|hit\s+by|struck\s+by|rear-?ended|tree|branch)\b/i;
-const PROVINCIAL = /\b(?:highway|hwy)\s*\d+|\bthe\s+4\d\d\b|\bqew\b|\bprovincial\b|\bministry\s+of\s+transportation\b|\bmto\b/i;
-export function municipalWayInjury(words: string, city = ""): boolean {
-  const prose = proseOf(words);
-  if (!HURT.test(prose)) return false;
-  if (!ON_WAY.test(prose) && !NAMED_STREET_ON.test(prose)) return false;
-  if (NOT_THE_WAY.test(prose) || TRANSIT.test(prose) || VEHICLE.test(prose) || PROVINCIAL.test(prose)) return false;
-  return MUNICIPAL_BODY.test(prose) || municipalPlaceOf(prose, city) !== "unknown";
+const FALL =
+  /\b(?:slip(?:ped|ping|s)?|trip(?:ped|ping|s)?|fell|fall(?:en|ing)?|stumbl\w*|lost\s+(?:my|his|her|their|our)\s+footing|(?:rolled|twisted)\s+(?:my|his|her|their)\s+ankle|went\s+down)\b/i;
+const FALLER = /\b(?:i|we|he|she|they|my\s+(?:son|daughter|wife|husband|partner|mother|father|mom|mum|dad|child|kid|grandmother|grandfather|friend))\b/i;
+const WAY_WORD = /\b(?:sidewalks?|side\s+walks?|roads?|roadway|streets?|curbs?|kerbs?|crosswalks?|cross\s+walks?|potholes?|boulevards?)\b/i;
+const NAMED_STREET_FALL =
+  /\b(?:slip(?:ped)?|trip(?:ped)?|fell|stumbled)\s+(?:(?:and\s+fell\s+|on\s+(?:the\s+)?ice\s+|on\s+(?:some\s+)?snow\s+|badly\s+)?)(?:on|along|crossing)\s+(?:[A-Z][a-z]+\s+){1,3}(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Drive|Dr)\b/;
+const REFERS_BACK = /\b(?:on|over|into|in)\s+(?:it|that|there|them)\b/i;
+const ELSEWHERE_IN_SENTENCE =
+  /\b(?:in|inside|at|into)\s+(?:the\s+|a\s+|an\s+|my\s+|their\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:store|shop|mall|supermarket|grocery|restaurant|plaza|community\s+cent(?:re|er)|construction\s+site|cottage)\b|\bon\s+(?:the\s+|a\s+|their\s+|his\s+|her\s+|my\s+|our\s+)?(?:[\w'’-]+\s+){0,2}(?:stairs|steps|staircase|stairwell|deck|porch)\b|\b(?:in|on|at|into)\s+(?:the\s+|a\s+|their\s+|my\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:parking\s+(?:lot|garage)|driveway)\b|\b(?:on|in|off|onto|boarding|getting\s+(?:off|on))\s+(?:the\s+|a\s+)?(?:ttc\s+)?(?:bus|streetcar|subway|train)\b|\b(?:bus|streetcar|subway|train)\s+(?:braked|stopped|lurched|jerked|started|moved|pulled)\b|\bon\s+(?:their|his|her)\s+(?:property|land|premises)\b|\bprivate\s+property\b|\bat\s+(?:my\s+|his\s+|her\s+|the\s+|their\s+)?school\b|\bschool\s+board\b|\b(?:deck|cottage)\b|\b(?:highway|hwy)\s*\d+|\bqew\b|\bprovincial\b/i;
+const OTHER_CAUSE_IN_SENTENCE =
+  /\bcar\s+accident\b|\b(?:hit|struck|knocked\s+(?:down|over)?)\s+(?:me\s+)?by\s+(?:a\s+|the\s+)?(?:car|truck|vehicle|van|bus|cyclist|bike|bicycle)\b|\b(?:bit|bitten|bites?|dog)\b|\bcyclist\b|\bknocked\s+(?:me|him|her|us)\b|\b(?:pushed|shoved|tackled|punched)\b|\bassault\w*|\battack\w*|\bpolice\b|\b(?:my|his|her)\s+(?:shoe|heel|boot|sandal|flip-?flop)s?\s+(?:broke|snapped|came\s+off|gave\s+way)\b|\bbecause\s+(?:of\s+)?(?:my|his|her)\s+(?:shoe|heel|boot)s?\b|\bown\s+feet\b/i;
+
+/** The sentences of the person's words. */
+function sentencesOf(text: string): string[] {
+  return text
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+}
+
+function fallOnWay(sentence: string, before: string): boolean {
+  const fall = FALL.exec(sentence);
+  if (!fall || !FALLER.test(sentence.slice(0, fall.index + fall[0].length))) return false;
+  const here = WAY_WORD.test(sentence) || NAMED_STREET_FALL.test(sentence);
+  const scope = here ? sentence : REFERS_BACK.test(sentence) && WAY_WORD.test(before) ? `${before} ${sentence}` : "";
+  if (!scope) return false;
+  return !ELSEWHERE_IN_SENTENCE.test(scope) && !OTHER_CAUSE_IN_SENTENCE.test(scope);
+}
+
+export function municipalWayInjury(words: string, _city = ""): boolean {
+  const sentences = sentencesOf(proseOf(words));
+  return sentences.some((sentence, at) => fallOnWay(sentence, at > 0 ? sentences[at - 1] : ""));
 }
 
 const NOTICE_FITS: Partial<Record<RuleCitation["sourceId"], (story: string, city: string) => boolean>> = {

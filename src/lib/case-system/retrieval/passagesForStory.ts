@@ -25,7 +25,8 @@
  * existing order or agreement (CLRA s. 29, Divorce Act s. 17, Family Law Act
  * s. 37, Family Law Rules r. 15) are left out ONLY on positive evidence that
  * there is none yet: "no order", "never been to court", or a first
- * application just served with no sign of anything earlier. Anything that
+ * application just served with no sign of anything earlier -- and never when
+ * an agreement is mentioned (r. 15 changes agreements too). Anything that
  * might be an earlier order (a year, "the judge gave", "FRO", "awarded", a
  * divorce, a mediated plan) keeps them (review of f71a316, 2026-10-14: a
  * word list of "order" missed "custody papers from 2019" and nine others).
@@ -91,9 +92,22 @@ const FIRST_APPLICATION =
 const MAYBE_EARLIER_ORDER =
   /\b(?:orders?|ordered|agreements?|agreed|consent|vary|varied|varying|variation|chang\w*|judgment|decree|arrangement|decisions?|decided|award(?:ed)?|won|granted|gave|said|judge|fro|family\s+responsibility\s+office|pay|pays|paying|paid|parenting\s+plan|mediat\w*|divorce\w*|separation|visitation|primary\s+residence|custody\s+papers|(?:19|20)\d\d)\b/i;
 
-/** Positive evidence that there is no order or agreement yet. Pure. */
+/**
+ * Words for an agreement. Family Law Rules r. 15 is "MOTIONS TO CHANGE A
+ * FINAL ORDER OR AGREEMENT", so "no order, only a separation agreement" keeps
+ * it (re-review of 8792939, 2026-10-14).
+ */
+const AGREEMENT_WORDS =
+  /\b(?:agreements?|agreed|consent\w*|arrangements?|mediation|mediator|mediated|parenting\s+plan|domestic\s+contract|in\s+writing|signed)\b/i;
+
+/**
+ * Positive evidence that there is no order AND no agreement yet: the person
+ * says there is no order or they have never been to court, or a first
+ * application was just served with no sign of anything earlier; and no word
+ * for an agreement appears. Pure.
+ */
 export function storyShowsNoOrder(story: string): boolean {
-  if (!story.trim()) return false;
+  if (!story.trim() || AGREEMENT_WORDS.test(story)) return false;
   if (NO_ORDER_SAID.test(story)) return true;
   return FIRST_APPLICATION.test(story) && !MAYBE_EARLIER_ORDER.test(story);
 }
