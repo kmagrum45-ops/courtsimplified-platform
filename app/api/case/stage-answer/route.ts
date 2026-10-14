@@ -30,6 +30,7 @@ import { findStage, isSpecialStage } from "../../../../src/lib/case-system/stage
 import { caseDatesFrom } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
 import { computedDeadlinesFor } from "../../../../src/lib/content-library/computedDeadline";
 import { dateQuestionsForStep, isDateQuestionId } from "../../../../src/lib/case-system/casePosition";
+import { notABarExceptions } from "../../../../src/lib/content-library/nextStepPractical";
 import {
   STAGE_ANSWER_UNAVAILABLE_MESSAGE,
   STAGE_SCOPE_UNCONFIRMED_MESSAGE,
@@ -143,13 +144,27 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
   const stage = findStage(stageId);
   if (!stage) return null;
   const counted = computedDeadlinesFor(stage.deadlines, dates, "nextStepCard");
+  /*
+   * Each limit carries the rule that sets it (2026-10-13, walkthrough: "Attend
+   * the mandatory information program. 45 days after the day the case was
+   * started." was on the card with no source), and, for a limit that bars a
+   * claim, the rule's own "is not a bar" exceptions, which the card shows
+   * once the date has passed. Quotes from the stage map, already checked by
+   * test:stage-map.
+   */
+  const about = (deadline: (typeof stage.deadlines)[number]) => ({
+    id: deadline.id,
+    rule: deadline.rule,
+    consequence: deadline.consequence,
+    notABar: deadline.consequence === "bars-the-claim" ? notABarExceptions(deadline.exceptions) : [],
+    statutory: deadline.regime === "legislation-act",
+  });
   return {
     title: stage.title,
-    deadlines: counted.map((deadline) => ({
-      what: stage.deadlines.find((item) => item.id === deadline.deadlineId)?.what ?? "",
-      date: deadline.date,
-      statement: deadline.statement,
-    })),
+    deadlines: counted.flatMap((deadline) => {
+      const source = stage.deadlines.find((item) => item.id === deadline.deadlineId);
+      return source ? [{ what: source.what, date: deadline.date, statement: deadline.statement, ...about(source) }] : [];
+    }),
     periods: stage.deadlines
       .filter((deadline) => deadline.length.count > 0 && !counted.some((item) => item.deadlineId === deadline.id))
       .map((deadline) => ({
@@ -157,6 +172,7 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
         count: deadline.length.count,
         unit: deadline.length.unit,
         countFrom: deadline.countFrom,
+        ...about(deadline),
       })),
   };
 }

@@ -15,7 +15,20 @@
  *   - a fee from another court on a step;
  *   - the card choosing the wrong portal: Toronto must get only the Toronto
  *     portal, a city outside Toronto only the other, and no city both;
- *   - a plain-words line that grades a case.
+ *   - a plain-words line that grades a case;
+ *   - (2026-10-13 walkthrough) a family step that files papers but says nothing
+ *     about the fee; a parenting-only case whose fee exemption does not lead;
+ *     a form folded away and lost, or folded with no words to justify it; a
+ *     support-only motion to change led by the information program; a court
+ *     office not on the courts' own lists; a garnishment step silent on the
+ *     garnishee; a claim against a city with no line on serving one; a notice
+ *     step with no "how to give the notice", or one stating an address no
+ *     saved source gives; a passed bar's exceptions that are not "is not a bar".
+ *   - (2026-10-13 review) a parenting-only case whose leading fee notes do not
+ *     start with the s. 1.2 (2) exemption, or carry the $10 divorce note; the
+ *     Case file and Timeline counting notices the Overview card drops; the
+ *     Forms tab built without the person's words or notice step; the site's
+ *     own follow-up question text read as the person's words.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -44,7 +57,21 @@ import {
   FAMILY_NO_STEP_FEE,
   SC_NO_STEP_FEE,
   limitNotesFor,
+  MORE_CARD_LINES,
+  MIP_SUPPORT_ONLY_CHANGE,
+  claimFit,
+  familyClaimsIn,
+  notABarExceptions,
+  respondingStep,
+  familyCourtOfficesIn,
+  FAMILY_COURT_BRANCH_FEE,
+  keptForNotices,
+  noticeFit,
 } from "../../src/lib/content-library/nextStepPractical";
+import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
+import { PERSONAS } from "../../tests/browser/walkthrough/personas";
+import { COURT_LOCATIONS, OCJ_COURTHOUSES } from "../../src/lib/content-library/courts/courtLocations";
+import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS = path.join(ROOT, "docs", "sources", "corpus");
@@ -60,6 +87,7 @@ for (const file of readdirSync(CORPUS)) if (file.endsWith(".txt")) corpus.set(fi
 
 const COURTS: PracticalCourt[] = ["small-claims", "civil", "family"];
 const lines: PlainLine[] = [
+  ...MORE_CARD_LINES,
   ...FAMILY_FEE_NOTES,
   ...FAMILY_NO_STEP_FEE,
   ...SC_NO_STEP_FEE,
@@ -208,6 +236,249 @@ const emptied = ALL_STAGES.flatMap((stage) => {
 check("narrowing a step's notices to the story never leaves it with none", emptied.length === 0, emptied.join("; "));
 const toronto = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1])?.also.map((cite) => cite.sourceId) ?? [];
 check("a fall on a Toronto sidewalk shows the City of Toronto notice and not the Crown's", toronto.includes("city-of-toronto-act-2006") && !toronto.includes("crown-liability-and-proceedings-act-2019"), toronto.join(", "));
+
+console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's list)");
+{
+  const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");
+  const component = read("app/_components/NextStepPractical.tsx");
+
+  // F3: a family step that files papers always says what it costs -- a fee,
+  // or the fee list's own words that it has none -- and the card shows the
+  // fee block for either (a motion to change showed no "What it costs").
+  const familyFiling = steps.filter((stage) => pathwayOf(stage) === "family" && STEP_PRACTICAL[stage.id]?.files);
+  const silent = familyFiling.filter((stage) => {
+    const view = practicalFor(stage.id, "family", "Sudbury");
+    return !view || (view.fees.length === 0 && view.feeNotes.length === 0);
+  });
+  check("every family step that files papers says what it costs (a fee or the no-fee note)", silent.length === 0, silent.map((stage) => stage.id).join(", "));
+  check("the card shows 'What it costs' for a fee note alone", /view\.fees\.length > 0 \|\| view\.feeNotes\.length > 0/.test(component));
+
+  // F2: for words naming only parenting, the fee exemption leads; with a
+  // property claim it does not. Nothing is dropped either way.
+  const PARENTING = 'my ex took me to court for custody of our daughter {"issues":["decision-making-responsibility","parenting-time","relocation"]}';
+  const PROPERTY = "my wife wants the house and half my pension and custody";
+  const parenting = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true, PARENTING);
+  const property = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true, PROPERTY);
+  const plain = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true);
+  check("parenting-only words: the fee exemption leads the fees", parenting?.feeNotesFirst === true && parenting.feeNotes.some((line) => line.cite.pinpoint === "s. 1.2 (2)"));
+  check("property words, or no words: the fees lead as before", property?.feeNotesFirst === false && plain?.feeNotesFirst === false);
+  check("reordering never removes a fee", [parenting, property, plain].every((view) => view?.fees.length === STEP_PRACTICAL["family:respondent:served-time-to-answer-running"].fees.length));
+
+  // Review 2026-10-13 (5): for the family-respondent-parenting persona's own
+  // words, the exemption that applies (s. 1.2 (2)) is the FIRST note, and the
+  // federal $10 divorce note is left out (no divorce or marriage named). With
+  // a divorce named, that note comes after the fees, never leading them.
+  {
+    const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
+    const words = [persona.story, JSON.stringify({ issues: persona.issues, yourRole: persona.role, city: persona.city })].join(" ");
+    const view = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words)!;
+    const isDivorceNote = (line: PlainLine) => /\$10\b/.test(line.say);
+    check("persona family-respondent-parenting: the s. 1.2 (2) exemption is the first fee note, and the notes lead", view.feeNotesFirst && view.feeNotes[0]?.cite.pinpoint === "s. 1.2 (2)", view.feeNotes.map((line) => line.cite.pinpoint).join(", "));
+    check("persona family-respondent-parenting: no $10 divorce note (no divorce or marriage named)", !view.feeNotes.some(isDivorceNote));
+    const divorce = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true, "my wife filed for divorce and wants custody")!;
+    check("words naming a divorce: the $10 note is kept, after the fees", !divorce.feeNotesFirst && divorce.feeNotes.some(isDivorceNote) && isDivorceNote(divorce.feeNotes[divorce.feeNotes.length - 1]));
+    check("no words: every family fee note is still shown", (plain?.feeNotes.length ?? 0) === FAMILY_FEE_NOTES.length);
+    // Property, across every family step with first-instance fees: whenever
+    // the notes lead, the exemption is first and no divorce note is among them.
+    const misordered = steps
+      .filter((stage) => pathwayOf(stage) === "family")
+      .map((stage) => practicalFor(stage.id, "family", "Barrie", true, words))
+      .filter((v): v is NonNullable<typeof v> => Boolean(v && v.feeNotesFirst))
+      .filter((v) => v.feeNotes[0]?.cite.pinpoint !== "s. 1.2 (2)" || v.feeNotes.some(isDivorceNote));
+    check("on every family step, leading fee notes start with the exemption and carry no divorce note", misordered.length === 0);
+  }
+
+  // Review 2026-10-13 (2): the one notice filter (keptForNotices) used by the
+  // Overview card, its passed box, the Case file and the Timeline.
+  {
+    const notices = [
+      { what: "The general deadline to start a court case" },
+      { what: "If a municipality did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the municipal clerk" },
+      { what: "If the City of Toronto did not keep a highway (road) or bridge in repair and you claim damages, give written notice of the claim to the city clerk" },
+      { what: "If you are claiming damages from the Ontario Crown, serve a notice of claim on the Crown" },
+    ];
+    const sidewalk = "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i want to sue the city";
+    const kept = keptForNotices(notices, sidewalk, "Toronto").map((item) => item.what);
+    check("a Toronto fall keeps the City of Toronto notice and the general limit", kept.some((w) => /City of Toronto/.test(w)) && kept.some((w) => /general deadline/.test(w)));
+    check("and drops the notices that do not fit", !kept.some((w) => /a municipality|Ontario Crown/.test(w)));
+    check("words that fit no notice keep every limit", keptForNotices(notices, "something happened to me", "Ottawa").length === notices.length);
+    const route = readFileSync(path.join(ROOT, "app", "api", "workspace", "organisation", "route.ts"), "utf8");
+    check(
+      "the Case file and Timeline count only the kept notices, with the person's words and city",
+      /keptForNotices\(stage\.deadlines, userWordsOf\(intakeDataOf\(ownedCase\.master_result\)\), record\.city\)/.test(route) &&
+        /computedDeadlinesFor\(stepLimits,/.test(route) &&
+        !/computedDeadlinesFor\(stage\.deadlines/.test(route),
+    );
+    const panelSource = readFileSync(path.join(ROOT, "app", "builder", "_components", "StageAnswerPanel.tsx"), "utf8");
+    check("the Overview card uses the same filter", /keptForNotices\(\[\.\.\.summary\.deadlines, \.\.\.summary\.periods\], story, city\)/.test(panelSource));
+  }
+
+  // Review 2026-10-13 (6): the Forms tab passes the person's words and the
+  // case's notice step, as the Overview card does, so both show the same.
+  {
+    const formsPage = readFileSync(path.join(ROOT, "app", "cases", "[id]", "forms", "page.tsx"), "utf8");
+    check(
+      "the Forms tab's practicalFor gets the person's words and the notice step",
+      /practicalFor\(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId\)/.test(formsPage) && /noticeStepForCase\(caseRecord\.master_result/.test(formsPage),
+    );
+    check("the Forms tab's card gets them too", /<NextStepPractical[\s\S]{0,200}story=\{userWords\}[\s\S]{0,80}noticeStepId=\{noticeStepId\}/.test(formsPage));
+    const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
+    const intake = { facts: persona.story, extra: { issues: persona.issues, yourCity: persona.city } };
+    const words = userWordsOf(intake);
+    const overview = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words, "");
+    check("for the same words the Forms tab and Overview views are the same", JSON.stringify(overview) === JSON.stringify(practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, userWordsOf(intake), "")));
+  }
+
+  // Review 2026-10-13 (4): the person's words never include the site's own
+  // follow-up question text, only their answers.
+  {
+    const question = "Did a municipality or the City of Toronto fail to keep a road in repair, or was there a newspaper libel or a divorce?";
+    const intake = { facts: "my landlord kept my deposit", extra: { sourcedAnswers: [{ question, answer: "no, it was my landlord" }], yourCity: "Ottawa" } };
+    const words = userWordsOf(intake);
+    check("userWordsOf keeps each follow-up answer", /no, it was my landlord/.test(words));
+    check("userWordsOf leaves out each follow-up question", !/municipality|newspaper|divorce|City of Toronto/i.test(words), words);
+    const inFacts = userWordsOf({ facts: `my landlord kept my deposit\n\nAnswers to follow-up questions about the law that applies:\nQ: ${question}\nA: no, it was my landlord` });
+    check("the same question added to the story as a Q: line is left out too, its answer kept", !/municipality|newspaper|divorce/i.test(inFacts) && /no, it was my landlord/.test(inFacts));
+    check("so the question's words fit no notice and no family claim", noticeFit("If the City of Toronto did not keep a highway (road) or bridge in repair", words, "Ottawa") !== "fits" && !familyClaimsIn(words).divorce);
+  }
+
+  // C7: a form a rule ties to a claim the words do not name is folded with
+  // that rule, never removed; with no words, nothing is folded.
+  const foldedLost = steps
+    .filter((stage) => pathwayOf(stage) === "family")
+    .flatMap((stage) =>
+      [PARENTING, "i pay child support and want it lowered", ""].flatMap((words) => {
+        const view = practicalFor(stage.id, "family", "", false, words);
+        if (!view) return [];
+        const shown = [...view.forms, ...view.formsIfClaimed].map((form) => form.number).sort().join();
+        const all = (STEP_PRACTICAL[stage.id].forms.map((form) => form.split(":").pop()) as string[]).sort().join();
+        return shown === all ? [] : [`${stage.id} "${words}"`];
+      }),
+    );
+  check("folding a form never loses it (every family step, three stories)", foldedLost.length === 0, foldedLost.join("; "));
+  // Review 2026-10-13: r. 13 (1) (b) binds the party a support or property
+  // claim is made against, answer or not -- so a responding step never folds
+  // the financial statement, whatever the words; elsewhere it folds only when
+  // the words show no support or money at all.
+  const respondingFolds = steps
+    .filter((stage) => pathwayOf(stage) === "family" && respondingStep(stage.id, false))
+    .flatMap((stage) =>
+      [PARENTING, "something happened"].flatMap((words) =>
+        [false, true].flatMap((responding) =>
+          (practicalFor(stage.id, "family", "", responding, words)?.formsIfClaimed ?? []).filter((form) => form.number === "13" || form.number === "13.1").map(() => `${stage.id} "${words}"`),
+        ),
+      ),
+    );
+  check("a responding step never folds the financial statement (r. 13 (1) (b))", respondingFolds.length === 0, respondingFolds.join("; "));
+  check("a respondent to a parenting application keeps Form 13 as a form", Boolean(parenting?.forms.some((form) => form.number === "13")));
+  const startParenting = practicalFor("family:before-filing:deciding-where-to-start", "family", "", false, PARENTING);
+  check(
+    "starting a parenting-only case: Form 13 is folded with r. 13 (1) (a) and (b)",
+    !startParenting?.forms.some((form) => form.number === "13") &&
+      Boolean(startParenting?.formsIfClaimed.some((form) => form.number === "13" && /\(b\) the party against whom the claim is made/.test(form.when.cite.quote))),
+  );
+  const moneyWords = ["i want to lower what I pay for my kids and change the weekend schedule", "he owes me money", "the amount is $900"];
+  const moneyFolded = moneyWords.filter((words) =>
+    ["family:before-filing:deciding-where-to-start", "family:both:asking-to-change-final-order"].some((id) => practicalFor(id, "family", "", false, words)?.formsIfClaimed.some((form) => form.number === "13")),
+  );
+  check("words that show support or money never fold the financial statement", moneyFolded.length === 0, moneyFolded.join(" | "));
+  const support = practicalFor("family:both:asking-to-change-final-order", "family", "Sudbury", false, "i pay 900 a month child support and want it lowered");
+  check("support words: the financial statement stays a form for the step", Boolean(support?.forms.some((form) => form.number === "13")) && support?.formsIfClaimed.length === 0);
+  check("no words: nothing is folded", steps.every((stage) => (practicalFor(stage.id, pathwayOf(stage) as PracticalCourt)?.formsIfClaimed.length ?? 0) === 0));
+
+  // C6: the information program and a support-only motion to change.
+  const mip = { id: "deadline:family:mip-45-days:motion-to-change", what: "Attend the mandatory information program" };
+  check("a support-only motion to change does not lead with the information program", claimFit(mip, "i pay child support and want it lowered") === "not");
+  check("a motion to change that touches parenting still does", claimFit(mip, "i want to change child support and the parenting schedule") === "fits");
+  check("a respondent's information program is not folded by this test", claimFit({ id: "deadline:family:mip-45-days:respondent", what: mip.what }, "i pay child support") === "fits");
+  check("the note quotes r. 8.1 (1) para. 6's exception", /except motions that deal only with changing child or spousal support/.test(MIP_SUPPORT_ONLY_CHANGE.cite.quote));
+  check("the note says the program applies to any change other than child or spousal support", /anything other than child or spousal support/.test(MIP_SUPPORT_ONLY_CHANGE.say) && !/also asks to change parenting/.test(MIP_SUPPORT_ONLY_CHANGE.say));
+  check("unknown words fold nothing", claimFit({ what: "If the application or your answer has a property claim, serve the property papers" }, "something happened") === "fits");
+  check("the claims reader does not take 'never married' as a divorce", !familyClaimsIn("we were never married").divorce && familyClaimsIn("my wife and i are getting a divorce").divorce);
+
+  // F1: every office the card names is on the courts' own location lists, and
+  // a family step with a city that has one names it; before a case, none.
+  const named = steps
+    .filter((stage) => pathwayOf(stage) === "family")
+    .flatMap((stage) => ["Barrie", "Sudbury", "Toronto", "Ottawa"].flatMap((city) => practicalFor(stage.id, "family", city)?.courtOffices?.offices ?? []));
+  const unknownOffice = named.filter((office) => !COURT_LOCATIONS.some((location) => location.slug === office.from) && !OCJ_COURTHOUSES.some((courthouse) => courthouse.city === office.from));
+  check("every court office named is on the courts' location lists", named.length > 0 && unknownOffice.length === 0, unknownOffice.map((office) => office.name).join(", "));
+  // Review 2026-10-13: criminal and bail courthouses (Toronto Regional Bail
+  // Centre, Ottawa.criminal@, yorkcrim@, Milton's "- Criminal" email, the
+  // Criminal Trial Office line) were listed as family courts.
+  const everyCity = Array.from(new Set([...COURT_LOCATIONS.map((location) => location.address.map((line) => /^([^,]+),\s*Ontario/.exec(line)?.[1] ?? "").find(Boolean) ?? ""), ...OCJ_COURTHOUSES.map((courthouse) => courthouse.city), "Toronto"])).filter(Boolean);
+  const listed = everyCity.flatMap((city) => familyCourtOfficesIn(city));
+  const criminal = listed.filter((office) => /criminal|crim@|\bbail\b|trbc/i.test([office.name, ...office.emails, ...office.address].join(" ")));
+  check("no family court office listed has criminal or bail in its name, email or address (every saved city)", listed.length > 0 && criminal.length === 0, criminal.map((office) => `${office.name} ${office.emails.join(",")}`).join(" | "));
+  const torontoOffices = familyCourtOfficesIn("Toronto").map((office) => office.name).join(" | ");
+  check("Toronto lists the Ontario Court of Justice family courthouses (311 Jarvis, 47 Sheppard)", /311 Jarvis Family/.test(torontoOffices) && /47 Sheppard Family/.test(torontoOffices), torontoOffices);
+  const ocjUnmarked = listed.filter((office) => office.court === "Ontario Court of Justice" && !OCJ_COURTHOUSES.some((courthouse) => courthouse.city === office.from && (/family/i.test(courthouse.city) || courthouse.emails.some((email) => /family/i.test(email)))));
+  check("an Ontario Court of Justice entry is listed only where the saved list marks it family", ocjUnmarked.length === 0, ocjUnmarked.map((office) => office.name).join(", "));
+  const scjAddress = listed.filter((office) => office.court === "Superior Court of Justice" && office.address.some((line) => !COURT_LOCATIONS.find((location) => location.slug === office.from)?.services.some((service) => service.court === "family" && service.address.includes(line))));
+  check("a Superior Court office shows only its family address", scjAddress.length === 0, scjAddress.map((office) => office.name).join(", "));
+  const barrie = practicalFor("family:respondent:served-time-to-answer-running", "family", "Barrie", true)?.courtOffices;
+  check("a Barrie respondent is shown the Barrie family court and the r. 5 (4) rule", Boolean(barrie?.offices.some((office) => /Barrie/.test(office.name))) && barrie?.place[0]?.cite.pinpoint === "r. 5 (4)");
+  const changePlace = practicalFor("family:both:asking-to-change-final-order", "family", "Sudbury")?.courtOffices?.place ?? [];
+  check("a motion to change is told where it starts (r. 15 (4))", changePlace[0]?.cite.pinpoint === "r. 15 (4)");
+  check(
+    "r. 5 (1) is quoted with its Family Court opening, and CJA s. 21.8 (1) says the Family Court takes the case where it sits",
+    changePlace.some((line) => line.cite.quote.startsWith("Subject to sections 21.8 and 21.11 of the Courts of Justice Act")) && changePlace.some((line) => line.cite.sourceId === "cja-courts-of-justice-act" && line.cite.pinpoint.startsWith("s. 21.8 (1)")),
+  );
+  check("no court office before a case exists", steps.filter((stage) => stage.id.startsWith("family:before-filing:")).every((stage) => !practicalFor(stage.id, "family", "Barrie")?.courtOffices));
+
+  // F4: an enforcement step that serves a notice of garnishment says how to
+  // serve the garnishee, and the debtor within five days of it.
+  const garnishing = steps.filter((stage) => STEP_PRACTICAL[stage.id]?.serve === "garnishment" && pathwayOf(stage) === "small-claims");
+  const noGarnishee = garnishing.filter((stage) => {
+    const pins = (practicalFor(stage.id, "small-claims")?.serving ?? []).map((line) => line.cite.pinpoint);
+    return !pins.includes("r. 8.01 (8) (b)") || !pins.includes("r. 20.08 (6.1)") || !pins.includes("r. 20.08 (9)");
+  });
+  check("no service line calls a form 'blank' (the rule does not say so)", Object.values(SERVICE).every((lines) => [...lines.originating, ...lines.ordinary, ...lines.special, ...lines.summons, ...lines.garnishment].every((line) => !/\bblank\b/i.test(line.say))));
+  check("every garnishment step says how to serve the garnishee, the debtor after it, and the wage limit (r. 20.08 (9))", garnishing.length > 0 && noGarnishee.length === 0, noGarnishee.map((stage) => stage.id).join(", "));
+
+  // F5: serving a city (r. 16.02 (1) (b)) for a claim against one; not for a neighbour; with no words, shown.
+  const pins = (words: string) => (practicalFor("civil:plaintiff:claim-drafted-not-issued", "civil", "Toronto", false, words)?.serving ?? []).map((line) => line.cite.pinpoint);
+  check("a claim against the city shows how to serve a municipality", pins("i slipped on the sidewalk and want to sue the city").includes("r. 16.02 (1) (b)"));
+  check("a claim against a neighbour does not", !pins("my neighbour's tree fell on my car").includes("r. 16.02 (1) (b)"));
+  check("with no words every service line shows", pins("").includes("r. 16.02 (1) (b)"));
+  // Review 2026-10-13: a named municipality, and a municipal notice step on the case, keep it too; Small Claims has its own rule.
+  check("suing a named municipality shows it ('I'm suing Brampton for flooding my basement')", pins("I'm suing Brampton for flooding my basement").includes("r. 16.02 (1) (b)"));
+  check(
+    "a municipal notice step on the case keeps it whatever the words; a non-municipal one does not",
+    (practicalFor("plaintiff:claim-drafted-not-filed", "small-claims", "Ottawa", false, "it happened in march", "before-filing:notice-municipality")?.serving ?? []).some((line) => line.cite.pinpoint === "r. 8.02 (b)") &&
+      !(practicalFor("plaintiff:claim-drafted-not-filed", "small-claims", "Ottawa", false, "it happened in march", "before-filing:notice-snow-ice-private")?.serving ?? []).some((line) => line.cite.pinpoint === "r. 8.02 (b)"),
+  );
+  const scPins = (words: string) => (practicalFor("plaintiff:claim-drafted-not-filed", "small-claims", "Brampton", false, words)?.serving ?? []).map((line) => line.cite.pinpoint);
+  check("Small Claims: serving a municipality is r. 8.02 (b), shown for a claim against one, not for a neighbour", scPins("i am suing the town for my flooded basement").includes("r. 8.02 (b)") && !scPins("my neighbour owes me money").includes("r. 8.02 (b)") && scPins("").includes("r. 8.02 (b)"));
+
+  // C1: the notice step says what the notice must contain and who gets it,
+  // from the section itself, and names no address (no saved source gives one).
+  const notice = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
+  check("a Toronto fall is told how to give the notice, from s. 42 (6)", Boolean(notice?.noticeHow.length) && notice!.noticeHow.every((line) => line.cite.sourceId === "city-of-toronto-act-2006"));
+  const address = MORE_CARD_LINES.filter((line) => /\b\d{1,5}\s+[A-Z][a-z]+\s+(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Boulevard|Blvd\.?)\b|\bM\d[A-Z]\s?\d[A-Z]\d\b/.test(line.say));
+  check("no notice line states a clerk's address", address.length === 0, address.map((line) => line.say).join(" | "));
+  check("every notice rule a step can show has its how-to lines", ["city-of-toronto-act-2006", "municipal-act-2001", "occupiers-liability-act"].every((id) => MORE_CARD_LINES.some((line) => line.cite.sourceId === id)));
+
+  // C4: a bar's own "is not a bar" exceptions are what the card shows once it has passed.
+  const toronto = findStage("civil:before-filing:notice-required-before-suing")?.deadlines.find((deadline) => deadline.id === "deadline:civil:toronto-notice-10-days");
+  const excuses = toronto ? notABarExceptions(toronto.exceptions).map((rule) => rule.pinpoint) : [];
+  check("the Toronto notice's passed-date exceptions are s. 42 (7) and (8)", excuses.join() === "s. 42 (7),s. 42 (8)", excuses.join());
+  check("every 'is not a bar' line picked is one", notABarExceptions(ALL_STAGES.flatMap((stage) => stage.deadlines.flatMap((deadline) => deadline.exceptions))).every((rule) => /is not a bar/.test(rule.quote)));
+
+  // F3, review 2026-10-13: O. Reg. 417/95 (Family Court branch fees) is not
+  // saved, so every family fee note says that court's fee is set there and to ask.
+  const branchSilent = steps
+    .filter((stage) => pathwayOf(stage) === "family")
+    .filter((stage) => {
+      const view = practicalFor(stage.id, "family");
+      return view && view.feeNotes.length > 0 && !view.feeNotes.includes(FAMILY_APPEAL_FEE_NOTE) && !view.feeNotes.includes(FAMILY_COURT_BRANCH_FEE);
+    });
+  check("every family step with a first-instance fee note also says the Family Court branch's fee is set by O. Reg. 417/95", branchSilent.length === 0 && FAMILY_FEE_NOTES.includes(FAMILY_COURT_BRANCH_FEE) && FAMILY_NO_STEP_FEE.includes(FAMILY_COURT_BRANCH_FEE), branchSilent.map((stage) => stage.id).join(", "));
+  const unscoped = [...FAMILY_FEE_NOTES, ...FAMILY_NO_STEP_FEE].filter((line) => line !== FAMILY_COURT_BRANCH_FEE && !/Superior Court of Justice|Ontario Court of Justice|federal/.test(line.say));
+  check("each family fee line names the court it speaks for", unscoped.length === 0, unscoped.map((line) => line.say).join(" | "));
+
+  check("no new plain line grades a case", MORE_CARD_LINES.every((line) => !/\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)));
+}
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;

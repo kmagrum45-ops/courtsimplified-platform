@@ -83,6 +83,7 @@
     "test:help-at-limits": "node --import tsx scripts/verification/verifyHelpAtLimits.ts",
     "test:held-back-cases": "node --import tsx scripts/verification/verifyHeldBackCases.ts",
     "test:guided-form-chat": "node --import tsx scripts/verification/verifyGuidedFormChat.ts",
+    "test:story-answers": "node --import tsx scripts/verification/verifyStoryAnswers.ts",
     "test:verdict-sources": "node --import tsx scripts/verification/verifyVerdictSources.ts",
     "test:service-dates": "node --import tsx scripts/verification/verifyServiceDates.ts",
     "eval:free-finish-line": "node --import tsx scripts/eval/freeFinishLine.ts",

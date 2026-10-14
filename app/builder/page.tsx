@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import FamilyIntake, { type FamilyScope } from "./_components/FamilyIntake";
 import { ChildSupportTableCard } from "./_components/ChildSupportTableCard";
 import ChildSupportIntake from "./_components/ChildSupportIntake";
+import { childSupportPrefill } from "./_components/childSupportPrefill";
 import SmallClaimsIntake, {
   requestSmallClaimsAnalysis,
 } from "./_components/SmallClaimsIntake";
@@ -19,7 +20,7 @@ import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
 } from "./_components/GuidedSmallClaimsIntake";
 import { readSourcedAnswers } from "./_components/SourcedQuestions";
-import { savePositionQueued } from "./_components/positionSave";
+import { savePositionQueued, trackPositionWork } from "./_components/positionSave";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
@@ -56,7 +57,7 @@ import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
-import { readCasePosition, storyHintsForDates, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
+import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
@@ -271,6 +272,12 @@ function BuilderPageContent() {
   // Issues and side from the family intake (or the saved case). Decides
   // whether the child-support draft fits this case at all.
   const [familyScope, setFamilyScope] = useState<FamilyScope | null>(null);
+  // The family intake's questions are finished: the person pressed Continue
+  // (FamilyIntake's onQuestionsDone). Until then the family triage and the
+  // child-support builder wait, so one thing is asked at a time (walkthrough
+  // 2026-10-13, V1: the marriage question sat beside the one-at-a-time chat).
+  // A saved case reopened (queryCaseId) is past its intake, so they show.
+  const [familyQuestionsDone, setFamilyQuestionsDone] = useState(false);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
   const [existingMasterResult, setExistingMasterResult] = useState<
     Record<string, unknown>
@@ -1232,9 +1239,15 @@ function BuilderPageContent() {
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
     // One save at a time with the deadline box's own saves (positionSave.ts);
     // tried once more if it fails, so the case page does not ask again.
-    if (await savePositionQueued(caseId, { confirmedStage: stage })) return;
-    await new Promise((resolve) => setTimeout(resolve, 2_000));
-    await savePositionQueued(caseId, { confirmedStage: stage });
+    // Tracked with its retry, so the case page waits for it before reading (R4).
+    await trackPositionWork(
+      caseId,
+      (async () => {
+        if (await savePositionQueued(caseId, { confirmedStage: stage })) return;
+        await new Promise((resolve) => setTimeout(resolve, 2_000));
+        await savePositionQueued(caseId, { confirmedStage: stage });
+      })(),
+    );
   }
 
 
@@ -1270,7 +1283,10 @@ function BuilderPageContent() {
     const key = JSON.stringify({ caseId, parts });
     if (sentPositionRef.current === key) return;
     sentPositionRef.current = key;
-    void (async () => {
+    // Tracked, retries and all: "Open your case page" can be pressed while
+    // these are still going, and the case page waits for them before it reads
+    // (positionSave.ts, walkthrough 2026-10-13 R4).
+    void trackPositionWork(caseId, (async () => {
       let allSaved = true;
       for (const part of parts) {
         let ok = await savePositionQueued(caseId, part);
@@ -1281,7 +1297,7 @@ function BuilderPageContent() {
         if (!ok) allSaved = false;
       }
       if (!allSaved) sentPositionRef.current = "";
-    })();
+    })());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canonicalIntakeSaved, confirmedStage, positionThisVisit, masterCaseId]);
 
@@ -1611,8 +1627,19 @@ function BuilderPageContent() {
 
           It takes `triageState` and `setTriageState` and nothing else. No part
           of the analysis pipeline reaches it.
+
+          AFTER THE QUESTIONS, NOT BESIDE THEM (walkthrough 2026-10-13, V1).
+          "Were you and the other person married to each other?" sat above the
+          one-question-at-a-time chat, so two question systems asked at once.
+          It now waits until the family intake's questions are finished
+          (familyQuestionsDone, set when the person presses Continue) or a
+          saved case is reopened. That is not pipeline state: it is set before
+          any analysis runs and never cleared, so the triage still never
+          vanishes once shown. Answers given after the case is saved are
+          written by the familyStatus effect above, so nothing is lost by
+          asking later.
         */}
-        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (
+        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (familyQuestionsDone || Boolean(queryCaseId)) && (
           <FamilyStatusTriage
             state={triageState}
             onChange={setTriageState}
@@ -1677,6 +1704,7 @@ function BuilderPageContent() {
                 earlierSourcedAnswers={earlierSourcedAnswers}
                 storedIntake={queryCaseId ? asRecord(existingMasterResult).intakeData : undefined}
                 onScopeChange={setFamilyScope}
+                onQuestionsDone={() => setFamilyQuestionsDone(true)}
                 location={confirmedLocation}
                 initialStory={homeStory}
               />
@@ -1802,7 +1830,33 @@ function BuilderPageContent() {
                   order they already have makes a motion to change instead
                   (walkthrough run 38475320722: a father lowering a 2022 support
                   order was offered "This produces your application"). */}
-              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && <ChildSupportIntake />}
+              {/* After the intake's questions, not beside them (V1), and
+                  starting from what the intake recorded, as suggestions the
+                  person can change (R3).
+                  ONLY WHILE THE INTAKE IS OFF SCREEN (review 2026-10-13): Back
+                  after Continue shows the guided chat again, and the builder
+                  reappeared beside it. So, in a fresh session, it shows with
+                  the results (resultsVisible, the same value that hides the
+                  intake section), not merely once the questions are done.
+                  Trade-off, accepted: if the analysis fails, the builder waits
+                  until it succeeds. The triage keeps its never-disappears rule
+                  and is NOT gated this way. A reopened saved case still shows
+                  it. Its draft never reads the analysis. */}
+              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
+                <ChildSupportIntake
+                  recorded={childSupportPrefill(
+                    familyScope?.recorded ?? {
+                      yourName: typeof caseData?.yourName === "string" ? caseData.yourName : "",
+                      otherParty: typeof caseData?.otherParty === "string" ? caseData.otherParty : "",
+                      childrenInfo: typeof savedExtra?.childrenInfo === "string" ? savedExtra.childrenInfo : "",
+                      currentLivingSituation:
+                        typeof savedExtra?.currentLivingSituation === "string" ? savedExtra.currentLivingSituation : "",
+                      evidence: typeof caseData?.evidence === "string" ? caseData.evidence : "",
+                      story: homeStory || userStory(caseData),
+                    },
+                  )}
+                />
+              )}
               <ChildSupportTableCard />
             </div>
           );
@@ -1909,7 +1963,7 @@ function BuilderPageContent() {
                     service: saved.service ? { ...(current.service ?? {}), ...saved.service } : current.service,
                   }))
                 }
-                storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}
+                storyHints={storyHintsForDates(storyWithTimeline(userStory(caseData), caseData?.timeline))}
                 storyText={[userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n")}
                 suggestedDates={guidedDates}
                 userWords={userWordsOf(caseData)}

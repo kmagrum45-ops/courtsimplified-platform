@@ -31,10 +31,9 @@
  */
 
 import { readCaseRecord, recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
-import { readStoredPicture, stepFromPicture } from "@/src/lib/case-system/intake/caseReader";
+import { caseStepFor } from "@/src/lib/case-system/caseStep";
 import { decisionAttribution } from "@/src/lib/case-workspace/courtDecision";
 import { COURT_DECISION_TYPE, DECISION_COLUMNS, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
-import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@supabase/supabase-js";
@@ -55,10 +54,17 @@ import {
 import { findDates, formatForCourt, type DatePrecision } from "@/src/lib/case-workspace/parseDate";
 import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
+import { keptForNotices } from "@/src/lib/content-library/nextStepPractical";
+import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { officialUrl, sourceName } from "@/src/lib/case-system/stage-map/citations";
 import { readCasePosition, storyHintsForDates } from "@/src/lib/case-system/casePosition";
+
+/** The intake the person wrote (master_result.intakeData), for their own words. */
+function intakeDataOf(master: unknown): unknown {
+  return master && typeof master === "object" ? (master as Record<string, unknown>).intakeData : undefined;
+}
 
 export const runtime = "nodejs";
 
@@ -345,13 +351,13 @@ export async function GET(req: NextRequest) {
       // The same step the case page shows: theirs, else the one their story
       // names (the case reader's, then the phrases), else their stage's.
       const responding = record.side?.value === "responding";
-      const masterRecord = (ownedCase.master_result ?? {}) as Record<string, unknown>;
-      const stepId =
-        position.stepId ||
-        (record.courtPath ? stepFromPicture(record.courtPath, readStoredPicture(masterRecord.casePicture), responding) : "") ||
-        (record.courtPath && position.confirmedStage
-          ? suggestedStageFor(record.courtPath, position.confirmedStage, responding, record.story)
-          : "");
+      // Worked out the Overview card's way, notice step first where the card
+      // puts it first (caseStep.ts; walkthrough 2026-10-13, R5: the Case file
+      // counted nothing for a sidewalk fall whose notice deadlines the
+      // Overview had counted, because this picked the court-starting step).
+      // No confirmed stage, no step: the Case file never lists deadlines for a
+      // step the person has not reached (review 2026-10-13).
+      const stepId = caseStepFor(ownedCase.master_result, record.courtPath, responding, { requireConfirmedStage: true });
       const stage = stepId ? findStage(stepId) : undefined;
       /*
        * The dates they confirmed or answered, and -- under them -- a full date
@@ -374,10 +380,20 @@ export async function GET(req: NextRequest) {
           : undefined;
       };
 
-      const computed = stage ? computedDeadlinesFor(stage.deadlines, dates, "workspace") : [];
+      /*
+       * The same notices the Overview card shows (keptForNotices, the card's
+       * own filter, with the person's words and city): a Toronto sidewalk
+       * fall counts the City of Toronto notice here, not the Municipal Act,
+       * Crown, occupier and libel ones the card leaves out (review 2026-10-13:
+       * the Case file and Timeline counted every notice on the step).
+       */
+      const stepLimits = stage
+        ? keptForNotices(stage.deadlines, userWordsOf(intakeDataOf(ownedCase.master_result)), record.city)
+        : [];
+      const computed = stage ? computedDeadlinesFor(stepLimits, dates, "workspace") : [];
 
       const deadlineRules = Object.fromEntries(
-        (stage?.deadlines ?? []).map((deadline) => [
+        stepLimits.map((deadline) => [
           deadline.id,
           {
             // The law's name with the section: "Limitations Act, 2002, s. 4",

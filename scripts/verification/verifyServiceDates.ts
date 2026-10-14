@@ -4,7 +4,10 @@
  *
  * WHAT IT CATCHES: a rule quote that is not in the saved official text, a
  * method counted from the wrong day, a closed day not moved where the rules
- * move it, and a Small Claims fifth day on a weekend stated as certain.
+ * move it, and a Small Claims fifth day on a weekend stated as certain -- or
+ * explained by claiming the rules are silent (2026-10-13). Also: a day the
+ * papers ARRIVED offered as the day to count from, with or without its year,
+ * or a card that states a last day before the mailing date is given.
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -15,15 +18,18 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
-import { arrivalOnlyDates } from "../../app/builder/_components/StageAnswerPanel";
+import { arrivalNoteFor, arrivalOnlyDates, offerStoryDate } from "../../app/builder/_components/StageAnswerPanel";
 import {
   arrivalNotSendDate,
   FAMILY_CLOSED_DAY_RULE,
+  SC_R3_01_LAST_DAY,
   SERVICE_RULES,
   effectiveServiceDate,
   serviceMethodFromStory,
+  smallClaimsFifthDayOnClosedDay,
   type ServiceCourt,
 } from "../../src/lib/case-system/deadlines/serviceEffectiveDate";
+import { assertsAbsenceProblems } from "../content/blockGates";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const flat = (text: string) => text.replace(/\s+/g, " ").trim();
@@ -154,6 +160,30 @@ console.log("\nThe day papers arrived is never counted as the day they were mail
   const panel = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
   check("held-back dates never reach the count", /!arrivalOnly\[id\]\) out\[id\] = \{ value: hint\.value/.test(panel) && /useState<Record<string, string>>\(initialCountable\)/.test(panel));
   check("the person is told why, and what date to look for", /That is the day the papers reached you/.test(panel));
+
+  // 2026-10-13, walkthrough run: the story said "september 28" with no year;
+  // the arrival note showed, but "Which year was that?" was offered beside it
+  // and one click counted the arrival day as the mailing day. No date from
+  // the story is offered for an arrival-only question, with or without a year.
+  const yearless = story.replace(/ 2026$/, "");
+  const yearlessHints = storyHintsForDates(yearless, new Date("2026-10-12T12:00:00Z"));
+  const yearlessArrival = arrivalOnlyDates({ stageId: "defendant:served-defence-period-running", court: "small-claims", storyText: yearless, storyHints: yearlessHints, methods: {} });
+  const heldBack = Object.keys(yearlessArrival);
+  check("a yearless arrival date is held back too", heldBack.length === 1, JSON.stringify(yearlessHints));
+  check("an arrival-only date is never offered as a date to count from", heldBack.every((id) => !offerStoryDate(id, yearlessArrival)) && offerStoryDate("some-other-question", yearlessArrival));
+  check("the date list asks offerStoryDate before offering a story date", /!offerStoryDate\(question\.id, arrivalOnly\)\s*\?\s*undefined/.test(panel));
+  const note = arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, {}, "small-claims", {}, "mail");
+  check("the card says what date to give, with the rule that counts from it", note?.dateToEnter === "the day it was mailed" && note.rule === "O. Reg. 258/98, r. 8.07 (2)" && corpus["small-claims"].includes(flat(note.ruleQuote)));
+  check("once the person gives the mailing date, the note goes", arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, Object.fromEntries(heldBack.map((id) => [id, "2026-09-24"])), "small-claims", {}, "mail") === null);
+  check("the card never states a last day for an arrival-only date", /no last day is shown until you give that date/.test(panel) && /arrival=\{arrivalNoteFor\(/.test(panel));
+}
+
+console.log("\nA Small Claims fifth day on a closed day says what the rules say, with the rule (2026-10-13)");
+{
+  const weekend = effectiveServiceDate("small-claims", "mail", "2026-09-28");
+  check("mailed Mon Sept 28: the fifth day is Saturday Oct 3, flagged to confirm", weekend.date === "2026-10-03" && Boolean(weekend.confirm));
+  check("the note quotes r. 3.01, and the quote is the saved rule", /r\. 3\.01/.test(weekend.confirm ?? "") && corpus["small-claims"].includes(flat(SC_R3_01_LAST_DAY.quote)));
+  check("the note never claims the rules are silent", assertsAbsenceProblems(weekend.confirm ?? "").length === 0 && assertsAbsenceProblems(smallClaimsFifthDayOnClosedDay("Sunday")).length === 0, weekend.confirm);
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

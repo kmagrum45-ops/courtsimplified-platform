@@ -116,6 +116,15 @@ export type IntakeQuestion = {
   why?: string;
   /** Required whenever `why` (or `text`) states a legal/procedural fact. */
   sourceUrl?: string;
+  /**
+   * Why the site asks, in plain words, for a question whose reason is not a
+   * rule of law (walkthrough 2026-10-13, V3: "the timing question lacks an
+   * explanation of why it matters"). It must state NO law -- no rule, section,
+   * deadline or court requirement -- which is why it needs no source. A reason
+   * that is law goes in `why`, with its sourceUrl. Shown only when `why` is
+   * absent. verifyIntakeSequencing holds both rules.
+   */
+  whyAsked?: string;
   answerType: AnswerType;
   /** Required when answerType === "choice". */
   choices?: string[];
@@ -148,6 +157,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     courtArea: "small-claims",
     text: "Roughly when did the situation that led to this claim happen?",
     answerType: "date",
+    whyAsked:
+      "Knowing roughly when things happened lets us put the events of your case in order. A rough answer, like \"spring 2025\", is fine.",
     capturesField: "timelineText",
     allowUnknown: true,
     sensitive: false,
@@ -162,6 +173,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     text: "Are you the person or business bringing this claim, or the one responding to a claim?",
     answerType: "choice",
     choices: ["Bringing the claim (plaintiff)", "Responding to a claim (defendant)"],
+    whyAsked: "The steps and forms we show you are different for the person bringing a claim and the person answering one.",
     allowUnknown: true,
     sensitive: false,
     phase: "orientation",
@@ -195,6 +207,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "A slip, a fall, or another injury",
       "Something else",
     ],
+    whyAsked: "The kind of dispute decides which follow-up questions and general information we show you, so you are not asked about things that do not fit.",
     allowUnknown: true,
     sensitive: false,
     phase: "orientation",

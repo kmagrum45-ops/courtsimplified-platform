@@ -45,7 +45,20 @@ export type GuidedField = {
    * what you told us: ... Is that right?" -- never filled in unseen.
    */
   fromStory?: (values: GuidedValues) => { value: string | string[]; quote: string } | null;
+  /**
+   * For a text answer the site cannot use as given, what to add, asked
+   * before it is kept (review 2026-10-13: "october 6" for the day served was
+   * kept with no year, and the step page then asked "Which year was that?").
+   * Null when the answer can be kept. A story answer that needs more is not
+   * offered for one click; the question is asked instead.
+   */
+  needsMore?: (value: string) => string | null;
 };
+
+/** What a text answer still needs before it is kept, or null (GuidedField.needsMore). */
+export function answerNeedsMore(field: GuidedField, value: string | string[]): string | null {
+  return typeof value === "string" && value.trim() && field.needsMore ? field.needsMore(value.trim()) : null;
+}
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
 
@@ -70,6 +83,14 @@ export function acknowledgement(field: GuidedField, value: string | string[]): s
   if (labels.length === 0) return "Okay, we'll leave that for now.";
   const shown = labels.join("; ");
   return `Got it: ${shown.length > 160 ? `${shown.slice(0, 157)}…` : shown}.`;
+}
+
+/** What the transcript shows above an answer: the question, or for an answer confirmed from the story, that it came from the story. */
+export function heardAs(field: GuidedField, fromStory: boolean): string {
+  // 2026-10-13 (walkthrough R2): a one-click "Yes" was listed under the full
+  // question ("Are you starting a family case...?"), so the transcript read
+  // as though the question the story answered had been asked again.
+  return fromStory ? `${field.label}, from what you told us` : field.question;
 }
 
 function display(field: GuidedField, value: GuidedValues[string]): string {
@@ -102,6 +123,8 @@ export default function GuidedFormChat({
   const [changing, setChanging] = useState<string | null>(null);
   // Story answers the person said were not right: asked plainly instead.
   const [notFromStory, setNotFromStory] = useState<Set<string>>(new Set());
+  // What the answer just given still needs (answerNeedsMore), shown under the box.
+  const [needsMore, setNeedsMore] = useState<string | null>(null);
 
   // Known when this opened: listed, not asked (the story, the saved case).
   const [knownAtStart] = useState(() =>
@@ -111,21 +134,29 @@ export default function GuidedFormChat({
   const pending = useMemo(() => pendingFields(fields, values, skipped), [fields, values, skipped]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
 
-  function answer(value: string | string[]) {
+  function answer(value: string | string[], fromStory = false) {
     if (!current) return;
     const cleaned = Array.isArray(value) ? value : value.trim();
     // Changing an answer and keeping it: nothing new was said.
     if (changing && ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "")) {
       setDraft("");
       setChanging(null);
+      setNeedsMore(null);
       return;
     }
+    const more = answerNeedsMore(current, cleaned);
+    if (more) {
+      setNeedsMore(more);
+      setDraft(cleaned);
+      return;
+    }
+    setNeedsMore(null);
     if ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "") {
       setSkipped((now) => new Set(now).add(current.key));
       setHeard((now) => [...now, { question: current.question, reply: "Okay, we'll leave that for now." }]);
     } else {
       onAnswer(current.key, cleaned);
-      setHeard((now) => [...now, { question: current.question, reply: acknowledgement(current, cleaned) }]);
+      setHeard((now) => [...now, { question: heardAs(current, fromStory), reply: acknowledgement(current, cleaned) }]);
     }
     setDraft("");
     setChanging(null);
@@ -180,7 +211,7 @@ export default function GuidedFormChat({
         <div data-testid="guided-form-question" data-key={current.key} className="mt-5 rounded-2xl border-2 border-[#2f7d67] bg-white p-4">
           {(() => {
             const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
-            if (!offered) return null;
+            if (!offered || answerNeedsMore(current, offered.value)) return null;
             const shown = (Array.isArray(offered.value) ? offered.value : [offered.value])
               .map((item) => current.options?.find((option) => option.value === item)?.label ?? item)
               .join("; ");
@@ -194,7 +225,7 @@ export default function GuidedFormChat({
                   <button
                     type="button"
                     data-testid="guided-form-from-story-yes"
-                    onClick={() => answer(offered.value)}
+                    onClick={() => answer(offered.value, true)}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
                   >
                     Yes, that&apos;s right
@@ -262,6 +293,11 @@ export default function GuidedFormChat({
               className="mt-3 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
             />
           )}
+          {needsMore ? (
+            <p data-testid="guided-form-needs-more" className="mt-2 text-sm font-semibold text-[#8a4b12]">
+              {needsMore}
+            </p>
+          ) : null}
           <div className="mt-3 flex flex-wrap gap-2">
             {current.kind !== "choice" ? (
               <button

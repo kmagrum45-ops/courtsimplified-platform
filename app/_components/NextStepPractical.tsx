@@ -42,6 +42,7 @@ export default function NextStepPractical({
   city = "",
   responding = false,
   story = "",
+  noticeStepId = "",
 }: {
   stepId: string;
   court: string;
@@ -49,9 +50,11 @@ export default function NextStepPractical({
   responding?: boolean;
   /** The person's own words, used only to narrow a step's notice rules to the ones that fit. */
   story?: string;
+  /** The written-notice step the case's claim points to (a municipal one keeps the municipal service line). */
+  noticeStepId?: string;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story);
+  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId);
   if (!view) return null;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">
@@ -79,23 +82,52 @@ export default function NextStepPractical({
               );
             })}
           </ul>
+          {view.formsIfClaimed.length > 0 ? (
+            // Forms a rule needs only with a claim the person's words do not
+            // name (2026-10-13: a parenting-only respondent was shown the
+            // support financial statement as his form). Folded, with the rule.
+            <details data-testid="next-step-forms-if-claimed" className="mt-2">
+              <summary className="cursor-pointer font-semibold text-[#2f7d67]">
+                Only if the case has that kind of claim ({view.formsIfClaimed.length})
+              </summary>
+              <ul className="mt-1 space-y-1">
+                {view.formsIfClaimed.map((form) => {
+                  const official = officialFormFor(form.court, form.number);
+                  return (
+                    <li key={`${form.court}-${form.number}`}>
+                      <span className="font-semibold">Form {form.number}</span>
+                      {official ? ` — ${official.title}` : ""}
+                      {official?.pdf ? (
+                        <a href={official.pdf} target="_blank" rel="noreferrer" className="ml-2 font-semibold text-[#2f7d67] underline">
+                          PDF
+                        </a>
+                      ) : null}
+                      <span className="block text-[#4d675f]">{form.when.say}</span>
+                      <Source cite={form.when.cite} />
+                    </li>
+                  );
+                })}
+              </ul>
+            </details>
+          ) : null}
           <p className="text-xs text-[#4d675f]">From the official Ontario Court Forms site. Check the version date there before you file.</p>
         </div>
       ) : null}
 
-      {view.fees.length > 0 ? (
+      {/* A step with no fee of its own says so (2026-10-13: a motion to change
+          showed no "What it costs" at all, because only a fee opened it). */}
+      {view.fees.length > 0 || view.feeNotes.length > 0 ? (
         <div data-testid="next-step-fee">
           <p className="font-semibold">What it costs</p>
           <ul className="mt-1 space-y-1">
+            {view.feeNotesFirst ? view.feeNotes.map((line) => <Line key={line.cite.pinpoint + line.say} line={line} />) : null}
             {view.fees.map((fee) => (
               <li key={fee.id}>
                 {fee.label}: <span className="font-semibold">${fee.amount}</span>
                 <Source cite={fee.cite} />
               </li>
             ))}
-            {view.feeNotes.map((line) => (
-              <Line key={line.cite.pinpoint + line.say} line={line} />
-            ))}
+            {view.feeNotesFirst ? null : view.feeNotes.map((line) => <Line key={line.cite.pinpoint + line.say} line={line} />)}
             {view.feeWaiver ? <Line line={view.feeWaiver} /> : null}
           </ul>
         </div>
@@ -108,7 +140,35 @@ export default function NextStepPractical({
             {view.filing.map((line) => (
               <Line key={line.say} line={line} />
             ))}
+            {view.courtOffices?.place.map((line) => (
+              <Line key={line.say} line={line} />
+            ))}
           </ul>
+          {view.courtOffices && view.courtOffices.offices.length > 0 ? (
+            // The family court offices in the person's city (2026-10-13: two
+            // family cases were never told where their court is).
+            <div data-testid="next-step-court-office" className="mt-2">
+              <p>If your case is in {view.courtOffices.city}, the family court offices there are:</p>
+              <ul className="mt-1 space-y-1">
+                {view.courtOffices.offices.map((office) => (
+                  <li key={office.name}>
+                    <a href={office.url} target="_blank" rel="noreferrer" className="font-semibold underline">
+                      {office.name}
+                    </a>{" "}
+                    ({office.court}){office.address.length ? `, ${office.address.join(", ")}` : ""}
+                    {office.emails.length ? <span className="block text-xs text-[#4d675f]">{office.emails.join(" · ")}</span> : null}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-[#4d675f]">
+                From the courts&apos; own location pages, read {view.courtOffices.source.readOn}. The court named on your papers is the one for
+                your case.{" "}
+                <a href="/courthouses?court=family" className="underline">
+                  All courthouses
+                </a>
+              </p>
+            </div>
+          ) : null}
         </div>
       ) : null}
 
@@ -117,6 +177,19 @@ export default function NextStepPractical({
           <p className="font-semibold">Serving it on the other side</p>
           <ul className="mt-1 space-y-1">
             {view.serving.map((line) => (
+              <Line key={line.say} line={line} />
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {view.noticeHow.length > 0 ? (
+        // What the notice must say and who gets it (2026-10-13, walkthrough:
+        // a Toronto sidewalk fall had no help writing the notice to the City).
+        <div data-testid="next-step-notice-how">
+          <p className="font-semibold">How to give the notice</p>
+          <ul className="mt-1 space-y-1">
+            {view.noticeHow.map((line) => (
               <Line key={line.say} line={line} />
             ))}
           </ul>

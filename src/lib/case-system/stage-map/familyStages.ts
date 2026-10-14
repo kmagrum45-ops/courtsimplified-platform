@@ -3312,8 +3312,10 @@ const BOTH: CaseStage[] = [
         id: "deadline:family:fla-support-variation-not-within-6-months",
         what:
           "If the order is a support order under the Family Law Act, you cannot apply to vary it within six months after it was made. The same is true within six months after the last decision on an application to vary it. The court can give permission (leave)",
+        // Walkthrough 2026-10-13: the restriction was shown without its
+        // provision. The qualifier names the subsection that sets it.
         qualifier:
-          "The six months are counted under the Legislation Act, 2006. They end on the day with the same number as the start day. If that month has no such day, they end on its last day.",
+          "This is section 37 (3) of the Family Law Act. The six months are counted under the Legislation Act, 2006 (s. 89 (6)). They end on the day with the same number as the start day. If that month has no such day, they end on its last day.",
         countFrom: "the day the support order was made",
         countFromEvent: "order-made",
         length: { unit: "days", count: 0 },

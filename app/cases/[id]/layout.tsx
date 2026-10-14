@@ -31,12 +31,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import GetHelp from "../../_components/GetHelp";
 import LegalInformationNotice from "../../_components/LegalInformationNotice";
 import { userIsResponding } from "../../builder/_components/respondingSide";
+import { positionSavesSettled } from "../../builder/_components/positionSave";
 import type { StoredCaseData } from "../../builder/_components/builderTypes";
 import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/casePosition";
+import { caseStepFor } from "@/src/lib/case-system/caseStep";
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
-import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
-import { userStory } from "@/src/lib/case-system/userStory";
-import { readStoredPicture, stepFromPicture } from "@/src/lib/case-system/intake/caseReader";
 import {
   CaseHomeContext,
   COURT_LABELS,
@@ -78,6 +77,11 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       router.replace(`/login?next=${encodeURIComponent(`/cases/${caseId}`)}`);
       return;
     }
+    // A stage, step, date or service method the person just gave (on the
+    // results page, or on this page's deadline box) may still be on its way.
+    // Reading before it lands asked for it again (walkthrough 2026-10-13, R4:
+    // "Which year was that?" after "Saved to your case").
+    await positionSavesSettled(caseId);
     const read = () =>
       supabase
         .from("cases")
@@ -124,12 +128,11 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       courtPath,
       responding,
       record: readCaseRecord(master, caseRecord.court_path),
-      stepId:
-        position.stepId ||
-        (courtPath && position.confirmedStage
-          ? stepFromPicture(courtPath, readStoredPicture(master.casePicture), responding) ||
-            suggestedStageFor(courtPath, position.confirmedStage, responding, userStory(master.intakeData as StoredCaseData | undefined))
-          : ""),
+      // The step the Overview's card opens on, worked out the card's way
+      // (caseStep.ts): a notice step first where the card puts it first
+      // (walkthrough 2026-10-13, R5: the Case file named the court-starting
+      // step while the Overview counted the notice step's deadlines).
+      stepId: caseStepFor(master, courtPath, responding, { requireConfirmedStage: true }),
       reload: load,
     };
   }, [caseRecord, load]);

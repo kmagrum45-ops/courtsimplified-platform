@@ -17,9 +17,10 @@
  *
  * Where the text leaves the answer open, it says so instead of guessing:
  * - Small Claims: a fifth day that lands on a weekend or holiday. The rules
- *   say service is "effective on the fifth day" and r. 3.01 moves the end of a
- *   period, but how the two combine is not stated (docs/SMALL_CLAIMS_RULES_MAP.md
- *   flags it for a licensee). We give the fifth day and say to confirm.
+ *   say service is "effective on the fifth day" and r. 3.01 moves the last day
+ *   of a period (docs/SMALL_CLAIMS_RULES_MAP.md flags how the two combine for a
+ *   licensee). We give the fifth day, quote r. 3.01, and say to confirm --
+ *   never "the rules don't say", which no saved text can show.
  * - Family: r. 6 (11.3) moves a closed-day effective date to the next open
  *   day; when the closed day is a holiday whose date rests on settled practice
  *   rather than a statute (holidays.ts), we say to confirm.
@@ -251,6 +252,21 @@ function closedDay(date: IsoDate): { closed: boolean; settled: boolean; name?: s
   return { closed: false, settled: false };
 }
 
+/** Small Claims r. 3.01, the words the note below quotes; test:service-dates reads them back from the saved rules. */
+export const SC_R3_01_LAST_DAY = {
+  rule: `${SC}, r. 3.01`,
+  quote: "if the last day of the period of time falls on a holiday, the period ends on the next day that is not a holiday",
+};
+
+/** The note for a Small Claims fifth day that falls on a weekend or holiday. */
+export function smallClaimsFifthDayOnClosedDay(dayName: string): string {
+  return (
+    `Service counts from the fifth day, which is ${dayName} here. Rule 3.01 moves the last day of a period that falls on a holiday ` +
+    `(“${SC_R3_01_LAST_DAY.quote}”, ${SC_R3_01_LAST_DAY.rule}), so the last day of your time is moved if it lands on one. ` +
+    "This count starts from the fifth day as it falls. Confirm the date with the court office before you rely on it."
+  );
+}
+
 export function serviceRulesFor(court: ServiceCourt): ServiceRule[] {
   return SERVICE_RULES[court];
 }
@@ -277,9 +293,12 @@ export function effectiveServiceDate(court: ServiceCourt, method: ServiceMethod,
     }
     if (moved) rules.push(court === "family" ? FAMILY_CLOSED_DAY_RULE.rule : `${CIVIL}, r. 16.06.2`);
   } else if (court === "small-claims" && rule.addDays > 0 && closedDay(date).closed) {
-    confirm =
-      `Service counts from the fifth day, ${closedDay(date).name}. The rules don't say whether that moves to the next ` +
-      "day the court office is open, so confirm the date with the court office before you rely on it.";
+    // Walkthrough 2026-10-13: "The rules don't say whether that moves" was
+    // shown with no source, and an absence is the one claim the corpus cannot
+    // check (blockGates.assertsAbsenceProblems). It now says what the rules DO
+    // say: the fifth day (the rule above), and r. 3.01, which moves only the
+    // last day of a period.
+    confirm = smallClaimsFifthDayOnClosedDay(closedDay(date).name ?? "a holiday");
   }
   return { date, rules, ...(confirm ? { confirm } : {}) };
 }

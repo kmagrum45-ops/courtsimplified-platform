@@ -29,7 +29,7 @@ import {
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
-import { familyGuidedFields } from "./guidedFields";
+import { familyGuidedFields, familyTimelineAnswer, familyTimelineValues } from "./guidedFields";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
   consumeNarrativePrefill,
@@ -100,7 +100,25 @@ export type FamilyRole = "applicant" | "respondent" | "not-sure";
  * the cases they fit. Added 2026-10-04: the child-support Form 8 draft was
  * shown on every family case, including a served father's custody case.
  */
-export type FamilyScope = { issues: FamilyIssue[]; role: FamilyRole };
+export type FamilyScope = {
+  issues: FamilyIssue[];
+  role: FamilyRole;
+  /**
+   * What the person has told the intake so far, for screens that ask about
+   * the same things (the child-support builder prefills from it as a
+   * suggestion; walkthrough 2026-10-13, R3).
+   */
+  recorded?: FamilyRecorded;
+};
+
+export type FamilyRecorded = {
+  yourName: string;
+  otherParty: string;
+  childrenInfo: string;
+  currentLivingSituation: string;
+  evidence: string;
+  story: string;
+};
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -114,6 +132,12 @@ type Props = {
    */
   storedIntake?: unknown;
   onScopeChange?: (scope: FamilyScope) => void;
+  /**
+   * Called when the person finishes the questions and presses Continue (the
+   * one-at-a-time chat's or the whole form's). The page waits for it before
+   * asking anything else (walkthrough 2026-10-13, V1).
+   */
+  onQuestionsDone?: () => void;
   location: { province: "Ontario"; city: string };
   initialStory: string;
 };
@@ -285,7 +309,7 @@ function savedFamilyValues(stored: unknown) {
   };
 }
 
-export default function FamilyIntake({ onComplete, onScopeChange, location, initialStory, earlierSourcedAnswers, storedIntake }: Props) {
+export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDone, location, initialStory, earlierSourcedAnswers, storedIntake }: Props) {
   // Read once: what the saved case holds wins over a fresh story hand-off.
   const [saved] = useState(() => savedFamilyValues(storedIntake));
   const [editingStory, setEditingStory] = useState(false);
@@ -317,10 +341,6 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
   );
   const [issues, setIssues] = useState<FamilyIssue[]>(() => saved?.issues ?? []);
 
-  React.useEffect(() => {
-    onScopeChange?.({ issues, role: yourRole });
-  }, [issues, yourRole, onScopeChange]);
-
   const [yourName, setYourName] = useState(() => saved?.yourName || String(initialValues.yourName || ""));
   const province = location.province;
   const city = location.city;
@@ -338,6 +358,14 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
   const [propertyHomeDetails, setPropertyHomeDetails] = useState(() => saved?.propertyHomeDetails || String(initialValues.addressDetails || initialValues.existingOrderDetails || ""));
   const [upcomingCourtDate, setUpcomingCourtDate] = useState(() => saved?.upcomingCourtDate ?? "");
   const [adoptionDetails, setAdoptionDetails] = useState(() => saved?.adoptionDetails ?? "");
+
+  // Issues, side and what the person has written, reported after a short
+  // pause so the whole page does not re-render on every keystroke.
+  React.useEffect(() => {
+    const recorded = { yourName, otherParty, childrenInfo, currentLivingSituation, evidence, story: facts };
+    const timer = setTimeout(() => onScopeChange?.({ issues, role: yourRole, recorded }), 300);
+    return () => clearTimeout(timer);
+  }, [issues, yourRole, onScopeChange, yourName, otherParty, childrenInfo, currentLivingSituation, evidence, facts]);
 
   const [uploadedEvidenceFiles, setUploadedEvidenceFiles] =
     useState<EvidenceFile[]>([]);
@@ -575,6 +603,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
       return;
     }
     submissionInFlight.current = true;
+    // The questions are finished: the page may now ask its own (V1).
+    onQuestionsDone?.();
     setStorageWarning("");
     setAnalysisError("");
     setIsAnalyzing(true);
@@ -748,6 +778,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
     issues,
     filedDocuments,
     childrenInfo,
+    // Kept as a line of the Timeline, which the step page reads for dates.
+    ...familyTimelineValues(timeline),
     upcomingCourtDate,
     goal,
     otherParty,
@@ -762,6 +794,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, location, init
       case "issues": setIssues(list.filter((item): item is FamilyIssue => issueOptions.some((option) => option.value === item))); break;
       case "filedDocuments": setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
       case "childrenInfo": setChildrenInfo(one); break;
+      case "servedDate": setTimeline((current) => familyTimelineAnswer(key, one, current) ?? current); break;
       case "upcomingCourtDate": setUpcomingCourtDate(one); break;
       case "goal": setGoal(one); break;
       case "otherParty": setOtherParty(one); break;

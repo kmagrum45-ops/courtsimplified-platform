@@ -1951,9 +1951,13 @@ step that has a published answer, because its stored deadline section no
 longer matches the renderer. No model is needed to fix it: build a candidate
 from the published blocks with each stale `yourDeadline` re-rendered by
 `renderDeadlineSection(stage.deadlines)`, promote it with `--confirm` (run-21,
-run-22), and check readability (the grade-8 gate failed once on a longer
+run-22, run-23), and check readability (the grade-8 gate failed once on a longer
 sentence). Run `tsx scripts/verification/verifyPublishedLibrary.ts` before
-pushing any deadline edit.
+pushing any deadline edit. run-23 (2026-10-13): the FLA s. 37 (3) six-month
+qualifier on `family:both:asking-to-change-final-order` now names its
+subsection; only that block's `yourDeadline` changed. Two sessions promoting at
+once will both call their run "next": check `candidates/` and the published
+`release.runId` before merging, and renumber if someone got there first.
 
 ## The research step: the analysis researches before it writes (2026-10-05)
 

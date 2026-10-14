@@ -684,6 +684,28 @@ for (const template of Object.values(DEADLINE_TEMPLATES)) {
   );
 }
 
+// ---- 6a. a sentence that leans on the Legislation Act names the section ----
+//
+// Walkthrough 2026-10-13: the timeline's "Saturday is not a holiday ... it is
+// extended if the office is not open" sentence reached a reader with no
+// source. Any template that says what the Legislation Act does names the
+// section that does it, so the reader can check it.
+
+for (const template of Object.values(DEADLINE_TEMPLATES)) {
+  if (!/Legislation Act/.test(template.text)) continue;
+  check(`template ${template.id} names the Legislation Act section it relies on`, /\(s\. \d+(?: \(\d+\))?\)/.test(template.text), template.text);
+}
+
+// Each section a template names is one it cites (review 2026-10-13: the
+// statutory-Saturday sentence named s. 88 (2) but cited only s. 89 (2)).
+for (const template of Object.values(DEADLINE_TEMPLATES)) {
+  const cited = [template.cites, ...(template.alsoCites ?? [])].filter(Boolean).map((cite) => cite!.pinpoint);
+  for (const named of template.text.match(/\(s\. \d+(?: \(\d+\))?\)/g) ?? []) {
+    const pinpoint = named.slice(1, -1);
+    check(`template ${template.id} cites the ${pinpoint} it names`, cited.includes(pinpoint), `cites: ${cited.join(", ")}`);
+  }
+}
+
 // ---- 7. a rule that fixes no period never produces a date ------------------
 //
 // r. 11.06 requires a motion "as soon as is reasonably possible in all the

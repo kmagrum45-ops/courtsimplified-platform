@@ -17,7 +17,18 @@
  *   - every step in all three courts: the summary is built for each one, and
  *     each counted date is one the full answer below also states;
  *   - the panel going back to the full answer first, or showing the card
- *     without the full answer under it.
+ *     without the full answer under it;
+ *   - (2026-10-13 walkthrough) a time limit on any card without its rule; a
+ *     passed bar not shown as passed, shown without the rule's own "is not a
+ *     bar" exceptions or the help pointer, or a limit that is not a bar shown
+ *     as one; a limit tied to a claim the person's words do not name (property,
+ *     or the information program on a support-only motion to change) leading
+ *     the card, or lost when folded.
+ *   - (2026-10-13 review) a "passed" box for a notice the card dropped; a
+ *     statutory last day on a Saturday or holiday called passed while the
+ *     next open weekday (Legislation Act s. 89 (2)) has not gone by; onSaved
+ *     told before the save is queued (so the case page's wait returns at
+ *     once); a reload of the step just chosen dropping the facts given.
  *
  * COSTS NOTHING: the stage-answer route and source reads, no model.
  *
@@ -28,7 +39,9 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { POST } from "../../app/api/case/stage-answer/route";
-import { cardLimits, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import { cardLimits, factsForStep, passedBars, withoutCardLead } from "../../app/builder/_components/StageAnswerPanel";
+import { closedDayLine, limitPassedState, nextWeekdayOpen } from "../../src/lib/content-library/nextStepPractical";
+import { addDays, dayOfWeek, holidayFor } from "../../src/lib/case-system/deadlines/holidays";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 
 let failures = 0;
@@ -165,6 +178,148 @@ async function main() {
     check("a field named city does not make a libel story a road claim", ![...newspaper.main.deadlines].some((d) => /municipality|City of Toronto/.test(d.what)));
     const vague = cardLimits(notices as never, false, "something happened to me", "Ottawa");
     check("a story that fits no notice keeps every notice", vague.main.deadlines.length + vague.conditional.deadlines.length + vague.main.periods.length + vague.conditional.periods.length === 5);
+  }
+
+  // 2026-10-13 walkthrough fixes. Each asserts a property of every step, or
+  // of the rule, never today's wording.
+  {
+    // S2: every time limit on every card carries the rule that sets it.
+    let limits = 0;
+    const unsourced: string[] = [];
+    for (const stage of ALL_STAGES) {
+      const courtPath = stage.id.startsWith("civil:") ? "civil" : stage.id.startsWith("family:") ? "family" : "small-claims";
+      const body = await ask(stage.id, courtPath);
+      for (const item of [...(body.nextStep?.deadlines ?? []), ...(body.nextStep?.periods ?? [])] as { what: string; rule?: { pinpoint?: string } }[]) {
+        limits += 1;
+        if (!item.rule?.pinpoint) unsourced.push(`${stage.id}: ${item.what.slice(0, 60)}`);
+      }
+    }
+    check(`every time limit on every card carries its rule (${limits} limits)`, limits > 100 && unsourced.length === 0, unsourced.slice(0, 5).join("; "));
+    check("the card shows each limit's rule beside it", /<LimitRule rule=\{deadline\.rule\} \/>/.test(panel) && /<LimitRule rule=\{period\.rule\} \/>/.test(panel));
+
+    // C4: a bar that has passed is shown as passed, with the rule's own
+    // "is not a bar" exceptions and urgent help; one not yet passed is not.
+    const fell = await ask("civil:before-filing:notice-required-before-suing", "civil", { "sc-date-injury": "2026-09-30" });
+    const summary = fell.nextStep as never as Parameters<typeof passedBars>[0];
+    // 30 September + 10 days is Saturday 10 October; Monday 12 October 2026
+    // is Thanksgiving; so the next open weekday is Tuesday 13 October, and the
+    // statutory notice has passed only from Wednesday 14 October (s. 89 (2)).
+    const passedNow = passedBars(summary, "2026-10-14");
+    const toronto = passedNow.find((deadline) => /City of Toronto/.test(deadline.what));
+    check("a passed Toronto notice is shown as a passed bar", Boolean(toronto), JSON.stringify(summary?.deadlines?.map((d) => [d.what.slice(0, 40), d.date])));
+    check("with s. 42 (7) and (8), quoted", (toronto?.notABar ?? []).map((rule) => rule.pinpoint).join() === "s. 42 (7),s. 42 (8)");
+    check("the day before it ends, nothing is shown as passed", passedBars(summary, "2026-10-01").length === 0);
+
+    // Review 2026-10-13 (3): a statutory last day on a Saturday or holiday
+    // runs to the next open weekday if the office was closed (Legislation Act
+    // s. 89 (2)); "passed" only once that day is before today too.
+    const torontoLimit = (summary.deadlines as { what: string; date: string; statutory?: boolean }[]).find((d) => /City of Toronto/.test(d.what));
+    check("the Toronto notice is counted to Saturday 10 October 2026 and marked statutory", torontoLimit?.date === "2026-10-10" && torontoLimit?.statutory === true, JSON.stringify(torontoLimit));
+    check("injury 30 September, Toronto 10-day notice: NOT passed on 13 October 2026", !passedBars(summary, "2026-10-13").some((d) => /City of Toronto/.test(d.what)));
+    check("and passed on 14 October 2026", passedBars(summary, "2026-10-14").some((d) => /City of Toronto/.test(d.what)));
+    const state13 = limitPassedState({ date: "2026-10-10", statutory: true }, "2026-10-13");
+    check("on 13 October the card names the next open day, Tuesday 13 October 2026", !state13.passed && state13.runsTo === "2026-10-13");
+    const line = closedDayLine("2026-10-10", "2026-10-13");
+    check(
+      "that line says the counted day and the next open day, quoting s. 89 (2)",
+      /Saturday 10 October 2026/.test(line.say) && /Tuesday 13 October 2026/.test(line.say) && line.cite.pinpoint === "s. 89 (2)" && /next day the place is open/.test(line.cite.quote),
+    );
+    // Property, over the calendar: for any statutory counted day, "passed" is
+    // exactly "the next weekday that is not a holiday is before today".
+    let calendarMisses = 0;
+    for (let offset = 0; offset < 400; offset += 1) {
+      const counted = addDays("2026-01-01", offset);
+      const open = nextWeekdayOpen(counted);
+      const dow = dayOfWeek(open);
+      if (dow === 0 || dow === 6 || holidayFor(open, "legislation-act") || open < counted) calendarMisses += 1;
+      for (const today of [addDays(counted, 1), open, addDays(open, 1)]) {
+        const state = limitPassedState({ date: counted, statutory: true }, today);
+        if (state.passed !== open < today || (state.runsTo !== null) !== (counted < today && !(open < today))) calendarMisses += 1;
+      }
+      // A rules-regime date was extended by the engine already: passed the next day.
+      if (!limitPassedState({ date: counted }, addDays(counted, 1)).passed || limitPassedState({ date: counted }, counted).passed) calendarMisses += 1;
+    }
+    check("over 400 counted days, a statutory limit is passed exactly when its next open weekday is before today", calendarMisses === 0, `misses ${calendarMisses}`);
+    check("the card's deadline line uses the same test, not date < today", !/deadline\.date < today/.test(panel) && /limitPassedState\(deadline, today\)/.test(panel) && /data-testid="next-step-closed-day"/.test(panel));
+
+    // Review 2026-10-13 (1): the passed box speaks only of limits the card
+    // kept. A Toronto sidewalk fall drops the Municipal Act notice from the
+    // card, so it gets no "passed" box either.
+    const sidewalk = "i slipped on ice on the sidewalk on queen street in toronto on september 30 and broke my wrist. i want to sue the city";
+    const onCard = cardLimits({ deadlines: summary.deadlines as never, periods: [] }, false, sidewalk, "Toronto");
+    const boxes = passedBars({ deadlines: onCard.kept }, "2026-12-01");
+    check("a Toronto fall: the City of Toronto notice gets its passed box", boxes.some((d) => /City of Toronto/.test(d.what)));
+    check("a Toronto fall: no passed box for the dropped Municipal Act notice", !boxes.some((d) => /a municipality/.test(d.what)), boxes.map((d) => d.what.slice(0, 50)).join(" | "));
+    check(
+      "every passed box is for a limit the card shows (led or folded)",
+      boxes.every((d) => onCard.main.deadlines.includes(d as never) || onCard.conditional.deadlines.includes(d as never)),
+    );
+    check("the card builds its passed boxes from the kept limits only", /passedBars\(\{ deadlines: kept \}, today\)/.test(panel) && !/passedBars\(summary/.test(panel));
+
+    // Review 2026-10-13 (8): onSaved is told only after the save is queued,
+    // so the case page's positionSavesSettled(caseId) has the save to wait for.
+    const savesBeforeTold = [...panel.matchAll(/onSaved\?\.\(/g)].every((match) => {
+      const before = panel.slice(Math.max(0, (match.index ?? 0) - 900), match.index ?? 0);
+      return /savePosition\(caseId/.test(before);
+    });
+    check("every onSaved call comes after its save is queued", savesBeforeTold && [...panel.matchAll(/onSaved\?\.\(/g)].length >= 3);
+
+    // Review 2026-10-13 (10): a reload of the step just chosen keeps the
+    // facts already given ("Which city?" came back on the Toronto notice step).
+    check("the Toronto notice question carries Toronto as its fact", factsForStep("before-filing:notice-toronto", "").municipality === "Toronto");
+    check("a city the person typed is kept for any step", factsForStep("before-filing:notice-municipality", "Hamilton").municipality === "Hamilton");
+    check("no fact is invented for another step", Object.keys(factsForStep("before-filing:notice-municipality", "")).length === 0);
+    const effect = /useEffect\(\(\) => \{[\s\S]{0,900}\}, \[startingStep\]\);/.exec(panel)?.[0] ?? "";
+    check(
+      "the [startingStep] reload keeps the facts given (or does not reload the step on screen)",
+      /startingStep === stageId && result\) return/.test(effect) && /factsForStep\(startingStep/.test(effect) && !/load\(startingStep\)/.test(effect),
+    );
+    check("every load of the step on screen passes its facts through factsForStep", !/municipality \? \{ municipality \} : \{\}/.test(panel));
+    check("a limit that is not a bar is never shown as a passed bar", passedBars({ deadlines: [{ what: "x", date: "2020-01-01", statement: "", consequence: "changes-what-happens-next" }] }, "2026-10-13").length === 0);
+    check(
+      "the passed-bar box has the help pointer and says the judge decides",
+      /data-testid="next-step-passed-bar"[\s\S]{0,3000}<GetHelp heading="Get help now/.test(panel) && /is for the judge to decide/.test(panel),
+    );
+    // Review 2026-10-13: the death exception (s. 42 (7), s. 44 (11), s. 6.1 (5))
+    // needs no judge's finding, so the box speaks only of exceptions that do.
+    check(
+      "the judge sentence is limited to exceptions that depend on a judge's finding",
+      /Where an exception depends on what a judge finds, that is for the judge to decide/.test(panel) && !/Whether a judge finds that, in your case/.test(panel),
+    );
+    check("the passed-bar box predicts nothing", !/data-testid="next-step-passed-bar"[\s\S]{0,3000}\b(likely|unlikely|chance|will (?:win|lose|succeed|fail))\b/i.test(panel));
+
+    // C6 / C7: a limit tied to a claim the words do not name is folded, not lost.
+    const respondent = {
+      deadlines: [],
+      periods: [
+        { what: "Serve an answer on every other party and file it", count: 30, unit: "days", countFrom: "the day of being served", id: "deadline:family:answer" },
+        { what: "If the application or your answer has a property claim, serve the other party with the property papers the rule lists", count: 30, unit: "days", countFrom: "x", id: "deadline:family:property" },
+        { what: "Attend the mandatory information program", count: 45, unit: "days", countFrom: "the day the case was started", id: "deadline:family:mip-45-days:respondent" },
+      ],
+    };
+    const parenting = cardLimits(respondent, true, "my ex took me to court for custody of our daughter");
+    check("parenting-only: the property limit is folded", !parenting.main.periods.some((p) => /property/.test(p.what)) && parenting.conditional.periods.some((p) => /property/.test(p.what)));
+    check("parenting-only: the information program still leads (r. 8.1 (1) para. 1)", parenting.main.periods.some((p) => /information program/.test(p.what)));
+    const withProperty = cardLimits(respondent, true, "she wants the house and my pension");
+    check("with a property claim, the property limit is not folded", withProperty.main.periods.some((p) => /property/.test(p.what)));
+    const change = {
+      deadlines: [],
+      periods: [
+        { what: "The other party's time to serve and file a response", count: 30, unit: "days", countFrom: "x", id: "deadline:family:motion-to-change-response:moving-party-view" },
+        { what: "Attend the mandatory information program", count: 45, unit: "days", countFrom: "the day the case was started", id: "deadline:family:mip-45-days:motion-to-change" },
+      ],
+    };
+    const supportOnly = cardLimits(change, false, 'i pay 900 a month child support and want it lowered {"issues":["child-support"]}');
+    check("support-only motion to change: the information program is folded, with r. 8.1 (1) para. 6", !supportOnly.main.periods.some((p) => /information program/.test(p.what)) && supportOnly.mipNote?.cite.pinpoint === "r. 8.1 (1), para. 6");
+    check("folding never loses a limit", supportOnly.main.periods.length + supportOnly.conditional.periods.length === change.periods.length);
+    // A financial-statement limit is folded only when the words show no support or money at all.
+    const statement = { deadlines: [], periods: [{ what: "Serve and file your financial statement", count: 30, unit: "days", countFrom: "x", id: "deadline:family:fs" }, { what: "Serve the motion", count: 30, unit: "days", countFrom: "x", id: "deadline:family:other" }] };
+    check(
+      "a financial-statement limit leads when the words mention paying ('lower what I pay for my kids'), and folds for parenting-only words",
+      cardLimits(statement, false, "i want to lower what I pay for my kids and change the weekend schedule").main.periods.length === 2 && cardLimits(statement, false, "i want custody of my daughter").main.periods.length === 1,
+    );
+    const withParenting = cardLimits(change, false, "i want to change child support and parenting time");
+    check("a change that touches parenting keeps the information program leading", withParenting.main.periods.some((p) => /information program/.test(p.what)) && !withParenting.mipNote);
   }
 
   if (failures > 0) {

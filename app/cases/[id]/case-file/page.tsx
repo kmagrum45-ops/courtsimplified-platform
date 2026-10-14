@@ -105,7 +105,14 @@ export default function CaseFileSection() {
   useEffect(() => {
     void (async () => {
       const headers = await authHeaders();
-      if (!headers) return;
+      if (!headers) {
+        // Signed out mid-visit: nothing more is coming, so stop saying
+        // "Working out your deadlines…" and "Preparing…" (review 2026-10-13).
+        setEvents([]);
+        setDocuments([]);
+        setDeadlines([]);
+        return;
+      }
       const id = encodeURIComponent(caseRecord.id);
       const [eventsBody, documentsBody, timelineBody] = await Promise.all([
         fetch(`/api/cases/events?caseId=${id}`, { headers }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
@@ -162,6 +169,10 @@ export default function CaseFileSection() {
             </ul>
           ) : stepDeadline ? (
             <p className="whitespace-pre-line">{stepDeadline}</p>
+          ) : deadlines === null ? (
+            // Still being counted: "None yet" here was read as the dates being
+            // lost (walkthrough 2026-10-13, R5, captured while "Preparing…").
+            <p data-testid="case-file-deadlines-loading">Working out your deadlines from the dates you gave…</p>
           ) : (
             <p>
               {caseRecord.court_path === "small-claims"

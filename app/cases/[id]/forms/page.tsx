@@ -10,6 +10,7 @@ import FormsWorkspace from "../../../forms/FormsWorkspace";
 import { isPlaceholder, nextStepBlockFor } from "@/src/lib/content-library/nextSteps";
 import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { useCaseHome } from "../../_components/CaseHomeContext";
+import { noticeStepForCase } from "@/src/lib/case-system/caseStep";
 
 /**
  * Forms: first the forms the user's own next step names (so the Defence a
@@ -28,7 +29,12 @@ export default function CaseFormsSection() {
   // win over forms read out of the step's answer text: that text also names
   // forms for other cases ("Form 14B for a mortgage action") and for the other
   // side (walkthrough, 2026-10-08).
-  const practical = courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding) : null;
+  // With the person's words and the case's notice step, as the Overview card
+  // passes them (review 2026-10-13: without them this tab showed the forms,
+  // fee notes and service lines for every kind of case on the step).
+  const noticeStepId = noticeStepForCase(caseRecord.master_result, courtPath ?? null) ?? "";
+  const practical =
+    courtPath && stepId ? practicalFor(stepId, courtPath as PracticalCourt, city, responding, userWords, noticeStepId) : null;
 
   useEffect(() => {
     if (!courtPath || !position.confirmedStage) {
@@ -72,7 +78,14 @@ export default function CaseFormsSection() {
               Read that step
             </Link>
           </p>
-          <NextStepPractical stepId={stepId} court={courtPath} city={city} responding={responding} />
+          <NextStepPractical
+            stepId={stepId}
+            court={courtPath}
+            city={city}
+            responding={responding}
+            story={userWords}
+            noticeStepId={noticeStepId}
+          />
         </section>
       ) : stepTexts &&
       courtPath &&
