@@ -1,0 +1,8 @@
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+[aiCallLog] model call made outside withAiCallContext; not recorded { model: 'gpt-6.1-sol' }
+[aiCallLog] model call made outside withAiCallContext; not recorded { model: 'gpt-6.1-sol' }
+[aiCallLog] model call made outside withAiCallContext; not recorded { model: 'gpt-6.1-sol' }
+slander-default new: 8/10 in 124 s
+landlord-claim-defendant new: 7/10 in 118 s
+child-support-unmarried new: 5/10 in 141 s
+Average: old n/a, new 6.7

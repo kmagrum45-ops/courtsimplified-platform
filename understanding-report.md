@@ -1,0 +1,272 @@
+# Front door: old vs new
+
+Run 2026-10-14T18:51:34.300Z. 3 stories. Average score out of 10: **old n/a**, **new 6.7**.
+
+| Story | Old | New | Old: wrong items | New: wrong items |
+|---|---|---|---|---|
+| slander-default | - | 8 | - | 0 |
+| landlord-claim-defendant | - | 7 | - | 0 |
+| child-support-unmarried | - | 5 | - | 1 |
+
+## slander-default
+
+> i am sueing by uncles ex girlfriend for slander and she never responded so i noted her in default which the court accepted
+
+Chosen on the menu: family
+
+### NEW — 8/10 (124 s)
+
+**Grader:** This gives the plaintiff a useful and legally sound route from noting in default to obtaining an assessed damages judgment. The biggest gap is practical assessment guidance, particularly evidence of harm and whether the defaulted defendant must receive notice.
+
+- ✅ One slander action, likely Small Claims Court if $50,000 or less — It correctly identifies the plaintiff’s slander action and explains the Small Claims Court monetary limit.
+- ✅ Noting in default is not a judgment or an earlier binding decision — It distinguishes the defendant’s failure to respond and noting in default from a judgment or damages assessment.
+- ✅ Seek assessment of unliquidated damages under rule 11.03 — It correctly directs the plaintiff to an assessment hearing or written assessment motion and supplies the appropriate forms.
+- 🟡 Prove damages with evidence; defaulted defendant generally gets no further notice — It explains that damages must be proved, but omits the notice rule and practical guidance on evidence of reputational harm.
+- 🟡 Ask the amount claimed and what was said, to whom and when — It asks the amount, words and audience, but asks when the plaintiff learned of the statements rather than when they were made.
+
+Asked for the missing facts: yes
+
+<details><summary>What the person saw</summary>
+
+```
+HERE IS WHAT WE UNDERSTOOD:
+You are suing your uncle’s ex-girlfriend for slander. She did not respond to your claim, and the court accepted your request to have her noted in default. You live in Ottawa, Ontario.
+- Your role: Plaintiff bringing the claim
+- Defendant: Your uncle’s ex-girlfriend
+- Claim: Slander
+- Defendant’s response: She did not respond
+- Procedural step: The court noted her in default
+- Your location: Ottawa, Ontario
+- Court where the claim was filed: Not given
+- Amount claimed: Not given
+- Statements and audience: Not given
+- Date you learned of the statements: Not given
+Where it stands: You have started your claim and the defendant has been noted in default; you have not described a judgment or an assessment of damages.
+
+
+WHAT WE STILL NEED TO KNOW:
+1. Which court’s name appears at the top of your filed claim? (Why: Your next step and the forms you need depend on where the case was started.)
+2. How much money are you claiming? (Why: The amount determines which court can award the compensation you seek.)
+3. What exactly did she say about you, and who heard it? (Why: The words and their audience determine what evidence you need for the slander claim.)
+4. When did you first learn that she had made those statements? (Why: That date helps determine whether your claim was brought within the applicable time limit.)
+
+YOUR NEXT STEP AND THE LAW THAT APPLIES (each checked against the official text):
+1. If you filed in the Small Claims Court, your next step can be to request an assessment hearing using Form 9B, Request to Clerk, so a judge can determine your damages. Noting her in default is not itself a damages judgment.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03 (1)-(3) -- "To obtain judgment, the plaintiff may, (a) file a notice of motion and supporting affidavit (Form 15A) requesting a motion in writing for an assessment of damages, setting out the reasons why the motion should be granted"
+   Source: Official or public-legal-education guidance: Guide to Procedures in Small Claims Court: Making a claim -- How to make a motion in writing for an assessment of damages -- "you can request an assessment hearing before a judge by filing a Request to Clerk [Form 9B]"
+2. The Small Claims Court can hear money claims up to $50,000, excluding interest and costs. For more than $50,000, you need to go to the Superior Court of Justice, unless you waive the amount over $50,000.
+   Source: Official or public-legal-education guidance: Guide to Procedures in Small Claims Court: Making a claim -- what happened that led to the lawsuit -- "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+   Source: Official or public-legal-education guidance: Suing someone in Small Claims Court -- Small claims court: suing someone -- "For anything over $50,000, you need to go to the Superior Court of Justice . If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
+3. If your case is in the Small Claims Court, you can seek judgment by filing a Notice of Motion and Supporting Affidavit (Form 15A) requesting a motion in writing for an assessment of damages. Set out the reasons why the motion should be granted and attach any relevant documents.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03 (1)-(3) -- "To obtain judgment, the plaintiff may, (a) file a notice of motion and supporting affidavit (Form 15A) requesting a motion in writing for an assessment of damages, setting out the reasons why the motion should be granted"
+4. For a Small Claims Court assessment, you do not have to prove the defendant’s liability, but you must prove the amount of your claim rather than automatically receiving the amount written in it.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03 (4)-(7) -- "the plaintiff is not required to prove liability against a defendant noted in default, but is required to prove the amount of the claim."
+5. Defamation requires statements that referred to you, were communicated to at least one person other than you, and would tend to lower your reputation in the eyes of a reasonable person.
+   Source: Grant v. Torstar Corp., 2009 SCC 61, paras. 27-29 -- "(1) that the impugned words were defamatory, in the sense that they would tend to lower the plaintiff’s reputation in the eyes of a reasonable person; (2) that the words in fact referred to the plaintiff; and (3) that th"
+6. One statutory exception covers slanderous words calculated to disparage you in an office, profession, calling, trade or business you held or carried on at the time of publication. For those words, you do not need to allege or prove special damage.
+   Source: Libel and Slander Act, R.S.O. 1990, c. L.12, s. 16 -- "In an action for slander for words calculated to disparage the plaintiff in any office, profession, calling, trade or business held or carried on by the plaintiff at the time of the publication thereof, it is not necessa"
+7. For an ordinary spoken-slander claim, the usual limitation period is two years from discovery of the claim, which can depend on when you knew or reasonably should have known the relevant facts. Your discovery date and filing date therefore matter even though the defendant did not respond.
+   Source: Limitations Act, 2002, S.O. 2002, c. 24, Sched. B, s. 4 -- "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+   Source: Limitations Act, 2002, S.O. 2002, c. 24, Sched. B, s. 5 (1)-(3) -- "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew"
+8. The defendant can make a motion asking the Small Claims Court to set aside the noting in default or a default judgment, on terms the court considers just.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.06 -- "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside"
+9. If this is a Small Claims Court case, take a step under rule 11.03 to obtain judgment before the second anniversary of commencing the action. Unless the court orders otherwise, the clerk must dismiss an undisposed action if no such step has been taken and no trial date requested, subject to exceptions for a filed accepted settlement, an admission with proposed payment terms, or a plaintiff under disability.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.1.01 (1)-(3) -- "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) n"
+10. For slander involving words calculated to disparage a plaintiff in an office, profession, calling, trade or business they held or carried on when the words were published, the plaintiff may recover damages without alleging or proving special damage.
+   Source: Libel and Slander Act, R.S.O. 1990, c. L.12, s. 16 -- "In an action for slander for words calculated to disparage the plaintiff in any office, profession, calling, trade or business held or carried on by the plaintiff at the time of the publication thereof, it is not necessa"
+11. In Small Claims Court, the clerk may sign default judgment on Form 11B for a debt or liquidated demand in money. For a claim to which that procedure does not apply, you may seek judgment under rule 11.03 by filing Form 15A for a written assessment of damages or requesting an assessment hearing, which may be done using Form 9B.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.02 (1)-(3) -- "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money"
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03 (1)-(3) -- "file a notice of motion and supporting affidavit (Form 15A) requesting a motion in writing for an assessment of damages"
+12. For an assessment hearing, the clerk fixes the date and sends you notice, and the hearing proceeds as a trial. On a written motion for an assessment of damages, an inadequate or unsatisfactory affidavit can lead to an order for a further affidavit or an assessment hearing.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03 (4)-(7) -- "the clerk shall fix a date for the hearing and send a notice of hearing to the plaintiff, and the assessment hearing shall proceed as a trial in accordance with rule 17."
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03 (1)-(3) -- "On a motion in writing for an assessment of damages under clause (2) (a), a judge who finds the plaintiff's affidavit inadequate or unsatisfactory may order that, (a) a further affidavit be provided; or (b) an assessment"
+13. To set aside the Small Claims default, the defendant must satisfy the court that she has a meritorious defence and a reasonable explanation for default, and that she moved as soon as reasonably possible in the circumstances. There is no fixed number of days in this rule.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.06 -- "the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances."
+14. For discovery of the claim, the law presumes you knew the relevant facts on the day the wrongful act occurred unless you prove otherwise. A later discovery date therefore requires evidence, rather than simply asserting when you first learned about the statements.
+   Source: Limitations Act, 2002, S.O. 2002, c. 24, Sched. B, s. 5 (1)-(3) -- "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+15. Living in Ottawa does not by itself establish the proper Small Claims Court location. The claim must be commenced in the territorial division where the cause of action arose or where the defendant resides or carries on business, or at the court's place of sitting nearest to where the defendant resides or carries on business.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 6.01 (1)-(3) -- "An action shall be commenced, (a) in the territorial division, (i) in which the cause of action arose, or (ii) in which the defendant or, if there are several defendants, in which any one of them resides or carries on bu"
+Could not confirm (not stated): Superior Court default judgment procedure
+
+WHERE THIS SEEMS TO BELONG: small-claims
+```
+
+</details>
+
+## landlord-claim-defendant
+
+> got served with a small claims court paper from my old landlord, he says i owe him 3200 for damage to the apartment and unpaid hydro. i got it sept 30. i dont think i owe that much, the damage was there when i moved in. what do i do
+
+Chosen on the menu: small-claims
+
+### NEW — 7/10 (118 s)
+
+**Grader:** This provides useful, largely accurate guidance on filing a Defence, collecting evidence and checking whether the landlord's claims belong before the Landlord and Tenant Board. Its biggest weakness is incomplete deadline guidance: it asks about delivery but does not explain effective service or clearly connect missing the deadline with default judgment.
+
+- ✅ Defendant responding to a Small Claims Court Plaintiff's Claim — It correctly identifies the person's role and the proceeding, although it does not name Form 7A.
+- 🟡 Serve and file Form 9A within 20 days of effective service — It gives the correct form and basic deadline but does not explain that mail or courier service can become effective later than receipt.
+- 🟡 Missing the Defence deadline risks default and judgment — It discusses default and remedies extensively but never clearly warns that failing to defend on time can lead to default and judgment.
+- 🟡 Dispute all or part, propose payments, or bring a Defendant's Claim — It explains disputing amounts and admitting part with payment terms but omits the Defendant's Claim option.
+- ✅ Gather move-in evidence and utility bills and lease terms — It recommends the relevant condition evidence, lease, hydro bills and payment records.
+- ✅ Ask how the claim was served to determine the deadline — It expressly asks whether delivery was personal, mailed, left at home or otherwise.
+
+Asked for the missing facts: yes
+
+<details><summary>What the person saw</summary>
+
+```
+HERE IS WHAT WE UNDERSTOOD:
+You were served on September 30 with a Small Claims Court claim from your former landlord for $3,200 for apartment damage and unpaid hydro. You dispute the amount and say the damage was already there when you moved in. You live in Hamilton, Ontario, and want to know what to do next.
+- Your role: Defendant
+- Other party: Your former landlord
+- Court already used: Small Claims Court
+- Amount claimed: $3,200
+- Claim concerns: Apartment damage and unpaid hydro
+- Date received: September 30, 2026
+- Service method: Not given
+- Your position: You dispute the amount and say the damage existed when you moved in
+- Date you moved out: Not given
+- Your location: Hamilton, Ontario
+Where it stands: You have been served with a claim and need to respond; you have not said that you have filed a defence.
+
+
+WHAT WE STILL NEED TO KNOW:
+1. How were the papers delivered to you on September 30—handed to you, mailed, left at your home, emailed, or another way?
+2. When did you move out and give up possession of the apartment?
+3. Were you required to share a kitchen or bathroom with the owner or the owner’s spouse, parent, or child who lived in the building? (Why: This can determine whether Ontario’s residential tenancy law applies.)
+4. What evidence do you have showing the apartment’s condition when you moved in? (Why: Your defence about pre-existing damage depends on evidence of its earlier condition.)
+
+YOUR NEXT STEP AND THE LAW THAT APPLIES (each checked against the official text):
+1. Act now: complete Form 9A, Defence, serve it on every other party, including the landlord, and file it with the Small Claims Court clerk with proof of service. The deadline is within 20 days of being served with the claim.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 9.01 -- "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the cl"
+2. If you have already been noted in default, you can ask to set it aside using Form 15A, Notice of Motion and Supporting Affidavit; that relief is not automatic.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.06 -- "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside"
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 15.01 (1)-(4) -- "A motion shall be made by a notice of motion and supporting affidavit (Form 15A)."
+3. The Landlord and Tenant Board has exclusive jurisdiction over applications under the Residential Tenancies Act, 2006 and matters in which that Act gives it jurisdiction. Do not ignore the Small Claims Court claim: to dispute it, serve a defence (Form 9A) on every other party and file it, with proof of service, with the clerk within 20 days of being served.
+   Source: Residential Tenancies Act, 2006, S.O. 2006, c. 17, s. 168 (1)-(2) -- "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 9.01 -- "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the cl"
+4. If the claim properly belongs in the Small Claims Court, the $3,200 requested is within its current $50,000 monetary limit.
+   Source: Small Claims Court Jurisdiction and Appeal Limit, O. Reg. 626/00, s. 1 (1)-(2) -- "The maximum amount of a claim in the Small Claims Court is $50,000."
+5. In your defence, address damage and hydro separately, explain which amounts you dispute and why, and attach the documents you rely on. Gather move-in photographs, inspection records, messages reporting existing damage, your lease, hydro bills, and payment records.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 9.02 (1)-(2) -- "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+   Source: Official or public-legal-education guidance: Guide to Procedures in Small Claims Court: Replying to a claim -- How to fill in the defence -- "Organize any supporting documents you need to file with the defence. If your defence is based in whole, or in part, on a document, attach a copy of the document to your defence"
+6. For a tenancy covered by the Residential Tenancies Act, 2006, damage liability concerns undue damage caused wilfully or negligently by you, another occupant, or someone you permitted into the residential complex—not simply damage that already existed.
+   Source: Residential Tenancies Act, 2006, S.O. 2006, c. 17, s. 34 -- "The tenant is responsible for the repair of undue damage to the rental unit or residential complex caused by the wilful or negligent conduct of the tenant, another occupant of the rental unit or a person permitted in the"
+7. If the case continues in the Small Claims Court after your defence is filed, the court will ordinarily arrange a settlement conference before trial. You can discuss settlement with the landlord sooner, but negotiations do not replace filing your defence on time.
+   Source: Official or public-legal-education guidance: Guide to Procedures in Small Claims Court: Replying to a claim -- Next steps -- "If you disputed all or part of the claim you will have to attend a settlement conference. The settlement conference should take place within 90 days after the first defence in the case is filed. It is helpful if you advi"
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 9.01 -- "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the cl"
+8. For a covered tenancy, a landlord's application to the Landlord and Tenant Board for damage against a former tenant must be made no later than one year after the tenant ceased possession.
+   Source: Residential Tenancies Act, 2006, S.O. 2006, c. 17, s. 89 (1)-(1.1) -- "An application under subsection (1) may be made, (a) while the tenant is in possession of the rental unit; or (b) no later than one year after the tenant or former tenant ceased to be in possession of the rental unit."
+9. If these claims fall within the Board's exclusive jurisdiction, the Board has exclusive jurisdiction to determine them. You can seek a ruling by motion in Small Claims Court using a notice of motion and supporting affidavit (Form 15A).
+   Source: Residential Tenancies Act, 2006, S.O. 2006, c. 17, s. 168 (1)-(2) -- "The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act."
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 15.01 (1)-(4) -- "A motion shall be made by a notice of motion and supporting affidavit (Form 15A)."
+10. For the hydro claim under the Act, the landlord must establish that your tenancy agreement required you to pay those utility costs and establish the reasonable out-of-pocket expenses incurred or to be incurred because you failed to pay them.
+   Source: Residential Tenancies Act, 2006, S.O. 2006, c. 17, s. 88.2 (4)-(6) -- "The costs referred to in subsection (1) are reasonable out-of-pocket expenses that the landlord has incurred or will incur as a result of a tenant's or former tenant's failure to pay utility costs that they were required"
+11. You are responsible for repairing undue damage caused by your wilful or negligent conduct, that of another occupant, or that of someone you permitted in the residential complex—not simply because the landlord demands payment for damage.
+   Source: Residential Tenancies Act, 2006, S.O. 2006, c. 17, s. 34 -- "The tenant is responsible for the repair of undue damage to the rental unit or residential complex caused by the wilful or negligent conduct of the tenant, another occupant of the rental unit or a person permitted in the"
+12. If you are noted in default, you cannot simply file a defence without the court's permission or the landlord's consent; a motion to set aside default must establish a meritorious defence and a reasonable explanation for the default, and must be brought as soon as reasonably possible. Alternatively, if all parties agree, file Form 11.2A, Request for Clerk's Order on Consent, to set aside the noting in default and any default judgment.
+   Source: Official or public-legal-education guidance: Guide to Procedures in Small Claims Court: Replying to a claim -- What happens if you are noted in default -- "You may also file a Request for Clerk's Order on Consent [Form 11.2A] in which all parties consent to set aside the noting in default and default judgment."
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 11.06 -- "if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible"
+13. For a Form 15A motion, obtain a hearing date from the clerk before service, serve the required parties at least seven days before the hearing, and file the motion with proof of service at least three days before the hearing. If judgment has already been signed, the motion must be served on all parties, including any noted in default.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 15.01 (1)-(4) -- "(2) The moving party shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit under subrule (3). O. Reg. 78/06, s. 32; O. Reg. 393/09, s. 14 (2). (3) The notice of motion an"
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 15.01 (5)-(6) -- "A motion that is made after judgment has been signed shall be served on all parties, including those who have been noted in default."
+14. If you genuinely accept that you owe part of the claim, you may admit only that part in Form 9A, dispute the rest, and propose payment terms for the admitted amount. If the landlord does not dispute the payment proposal within the prescribed 20-day period after service of the defence, you must follow it as though it were a court order.
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 9.03 (1)-(2) -- "A defendant who admits liability for all or part of the plaintiff's claim but wishes to arrange terms of payment may in the defence admit liability and propose terms of payment."
+   Source: Rules of the Small Claims Court, O. Reg. 258/98, r. 9.03 (3)-(4.3) -- "The plaintiff may dispute the proposal within 20 days after service of the defence by filing with the clerk and serving on the defendant a request to clerk (Form 9B) for a terms of payment hearing before a referee or oth"
+
+WHERE THIS SEEMS TO BELONG: small-claims
+```
+
+</details>
+
+## child-support-unmarried
+
+> my ex and i split up in june, we have 2 kids 6 and 9 who live with me. he moved out and hasnt paid anything for the kids since. we were never married. i live in ottawa. how do i get child support
+
+Chosen on the menu: family
+
+### NEW — 5/10 (141 s)
+
+**Grader:** This provides useful guidance on support calculations, service, support dating back to June, and enforcement, and asks the important missing questions. The biggest problem is its incorrect blanket Form 13 requirement, alongside missing court identification, the Mandatory Information Program, and non-court alternatives.
+
+- ✅ Both parents owe support; Guidelines determine table support and possible special expenses. — Explains unmarried parents’ obligations, income-based table support for two children, and qualifying additional expenses.
+- ❌ Identify the Ontario Court of Justice or Superior Court of Justice in Ottawa. — Says to start in Ottawa but never identifies which court to use.
+- 🟡 Explain Form 8, financial disclosure using Form 13, and the Mandatory Information Program. — Identifies the forms but overstates the Form 13 requirement and omits the Mandatory Information Program.
+- ❌ Offer a written agreement that can be filed or a government child support service. — Neither non-court route is explained.
+- ✅ Ask about the other parent’s income and any existing agreement or order. — Expressly asks both important questions.
+
+**Wrong or misleading:**
+- The statement that the applicant must file Form 13 even when claiming only table child support is wrong: the Family Law Rules exempt an applicant whose claim is only for the applicable table amount.
+
+Asked for the missing facts: yes
+
+<details><summary>What the person saw</summary>
+
+```
+HERE IS WHAT WE UNDERSTOOD:
+You and your ex separated in June, and your two children, aged 6 and 9, live with you. Your ex moved out and has not paid anything toward their support since then. You were never married, you live in Ottawa, and you want to know how to get child support.
+- Location: Ottawa, Ontario
+- Relationship: Never married
+- Separation: June; year not given
+- Children: Two children, aged 6 and 9
+- Children's home: The children live with you
+- Other parent: Your ex moved out
+- Support paid since separation: Nothing
+- Existing support order or agreement: Not given
+- Other parent's income and address: Not given
+Where it stands: You are seeking child support; you have not described an existing court case, support order, or agreement.
+
+
+WHAT WE STILL NEED TO KNOW:
+1. Is there already a court case, court order, or written agreement dealing with child support? (Why: This determines whether you start an application, seek a change, or pursue enforcement.)
+2. What does your ex earn, or what do you know about his job and other income? (Why: His income is needed to calculate support and identify the financial information to request.)
+3. How much time do the children spend in your ex's care, including overnight visits? (Why: The parenting schedule can change how support is calculated.)
+4. Where does your ex currently live? (Why: His location affects how you serve the application and whether an interjurisdictional process is needed.)
+
+YOUR NEXT STEP AND THE LAW THAT APPLIES (each checked against the official text):
+1. If there is no existing case or support order, your next step is to file a Form 8 application asking for child support.
+   Source: Family Law Rules, O. Reg. 114/99, r. 8 (1)-(1.2) -- "To start a case, a person shall file an application (Form 8, 8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 33D.1, 34L or 34N)."
+   Source: Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)-(3) -- "An application for an order for the support of a dependant may be made by the dependant or the dependant’s parent."
+2. For an ordinary local application, start your child-support case in Ottawa, where you live. You do not have to have been married: every parent has a legal duty to support their minor children to the extent that the parent is capable of doing so.
+   Source: Family Law Rules, O. Reg. 114/99, r. 5 (1) -- "a case shall be started, (a) in the municipality where a party resides;"
+   Source: Family Law Act, R.S.O. 1990, c. F.3, s. 31 (1)-(2) -- "Every parent has an obligation to provide support, to the extent that the parent is capable of doing so, for his or her unmarried child who, (a) is a minor;"
+3. Arrange special service of your application on your ex immediately. His deadline to serve and file an answer is 30 days after service in Canada or the United States, or 60 days after service elsewhere.
+   Source: Family Law Rules, O. Reg. 114/99, r. 8 (5)-(6) -- "The application shall be served immediately on every other party, and special service shall be used unless the party is listed in subrule (6)."
+   Source: Family Law Rules, O. Reg. 114/99, r. 10 (1)-(2.1) -- "A person against whom an application is made shall serve an answer (Form 10, 33B, 33B.1, 33B.2 or 33D.3) on every other party and file it within 30 days after being served with the application. O. Reg. 114/99, r. 10 (1);"
+4. For your two children living primarily with you, the starting point is the applicable child-support table amount based on your ex's income. If each parent has the children at least 40 percent of the time over a year, the court uses a different analysis that considers both parents' table amounts, the increased costs of shared parenting time, and the parents' and children's circumstances.
+   Source: Child Support Guidelines (Ontario), O. Reg. 391/97, s. 3 (1)-(2) -- "the amount set out in the applicable table, according to the number of children under the age of majority to whom the order relates and the income of the parent or spouse against whom the order is sought"
+   Source: Child Support Guidelines (Ontario), O. Reg. 391/97, s. 9 -- "Where each parent or spouse exercises parenting time with respect to a child for not less than 40 per cent of the time over the course of a year, the amount of the order for the support of a child must be determined by t"
+5. Your ex must serve and file a financial statement within the time for serving and filing an answer, whether or not he serves an answer.
+   Source: Family Law Rules, O. Reg. 114/99, r. 13 (1)-(1.1) -- "the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is se"
+6. Qualifying additional child-support expenses are shared in proportion to both parents' incomes after deducting any contribution from the child and taking account of relevant subsidies, benefits and tax deductions or credits. For your child-support claim without a property claim, you must serve and file Form 13 with your application, including when you claim only the table amount.
+   Source: Child Support Guidelines (Ontario), O. Reg. 391/97, s. 7 (2)-(4) -- "The guiding principle in determining the amount of an expense referred to in subsection (1) is that the expense is shared by the parents or spouses in proportion to their respective incomes after deducting from the expen"
+   Source: Family Law Rules, O. Reg. 114/99, r. 13 (1)-(1.1) -- "13. (1) If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and fil"
+7. For support covering the past, the court considers whether the paying parent's contributions fulfilled their support obligation. It will usually be inappropriate to make an award retroactive to more than three years before formal notice was given to the paying parent; this is not an absolute limit.
+   Source: D.B.S. v. S.R.G.; L.J.W. v. T.A.R.; Henry v. Henry; Hiemstra v. Hiemstra, 2006 SCC 37, para. 123 -- "it will usually be inappropriate to make a support award retroactive to a date more than three years before formal notice was given to the payor parent."
+   Source: D.B.S. v. S.R.G.; L.J.W. v. T.A.R.; Henry v. Henry; Hiemstra v. Hiemstra, 2006 SCC 37, paras. 109-110 -- "A court should thus consider whether conduct by the payor parent has had the effect of fulfilling his/her support obligation. For instance, a payor parent who contributes for expenses beyond his/her statutory obligations"
+8. Once a support order is made, it is normally filed with the Family Responsibility Office, which collects and enforces payments. If you already have a support order, enforcement may be the next step rather than starting another application.
+   Source: Family Responsibility and Support Arrears Enforcement Act, 1996, S.O. 1996, c. 31, s. 12 (1)-(2) -- "The clerk or registrar of the court that makes a support order shall file it with the Director’s office promptly after it is signed."
+   Source: Family Responsibility and Support Arrears Enforcement Act, 1996, S.O. 1996, c. 31, s. 5 (1)-(3) -- "It is the duty of the Director to enforce support orders where the support order and the related support deduction order, if any, are filed in the Director’s office and to pay the amounts collected to the person to whom "
+9. You can apply for child support under Ontario’s Family Law Act. Each parent has an obligation to support the children, and the support order should apportion that obligation according to the child support guidelines.
+   Source: Family Law Act, R.S.O. 1990, c. F.3, s. 33 (1)-(3) -- "An application for an order for the support of a dependant may be made by the dependant or the dependant’s parent."
+   Source: Family Law Act, R.S.O. 1990, c. F.3, s. 33 (6)-(8) -- "An order for the support of a child should, (a) recognize that each parent has an obligation to provide support for the child; (b) apportion the obligation according to the child support guidelines."
+10. There is no statutory limitation period for applying for child support under the Family Law Act, so separation in June does not start a fixed filing deadline. That is separate from the rules governing how far back a retroactive award may reach.
+   Source: Limitations Act, 2002, S.O. 2002, c. 24, Sched. B, s. 16 (1) -- "There is no limitation period in respect of, (a) a proceeding for a declaration if no consequential relief is sought; (b) a proceeding to enforce an order of a court, or any other order that may be enforced in the same w"
+   Source: D.B.S. v. S.R.G.; L.J.W. v. T.A.R.; Henry v. Henry; Hiemstra v. Hiemstra, 2006 SCC 37, paras. 85-86 -- "Having established that courts will generally have jurisdiction to make retroactive child support awards, it remains to discuss a couple of issues that could curtail the power of judges to make such awards in specific ci"
+11. You can ask for temporary child support while the application is pending, using a Form 14 motion and Form 14A supporting affidavit filed in the same court case. Ordinarily a substantive case conference must come first; an earlier motion requires an applicable exception, such as urgency or hardship.
+   Source: Family Law Rules, O. Reg. 114/99, r. 14 (6)-(10) -- "A motion, whether made with or without notice, (a) requires a notice of motion (Form 14) and an affidavit (Form 14A); and (b) may be supported by additional evidence."
+   Source: Family Law Rules, O. Reg. 114/99, r. 14 (4)-(6) -- "No notice of motion or supporting evidence may be served and no motion may be heard before a conference dealing with the substantive issues in the case has been completed. O. Reg. 89/04, s. 6 (3); O. Reg. 383/11, s. 3 (1"
+12. A parent applying for a child-support order whose income information is necessary to determine the amount must include their income-tax returns, including materials filed with them, and every notice of assessment and reassessment for the three most recent taxation years, together with the additional documents required for their income source.
+   Source: Child Support Guidelines (Ontario), O. Reg. 391/97, s. 21 (1) -- "A parent or spouse who is applying for an order for the support of a child and whose income information is necessary to determine the amount of the order must include with the application, (a) a copy of every personal in"
+13. Have someone other than you carry out special service of your application. If your ex cannot be located or ordinary service cannot be carried out, you can ask the court for substituted service. Provide detailed evidence of your steps to locate him and, where he has been located, your attempts to serve him, and show why the proposed method could reasonably be expected to bring the documents to his attention.
+   Source: Family Law Rules, O. Reg. 114/99, r. 6 (3)-(4.2) -- "special service of the following documents shall be carried out by a person other than the party required to serve the document"
+   Source: Family Law Rules, O. Reg. 114/99, r. 6 (14.1)-(15) -- "provides detailed evidence showing, (i) what steps have been taken to locate the person to be served, and (ii) if the person has been located, what steps have been taken to serve the document on that person; and (b) show"
+14. If you seek additional expenses, ask the court to cover all or part of qualifying child-care, health, educational or extraordinary extracurricular expenses. The court considers whether the expenses are necessary in relation to the children’s best interests and reasonable in light of both parents’ means, the children’s means and the parents’ spending pattern during cohabitation. Ordinary extracurricular costs do not automatically qualify.
+   Source: Child Support Guidelines (Ontario), O. Reg. 391/97, s. 7 (1) -- "the court may, on the request of either parent or spouse or of an applicant under section 33 of the Act, provide for an amount to cover all or any portion of the following expenses, which expenses may be estimated, takin"
+15. Expressly request support for the unpaid period beginning with the June separation, as well as ongoing support. The Family Law Act permits an order covering a period before the order is made.
+   Source: Family Law Act, R.S.O. 1990, c. F.3, s. 34 (1) -- "(f) requiring that support be paid in respect of any period before the date of the order;"
+
+WHERE THIS SEEMS TO BELONG: family
+```
+
+</details>
