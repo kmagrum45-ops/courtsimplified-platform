@@ -258,6 +258,21 @@ export const CLAIM_TYPE_SOURCES: CorpusSource[] = [
       "Claims could lose the lien while the claim is pending — and a homeowner " +
       "with a lien registered against the house needs to know what that is.",
   },
+  {
+    id: "oreg-302-18-construction-act-procedures",
+    title: "Procedures for Actions under Part VIII of the Act (Construction Act)",
+    citation: "O. Reg. 302/18",
+    url: ELAWS("180302"),
+    format: "elaws-doc",
+    mustContain: ["CONSOLIDATION PERIOD"],
+    why:
+      "Construction Act s. 50 (2): the Courts of Justice Act and the rules of " +
+      "court apply to a lien action only where they are not inconsistent with " +
+      "the Act and the procedures prescribed for Part VIII -- this regulation. " +
+      "Without it the checker cannot tell a lien action's own steps from the " +
+      "ordinary civil ones (the 2026-10-13 lien walkthrough was given the " +
+      "ordinary 20-day civil Defence deadline).",
+  },
 
   // ---------------------------------------------------------------------------
   // Housing and occupancy — forum checks
