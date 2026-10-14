@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS "public"."server_errors" (
     "route" "text",
     "method" "text",
     "kind" "text",
-    "message" "text",
+    "message" "text" NOT NULL,
     "digest" "text",
     "environment" "text"
 );
