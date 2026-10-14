@@ -1243,6 +1243,7 @@ export default function StageAnswerPanel({
   storyText = "",
   picture = null,
   motionToChange = null,
+  suggestedStepId = null,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1285,6 +1286,12 @@ export default function StageAnswerPanel({
   picture?: CasePicture | null;
   /** Their answer to the motion-to-change reading, so the moving party is asked their own date questions (servesPapersFor). */
   motionToChange?: MotionSide | null;
+  /**
+   * The step the front door's reading of the whole story places them at
+   * (understanding/understandCase.ts, CLAUDE.md s. 2a). Shown as the
+   * suggestion, with "Not right? Choose another step"; never saved as theirs.
+   */
+  suggestedStepId?: string | null;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1303,9 +1310,10 @@ export default function StageAnswerPanel({
     (confirmedStage === "starting-case" || !confirmedStage) &&
     Boolean(noticeStepId) &&
     options.some((option) => option.id === noticeStepId);
+  const readStep = suggestedStepId && options.some((option) => option.id === suggestedStepId) ? suggestedStepId : "";
   const suggested = noticeFirst
     ? (noticeStepId as string)
-    : stepFromPicture(courtPath, picture, responding) || suggestedStageFor(courtPath, confirmedStage, responding, storyText);
+    : readStep || stepFromPicture(courtPath, picture, responding) || suggestedStageFor(courtPath, confirmedStage, responding, storyText);
   // Dates the case reader found in their words, under what the guided intake recorded.
   const offeredDates = { ...datesFromPicture(picture), ...suggestedDates };
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";

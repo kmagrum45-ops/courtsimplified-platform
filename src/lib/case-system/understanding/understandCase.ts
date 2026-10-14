@@ -40,6 +40,9 @@
 
 import { checkedAnswer, type CheckedAnswer, type CheckedAnswerDeps } from "../retrieval/checkedAnswer";
 import type { RetrievalCourt } from "../retrieval/storyRetrieval";
+import { fixedRegimeFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
+import { isMapOwnedProcedure } from "../procedureOwnership";
+import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
 // ------------------------------------------------------------------ types
 
@@ -71,6 +74,19 @@ export type CaseUnderstanding = {
   questions: UnderstoodQuestion[];
   /** The person asked whether they will win, or similar. The site does not judge that. */
   asksForPrediction: boolean;
+  /**
+   * The step in the stage map the reading places them at, for mainCourt
+   * (CLAUDE.md s. 2a): the next step, its form and deadline are shown from the
+   * map for this step, never written by the model. A suggestion the person
+   * confirms or changes (s. 4). Null when no step fits or the court has no map.
+   */
+  step: string | null;
+  /**
+   * A court fixed by law decided in code (intelligence/fixedRegimes.ts), with
+   * the sourced reason. `ownProcedure`: the statute has its own procedure the
+   * map does not cover yet, so no ordinary steps are shown for it.
+   */
+  regime: { id: FixedRegimeId; reasoning: string; ownProcedure: boolean } | null;
 };
 
 export type UnderstandResult =
@@ -123,6 +139,7 @@ Return JSON:
  "stage": string,
  "questions": [{"question": string, "why": string}],
  "asksForPrediction": boolean,
+ "step": string,
  "points": [{"text": string, "cites": [string]}]
 }
 
@@ -147,12 +164,13 @@ questions: up to ${MAX_QUESTIONS}, only questions whose answers change the court
 
 asksForPrediction: true if they ask whether they will win, how strong their case is, their chances, or what a judge will decide.
 
-points: up to ${MAX_POINTS} statements of the law that applies to THIS person now, most important first. The FIRST point is their next step: the step, the form by number and name, and the time limit and what starts it. Then, as they apply:
-- which court, named exactly (for example "the Small Claims Court", "the Superior Court of Justice", "the Ontario Court of Justice"), and why; when an amount is over a court's limit, say the limit and that they may sue in the lower court only by giving up the amount over it;
-- what the next step requires (forms, filing, service) and what happens after it;
+step: the id of the step in the site's step map, from the list in the message, that matches where their matter stands now in the court you chose for the main matter. Choose from that court's list only. Use "" when no step fits or the matter belongs to a tribunal or outside Ontario. The site shows their next step, its form, its deadline, where to file, the fee and what comes after from that step, checked against the official rules, so choosing the right step is the most important thing you do. Read carefully which side they are on and what has actually happened: a step that has not happened (they have not been sued, nothing has been served) is not their step.
+
+points: up to ${MAX_POINTS} statements of the law that applies to THIS person now, most important first. The site already shows the next step, its form and its deadline from its checked step map, so do NOT write those: no form numbers, no response deadlines in days or weeks, no "your next step is", no "file / serve / deliver" instructions. Write, as they apply:
+- which court, named exactly (for example "the Small Claims Court", "the Superior Court of Justice", "the Ontario Court of Justice"), and why; when an amount is over a court's limit, say the limit;
 - what they must show, and the main facts a court looks at;
-- every time limit that is close or may have passed (limitation periods, notice periods, response deadlines), what starts it, and any exception the law gives;
-- required steps people miss (for example a mandatory information program, a notice that must be given first);
+- every limitation period or notice period that is close or may have passed (for example the general two-year limitation period), what starts it, and any exception the law gives;
+- required steps people miss that come from a statute (for example a notice that must be given before suing);
 - other routes the law gives them, including ways to resolve it without going to court where the law provides them.
 Each point is one or two plain sentences a non-lawyer understands, applied to their facts.
 - Each point cites the exact statute, regulation or court rule and section behind it, with the full name: "Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03", "Limitations Act, 2002, s. 4", "Family Law Act, s. 31". A leading court decision may be cited by name and neutral citation.
@@ -178,13 +196,18 @@ const COURTS: readonly UnderstoodCourt[] = ["small-claims", "civil", "family", "
  * or rule number, an Act, a form number, or an obligation or entitlement.
  */
 const STATES_LAW =
-  /\b(?:r\.\s*\d|s\.\s*\d|rule\s+\d|section\s+\d|subsection|act\b|regulation|o\.\s*reg|form\s+\d|must|shall|is required|are required|entitled|deadline|limitation period|within\s+\d+\s+days|the law (?:says|requires|allows))\b/i;
+  /\b(?:r\.\s*\d|s\.\s*\d|rule\s+\d|section\s+\d|subsection|act\b|regulation|o\.\s*reg|form\s+\d|must|shall|is required|are required|entitled|deadline|due\b|time limit|limitation period|within\s+\d+\s+days|the law (?:says|requires|allows))\b/i;
+
+/** Drops a sentence the stage map owns, too (procedureOwnership.ts): "your defence is due 20 days after service". */
+function statesLaw(sentence: string): boolean {
+  return STATES_LAW.test(sentence) || isMapOwnedProcedure(sentence);
+}
 
 /** Drops the sentences of `text` that state law. Pure. */
 export function withoutLaw(text: string): string {
   return text
     .split(/(?<=[.!?])\s+/)
-    .filter((sentence) => sentence.trim() && !STATES_LAW.test(sentence))
+    .filter((sentence) => sentence.trim() && !statesLaw(sentence))
     .join(" ")
     .trim();
 }
@@ -242,6 +265,7 @@ export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
   if (!summary && points.length === 0) return null;
   const side = record.side === "starting" || record.side === "responding" ? record.side : "unclear";
   const allMatters = matters.length ? matters : [{ title: "Your matter", court: "unclear" as const }];
+  const step = validStep(str(record.step, 160), allMatters[0].court);
   return {
     understanding: {
       summary,
@@ -252,9 +276,59 @@ export function parseUnderstanding(raw: string): ParsedUnderstanding | null {
       stage: withoutLaw(str(record.stage, 400)),
       questions,
       asksForPrediction: record.asksForPrediction === true,
+      step,
+      regime: null,
     },
-    points,
+    // A point stating a step, form or deadline is the map's (s. 2a); the
+    // reasoning was told not to write one, and code holds it to that.
+    points: points.filter((point) => !isMapOwnedProcedure(point.text)),
   };
+}
+
+const MAP_COURTS: readonly string[] = ["small-claims", "civil", "family"];
+
+/** A real, non-special step of `court`'s map, or null. Pure. */
+export function validStep(id: string, court: UnderstoodCourt): string | null {
+  if (!id || !MAP_COURTS.includes(court)) return null;
+  const stage = findStage(id);
+  if (!stage || isSpecialStage(id) || pathwayOf(stage) !== (court as StagePathway)) return null;
+  return id;
+}
+
+/**
+ * A court fixed by law wins over the reading (CLAUDE.md s. 2a). A construction
+ * lien is a Superior Court action with its own procedure, which the map does
+ * not hold yet: the court becomes civil and no ordinary step is suggested. A
+ * claimed amount over $50,000 moves a Small Claims reading to civil, and the
+ * step is dropped because it was chosen from the wrong court's map. Pure.
+ */
+export function withFixedRegime(understanding: CaseUnderstanding, story: string): CaseUnderstanding {
+  const regime = fixedRegimeFor(story);
+  if (!regime) return understanding;
+  const applies =
+    regime.id === "construction-lien" || understanding.mainCourt === "small-claims" || understanding.mainCourt === "unclear";
+  if (!applies) return understanding;
+  const matters = understanding.matters.map((matter, index) => (index === 0 ? { ...matter, court: regime.court } : matter));
+  return {
+    ...understanding,
+    matters,
+    mainCourt: regime.court,
+    step: regime.ownProcedure || understanding.mainCourt !== regime.court ? null : understanding.step,
+    regime: { id: regime.id, reasoning: regime.reasoning, ownProcedure: regime.ownProcedure },
+  };
+}
+
+/** The step lists the reasoning chooses from, one per court. Pure. */
+export function stepCatalogue(): string {
+  const lines: Record<StagePathway, string[]> = { "small-claims": [], civil: [], family: [] };
+  for (const stage of ALL_STAGES) {
+    if (isSpecialStage(stage.id)) continue;
+    const side = stage.side === "both" ? "either side" : stage.side;
+    lines[pathwayOf(stage)].push(`- ${stage.id} (${side}): ${stage.userQuestion}`);
+  }
+  return (["small-claims", "civil", "family"] as const)
+    .map((court) => `${court.toUpperCase()} STEPS:\n${lines[court].join("\n")}`)
+    .join("\n\n");
 }
 
 /** Which court's procedure the checker reads: the main matter's, or the person's own choice. Pure. */
@@ -301,7 +375,8 @@ export async function understandCase(input: UnderstandInput, deps: UnderstandDep
     const raw = await within((deps.reason ?? reasonWithModel)(story, input.chosenCourt), deps.understandMs ?? UNDERSTAND_TIME_MS, "");
     const parsed = raw ? parseUnderstanding(raw) : null;
     if (!parsed) return { status: "unavailable" };
-    const { understanding, points } = parsed;
+    const { points } = parsed;
+    const understanding = withFixedRegime(parsed.understanding, story);
 
     // The reasoning step's points become the draft the checker works on. The
     // checker never sees the reasoning, only each point and the official text.
@@ -313,7 +388,7 @@ export async function understandCase(input: UnderstandInput, deps: UnderstandDep
     const answer = await checkedAnswer(
       {
         question:
-          "What is my next step, including the form and any time limit, which court does this belong in and why, and what law applies to my situation?",
+          "Which court does this belong in and why, what must be shown, which limitation or notice periods apply, and what law applies to my situation?",
         story,
         facts: [
           understanding.stage ? `Where it stands: ${understanding.stage}` : "",
@@ -332,7 +407,10 @@ export async function understandCase(input: UnderstandInput, deps: UnderstandDep
         draft: async () => draft,
       },
     );
-    return { status: "understood", understanding, answer, drafted: points };
+    // The checker's second look can add points of its own; the map's ground is
+    // held here too (s. 2a).
+    const kept = answer.statements.filter((statement) => !isMapOwnedProcedure(statement.text));
+    return { status: "understood", understanding, answer: { ...answer, statements: kept }, drafted: points };
   } catch {
     return { status: "unavailable" };
   }
@@ -346,6 +424,7 @@ function reasonUserPrompt(story: string, chosenCourt?: RetrievalCourt | null): s
       ? `Before writing, the person clicked "${chosenCourt === "small-claims" ? "Small Claims" : chosenCourt === "family" ? "Family" : "Civil"}" on the site's menu. That was a guess before they described anything; decide the court from their facts.`
       : "",
     `TODAY: ${new Date().toISOString().slice(0, 10)}`,
+    `THE SITE'S STEP MAP (choose "step" from the list for your main court):\n${stepCatalogue()}`,
     `THEIR WORDS:\n${story}`,
   ]
     .filter(Boolean)

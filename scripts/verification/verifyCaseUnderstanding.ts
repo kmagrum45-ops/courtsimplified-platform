@@ -15,7 +15,12 @@
  *   - the court the checker reads is the one the reasoning found, not the
  *     menu choice made before the person wrote anything;
  *   - a reply that is not JSON, or no reply in time, answers "unavailable"
- *     (the site falls back to the old front door); it never throws.
+ *     (the site falls back to the old front door); it never throws;
+ *   - the stage map owns the next step, its form and deadline (CLAUDE.md
+ *     s. 2a): a point stating one is never shown, the step is a real step of
+ *     the chosen court's map or none, and a construction lien is the Superior
+ *     Court with no ordinary step suggested (the 2026-10-13 walkthrough was
+ *     told a 20-day Defence was due when nobody had sued him).
  *
  * COSTS NOTHING. No model, no network.
  *
@@ -27,10 +32,14 @@ import type { CheckedAnswerDeps } from "../../src/lib/case-system/retrieval/chec
 import {
   parseUnderstanding,
   retrievalCourtFor,
+  stepCatalogue,
   storyWithAnswers,
   understandCase,
+  validStep,
+  withFixedRegime,
   withoutLaw,
 } from "../../src/lib/case-system/understanding/understandCase";
+import { isMapOwnedProcedure } from "../../src/lib/case-system/procedureOwnership";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -38,6 +47,8 @@ function check(name: string, ok: boolean, detail = "") {
   else {
     failures += 1;
     console.log(`FAIL  ${name}${detail ? `\n      ${detail}` : ""}`);
+    // Shown on the pull request's checks page, where the job log may not be readable.
+    if (process.env.GITHUB_ACTIONS) console.log(`::error title=test:case-understanding::${name}${detail ? `: ${detail.replace(/\n/g, " ").slice(0, 400)}` : ""}`);
   }
 }
 
@@ -63,12 +74,16 @@ const reasoned = {
     { question: "Did you already file Form 11A?", why: "The deadline is within 30 days under the rules." },
   ],
   asksForPrediction: false,
+  step: "plaintiff:defence-period-expired-no-defence",
   points: [
     { text: "The defendant noted in default; you may ask for an assessment of damages.", cites: ["Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03"] },
     { text: "You will likely win because she did not defend.", cites: ["Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03"] },
     { text: "A made-up statute gives you double damages.", cites: ["Invented Damages Act, s. 1"] },
+    { text: "Your next step is to file Form 11A within 30 days.", cites: ["Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03"] },
   ],
 };
+
+const LIEN = "Our interlock contractor did a bad job and when we told him to stop he registered a $60,000 construction lien on our house. What do I do?";
 
 async function main() {
   check("the library loads", Boolean(index));
@@ -139,6 +154,36 @@ async function main() {
     check("a point the check cannot confirm is not shown, only listed", !result.answer.statements.some((s) => /double damages/.test(s.text)) && result.answer.notConfirmed.length > 0);
     check("law the library does not hold is reported as missing", result.answer.missingLaw.some((law) => /Invented Damages Act/.test(law)));
   }
+
+  // ---- 4b. The stage map owns the next step, its form and deadline (s. 2a)
+  check("a point stating a step, form or deadline is never passed on", !parsed!.points.some((point) => /Form 11A/.test(point.text)));
+  check(
+    "map-owned wording is recognised",
+    isMapOwnedProcedure("You must file your Defence within 20 days.") &&
+      isMapOwnedProcedure("Use Form 9A.") &&
+      isMapOwnedProcedure("Your defence is due 20 days after you were served.") &&
+      isMapOwnedProcedure("Your next step is a motion."),
+  );
+  check(
+    "law that is not the person's step is not map-owned",
+    !isMapOwnedProcedure("A claim must be started within two years after the day it was discovered.") &&
+      !isMapOwnedProcedure("The Small Claims Court hears claims up to $50,000."),
+  );
+  check("a fact about what someone did is not an instruction", !isMapOwnedProcedure("She did not file a defence, and you had her noted in default."));
+  check("withoutLaw removes a due date the old filter missed", withoutLaw("You were served. Your defence is due 20 days after service.") === "You were served.");
+  const realStep = parsed!.understanding.step;
+  check("a real step of the chosen court is kept", realStep === "plaintiff:defence-period-expired-no-defence", String(realStep));
+  check("an invented step is dropped", validStep("plaintiff:made-up-step", "small-claims") === null);
+  check("a step from another court's map is dropped", validStep("plaintiff:defence-period-expired-no-defence", "family") === null);
+  check("no step for a tribunal", validStep("plaintiff:defence-period-expired-no-defence", "tribunal") === null);
+  check("the step list covers all three courts", /SMALL-CLAIMS STEPS/.test(stepCatalogue()) && /CIVIL STEPS/.test(stepCatalogue()) && /FAMILY STEPS/.test(stepCatalogue()));
+  const lienRead = withFixedRegime({ ...u, mainCourt: "small-claims", step: "plaintiff:defence-period-expired-no-defence" }, LIEN);
+  check(
+    "a construction lien goes to the Superior Court, with no ordinary step suggested",
+    lienRead.mainCourt === "civil" && lienRead.step === null && lienRead.regime?.id === "construction-lien" && lienRead.regime.ownProcedure,
+    JSON.stringify({ court: lienRead.mainCourt, step: lienRead.step, regime: lienRead.regime }),
+  );
+  check("no rule, no change", withFixedRegime(u, SLANDER) === u);
 
   // ---- 5. Failures fall back, never throw
   const notJson = await understandCase({ story: SLANDER }, { reason: async () => "not json" });

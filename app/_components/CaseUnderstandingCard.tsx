@@ -7,6 +7,7 @@ import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/u
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import CheckedAnswerPanel from "./CheckedAnswerPanel";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
+import StageAnswerPanel from "../builder/_components/StageAnswerPanel";
 
 /**
  * The front door's answer to a person's story (understanding/understandCase.ts,
@@ -17,8 +18,11 @@ import LegalAdviceDeflection from "./LegalAdviceDeflection";
  *      removed before it reaches here) and it is offered as a reading to confirm.
  *   2. What we need to know: the questions whose answers change the court or
  *      the next step. Answering them runs the reading again with the answers.
- *   3. The next step and the law: only statements that passed the check
- *      against the official text, each with its source (CheckedAnswerPanel).
+ *   3. The next step, from the stage map (CLAUDE.md s. 2a): the reading picks
+ *      the step, and StageAnswerPanel shows its form, deadline, filing, fee and
+ *      what comes after from the map, for the person to confirm or change.
+ *   4. The law that applies: only statements that passed the check against
+ *      the official text, each with its source (CheckedAnswerPanel).
  *
  * The court is a suggestion with a button; the person chooses (CLAUDE.md s. 4).
  */
@@ -50,8 +54,13 @@ export default function CaseUnderstandingCard({
   updating,
   onAnswer,
   onContinue,
+  story = "",
+  city = "",
 }: {
   result: UnderstandResponse;
+  /** The person's own words, for the step panel's dates and service. */
+  story?: string;
+  city?: string;
   chosenPath: CourtPath;
   updating: boolean;
   onAnswer: (answers: { question: string; answer: string }[]) => void;
@@ -132,8 +141,33 @@ export default function CaseUnderstandingCard({
         </section>
       )}
 
+      {understanding.regime && (
+        <section className="rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4" data-testid="case-understanding-regime">
+          <p className="text-sm leading-6 text-[#4a3b17]">{understanding.regime.reasoning}</p>
+          {understanding.regime.ownProcedure ? (
+            <p className="mt-2 text-sm leading-6 text-[#4a3b17]" data-testid="case-understanding-not-covered">
+              Our step-by-step guide does not cover this kind of proceeding yet, so we are not listing steps, forms or
+              deadlines for it. The law below is checked against the official text.
+            </p>
+          ) : null}
+        </section>
+      )}
+
+      {suggested && !understanding.regime?.ownProcedure && (
+        <section data-testid="case-understanding-next-step">
+          <StageAnswerPanel
+            courtPath={suggested}
+            suggestedStepId={understanding.step}
+            responding={understanding.side === "responding"}
+            storyText={story}
+            userWords={story}
+            city={city}
+          />
+        </section>
+      )}
+
       <section>
-        <h3 className="font-bold text-[#10231f]">Your next step and the law that applies</h3>
+        <h3 className="font-bold text-[#10231f]">The law that applies</h3>
         <div className="mt-2">
           {answer.status === "answered" || answer.declinedToJudge || answer.status === "outside-scope" ? (
             <>

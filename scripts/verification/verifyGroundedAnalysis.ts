@@ -127,7 +127,10 @@ const model = {
     { title: "Misquoted real source", explanation: "The deadline is 90 days.", sourceIds: [good.id], quote: "the deadline is ninety days from anything at all" },
     { title: "Grounded", explanation: "A time limit applies at this stage.", sourceIds: [good.id], quote: goodQuote },
   ],
-  formRecommendations: [{ formNumber: "99Z", title: "Form 99Z", reason: "Use this form." }],
+  formRecommendations: [
+    { formNumber: "99Z", title: "Form 99Z", reason: "Use this form." },
+    { formNumber: "9A", title: "Grounded form", reason: "A time limit applies at this stage.", sourceIds: [good.id], quote: goodQuote },
+  ],
   evidenceIssueLinks: [{ issueLabel: "Invoice", requiredProof: "This proves the debt under the Sale of Goods Act.", explanation: "You recorded an invoice." }],
   missingInformation: [{ field: "x", question: "When did you send the invoice?", reason: "You must serve within 6 months under the rules." }],
   nextBestActions: [
@@ -146,6 +149,7 @@ check("gate: a real citation with words the source does not say is removed", !ou
 check("gate: a correctly grounded risk is kept", out.includes('"title":"Grounded"'));
 check("gate: the kept risk carries its official link", (cognition.litigationRisks as { sourceUrl?: string }[])[0]?.sourceUrl === good.sourceUrl);
 check("gate: a form with no source is removed", (cognition.formRecommendations as unknown[]).length === 0);
+check("gate: forms come from the stage map, so even a form with a verified quote is removed (CLAUDE.md s. 2a)", !out.includes("Grounded form"));
 check("gate: a legal next step with no source is removed", !out.includes("File your Defence within 20 days"));
 check("gate: a practical next step with no law in it is kept", out.includes("Gather the invoice and your texts"));
 check("gate: a grounded next step is kept with its link", JSON.stringify(cognition.nextBestActionSources).includes(good.sourceUrl));
