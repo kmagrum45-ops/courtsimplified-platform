@@ -32,6 +32,11 @@
  *   6. An injury date read from a later medical event in the same line
  *      (review 2026-10-13: "september 30 2026 fell, october 1 surgery" gave
  *      October 1).
+ *   7. A confirmed stage lost because the site's own server was too busy
+ *      (2026-10-14, run 38511243860, RN: four saves aborted at ten seconds,
+ *      and the Overview asked again). A position save reaches the case even
+ *      when the route never answers, never erases a save made at the same
+ *      moment, and never stores an invalid value.
  *
  * Run: node --import tsx scripts/verification/verifyCasePosition.ts
  */
@@ -57,7 +62,15 @@ import { ALL_STAGES, stagesForPathway } from "../../src/lib/case-system/stage-ma
 import { computedDeadlinesFor, countFromDate } from "../../src/lib/content-library/computedDeadline";
 import { caseStepFor, noticeStepForCase } from "../../src/lib/case-system/caseStep";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
-import { POSITION_SAVE_TIMEOUT_MS, positionSavesSettled, postWithTimeout, trackPositionWork } from "../../app/builder/_components/positionSave";
+import {
+  POSITION_SAVE_TIMEOUT_MS,
+  positionSavesSettled,
+  postWithTimeout,
+  savePositionDirect,
+  savePositionQueued,
+  setPositionClientForChecks,
+  trackPositionWork,
+} from "../../app/builder/_components/positionSave";
 
 let failures = 0;
 function check(name: string, ok: boolean, detail = "") {
@@ -567,6 +580,108 @@ void (async () => {
   globalThis.fetch = realFetch;
   assert("saves: a save request that hangs is given up after its timeout", ok === false && Date.now() - startedPost < 2_000);
   assert("saves: the save timeout is at most 10 seconds", POSITION_SAVE_TIMEOUT_MS > 0 && POSITION_SAVE_TIMEOUT_MS <= 10_000);
+
+  // ---- 7. A confirmed stage reaches the case even when the site's own
+  // server is too busy to answer (walkthrough run 38511243860, RN): all four
+  // saves of the Small Claims guided defendant's stage ended
+  // "POST /api/cases/position failed: net::ERR_ABORTED", the Overview and a
+  // reload asked "Yes, that is right" again. Reproduced here: the route never
+  // answers, and the stage must still be on the case, everything else on it
+  // kept. Properties, not values: any valid patch lands; an invalid one never
+  // does; a save made at the same moment is not erased.
+  type Row = { court_path: string; master_result: Record<string, unknown>; updated_at: string };
+  const fakeCases = (row: Row) => {
+    let stamp = 0;
+    const hooks: { beforeWrite: (() => void) | null } = { beforeWrite: null };
+    const db = {
+      from() {
+        return {
+          select(columns: string) {
+            const chain = {
+              eq: () => chain,
+              maybeSingle: async () => ({
+                data: /master_result/.test(columns)
+                  ? { master_result: JSON.parse(JSON.stringify(row.master_result)), updated_at: row.updated_at }
+                  : { court_path: row.court_path },
+                error: null,
+              }),
+            };
+            return chain;
+          },
+          update(values: { master_result: Record<string, unknown> }) {
+            const filters: [string, string][] = [];
+            const chain = {
+              eq: (column: string, value: string) => {
+                filters.push([column, value]);
+                return chain;
+              },
+              select: async () => {
+                const hook = hooks.beforeWrite;
+                hooks.beforeWrite = null;
+                hook?.();
+                const expected = filters.find(([column]) => column === "updated_at")?.[1];
+                if (expected !== undefined && expected !== row.updated_at) return { data: [], error: null };
+                row.master_result = values.master_result;
+                row.updated_at = `2026-10-14T00:00:${String((stamp += 1)).padStart(2, "0")}Z`;
+                return { data: [{ id: "case" }], error: null };
+              },
+            };
+            return chain;
+          },
+        };
+      },
+    };
+    return { db, hooks };
+  };
+  const asRecordOf = (value: unknown): Record<string, unknown> => (value && typeof value === "object" ? (value as Record<string, unknown>) : {});
+  const hungFetch = globalThis.fetch;
+  globalThis.fetch = ((_url: unknown, init?: RequestInit) => {
+    return new Promise((_resolve, reject) => init?.signal?.addEventListener("abort", () => reject(new Error("net::ERR_ABORTED"))));
+  }) as typeof fetch;
+  try {
+    for (const court of ["small-claims", "civil", "family"] as const) {
+      const row: Row = { court_path: court, master_result: { intakeData: { courtPath: court }, casePicture: { kept: true } }, updated_at: "2026-10-14T00:00:00Z" };
+      const { db } = fakeCases(row);
+      setPositionClientForChecks(db as never);
+      const caseId = `rn-${court}`;
+      const saved = await savePositionQueued(caseId, { confirmedStage: "responding" });
+      await positionSavesSettled(caseId, 5_000);
+      const position = readCasePosition(row.master_result, court);
+      assert(
+        `saves (${court}): a confirmed stage is on the case though the position route never answers`,
+        saved === true && position.confirmedStage === "responding" && Boolean(asRecordOf(row.master_result).casePicture) && Boolean(asRecordOf(row.master_result).intakeData),
+      );
+    }
+
+    // A save at the same moment (the case reader's write) is not erased: the
+    // stage is re-applied on top of it.
+    const row: Row = { court_path: "small-claims", master_result: { intakeData: {} }, updated_at: "2026-10-14T00:00:00Z" };
+    const { db, hooks } = fakeCases(row);
+    hooks.beforeWrite = () => {
+      row.master_result = { ...row.master_result, casePicture: { written: "meanwhile" } };
+      row.updated_at = "2026-10-14T00:00:30Z";
+    };
+    const outcome = await savePositionDirect(db as never, "case-x", { confirmedStage: "starting-case" });
+    assert(
+      "saves: a save made between the read and the write is kept, and the stage lands on top of it",
+      outcome === "saved" && readCasePosition(row.master_result, "small-claims").confirmedStage === "starting-case" && Boolean(asRecordOf(row.master_result).casePicture),
+    );
+
+    // Refused, never stored: an unknown stage, a step from another court.
+    const before = JSON.stringify(row.master_result);
+    const unknown = await savePositionDirect(db as never, "case-x", { confirmedStage: "winning" });
+    const otherCourt = stagesForPathway("family")[0]?.id;
+    const wrongStep = await savePositionDirect(db as never, "case-x", { stepId: otherCourt });
+    assert(
+      "saves: an unknown stage or another court's step is refused and nothing is written",
+      unknown === "refused" && wrongStep === "refused" && JSON.stringify(row.master_result) === before,
+    );
+    setPositionClientForChecks(fakeCases(row).db as never);
+    assert("saves: a refused save is reported as not saved", (await savePositionQueued("case-x", { confirmedStage: "winning" })) === false);
+  } finally {
+    setPositionClientForChecks(null);
+    globalThis.fetch = hungFetch;
+  }
   console.log(asyncFailures ? `\n${asyncFailures} save-timing check(s) failed.` : "\nAll save-timing checks passed.");
   if (asyncFailures) process.exitCode = 1;
 })();
