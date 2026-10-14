@@ -34,7 +34,10 @@
  *     names it before the notice.
  *   - (walkthrough 2026-10-14) a notice step's "then" lines without where to
  *     file the claim for the person's city, or without how to serve a
- *     municipality when the notice kept is to one (or with it when not).
+ *     municipality when the notice kept is to one (or with it when not);
+ *     a respondent whose words show only parenting shown Form 13 as a form
+ *     for the step instead of under r. 13 (1) (b)'s condition, or Form 13
+ *     folded for words about support, money or property, or for no words.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -363,21 +366,33 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
       }),
     );
   check("folding a form never loses it (every family step, three stories)", foldedLost.length === 0, foldedLost.join("; "));
-  // Review 2026-10-13: r. 13 (1) (b) binds the party a support or property
-  // claim is made against, answer or not -- so a responding step never folds
-  // the financial statement, whatever the words; elsewhere it folds only when
-  // the words show no support or money at all.
-  const respondingFolds = steps
-    .filter((stage) => pathwayOf(stage) === "family" && respondingStep(stage.id, false))
-    .flatMap((stage) =>
-      [PARENTING, "something happened"].flatMap((words) =>
-        [false, true].flatMap((responding) =>
-          (practicalFor(stage.id, "family", "", responding, words)?.formsIfClaimed ?? []).filter((form) => form.number === "13" || form.number === "13.1").map(() => `${stage.id} "${words}"`),
-        ),
-      ),
-    );
-  check("a responding step never folds the financial statement (r. 13 (1) (b))", respondingFolds.length === 0, respondingFolds.join("; "));
-  check("a respondent to a parenting application keeps Form 13 as a form", Boolean(parenting?.forms.some((form) => form.number === "13")));
+  // Walkthrough 2026-10-14, FR (replacing "a responding step never folds" of
+  // 2026-10-13): r. 13 (1) (b) binds the party a support or property claim is
+  // made against -- so for a respondent whose words show parenting and no
+  // money, Form 13 is folded under that condition, quoted; with money words
+  // or no words it stays a form for the step. Never lost either way.
+  const respondingSteps = steps.filter((stage) => pathwayOf(stage) === "family" && respondingStep(stage.id, false) && STEP_PRACTICAL[stage.id].forms.some((form) => /^(?:family:)?13(?:\.1)?$/.test(form)));
+  const respondingWrong: string[] = [];
+  for (const stage of respondingSteps) {
+    for (const responding of [false, true]) {
+      const parentingView = practicalFor(stage.id, "family", "", responding, PARENTING);
+      const folded13 = (parentingView?.formsIfClaimed ?? []).filter((form) => form.number === "13" || form.number === "13.1");
+      if (folded13.length === 0 || parentingView?.forms.some((form) => form.number === "13" || form.number === "13.1")) respondingWrong.push(`${stage.id}: parenting words not folded`);
+      if (!folded13.every((form) => form.when.cite.pinpoint === "r. 13 (1) (b)" && /the party against whom the claim is made/.test(form.when.cite.quote) && /only if/.test(form.when.say))) respondingWrong.push(`${stage.id}: condition not r. 13 (1) (b)`);
+      for (const words of ["", "she wants child support from me too", "he is asking for the house", "i pay her money every month"]) {
+        const view = practicalFor(stage.id, "family", "", responding, words);
+        if ((view?.formsIfClaimed ?? []).some((form) => form.number === "13" || form.number === "13.1")) respondingWrong.push(`${stage.id}: folded for "${words}"`);
+      }
+    }
+  }
+  check("a respondent's Form 13 is folded under r. 13 (1) (b) for parenting-only words, and never for money, property or no words", respondingSteps.length > 0 && respondingWrong.length === 0, respondingWrong.slice(0, 6).join("; "));
+  {
+    const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
+    const words = userWordsOf({ facts: [persona.story, ...Object.values(persona.fields ?? {})].join("\n"), extra: { issues: persona.issues, yourCity: persona.city } });
+    const view = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words);
+    check("persona family-respondent-parenting (story and answers): Form 13 is under its r. 13 (1) (b) condition", Boolean(view?.formsIfClaimed.some((form) => form.number === "13" && form.when.cite.pinpoint === "r. 13 (1) (b)")));
+  }
+  check("a respondent to a parenting application sees Form 13 under its condition, not as a form for the step",Boolean(parenting?.formsIfClaimed.some((form) => form.number === "13")) && !parenting?.forms.some((form) => form.number === "13"));
   const startParenting = practicalFor("family:before-filing:deciding-where-to-start", "family", "", false, PARENTING);
   check(
     "starting a parenting-only case: Form 13 is folded with r. 13 (1) (a) and (b)",
