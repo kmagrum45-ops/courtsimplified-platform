@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-141 documented, 28 without a header.
+142 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -29,6 +29,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-record` | **The case record reads every fact from wherever the intake that wrote it put**<br>it, a confirmed answer wins over an intake one, and the pages read it instead of asking again. Master plan Phase 1 (docs/MASTER_PLAN.md). |
 | `npm run test:case-review` | **The case review points at gaps in the user's own record, grounded in their**<br>own words, and never grades, advises or invents. |
 | `npm run test:case-reviews` | **Runs the 10 fabricated fixtures in fixtures/caseReviews/ through the**<br>SAME real pipeline runFixtures.ts uses (pipelineRunner.ts -- no second, independently-maintained copy of the turn loop), and writes one full, human-readable "case review" markdown file per case, plus an index that itemizes all 10 with a one-line description of |
+| `npm run test:case-write-queue` | **No two writes to the same case's row are in flight at once from the builder,**<br>the case pages and the Forms page, and nothing can stall their one queue. |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:checked-answer` | **Checked answers show only what the official text supports.**<br>WHAT THIS CATCHES: an answer the site shows without proof. The checked answer (retrieval/checkedAnswer.ts) lets the model answer first and then checks every statement against the library. This suite drives that pipeline with a fake drafter and a fake checker o |

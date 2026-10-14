@@ -324,6 +324,8 @@ async function main() {
       ["scripts/verification/runMutationTests.ts", "the local site"],
       ["scripts/verification/runSecurityAudit.ts", "Supabase and the local site"],
       ["scripts/verification/verifyAssistantLaw.ts", "the local site"],
+      // No network at all: `fetch(` appears only in a stubbed globalThis.fetch and in synthetic sources its scanner is tested on.
+      ["scripts/verification/verifyCaseWriteQueue.ts", "nothing (a stubbed fetch)"],
       ["scripts/verification/verifyGuidedAssistantContext.mjs", "the local site"],
       ["scripts/verification/verifyWorkspaceRls.ts", "Supabase"],
     ]);

@@ -98,15 +98,34 @@ export default function DashboardPage() {
       return;
     }
     setEmail(user.email || "");
+    /*
+     * ONLY THE PARTS OF EACH CASE THE CARDS SHOW (2026-10-14, run
+     * 38525903567). This read every case's whole master_result -- the
+     * analysis, the intake, the reading, several copies of each -- to show a
+     * stage, a draft count and the other party's name. PostgREST's JSON paths
+     * read just those three.
+     */
     const { data, error: loadError } = await supabase
       .from("cases")
-      .select("id,title,court_path,status,current_stage,created_at,updated_at,master_result")
+      .select(
+        "id,title,court_path,status,current_stage,created_at,updated_at,position:master_result->position,drafts:master_result->drafts,otherParty:master_result->intakeData->otherParty",
+      )
       .order("updated_at", { ascending: false });
     if (loadError) {
       setError("Your cases could not be loaded. Please refresh the page.");
       setCases([]);
     } else {
-      setCases((data || []) as CaseRecord[]);
+      type Row = Omit<CaseRecord, "master_result"> & { position?: unknown; drafts?: unknown; otherParty?: unknown };
+      setCases(
+        ((data || []) as unknown as Row[]).map(({ position, drafts, otherParty, ...row }) => ({
+          ...row,
+          master_result: {
+            ...(position !== null && position !== undefined ? { position } : {}),
+            ...(drafts !== null && drafts !== undefined ? { drafts } : {}),
+            ...(otherParty !== null && otherParty !== undefined ? { intakeData: { otherParty } } : {}),
+          },
+        })) as CaseRecord[],
+      );
     }
     setLoading(false);
   }

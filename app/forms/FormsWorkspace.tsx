@@ -31,6 +31,7 @@ import {
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
 import GetHelp from "../_components/GetHelp";
+import { caseRouteWrite } from "../builder/_components/positionSave";
 import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
@@ -746,13 +747,15 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       return;
     }
     const patch = onlyPatch ?? applicabilityPatch();
-    const response = await fetch("/api/cases/form-applicability", {
+    // The route rewrites the case's row: sent from inside the case's one write
+    // queue (positionSave.ts, 2026-10-14), never beside another save of it.
+    const response = await caseRouteWrite(caseId, "/api/cases/form-applicability", {
       method: "PATCH",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
       body: JSON.stringify({ caseId, formApplicability: patch }),
     });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) {
+    const result = response ? await response.json().catch(() => ({})) : {};
+    if (!response?.ok) {
       setApplicabilityError(result.error || "Could not save form confirmations.");
       setApplicabilitySaving(false);
       return;
