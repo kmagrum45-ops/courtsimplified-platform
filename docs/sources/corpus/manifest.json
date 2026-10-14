@@ -3659,6 +3659,18 @@
       "characters": 25038,
       "lines": 217,
       "file": "mb-courts-definitions.txt"
+    },
+    {
+      "id": "oreg-417-95-family-court-fees",
+      "title": "Superior Court of Justice - Family Court - Fees",
+      "citation": "O. Reg. 417/95",
+      "url": "https://www.ontario.ca/laws/docs/950417_e.doc",
+      "retrievedAt": "2026-10-14T04:13:52.384Z",
+      "sha256": "36e9f8b7de6cb51572a84e0c27fe0cae69c9a96195bcd9cfb0b51656974b3abb",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 19, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 4495,
+      "lines": 85,
+      "file": "oreg-417-95-family-court-fees.txt"
     }
   ],
   "failures": []
