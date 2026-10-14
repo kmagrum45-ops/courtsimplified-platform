@@ -159,15 +159,8 @@ type UnguardedPath = {
  * covering the product while covering two paragraphs.
  */
 const UNGUARDED: UnguardedPath[] = [
-  {
-    file: "app/builder/_components/StageConfirmation.tsx",
-    what: "the next-step catalogue blocks",
-    reason:
-      "The text is read directly out of nextSteps.ts, which is the library the " +
-      "guard checks against. Routing it through the guard would be asking the " +
-      "library whether its own contents are in the library. What the guard would " +
-      "add is the REQUIRE_APPROVED_CONTENT check, which is the real gap here.",
-  },
+  // app/builder/_components/StageConfirmation.tsx came off this list on
+  // 2026-10-14: it no longer shows anything from nextSteps.ts (CLAUDE.md s. 2a).
   {
     file: "app/_components/PathwayUnavailable.tsx",
     what: "the phase-1 unavailable message and referral list",

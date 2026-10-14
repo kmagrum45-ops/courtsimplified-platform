@@ -7,7 +7,6 @@ import FormsNamedHere from "../../../_components/FormsNamedHere";
 import NextStepPractical from "../../../_components/NextStepPractical";
 import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import FormsWorkspace from "../../../forms/FormsWorkspace";
-import { isPlaceholder, nextStepBlockFor } from "@/src/lib/content-library/nextSteps";
 import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { useCaseHome } from "../../_components/CaseHomeContext";
 import { noticeStepForCase } from "@/src/lib/case-system/caseStep";
@@ -43,14 +42,10 @@ export default function CaseFormsSection() {
     }
     // Every civil and family step now has a written answer (run-19), so all
     // three courts read the forms from the same answer the user was shown.
-    // The short next-step block stays as the fallback for a step without one.
-    const court = courtPath;
-    const stage = position.confirmedStage;
-    const fallback = () => {
-      if (court === "small-claims") return [];
-      const block = nextStepBlockFor(court, stage);
-      return block && !isPlaceholder(block) ? [block.text] : [];
-    };
+    // No fallback to the older coarse next-step blocks (2026-10-14, CLAUDE.md
+    // s. 2a: one copy of procedure). A step with no answer names no forms here;
+    // the catalogue below still lists every form.
+    const fallback = (): string[] => [];
     if (!stepId) {
       setStepTexts(fallback());
       return;
