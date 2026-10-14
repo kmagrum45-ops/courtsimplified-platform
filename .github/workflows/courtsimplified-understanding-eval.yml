@@ -62,6 +62,8 @@ jobs:
         run: |
           set -o pipefail
           args=(--confirm)
+          # A push run takes its stories from next-run.txt (blank = all), to keep a re-check small.
+          if [ -z "${IDS}" ] && [ "${GITHUB_EVENT_NAME}" = "push" ] && [ -f scripts/eval/understanding/next-run.txt ]; then IDS="$(tr -d ' \n' < scripts/eval/understanding/next-run.txt)"; fi
           if [ -n "${IDS}" ]; then args+=(--ids "${IDS}"); fi
           if [ -n "${ONLY}" ]; then args+=(--only "${ONLY}"); fi
           node --import tsx scripts/eval/understandingCompare.ts "${args[@]}" 2>&1 | tee understanding.log
