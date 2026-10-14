@@ -132,6 +132,10 @@ console.log("\n3. Saved with the case");
 console.log("\n4. How it was served, from the story (pre-selected, not applied unseen)");
 check("'handed me the plaintiffs claim at my door' is in person", serviceMethodFromStory("small-claims", "someone handed me the plaintiffs claim at my door on october 1") === "personal");
 check("'got the plaintiffs claim in the mail' is mail", serviceMethodFromStory("small-claims", "i got the plaintiffs claim in the mail on september 28") === "mail");
+// Walkthrough RN (2026-10-13): every everyday way of saying it came by mail.
+for (const words of ["the claim came by mail on september 28", "they mailed me the plaintiffs claim", "it came in the mail last week", "i got it by mail"]) {
+  check(`'${words}' is mail`, serviceMethodFromStory("small-claims", words) === "mail", String(serviceMethodFromStory("small-claims", words)));
+}
 check("Small Claims registered mail signed for is its own method", serviceMethodFromStory("small-claims", "it came by registered mail and i signed for it") === "registered-mail-signature");
 check("a story that says nothing gives nothing", serviceMethodFromStory("civil", "i got served a statement of claim") === null);
 check("a story naming two ways gives nothing", serviceMethodFromStory("family", "they emailed it and then handed me the papers") === null);

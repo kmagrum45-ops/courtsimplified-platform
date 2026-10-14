@@ -345,7 +345,10 @@ const STORY_CUES: Record<string, RegExp> = {
   "case-date-trial-date": /\btrial\b/i,
   "case-date-motion-hearing-date": /\bmotion\b.*\b(heard|hearing|scheduled|date)\b/i,
   "case-date-served-with-notice-of-appeal": /\bnotice of appeal\b/i,
-  "case-date-order-made": /\b(judge|court) (?:made|gave|issued) (?:an |a |the )?order\b|\border was made\b/i,
+  // Walkthrough JU (2026-10-13): "i won my small claims case against my old
+  // roommate in may, the judge said he owes me 6500" was not read as the
+  // order, so the six-year enforcement limit was never tied to May.
+  "case-date-order-made": /\b(judge|court) (?:made|gave|issued|granted) (?:an |a |the |me )?(?:order|judg(?:e)?ment)\b|\b(?:order|judg(?:e)?ment) was (?:made|given|granted)\b|\bwon (?:my|the|our) (?:small claims |court )?(?:case|claim|trial|lawsuit)\b|\b(?:got|have|obtained|was given|was awarded) (?:a |the )?judg(?:e)?ment\b|\bjudg(?:e)?ment (?:in my favou?r|for me)\b|\b(?:judge|court) (?:said|ordered|found) (?:that )?(?:he|she|they|it|the \w+) (?:owes?|has to pay|must pay|to pay)\b/i,
   "case-date-defence-served": /\bstatement of defen[cs]e\b/i,
   "case-date-served-with-request-to-admit": /\brequest to admit\b/i,
   "case-date-mediation-session-date": /\bmediation\b/i,
