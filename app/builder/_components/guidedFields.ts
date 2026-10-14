@@ -13,7 +13,16 @@
  */
 
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
-import { amountFromStory, childrenFromStory, civilRoleFromStory, familyRoleFromStory, goalFromStory } from "./storyAnswers";
+import {
+  amountFromStory,
+  childrenFromStory,
+  civilRoleFromStory,
+  familyRoleFromStory,
+  goalFromStory,
+  otherPartyFromStory,
+  otherPartyNameFromStory,
+  servedDateFromStory,
+} from "./storyAnswers";
 
 const storyOf = (values: GuidedValues) => (typeof values.facts === "string" ? values.facts : "");
 
@@ -22,6 +31,32 @@ const has = (values: GuidedValues, key: string, ...wanted: string[]) => {
   const list = Array.isArray(value) ? value : value ? [value] : [];
   return list.some((item) => wanted.includes(item));
 };
+
+/*
+ * A family respondent's service date (2026-10-13, walkthrough V2: the chat
+ * ended "That's everything we need for now" without asking when a served
+ * parent was served, the day their time to answer counts from). It is kept
+ * as one line of the family form's own Timeline, because the timeline is
+ * what the step page already reads for dates (storyHintsForDates on
+ * app/builder/page.tsx and app/cases/[id]/page.tsx), so the date reaches the
+ * deadline count with no new place to store it. The person sees the line in
+ * their Timeline and can change it there.
+ */
+export const SERVED_LINE = "I was served with the court papers on: ";
+
+/** The service date kept in the timeline, or "" when none is. */
+export function servedDateOf(timeline: string): string {
+  const line = timeline.split("\n").find((entry) => entry.startsWith(SERVED_LINE));
+  return line ? line.slice(SERVED_LINE.length).trim() : "";
+}
+
+/** The timeline with its service-date line set to this date (replaced, never doubled). */
+export function withServedDate(timeline: string, date: string): string {
+  const kept = timeline.split("\n").filter((entry) => !entry.startsWith(SERVED_LINE));
+  while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
+  const cleaned = date.trim();
+  return [...kept, ...(cleaned ? [`${SERVED_LINE}${cleaned}`] : [])].join("\n");
+}
 
 export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: GuidedChoice[] }): GuidedField[] {
   return [
@@ -72,6 +107,16 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       when: (values) => has(values, "issues", "decision-making-responsibility", "parenting-time", "child-support", "relocation"),
     },
     {
+      key: "servedDate",
+      label: "When you were served",
+      fromStory: (values) => servedDateFromStory(storyOf(values)),
+      question: "What day were you served with the court papers? If you're not sure of the exact day, you can leave this for now.",
+      why: "We count your deadline to answer the papers from the day you were served, so this is the date we count it from.",
+      kind: "text",
+      // Someone who has already filed their answer is past that deadline.
+      when: (values) => has(values, "yourRole", "respondent") && !has(values, "filedDocuments", "answer"),
+    },
+    {
       key: "upcomingCourtDate",
       label: "Court date",
       question: "Is there a court date coming up? If so, what is it and when?",
@@ -90,6 +135,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "otherParty",
       label: "The other person",
+      // The question asks for a name: only a name the story gives is offered.
+      fromStory: (values) => otherPartyNameFromStory(storyOf(values)),
       question: "What is the other person's name? You can leave this for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",
@@ -156,6 +203,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "serviceDetails",
       label: "When and how you were served",
+      fromStory: (values) => servedDateFromStory(storyOf(values)),
       question: "When were you served with the papers, and how (in person, by mail, by email)?",
       why: "We use the date and the way you were served to count your deadline.",
       kind: "text",
@@ -180,6 +228,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "otherParty",
       label: "The other side",
+      fromStory: (values) => otherPartyFromStory(storyOf(values)),
       question: "Who is the other side (a person or a business)? You can leave the name for later.",
       why: "It goes on your forms. Nothing else depends on it.",
       kind: "text",

@@ -5,6 +5,12 @@
  * asking for it cold. Each reader returns null unless the words say it
  * plainly; nothing here is ever applied without being shown.
  *
+ * Widened 2026-10-13 (walkthrough, R2/V2): the chat asked "Are you suing
+ * someone?" and "Who is the other side?" after "i want to sue the city", and
+ * "What would you like to happen?" after "how do i get it lowered". Each
+ * reader is checked against every walkthrough story, and against questions
+ * and hypotheticals it must leave alone, by scripts/verification/verifyStoryAnswers.ts.
+ *
  * Pure: no browser, no network, no model.
  */
 
@@ -17,62 +23,178 @@ function sentences(story: string): string[] {
     .filter(Boolean);
 }
 
-function firstSentence(story: string, pattern: RegExp): string | null {
-  return sentences(story).find((sentence) => pattern.test(sentence)) ?? null;
+/*
+ * Words that make what follows a question, a doubt or a "what if" rather than
+ * something the person says is so: "if someone sues me", "i dont know if i
+ * want to sue", "should i sue", "what do i need".
+ */
+const HEDGE_BEFORE =
+  /\b(?:if|whether|what|how|when|where|why|which|who|know|sure|wonder(?:ing)?|thinking (?:about|of)|considering|should|could|would|might|can|do|does|did|worried|afraid|scared|maybe|unless)\b[^,;]*$/i;
+
+/** The clause the match sits in, up to the match: from the last comma, semicolon, "and", "but" or "so". */
+function clauseBefore(sentence: string, index: number): string {
+  const before = sentence.slice(0, index);
+  const cut = Math.max(
+    before.lastIndexOf(","),
+    before.lastIndexOf(";"),
+    ...[...before.matchAll(/\b(?:and|but|so|then|because|now)\b/gi)].map((match) => (match.index ?? 0) + match[0].length),
+  );
+  return before.slice(cut + 1);
 }
 
-const SUED_ME =
-  /\b(?:su(?:ing|ed|es) me|(?:got |was |been )?served (?:me )?(?:with )?(?:a |the )?(?:statement of claim|claim|papers|application)|served me|took me to court|taking me to court|started a (?:court )?case against me|(?:filed|brought) (?:a |an )?(?:claim|case|application) against me|i got served|(?:got|received) (?:a |the )?statement of claim)\b/i;
-const I_SUE =
-  /\b(?:i (?:want|need|would like|plan) to (?:sue|take (?:him|her|them|my \w+) to court|start a (?:court )?case|file (?:a |an )?(?:claim|application)|apply)|i(?:'m| am|m) suing|im suing|i sued|i filed (?:a |an |my )?(?:claim|application|case))\b/i;
-
-/** Civil: "plaintiff" or "defendant", when the story says which plainly. */
-export function civilRoleFromStory(story: string): StoryAnswer | null {
-  const sued = firstSentence(story, SUED_ME);
-  const suing = firstSentence(story, I_SUE);
-  if (sued && !suing) return { value: "defendant", quote: sued };
-  if (suing && !sued) return { value: "plaintiff", quote: suing };
-  return null;
-}
-
-/** Family: "applicant" or "respondent", when the story says which plainly. */
-export function familyRoleFromStory(story: string): StoryAnswer | null {
-  const sued = firstSentence(story, SUED_ME);
-  const starting = firstSentence(story, I_SUE);
-  if (sued && !starting) return { value: "respondent", quote: sued };
-  if (starting && !sued) return { value: "applicant", quote: starting };
-  return null;
-}
-
-const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d+(?:\.\d+)?\s?k\b|\b\d{3,7}\s?dollars\b|\b(?:for|owe[sd]?|of|paid|lent|worth|costs?|claim(?:ing)?)\s+\$?\d{3,7}\b|\b\d{4,7}\b/i;
-
-/** The first amount of money the story names ("75,000", "$5,200", "for 68000"); never a year. */
-export function amountFromStory(story: string): StoryAnswer | null {
-  for (const sentence of sentences(story)) {
-    const match = MONEY.exec(sentence);
-    if (!match) continue;
-    const digits = match[0].replace(/[^\d.k]/gi, "");
-    const number = /k$/i.test(digits) ? Number(digits.slice(0, -1)) * 1000 : Number(digits);
-    if (!Number.isFinite(number) || number <= 0) continue;
-    // "in 2022", "since 2019": a year, not money.
-    if (number >= 1900 && number <= 2100 && !/[$,]|dollars/i.test(match[0])) continue;
-    return { value: `$${number.toLocaleString("en-CA")}`, quote: sentence };
+/** The first place the pattern matches as something the person says is so, not asks or wonders. */
+function plainMatch(sentence: string, pattern: RegExp): RegExpExecArray | null {
+  const global = new RegExp(pattern.source, pattern.flags.includes("g") ? pattern.flags : `${pattern.flags}g`);
+  for (const match of sentence.matchAll(global)) {
+    const clause = clauseBefore(sentence, match.index ?? 0);
+    if (HEDGE_BEFORE.test(clause)) continue;
+    // "can i sue him?": a question, whatever its words.
+    if (/\?\s*$/.test(sentence) && /^\s*(?:can|could|should|would|will|do|does|is|are|what|how|when|who)\b/i.test(clause)) continue;
+    return match as RegExpExecArray;
   }
   return null;
 }
 
+function firstPlain(story: string, pattern: RegExp): string | null {
+  return sentences(story).find((sentence) => plainMatch(sentence, pattern)) ?? null;
+}
+
+const OTHER_PERSON = "(?:he|she|they|my (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner))?|wife|husband|partner|spouse|former \\w+|old \\w+|\\w+'?s? (?:mom|mother|dad|father)|landlord|boss|employer|tenant)|the (?:other \\w+|plaintiff|applicant|landlord|city|company))";
+
+/** They are the one being sued, or answering a case someone else started. */
+const SUED_ME = new RegExp(
+  [
+    "\\bsu(?:ing|ed|es) me\\b",
+    "\\b(?:got|was|been|were|get|getting) (?:just )?served\\b",
+    "\\bserved me\\b",
+    "\\btook me to court\\b",
+    "\\btaking me to court\\b",
+    "\\bstarted a (?:court |family )?case against me\\b",
+    `\\b${OTHER_PERSON} (?:started|opened|filed|brought) (?:a |an )?(?:court |family )?(?:case|application|claim)\\b`,
+    "\\b(?:filed|brought) (?:a |an )?(?:claim|case|application) against me\\b",
+    "\\bi got served\\b",
+    "\\b(?:got|received) (?:a |the )?statement of claim\\b",
+    "\\b(?:a )?process server (?:gave|handed|served|brought) me\\b",
+    "\\b(?:gave|handed) me (?:the |some )?(?:court )?(?:papers|application|claim)\\b",
+    "\\bi (?:filed|served|did) my (?:answer|statement of defen[cs]e|defen[cs]e)\\b",
+  ].join("|"),
+  "i",
+);
+
+/** They start the case (or have started it): a plain statement, so it wins over a want. */
+const I_START = new RegExp(
+  [
+    "\\bi (?:want|need|would like|plan|am going|'m going|m going) to (?:sue|take (?:him|her|them|my \\w+(?: \\w+)?) to court|start a (?:court |family )?case|file (?:a |an )?(?:claim|application)|apply)\\b",
+    "\\bi(?:'m| am|m) suing\\b",
+    "\\bim suing\\b",
+    "\\bi sued\\b",
+    "\\bi (?:filed|started|opened|brought) (?:a |an |my )?(?:court |family )?(?:claim|application|case)\\b",
+  ].join("|"),
+  "i",
+);
+
+/** Family: what only the person starting a case (or changing an order) asks the court for. */
+const FAMILY_WANT_ORDER = new RegExp(
+  [
+    "\\bi (?:want|need|would like) (?:a |to get a |to get an )?(?:divorce|court order|order)\\b",
+    "\\bi (?:want|need|would like) to get (?:\\w+ )?(?:support|custody|parenting time|access) ordered\\b",
+    "\\bi (?:want|need|would like) (?:to get )?(?:something|help|protection|an order) from (?:the )?court\\b",
+    "\\bhow (?:do|can|would) i (?:get|have) (?:it|my \\w+(?: \\w+)?|the \\w+(?: \\w+)?) (?:lowered|changed|reduced|varied|increased|stopped|cancelled|canceled)\\b",
+    "\\bi (?:want|need|would like) to (?:lower|change|reduce|vary) (?:my|the|our) (?:\\w+ )?(?:support|order|payments?)\\b",
+  ].join("|"),
+  "i",
+);
+
+/** Civil: wanting money back from someone is wanting to be the one claiming it. */
+const CIVIL_WANT_MONEY = /\bi (?:want|need|would like) (?:my money back|(?:him|her|them) to (?:pay|give)|to get (?:my money|paid|it) back|to be paid)\b/i;
+
+/*
+ * The role from three kinds of words: the person was sued or served (SUED_ME),
+ * the person says they start the case (I_START), and, weakest, the person
+ * says what they want the court to give them. Served wins over a want (a
+ * served parent still says "i want joint custody"); served and starting
+ * together say nothing for sure, so the question is asked.
+ */
+function roleFromStory(story: string, wants: RegExp, sides: { sued: string; starting: string }): StoryAnswer | null {
+  const sued = firstPlain(story, SUED_ME);
+  const starting = firstPlain(story, I_START);
+  if (sued && starting) return null;
+  if (sued) return { value: sides.sued, quote: sued };
+  if (starting) return { value: sides.starting, quote: starting };
+  const wanting = firstPlain(story, wants);
+  return wanting ? { value: sides.starting, quote: wanting } : null;
+}
+
+/** Civil: "plaintiff" or "defendant", when the story says which plainly. */
+export function civilRoleFromStory(story: string): StoryAnswer | null {
+  return roleFromStory(story, CIVIL_WANT_MONEY, { sued: "defendant", starting: "plaintiff" });
+}
+
+/**
+ * Family: "applicant" or "respondent", when the story says which plainly. A
+ * person asking to change their own order is the one bringing it, which the
+ * family form's "applicant" option ("I'm starting it (or I want to)") holds.
+ */
+export function familyRoleFromStory(story: string): StoryAnswer | null {
+  return roleFromStory(story, FAMILY_WANT_ORDER, { sued: "respondent", starting: "applicant" });
+}
+
+const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d+(?:\.\d+)?\s?k\b|\b\d{3,7}\s?dollars\b|\b(?:for|owe[sd]?|of|paid|lent|worth|costs?|claim(?:ing)?)\s+\$?\d{3,7}\b|\b\d{4,7}\b/gi;
+
+/** The first amount of money the story names ("75,000", "$5,200", "for 68000"); never a year. */
+export function amountFromStory(story: string): StoryAnswer | null {
+  for (const sentence of sentences(story)) {
+    // Every number in the sentence, not only the first: "in march 2025 i
+    // sued them for 175000" has a year before the amount (2026-10-13).
+    for (const match of sentence.matchAll(MONEY)) {
+      const digits = match[0].replace(/[^\d.k]/gi, "");
+      const number = /k$/i.test(digits) ? Number(digits.slice(0, -1)) * 1000 : Number(digits);
+      if (!Number.isFinite(number) || number <= 0) continue;
+      // "in 2022", "since 2019": a year, not money.
+      if (number >= 1900 && number <= 2100 && !/[$,]|dollars/i.test(match[0])) continue;
+      return { value: `$${number.toLocaleString("en-CA")}`, quote: sentence };
+    }
+  }
+  return null;
+}
+
+const TYPOS: [RegExp, string][] = [
+  [/\bbuisness\b/gi, "business"],
+  [/\bbusness\b/gi, "business"],
+  [/\bcontracter\b/gi, "contractor"],
+  [/\blandord\b/gi, "landlord"],
+  [/\bsuport\b/gi, "support"],
+  [/\bcustidy\b/gi, "custody"],
+];
+const tidy = (text: string) => TYPOS.reduce((out, [typo, right]) => out.replace(typo, right), text);
+const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
 /** What the person says they want ("i want my money back", "I want joint custody"). */
 export function goalFromStory(story: string): StoryAnswer | null {
-  for (const sentence of sentences(story)) {
-    const match = /\bi (?:want|need|would like|am asking for|just want)\b/i.exec(sentence);
-    if (!match) continue;
-    const before = sentence.slice(Math.max(0, match.index - 20), match.index).toLowerCase();
-    // "i dont know what i need to bring": a question, not what they want.
-    if (/\b(?:what|if|whether|know|sure|how)\s*$/.test(before)) continue;
-    const value = sentence.slice(match.index).replace(/^i /i, "I ").trim();
-    // "I want to sue the city" is how, not what they want ordered.
-    if (/^I (?:want|need|would like) to (?:sue|take|file|start|know|understand|ask|bring)\b/i.test(value)) continue;
-    if (value.length >= 8) return { value, quote: sentence };
+  const all = sentences(story);
+  for (const sentence of all) {
+    const want = plainMatch(sentence, /\bi (?:want|need|would like|am asking for|just want|only want)\b/i);
+    if (want) {
+      const value = sentence.slice(want.index).replace(/^i /i, "I ").replace(/[.!]+$/, "").trim();
+      // "I want to sue the city" is how, not what they want ordered; "I need
+      // a lawyer" or "I need to know" is help with the case, not an outcome.
+      if (/^I (?:want|need|would like|just want) to (?:sue|take|file|start|know|understand|ask|bring|do|figure|find|go|see|talk|speak|get advice|get help|learn)\b/i.test(value)) continue;
+      if (/^I (?:want|need|would like|just want) (?:a lawyer|help|advice|some help|some advice|information|info)\b/i.test(value)) continue;
+      if (value.length >= 8) return { value, quote: sentence };
+    }
+    // "how do i get it lowered": what they want, said as a question about how.
+    const how = /\bhow (?:do|can|would) i (?:get|have) (it|my \w+(?: \w+)?|the \w+(?: \w+)?) (lowered|changed|reduced|varied|increased|stopped|cancelled|canceled|back)\b/i.exec(sentence);
+    if (how) {
+      let thing = how[1].toLowerCase();
+      if (thing === "it") {
+        // "it" is what the earlier sentences are about, when they name one thing.
+        const before = all.slice(0, all.indexOf(sentence) + 1).join(" ");
+        const named = /\b(child support|spousal support|support|court order|order|payments?)\b/i.exec(before);
+        if (!named) continue;
+        thing = `the ${named[1].toLowerCase()}`;
+      }
+      return { value: tidy(`To get ${thing} ${how[2].toLowerCase()}`), quote: sentence };
+    }
   }
   return null;
 }
@@ -80,10 +202,149 @@ export function goalFromStory(story: string): StoryAnswer | null {
 /** The children, when the story says how old they are. */
 export function childrenFromStory(story: string): StoryAnswer | null {
   const AGE = "(?:\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)";
+  // "on september 29" is a day of the month, not an age (2026-10-13).
+  const NOT_A_DAY = `(?<!${MONTH_WORD}\\s)(?<!${MONTH_WORD}\\s\\d)`;
   const pattern = new RegExp(
-    `\\b(?:daughters?|sons?|kids?|children|child|baby|boys?|girls?)\\b[^.]{0,30}?\\b(?:is|are|aged|age)?\\s*${AGE}\\b(?!\\s*(?:years?|yrs?)\\s+ago)|\\b${AGE}[- ](?:year|yr)s?[- ]old\\b`,
+    `\\b(?:daughters?|sons?|kids?|children|child|baby|boys?|girls?)\\b[^.]{0,30}?\\b(?:is|are|aged|age)?\\s*${NOT_A_DAY}${AGE}\\b(?!\\s*(?:years?|yrs?)\\s+ago)(?!\\s*(?:st|nd|rd|th)\\b)|\\b${AGE}[- ](?:year|yr)s?[- ]old\\b`,
     "i",
   );
-  const sentence = firstSentence(story, pattern);
+  const sentence = sentences(story).find((candidate) => pattern.test(candidate)) ?? null;
   return sentence ? { value: sentence, quote: sentence } : null;
+}
+
+/*
+ * Who the other side is, civil (2026-10-13). Only a named kind of person or
+ * business, or a capitalised name, in words that make them the other side:
+ * "sue the city", "my old boss sued me", "a statement of claim from my old
+ * business partner", "i hired a contractor". Never a guess from who else
+ * the story mentions.
+ */
+const PARTY_NOUN =
+  "(?:city|town|township|municipality|region|province|landlord|tenant|contractor|contracter|sub-?contractor|builder|renovator|plumber|electrician|roofer|mechanic|dealer(?:ship)?|garage|business partner|buisness partner|partner|supplier|vendor|boss|employer|manager|company|corporation|brokerage|store|shop|restaurant|bank|insurer|insurance company|seller|sellers|vendors|buyer|buyers|neighbou?r|client|customer|roommate|school|hospital|clinic|condo corporation|condo board|property manager|moving company|trucking company|airline)";
+const PARTY_PHRASE = `(?:the|my|a|an|our|his|her|their)\\s+(?:(?:old|former|ex|previous|own|new|local|next door)\\s+)?(?:[a-z]+\\s+)?${PARTY_NOUN}\\b`;
+const NAME = "[A-Z][a-zA-Z'&.-]+(?:\\s+(?:[A-Z][a-zA-Z'&.-]+|Inc\\.?|Ltd\\.?|Corp\\.?))*";
+
+const CITIES: Record<string, string> = {
+  toronto: "City of Toronto", ottawa: "City of Ottawa", mississauga: "City of Mississauga", brampton: "City of Brampton",
+  hamilton: "City of Hamilton", london: "City of London", markham: "City of Markham", vaughan: "City of Vaughan",
+  kitchener: "City of Kitchener", windsor: "City of Windsor", burlington: "City of Burlington", oshawa: "City of Oshawa",
+  barrie: "City of Barrie", "st catharines": "City of St. Catharines", "st. catharines": "City of St. Catharines",
+  cambridge: "City of Cambridge", kingston: "City of Kingston", guelph: "City of Guelph", waterloo: "City of Waterloo",
+  pickering: "City of Pickering", "niagara falls": "City of Niagara Falls", sarnia: "City of Sarnia",
+  peterborough: "City of Peterborough", "north bay": "City of North Bay", "sault ste marie": "City of Sault Ste. Marie",
+  belleville: "City of Belleville", brantford: "City of Brantford", cornwall: "City of Cornwall", timmins: "City of Timmins",
+  "thunder bay": "City of Thunder Bay",
+};
+
+function partyValue(phrase: string, story: string): string {
+  const words = tidy(phrase.trim().replace(/\s+/g, " "));
+  // "the city", with one city named in the story: that city.
+  if (/^(?:the|a)\s+city$/i.test(words)) {
+    const named = Object.keys(CITIES).filter((city) => new RegExp(`\\b${city.replace(/\./g, "\\.")}\\b`, "i").test(story));
+    if (named.length === 1) return CITIES[named[0]];
+    return "The city";
+  }
+  return capital(words);
+}
+
+const WHEN = "(?:\\s+(?:in|on|last|this)\\s+\\w+(?:\\s+\\d{1,2})?)?";
+const PARTY_TEMPLATES: ((target: string) => string)[] = [
+  // "sue the city", "suing my former business partner", "sued the trucking company"
+  (target) => `\\b(?:sue|suing|sued|claim against|take|taking|took)\\s+(${target})`,
+  // "my old boss sued me", "the landlord is suing me", "John Smith took me to court"
+  (target) => `(${target})\\s+(?:sued|is suing|are suing|has sued|took|is taking|started a (?:court )?case against|filed a claim against|served) me\\b`,
+  // "a statement of claim in august from a supplier"
+  (target) => `\\b(?:claim|papers|statement of claim|letter|lawsuit|demand)${WHEN}\\s+from\\s+(${target})`,
+  // "i hired a contractor", "i paid a roofer"
+  (target) => `\\bi (?:hired|paid|rented from|bought (?:it |a \\w+ )?from|lent money to|loaned money to)\\s+(${target})`,
+];
+/*
+ * Each pattern twice: a kind of party in any case ("the city", "My landlord"),
+ * and a name only in capitals ("John Smith"), so "now my old boss" is never
+ * read as a name.
+ */
+const PARTY_PATTERNS: RegExp[] = PARTY_TEMPLATES.flatMap((template) => [
+  new RegExp(template(PARTY_PHRASE), "gi"),
+  new RegExp(template(NAME), "g"),
+]);
+
+/** Civil: who the other side is, when the story names them as the other side. */
+export function otherPartyFromStory(story: string): StoryAnswer | null {
+  for (const pattern of PARTY_PATTERNS) {
+    for (const sentence of sentences(story)) {
+      const match = plainMatch(sentence, pattern);
+      if (!match) continue;
+      const phrase = match[1];
+      // "He sued me", "Then the city": a pronoun or a sentence's first word is not a name.
+      const kind = new RegExp(`^${PARTY_PHRASE}$`, "i").test(phrase);
+      if (!kind && (/^(?:I|My|The|A|An|He|She|They|We|It|Then|Now|So|And|But|This|That|Someone|Somebody|Everyone|Nobody)\b/.test(phrase) || MONTH_NAMES.test(phrase))) continue;
+      return { value: partyValue(phrase, story), quote: sentence };
+    }
+  }
+  return null;
+}
+
+const MONTH_NAMES = /^(?:january|february|march|april|may|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|saturday|sunday|ontario|canada)\b/i;
+
+/**
+ * Family: the other person's name, only when the story gives one ("my ex,
+ * Sarah Jones,", "my husband Mark"). The question asks for a name, so "my ex
+ * gf" is not an answer to it.
+ */
+export function otherPartyNameFromStory(story: string): StoryAnswer | null {
+  const pattern = new RegExp(
+    `\\bmy (?:ex(?:[- ]?(?:wife|husband|gf|bf|girlfriend|boyfriend|partner))?|wife|husband|partner|spouse|common[- ]law (?:wife|husband|partner)|\\w+'?s? (?:mom|mother|dad|father))(?:'s name is|,|\\s+named|\\s+called|\\s+is)?\\s+(${NAME})`,
+  );
+  for (const sentence of sentences(story)) {
+    const match = pattern.exec(sentence);
+    if (!match) continue;
+    const name = match[1].trim();
+    if (MONTH_NAMES.test(name) || /^(?:I|He|She|They|We|The|A)\b/.test(name)) continue;
+    return { value: name, quote: sentence };
+  }
+  return null;
+}
+
+const MONTH_WORD = "(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";
+const SERVED_DATE = new RegExp(`\\b(${MONTH_WORD})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?(?:,?\\s+(\\d{4}))?\\b|\\b(\\d{4})-(\\d{1,2})-(\\d{1,2})\\b`, "gi");
+const SERVED_WORDS = /\b(?:served|process server|(?:gave|handed) me (?:the |some )?(?:court )?(?:papers|application|claim)|(?:got|received) (?:the |a )?(?:court )?(?:papers|application|statement of claim))\b/i;
+/** Words of a different moment: between the served words and a date, the date is that moment's. */
+const OTHER_MOMENT = /\b(?:filed|issued|hearing|conference|trial|mediation|scheduled|court date|motion date|questioning|discovery|moved|separated|married|split)\b/i;
+const HOW_SERVED = /\b(?:in person|by (?:registered )?mail|by email|by courier|by a process server|at my (?:house|home|door|work|office))\b/i;
+const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+
+/**
+ * The day the person was served, when the story gives one in the same words
+ * ("i was served on september 20", "on september 29 a process server gave me
+ * court papers"). "Last week" is not a usable date and gives nothing; a date
+ * without a year is offered as written, never with a year added.
+ */
+export function servedDateFromStory(story: string): StoryAnswer | null {
+  for (const sentence of sentences(story)) {
+    const served = SERVED_WORDS.exec(sentence);
+    if (!served || !plainMatch(sentence, SERVED_WORDS)) continue;
+    let best: { text: string; distance: number } | null = null;
+    for (const match of sentence.matchAll(SERVED_DATE)) {
+      const at = match.index ?? 0;
+      const end = at + match[0].length;
+      const between = at > served.index ? sentence.slice(served.index + served[0].length, at) : sentence.slice(end, served.index);
+      if (OTHER_MOMENT.test(between)) continue;
+      if (at < served.index) {
+        // "we separated on march 3 2024 and i got served last week": a date
+        // whose clause closes with "and" before the served words is that
+        // clause's, and so is one inside "the hearing is on november 20".
+        if (/^[\s,.]*(?:and|then|but|later|so)\b/i.test(between)) continue;
+        if (OTHER_MOMENT.test(clauseBefore(sentence, at))) continue;
+      }
+      const text = match[1]
+        ? `${capital(MONTHS.find((month) => month.startsWith(match[1].toLowerCase().slice(0, 3))) ?? match[1])} ${Number(match[2])}${match[3] ? `, ${match[3]}` : ""}`
+        : `${match[4]}-${match[5].padStart(2, "0")}-${match[6].padStart(2, "0")}`;
+      const distance = Math.abs(at - served.index);
+      if (!best || distance < best.distance) best = { text, distance };
+    }
+    if (!best) continue;
+    const how = HOW_SERVED.exec(sentence);
+    return { value: how ? `${best.text}, ${how[0].toLowerCase()}` : best.text, quote: sentence };
+  }
+  return null;
 }

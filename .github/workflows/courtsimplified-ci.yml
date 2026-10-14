@@ -393,6 +393,9 @@ jobs:
       - name: Family and civil ask one question at a time, never one already answered
         run: npm run test:guided-form-chat
 
+      - name: What the story already says is offered, not asked again; a served respondent is asked the day
+        run: npm run test:story-answers
+
       - name: The statement-of-claim gate shows only sourced, neutral content
         run: npm run test:readiness-gate
 
