@@ -715,6 +715,11 @@ console.log("\nWalkthrough run 38525903567, FR: the fees for a parenting-only an
   check("FR: Form 13 stays, with r. 13 (1) (b) beside it", fr.forms.some((form) => form.number === "13" && form.note?.cite.pinpoint === "r. 13 (1) (b)"));
   const supportOnly = practicalFor(STEP, "family", "Barrie", true, "she wants more child support")!;
   check("words with no parenting claim: Form 35.1 is folded with its rule, never dropped", !supportOnly.forms.some((form) => form.number === "35.1") && supportOnly.formsIfClaimed.some((form) => form.number === "35.1" && form.when.cite.pinpoint === "r. 35.1 (1)"));
+  // The shared reading is unchanged by the information program's stricter test (re-review of 7f2868f).
+  for (const words of ["i want my daughter to live with me", "she won't let me see my son"]) {
+    const view = practicalFor(STEP, "family", "Barrie", true, words)!;
+    check(`'${words}': Form 35.1 is a form for the answer, the fees are folded, Form 13 stays`, view.forms.some((form) => form.number === "35.1") && Boolean(view.feesIfClaimed) && view.forms.some((form) => form.number === "13"));
+  }
   check("no words: Form 35.1 is listed", Boolean(practicalFor(STEP, "family", "Barrie", true)?.forms.some((form) => form.number === "35.1")));
 }
 

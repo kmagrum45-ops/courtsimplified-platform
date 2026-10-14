@@ -252,7 +252,7 @@ const COUNT_WORDS: Record<string, number> = { one: 1, two: 2, three: 3, four: 4,
 const NUMBER_WORDS = ["", "one", "two", "three", "four", "five", "six"];
 const OWN_CHILD = new RegExp(
   "\\b(?:our|my)\\s+(?:(one|two|three|four|five|six|[1-6])\\s+)?(?:(?:little|baby|young|youngest|oldest|eldest|only)\\s+)?" +
-    "(daughters?|daugh?ters?|daugters?|sons?|kids?|children|childs?|boys?|girls?)\\b(?!\\s*friend)(?!['’]s\\b)" +
+    "(daughters?|daugh?ters?|daugters?|sons?|kids?|children|childs?|boys?|girls?)\\b(?!\\s*friend)(?!\\s*(?:support|care|protection|tax|benefit))(?!['’]s\\b)" +
     // "my son from my first marriage", "her daughter from before": a child of another relationship (review of 70b717b).
     "(?!\\s+(?:of|from)\\s+(?:her|his|their|before|(?:my |a |an |her |his |our )?(?:first|last|previous|old|former|other|another|earlier|past|prior)\\b))",
   "i",
@@ -264,19 +264,22 @@ export type PartialStoryAnswer = { prefill: string; question: string; quote: str
 const CHILD_KINDS: [string, RegExp][] = [
   ["daughter", /\bdaugh?t?ers?\b|\bdaugters?\b/i],
   ["son", /\bsons?\b/i],
-  ["child", /\b(?:kids?|children|child)\b/i],
+  // "child support" is not a child (re-review of 7f2868f).
+  ["child", /\b(?:kids?|children|child)\b(?!\s*(?:support|care|protection|tax|benefit))/i],
   ["boy", /\bboys?\b(?!\s*friend)/i],
   ["girl", /\bgirls?\b(?!\s*friend)/i],
 ];
 
 export function childrenPartialFromStory(story: string): PartialStoryAnswer | null {
   if (childrenFromStory(story)) return null;
-  // More than one kind of child named: not filled in, the whole question is asked (review of 70b717b).
-  if (CHILD_KINDS.filter(([, pattern]) => pattern.test(story)).length > 1) return null;
+
   for (const sentence of sentences(story)) {
     if (/\b(?:no|not any|don'?t have any|never had)\s+(?:kids|children)\b/i.test(sentence)) return null;
     const match = plainMatch(sentence, OWN_CHILD);
     if (!match) continue;
+    // More than one kind of child named in the sentence: not filled in, the
+    // whole question is asked (review of 70b717b; per sentence, re-review of 7f2868f).
+    if (CHILD_KINDS.filter(([, pattern]) => pattern.test(sentence)).length > 1) return null;
     // "my sister's son": the possessive is someone else's.
     if (/\b\w+['’]s\s*$/.test(sentence.slice(0, match.index ?? 0)) && !/\b(?:our|my)\s*$/i.test(sentence.slice(0, match.index ?? 0))) continue;
     const noun = match[2].toLowerCase();

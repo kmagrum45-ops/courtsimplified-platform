@@ -141,6 +141,12 @@ check("a story with no such words offers nothing", storyAnswerFor("married-to-ot
   }
   // A bare "partner" is said by married people too (review of 70b717b).
   check("'my former partner and I were married 10 years' offers Yes, never 'not married'", storyAnswerFor("married-to-other-party", "my former partner and I were married 10 years") === "yes");
+  // Someone else's marriage is no reading (re-review of 7f2868f).
+  for (const words of ["my sister and I were married the same year", "my brother and I got married in a double wedding"]) {
+    check(`'${words}' offers nothing`, storyAnswerFor("married-to-other-party", words) === null);
+  }
+  check("'she and I were married for 8 years' offers Yes", storyAnswerFor("married-to-other-party", "she and I were married for 8 years") === "yes");
+  check("'my ex-wife and I got married in 2015' offers Yes", storyAnswerFor("married-to-other-party", "my ex-wife and I got married in 2015") === "yes");
   check("'my ex common-law partner' still offers not married", storyAnswerFor("married-to-other-party", "my ex common-law partner took me to court") === "no");
   check("contradictory words still offer nothing", storyAnswerFor("married-to-other-party", "my ex gf, well my ex-wife really") === null);
   check("no suggestion without a plain answer", storySuggestionFor("married-to-other-party", "he stopped paying support in may") === null);

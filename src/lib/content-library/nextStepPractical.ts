@@ -1070,9 +1070,7 @@ export type FamilyClaims = { known: boolean; parenting: boolean; support: boolea
 
 export function familyClaimsIn(words: string): FamilyClaims {
   const text = proseOf(words).toLowerCase();
-  // A parenting claim needs a parenting term; naming the children is not one
-  // ("i pay support for our kids, how do i get it lowered": review of 70b717b).
-  const parenting = /\b(?:decision-making|parenting|custody|access|relocat\w*|move (?:away |to \w+ )?with (?:her|him|them|the kids?|the children|my (?:son|daughter|kids?|children)|our (?:son|daughter|kids?|children))|contact with)\b/.test(text);
+  const parenting = /\b(?:decision-making|parenting|custody|access|relocat\w*|move (?:away |to \w+ )?with (?:her|him|them|the kids?|the children|my (?:son|daughter|kids?|children))|contact with|my (?:son|daughter|daugter|kids?|children)|our (?:son|daughter|daugter|kids?|children))\b/.test(text);
   const support = /\b(?:child-support|spousal-support|support|suport|child support|spousal support|alimony)\b/.test(text);
   const property = /\b(?:property-division|property|equaliz\w*|net family|pension|assets?|house we (?:own|bought))\b/.test(text);
   const home = /\b(?:matrimonial-home|matrimonial home|exclusive possession)\b/.test(text);
@@ -1184,14 +1182,25 @@ export function isChangeMip(item: { id?: string }): boolean {
  * or spousal support (parenting, property or the matrimonial home): only
  * then does the information program lead (r. 8.1 (1) para. 6).
  */
+/*
+ * Stricter than familyClaimsIn's parenting (re-review of 7f2868f): that one is
+ * shared by every family fold and counts "my son" as parenting, so "i pay
+ * support for our kids, how do i get it lowered" would lead with the
+ * information program. Here a parenting term, or a parenting request in plain
+ * words, is needed.
+ */
+const PARENTING_CHANGE =
+  /\b(?:decision-making|parenting|custody|access|relocat\w*|move (?:away |to \w+ )?with|contact with|more time with|time with (?:him|her|them|my|our)|see (?:my|our|him|her|them)\b|live with me|visit\w*|schedule)\b/;
+
 export function changeBeyondSupport(words: string): boolean {
   const claims = familyClaimsIn(words);
-  return claims.parenting || claims.property || claims.home;
+  return PARENTING_CHANGE.test(proseOf(words).toLowerCase()) || claims.property || claims.home;
 }
 
 /** The note beside a folded motion-to-change information program: support-only, or not said. */
 export function changeMipNoteFor(words: string, responding = false): PlainLine {
-  const line = supportOnly(familyClaimsIn(words)) ? MIP_SUPPORT_ONLY_CHANGE : MIP_CHANGE_SUBJECT_UNKNOWN;
+  // Support named and no change beyond it, by the same test that decides the fold (changeBeyondSupport).
+  const line = familyClaimsIn(words).support && !changeBeyondSupport(words) ? MIP_SUPPORT_ONLY_CHANGE : MIP_CHANGE_SUBJECT_UNKNOWN;
   // Served with the motion, it is the other side's motion.
   return responding ? { ...line, say: line.say.replace(/\byour motion\b/g, "the motion") } : line;
 }

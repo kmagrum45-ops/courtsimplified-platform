@@ -796,14 +796,26 @@ async function main() {
       "'i pay support for our kids': support only, the information program folded",
       !changeBeyondSupport(kidsSupport) && ![...kidsCard.main.periods, ...kidsCard.main.deadlines].some((item) => isChangeMip(item as { id?: string })) && kidsCard.mipNote === MIP_SUPPORT_ONLY_CHANGE,
     );
+    // The information program's test is stricter than the shared one (re-review of 7f2868f):
+    // a parenting term or a plain-words parenting request, never only naming the children.
     let termMisses = 0;
-    for (const words of ["custody of our son", "parenting time", "decision-making for my daughter", "access to the kids", "contact with my son", "she wants to relocate", "she wants to move with the kids"]) {
-      if (!familyClaimsIn(words).parenting) termMisses += 1;
+    for (const words of [
+      "custody of our son", "parenting time", "decision-making for my daughter", "access to the kids", "contact with my son", "she wants to relocate", "she wants to move with the kids",
+      "i pay child support for my son and want it lowered and want more time with him", "i want my daughter to live with me", "she won't let me see my son", "i want to change the weekend schedule", "i want more visits",
+    ]) {
+      if (!changeBeyondSupport(words)) termMisses += 1;
     }
-    for (const words of ["our kids", "my daughter", "support for my son and daughter", "our children are 9 and 11"]) {
-      if (familyClaimsIn(words).parenting) termMisses += 1;
+    for (const words of ["our kids", "my daughter", "support for my son and daughter", "our children are 9 and 11", kidsSupport]) {
+      if (changeBeyondSupport(words)) termMisses += 1;
     }
-    check("parenting is read only from a parenting term, never from naming the children", termMisses === 0, `misses ${termMisses}`);
+    check("the information program leads on a parenting term or request, never on only naming the children", termMisses === 0, `misses ${termMisses}`);
+    const moreTime = cardLimits(change.nextStep as never, false, "i pay child support for my son and want it lowered and want more time with him", "", "family:both:asking-to-change-final-order");
+    check("'more time with him': the information program leads", [...moreTime.main.periods, ...moreTime.main.deadlines].some((item) => isChangeMip(item as { id?: string })) && !moreTime.mipNote);
+    // The shared reading, used by every other family fold, still counts the children named.
+    check(
+      "the shared reading still reads plain-word parenting (the 35.1, fee and Form 13 folds)",
+      ["i want my daughter to live with me", "she won't let me see my son", "i pay child support for my son and want more time with him", "my ex took me to court for custody of our daughter"].every((words) => familyClaimsIn(words).parenting),
+    );
     // Served with the motion: the note speaks of "the motion", not "your motion".
     check("served with the motion: the note says 'the motion'", !/\byour motion\b/.test(changeMipNoteFor("i got a motion to change about child support", true).say));
     check(
