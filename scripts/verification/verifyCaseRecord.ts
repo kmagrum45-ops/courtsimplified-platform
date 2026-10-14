@@ -207,13 +207,32 @@ check(
 
   // Walkthrough SW (2026-10-13): "Was this case started by Notice of Action?"
   // asked of a person whose confirmed stage is "I have not filed anything
-  // yet". Their own confirmed stage answers it ("No": nothing was started),
-  // kept as theirs; a stage they have not confirmed answers nothing firmly.
+  // yet". That stage offers "No" (nothing was started) as a SUGGESTION the
+  // person saves -- never kept by itself (review 2026-10-13: a served
+  // defendant can say "I have not filed anything yet" too, and a kept answer
+  // would not follow a change of stage).
   const noticeQuestion = [{ field_path: "formApplicability.civil.isCommencedByNoticeOfAction", choices: [...yesNo, { value: "not-sure" }] }];
-  for (const story of ["i want to sue the city", "i slipped on ice. i might start by a notice of action, not sure", ""]) {
+  for (const story of ["i want to sue the city", ""]) {
     const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story } };
     const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
-    check(`a confirmed 'nothing filed yet' answers 'started by notice of action?' with no, kept (story ${JSON.stringify(story)})`, found?.value === false && found.firm === true && /not filed anything/.test(found.reason), JSON.stringify(found));
+    check(`a confirmed 'nothing filed yet' offers 'started by notice of action?' no, as a suggestion (story ${JSON.stringify(story)})`, found?.value === false && !found.firm && /not filed anything/.test(found.reason), JSON.stringify(found));
+  }
+  // Must not misfire: a story naming a notice of action is never answered;
+  // a defendant is never told "you have not filed anything, so no".
+  for (const [story, role] of [
+    ["i was served with a notice of action and then a statement of claim. i have not filed anything yet", "defendant"],
+    ["i filed a notice of action last week, now i need the statement of claim", "plaintiff"],
+    ["i slipped on ice. i might start by a notice of action, not sure", "plaintiff"],
+    ["he is suing me", "defendant"],
+  ] as const) {
+    const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story, extra: { yourRole: role } } };
+    const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
+    const mentions = /notice of action/.test(story);
+    check(
+      `'started by notice of action?' is never kept, never answered when the story names one, never from 'nothing filed' for a defendant: '${story}'`,
+      !found?.firm && (!mentions || !found) && !/not filed anything/.test(found?.reason ?? ""),
+      JSON.stringify(found),
+    );
   }
   for (const position of [{}, { confirmedStage: "responding" }, { confirmedStage: "motion" }]) {
     const master = { position, intakeData: { courtPath: "civil", facts: "i want to sue the city" } };
