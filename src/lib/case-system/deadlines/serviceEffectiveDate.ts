@@ -351,3 +351,29 @@ export function arrivalNotSendDate(method: ServiceMethod | null | undefined, quo
   if (!method || COUNTS_FROM_ARRIVAL.has(method)) return false;
   return ARRIVED.test(quote);
 }
+
+/*
+ * What the rule says about papers that ARRIVED, in its own terms (walkthrough
+ * 2026-10-14, RN: the note said "service counts from the day it was mailed",
+ * while r. 8.07 (2) says service by mail is effective on the FIFTH DAY after
+ * mailing; the deadline runs from that day, not from mailing).
+ */
+const ORDINAL: Record<number, string> = { 2: "second", 5: "fifth" };
+
+/** "service is effective on the fifth day after the day it was mailed" -- the rule's effective day, from its own period and starting day. */
+export function whenEffectiveSay(rule: Pick<ServiceRule, "addDays" | "dateToEnter">): string {
+  if (rule.addDays === 0) return `service is effective on ${rule.dateToEnter}`;
+  if (rule.addDays === 1) return `service is effective on the day after ${rule.dateToEnter}`;
+  return `service is effective on the ${ORDINAL[rule.addDays] ?? `${rule.addDays}th`} day after ${rule.dateToEnter}`;
+}
+
+/**
+ * Ways of serving whose starting day is always on or before the day the
+ * papers reached the person: a letter is mailed before it arrives. For these,
+ * a deadline counted as if the papers were mailed on the day they arrived is
+ * the LATEST the real one can be (a later start never gives an earlier last
+ * day). Courier is not here: under r. 8.07.1 (2) its day is when the courier
+ * confirms delivery to the sender, which can be after the papers arrived. Nor
+ * is "left at my home and mailed": the copy may be mailed after it was left.
+ */
+export const SENT_ON_OR_BEFORE_ARRIVAL: ReadonlySet<ServiceMethod> = new Set<ServiceMethod>(["mail"]);

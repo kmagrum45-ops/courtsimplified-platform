@@ -8,6 +8,10 @@
  * explained by claiming the rules are silent (2026-10-13). Also: a day the
  * papers ARRIVED offered as the day to count from, with or without its year,
  * or a card that states a last day before the mailing date is given.
+ * (2026-10-14) An arrival note that says service "counts from" the mailing
+ * day instead of the rule's own effective day; a "no later than" date that a
+ * mailing day on or before arrival could exceed, or one shown for a way of
+ * serving whose day can come after arrival.
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -18,13 +22,16 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
-import { arrivalNoteFor, arrivalOnlyDates, offerStoryDate } from "../../app/builder/_components/StageAnswerPanel";
+import { arrivalNoteFor, arrivalOnlyDates, latestFromArrival, offerStoryDate } from "../../app/builder/_components/StageAnswerPanel";
+import { addDays as addDaysIso } from "../../src/lib/case-system/deadlines/holidays";
 import {
   arrivalNotSendDate,
   FAMILY_CLOSED_DAY_RULE,
   SC_R3_01_LAST_DAY,
+  SENT_ON_OR_BEFORE_ARRIVAL,
   SERVICE_RULES,
   effectiveServiceDate,
+  whenEffectiveSay,
   serviceMethodFromStory,
   smallClaimsFifthDayOnClosedDay,
   type ServiceCourt,
@@ -179,7 +186,48 @@ console.log("\nThe day papers arrived is never counted as the day they were mail
   const note = arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, {}, "small-claims", {}, "mail");
   check("the card says what date to give, with the rule that counts from it", note?.dateToEnter === "the day it was mailed" && note.rule === "O. Reg. 258/98, r. 8.07 (2)" && corpus["small-claims"].includes(flat(note.ruleQuote)));
   check("once the person gives the mailing date, the note goes", arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, Object.fromEntries(heldBack.map((id) => [id, "2026-09-24"])), "small-claims", {}, "mail") === null);
-  check("the card never states a last day for an arrival-only date", /no last day is shown until you give that date/.test(panel) && /arrival=\{arrivalNoteFor\(/.test(panel));
+  // Walkthrough 2026-10-14, RN: the note said "service counts from the day it
+  // was mailed"; r. 8.07 (2) says service by mail is effective on the fifth
+  // day after mailing. The note now says the rule's own effective day, and
+  // shows the latest last day, counted from the arrival day, as "no later
+  // than", only where the starting day is on or before arrival.
+  check("the note says when service is effective, as the rule does", note?.effectiveSay === "service is effective on the fifth day after the day it was mailed" && /fifth day following the date of mailing/.test(note.ruleQuote));
+  check("no sentence on the panel says service or the rules 'count from' the mailing day", !/service counts from|the rules count from/.test(panel));
+  check("both notes use the rule's effective day (whenEffectiveSay)", (panel.match(/whenEffectiveSay\(rule\)/g) ?? []).length >= 2);
+  for (const court of Object.keys(SERVICE_RULES) as ServiceCourt[]) {
+    for (const rule of SERVICE_RULES[court].filter((item) => item.addDays > 0)) {
+      const say = whenEffectiveSay(rule);
+      check(`${court}: ${rule.method} says its own day count`, say.includes(rule.dateToEnter) && (rule.addDays !== 5 || /fifth day after/.test(say)) && (rule.addDays !== 2 || /second day after/.test(say)));
+    }
+  }
+  const stageId = "defendant:served-defence-period-running";
+  const qid = "sc-date-claim-served";
+  const withYear = arrivalNoteFor([{ id: qid }], { [qid]: "i got the plaintiffs claim in the mail on september 28" }, {}, "small-claims", {}, "mail", {
+    stageId,
+    hints: { [qid]: { quote: "i got the plaintiffs claim in the mail on september 28", value: "2026-09-28", yearAssumed: true } },
+  });
+  check("RN: the note shows the latest last day for the defence, counted from the arrival day", (withYear?.latest.length ?? 0) === 1 && Boolean(withYear?.yearAssumed), JSON.stringify(withYear?.latest));
+  // Property: for any arrival day and any mailing day on or before it, the
+  // real last day is never after the one shown.
+  let boundMisses = 0;
+  for (let offset = 0; offset < 366; offset += 3) {
+    const arrived = addDaysIso("2026-01-01", offset);
+    const latest = latestFromArrival(stageId, qid, "small-claims", "mail", arrived)[0];
+    if (!latest) {
+      boundMisses += 1;
+      continue;
+    }
+    for (let back = 0; back <= 10; back += 1) {
+      const real = latestFromArrival(stageId, qid, "small-claims", "mail", addDaysIso(arrived, -back))[0];
+      if (!real || real.iso > latest.iso) boundMisses += 1;
+    }
+  }
+  check("for every arrival day, a mailing day on or before it never gives a later last day than the one shown", boundMisses === 0, `misses ${boundMisses}`);
+  const notBefore = (Object.keys(SERVICE_RULES) as ServiceCourt[]).flatMap((court) =>
+    SERVICE_RULES[court].filter((rule) => !SENT_ON_OR_BEFORE_ARRIVAL.has(rule.method)).filter((rule) => latestFromArrival(stageId, qid, court, rule.method, "2026-09-28").length > 0).map((rule) => `${court}:${rule.method}`),
+  );
+  check("no latest day for a way of serving whose day can come after arrival (courier, left and mailed)", notBefore.length === 0, notBefore.join(", "));
+  check("the card shows it as 'no later than', conditional on regular mail, never as the last day", /if they came by regular mail, your last day is no later\s+than/.test(panel) && /It may be earlier\./.test(panel) && /arrival=\{arrivalNoteFor\(/.test(panel));
 }
 
 console.log("\nA Small Claims fifth day on a closed day says what the rules say, with the rule (2026-10-13)");

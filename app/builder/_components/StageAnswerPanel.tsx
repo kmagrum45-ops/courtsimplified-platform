@@ -8,11 +8,16 @@ import {
   serviceMethodFromStory,
   arrivalNotSendDate,
   serviceRulesFor,
+  SENT_ON_OR_BEFORE_ARRIVAL,
+  whenEffectiveSay,
   type ServiceCourt,
   type ServiceMethod,
 } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 
-import { stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import { findStage, stagesForPathway, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import { DEADLINE_EVENTS, caseDatesFrom } from "@/src/lib/case-system/deadlines/deadlineEvents";
+import { formatLongDate } from "@/src/lib/case-system/deadlines/holidays";
+import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
 import type { DateQuestion, StoryHint, SuggestedDate } from "@/src/lib/case-system/casePosition";
 import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
@@ -224,7 +229,53 @@ export function serviceMethodDisplay(chosen: ServiceMethod | undefined, fromStor
   return fromStory ? "suggested" : "choose";
 }
 
-export type ArrivalNote = { quote: string; dateToEnter: string; rule: string; ruleQuote: string };
+export type ArrivalNote = {
+  quote: string;
+  dateToEnter: string;
+  rule: string;
+  ruleQuote: string;
+  /** The rule's effective day in plain words: "service is effective on the fifth day after the day it was mailed". */
+  effectiveSay: string;
+  /**
+   * For a way of serving whose starting day is on or before arrival (mail):
+   * each last day counted as if the papers were sent the day they arrived --
+   * the latest the real one can be. Empty for any other way.
+   */
+  latest: { what: string; date: string }[];
+  /** The story gave no year for the arrival day, so the latest dates assume the most recent one. */
+  yearAssumed: boolean;
+};
+
+/**
+ * The latest each of a step's last days can be, for papers that arrived on
+ * `arrivedOn` by a way of serving whose starting day is on or before arrival
+ * (walkthrough 2026-10-14, RN: "no last day is shown" though the earlier
+ * review allowed "no later than one counted from the day they arrived").
+ * The rule's own effective day (effectiveServiceDate) from the arrival day,
+ * then the step's deadlines that run from that service date, counted by the
+ * engine. A later starting day never gives an earlier last day, so each is
+ * an upper bound. Exported for test:service-dates.
+ */
+export function latestFromArrival(
+  stageId: string,
+  questionId: string,
+  court: ServiceCourt,
+  method: ServiceMethod | null | undefined,
+  arrivedOn: string,
+): { what: string; date: string; iso: string }[] {
+  if (!method || !SENT_ON_OR_BEFORE_ARRIVAL.has(method) || !/^\d{4}-\d{2}-\d{2}$/.test(arrivedOn)) return [];
+  const stage = findStage(stageId);
+  if (!stage) return [];
+  const runsFromIt = stage.deadlines.filter(
+    (deadline) => (DEADLINE_EVENTS as Record<string, { questionId?: string }>)[deadline.countFromEvent]?.questionId === questionId && !/^If\b/.test(deadline.what),
+  );
+  const effective = effectiveServiceDate(court, method, arrivedOn).date;
+  return computedDeadlinesFor(runsFromIt, caseDatesFrom({ [questionId]: effective }), `arrival:${stageId}`).map((entry) => ({
+    what: runsFromIt.find((deadline) => deadline.id === entry.deadlineId)?.what ?? "",
+    date: formatLongDate(entry.date),
+    iso: entry.date,
+  }));
+}
 
 /**
  * Time limits that bar a claim and have passed (2026-10-13). Pass ONLY the
@@ -388,15 +439,27 @@ function NextStepCard({
         // walkthrough: "i got the plaintiffs claim in the mail on september 28"
         // was counted as the mailing day, and a definite date was shown).
         <p data-testid="next-step-arrival" className="mt-3 rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-3 py-2 text-sm leading-6 text-[#7a4b12]">
-          You wrote: “{arrival.quote}” That is the day the papers reached you. For papers sent this way, service counts from{" "}
-          {arrival.dateToEnter}, not the day they arrived, so no last day is shown until you give that date below (the postmark,
-          or the date on the other side&apos;s affidavit of service, often shows it). They were sent on or before the day they reached you,
-          so your last day is no later than one counted from the day they arrived, and may be earlier.
+          You wrote: “{arrival.quote}” That is the day the papers reached you. For papers sent this way, {arrival.effectiveSay}, not on
+          the day they arrived.
           {arrival.rule ? (
             <span className="block text-xs">
               {arrival.rule}: “{arrival.ruleQuote}”
             </span>
           ) : null}
+          {arrival.latest.length > 0 ? (
+            // The latest each last day can be, never THE last day: mailed
+            // papers were mailed on or before the day they arrived.
+            <span data-testid="next-step-arrival-latest" className="mt-1 block">
+              They were mailed on or before the day they reached you. So if they came by regular mail, your last day is no later
+              than:{" "}
+              {arrival.latest.map((entry) => `${entry.what}: ${entry.date}`).join("; ")}
+              {arrival.yearAssumed ? " (counting that day in its most recent year)" : ""}. It may be earlier.
+            </span>
+          ) : null}
+          <span className="mt-1 block">
+            The exact last day is shown once you give {arrival.dateToEnter} below. The postmark, or the date on the other side&apos;s
+            affidavit of service, often shows it.
+          </span>
         </p>
       ) : null}
       {mipNote ? (
@@ -744,12 +807,25 @@ export function arrivalNoteFor(
   court: ServiceCourt | null,
   methods: Record<string, ServiceMethod | undefined>,
   storyMethod: ServiceMethod | null,
+  /** The step and the story's own date for each arrival, so the latest last day can be counted (latestFromArrival). */
+  bound?: { stageId: string; hints: Record<string, StoryHint | undefined> },
 ): ArrivalNote | null {
   if (!court) return null;
   const question = questions.find((candidate) => arrival[candidate.id] && !answered[candidate.id]);
   if (!question) return null;
-  const rule = serviceRulesFor(court).find((candidate) => candidate.method === (methods[question.id] ?? storyMethod));
-  return { quote: arrival[question.id], dateToEnter: rule?.dateToEnter ?? "the day they were sent", rule: rule?.rule ?? "", ruleQuote: rule?.quote ?? "" };
+  const method = methods[question.id] ?? storyMethod;
+  const rule = serviceRulesFor(court).find((candidate) => candidate.method === method);
+  const dateToEnter = rule?.dateToEnter ?? "the day they were sent";
+  const hint = bound?.hints[question.id];
+  return {
+    quote: arrival[question.id],
+    dateToEnter,
+    rule: rule?.rule ?? "",
+    ruleQuote: rule?.quote ?? "",
+    effectiveSay: rule ? whenEffectiveSay(rule) : `service is effective on a day set from ${dateToEnter}`,
+    latest: bound && hint?.value ? latestFromArrival(bound.stageId, question.id, court, method, hint.value).map(({ what, date }) => ({ what, date })) : [],
+    yearAssumed: Boolean(hint?.yearAssumed),
+  };
 }
 
 /**
@@ -1277,7 +1353,10 @@ export default function StageAnswerPanel({
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
             .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value) }))}
-          arrival={arrivalNoteFor(result.dateQuestions ?? [], arrivalOnly, dateAnswers, serviceCourt, serviceMethod, storyServiceMethod)}
+          arrival={arrivalNoteFor(result.dateQuestions ?? [], arrivalOnly, dateAnswers, serviceCourt, serviceMethod, storyServiceMethod, {
+            stageId,
+            hints: storyHints,
+          })}
         />
       ) : null}
 
@@ -1351,7 +1430,7 @@ export default function StageAnswerPanel({
                         data-testid={`stage-answer-date-change-${question.id}`}
                         onClick={() => {
                           setEditing({ ...editing, [question.id]: true });
-                          // Edit the day they typed, not the day service counts from.
+                          // Edit the day they typed, not the day service is effective.
                           if (serviceSaved[question.id]) setDateDraft({ ...dateDraft, [question.id]: serviceSaved[question.id].enteredOn });
                           if (fromStory) {
                             const dropped = { ...rejected, [question.id]: true };
@@ -1433,10 +1512,15 @@ export default function StageAnswerPanel({
                   </label>
                   {arrivalOnly[question.id] && !value && serviceCourt ? (
                     <p className="mt-2 text-sm leading-6 text-[#16302b]" data-testid={`stage-answer-arrival-${question.id}`}>
-                      {`You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. For papers sent this way, the rules count from ${
-                        serviceRulesFor(serviceCourt).find((rule) => rule.method === (serviceMethod[question.id] ?? storyServiceMethod))?.dateToEnter ??
-                        "the day they were sent"
-                      }, so we don't count from the day they arrived. The envelope or the other side's proof of service often shows it, and the court office can tell you.`}
+                      {(() => {
+                        // The same words as the card's note (walkthrough 2026-10-14, RN): what the rule
+                        // says about when service is effective, never "counts from the day it was mailed".
+                        const rule = serviceRulesFor(serviceCourt).find((candidate) => candidate.method === (serviceMethod[question.id] ?? storyServiceMethod));
+                        const effective = rule ? whenEffectiveSay(rule) : "service is effective on a day set from the day they were sent";
+                        return `You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. For papers sent this way, ${effective}, not on the day they arrived. Give ${
+                          rule?.dateToEnter ?? "the day they were sent"
+                        } above. The envelope or the other side's proof of service often shows it, and the court office can tell you.`;
+                      })()}
                     </p>
                   ) : null}
                   {hint && !hint.value && !suggestion && !value ? (
