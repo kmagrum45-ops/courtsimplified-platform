@@ -41,7 +41,7 @@
 import { checkedAnswer, type CheckedAnswer, type CheckedAnswerDeps } from "../retrieval/checkedAnswer";
 import type { RetrievalCourt } from "../retrieval/storyRetrieval";
 import { fixedRegimeFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
-import { isMapOwnedProcedure } from "../procedureOwnership";
+import { isMapOwnedInstruction, isMapOwnedProcedure } from "../procedureOwnership";
 import { ALL_STAGES, findStage, isSpecialStage, pathwayOf, type StagePathway } from "../stage-map/stageMap";
 
 // ------------------------------------------------------------------ types
@@ -196,11 +196,16 @@ const COURTS: readonly UnderstoodCourt[] = ["small-claims", "civil", "family", "
  * or rule number, an Act, a form number, or an obligation or entitlement.
  */
 const STATES_LAW =
-  /\b(?:r\.\s*\d|s\.\s*\d|rule\s+\d|section\s+\d|subsection|act\b|regulation|o\.\s*reg|form\s+\d|must|shall|is required|are required|entitled|deadline|due\b|time limit|limitation period|within\s+\d+\s+days|the law (?:says|requires|allows))\b/i;
+  /\b(?:r\.\s*\d|s\.\s*\d|rule\s+\d|section\s+\d|subsection|act\b|regulation|o\.\s*reg|form\s+\d|must|shall|is required|are required|entitled|deadline|(?:is|are|will be)\s+due\b(?!\s+to\b)|time limit|limitation period|within\s+\d+\s+days|the law (?:says|requires|allows))\b/i;
 
-/** Drops a sentence the stage map owns, too (procedureOwnership.ts): "your defence is due 20 days after service". */
+/**
+ * Drops a sentence that instructs a court step, form or deadline, too
+ * (procedureOwnership.ts). Not a bare period: these lines restate the person's
+ * own past ("I was served 20 days after the accident"), and a period in a past
+ * fact is theirs (review, 2026-10-14).
+ */
 function statesLaw(sentence: string): boolean {
-  return STATES_LAW.test(sentence) || isMapOwnedProcedure(sentence);
+  return STATES_LAW.test(sentence) || isMapOwnedInstruction(sentence);
 }
 
 /** Drops the sentences of `text` that state law. Pure. */

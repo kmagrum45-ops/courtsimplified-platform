@@ -16,6 +16,7 @@
  * it, never as a prediction of what they will do or how a judge will see it.
  */
 
+import { isMapOwnedInstruction } from "../procedureOwnership";
 import { ANSWER_TIME_MS, checkedAnswer, checkedAnswerView, type CheckedAnswer, type CheckedAnswerInput } from "./checkedAnswer";
 import type { CheckedAnswerView } from "../intelligence/intelligenceTypes";
 import type { RetrievalCourt } from "./storyRetrieval";
@@ -81,7 +82,14 @@ export async function buildStrategy(input: StrategyInput, deps: StrategyDeps = {
     ),
   );
   return {
-    sections: seats.map((seat, i) => ({ seat: seat.seat, title: seat.title, answer: checkedAnswerView(answers[i]) })),
+    // The next step, its form and deadline are the stage map's (CLAUDE.md s. 2a);
+    // a statement naming the person's own step, form or response period is
+    // left to the step panel.
+    sections: seats.map((seat, i) => ({
+      seat: seat.seat,
+      title: seat.title,
+      answer: checkedAnswerView({ ...answers[i], statements: answers[i].statements.filter((statement) => !isMapOwnedInstruction(statement.text)) }),
+    })),
     missingLaw: [...new Set(answers.flatMap((item) => item.missingLaw))],
   };
 }
