@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import GetHelp from "../../_components/GetHelp";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
-import { injuryDateWords, municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
+import { injuryDateWords, municipalNoticeFirst, turnsOnJudge } from "@/src/lib/content-library/municipalNoticeFirst";
 import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
 
 /**
@@ -74,10 +74,11 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
             {notice.notABar.map((rule) => (
               <li key={rule.pinpoint}>
                 <Rule rule={rule} />
+                {/* Only under the rule that turns on what a judge finds (s. 42 (8), s. 44 (12)); the death rule applies by itself. */}
+                {turnsOnJudge(rule) ? <span className="mt-1 block">{notice.judgeDecides}</span> : null}
               </li>
             ))}
           </ul>
-          <p className="mt-1">{notice.judgeDecides}</p>
         </div>
       ) : null}
       <GetHelp heading="Get help now about the notice date" why={notice.helpWhy} compact={!passed} />

@@ -20,8 +20,14 @@
  *     official text, or not in the section it is cited to; any line that
  *     grades the case or predicts what a judge will do.
  *   - A family story with no order being offered the provisions that only
- *     vary an existing order (CLRA s. 29 and its kin); a story that mentions
- *     an order losing them.
+ *     vary an existing order (CLRA s. 29 and its kin); any story that might
+ *     have an earlier order ("custody papers from 2019", "the judge gave me",
+ *     "through FRO") losing them.
+ *   - (Review of f71a316) the line firing for private premises, transit, a
+ *     vehicle or a provincial highway; organisation names ("Toronto Hydro",
+ *     "TD") or street names ("Kingston Road") taken for Toronto; two named
+ *     places not giving "unknown" with both Acts kept; added Act passages
+ *     pushing a research passage out; the judge line under the death rule.
  *
  * COSTS NOTHING: no model call. Real passages are read from the built index.
  *
@@ -35,11 +41,11 @@ import { loadCorpusIndex, readPassage, sourcePassages, type LoadedIndex, type Pa
 import type { ResearchResult } from "../../src/lib/case-system/retrieval/researchStory";
 import { researchStory } from "../../src/lib/case-system/retrieval/researchStory";
 import { fitPassagesToStory, isMunicipalAct44, isTorontoAct, isVariationProvision, withoutWrongForStory } from "../../src/lib/case-system/retrieval/passagesForStory";
-import { answeringPassages, questionsFromPassages, storyRejection } from "../../src/lib/case-system/retrieval/sourcedQuestions";
+import { MAX_PASSAGE_IDS, answeringPassages, questionsFromPassages, storyRejection } from "../../src/lib/case-system/retrieval/sourcedQuestions";
 import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
 import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
-import { MUNICIPAL_DEADLINE_ID, NOTICE_STEP_ID, TORONTO_DEADLINE_ID, municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
-import { deadlineStandingFor, municipalPlaceOf, nextWeekdayOpen } from "../../src/lib/content-library/nextStepPractical";
+import { MUNICIPAL_DEADLINE_ID, NOTICE_STEP_ID, TORONTO_DEADLINE_ID, municipalNoticeFirst, turnsOnJudge } from "../../src/lib/content-library/municipalNoticeFirst";
+import { deadlineStandingFor, municipalPlaceOf, municipalWayInjury, nextWeekdayOpen } from "../../src/lib/content-library/nextStepPractical";
 import type { RuleCitation } from "../../src/lib/case-system/stage-map/citations";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
@@ -133,9 +139,9 @@ const unknown = answeringPassages(research(mixed), UNKNOWN, index);
 check("unknown place: both Acts kept, nothing added", unknown.length === Math.min(10, mixed.length) && unknown.some(isMunicipalAct44) && unknown.some(isTorontoAct));
 check("no story: the picker changes nothing (old callers)", answeringPassages(research(mixed)).map((p) => p.id).join() === mixed.slice(0, 10).map((p) => p.id).join());
 check("a story that is not about a municipality: nothing added", !answeringPassages(research([...CLRA24]), NOT_MUNICIPAL, index).some((passage) => isMunicipalAct44(passage) || isTorontoAct(passage)));
-check("at most 10 passages, the right Act first", (() => {
+check("at most 10 research passages plus at most 3 added, the right Act first", (() => {
   const many = answeringPassages(research([...MA44, ...CLRA24, ...CLRA24]), TORONTO, index);
-  return many.length <= 10 && isTorontoAct(many[0]);
+  return many.length <= MAX_PASSAGE_IDS && many.filter((passage) => !isTorontoAct(passage)).length <= 10 && isTorontoAct(many[0]);
 })());
 check("a research reader for a Toronto story is never offered s. 44 either (fitPassagesToStory swaps it)", (() => {
   const fitted = fitPassagesToStory([...MA44], TORONTO, index);
@@ -219,6 +225,10 @@ check("on 13 October it is not yet passed and says to act", (() => {
 })());
 check("the excuse rule s. 42 (8) and the death rule s. 42 (7) are quoted", line?.notABar.map((rule) => rule.pinpoint).join() === "s. 42 (7),s. 42 (8)");
 check("it says what a judge finds is for the judge to decide", /for the judge to decide/.test(line?.judgeDecides ?? ""));
+check("the judge line belongs to (8) and (12) only; the death exception (7)/(11) applies by itself", (() => {
+  const all = [...(line?.notABar ?? []), ...(municipalNoticeFirst(OTTAWA, { now })?.notABar ?? [])];
+  return all.length === 4 && all.every((rule) => turnsOnJudge(rule) === /\((?:8|12)\)$/.test(rule.pinpoint));
+})());
 check("it points to urgent help", Boolean(line?.helpWhy));
 const ottawaLine = municipalNoticeFirst(OTTAWA, { now });
 check("Ottawa: the Municipal Act s. 44 (10) line, last day Monday 19 October", ottawaLine?.rule.pinpoint === "s. 44 (10)" && ottawaLine.counted?.date === "2026-10-19" && ottawaLine.counted.passed === false && ottawaLine.notABar.map((rule) => rule.pinpoint).join() === "s. 44 (11),s. 44 (12)");
@@ -264,11 +274,128 @@ check("no strength, chance or prediction of a judge", grading.length === 0, grad
 
 console.log("\n7. Family: changing an order is not offered when the story shows no order");
 check("CLRA s. 29 is a variation provision; s. 24 is not", CLRA29.length > 0 && CLRA29.every(isVariationProvision) && CLRA24.every((passage) => !isVariationProvision(passage)));
-check("no order in the story: CLRA s. 29 is left out, s. 24 kept", (() => {
+check("a first application just served, nothing earlier: CLRA s. 29 is left out, s. 24 kept", (() => {
   const kept = withoutWrongForStory([...CLRA29, ...CLRA24], PARENTING_NO_ORDER);
   return !kept.some(isVariationProvision) && kept.length === CLRA24.length;
 })());
 check("an order in the story: CLRA s. 29 kept", withoutWrongForStory([...CLRA29, ...CLRA24], PARENTING_ORDER).length === CLRA29.length + CLRA24.length);
+{
+  const VARIATIONS = [
+    ...CLRA29,
+    ...passagesOf("divorce-act", /^s\. 17(?![.\d])/),
+    ...passagesOf("family-law-act", /^s\. 37(?![.\d])/),
+    ...passagesOf("family-law-rules", /^r\. 15(?![.\d])/),
+  ];
+  // Each phrasing of an earlier order, alone and after "I got served papers last week" (review of f71a316).
+  const EARLIER = [
+    "I have custody papers from 2019.",
+    "The court said in 2020 that I pay $400 a month.",
+    "The judge gave me primary residence.",
+    "There was a court decision from 2018 about the kids.",
+    "I have been paying child support through FRO since 2017.",
+    "We have a parenting plan from mediation.",
+    "I was awarded custody.",
+    "We won joint custody.",
+    "He pays spousal support under our divorce.",
+    "The family court gave him visitation.",
+  ];
+  const dropped = EARLIER.flatMap((phrase) => [phrase, `My ex took me to court and I got served papers last week. ${phrase}`]).filter(
+    (story) => withoutWrongForStory(VARIATIONS, story).length !== VARIATIONS.length,
+  );
+  check("every phrasing of an earlier order keeps r. 15, CLRA s. 29, DA s. 17 and FLA s. 37", VARIATIONS.length >= 4 && dropped.length === 0, dropped.join(" | "));
+  const plain = ["My ex and I are arguing about the kids.", "I want custody of my son.", "She wants to move to Ottawa with our daughter."];
+  check("no positive sign that there is no order: kept", plain.every((story) => withoutWrongForStory(VARIATIONS, story).length === VARIATIONS.length));
+  const none = ["There is no court order yet and she wants custody.", "We have never been to court; she wants sole custody."];
+  check("'no order' or 'never been to court': left out", none.every((story) => withoutWrongForStory(VARIATIONS, story).length === 0));
+}
+
+// ---------------------------------------------------------------- 8. only an injury ON a municipal way
+
+console.log("\n8. The notice line fires only for an injury on a municipal way (s. 42 (2): repair of a highway or bridge)");
+check(
+  "City of Toronto Act s. 42 (1)-(2): the City's duty to repair a highway or bridge, and liability for default",
+  TO42.some((passage) => passage.text.includes("The City shall keep a highway or bridge over which it has jurisdiction in a state of repair") && passage.text.includes("If the City defaults in complying with subsection (1)")),
+);
+const NEVER = [
+  "I slipped on a wet floor in a store on Yonge St in Toronto on October 2 2026 and broke my wrist. I want to sue the city.",
+  "I slipped on ice in the Loblaws parking lot on Main St in Ottawa on October 2 2026 and hurt my back.",
+  "I fell on ice on my neighbour's driveway on Elm St in Hamilton on October 2 2026 and broke my ankle.",
+  "I fell when the TTC bus braked hard on Queen St in Toronto on October 2 2026 and hurt my shoulder.",
+  "I fell getting off the streetcar on Queen St in Toronto on October 2 2026 and broke my wrist.",
+  "Debris on Highway 401 near Kingston hit my windshield on October 2 2026 and I was hurt.",
+  "I slipped on the stairs of the city-owned community centre on Bloor St in Toronto on October 2 2026 and broke my wrist.",
+  "I fell on my landlord's broken stairs on King St in Toronto on October 2 2026 and hurt my back.",
+  "I was in a car accident on the road in Toronto on October 2 2026 and hurt my neck.",
+  "I tripped over a board at a construction site on a street in Toronto on October 2 2026 and broke my ankle.",
+  "A tree branch fell on my car parked on the street in Toronto on October 2 2026 and I was hurt.",
+  "I slipped on ice at the mall on Highway 7 in Vaughan on October 2 2026 and broke my wrist.",
+  "I fell on the provincial highway shoulder on October 2 2026 and hurt my knee.",
+];
+const fired = NEVER.filter((story) => municipalWayInjury(story) || municipalNoticeFirst(story, { now, city: "Toronto" }) !== null);
+check("private premises, transit, vehicles and provincial highways never fire", fired.length === 0, fired.join(" | "));
+const ALWAYS = [
+  TORONTO,
+  TORONTO_SHORT,
+  SCARBOROUGH,
+  OTTAWA,
+  TOWN,
+  "I tripped in a pothole on Dundas Street in Toronto on October 2 2026 and sprained my ankle.",
+  "I tripped on a raised slab of sidewalk in Hamilton on October 2 2026 and broke my wrist.",
+  "I fell off the curb in a crosswalk in Toronto on October 2 2026 and hurt my knee. I want to sue the city.",
+];
+const silent = ALWAYS.filter((story) => !municipalNoticeFirst(story, { now }));
+check("the persona and plain sidewalk, pothole, curb stories still fire", silent.length === 0, silent.join(" | "));
+check(
+  "a non-municipal injury gets no injected Act passages either",
+  NEVER.every((story) => !answeringPassages(research([...CLRA24]), story, index).some((passage) => isTorontoAct(passage) || isMunicipalAct44(passage))),
+);
+
+// ---------------------------------------------------------------- 9. where: organisations, streets, two places
+
+console.log("\n9. Organisation and street names are not places; two places are 'unknown'");
+const PLACES: [string, string][] = [
+  ["I slipped on an icy sidewalk outside the Toronto-Dominion bank in Mississauga.", "elsewhere"],
+  ["I slipped on an icy sidewalk outside the TD bank in Mississauga.", "elsewhere"],
+  ["I moved from Toronto last year. I slipped on an icy sidewalk in Barrie.", "elsewhere"],
+  ["A Toronto Hydro crew left a hole in the sidewalk in Brampton and I tripped.", "elsewhere"],
+  ["Toronto Police took my report after I fell on a sidewalk in Oshawa.", "elsewhere"],
+  ["I fell on a sidewalk near the University of Toronto campus in Mississauga.", "elsewhere"],
+  ["I tripped on East York Avenue in Markham.", "elsewhere"],
+  ["I live in Toronto but slipped on a sidewalk in Ottawa.", "unknown"],
+  ["I slipped on Kingston Road in Toronto.", "toronto"],
+  ["I tripped on Markham Road in Scarborough.", "toronto"],
+  ["I fell on a sidewalk on Kingston Road.", "unknown"],
+];
+const misplaced = PLACES.filter(([story, want]) => municipalPlaceOf(story) !== want).map(([story, want]) => `${story} -> ${municipalPlaceOf(story)}, want ${want}`);
+check("each probe gets the right place", misplaced.length === 0, misplaced.join(" | "));
+{
+  const BOTH = "I live in Toronto but slipped on an icy city sidewalk in Ottawa on October 8 2026 and broke my wrist.";
+  check("two places: both Acts are kept (the filter acts only on a definite place)", withoutWrongForStory([...MA44, ...TO42], BOTH).length === MA44.length + TO42.length);
+  check(
+    "two places: the guard lets a Municipal Act question and a City of Toronto Act question through",
+    storyRejection(BOTH, WALKTHROUGH_DRAFT, ma) === null && storyRejection(BOTH, { ...WALKTHROUGH_DRAFT, passageId: to.id, why: "The City of Toronto Act, 2006 says ..." }, to) === null,
+  );
+  const both = municipalNoticeFirst(BOTH, { now });
+  check("two places: the notice line shows both notices", both?.place === "unknown" && both.rule.sourceId === "municipal-act-2001" && both.alsoToronto?.rule.sourceId === "city-of-toronto-act-2006");
+}
+
+// ---------------------------------------------------------------- 10. added passages never push research out
+
+console.log("\n10. The right Act is added on top; research passages are never pushed out");
+{
+  const OLA = passagesOf("occupiers-liability-act", /^s\. /);
+  const filler = passagesOf("limitations-act-2002", /^s\. /).slice(0, 12);
+  const ten = [...MA44.slice(0, 1), ...OLA.slice(0, 2), ...filler].slice(0, 10);
+  const offered = answeringPassages(research(ten), TORONTO, index);
+  const researchKept = ten.filter((passage) => !isMunicipalAct44(passage));
+  check(
+    "every research passage that applies is still offered (the Occupiers' Liability Act among them)",
+    OLA.length > 0 && filler.length > 0 && researchKept.every((passage) => offered.some((item) => item.id === passage.id)),
+    offered.map((p) => p.id).join(", "),
+  );
+  check("the added City of Toronto Act passages are at most 3, on top", offered.filter(isTorontoAct).length <= 3 && offered.length <= MAX_PASSAGE_IDS);
+}
+
 check("Divorce Act s. 17, FLA s. 37 and FLR r. 15 are variation provisions too", [
   passagesOf("divorce-act", /^s\. 17 \(1\)/),
   passagesOf("family-law-act", /^s\. 37 \(1\)/),

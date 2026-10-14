@@ -130,6 +130,11 @@ export function municipalNoticeFirst(
   };
 }
 
+/** Whether an exception turns on what a judge finds (s. 42 (8), s. 44 (12)); the death exception (s. 42 (7), s. 44 (11)) does not. */
+export function turnsOnJudge(rule: RuleCitation): boolean {
+  return /\bif a judge finds\b/.test(rule.quote);
+}
+
 /** The injury date as the line says it: the long date, and that the year was assumed when it was. */
 export function injuryDateWords(injury: NonNullable<MunicipalNoticeFirst["injury"]>): string {
   return `${formatLongDate(injury.date)}${injury.yearAssumed ? " (you did not give the year; we took the most recent one -- check it)" : ""}`;

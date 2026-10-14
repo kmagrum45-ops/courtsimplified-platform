@@ -1674,6 +1674,13 @@ fall was asked a question from Municipal Act s. 44 (9). Read in the saved text
   highway includes a sidewalk" as if quoted; s. 42 (5) / 44 (9) are where
   sidewalks appear.
 
+- The 10-day notice bars only an action "under subsection (2)" -- the
+  City's (or municipality's) default in keeping a highway or bridge in
+  repair, s. 42 (1)-(2) / s. 44 (1)-(2). It is not the notice for a fall in a
+  store, a parking lot, a landlord's stairs, a city-owned building, on transit,
+  in a car accident, or on a provincial highway (review of f71a316,
+  2026-10-14); the intake's trigger (`municipalWayInjury`) excludes those.
+
 Enforced in code by `retrieval/passagesForStory.ts` (no model is shown the
 other municipality's section) and `content-library/municipalNoticeFirst.ts`
 (the intake's notice line), `npm run test:municipal-notice-first`.

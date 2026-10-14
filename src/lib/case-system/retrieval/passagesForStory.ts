@@ -21,10 +21,14 @@
  *
  * Also (same review, low): a parent with no parenting order was shown
  * Children's Law Reform Act s. 29, which governs an order that "varies a
- * parenting order or contact order". When the story mentions no order or
- * agreement at all, the provisions that only change an existing one (CLRA
- * s. 29, Divorce Act s. 17, Family Law Act s. 37, Family Law Rules r. 15) are
- * left out. Any mention of an order or agreement keeps them.
+ * parenting order or contact order". The provisions that only change an
+ * existing order or agreement (CLRA s. 29, Divorce Act s. 17, Family Law Act
+ * s. 37, Family Law Rules r. 15) are left out ONLY on positive evidence that
+ * there is none yet: "no order", "never been to court", or a first
+ * application just served with no sign of anything earlier. Anything that
+ * might be an earlier order (a year, "the judge gave", "FRO", "awarded", a
+ * divorce, a mediated plan) keeps them (review of f71a316, 2026-10-14: a
+ * word list of "order" missed "custody papers from 2019" and nine others).
  *
  * Where it runs: researchStory (each question's passages before the reading
  * call, and the final list), retrieveForStory, and sourcedQuestions
@@ -77,14 +81,21 @@ export function isVariationProvision(passage: Pick<Passage, "id" | "pinpoint">):
   return VARIATION.some((entry) => entry.sourceId === sourceId && entry.pinpoint.test(passage.pinpoint ?? ""));
 }
 
-/**
- * Words that show, or might show, an order or agreement already exists.
- * Deliberately wide: any of them keeps the variation provisions.
- */
-const ORDER_WORDS = /\b(?:orders?|ordered|agreements?|agreed|consent|vary|varied|varying|variation|change (?:it|the|our|my|that)|motion to change|judgment|decree|arrangement)\b/i;
+/** The person says outright there is no order, or they have never been to court. */
+const NO_ORDER_SAID =
+  /\b(?:no\s+(?:court\s+|existing\s+|prior\s+|previous\s+|custody\s+|parenting\s+|support\s+)?(?:orders?|agreements?|court\s+case)|(?:never|not)\s+(?:been\s+|gone\s+|went\s+)?(?:to|in)\s+court|haven'?t\s+been\s+to\s+court|first\s+time\s+(?:in|going\s+to)\s+court|nothing\s+(?:has\s+been\s+)?(?:decided|ordered)\s+yet)\b/i;
+/** A first application just served or started. */
+const FIRST_APPLICATION =
+  /\b(?:took\s+me\s+to\s+court|(?:is|are)\s+taking\s+me\s+to\s+court|(?:got|been|was|were|just)\s+served|served\s+(?:me\s+)?(?:with\s+)?(?:the\s+|her\s+|his\s+|an?\s+)?(?:papers|application)|filed\s+an\s+application\s+(?:against\s+me|for\s+custody))\b/i;
+/** Anything that might be an earlier order or agreement. Wide on purpose: any of it keeps the provisions. */
+const MAYBE_EARLIER_ORDER =
+  /\b(?:orders?|ordered|agreements?|agreed|consent|vary|varied|varying|variation|chang\w*|judgment|decree|arrangement|decisions?|decided|award(?:ed)?|won|granted|gave|said|judge|fro|family\s+responsibility\s+office|pay|pays|paying|paid|parenting\s+plan|mediat\w*|divorce\w*|separation|visitation|primary\s+residence|custody\s+papers|(?:19|20)\d\d)\b/i;
 
+/** Positive evidence that there is no order or agreement yet. Pure. */
 export function storyShowsNoOrder(story: string): boolean {
-  return Boolean(story.trim()) && !ORDER_WORDS.test(story);
+  if (!story.trim()) return false;
+  if (NO_ORDER_SAID.test(story)) return true;
+  return FIRST_APPLICATION.test(story) && !MAYBE_EARLIER_ORDER.test(story);
 }
 
 /** Whether a passage cannot apply to this story, and why; null when it may. Pure. */
@@ -121,17 +132,31 @@ export function rightMunicipalPassages(index: LoadedIndex, story: string): Passa
     .filter((passage) => !/^s\. 44 \(4\)/.test(passage.pinpoint));
 }
 
+/** At most this many right-municipality passages are added (s. 42 has three; s. 44 without (4)-(8) has three). */
+export const MAX_ADDED_MUNICIPAL = 3;
+
 /**
- * The passages fitted to the story: the wrong ones out; and, for an injury
- * on a municipal way, the right municipality's sections in, first, when
- * `inject` is set or a wrong-place municipal passage was taken out (so the
- * reader that wanted the notice rule gets the one that applies).
+ * The passages fitted to the story: the wrong ones out, then at most `cap`
+ * of the rest in their order; and, for an injury on a municipal way (the
+ * tightened municipalWayInjury, a definite place), the right municipality's
+ * sections in front, when `inject` is set or a wrong-place municipal passage
+ * was taken out. The added ones are ON TOP of the cap (review of f71a316,
+ * 2026-10-14): they never push out a research passage, such as the
+ * Occupiers' Liability Act.
  */
-export function fitPassagesToStory(passages: readonly Passage[], story: string, index: LoadedIndex | null, inject = false): Passage[] {
+export function fitPassagesToStory(
+  passages: readonly Passage[],
+  story: string,
+  index: LoadedIndex | null,
+  options: { inject?: boolean; cap?: number } = {},
+): Passage[] {
   const kept = withoutWrongForStory(passages, story);
+  const capped = options.cap === undefined ? kept : kept.slice(0, options.cap);
   const swappedMunicipal = passages.some((passage) => !kept.includes(passage) && (isMunicipalAct44(passage) || isTorontoAct(passage)));
-  if (!index || !(inject || swappedMunicipal)) return kept;
-  const seen = new Set(kept.map((passage) => passage.id));
-  const right = rightMunicipalPassages(index, story).filter((passage) => !seen.has(passage.id));
-  return [...right, ...kept];
+  if (!index || !(options.inject || swappedMunicipal)) return capped;
+  const seen = new Set(capped.map((passage) => passage.id));
+  const right = rightMunicipalPassages(index, story)
+    .filter((passage) => !seen.has(passage.id))
+    .slice(0, MAX_ADDED_MUNICIPAL);
+  return [...right, ...capped];
 }

@@ -272,7 +272,7 @@ async function searchIssues(
     // A law that cannot apply to this story (Municipal Act s. 44 for Toronto,
     // round 4 review 2026-10-14) is never offered to the reader; the one that
     // does takes its place (passagesForStory.ts).
-    byIssue.set(issue.id, fitPassagesToStory([...found, ...followCrossReferences(index, found)], input.story, index).slice(0, PASSAGES_PER_ISSUE + 2));
+    byIssue.set(issue.id, fitPassagesToStory([...found, ...followCrossReferences(index, found)], input.story, index, { cap: PASSAGES_PER_ISSUE + 2 }));
   }
   return byIssue;
 }

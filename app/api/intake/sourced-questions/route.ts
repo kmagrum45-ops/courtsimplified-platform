@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { loadCorpusIndex } from "@/src/lib/case-system/retrieval/corpusIndex";
 import {
+  MAX_PASSAGE_IDS,
   passagesById,
   questionsFromPassages,
   researchForQuestions,
@@ -61,7 +62,7 @@ function isSourcedQuestionsBody(value: unknown): value is Body {
   if (keys.some((key) => !["story", "courtPath", "side", "passageIds", "situation"].includes(key))) return false;
   if (
     body.passageIds !== undefined &&
-    !(Array.isArray(body.passageIds) && body.passageIds.length <= 10 && body.passageIds.every((id) => typeof id === "string" && PASSAGE_ID.test(id)))
+    !(Array.isArray(body.passageIds) && body.passageIds.length <= MAX_PASSAGE_IDS && body.passageIds.every((id) => typeof id === "string" && PASSAGE_ID.test(id)))
   ) {
     return false;
   }

@@ -45,11 +45,17 @@ import { loadCorpusIndex, readPassage, type LoadedIndex, type Passage } from "./
 import { numberNotInSource, outcomeTermNotInProvision, provisionOf } from "./explainProvision";
 import { researchStory, type ResearchDeps, type ResearchResult } from "./researchStory";
 import { passageItem, type RetrievalInput } from "./storyRetrieval";
-import { fitPassagesToStory, isMunicipalAct44, isTorontoAct, withoutWrongForStory, wrongForStory } from "./passagesForStory";
+import { MAX_ADDED_MUNICIPAL, fitPassagesToStory, isMunicipalAct44, isTorontoAct, withoutWrongForStory, wrongForStory } from "./passagesForStory";
 import { municipalPlaceOf } from "../../content-library/nextStepPractical";
 
 export const MAX_SOURCED_QUESTIONS = 5;
 const MAX_PASSAGES_OFFERED = 10;
+/**
+ * The research's passages are capped at MAX_PASSAGES_OFFERED; the right
+ * municipality's notice sections are added on top (passagesForStory.ts), so
+ * phase 2 may carry up to this many ids.
+ */
+export const MAX_PASSAGE_IDS = MAX_PASSAGES_OFFERED + MAX_ADDED_MUNICIPAL;
 const PASSAGE_CHARS = 1500;
 /**
  * Writing and checking, in their own request (phase 2). Research has its own
@@ -226,7 +232,7 @@ export function answeringPassages(research: ResearchResult, story = "", index: L
   const byId = new Map(research.passages.map((passage) => [passage.id, passage]));
   const ids = [...new Set(research.findings.flatMap((finding) => finding.answeredBy.map((answer) => answer.passageId)))];
   const found = ids.map((id) => byId.get(id)).filter((passage): passage is Passage => Boolean(passage));
-  return fitPassagesToStory(found, story, index, true).slice(0, MAX_PASSAGES_OFFERED);
+  return fitPassagesToStory(found, story, index, { inject: true, cap: MAX_PASSAGES_OFFERED });
 }
 
 /**
@@ -401,7 +407,7 @@ export async function sourcedQuestions(input: RetrievalInput, deps: SourcedQuest
 /** Passages re-read from the index by id (hash-verified); unknown ids are dropped. */
 export function passagesById(index: LoadedIndex, ids: readonly string[]): Passage[] {
   return ids
-    .slice(0, MAX_PASSAGES_OFFERED)
+    .slice(0, MAX_PASSAGE_IDS)
     .map((id) => readPassage(index, id, 1))
     .filter((passage): passage is Passage => Boolean(passage));
 }
