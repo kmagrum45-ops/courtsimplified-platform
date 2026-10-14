@@ -35,6 +35,11 @@
  * party's name is judged), or a panel lookup using a different list; a date with no year
  * explained as "its most recent year" instead of the day counted.
  *
+ * (walkthrough run 38593464953, RN) a blank "what date was it served?" asked
+ * of a person who gave the day the claim reached them: the day they gave must
+ * be shown as theirs, and only how it was served (then, if that way counts
+ * from another day, that day) asked.
+ *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
  * Run: npm run test:service-dates
@@ -45,6 +50,7 @@ import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
 import {
+  arrivalAskFor,
   arrivalNoteFor,
   arrivalOnlyDates,
   countedFromService,
@@ -234,6 +240,34 @@ console.log("\nThe day papers arrived is never counted as the day they were mail
   check("the date list asks offerStoryDate before offering a story date", /!offerStoryDate\(question\.id, arrivalOnly\)\s*\?\s*undefined/.test(panel));
   check("once the person gives the date, the note goes", arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, Object.fromEntries(heldBack.map((id) => [id, "2026-09-24"])), "small-claims", {}, "mail") === null);
   check("no sentence on the panel says service or the rules 'count from' the mailing day", !/service counts from|the rules count from/.test(panel));
+
+  // Walkthrough run 38593464953 (RN): "If the claim has been served, what
+  // date was it served?" was shown as a blank date beside "You wrote: ...
+  // september 28". The property: for an arrival-only service date, the day
+  // the person gave is shown as theirs, and what is asked is only what is
+  // missing -- how it was served while that is unknown (no date box then),
+  // and once a way counted from another day is chosen, that day alone.
+  {
+    const id = heldBack[0];
+    const reno = arrivalAskFor({ quote: yearlessArrival[id], hint: yearlessHints[id], method: null });
+    check(
+      "the day the claim reached him is shown as his, without a year he did not give",
+      reno?.said === "You said the papers reached you on September 28." && reno.ask === "how",
+      JSON.stringify(reno),
+    );
+    const withYear = arrivalAskFor({ quote: arrival[Object.keys(arrival)[0]], hint: hints[Object.keys(arrival)[0]], method: null });
+    check("with its year, the full day is shown", /^You said the papers reached you on \w+ 28 September 2026\.$/.test(withYear?.said ?? ""), JSON.stringify(withYear));
+    const chosen = arrivalAskFor({ quote: yearlessArrival[id], hint: yearlessHints[id], method: "residence-and-mail" });
+    check("once a way counted from the mailing is chosen, only that day is asked", chosen?.ask === "sent-day" && /reached you on September 28/.test(chosen.said));
+    check("no question that is not arrival-only is touched", arrivalAskFor({ quote: undefined, hint: yearlessHints[id], method: null }) === null);
+    check("an arrival note with no readable date still quotes their words", /^You wrote: “i got it” That is the day the papers reached you\.$/.test(arrivalAskFor({ quote: "i got it", hint: { quote: "i got it", value: null }, method: null })?.said ?? ""));
+    check(
+      "the panel shows the day they gave first and no blank date box while how it was served is the missing piece",
+      /\{arrivalAsk \? \(\s*<p data-testid=\{`stage-answer-arrival-said-/.test(panel) && /\{arrivalAsk\?\.ask === "how" \? null : \(\s*<label className="block">/.test(panel),
+    );
+    check("a way counted from the day they got the papers takes the question out of the held-back dates (the story's date is offered instead)",
+      Object.keys(arrivalOnlyDates({ stageId: "defendant:served-defence-period-running", court: "small-claims", storyText: yearless, storyHints: yearlessHints, methods: { [id]: "registered-mail-signature" } })).length === 0);
+  }
   for (const court of Object.keys(SERVICE_RULES) as ServiceCourt[]) {
     for (const rule of SERVICE_RULES[court].filter((item) => item.addDays > 0)) {
       const say = whenEffectiveSay(rule);

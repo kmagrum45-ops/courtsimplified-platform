@@ -1,6 +1,6 @@
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
-import { suggestApplicability } from "@/src/lib/case-system/forms/applicabilitySuggestions";
+import { caseAnswersApplied, suggestApplicability } from "@/src/lib/case-system/forms/applicabilitySuggestions";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
@@ -183,13 +183,19 @@ async function readinessForOwnedCase(request: Request, caseId: string) {
   // could not tell that apart from "nothing applies to you". Now reported.
   const stageSupport = resolveFormStageSupport(stage);
   const applicabilityQuestions = questionsForMappings(activeMappings, area, stage);
+  // Answers the case already holds (applicabilitySuggestions.ts). A firm one
+  // -- from a fact the person confirmed or entered -- counts as answered with
+  // no save (walkthrough run 38593464953): applied here, under what they
+  // saved, and never stored, so it follows that fact if it changes.
+  const suggestedApplicability = suggestApplicability(applicabilityQuestions, readCaseRecord(masterResult, area), masterResult);
+  const answeredMaster = { ...masterResult, formApplicability: caseAnswersApplied(asRecord(masterResult.formApplicability) || {}, suggestedApplicability) };
   const ids = activeMappings.map((mapping) => text(mapping.canonical_form_id)).filter(Boolean);
-  if (!ids.length) return { area, masterResult, applicabilityQuestions, recommendations: [], stageSupport } as const;
+  if (!ids.length) return { area, masterResult, applicabilityQuestions, suggestedApplicability, recommendations: [], stageSupport } as const;
   const { data: catalog, error: catalogError } = await supabase.from("court_form_library").select("canonical_form_id,court_type,official_title,form_source_id,official_source_url,form_revision_or_effective_at,form_checked_at,form_review_status").eq("court_type", area).eq("is_active", true).in("canonical_form_id", ids);
   if (catalogError) return { error: "Could not load verified form catalogue records.", status: 500 } as const;
   const catalogById = new Map<string, CleanCatalogForm>();
   for (const form of (catalog || []) as CleanCatalogForm[]) if (!catalogById.has(form.canonical_form_id)) catalogById.set(form.canonical_form_id, form);
-  const facts = caseFacts(masterResult, area);
+  const facts = caseFacts(answeredMaster, area);
   const recommendations = activeMappings.flatMap((mapping) => {
     const resolved = resolveExactFormMapping(mapping, { courtArea: area, procedureStage: stage, caseFacts: facts, catalogRecord: catalogById.get(text(mapping.canonical_form_id)) || null });
     const lookup = getCanonicalFormLookup({ canonicalFormId: resolved.canonicalFormId, courtType: resolved.canonicalFormCourtType });
@@ -197,7 +203,7 @@ async function readinessForOwnedCase(request: Request, caseId: string) {
     const description = verifiedUseDescription(mapping, area);
     return lookup && form ? [{ canonicalFormId: lookup.canonicalFormId, courtType: lookup.courtType, officialTitle: form.official_title, officialSourceUrl: text(form.official_source_url), revisionOrEffectiveAt: text(form.form_revision_or_effective_at), ...(description ? { verifiedUseDescription: description } : {}) }] : [];
   });
-  return { area, masterResult, applicabilityQuestions, recommendations, stageSupport } as const;
+  return { area, masterResult, applicabilityQuestions, suggestedApplicability, recommendations, stageSupport } as const;
 }
 
 export async function GET(request: Request) {
@@ -205,11 +211,7 @@ export async function GET(request: Request) {
   if (!CASE_ID_PATTERN.test(caseId)) return NextResponse.json({ error: "A valid selected case is required." }, { status: 400 });
   const result = await readinessForOwnedCase(request, caseId);
   if ("error" in result) return NextResponse.json({ error: result.error }, { status: result.status });
-  return NextResponse.json({ courtPath: result.area, formApplicability: asRecord(result.masterResult.formApplicability) || {}, applicabilityQuestions: result.applicabilityQuestions, suggestedApplicability: suggestionsFor(result), recommendations: result.recommendations, stageSupport: result.stageSupport });
-}
-/** Answers the case already holds, offered for the person to confirm (applicabilitySuggestions.ts). */
-function suggestionsFor(result: { area: FormsCourtPath; masterResult: Record<string, unknown>; applicabilityQuestions: ApplicabilityQuestion[] }) {
-  return suggestApplicability(result.applicabilityQuestions, readCaseRecord(result.masterResult, result.area), result.masterResult);
+  return NextResponse.json({ courtPath: result.area, formApplicability: asRecord(result.masterResult.formApplicability) || {}, applicabilityQuestions: result.applicabilityQuestions, suggestedApplicability: result.suggestedApplicability, recommendations: result.recommendations, stageSupport: result.stageSupport });
 }
 export async function PATCH(request: Request) {
   const contentLength = Number(request.headers.get("content-length") || 0);
@@ -232,5 +234,5 @@ export async function PATCH(request: Request) {
   if (!saved.ok) return NextResponse.json({ error: "Could not save form applicability answers." }, { status: saved.reason === "conflict" ? 409 : 500 });
   const updated = await readinessForOwnedCase(request, caseId);
   if ("error" in updated) return NextResponse.json({ error: updated.error }, { status: updated.status });
-  return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, suggestedApplicability: suggestionsFor(updated), recommendations: updated.recommendations, stageSupport: updated.stageSupport });
+  return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, suggestedApplicability: updated.suggestedApplicability, recommendations: updated.recommendations, stageSupport: updated.stageSupport });
 }

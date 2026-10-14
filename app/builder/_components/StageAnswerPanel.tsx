@@ -1168,6 +1168,40 @@ export function offerStoryDate(questionId: string, arrival: Record<string, strin
   return !arrival[questionId];
 }
 
+/**
+ * What the dates panel asks for a service date the person gave only as the
+ * day the papers ARRIVED (walkthrough run 38593464953, RN: "If the claim has
+ * been served, what date was it served?" was shown as a blank date beside
+ * "You wrote: ... september 28" -- asked again). The day they gave is shown
+ * as theirs, and only the missing piece is asked: how the papers were served
+ * ("how") and, once that is a way counted from another day, that day
+ * ("sent-day", e.g. the day the copy was mailed). A way counted from the
+ * arrival day itself (handed over, signed for) takes the question out of
+ * arrivalOnlyDates, and the story's date is offered as theirs. Null when the
+ * question is not one of these. Exported for test:service-dates.
+ */
+export function arrivalAskFor(args: {
+  quote: string | undefined;
+  hint: StoryHint | undefined;
+  method: ServiceMethod | null | undefined;
+}): { said: string; ask: "how" | "sent-day" } | null {
+  if (!args.quote) return null;
+  const value = args.hint?.value ?? "";
+  const day = /^\d{4}-\d{2}-\d{2}$/.test(value)
+    ? args.hint?.yearAssumed
+      ? monthAndDay(value)
+      : formatLongDate(value)
+    : "";
+  const said = day ? `You said the papers reached you on ${day}.` : `You wrote: “${args.quote}” That is the day the papers reached you.`;
+  return { said, ask: args.method ? "sent-day" : "how" };
+}
+
+/** "September 28", for a day whose year the person did not give. */
+function monthAndDay(iso: string): string {
+  const [year, month, day] = iso.split("-").map(Number);
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-CA", { month: "long", day: "numeric", timeZone: "UTC" });
+}
+
 /** Saved dates without the story's arrival-only service dates (unless saved with how they were served). */
 function withoutArrivalDates(
   answers: Record<string, string>,
@@ -1799,8 +1833,23 @@ export default function StageAnswerPanel({
                   </div>
                 );
               }
+              // The day the papers reached them, shown as theirs; only how
+              // they were served, then (if it counts from another day) that
+              // day, is asked (arrivalAskFor; walkthrough run 38593464953).
+              const arrivalAsk = serviceCourt && !value
+                ? arrivalAskFor({
+                    quote: arrivalOnly[question.id],
+                    hint: storyHints[question.id],
+                    method: serviceMethod[question.id] ?? (isServiceDateQuestion(question.id, question.question) ? storyMethodFor(question.id) : null),
+                  })
+                : null;
               return (
                 <div key={question.id}>
+                  {arrivalAsk ? (
+                    <p data-testid={`stage-answer-arrival-said-${question.id}`} className="mb-2 text-sm font-semibold text-[#16302b]">
+                      {arrivalAsk.said}
+                    </p>
+                  ) : null}
                   {serviceCourt &&
                   isServiceDateQuestion(question.id, question.question) &&
                   serviceMethodDisplay(serviceMethod[question.id], storyMethodFor(question.id), Boolean(changingMethod[question.id])) !== "choose" ? (
@@ -1852,6 +1901,8 @@ export default function StageAnswerPanel({
                       </select>
                     </label>
                   ) : null}
+                  {/* Not a blank date while how they were served is the missing piece (arrivalAskFor). */}
+                  {arrivalAsk?.ask === "how" ? null : (
                   <label className="block">
                     <span className="text-sm font-semibold text-[#16302b]">
                       {serviceCourt && (serviceMethod[question.id] ?? (isServiceDateQuestion(question.id, question.question) ? storyMethodFor(question.id) : null))
@@ -1867,21 +1918,23 @@ export default function StageAnswerPanel({
                       className="mt-2 rounded-xl border border-[#d8e6df] bg-white px-3 py-2"
                     />
                   </label>
-                  {arrivalOnly[question.id] && !value && serviceCourt ? (
+                  )}
+                  {arrivalAsk && serviceCourt ? (
                     <p className="mt-2 text-sm leading-6 text-[#16302b]" data-testid={`stage-answer-arrival-${question.id}`}>
                       {(() => {
                         // The same words as the card's note (walkthrough 2026-10-14, RN): what the rule
                         // says about when service is effective, never "counts from the day it was mailed".
+                        // The day they gave is already shown above as theirs (arrivalAsk.said).
                         const rule = waysFor(question.id).find((candidate) => candidate.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)));
                         if (isOriginatingService(serviceCourt, question.id) && !rule) {
                           // A claim or application (legal review 2026-10-14): the rule on how it is served,
                           // and the ways above; never a mail rule, never whether service was valid.
-                          return `You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. ${originatingRuleFor(serviceCourt, question.id).say} Choose how above, and give the day it asks for. The other side's affidavit of service shows how and when, and the court office can tell you.`;
+                          return `${originatingRuleFor(serviceCourt, question.id).say} Choose how above. If that way counts from a day other than the day they reached you, we ask only for that day. The other side's affidavit of service shows how and when, and the court office can tell you.`;
                         }
-                        const effective = rule ? whenEffectiveSay(rule) : "service is effective on a day set from the day they were sent";
-                        return `You wrote: “${arrivalOnly[question.id]}” That is the day the papers reached you. For papers sent this way, ${effective}, not on the day they arrived. Give ${
-                          rule?.dateToEnter ?? "the day they were sent"
-                        } above. The envelope or the other side's proof of service often shows it, and the court office can tell you.`;
+                        if (!rule) {
+                          return "Choose how above. Some ways count from the day the papers were sent, not the day they arrived; if yours does, we then ask only for that day. The envelope or the other side's proof of service often shows it, and the court office can tell you.";
+                        }
+                        return `For papers sent this way, ${whenEffectiveSay(rule)}, not on the day they arrived. Give ${rule.dateToEnter} above. The envelope or the other side's proof of service often shows it, and the court office can tell you.`;
                       })()}
                     </p>
                   ) : null}

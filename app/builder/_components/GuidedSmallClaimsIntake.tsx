@@ -563,7 +563,21 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // unticked, sent with each answer so the next questions are checked against
   // the whole conversation, not only the opening story. Live run: the date
   // given to "when did it happen?" was asked for again as the injury date.
-  const [earlierAnswers, setEarlierAnswers] = useState<ConfirmedStoryAnswer[]>(() => (previous?.answers ?? []).slice(-200));
+  const [earlierAnswers, setEarlierAnswersState] = useState<ConfirmedStoryAnswer[]>(() => (previous?.answers ?? []).slice(-200));
+  /*
+   * The same answers, current at once, for the completion (walkthrough run
+   * 38593464953, RN). Completion is called from inside an earlier turn's
+   * async work, where `earlierAnswers` is that render's copy: the last answer
+   * given was missing, and the claim-type path (finishDepthPhase) sent no
+   * answers at all -- so "I also want to ask the court to make him pay for
+   * the repairs" never reached the case, and the Forms page asked about a
+   * Defendant's Claim as if he had said nothing.
+   */
+  const earlierAnswersRef = useRef<ConfirmedStoryAnswer[]>(earlierAnswers);
+  const setEarlierAnswers = (next: ConfirmedStoryAnswer[] | ((current: ConfirmedStoryAnswer[]) => ConfirmedStoryAnswer[])) => {
+    earlierAnswersRef.current = typeof next === "function" ? next(earlierAnswersRef.current) : next;
+    setEarlierAnswersState(earlierAnswersRef.current);
+  };
   // The saved case can finish loading after this mounts; take its earlier
   // answers then too, as long as the conversation hasn't started.
   const previousTaken = useRef(Boolean(previous));
@@ -573,6 +587,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     setFacts(previousFacts(previous));
     setAnsweredIds(previousAnsweredIds(previous));
     setEarlierAnswers(previous.answers.slice(-200));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previous, started]);
   const [declinedIds, setDeclinedIds] = useState<string[]>([]);
 
@@ -984,7 +999,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Held while they load; released at once when there are none. A claim
   // type with its own reviewed questions (the depth phase) uses those.
   function completeWithSourced(completed: GuidedIntakeCompletionResult) {
-    const payload = { ...completed, answers: earlierAnswers };
+    const payload = { ...completed, answers: earlierAnswersRef.current };
     if (sourced.state === "loading" || (sourced.state === "ready" && sourced.questions.length > 0)) {
       setHeldPayload(payload);
       return;
@@ -1019,7 +1034,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     setDepthActive(false);
     const payload = payloadOverride ?? completionPayload;
     if (payload) {
-      onComplete?.({ ...payload, elementStateMap: stateMap || undefined, sourcedAnswers: sourced.answeredList() });
+      // Every answer given, current now (earlierAnswersRef): this path sent none.
+      onComplete?.({ ...payload, answers: earlierAnswersRef.current, elementStateMap: stateMap || undefined, sourcedAnswers: sourced.answeredList() });
     }
   }
 
@@ -1030,6 +1046,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     const answerText = inputText.trim();
     if (answerText) {
       setMessages((current) => [...current, { from: "user", text: answerText }]);
+      // Kept with the others, so the case holds the person's own words.
+      setEarlierAnswers((current) => [...current, { questionId: question.id, answerText: answerText.slice(0, 1000) }]);
     }
     setInputText("");
     setLoading(true);

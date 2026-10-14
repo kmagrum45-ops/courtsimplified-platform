@@ -21,6 +21,10 @@
  *     pages show already answers ("started by Notice of Action?" after
  *     "I have not filed anything yet"; "which motion document set?" on the
  *     motion-to-change step), or a suggested step's answer kept unconfirmed;
+ *   - (run 38593464953) an answer that follows from a confirmed fact shown
+ *     as a question, needing a Save, or written by the page by itself,
+ *     instead of counted as the case's answer with Change; or a story
+ *     reading counted without the person's click;
  *   - a page or route going back to its own reading of these facts: the
  *     overview's stage, the drafts' story, family answers given after a save.
  *
@@ -33,7 +37,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { documentsOf, readCaseRecord, recordedDateAnswers, storedIntakeValues } from "../../src/lib/case-system/caseRecord";
-import { suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
+import { caseAnswersApplied, suggestApplicability } from "../../src/lib/case-system/forms/applicabilitySuggestions";
 import { stepNamedInStory, suggestedStageFor } from "../../src/lib/case-system/stage-map/suggestedStep";
 import { caseStepFor } from "../../src/lib/case-system/caseStep";
 import { practicalFor } from "../../src/lib/content-library/nextStepPractical";
@@ -145,6 +149,8 @@ check(
       { answers: ["Yes, I want to sue him back for the cost of fixing it."] },
       { answers: ["I want to dispute it and maybe have him pay for the repairs."] },
       { answers: ["He should pay for fixing the shower, it cost me $5,200."] },
+      // Walkthrough run 38593464953 (RN), his own answer word for word.
+      { answers: ["I'm responding to the Plaintiff's Claim and I want to dispute it. I also want to ask the court to make him pay for the repairs since he didn't fix the issues."] },
     ];
     for (const words of asking) {
       const found = asDefendant(words)[0];
@@ -170,6 +176,25 @@ check(
       check(`no defendant's claim offered from ${JSON.stringify(words).slice(0, 70)}`, asDefendant(words).length === 0);
     }
     const plaintiffMaster = { intakeData: { extra: { yourRole: "Plaintiff / claimant" } }, intakeAnswers: [{ questionId: "q", answerText: "I want him to pay for the repairs." }] };
+    // ...and those words reach the case at all (run 38593464953, RN: the
+    // Forms page asked about a Defendant's Claim as if he had said nothing,
+    // because the guided intake's completion read a stale copy of the
+    // answers, and its claim-type path sent none). Every completion carries
+    // the answers as they are now, never a render's copy.
+    {
+      const intake = readFileSync(path.join(process.cwd(), "app/builder/_components/GuidedSmallClaimsIntake.tsx"), "utf8");
+      const completions = [...intake.matchAll(/onComplete\?\.\(\{([^]*?)\}\)/g)].map((match) => match[1]);
+      const fromPayload = (body: string) => /^\s*\.\.\.(?:heldPayload|payload)\b/.test(body);
+      check(
+        "every guided completion carries the answers as they are now",
+        completions.length > 0 &&
+          completions.every((body) => /answers: earlierAnswersRef\.current/.test(body) || fromPayload(body)) &&
+          /const payload = \{ \.\.\.completed, answers: earlierAnswersRef\.current \}/.test(intake) &&
+          /function finishDepthPhase\([^]*?onComplete\?\.\(\{[^}]*answers: earlierAnswersRef\.current/.test(intake) &&
+          !/answers: earlierAnswers\s*[,}]/.test(intake),
+        completions.map((body) => body.slice(0, 60)).join(" | "),
+      );
+    }
     check("a plaintiff is never offered a defendant's claim", suggestApplicability(claimQuestion, readCaseRecord(plaintiffMaster, "small-claims"), plaintiffMaster).length === 0);
     const considering = { position: { stepId: "defendant:considering-defendants-claim" }, intakeData: { extra: { yourRole: "Defendant / responding party" } } };
     const chosen = suggestApplicability(claimQuestion, readCaseRecord(considering, "small-claims"), considering)[0];
@@ -178,9 +203,47 @@ check(
     check("the step 'considering a defendant's claim' offers it as a suggestion, not a kept answer", chosen?.value === true && !chosen.firm);
   }
   const forms = readFileSync(path.join(process.cwd(), "app/forms/FormsWorkspace.tsx"), "utf8");
-  check("the forms page keeps only firm answers without asking", /suggestion\.firm &&/.test(forms) && /void saveApplicability\(patch, reasons\)/.test(forms));
-  check("a kept answer shows where it came from, with Change", /From your case: \{keptReason\}/.test(forms) && /keptFromCase\[question\.field_path\] \?\?/.test(forms));
-  check("a firm answer shows as kept while it saves, never as an empty question (2026-10-13)", /const firmNow = suggestedAnswers\.find/.test(forms) && /"Saving to your case\."/.test(forms));
+  const route = readFileSync(path.join(process.cwd(), "app/api/cases/form-applicability/route.ts"), "utf8");
+  // Walkthrough run 38593464953 (2026-10-14): "Are you responding to a Family
+  // Application?" was captured mid-save ("Saving...") and "Was this case
+  // started by Notice of Action?" needed a Save click, though confirmed facts
+  // answered both. The properties: a firm answer counts as the case's answer
+  // with no click (the matcher reads it, nothing is written for it), its
+  // block shows the answer and where it came from with Change and is never a
+  // question, and only a value the person saves beats it.
+  {
+    const kept = forms.slice(forms.indexOf('data-testid="forms-kept-from-case"'), forms.indexOf('data-testid="forms-suggested-from-case"'));
+    check(
+      "a case answer is shown answered, with its reason and Change, never as the question or a save in progress",
+      kept.length > 0 && /From your case:/.test(kept) && /\{lowerFirst\(keptReason\)\}/.test(kept) && /Change/.test(kept) && !/>\s*\{question\.question\}/.test(kept) && !/Saving|Not saved yet|saveApplicability\(/.test(kept),
+    );
+    check(
+      "the forms page writes nothing for a firm answer: no save fires by itself, and a firm answer is left out of a save",
+      !/useEffect\([^]*?saveApplicability\([^]*?\}, \[suggestedAnswers/.test(forms) &&
+        /savedAnswerFor\(question\) === undefined && caseAnswerFor\(question\)\) return patch/.test(forms),
+    );
+    check(
+      "the matcher reads the case's answers (caseAnswersApplied) when it reads the case",
+      /caseAnswersApplied\(/.test(route) && /caseFacts\(answeredMaster, area\)/.test(route),
+    );
+    check(
+      "'Save confirmations' shows only while a question is open",
+      /applicabilityQuestions\.some\(\(question\) => questionIsOpen\(question\)\) \? <button/.test(forms),
+    );
+    const yesNoQ = [{ field_path: "formApplicability.family.respondingToFamilyApplication", choices: yesNo }];
+    const respondent = { position: { confirmedStage: "responding" } };
+    const firm = suggestApplicability(yesNoQ, readCaseRecord(respondent, "family"), respondent);
+    const applied = caseAnswersApplied({}, firm);
+    check("a confirmed respondent's answer counts with no save", firm[0]?.firm === true && (applied.family as Record<string, unknown>)?.respondingToFamilyApplication === true, JSON.stringify(applied));
+    const theirs = caseAnswersApplied({ family: { respondingToFamilyApplication: false } }, firm);
+    check("a value the person saved wins over the case's answer", (theirs.family as Record<string, unknown>)?.respondingToFamilyApplication === false);
+    const story = suggestApplicability(
+      [{ field_path: "formApplicability.civil.isMortgageForeclosure", choices: yesNo }],
+      readCaseRecord({ intakeData: { facts: "i slipped on ice" } }, "civil"),
+      {},
+    );
+    check("an answer read from the story is not applied without the person's click", Object.keys(caseAnswersApplied({}, story)).length === 0 && story.length === 1);
+  }
   // Walkthrough MC (2026-10-14): a suggestion from the case ("The step shown
   // for your case is asking to change a final order") sat above an answer list
   // and read as an open question. A suggestion is shown answered, "Not saved
@@ -223,32 +286,42 @@ check(
   const mortgage = suggestApplicability([{ field_path: "formApplicability.civil.isMortgageForeclosure", choices: yesNo }], { ...civil, story: "the bank is selling under power of sale on my mortgage" }, {});
   check("a story about a mortgage is not answered for them", mortgage.length === 0);
 
-  // Walkthrough SW (2026-10-13): "Was this case started by Notice of Action?"
-  // asked of a person whose confirmed stage is "I have not filed anything
-  // yet". That stage offers "No" (nothing was started) as a SUGGESTION the
-  // person saves -- never kept by itself (review 2026-10-13: a served
-  // defendant can say "I have not filed anything yet" too, and a kept answer
-  // would not follow a change of stage).
+  // Walkthrough SW (2026-10-13), run 38593464953 (2026-10-14): "Was this
+  // case started by Notice of Action?" asked of a plaintiff whose confirmed
+  // stage is "I have not filed anything yet". The person confirmed that
+  // stage, so for someone bringing the case "No" is the case's answer (firm),
+  // counted with no click and shown with Change. Never firm for anyone who
+  // may be the one served (review 2026-10-13: a served defendant can say "I
+  // have not filed anything yet" too): a defendant role, or a story about
+  // being sued or served, keeps it a suggestion or nothing.
   const noticeQuestion = [{ field_path: "formApplicability.civil.isCommencedByNoticeOfAction", choices: [...yesNo, { value: "not-sure" }] }];
-  for (const story of ["i want to sue the city", ""]) {
-    const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story } };
+  for (const [story, role] of [
+    ["i want to sue the city", undefined],
+    ["", undefined],
+    ["i slipped on the ice on a city sidewalk and broke my wrist", "Plaintiff / person starting the case"],
+  ] as const) {
+    const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story, extra: role ? { yourRole: role } : {} } };
     const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
-    check(`a confirmed 'nothing filed yet' offers 'started by notice of action?' no, as a suggestion (story ${JSON.stringify(story)})`, found?.value === false && !found.firm && /not filed anything/.test(found.reason), JSON.stringify(found));
+    check(`a confirmed 'nothing filed yet' answers 'started by notice of action?' no, as the case's answer (story ${JSON.stringify(story)})`, found?.value === false && found.firm === true && /not filed anything/.test(found.reason), JSON.stringify(found));
   }
   // Must not misfire: a story naming a notice of action is never answered;
-  // a defendant is never told "you have not filed anything, so no".
+  // a defendant is never told "you have not filed anything, so no"; a story
+  // about being sued or served is never answered as kept.
   for (const [story, role] of [
     ["i was served with a notice of action and then a statement of claim. i have not filed anything yet", "defendant"],
     ["i filed a notice of action last week, now i need the statement of claim", "plaintiff"],
     ["i slipped on ice. i might start by a notice of action, not sure", "plaintiff"],
     ["he is suing me", "defendant"],
+    ["he is suing me", ""],
+    ["i was served with a statement of claim last week", ""],
+    ["my landlord sued me over the deposit", ""],
   ] as const) {
     const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story, extra: { yourRole: role } } };
     const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
     const mentions = /notice of action/.test(story);
     check(
-      `'started by notice of action?' is never kept, never answered when the story names one, never from 'nothing filed' for a defendant: '${story}'`,
-      !found?.firm && (!mentions || !found) && !/not filed anything/.test(found?.reason ?? ""),
+      `'started by notice of action?' is never kept for someone who may be served, never answered when the story names one, never from 'nothing filed' for a defendant: '${story}' (${role || "no role"})`,
+      !found?.firm && (!mentions || !found) && (role !== "defendant" || !/not filed anything/.test(found?.reason ?? "")),
       JSON.stringify(found),
     );
   }

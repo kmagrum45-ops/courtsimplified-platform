@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-142 documented, 28 without a header.
+143 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|

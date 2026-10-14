@@ -26,6 +26,13 @@ import { caseStepFor } from "../caseStep";
  * page re-asking "money or property?" and "which pleading?" on 4 of 10
  * cases). An answer read from what the story does or does not mention stays
  * a suggestion the person confirms.
+ *
+ * Since walkthrough run 38593464953 (2026-10-14) a firm answer is the case's
+ * answer without any save: the Forms page shows it as "From your case: ... ·
+ * Change", and the Forms route applies it when it reads the case
+ * (caseAnswersApplied) without storing it, so it follows the fact it came
+ * from if that fact later changes. Only a value the person saves (by Change)
+ * is stored, and a stored value wins.
  */
 export type ApplicabilitySuggestion = { fieldPath: string; value: boolean | string; reason: string; firm?: boolean };
 
@@ -75,6 +82,8 @@ const CLAIM_BACK = [
   /\bdefendant'?s claim\b/i,
   new RegExp(`${ME}\\bsu(?:e|ing) ${PARTY} (?:back|for)\\b`, "i"),
 ];
+/** A story about being sued or served: the person may be the one responding, whatever their stage says. */
+const SUED_OR_SERVED = /\b(?:su(?:ing|ed|es?) me|against me|(?:i was|i've been|i have been|i got|been|was) served|served (?:me|on me|with)|i (?:got|received) (?:a|the) (?:statement of claim|claim|notice))\b/;
 /** A "no" anywhere up to the end of the words: "I don't want him to pay me anything". */
 const SAYS_NO = /\b(?:no|not|never|nothing|don'?t|do not|doesn'?t|does not|won'?t|will not|didn'?t|did not|can'?t|cannot)\b/i;
 
@@ -198,13 +207,19 @@ function suggest(
   if (last === "isCommencedByNoticeOfAction" && /\bnotice of action\b/.test(story)) return null;
   // "Was this case started by Notice of Action?" asked of a plaintiff whose
   // confirmed stage is "I have not filed anything yet" (walkthrough SW,
-  // 2026-10-13): nothing has been started, so "No" is offered with that
-  // reason. A SUGGESTION, never kept by itself: a served defendant can also
-  // truthfully say "I have not filed anything yet" (review 2026-10-13), and a
-  // kept answer would not follow a later change of stage. The person saves it.
+  // 2026-10-13; run 38593464953: still shown, needing a Save click). Nothing
+  // has been started, and the person CONFIRMED that stage, so "No" is the
+  // case's answer, shown with Change and counted without a click (CLAUDE.md
+  // s. 4 is met by their confirmation of the stage). Kept only for someone
+  // bringing the case: a served defendant can also truthfully say "I have not
+  // filed anything yet" (review 2026-10-13), so a defendant role, a
+  // responding side, or a story about being sued or served leaves it a
+  // suggestion. The Forms route applies a kept answer when it reads the case
+  // and never stores it, so it follows a later change of stage.
   const roleSaysDefendant = /defend|respond/i.test(String(asRecord(asRecord(master.intakeData).extra).yourRole ?? ""));
   if (last === "isCommencedByNoticeOfAction" && record.position.confirmedStage === "starting-case" && side !== "responding" && !roleSaysDefendant) {
-    return { value: false, reason: "You said you have not filed anything yet, so your case has not been started by a notice of action." };
+    const reason = "You said you have not filed anything yet, so your case has not been started by a notice of action.";
+    return side === "starting" && !SUED_OR_SERVED.test(story) ? { value: false, reason, firm: true } : { value: false, reason };
   }
   if (last === "isMortgageForeclosure" && story && !/\bmortgage|foreclos|power of sale/.test(story)) {
     return { value: false, reason: "Your story does not mention a mortgage." };
@@ -221,6 +236,29 @@ function suggest(
     return { value: false, reason: "You described suing someone, which is an action, not an application." };
   }
   return null;
+}
+
+/**
+ * The case's answers as the form matcher reads them: each firm answer the
+ * person has not saved a value for, under every value they saved (theirs
+ * wins). Never written to the case: a firm answer is re-read from the fact
+ * it follows each time, so it changes when that fact does.
+ */
+export function caseAnswersApplied(
+  saved: Record<string, unknown>,
+  suggestions: ReadonlyArray<ApplicabilitySuggestion>,
+): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const suggestion of suggestions) {
+    if (!suggestion.firm) continue;
+    const [, group, field] = suggestion.fieldPath.split(".");
+    if (!group || !field) continue;
+    out[group] = { ...asRecord(out[group]), [field]: suggestion.value };
+  }
+  for (const [group, answers] of Object.entries(saved)) {
+    out[group] = { ...asRecord(out[group]), ...asRecord(answers) };
+  }
+  return out;
 }
 
 export function suggestApplicability(
