@@ -72,6 +72,14 @@ export function acknowledgement(field: GuidedField, value: string | string[]): s
   return `Got it: ${shown.length > 160 ? `${shown.slice(0, 157)}…` : shown}.`;
 }
 
+/** What the transcript shows above an answer: the question, or for an answer confirmed from the story, that it came from the story. */
+export function heardAs(field: GuidedField, fromStory: boolean): string {
+  // 2026-10-13 (walkthrough R2): a one-click "Yes" was listed under the full
+  // question ("Are you starting a family case...?"), so the transcript read
+  // as though the question the story answered had been asked again.
+  return fromStory ? `${field.label}, from what you told us` : field.question;
+}
+
 function display(field: GuidedField, value: GuidedValues[string]): string {
   const list = Array.isArray(value) ? value : value ? [value] : [];
   const shown = list.map((item) => field.options?.find((option) => option.value === item)?.label ?? item).join("; ");
@@ -111,7 +119,7 @@ export default function GuidedFormChat({
   const pending = useMemo(() => pendingFields(fields, values, skipped), [fields, values, skipped]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
 
-  function answer(value: string | string[]) {
+  function answer(value: string | string[], fromStory = false) {
     if (!current) return;
     const cleaned = Array.isArray(value) ? value : value.trim();
     // Changing an answer and keeping it: nothing new was said.
@@ -125,7 +133,7 @@ export default function GuidedFormChat({
       setHeard((now) => [...now, { question: current.question, reply: "Okay, we'll leave that for now." }]);
     } else {
       onAnswer(current.key, cleaned);
-      setHeard((now) => [...now, { question: current.question, reply: acknowledgement(current, cleaned) }]);
+      setHeard((now) => [...now, { question: heardAs(current, fromStory), reply: acknowledgement(current, cleaned) }]);
     }
     setDraft("");
     setChanging(null);
@@ -194,7 +202,7 @@ export default function GuidedFormChat({
                   <button
                     type="button"
                     data-testid="guided-form-from-story-yes"
-                    onClick={() => answer(offered.value)}
+                    onClick={() => answer(offered.value, true)}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
                   >
                     Yes, that&apos;s right

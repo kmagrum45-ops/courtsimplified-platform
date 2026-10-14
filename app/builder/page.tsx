@@ -57,7 +57,7 @@ import StageConfirmation from "./_components/StageConfirmation";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
-import { readCasePosition, storyHintsForDates, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
+import { readCasePosition, storyHintsForDates, storyWithTimeline, suggestedDatesFromAnswers, type SuggestedDate } from "../../src/lib/case-system/casePosition";
 import { suggestedNoticeStep } from "../../src/lib/case-system/claim-types/noticeStep";
 import { caseTitleFromIntake, isGeneratedTitle } from "../../src/lib/case-system/caseTitle";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
@@ -1963,7 +1963,7 @@ function BuilderPageContent() {
                     service: saved.service ? { ...(current.service ?? {}), ...saved.service } : current.service,
                   }))
                 }
-                storyHints={storyHintsForDates([userStory(caseData), caseData?.timeline].filter(Boolean).join("\n"))}
+                storyHints={storyHintsForDates(storyWithTimeline(userStory(caseData), caseData?.timeline))}
                 storyText={[userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n")}
                 suggestedDates={guidedDates}
                 userWords={userWordsOf(caseData)}

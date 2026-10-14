@@ -29,7 +29,7 @@ import {
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
-import { familyGuidedFields } from "./guidedFields";
+import { familyGuidedFields, familyTimelineAnswer, familyTimelineValues } from "./guidedFields";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
   consumeNarrativePrefill,
@@ -778,6 +778,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
     issues,
     filedDocuments,
     childrenInfo,
+    // Kept as a line of the Timeline, which the step page reads for dates.
+    ...familyTimelineValues(timeline),
     upcomingCourtDate,
     goal,
     otherParty,
@@ -792,6 +794,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       case "issues": setIssues(list.filter((item): item is FamilyIssue => issueOptions.some((option) => option.value === item))); break;
       case "filedDocuments": setFiledDocuments(list.filter((item): item is FiledDocument => filedOptions.some((option) => option.value === item))); break;
       case "childrenInfo": setChildrenInfo(one); break;
+      case "servedDate": setTimeline((current) => familyTimelineAnswer(key, one, current) ?? current); break;
       case "upcomingCourtDate": setUpcomingCourtDate(one); break;
       case "goal": setGoal(one); break;
       case "otherParty": setOtherParty(one); break;

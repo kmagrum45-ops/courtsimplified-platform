@@ -578,6 +578,23 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
   return best ? { sentence: best.sentence, date: best.date } : null;
 }
 
+/*
+ * The line the family chat writes into the Timeline when a respondent gives
+ * the day they were served (guidedFields.ts, 2026-10-13). It is the person's
+ * own answer to "What day were you served?", so it wins over any date the
+ * story gives for service, and it is the application's service date even
+ * when the story mentions a motion elsewhere (review, 2026-10-13).
+ */
+export const SERVED_LINE = "I was served with the court papers on: ";
+
+/**
+ * What the step page reads for dates: the person's story and their Timeline,
+ * where the family chat keeps the day they were served (SERVED_LINE).
+ */
+export function storyWithTimeline(story: string | null | undefined, timeline: string | null | undefined): string {
+  return [story, timeline].filter(Boolean).join("\n");
+}
+
 export function storyHintsForDates(story: string | null | undefined, now: Date = new Date()): Record<string, StoryHint> {
   const hints: Record<string, StoryHint> = {};
   if (!story) return hints;
@@ -631,6 +648,26 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
   // so a family respondent's service date never reached it).
   if (hints["sc-date-claim-served"]?.value && !hints["case-date-served-with-application"]?.value && !/\bmotion\b/i.test(story)) {
     hints["case-date-served-with-application"] = { ...hints["sc-date-claim-served"] };
+  }
+  // The person's own answer in the chat, last so nothing above replaces it.
+  // The last such line is the latest answer. A line with no usable date is
+  // still theirs: it is quoted and nothing is filled in, so the date is asked.
+  const servedLine = story
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith(SERVED_LINE.trim()))
+    .pop();
+  if (servedLine) {
+    const dateText = servedLine.slice(SERVED_LINE.trim().length).match(DATE_ANYWHERE)?.[0] ?? "";
+    DATE_ANYWHERE.lastIndex = 0;
+    const full = FULL_DATE.exec(dateText);
+    const value = full ? parseUserDate(full[1].replace(/,/g, "")) : null;
+    const assumed = value || !dateText ? null : assumedYearDate(dateText, now, false);
+    hints["case-date-served-with-application"] = {
+      quote: servedLine.length > 240 ? `${servedLine.slice(0, 237)}…` : servedLine,
+      value: value ?? assumed,
+      ...(assumed ? { yearAssumed: true } : {}),
+    };
   }
   return hints;
 }

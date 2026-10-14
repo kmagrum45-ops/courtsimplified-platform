@@ -27,6 +27,7 @@ import { getStageLabel } from "../../builder/_components/builderTypes";
 import {
   CONFIRMABLE_STAGES,
   storyHintsForDates,
+  storyWithTimeline,
   suggestedDatesFromEvents,
   type SuggestedDate,
 } from "@/src/lib/case-system/casePosition";
@@ -241,7 +242,7 @@ export default function CaseOverviewPage() {
               // (walkthrough 2026-10-13, R5: the Case file said "None yet").
               onSaved={() => void positionSavesSettled(caseId).then(reload)}
               suggestedDates={suggestedDates}
-              storyHints={storyHintsForDates([record.story, intake?.timeline].filter(Boolean).join("\n"))}
+              storyHints={storyHintsForDates(storyWithTimeline(record.story, intake?.timeline))}
               // The same words and notice step the case layout reads for the
               // step (caseStep.ts), so every tab names the step shown here.
               storyText={stepStoryText(master, courtPath)}

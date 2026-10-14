@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-140 documented, 28 without a header.
+141 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -131,6 +131,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
+| `npm run test:story-answers` | **What the person's story already answers is offered, not asked again**<br>(storyAnswers.ts, guidedFields.ts; walkthrough R2 and V2, 2026-10-13). |
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
