@@ -255,8 +255,8 @@ function NextStepCard({
           // 2026-10-13): not "passed" while s. 89 (2) may still run it to the
           // next open day; the counted day and that day, with the rule quoted.
           <span data-testid="next-step-closed-day" className="block font-semibold text-[#8a1c1c]">
-            {closedDayLine(deadline.date, state.runsTo).say}
-            <QuotedRule rule={closedDayLine(deadline.date, state.runsTo).cite} />
+            {closedDayLine(deadline.date, state.runsTo, today).say}
+            <QuotedRule rule={closedDayLine(deadline.date, state.runsTo, today).cite} />
           </span>
         ) : null}
         <LimitRule rule={deadline.rule} />

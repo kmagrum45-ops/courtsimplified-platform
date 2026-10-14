@@ -141,6 +141,7 @@ export default function GuidedFormChat({
     if (changing && ((Array.isArray(cleaned) && cleaned.length === 0) || cleaned === "")) {
       setDraft("");
       setChanging(null);
+      setNeedsMore(null);
       return;
     }
     const more = answerNeedsMore(current, cleaned);

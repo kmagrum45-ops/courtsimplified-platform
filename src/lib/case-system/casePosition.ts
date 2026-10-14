@@ -566,7 +566,10 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
       const window = sentence.slice(from, end + 70);
       if (!cueMatches(cue, window)) continue;
       const other = MOMENT_WORDS[moment];
-      if (injuryCue && AFTER_INJURY_EVENT.test(sentence.slice(end))) continue;
+      // A date followed by a medical event ("october 1 surgery") is skipped
+      // only when the sentence has another date that can be the injury's;
+      // otherwise "i broke my arm on june 5 2026 hospital said..." loses it.
+      if (injuryCue && AFTER_INJURY_EVENT.test(sentence.slice(end)) && [...sentence.matchAll(DATE_ANYWHERE)].length > 1) continue;
       for (const [position, cueEnd] of cuePositions(cue, window).map(([start, stop]) => [start + from, stop + from])) {
         const between = position < at ? sentence.slice(position, at) : sentence.slice(end, position);
         // The cue's own words may be "hearing" (a hearing question); only a

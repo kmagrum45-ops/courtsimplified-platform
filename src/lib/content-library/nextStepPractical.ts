@@ -1217,9 +1217,11 @@ export function limitPassedState(limit: { date: string; statutory?: boolean }, t
 }
 
 /** The line for a statutory counted day that has passed while the next open day has not (limitPassedState's runsTo). */
-export function closedDayLine(countedDay: string, runsTo: string): PlainLine {
+export function closedDayLine(countedDay: string, runsTo: string, today = ""): PlainLine {
+  // "Act today" only when today is that next open day (final review, 2026-10-13).
+  const act = !today || runsTo === today ? "Act today." : "Act by then, sooner if you can.";
   return {
-    say: `The last day counted for this was ${formatLongDate(countedDay)}. If the place where this had to be done was closed that day, the time runs to the next day it is open: ${formatLongDate(runsTo)}, if it keeps its regular weekday hours. Act today.`,
+    say: `The last day counted for this was ${formatLongDate(countedDay)}. If the place where this had to be done was closed that day, the time runs to the next day it is open: ${formatLongDate(runsTo)}, if it keeps its regular weekday hours. ${act}`,
     cite: PASSED_CHECK_CLOSED.cite,
   };
 }
