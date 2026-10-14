@@ -35,11 +35,14 @@
  *   - (walkthrough 2026-10-14) a notice step's "then" lines without where to
  *     file the claim for the person's city, or without how to serve a
  *     municipality when the notice kept is to one (or with it when not);
- *     a respondent whose words show only parenting shown Form 13 as a form
- *     for the step instead of under r. 13 (1) (b)'s condition, or Form 13
- *     folded for words about support, money or property, or for no words;
+ *     Form 13 folded for words about support, money or property, or for no
+ *     words;
  *     a case's Forms tab catalogue not led by the step's own forms (and the
  *     claim form after a notice step), or losing or reordering the rest.
+ *   - (legal review 2026-10-14) Form 13 folded on a responding step, or
+ *     shown there without r. 13 (1) (b)'s condition (with "within your time
+ *     to respond" on a motion to change); the claim form after a notice
+ *     labelled "For your step".
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -369,33 +372,42 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
       }),
     );
   check("folding a form never loses it (every family step, three stories)", foldedLost.length === 0, foldedLost.join("; "));
-  // Walkthrough 2026-10-14, FR (replacing "a responding step never folds" of
-  // 2026-10-13): r. 13 (1) (b) binds the party a support or property claim is
-  // made against -- so for a respondent whose words show parenting and no
-  // money, Form 13 is folded under that condition, quoted; with money words
-  // or no words it stays a form for the step. Never lost either way.
+  // Legal review 2026-10-14: on a responding step, whether r. 13 (1) (b)
+  // binds the person turns on what the other side's papers CLAIM, which the
+  // intake does not record -- so Form 13 is never folded there, whatever the
+  // words, and r. 13 (1) (b)'s condition is beside it; on a motion to change
+  // it says "within your time to respond".
   const respondingSteps = steps.filter((stage) => pathwayOf(stage) === "family" && respondingStep(stage.id, false) && STEP_PRACTICAL[stage.id].forms.some((form) => /^(?:family:)?13(?:\.1)?$/.test(form)));
   const respondingWrong: string[] = [];
   for (const stage of respondingSteps) {
     for (const responding of [false, true]) {
-      const parentingView = practicalFor(stage.id, "family", "", responding, PARENTING);
-      const folded13 = (parentingView?.formsIfClaimed ?? []).filter((form) => form.number === "13" || form.number === "13.1");
-      if (folded13.length === 0 || parentingView?.forms.some((form) => form.number === "13" || form.number === "13.1")) respondingWrong.push(`${stage.id}: parenting words not folded`);
-      if (!folded13.every((form) => form.when.cite.pinpoint === "r. 13 (1) (b)" && /the party against whom the claim is made/.test(form.when.cite.quote) && /only if/.test(form.when.say))) respondingWrong.push(`${stage.id}: condition not r. 13 (1) (b)`);
-      for (const words of ["", "she wants child support from me too", "he is asking for the house", "i pay her money every month"]) {
+      for (const words of [PARENTING, "", "she wants child support from me too", "he is asking for the house", "something happened"]) {
         const view = practicalFor(stage.id, "family", "", responding, words);
-        if ((view?.formsIfClaimed ?? []).some((form) => form.number === "13" || form.number === "13.1")) respondingWrong.push(`${stage.id}: folded for "${words}"`);
+        const shown = (view?.forms ?? []).filter((form) => form.number === "13" || form.number === "13.1");
+        if (shown.length === 0 || (view?.formsIfClaimed ?? []).some((form) => form.number === "13" || form.number === "13.1")) respondingWrong.push(`${stage.id}: folded for "${words}"`);
+        const motion = /motion-to-change|change-final-order/.test(stage.id);
+        if (
+          !shown.every(
+            (form) =>
+              form.note?.cite.pinpoint === "r. 13 (1) (b)" &&
+              /the party against whom the claim is made/.test(form.note.cite.quote) &&
+              /only if/.test(form.note.say) &&
+              (motion ? /within your time to respond/.test(form.note.say) : /within your time to answer/.test(form.note.say)),
+          )
+        )
+          respondingWrong.push(`${stage.id}: condition missing or wrong words`);
       }
     }
   }
-  check("a respondent's Form 13 is folded under r. 13 (1) (b) for parenting-only words, and never for money, property or no words", respondingSteps.length > 0 && respondingWrong.length === 0, respondingWrong.slice(0, 6).join("; "));
+  check("on every responding step Form 13 stays a form for the step, with r. 13 (1) (b)'s condition beside it, whatever the words", respondingSteps.length > 0 && respondingWrong.length === 0, [...new Set(respondingWrong)].slice(0, 6).join("; "));
   {
     const persona = PERSONAS.find((candidate) => candidate.id === "family-respondent-parenting")!;
     const words = userWordsOf({ facts: [persona.story, ...Object.values(persona.fields ?? {})].join("\n"), extra: { issues: persona.issues, yourCity: persona.city } });
     const view = practicalFor("family:respondent:served-time-to-answer-running", "family", persona.city, true, words);
-    check("persona family-respondent-parenting (story and answers): Form 13 is under its r. 13 (1) (b) condition", Boolean(view?.formsIfClaimed.some((form) => form.number === "13" && form.when.cite.pinpoint === "r. 13 (1) (b)")));
+    check("persona family-respondent-parenting: Form 13 is in the list with its r. 13 (1) (b) condition", Boolean(view?.forms.some((form) => form.number === "13" && form.note?.cite.pinpoint === "r. 13 (1) (b)")));
   }
-  check("a respondent to a parenting application sees Form 13 under its condition, not as a form for the step",Boolean(parenting?.formsIfClaimed.some((form) => form.number === "13")) && !parenting?.forms.some((form) => form.number === "13"));
+  check("the card shows a form's condition beside it", /form\.note \?/.test(readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8")));
+  check("the financial-statement time limit is not folded on a responding step", claimFit({ what: "Serve and file a financial statement" }, PARENTING, "family:respondent:served-time-to-answer-running") === "fits");
   const startParenting = practicalFor("family:before-filing:deciding-where-to-start", "family", "", false, PARENTING);
   check(
     "starting a parenting-only case: Form 13 is folded with r. 13 (1) (a) and (b)",
@@ -604,13 +616,15 @@ console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (wal
       if (!view) continue;
       const own = view.forms.filter((form) => form.court === court).map((form) => form.number);
       const claim = view.afterNotice.length > 0 && court !== "family" ? [CLAIM_AFTER_NOTICE[court].form] : [];
-      if (view.leadForms.join() !== [...own, ...claim].join()) leadWrong.push(`${stage.id}`);
-      if (view.formsIfClaimed.some((form) => view.leadForms.includes(form.number))) leadWrong.push(`${stage.id}: folded form leads`);
+      const want = [...own.map((number) => `${number}:For your step`), ...claim.map((number) => `${number}:After the notice`)];
+      if (view.leadForms.map((lead) => `${lead.number}:${lead.label}`).join() !== want.join()) leadWrong.push(`${stage.id}`);
+      if (view.formsIfClaimed.some((form) => view.leadForms.some((lead) => lead.number === form.number))) leadWrong.push(`${stage.id}: folded form leads`);
     }
   }
   check("on every step the catalogue is led by the step's own forms, then the claim form after a notice", leadWrong.length === 0, [...new Set(leadWrong)].slice(0, 5).join("; "));
   const sidewalk = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
-  check("the Toronto sidewalk notice step leads with Form 14A", sidewalk?.leadForms[0] === "14A");
+  check("the Toronto sidewalk notice step leads with Form 14A, labelled 'After the notice' (never 'For your step')", sidewalk?.leadForms[0]?.number === "14A" && sidewalk.leadForms[0].label === "After the notice");
+  check("the catalogue shows each leading form's own label", /leadLabels\.get\(/.test(readFileSync(path.join(ROOT, "app", "forms", "FormsWorkspace.tsx"), "utf8")));
   check("Form 14A's start line names it", /Form 14A/.test(CLAIM_AFTER_NOTICE.civil.start.say) && /Form 7A/.test(CLAIM_AFTER_NOTICE["small-claims"].start.say));
 
   const formsPage = readFileSync(path.join(ROOT, "app", "cases", "[id]", "forms", "page.tsx"), "utf8");

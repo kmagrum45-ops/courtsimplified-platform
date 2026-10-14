@@ -574,7 +574,7 @@ async function main() {
         serviceMethodDisplay("personal", "mail", true) === "choose" &&
         serviceMethodDisplay(undefined, "mail", true) === "choose",
     );
-    check("the panel draws it through serviceMethodDisplay, with a Change button", calls(panel, "serviceMethodDisplay", ["serviceMethod", "storyServiceMethod"]) && /stage-answer-service-method-change-/.test(panel));
+    check("the panel draws it through serviceMethodDisplay, with a Change button", calls(panel, "serviceMethodDisplay", ["serviceMethod", "storyMethodFor"]) && /stage-answer-service-method-change-/.test(panel));
     // Review 2026-10-13: a way of sending something else is not how the papers came.
     const notService = ["I emailed him the invoice three times.", "we met in person to sign the lease", "i mailed my defence to the court"];
     check(

@@ -1074,15 +1074,16 @@ export function supportOnly(claims: FamilyClaims): boolean {
  * "Form 13 -- Financial Statement (Support Claims)" as his form). They are
  * folded under the rule that says when they are needed -- never removed.
  *
- * The financial statement (walkthrough 2026-10-14, FR, replacing "never
- * folded when responding" of 2026-10-13): r. 13 (1) (b) makes the party a
- * support or property claim is made AGAINST serve and file one within their
- * time to answer, answer or not -- so it binds a respondent only when the
- * claim against them includes support, property or the home. It is folded
- * under that condition, quoted (FINANCIAL_STATEMENT_WHEN_RESPONDING), when
- * the person's words show parenting and no support or money at all; with
- * words about support, money or property, or no words, it stays a form for
- * the step. Never removed.
+ * The financial statement on a step where the person is RESPONDING (legal
+ * review 2026-10-14): r. 13 (1) (b) makes the party a support or property
+ * claim is made AGAINST serve and file one within their time to respond,
+ * answer or not. Whether it binds them turns on what the application or
+ * motion CLAIMS, not on the person's own words, and nothing in the intake
+ * records what the other side's papers claim. So on a responding step Form
+ * 13 is never folded: it stays in the step's forms with r. 13 (1) (b)'s
+ * condition beside it (financialStatementNoteFor). On any other step it is
+ * folded under r. 13 (1) (a) and (b) only when the person's words show no
+ * support or money at all. Never removed.
  */
 const FINANCIAL_STATEMENT_WHEN: PlainLine = {
   say: "A financial statement (Form 13 or 13.1) is needed when an application, answer or motion claims support or property, or the matrimonial home. If the other side's papers make that claim against you, you must serve and file one within your time to answer, even if you file no answer.",
@@ -1099,6 +1100,15 @@ export const FINANCIAL_STATEMENT_WHEN_RESPONDING: PlainLine = {
     "If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, ... (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not.",
   ),
 };
+/** The same, on a motion to change: the response to a motion, so "within your time to respond" (legal review 2026-10-14). */
+export const FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION: PlainLine = {
+  say: "A financial statement (Form 13 or 13.1) is needed from you only if the motion served on you claims support or property from you, or the matrimonial home. If it does, you must serve and file one within your time to respond, even if you file no response. Check the claims in the motion.",
+  cite: FINANCIAL_STATEMENT_WHEN_RESPONDING.cite,
+};
+/** The condition shown beside Form 13 on a responding step: the motion-to-change wording on a motion-to-change step. */
+export function financialStatementNoteFor(stepId: string): PlainLine {
+  return /motion-to-change|change-final-order/.test(stepId) ? FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION : FINANCIAL_STATEMENT_WHEN_RESPONDING;
+}
 const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
   say: "The parenting affidavit (Form 35.1) is needed when an application, answer or motion to change claims decision-making responsibility, parenting time or contact.",
   cite: FAM_PARENTING_AFFIDAVIT,
@@ -1106,9 +1116,10 @@ const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
 /** Words that show support, property or money at all; with any of them, the financial statement is never folded. */
 export const MONEY_WORDS = /\b(?:support|suport|pay|pays|paid|paying|owe|owes|owed|owing|amount|money|income|wages?|salary|alimony|property|pension|house|home|assets?|debts?)\b|\$/i;
 const moneyFits = (claims: FamilyClaims, words: string) => claims.support || claims.property || claims.home || MONEY_WORDS.test(proseOf(words));
-const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; whenResponding?: PlainLine; fits: (claims: FamilyClaims, words: string, responding: boolean) => boolean }> = {
-  "13": { when: FINANCIAL_STATEMENT_WHEN, whenResponding: FINANCIAL_STATEMENT_WHEN_RESPONDING, fits: (claims, words) => moneyFits(claims, words) },
-  "13.1": { when: FINANCIAL_STATEMENT_WHEN, whenResponding: FINANCIAL_STATEMENT_WHEN_RESPONDING, fits: (claims, words) => moneyFits(claims, words) },
+const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; respondingNote?: boolean; fits: (claims: FamilyClaims, words: string, responding: boolean) => boolean }> = {
+  // Never folded on a responding step: the duty turns on what the other side's papers claim.
+  "13": { when: FINANCIAL_STATEMENT_WHEN, respondingNote: true, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
+  "13.1": { when: FINANCIAL_STATEMENT_WHEN, respondingNote: true, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
   "35.1": { when: PARENTING_AFFIDAVIT_WHEN, fits: (claims) => claims.parenting },
 };
 
@@ -1146,7 +1157,8 @@ export function claimFit(item: { id?: string; what: string }, words: string, ste
   if (subject.length > 0 && claimKindsNamedIn(item.what).some((kind) => subject.includes(kind))) return "fits";
   if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
   if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
-  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words)) return "not";
+  // Not on a responding step: there the duty turns on what the other side's papers claim (legal review 2026-10-14).
+  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words) && !respondingStep(stepId, false)) return "not";
   /*
    * Any other limit the rule makes conditional on a kind of claim ("If the
    * motion asks to change temporary support", "If your answer made its own
@@ -1509,6 +1521,7 @@ export const MORE_CARD_LINES: PlainLine[] = [
   ...Object.values(NOTICE_HOW).flatMap((lines) => lines ?? []),
   FINANCIAL_STATEMENT_WHEN,
   FINANCIAL_STATEMENT_WHEN_RESPONDING,
+  FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION,
   PARENTING_AFFIDAVIT_WHEN,
   MIP_SUPPORT_ONLY_CHANGE,
   FAMILY_SAME_PLACE,
@@ -1522,8 +1535,12 @@ export const MORE_CARD_LINES: PlainLine[] = [
 
 // ---------------------------------------------------------------- what the card shows
 
+/** A form that leads the case's forms catalogue, with what to call it there. */
+export type LeadForm = { number: string; label: "For your step" | "After the notice" };
+
 export type PracticalView = {
-  forms: { court: PracticalCourt; number: string }[];
+  /** `note`: the condition a rule sets for this form, shown beside it (Form 13 on a responding step). */
+  forms: { court: PracticalCourt; number: string; note?: PlainLine }[];
   /** Forms a rule needs only with a claim the person's words do not name, with that rule. Shown folded. */
   formsIfClaimed: { court: PracticalCourt; number: string; when: PlainLine }[];
   fees: Fee[];
@@ -1543,9 +1560,11 @@ export type PracticalView = {
   /**
    * The forms of this court that lead the case's forms catalogue: the step's
    * own, then the form that starts the court case after a notice step
-   * (walkthrough 2026-10-14, SW). Folded forms are not among them.
+   * (walkthrough 2026-10-14, SW), each with its label: the claim form is
+   * "After the notice", never "For your step" (legal review 2026-10-14).
+   * Folded forms are not among them.
    */
-  leadForms: string[];
+  leadForms: LeadForm[];
 };
 
 /**
@@ -1742,18 +1761,24 @@ export function practicalFor(
     !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
   const also = alsoFor(step.also ?? [], story, city);
   return {
-    forms: allForms.filter((form) => !folded(form)),
-    formsIfClaimed: allForms.filter(folded).map((form) => {
-      const need = FAMILY_FORM_NEEDS[form.number];
-      return { ...form, when: respondingStep(stepId, responding) && need.whenResponding ? need.whenResponding : need.when };
-    }),
+    // On a responding step, Form 13 carries r. 13 (1) (b)'s condition beside it.
+    forms: allForms
+      .filter((form) => !folded(form))
+      .map((form) =>
+        form.court === "family" && FAMILY_FORM_NEEDS[form.number]?.respondingNote && respondingStep(stepId, responding)
+          ? { ...form, note: financialStatementNoteFor(stepId) }
+          : form,
+      ),
+    formsIfClaimed: allForms.filter(folded).map((form) => ({ ...form, when: FAMILY_FORM_NEEDS[form.number].when })),
     feeNotesFirst: exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id)),
     courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
     afterNotice: claimAfterNotice(stepId, court, story, city),
     leadForms: [
-      ...allForms.filter((form) => !folded(form) && form.court === court).map((form) => form.number),
-      ...(court !== "family" && claimAfterNotice(stepId, court, story, city).length > 0 ? [CLAIM_AFTER_NOTICE[court].form] : []),
+      ...allForms.filter((form) => !folded(form) && form.court === court).map((form) => ({ number: form.number, label: "For your step" as const })),
+      ...(court !== "family" && claimAfterNotice(stepId, court, story, city).length > 0
+        ? [{ number: CLAIM_AFTER_NOTICE[court].form, label: "After the notice" as const }]
+        : []),
     ],
     fees,
     feeNotes:

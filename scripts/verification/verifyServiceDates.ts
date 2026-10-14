@@ -12,6 +12,11 @@
  * day instead of the rule's own effective day; a "no later than" date that a
  * mailing day on or before arrival could exceed, or one shown for a way of
  * serving whose day can come after arrival.
+ * (legal review 2026-10-14) Regular mail offered, or a mail "no later than"
+ * date shown, for a claim or application (Small Claims r. 8.01 (1), civil
+ * r. 16.01 (1), family r. 8 (5)); the ways by post for a claim without their
+ * rules; an arrival note or date on a step where the person served the
+ * papers; a shown date that has passed without "That date has already passed".
  *
  * COSTS NOTHING: reads the saved rules, no network, no model.
  *
@@ -22,13 +27,19 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { applyPositionPatch, EMPTY_POSITION, isServiceDateQuestion, readCasePosition, storyHintsForDates } from "../../src/lib/case-system/casePosition";
-import { arrivalNoteFor, arrivalOnlyDates, latestFromArrival, offerStoryDate } from "../../app/builder/_components/StageAnswerPanel";
+import { arrivalNoteFor, arrivalOnlyDates, countedFromService, latestFromArrival, offerStoryDate, receivesPapersStep } from "../../app/builder/_components/StageAnswerPanel";
+import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import { addDays as addDaysIso } from "../../src/lib/case-system/deadlines/holidays";
 import {
   arrivalNotSendDate,
   FAMILY_CLOSED_DAY_RULE,
   SC_R3_01_LAST_DAY,
   SENT_ON_OR_BEFORE_ARRIVAL,
+  ORIGINATING_METHODS,
+  ORIGINATING_QUESTIONS,
+  ORIGINATING_RULE,
+  postWaysForClaim,
+  serviceRulesFor,
   SERVICE_RULES,
   effectiveServiceDate,
   whenEffectiveSay,
@@ -146,7 +157,7 @@ for (const words of ["the claim came by mail on september 28", "they mailed me t
 check("Small Claims registered mail signed for is its own method", serviceMethodFromStory("small-claims", "it came by registered mail and i signed for it") === "registered-mail-signature");
 check("a story that says nothing gives nothing", serviceMethodFromStory("civil", "i got served a statement of claim") === null);
 check("a story naming two ways gives nothing", serviceMethodFromStory("family", "they emailed it and then handed me the papers") === null);
-check("the deadline box uses it, shown and changeable", /serviceMethod\[question\.id\] \?\? storyServiceMethod/.test(readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8")));
+check("the deadline box uses it, shown and changeable", /serviceMethod\[question\.id\] \?\? storyMethodFor\(question\.id\)/.test(readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8")));
 
 console.log("\nThe day papers arrived is never counted as the day they were mailed (2026-10-13)");
 {
@@ -183,51 +194,100 @@ console.log("\nThe day papers arrived is never counted as the day they were mail
   check("a yearless arrival date is held back too", heldBack.length === 1, JSON.stringify(yearlessHints));
   check("an arrival-only date is never offered as a date to count from", heldBack.every((id) => !offerStoryDate(id, yearlessArrival)) && offerStoryDate("some-other-question", yearlessArrival));
   check("the date list asks offerStoryDate before offering a story date", /!offerStoryDate\(question\.id, arrivalOnly\)\s*\?\s*undefined/.test(panel));
-  const note = arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, {}, "small-claims", {}, "mail");
-  check("the card says what date to give, with the rule that counts from it", note?.dateToEnter === "the day it was mailed" && note.rule === "O. Reg. 258/98, r. 8.07 (2)" && corpus["small-claims"].includes(flat(note.ruleQuote)));
-  check("once the person gives the mailing date, the note goes", arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, Object.fromEntries(heldBack.map((id) => [id, "2026-09-24"])), "small-claims", {}, "mail") === null);
-  // Walkthrough 2026-10-14, RN: the note said "service counts from the day it
-  // was mailed"; r. 8.07 (2) says service by mail is effective on the fifth
-  // day after mailing. The note now says the rule's own effective day, and
-  // shows the latest last day, counted from the arrival day, as "no later
-  // than", only where the starting day is on or before arrival.
-  check("the note says when service is effective, as the rule does", note?.effectiveSay === "service is effective on the fifth day after the day it was mailed" && /fifth day following the date of mailing/.test(note.ruleQuote));
+  check("once the person gives the date, the note goes", arrivalNoteFor(heldBack.map((id) => ({ id })), yearlessArrival, Object.fromEntries(heldBack.map((id) => [id, "2026-09-24"])), "small-claims", {}, "mail") === null);
   check("no sentence on the panel says service or the rules 'count from' the mailing day", !/service counts from|the rules count from/.test(panel));
-  check("both notes use the rule's effective day (whenEffectiveSay)", (panel.match(/whenEffectiveSay\(rule\)/g) ?? []).length >= 2);
   for (const court of Object.keys(SERVICE_RULES) as ServiceCourt[]) {
     for (const rule of SERVICE_RULES[court].filter((item) => item.addDays > 0)) {
       const say = whenEffectiveSay(rule);
       check(`${court}: ${rule.method} says its own day count`, say.includes(rule.dateToEnter) && (rule.addDays !== 5 || /fifth day after/.test(say)) && (rule.addDays !== 2 || /second day after/.test(say)));
     }
   }
-  const stageId = "defendant:served-defence-period-running";
-  const qid = "sc-date-claim-served";
-  const withYear = arrivalNoteFor([{ id: qid }], { [qid]: "i got the plaintiffs claim in the mail on september 28" }, {}, "small-claims", {}, "mail", {
-    stageId,
-    hints: { [qid]: { quote: "i got the plaintiffs claim in the mail on september 28", value: "2026-09-28", yearAssumed: true } },
-  });
-  check("RN: the note shows the latest last day for the defence, counted from the arrival day", (withYear?.latest.length ?? 0) === 1 && Boolean(withYear?.yearAssumed), JSON.stringify(withYear?.latest));
-  // Property: for any arrival day and any mailing day on or before it, the
-  // real last day is never after the one shown.
+}
+
+console.log("\nA claim or application is not served by regular mail (legal review 2026-10-14)");
+{
+  // Small Claims r. 8.01 (1), civil r. 16.01 (1), family r. 8 (5) / 6 (3):
+  // the ways to serve a claim or application, never r. 8.07 (2) regular mail.
+  for (const court of Object.keys(SERVICE_RULES) as ServiceCourt[]) {
+    const rule = ORIGINATING_RULE[court];
+    check(`${court}: the rule on serving a claim or application is the saved text (${rule.rule})`, corpus[court].includes(flat(rule.quote)));
+    for (const questionId of ORIGINATING_QUESTIONS[court]) {
+      const offered = serviceRulesFor(court, questionId).map((item) => item.method);
+      check(`${court} ${questionId}: offers only the ways the rules allow for it, never regular mail or courier alone`, offered.length > 0 && offered.every((method) => ORIGINATING_METHODS[court].includes(method)) && !offered.includes("mail") && !offered.some((method) => method.startsWith("courier")), offered.join(", "));
+    }
+    const ways = postWaysForClaim(court);
+    check(`${court}: each way by post is quoted from the saved text, with its effective day where the rules set one`, ways.length > 0 && ways.every((way) => corpus[court].includes(flat(way.quote)) && (way.effective === null || /^service is effective on /.test(way.effective))));
+  }
+  check("Small Claims: signed for (r. 8.03 (8)) and left at home with a copy mailed (r. 8.03 (4))", postWaysForClaim("small-claims").map((way) => way.rule).join() === "O. Reg. 258/98, r. 8.03 (8),O. Reg. 258/98, r. 8.03 (4)");
+  check("civil: the acknowledgment card (r. 16.03 (4)) is among them", postWaysForClaim("civil").some((way) => /r\. 16\.03 \(4\)/.test(way.rule)));
+  check("family: the return postcard (r. 6 (3) (c)) is among them", postWaysForClaim("family").some((way) => /r\. 6 \(3\) \(c\)/.test(way.rule)));
+  check("other papers still offer every way, regular mail included", serviceRulesFor("small-claims", "sc-date-defence-filed").some((item) => item.method === "mail"));
+
+  // The four responding steps: no "no later than" date from a mail rule; the
+  // safest date counted from the day the papers first reached them instead.
+  const responding: [string, ServiceCourt, string][] = [
+    ["defendant:served-defence-period-running", "small-claims", "sc-date-claim-served"],
+    ["civil:defendant:served-defence-period-running", "civil", "sc-date-claim-served"],
+    ["family:respondent:served-time-to-answer-running", "family", "case-date-served-with-application"],
+  ];
+  for (const [stageId, court, qid] of responding) {
+    const quote = "i got the papers in the mail on september 28";
+    const note = arrivalNoteFor([{ id: qid }], { [qid]: quote }, {}, court, {}, "mail", { stageId, hints: { [qid]: { quote, value: "2026-09-28" } } }, "2026-10-01");
+    const counted = countedFromService(stageId, qid, "2026-09-28", "2026-10-01");
+    check(
+      `${stageId}: the note quotes the claim rule, lists the ways by post, and gives the safest date from the day they arrived -- no mail bound`,
+      note?.kind === "claim" && note.claimRule?.rule === ORIGINATING_RULE[court].rule && note.postWays.length > 0 && note.latest.length === 0 && note.safest.length > 0 && note.safest.map((entry) => entry.iso).join() === counted.map((entry) => entry.iso).join(),
+      JSON.stringify(note),
+    );
+  }
+  const panel = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+  check("the card calls it the safest date to act by and points to the affidavit of service and the court office", /The safest date to act by, counted from the day the papers first reached you/.test(panel) && /affidavit of service\. The court office can also tell you/.test(panel));
+  check("the card never says whether service was valid", !/\b(?:valid|invalid|improperly served|not properly served)\b/i.test(panel.slice(panel.indexOf('data-testid="next-step-arrival"'), panel.indexOf("{mipNote ?", panel.indexOf('data-testid="next-step-arrival"'))).replace(/^\s*\/\/.*$/gm, "")));
+  check("the date box offers the ways for the question asked (serviceRulesFor with the question)", /serviceRulesFor\(serviceCourt, question\.id\)\.map\(/.test(panel) && /storyMethodFor\(question\.id\)/.test(panel));
+}
+
+console.log("\nThe 'no later than' date: only papers that may be served by mail, only for the person who received them (legal review 2026-10-14)");
+{
+  // A document that may be served by mail, on a step where the person was
+  // served with it: civil request to admit (r. 16.06 (2), mail).
+  const stageId = "civil:both:served-with-request-to-admit";
+  const qid = "case-date-served-with-request-to-admit";
   let boundMisses = 0;
+  let any = 0;
   for (let offset = 0; offset < 366; offset += 3) {
     const arrived = addDaysIso("2026-01-01", offset);
-    const latest = latestFromArrival(stageId, qid, "small-claims", "mail", arrived)[0];
-    if (!latest) {
-      boundMisses += 1;
-      continue;
-    }
+    const latest = latestFromArrival(stageId, qid, "civil", "mail", arrived, "2026-01-01")[0];
+    if (!latest) continue;
+    any += 1;
     for (let back = 0; back <= 10; back += 1) {
-      const real = latestFromArrival(stageId, qid, "small-claims", "mail", addDaysIso(arrived, -back))[0];
+      const real = latestFromArrival(stageId, qid, "civil", "mail", addDaysIso(arrived, -back), "2026-01-01")[0];
       if (!real || real.iso > latest.iso) boundMisses += 1;
     }
   }
-  check("for every arrival day, a mailing day on or before it never gives a later last day than the one shown", boundMisses === 0, `misses ${boundMisses}`);
+  check("for every arrival day, a mailing day on or before it never gives a later last day than the one shown", any > 0 && boundMisses === 0, `shown ${any}, misses ${boundMisses}`);
   const notBefore = (Object.keys(SERVICE_RULES) as ServiceCourt[]).flatMap((court) =>
     SERVICE_RULES[court].filter((rule) => !SENT_ON_OR_BEFORE_ARRIVAL.has(rule.method)).filter((rule) => latestFromArrival(stageId, qid, court, rule.method, "2026-09-28").length > 0).map((rule) => `${court}:${rule.method}`),
   );
   check("no latest day for a way of serving whose day can come after arrival (courier, left and mailed)", notBefore.length === 0, notBefore.join(", "));
-  check("the card shows it as 'no later than', conditional on regular mail, never as the last day", /if they came by regular mail, your last day is no later\s+than/.test(panel) && /It may be earlier\./.test(panel) && /arrival=\{arrivalNoteFor\(/.test(panel));
+  const claimBound = (Object.keys(ORIGINATING_QUESTIONS) as ServiceCourt[]).flatMap((court) =>
+    ALL_STAGES.flatMap((stage) => [...ORIGINATING_QUESTIONS[court]].filter((id) => latestFromArrival(stage.id, id, court, "mail", "2026-09-28").length > 0).map((id) => `${stage.id} ${id}`)),
+  );
+  check("never a mail bound for a claim or application, on any step", claimBound.length === 0, claimBound.slice(0, 4).join("; "));
+  // Item 3: never on a step where the person served the papers.
+  const notReceiving = ALL_STAGES.filter((stage) => !receivesPapersStep(stage.id)).flatMap((stage) =>
+    (["small-claims", "civil", "family"] as ServiceCourt[]).flatMap((court) =>
+      ["case-date-served-with-request-to-admit", "case-date-defence-served", "sc-date-claim-served"].filter((id) => latestFromArrival(stage.id, id, court, "mail", "2026-09-28").length > 0 || countedArrivalNote(stage.id, id, court)).map((id) => `${stage.id} ${id}`),
+    ),
+  );
+  check("no arrival note or date on a step where the person served the papers (no 'your' for the other side's deadline)", notReceiving.length === 0, notReceiving.slice(0, 4).join("; "));
+  check("plaintiff awaiting a defence: an arrival sentence is not held back as the papers reaching them", Object.keys(arrivalOnlyDates({ stageId: "plaintiff:served-awaiting-defence", court: "small-claims", storyText: "i got the claim back in the mail on september 28", storyHints: { "sc-date-claim-served": { quote: "i got the claim back in the mail on september 28", value: "2026-09-28" } }, methods: {} })).length === 0);
+  // Item 4: a shown date that has passed says so (limitPassedState).
+  const past = latestFromArrival(stageId, qid, "civil", "mail", "2026-01-05", "2026-12-31");
+  const future = latestFromArrival(stageId, qid, "civil", "mail", "2026-01-05", "2026-01-06");
+  check("a shown date that has passed is marked passed, one still to come is not", past.length > 0 && past.every((entry) => entry.passed) && future.every((entry) => !entry.passed));
+  const panel = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
+  check("the card says 'That date has already passed' beside any passed date it shows", (panel.match(/entry\.passed \? "\. That date has already passed" : ""/g) ?? []).length >= 2);
+  check("the card shows the mail bound as 'no later than', conditional on regular mail", /if they came by regular mail, your last day is no later\s+than/.test(panel) && /It may be earlier\./.test(panel));
 }
 
 console.log("\nA Small Claims fifth day on a closed day says what the rules say, with the rule (2026-10-13)");
@@ -240,3 +300,10 @@ console.log("\nA Small Claims fifth day on a closed day says what the rules say,
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;
+
+/** Whether an arrival note would carry any date for this step and question (none for a step where the person served the papers). */
+function countedArrivalNote(stageId: string, questionId: string, court: ServiceCourt): boolean {
+  const quote = "i got it in the mail on september 28";
+  const arrival = arrivalOnlyDates({ stageId, court, storyText: quote, storyHints: { [questionId]: { quote, value: "2026-09-28" } }, methods: {} });
+  return Object.keys(arrival).length > 0;
+}

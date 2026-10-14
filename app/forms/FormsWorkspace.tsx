@@ -408,7 +408,7 @@ type FormsWorkspaceProps = {
    * SW: Form 1A and the dismissal forms led a sidewalk-fall plaintiff's list).
    * The rest follow; nothing is removed.
    */
-  leadForms?: string[];
+  leadForms?: { number: string; label: string }[];
 };
 
 function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedded = false, leadForms = [] }: FormsWorkspaceProps) {
@@ -681,9 +681,11 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       const statusMatch = statusFilter === "all" || status === statusFilter;
       return searchMatch && statusMatch;
     });
-    return leadFormsFirst(kept, ({ form }) => cleanSpaces(form.form_number), leadForms);
+    return leadFormsFirst(kept, ({ form }) => cleanSpaces(form.form_number), leadForms.map((lead) => lead.number));
   }, [enrichedForms, search, statusFilter, leadForms]);
-  const leadKeys = useMemo(() => new Set(leadForms.map(formKey)), [leadForms]);
+  // Each leading form's own label: the step's forms "For your step", the claim
+  // form after a notice "After the notice" (legal review 2026-10-14).
+  const leadLabels = useMemo(() => new Map(leadForms.map((lead) => [formKey(lead.number), lead.label])), [leadForms]);
 
   const stats = useMemo(() => {
     return {
@@ -1271,9 +1273,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         >
                           {getStatusLabel(status)}
                         </span>
-                        {leadKeys.has(formKey(cleanSpaces(form.form_number))) ? (
+                        {leadLabels.has(formKey(cleanSpaces(form.form_number))) ? (
                           <span data-testid="form-for-your-step" className="rounded-full border border-[#2f7d67] bg-[#f2fbf7] px-3 py-1 text-xs font-bold text-[#2f7d67]">
-                            For your step
+                            {leadLabels.get(formKey(cleanSpaces(form.form_number)))}
                           </span>
                         ) : null}
                       </div>

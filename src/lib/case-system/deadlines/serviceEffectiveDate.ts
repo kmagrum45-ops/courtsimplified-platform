@@ -267,7 +267,79 @@ export function smallClaimsFifthDayOnClosedDay(dayName: string): string {
   );
 }
 
-export function serviceRulesFor(court: ServiceCourt): ServiceRule[] {
+/*
+ * A claim or an application is not served like other papers (legal review
+ * 2026-10-14): Small Claims r. 8.01 (1) -- personally or by an alternative
+ * under r. 8.03; civil r. 16.01 (1) -- personally or by an alternative under
+ * r. 16.03; family r. 8 (5) -- by special service, r. 6 (3). Rule 8.07 (mail)
+ * applies only "If a document is to be served by mail under these rules", so
+ * "Regular mail" with r. 8.07 (2) is not among the ways to serve a claim.
+ * Every quote below is read back from the saved text by test:service-dates.
+ */
+
+/** The service-date questions about a claim or an application, per court. */
+export const ORIGINATING_QUESTIONS: Record<ServiceCourt, ReadonlySet<string>> = {
+  "small-claims": new Set(["sc-date-claim-served", "sc-date-defendants-claim-served"]),
+  civil: new Set(["sc-date-claim-served"]),
+  family: new Set(["case-date-served-with-application", "case-date-served-with-motion-to-change"]),
+};
+
+/** Whether `questionId` asks when a claim or an application was served, in `court`. */
+export function isOriginatingService(court: ServiceCourt, questionId: string): boolean {
+  return ORIGINATING_QUESTIONS[court].has(questionId);
+}
+
+/** The ways the rules allow a claim or application to be served, among SERVICE_RULES. */
+export const ORIGINATING_METHODS: Record<ServiceCourt, readonly ServiceMethod[]> = {
+  "small-claims": ["personal", "registered-mail-signature", "residence-and-mail"],
+  civil: ["personal", "acknowledgment-card", "residence-and-mail"],
+  family: ["personal", "personal-after-4pm", "residence-and-mail"],
+};
+
+/** The rule that says how a claim or application is served, quoted. */
+export const ORIGINATING_RULE: Record<ServiceCourt, { rule: string; quote: string; say: string }> = {
+  "small-claims": {
+    rule: `${SC}, r. 8.01 (1)`,
+    quote: "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.",
+    say: "A claim is to be served personally, or in one of the other ways the rules allow.",
+  },
+  civil: {
+    rule: `${CIVIL}, r. 16.01 (1)`,
+    quote: "An originating process shall be served personally as provided in rule 16.02 or by an alternative to personal service as provided in rule 16.03.",
+    say: "A statement of claim is to be served personally, or in one of the other ways the rules allow.",
+  },
+  family: {
+    rule: `${FAMILY}, r. 8 (5)`,
+    quote: "The application shall be served immediately on every other party, and special service shall be used unless the party is listed in subrule (6).",
+    say: "An application is to be served by special service: personally, or in one of the other ways the rules allow.",
+  },
+};
+
+/** Family r. 6 (3) (c): special service by mail with a return postcard. Its effective day is not one SERVICE_RULES counts, so it is listed without one. */
+export const FAMILY_POSTCARD_WAY = {
+  label: "Mailed to you with a prepaid return postcard (Form 6) to sign and send back",
+  rule: `${FAMILY}, r. 6 (3) (c)`,
+  quote: "mailing a copy to the person, together with an acknowledgment of service in the form of a prepaid return postcard (Form 6)",
+};
+
+/** The ways the rules allow for a claim or application that come by post, each with its effective day and rule. */
+export function postWaysForClaim(court: ServiceCourt): { label: string; effective: string | null; rule: string; quote: string }[] {
+  const ways = ORIGINATING_METHODS[court]
+    .map((method) => SERVICE_RULES[court].find((rule) => rule.method === method))
+    .filter((rule): rule is ServiceRule => Boolean(rule) && !rule!.method.startsWith("personal"))
+    .map((rule) => ({ label: rule.label, effective: whenEffectiveSay(rule), rule: rule.rule, quote: rule.quote }));
+  return court === "family" ? [...ways, { ...FAMILY_POSTCARD_WAY, effective: null }] : ways;
+}
+
+/**
+ * The ways of serving to offer for a service date. For a claim or an
+ * application, only the ways the rules allow for one (ORIGINATING_METHODS);
+ * otherwise every way.
+ */
+export function serviceRulesFor(court: ServiceCourt, questionId = ""): ServiceRule[] {
+  if (questionId && isOriginatingService(court, questionId)) {
+    return SERVICE_RULES[court].filter((rule) => ORIGINATING_METHODS[court].includes(rule.method));
+  }
   return SERVICE_RULES[court];
 }
 
