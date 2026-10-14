@@ -84,6 +84,13 @@ export type DeadlineTemplate = {
    * exact species of error the citation discipline exists to prevent.
    */
   cites: RuleCitation | null;
+  /**
+   * Further provisions the sentence relies on and names (review 2026-10-13:
+   * the statutory-Saturday sentence leans on s. 88 (2) as well as s. 89 (2)).
+   * test:deadline-engine checks every "(s. N (M))" a template names is one
+   * of `cites` or these.
+   */
+  alsoCites?: RuleCitation[];
 };
 
 /*
@@ -203,6 +210,7 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
       "to the next day the office is open if the place where it must be done is not open " +
       "that day during its regular hours (s. 89 (2)), which is worth confirming with that office.",
     cites: C.S_LEGISLATION_89_2_CLOSED,
+    alsoCites: [C.S_LEGISLATION_88_HOLIDAYS],
   },
   "uncertain-backward-count-lands-on-holiday": {
     id: "uncertain-backward-count-lands-on-holiday",

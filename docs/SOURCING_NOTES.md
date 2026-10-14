@@ -1812,8 +1812,24 @@ Established while fixing the card's time limits, fees, filing and service:
   ledger's guess); (i) is an absentee.
 - **Family fee list (O. Reg. 293/92, s. 1.2 (1)) names no fee for a motion to change.**
   The ontario.ca family fee table (which presents O. Reg. 293/92 and 417/95) names none
-  either. O. Reg. 417/95 itself is not saved; save it before stating anything about the
-  Family Court branch beyond that table.
+  either. **O. Reg. 417/95 (Superior Court of Justice – Family Court – Fees) needs
+  vendoring** (e-Laws `.doc`, like the other regulations): until it is saved, the card
+  speaks only for O. Reg. 293/92 and the Ontario Court of Justice, and tells a Family
+  Court branch case that its fee is set by that regulation and to ask the office
+  (`FAMILY_COURT_BRANCH_FEE`).
+- **The OCJ courthouse email list mixes criminal, bail and family offices**
+  (`ocjCourthouses.json`): "Toronto Regional Bail Centre", `Ottawa.criminal@`,
+  `yorkcrim@`, `criminalcourt.cornwall@`, Milton's "– Criminal" email. Toronto's family
+  courthouses are the entries "311 Jarvis Family" and "47 Sheppard Family" (region
+  Toronto), not a city "Toronto". The card lists an OCJ entry only where the list marks it
+  family (in its name or an email label). Superior Court location addresses can carry a
+  criminal office line ("Criminal Trial Office, 361 University Avenue"); the card shows only
+  a location's family-service address (empty for every family service as saved).
+- **r. 13 (1) (b)** binds the party a support/property claim is made against to file a
+  financial statement within their time to answer, answer or not. Never fold Form 13/13.1
+  on a responding step.
+- **r. 5 (1) opens "Subject to sections 21.8 and 21.11 of the Courts of Justice Act"**:
+  where the Family Court sits, CJA s. 21.8 (1) sends the Schedule's proceedings there.
 - **Small Claims garnishment service order: r. 20.08 (6.1)** (debtor within five days of
   serving the garnishee), (6.2) (a financial institution at its branch), with
   r. 8.01 (8) (a)/(b) for what goes to whom.

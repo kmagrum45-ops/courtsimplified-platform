@@ -204,6 +204,12 @@ async function main() {
       "the passed-bar box has the help pointer and says the judge decides",
       /data-testid="next-step-passed-bar"[\s\S]{0,3000}<GetHelp heading="Get help now/.test(panel) && /is for the judge to decide/.test(panel),
     );
+    // Review 2026-10-13: the death exception (s. 42 (7), s. 44 (11), s. 6.1 (5))
+    // needs no judge's finding, so the box speaks only of exceptions that do.
+    check(
+      "the judge sentence is limited to exceptions that depend on a judge's finding",
+      /Where an exception depends on what a judge finds, that is for the judge to decide/.test(panel) && !/Whether a judge finds that, in your case/.test(panel),
+    );
     check("the passed-bar box predicts nothing", !/data-testid="next-step-passed-bar"[\s\S]{0,3000}\b(likely|unlikely|chance|will (?:win|lose|succeed|fail))\b/i.test(panel));
 
     // C6 / C7: a limit tied to a claim the words do not name is folded, not lost.
@@ -230,6 +236,12 @@ async function main() {
     const supportOnly = cardLimits(change, false, 'i pay 900 a month child support and want it lowered {"issues":["child-support"]}');
     check("support-only motion to change: the information program is folded, with r. 8.1 (1) para. 6", !supportOnly.main.periods.some((p) => /information program/.test(p.what)) && supportOnly.mipNote?.cite.pinpoint === "r. 8.1 (1), para. 6");
     check("folding never loses a limit", supportOnly.main.periods.length + supportOnly.conditional.periods.length === change.periods.length);
+    // A financial-statement limit is folded only when the words show no support or money at all.
+    const statement = { deadlines: [], periods: [{ what: "Serve and file your financial statement", count: 30, unit: "days", countFrom: "x", id: "deadline:family:fs" }, { what: "Serve the motion", count: 30, unit: "days", countFrom: "x", id: "deadline:family:other" }] };
+    check(
+      "a financial-statement limit leads when the words mention paying ('lower what I pay for my kids'), and folds for parenting-only words",
+      cardLimits(statement, false, "i want to lower what I pay for my kids and change the weekend schedule").main.periods.length === 2 && cardLimits(statement, false, "i want custody of my daughter").main.periods.length === 1,
+    );
     const withParenting = cardLimits(change, false, "i want to change child support and parenting time");
     check("a change that touches parenting keeps the information program leading", withParenting.main.periods.some((p) => /information program/.test(p.what)) && !withParenting.mipNote);
   }

@@ -208,6 +208,7 @@ function NextStepCard({
   fromStory = [],
   responding = false,
   arrival = null,
+  noticeStepId = "",
 }: {
   summary: NextStepSummary;
   answer: RenderedAnswer;
@@ -223,8 +224,10 @@ function NextStepCard({
   responding?: boolean;
   /** A service date the story gives as the day the papers ARRIVED, for a way of serving that counts from the day they were sent. */
   arrival?: ArrivalNote | null;
+  /** The written-notice step the case's claim points to, so a municipal one keeps the line on serving a municipality. */
+  noticeStepId?: string;
 }) {
-  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords);
+  const practical = practicalFor(stepId, court as PracticalCourt, city, responding, userWords, noticeStepId);
   const today = todayIso();
   const toDo = answer.sections.find((section) => section.heading === "What to do next")?.text ?? "";
   const firstParagraph = forThisPerson(toDo.split(/\n\s*\n/)[0]?.trim() ?? "", {
@@ -297,7 +300,9 @@ function NextStepCard({
                   </li>
                 ))}
               </ul>
-              <p className="mt-1">Whether a judge finds that, in your case, is for the judge to decide. This site cannot tell you how that will go.</p>
+              <p className="mt-1">
+                Where an exception depends on what a judge finds, that is for the judge to decide. This site cannot tell you how that will go.
+              </p>
             </div>
           ) : (
             <p className="mt-2">The rule&apos;s own exceptions, if any, are in the full answer below, with its source.</p>
@@ -345,7 +350,7 @@ function NextStepCard({
       {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the
@@ -1075,6 +1080,7 @@ export default function StageAnswerPanel({
           stepId={stageId}
           city={city}
           responding={responding}
+          noticeStepId={noticeStepId ?? ""}
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
             .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value) }))}

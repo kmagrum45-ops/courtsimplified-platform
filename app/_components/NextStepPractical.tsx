@@ -42,6 +42,7 @@ export default function NextStepPractical({
   city = "",
   responding = false,
   story = "",
+  noticeStepId = "",
 }: {
   stepId: string;
   court: string;
@@ -49,9 +50,11 @@ export default function NextStepPractical({
   responding?: boolean;
   /** The person's own words, used only to narrow a step's notice rules to the ones that fit. */
   story?: string;
+  /** The written-notice step the case's claim points to (a municipal one keeps the municipal service line). */
+  noticeStepId?: string;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story);
+  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId);
   if (!view) return null;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">

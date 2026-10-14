@@ -141,14 +141,31 @@ const FEE_LIST: Fee[] = [
 
 export const FEES: Record<string, Fee> = Object.fromEntries(FEE_LIST.map((fee) => [fee.id, fee]));
 
+/*
+ * The Family Court branch of the Superior Court charges under its own
+ * regulation, O. Reg. 417/95, which is not saved (review 2026-10-13). The
+ * fee lines here speak only for O. Reg. 293/92 and the Ontario Court of
+ * Justice; for the Family Court branch the card says the fee is set by a
+ * regulation the site has not saved, and to ask that office.
+ */
+export const FAMILY_COURT_BRANCH_FEE: PlainLine = {
+  say: "In the Family Court branch of the Superior Court, fees are set by a separate regulation (O. Reg. 417/95) that this site has not saved yet, so ask that court office what this step costs.",
+  cite: cite(
+    "ontario-fees-family",
+    "Superior Court of Justice and Family Court branch fees",
+    "The information in this section is an unofficial presentation of the fees prescribed by two Ontario regulations. ... Ontario Regulation 417/95 , Superior Court of Justice – Family Court – Fees",
+  ),
+};
+
 /** Lines shown with every family fee: which court charges nothing, and which cases pay no filing fee. */
 export const FAMILY_FEE_NOTES: PlainLine[] = [
   {
     say: "In the Ontario Court of Justice there is no fee to file or list a family case.",
     cite: cite("ontario-fees-family", "Ontario Court of Justice fees", "There are no filing or listing fees in family proceedings in the Ontario Court of Justice."),
   },
+  FAMILY_COURT_BRANCH_FEE,
   {
-    say: "In the Superior Court, there is no fee to file an application or answer in a case only about parenting or support under the Children's Law Reform Act or the Family Law Act (other than its property and home parts).",
+    say: "In the Superior Court of Justice (under O. Reg. 293/92), there is no fee to file an application or answer in a case only about parenting or support under the Children's Law Reform Act or the Family Law Act (other than its property and home parts).",
     cite: sup(
       "s. 1.2 (2)",
       "no fees are payable for the filing of an application, the filing of an answer or the placing of an application on the list for hearing in respect of, (a) proceedings under the Children’s Law Reform Act, the Family Law Act (except Parts I and II)",
@@ -168,7 +185,7 @@ export const FAMILY_FEE_NOTES: PlainLine[] = [
  */
 export const FAMILY_NO_STEP_FEE: PlainLine[] = [
   {
-    say: "The family fee list charges for filing an application or an answer and for listing a case for hearing. It lists no fee for the papers at this step.",
+    say: "In the Superior Court of Justice, the family fee list (O. Reg. 293/92) charges for filing an application or an answer and for listing a case for hearing. It lists no fee for the papers at this step.",
     cite: sup(
       "s. 1.2 (1)",
       "1. On the filing of an application, $214. 2. On the filing of an answer, other than an answer referred to in paragraph 3, $171. 3. On the filing of an answer that includes a request for a divorce by a respondent, $214. 4. On the placing of an application on the list for hearing, $445.",
@@ -178,6 +195,7 @@ export const FAMILY_NO_STEP_FEE: PlainLine[] = [
     say: "In the Ontario Court of Justice there is no fee to file or list a family case.",
     cite: cite("ontario-fees-family", "Ontario Court of Justice fees", "There are no filing or listing fees in family proceedings in the Ontario Court of Justice."),
   },
+  FAMILY_COURT_BRANCH_FEE,
 ];
 
 /**
@@ -301,6 +319,29 @@ const scr = (pinpoint: string, quote: string) => cite("oreg-258-98-small-claims-
 const rcp = (pinpoint: string, quote: string) => cite("rules-of-civil-procedure", pinpoint, quote);
 const flr = (pinpoint: string, quote: string) => cite("family-law-rules", pinpoint, quote);
 
+/*
+ * Words that put a municipality in the case (review 2026-10-13: "I'm suing
+ * Brampton for flooding my basement" named no keyword and lost the line on
+ * serving a municipality). Public-way words, the word for a municipal body,
+ * or suing / a claim against a named Ontario place -- the court-location
+ * cities plus the larger municipalities that have no courthouse.
+ */
+const PLACE_NAMES = Array.from(
+  new Set([
+    ...COURT_LOCATIONS.flatMap((location) => location.address.map((line) => /^([^,]+),\s*Ontario\b/i.exec(line)?.[1]?.trim() ?? "")),
+    ...OCJ_COURTHOUSES.map((courthouse) => courthouse.city.replace(/\s*\(.*$/, "").trim()),
+    "Mississauga", "Markham", "Vaughan", "Richmond Hill", "Oakville", "Burlington", "Ajax", "Pickering", "Whitby", "Clarington",
+    "Cambridge", "Waterloo", "Caledon", "Halton Hills", "Niagara Falls", "Thunder Bay", "Greater Sudbury", "Kawartha Lakes",
+  ]),
+)
+  .filter((name) => /^[A-Za-z][A-Za-z .'’-]+$/.test(name))
+  .map((name) => name.replace(/[.]/g, "\\.").replace(/\s+/g, "\\s+"));
+export const MUNICIPAL_PARTY = new RegExp(
+  "\\b(?:city|town|township|municipal\\w*|county|region|village|sidewalk|road|street|highway|bridge|pothole|sewer|water main)\\b" +
+    `|\\b(?:sue|sued|suing|against)\\s+(?:the\\s+)?(?:(?:city|town|township|region|county|municipality)\\s+of\\s+)?(?:${PLACE_NAMES.join("|")})\\b`,
+  "i",
+);
+
 export const SERVICE: Record<PracticalCourt, ServiceLines> = {
   "small-claims": {
     originating: [
@@ -320,6 +361,15 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
       {
         say: "To serve a person personally, leave a copy with them. A person under disability, such as a minor, is served another way.",
         cite: scr("r. 8.02 (a)", "on an individual, other than a person under disability, by leaving a copy of the document with him or her"),
+      },
+      // Review 2026-10-13: the Small Claims rule for serving a municipality.
+      {
+        say: "To serve a city or town (a municipal corporation), hand a copy to the mayor, chair, warden or reeve, to the clerk or deputy clerk, or to a lawyer for the municipality.",
+        cite: scr(
+          "r. 8.02 (b)",
+          "on a municipal corporation, by leaving a copy of the document with the chair, mayor, warden or reeve of the municipality, with the clerk or deputy clerk of the municipality or with a lawyer for the municipality",
+        ),
+        about: MUNICIPAL_PARTY,
       },
       {
         say: "To serve a business that is a corporation, hand a copy to an officer or director, or to the person in charge at one of its places of business.",
@@ -368,7 +418,7 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
     // nor which comes first.
     garnishment: [
       {
-        say: "You serve the notice of garnishment on the garnishee (the person who owes the debtor money, such as an employer) with a blank garnishee's statement (Form 20F), by mail, courier or in person.",
+        say: "You serve the notice of garnishment on the garnishee (the person who owes the debtor money, such as an employer) with a garnishee's statement (Form 20F), by mail, courier or in person.",
         cite: scr(
           "r. 8.01 (8) (b)",
           "A notice of garnishment (Form 20E) shall be served by the creditor, ... (b) together with a garnishee's statement (Form 20F), on the garnishee, by mail, by courier, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03",
@@ -399,6 +449,14 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
           "The garnishee is liable to pay to the clerk any debt of the garnishee to the debtor, up to the amount shown in the notice of garnishment, within 10 days after service of the notice on the garnishee or 10 days after the debt becomes payable, whichever is later.",
         ),
       },
+      // Review 2026-10-13: wages have a limit, set by the Wages Act.
+      {
+        say: "From wages, what the garnishee pays in is limited to the part of the debtor's wages that section 7 of the Wages Act allows to be seized or garnished.",
+        cite: scr(
+          "r. 20.08 (9)",
+          "the amounts paid into court shall not exceed the portion of the debtor's wages that are subject to seizure or garnishment under section 7 of the Wages Act.",
+        ),
+      },
     ],
     proof: {
       say: "Prove service with an affidavit of service (Form 8A) from whoever served it.",
@@ -423,7 +481,7 @@ export const SERVICE: Record<PracticalCourt, ServiceLines> = {
           "r. 16.02 (1) (b)",
           "on a municipal corporation, by leaving a copy of the document with the chair, mayor, warden or reeve of the municipality, with the clerk or deputy clerk of the municipality or with a lawyer for the municipality",
         ),
-        about: /\b(?:city|town|township|municipal\w*|county|region|village|sidewalk|road|street|highway|bridge|pothole)\b/i,
+        about: MUNICIPAL_PARTY,
       },
       {
         say: "To serve a corporation, such as an employer, hand a copy to an officer, director or agent, or to the person in charge at one of its places of business.",
@@ -883,7 +941,11 @@ export const NOTICE_HOW: Partial<Record<RuleCitation["sourceId"], PlainLine[]>> 
  * Which kinds of family claim the person's own words (and the issues they
  * ticked, which reach here as words such as "child-support") mention. `known`
  * is false when the words name none of them, and then nothing is folded or
- * reordered on their account: a gap in these patterns never hides a line.
+ * reordered on their account. When it is true, a gap in these patterns can
+ * fold a line under "may apply later" (with the rule that says when it
+ * applies) but never removes one; and the forms a rule makes the person file
+ * whatever they claim (a respondent's financial statement, r. 13 (1) (b)) are
+ * never folded at all.
  */
 export type FamilyClaims = { known: boolean; parenting: boolean; support: boolean; property: boolean; home: boolean; divorce: boolean };
 
@@ -911,24 +973,39 @@ export function supportOnly(claims: FamilyClaims): boolean {
 /*
  * Family forms that a rule requires only with a particular claim
  * (walkthrough 2026-10-13: a father in a parenting-only case was shown
- * "Form 13 -- Financial Statement (Support Claims)" as his form). With words
- * that name no such claim they are folded under the rule that says when they
- * are needed -- never removed, since the other side's papers may make the
- * claim.
+ * "Form 13 -- Financial Statement (Support Claims)" as his form). They are
+ * folded under the rule that says when they are needed -- never removed.
+ *
+ * The financial statement is narrower to fold (review 2026-10-13): r. 13 (1)
+ * (b) makes the party a support or property claim is made AGAINST serve and
+ * file one within their time to answer, answer or not. So it is never folded
+ * on a step where the person is responding, and elsewhere only when their
+ * words show no support or money at all.
  */
 const FINANCIAL_STATEMENT_WHEN: PlainLine = {
-  say: "A financial statement (Form 13 or 13.1) is needed when an application, answer or motion claims support or property, or the matrimonial home.",
-  cite: FAM_FINANCIAL_STATEMENT,
+  say: "A financial statement (Form 13 or 13.1) is needed when an application, answer or motion claims support or property, or the matrimonial home. If the other side's papers make that claim against you, you must serve and file one within your time to answer, even if you file no answer.",
+  cite: flr(
+    "r. 13 (1) (a), (b)",
+    "If an application, answer or motion contains a claim for support, a property claim, or a claim for exclusive possession of the matrimonial home and its contents, (a) the party making the claim shall serve and file a financial statement (Form 13 or 13.1) with the document that contains the claim; and (b) the party against whom the claim is made shall serve and file a financial statement within the time for serving and filing an answer, reply or affidavit or other document responding to the motion, whether the party is serving an answer, reply or affidavit or other document responding to the motion or not.",
+  ),
 };
 const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
   say: "The parenting affidavit (Form 35.1) is needed when an application, answer or motion to change claims decision-making responsibility, parenting time or contact.",
   cite: FAM_PARENTING_AFFIDAVIT,
 };
-const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; fits: (claims: FamilyClaims) => boolean }> = {
-  "13": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims) => claims.support || claims.property || claims.home },
-  "13.1": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims) => claims.support || claims.property || claims.home },
+/** Words that show support, property or money at all; with any of them, the financial statement is never folded. */
+export const MONEY_WORDS = /\b(?:support|suport|pay|pays|paid|paying|owe|owes|owed|owing|amount|money|income|wages?|salary|alimony|property|pension|house|home|assets?|debts?)\b|\$/i;
+const moneyFits = (claims: FamilyClaims, words: string) => claims.support || claims.property || claims.home || MONEY_WORDS.test(proseOf(words));
+const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; fits: (claims: FamilyClaims, words: string, responding: boolean) => boolean }> = {
+  "13": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
+  "13.1": { when: FINANCIAL_STATEMENT_WHEN, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
   "35.1": { when: PARENTING_AFFIDAVIT_WHEN, fits: (claims) => claims.parenting },
 };
+
+/** A step on which the person answers papers served on them, so r. 13 (1) (b) can bind them. */
+export function respondingStep(stepId: string, responding: boolean): boolean {
+  return responding || /:respondent:|served-with|responding-to/.test(stepId);
+}
 
 /*
  * The mandatory information program and a support-only motion to change
@@ -938,7 +1015,7 @@ const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; fits: (claims: Family
  * with changing child or spousal support.
  */
 export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
-  say: "The mandatory information program rule covers a motion to change, except one that deals only with changing child or spousal support. What you told us is about support only, so it is not listed first. If your motion also asks to change parenting, it applies.",
+  say: "The mandatory information program rule covers a motion to change, except one that deals only with changing child or spousal support. What you told us is about support only, so it is not listed first. If your motion asks to change anything other than child or spousal support, it applies.",
   cite: flr("r. 8.1 (1), para. 6", "6. A motion to change a final order or agreement under rule 15, except motions that deal only with changing child or spousal support."),
 };
 
@@ -954,7 +1031,7 @@ export function claimFit(item: { id?: string; what: string }, words: string): "f
   if (!claims.known) return "fits";
   if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
   if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
-  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !claims.support && !claims.property && !claims.home) return "not";
+  if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words)) return "not";
   return "fits";
 }
 
@@ -977,43 +1054,85 @@ const FAMILY_CHANGE_PLACE: PlainLine[] = [
     cite: flr("r. 15 (4)", "Rule 5 (where a case starts) applies to a motion to change a final order or agreement as if the motion were a new case."),
   },
   {
-    say: "That is the municipality where a party lives or, for a change about decision-making responsibility, parenting time or contact, where the child usually lives.",
+    say: "That is the municipality where a party lives or, for a change about decision-making responsibility, parenting time or contact, where the child usually lives, subject to the Courts of Justice Act's rules for the Family Court.",
     cite: flr(
       "r. 5 (1) (a), (b)",
-      "a case shall be started, (a) in the municipality where a party resides; (b) if the case deals with decision-making responsibility, parenting time or contact with respect to a child, in the municipality where the child habitually resides, except as provided for under section 22 of the Children’s Law Reform Act",
+      "Subject to sections 21.8 and 21.11 of the Courts of Justice Act (territorial jurisdiction — Family Court), a case shall be started, (a) in the municipality where a party resides; (b) if the case deals with decision-making responsibility, parenting time or contact with respect to a child, in the municipality where the child habitually resides, except as provided for under section 22 of the Children’s Law Reform Act",
+    ),
+  },
+  // Review 2026-10-13: where the Family Court sits, the case goes there.
+  {
+    say: "Where the Family Court of the Superior Court of Justice sits, a family case under the Acts it lists (such as the Divorce Act, the Children's Law Reform Act and the Family Law Act except Part V) is started and heard there.",
+    cite: cite(
+      "cja-courts-of-justice-act",
+      "s. 21.8 (1), Schedule",
+      "In the parts of Ontario where the Family Court has jurisdiction, proceedings referred to in the Schedule to this section, except appeals and prosecutions, shall be commenced, heard and determined in the Family Court. ... SCHEDULE 1. PROCEEDINGS UNDER THE FOLLOWING STATUTORY PROVISIONS: ... Children's Law Reform Act, except sections 59 and 60 ... Divorce Act (Canada) ... Family Law Act, except Part V",
     ),
   },
 ];
 
-export type CourtOffice = { court: "Superior Court of Justice" | "Ontario Court of Justice"; name: string; address: string[]; emails: string[]; url: string };
+/** `from`: the saved entry it was built from (a location slug, or an OCJ list city), so a check can find it. */
+export type CourtOffice = { court: "Superior Court of Justice" | "Ontario Court of Justice"; name: string; address: string[]; emails: string[]; url: string; from: string };
 export type CourtOffices = { place: PlainLine[]; city: string; offices: CourtOffice[]; source: { url: string; readOn: string } };
 
 /** The city in an address line such as "Barrie, Ontario L4M 3P2". */
 const cityOfAddress = (lines: string[]) => lines.map((line) => /^([^,]+),\s*Ontario\b/i.exec(line)?.[1]?.trim() ?? "").find(Boolean) ?? "";
 
-/** Family court offices in the person's city: Superior Court locations with family services, and Ontario Court of Justice courthouses. */
+/** Anything about criminal court or bail, which a family card never lists (review 2026-10-13). */
+export const NOT_FAMILY = /\b(?:criminal|crim|bail|trbc)\b|criminal|crim@/i;
+
+/**
+ * An Ontario Court of Justice entry's family emails, only where the saved list
+ * marks them family: the entry's own name says "Family" (311 Jarvis Family), or
+ * the email is labelled "Family" (Milton, Thunder Bay). Unlabelled entries are
+ * not shown: the list does not say they take family cases, and some are
+ * criminal-only (Ottawa.criminal@, yorkcrim@).
+ */
+function ocjFamilyEmails(courthouse: { city: string; emails: string[] }): string[] {
+  if (/\bfamily\b/i.test(courthouse.city)) return courthouse.emails.filter((email) => !NOT_FAMILY.test(email));
+  return courthouse.emails
+    .filter((email) => /(?:^|\s)family\s*[–-]|[–-]\s*family\s*$/i.test(email))
+    .map((email) => email.replace(/^\s*family\s*[–-]\s*/i, "").replace(/\s*[–-]\s*family\s*$/i, "").trim())
+    .filter((email) => !NOT_FAMILY.test(email));
+}
+
+/**
+ * Family court offices in the person's city: Superior Court locations with a
+ * family service (its family address and family contacts only, never the
+ * building's criminal lines), and Ontario Court of Justice entries the saved
+ * list marks family.
+ */
 export function familyCourtOfficesIn(city: string): CourtOffice[] {
   const wanted = city.trim().toLowerCase();
   if (!wanted) return [];
   const torontoWanted = inTorontoRegion(city) === true;
   const sameCity = (name: string) => {
-    const lower = name.trim().toLowerCase();
+    const lower = name.replace(/\s*\(.*$/, "").trim().toLowerCase();
     return lower === wanted || (torontoWanted && inTorontoRegion(name) === true);
   };
-  const scj: CourtOffice[] = COURT_LOCATIONS.filter((location) => sameCity(cityOfAddress(location.address)) && location.services.some((service) => service.court === "family")).map((location) => ({
-    court: "Superior Court of Justice",
-    name: location.name,
-    address: location.address,
-    emails: Array.from(new Set(location.services.filter((service) => service.court === "family").flatMap((service) => service.contacts.map((contact) => contact.email).filter((email): email is string => Boolean(email))))).slice(0, 2),
-    url: location.url,
-  }));
-  const ocj: CourtOffice[] = OCJ_COURTHOUSES.filter((courthouse) => sameCity(courthouse.city)).map((courthouse) => ({
-    court: "Ontario Court of Justice",
-    name: `Ontario Court of Justice, ${courthouse.city}`,
-    address: [],
-    emails: courthouse.emails,
-    url: OCJ_SOURCE,
-  }));
+  const scj: CourtOffice[] = COURT_LOCATIONS.flatMap((location) => {
+    const family = location.services.filter((service) => service.court === "family");
+    const place = cityOfAddress(location.address);
+    if (!family.length || !sameCity(place)) return [];
+    const emails = Array.from(new Set(family.flatMap((service) => service.contacts.map((contact) => contact.email).filter((email): email is string => Boolean(email) && !NOT_FAMILY.test(email ?? ""))))).slice(0, 2);
+    return [
+      {
+        court: "Superior Court of Justice" as const,
+        // A building that also hears criminal cases is named by its city, not its "Criminal & Family" title.
+        name: NOT_FAMILY.test(location.name) ? `Superior Court of Justice family court, ${place}` : location.name,
+        address: family.flatMap((service) => service.address).filter((line) => !NOT_FAMILY.test(line)),
+        emails,
+        url: location.url,
+        from: location.slug,
+      },
+    ];
+  });
+  const ocj: CourtOffice[] = OCJ_COURTHOUSES.flatMap((courthouse) => {
+    const inPlace = sameCity(courthouse.city) || (torontoWanted && /^toronto$/i.test(courthouse.region));
+    const emails = inPlace ? ocjFamilyEmails(courthouse) : [];
+    if (!emails.length || NOT_FAMILY.test(courthouse.city)) return [];
+    return [{ court: "Ontario Court of Justice" as const, name: `Ontario Court of Justice, ${courthouse.city}`, address: [], emails, url: OCJ_SOURCE, from: courthouse.city }];
+  });
   return [...scj, ...ocj];
 }
 
@@ -1150,13 +1269,29 @@ export function alsoFor(also: RuleCitation[], words = "", city = ""): RuleCitati
 }
 
 /** A step's lines without those whose `about` the person's words do not match (all of them with no words). */
-function linesAbout(lines: PlainLine[], story: string): PlainLine[] {
+function linesAbout(lines: PlainLine[], story: string, municipalNotice = false): PlainLine[] {
   const prose = proseOf(story);
   if (!prose.trim()) return lines;
-  return lines.filter((line) => !line.about || line.about.test(prose));
+  return lines.filter((line) => !line.about || (municipalNotice && line.about === MUNICIPAL_PARTY) || line.about.test(prose));
 }
 
-export function practicalFor(stepId: string, court: PracticalCourt, city = "", responding = false, story = ""): PracticalView | null {
+/** A notice step on the case that is a notice to a municipality (review 2026-10-13: then the municipal service line always shows). */
+export function isMunicipalNoticeStep(noticeStepId: string, story = "", city = ""): boolean {
+  if (/^before-filing:notice-(?:municipality|toronto)$/.test(noticeStepId)) return true;
+  // The civil notice step covers every notice; it is a municipal one when the words fit one.
+  const prose = proseOf(story);
+  return noticeStepId === "civil:before-filing:notice-required-before-suing" && (NOTICE_FITS["municipal-act-2001"]!(prose, city) || NOTICE_FITS["city-of-toronto-act-2006"]!(prose, city));
+}
+
+export function practicalFor(
+  stepId: string,
+  court: PracticalCourt,
+  city = "",
+  responding = false,
+  story = "",
+  /** The written-notice step the case's claim points to (claim-types/noticeStep.ts), if any. */
+  noticeStepId = "",
+): PracticalView | null {
   const step = STEP_PRACTICAL[stepId];
   if (!step || (step.forms.length === 0 && step.fees.length === 0 && !step.files && !step.serve && !(step.also ?? []).length)) return null;
   const toronto = inTorontoRegion(city);
@@ -1169,7 +1304,7 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = "", r
   const allFees = step.fees.map((id) => FEES[id]).filter(Boolean);
   // The divorce-answer fee is for an answer that asks for a divorce; it goes last when their words name none.
   const fees = claims && claims.known && !claims.divorce ? [...allFees.filter((fee) => fee.id !== "fam-answer-divorce"), ...allFees.filter((fee) => fee.id === "fam-answer-divorce")] : allFees;
-  const serviceLines = step.serve ? linesAbout(SERVICE[court][step.serve], story) : [];
+  const serviceLines = step.serve ? linesAbout(SERVICE[court][step.serve], story, isMunicipalNoticeStep(noticeStepId, story, city)) : [];
   const allForms = step.forms
     .map((form) => {
       const [other, number] = form.includes(":") ? form.split(":") : [court, form];
@@ -1181,7 +1316,10 @@ export function practicalFor(stepId: string, court: PracticalCourt, city = "", r
         : 0,
     );
   const folded = (form: { court: PracticalCourt; number: string }) =>
-    form.court === "family" && claims?.known === true && FAMILY_FORM_NEEDS[form.number] !== undefined && !FAMILY_FORM_NEEDS[form.number].fits(claims);
+    form.court === "family" &&
+    claims?.known === true &&
+    FAMILY_FORM_NEEDS[form.number] !== undefined &&
+    !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
   const also = alsoFor(step.also ?? [], story, city);
   return {
     forms: allForms.filter((form) => !folded(form)),
