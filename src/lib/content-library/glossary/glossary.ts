@@ -114,4 +114,10 @@ export const GLOSSARY: GlossaryEntry[] = GLOSSARY_FILE.entries
     sources: entry.sources,
     verifiedAt: GLOSSARY_FILE.verifiedAt,
   }))
-  .sort((a, b) => a.term.localeCompare(b.term, "en", { sensitivity: "base" }));
+  // Everyday terms first, A to Z; the few Latin phrases after them, A to Z (site owner,
+  // 2026-10-13: "put latin words at the end because almost nobody uses them anymore").
+  .sort(
+    (a, b) =>
+      Number(a.kind === "latin") - Number(b.kind === "latin") ||
+      a.term.localeCompare(b.term, "en", { sensitivity: "base" }),
+  );

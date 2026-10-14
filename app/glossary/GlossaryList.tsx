@@ -68,8 +68,17 @@ export default function GlossaryList({ items }: { items: GlossaryItem[] }) {
       <p className="mt-2 text-sm text-[#4d675f]" aria-live="polite">
         Showing {shown.length} of {items.length} terms
       </p>
-      <dl className="mt-4 space-y-3">
-        {shown.map((item) => (
+      {[
+        { key: "terms", heading: "", list: shown.filter((item) => item.kind !== "latin") },
+        { key: "latin", heading: "Latin phrases", list: shown.filter((item) => item.kind === "latin") },
+      ].map((group) =>
+        group.list.length ? (
+          <section key={group.key} aria-label={group.heading || "Terms"}>
+            {group.heading && filter !== "latin" ? (
+              <h2 className="mt-10 text-xl font-bold text-[#10231f]">{group.heading}</h2>
+            ) : null}
+            <dl className="mt-4 space-y-3">
+              {group.list.map((item) => (
           <div key={item.id} id={item.id.replace("glossary:", "")} className="rounded-2xl border border-[#d8e6df] bg-white p-5">
             <dt className="flex flex-wrap items-baseline gap-2">
               <span className="text-lg font-bold text-[#10231f]">{item.term}</span>
@@ -131,8 +140,11 @@ export default function GlossaryList({ items }: { items: GlossaryItem[] }) {
               ) : null}
             </dd>
           </div>
-        ))}
-      </dl>
+              ))}
+            </dl>
+          </section>
+        ) : null,
+      )}
     </div>
   );
 }
