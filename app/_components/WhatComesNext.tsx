@@ -1,4 +1,4 @@
-import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
+import { SOURCE_SAVED_ON, rulesForWords } from "@/src/lib/content-library/nextStepPractical";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 import { nextStepsFor, type NextStepView } from "@/src/lib/case-system/stage-map/stageSequence";
 
@@ -63,12 +63,42 @@ function Move({ move }: { move: NextStepView }) {
   );
 }
 
-export default function WhatComesNext({ stepId, responding = false }: { stepId: string; responding?: boolean }) {
+/**
+ * The moves narrowed to the notices the person's words fit (walkthrough run
+ * 38500825561, SW: a Toronto card quoted the Crown's notice and its
+ * misfeasance leave under "What can happen next"). A move keeps only the
+ * notice rules that fit; a move whose rules are all notices that do not fit
+ * goes under "Other things that can come up", with its rules unchanged.
+ * Nothing is removed. Exported for test:next-step.
+ */
+export function movesForWords(stepId: string, responding = false, words = "", city = "") {
   const { moves, final } = nextStepsFor(stepId, responding);
-  if (moves.length === 0 && !final) return null;
-  const usual = moves.filter((move) => move.usual);
-  const lead = usual.length > 0 ? usual : moves;
-  const others = usual.length > 0 ? moves.filter((move) => !move.usual) : [];
+  const shown = moves.map((move) => {
+    const rules = rulesForWords(move.rules, words, city);
+    return rules.length > 0 ? { move: { ...move, rules }, fits: true } : { move, fits: false };
+  });
+  const fitting = shown.filter((item) => item.fits).map((item) => item.move);
+  const offTopic = shown.filter((item) => !item.fits).map((item) => item.move);
+  const usual = fitting.filter((move) => move.usual);
+  const lead = usual.length > 0 ? usual : fitting;
+  const others = [...(usual.length > 0 ? fitting.filter((move) => !move.usual) : []), ...offTopic];
+  return { lead, others, final };
+}
+
+export default function WhatComesNext({
+  stepId,
+  responding = false,
+  story = "",
+  city = "",
+}: {
+  stepId: string;
+  responding?: boolean;
+  /** The person's words, used only to narrow notice rules to the ones that fit. */
+  story?: string;
+  city?: string;
+}) {
+  const { lead, others, final } = movesForWords(stepId, responding, story, city);
+  if (lead.length === 0 && others.length === 0 && !final) return null;
   return (
     <details data-testid="what-comes-next" className="mt-3 text-sm leading-6 text-[#16302b]">
       <summary className="cursor-pointer font-semibold text-[#2f7d67]">What can happen next</summary>

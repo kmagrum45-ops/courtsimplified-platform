@@ -17,7 +17,9 @@ import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/ca
 import {
   amountFromStory,
   childrenFromStory,
+  civilFiledFromStory,
   civilRoleFromStory,
+  familyFiledFromStory,
   familyRoleFromStory,
   goalFromStory,
   otherPartyFromStory,
@@ -26,6 +28,16 @@ import {
 } from "./storyAnswers";
 
 const storyOf = (values: GuidedValues) => (typeof values.facts === "string" ? values.facts : "");
+
+/**
+ * A filed-documents answer from the story, kept to the options this form
+ * offers (an option the form does not list is never offered); null when
+ * none of the story's values is one of them.
+ */
+function offeredFiled(answer: { value: string[]; quote: string } | null, options: GuidedChoice[]) {
+  const value = (answer?.value ?? []).filter((item) => options.some((option) => option.value === item));
+  return answer && value.length ? { value, quote: answer.quote } : null;
+}
 
 const has = (values: GuidedValues, key: string, ...wanted: string[]) => {
   const value = values[key];
@@ -113,6 +125,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "filedDocuments",
       label: "What has been filed",
+      // "i got served the papers last week" answers this (walkthrough FR, 2026-10-13).
+      fromStory: (values) => offeredFiled(familyFiledFromStory(storyOf(values)), options.filed),
       question: "Has anything been filed with the court or given to you yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
       kind: "multi",
@@ -205,6 +219,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "documents",
       label: "What has been filed",
+      // "i got served a statement of claim", "i want to sue the city" (walkthrough SW, 2026-10-13).
+      fromStory: (values) => offeredFiled(civilFiledFromStory(storyOf(values)), options.documents),
       question: "Has anything been filed with the court or served yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
       kind: "multi",

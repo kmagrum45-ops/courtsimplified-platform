@@ -170,6 +170,15 @@ export type StageDeadline = {
    */
   qualifier?: string;
   /**
+   * A point in time after which a step needs the court's leave, not a period
+   * for taking a step (2026-10-13 review: r. 20.08 (2.1)'s "more than six
+   * years have passed since the order was made"). Counted to the anniversary
+   * and never moved past a weekend or holiday: r. 3.01 and s. 89 (1) extend a
+   * period for taking a step, and this is not one. The anniversary arithmetic
+   * is the Legislation Act's (s. 89 (7)).
+   */
+  threshold?: true;
+  /**
    * Provisions that qualify the deadline, shown in the same breath as the
    * number. A block that gives a bar without its exceptions frightens people
    * out of claims they still have.
@@ -1199,7 +1208,24 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [C.R_11_02_DEFAULT_JUDGMENT, C.R_11_06_SET_ASIDE],
-    deadlines: [],
+    // An unpaid judgment too: the six-year leave rule (walkthrough run 38500825561).
+    deadlines: [
+      {
+        id: "deadline:sc-enforce-six-years-leave:default-judgment",
+        what: "Six years after the order: after that, a notice of garnishment or a writ of seizure and sale can be issued only with the court's permission (leave)",
+        qualifier:
+          "A notice of garnishment needs leave sooner if enforcing the order is subject to a condition. In these rules, an order includes a judgment.",
+        countFrom: "the day the order was made",
+        countFromEvent: "order-made",
+        length: { unit: "years", count: 6 },
+        regime: "small-claims-rules",
+        threshold: true,
+        rule: C.R_20_08_2_1_GARNISHMENT_LEAVE,
+        computation: C.S_LEGISLATION_89_7_LEAP,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_20_06_1_1_WRIT_PERSONAL_LEAVE, C.R_20_07_1_1_WRIT_LAND_LEAVE, C.R_1_02_ORDER_INCLUDES_JUDGMENT],
+      },
+    ],
   },
   {
     id: "plaintiff:defence-filed",
@@ -1485,7 +1511,25 @@ const PLAINTIFF: CaseStage[] = [
       },
     ],
     rules: [],
-    deadlines: [],
+    // Walkthrough run 38500825561, JU: "within 6 years of the order" was never
+    // connected to the known judgment date, and the card never asked for it.
+    deadlines: [
+      {
+        id: "deadline:sc-enforce-six-years-leave",
+        what: "Six years after the order: after that, a notice of garnishment or a writ of seizure and sale can be issued only with the court's permission (leave)",
+        qualifier:
+          "A notice of garnishment needs leave sooner if enforcing the order is subject to a condition. In these rules, an order includes a judgment.",
+        countFrom: "the day the order was made",
+        countFromEvent: "order-made",
+        length: { unit: "years", count: 6 },
+        regime: "small-claims-rules",
+        threshold: true,
+        rule: C.R_20_08_2_1_GARNISHMENT_LEAVE,
+        computation: C.S_LEGISLATION_89_7_LEAP,
+        consequence: "changes-what-happens-next",
+        exceptions: [C.R_20_06_1_1_WRIT_PERSONAL_LEAVE, C.R_20_07_1_1_WRIT_LAND_LEAVE, C.R_1_02_ORDER_INCLUDES_JUDGMENT],
+      },
+    ],
   },
   {
     id: "plaintiff:action-dismissed-for-delay",

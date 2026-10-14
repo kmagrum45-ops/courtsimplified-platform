@@ -227,6 +227,7 @@ export function renderDeadlineSection(
     consequence?: "bars-the-claim" | "changes-what-happens-next";
     actor?: "reader" | "other-party" | "court";
     qualifier?: string;
+    threshold?: true;
   }>,
 ): string | null {
   // count === 0 marks a period the rule declines to fix — r. 11.06's "as soon
@@ -257,6 +258,12 @@ export function renderDeadlineSection(
       if (deadline.direction === "before") {
         const event = deadline.countFrom.replace(/,?\s*counting backwards\.?$/i, "");
         return `${deadline.what}. Do this at least ${period} before ${event}.${qualifier}`;
+      }
+
+      // A threshold is not a time to act in (2026-10-13 review: "You have 6
+      // years" read as a deadline for something that only needs leave after).
+      if (deadline.threshold) {
+        return `${deadline.what}. That point is ${period} after ${deadline.countFrom}: the anniversary of that day. If that day was February 29, the anniversary is February 28, except in a leap year.${qualifier}`;
       }
 
       // Whose clock it is decides the sentence (2026-10-01 audit). "You have 90

@@ -217,6 +217,44 @@ const familyStep = stagesForPathway("family")[0]?.id ?? "";
     check("a family service date reaches the family question", family["case-date-served-with-application"]?.value === "2026-10-02", JSON.stringify(family));
     const motion = storyHintsForDates("i was served a motion on october 2 2026", now);
     check("not when the story is about a motion", !motion["case-date-served-with-application"]);
+    // Walkthrough JU (2026-10-13): a judgment told as "i won my case ... in
+    // may, the judge said he owes me" is the order, quoted beside the order
+    // date question; a month with no day fills nothing (the person gives the
+    // day), and a full date fills it.
+    const won = storyHintsForDates("i won my small claims case against my old roommate in may, the judge said he owes me 6500 plus costs. its been months and he hasnt paid anything.", now);
+    check("'i won my small claims case ... in may' is quoted for the order date, with no day filled", /in may/.test(won["case-date-order-made"]?.quote ?? "") && won["case-date-order-made"]?.value === null, JSON.stringify(won["case-date-order-made"]));
+    for (const [words, iso] of [
+      ["the judge gave me judgment on may 14 2026", "2026-05-14"],
+      ["i got a judgment on may 14, 2026 for 6500", "2026-05-14"],
+      ["i won my case on may 14 2026", "2026-05-14"],
+    ] as const) {
+      check(`'${words}' gives the order date`, storyHintsForDates(words, now)["case-date-order-made"]?.value === iso, JSON.stringify(storyHintsForDates(words, now)["case-date-order-made"]));
+    }
+    // A judgment against the person is still their order (its date counts).
+    for (const words of ["i lost my case on may 14 2026", "he got a judgment against me on may 14 2026", "i got default judgment on may 14 2026"]) {
+      check(`'${words}' gives the order date`, storyHintsForDates(words, now)["case-date-order-made"]?.value === "2026-05-14", JSON.stringify(storyHintsForDates(words, now)["case-date-order-made"]));
+    }
+    // Must not misfire (review 2026-10-13): someone else's case, a hope, a
+    // doubt, a negation, a question, a tribunal. A full date here is kept and
+    // starts deadlines, so these give nothing, not even a quote.
+    for (const words of [
+      "i want to win my case",
+      "he owes me 6500 for the car",
+      "the judge will decide in may",
+      "my friend won the case on may 14 2026",
+      "my friend won his case in may",
+      "i hope i won my case on may 14 2026",
+      "if i win my case in may i want him to pay",
+      "i think we got a judgment on may 14 2026",
+      "i didn't win my case on may 14 2026",
+      "i never got a judgment, the trial is on may 14 2027",
+      "did i win my case? the trial was may 14 2026",
+      "i won my case at the ltb on may 14 2026",
+      "we got a judgment from the tribunal on may 14 2026",
+      "the judge said they have to pay the court fees by may 14 2026",
+    ]) {
+      check(`'${words}' is not read as an order`, !storyHintsForDates(words, now)["case-date-order-made"], JSON.stringify(storyHintsForDates(words, now)["case-date-order-made"]));
+    }
   }
   // Step 2B, 2026-10-12: a full story date is kept with the case as soon as it
   // is shown (the waiting "Yes, save this date" prompt was flagged as asking

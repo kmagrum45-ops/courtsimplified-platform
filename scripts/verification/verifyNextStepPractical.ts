@@ -29,6 +29,9 @@
  *     Case file and Timeline counting notices the Overview card drops; the
  *     Forms tab built without the person's words or notice step; the site's
  *     own follow-up question text read as the person's words.
+ *   - (walkthrough run 38500825561) a notice-before-suing step that does not
+ *     name the form that starts the court case after it, with its fee, or
+ *     names it before the notice.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -67,6 +70,8 @@ import {
   FAMILY_COURT_BRANCH_FEE,
   keptForNotices,
   noticeFit,
+  claimAfterNotice,
+  CLAIM_AFTER_NOTICE,
 } from "../../src/lib/content-library/nextStepPractical";
 import { userWordsOf } from "../../src/lib/content-library/forms/formsInText";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -476,6 +481,44 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   check("every family step with a first-instance fee note also says the Family Court branch's fee is set by O. Reg. 417/95", branchSilent.length === 0 && FAMILY_FEE_NOTES.includes(FAMILY_COURT_BRANCH_FEE) && FAMILY_NO_STEP_FEE.includes(FAMILY_COURT_BRANCH_FEE), branchSilent.map((stage) => stage.id).join(", "));
   const unscoped = [...FAMILY_FEE_NOTES, ...FAMILY_NO_STEP_FEE].filter((line) => line !== FAMILY_COURT_BRANCH_FEE && !/Superior Court of Justice|Ontario Court of Justice|federal/.test(line.say));
   check("each family fee line names the court it speaks for", unscoped.length === 0, unscoped.map((line) => line.say).join(" | "));
+
+  // Walkthrough run 38500825561, SW: a notice step names the court case that
+  // follows it -- the court's start rule and its fee, quoted -- and only a
+  // notice step does.
+  {
+    const NOTICE_IDS = new Set(["municipal-act-2001", "city-of-toronto-act-2006", "occupiers-liability-act", "crown-liability-and-proceedings-act-2019", "insurance-act"]);
+    const wrong: string[] = [];
+    for (const [stepId, step] of Object.entries(STEP_PRACTICAL)) {
+      const court: PracticalCourt = stepId.startsWith("civil:") ? "civil" : stepId.startsWith("family:") ? "family" : "small-claims";
+      const isNotice = court !== "family" && step.forms.length === 0 && (step.also ?? []).some((rule) => NOTICE_IDS.has(rule.sourceId));
+      const after = claimAfterNotice(stepId, court);
+      if (isNotice !== after.length > 0) wrong.push(stepId);
+      if (isNotice) {
+        const plan = CLAIM_AFTER_NOTICE[court as "civil" | "small-claims"];
+        if (!after.includes(plan.start)) wrong.push(`${stepId}: start line`);
+        // Every claim fee the court charges for that document, each quoted (review 2026-10-13: $228 was missing).
+        const feeLines = after.filter((line) => line.cite.sourceId === (court === "civil" ? "oreg-293-92-superior-court-fees" : "oreg-332-16-small-claims-fees"));
+        if (feeLines.length !== plan.fees.length || !plan.fees.every((id) => feeLines.some((line) => line.say.includes(`$${FEES[id].amount}`)))) wrong.push(`${stepId}: fees`);
+        // The start of the case comes after the notice and any wait it needs.
+        if (after.indexOf(plan.start) < after.findIndex((line) => line.cite.sourceId === "crown-liability-and-proceedings-act-2019")) wrong.push(`${stepId}: order`);
+      }
+    }
+    check("every notice step, and only those, names the form that starts the court case and its fee", wrong.length === 0, wrong.join(", "));
+    check("the civil start line names Form 14A from r. 14.03 (1)", /Form 14A/.test(CLAIM_AFTER_NOTICE.civil.start.say) && /^r\. 14\.03 \(1\)/.test(CLAIM_AFTER_NOTICE.civil.start.cite.pinpoint) && /Form 14A/.test(CLAIM_AFTER_NOTICE.civil.start.cite.quote));
+    const view = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
+    check("the Toronto notice card shows it, with the $243 issuing fee", Boolean(view?.afterNotice.some((line) => /\$243/.test(line.say))));
+    check("a Small Claims notice shows both claim fees, $108 and $228", ["$108", "$228"].every((fee) => claimAfterNotice("before-filing:notice-toronto", "small-claims").some((line) => line.say.includes(fee))));
+    // Review 2026-10-13 (7): the Crown's notice is 60 days BEFORE the claim (CLPA s. 18 (1)).
+    const crownLines = claimAfterNotice("civil:before-filing:notice-required-before-suing", "civil", STORIES[4]);
+    check("a claim against the Crown: the line says to wait 60 days after the notice, from s. 18 (1)", crownLines.some((line) => /60 days after/.test(line.say) && line.cite.pinpoint === "s. 18 (1)" && /at least 60 days before/.test(line.cite.quote)));
+    check("a Toronto fall: no Crown wait line", !(view?.afterNotice ?? []).some((line) => line.cite.sourceId === "crown-liability-and-proceedings-act-2019"));
+    check("with every notice shown, the Crown wait is said for a claim against the Crown only", claimAfterNotice("civil:before-filing:notice-required-before-suing", "civil").some((line) => /^If your claim is against the Ontario Crown/.test(line.say)));
+    const component = readFileSync(path.join(ROOT, "app", "_components", "NextStepPractical.tsx"), "utf8");
+    const noticeAt = component.indexOf('data-testid="next-step-notice-how"');
+    const ruleAt = component.indexOf('data-testid="next-step-also"');
+    const afterAt = component.indexOf('data-testid="next-step-after-notice"');
+    check("the card keeps the notice first: the start of the court case comes after it", noticeAt > 0 && ruleAt > noticeAt && afterAt > ruleAt);
+  }
 
   check("no new plain line grades a case", MORE_CARD_LINES.every((line) => !/\b(strong|weak|likely|unlikely|chance|win|lose|merit)/i.test(line.say)));
 }

@@ -1195,6 +1195,16 @@ function BuilderPageContent() {
   // a new application (walkthrough run 38475320722).
   const offerOriginatingDraft =
     !originatingDocumentFiled && !respondingSide && !(courtPath === "family" && existingFamilyOrder(homeStory || userStory(caseData)));
+  // With an order already in place, the support-table card moves below the
+  // step panel, folded -- but only once that panel is on screen, so the card
+  // is never hidden in one place before it shows in the other (review 2026-10-13).
+  const supportTableAfterStep =
+    courtPath === "family" &&
+    existingFamilyOrder(homeStory || userStory(caseData)) &&
+    resultsVisible &&
+    Boolean(analysis) &&
+    canonicalIntakeSaved &&
+    Boolean(confirmedStage);
   // The ordinary response is offered only while it is still their next
   // document: the step they chose or, before they choose, the one their
   // words name (case reader first, then the phrase lists).
@@ -1857,7 +1867,10 @@ function BuilderPageContent() {
                   )}
                 />
               )}
-              <ChildSupportTableCard />
+              {/* With an order already in place, the table card is folded
+                  under the next-step guidance instead (walkthrough run
+                  38500825561, MC). */}
+              {!supportTableAfterStep ? <ChildSupportTableCard /> : null}
             </div>
           );
         })()}
@@ -1980,6 +1993,19 @@ function BuilderPageContent() {
                   courtPath,
                 })}
               />
+            ) : null}
+            {/* A support order already exists (motion to change): the table
+                card comes after the step's guidance, folded (walkthrough run
+                38500825561, MC: "it depends on where the other parent lives"
+                led his results, before the motion-to-change step). */}
+            {supportTableAfterStep &&
+            (familyScope?.issues ?? (Array.isArray(asRecord(caseData?.extra).issues) ? (asRecord(caseData?.extra).issues as string[]) : [])).includes(
+              "child-support",
+            ) ? (
+              <details data-testid="child-support-table-folded" className="rounded-2xl border border-[#d8e6df] bg-white p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">How the child support table works</summary>
+                <ChildSupportTableCard />
+              </details>
             ) : null}
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} />

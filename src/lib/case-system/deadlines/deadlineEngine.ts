@@ -125,6 +125,12 @@ export type DeadlineInput = {
    * r. 13.03 (2)'s "at least 14 days before the settlement conference" does.
    */
   direction?: "after" | "before";
+  /**
+   * False for a threshold, not a period for taking a step (stageMap
+   * `threshold`): the counted day is returned as counted, never moved past a
+   * weekend or holiday. Defaults to true.
+   */
+  extend?: boolean;
 };
 
 /*
@@ -350,6 +356,10 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
   }
 
   // --- 2. the holiday extension -----------------------------------------
+
+  // A threshold ("more than six years have passed since the order") is not a
+  // period for taking a step; no extension provision reaches it.
+  if (input.extend === false) return { from, deadline: date, certainty, steps };
 
   const hRegime = holidayRegime(regime);
 

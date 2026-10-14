@@ -215,6 +215,20 @@ export default function NextStepPractical({
           </ul>
         </div>
       ) : null}
+
+      {view.afterNotice.length > 0 ? (
+        // After the notice, never before it: the form that starts the court
+        // case, and its fee (walkthrough run 38500825561, SW: the notice card
+        // never named the later claim form).
+        <div data-testid="next-step-after-notice">
+          <p className="font-semibold">Then, starting the court case</p>
+          <ul className="mt-1 space-y-1">
+            {view.afterNotice.map((line) => (
+              <Line key={line.say} line={line} />
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   );
 }

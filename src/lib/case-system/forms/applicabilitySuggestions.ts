@@ -16,6 +16,7 @@
  */
 
 import type { CaseRecord } from "../caseRecord";
+import { caseStepFor } from "../caseStep";
 
 /**
  * `firm`: the answer is something the person themselves entered or chose --
@@ -173,10 +174,38 @@ function suggest(
   // The step the person picked settles some of these outright.
   const stepAnswer = record.position.stepId ? STEP_ANSWERS[last]?.[record.position.stepId] : undefined;
   if (stepAnswer) return stepAnswer;
+  // No step picked: the step every case page shows them (caseStep.ts, the
+  // card's own order, once their stage is confirmed). Walkthrough MC
+  // (2026-10-13): the card said "Your step: ... how do I ask the court to
+  // change it?" and the Forms page still asked "Which Family Law Rules
+  // motion document set are you preparing?". That step is the site's
+  // suggestion, not the person's choice, so its answer is offered, never kept
+  // without them (CLAUDE.md section 4): firm only for a step they chose.
+  const pathway = record.courtPath;
+  if (!record.position.stepId && pathway && STEP_ANSWERS[last]) {
+    const shown = caseStepFor(master, pathway, record.side?.value === "responding", { requireConfirmedStage: true });
+    const fromShown = shown ? STEP_ANSWERS[last][shown] : undefined;
+    if (fromShown) return { value: fromShown.value, reason: `${fromShown.reason.replace(/^Your step is/, "The step shown for your case is")}` };
+  }
 
   // Civil: what the person's own words already answer. Each says only what is
   // in their story; "Not sure" stays one click away.
   const story = record.story.toLowerCase();
+
+  // A story that mentions a notice of action is never answered for them
+  // (review 2026-10-13: "i filed a notice of action last week", "i was served
+  // with a notice of action"), whatever their stage says.
+  if (last === "isCommencedByNoticeOfAction" && /\bnotice of action\b/.test(story)) return null;
+  // "Was this case started by Notice of Action?" asked of a plaintiff whose
+  // confirmed stage is "I have not filed anything yet" (walkthrough SW,
+  // 2026-10-13): nothing has been started, so "No" is offered with that
+  // reason. A SUGGESTION, never kept by itself: a served defendant can also
+  // truthfully say "I have not filed anything yet" (review 2026-10-13), and a
+  // kept answer would not follow a later change of stage. The person saves it.
+  const roleSaysDefendant = /defend|respond/i.test(String(asRecord(asRecord(master.intakeData).extra).yourRole ?? ""));
+  if (last === "isCommencedByNoticeOfAction" && record.position.confirmedStage === "starting-case" && side !== "responding" && !roleSaysDefendant) {
+    return { value: false, reason: "You said you have not filed anything yet, so your case has not been started by a notice of action." };
+  }
   if (last === "isMortgageForeclosure" && story && !/\bmortgage|foreclos|power of sale/.test(story)) {
     return { value: false, reason: "Your story does not mention a mortgage." };
   }

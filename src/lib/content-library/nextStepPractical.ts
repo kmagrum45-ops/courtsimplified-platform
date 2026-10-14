@@ -712,6 +712,54 @@ const SC_GARNISHMENT_PAID = scr(
 
 const NOTHING: StepPractical = { forms: [], fees: [], files: false, serve: null };
 
+/*
+ * The court case that follows a notice before suing (walkthrough run
+ * 38500825561, SW: the notice card never named the later claim form). A
+ * notice step has no form of its own; once the notice is given, the action
+ * itself is started by the court's originating document. Shown after the
+ * notice, never before it. Each line is the start rule or the fee, quoted.
+ */
+const NOTICE_SOURCES = new Set<RuleCitation["sourceId"]>([
+  "municipal-act-2001",
+  "city-of-toronto-act-2006",
+  "occupiers-liability-act",
+  "crown-liability-and-proceedings-act-2019",
+  "insurance-act",
+]);
+export const CLAIM_AFTER_NOTICE: Record<"civil" | "small-claims", { start: PlainLine; fees: string[] }> = {
+  civil: {
+    start: { say: "After the notice, the court case itself is started with a statement of claim (Form 14A).", cite: CIV_START },
+    fees: ["civ-claim"],
+  },
+  "small-claims": {
+    start: { say: "After the notice, the court case itself is started by filing a plaintiff's claim (Form 7A) with the clerk, with a copy for each defendant.", cite: SC_START },
+    // Both claim fees, as on every other Small Claims claim step (review 2026-10-13).
+    fees: ["sc-claim", "sc-claim-frequent"],
+  },
+};
+/*
+ * The Crown's notice is not "first the notice, then the claim" but "at least
+ * 60 days before" the claim (CLPA s. 18 (1); review 2026-10-13). When the
+ * Crown's notice is the one that fits, the line says so; when it is one of
+ * several kept, it says so for a claim against the Crown.
+ */
+export const CROWN_WAIT: { only: PlainLine; among: PlainLine } = {
+  only: { say: "Start the court case at least 60 days after you served the notice on the Crown, not sooner.", cite: S_CLPA_18_1_NOTICE },
+  among: { say: "If your claim is against the Ontario Crown, the court case can be started only at least 60 days after the notice was served on the Crown.", cite: S_CLPA_18_1_NOTICE },
+};
+/** The lines for starting the case after a notice step, keyed to the notices the words fit; none for a step that is not a notice before suing. */
+export function claimAfterNotice(stepId: string, court: PracticalCourt, story = "", city = ""): PlainLine[] {
+  const step = STEP_PRACTICAL[stepId];
+  if (!step || court === "family" || step.forms.length > 0) return [];
+  const notices = alsoFor(step.also ?? [], story, city).filter((rule) => NOTICE_SOURCES.has(rule.sourceId));
+  if (notices.length === 0) return [];
+  const crown = notices.some((rule) => rule.sourceId === "crown-liability-and-proceedings-act-2019");
+  const crownLine = crown ? [notices.length === 1 ? CROWN_WAIT.only : CROWN_WAIT.among] : [];
+  const after = CLAIM_AFTER_NOTICE[court];
+  const fees = after.fees.map((id) => FEES[id]).filter(Boolean);
+  return [...crownLine, after.start, ...fees.map((fee) => ({ say: `${fee.label}: $${fee.amount}.`, cite: fee.cite }))];
+}
+
 /**
  * Every step in the stage map has an entry; "unknown" and "out-of-scope" are
  * not steps. A step with nothing to file says so with NOTHING, deliberately,
@@ -1047,13 +1095,45 @@ export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
  * support-only motion to change), otherwise "fits". Such a limit is folded
  * under "may apply later", never dropped.
  */
-export function claimFit(item: { id?: string; what: string }, words: string): "fits" | "not" {
+export function claimFit(item: { id?: string; what: string }, words: string, stepId = ""): "fits" | "not" {
   const claims = familyClaimsIn(words);
   if (!claims.known) return "fits";
+  // On a step whose own subject is a kind of claim, a line about that kind is
+  // the step itself, never "a claim you have not mentioned" (review
+  // 2026-10-13: the surviving-spouse election on the property-claim step).
+  const subject = claimKindsNamedIn(stepId.replace(/[-:]/g, " "));
+  if (subject.length > 0 && claimKindsNamedIn(item.what).some((kind) => subject.includes(kind))) return "fits";
   if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
   if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
   if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words)) return "not";
+  /*
+   * Any other limit the rule makes conditional on a kind of claim ("If the
+   * motion asks to change temporary support", "If your answer made its own
+   * claim about parenting, property or support", "If you want your
+   * equalization entitlement") fits when the words show at least one of the
+   * kinds it names, and is folded when they show none (walkthrough run
+   * 38500825561, FR). Only "If ..." lines are read this way; a limit with no
+   * condition always fits.
+   */
+  // Only a line whose condition is a claim ("makes a ... claim", "asks to
+  // change ..."); a kind named in passing ("indexed support" in a garnishment
+  // dispute) is not one (review 2026-10-13).
+  if (/^(?:if|where|when)\b/i.test(item.what.trim()) && /\b(?:claims?|asks? to change)\b/i.test(item.what) && !(item.id && !/family/.test(item.id))) {
+    const named = claimKindsNamedIn(item.what);
+    if (named.length > 0 && !named.some((kind) => (kind === "support" ? moneyFits(claims, words) : claims[kind]))) return "not";
+  }
   return "fits";
+}
+
+/** The kinds of family claim a limit's own "If ..." line names. */
+function claimKindsNamedIn(what: string): ("parenting" | "support" | "property" | "home" | "divorce")[] {
+  const kinds: ("parenting" | "support" | "property" | "home" | "divorce")[] = [];
+  if (/\b(?:parenting|decision-making|custody|contact with)\b/i.test(what)) kinds.push("parenting");
+  if (/\bsupport\b/i.test(what)) kinds.push("support");
+  if (/\b(?:property|equaliz\w*)\b/i.test(what)) kinds.push("property");
+  if (/\bmatrimonial home\b|\bexclusive possession\b/i.test(what)) kinds.push("home");
+  if (/\bdivorce\b/i.test(what)) kinds.push("divorce");
+  return kinds;
 }
 
 // ---------------------------------------------------------------- the family court office
@@ -1226,6 +1306,89 @@ export function closedDayLine(countedDay: string, runsTo: string, today = ""): P
   };
 }
 
+/**
+ * Today's date in Ontario (walkthrough run 38500825561, 2026-10-13 22:30 in
+ * Toronto: a browser clock on UTC read 14 October and called a Toronto notice
+ * passed whose next open day was still today). The deadlines are Ontario
+ * deadlines, so the day is Ontario's day.
+ */
+export function todayInOntario(now: Date = new Date()): string {
+  try {
+    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now);
+    const part = (type: string) => parts.find((item) => item.type === type)?.value ?? "";
+    const iso = `${part("year")}-${part("month")}-${part("day")}`;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
+  } catch {
+    // No time-zone data: fall back to the device's own day.
+  }
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+}
+
+/**
+ * The words the card shows for a counted last day (walkthrough run
+ * 38500825561, SW: "the last day for this is Saturday 10 October 2026. That
+ * date has already passed." while s. 89 (2) may run it to Tuesday 13
+ * October). For a statutory limit whose counted day is a day a public office
+ * keeping weekday hours is closed, the counted day is never called THE last
+ * day: the line says the counted day and the next open day, in the same
+ * conditional words as the passed box (PASSED_CHECK_CLOSED), and whether that
+ * day has gone by too. Every other limit keeps the engine's own statement.
+ */
+export type DeadlineLine = { statement: string | null; closedDay: PlainLine | null; passed: boolean };
+export function deadlineLineFor(limit: { date: string; statutory?: boolean; statement: string }, today: string): DeadlineLine {
+  const state = limitPassedState(limit, today);
+  const open = limit.statutory ? nextWeekdayOpen(limit.date) : limit.date;
+  if (!limit.statutory || open === limit.date) return { statement: limit.statement, closedDay: null, passed: state.passed };
+  if (state.runsTo) return { statement: null, closedDay: closedDayLine(limit.date, state.runsTo, today), passed: false };
+  if (state.passed) {
+    return {
+      statement: null,
+      closedDay: {
+        say: `The last day counted for this was ${formatLongDate(limit.date)}. If the place where this had to be done was closed that day, the time ran to the next day it was open: ${formatLongDate(open)}, if it keeps its regular weekday hours. That day has passed too.`,
+        cite: PASSED_CHECK_CLOSED.cite,
+      },
+      passed: true,
+    };
+  }
+  // Not yet reached: the counted day, and that a closed office runs it on.
+  return {
+    statement: null,
+    closedDay: {
+      say: `The last day counted for this is ${formatLongDate(limit.date)}. If the place where this has to be done is closed that day, the time runs to the next day it is open: ${formatLongDate(open)}, if it keeps its regular weekday hours. Earlier is safer.`,
+      cite: PASSED_CHECK_CLOSED.cite,
+    },
+    passed: false,
+  };
+}
+
+/*
+ * The rule beside each sentence of a deadline that says when service counts
+ * (walkthrough run 38500825561, FR: "Papers left with you after 4 p.m. count
+ * as served the next day" was shown with no rule beside it, though r. 6 (11.1)
+ * was among the deadline's own exceptions). Each sentence is matched to the
+ * subrule it restates, and the quote is taken from the deadline's own
+ * rule and exceptions (the stage map), so a sentence whose rule the stage
+ * does not carry gets nothing rather than a quote from elsewhere.
+ */
+const SERVED_WHEN: { sentence: RegExp; sourceId: RuleCitation["sourceId"]; pinpoint: string }[] = [
+  { sentence: /Papers left with (?:you|the respondent) after 4 p\.m\. count as served the next day\./, sourceId: "family-law-rules", pinpoint: "r. 6 (11.1)" },
+  { sentence: /Papers left at (?:your|the) home with an adult, with a copy mailed, count as served on the fifth day after mailing\./, sourceId: "family-law-rules", pinpoint: "r. 6 (11.2)" },
+  { sentence: /If that day is one when court offices are closed, service counts on the next open day\./, sourceId: "family-law-rules", pinpoint: "r. 6 (11.3)" },
+  { sentence: /The general rule for mail is the fifth day after mailing\./, sourceId: "family-law-rules", pinpoint: "r. 6 (7)" },
+  { sentence: /If the notice came by mail, it counts as served on the fifth day after mailing\./, sourceId: "family-law-rules", pinpoint: "r. 6 (7)" },
+  { sentence: /If it came by email, it counts as served on the date in the email, or the next day if sent after 4 p\.m\./, sourceId: "family-law-rules", pinpoint: "r. 6 (11)" },
+  { sentence: /A document served after 4 p\.m\., or on a Saturday, Sunday or holiday, counts as served on the next day that is not a holiday\./, sourceId: "rules-of-civil-procedure", pinpoint: "r. 3.01 (1) (d)" },
+];
+export function servedWhenLines(qualifier: string, rules: RuleCitation[]): PlainLine[] {
+  const out: PlainLine[] = [];
+  for (const entry of SERVED_WHEN) {
+    const said = entry.sentence.exec(qualifier)?.[0];
+    const rule = rules.find((item) => item.sourceId === entry.sourceId && item.pinpoint === entry.pinpoint);
+    if (said && rule) out.push({ say: said, cite: rule });
+  }
+  return out;
+}
+
 /** The exceptions a rule itself gives to its bar: the quotes that say missing it "is not a bar". */
 export function notABarExceptions(exceptions: RuleCitation[]): RuleCitation[] {
   return exceptions.filter((exception) => /\bis not a bar\b/i.test(exception.quote));
@@ -1240,6 +1403,10 @@ export const MORE_CARD_LINES: PlainLine[] = [
   FAMILY_SAME_PLACE,
   ...FAMILY_CHANGE_PLACE,
   PASSED_CHECK_CLOSED,
+  CLAIM_AFTER_NOTICE.civil.start,
+  CLAIM_AFTER_NOTICE["small-claims"].start,
+  CROWN_WAIT.only,
+  CROWN_WAIT.among,
 ];
 
 // ---------------------------------------------------------------- what the card shows
@@ -1260,6 +1427,8 @@ export type PracticalView = {
   also: RuleCitation[];
   /** How to give each notice the step's rules require, for the notices that fit the person's words. */
   noticeHow: PlainLine[];
+  /** After a notice before suing: the form that starts the court case, and its fee (shown after the notice). */
+  afterNotice: PlainLine[];
 };
 
 /**
@@ -1337,6 +1506,45 @@ export function keptForNotices<T extends { what: string }>(items: readonly T[], 
   return anyFits ? items.filter((item) => noticeFit(item.what, words, city) !== "not") : [...items];
 }
 
+/** Which notice a limit's own "If ..." line is about, read the same way noticeFit reads it; null when it is not about one. */
+export type NoticeKind = "toronto" | "municipality" | "occupier" | "crown" | "libel";
+export function noticeKindOf(what: string): NoticeKind | null {
+  if (/\bCity of Toronto\b/.test(what)) return "toronto";
+  if (/\bmunicipality\b/i.test(what)) return "municipality";
+  if (/snow or ice on someone's premises/i.test(what)) return "occupier";
+  if (/\bOntario Crown\b/.test(what)) return "crown";
+  if (/\blibel\b/i.test(what)) return "libel";
+  return null;
+}
+
+/** True when the notice filter left some notice out for these words (keptForNotices kept fewer than all). */
+export function noticesNarrowed(items: readonly { what: string }[], words: string, city = ""): boolean {
+  return keptForNotices(items, words, city).length < items.length;
+}
+
+/*
+ * The step's title once the notice filter has narrowed the notices to one
+ * kind (walkthrough run 38500825561, SW: "Your step: Do I have to send a
+ * notice before I sue the government, the city, a property owner or a
+ * newspaper?" for a Toronto sidewalk fall). Plain words that say only what
+ * the kept notice's own rule says: no action is brought unless that written
+ * notice is given (s. 42 (6), s. 44 (10), s. 6.1 (1), CLPA s. 18 (1),
+ * Libel and Slander Act s. 5 (1)).
+ */
+const NOTICE_TITLES: Record<NoticeKind, string> = {
+  toronto: "Giving written notice to the City of Toronto before you sue",
+  municipality: "Giving written notice to the municipality before you sue",
+  occupier: "Giving written notice to the occupier or their snow-removal contractor before you sue",
+  crown: "Serving notice of your claim on the Ontario Crown before you sue",
+  // Libel and Slander Act s. 5 (1): the notice goes to the defendant (review 2026-10-13).
+  libel: "Giving written notice to the person you will sue, before suing for libel in a newspaper or broadcast",
+};
+export function noticeStepTitle(items: readonly { what: string }[], words: string, city = ""): string | null {
+  if (!noticesNarrowed(items, words, city)) return null;
+  const kinds = new Set(keptForNotices(items, words, city).map((item) => noticeKindOf(item.what)).filter((kind): kind is NoticeKind => kind !== null));
+  return kinds.size === 1 ? NOTICE_TITLES[[...kinds][0]] : null;
+}
+
 /** A step's extra rule lines, narrowed to the notices the person's words fit (all of them when the words fit none). */
 export function alsoFor(also: RuleCitation[], words = "", city = ""): RuleCitation[] {
   const story = proseOf(words);
@@ -1345,6 +1553,22 @@ export function alsoFor(also: RuleCitation[], words = "", city = ""): RuleCitati
   const fitting = judged.filter((cite) => NOTICE_FITS[cite.sourceId]!(story, city));
   if (judged.length === 0 || fitting.length === 0) return also;
   return also.filter((cite) => !NOTICE_FITS[cite.sourceId] || fitting.includes(cite));
+}
+
+/**
+ * A list of rules with the notice rules the person's words do not fit left
+ * out, once their words fit some notice (walkthrough run 38500825561, SW: the
+ * Toronto card's "What can happen next" quoted the Crown's s. 18 (1) notice).
+ * Rules that are not about a notice are always kept; with words that fit no
+ * notice, nothing is left out. An empty result means every rule was a notice
+ * the words do not fit.
+ */
+export function rulesForWords(rules: RuleCitation[], words = "", city = ""): RuleCitation[] {
+  const story = proseOf(words);
+  if (!story.trim()) return rules;
+  const fitting = new Set(Object.entries(NOTICE_FITS).filter(([, fits]) => fits!(story, city)).map(([id]) => id));
+  if (fitting.size === 0) return rules;
+  return rules.filter((rule) => !NOTICE_FITS[rule.sourceId] || fitting.has(rule.sourceId));
 }
 
 /** A step's lines without those whose `about` the person's words do not match (all of them with no words). */
@@ -1406,6 +1630,7 @@ export function practicalFor(
     feeNotesFirst: exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id)),
     courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
+    afterNotice: claimAfterNotice(stepId, court, story, city),
     fees,
     feeNotes:
       court !== "family"

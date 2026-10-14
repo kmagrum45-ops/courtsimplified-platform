@@ -17,6 +17,10 @@
  *   - a guided date lost, or beating a date confirmed on the case page;
  *   - a Forms suggestion that the question does not offer, or one made
  *     without a recorded fact behind it;
+ *   - the Forms page asking what the confirmed stage or the step the case
+ *     pages show already answers ("started by Notice of Action?" after
+ *     "I have not filed anything yet"; "which motion document set?" on the
+ *     motion-to-change step), or a suggested step's answer kept unconfirmed;
  *   - a page or route going back to its own reading of these facts: the
  *     overview's stage, the drafts' story, family answers given after a save.
  *
@@ -200,6 +204,61 @@ check(
   check("no mortgage in the story is offered 'not a foreclosure'", answers.find((a) => a.fieldPath.endsWith("isMortgageForeclosure"))?.value === false);
   const mortgage = suggestApplicability([{ field_path: "formApplicability.civil.isMortgageForeclosure", choices: yesNo }], { ...civil, story: "the bank is selling under power of sale on my mortgage" }, {});
   check("a story about a mortgage is not answered for them", mortgage.length === 0);
+
+  // Walkthrough SW (2026-10-13): "Was this case started by Notice of Action?"
+  // asked of a person whose confirmed stage is "I have not filed anything
+  // yet". That stage offers "No" (nothing was started) as a SUGGESTION the
+  // person saves -- never kept by itself (review 2026-10-13: a served
+  // defendant can say "I have not filed anything yet" too, and a kept answer
+  // would not follow a change of stage).
+  const noticeQuestion = [{ field_path: "formApplicability.civil.isCommencedByNoticeOfAction", choices: [...yesNo, { value: "not-sure" }] }];
+  for (const story of ["i want to sue the city", ""]) {
+    const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story } };
+    const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
+    check(`a confirmed 'nothing filed yet' offers 'started by notice of action?' no, as a suggestion (story ${JSON.stringify(story)})`, found?.value === false && !found.firm && /not filed anything/.test(found.reason), JSON.stringify(found));
+  }
+  // Must not misfire: a story naming a notice of action is never answered;
+  // a defendant is never told "you have not filed anything, so no".
+  for (const [story, role] of [
+    ["i was served with a notice of action and then a statement of claim. i have not filed anything yet", "defendant"],
+    ["i filed a notice of action last week, now i need the statement of claim", "plaintiff"],
+    ["i slipped on ice. i might start by a notice of action, not sure", "plaintiff"],
+    ["he is suing me", "defendant"],
+  ] as const) {
+    const master = { position: { confirmedStage: "starting-case" }, intakeData: { courtPath: "civil", facts: story, extra: { yourRole: role } } };
+    const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
+    const mentions = /notice of action/.test(story);
+    check(
+      `'started by notice of action?' is never kept, never answered when the story names one, never from 'nothing filed' for a defendant: '${story}'`,
+      !found?.firm && (!mentions || !found) && !/not filed anything/.test(found?.reason ?? ""),
+      JSON.stringify(found),
+    );
+  }
+  for (const position of [{}, { confirmedStage: "responding" }, { confirmedStage: "motion" }]) {
+    const master = { position, intakeData: { courtPath: "civil", facts: "i want to sue the city" } };
+    const found = suggestApplicability(noticeQuestion, readCaseRecord(master, "civil"), master)[0];
+    check(`without a confirmed 'nothing filed yet' (${JSON.stringify(position)}) the answer is never kept`, !found?.firm, JSON.stringify(found));
+  }
+
+  // Walkthrough MC (2026-10-13): the card showed the motion-to-change step and
+  // the Forms page still asked which motion document set. The step the case
+  // pages show (caseStepFor) answers it too: a suggestion when the site
+  // suggested the step, kept only when the person chose it.
+  const setQuestion = [{ field_path: "formApplicability.family.motionDocumentSet", choices: [{ value: "motion-to-change" }, { value: "response-to-motion-to-change" }, { value: "notice-of-motion-and-general-affidavit" }] }];
+  const mcStory = "i pay 900 a month child support from a court order in 2022. i lost my job in july. how do i get it lowered";
+  const suggestedMaster = { position: { confirmedStage: "motion" }, intakeData: { courtPath: "family", facts: mcStory, extra: { yourRole: "applicant", story: mcStory } } };
+  const shownStep = caseStepFor(suggestedMaster, "family", false, { requireConfirmedStage: true });
+  const fromShown = suggestApplicability(setQuestion, readCaseRecord(suggestedMaster, "family"), suggestedMaster)[0];
+  check(
+    "the step the case pages show answers the motion document set, as a suggestion (never kept)",
+    shownStep === "family:both:asking-to-change-final-order" ? fromShown?.value === "motion-to-change" && !fromShown.firm : !fromShown?.firm,
+    `${shownStep} -> ${JSON.stringify(fromShown)}`,
+  );
+  const chosenMaster = { ...suggestedMaster, position: { confirmedStage: "motion", stepId: "family:both:asking-to-change-final-order" } };
+  const fromChosen = suggestApplicability(setQuestion, readCaseRecord(chosenMaster, "family"), chosenMaster)[0];
+  check("the step the person chose answers it, kept", fromChosen?.value === "motion-to-change" && fromChosen.firm === true, JSON.stringify(fromChosen));
+  const unconfirmed = { ...suggestedMaster, position: {} };
+  check("no confirmed stage, no step chosen: no answer from a step", suggestApplicability(setQuestion, readCaseRecord(unconfirmed, "family"), unconfirmed).length === 0);
 }
 
 // ---- coming back to update the intake ---------------------------------------
