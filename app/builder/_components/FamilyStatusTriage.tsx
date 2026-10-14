@@ -42,7 +42,7 @@ import {
   type FamilyStatusRecord,
   type TriageQuestion,
 } from "../../../src/lib/case-system/family/statusTriage";
-import { storyAnswerFor, storyQuoteFor } from "../../../src/lib/case-system/family/triageStoryQuote";
+import { storyAnswerFor, storyQuoteFor, storySuggestionFor } from "../../../src/lib/case-system/family/triageStoryQuote";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 export type FamilyTriageState = {
@@ -178,7 +178,32 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       // What the person's own words answer is offered first, highlighted;
       // nothing is recorded until they press it.
       const fromStory = storyAnswerFor(current.id, story);
+      const suggestion = storySuggestionFor(current.id, story);
+      const record = (value: string) => {
+        if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" });
+        if (current.id === "divorce-sought") update({ divorceSought: value as "yes" | "no" | "unsure" });
+        if (current.id === "child-together") update({ haveChildTogether: value as "yes" | "no" });
+        if (current.id === "case-involves-children") update({ caseInvolvesChildren: value as "yes" | "no" });
+      };
       return (
+        <>
+        {suggestion ? (
+          // Said plainly and confirmed in one click (walkthrough run
+          // 38525903567, FR: "my ex gf" was asked "Were you married?").
+          <div data-testid="triage-story-suggestion" className="mt-4 rounded-xl border border-[#2f7d67] bg-white p-3">
+            <p className="text-sm text-[#10231f]">
+              From what you told us: <strong>{suggestion.say}</strong>. Is that right?
+            </p>
+            <button
+              type="button"
+              data-testid="triage-story-suggestion-yes"
+              onClick={() => record(suggestion.value)}
+              className="mt-2 rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+            >
+              Yes, that&apos;s right
+            </button>
+          </div>
+        ) : null}
         <div className="mt-4 flex flex-wrap gap-3">
           {values.map((value) => (
             <button
@@ -186,12 +211,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
               type="button"
               data-testid={`triage-answer-${value}`}
               data-from-story={fromStory === value ? "yes" : undefined}
-              onClick={() => {
-                if (current.id === "married-to-other-party") update({ marriedToOtherParty: value as "yes" | "no" });
-                if (current.id === "divorce-sought") update({ divorceSought: value as "yes" | "no" | "unsure" });
-                if (current.id === "child-together") update({ haveChildTogether: value as "yes" | "no" });
-                if (current.id === "case-involves-children") update({ caseInvolvesChildren: value as "yes" | "no" });
-              }}
+              onClick={() => record(value)}
               className={fromStory === value ? "rounded-full border-2 border-[#2f7d67] bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white" : chip}
             >
               {value === "unsure" ? "I'm not sure" : value === "yes" ? "Yes" : "No"}
@@ -218,6 +238,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
             I&apos;d rather not answer yet
           </button>
         </div>
+        </>
       );
     }
 

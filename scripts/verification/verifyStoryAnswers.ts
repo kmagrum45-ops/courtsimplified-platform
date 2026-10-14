@@ -40,6 +40,12 @@
  * own sentence, the answer names the thing the story names), not pinned
  * strings, so a reader that gets better does not fail them.
  *
+ * (walkthrough run 38525903567) The temporary-motion card shown unfolded
+ * under an unanswered motion-to-change reading, or hidden after "Not sure" or
+ * "No"; the motion stage asked a second time after the reading was
+ * confirmed; the chat ending without answering "how do I get it lowered"
+ * (r. 15 (5)); "our daugter" followed by "how many children".
+ *
  * COSTS NOTHING: no network, no model.
  *
  * Run: npm run test:story-answers
@@ -60,6 +66,7 @@ import {
 import {
   amountFromStory,
   childrenFromStory,
+  childrenPartialFromStory,
   civilRoleFromStory,
   familyRoleFromStory,
   goalFromStory,
@@ -68,7 +75,20 @@ import {
   servedDateFromStory,
   type StoryAnswer,
 } from "../../app/builder/_components/storyAnswers";
-import { hidesTemporaryMotionCard, motionToChangeLead, routeShown, standingChoice, type MotionToChangeLead } from "../../app/builder/_components/motionToChange";
+import {
+  MOTION_TO_CHANGE_LINE,
+  TEMPORARY_MOTION_FOLD_LABEL,
+  chatClosingFor,
+  hidesTemporaryMotionCard,
+  motionToChangeLead,
+  routeShown,
+  stageFromMotionAnswer,
+  stageQuestionWaits,
+  standingChoice,
+  temporaryMotionCardMode,
+  type MotionToChangeLead,
+  type ReadingChoice,
+} from "../../app/builder/_components/motionToChange";
 import { SERVED_LINE, storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { HELD_BACK_PERSONAS } from "../../tests/browser/walkthrough/heldBackPersonas";
 import { PERSONAS } from "../../tests/browser/walkthrough/personas";
@@ -730,9 +750,112 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
   check("motion to change: the route leads the results, above the stage", leadAt > 0 && stageAt > leadAt);
   check("motion to change: the page passes whether the person was served", /motionToChangeLead\([\s\S]{0,400}respondingInFamilyStory\(familyStory\)/.test(builder));
   check(
-    "motion to change: the page hides the temporary-motion card only on the confirmed route (hidesTemporaryMotionCard), and passes the standing answer to the card",
-    /!confirmedStage && !hidesTemporaryMotionCard\(motionLead, motionChoice\) \? \(\s*<ProcedureAuthorityDisplay/.test(builder) && /choice=\{motionChoice\}/.test(builder),
+    "motion to change: the page shows, folds or hides the temporary-motion card by temporaryMotionCardMode, and passes the standing answer to the card",
+    /temporaryMotionCardMode\(motionLead, motionChoice\) === "shown" \? \(\s*<ProcedureAuthorityDisplay/.test(builder) &&
+      /temporaryMotionCardMode\(motionLead, motionChoice\) === "folded" \? \(\s*<details[^>]*>\s*<summary[^>]*>\{TEMPORARY_MOTION_FOLD_LABEL\}<\/summary>\s*<ProcedureAuthorityDisplay/.test(builder) &&
+      /choice=\{motionChoice\}/.test(builder),
   );
+}
+
+console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, the chat's answer, the children");
+{
+  const flr = read("docs/sources/corpus/family-law-rules.txt").replace(/\s+/g, " ");
+  const FM = "i pay 900 a month child support from a court order in 2022. i lost my job in july and now im on EI making way less. i cant keep paying 900. how do i get it lowered";
+  const leads = [
+    motionToChangeLead("family", FM, true),
+    motionToChangeLead("family", "my ex served me a motion to change to increase support", true),
+    motionToChangeLead("family", "my ex wants to reduce child support", true),
+    motionToChangeLead("family", "how do i get it lowered, i need a temporary order right away", true),
+    null,
+  ];
+  const choices: ReadingChoice[] = [null, "yes", "other", "not-sure"];
+  // 4: the rule 14 card. Property over every lead and answer.
+  let modeMisses = 0;
+  for (const lead of leads) {
+    for (const choice of choices) {
+      const mode = temporaryMotionCardMode(lead, choice);
+      if ((mode === "hidden") !== hidesTemporaryMotionCard(lead, choice)) modeMisses += 1;
+      if (mode === "folded" && (choice !== null || !lead?.replacesTemporaryMotionCard)) modeMisses += 1;
+      if ((choice === "not-sure" || !lead) && mode !== "shown") modeMisses += 1;
+      if (choice === null && lead?.replacesTemporaryMotionCard && mode !== "folded") modeMisses += 1;
+    }
+  }
+  check("the temporary-motion card: folded only while a reading that replaces it is unanswered, hidden only on a confirmed route, shown otherwise", modeMisses === 0, `misses ${modeMisses}`);
+  check("FM: unanswered, it is folded; after Not sure or No, it is there", temporaryMotionCardMode(leads[0], null) === "folded" && temporaryMotionCardMode(leads[0], "not-sure") === "shown" && temporaryMotionCardMode(leads[0], "other") === "shown");
+  check("an urgent story keeps it shown while unanswered", temporaryMotionCardMode(leads[3], null) === "shown");
+  check("the fold names its condition", /temporary order before the motion is decided/.test(TEMPORARY_MOTION_FOLD_LABEL));
+  // 10: one confirmation, not two.
+  let stageMisses = 0;
+  for (const lead of leads) {
+    for (const choice of choices) {
+      const kind = lead ? routeShown(lead, choice)?.kind : undefined;
+      const expected = kind === "asking" || kind === "responding" ? "motion" : null;
+      if (stageFromMotionAnswer(lead, choice) !== expected) stageMisses += 1;
+      if (stageQuestionWaits(lead, choice, null) !== Boolean(lead && choice === null)) stageMisses += 1;
+      if (stageQuestionWaits(lead, choice, "motion")) stageMisses += 1;
+    }
+  }
+  check("a confirmed bring-or-answer route records the motion stage; nothing else does; the stage waits only for an unanswered reading", stageMisses === 0, `misses ${stageMisses}`);
+  check("FM: Yes records the motion stage", stageFromMotionAnswer(leads[0], "yes") === "motion" && stageFromMotionAnswer(leads[0], "not-sure") === null);
+  const builder = read("app/builder/page.tsx");
+  check("the stage question waits on the reading (stageQuestionWaits)", /\{stageQuestionWaits\(motionLead, motionChoice, confirmedStage\) \? null : \(\s*<StageConfirmation/.test(builder));
+  check(
+    "the reading's answer records the stage only when none is set, and saves it (stageFromMotionAnswer)",
+    /const stage = stageFromMotionAnswer\(motionLead, choice\);\s*if \(stage && !confirmedStage\) \{[\s\S]{0,500}saveConfirmedStage\(id, stage\)/.test(builder),
+  );
+  check("the recorded stage shows the answer it came from, with Change", /`Yes: \$\{motionStageBasis\}`/.test(builder));
+  const harness = read("tests/browser/walkthrough.spec.ts");
+  check(
+    "the walkthrough answers the reading by its kind and the persona's side, then goes on to the stage",
+    /data-kind=\{lead\.kind\}/.test(read("app/builder/_components/MotionToChangeRoute.tsx")) &&
+      /getAttribute\("data-kind"\)/.test(harness) &&
+      /side === persona\.role\) await page\.getByTestId\("motion-to-change-yes"\)/.test(harness) &&
+      /motion-to-change-not-sure/.test(harness) &&
+      !/persona\.confirmStage === "motion" && \(await motionYes/.test(harness),
+  );
+  // 5: the chat answers "how do i get it lowered".
+  const closing = chatClosingFor(FM, true);
+  check("FM: the chat's closing answers how to change the order, in the route line", Boolean(closing?.say.includes(MOTION_TO_CHANGE_LINE)));
+  check(
+    "it quotes r. 15 (5), word for word from the saved rules, with the rest it restates",
+    Boolean(closing?.rules.some((rule) => rule.pinpoint === "r. 15 (5)")) && Boolean(closing?.rules.every((rule) => flr.includes(rule.quote.replace(/\s+/g, " ")))),
+  );
+  check("no closing without an order, or for someone served with or expecting the other side's motion", chatClosingFor(FM, false) === null && chatClosingFor("my ex served me a motion to change to increase support", true) === null && chatClosingFor("my ex wants to reduce child support", true) === null);
+  check("the closing predicts nothing", !/\b(?:likely|unlikely|chance|will (?:be )?(?:granted|lowered|reduced|win|lose))\b/i.test(closing?.say ?? ""));
+  const intake = read("app/builder/_components/FamilyIntake.tsx");
+  check("the family chat is given the closing", /closing=\{chatClosingFor\(/.test(intake));
+  // 9: the children the story names, without ages.
+  const FR = "my ex gf took me to court for custody of our daugter, i got served the papers last week. she wants sole custody and wants to move to ottawa with her. i want joint custody and to keep my time with her.";
+  const fr = childrenPartialFromStory(FR);
+  check("FR: 'our daugter' fills in one daughter, spelled right", fr?.prefill.trim() === "One daughter.");
+  check("FR: only what is missing is asked (age and home), not how many", Boolean(fr && /How old is she/.test(fr.question) && /live with/.test(fr.question) && !/how many/i.test(fr.question)));
+  check("'our two kids' fills in two children", childrenPartialFromStory("our two kids live with me most of the week")?.prefill.trim() === "Two children.");
+  for (const [why, words] of [
+    ["how many is not given", "our kids are with her this week"],
+    ["someone else's child", "my sister's son is staying with us"],
+    ["the other parent's child from before", "her daughter from before lives with her dad"],
+    ["no children", "we have no kids together"],
+    ["a question", "what happens to our son if she moves"],
+    ["an age given (the whole sentence is offered instead)", "our daughter is 6 and lives with me"],
+    // Review of 70b717b: each of these was filled in wrongly.
+    ["a girlfriend, not a girl", "my girl friend took me to court"],
+    ["'my boy' with no count", "me and my boy went to the park"],
+    ["two kinds of child named", "our daughter and my son from before live with me"],
+    ["a child from a first marriage", "my son from my first marriage lives with me"],
+    ["a child from another relationship", "my daughter from another relationship visits"],
+    ["a boyfriend", "my boy friend says she lied"],
+  ] as const) {
+    check(`nothing filled in: ${why}`, childrenPartialFromStory(words) === null);
+  }
+  // "child support" is not a child, and two kinds are counted per sentence (re-review of 7f2868f).
+  check("'custody of our son. she also wants child support' fills in one son", childrenPartialFromStory("my ex wants custody of our son. she also wants child support") === null ? false : childrenPartialFromStory("my ex wants custody of our son. she also wants child support")?.prefill.trim() === "One son.");
+  check("child care, child protection, the child tax benefit are not children", ["our son. i pay for child care", "our daughter. child protection called", "our son and the child tax benefit"].every((words) => childrenPartialFromStory(words)?.prefill.trim() === (/daughter/.test(words) ? "One daughter." : "One son.")));
+  check("a child named in another sentence does not block the prefill", childrenPartialFromStory("custody of our daughter. my sister has kids too")?.prefill.trim() === "One daughter.");
+  check("'my son. our daughter.' names two kinds across sentences: nothing filled in", childrenPartialFromStory("my son. our daughter.") === null);
+  check("a child 'from my ex' is still the case's child", childrenPartialFromStory("my son from my ex lives with me")?.prefill.trim() === "One son.");
+  check("'our two girls' is filled in with its count", childrenPartialFromStory("our two girls live with me")?.prefill.trim() === "Two girls.");
+  const childrenField = familyGuidedFields({ issues: [], filed: [] }).find((field) => field.key === "childrenInfo");
+  check("the children question reads the partial answer from the story", Boolean(childrenField?.partialFromStory) && childrenField?.partialFromStory?.({ facts: FR })?.prefill.trim() === "One daughter.");
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

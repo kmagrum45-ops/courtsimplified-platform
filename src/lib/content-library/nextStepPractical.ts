@@ -217,6 +217,24 @@ export function familyFeeNotesFor(claims: FamilyClaims | null, exemptionLeads: b
   return noDivorce ? ordered : [...ordered, FAMILY_DIVORCE_FEE_NOTE];
 }
 
+/*
+ * PARENTING ONLY: THE NO-FEE RULE LEADS, THE AMOUNTS ARE FOLDED UNDER THEIR
+ * CONDITION (walkthrough run 38525903567, FR). A father answering a custody
+ * application read "no fee to file an answer in a case only about parenting
+ * ... under the Children's Law Reform Act" beside "Filing an answer (Superior
+ * Court of Justice): $171" and the Family Court branch's $214 / $171 / $445,
+ * with nothing saying which applied. O. Reg. 293/92 s. 1.2 (2) (a) and
+ * O. Reg. 417/95 s. 2 (a): "no fees are payable for the filing of an
+ * application, the filing of an answer or the placing of an application on
+ * the list for hearing in respect of, (a) proceedings under ... the
+ * Children's Law Reform Act, the Family Law Act (except Parts I and II)". The
+ * fees apply to a proceeding outside those Acts or under FLA Parts I and II
+ * (net family property, the matrimonial home) -- a divorce is under the
+ * Divorce Act. Support under FLA Part III is inside the exemption, so the
+ * fold's condition names a divorce, property and the home, not support.
+ */
+export const FEES_IF_CLAIMED_LABEL = "Only if the case also asks for a divorce, or claims property or the matrimonial home";
+
 /**
  * A family step that files papers but has no fee of its own (held-back
  * walkthrough, 2026-10-09: a parent served with a motion to change was promised
@@ -1458,7 +1476,10 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   "family:applicant:uncontested-or-joint-divorce": { forms: ["36"], fees: [], files: true, serve: null },
   "family:applicant:amending-own-application": NOTHING,
   // ---- Family: respondent
-  "family:respondent:served-time-to-answer-running": { forms: ["10", "13"], fees: ["fam-answer", "fam-answer-divorce"], files: true, serve: "ordinary" },
+  // Form 35.1 (walkthrough run 38525903567, FR): r. 35.1 (1) requires it with an
+  // answer that claims decision-making responsibility, parenting time or
+  // contact; folded when the words name no parenting claim (FAMILY_FORM_NEEDS).
+  "family:respondent:served-time-to-answer-running": { forms: ["10", "35.1", "13"], fees: ["fam-answer", "fam-answer-divorce"], files: true, serve: "ordinary" },
   "family:respondent:answer-time-missed": { forms: ["10", "13", "14", "14A"], fees: ["fam-answer"], files: true, serve: "ordinary", also: [FAM_MOTION] },
   "family:respondent:answer-filed": { forms: ["17", "10A"], fees: [], files: true, serve: "ordinary" },
   "family:respondent:served-with-amended-application": NOTHING,
@@ -1642,11 +1663,12 @@ const PARENTING_AFFIDAVIT_WHEN: PlainLine = {
 /** Words that show support, property or money at all; with any of them, the financial statement is never folded. */
 export const MONEY_WORDS = /\b(?:support|suport|pay|pays|paid|paying|owe|owes|owed|owing|amount|money|income|wages?|salary|alimony|property|pension|house|home|assets?|debts?)\b|\$/i;
 const moneyFits = (claims: FamilyClaims, words: string) => claims.support || claims.property || claims.home || MONEY_WORDS.test(proseOf(words));
-const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; respondingNote?: boolean; fits: (claims: FamilyClaims, words: string, responding: boolean) => boolean }> = {
+const FAMILY_FORM_NEEDS: Record<string, { when: PlainLine; respondingNote?: boolean; conditionNote?: boolean; fits: (claims: FamilyClaims, words: string, responding: boolean) => boolean }> = {
   // Never folded on a responding step: the duty turns on what the other side's papers claim.
   "13": { when: FINANCIAL_STATEMENT_WHEN, respondingNote: true, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
   "13.1": { when: FINANCIAL_STATEMENT_WHEN, respondingNote: true, fits: (claims, words, responding) => responding || moneyFits(claims, words) },
-  "35.1": { when: PARENTING_AFFIDAVIT_WHEN, fits: (claims) => claims.parenting },
+  // Shown with its condition beside it wherever it is listed (FR): it is the claim, not the step, that needs it.
+  "35.1": { when: PARENTING_AFFIDAVIT_WHEN, conditionNote: true, fits: (claims) => claims.parenting },
 };
 
 /** A step on which the person answers papers served on them, so r. 13 (1) (b) can bind them. */
@@ -1665,6 +1687,57 @@ export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
   say: "The mandatory information program rule covers a motion to change, except one that deals only with changing child or spousal support. What you told us is about support only, so it is not listed first. If your motion asks to change anything other than child or spousal support, it applies.",
   cite: flr("r. 8.1 (1), para. 6", "6. A motion to change a final order or agreement under rule 15, except motions that deal only with changing child or spousal support."),
 };
+/*
+ * The same rule when the words do not say what the motion changes
+ * (walkthrough run 38525903567, FM): the program is not led with, because
+ * para. 6 leaves a support-only change out, and it is folded under its
+ * condition instead of being dropped.
+ */
+export const MIP_CHANGE_SUBJECT_UNKNOWN: PlainLine = {
+  say: "The mandatory information program rule covers a motion to change, except one that deals only with changing child or spousal support. What you told us does not say what the motion changes. If it asks to change anything other than child or spousal support, this applies.",
+  cite: MIP_SUPPORT_ONLY_CHANGE.cite,
+};
+
+/** A motion-to-change information-program limit (r. 8.1 (1) para. 6 decides whether it applies). */
+export function isChangeMip(item: { id?: string }): boolean {
+  return Boolean(item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id));
+}
+
+/**
+ * Whether the words show a motion to change that deals with more than child
+ * or spousal support (parenting, property or the matrimonial home): only
+ * then does the information program lead (r. 8.1 (1) para. 6).
+ */
+/*
+ * Stricter than familyClaimsIn's parenting (re-review of 7f2868f): that one is
+ * shared by every family fold and counts "my son" as parenting, so "i pay
+ * support for our kids, how do i get it lowered" would lead with the
+ * information program. Here a parenting term, or a parenting request in plain
+ * words, is needed. Each plain phrase is tied to the children or to
+ * parenting (third review of ed02093): "the payment schedule", "the FRO set
+ * a schedule", "i visit my lawyer", "i see him in court" and "access to her
+ * income records" are support-only words.
+ */
+const CHILD_NOUN = "(?:son|daughter|daugter|kids?|children)";
+const PARENTING_CHANGE = new RegExp(
+  // "access to my son" is parenting; "access to her income records" is not.
+  `\\b(?:decision-making|parenting|custody|access(?! to (?!(?:my|our|the|her|his) ${CHILD_NOUN}))|relocat\\w*|move (?:away |to \\w+ )?with|contact with|more time with|time with (?:him|her|them|my|our)` +
+    `|see (?:my|our|the) ${CHILD_NOUN}|live with me|visitation|visit\\w* (?:with )?(?:my|our|the) ${CHILD_NOUN}` +
+    "|(?:parenting|access|visit\\w*|time-sharing|weekend) schedule)\\b",
+);
+
+export function changeBeyondSupport(words: string): boolean {
+  const claims = familyClaimsIn(words);
+  return PARENTING_CHANGE.test(proseOf(words).toLowerCase()) || claims.property || claims.home;
+}
+
+/** The note beside a folded motion-to-change information program: support-only, or not said. */
+export function changeMipNoteFor(words: string, responding = false): PlainLine {
+  // Support named and no change beyond it, by the same test that decides the fold (changeBeyondSupport).
+  const line = familyClaimsIn(words).support && !changeBeyondSupport(words) ? MIP_SUPPORT_ONLY_CHANGE : MIP_CHANGE_SUBJECT_UNKNOWN;
+  // Served with the motion, it is the other side's motion.
+  return responding ? { ...line, say: line.say.replace(/\byour motion\b/g, "the motion") } : line;
+}
 
 /**
  * Whether a time limit on the card fits the claims the person's words name:
@@ -1675,13 +1748,17 @@ export const MIP_SUPPORT_ONLY_CHANGE: PlainLine = {
  */
 export function claimFit(item: { id?: string; what: string }, words: string, stepId = "", responding = false): "fits" | "not" {
   const claims = familyClaimsIn(words);
+  // The information program on a motion to change leads only when the words
+  // show a change beyond child or spousal support; support-only or not said,
+  // it is folded under its condition (r. 8.1 (1) para. 6; walkthrough run
+  // 38525903567, FM).
+  if (isChangeMip(item)) return changeBeyondSupport(words) ? "fits" : "not";
   if (!claims.known) return "fits";
   // On a step whose own subject is a kind of claim, a line about that kind is
   // the step itself, never "a claim you have not mentioned" (review
   // 2026-10-13: the surviving-spouse election on the property-claim step).
   const subject = claimKindsNamedIn(stepId.replace(/[-:]/g, " "));
   if (subject.length > 0 && claimKindsNamedIn(item.what).some((kind) => subject.includes(kind))) return "fits";
-  if (item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && supportOnly(claims)) return "not";
   if (/\bproperty (?:claim|papers)\b/i.test(item.what) && !claims.property && !claims.home) return "not";
   // Not on a responding step: there the duty turns on what the other side's papers claim (legal review 2026-10-14).
   if (/\b(?:support claim|financial statement)\b/i.test(item.what) && !moneyFits(claims, words) && !respondingStep(stepId, responding)) return "not";
@@ -2050,6 +2127,7 @@ export const MORE_CARD_LINES: PlainLine[] = [
   FINANCIAL_STATEMENT_WHEN_RESPONDING_MOTION,
   PARENTING_AFFIDAVIT_WHEN,
   MIP_SUPPORT_ONLY_CHANGE,
+  MIP_CHANGE_SUBJECT_UNKNOWN,
   FAMILY_SAME_PLACE,
   ...FAMILY_CHANGE_PLACE,
   PASSED_CHECK_CLOSED,
@@ -2075,6 +2153,12 @@ export type PracticalView = {
   /** The notes lead the fees: the person's words point to a case the fee exemption covers. */
   feeNotesFirst: boolean;
   feeWaiver: PlainLine | null;
+  /**
+   * Parenting-only words (parentingOnly): the fee amounts, the branch's fee
+   * line, the divorce fee and the waiver, folded under FEES_IF_CLAIMED_LABEL
+   * while the no-fee rule leads. Null otherwise.
+   */
+  feesIfClaimed: { fees: Fee[]; notes: PlainLine[]; waiver: PlainLine | null } | null;
   filing: PlainLine[];
   /** Family: where the case is, and the family court offices in the person's city. */
   courtOffices: CourtOffices | null;
@@ -2493,6 +2577,9 @@ export function practicalFor(
     FAMILY_FORM_NEEDS[form.number] !== undefined &&
     !FAMILY_FORM_NEEDS[form.number].fits(claims, story, respondingStep(stepId, responding));
   const also = alsoFor(step.also ?? [], story, city);
+  // Parenting only: the amounts are folded under their condition (FR, run 38525903567).
+  const foldFees = court === "family" && claims !== null && parentingOnly(claims) && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id));
+  const familyNotes = foldFees ? familyFeeNotesFor(claims, true) : [];
   // `deadline`: the person's own filing deadline; `serveBy`: their own serving deadline (personDeadlineOf).
   const iso = (value?: string) => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value));
   const tooClose = iso(timing.deadline) && iso(timing.today) ? tooCloseFilingLine(court, timing.today!, timing.deadline!, Boolean(timing.divisionalOnly)) : null;
@@ -2505,10 +2592,12 @@ export function practicalFor(
       .map((form) =>
         form.court === "family" && FAMILY_FORM_NEEDS[form.number]?.respondingNote && respondingStep(stepId, responding)
           ? { ...form, note: financialStatementNoteFor(stepId) }
-          : form,
+          : form.court === "family" && FAMILY_FORM_NEEDS[form.number]?.conditionNote
+            ? { ...form, note: FAMILY_FORM_NEEDS[form.number].when }
+            : form,
       ),
     formsIfClaimed: allForms.filter(folded).map((form) => ({ ...form, when: FAMILY_FORM_NEEDS[form.number].when })),
-    feeNotesFirst: exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id)),
+    feeNotesFirst: foldFees || (exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id))),
     courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
     afterNotice: claimAfterNotice(stepId, court, story, city),
@@ -2518,9 +2607,17 @@ export function practicalFor(
         ? [{ number: CLAIM_AFTER_NOTICE[court].form, label: "After the notice" as const }]
         : []),
     ],
-    fees,
-    feeNotes:
-      court !== "family"
+    fees: foldFees ? [] : fees,
+    feesIfClaimed: foldFees
+      ? {
+          fees,
+          notes: [...familyNotes.filter((line) => line === FAMILY_COURT_BRANCH_FEE), FAMILY_DIVORCE_FEE_NOTE],
+          waiver: FEE_WAIVER,
+        }
+      : null,
+    feeNotes: foldFees
+      ? familyNotes.filter((line) => line !== FAMILY_COURT_BRANCH_FEE && line !== FAMILY_DIVORCE_FEE_NOTE)
+      : court !== "family"
         ? step.noFee && fees.length === 0
           ? SC_NO_STEP_FEE
           : []
@@ -2531,7 +2628,7 @@ export function practicalFor(
             : fees.length === 0 && step.files
               ? FAMILY_NO_STEP_FEE
               : [],
-    feeWaiver: fees.length > 0 ? FEE_WAIVER : null,
+    feeWaiver: fees.length > 0 && !foldFees ? FEE_WAIVER : null,
     // A Divisional-Court-only line keeps the portal lines: the appeal may be in the Court of Appeal.
     filing: step.files ? (tooClose ? (timing.divisionalOnly && court === "civil" ? [...portalLines, tooClose] : [tooClose]) : portalLines) : [],
     serving: serviceLines.length > 0 ? [...serviceLines, ...mailTiming, SERVICE[court].proof] : [],

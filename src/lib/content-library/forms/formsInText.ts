@@ -103,10 +103,46 @@ function ownAnswersOnly(extra: unknown): unknown {
   return out;
 }
 
+/*
+ * The labels the family intake writes in front of each line of the saved
+ * `facts` record (FamilyIntake.tsx buildNarrative). They are the site's
+ * words, not the person's (walkthrough run 38525903567, FM: a support-only
+ * motion to change had "Children and parenting details: two kids, 9 and 11"
+ * in its record, the label's "parenting" was read as a parenting claim, and
+ * the information program led the card although r. 8.1 (1) para. 6 leaves a
+ * support-only change out). The label goes; the person's value after it
+ * stays. test:next-step checks every label buildNarrative writes is here.
+ */
+export const FAMILY_NARRATIVE_LABELS = [
+  "Court path",
+  "Stage",
+  "Your full legal name",
+  "Other party",
+  "Existing family documents",
+  "Family issue signals selected by user",
+  "Children and parenting details",
+  "Current living situation",
+  "Past caregiving and living history",
+  "Case story",
+  "Timeline",
+  "Known evidence",
+  "Evidence still missing",
+  "Requested court order / outcome",
+  "Urgent or deadline-related concerns",
+  "Safety concerns",
+  "Property, home, support, or financial disclosure details",
+  "Upcoming court date or deadline",
+  "Adoption details",
+  "Uploaded evidence metadata",
+] as const;
+const LABEL_AT_LINE_START = new RegExp(
+  `^(\\s*)(?:${FAMILY_NARRATIVE_LABELS.map((label) => label.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&")).join("|")}): `,
+);
+
 function withoutSiteQuestions(text: string): string {
   return text
     .split("\n")
     .filter((line) => !/^Q: /.test(line.trim()) && line.trim() !== "Answers to follow-up questions about the law that applies:")
-    .map((line) => line.replace(/^(\s*)A: /, "$1"))
+    .map((line) => line.replace(/^(\s*)A: /, "$1").replace(LABEL_AT_LINE_START, "$1"))
     .join("\n");
 }

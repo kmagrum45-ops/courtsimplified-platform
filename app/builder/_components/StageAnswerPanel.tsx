@@ -16,6 +16,8 @@ import {
   postWaysForClaim,
   partyServedFrom,
   whenEffectiveSay,
+  MOTION_TO_CHANGE_SERVICE_QUESTION,
+  MOVING_PARTY_MOTION_QUESTION,
   type ServedOn,
   type ServiceCourt,
   type ServiceMethod,
@@ -33,8 +35,9 @@ import GetHelp from "../../_components/GetHelp";
 import { savePositionQueued } from "./positionSave";
 import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
 import {
-  MIP_SUPPORT_ONLY_CHANGE,
   PASSED_CHECK_CLOSED,
+  changeMipNoteFor,
+  isChangeMip,
   SOURCE_SAVED_ON,
   claimFit,
   deadlineLineFor,
@@ -334,6 +337,36 @@ export function receivesPapersStep(stageId: string, responding = false): boolean
   return (responding && /:both:/.test(stageId)) || /(?:^|:)defendant:|:respondent:|served-with|responding-to/.test(stageId);
 }
 
+/** The person's answer to the motion-to-change reading (casePosition `motionToChange`). */
+export type MotionSide = { answer: "yes" | "other" | "not-sure"; readingKind: "asking" | "responding" | "if-served" };
+
+/**
+ * Whether the person SERVED the papers service date `questionId` asks about
+ * (walkthrough run 38525903567, FM): the moving party on a motion to change.
+ * r. 15 (10) counts the other party's time from when THEY receive the motion,
+ * so the mover is asked how it was served on them and the day they got it.
+ * Read from the side (a step where the person receives papers is never one),
+ * and from their answer to the motion-to-change reading when there is one:
+ * an answer that makes the motion the other side's means they did not serve
+ * it. Exported for test:service-dates.
+ */
+export function servesPapersFor(stageId: string, questionId: string, court: ServiceCourt | null, responding = false, motion?: MotionSide | null): boolean {
+  if (court !== "family" || questionId !== MOTION_TO_CHANGE_SERVICE_QUESTION) return false;
+  if (receivesPapersStep(stageId, responding)) return false;
+  if (motion) {
+    // "Not sure": neither side's wording is assumed; the neutral question is asked (review of 70b717b).
+    if (motion.answer === "not-sure") return false;
+    const route = motion.answer === "yes" ? motion.readingKind : motion.answer === "other" ? (motion.readingKind === "asking" ? "if-served" : "asking") : null;
+    if (route && route !== "asking") return false;
+  }
+  return true;
+}
+
+/** The date question as the person reads it: the moving party's own wording when they served the papers. */
+export function dateQuestionTextFor(question: { id: string; question: string }, serving: boolean): string {
+  return serving && question.id === MOTION_TO_CHANGE_SERVICE_QUESTION ? MOVING_PARTY_MOTION_QUESTION : question.question;
+}
+
 /** The step's last days that run from service date `questionId`, counted from `serviceDay`, each with whether it has passed. */
 export function countedFromService(stageId: string, questionId: string, serviceDay: string, today: string = todayIso(), responding = false): ArrivalDate[] {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(serviceDay)) return [];
@@ -500,10 +533,10 @@ function NextStepCard({
       })
     : "";
   const unit = (count: number, word: string) => `${count} ${count === 1 ? word.replace(/s$/, "") : word}`;
-  const { main, conditional, notClaimed, mipNote, kept } = cardLimits(summary, responding, userWords, city, stepId);
+  const { main, conditional, notClaimed, mipNote, changeMip, kept } = cardLimits(summary, responding, userWords, city, stepId);
   const mayApply = {
-    deadlines: conditional.deadlines.filter((item) => !notClaimed.deadlines.includes(item)),
-    periods: conditional.periods.filter((item) => !notClaimed.periods.includes(item)),
+    deadlines: conditional.deadlines.filter((item) => !notClaimed.deadlines.includes(item) && !changeMip.deadlines.includes(item)),
+    periods: conditional.periods.filter((item) => !notClaimed.periods.includes(item) && !changeMip.periods.includes(item)),
   };
   const passed = passedBars({ deadlines: kept }, today);
   const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => {
@@ -675,10 +708,22 @@ function NextStepCard({
         </div>
       ) : null}
       {mipNote ? (
-        <p data-testid="next-step-mip-note" className="mt-3 text-sm leading-6 text-[#16302b]">
-          {mipNote.say}
-          <QuotedRule rule={mipNote.cite} />
-        </p>
+        // The information program on a motion to change that is support-only,
+        // or does not say what it changes: folded under its condition with
+        // r. 8.1 (1) para. 6, never dropped (walkthrough run 38525903567, FM).
+        <details data-testid="next-step-mip-fold" className="mt-3 text-sm leading-6 text-[#16302b]">
+          <summary className="cursor-pointer font-semibold text-[#2f7d67]">
+            Only if {responding ? "the" : "your"} motion changes more than child or spousal support ({changeMip.deadlines.length + changeMip.periods.length})
+          </summary>
+          <p data-testid="next-step-mip-note" className="mt-2 text-[#4d675f]">
+            {mipNote.say}
+            <QuotedRule rule={mipNote.cite} />
+          </p>
+          <ul className="mt-2 space-y-2">
+            {changeMip.deadlines.map(deadlineItem)}
+            {changeMip.periods.map(periodItem)}
+          </ul>
+        </details>
       ) : null}
       {mayApply.deadlines.length > 0 || mayApply.periods.length > 0 ? (
         // "If your action is under the simplified procedure ..." -- time limits
@@ -1014,11 +1059,14 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
     deadlines: keep(summary.deadlines).filter((item) => !main.deadlines.includes(item)),
     periods: keep(summary.periods).filter((item) => !main.periods.includes(item)),
   };
-  const mipNote = [...summary.deadlines, ...summary.periods].some(
-    (item) => item.id && /mip-45-days/.test(item.id) && /motion-to-change/.test(item.id) && !fitsClaims(item),
-  )
-    ? MIP_SUPPORT_ONLY_CHANGE
-    : null;
+  // The information program on a motion to change, folded under its own
+  // condition (r. 8.1 (1) para. 6) when the words do not show a change beyond
+  // support: support-only, or not said (walkthrough run 38525903567, FM).
+  const changeMip = {
+    deadlines: conditional.deadlines.filter((item) => isChangeMip(item) && !fitsClaims(item)),
+    periods: conditional.periods.filter((item) => isChangeMip(item) && !fitsClaims(item)),
+  };
+  const mipNote = changeMip.deadlines.length + changeMip.periods.length > 0 ? changeMipNoteFor(story, responding) : null;
   // Every dated limit the card shows, led or folded: the only ones its
   // passed-date box may speak of (review 2026-10-13: a dropped Municipal Act
   // notice still got its own red "passed" box).
@@ -1030,7 +1078,7 @@ export function cardLimits(summary: Pick<NextStepSummary, "deadlines" | "periods
     deadlines: conditional.deadlines.filter(ifClaimed),
     periods: conditional.periods.filter(ifClaimed),
   };
-  return { main, conditional, notClaimed, mipNote, kept };
+  return { main, conditional, notClaimed, mipNote, changeMip, kept };
 }
 
 /**
@@ -1159,6 +1207,7 @@ export function forThisPerson(paragraph: string, { userWords, filingShown }: { u
  * the label of an answer already known: "Served with a defendant's claim".
  */
 export function shortLabel(question: string): string {
+  if (question === MOVING_PARTY_MOTION_QUESTION) return "The other party received your motion to change";
   const head = question.split("?")[0].split(/,\s*what date|,\s*what is/i)[0].replace(/^If\s+/i, "");
   const served = /^you were (served with .+)$/i.exec(head);
   const text = served ? served[1] : head.replace(/^(?:a|an|the)\s+/i, "");
@@ -1193,6 +1242,7 @@ export default function StageAnswerPanel({
   city = "",
   storyText = "",
   picture = null,
+  motionToChange = null,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1233,6 +1283,8 @@ export default function StageAnswerPanel({
    * first; without it, the phrase lists below are the fallback.
    */
   picture?: CasePicture | null;
+  /** Their answer to the motion-to-change reading, so the moving party is asked their own date questions (servesPapersFor). */
+  motionToChange?: MotionSide | null;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1299,11 +1351,19 @@ export default function StageAnswerPanel({
   // The story's way of serving, for one question, only if the rules allow it
   // for those papers: "in the mail" is never offered for a claim or an
   // application (legal review 2026-10-14; serviceRulesFor with the question).
-  // The ways offered for one question: the same list everywhere on this panel (review of bee9daf).
+  // The moving party on a motion to change served it: their questions are
+  // about the other party receiving it (servesPapersFor; walkthrough FM).
+  const serving = (questionId: string) => servesPapersFor(stageId, questionId, serviceCourt, responding, motionToChange);
+  // The ways offered for one question: the same list everywhere on this panel
+  // (review of bee9daf), for who was served (servedOnFor) and said from the
+  // side that served when the person served them (serving).
   const waysFor = (questionId: string) =>
-    serviceCourt ? serviceRulesFor(serviceCourt, questionId, servedOnFor(storyText || userWords, stageId, responding, serviceMethod[questionId])) : [];
+    serviceCourt
+      ? serviceRulesFor(serviceCourt, questionId, servedOnFor(storyText || userWords, stageId, responding, serviceMethod[questionId]), serving(questionId))
+      : [];
+  // The story tells how papers reached the person; never how they served theirs.
   const storyMethodFor = (questionId: string): ServiceMethod | null =>
-    serviceCourt && storyServiceMethod && waysFor(questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
+    serviceCourt && storyServiceMethod && !serving(questionId) && waysFor(questionId).some((rule) => rule.method === storyServiceMethod) ? storyServiceMethod : null;
   const [dateStatus, setDateStatus] = useState<"" | "saving" | "saved" | "not-saved">("");
   /*
    * Page review 2026-10-07: a confirmed defendant scrolled 36 to 48 steps,
@@ -1677,7 +1737,7 @@ export default function StageAnswerPanel({
                 return (
                   <div key={question.id} data-testid={`stage-answer-known-${question.id}`}>
                     <p className="text-sm text-[#16302b]">
-                      <span className="font-semibold">{shortLabel(question.question)}:</span> {formatIso(saved || fromStory!.value)}
+                      <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> {formatIso(saved || fromStory!.value)}
                     </p>
                     {saved && serviceCourt && serviceSaved[question.id] ? (
                       (() => {
@@ -1748,7 +1808,9 @@ export default function StageAnswerPanel({
                       {/* A suggestion from their words, never stated as settled (review 2026-10-13). */}
                       <span className="font-semibold">
                         {serviceMethodDisplay(serviceMethod[question.id], storyMethodFor(question.id), false) === "chosen"
-                          ? "How the papers were served: "
+                          ? serving(question.id)
+                            ? "How it was served on them: "
+                            : "How the papers were served: "
                           : "From what you told us, the papers came this way: "}
                       </span>
                       {waysFor(question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.label ?? ""}.
@@ -1766,7 +1828,9 @@ export default function StageAnswerPanel({
                     </div>
                   ) : serviceCourt && isServiceDateQuestion(question.id, question.question) ? (
                     <label className="mb-2 block">
-                      <span className="text-sm font-semibold text-[#16302b]">How were the papers served?</span>
+                      <span className="text-sm font-semibold text-[#16302b]">
+                        {serving(question.id) ? "How was your motion to change served on the other party?" : "How were the papers served?"}
+                      </span>
                       <span className="block text-xs text-[#4d675f]">
                         The rules count service from a different day depending on how it was done.
                       </span>
@@ -1792,7 +1856,7 @@ export default function StageAnswerPanel({
                     <span className="text-sm font-semibold text-[#16302b]">
                       {serviceCourt && (serviceMethod[question.id] ?? (isServiceDateQuestion(question.id, question.question) ? storyMethodFor(question.id) : null))
                         ? `Enter ${waysFor(question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.dateToEnter ?? "the date"}`
-                        : question.question}
+                        : dateQuestionTextFor(question, serving(question.id))}
                     </span>
                     <span className="block text-xs text-[#4d675f]">Used for: {question.sets.join("; ")}</span>
                     <input

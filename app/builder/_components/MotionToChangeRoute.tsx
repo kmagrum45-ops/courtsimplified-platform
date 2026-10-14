@@ -33,7 +33,7 @@ export default function MotionToChangeRoute({
 
   if (choice === null) {
     return (
-      <section data-testid="motion-to-change-reading" className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm">
+      <section data-testid="motion-to-change-reading" data-kind={lead.kind} className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm">
         <p className="text-sm leading-6 text-[#16302b]">
           From what you told us, it sounds like <strong className="text-[#10231f]">{lead.reading}</strong>. Is that right?
         </p>

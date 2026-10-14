@@ -1873,6 +1873,40 @@ Established while fixing the card's time limits, fees, filing and service:
   those two things and "confirm with the court office" (test:service-dates runs
   `assertsAbsenceProblems` on the note).
 
+## Family round 4, walkthrough run 38525903567 (2026-10-14)
+
+- **The rule that says a final order is changed by Form 15 is r. 15 (5), not r. 15 (2).**
+  r. 15 (2) says which orders rule 15 applies to ("a final order", a filed support
+  agreement, a filed arbitration award); r. 15 (5): "a party who wants to ask the court to
+  change a final order or agreement shall serve and file a motion to change (Form 15)".
+  r. 15 (4) starts it where rule 5 would start a new case. Cite (5) for "how do I change it".
+- **r. 15 (10) counts the responding party's time from when THEY receive the motion**
+  ("no later than 30 days after the party responding to the motion receives the motion to
+  change"). The moving party is asked when the other party received it, not when they
+  themselves were served.
+- **Neither Child Support Guideline says "paying parent" in its table rule.** O. Reg. 391/97
+  s. 2 (1) "table" and SOR/97-175 s. 3 (3) both pick the province of the parent or spouse
+  "against whom an order is sought"; s. 3 (1) (a) bases the amount on that same person's
+  income. "Paying parent" appears only in O. Reg. 391/97 s. 21 (4), about disclosure. The
+  table card says "the parent the order is sought against" and that it "may be you",
+  citing s. 3 (1) (a), and goes no further.
+- **The family fee exemption covers support under the FLA.** O. Reg. 293/92 s. 1.2 (2) (a)
+  and O. Reg. 417/95 s. 2 (a) exempt proceedings under the CLRA and the FLA "(except Parts
+  I and II)": Part III support is exempt. Fees attach to a divorce (Divorce Act) or a claim
+  under FLA Parts I and II (net family property, the matrimonial home). Do not write "if the
+  case also claims support" as the condition for the fees.
+- **Form 35.1 is named in the saved text of only one answer step.** r. 35.1 (1) requires it
+  with an application, answer or motion to change claiming parenting; the published answer
+  for `family:respondent:served-time-to-answer-running` names "Form 35.1", the late-answer and
+  motion-to-change steps say only "the papers rule 35.1 requires". test:next-step-practical
+  refuses a card form the step's own text does not name, so 35.1 is on the first step only.
+- **The family record's labels are the site's words.** `userWordsOf` passes the saved `facts`,
+  which FamilyIntake writes as "Label: value" lines. "Children and parenting details:" made a
+  support-only motion to change read as a parenting case, so r. 8.1 (1) para. 6's
+  support-only exception never applied. The labels are stripped (`FAMILY_NARRATIVE_LABELS`,
+  checked against buildNarrative by test:next-step). Add a label there when you add one to
+  the narrative.
+
 ## Round-4 review fixes, Small Claims (2026-10-14, walkthrough run 38525903567)
 
 - **"3 business days or less away" is counted from the guide's own example.** The
