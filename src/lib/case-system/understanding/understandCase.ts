@@ -99,10 +99,14 @@ const STORY_MAX = 8_000;
 const MAX_QUESTIONS = 4;
 const MAX_FACTS = 10;
 const MAX_POINTS = 12;
-/** The reasoning call; it thinks hard, so it gets a long allowance. */
-export const UNDERSTAND_TIME_MS = 110_000;
+/**
+ * The reasoning call. At "high" effort it ran past 110 s on 2 of 5 stories
+ * (2026-10-14 comparison) and the person got nothing; at the deep tier's
+ * "medium" it reasons fully and finishes. AI_EFFORT_UNDERSTAND overrides.
+ */
+export const UNDERSTAND_TIME_MS = 140_000;
 /** The checking that follows it. Together they stay inside Vercel's 300 s limit. */
-export const CHECK_TIME_MS = 150_000;
+export const CHECK_TIME_MS = 140_000;
 
 // ------------------------------------------------------------------ the prompt
 
@@ -142,7 +146,14 @@ questions: up to ${MAX_QUESTIONS}, only questions whose answers change the court
 
 asksForPrediction: true if they ask whether they will win, how strong their case is, their chances, or what a judge will decide.
 
-points: up to ${MAX_POINTS} statements of the law that applies to THIS person now, most important first. The FIRST point is their next step: the step, the form by number and name, and the time limit and what starts it. Then: why this court (with the monetary limit when it matters); what that step requires and what happens after it; what they must show; any time limit that is close or may have passed (limitation periods, notice periods), with any exception the law gives; other routes the law gives them. Each point is one or two plain sentences a non-lawyer understands, applied to their facts.
+points: up to ${MAX_POINTS} statements of the law that applies to THIS person now, most important first. The FIRST point is their next step: the step, the form by number and name, and the time limit and what starts it. Then, as they apply:
+- which court, named exactly (for example "the Small Claims Court", "the Superior Court of Justice", "the Ontario Court of Justice"), and why; when an amount is over a court's limit, say the limit and that they may sue in the lower court only by giving up the amount over it;
+- what the next step requires (forms, filing, service) and what happens after it;
+- what they must show, and the main facts a court looks at;
+- every time limit that is close or may have passed (limitation periods, notice periods, response deadlines), what starts it, and any exception the law gives;
+- required steps people miss (for example a mandatory information program, a notice that must be given first);
+- other routes the law gives them, including ways to resolve it without going to court where the law provides them.
+Each point is one or two plain sentences a non-lawyer understands, applied to their facts.
 - Each point cites the exact statute, regulation or court rule and section behind it, with the full name: "Rules of the Small Claims Court, O. Reg. 258/98, r. 11.03", "Limitations Act, 2002, s. 4", "Family Law Act, s. 31". A leading court decision may be cited by name and neutral citation.
 - Never invent a section number. If unsure of the number, cite the Act or rule and describe the rule.
 - Use the forms, figures and procedures in force now.
@@ -348,7 +359,7 @@ export async function reasonWithModel(story: string, chosenCourt?: RetrievalCour
   return withAiCallContext({ callType: "court-path-classifier" }, async () => {
     const client = createOpenAIClient();
     const response = await client.chat.completions.create({
-      ...modelParams("deep", { effort: process.env.AI_EFFORT_UNDERSTAND || "high" }),
+      ...modelParams("deep", { effort: process.env.AI_EFFORT_UNDERSTAND || "medium" }),
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: UNDERSTAND_SYSTEM_PROMPT },

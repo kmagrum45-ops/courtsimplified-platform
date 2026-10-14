@@ -56,7 +56,9 @@ jobs:
         continue-on-error: true
         env:
           IDS: ${{ inputs.ids }}
-          ONLY: ${{ inputs.only }}
+          # A push to the trigger branch re-runs only the new front door: the
+          # old one does not change, and its scores are in the earlier report.
+          ONLY: ${{ github.event_name == 'push' && 'new' || inputs.only }}
         run: |
           set -o pipefail
           args=(--confirm)
@@ -81,3 +83,52 @@ jobs:
           git commit -q -m "Front door comparison for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
           git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/understanding-eval-reports
           head -12 understanding-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+  # The free checks the CI runs, each on its own, with output kept, so a
+  # failure can be read without the Actions log (which a Claude session
+  # cannot open). Costs nothing: no OpenAI key in this job.
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run each CI check
+        run: |
+          set +e
+          out=ci-diagnosis.txt
+          echo "== tsc" >> "$out"
+          npx tsc --noEmit --pretty false >> "$out" 2>&1; echo "tsc exit $?" >> "$out"
+          grep -oE 'npm run test:[a-z0-9:-]+' .github/workflows/courtsimplified-ci.yml | awk '{print $3}' | sort -u > scripts.txt
+          while read -r s; do
+            log="$(mktemp)"
+            timeout 600 npm run "$s" > "$log" 2>&1
+            code=$?
+            if [ "$code" != "0" ]; then
+              echo "== FAIL $s (exit $code)" >> "$out"
+              grep -E "FAIL|Error|error|✗|failed" "$log" | head -40 >> "$out"
+              tail -15 "$log" >> "$out"
+            else
+              echo "pass $s" >> "$out"
+            fi
+          done < scripts.txt
+          exit 0
+      - name: Publish to understanding-ci-reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp ci-diagnosis.txt "$out/"
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
+          cd "$out"
+          git init -q
+          git config user.name "understanding-eval-bot"
+          git config user.email "understanding-eval-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "CI diagnosis for ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/understanding-ci-reports

@@ -27,6 +27,9 @@ export type UnderstandResponse = { understanding: CaseUnderstanding; answer: Che
 
 type CourtPath = "small-claims" | "civil" | "family";
 
+/** Points shown before "More of the law that applies". The first is the next step. */
+const FIRST_POINTS = 6;
+
 const COURT_LABEL: Record<UnderstoodCourt, string> = {
   "small-claims": "Small Claims Court",
   civil: "Superior Court of Justice (civil)",
@@ -133,7 +136,20 @@ export default function CaseUnderstandingCard({
         <h3 className="font-bold text-[#10231f]">Your next step and the law that applies</h3>
         <div className="mt-2">
           {answer.status === "answered" || answer.declinedToJudge || answer.status === "outside-scope" ? (
-            <CheckedAnswerPanel answer={answer} />
+            <>
+              {/* The next step and the main points first; the rest folded, the way a lawyer leads with what to do now. */}
+              <CheckedAnswerPanel answer={{ ...answer, statements: answer.statements.slice(0, FIRST_POINTS), notConfirmed: answer.statements.length > FIRST_POINTS ? [] : answer.notConfirmed }} />
+              {answer.statements.length > FIRST_POINTS && (
+                <details className="mt-3" data-testid="case-understanding-more-law">
+                  <summary className="cursor-pointer text-sm font-semibold text-[#1c473d]">
+                    More of the law that applies ({answer.statements.length - FIRST_POINTS} more points)
+                  </summary>
+                  <div className="mt-2">
+                    <CheckedAnswerPanel answer={{ ...answer, declinedToJudge: false, statements: answer.statements.slice(FIRST_POINTS) }} />
+                  </div>
+                </details>
+              )}
+            </>
           ) : (
             <p className="text-sm text-[#4d675f]">
               We could not confirm the law for this against the official text yet, so we are not stating it. You can still continue, and the next screens will guide you.
