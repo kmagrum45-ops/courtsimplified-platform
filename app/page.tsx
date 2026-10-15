@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ONTARIO_SMALL_CLAIMS_LIMIT } from "@/src/lib/case-system/utils";
 import HomeLocationGate from "./_components/HomeLocationGate";
+import HideDuringIntake from "./_components/HideDuringIntake";
 import NotSureCourtGuide from "./_components/NotSureCourtGuide";
 import { CoinsIcon, FamilyIcon, ScalesIcon } from "./_components/CourtTypeIcons";
 
@@ -68,114 +69,121 @@ export default function HomePage() {
         <HomeLocationGate />
       </Suspense>
 
-      {/* COURT / TOPIC SELECTION -- the one step that gets a visitor to the
-          right court type. Cards link to each court-type landing page, never
-          straight to /builder: intake always starts from a court-type page. */}
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-        <h2 className="text-center text-2xl font-bold tracking-tight text-[#10231f] sm:text-3xl">
-          What kind of matter is this?
-        </h2>
+      {/* The marketing body below (court-type picker, method, how it works,
+          why the site exists) is for a visitor who has not chosen a path yet.
+          Once `?path=` names one, HomeLocationGate above is the whole page. */}
+      <Suspense fallback={null}>
+        <HideDuringIntake>
+          {/* COURT / TOPIC SELECTION -- the one step that gets a visitor to the
+              right court type. Cards link to each court-type landing page, never
+              straight to /builder: intake always starts from a court-type page. */}
+          <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+            <h2 className="text-center text-2xl font-bold tracking-tight text-[#10231f] sm:text-3xl">
+              What kind of matter is this?
+            </h2>
 
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {courtPaths.map(({ title, href, description, Icon }) => (
-            <Link
-              key={title}
-              href={href}
-              className="group flex h-full flex-col rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[#2f7d67] hover:shadow-md"
-            >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#edf7f3] text-[#2f7d67]">
-                <Icon className="h-6 w-6" />
-              </span>
+            <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {courtPaths.map(({ title, href, description, Icon }) => (
+                <Link
+                  key={title}
+                  href={href}
+                  className="group flex h-full flex-col rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-[#2f7d67] hover:shadow-md"
+                >
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#edf7f3] text-[#2f7d67]">
+                    <Icon className="h-6 w-6" />
+                  </span>
 
-              <span className="mt-4 text-xl font-bold text-[#10231f]">
-                {title}
-              </span>
+                  <span className="mt-4 text-xl font-bold text-[#10231f]">
+                    {title}
+                  </span>
 
-              <span className="mt-2 text-sm leading-6 text-[#557168]">
-                {description}
-              </span>
-            </Link>
-          ))}
+                  <span className="mt-2 text-sm leading-6 text-[#557168]">
+                    {description}
+                  </span>
+                </Link>
+              ))}
 
-          <NotSureCourtGuide />
-        </div>
-      </section>
+              <NotSureCourtGuide />
+            </div>
+          </section>
 
-      {/* ANSWERS CHECKED AGAINST THE LAW (2026-10-08) -- the method, stated once, linked in full */}
-      <section className="border-t border-[#d9e6df] bg-[#f3f8f5]">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-          <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
-            Answers checked against the official law
-          </h2>
-          <p className="mt-4 max-w-4xl text-base leading-8 text-[#557168]">
-            Ask a question or tell your story, and the site answers in plain words, applying the law to your facts:
-            which court, which form, which deadline, and what comes next. Every statement is checked word for word
-            against the official text of the law before you see it, and shown with the words that support it. Anything
-            the site cannot confirm, it does not state. It never tells you whether you will win.
-          </p>
-          <Link
-            href="/how-answers-are-checked"
-            className="mt-5 inline-flex text-sm font-semibold text-[#2f7d67] underline underline-offset-4 hover:text-[#10231f]"
-          >
-            How answers are checked →
-          </Link>
-        </div>
-      </section>
+          {/* ANSWERS CHECKED AGAINST THE LAW (2026-10-08) -- the method, stated once, linked in full */}
+          <section className="border-t border-[#d9e6df] bg-[#f3f8f5]">
+            <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+              <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
+                Answers checked against the official law
+              </h2>
+              <p className="mt-4 max-w-4xl text-base leading-8 text-[#557168]">
+                Ask a question or tell your story, and the site answers in plain words, applying the law to your facts:
+                which court, which form, which deadline, and what comes next. Every statement is checked word for word
+                against the official text of the law before you see it, and shown with the words that support it. Anything
+                the site cannot confirm, it does not state. It never tells you whether you will win.
+              </p>
+              <Link
+                href="/how-answers-are-checked"
+                className="mt-5 inline-flex text-sm font-semibold text-[#2f7d67] underline underline-offset-4 hover:text-[#10231f]"
+              >
+                How answers are checked →
+              </Link>
+            </div>
+          </section>
 
-      {/* HOW IT WORKS */}
-      <section className="border-t border-[#d9e6df] bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-          <h2 className="mb-10 text-3xl font-bold tracking-tight text-[#10231f]">
-            How the platform works
-          </h2>
+          {/* HOW IT WORKS */}
+          <section className="border-t border-[#d9e6df] bg-white">
+            <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+              <h2 className="mb-10 text-3xl font-bold tracking-tight text-[#10231f]">
+                How the platform works
+              </h2>
 
-          <div className="space-y-10">
-            {workflowSteps.map((item, index) => (
-              <div key={item.title}>
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
-                  Step {index + 1}
-                </p>
+              <div className="space-y-10">
+                {workflowSteps.map((item, index) => (
+                  <div key={item.title}>
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
+                      Step {index + 1}
+                    </p>
 
-                <h3 className="mt-2 text-2xl font-bold text-[#10231f]">
-                  {item.title}
-                </h3>
+                    <h3 className="mt-2 text-2xl font-bold text-[#10231f]">
+                      {item.title}
+                    </h3>
 
-                <p className="mt-3 max-w-4xl text-base leading-8 text-[#557168]">
-                  {item.text}
-                </p>
+                    <p className="mt-3 max-w-4xl text-base leading-8 text-[#557168]">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
 
-      {/* WHY COURTSIMPLIFIED EXISTS -- condensed, distinct from the header sentence */}
-      <section className="border-t border-[#193e3a] bg-[#0b2c2d] text-white">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#55d7cb]">
-            Why CourtSimplified exists
-          </p>
+          {/* WHY COURTSIMPLIFIED EXISTS -- condensed, distinct from the header sentence */}
+          <section className="border-t border-[#193e3a] bg-[#0b2c2d] text-white">
+            <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+              <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#55d7cb]">
+                Why CourtSimplified exists
+              </p>
 
-          <h2 className="mt-3 max-w-4xl text-3xl font-bold tracking-tight md:text-4xl">
-            Access to justice should not depend on how much money you have.
-          </h2>
+              <h2 className="mt-3 max-w-4xl text-3xl font-bold tracking-tight md:text-4xl">
+                Access to justice should not depend on how much money you have.
+              </h2>
 
-          <p className="mt-5 max-w-4xl text-base leading-8 text-[#c7dfdb] md:text-lg">
-            Full legal representation can cost thousands of dollars, so many
-            people represent themselves. CourtSimplified is being built to
-            give them a more affordable, practical way to organize their case
-            and prepare for court — without replacing a lawyer or guaranteeing
-            an outcome.
-          </p>
+              <p className="mt-5 max-w-4xl text-base leading-8 text-[#c7dfdb] md:text-lg">
+                Full legal representation can cost thousands of dollars, so many
+                people represent themselves. CourtSimplified is being built to
+                give them a more affordable, practical way to organize their case
+                and prepare for court — without replacing a lawyer or guaranteeing
+                an outcome.
+              </p>
 
-          <Link
-            href="/about"
-            className="mt-6 inline-flex text-sm font-semibold text-[#55d7cb] underline underline-offset-4 hover:text-white"
-          >
-            More about CourtSimplified →
-          </Link>
-        </div>
-      </section>
+              <Link
+                href="/about"
+                className="mt-6 inline-flex text-sm font-semibold text-[#55d7cb] underline underline-offset-4 hover:text-white"
+              >
+                More about CourtSimplified →
+              </Link>
+            </div>
+          </section>
+        </HideDuringIntake>
+      </Suspense>
     </main>
   );
 }

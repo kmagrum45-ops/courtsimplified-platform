@@ -360,7 +360,8 @@ function BuilderPageContent() {
     city: string;
   } | null>(null);
   const [homeStory, setHomeStory] = useState("");
-  const [intakeProvince, setIntakeProvince] = useState("");
+  // Ontario only, for now (CLAUDE.md: Ontario beta). See HomeLocationGate for the same fix.
+  const intakeProvince = "Ontario";
   const [intakeCity, setIntakeCity] = useState("");
   /*
    * `intakeStory` was removed on 2026-09-17. See the gate below.
@@ -564,7 +565,6 @@ function BuilderPageContent() {
    * replaced.
    */
   const gateBlockers = [
-    intakeProvince !== "Ontario" ? "a province or territory" : "",
     !intakeCity.trim() ? "a city or municipality" : "",
   ].filter(Boolean);
 
@@ -1789,7 +1789,15 @@ function BuilderPageContent() {
             ) : (
               <>
                 <div className="mt-6 grid gap-5 md:grid-cols-2">
-                  <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} onChange={(event) => setIntakeProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option></select></label>
+                  {/*
+                    Ontario only, for now: a single fixed option, not a real
+                    choice (see the comment on `intakeProvince` above). A
+                    no-op onChange, not `readOnly`: React's <select> typing
+                    has no `readOnly` prop (only input/textarea do in the
+                    HTML spec). With one option there is nothing else to
+                    select anyway.
+                  */}
+                  <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} onChange={() => {}} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
                   <label><span className="font-semibold">City or municipality</span><input aria-label="City or municipality" value={intakeCity} onChange={(event) => setIntakeCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
                 </div>
                 {/*
@@ -1907,7 +1915,6 @@ function BuilderPageContent() {
                     type="button"
                     data-testid="change-recorded-location"
                     onClick={() => {
-                      setIntakeProvince(confirmedLocation.province);
                       setIntakeCity(confirmedLocation.city);
                       setConfirmedLocation(null);
                       setLocationRestoredFromCase(false);
