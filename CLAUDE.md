@@ -51,7 +51,7 @@ Before starting any sourcing work, read `docs/SOURCING_NOTES.md` — techniques 
 
 The site works the way a lawyer guiding a client would. A user is here because they believe they have a matter, and the site's job is to take them through it to their goal. So the system MAY apply the law to the user's own facts — and is expected to:
 
-- say which court, process, form, rule and deadline applies to them ("you were served on September 20, so your defence is due by…");
+- say which court, process, form, rule and deadline applies to them, explaining a date the stage map counted ("the map counts your defence as due October 10 — here's why"), never one stated in the AI's own words (s. 2a: the map decides procedure, the AI explains it);
 - tell them the next step and what it needs ("the next step is filing your Defence, Form 9A, with…");
 - read what they have already told us, fill in what it answers, and ask only what is missing;
 - help with wording — suggest what to put in a form, claim, defence or affidavit, as a draft they edit;
@@ -333,7 +333,7 @@ moves the finish line on its own.
 
 ## 8. Know what exists before adding to it
 
-This codebase has 58 documents and more than 80 verification suites. The
+This codebase has 68 documents and 177 verification suites. The
 recurring failure is not bad work — it is work done twice, or work built on an
 assumption a suite already disproves. Two indexes exist so that stops:
 
