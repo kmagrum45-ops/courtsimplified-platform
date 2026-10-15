@@ -66,7 +66,7 @@ jobs:
       - name: In-app deadline reminder
         run: npm run test:upcoming-deadline
 
-      - name: Intake start screens: fixed province, no duplicate court-type picker
+      - name: "Intake start screens: fixed province, no duplicate court-type picker"
         run: npm run test:intake-start-screens
 
       - name: The user's own words shown back, and story dates offered for deadlines
