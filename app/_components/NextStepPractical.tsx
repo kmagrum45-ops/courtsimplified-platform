@@ -183,10 +183,16 @@ export default function NextStepPractical({
             ))}
           </ul>
           {view.courtOffices && view.courtOffices.offices.length > 0 ? (
-            // The family court offices in the person's city (2026-10-13: two
-            // family cases were never told where their court is).
+            // The court offices in the person's city (2026-10-13: two family
+            // cases were never told where their court is; 2026-10-14: the
+            // same was true for Small Claims and civil, where the
+            // courthouse data was already there -- see nextStepPractical.ts,
+            // civilCourtOfficesFor).
             <div data-testid="next-step-court-office" className="mt-2">
-              <p>If your case is in {view.courtOffices.city}, the family court offices there are:</p>
+              <p>
+                If your case is in {view.courtOffices.city}, the {court === "family" ? "family" : court === "small-claims" ? "Small Claims" : "civil"}{" "}
+                court office{view.courtOffices.offices.length > 1 ? "s" : ""} there {view.courtOffices.offices.length > 1 ? "are" : "is"}:
+              </p>
               <ul className="mt-1 space-y-1">
                 {view.courtOffices.offices.map((office) => (
                   <li key={office.name}>
@@ -201,7 +207,7 @@ export default function NextStepPractical({
               <p className="text-xs text-[#4d675f]">
                 From the courts&apos; own location pages, read {view.courtOffices.source.readOn}. The court named on your papers is the one for
                 your case.{" "}
-                <a href="/courthouses?court=family" className="underline">
+                <a href={`/courthouses?court=${court}`} className="underline">
                   All courthouses
                 </a>
               </p>

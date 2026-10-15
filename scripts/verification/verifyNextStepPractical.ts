@@ -97,6 +97,7 @@ import {
   notABarExceptions,
   respondingStep,
   familyCourtOfficesIn,
+  civilCourtOfficesIn,
   keptForNotices,
   noticeFit,
   claimAfterNotice,
@@ -521,6 +522,40 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
     changePlace.some((line) => line.cite.quote.startsWith("Subject to sections 21.8 and 21.11 of the Courts of Justice Act")) && changePlace.some((line) => line.cite.sourceId === "cja-courts-of-justice-act" && line.cite.pinpoint.startsWith("s. 21.8 (1)")),
   );
   check("no court office before a case exists", steps.filter((stage) => stage.id.startsWith("family:before-filing:")).every((stage) => !practicalFor(stage.id, "family", "Barrie")?.courtOffices));
+
+  // F1b: the same, for Small Claims and civil (owner walkthrough 2026-10-14:
+  // a real Ottawa Small Claims case was given only the generic online-portal
+  // lines, never the Ottawa courthouse itself, although that city's data was
+  // already saved and already verified for the family lookup above).
+  const scOffices = practicalFor("plaintiff:claim-drafted-not-filed", "small-claims", "Ottawa")?.courtOffices;
+  check(
+    "an Ottawa Small Claims plaintiff is shown the Ottawa courthouse, with its address",
+    Boolean(scOffices?.offices.some((office) => /Ottawa/.test(office.name) && office.address.some((line) => /161 Elgin/.test(line)))),
+    scOffices?.offices.map((office) => `${office.name}: ${office.address.join(", ")}`).join(" | "),
+  );
+  const civOffices = practicalFor("civil:plaintiff:claim-drafted-not-issued", "civil", "Ottawa")?.courtOffices;
+  check(
+    "an Ottawa civil plaintiff is shown the Ottawa courthouse",
+    Boolean(civOffices?.offices.some((office) => /Ottawa/.test(office.name))),
+    civOffices?.offices.map((office) => office.name).join(" | "),
+  );
+  check(
+    "neither Small Claims nor civil ever names an Ontario Court of Justice office (never heard there)",
+    [...(scOffices?.offices ?? []), ...(civOffices?.offices ?? [])].every((office) => office.court === "Superior Court of Justice"),
+  );
+  check(
+    "no Small Claims or civil office before a case exists",
+    steps
+      .filter((stage) => stage.id.startsWith("before-filing:") || stage.id.startsWith("civil:before-filing:"))
+      .every((stage) => !practicalFor(stage.id, pathwayOf(stage) as PracticalCourt, "Ottawa")?.courtOffices),
+  );
+  const everySmallClaimsCivilOffice = everyCity.flatMap((city) => [...civilCourtOfficesIn("small-claims", city), ...civilCourtOfficesIn("civil", city)]);
+  const unknownScCiv = everySmallClaimsCivilOffice.filter((office) => !COURT_LOCATIONS.some((location) => location.slug === office.from));
+  check(
+    "every Small Claims / civil office named is on the courts' own location list",
+    everySmallClaimsCivilOffice.length > 0 && unknownScCiv.length === 0,
+    unknownScCiv.map((office) => office.name).join(", "),
+  );
 
   // F4: an enforcement step that serves a notice of garnishment says how to
   // serve the garnishee, and the debtor within five days of it.
