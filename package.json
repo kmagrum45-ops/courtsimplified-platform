@@ -40,6 +40,7 @@
     "test:server-error-log": "node --import tsx scripts/verification/verifyServerErrorLog.ts",
     "test:case-file-cleanup": "node --import tsx scripts/verification/verifyCaseFileCleanup.ts",
     "test:upcoming-deadline": "node --import tsx scripts/verification/verifyUpcomingDeadline.ts",
+    "test:intake-start-screens": "node --import tsx scripts/verification/verifyIntakeStartScreens.ts",
     "test:fixed-regimes": "node --import tsx scripts/verification/verifyFixedRegimes.ts",
     "test:court-path-classifier": "node --import tsx scripts/verification/verifyCourtPathClassifier.ts",
     "test:depth-questions": "node --import tsx scripts/verification/verifyDepthQuestions.ts",

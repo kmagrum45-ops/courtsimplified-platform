@@ -102,7 +102,15 @@ export default function HomeLocationGate() {
   const searchParams = useSearchParams();
   const rawPath = searchParams.get("path");
   const path: BuilderDraftCourtPath | null = rawPath === "family" || rawPath === "small-claims" || rawPath === "civil" ? rawPath : null;
-  const [province, setProvince] = useState("");
+  /*
+   * ONTARIO ONLY, FOR NOW (CLAUDE.md: Ontario beta). There is nothing for a
+   * visitor to pick here -- the law library, the stage map and every checked
+   * answer are Ontario's. Asking for a province and then refusing every
+   * answer but one is a dead-end step, not a real choice, so the field is
+   * fixed rather than offered. When another province is added, this becomes a
+   * real selector again.
+   */
+  const province = "Ontario";
   const [city, setCity] = useState("");
   const [facts, setFacts] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
@@ -111,7 +119,7 @@ export default function HomeLocationGate() {
   const [suggestion, setSuggestion] = useState<CourtPathSuggestion | null>(null);
   const [understood, setUnderstood] = useState<UnderstandResponse | null>(null);
   const [understoodAnswers, setUnderstoodAnswers] = useState<{ question: string; answer: string }[]>([]);
-  const provinceRef = useRef<HTMLSelectElement | null>(null);
+  const cityRef = useRef<HTMLInputElement | null>(null);
   const suggestionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -143,7 +151,6 @@ export default function HomeLocationGate() {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       const id = session?.user.id || null;
       setUserId(id);
-      setProvince("");
       setCity("");
       setFacts("");
       setSuggestion(null);
@@ -160,7 +167,7 @@ export default function HomeLocationGate() {
   }, []);
 
   useEffect(() => {
-    if (hydrated && path) scrollAndFocus(provinceRef.current);
+    if (hydrated && path) scrollAndFocus(cityRef.current);
   }, [hydrated, path]);
 
   useEffect(() => {
@@ -354,11 +361,17 @@ export default function HomeLocationGate() {
         {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : <div data-testid="court-path-location-gate-ready">
           {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. Sign in when you want to save and return to this case.</p>}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
-            <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select ref={provinceRef} aria-label="Province or territory" value={province} onChange={(event) => setProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option><option value="not-sure">Not sure</option><option value="Other">Another province or territory</option></select></label>
-            <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input aria-label="City or municipality" value={city} onChange={(event) => setCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
+            {/*
+              Ontario only, for now: a single fixed option, not a real choice
+              (see the comment on `province` above). Kept as a <select>, not
+              plain text, so it still has an accessible name and a value a
+              test can read -- the same shape the builder's own gate already
+              used for this (app/builder/page.tsx).
+            */}
+            <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select aria-label="Province or territory" value={province} readOnly className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3 text-[#16302b]"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
+            <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input ref={cityRef} aria-label="City or municipality" value={city} onChange={(event) => setCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
           </div>
           <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { setFacts(event.target.value); setSuggestion(null); setUnderstood(null); setUnderstoodAnswers([]); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
-          {province && province !== "Ontario" && <div role="alert" className="mt-5 rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4 text-sm leading-6 text-[#6e5726]">CourtSimplified is currently an Ontario beta. It cannot start this Ontario court intake until Ontario is explicitly confirmed.</div>}
 
           {understood && (
             <div ref={suggestionRef} tabIndex={-1}>

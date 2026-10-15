@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-149 documented, 28 without a header.
+150 documented, 28 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -74,6 +74,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:help-at-limits` | **Where the site says it cannot do something, it points to a person who can**<br>(master plan finish line: "a case the site cannot fully handle says so and points to help"). |
 | `npm run test:historical-law` | **test:historical-law -- the "law as it read on a past date" shelf**<br>(scripts/retrieval/historicalSources.ts, 2026-10-09). |
 | `npm run test:intake-sequencing` | **Asserts that during intake nothing renders between the question and the**<br>answer box. |
+| `npm run test:intake-start-screens` | **Checks two front-door fixes from the owner's walkthrough of a real Small**<br>Claims default-judgment case (2026-10-14): |
 | `npm run test:inventory-coverage` | **Every body of live, user-facing legal content is in the review packet.**<br>COSTS NOTHING. Calls the inventory and reads source off disk. |
 | `npm run test:journey-battery` | **Journey regression battery runner — tranche 1.**<br>Categories A–D from docs/TEST_BATTERY_DESIGN.md §2: the four paths with ZERO prior coverage. |
 | `npm run test:journey-invariants` | **Self-test for the static arm of journeyInvariants.ts.**<br>WHY THIS EXISTS. The first version of the static arm scored ZERO violations against the known-defective historical code -- readinessTone(), the highRiskPenalty subtraction, and the "Document readiness impact" ordinal union. All three had been fixed in the live |
