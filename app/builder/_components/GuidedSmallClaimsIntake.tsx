@@ -1397,6 +1397,17 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       {!halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive) ? (
         <div className="mt-4 flex gap-2">
           <textarea
+            // Keyed to the question actually on screen, the same fix already
+            // applied to QuestionHelp just below (`key={currentQuestion.id}`,
+            // "resets why/examples panel per question"). This input had no
+            // such key: `inputText` is cleared on submit, but that clear and
+            // the next question's arrival are two separate state updates, so
+            // a render in between could show the next question with the
+            // previous answer still in the box. Remounting on question change
+            // forces them back in sync. Found 2026-10-15, live testing: the
+            // answer box carried the prior question's typed text at least
+            // twice (the $5,000-split question, then "do you still have pain").
+            key={depthActive ? depthQuestions[depthIndex]?.id : currentQuestion?.id}
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
             placeholder={
