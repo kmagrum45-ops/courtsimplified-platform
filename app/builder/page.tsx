@@ -1352,14 +1352,16 @@ function BuilderPageContent() {
    * into this page's own URL during intake -- only when navigating away to
    * /cases/<id>.
    *
-   * Scoped to "guided" only, not "form": GuidedSmallClaimsIntake already has
-   * a late-arriving-`previous` effect (`previousTaken` ref, gated on
+   * Covers both "guided" and "form": GuidedSmallClaimsIntake already has a
+   * late-arriving-`previous` effect (`previousTaken` ref, gated on
    * `!started`) built for exactly this kind of async backfill, so adding
    * caseId to the URL after mount is enough to make it resume correctly.
-   * SmallClaimsIntake (the "form" step) reads `storedValues` only in its
-   * initial useState initializer, with no such backfill, so this fix alone
-   * would update the URL without fixing what's on screen until the next
-   * reload. That needs its own fix -- flagged, not done here.
+   * SmallClaimsIntake (the "form" step) originally read `storedValues` only
+   * in its initial useState initializer, with no such backfill -- extending
+   * this effect to "form" without that would have updated the URL without
+   * fixing what's on screen until the next reload. Gave it the matching
+   * `storedValuesTaken`/`userEditedRef` backfill (2026-10-15) before
+   * extending this effect, so both steps now resume correctly.
    *
    * Found 2026-10-15 from live testing: finishing the guided intake, then
    * reopening "Answer questions one at a time with AI help" re-asked
@@ -1367,7 +1369,7 @@ function BuilderPageContent() {
    */
   useEffect(() => {
     if (!hydrated || queryCaseId) return;
-    if (stepParam !== "guided") return;
+    if (stepParam !== "guided" && stepParam !== "form") return;
     let last: { caseId?: string; courtPath?: string } | null = null;
     try {
       last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");

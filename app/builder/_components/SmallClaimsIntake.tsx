@@ -3,7 +3,7 @@
 import TidyWordingReview from "./TidyWordingReview";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type {
   AnalysisResult,
@@ -131,6 +131,45 @@ const defaultInput: SmallClaimsIntelligenceInput = {
 
 function hasText(value: string): boolean {
   return value.trim().length > 0;
+}
+
+/**
+ * Shared by the initial useState (storedValues already in hand at mount)
+ * and the late-arriving backfill effect below (storedValues lands after
+ * mount, e.g. once app/builder/page.tsx's caseId-recovery effect adds
+ * ?caseId= to the URL). Falls back to whatever `base` already has, never to
+ * defaultInput's own blanks, so a late backfill can't erase something the
+ * user already typed in the narrow window before it ran.
+ */
+function mergeStoredValuesIntoInput(
+  base: SmallClaimsIntelligenceInput,
+  values: Record<string, unknown>,
+  fallbackFacts: string,
+): SmallClaimsIntelligenceInput {
+  return {
+    ...base,
+    facts: String(values.facts || fallbackFacts || base.facts || ""),
+    yourName: String(values.yourName || base.yourName || ""),
+    otherParty: String(values.otherParty || base.otherParty || ""),
+    yourRole: String(values.yourRole || base.yourRole || ""),
+    caseStage: values.caseStage ? (values.caseStage as UniversalStage) : base.caseStage,
+    amountClaimed: String(values.amountClaimed || base.amountClaimed || ""),
+    damagesBreakdown: String(values.damagesBreakdown || base.damagesBreakdown || ""),
+    goal: String(values.goal || base.goal || ""),
+    timeline: String(values.timeline || base.timeline || ""),
+    evidence: String(values.evidence || base.evidence || ""),
+    serviceDetails: String(values.serviceDetails || base.serviceDetails || ""),
+    yourAddress: String(values.addressDetails || base.yourAddress || ""),
+    yourEmail: String(values.yourEmail || base.yourEmail || ""),
+    settlementEfforts: String(values.settlementEfforts || base.settlementEfforts || ""),
+    urgent: String(values.urgent || base.urgent || ""),
+    defenceResponse: String(
+      values.enforcementDetails || values.existingOrderDetails || base.defenceResponse || "",
+    ),
+    filedDocuments: Array.isArray(values.documentStatus)
+      ? (values.documentStatus as SmallClaimsIntelligenceInput["filedDocuments"])
+      : base.filedDocuments,
+  };
 }
 
 // Session 15 -- Tier 1/Tier 2 field help. Looked up once from the real,
@@ -559,31 +598,38 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       ...(storedValues ?? {}),
       ...(initialPrefill ? directPrefillValues(initialPrefill) : {}),
     };
-    return {
-      ...defaultInput,
-      yourProvince: location.province,
-      yourCity: location.city,
-      facts: String(values.facts || initialStory || ""),
-      yourName: String(values.yourName || ""),
-      otherParty: String(values.otherParty || ""),
-      yourRole: String(values.yourRole || ""),
-      caseStage: values.caseStage ? values.caseStage as UniversalStage : defaultInput.caseStage,
-      amountClaimed: String(values.amountClaimed || ""),
-      damagesBreakdown: String(values.damagesBreakdown || ""),
-      goal: String(values.goal || ""),
-      timeline: String(values.timeline || ""),
-      evidence: String(values.evidence || ""),
-      serviceDetails: String(values.serviceDetails || ""),
-      yourAddress: String(values.addressDetails || ""),
-      yourEmail: String(values.yourEmail || ""),
-      settlementEfforts: String(values.settlementEfforts || ""),
-      urgent: String(values.urgent || ""),
-      defenceResponse: String(values.enforcementDetails || values.existingOrderDetails || ""),
-      filedDocuments: Array.isArray(values.documentStatus)
-        ? values.documentStatus as SmallClaimsIntelligenceInput["filedDocuments"]
-        : defaultInput.filedDocuments,
-    };
+    return mergeStoredValuesIntoInput(
+      { ...defaultInput, yourProvince: location.province, yourCity: location.city },
+      values,
+      initialStory,
+    );
   });
+
+  /*
+   * The same "tab forgot its state" problem GuidedSmallClaimsIntake already
+   * solved with its `previousTaken`/`!started` backfill: storedValues is
+   * read above only in the initial useState initializer, so a caseId that
+   * lands in the URL after this component already mounted (app/builder/
+   * page.tsx's own caseId-recovery effect does exactly that for a reload on
+   * ?step=form with no caseId yet) arrives one render too late for the
+   * initializer to see it. storedValuesTaken mirrors previousTaken (already
+   * had it at mount -> never re-apply); userEditedRef is this component's
+   * own guard, since unlike the guided intake there's no single `started`
+   * flag -- it flips true the moment any field is edited, so a stored value
+   * that arrives late never overwrites something the user already typed in
+   * the narrow window before it arrived. Added 2026-10-15, alongside the
+   * matching fix to GuidedSmallClaimsIntake and app/builder/page.tsx's
+   * caseId-recovery effect (which this backfill is what makes safe to
+   * extend from step=guided to step=form).
+   */
+  const storedValuesTaken = useRef(Boolean(storedValues));
+  const userEditedRef = useRef(false);
+  useEffect(() => {
+    if (storedValuesTaken.current || userEditedRef.current || !storedValues) return;
+    storedValuesTaken.current = true;
+    const values: Record<string, unknown> = { ...storedValues };
+    setInput((current) => mergeStoredValuesIntoInput(current, values, ""));
+  }, [storedValues]);
 
   // Starts open when there's no story yet to display (e.g. the pre-builder
   // gate no longer collects it for Small Claims) -- otherwise the user would
@@ -616,6 +662,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     field: K,
     value: SmallClaimsIntelligenceInput[K],
   ) {
+    userEditedRef.current = true;
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
     // Editing the fields the safety check reads clears a prior halt/
     // acknowledgment -- revising the story is exactly how a user tries
@@ -630,6 +677,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
 
   function handleEvidenceFilesSelected(files: FileList | null) {
     if (!files) return;
+    userEditedRef.current = true;
 
     /*
      * The FileList is read by evidenceReference.readSelectedFiles, which
@@ -676,6 +724,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     >,
     value: string,
   ) {
+    userEditedRef.current = true;
     setInput((current) => ({
       ...current,
       uploadedEvidenceFiles: current.uploadedEvidenceFiles.map((file) =>
@@ -685,6 +734,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   }
 
   function removeEvidenceFile(fileId: string) {
+    userEditedRef.current = true;
     setInput((current) => ({
       ...current,
       uploadedEvidenceFiles: current.uploadedEvidenceFiles.filter(
