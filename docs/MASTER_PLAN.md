@@ -70,7 +70,9 @@ job that does not touch the same files (and says which files it touches).
    legal-theory engines, then the area adapters, then the guided assistant);
    6C per-visitor limits and a daily ceiling on the AI routes that need no
    sign-in, a built-in error log, and deleting a case deletes its files (done
-   ahead of the before-beta list); 6D deadline reminders; 6E a recorded event
+   ahead of the before-beta list); 6D deadline reminders (in-app on My cases
+   done 2026-10-14; email reminders wait on the owner: privacy notice, a
+   Resend key and Supabase's shared 30-an-hour mail limit); 6E a recorded event
    (defence filed, date passed) re-suggests the case's step; 6F a closed or
    settled step and a Small Claims appeal step; 6G before beta, 3-4 real stories
    in the finish-line set and a licensed spot-check of the Small Claims content.

@@ -27,6 +27,40 @@ import { readCasePosition, settledStage } from "../../src/lib/case-system/casePo
 import { readCaseDrafts } from "../../src/lib/case-system/drafts/caseDrafts";
 import { getStageLabel } from "../builder/_components/builderTypes";
 import { COURT_LABELS, caseTitle, formatDate, type CaseRecord } from "../cases/_components/CaseHomeContext";
+import { nextCountedDate, ontarioToday, reminderLine, type CountedDateReminder } from "../../src/lib/case-workspace/upcomingDeadline";
+import type { TimelineItem } from "../../src/lib/case-workspace/timeline";
+
+/** The most cases whose counted dates are fetched for the cards; the rest show none. */
+const REMINDER_CASES = 10;
+
+/**
+ * Each case's nearest counted date, from the same Timeline view the case
+ * shows (master plan 6D, in-app reminders). A case that fails to load simply
+ * shows no line: a reminder is a convenience, never a gate.
+ */
+async function loadReminders(records: CaseRecord[]): Promise<Record<string, CountedDateReminder>> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session?.access_token) return {};
+  const headers = { Authorization: `Bearer ${session.access_token}` };
+  const today = ontarioToday();
+  const withStep = records.filter((record) => settledStage(readCasePosition(record.master_result, record.court_path))).slice(0, REMINDER_CASES);
+  const entries = await Promise.all(
+    withStep.map(async (record) => {
+      try {
+        const response = await fetch(`/api/workspace/organisation?caseId=${encodeURIComponent(record.id)}&view=timeline`, { headers });
+        if (!response.ok) return null;
+        const payload = (await response.json()) as { success?: boolean; items?: TimelineItem[] };
+        const reminder = payload.success && Array.isArray(payload.items) ? nextCountedDate(payload.items, today) : null;
+        return reminder ? ([record.id, reminder] as const) : null;
+      } catch {
+        return null;
+      }
+    }),
+  );
+  return Object.fromEntries(entries.filter((entry): entry is readonly [string, CountedDateReminder] => Boolean(entry)));
+}
 
 const START_OPTIONS = [
   {
@@ -55,7 +89,7 @@ function stageLine(record: CaseRecord): string {
   return "Where the case is: not confirmed yet";
 }
 
-function CaseCard({ record, highlighted }: { record: CaseRecord; highlighted?: boolean }) {
+function CaseCard({ record, highlighted, reminder }: { record: CaseRecord; highlighted?: boolean; reminder?: CountedDateReminder }) {
   const drafts = readCaseDrafts(record.master_result).length;
   return (
     <Link
@@ -70,6 +104,16 @@ function CaseCard({ record, highlighted }: { record: CaseRecord; highlighted?: b
       </p>
       <h3 className="mt-1 text-xl font-bold text-[#10231f]">{caseTitle(record)}</h3>
       <p className="mt-2 text-sm text-[#24463d]">{stageLine(record)}</p>
+      {reminder ? (
+        <p
+          data-testid="dashboard-reminder"
+          className={`mt-3 rounded-2xl px-3 py-2 text-sm ${
+            reminder.passed || reminder.daysAway <= 7 ? "bg-[#fdf3e3] text-[#7a5418]" : "bg-[#e8f6f4] text-[#1c5c55]"
+          }`}
+        >
+          {reminderLine(reminder)}
+        </p>
+      ) : null}
       <p className="mt-3 text-xs text-[#4f685f]">
         {record.updated_at ? `Updated ${formatDate(record.updated_at)}` : ""}
         {drafts ? ` · ${drafts} draft${drafts === 1 ? "" : "s"}` : ""}
@@ -85,6 +129,7 @@ export default function DashboardPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [reminders, setReminders] = useState<Record<string, CountedDateReminder>>({});
 
   async function loadDashboard() {
     setLoading(true);
@@ -116,16 +161,17 @@ export default function DashboardPage() {
       setCases([]);
     } else {
       type Row = Omit<CaseRecord, "master_result"> & { position?: unknown; drafts?: unknown; otherParty?: unknown };
-      setCases(
-        ((data || []) as unknown as Row[]).map(({ position, drafts, otherParty, ...row }) => ({
-          ...row,
-          master_result: {
-            ...(position !== null && position !== undefined ? { position } : {}),
-            ...(drafts !== null && drafts !== undefined ? { drafts } : {}),
-            ...(otherParty !== null && otherParty !== undefined ? { intakeData: { otherParty } } : {}),
-          },
-        })) as CaseRecord[],
-      );
+      const records = ((data || []) as unknown as Row[]).map(({ position, drafts, otherParty, ...row }) => ({
+        ...row,
+        master_result: {
+          ...(position !== null && position !== undefined ? { position } : {}),
+          ...(drafts !== null && drafts !== undefined ? { drafts } : {}),
+          ...(otherParty !== null && otherParty !== undefined ? { intakeData: { otherParty } } : {}),
+        },
+      })) as CaseRecord[];
+      setCases(records);
+      // After the cards show, not before: a slow count never holds up the page.
+      void loadReminders(records).then(setReminders);
     }
     setLoading(false);
   }
@@ -182,7 +228,7 @@ export default function DashboardPage() {
             Pick up where you left off
           </h2>
           <div className="mt-3">
-            <CaseCard record={latest} highlighted />
+            <CaseCard record={latest} highlighted reminder={reminders[latest.id]} />
           </div>
         </section>
       ) : (
@@ -201,7 +247,7 @@ export default function DashboardPage() {
           </h2>
           <div className="mt-3 grid gap-4 md:grid-cols-2">
             {others.map((record) => (
-              <CaseCard key={record.id} record={record} />
+              <CaseCard key={record.id} record={record} reminder={reminders[record.id]} />
             ))}
           </div>
         </section>
