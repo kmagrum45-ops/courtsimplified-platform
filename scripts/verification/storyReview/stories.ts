@@ -134,7 +134,17 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-contractor-damage", "sc-claim-breach-of-contract-services"],
+      // Was ["sc-claim-contractor-damage", "sc-claim-breach-of-contract-services"]
+      // -- both are still real claim types, but sc-claim-contractor-poor-or-
+      // incomplete-work (added after this test was written) is the specific
+      // match: a customer whose contractor stopped showing up partway through
+      // the job, which is exactly "work was done badly or left unfinished"
+      // (its own broughtBy text). It also carries the CPA s. 9(1) quality
+      // warranty and an "independent opinion" evidence category that fits
+      // this story's second-contractor assessment. Story Review 2026-10-15
+      // flagged the classifier's pick as a failure against this stale
+      // expectation; the classifier was right and the test was out of date.
+      claimTypes: ["sc-claim-contractor-poor-or-incomplete-work"],
       answeredByStory: ["sc-orient-role", "sc-orient-when-happened", "sc-claim-filed"],
       role: "plaintiff",
       reviewShouldRaise: [
@@ -251,7 +261,13 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-defamation-libel-slander"],
+      // Was ["sc-claim-defamation-libel-slander"] -- still a real claim type,
+      // but sc-claim-defamation-online-or-in-print (added after this test was
+      // written) is the specific match for exactly this story: a social-media
+      // post about a person or small business, which is its own broughtBy
+      // text verbatim. Story Review 2026-10-15 flagged the classifier's pick
+      // as a failure against this stale expectation; the classifier was right.
+      claimTypes: ["sc-claim-defamation-online-or-in-print"],
       answeredByStory: ["sc-orient-when-happened"],
       role: "plaintiff",
       reviewShouldRaise: [{ kind: "amount-not-a-figure" }],
@@ -468,7 +484,14 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-breach-of-contract-goods", "sc-claim-consumer-protection-act-issue"],
+      // Was ["sc-claim-breach-of-contract-goods", "sc-claim-consumer-protection-act-issue"]
+      // -- both still real, but sc-claim-furniture-or-appliance-delivery
+      // (added after this test was written) is the specific match: a
+      // customer whose furniture arrived damaged/wrong from a store, which is
+      // its own broughtBy text verbatim. Story Review 2026-10-15 flagged the
+      // classifier's pick as a failure against this stale expectation; the
+      // classifier was right.
+      claimTypes: ["sc-claim-furniture-or-appliance-delivery"],
       role: "plaintiff",
     },
   },
@@ -485,7 +508,14 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-non-payment-goods-sold", "sc-claim-unpaid-debt-services"],
+      // Was ["sc-claim-non-payment-goods-sold", "sc-claim-unpaid-debt-services"]
+      // -- both still real, but sc-claim-business-to-business-invoice (added
+      // after this test was written) is the specific match: a business
+      // selling goods to another business on account, which is its own
+      // broughtBy text verbatim. Story Review 2026-10-15 flagged the
+      // classifier's pick as a failure against this stale expectation; the
+      // classifier was right.
+      claimTypes: ["sc-claim-business-to-business-invoice"],
       role: "plaintiff",
     },
   },
@@ -502,7 +532,17 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-consumer-cancellation-refund", "sc-claim-consumer-protection-act-issue"],
+      // Was ["sc-claim-consumer-cancellation-refund", "sc-claim-consumer-protection-act-issue"]
+      // -- both still real, but sc-claim-water-heater-or-hvac-rental (added
+      // after this test was written) is the specific match: a homeowner
+      // who signed a furnace/water-heater rental contract at the door and
+      // wants out of it, which is its own broughtBy text verbatim, and it
+      // carries CPA s. 43.1's door-to-door-solicitation-voids-the-contract
+      // element that the generic cancellation type doesn't single out.
+      // Story Review 2026-10-15 flagged the classifier's pick (matched, not
+      // even just suggested) as a failure against this stale expectation;
+      // the classifier was right.
+      claimTypes: ["sc-claim-water-heater-or-hvac-rental"],
       role: "plaintiff",
     },
   },
@@ -517,7 +557,18 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims", "civil"],
       safety: ["clear", "distress"],
-      claimTypes: ["sc-claim-wrongful-dismissal"],
+      // Story Review 2026-10-15 flagged the classifier's pick,
+      // sc-claim-unpaid-severance, as a failure against the single
+      // expectation below. Read in full (not just broughtBy), both claim
+      // types cover the same ground for this exact fact pattern -- no
+      // notice, no pay in lieu, fired without cause -- including the same
+      // ESA ss. 54/57/61 termination-pay analysis and the same Bardal/Honda
+      // common-law reasonable-notice analysis; sc-claim-unpaid-severance's
+      // broughtBy text ("not given the notice, termination pay or severance
+      // pay owed") is in fact built to cover all three, not severance pay
+      // alone despite its id. Neither is wrong, so this is a genuine two-way
+      // fit, not a misclassification -- accept either.
+      claimTypes: ["sc-claim-wrongful-dismissal", "sc-claim-unpaid-severance"],
       role: "plaintiff",
     },
   },
@@ -533,7 +584,16 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-recovery-of-personal-property"],
+      // Was ["sc-claim-recovery-of-personal-property"] -- still a real claim
+      // type, but sc-claim-borrowed-item-not-returned (added after this test
+      // was written) is the specific match: a person who lent a belonging
+      // to someone who hasn't given it back, which is its own broughtBy text
+      // verbatim, and its first element ("lent and kept") is the friend's
+      // "it was a gift" claim exactly. Story Review 2026-10-15 flagged the
+      // classifier's pick as a failure against this stale expectation; the
+      // classifier was right -- found during this session's own audit, not
+      // in the original report's summary table.
+      claimTypes: ["sc-claim-borrowed-item-not-returned"],
       role: "plaintiff",
     },
   },
@@ -654,7 +714,20 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-property-damaged-lost-in-business-care"],
+      // Was ["sc-claim-property-damaged-lost-in-business-care"] -- a generic
+      // negligence framework (duty/breach/damage/causation, Mustapha v.
+      // Culligan) with nothing about a liability-limiting ticket term.
+      // sc-claim-item-damaged-by-a-service (added after this test was
+      // written) is the specific match: a customer whose item came back
+      // damaged from a cleaner, which is its own broughtBy text verbatim --
+      // and its "service was not of a reasonably acceptable quality" element
+      // cites the CPA's no-waiver provision, the only place in either claim
+      // type that speaks to the dry cleaner's "our ticket limits us to ten
+      // times the cleaning price" defence, the single most load-bearing
+      // legal point in this story. Story Review 2026-10-15 flagged the
+      // classifier's pick as a failure against this stale expectation; the
+      // classifier was right.
+      claimTypes: ["sc-claim-item-damaged-by-a-service"],
       role: "plaintiff",
     },
   },
@@ -757,7 +830,14 @@ export const STORIES: ReviewStory[] = [
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear"],
-      claimTypes: ["sc-claim-unpaid-debt-services"],
+      // Was ["sc-claim-unpaid-debt-services"] -- still a real claim type, but
+      // sc-claim-homeowner-wont-pay-contractor (added after this test was
+      // written) is the specific match: a contractor who did work on a
+      // homeowner's property and hasn't been paid, which is its own
+      // broughtBy text verbatim. Story Review 2026-10-15 flagged the
+      // classifier's pick as a failure against this stale expectation; the
+      // classifier was right.
+      claimTypes: ["sc-claim-homeowner-wont-pay-contractor"],
       role: "plaintiff",
     },
   },
