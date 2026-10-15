@@ -1789,8 +1789,15 @@ function BuilderPageContent() {
             ) : (
               <>
                 <div className="mt-6 grid gap-5 md:grid-cols-2">
-                  {/* Ontario only, for now: a single fixed option, not a real choice (see the comment on `intakeProvince` above). */}
-                  <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} readOnly className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
+                  {/*
+                    Ontario only, for now: a single fixed option, not a real
+                    choice (see the comment on `intakeProvince` above). A
+                    no-op onChange, not `readOnly`: React's <select> typing
+                    has no `readOnly` prop (only input/textarea do in the
+                    HTML spec). With one option there is nothing else to
+                    select anyway.
+                  */}
+                  <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} onChange={() => {}} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
                   <label><span className="font-semibold">City or municipality</span><input aria-label="City or municipality" value={intakeCity} onChange={(event) => setIntakeCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
                 </div>
                 {/*

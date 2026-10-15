@@ -366,9 +366,14 @@ export default function HomeLocationGate() {
               (see the comment on `province` above). Kept as a <select>, not
               plain text, so it still has an accessible name and a value a
               test can read -- the same shape the builder's own gate already
-              used for this (app/builder/page.tsx).
+              used for this (app/builder/page.tsx). A no-op onChange, not
+              `readOnly`: React's <select> typing has no `readOnly` prop (only
+              input/textarea do in the HTML spec), so that line failed real
+              CI's typecheck though it type-checked fine against this sandbox's
+              incomplete @types/react stub. With one option there is nothing
+              else to select anyway, so the no-op changes nothing in practice.
             */}
-            <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select aria-label="Province or territory" value={province} readOnly className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3 text-[#16302b]"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
+            <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select aria-label="Province or territory" value={province} onChange={() => {}} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3 text-[#16302b]"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
             <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input ref={cityRef} aria-label="City or municipality" value={city} onChange={(event) => setCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
           </div>
           <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { setFacts(event.target.value); setSuggestion(null); setUnderstood(null); setUnderstoodAnswers([]); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
