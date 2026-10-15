@@ -953,6 +953,23 @@ const CORE_CLAIM_TYPES: ClaimType[] = [
       "went down hard on the ice",
       "never cleared the snow and I fell",
       "took a bad fall on their property",
+      /*
+       * Added 2026-10-15, Story Review: a real story ("i slipped and hurt my
+       * elbow... the entry way was full of ice with no salt on the ground")
+       * matched NOTHING here -- every phrase above needs "fell" or "injured",
+       * and this story, like plenty of real ones, has neither. It fell through
+       * to the AI classifier, which picked a generic injury claim type instead
+       * of this one -- the one that actually carries the Occupiers' Liability
+       * Act s. 6.1 snow/ice notice question. A user who didn't catch and
+       * reject that wrong suggestion would never see the 60-day deadline.
+       */
+      "slipped on ice",
+      "slipped and hurt myself",
+      "put salt down",
+      "icy entrance",
+      "icy parking lot",
+      "should have salted",
+      "fell on the sidewalk",
     ],
     // "business" reflects the most common real-world defendant for this claim
     // type (a store, restaurant, or commercial landlord as occupier) -- a
