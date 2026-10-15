@@ -100,8 +100,6 @@ import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 import { supabase } from "../../src/lib/supabase/client";
-import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseOrchestrator";
-import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
 import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
 import { BUILDER_LAST_CASE_KEY, COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { userStory } from "@/src/lib/case-system/userStory";
@@ -796,17 +794,35 @@ function BuilderPageContent() {
         finalCaseId = data.id;
       }
 
-      const record = buildMasterCaseFromIntake({
-        caseId: finalCaseId || undefined,
-        userId: user?.id,
-        courtPath,
-        analysis,
-        intake: caseData,
-      });
-
-      const contextPayload = record.caseContext
-        ? buildCaseContextStoragePayload(record.caseContext)
-        : null;
+      /*
+       * The master-case orchestrator used to run here: buildMasterCaseFromIntake
+       * (masterCaseOrchestrator.ts) called into caseContextEngine, which ran a
+       * "legal theory" engine and a civil evidence/strategy/workflow/form-routing
+       * chain, to produce a `caseContext` and a `masterCaseFile`. Retired
+       * 2026-10-15, MASTER_PLAN build order 6B ("the older engine chain retired
+       * as the stage map replaces it"): confirmed nothing reads
+       * master_result.caseContext or master_result.masterCaseFile anywhere in
+       * the product -- every page that needs procedure reads the stage map
+       * (CLAUDE.md s.2a is the one-copy rule this chain was the leftover other
+       * copy of). The only two fields anything outside the orchestrator ever
+       * read off its PersistedCaseRecord were its id and its title
+       * (app/api/cases/route.ts's fallback title; the exhibit book's case
+       * title, app/api/workspace/exhibit-book/route.ts). Those two survive as
+       * plain values below; the engine chain itself is deleted with this
+       * change (masterCaseOrchestrator.ts, caseContextEngine.ts,
+       * legalTheoryEngine.ts, civilEvidenceEngine.ts, civilFormRoutingEngine.ts,
+       * civilStrategyEngine.ts, civilWorkflowEngine.ts, civilMasterCaseEngine.ts,
+       * casePersistenceEngine.ts).
+       */
+      const recordId = finalCaseId || crypto.randomUUID();
+      const recordSummary = (analysis.summary || "").trim();
+      const recordTitle = recordSummary
+        ? recordSummary.slice(0, 80)
+        : courtPath === "family"
+          ? "Family Case"
+          : courtPath === "civil"
+            ? "Civil Litigation Case"
+            : "Small Claims Case";
 
       const intelligenceMasterPatch =
         caseData.masterResultPatch &&
@@ -817,10 +833,7 @@ function BuilderPageContent() {
       const masterPayload = {
         ...intelligenceMasterPatch,
 
-        masterCaseFile:
-          (intelligenceMasterPatch as any).masterCaseFile ||
-          record.caseContext?.masterCaseFile ||
-          null,
+        masterCaseFile: (intelligenceMasterPatch as any).masterCaseFile || null,
 
         courtSimplifiedIntelligence:
           caseData.intelligence ||
@@ -828,8 +841,16 @@ function BuilderPageContent() {
           (intelligenceMasterPatch as any).courtSimplifiedIntelligence ||
           null,
 
-        caseContext: contextPayload,
-        persistedRecord: record,
+        persistedRecord: {
+          id: recordId,
+          title: recordTitle,
+          casePath: courtPath,
+          stage,
+          status: "ready-for-sync",
+          evidencePackages: [],
+          workspaceDocuments: [],
+          syncNotes: ["Built from completed intake analysis."],
+        },
         intakeAnalysis: analysis,
         intakeData: caseData,
 
@@ -860,7 +881,7 @@ function BuilderPageContent() {
         updatedAt: now,
       };
 
-      const activeId = finalCaseId || record.id;
+      const activeId = finalCaseId || recordId;
 
       // No browser copy of the case is kept: it is saved to the account below.
 
@@ -992,7 +1013,7 @@ function BuilderPageContent() {
           .from("cases")
           .update({
             // Named for who the case is with, not the engine's summary.
-            title: isGeneratedTitle(record.title) ? caseTitleFromIntake(caseData.otherParty, courtPath) : record.title,
+            title: isGeneratedTitle(recordTitle) ? caseTitleFromIntake(caseData.otherParty, courtPath) : recordTitle,
             court_path: courtPath,
             status: "active",
             current_stage: stage,

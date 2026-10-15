@@ -66,8 +66,17 @@ job that does not touch the same files (and says which files it touches).
    engine chain retired as the stage map replaces it, with a list and an end
    date (progress: the brain's unused situation answer, then the migration
    layer, case-system assembly, workflow orchestration and the eight engines
-   only they used, about 9,000 lines, 2026-10-14; next the case-context and
-   legal-theory engines, then the area adapters, then the guided assistant);
+   only they used, about 9,000 lines, 2026-10-14; 2026-10-15:
+   `masterCaseOrchestrator.ts` and `casePersistenceEngine.ts` deleted —
+   `buildMasterCaseFromIntake`'s only caller, `app/builder/page.tsx`, read only
+   two scalar fields off its output and nothing downstream ever read the
+   `caseContext`/`masterCaseFile` it computed, so the call is now two plain
+   values with no engine in between. `caseContextEngine.ts` and
+   `legalTheoryEngine.ts` are NOT retired yet: `civilMasterCaseEngine.ts` still
+   imports `caseContextEngine.ts` and is itself still called live from
+   `CivilIntake.tsx` and `civilIntakeCanonicalAdapter.ts` — that chain needs its
+   own read before it can be touched, see docs/ARCHITECTURE.md §5; next the
+   area adapters, then the guided assistant);
    6C per-visitor limits and a daily ceiling on the AI routes that need no
    sign-in, a built-in error log, and deleting a case deletes its files (done
    ahead of the before-beta list); 6D deadline reminders (in-app on My cases
