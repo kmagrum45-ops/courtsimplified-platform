@@ -57,6 +57,7 @@
     "forms:official": "node --import tsx scripts/forms/fetchOfficialFormLinks.ts",
     "walkthrough": "playwright test tests/browser/walkthrough.spec.ts --workers=1",
     "walkthrough:critique": "node --import tsx scripts/walkthrough/critique.ts",
+    "story:one": "node --import tsx --env-file=.env.local scripts/verification/runOneStory.ts",
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",
     "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
     "test:amount-consistency": "node --import tsx scripts/verification/verifyAmountConsistency.ts",
