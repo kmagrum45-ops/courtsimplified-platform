@@ -1909,6 +1909,87 @@ export function familyCourtOfficesFor(stepId: string, city: string): CourtOffice
   return { place, city: city.trim(), offices: familyCourtOfficesIn(city), source: { url: "https://www.ontariocourts.ca/scj/court-locations/all-court-locations/", readOn: COURT_LOCATIONS_RETRIEVED_AT } };
 }
 
+// ------------------------------------------------- the small claims / civil court office
+
+/*
+ * Walkthrough 2026-10-14: a real Ottawa Small Claims case was given only the
+ * generic online-filing-portal lines, never the Ottawa courthouse itself,
+ * although the city was already known from intake and the Ottawa small-claims
+ * service entry (address and contacts) was already sitting in
+ * courts/courtLocations.json, the same already-verified data the family
+ * lookup above has used since 2026-10-13.
+ *
+ * Small Claims and civil cases are never heard at the Ontario Court of
+ * Justice (that list is criminal/family only in this saved data), so unlike
+ * the family lookup, there is no OCJ branch here -- only Superior Court of
+ * Justice locations, filtered to the matching service.
+ *
+ * No "where your case is heard" rule line (the family lookup's
+ * FAMILY_SAME_PLACE / FAMILY_CHANGE_PLACE) is included yet: Small Claims
+ * Rule 6.01 (1) is a clean, directly quotable provision for this, but the
+ * Rules of Civil Procedure's matching rule (r. 13.1.01 (2), "a county with
+ * which there is a rational connection") leans on a list of factors in a
+ * different rule and is not yet sourced and verified here. Shipping the
+ * courthouse address now, which is independently verified data, rather than
+ * waiting on that separate sourcing task.
+ */
+
+/**
+ * Small Claims or civil court offices in the person's city: Superior Court
+ * locations with a matching service, named and addressed from that service's
+ * own saved entry. When the saved service entry carries no address of its
+ * own (civil's often doesn't -- the location's shared building address
+ * covers it instead), the building's own address is used, since that is
+ * still where the office is reached.
+ */
+export function civilCourtOfficesIn(court: "small-claims" | "civil", city: string): CourtOffice[] {
+  const wanted = city.trim().toLowerCase();
+  if (!wanted) return [];
+  const torontoWanted = inTorontoRegion(city) === true;
+  const sameCity = (name: string) => {
+    const lower = name.replace(/\s*\(.*$/, "").trim().toLowerCase();
+    return lower === wanted || (torontoWanted && inTorontoRegion(name) === true);
+  };
+  return COURT_LOCATIONS.flatMap((location) => {
+    const matching = location.services.filter((service) => service.court === court);
+    const place = cityOfAddress(location.address);
+    if (!matching.length || !sameCity(place)) return [];
+    const emails = Array.from(new Set(matching.flatMap((service) => service.contacts.map((contact) => contact.email).filter((email): email is string => Boolean(email))))).slice(0, 2);
+    const serviceAddress = matching.flatMap((service) => service.address);
+    return [
+      {
+        court: "Superior Court of Justice" as const,
+        name: location.name,
+        address: serviceAddress.length ? serviceAddress : location.address,
+        emails,
+        url: location.url,
+        from: location.slug,
+      },
+    ];
+  });
+}
+
+/**
+ * The court office lines for a small-claims or civil step, or null for a step
+ * before any case exists (no office to point to yet).
+ *
+ * Unlike civil and family, a Small Claims step id in STEP_PRACTICAL carries
+ * no "small-claims:" prefix of its own (its keys are bare "before-filing:",
+ * "plaintiff:", "defendant:", "both:" -- see STEP_PRACTICAL above); civil's
+ * keys are all prefixed "civil:". So the two courts are checked differently
+ * here, each against its own actual id shape.
+ */
+export function civilCourtOfficesFor(stepId: string, court: "small-claims" | "civil", city: string): CourtOffices | null {
+  const beforeFiling = court === "small-claims" ? stepId.startsWith("before-filing:") : stepId.startsWith("civil:before-filing:");
+  if (beforeFiling) return null;
+  return {
+    place: [],
+    city: city.trim(),
+    offices: civilCourtOfficesIn(court, city),
+    source: { url: "https://www.ontariocourts.ca/scj/court-locations/all-court-locations/", readOn: COURT_LOCATIONS_RETRIEVED_AT },
+  };
+}
+
 // ---------------------------------------------------------------- a time limit that has passed
 
 /*
@@ -2607,7 +2688,11 @@ export function practicalFor(
       ),
     formsIfClaimed: allForms.filter(folded).map((form) => ({ ...form, when: FAMILY_FORM_NEEDS[form.number].when })),
     feeNotesFirst: foldFees || (exemptionLeads && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id))),
-    courtOffices: court === "family" && step.files ? familyCourtOfficesFor(stepId, city) : null,
+    courtOffices: !step.files
+      ? null
+      : court === "family"
+        ? familyCourtOfficesFor(stepId, city)
+        : civilCourtOfficesFor(stepId, court, city),
     noticeHow: also.flatMap((rule) => (rule.pinpoint.startsWith("s. 42 (6)") || rule.pinpoint.startsWith("s. 44 (10)") || rule.pinpoint.startsWith("s. 6.1 (1)") ? NOTICE_HOW[rule.sourceId] ?? [] : [])),
     afterNotice: claimAfterNotice(stepId, court, story, city),
     leadForms: [
