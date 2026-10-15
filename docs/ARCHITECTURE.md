@@ -182,9 +182,8 @@ does this by reading `SITE_ACCESS_PASSWORD` from the environment or
 5. **`handleComplete()`** stores the result as `analysis`/`caseData` in
    `BuilderPageContent` state, then a `useEffect` (lines 311–478) persists
    it: creates a `cases` row in Supabase if one doesn't exist yet
-   (`user_id`, `court_path`, `master_result`), builds a canonical record via
-   `buildMasterCaseFromIntake` (`masterCaseOrchestrator.ts`), and writes a
-   compact recovery draft to `localStorage`.
+   (`user_id`, `court_path`, `master_result`), and writes a compact recovery
+   draft to `localStorage`.
 6. **Completed case overview.** Once `canonicalIntakeSaved` is true, the
    `data-testid="completed-case-overview"` section renders
    (`app/builder/page.tsx:801`): `IntelligenceOverviewPanel`,
@@ -197,12 +196,24 @@ does this by reading `SITE_ACCESS_PASSWORD` from the environment or
    case: it reloads the same Supabase row and shows the confirmed stage, the
    next step and its deadlines, the timeline, documents and forms.
 
-`masterCaseOrchestrator.ts` and `caseContextEngine.ts` are the shared
-case-file model underneath all of this — they normalize whatever the
-path-specific intake produced into one `CaseContext`/master-case record that
-every downstream workflow page reads from. Neither was read in full for this
-map (630 and ~1,900 lines respectively); treat their public exports as the
-contract and read into them only as needed for a specific change.
+**`masterCaseOrchestrator.ts` and `casePersistenceEngine.ts` are deleted
+(2026-10-15, MASTER_PLAN build order 6B).** This map previously described them
+as "the shared case-file model underneath all of this... every downstream
+workflow page reads from" without having read either in full. Checking that
+claim found the opposite: `buildMasterCaseFromIntake`'s only caller was step 5
+above, nothing outside the orchestrator ever called its other exports, and
+nothing outside `app/builder/page.tsx`'s own save read the `caseContext` or
+`masterCaseFile` it produced back out of `master_result` — a write with no
+reader, the same shape as the deadline engine's "no production caller" finding
+in `docs/ACCURACY_ENGINE.md`. Step 5 now builds the `id`/`title`/`casePath`
+pair those two fields actually feed (`persistedRecord`, read by
+`app/api/cases/route.ts`'s fallback title and the exhibit book's case title)
+directly, with no engine in between. `caseContextEngine.ts` and
+`legalTheoryEngine.ts` are NOT deleted: `civilMasterCaseEngine.ts` still
+imports `caseContextEngine.ts` and is itself still called from
+`CivilIntake.tsx` and `civilIntakeCanonicalAdapter.ts` — a separate, still-live
+piece of the civil pathway that needs its own read before any of that chain
+can be touched.
 
 ## 6. AI content and the "suggest, don't decide" pattern
 

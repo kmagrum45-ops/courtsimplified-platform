@@ -1619,20 +1619,16 @@ believe are wired, and neither announces otherwise.
 
 | Surface | State |
 |---|---|
-| `buildCaseRecordSupabasePayload` (`casePersistenceEngine.ts:698`) | **Zero callers.** Grep across `src/`, `app/`, `scripts/` finds none outside its own file. It builds a full Supabase row — `id`, `user_id`, `case_context`, `evidence_packages`, `workspace_documents`, `sync_notes`, `diagnostics` — so it reads as the persistence path for the whole case record |
+| `buildCaseRecordSupabasePayload` (`casePersistenceEngine.ts:698`) | **Resolved 2026-10-15 (MASTER_PLAN 6B): the whole file is deleted.** It had zero callers outside itself, and `casePersistenceEngine.ts`'s only caller, `masterCaseOrchestrator.ts`, turned out to have zero callers of its own outside `app/builder/page.tsx`'s one call to `buildMasterCaseFromIntake` — whose output (`caseContext`, `masterCaseFile`) nothing downstream ever read back. See `docs/ACCURACY_ENGINE.md`'s build-order entry and `docs/ARCHITECTURE.md` §5 for what replaced it |
 | `/api/cases` | Kept deliberately (§21), not deleted, but not on a live path |
 
-**Why the first one matters more than a normal dead function.** It is the reason
-a rename of `CaseContext` fields looked risky: a payload builder targeting a
-database implies stored rows with those keys, which implies orphaned data and a
-migration. In fact that path has never run, no migration defines those columns,
-and the only persistence is `localStorage`. **The dead surface did not just sit
-there — it made a safe change look dangerous**, which is a cost beyond the lines
-themselves.
-
-Not deleted: it may be the intended shape for the ca-central-1 move
-(ARCHITECTURE.md). But an unwired payload builder for a table that does not
-exist should say so at the top of itself, and currently does not.
+**Why the first one mattered more than a normal dead function.** It was the
+reason a rename of `CaseContext` fields looked risky: a payload builder
+targeting a database implies stored rows with those keys, which implies
+orphaned data and a migration. In fact that path never ran, no migration
+defined those columns, and the only persistence was `localStorage`. **The dead
+surface did not just sit there — it made a safe change look dangerous**, which
+is a cost beyond the lines themselves.
 
 ---
 

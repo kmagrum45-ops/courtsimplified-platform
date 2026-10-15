@@ -198,7 +198,10 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
-    note: "Legacy single evidence package, still read by casePersistenceEngine.",
+    note:
+      "Legacy single evidence package. casePersistenceEngine.ts (the only reader) was retired " +
+      "2026-10-15 (MASTER_PLAN build order 6B); kept here so a browser carrying old data from " +
+      "before that date still gets this key cleared on sign-out.",
   },
   {
     key: "courtSimplifiedRawEvidence",
