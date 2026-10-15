@@ -1368,38 +1368,25 @@ function BuilderPageContent() {
    * everything, including the opening story, from zero.
    */
   /*
-   * Browser Back/Forward re-renders this page without a fresh navigation --
-   * the caseId-recovery effect right below must not act then. A Page
-   * Walkthrough run on 2026-10-15 found every Small Claims persona failing
-   * at exactly Browser Forward after Back: landing on ?step=guided/form
-   * (without caseId, since the Back-landed URL never had it) made that
-   * effect fire router.replace, which raced with the test's immediately
-   * following goForward() and the results never reappeared in time. This
-   * flag is set only by `popstate` (fired by Back/Forward, never by
-   * pushState/replaceState or a fresh load), and the effect below consumes
-   * it to skip itself exactly once, then goes back to normal for any later
-   * genuine navigation to this page.
+   * This must act on a fresh mount of this page only, never on an in-session
+   * Browser Back/Forward -- a Page Walkthrough run on 2026-10-15 found every
+   * Small Claims persona failing at exactly Browser Forward after Back: a
+   * first attempt tried to detect Back/Forward with a `popstate` listener,
+   * but that lost a race against Next's own router (which also reacts to
+   * the same `popstate` and, on this evidence, finishes updating the URL and
+   * re-running this effect before the listener's flag was set), so it still
+   * fired. The intake panels already "stay mounted while hidden" (see the
+   * comment above), so an in-session Back/Forward never remounts this page
+   * -- only leaving the builder entirely and coming back (the real bug this
+   * exists for) does. Deciding once per mount, rather than per Back/Forward,
+   * sidesteps the race instead of trying to win it.
    */
-  const navigatedByHistoryRef = useRef(false);
-  useEffect(() => {
-    const onPopState = () => {
-      navigatedByHistoryRef.current = true;
-    };
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
-
+  const caseIdRecoveryDecidedRef = useRef(false);
   useEffect(() => {
     if (!hydrated || queryCaseId) return;
     if (stepParam !== "guided" && stepParam !== "form") return;
-    if (navigatedByHistoryRef.current) {
-      // Landed here via Back/Forward, not a fresh navigation -- see the ref's
-      // own comment. Consume the flag and skip; Back/Forward already shows
-      // the intake as it was, and the URL rewrite below is what broke the
-      // Forward that follows it in the Page Walkthrough (found 2026-10-15).
-      navigatedByHistoryRef.current = false;
-      return;
-    }
+    if (caseIdRecoveryDecidedRef.current) return;
+    caseIdRecoveryDecidedRef.current = true;
     let last: { caseId?: string; courtPath?: string } | null = null;
     try {
       last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
