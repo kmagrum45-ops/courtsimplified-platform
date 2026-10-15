@@ -1,0 +1,30 @@
+
+> courtsimplified@0.1.0 test:fixtures
+> node --import tsx scripts/verification/runFixtures.ts
+
+[db] test:fixtures -> no Supabase URL configured
+
+======================================================================
+Running fixture: unpaid-invoice-clean
+======================================================================
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+[caseStrengthLanguageValidator] blanked cognition.systemWarnings[2] (matched term "chances of success", 84 chars)
+[groundedCognition] 6 unverified statement(s) removed: element.explanation (presented as a fact but states law or procedure); link.explanation (presented as a fact but states law or procedure); form (forms come from the stage map); nextBestActions (no source cited); nextBestActions (states a step, form or deadline; those come from the stage map); nextBestActions (no source cited)
+Wrote /home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/fixtures/unpaidInvoiceClean.actual.md
+  turns: 8, halted: false, matchedClaimType: sc-claim-unpaid-debt-services
+
+======================================================================
+Running fixture: unpaid-invoice-gap
+======================================================================
+[groundedCognition] 4 unverified statement(s) removed: claim.explanation (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); form (forms come from the stage map)
+Wrote /home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/fixtures/unpaidInvoiceGap.actual.md
+  turns: 8, halted: false, matchedClaimType: sc-claim-unpaid-debt-services
+
+======================================================================
+Running fixture: over-limit-contract
+======================================================================
+[groundedCognition] 2 unverified statement(s) removed: risk (no source cited); form (forms come from the stage map)
+Wrote /home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/fixtures/overLimitContract.actual.md
+  turns: 8, halted: false, matchedClaimType: sc-claim-unpaid-debt-services
+
+All 3 fixture(s) ran and were written.
