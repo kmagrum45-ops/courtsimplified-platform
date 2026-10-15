@@ -1367,9 +1367,39 @@ function BuilderPageContent() {
    * reopening "Answer questions one at a time with AI help" re-asked
    * everything, including the opening story, from zero.
    */
+  /*
+   * Browser Back/Forward re-renders this page without a fresh navigation --
+   * the caseId-recovery effect right below must not act then. A Page
+   * Walkthrough run on 2026-10-15 found every Small Claims persona failing
+   * at exactly Browser Forward after Back: landing on ?step=guided/form
+   * (without caseId, since the Back-landed URL never had it) made that
+   * effect fire router.replace, which raced with the test's immediately
+   * following goForward() and the results never reappeared in time. This
+   * flag is set only by `popstate` (fired by Back/Forward, never by
+   * pushState/replaceState or a fresh load), and the effect below consumes
+   * it to skip itself exactly once, then goes back to normal for any later
+   * genuine navigation to this page.
+   */
+  const navigatedByHistoryRef = useRef(false);
+  useEffect(() => {
+    const onPopState = () => {
+      navigatedByHistoryRef.current = true;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
   useEffect(() => {
     if (!hydrated || queryCaseId) return;
     if (stepParam !== "guided" && stepParam !== "form") return;
+    if (navigatedByHistoryRef.current) {
+      // Landed here via Back/Forward, not a fresh navigation -- see the ref's
+      // own comment. Consume the flag and skip; Back/Forward already shows
+      // the intake as it was, and the URL rewrite below is what broke the
+      // Forward that follows it in the Page Walkthrough (found 2026-10-15).
+      navigatedByHistoryRef.current = false;
+      return;
+    }
     let last: { caseId?: string; courtPath?: string } | null = null;
     try {
       last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
