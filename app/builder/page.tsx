@@ -1340,6 +1340,46 @@ function BuilderPageContent() {
     window.history.replaceState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
   }, [hydrated, stepParam, analysis, queryCaseId, courtPath, router]);
 
+  /*
+   * The same "tab forgot its state" problem as the results-step recovery
+   * above, but for the guided intake step, which had no recovery at all: a
+   * reload, or any full remount of this page (not just a reload -- leaving
+   * and coming back without the SPA navigation pushStep() uses), on
+   * ?step=guided with no caseId in the URL starts the intake completely from
+   * scratch, even when this tab already saved answers for this exact case.
+   * GuidedSmallClaimsIntake only resumes what's already answered (the
+   * `previous` prop) when `queryCaseId` is set, and nothing writes caseId
+   * into this page's own URL during intake -- only when navigating away to
+   * /cases/<id>.
+   *
+   * Scoped to "guided" only, not "form": GuidedSmallClaimsIntake already has
+   * a late-arriving-`previous` effect (`previousTaken` ref, gated on
+   * `!started`) built for exactly this kind of async backfill, so adding
+   * caseId to the URL after mount is enough to make it resume correctly.
+   * SmallClaimsIntake (the "form" step) reads `storedValues` only in its
+   * initial useState initializer, with no such backfill, so this fix alone
+   * would update the URL without fixing what's on screen until the next
+   * reload. That needs its own fix -- flagged, not done here.
+   *
+   * Found 2026-10-15 from live testing: finishing the guided intake, then
+   * reopening "Answer questions one at a time with AI help" re-asked
+   * everything, including the opening story, from zero.
+   */
+  useEffect(() => {
+    if (!hydrated || queryCaseId) return;
+    if (stepParam !== "guided") return;
+    let last: { caseId?: string; courtPath?: string } | null = null;
+    try {
+      last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
+    } catch {
+      last = null;
+    }
+    if (!last?.caseId || last.courtPath !== courtPath) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("caseId", last.caseId);
+    router.replace(`${url.pathname}?${url.searchParams.toString()}`);
+  }, [hydrated, stepParam, queryCaseId, courtPath, router]);
+
   const respondingSide = userIsResponding({
     confirmedStage,
     caseData,

@@ -1019,7 +1019,17 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     setDepthActive(false);
     const payload = payloadOverride ?? completionPayload;
     if (payload) {
-      onComplete?.({ ...payload, elementStateMap: stateMap || undefined, sourcedAnswers: sourced.answeredList() });
+      // Must carry `answers` the same way completeWithSourced() does — this is
+      // the only path a claim-type match takes, and without it the page-level
+      // suggestedDatesFromAnswers() has nothing to read, so a date the user
+      // already gave (e.g. the incident date) never prefills into the
+      // deadline calculator (found 2026-10-15).
+      onComplete?.({
+        ...payload,
+        answers: payload.answers ?? earlierAnswers,
+        elementStateMap: stateMap || undefined,
+        sourcedAnswers: sourced.answeredList(),
+      });
     }
   }
 

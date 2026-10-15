@@ -45,6 +45,73 @@ export type DepthSelectionInput = {
   slotValues: SlotValues;
 };
 
+/**
+ * Narrow exception to "every element is asked" (see the Session 48 comment in
+ * the loop below), scoped to exactly one element: notice-if-snow-or-ice.
+ *
+ * This is NOT the keyword-suppression mechanism Session 48 rejected. That
+ * mechanism marked an element `provided` -- fully resolved, no further
+ * confirmation -- from a loose keyword match in an answer to a DIFFERENT
+ * question. elementStateMap.ts's own invariant forbids exactly that: "Nothing
+ * infers a state from what they wrote elsewhere, so an element never silently
+ * reads as settled."
+ *
+ * This check never resolves anything. It only decides whether to ask the
+ * conversational question during the depth phase; when it fires, the element
+ * is routed to `deferredToReadiness` -- the SAME bucket budget overflow uses --
+ * so it stays `not-yet` and the readiness/attestation step still surfaces it
+ * for the user to confirm themselves. The one thing this skips is making
+ * someone answer, in chat, a question about snow or ice when their own words
+ * already describe an unrelated indoor cause.
+ *
+ * Deliberately conservative: it fires only when the user's own text names an
+ * indoor, non-weather cause AND nothing suggests snow, ice, or an outdoor /
+ * winter setting. Any ambiguity -- no stated cause, or any hint of either --
+ * leaves it asked, because under Occupiers' Liability Act s. 6.1 a wrongly
+ * skipped notice question can bar the claim outright; a wrongly asked one
+ * costs one answerable, skippable question.
+ *
+ * Found 2026-10-15: a wet-floor-from-mopping story (indoors, restaurant) was
+ * asked this question anyway, because the claim type's signals match both ice
+ * and wet-floor stories and the element list had no way to tell them apart.
+ */
+const SNOW_OR_ICE_NOTICE_ELEMENT_ID = "notice-if-snow-or-ice";
+
+const INDOOR_NON_WEATHER_CAUSE_PATTERNS = [
+  /\bmop(?:ped|ping)?\b/i,
+  /\bspill(?:ed|age)?\b/i,
+  /\bcleaning\b/i,
+  /\bjanitor\b/i,
+  /\bwet floor\b/i,
+];
+
+const SNOW_OR_ICE_SIGNAL_PATTERNS = [
+  /\bsnow\b/i,
+  /\bice\b/i,
+  /\bicy\b/i,
+  /\bslush\b/i,
+  /\bfrost\w*\b/i,
+  /\bfroze\w*\b/i,
+  /\bwinter\b/i,
+  /\bsalt(?:ed|ing)?\b/i,
+  /\bparking lot\b/i,
+  /\bsidewalk\b/i,
+  /\boutside\b/i,
+  /\boutdoor\w*\b/i,
+  /\bwalkway\b/i,
+  /\bdriveway\b/i,
+  /\bcold\b/i,
+  /\bfreezing\b/i,
+];
+
+function snowOrIceClearlyRuledOut(userTexts: string[]): boolean {
+  const combined = userTexts.join(" \n ");
+  if (!combined.trim()) return false;
+  const hasNonWeatherCause = INDOOR_NON_WEATHER_CAUSE_PATTERNS.some((p) => p.test(combined));
+  const hasSnowOrIceSignal = SNOW_OR_ICE_SIGNAL_PATTERNS.some((p) => p.test(combined));
+  return hasNonWeatherCause && !hasSnowOrIceSignal;
+}
+
 export type SelectedDepthQuestion = {
   question: DepthQuestion;
   elementId: string;
@@ -143,7 +210,18 @@ export function selectDepthQuestions(input: DepthSelectionInput): DepthSelection
       // 18 claim types the firing rate rises — but the mechanism is unchanged,
       // so the false-positive rate rises with it. Re-measure before revisiting.
       //
-      // Until something better exists, every element is asked or attested.
+      // Until something better exists, every element is asked or attested --
+      // with the one narrow, documented exception above (snowOrIceClearlyRuledOut).
+      if (
+        element.id === SNOW_OR_ICE_NOTICE_ELEMENT_ID &&
+        snowOrIceClearlyRuledOut(input.userTexts)
+      ) {
+        // Not resolved -- still not-yet, still surfaced for the user to
+        // confirm at the readiness step. Only the chat question is skipped.
+        deferredToReadiness.push({ elementId: element.id, questionId: question.id });
+        continue;
+      }
+
       if (asked.length >= MAX_ASKED) {
         // Budget reached. Deferred, never silently dropped: the element stays
         // not-yet and the readiness section still surfaces it.
