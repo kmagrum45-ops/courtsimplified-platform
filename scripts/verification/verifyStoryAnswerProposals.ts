@@ -414,7 +414,7 @@ async function main(): Promise<void> {
     seen.push(questions.map((question) => question.id));
     return [];
   };
-  const confirmedCategory = [{ questionId: "sc-orient-dispute-category", answerText: "A slip, a fall, or another injury" }];
+  const confirmedCategory = [{ questionId: "sc-orient-dispute-category", answerText: "A personal injury (a fall, an animal bite, or similar)" }];
   await applyConfirmedStoryAnswers(
     { role: "plaintiff" },
     [],
