@@ -168,6 +168,18 @@ function main(): void {
     )?.claimType.id === "sc-claim-dog-bite-animal-injury",
   );
 
+  // 2026-10-16 live bug, second half: that same deposit story matched NO
+  // claim type at all (not just the wrong one) -- none of
+  // sc-claim-breach-of-contract-services's own signals shared enough words
+  // with "took a $3,000 deposit and never did the work" ("disappeared",
+  // "came", "showed up", "job" all miss it). A signal was added in its
+  // plainest wording; this is the positive half of the check above.
+  check(
+    "a deposit-taker's non-performance matches the customer's breach-of-contract claim type",
+    depositMatch?.claimType.id === "sc-claim-breach-of-contract-services",
+    JSON.stringify(depositMatch && { id: depositMatch.claimType.id }),
+  );
+
   const missingSide = CLAIM_TYPES.filter((claimType) => !claimType.broughtBy || !claimType.broughtBy.trim());
   check(
     "every claim type says which side brings it",
