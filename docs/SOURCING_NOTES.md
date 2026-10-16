@@ -1994,3 +1994,35 @@ Queen St. W., Toronto, ON M5H 2N1 per its own letterhead) rather than the Claims
 department, since that is who the statute actually names. Do not cite the Claims
 page's address as satisfying s. 42 (6) without that confirmation -- it is the
 easy-to-find address, but easy-to-find is not the same as correct here.
+
+### C1 follow-up: this sandbox cannot vendor toronto.ca at all (2026-10-16)
+
+Tried to finish C1 by vendoring the "how to file a claim" page properly (new
+`practicalSources.ts` entry, `docs/sources/corpus/toronto-how-to-file-a-claim.txt`,
+a `NOTICE_HOW` line citing it, and the matching check in
+`verifyNextStepPractical.ts`'s `lines` array) -- the same pattern `ontario-fees-family`
+etc. already use. Two blockers, both environmental, not legal-research ones:
+
+1. **The sandbox shell cannot reach toronto.ca.** `curl` through the agent proxy
+   gets `connect_rejected` / HTTP 403 -- toronto.ca is not on this session's
+   network allowlist (`npm run rules:fetch` would fail the same way; it was not
+   tried, since the direct `curl` check already answered it).
+2. **WebFetch does not return true verbatim text for this page.** Asked twice
+   for a word-for-word dump; both times it summarized instead, and the two
+   summaries did not even agree with each other on the address's own punctuation
+   ("Toronto, Ontario, M5H 2N2" the first time, "Toronto, ON M5H 2N2" the second).
+   A `cite()` quote has to match the vendored text byte for byte
+   (`verifyNextStepPractical.ts` / `verifyStageMap.ts`'s corpus check), so an
+   AI-paraphrased fetch cannot be the source text no matter how confident it
+   reads -- this is exactly the failure the pipeline's own verifier step exists
+   to catch, just hit one level up, at the point of fetching the source at all.
+
+**What would unblock this:** either toronto.ca added to this session's allowed
+hosts (Settings > Capabilities, or an org owner's network settings), or the page
+manually downloaded and saved under `docs/sources/` the way a CanLII decision is
+(README.md recording the URL and download date) -- then the code change itself
+(new source id, `NOTICE_HOW` line, verifier line) is small and already scoped
+above. Until one of those happens, do not cite this address from a WebFetch
+summary; the address is very likely right (it is the City's own public page for
+exactly this kind of 10-day road/sidewalk notice) but "very likely right" is not
+"retrieved and read."
