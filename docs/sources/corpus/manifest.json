@@ -3695,6 +3695,18 @@
       "characters": 11802,
       "lines": 246,
       "file": "toronto-how-to-file-a-claim.txt"
+    },
+    {
+      "id": "electronic-commerce-act-2000",
+      "title": "Electronic Commerce Act, 2000",
+      "citation": "S.O. 2000, c. 17",
+      "url": "https://www.ontario.ca/laws/docs/00e17_e.doc",
+      "retrievedAt": "2026-10-16T21:49:12.758Z",
+      "sha256": "8ba3815ed61c93d8df4c520de70fa4949d33d77a1cdc21418c9aba553b8275ac",
+      "consolidation": "CONSOLIDATION PERIOD: FROM MAY 15, 2020 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 32922,
+      "lines": 643,
+      "file": "electronic-commerce-act-2000.txt"
     }
   ],
   "failures": []
