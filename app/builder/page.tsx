@@ -1341,6 +1341,13 @@ function BuilderPageContent() {
    */
   useEffect(() => {
     if (!hydrated || stepParam !== "results" || analysis || queryCaseId) return;
+    // Same guard as the guided/form recovery below: a fresh story hand-off
+    // landing on this mount is an intentional new case and must never be
+    // overwritten with an old one of the same court type, even though this
+    // exact effect was not the one the 2026-10-16 live test happened to hit
+    // (it only fires on ?step=results). It shares the same flaw and the
+    // same fix belongs in both places.
+    if (freshStoryHandoffRef.current) return;
     let last: { caseId?: string; courtPath?: string } | null = null;
     try {
       last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
