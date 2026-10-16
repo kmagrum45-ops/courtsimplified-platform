@@ -109,7 +109,22 @@ function main(): void {
   const citationSample =
     "Under s. 4(1) of the Occupiers' Liability Act, an occupier owes a duty to see that people are reasonably safe. " +
     "Repeating padding so the text passes the character threshold for splitting into a lead and a rest. ".repeat(3);
-  const allSplitSamples = [...DEFENCE_CONCEPTS.map((c) => c.plainExplanation), citationSample];
+  // 2026-10-16 live bug: the abbreviation check compared the regex match's
+  // index (an offset into the TRIMMED text) against the UNTRIMMED text, so
+  // any source string with leading whitespace shifted every index and
+  // silently defeated the check. Needs its own fixture: citationSample's
+  // later padding periods give the (shifted) loop another sentence end to
+  // land on before the budget regardless, masking the bug. This one has no
+  // other period at all before the budget, matching the live dog-bite
+  // defence text exactly -- the loop must skip the "s." abbreviation and
+  // keep hunting past 260 chars, which only happens if the skip check reads
+  // the right string. A content-library string is always trim()-clean; this
+  // sample exists only to prove the index bug stays fixed.
+  const leadingWhitespaceSample =
+    "  Under s. 3 of Ontario's Negligence Act, a person who suffers damage caused partly by their own " +
+    "negligence recovers only the share of the loss that corresponds to the share of fault found against " +
+    "the other party, and the court apportions fault between everyone found at fault in the case before it";
+  const allSplitSamples = [...DEFENCE_CONCEPTS.map((c) => c.plainExplanation), citationSample, leadingWhitespaceSample];
   const abbreviationStubs = allSplitSamples
     .map((text) => splitLead(text))
     .filter(({ lead, rest }) => rest.length > 0 && lead.trim().length < 20);

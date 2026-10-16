@@ -31,8 +31,15 @@ export function splitLead(text: string, maxLeadChars = 260): { lead: string; res
   let match: RegExpExecArray | null;
   while ((match = sentenceEnd.exec(trimmed)) !== null) {
     // "s.", "v.", "no." etc. end on a period but don't end the sentence --
-    // skip them so the loop keeps looking for the real boundary.
-    if (text[match.index] === "." && endsOnAbbreviation(trimmed, match.index)) continue;
+    // skip them so the loop keeps looking for the real boundary. 2026-10-16
+    // live bug: this read `text[match.index]`, but `match.index` is an
+    // offset into `trimmed` (what sentenceEnd actually scans) -- any source
+    // string with leading whitespace shifted every index by that much,
+    // silently defeating the abbreviation check and locking the cut onto
+    // the FIRST period ("Under s." for a dog-bite defence whose text begins
+    // "Under s. 3 of Ontario's Negligence Act..."), well short of the real
+    // sentence end past the 260-char budget.
+    if (trimmed[match.index] === "." && endsOnAbbreviation(trimmed, match.index)) continue;
     const end = match.index + 1;
     // Always keep at least the first sentence, even when it alone is longer
     // than the target; after that, stop before passing the target.
