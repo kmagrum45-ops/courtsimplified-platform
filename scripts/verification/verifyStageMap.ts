@@ -336,6 +336,45 @@ for (const expected of NOTICE_DEADLINES) {
   }
 }
 
+/*
+ * Every claim-barring deadline under the basic Limitations Act, 2002, s. 4
+ * two-year limit must carry s. 13's written-admission exception.
+ *
+ * 2026-10-17 live bug (Case 4, a loan due December 2023 with a 2025 text
+ * admitting the debt): the reader was shown "the last day... has already
+ * passed... Missing this time limit can stop the claim from going ahead",
+ * with no mention anywhere on the page that a written admission can restart
+ * the clock (s. 13 (1)). The stage the person landed on used basicLimitation
+ * without `withSuspensions`, so s. 13 (1) was never in that deadline's own
+ * `exceptions` -- and renderDeadlineSection prints a deadline's qualifier in
+ * full, so whatever is missing from the deadline is missing from the page.
+ *
+ * This is a property, not a count: it does not pin which or how many stages
+ * carry the basic limitation -- splitting or renaming one still passes. It
+ * fails only if a stage reintroduces this specific deadline (the same rule,
+ * the same bars-the-claim consequence) without the admission exception,
+ * which is exactly how a reader lost the one fact that could have kept
+ * them from giving up on a claim that was still open.
+ */
+const basicLimitationBars = bars.filter(
+  ({ deadline }) => deadline.rule.sourceId === "limitations-act-2002" && deadline.rule.pinpoint === "s. 4",
+);
+if (basicLimitationBars.length === 0) {
+  fail("no claim-barring deadline cites the basic Limitations Act, 2002, s. 4 limit -- the check below has nothing to test.");
+}
+for (const { stage, deadline } of basicLimitationBars) {
+  const hasAdmissionException = (deadline.exceptions ?? []).some(
+    (exception) => exception.sourceId === "limitations-act-2002" && exception.pinpoint === "s. 13 (1)",
+  );
+  if (!hasAdmissionException) {
+    fail(
+      `${stage.id}'s basic limitation deadline bars the claim but does not carry the Limitations Act, 2002, s. 13 (1) ` +
+        `written-admission exception. A reader told "that date has already passed" on this stage would never learn that ` +
+        `an admission can restart the clock.`,
+    );
+  }
+}
+
 // ---------------------------------------------------------------------------
 // 5. The special stages have something to say
 // ---------------------------------------------------------------------------
