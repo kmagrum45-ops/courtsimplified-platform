@@ -172,6 +172,14 @@ function mergeStoredValuesIntoInput(
     filedDocuments: Array.isArray(values.documentStatus)
       ? (values.documentStatus as SmallClaimsIntelligenceInput["filedDocuments"])
       : base.filedDocuments,
+    // 2026-10-16 live bug: a claim type the guided route already confirmed
+    // (saved to extra.confirmedClaimTypeId, now in storedIntakeValues' own
+    // allow-list) never carried into the form route at all -- never merged
+    // here, so "kind of claim not clear yet" showed even for a saved case
+    // that already had one.
+    ...(values.confirmedClaimTypeId || base.confirmedClaimTypeId
+      ? { confirmedClaimTypeId: String(values.confirmedClaimTypeId || base.confirmedClaimTypeId) }
+      : {}),
   };
 }
 
@@ -460,9 +468,19 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
   // Nothing is guessed before there is a story (page review, 2026-10-06: a
   // blank form read "Likely direction: starting case · not yet classified").
   if (!hasText(input.facts)) return "";
-  const issueText = issues.length
-    ? issues.map((issue) => labels[issue]).join(", ")
-    : "kind of claim not clear yet";
+  // 2026-10-16 live bug: a claim type the guided route already confirmed
+  // (now carried into `input` by mergeStoredValuesIntoInput above) is the
+  // real answer, over the weaker generic-issue guesser below -- reopening a
+  // saved case showed "kind of claim not clear yet" even when one had
+  // already been settled.
+  const confirmedClaimType = input.confirmedClaimTypeId
+    ? CLAIM_TYPES.find((claimType) => claimType.id === input.confirmedClaimTypeId)
+    : null;
+  const issueText = confirmedClaimType
+    ? confirmedClaimType.name
+    : issues.length
+      ? issues.map((issue) => labels[issue]).join(", ")
+      : "kind of claim not clear yet";
 
   return `So far this looks like: ${stage.replace(/-/g, " ")} · ${issueText}`;
 }

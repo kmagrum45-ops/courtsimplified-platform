@@ -194,6 +194,12 @@ export function storedIntakeValues(masterResult: unknown): Record<string, string
     serviceDetails: pick(extra.serviceDetails, civil.serviceDetails),
     settlementEfforts: pick(extra.settlementEfforts, civil.settlementEfforts),
     urgent: pick(intake.urgent, extra.urgent, civil.urgent),
+    // 2026-10-16 live bug: after the guided route had already classified the
+    // claim, reopening the form route (e.g. to edit a saved case) showed
+    // "kind of claim not clear yet" -- the claim type was saved to
+    // extra.confirmedClaimTypeId, but this allow-list, the only thing the
+    // form route reads a saved case's values back through, never carried it.
+    confirmedClaimTypeId: pick(extra.confirmedClaimTypeId),
   };
   const documents = documentsOf(intake).map(String);
   if (documents.length) out.documentStatus = documents;
