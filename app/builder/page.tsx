@@ -2007,7 +2007,18 @@ function BuilderPageContent() {
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-[#4d675f]">
-                Your location is saved. Add the details of your case below.
+                {/*
+                  2026-10-16 live bug: this said "saved" the instant the
+                  location gate's Continue button was clicked -- purely
+                  client-side (setConfirmedLocation above), with nothing
+                  written to the database yet. The real write only happens
+                  later, in the saveMasterCase effect below, after the whole
+                  structured intake and its AI analysis complete. Someone who
+                  closed the tab here lost everything despite being told it
+                  was saved. Worded to promise only what has actually
+                  happened.
+                */}
+                Location noted. It will be saved with the rest of your case once you finish the details below.
               </p>
 
               {/*
