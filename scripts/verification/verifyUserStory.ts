@@ -197,6 +197,18 @@ for (const file of ["app/builder/_components/IntelligenceOverviewPanel.tsx", "ap
   check("an injury date is also the day the claim is based on", bite["sc-date-injury"]?.value === "2026-07-19" && bite["case-date-act-or-omission"]?.value === "2026-07-19");
   const fired = storyHintsForDates("they let me go on june 30 2026 with no reason.", now);
   check("the day someone was let go is the day the claim is based on", fired["case-date-act-or-omission"]?.value === "2026-06-30");
+  // 2026-10-16 live bug: a deposit-taker who never performed had no cue at
+  // all, so the sentence was never even quoted back, however complete the
+  // date in it. "in August 2026" has no day, so no value is offered -- that
+  // part is correct (STORY_CUES' own rule: a date is offered only complete,
+  // year included) -- but the sentence must now be quoted, where before
+  // this question had no entry whatsoever.
+  const deposit = storyHintsForDates("A contractor took a $3,000 deposit and never did the work, in August 2026.", now);
+  check(
+    "a deposit-taker's non-performance is quoted for the day the claim is based on",
+    (deposit["case-date-act-or-omission"]?.quote ?? "").includes("never did the work"),
+    JSON.stringify(deposit["case-date-act-or-omission"]),
+  );
   check("a written date fills the timeline's date box", dateInSentence("Now the trial is on January 14 2027.")?.iso === "2027-01-14");
   check("a date without a year fills only the words", dateInSentence("The papers came on December 3.")?.iso === null);
 }
