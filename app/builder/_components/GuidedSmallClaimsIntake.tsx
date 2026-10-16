@@ -59,7 +59,17 @@ type EvidenceGuidance = {
   categories: EvidenceCategory[];
 };
 
-type MatchedClaimType = { claimTypeId: string; claimTypeName: string };
+/**
+ * 2026-10-16 live bug: the results page labelled this "Kind of claim you
+ * confirmed" for every matched claim type, including the exact-phrase path
+ * below, which the person is never shown and never asked about -- no card,
+ * no message, nothing naming the claim type until the results page itself.
+ * `userConfirmed` records which path actually happened: true only when the
+ * person clicked "that's right" on the suggestion card (resolveSuggestion
+ * below), false for a silent exact-phrase match. The overview panel reads
+ * it to word the label honestly instead of overstating what occurred.
+ */
+type MatchedClaimType = { claimTypeId: string; claimTypeName: string; userConfirmed?: boolean };
 
 type GuidanceCitation = {
   sourceName: string;
@@ -639,7 +649,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // with the up-to-date value in this same pass.
       const freshMatch = result.matchedClaimTypes[0]?.claimType;
       const matchedClaimTypeThisTurn: MatchedClaimType | null = freshMatch
-        ? { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name }
+        ? { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name, userConfirmed: false }
         : matchedClaimType;
       if (freshMatch) {
         setMatchedClaimType(matchedClaimTypeThisTurn);
@@ -785,12 +795,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       }
 
       const result = json.result as
-        | { outcome: "confirmed"; claimType: MatchedClaimType; evidenceGuidance: EvidenceGuidance; claimGuidance: ClaimGuidance }
+        | { outcome: "confirmed"; claimType: { claimTypeId: string; claimTypeName: string }; evidenceGuidance: EvidenceGuidance; claimGuidance: ClaimGuidance }
         | { outcome: "revised"; suggestedClaimType: MatchedClaimType }
         | { outcome: "no-match" };
 
       if (result.outcome === "confirmed") {
-        setMatchedClaimType(result.claimType);
+        // This path only runs after the person clicked "that's right" on the
+        // suggestion card -- the one case where userConfirmed is actually true.
+        setMatchedClaimType({ ...result.claimType, userConfirmed: true });
         setEvidenceGuidance(result.evidenceGuidance);
         setClaimGuidance(result.claimGuidance);
         setPendingSuggestion(null);
