@@ -1422,7 +1422,20 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
 
       {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
 
-      {!halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive) ? (
+      {/*
+        2026-10-16 live bug: "Guided intake complete." rendered mid-flow, in
+        the gap between the generic phase ending (intakeComplete set true,
+        synchronously) and the claim-type depth phase actually starting
+        (depthActive set true only after its network round-trip resolves,
+        startDepthPhase below). That round-trip yields control back to the
+        browser, so React commits a real render in between with
+        intakeComplete true and depthActive still false -- exactly what this
+        guard was keying on. `loading` is the one flag already true for that
+        whole window (set at the top of startDepthPhase, before its await),
+        so adding it here keeps the input area (and its "..." Send button)
+        showing through the gap instead of a premature "complete" label.
+      */}
+      {!halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
         <div className="mt-4 flex gap-2">
           <textarea
             // Keyed to the question actually on screen, the same fix already
@@ -1527,7 +1540,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         <GuidanceDisclosure
           evidenceGuidance={evidenceGuidance}
           claimGuidance={claimGuidance}
-          intakeComplete={intakeComplete && !depthActive}
+          // Same in-flight gap as the input-area guard above: expand only
+          // once the depth phase is either active or genuinely not coming
+          // (loading covers the window between the generic phase ending and
+          // depthActive flipping true).
+          intakeComplete={intakeComplete && !depthActive && !loading}
         />
       ) : null}
     </div>
