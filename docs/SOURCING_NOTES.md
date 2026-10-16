@@ -2026,3 +2026,59 @@ above. Until one of those happens, do not cite this address from a WebFetch
 summary; the address is very likely right (it is the City's own public page for
 exactly this kind of 10-day road/sidewalk notice) but "very likely right" is not
 "retrieved and read."
+
+### C1 closed: human-snapshot, the technique built for exactly this (2026-10-16)
+
+The site owner saved the page itself (Ctrl+P, Save as PDF, from a working
+browser) and attached it, so neither blocker above mattered in the end --
+`docs/sources/snapshots/toronto-how-to-file-a-claim.pdf` is the City's actual
+page, read and vendored, not a WebFetch paraphrase and not an approximation.
+Worth recording what made this fast once the file existed: `corpusSources.ts`
+already has a `format: "human-snapshot"` source type built for pages a
+previous session identified as unfetchable (TICO, FSRA, etc. --
+`docs/infra/human-list.md`), with its own provenance check
+(`verifySnapshotProvenance.ts`) and `pdftotext -layout` extraction already
+wired into `extractText.ts`. So this was not a new mechanism, just the first
+time it was actually used end to end:
+
+1. Saved PDF under `docs/sources/snapshots/`.
+2. One `CorpusSource` entry in `practicalSources.ts`
+   (`id: "toronto-how-to-file-a-claim"`, `format: "human-snapshot"`,
+   `tier: "practical"`, a `snapshot` block with `localPath`, `savedAt`,
+   `savedBy`, `becauseUnfetchable`).
+3. The new id added to `CorpusSourceId`, `OFFICIAL_URLS` and `SOURCE_NAMES`
+   in `citations.ts` (it is a `RuleCitation["sourceId"]`, the same as any
+   fetched source).
+4. `npm run rules:fetch -- --only toronto-how-to-file-a-claim` vendored it
+   into `docs/sources/corpus/toronto-how-to-file-a-claim.txt` and
+   `manifest.json` -- reads the saved file from disk, never the network.
+5. A new line added to `NOTICE_HOW["city-of-toronto-act-2006"]` in
+   `nextStepPractical.ts`, citing the new source for the City Hall mailing
+   address, plus its `SOURCE_SAVED_ON` date.
+
+**The one real fix needed:** `verifyNextStepPractical.ts` had a check written
+when the address genuinely did not exist anywhere --
+`"no notice line states a clerk's address"`, asserting zero address-shaped
+lines. That check pinned the ABSENCE as the permanent property, so adding the
+now-sourced address failed it, exactly the trap CLAUDE.md s. 5 warns about
+("a check that pins today's value calls an improvement a regression"). Rewrote
+it to assert the real property instead: every address-shaped line must cite a
+source whose OWN quote contains an address. That catches a future invented or
+misremembered address while allowing a properly sourced one.
+
+**Environment note for a future session:** this sandbox could not run
+`npm install` at all (`registry.npmjs.org` itself returns `connect_rejected`
+through the agent proxy -- Capabilities > Allow network egress was off).
+`tsx` and `tsc` from the broken local `node_modules` failed outright. Fallback
+used: `/opt/npm-tools/node_modules/.bin/tsx` (present system-wide, not from
+this repo's own install) ran every verification script
+(`verifySnapshotProvenance.ts`, `verifyNextStepPractical.ts`,
+`verifyStageMap.ts`, `fetchCorpus.ts`) cleanly, and `/opt/node-tools/node_modules/.bin/tsc`
+ran the typecheck -- its errors were all pre-existing `@types/node` /
+`@playwright/test` resolution gaps in this environment's broken install, none
+in the files this session touched. `npm run test:fixtures` could not run at
+all (`Cannot find module 'openai'`) and was skipped: it needs a live,
+billed OpenAI call CLAUDE.md s. 7 already marks manual-only, and this change
+touches only the deterministic practical-content citation table, not
+intake/extraction, which `verifyNextStepPractical.ts` and `verifyStageMap.ts`
+already check end to end.

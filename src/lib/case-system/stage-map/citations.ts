@@ -71,7 +71,10 @@ export type CorpusSourceId =
   | "guide-after-judgment"
   // 2026-10-14: the construction lien stages (civilStages.ts, CLAUDE.md s. 2a).
   | "construction-act"
-  | "oreg-302-18-construction-act-procedures";
+  | "oreg-302-18-construction-act-procedures"
+  // 2026-10-16 (C1 follow-up): the mailing address for a Toronto s. 42 (6)
+  // notice of claim. A human-snapshot source -- see practicalSources.ts.
+  | "toronto-how-to-file-a-claim";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -106,6 +109,8 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "guide-after-judgment": "https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment",
   "construction-act": "https://www.ontario.ca/laws/statute/90c30",
   "oreg-302-18-construction-act-procedures": "https://www.ontario.ca/laws/regulation/180302",
+  "toronto-how-to-file-a-claim":
+    "https://www.toronto.ca/city-government/accountability-operations-customer-service/complaints-claims-compliments/make-a-claim-against-the-city/how-to-file-a-claim/",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -143,6 +148,7 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "guide-after-judgment": "ontario.ca, Guide to Procedures in Small Claims Court: After judgment",
   "construction-act": "Construction Act, R.S.O. 1990, c. C.30",
   "oreg-302-18-construction-act-procedures": "O. Reg. 302/18 (Construction Act, procedures for lien actions)",
+  "toronto-how-to-file-a-claim": "toronto.ca, How to File a Claim",
 };
 
 export type RuleCitation = {

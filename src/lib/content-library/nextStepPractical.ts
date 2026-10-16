@@ -84,6 +84,7 @@ export const SOURCE_SAVED_ON: Partial<Record<RuleCitation["sourceId"], string>> 
   // The construction lien steps (stageSequence.ts moves and final steps).
   "construction-act": "2026-09-27",
   "oreg-302-18-construction-act-procedures": "2026-10-14",
+  "toronto-how-to-file-a-claim": "2026-10-16",
   "oreg-258-98-small-claims-rules": "2026-09-27",
   "rules-of-civil-procedure": "2026-09-27",
   "family-law-rules": "2026-09-30",
@@ -1534,11 +1535,16 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
 /*
  * What the notice must say, who gets it and how (walkthrough 2026-10-13, a
  * Toronto sidewalk fall: "no help writing the notice to the City"). Each line
- * says only what its section says. No address is given for a clerk: no saved
- * official source states one, so the card names who receives it, as the
- * statute does, and nothing more.
+ * says only what its section says. The City Hall mailing address below (C1
+ * follow-up, 2026-10-16) comes from toronto.ca's own "How to File a Claim"
+ * page, not the statute -- the statute only names the office ("the city
+ * clerk"), and the address is the City's own practical answer to where that
+ * office receives mail, vendored as a human-snapshot source because this
+ * sandbox's network allowlist cannot reach toronto.ca (see
+ * docs/SOURCING_NOTES.md).
  */
 const torontoNotice = (pinpoint: string, quote: string) => cite("city-of-toronto-act-2006", pinpoint, quote);
+const torontoHowToFile = (pinpoint: string, quote: string) => cite("toronto-how-to-file-a-claim", pinpoint, quote);
 const municipalNotice = (pinpoint: string, quote: string) => cite("municipal-act-2001", pinpoint, quote);
 const occupierNotice = (pinpoint: string, quote: string) => cite("occupiers-liability-act", pinpoint, quote);
 
@@ -1557,6 +1563,13 @@ export const NOTICE_HOW: Partial<Record<RuleCitation["sourceId"], PlainLine[]>> 
       cite: torontoNotice(
         "s. 42 (6) (b)",
         "(b) if the claim is against the City and one or more municipalities jointly responsible for the repair of the highway or bridge, the city clerk and the clerk of each of the other municipalities",
+      ),
+    },
+    {
+      say: "By mail or courier, the City accepts it at: Claims, City Hall, 100 Queen St. W., 5th Floor, East Tower, Toronto, Ontario, M5H 2N2.",
+      cite: torontoHowToFile(
+        "Submit a Claim by Mail or Courier",
+        "Claims City Hall 100 Queen St. W., 5th Floor, East Tower Toronto, Ontario, M5H 2N2",
       ),
     },
   ],

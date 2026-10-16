@@ -353,4 +353,36 @@ export const PRACTICAL_SOURCES: CorpusSource[] = [
     mustContain: ["Prima Facie", "Stare Decisis"],
     why: "Meaning of prima facie, stare decisis, pro bono and ex parte for the glossary.",
   },
+  // 2026-10-16 (C1 follow-up, docs/walkthrough/FIX_LEDGER.md): this sandbox's
+  // network allowlist cannot reach toronto.ca at all (confirmed by a direct
+  // connectivity test through the agent proxy -- connect_rejected/403), so
+  // this is a human-snapshot, saved by the site owner from a browser and
+  // read from disk. See
+  // docs/SOURCING_NOTES.md, "C1 follow-up" entries, for the two earlier
+  // environmental blockers this replaces (no network access; WebFetch returns
+  // AI-paraphrased text, not verbatim, so it cannot feed a byte-exact quote
+  // check). This page is what finally answers the gap `nextStepPractical.ts`
+  // flagged: no saved source named an address for the city clerk.
+  {
+    id: "toronto-how-to-file-a-claim",
+    title: "How to File a Claim (City of Toronto)",
+    citation: "toronto.ca — How to File a Claim",
+    url: "https://www.toronto.ca/city-government/accountability-operations-customer-service/complaints-claims-compliments/make-a-claim-against-the-city/how-to-file-a-claim/",
+    format: "human-snapshot",
+    tier: "practical",
+    snapshot: {
+      localPath: "docs/sources/snapshots/toronto-how-to-file-a-claim.pdf",
+      savedAt: "2026-10-16",
+      savedBy: "Jason Magrum",
+      becauseUnfetchable:
+        "toronto.ca is not on this session's network allowlist -- a direct " +
+        "request through the agent proxy returns connect_rejected / HTTP 403.",
+    },
+    mustContain: ["Claims", "City Hall", "100 Queen St", "M5H 2N2"],
+    why:
+      "The mailing address for the 10-day road/sidewalk notice required by " +
+      "the City of Toronto Act, 2006, s. 42 (6) -- no saved source previously " +
+      "named one, so NOTICE_HOW named only the clerk, as the statute does, " +
+      "with nothing more.",
+  },
 ];
