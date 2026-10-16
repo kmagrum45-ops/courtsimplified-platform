@@ -1968,3 +1968,29 @@ claim, so no defence was due at all. Also in it: the claim is issued in the coun
 where the premises are (s. 1 (1)) and served within 90 days of issue (s. 1 (2));
 a counterclaim must accompany the defence (s. 2 (2)); rule 50 (pre-trial) does not
 apply (s. 10 (9)); interlocutory steps need the court's consent (s. 13).
+
+## C1 (Toronto notice drafting): the public "how to file a claim" page never names the City Clerk (2026-10-16)
+
+Looked for the physical/mailing address to serve a s. 42 (6) notice "upon ... the
+city clerk" (City of Toronto Act, 2006), to let the notice step tell a Toronto
+sidewalk/road claimant exactly where to send it, and to let a drafted notice carry
+a real delivery address.
+
+**Dead end, worth recording so it is not re-walked:** toronto.ca's own public claims
+pages (`.../make-a-claim-against-the-city/` and its `how-to-file-a-claim` subpage)
+never mention the City Clerk, a Claims office, or a Legal division by name. They
+give one address for claims sent by mail or courier -- "Claims, City Hall, 100
+Queen St. W., 5th Floor, East Tower, Toronto, Ontario, M5H 2N2" -- and push most
+claimants to an online Claim Submission Web Form instead. The City Clerk's Office
+is a real, separately-named office at City Hall (letterhead confirms "City Clerk's
+Office, City Hall", legdocs PDFs), but nothing found so far says that notice served
+at the "Claims" address satisfies the statute's "served upon ... the city clerk,"
+or that the Clerk's Office has designated Claims to receive s. 42 (6) notices.
+
+**Before shipping an address for this:** either find an official source that ties
+the Claims address (or the Clerk's Office's own address) explicitly to s. 42 (6)
+notice service, or default to naming the City Clerk's Office at City Hall (100
+Queen St. W., Toronto, ON M5H 2N1 per its own letterhead) rather than the Claims
+department, since that is who the statute actually names. Do not cite the Claims
+page's address as satisfying s. 42 (6) without that confirmation -- it is the
+easy-to-find address, but easy-to-find is not the same as correct here.
