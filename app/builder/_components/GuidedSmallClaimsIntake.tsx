@@ -1030,6 +1030,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         elementStateMap: stateMap || undefined,
         sourcedAnswers: sourced.answeredList(),
       });
+    } else {
+      // 2026-10-16 live bug: this branch silently did nothing when `payload`
+      // was missing, leaving the user on the closing chat line with no error,
+      // no save, and no way to continue -- a true dead end. Whatever the
+      // cause, the user must see SOMETHING rather than nothing.
+      setError("Something went wrong finishing the intake. Please try again, or go back and re-answer the last question.");
     }
   }
 
@@ -1441,9 +1447,31 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </button>
         </div>
       ) : (
-        <p className="mt-4 text-sm font-semibold text-[#4d675f]">
-          {halted ? "Intake stopped here." : "Guided intake complete."}
-        </p>
+        <div className="mt-4">
+          <p className="text-sm font-semibold text-[#4d675f]">
+            {halted ? "Intake stopped here." : "Guided intake complete."}
+          </p>
+          {/*
+            2026-10-16 live bug: once intake is marked complete and the depth
+            phase is no longer active, this was the ONLY thing rendered here --
+            a static line, no button. If onComplete above never actually fired
+            (completionPayload missing, a save error, anything), the user was
+            stuck on this exact screen with nothing to click. This button is
+            the escape hatch: it is always available once intake is complete
+            and not currently loading, and re-runs the same finish path, which
+            by now reads committed state rather than whatever was in flight
+            the first time.
+          */}
+          {!halted && !loading ? (
+            <button
+              type="button"
+              onClick={() => finishDepthPhase(depthStateMap)}
+              className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+            >
+              Continue to your next steps
+            </button>
+          ) : null}
+        </div>
       )}
 
       {depthActive ? (
