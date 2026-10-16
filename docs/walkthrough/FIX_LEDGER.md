@@ -4,12 +4,21 @@ checks of S2, S3, R2 and D1 found each already implemented in code (rule
 citations, story-answer readers, the six-year deadline) with only the ledger
 left unupdated. D1 and R7 are confirmed above against this run; the rest of
 the "awaiting run"/"open" rows below have not all been individually
-re-verified yet -- read code before assuming a row is still open. C6's cause
-(the mandatory-information-program instruction leading the next-step card for
-a support-only motion to change) reappeared in this run even though its own
-explanatory text is sourced, so it is a real, distinct gap: the sourced "why
-it doesn't apply" text and the deadline actually leading the card are two
-different things, and only the first is fixed.
+re-verified yet -- read code before assuming a row is still open.
+
+**Correction, same day:** the first pass of this note treated C6 (the
+mandatory-information-program instruction supposedly leading the next-step
+card for a support-only motion to change) as a real, distinct gap, on the
+strength of the walkthrough critic repeating it in two runs. A scoped rerun
+(38845658656) plus tracing the fold in code and running it directly with
+`tsx` against this persona's real intake shape showed the opposite: the fold
+and its sourced explanation both already work, and the critic is reading
+raw DOM text from a collapsed `<details>` the way it would read visible
+text. **The critic repeating a complaint across runs is evidence it is a
+stable pattern, not evidence the pattern is a real defect** -- a collapsed
+section reads the same to it every time. S2 was the same story (confirmed
+closed below). Before touching code over a repeated critique, check what a
+real visitor would see, not just what the text dump contains.
 
 # Walkthrough fix ledger (5-case runs, 2026-10-13)
 
@@ -59,7 +68,7 @@ name; when that is not plain, no route is offered and the side question is asked
 | C3 | Toronto notice explained with the Municipal Act | SW | Toronto's own deadline added (#326); the intake's tailored question cites s. 42 | run | fixed / blocked (intake question): "Within 10 days of your fall ..." citing Municipal Act s. 44 is written by the model at runtime (src/lib/case-system/retrieval/sourcedQuestions.ts, writeWithModel from the passages answeringPassages picks; /api/intake/sourced-questions). No static bank holds it. A code-side fix would drop Municipal Act s. 44 passages for a Toronto story in answeringPassages (NOTICE_FITS), not a prompt change |
 | C4 | Passed notice deadline: no plain warning, no urgent-help pointer, no mention of the excuse rule | SW | When a bar-the-claim deadline has passed, the card says so plainly, names the excuse/death exceptions from the rule, and points to urgent help | test | fixed (passed-bar box with notABarExceptions; awaiting run) |
 | C5 | Motion to change: application offered instead of Form 15 | MC | No application builder for an existing order (#326) | Run 3: Form 15 named | closed |
-| C6 | Motion to change: card leads with "Attend the mandatory information program" without its source, for a support-only change | MC | Check r. 8.1's own scope for motions to change; show it only where it applies, with its rule | test | open |
+| C6 | Motion to change: card leads with "Attend the mandatory information program" without its source, for a support-only change | MC | Check r. 8.1's own scope for motions to change; show it only where it applies, with its rule | test | closed: confirmed false positive, 2026-10-16 (run 38845658656, family-motion-to-change-support). Traced the fold end to end -- `isChangeMip`/`changeBeyondSupport`/`claimFit` (nextStepPractical.ts) and the `<details data-testid="next-step-mip-fold">` fold in StageAnswerPanel.tsx -- and ran `userWordsOf` + `changeBeyondSupport` directly against this persona's real intake shape with `tsx`: it correctly returns `false`, so the item lands in `changeMip`, not `main`. The live run's own captured page text confirms it: on both `stage-confirmed` and `case-overview`, "Attend the mandatory information program..." sits inside a collapsed `<details>` headed "Only if your motion changes more than child or spousal support (1)" with its own sourced explanation right before it ("What you told us is about support only, so it is not listed first", r. 8.1 (1) para. 6 quoted) and its rule beside it (r. 8.1 (4)) -- it does not lead, and it is not unsourced. The walkthrough critic reads raw DOM text, which includes a collapsed `<details>` body with no signal that a real visitor would not see it expanded; that is why it keeps reporting this as leading. Fixing the critic's text capture (ignore or flag collapsed content) is a separate, walkthrough-infrastructure task, not logged here. |
 | C7 | Family respondent (parenting only): card shows property-claim and financial-statement lines | FR | Lines conditional on a property or support claim are folded unless the person's issues include one; run 38500825561 still read the fold as next steps, so any "If" limit naming only claim kinds the words never show (property, support, home, divorce, parenting) now folds under its own heading saying why | test:next-step | fixed |
 | C9 | Passed statutory notice: card line called Saturday "the last day" and "passed" before the s. 89 (2) words; "today" read in UTC (22:30 in Toronto was the 14th) | SW | deadlineLineFor: a closed counted day is never THE last day, same conditional words as the passed box; today is Ontario's (todayInOntario) | test:next-step | fixed |
 | C10 | Notice step titled with every notice kind; card led by the every-notice paragraph ("Leave the notice to the Crown ...") | SW | One notice kind kept: title fitted to it (noticeStepTitle); the every-notice paragraph left to the full answer (cardShowsLead) | test:next-step | fixed |
@@ -87,8 +96,8 @@ name; when that is not plain, no route is offered and the side question is asked
 | # | Cause | Cases | Fix | Check | Status |
 |---|---|---|---|---|---|
 | S1 | Published answers cite one rule for several statements (r. 20.08 (7) for six-year, wage-limit, examination) | JU, RN, MC | Re-run the content pipeline for the affected answers so each sentence carries its own rule (paid; ~$1-3) | test:published-library + statement check | blocked: needs OpenAI credit |
-| S2 | Mandatory information program line without its rule | FR, MC | The card shows r. 8.1 (4) beside it | test | open |
-| S3 | Timeline's holiday/office-closure explanation without source | SW | Cite Legislation Act s. 89 there | test | open |
+| S2 | Mandatory information program line without its rule | FR, MC | The card shows r. 8.1 (4) beside it | test | closed: confirmed 2026-10-16 -- run 38845658656's captured page text shows "Attend the mandatory information program. 45 days after the day the case was started. ... Family Law Rules, O. Reg. 114/99, r. 8.1 (4) · checked 2026-09-30" beside it, on both the folded and the (support-only) explanatory line |
+| S3 | Timeline's holiday/office-closure explanation without source | SW | Cite Legislation Act s. 89 there | test | closed: confirmed 2026-10-16 -- `PASSED_CHECK_CLOSED` (nextStepPractical.ts) already cites Legislation Act, 2006 s. 89 (2) with the full quoted text, read directly in code |
 | S4 | "The rules don't say whether that moves" stated without a source | RN | Reword to what the rule says, with the rule | test | open |
 | S6 | "Papers left with you after 4 p.m. count as served the next day" without its rule | FR | Each when-service-counts sentence of a deadline shown with its subrule from the deadline's own exceptions (r. 6 (11.1) etc.), under "Your deadline" | test:next-step | fixed |
 | S5 | Six-month Family Law Act restriction without precise provision | MC | Cite the subsection | test | fixed (FLA s. 37 (3) on the step; awaiting run) |
