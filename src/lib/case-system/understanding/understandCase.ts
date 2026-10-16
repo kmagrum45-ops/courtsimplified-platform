@@ -310,6 +310,31 @@ export function validStep(id: string, court: UnderstoodCourt): string | null {
 }
 
 /**
+ * Whether the reading's "Continue" button should be the quiet, outlined one
+ * rather than the primary green one -- pure, for `CaseUnderstandingCard`'s
+ * button and the test that proves it.
+ *
+ * 2026-10-17 live bug: a landlord-held deposit was correctly read as
+ * belonging to the Landlord and Tenant Board, not Small Claims -- but
+ * `mainCourt` values outside small-claims/civil/family (tribunal,
+ * outside-ontario) have no `CourtPath` to offer as an alternative button, and
+ * the chosen-path button treated that exactly like "unclear" (no better
+ * destination known): still primary and green, on the same screen that had
+ * just explained this almost certainly isn't the right venue. The one thing
+ * that separates "truly unclear" from "known to belong somewhere else, just
+ * not somewhere this button can send you" is `mainCourt`, so that is the one
+ * thing this checks -- never a mapped path's own availability, which stays
+ * exactly as it was (a mapped-but-unavailable path still leaves the chosen
+ * path as the only thing to click, so it must stay primary).
+ */
+export function betterDestinationKnown(mainCourt: UnderstoodCourt, chosenPath: string, suggestedIsAvailable: boolean | null): boolean {
+  if (mainCourt === "unclear" || mainCourt === chosenPath) return false;
+  // suggestedIsAvailable is null when mainCourt maps to no path at all
+  // (tribunal, outside-ontario): there is nothing to check availability of.
+  return suggestedIsAvailable ?? true;
+}
+
+/**
  * A court fixed by law wins over the reading (CLAUDE.md s. 2a). A construction
  * lien is a Superior Court action with its own procedure: the court becomes
  * civil and only the map's lien steps are suggested, never the ordinary ones. A
