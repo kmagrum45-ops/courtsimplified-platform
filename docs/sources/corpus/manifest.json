@@ -3695,6 +3695,18 @@
       "characters": 11802,
       "lines": 246,
       "file": "toronto-how-to-file-a-claim.txt"
+    },
+    {
+      "id": "conveyancing-and-law-of-property-act",
+      "title": "Conveyancing and Law of Property Act",
+      "citation": "R.S.O. 1990, c. C.34",
+      "url": "https://www.ontario.ca/laws/docs/90c34_e.doc",
+      "retrievedAt": "2026-10-16T22:59:59.402Z",
+      "sha256": "812df0ecc9d6b6425aee37aa343cba1e2d5513fafb32776c91bd163a54710b1a",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2024 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 55923,
+      "lines": 960,
+      "file": "conveyancing-and-law-of-property-act.txt"
     }
   ],
   "failures": []

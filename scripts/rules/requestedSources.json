@@ -610,5 +610,17 @@
       "Copyright Act"
     ],
     "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "conveyancing-and-law-of-property-act",
+    "title": "Conveyancing and Law of Property Act",
+    "citation": "R.S.O. 1990, c. C.34",
+    "url": "https://www.ontario.ca/laws/docs/90c34_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONVEYANCING AND LAW OF PROPERTY ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Conveyancing and Law of Property Act, R.S.O. 1990, c. C.34, s. 53(1)\")."
   }
 ]
