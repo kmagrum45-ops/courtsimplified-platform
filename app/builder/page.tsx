@@ -1237,11 +1237,19 @@ function BuilderPageContent() {
           // rather than rebuilding its own (design section 5). Absent when no
           // claim type was confirmed or the user skipped — both legitimate.
           ...(result.elementStateMap ? { elementStateMap: result.elementStateMap } : {}),
-          // 2026-09-28. The claim type the USER confirmed, or null when none
-          // was. The overview reads this instead of re-matching the story, so
-          // its cards follow the user's confirmation rather than a separate
+          // 2026-09-28. The claim type MATCHED for this case, or null when
+          // none was. The overview reads this instead of re-matching the
+          // story, so its cards follow this match rather than a separate
           // keyword match that can disagree with it.
           confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
+          // 2026-10-16 live bug: the field above is named "confirmed" but an
+          // exact-phrase story match reaches it with the person never having
+          // seen or been asked about the claim type -- no card, no message,
+          // nothing names it before the results page. True only when the
+          // person clicked "that's right" on the suggestion card
+          // (GuidedSmallClaimsIntake.tsx's resolveSuggestion). The overview
+          // panel reads this to word its label honestly either way.
+          claimTypeUserConfirmed: result.matchedClaimType?.userConfirmed === true,
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
           // The side and filing answers the person gave or confirmed in the

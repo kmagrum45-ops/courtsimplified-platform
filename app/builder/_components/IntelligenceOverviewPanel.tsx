@@ -157,6 +157,12 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
         ? extraRecord.confirmedClaimTypeId
         : null
       : undefined;
+  // 2026-10-16 live bug: this card said "Kind of claim you confirmed" for
+  // EVERY matched claim type, including an exact-phrase story match the
+  // person is never shown or asked about before this page. True only when
+  // the person actually clicked "that's right" on the suggestion card (see
+  // GuidedSmallClaimsIntake.tsx / app/builder/page.tsx's claimTypeUserConfirmed).
+  const claimTypeUserConfirmed = extraRecord.claimTypeUserConfirmed === true;
   const claimTypeContent =
     analysis.courtPath === "small-claims" && facts
       ? buildClaimTypeOverviewContent(facts, undefined, confirmedClaimTypeId)
@@ -332,7 +338,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const confirmedClaimTypeName = claimTypeContent?.claimTypeName || "";
   const snapshotRows: Array<[string, string]> = [
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family" : "Civil (Superior Court)"],
-    ...(confirmedClaimTypeName ? ([["Kind of claim you confirmed", confirmedClaimTypeName]] as Array<[string, string]>) : []),
+    ...(confirmedClaimTypeName
+      ? ([[claimTypeUserConfirmed ? "Kind of claim you confirmed" : "Kind of claim this matches", confirmedClaimTypeName]] as Array<[string, string]>)
+      : []),
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
     ["Current stage", displayStage(caseStage)],
@@ -454,8 +462,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       {jurisdictionRoutes.length > 0 && (
         <Card title="A rule that can affect where this kind of claim goes">
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">
-            Shown because of the kind of claim you confirmed or the amount you recorded. It is general
-            information about the rule, not a decision about your claim.
+            Shown because of the kind of claim {claimTypeUserConfirmed ? "you confirmed" : "this matches"} or the
+            amount you recorded. It is general information about the rule, not a decision about your claim.
           </p>
           <ul className="space-y-5">
             {jurisdictionRoutes.map((route) => (
