@@ -56,6 +56,10 @@
  *     (SJ) an employer named only vaguely ("a car dealership ... i think")
  *     with no word that the garnishee must be named, or of the examination
  *     that is the rules' way to find out more; a line choosing or predicting.
+ *   - (walkthrough 2026-10-15, RN) Form 10A missing from the Forms tab's lead
+ *     forms on a defence step whose own fee list already anticipates a
+ *     defendant's claim (sc-defendants-claim-if), or Form 10A leading a step
+ *     whose fees never anticipate one.
  *
  * COSTS NOTHING: reads files; no network, no model.
  *
@@ -728,12 +732,32 @@ console.log("\n9. The case's Forms tab: the step's forms lead the catalogue (wal
       if (!view) continue;
       const own = view.forms.filter((form) => form.court === court).map((form) => form.number);
       const claim = view.afterNotice.length > 0 && court !== "family" ? [CLAIM_AFTER_NOTICE[court].form] : [];
-      const want = [...own.map((number) => `${number}:For your step`), ...claim.map((number) => `${number}:After the notice`)];
+      // A small-claims step whose own fee list already anticipates a
+      // defendant's claim (sc-defendants-claim-if) leads with Form 10A too,
+      // labelled optional (walkthrough 2026-10-15, RN: it was buried in the
+      // full catalogue though the fee note already named it).
+      const ownClaim = court === "small-claims" && (STEP_PRACTICAL[stage.id]?.fees ?? []).includes("sc-defendants-claim-if") ? ["10A"] : [];
+      const want = [
+        ...own.map((number) => `${number}:For your step`),
+        ...claim.map((number) => `${number}:After the notice`),
+        ...ownClaim.map((number) => `${number}:Optional: your own claim`),
+      ];
       if (view.leadForms.map((lead) => `${lead.number}:${lead.label}`).join() !== want.join()) leadWrong.push(`${stage.id}`);
       if (view.formsIfClaimed.some((form) => view.leadForms.some((lead) => lead.number === form.number))) leadWrong.push(`${stage.id}: folded form leads`);
     }
   }
-  check("on every step the catalogue is led by the step's own forms, then the claim form after a notice", leadWrong.length === 0, [...new Set(leadWrong)].slice(0, 5).join("; "));
+  check("on every step the catalogue is led by the step's own forms, then the claim form after a notice, then an optional defendant's claim its own fee already anticipates", leadWrong.length === 0, [...new Set(leadWrong)].slice(0, 5).join("; "));
+  const reno = practicalFor("defendant:served-defence-period-running", "small-claims", "Toronto", false, "");
+  check(
+    "a defendant's step whose fee anticipates a defendant's claim leads Form 9A with Form 10A, labelled optional",
+    reno?.leadForms.some((lead) => lead.number === "9A" && lead.label === "For your step") === true &&
+      reno?.leadForms.some((lead) => lead.number === "10A" && lead.label === "Optional: your own claim") === true,
+  );
+  const plaintiffNoClaim = practicalFor("plaintiff:served-awaiting-defence", "small-claims", "Toronto", false, "");
+  check(
+    "a step with no defendant's-claim fee never leads with Form 10A",
+    plaintiffNoClaim ? !plaintiffNoClaim.leadForms.some((lead) => lead.number === "10A") : true,
+  );
   const sidewalk = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
   check("the Toronto sidewalk notice step leads with Form 14A, labelled 'After the notice' (never 'For your step')", sidewalk?.leadForms[0]?.number === "14A" && sidewalk.leadForms[0].label === "After the notice");
   check("the catalogue shows each leading form's own label", /leadLabels\.get\(/.test(readFileSync(path.join(ROOT, "app", "forms", "FormsWorkspace.tsx"), "utf8")));
