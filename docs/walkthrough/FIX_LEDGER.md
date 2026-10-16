@@ -1,3 +1,16 @@
+**Reconciliation note (2026-10-16):** a full 20-persona run confirmed most
+rows below marked "fixed (merged, awaiting run)" or "open" are stale -- spot
+checks of S2, S3, R2 and D1 found each already implemented in code (rule
+citations, story-answer readers, the six-year deadline) with only the ledger
+left unupdated. D1 and R7 are confirmed above against this run; the rest of
+the "awaiting run"/"open" rows below have not all been individually
+re-verified yet -- read code before assuming a row is still open. C6's cause
+(the mandatory-information-program instruction leading the next-step card for
+a support-only motion to change) reappeared in this run even though its own
+explanatory text is sourced, so it is a real, distinct gap: the sourced "why
+it doesn't apply" text and the deadline actually leading the card are two
+different things, and only the first is fixed.
+
 # Walkthrough fix ledger (5-case runs, 2026-10-13)
 
 Every reason the reviewer gave for a failure in runs 38470954003, 38475320722
@@ -28,14 +41,14 @@ name; when that is not plain, no route is offered and the side question is asked
 | R4 | Case overview asks "Which year was that?" / "How were the papers served?" after the date and method were saved | RN | Overview reads the saved date and method before asking | test | fixed (merged, awaiting run): 2026-10-14 the case page offers the guided dates (suggestedDatesFromAnswers), as the builder does |
 | R5 | Case file shows "None yet" / asks for dates already saved | SW, RN | Case file reads the saved position | test | fixed (merged, awaiting run): 2026-10-14 the Case file counts from every recorded date (recordedDateAnswers), not the Overview dates only |
 | R6 | Timeline asks "What kind of step was this?" for a sentence matching the confirmed stage | JU | Timeline classifies a sentence that matches the confirmed stage's own event without asking | test | fixed (merged, awaiting run): case Timeline earlier; 2026-10-14 the builder Timeline gets the confirmed step too |
-| R7 | Forms page asks about a defendant's claim after the intake recorded the request for repair money | RN | Forms suggestion from the recorded claim | test | open |
+| R7 | Forms page asks about a defendant's claim after the intake recorded the request for repair money | RN | Forms suggestion from the recorded claim | test | fixed (PR #386, 2026-10-16): Form 10A now leads the Forms tab beside Form 9A, labelled "Optional: your own claim", on any small-claims step whose fees already carry sc-defendants-claim-if; awaiting run |
 | R13 | Guided chat asks "Has anything been filed..." after "i got served the papers" / "i want to sue the city" | FR, SW | familyFiledFromStory / civilFiledFromStory offer the form's own option from the story (served -> application / statement of claim; wants to sue with no paper mentioned -> nothing filed); never from a negation or someone else served | test:story-answers section 5 | fixed (merged in round 3; awaiting run) |
 | R14 | Forms page asks "Was this case started by Notice of Action?" after the confirmed stage "I have not filed anything yet" | SW | The confirmed starting-case stage offers "No" as a suggestion (never kept; never for a defendant or a story naming a notice of action) | test:case-record | fixed (merged in round 3; awaiting run) |
 | R15 | Forms page asks "Which motion document set?" on the motion-to-change step | MC | With no step chosen, the step the case pages show (caseStepFor) answers it as a suggestion; a chosen step keeps it. Run 38511243860 still read it as asked: a suggestion is now shown answered ("Not saved yet", Save this answer, Change), saved only by that click | test:case-record | fixed (merged in round 3; awaiting run) |
 | R16 | Card shows an open "How were the papers served?" select though the story says "in the mail" (pre-selected, never shown as known) | RN | serviceMethodFromStory already reads it; the select is shown regardless in StageAnswerPanel.tsx (other agent's file): show a known method as "From what you told us: Regular mail" with Change | test:service-dates (reader) | by design: the select opens only when the story's way is not allowed for those papers (mail is never offered for a claim); shown as known otherwise (audit 2026-10-14) |
 | R18 | Results ask "From what you told us: ... Yes, that is right" after the intake recorded the same answer ("Nothing filed yet"; "Have you filed a Defence? No") | SW, RN | The person's own side and filing answers (chat, form or the guided questions; never a prefill or the story alone) that settle one stage, when it is the suggested one, record it: "Stage recorded: ... (from your answer: ...)" with Change (stageFromAnswers.ts) | test:case-position section 8, all three courts | fixed (merged in round 3; awaiting run) |
 | R17 | Timeline asks "What kind of step was this?" of "It's been months and he hasn't paid anything." | JU | describesNothingHappening: a dateless sentence saying only that something did not happen is not a candidate | test:case-events | fixed (merged in round 3; awaiting run) |
-| D1 | "Within 6 years of the order" not tied to the May judgment; no order-date question | JU | Order-date cue reads "i won my case ... in may" (quoted, no day filled). The step plaintiff:judgment-in-my-favour-unpaid has `deadlines: []`, so no date question: needs a stage-map deadline counted from `order-made` (rr. 20.06 (1.1), 20.07 (1.1), 20.08 (2.1)) | test:case-position | open (stage-map) |
+| D1 | "Within 6 years of the order" not tied to the May judgment; no order-date question | JU | Order-date cue reads "i won my case ... in may" (quoted, no day filled). The step plaintiff:judgment-in-my-favour-unpaid has `deadlines: []`, so no date question: needs a stage-map deadline counted from `order-made` (rr. 20.06 (1.1), 20.07 (1.1), 20.08 (2.1)) | test:case-position | closed: confirmed 2026-10-16 -- plaintiff:judgment-in-my-favour-unpaid now carries `deadlines: [{ countFromEvent: "order-made", length: 6 years, rule: R_20_08_2_1_GARNISHMENT_LEAVE, ... }]` (same fix that closed R9); full walkthrough run shows the date counted and shown, same text as R9's note |
 
 ## The next step and its card
 
