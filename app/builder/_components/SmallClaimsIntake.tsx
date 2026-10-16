@@ -45,6 +45,8 @@ import {
   type IntakeQuestion,
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
+import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
+import { settledClaimTypeMatch } from "../../../src/lib/case-system/intake/claimTypeMatcher";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -802,6 +804,18 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // "I was served a plaintiff's claim"). Only the untouched default is
       // replaced; anything the user ticked stands.
       const untouchedDefault = input.filedDocuments.length === 0 || (input.filedDocuments.length === 1 && input.filedDocuments[0] === "nothing");
+      // 2026-10-16 live bug: this route never matched a claim type at all, so
+      // the overview's evidence checklist, court points and common defences
+      // (all driven by confirmedClaimTypeId) never appeared for anyone who
+      // filled in the form instead of using the guided chat. Matched here on
+      // "Case story" alone -- the same single field the guided route matches
+      // its opening story against -- via the same settledClaimTypeMatch bar
+      // orchestrateIntakeTurn.ts uses there (claimTypeMatcher.ts). A weaker,
+      // scattered-word candidate is left out rather than auto-applied: this
+      // route has no suggestion card to ask the person about it (CLAUDE.md
+      // §4, suggest never decide).
+      const matched = hasText(input.facts) ? settledClaimTypeMatch(input.facts, CLAIM_TYPES) : null;
+      const matchedClaimTypeId = matched?.claimType.id ?? null;
       const preparedInput: SmallClaimsIntelligenceInput = {
         ...input,
         caseStage: stage,
@@ -812,6 +826,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             : input.filedDocuments.length > 0
               ? input.filedDocuments
               : ["nothing"],
+        ...(matchedClaimTypeId ? { confirmedClaimTypeId: matchedClaimTypeId } : {}),
       };
 
       const response = await requestSmallClaimsAnalysis(
@@ -829,6 +844,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             authenticated: response.authenticated === true,
             completedAt: new Date().toISOString(),
           },
+          // Never user-confirmed on this route -- there is no suggestion card
+          // here, only the automatic exact-phrase match above. Matches
+          // IntelligenceOverviewPanel.tsx's claimTypeUserConfirmed read, which
+          // words the "Kind of claim..." label honestly either way (see the
+          // guided route's same field, app/builder/page.tsx).
+          ...(matchedClaimTypeId ? { claimTypeUserConfirmed: false } : {}),
         },
       };
 

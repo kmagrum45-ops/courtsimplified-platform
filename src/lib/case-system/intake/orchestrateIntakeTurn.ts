@@ -41,7 +41,7 @@
 
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
-import { matchClaimType, type ClaimTypeMatch } from "./claimTypeMatcher";
+import { settledClaimTypeMatch, type ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
@@ -416,7 +416,6 @@ export async function orchestrateIntakeTurn(
     // re-route a user whose opening story matched something else. A claim type
     // must be settled by the user's story, not by a phrase that happens to
     // appear in an answer about what documents they hold.
-    const candidate = isOpeningStory ? matchClaimType(newStoryText, claimTypes) : null;
     // 2026-09-28. A match resting only on scattered content words is not
     // treated as settled. Live run: a customer whose contractor quit halfway
     // ("hired a guy... stopped showing up... hire someone else to finish...
@@ -425,8 +424,9 @@ export async function orchestrateIntakeTurn(
     // as confirmed with no confirmation step, so every downstream card was
     // written for the other side. Such a story now goes to the side-aware AI
     // classifier below, whose answer the user must confirm. A whole-phrase
-    // match is unchanged.
-    const match = candidate && candidate.exactPhraseMatched ? candidate : null;
+    // match is unchanged. (2026-10-16: this bar is now settledClaimTypeMatch,
+    // shared with SmallClaimsIntake.tsx's form route -- see claimTypeMatcher.ts.)
+    const match = isOpeningStory ? settledClaimTypeMatch(newStoryText, claimTypes) : null;
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       evidenceGuidance = buildEvidenceCategoryGuidance(match.claimType);
