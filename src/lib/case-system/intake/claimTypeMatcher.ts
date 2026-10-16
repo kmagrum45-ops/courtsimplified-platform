@@ -176,3 +176,21 @@ export function matchClaimType(
     exactPhraseMatched: ranked[0].exactPhrases > 0,
   };
 }
+
+/**
+ * The "settled" bar every caller that auto-applies a match without asking
+ * the person uses: an exact-phrase hit, never a scattered-words-only
+ * candidate (see ClaimTypeMatch.exactPhraseMatched). Extracted 2026-10-16 so
+ * every auto-apply site shares the one bar rather than re-deriving it --
+ * orchestrateIntakeTurn.ts's guided-chat opening story and
+ * SmallClaimsIntake.tsx's "Case story" field both call this, not
+ * matchClaimType() directly, when the plan is to apply the result without a
+ * confirmation step.
+ */
+export function settledClaimTypeMatch(
+  storyText: string,
+  claimTypes: readonly ClaimType[],
+): ClaimTypeMatch | null {
+  const candidate = matchClaimType(storyText, claimTypes);
+  return candidate && candidate.exactPhraseMatched ? candidate : null;
+}

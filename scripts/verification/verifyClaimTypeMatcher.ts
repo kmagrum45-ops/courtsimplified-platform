@@ -28,7 +28,7 @@
 import { pathToFileURL } from "node:url";
 
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
-import { matchClaimType } from "../../src/lib/case-system/intake/claimTypeMatcher";
+import { matchClaimType, settledClaimTypeMatch } from "../../src/lib/case-system/intake/claimTypeMatcher";
 import { buildClaimTypeOverviewContent } from "../../src/lib/case-system/intake/claimTypeOverviewContent";
 
 /** Plainly-worded stories, one per claim type, written the way a person writes. */
@@ -148,6 +148,24 @@ function main(): void {
     "a deposit-taker's story is never matched to the defendant's own-claim type on a single leftover word",
     depositMatch?.claimType.id !== "sc-defence-sued-for-something-you-did-not-do",
     JSON.stringify(depositMatch && { id: depositMatch.claimType.id, matchedSignals: depositMatch.matchedSignals }),
+  );
+
+  // 2026-10-16: settledClaimTypeMatch is the shared "safe to auto-apply
+  // without asking" bar every caller that does so must use (SmallClaimsIntake
+  // .tsx's form route, orchestrateIntakeTurn.ts's guided opening story). It
+  // must reject exactly the same scattered-word customer story the "never
+  // settled" check above rejects, and still accept a genuine exact-phrase
+  // story.
+  check(
+    "settledClaimTypeMatch rejects the same scattered-word customer story matchClaimType flags",
+    settledClaimTypeMatch(customerStory, CLAIM_TYPES) === null,
+  );
+  check(
+    "settledClaimTypeMatch accepts a genuine exact-phrase story",
+    settledClaimTypeMatch(
+      "I was bitten by a dog while out for a walk and needed stitches at the hospital.",
+      CLAIM_TYPES,
+    )?.claimType.id === "sc-claim-dog-bite-animal-injury",
   );
 
   const missingSide = CLAIM_TYPES.filter((claimType) => !claimType.broughtBy || !claimType.broughtBy.trim());
