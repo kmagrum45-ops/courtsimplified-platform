@@ -8,6 +8,22 @@
  * visit, and the home gate offered it as "Saved case on this device". That was
  * a feature, which is why each leak fix left it standing.
  *
+ * 2026-10-16: the same family of bug came back through a DIFFERENT door. Two
+ * stale-case recovery effects were added 2026-10-15 to solve an unrelated
+ * problem (a tab that reloads mid-intake losing its place), by reading the
+ * last caseId this tab saved and -- if the court path matched -- jumping to
+ * it. They had no way to tell "this tab lost its place" from "this is an
+ * intentional new case of the same court type", so starting a brand new case
+ * right after an earlier one silently landed on the earlier one, with its
+ * story. Found live, by the site owner's own hands-on test, because this
+ * suite's checks name specific effects by pattern and neither new recovery
+ * effect existed yet when they were written -- a new door into old territory
+ * this suite was never widened to watch. Check 7 below closes that door by
+ * property, not by naming the two known effects: ANY code that reads
+ * BUILDER_LAST_CASE_KEY to redirect must first check freshStoryHandoffRef, so
+ * a third such effect added later is caught here too, not just the two that
+ * exist today.
+ *
  * The rule now: saved work is opened from the workspace (it comes from the
  * account); the browser is only a read-once hand-off between two pages. This
  * suite asserts the PROPERTIES that keep that true:
@@ -148,6 +164,42 @@ check(
 );
 const newCase = builder.match(/setChatSessionId\(createChatSessionId\(courtPath\)\);[\s\S]{0,200}?router\.replace\(`\/builder\?path=/);
 check("starting a new case clears the story", Boolean(newCase && /setHomeStory\(""\)/.test(newCase[0])));
+
+// 7. (2026-10-16) ANY code that reads BUILDER_LAST_CASE_KEY to redirect this
+//    tab into an old case must first rule out that a fresh story hand-off
+//    just landed on this mount. Checked by property -- every occurrence of
+//    the read, not just the two effects known to exist today -- so a third
+//    one added later and left unguarded fails here instead of shipping.
+const lastCaseReads: number[] = [];
+{
+  const needle = "sessionStorage.getItem(BUILDER_LAST_CASE_KEY)";
+  let from = 0;
+  for (;;) {
+    const at = builder.indexOf(needle, from);
+    if (at === -1) break;
+    lastCaseReads.push(at);
+    from = at + needle.length;
+  }
+}
+check("there are stale-case recovery reads to guard (sanity)", lastCaseReads.length >= 2, String(lastCaseReads.length));
+const unguarded = lastCaseReads.filter((at) => {
+  const windowStart = Math.max(0, at - 1500);
+  const before = builder.slice(windowStart, at);
+  // The guard must be the LAST relevant statement before the read, inside
+  // this same effect -- not merely present somewhere upstream in the file.
+  const lastEffectStart = before.lastIndexOf("useEffect(() => {");
+  const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
+  return !/freshStoryHandoffRef\.current\)\s*return;/.test(scoped);
+});
+check(
+  "every stale-case recovery effect checks freshStoryHandoffRef before redirecting",
+  unguarded.length === 0,
+  `${unguarded.length} of ${lastCaseReads.length} unguarded`,
+);
+check(
+  "a fresh story hand-off (either source) marks freshStoryHandoffRef so the guard above has something to check",
+  (builder.match(/freshStoryHandoffRef\.current\s*=\s*true;/g) ?? []).length >= 2,
+);
 
 console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");
 if (failures) process.exitCode = 1;
