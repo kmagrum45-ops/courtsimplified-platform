@@ -108,7 +108,7 @@ name; when that is not plain, no route is offered and the side question is asked
 |---|---|---|---|---|---|
 | V1 | Two question systems at once (family triage beside the guided chat; child-support builder) | FR, MC | Triage questions come after the guided chat, not beside it | run | open |
 | V2 | Guided chat ends "That's everything we need" without the service date / move details | FR | For a respondent, the service date is asked (it starts their deadline); "why" says so | test | open |
-| V3 | Questions without a "why" (claim-type page: dates); two questions in one | RN | Claim-type page: one question at a time, each with why | run | open |
+| V3 | Questions without a "why" (claim-type page: dates); two questions in one | RN | Claim-type page: one question at a time, each with why | run | closed: confirmed 2026-10-16 -- `verifyIntakeSequencing.ts` is this fix, labeled "V3" in its own header: while the claim-type suggestion waits, the question that arrived with it is held back (one at a time), and every opening question states why it is asked. All of its checks pass (`test:intake-sequencing`) |
 | V4 | "How do I get it lowered?" never answered plainly | MC | Atop the results: "To change a final order, you bring a motion to change (Form 15)." with r. 15 (5) and (2) quoted (same as C13); where, fee and service stay with the step card | test:story-answers section 6 + run | fixed (merged in round 3; awaiting run) |
 | V5 | Urgency not raised by the site when the facts show it (passed notice) | SW | Same as C4 | run | open |
 
