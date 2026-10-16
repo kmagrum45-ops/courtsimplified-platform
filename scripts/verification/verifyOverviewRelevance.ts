@@ -100,6 +100,25 @@ function main(): void {
   const longest = [...DEFENCE_CONCEPTS].sort((a, b) => b.plainExplanation.length - a.plainExplanation.length)[0];
   check("the longest defence text is shortened to a lead", splitLead(longest.plainExplanation).rest.length > 0);
 
+  // ---- splitLead never stops on a legal-citation abbreviation ----
+  // Found live 2026-10-16: a defence with no sentence boundary before the
+  // 260-char target truncated to "Under s." because "s." reads as a sentence
+  // end. Property, not a pinned value: a lead that gets split (rest is
+  // non-empty) must be long enough to be a real sentence, for every defence
+  // AND for a citation-shaped sample built to provoke exactly this failure.
+  const citationSample =
+    "Under s. 4(1) of the Occupiers' Liability Act, an occupier owes a duty to see that people are reasonably safe. " +
+    "Repeating padding so the text passes the character threshold for splitting into a lead and a rest. ".repeat(3);
+  const allSplitSamples = [...DEFENCE_CONCEPTS.map((c) => c.plainExplanation), citationSample];
+  const abbreviationStubs = allSplitSamples
+    .map((text) => splitLead(text))
+    .filter(({ lead, rest }) => rest.length > 0 && lead.trim().length < 20);
+  check(
+    "no defence lead is truncated down to a bare abbreviation (e.g. 'Under s.')",
+    abbreviationStubs.length === 0,
+    abbreviationStubs.map((s) => s.lead).join(" | "),
+  );
+
   // ---- starting steps name real rules ----
   const rules = readFileSync(
     path.join(process.cwd(), "docs", "sources", "corpus", "oreg-258-98-small-claims-rules.txt"),
