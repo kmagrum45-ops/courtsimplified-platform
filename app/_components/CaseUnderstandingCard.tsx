@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
+import { betterDestinationKnown } from "@/src/lib/case-system/understanding/betterDestination";
 import { storyHintsForDates } from "@/src/lib/case-system/casePosition";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import CheckedAnswerPanel from "./CheckedAnswerPanel";
@@ -87,6 +88,9 @@ export default function CaseUnderstandingCard({
     .filter((item) => item.answer);
   const suggested = asPath(understanding.mainCourt);
   const tribunal = understanding.matters.find((matter) => matter.court === "tribunal");
+  // 2026-10-17 live bug (Case 1, a landlord-held deposit): see
+  // betterDestinationKnown's own comment in betterDestination.ts.
+  const betterDestination = betterDestinationKnown(understanding.mainCourt, chosenPath, suggested ? isPathwayAvailable(suggested) : null);
 
   return (
     <div
@@ -240,7 +244,7 @@ export default function CaseUnderstandingCard({
               data-testid="case-understanding-continue-chosen"
               onClick={() => onContinue(chosenPath, answered)}
               className={
-                suggested && isPathwayAvailable(suggested)
+                betterDestination
                   ? "rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
                   : "rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
               }

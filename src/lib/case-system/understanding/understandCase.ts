@@ -309,6 +309,10 @@ export function validStep(id: string, court: UnderstoodCourt): string | null {
   return id;
 }
 
+// Lives in its own runtime-import-free file so the client card can import it
+// without pulling this module's node:fs graph into the browser bundle.
+export { betterDestinationKnown } from "./betterDestination";
+
 /**
  * A court fixed by law wins over the reading (CLAUDE.md s. 2a). A construction
  * lien is a Superior Court action with its own procedure: the court becomes
