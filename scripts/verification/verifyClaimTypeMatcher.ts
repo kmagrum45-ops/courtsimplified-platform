@@ -135,6 +135,21 @@ function main(): void {
     buildClaimTypeOverviewContent(customerStory, CLAIM_TYPES, null) === null,
   );
 
+  // 2026-10-16 live bug: a deposit-taker's claim must never be scored as the
+  // DEFENDANT'S "being sued for something you did not do" claim type. That
+  // claim type's signals "i never did that" and "i was never there" reduce,
+  // once IGNORED_WORDS strips "i", "did", "that", "was", "there", to the
+  // single leftover word "never" -- which also appears in "...never did the
+  // work...", on the plaintiff's side, for an unrelated reason. One incidental
+  // shared word is not "all the content words of a phrase" and must not score.
+  const depositStory = "A contractor took a $3,000 deposit and never did the work, in August 2026.";
+  const depositMatch = matchClaimType(depositStory, CLAIM_TYPES);
+  check(
+    "a deposit-taker's story is never matched to the defendant's own-claim type on a single leftover word",
+    depositMatch?.claimType.id !== "sc-defence-sued-for-something-you-did-not-do",
+    JSON.stringify(depositMatch && { id: depositMatch.claimType.id, matchedSignals: depositMatch.matchedSignals }),
+  );
+
   const missingSide = CLAIM_TYPES.filter((claimType) => !claimType.broughtBy || !claimType.broughtBy.trim());
   check(
     "every claim type says which side brings it",
