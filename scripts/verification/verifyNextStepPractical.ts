@@ -586,12 +586,27 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
   const scPins = (words: string) => (practicalFor("plaintiff:claim-drafted-not-filed", "small-claims", "Brampton", false, words)?.serving ?? []).map((line) => line.cite.pinpoint);
   check("Small Claims: serving a municipality is r. 8.02 (b), shown for a claim against one, not for a neighbour", scPins("i am suing the town for my flooded basement").includes("r. 8.02 (b)") && !scPins("my neighbour owes me money").includes("r. 8.02 (b)") && scPins("").includes("r. 8.02 (b)"));
 
-  // C1: the notice step says what the notice must contain and who gets it,
-  // from the section itself, and names no address (no saved source gives one).
+  // C1 (closed 2026-10-16): the notice step says what the notice must
+  // contain and who gets it, from the section itself, plus (now that
+  // toronto.ca's own "How to File a Claim" page is vendored as a
+  // human-snapshot source, docs/SOURCING_NOTES.md) the City Hall address it
+  // accepts mail at. Every Toronto notice line must cite one of the two
+  // sources that actually say this -- the statute or the City's own page --
+  // never a source that has nothing to do with Toronto notice, and an
+  // address-shaped line must cite a source whose OWN quote contains an
+  // address: the property that stops one being stated from memory, not a
+  // count of how many lines there are.
+  const TORONTO_NOTICE_SOURCES = new Set(["city-of-toronto-act-2006", "toronto-how-to-file-a-claim"]);
   const notice = practicalFor("civil:before-filing:notice-required-before-suing", "civil", "Toronto", false, STORIES[1]);
-  check("a Toronto fall is told how to give the notice, from s. 42 (6)", Boolean(notice?.noticeHow.length) && notice!.noticeHow.every((line) => line.cite.sourceId === "city-of-toronto-act-2006"));
-  const address = MORE_CARD_LINES.filter((line) => /\b\d{1,5}\s+[A-Z][a-z]+\s+(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Boulevard|Blvd\.?)\b|\bM\d[A-Z]\s?\d[A-Z]\d\b/.test(line.say));
-  check("no notice line states a clerk's address", address.length === 0, address.map((line) => line.say).join(" | "));
+  check("a Toronto fall is told how to give the notice, from s. 42 (6) and the City's own page", Boolean(notice?.noticeHow.length) && notice!.noticeHow.every((line) => TORONTO_NOTICE_SOURCES.has(line.cite.sourceId)));
+  const ADDRESS_SHAPE = /\b\d{1,5}\s+[A-Z][a-z]+\s+(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Boulevard|Blvd\.?|Queen\s+St)\b|\bM\d[A-Z]\s?\d[A-Z]\d\b/;
+  const addressLines = MORE_CARD_LINES.filter((line) => ADDRESS_SHAPE.test(line.say));
+  const unsourcedAddress = addressLines.filter((line) => !ADDRESS_SHAPE.test(line.cite.quote));
+  check(
+    "every address-shaped notice line cites a source whose own quote states an address",
+    unsourcedAddress.length === 0,
+    unsourcedAddress.map((line) => line.say).join(" | "),
+  );
   check("every notice rule a step can show has its how-to lines", ["city-of-toronto-act-2006", "municipal-act-2001", "occupiers-liability-act"].every((id) => MORE_CARD_LINES.some((line) => line.cite.sourceId === id)));
 
   // C4: a bar's own "is not a bar" exceptions are what the card shows once it has passed.
