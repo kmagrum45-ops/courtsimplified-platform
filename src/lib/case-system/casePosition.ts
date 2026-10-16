@@ -476,6 +476,16 @@ export type StoryHint = {
   value: string | null;
   /** True when the story gave a month and day but no year, and the most recent such date was assumed. */
   yearAssumed?: boolean;
+  /**
+   * False when the quoted sentence names the moment but contains no date at
+   * all ("He never paid anything") -- distinct from a date missing its year.
+   * 2026-10-17 live bug: StageAnswerPanel's only "no value" message reads
+   * "Pick that date above, with its year", which is wrong and confusing for
+   * a quote with no date in it whatsoever; this lets that caller tell the
+   * two situations apart. Absent (not false) only means no sentence was
+   * quoted at all, which callers already handle.
+   */
+  mentionsDate?: boolean;
 };
 
 const MONTH_DAY = new RegExp(`\\b(${MONTH}) (\\d{1,2})(?:st|nd|rd|th)?\\b|\\b(\\d{1,2})(?:st|nd|rd|th)? (${MONTH})\\b`, "i");
@@ -727,6 +737,7 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
       quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence,
       value: value ?? assumed,
       ...(assumed ? { yearAssumed: true } : {}),
+      ...(value ?? assumed ? {} : { mentionsDate: MENTIONS_DATE.test(sentence) }),
     };
   }
   // "This happened January 13 2025" in its own sentence, after the sentence
