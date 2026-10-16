@@ -209,6 +209,25 @@ for (const file of ["app/builder/_components/IntelligenceOverviewPanel.tsx", "ap
     (deposit["case-date-act-or-omission"]?.quote ?? "").includes("never did the work"),
     JSON.stringify(deposit["case-date-act-or-omission"]),
   );
+  // 2026-10-17 live bug: "He never paid anything" was quoted as a date hint
+  // (the cue matched, no date was nearby, and the no-date fallback quotes
+  // whichever cue-matching sentence it finds regardless of whether it has a
+  // date at all) and the UI's only message for a valueless hint said "Pick
+  // that date above, with its year" -- flatly wrong for a sentence with no
+  // date in it whatsoever. mentionsDate must say so, so the UI can tell the
+  // two situations apart instead of always claiming a date is in the quote.
+  const oldLoan = storyHintsForDates("I lent Mike $5,000 due December 31, 2023. He never paid anything.", now);
+  check(
+    "a dateless cue-matching sentence is marked as not giving a date",
+    oldLoan["case-date-act-or-omission"]?.quote === "He never paid anything." &&
+      oldLoan["case-date-act-or-omission"]?.mentionsDate === false,
+    JSON.stringify(oldLoan["case-date-act-or-omission"]),
+  );
+  check(
+    "a sentence that DOES give a date is never marked as not giving one",
+    bite["sc-date-injury"]?.mentionsDate === undefined,
+    JSON.stringify(bite["sc-date-injury"]),
+  );
   check("a written date fills the timeline's date box", dateInSentence("Now the trial is on January 14 2027.")?.iso === "2027-01-14");
   check("a date without a year fills only the words", dateInSentence("The papers came on December 3.")?.iso === null);
 }
