@@ -1,0 +1,6 @@
+▲ Next.js 16.2.4
+- Local:         http://localhost:3100
+- Network:       http://10.1.0.25:3100
+✓ Ready in 111ms
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+[groundedCognition] 16 unverified statement(s) removed: element.missingFacts (presented as a fact but states law or procedure); claim.explanation (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); missing.reason (no source cited); missing.reason (presented as a fact but states law or procedure); link.requiredProof (no source cited); link.explanation (presented as a fact but states law or procedure); link.requiredProof (no source cited); risk (states a period (1-month) its cited source does not); form (forms come from the stage map); form (forms come from the stage map); nextBestActions (no source cited); nextBestActions (states a step, form or deadline; those come from the stage map)

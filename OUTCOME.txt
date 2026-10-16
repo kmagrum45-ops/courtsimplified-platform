@@ -1,0 +1,2 @@
+walk outcomes:       4 failure
+walk outcomes:       1 success
