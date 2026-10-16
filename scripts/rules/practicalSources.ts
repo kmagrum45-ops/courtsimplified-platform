@@ -355,8 +355,9 @@ export const PRACTICAL_SOURCES: CorpusSource[] = [
   },
   // 2026-10-16 (C1 follow-up, docs/walkthrough/FIX_LEDGER.md): this sandbox's
   // network allowlist cannot reach toronto.ca at all (confirmed by a direct
-  // curl test -- connect_rejected/403), so this is a human-snapshot, saved by
-  // the site owner from a browser and read from disk. See
+  // connectivity test through the agent proxy -- connect_rejected/403), so
+  // this is a human-snapshot, saved by the site owner from a browser and
+  // read from disk. See
   // docs/SOURCING_NOTES.md, "C1 follow-up" entries, for the two earlier
   // environmental blockers this replaces (no network access; WebFetch returns
   // AI-paraphrased text, not verbatim, so it cannot feed a byte-exact quote
@@ -374,8 +375,8 @@ export const PRACTICAL_SOURCES: CorpusSource[] = [
       savedAt: "2026-10-16",
       savedBy: "Jason Magrum",
       becauseUnfetchable:
-        "toronto.ca is not on this session's network allowlist -- curl through " +
-        "the agent proxy returns connect_rejected / HTTP 403.",
+        "toronto.ca is not on this session's network allowlist -- a direct " +
+        "request through the agent proxy returns connect_rejected / HTTP 403.",
     },
     mustContain: ["Claims", "City Hall", "100 Queen St", "M5H 2N2"],
     why:
