@@ -380,6 +380,20 @@ function BuilderPageContent() {
    */
   const [hydrated, setHydrated] = useState(false);
   /*
+   * Set the moment this mount loads a fresh story hand-off -- either the
+   * court-path finder's COURT_PATH_FINDER_KEY or the home page's
+   * GUEST_INTAKE_SESSION_STORAGE_KEY (both below) -- so the stale-case
+   * recovery effect (search caseIdRecoveryDecidedRef) knows not to clobber it.
+   * Found 2026-10-16 from the site owner's own live test: starting a brand
+   * new Small Claims case, right after finishing an earlier one, landed on
+   * the OLD case with its OLD story, because that recovery effect reads
+   * BUILDER_LAST_CASE_KEY and injects its caseId into the URL whenever the
+   * court path matches -- with no way to tell "this tab lost its place and
+   * should resume" from "this is an intentional new case of the same type".
+   * A hand-off that just set a fresh story IS that distinction.
+   */
+  const freshStoryHandoffRef = useRef(false);
+  /*
    * EACH BUILDER STEP IS A BACK STOP (2026-10-06).
    *
    * The mode chooser, the intake and the results were all React state on one
@@ -517,6 +531,7 @@ function BuilderPageContent() {
         try {
           const guide = JSON.parse(temporaryGuide) as { province?: string; city?: string; facts?: string };
           if (guide.province === "Ontario" && guide.city?.trim() && guide.facts?.trim()) {
+            freshStoryHandoffRef.current = true;
             setConfirmedLocation({ province: "Ontario", city: guide.city.trim() });
             setHomeStory(guide.facts.trim());
             return;
@@ -536,6 +551,7 @@ function BuilderPageContent() {
       if (!active) return;
       const draft = consumeGuestIntakeSession(sessionStorage);
       if (initialPath && draft?.courtPath === courtPath && draft.province === "Ontario" && draft.city.trim() && draft.facts.trim()) {
+        freshStoryHandoffRef.current = true;
         setConfirmedLocation({ province: "Ontario", city: draft.city.trim() });
         setHomeStory(draft.facts.trim());
         return;
@@ -1387,6 +1403,12 @@ function BuilderPageContent() {
     if (stepParam !== "guided" && stepParam !== "form") return;
     if (caseIdRecoveryDecidedRef.current) return;
     caseIdRecoveryDecidedRef.current = true;
+    // A fresh story hand-off just landed on this mount (the home page or the
+    // court-path finder) -- that is an intentional new case, not a tab that
+    // lost its place, so it must never be overwritten with an old one of the
+    // same court type. See freshStoryHandoffRef above for the live-test bug
+    // this guards against (2026-10-16).
+    if (freshStoryHandoffRef.current) return;
     let last: { caseId?: string; courtPath?: string } | null = null;
     try {
       last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");

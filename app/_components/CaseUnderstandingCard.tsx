@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
+import { storyHintsForDates } from "@/src/lib/case-system/casePosition";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import CheckedAnswerPanel from "./CheckedAnswerPanel";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
@@ -68,6 +69,19 @@ export default function CaseUnderstandingCard({
 }) {
   const { understanding, answer } = result;
   const [replies, setReplies] = useState<Record<number, string>>({});
+  /*
+   * Each "Update with my answers" round replaces `result` with a fresh read
+   * (a new set of questions, in a new order, often a different length). Without
+   * this, `replies` -- keyed by array position -- kept last round's text and
+   * it silently reappeared under whatever new question now sat at that same
+   * index: a user's answer to "what extra care did the dog need" showed up
+   * under an unrelated later question. Found 2026-10-16 from the site owner's
+   * own live test. Clearing on every new `result` keeps each box starting
+   * blank for its own question, every round.
+   */
+  useEffect(() => {
+    setReplies({});
+  }, [result]);
   const answered = understanding.questions
     .map((item, index) => ({ question: item.question, answer: (replies[index] ?? "").trim() }))
     .filter((item) => item.answer);
@@ -160,6 +174,7 @@ export default function CaseUnderstandingCard({
             suggestedStepId={understanding.step}
             responding={understanding.side === "responding"}
             storyText={story}
+            storyHints={storyHintsForDates(story)}
             userWords={story}
             city={city}
           />
