@@ -2231,7 +2231,7 @@ export const MORE_CARD_LINES: PlainLine[] = [
 // ---------------------------------------------------------------- what the card shows
 
 /** A form that leads the case's forms catalogue, with what to call it there. */
-export type LeadForm = { number: string; label: "For your step" | "After the notice" };
+export type LeadForm = { number: string; label: "For your step" | "After the notice" | "Optional: your own claim" };
 
 export type PracticalView = {
   /** `note`: the condition a rule sets for this form, shown beside it (Form 13 on a responding step). */
@@ -2699,6 +2699,20 @@ export function practicalFor(
       ...allForms.filter((form) => !folded(form) && form.court === court).map((form) => ({ number: form.number, label: "For your step" as const })),
       ...(court !== "family" && claimAfterNotice(stepId, court, story, city).length > 0
         ? [{ number: CLAIM_AFTER_NOTICE[court].form, label: "After the notice" as const }]
+        : []),
+      /*
+       * Form 10A beside Form 9A (walkthrough 2026-10-15, RN: a defendant who
+       * explicitly asked to recover repair costs still saw only Form 9A on
+       * the Forms tab, with Form 10A buried in the full catalogue pending
+       * another confirmation). The step's own fee list already anticipates
+       * this -- "sc-defendants-claim-if" ("Only if you also make a
+       * defendant's claim (Form 10A)") exists for exactly these steps -- so
+       * surfacing the form wherever that fee already does, labelled
+       * optional, ties it to a decision already recorded in the step map
+       * rather than reading the person's own words.
+       */
+      ...(court === "small-claims" && step.fees.includes("sc-defendants-claim-if")
+        ? [{ number: "10A", label: "Optional: your own claim" as const }]
         : []),
     ],
     fees: foldFees ? [] : fees,
