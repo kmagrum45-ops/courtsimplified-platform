@@ -301,6 +301,23 @@ check("the form reopens with their story, not the labelled record", stored.facts
 check("the confirmed stage wins over the intake's", stored.caseStage === "responding");
 check("nothing entered, nothing filled", Object.keys(storedIntakeValues({})).length === 0);
 
+// 2026-10-16 live bug: a claim type the guided route already confirmed
+// never carried into the form route at all -- storedIntakeValues' own
+// allow-list simply never listed it, so a saved case with one showed "kind
+// of claim not clear yet" when reopened.
+const withClaimType = storedIntakeValues({
+  intakeData: {
+    courtPath: "small-claims",
+    facts: "A contractor took a $3,000 deposit and never did the work.",
+    extra: { confirmedClaimTypeId: "sc-claim-breach-of-contract-services" },
+  },
+});
+check(
+  "the form reopens with the claim type the guided route already confirmed",
+  withClaimType.confirmedClaimTypeId === "sc-claim-breach-of-contract-services",
+  JSON.stringify(withClaimType.confirmedClaimTypeId),
+);
+
 // ---- the pages read the record ------------------------------------------------
 const root = path.resolve(__dirname, "../..");
 const read = (file: string) => readFileSync(path.join(root, file), "utf8");
