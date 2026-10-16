@@ -601,11 +601,22 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       ...(storedValues ?? {}),
       ...(initialPrefill ? directPrefillValues(initialPrefill) : {}),
     };
-    return mergeStoredValuesIntoInput(
+    const merged = mergeStoredValuesIntoInput(
       { ...defaultInput, yourProvince: location.province, yourCity: location.city },
       values,
       initialStory,
     );
+    // 2026-10-16 live bug: "Case stage" showed "Not sure" even when the
+    // story plainly describes a dispute that hasn't gone to court yet --
+    // inferStage() already works this out correctly, but was only ever
+    // consulted at submission time (handleAnalyze below), never fed back
+    // into what the select actually shows while the person is filling in
+    // the form. Applying it here is a pre-filled SUGGESTION, same as any
+    // other prefilled field: the select stays editable, and nothing here
+    // is stored until the person submits or saves.
+    return merged.caseStage === "not-sure" && hasText(merged.facts)
+      ? { ...merged, caseStage: inferStage(merged) }
+      : merged;
   });
 
   /*
