@@ -37,6 +37,7 @@ import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventReque
 import {
   consumeNarrativePrefill,
   directPrefillValues,
+  extractNarrativePrefill,
   type NarrativePrefillFact,
   type NarrativePrefill,
 } from "../../../src/lib/case-system/intelligence/narrativePrefill";
@@ -660,6 +661,59 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     if (inferredIssues.includes("work-or-services")) return "work-or-services";
     return undefined;
   }, [inferredIssues]);
+  // 2026-10-16 live bug: typing a story directly into THIS form's "Case
+  // story" box never extracted anything from it. extractNarrativePrefill
+  // only ran for the AI chat partner's first message (CourtAssistantChat
+  // .tsx), handed off through sessionStorage and consumed once at mount
+  // (initialPrefill above) -- a one-shot hand-off from chat to form, not a
+  // live extractor on the form's own story box. Someone who picked "fill in
+  // the form yourself" and typed their story here directly had to re-type
+  // the amount and dates they'd already written, even though the same
+  // regex extraction that works for the chat path works just as well on
+  // this text.
+  //
+  // Run once the person finishes editing the story (closes the toggle), not
+  // on every keystroke. Limited to plain-string fields with no name/type
+  // mismatch against NarrativePrefillFact.field (documentStatus ->
+  // filedDocuments, addressDetails -> yourAddress, and the role/caseStage
+  // facts are deliberately left out of this pass -- they need the same
+  // array/union-safe handling mergeStoredValuesIntoInput already has, and
+  // widening this fix to use that function would let a fresh extraction
+  // silently overwrite something the person already typed by hand, since
+  // mergeStoredValuesIntoInput's own `values.x || base.x` always prefers
+  // the new value). Only fills a field that is still blank.
+  const EXTRACTABLE_STORY_FIELDS = new Set([
+    "amountClaimed",
+    "timeline",
+    "evidence",
+    "settlementEfforts",
+    "yourEmail",
+    "goal",
+    "otherParty",
+    "yourName",
+  ]);
+  function extractFromStory() {
+    if (!input.facts.trim()) return;
+    const prefill = extractNarrativePrefill({ narrative: input.facts, courtPath: "small-claims" });
+    const direct = prefill.facts.filter(
+      (fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field),
+    );
+    if (direct.length === 0) return;
+    setExtractedFacts((current) => [
+      ...current.filter((fact) => !direct.some((found) => found.field === fact.field)),
+      ...direct,
+    ]);
+    setInput((current) => {
+      const next = { ...current } as Record<string, unknown>;
+      for (const fact of direct) {
+        const existing = next[fact.field];
+        if (typeof existing === "string" && existing.trim()) continue;
+        next[fact.field] = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
+      }
+      return next as SmallClaimsIntelligenceInput;
+    });
+  }
+
   function updateField<K extends keyof SmallClaimsIntelligenceInput>(
     field: K,
     value: SmallClaimsIntelligenceInput[K],
@@ -1021,7 +1075,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
         </div>
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" data-testid="sc-intake-edit-story" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" data-testid="sc-intake-facts" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" data-testid="sc-intake-edit-story" onClick={() => { if (editingStory) extractFromStory(); setEditingStory((current) => !current); }} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" data-testid="sc-intake-facts" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
