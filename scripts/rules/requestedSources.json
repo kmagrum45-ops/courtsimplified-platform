@@ -610,5 +610,29 @@
       "Copyright Act"
     ],
     "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "fault-determination-rules",
+    "title": "Fault Determination Rules",
+    "citation": "R.R.O. 1990, Reg. 668",
+    "url": "https://www.ontario.ca/laws/docs/900668_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "FAULT DETERMINATION RULES",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Fault Determination Rules, R.R.O. 1990, Reg. 668, s. 16\")."
+  },
+  {
+    "id": "statutory-conditions",
+    "title": "Statutory Conditions",
+    "citation": "O. Reg. 777/93",
+    "url": "https://www.ontario.ca/laws/docs/930777_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "STATUTORY CONDITIONS",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Statutory Conditions — Automobile Insurance, O. Reg. 777/93\")."
   }
 ]

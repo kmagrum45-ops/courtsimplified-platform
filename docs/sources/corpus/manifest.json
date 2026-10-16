@@ -3695,6 +3695,30 @@
       "characters": 11802,
       "lines": 246,
       "file": "toronto-how-to-file-a-claim.txt"
+    },
+    {
+      "id": "fault-determination-rules",
+      "title": "Fault Determination Rules",
+      "citation": "R.R.O. 1990, Reg. 668",
+      "url": "https://www.ontario.ca/laws/docs/900668_e.doc",
+      "retrievedAt": "2026-10-16T21:46:42.166Z",
+      "sha256": "0621388790735d5e63492ddfdf47ff9caa1c3766ff80b2d7e5d0dbbef5960b32",
+      "consolidation": "CONSOLIDATION PERIOD: FROM OCTOBER 17, 2018 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 31603,
+      "lines": 574,
+      "file": "fault-determination-rules.txt"
+    },
+    {
+      "id": "statutory-conditions",
+      "title": "Statutory Conditions",
+      "citation": "O. Reg. 777/93",
+      "url": "https://www.ontario.ca/laws/docs/930777_e.doc",
+      "retrievedAt": "2026-10-16T21:46:47.939Z",
+      "sha256": "1c8ca0aec9c436a16339bf9781b9d583e7a7a93b96c92fcbd73d17908706ff28",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 1, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 23209,
+      "lines": 412,
+      "file": "statutory-conditions.txt"
     }
   ],
   "failures": []
