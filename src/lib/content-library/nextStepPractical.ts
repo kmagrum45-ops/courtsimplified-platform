@@ -26,7 +26,7 @@
  */
 
 import type { RuleCitation } from "../case-system/stage-map/citations";
-import { R_15_01_MOTION_FORM, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
+import { R_15_01_MOTION_FORM, R_6_01_PLACE, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
 import { COURT_LOCATIONS, COURT_LOCATIONS_RETRIEVED_AT, OCJ_COURTHOUSES, OCJ_SOURCE } from "./courts/courtLocations";
 import { addDays, dayOfWeek, formatLongDate, holidayFor } from "../case-system/deadlines/holidays";
 import { COURT_SERVICE_NOTICES } from "../case-system/deadlines/courtServiceNotices";
@@ -1937,15 +1937,36 @@ export function familyCourtOfficesFor(stepId: string, city: string): CourtOffice
  * the family lookup, there is no OCJ branch here -- only Superior Court of
  * Justice locations, filtered to the matching service.
  *
- * No "where your case is heard" rule line (the family lookup's
- * FAMILY_SAME_PLACE / FAMILY_CHANGE_PLACE) is included yet: Small Claims
- * Rule 6.01 (1) is a clean, directly quotable provision for this, but the
- * Rules of Civil Procedure's matching rule (r. 13.1.01 (2), "a county with
- * which there is a rational connection") leans on a list of factors in a
- * different rule and is not yet sourced and verified here. Shipping the
- * courthouse address now, which is independently verified data, rather than
- * waiting on that separate sourcing task.
+ * 2026-10-16 live bug: one case got the "where your case is heard" caution
+ * (as separate, AI-grounded commentary tied to a specific before-filing
+ * stage) and an otherwise-identical case -- same facts shape, only the
+ * claim type differed -- did not, and went straight to this function's own
+ * office list as if venue were already settled. That caution belongs here,
+ * not upstream of it: it is this function the office list actually comes
+ * from, on every route and whatever stage got resolved, so it is the one
+ * place that can make the caution appear in every case rather than
+ * whichever ones happen to pass through that other stage's own commentary.
+ * SMALL_CLAIMS_PLACE below is this function's own static "where your case
+ * is heard" line, carried on `place` the same way FAMILY_SAME_PLACE /
+ * FAMILY_CHANGE_PLACE already is for family above -- a Small Claims
+ * equivalent now exists (Rule 6.01 (1) is a clean, directly quotable
+ * provision for this). Civil's own matching rule (r. 13.1.01 (2), "a county
+ * with which there is a rational connection") still leans on a list of
+ * factors in a different rule and is not yet sourced and verified here, so
+ * civil cases still get only the courthouse address, not this caution.
  */
+
+/**
+ * Small Claims' "where your case is heard" caution (r. 6.01 (1)): the
+ * person's own city settles nothing by itself -- venue is the territorial
+ * division the cause of action arose in, or where a defendant lives or does
+ * business. Plain-language companion to R_6_01_PLACE's verbatim quote, same
+ * shape as FAMILY_SAME_PLACE above.
+ */
+const SMALL_CLAIMS_PLACE: PlainLine = {
+  say: "The right Small Claims court location is the one where your claim arose, or where the defendant lives or carries on business -- not simply where you live. Living in a city does not, by itself, make that city the proper court location.",
+  cite: R_6_01_PLACE,
+};
 
 /**
  * Small Claims or civil court offices in the person's city: Superior Court
@@ -1996,7 +2017,12 @@ export function civilCourtOfficesFor(stepId: string, court: "small-claims" | "ci
   const beforeFiling = court === "small-claims" ? stepId.startsWith("before-filing:") : stepId.startsWith("civil:before-filing:");
   if (beforeFiling) return null;
   return {
-    place: [],
+    // 2026-10-16 live bug: the caution belongs with the office list itself,
+    // not only with whatever stage's own separate commentary happened to
+    // run first -- that is how one case got it and an otherwise-identical
+    // one didn't. Carried on every small-claims office list regardless of
+    // step or route; civil's not yet (see SMALL_CLAIMS_PLACE's own comment).
+    place: court === "small-claims" ? [SMALL_CLAIMS_PLACE] : [],
     city: city.trim(),
     offices: civilCourtOfficesIn(court, city),
     source: { url: "https://www.ontariocourts.ca/scj/court-locations/all-court-locations/", readOn: COURT_LOCATIONS_RETRIEVED_AT },
@@ -2233,6 +2259,7 @@ export const MORE_CARD_LINES: PlainLine[] = [
   MIP_CHANGE_SUBJECT_UNKNOWN,
   FAMILY_SAME_PLACE,
   ...FAMILY_CHANGE_PLACE,
+  SMALL_CLAIMS_PLACE,
   PASSED_CHECK_CLOSED,
   CLAIM_AFTER_NOTICE.civil.start,
   CLAIM_AFTER_NOTICE["small-claims"].start,
