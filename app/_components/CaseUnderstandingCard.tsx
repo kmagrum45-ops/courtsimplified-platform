@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
-import { betterDestinationKnown, type CaseUnderstanding, type UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
+import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
+import { betterDestinationKnown } from "@/src/lib/case-system/understanding/betterDestination";
 import { storyHintsForDates } from "@/src/lib/case-system/casePosition";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import CheckedAnswerPanel from "./CheckedAnswerPanel";
@@ -88,7 +89,7 @@ export default function CaseUnderstandingCard({
   const suggested = asPath(understanding.mainCourt);
   const tribunal = understanding.matters.find((matter) => matter.court === "tribunal");
   // 2026-10-17 live bug (Case 1, a landlord-held deposit): see
-  // betterDestinationKnown's own comment in understandCase.ts.
+  // betterDestinationKnown's own comment in betterDestination.ts.
   const betterDestination = betterDestinationKnown(understanding.mainCourt, chosenPath, suggested ? isPathwayAvailable(suggested) : null);
 
   return (
