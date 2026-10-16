@@ -102,6 +102,7 @@ import {
   respondingStep,
   familyCourtOfficesIn,
   civilCourtOfficesIn,
+  civilCourtOfficesFor,
   keptForNotices,
   noticeFit,
   claimAfterNotice,
@@ -559,6 +560,26 @@ console.log("\n8. Walkthrough fixes, 2026-10-13 (each a property, not today's li
     "every Small Claims / civil office named is on the courts' own location list",
     everySmallClaimsCivilOffice.length > 0 && unknownScCiv.length === 0,
     unknownScCiv.map((office) => office.name).join(", "),
+  );
+
+  // 2026-10-16 live bug: a venue caution appeared for one small-claims case
+  // and not an otherwise-identical one -- it lived only with a specific
+  // before-filing stage's own separate commentary, not with the office list
+  // itself. It must now appear on EVERY non-before-filing small-claims step,
+  // for every city, regardless of which stage got resolved -- civilCourtOfficesFor
+  // is the one function the office list actually comes from on every route.
+  const everyNonBeforeFilingScStage = steps.filter((stage) => pathwayOf(stage) === "small-claims" && !stage.id.startsWith("before-filing:"));
+  const missingVenueCaution = everyCity.flatMap((city) =>
+    everyNonBeforeFilingScStage.filter((stage) => !civilCourtOfficesFor(stage.id, "small-claims", city)?.place.some((line) => line.cite.pinpoint === "r. 6.01 (1)")),
+  );
+  check(
+    "every small-claims step's office list carries the r. 6.01 (1) venue caution, in every city",
+    everyNonBeforeFilingScStage.length > 0 && missingVenueCaution.length === 0,
+    `${missingVenueCaution.length} (step, city) pairs missing it`,
+  );
+  check(
+    "a before-filing step gets no office list, and so no venue caution either",
+    !civilCourtOfficesFor("before-filing:deciding-whether-to-sue", "small-claims", "Ottawa"),
   );
 
   // F4: an enforcement step that serves a notice of garnishment says how to
