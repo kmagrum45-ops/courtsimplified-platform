@@ -203,8 +203,17 @@ export const QUESTION_BANK: IntakeQuestion[] = [
        * municipal sidewalk had no category to pick but "Something else", which
        * is the worst possible answer for them: the municipal notice deadline is
        * TEN DAYS, and nothing downstream could recognise what they had.
+       *
+       * 2026-10-16 live bug: a dog-bite story was shown this choice, worded
+       * as it was then ("A slip, a fall, or another injury"), and it read as
+       * a wrong classification rather than the correct catch-all it is --
+       * "slip" and "fall" are both about the ground, and a bite is neither.
+       * Led with "A personal injury" instead, with the mechanisms as examples
+       * rather than the first thing read. The underlying category and its
+       * disputeCategory gate (sc-date-injury, above) are unchanged -- this is
+       * the label only.
        */
-      "A slip, a fall, or another injury",
+      "A personal injury (a fall, an animal bite, or similar)",
       "Something else",
     ],
     whyAsked: "The kind of dispute decides which follow-up questions and general information we show you, so you are not asked about things that do not fit.",

@@ -551,6 +551,10 @@ than one, because that field is a slug the extractor writes freely and an
 `equals` gate would hold or fail on which synonym a model picked that run. And
 `sc-orient-dispute-category` gained "A slip, a fall, or another injury" — somebody
 who fell on an icy sidewalk previously had no category but "Something else".
+(2026-10-16: reworded to "A personal injury (a fall, an animal bite, or
+similar)" after a live dog-bite story was shown that choice and it read as a
+wrong classification — "slip" and "fall" are both about the ground, a bite is
+neither. The category and its gate above are unchanged; only the label.)
 
 The remaining four are content work, not wiring: three notice stages and two
 settlement-conference stages need published blocks.

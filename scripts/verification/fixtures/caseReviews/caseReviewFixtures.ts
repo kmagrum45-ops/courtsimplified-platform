@@ -157,7 +157,7 @@ export const dogBiteInjuryFixture: Fixture = {
   answers: baseCaseReviewAnswers({
     "sc-orient-when-happened": "The bite happened on June 14, 2026.",
     "sc-orient-role": "Bringing the claim (plaintiff)",
-    "sc-orient-dispute-category": "A slip, a fall, or another injury",
+    "sc-orient-dispute-category": "A personal injury (a fall, an animal bite, or similar)",
     "sc-amount-claimed": "$1,200, covering my medical costs and the damaged clothing.",
     "sc-date-injury": "The injury happened on June 14, 2026.",
     "sc-evidence-available":
@@ -206,7 +206,7 @@ export const slipAndFallMunicipalFixture: Fixture = {
   answers: baseCaseReviewAnswers({
     "sc-orient-when-happened": "The fall happened on January 9, 2026.",
     "sc-orient-role": "Bringing the claim (plaintiff)",
-    "sc-orient-dispute-category": "A slip, a fall, or another injury",
+    "sc-orient-dispute-category": "A personal injury (a fall, an animal bite, or similar)",
     "sc-amount-claimed": "$4,500, covering medical costs, physiotherapy, and time missed from work.",
     "sc-date-injury": "The fall happened on January 9, 2026.",
     "sc-evidence-available":
