@@ -64,7 +64,14 @@
 import type { DeadlineEventKey } from "../deadlines/deadlineEvents";
 import type { RuleCitation } from "./citations";
 import * as C from "./citations";
-import { CIVIL_STAGES } from "./civilStages";
+import {
+  CIVIL_STAGES,
+  LIMITATION_ADMISSION_RESTARTS_CLOCK,
+  S_LIM_13_1_ACKNOWLEDGMENT,
+  S_LIM_13_9_BEFORE_EXPIRY,
+  S_LIM_13_10_WRITING,
+  S_LIM_13_11_PART_PAYMENT,
+} from "./civilStages";
 import { FAMILY_STAGES } from "./familyStages";
 
 /*
@@ -343,8 +350,15 @@ const BEFORE_FILING: CaseStage[] = [
       {
         id: "deadline:basic-limitation",
         what: "The general deadline to start a court case",
+        /*
+         * 2026-10-17 live bug (Case 4): the admission-restarts-the-clock
+         * sentences are appended rather than woven in, so the reviewed words
+         * above are untouched -- the exact substring already verified for
+         * civilStages.ts's own basicLimitation(id, true).
+         */
         qualifier:
-          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period." +
+          LIMITATION_ADMISSION_RESTARTS_CLOCK,
         countFrom: "the day the claim was discovered",
         countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
@@ -352,7 +366,14 @@ const BEFORE_FILING: CaseStage[] = [
         rule: C.S_LIMITATIONS_4_BASIC,
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
-        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+        exceptions: [
+          C.S_LIMITATIONS_5_DISCOVERY,
+          C.S_LIMITATIONS_16_NONE,
+          S_LIM_13_1_ACKNOWLEDGMENT,
+          S_LIM_13_9_BEFORE_EXPIRY,
+          S_LIM_13_10_WRITING,
+          S_LIM_13_11_PART_PAYMENT,
+        ],
       },
     ],
     /*
@@ -423,8 +444,15 @@ const BEFORE_FILING: CaseStage[] = [
       {
         id: "deadline:basic-limitation",
         what: "The general deadline to start a court case",
+        /*
+         * 2026-10-17 live bug (Case 4): the admission-restarts-the-clock
+         * sentences are appended rather than woven in, so the reviewed words
+         * above are untouched -- the exact substring already verified for
+         * civilStages.ts's own basicLimitation(id, true).
+         */
         qualifier:
-          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period." +
+          LIMITATION_ADMISSION_RESTARTS_CLOCK,
         countFrom: "the day the claim was discovered",
         countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
@@ -432,7 +460,14 @@ const BEFORE_FILING: CaseStage[] = [
         rule: C.S_LIMITATIONS_4_BASIC,
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
-        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+        exceptions: [
+          C.S_LIMITATIONS_5_DISCOVERY,
+          C.S_LIMITATIONS_16_NONE,
+          S_LIM_13_1_ACKNOWLEDGMENT,
+          S_LIM_13_9_BEFORE_EXPIRY,
+          S_LIM_13_10_WRITING,
+          S_LIM_13_11_PART_PAYMENT,
+        ],
       },
     ],
   },
@@ -484,8 +519,15 @@ const BEFORE_FILING: CaseStage[] = [
       {
         id: "deadline:basic-limitation",
         what: "The general deadline to start a court case",
+        /*
+         * 2026-10-17 live bug (Case 4): the admission-restarts-the-clock
+         * sentences are appended rather than woven in, so the reviewed words
+         * above are untouched -- the exact substring already verified for
+         * civilStages.ts's own basicLimitation(id, true).
+         */
         qualifier:
-          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period." +
+          LIMITATION_ADMISSION_RESTARTS_CLOCK,
         countFrom: "the day the claim was discovered",
         countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
@@ -493,7 +535,14 @@ const BEFORE_FILING: CaseStage[] = [
         rule: C.S_LIMITATIONS_4_BASIC,
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
-        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+        exceptions: [
+          C.S_LIMITATIONS_5_DISCOVERY,
+          C.S_LIMITATIONS_16_NONE,
+          S_LIM_13_1_ACKNOWLEDGMENT,
+          S_LIM_13_9_BEFORE_EXPIRY,
+          S_LIM_13_10_WRITING,
+          S_LIM_13_11_PART_PAYMENT,
+        ],
       },
     ],
     /*
@@ -565,8 +614,15 @@ const BEFORE_FILING: CaseStage[] = [
       {
         id: "deadline:basic-limitation",
         what: "The general deadline to start a court case",
+        /*
+         * 2026-10-17 live bug (Case 4): the admission-restarts-the-clock
+         * sentences are appended rather than woven in, so the reviewed words
+         * above are untouched -- the exact substring already verified for
+         * civilStages.ts's own basicLimitation(id, true).
+         */
         qualifier:
-          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period." +
+          LIMITATION_ADMISSION_RESTARTS_CLOCK,
         countFrom: "the day the claim was discovered",
         countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
@@ -574,7 +630,14 @@ const BEFORE_FILING: CaseStage[] = [
         rule: C.S_LIMITATIONS_4_BASIC,
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
-        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+        exceptions: [
+          C.S_LIMITATIONS_5_DISCOVERY,
+          C.S_LIMITATIONS_16_NONE,
+          S_LIM_13_1_ACKNOWLEDGMENT,
+          S_LIM_13_9_BEFORE_EXPIRY,
+          S_LIM_13_10_WRITING,
+          S_LIM_13_11_PART_PAYMENT,
+        ],
       },
     ],
   },
@@ -651,8 +714,15 @@ const BEFORE_FILING: CaseStage[] = [
       {
         id: "deadline:basic-limitation",
         what: "The general deadline to start a court case",
+        /*
+         * 2026-10-17 live bug (Case 4): the admission-restarts-the-clock
+         * sentences are appended rather than woven in, so the reviewed words
+         * above are untouched -- the exact substring already verified for
+         * civilStages.ts's own basicLimitation(id, true).
+         */
         qualifier:
-          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period." +
+          LIMITATION_ADMISSION_RESTARTS_CLOCK,
         countFrom: "the day the claim was discovered",
         countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
@@ -660,7 +730,14 @@ const BEFORE_FILING: CaseStage[] = [
         rule: C.S_LIMITATIONS_4_BASIC,
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
-        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+        exceptions: [
+          C.S_LIMITATIONS_5_DISCOVERY,
+          C.S_LIMITATIONS_16_NONE,
+          S_LIM_13_1_ACKNOWLEDGMENT,
+          S_LIM_13_9_BEFORE_EXPIRY,
+          S_LIM_13_10_WRITING,
+          S_LIM_13_11_PART_PAYMENT,
+        ],
       },
     ],
   },
@@ -806,8 +883,15 @@ const PLAINTIFF: CaseStage[] = [
       {
         id: "deadline:basic-limitation-claim-drafted",
         what: "The general deadline to start a court case",
+        /*
+         * 2026-10-17 live bug (Case 4): the admission-restarts-the-clock
+         * sentences are appended rather than woven in, so the reviewed words
+         * above are untouched -- the exact substring already verified for
+         * civilStages.ts's own basicLimitation(id, true).
+         */
         qualifier:
-          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period.",
+          "This applies unless the Limitations Act, 2002 provides otherwise. For example, a claim based on a sexual assault has no limitation period." +
+          LIMITATION_ADMISSION_RESTARTS_CLOCK,
         countFrom: "the day the claim was discovered",
         countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
@@ -815,7 +899,14 @@ const PLAINTIFF: CaseStage[] = [
         rule: C.S_LIMITATIONS_4_BASIC,
         computation: C.S_LEGISLATION_89_6_MONTHS,
         consequence: "bars-the-claim",
-        exceptions: [C.S_LIMITATIONS_5_DISCOVERY, C.S_LIMITATIONS_16_NONE],
+        exceptions: [
+          C.S_LIMITATIONS_5_DISCOVERY,
+          C.S_LIMITATIONS_16_NONE,
+          S_LIM_13_1_ACKNOWLEDGMENT,
+          S_LIM_13_9_BEFORE_EXPIRY,
+          S_LIM_13_10_WRITING,
+          S_LIM_13_11_PART_PAYMENT,
+        ],
       },
     ],
   },

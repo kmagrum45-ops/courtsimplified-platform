@@ -693,12 +693,21 @@ const S_LIM_11_1_RESOLUTION = lim(
   "If a person with a claim and a person against whom the claim is made have agreed to have an independent third party resolve the claim or assist them in resolving it, the limitation periods established by sections 4 and 15 do not run from the date the agreement is made until, (a) the date the claim is resolved; (b) the date the attempted resolution process is terminated; or (c) the date a party terminates or withdraws from the agreement.",
 );
 
-const S_LIM_13_1_ACKNOWLEDGMENT = lim(
+/*
+ * Exported (2026-10-17 live bug, Case 4): six other stages across stageMap.ts
+ * hand-roll their own basic-limitation deadline rather than calling
+ * basicLimitation() above, and none of them carried this exception at all --
+ * so a reader told "that date has already passed" on any of them never
+ * learned a written admission could restart the clock. Exported so those
+ * stages can add the exact same already-verified citation rather than a
+ * fresh (and unreviewed) one.
+ */
+export const S_LIM_13_1_ACKNOWLEDGMENT = lim(
   "s. 13 (1)",
   "If a person acknowledges liability in respect of a claim for payment of a liquidated sum, the recovery of personal property, the enforcement of a charge on personal property or relief from enforcement of a charge on personal property, the act or omission on which the claim is based shall be deemed to have taken place on the day on which the acknowledgment was made.",
 );
 
-const S_LIM_13_10_WRITING = lim(
+export const S_LIM_13_10_WRITING = lim(
   "s. 13 (10)",
   "Subsections (1), (2), (3), (6) and (7) do not apply unless the acknowledgment is in writing and signed by the person making it or the person's agent.",
 );
@@ -1054,7 +1063,7 @@ const S_CLPA_8_1_B_PROPERTY: RuleCitation = {
   quote: "(b) in respect of a breach of duty attaching to the ownership, occupation, possession or control of property;",
 };
 
-const S_LIM_13_9_BEFORE_EXPIRY = lim(
+export const S_LIM_13_9_BEFORE_EXPIRY = lim(
   "s. 13 (9)",
   "This section does not apply unless the acknowledgment is made to the person with the claim, the person's agent or an official receiver or trustee acting under the Bankruptcy and Insolvency Act (Canada) before the expiry of the limitation period applicable to the claim.",
 );
@@ -1324,7 +1333,7 @@ const RCP_61_13_DISMISS = rcp(
   "Where the appellant does not cure the default, (a) in the case of a motion under subrule (1), before the hearing of the motion; or (b) in the case of a notice under subrule (2) or (2.1), within ten days after service of the notice, or within such longer period as a judge of the appellate court allows, the Registrar shall make an order in (Form 61I) dismissing the appeal for delay, with costs fixed at $750, despite rule 58.13 and shall serve the order on the parties.",
 );
 
-const S_LIM_13_11_PART_PAYMENT = lim(
+export const S_LIM_13_11_PART_PAYMENT = lim(
   "s. 13 (11)",
   "In the case of a claim for payment of a liquidated sum, part payment of the sum by the person against whom the claim is made or by the person's agent has the same effect as the acknowledgment referred to in subsection (10).",
 );
@@ -1751,6 +1760,20 @@ const LIMITATION_QUALIFIER =
 
 const LIMITATION_SUSPENSIONS =
   " The two years do not run while the person with the claim is a minor and has no litigation guardian. They also do not run while a physical, mental or psychological condition keeps the person from starting a case, and they have no litigation guardian. A person is presumed able to start a case unless shown otherwise. If that condition ends with less than six months left, the time runs to six months after it ends. The 15 years also do not run while the other side wilfully hides from you that the loss happened, that an act or omission caused it, or that it was theirs. Nor do they run while the other side wilfully misleads you about whether a court case is a proper way to fix it. You must prove this. The two years and the 15 years also stop while the parties have agreed to have an independent third party resolve the claim or help resolve it. The other side may admit in writing, and sign, that they owe a fixed sum of money. The same goes for an admission that they must return personal property. It also goes for enforcing a charge on personal property, or relief from that. Then the act or omission is treated as happening on the day of that admission. This counts only if it was made before the time ran out. It must be made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada). For a fixed sum of money, a part payment by the other side or their agent works the same way as a written, signed admission. For a debt payable on demand, the loss happens on the first day it is not paid after a demand for payment.";
+
+/*
+ * Exported (2026-10-17 live bug, Case 4): the admission-restarts-the-clock
+ * sentences only, as the exact verbatim substring of LIMITATION_SUSPENSIONS
+ * above -- not a new sentence, not reworded -- for the six stages elsewhere
+ * in the stage map that hand-roll a basic-limitation deadline without
+ * calling basicLimitation() and so never carried any of this. A reader was
+ * told "that date has already passed... can stop the claim from going
+ * ahead" on one of those stages with no mention anywhere on the page that a
+ * written, signed admission -- the exact fact pattern in that walkthrough,
+ * a 2025 text admitting an old debt -- can restart it.
+ */
+export const LIMITATION_ADMISSION_RESTARTS_CLOCK =
+  " The other side may admit in writing, and sign, that they owe a fixed sum of money. The same goes for an admission that they must return personal property. It also goes for enforcing a charge on personal property, or relief from that. Then the act or omission is treated as happening on the day of that admission. This counts only if it was made before the time ran out. It must be made to you, your agent, or an official receiver or trustee under the Bankruptcy and Insolvency Act (Canada). For a fixed sum of money, a part payment by the other side or their agent works the same way as a written, signed admission.";
 
 function basicLimitation(id: string, withSuspensions = false): StageDeadline {
   return {
@@ -2357,7 +2380,23 @@ const BEFORE_FILING: CaseStage[] = [
       RCP_76_02_MANDATORY,
       C.S_LIMITATIONS_4_BASIC,
     ],
-    deadlines: [basicLimitation("deadline:civil:basic-limitation")],
+    /*
+     * 2026-10-17 live bug (Case 4, the old loan with a 2025 text admitting the
+     * debt): this is the fallback "how do I file" stage a civil case lands on
+     * before any more specific before-filing stage is confirmed -- including,
+     * per the walkthrough, after the person had already been moved to
+     * "limitation-period-may-have-passed" on an earlier screen. Its deadline
+     * omitted withSuspensions, so the written-admission exception
+     * (S_LIM_13_1_ACKNOWLEDGMENT and the rest of LIMITATION_SUSPENSIONS,
+     * already shown on the sibling stage below) never appeared in this
+     * stage's rendered qualifier at all, even though renderDeadlineSection
+     * already prints the full qualifier text next to the "already passed"
+     * warning. Matching the sibling stage's `true` here is a content-neutral
+     * fix: no new citation, no new sentence -- the same already-reviewed
+     * exceptions this basic limitation deadline carries everywhere else now
+     * reach this stage's reader too.
+     */
+    deadlines: [basicLimitation("deadline:civil:basic-limitation", true)],
     requiresAffirmativeScope: true,
     forumCheckOnly: true,
   },

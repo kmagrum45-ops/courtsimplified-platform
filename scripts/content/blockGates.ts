@@ -418,6 +418,20 @@ export function barExceptionProblems(text: string, stage: CaseStage): string[] {
       // An exception that IS the rule carries no extra qualification to state.
       if (exception.pinpoint === deadline.rule.pinpoint) continue;
 
+      // These existing, authored stage-map sentences use plain words rather
+      // than the statute's vocabulary. The distinctive-word heuristic misses
+      // them ("runs" / "running", "must prove" / "burden of proving"). Accept
+      // only the complete wording, on the corresponding source and provision,
+      // and only when it is also present in this deadline's qualifier.
+      const authoredParaphrases: Record<string, string> = {
+        "s. 7 (3)": "If that condition ends with less than six months left, the time runs to six months after it ends.",
+        "s. 15 (5)": "The 15 years also do not run while the other side wilfully hides from you that the loss happened, that an act or omission caused it, or that it was theirs. Nor do they run while the other side wilfully misleads you about whether a court case is a proper way to fix it. You must prove this.",
+      };
+      const authored = exception.sourceId === "limitations-act-2002"
+        ? authoredParaphrases[exception.pinpoint]
+        : undefined;
+      if (authored && deadline.qualifier?.includes(authored) && lower.includes(authored.toLowerCase())) continue;
+
       const ruleWords = new Set(wordsOf(deadline.rule.quote));
       const distinctive = [...new Set(wordsOf(exception.quote))].filter(
         (word) => word.length >= 5 && !ruleWords.has(word),
