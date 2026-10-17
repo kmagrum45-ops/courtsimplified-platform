@@ -91,6 +91,8 @@ type RenderedAnswer = {
 
 /** What the route says about each limit besides its words: its id, the rule that sets it, and, for a bar, the rule's own exceptions. */
 type LimitSource = {
+  qualifier?: string;
+  qualifierRules?: RuleCitation[];
   id?: string;
   rule?: RuleCitation;
   consequence?: "bars-the-claim" | "changes-what-happens-next";
@@ -483,7 +485,7 @@ export function cardFilingDeadline(
  * from the stage map, the reviewed deadline templates or the published answer;
  * the card only chooses what goes first.
  */
-function NextStepCard({
+export function NextStepCard({
   summary: summaryAsGiven,
   answer,
   court,
@@ -596,15 +598,23 @@ function NextStepCard({
           className="mt-3 rounded-xl border border-[#e2a3a3] bg-[#fff5f5] px-3 py-3 text-sm leading-6 text-[#5c1414]"
         >
           <p className="font-semibold">The last day counted for this has passed: {deadline.what.replace(/^If [^,]+, /, "").replace(/^./, (c) => c.toUpperCase())}.</p>
-          <p className="mt-1">
+          <div className="mt-1">
             {PASSED_BAR_WARNING}
             {deadline.rule ? <QuotedRule rule={deadline.rule} /> : null}
-          </p>
+          </div>
+          {deadline.qualifier ? (
+            <div data-testid="next-step-passed-qualifier" className="mt-2">
+              <p>{deadline.qualifier}</p>
+              {deadline.qualifierRules?.map((rule) => (
+                <QuotedRule key={`${rule.sourceId}:${rule.pinpoint}`} rule={rule} />
+              ))}
+            </div>
+          ) : null}
           {deadline.statutory ? (
-            <p className="mt-2">
+            <div className="mt-2">
               {PASSED_CHECK_CLOSED.say}
               <QuotedRule rule={PASSED_CHECK_CLOSED.cite} />
-            </p>
+            </div>
           ) : null}
           {deadline.notABar && deadline.notABar.length > 0 ? (
             <div className="mt-2">
