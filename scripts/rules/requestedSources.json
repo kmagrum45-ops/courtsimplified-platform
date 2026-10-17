@@ -156,6 +156,18 @@
     "why": "Named as missing by the research step (\"Condominium Authority Tribunal, O. Reg. 179/17\")."
   },
   {
+    "id": "conveyancing-and-law-of-property-act",
+    "title": "Conveyancing and Law of Property Act",
+    "citation": "R.S.O. 1990, c. C.34",
+    "url": "https://www.ontario.ca/laws/docs/90c34_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONVEYANCING AND LAW OF PROPERTY ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Conveyancing and Law of Property Act, R.S.O. 1990, c. C.34, s. 53(1)\")."
+  },
+  {
     "id": "copyright-act",
     "title": "Copyright Act",
     "citation": "R.S.C. 1985, c. C-42",

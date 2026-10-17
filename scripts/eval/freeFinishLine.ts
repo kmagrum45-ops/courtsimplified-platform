@@ -1,3 +1,4 @@
+import { pathToFileURL } from "node:url";
 /**
  * The finish line's mechanical checks, for free (build order Step 2F,
  * 2026-10-12).
@@ -144,7 +145,13 @@ function check(scores: CaseScore[]) {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+/*
+ * The same guard that never matched elsewhere — see buildSourceDisplay.ts. With a
+ * relative process.argv[1] (how npx/tsx passes it) "file://" + argv is a relative
+ * file: URL and never equals import.meta.url's absolute one, so the body silently
+ * did not run and the process exited 0.
+ */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main();
   check(PERSONAS.map(scoreCase));
 }
