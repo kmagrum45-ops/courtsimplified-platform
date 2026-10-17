@@ -610,5 +610,17 @@
       "Copyright Act"
     ],
     "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "electronic-commerce-act-2000",
+    "title": "Electronic Commerce Act, 2000",
+    "citation": "S.O. 2000, c. 17",
+    "url": "https://www.ontario.ca/laws/docs/00e17_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "ELECTRONIC COMMERCE ACT, 2000",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Electronic Commerce Act, 2000, S.O. 2000, c. 17, ss. 1, 11(1)\")."
   }
 ]
