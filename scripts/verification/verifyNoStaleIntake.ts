@@ -201,5 +201,112 @@ check(
   (builder.match(/freshStoryHandoffRef\.current\s*=\s*true;/g) ?? []).length >= 2,
 );
 
+// ---------------------------------------------------------------------------
+// 8. (2026-10-16, second pass) Recovery runs only for a tab that RE-ENTERED on
+//    the intake -- never for one that walked there from the chooser.
+// ---------------------------------------------------------------------------
+
+/*
+ * *** CHECK 7 WAS SATISFIED BY THE BROKEN CODE, WHICH IS WHY THIS EXISTS ***
+ *
+ * Check 7 requires every stale-case recovery effect to test `freshStoryHandoffRef`
+ * before redirecting. The effect that caused the live bug DID test it. The bug
+ * happened anyway, because that ref is only set by two hand-offs -- the home page's
+ * and the court-path finder's -- and the path the site owner actually took sets
+ * neither:
+ *
+ *   dashboard "Start a new case" -> /builder?path=small-claims  (the chooser)
+ *     -> type a city -> "Answer questions one at a time with AI help"
+ *
+ * On that mount `stepParam` is null, so the recovery effect returns at its
+ * guided/form guard WITHOUT setting its decide-once ref. Choosing AI help flips
+ * `stepParam` to "guided", the effect finally runs, reads BUILDER_LAST_CASE_KEY,
+ * and injects the FINISHED case's id into the URL -- bringing back its story and
+ * location.
+ *
+ * So the property check 7 asserts is necessary and not sufficient, and a check that
+ * passes against code with the bug in it is the thing to fix. The distinction that
+ * actually works is WHERE THE PAGE CAME IN: a tab that lost its place re-enters
+ * directly on ?step=guided or ?step=form; somebody starting a new case enters on
+ * the chooser and walks forward. Both show the same `stepParam`, so only the step
+ * the page MOUNTED on can tell them apart.
+ *
+ * Asserted as a property, not against the two effects that exist today: a third
+ * recovery effect added later is caught by the same loop.
+ */
+/*
+ * Scoped to the effects that are REACHABLE BY WALKING FORWARD from the chooser,
+ * which means the ones gated on ?step=guided or ?step=form.
+ *
+ * The results-step recovery is deliberately exempt, and the distinction is real
+ * rather than a convenience. It fires only on `?step=results` with no analysis in
+ * state — a results page that was reloaded, where resuming is the correct
+ * behaviour. Walking forward from the chooser cannot reach it, because arriving at
+ * results that way always has `analysis` set and the effect returns. Requiring a
+ * mounted-on-intake guard there would break the resume it exists for.
+ *
+ * It is still covered, by the other half of the fix: a fresh chooser mount clears
+ * BUILDER_LAST_CASE_KEY, so no reader of that key — this one included, and any
+ * added later — can resurrect a case the person deliberately left.
+ */
+const walkableReads = lastCaseReads.filter((at) => {
+  const before = builder.slice(Math.max(0, at - 1500), at);
+  const lastEffectStart = before.lastIndexOf("useEffect(() => {");
+  const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
+  return /stepParam\s*!==\s*"guided"/.test(scoped) || /stepParam\s*!==\s*"form"/.test(scoped);
+});
+check(
+  "there is a guided/form recovery effect to guard (sanity)",
+  walkableReads.length >= 1,
+  String(walkableReads.length),
+);
+const unmountGuarded = walkableReads.filter((at) => {
+  const before = builder.slice(Math.max(0, at - 1500), at);
+  const lastEffectStart = before.lastIndexOf("useEffect(() => {");
+  const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
+  // A guard on the step this mount came in on, whatever the ref is called.
+  return !/mounted[A-Za-z]*Ref\.current\s*!==/.test(scoped);
+});
+check(
+  "every guided/form recovery effect also requires the page to have MOUNTED on the intake step",
+  unmountGuarded.length === 0,
+  `${unmountGuarded.length} of ${walkableReads.length} would still fire when walked to from the chooser`,
+);
+
+/*
+ * And the ref must genuinely capture MOUNT state. A ref assigned inside an effect
+ * that re-runs per step would hold the current step, making the guard above a
+ * tautology that always passes -- the same shape of mistake as check 7.
+ *
+ * So it is assigned exactly once, in render, behind a decided-once flag.
+ */
+check(
+  "the mounted-step ref is captured once in render, not reassigned per step",
+  /mountedStepDecidedRef\.current\s*=\s*true;/.test(builder) &&
+    (builder.match(/mountedStepRef\.current\s*=\s*stepParam;/g) ?? []).length === 1,
+);
+
+/*
+ * The other half of the fix: a new case started from the chooser forgets the last
+ * one, so no later reader of that key can reopen a finished case. Only on a mount
+ * that is both on the chooser AND without a caseId -- opening a saved case
+ * (?caseId=...) must leave the key alone.
+ */
+check(
+  "a fresh chooser mount with no caseId clears BUILDER_LAST_CASE_KEY",
+  /removeItem\(BUILDER_LAST_CASE_KEY\)/.test(builder),
+);
+check(
+  "that clear is skipped when a caseId is present, so opening a saved case keeps it",
+  (() => {
+    const at = builder.indexOf("removeItem(BUILDER_LAST_CASE_KEY)");
+    if (at === -1) return false;
+    const before = builder.slice(Math.max(0, at - 800), at);
+    const lastEffectStart = before.lastIndexOf("useEffect(() => {");
+    const scoped = lastEffectStart === -1 ? before : before.slice(lastEffectStart);
+    return /queryCaseId\)\s*return;/.test(scoped) && /mounted[A-Za-z]*Ref\.current\s*===/.test(scoped);
+  })(),
+);
+
 console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");
 if (failures) process.exitCode = 1;
