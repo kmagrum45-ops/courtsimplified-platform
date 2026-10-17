@@ -2393,3 +2393,15 @@ content hash -- promote a candidate instead.
 - **A research passage's date is the one it carried when the research ran** (its text was
   hash-checked against the saved file then). An older saved result shows "checked date not
   recorded", never today's file date.
+
+## Promotion after stage-map qualifier changes (2026-10-17, PR #429)
+
+Changing an authored deadline qualifier also requires re-rendering that field
+in the held promotion candidate and promoting it through `content:promote`.
+PR #429 initially left seven published deadline sections stale. Reusing
+`renderDeadlineSection` preserved the other sections and all existing citations.
+The completeness heuristic also missed two existing Civil paraphrases because
+its distinctive source words were absent from their plain wording. Recognition
+is limited to the complete authored passages on their matching source and
+provision; removing either qualification must still fail the gate. Regenerate
+`sourceDisplay.generated.json` when the map's citation set changes.

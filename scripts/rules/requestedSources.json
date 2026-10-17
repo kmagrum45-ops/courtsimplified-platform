@@ -1,27 +1,60 @@
 [
   {
-    "id": "statutory-accident-benefits-schedule",
-    "title": "Statutory Accident Benefits Schedule",
-    "citation": "O. Reg. 34/10",
-    "url": "https://www.ontario.ca/laws/docs/100034_e.doc",
-    "format": "elaws-doc",
+    "id": "air-passenger-protection-regulations",
+    "title": "Air Passenger Protection Regulations",
+    "citation": "SOR/2019-150",
+    "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-2019-150/FullText.html",
+    "format": "html",
     "mustContain": [
-      "STATUTORY ACCIDENT BENEFITS SCHEDULE",
-      "CONSOLIDATION PERIOD"
+      "Air Passenger Protection Regulations"
     ],
-    "why": "Named as missing by the research step (\"Statutory Accident Benefits Schedule - Effective September 1, 2010, O. Reg. 34/10\")."
+    "why": "Flight delays, cancellations, denied boarding and lost baggage. Case types were left out for want of it (2026-10-07)."
   },
   {
-    "id": "compulsory-automobile-insurance-act",
-    "title": "Compulsory Automobile Insurance Act",
-    "citation": "R.S.O. 1990, c. C.25",
-    "url": "https://www.ontario.ca/laws/docs/90c25_e.doc",
+    "id": "arthur-wishart-act-franchise",
+    "title": "Arthur Wishart Act (Franchise Disclosure), 2000",
+    "citation": "S.O. 2000, c. 3",
+    "url": "https://www.ontario.ca/laws/docs/00a03_e.doc",
     "format": "elaws-doc",
     "mustContain": [
-      "COMPULSORY AUTOMOBILE INSURANCE ACT",
+      "CONSOLIDATION PERIOD",
+      "Arthur Wishart Act"
+    ],
+    "why": "Franchise disputes: the disclosure document, rescission, the duty of fair dealing. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "bankruptcy-and-insolvency-act",
+    "title": "Bankruptcy and Insolvency Act",
+    "citation": "R.S.C. 1985, c. B-3",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/B-3/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Bankruptcy and Insolvency Act"
+    ],
+    "why": "Named as missing by the research step (\"Bankruptcy and Insolvency Act, R.S.C. 1985, c. B-3\")."
+  },
+  {
+    "id": "bills-of-exchange-act",
+    "title": "Bills of Exchange Act",
+    "citation": "R.S.C. 1985, c. B-4",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+    "format": "html",
+    "mustContain": [
+      "Bills of Exchange Act"
+    ],
+    "why": "Named as missing by the research step (\"Bills of Exchange Act, R.S.C. 1985, c. B-4\")."
+  },
+  {
+    "id": "business-corporations-act",
+    "title": "Business Corporations Act",
+    "citation": "R.S.O. 1990, c. B.16",
+    "url": "https://www.ontario.ca/laws/docs/90b16_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "BUSINESS CORPORATIONS ACT",
       "CONSOLIDATION PERIOD"
     ],
-    "why": "Named as missing by the research step (\"Compulsory Automobile Insurance Act, R.S.O. 1990, c. C.25\")."
+    "why": "Named as missing by the research step (\"Business Corporations Act, R.S.O. 1990, c. B.16\")."
   },
   {
     "id": "canadian-charter-of-rights-and-freedoms",
@@ -39,183 +72,16 @@
     }
   },
   {
-    "id": "environmental-protection-act",
-    "title": "Environmental Protection Act",
-    "citation": "R.S.O. 1990, c. E.19",
-    "url": "https://www.ontario.ca/laws/docs/90e19_e.doc",
+    "id": "charities-accounting-act",
+    "title": "Charities Accounting Act",
+    "citation": "R.S.O. 1990, c. C.10",
+    "url": "https://www.ontario.ca/laws/docs/90c10_e.doc",
     "format": "elaws-doc",
     "mustContain": [
-      "ENVIRONMENTAL PROTECTION ACT",
-      "CONSOLIDATION PERIOD"
+      "CONSOLIDATION PERIOD",
+      "Charities Accounting Act"
     ],
-    "why": "Named as missing by the research step (\"Environmental Protection Act, R.S.O. 1990, c. E.19\")."
-  },
-  {
-    "id": "condominium-authority-tribunal",
-    "title": "Condominium Authority Tribunal",
-    "citation": "O. Reg. 179/17",
-    "url": "https://www.ontario.ca/laws/docs/170179_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONDOMINIUM AUTHORITY TRIBUNAL",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Condominium Authority Tribunal, O. Reg. 179/17\")."
-  },
-  {
-    "id": "estates-act",
-    "title": "Estates Act",
-    "citation": "R.S.O. 1990, c. E.21",
-    "url": "https://www.ontario.ca/laws/docs/90e21_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "ESTATES ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Estates Act, R.S.O. 1990, c. E.21\")."
-  },
-  {
-    "id": "succession-law-reform-act",
-    "title": "Succession Law Reform Act",
-    "citation": "R.S.O. 1990, c. S.26",
-    "url": "https://www.ontario.ca/laws/docs/90s26_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "SUCCESSION LAW REFORM ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Succession Law Reform Act, R.S.O. 1990, c. S.26\")."
-  },
-  {
-    "id": "child-youth-and-family-services-act-2017",
-    "title": "Child, Youth and Family Services Act, 2017",
-    "citation": "S.O. 2017, c. 14, Sched. 1",
-    "url": "https://www.ontario.ca/laws/docs/17c14_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CHILD, YOUTH AND FAMILY SERVICES ACT, 2017",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Child, Youth and Family Services Act, 2017, S.O. 2017, c. 14, Sched. 1\")."
-  },
-  {
-    "id": "partition-act",
-    "title": "Partition Act",
-    "citation": "R.S.O. 1990, c. P.4",
-    "url": "https://www.ontario.ca/laws/docs/90p04_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PARTITION ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Partition Act, R.S.O. 1990, c. P.4\")."
-  },
-  {
-    "id": "class-proceedings-act",
-    "title": "Class Proceedings Act",
-    "citation": "S.O. 1992, c. 6",
-    "url": "https://www.ontario.ca/laws/docs/92c06_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CLASS PROCEEDINGS ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Class Proceedings Act, 1992, S.O. 1992, c. 6\")."
-  },
-  {
-    "id": "mortgages-act",
-    "title": "Mortgages Act",
-    "citation": "R.S.O. 1990, c. M.40",
-    "url": "https://www.ontario.ca/laws/docs/90m40_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "MORTGAGES ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Mortgages Act, R.S.O. 1990, c. M.40\")."
-  },
-  {
-    "id": "substitute-decisions-act",
-    "title": "Substitute Decisions Act",
-    "citation": "S.O. 1992, c. 30",
-    "url": "https://www.ontario.ca/laws/docs/92s30_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "SUBSTITUTE DECISIONS ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Substitute Decisions Act, 1992, S.O. 1992, c. 30\")."
-  },
-  {
-    "id": "personal-health-information-protection-act",
-    "title": "Personal Health Information Protection Act",
-    "citation": "S.O. 2004, c. 3, Sched. A",
-    "url": "https://www.ontario.ca/laws/docs/04p03_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "PERSONAL HEALTH INFORMATION PROTECTION ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Personal Health Information Protection Act, 2004, S.O. 2004, c. 3, Sched. A\")."
-  },
-  {
-    "id": "community-safety-and-policing-act",
-    "title": "Community Safety and Policing Act",
-    "citation": "S.O. 2019, c. 1, Sched. 1",
-    "url": "https://www.ontario.ca/laws/docs/19c01_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "COMMUNITY SAFETY AND POLICING ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Community Safety and Policing Act, 2019, S.O. 2019, c. 1, Sched. 1\")."
-  },
-  {
-    "id": "termination-and-severance-of-employment",
-    "title": "Termination and Severance of Employment",
-    "citation": "O. Reg. 288/01",
-    "url": "https://www.ontario.ca/laws/docs/010288_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "TERMINATION AND SEVERANCE OF EMPLOYMENT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Termination and Severance of Employment, O. Reg. 288/01\")."
-  },
-  {
-    "id": "business-corporations-act",
-    "title": "Business Corporations Act",
-    "citation": "R.S.O. 1990, c. B.16",
-    "url": "https://www.ontario.ca/laws/docs/90b16_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "BUSINESS CORPORATIONS ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Business Corporations Act, R.S.O. 1990, c. B.16\")."
-  },
-  {
-    "id": "real-property-limitations-act",
-    "title": "Real Property Limitations Act",
-    "citation": "R.S.O. 1990, c. L.15",
-    "url": "https://www.ontario.ca/laws/docs/90l15_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "REAL PROPERTY LIMITATIONS ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Real Property Limitations Act, R.S.O. 1990, c. L.15\")."
-  },
-  {
-    "id": "criminal-code",
-    "title": "Criminal Code",
-    "citation": "R.S.C. 1985, c. C-46",
-    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/FullText.html",
-    "format": "html",
-    "mustContain": [
-      "Criminal Code"
-    ],
-    "why": "Named as missing by the research step (\"Criminal Code, R.S.C. 1985, c. C-46\")."
+    "why": "Disputes over money given to a charity or fundraiser. Case types were left out for want of it (2026-10-07)."
   },
   {
     "id": "child-care-and-early-years-act-2014",
@@ -230,74 +96,182 @@
     "why": "Named as missing by the research step (\"Child Care and Early Years Act, 2014, S.O. 2014, c. 11, Sched. 1\")."
   },
   {
-    "id": "bankruptcy-and-insolvency-act",
-    "title": "Bankruptcy and Insolvency Act",
-    "citation": "R.S.C. 1985, c. B-3",
-    "url": "https://laws-lois.justice.gc.ca/eng/acts/B-3/FullText.html",
+    "id": "child-youth-and-family-services-act-2017",
+    "title": "Child, Youth and Family Services Act, 2017",
+    "citation": "S.O. 2017, c. 14, Sched. 1",
+    "url": "https://www.ontario.ca/laws/docs/17c14_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CHILD, YOUTH AND FAMILY SERVICES ACT, 2017",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Child, Youth and Family Services Act, 2017, S.O. 2017, c. 14, Sched. 1\")."
+  },
+  {
+    "id": "class-proceedings-act",
+    "title": "Class Proceedings Act",
+    "citation": "S.O. 1992, c. 6",
+    "url": "https://www.ontario.ca/laws/docs/92c06_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CLASS PROCEEDINGS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Class Proceedings Act, 1992, S.O. 1992, c. 6\")."
+  },
+  {
+    "id": "community-safety-and-policing-act",
+    "title": "Community Safety and Policing Act",
+    "citation": "S.O. 2019, c. 1, Sched. 1",
+    "url": "https://www.ontario.ca/laws/docs/19c01_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "COMMUNITY SAFETY AND POLICING ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Community Safety and Policing Act, 2019, S.O. 2019, c. 1, Sched. 1\")."
+  },
+  {
+    "id": "compulsory-automobile-insurance-act",
+    "title": "Compulsory Automobile Insurance Act",
+    "citation": "R.S.O. 1990, c. C.25",
+    "url": "https://www.ontario.ca/laws/docs/90c25_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "COMPULSORY AUTOMOBILE INSURANCE ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Compulsory Automobile Insurance Act, R.S.O. 1990, c. C.25\")."
+  },
+  {
+    "id": "condominium-authority-tribunal",
+    "title": "Condominium Authority Tribunal",
+    "citation": "O. Reg. 179/17",
+    "url": "https://www.ontario.ca/laws/docs/170179_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONDOMINIUM AUTHORITY TRIBUNAL",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Condominium Authority Tribunal, O. Reg. 179/17\")."
+  },
+  {
+    "id": "conveyancing-and-law-of-property-act",
+    "title": "Conveyancing and Law of Property Act",
+    "citation": "R.S.O. 1990, c. C.34",
+    "url": "https://www.ontario.ca/laws/docs/90c34_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONVEYANCING AND LAW OF PROPERTY ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Conveyancing and Law of Property Act, R.S.O. 1990, c. C.34, s. 53(1)\")."
+  },
+  {
+    "id": "copyright-act",
+    "title": "Copyright Act",
+    "citation": "R.S.C. 1985, c. C-42",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-42/FullText.html",
     "format": "html",
     "mustContain": [
-      "Bankruptcy and Insolvency Act"
+      "Copyright Act"
     ],
-    "why": "Named as missing by the research step (\"Bankruptcy and Insolvency Act, R.S.C. 1985, c. B-3\")."
+    "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
   },
   {
-    "id": "land-titles-act",
-    "title": "Land Titles Act",
-    "citation": "R.S.O. 1990, c. L.5",
-    "url": "https://www.ontario.ca/laws/docs/90l05_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "LAND TITLES ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Land Titles Act, R.S.O. 1990, c. L.5\")."
-  },
-  {
-    "id": "veterinarians-act",
-    "title": "Veterinarians Act",
-    "citation": "R.S.O. 1990, c. V.3",
-    "url": "https://www.ontario.ca/laws/docs/90v03_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "VETERINARIANS ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Veterinarians Act, R.S.O. 1990, c. V.3\")."
-  },
-  {
-    "id": "towing-and-storage-safety-and-enforcement-act-2021",
-    "title": "Towing and Storage Safety and Enforcement Act, 2021",
-    "citation": "S.O. 2021, c. 26, Sched. 3",
-    "url": "https://www.ontario.ca/laws/docs/21t26_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "TOWING AND STORAGE SAFETY AND ENFORCEMENT ACT, 2021",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Towing and Storage Safety and Enforcement Act, 2021, S.O. 2021, c. 26, Sched. 3\")."
-  },
-  {
-    "id": "frustrated-contracts-act",
-    "title": "Frustrated Contracts Act",
-    "citation": "R.S.O. 1990, c. F.34",
-    "url": "https://www.ontario.ca/laws/docs/90f34_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "FRUSTRATED CONTRACTS ACT",
-      "CONSOLIDATION PERIOD"
-    ],
-    "why": "Named as missing by the research step (\"Frustrated Contracts Act, R.S.O. 1990, c. F.34\")."
-  },
-  {
-    "id": "bills-of-exchange-act",
-    "title": "Bills of Exchange Act",
-    "citation": "R.S.C. 1985, c. B-4",
-    "url": "https://laws-lois.justice.gc.ca/eng/acts/B-4/FullText.html",
+    "id": "criminal-code",
+    "title": "Criminal Code",
+    "citation": "R.S.C. 1985, c. C-46",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/FullText.html",
     "format": "html",
     "mustContain": [
-      "Bills of Exchange Act"
+      "Criminal Code"
     ],
-    "why": "Named as missing by the research step (\"Bills of Exchange Act, R.S.C. 1985, c. B-4\")."
+    "why": "Named as missing by the research step (\"Criminal Code, R.S.C. 1985, c. C-46\")."
+  },
+  {
+    "id": "digital-platform-workers-rights-act",
+    "title": "Digital Platform Workers' Rights Act, 2022",
+    "citation": "S.O. 2022, c. 7, Sched. 1",
+    "url": "https://www.ontario.ca/laws/docs/22d07_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Digital Platform Workers"
+    ],
+    "why": "Gig workers' pay: what a platform must pay and how a worker enforces it. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "electronic-commerce-act-2000",
+    "title": "Electronic Commerce Act, 2000",
+    "citation": "S.O. 2000, c. 17",
+    "url": "https://www.ontario.ca/laws/docs/00e17_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "ELECTRONIC COMMERCE ACT, 2000",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Electronic Commerce Act, 2000, S.O. 2000, c. 17, ss. 5 and 11\")."
+  },
+  {
+    "id": "energy-consumer-protection-act-2010",
+    "title": "Energy Consumer Protection Act, 2010",
+    "citation": "S.O. 2010, c. 8",
+    "url": "https://www.ontario.ca/laws/docs/10e08_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Energy Consumer Protection Act"
+    ],
+    "why": "Electricity and gas retail contracts and billing disputes. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "environmental-protection-act",
+    "title": "Environmental Protection Act",
+    "citation": "R.S.O. 1990, c. E.19",
+    "url": "https://www.ontario.ca/laws/docs/90e19_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "ENVIRONMENTAL PROTECTION ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Environmental Protection Act, R.S.O. 1990, c. E.19\")."
+  },
+  {
+    "id": "estates-act",
+    "title": "Estates Act",
+    "citation": "R.S.O. 1990, c. E.21",
+    "url": "https://www.ontario.ca/laws/docs/90e21_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "ESTATES ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Estates Act, R.S.O. 1990, c. E.21\")."
+  },
+  {
+    "id": "execution-act",
+    "title": "Execution Act",
+    "citation": "R.S.O. 1990, c. E.24",
+    "url": "https://www.ontario.ca/laws/docs/90e24_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Execution Act"
+    ],
+    "why": "What property is exempt when a judgment is enforced by a writ of seizure and sale. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "fault-determination-rules",
+    "title": "Fault Determination Rules",
+    "citation": "R.R.O. 1990, Reg. 668",
+    "url": "https://www.ontario.ca/laws/docs/900668_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "FAULT DETERMINATION RULES",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Fault Determination Rules, R.R.O. 1990, Reg. 668, s. 16\")."
   },
   {
     "id": "fraudulent-conveyances-act",
@@ -313,77 +287,16 @@
     "why": "Named as missing by the research step (\"Fraudulent Conveyances Act, R.S.O. 1990, c. F.29\")."
   },
   {
-    "id": "oreg-516-06-rta-general",
-    "title": "General regulation under the Residential Tenancies Act, 2006",
-    "citation": "O. Reg. 516/06",
-    "url": "https://www.ontario.ca/laws/docs/060516_e.doc",
+    "id": "frustrated-contracts-act",
+    "title": "Frustrated Contracts Act",
+    "citation": "R.S.O. 1990, c. F.34",
+    "url": "https://www.ontario.ca/laws/docs/90f34_e.doc",
     "format": "elaws-doc",
     "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Residential Tenancies Act"
+      "FRUSTRATED CONTRACTS ACT",
+      "CONSOLIDATION PERIOD"
     ],
-    "why": "Law exam, 2026-10-07: the RTA's exceptions (fees a landlord may charge, rent rules) are prescribed here; the Act alone cannot answer them."
-  },
-  {
-    "id": "oreg-285-01-esa-exemptions",
-    "title": "Exemptions, Special Rules and Establishment of Minimum Wage",
-    "citation": "O. Reg. 285/01",
-    "url": "https://www.ontario.ca/laws/docs/010285_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Employment Standards Act"
-    ],
-    "why": "Law exam, 2026-10-07: which employees are exempt from overtime, hours and other ESA parts is set here."
-  },
-  {
-    "id": "oreg-54-95-preferential-share",
-    "title": "Preferential Share regulation under the Succession Law Reform Act",
-    "citation": "O. Reg. 54/95",
-    "url": "https://www.ontario.ca/laws/docs/950054_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Succession Law Reform Act"
-    ],
-    "minCharacters": 300,
-    "why": "Law exam, 2026-10-07: the surviving spouse's preferential share on an intestacy is prescribed here; the Act only refers to it."
-  },
-  {
-    "id": "oreg-461-96-auto-court-proceedings",
-    "title": "Court Proceedings for Automobile Accidents that Occur on or after November 1, 1996",
-    "citation": "O. Reg. 461/96",
-    "url": "https://www.ontario.ca/laws/docs/960461_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Insurance Act"
-    ],
-    "why": "Law exam, 2026-10-07: what 'permanent serious impairment' means for suing after a car accident, and the evidence needed, is defined here."
-  },
-  {
-    "id": "statutory-powers-procedure-act",
-    "title": "Statutory Powers Procedure Act",
-    "citation": "R.S.O. 1990, c. S.22",
-    "url": "https://www.ontario.ca/laws/docs/90s22_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Statutory Powers Procedure Act"
-    ],
-    "why": "How hearings before Ontario tribunals (the Landlord and Tenant Board, the Human Rights Tribunal) are run: notice, adjournments, reviews. People sent to a tribunal by a forum check need it."
-  },
-  {
-    "id": "travel-industry-act-2002",
-    "title": "Travel Industry Act, 2002",
-    "citation": "S.O. 2002, c. 30, Sched. D",
-    "url": "https://www.ontario.ca/laws/docs/02t30_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Travel Industry Act"
-    ],
-    "why": "Travel agent and tour operator disputes: registration, the compensation fund, what a traveller can recover. Case types were left out for want of it (2026-10-07)."
+    "why": "Named as missing by the research step (\"Frustrated Contracts Act, R.S.O. 1990, c. F.34\")."
   },
   {
     "id": "funeral-burial-cremation-services-act",
@@ -398,148 +311,16 @@
     "why": "Funeral and cemetery contract disputes, which the consumer regulation partly exempts from the general consumer rules. Case types were left out for want of it (2026-10-07)."
   },
   {
-    "id": "arthur-wishart-act-franchise",
-    "title": "Arthur Wishart Act (Franchise Disclosure), 2000",
-    "citation": "S.O. 2000, c. 3",
-    "url": "https://www.ontario.ca/laws/docs/00a03_e.doc",
+    "id": "land-titles-act",
+    "title": "Land Titles Act",
+    "citation": "R.S.O. 1990, c. L.5",
+    "url": "https://www.ontario.ca/laws/docs/90l05_e.doc",
     "format": "elaws-doc",
     "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Arthur Wishart Act"
+      "LAND TITLES ACT",
+      "CONSOLIDATION PERIOD"
     ],
-    "why": "Franchise disputes: the disclosure document, rescission, the duty of fair dealing. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "partnerships-act",
-    "title": "Partnerships Act",
-    "citation": "R.S.O. 1990, c. P.5",
-    "url": "https://www.ontario.ca/laws/docs/90p05_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Partnerships Act"
-    ],
-    "why": "Partnership break-ups: when a partnership exists, partners' duties, dissolution and accounts. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "wages-act",
-    "title": "Wages Act",
-    "citation": "R.S.O. 1990, c. W.1",
-    "url": "https://www.ontario.ca/laws/docs/90w01_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Wages Act"
-    ],
-    "why": "How much of a person's wages can be garnished after a judgment; needed by the garnishment case types. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "execution-act",
-    "title": "Execution Act",
-    "citation": "R.S.O. 1990, c. E.24",
-    "url": "https://www.ontario.ca/laws/docs/90e24_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Execution Act"
-    ],
-    "why": "What property is exempt when a judgment is enforced by a writ of seizure and sale. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "ontario-new-home-warranties-plan-act",
-    "title": "Ontario New Home Warranties Plan Act",
-    "citation": "R.S.O. 1990, c. O.31",
-    "url": "https://www.ontario.ca/laws/docs/90o31_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Ontario New Home Warranties Plan Act"
-    ],
-    "why": "New-home warranty and deposit disputes with builders. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "trust-in-real-estate-services-act",
-    "title": "Trust in Real Estate Services Act, 2002",
-    "citation": "S.O. 2002, c. 30, Sched. C",
-    "url": "https://www.ontario.ca/laws/docs/02r30_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Real Estate"
-    ],
-    "why": "Disputes with a real estate agent or brokerage: registration, deposits held in trust, duties to clients. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "digital-platform-workers-rights-act",
-    "title": "Digital Platform Workers' Rights Act, 2022",
-    "citation": "S.O. 2022, c. 7, Sched. 1",
-    "url": "https://www.ontario.ca/laws/docs/22d07_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Digital Platform Workers"
-    ],
-    "why": "Gig workers' pay: what a platform must pay and how a worker enforces it. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "charities-accounting-act",
-    "title": "Charities Accounting Act",
-    "citation": "R.S.O. 1990, c. C.10",
-    "url": "https://www.ontario.ca/laws/docs/90c10_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Charities Accounting Act"
-    ],
-    "why": "Disputes over money given to a charity or fundraiser. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "ticket-sales-act-2017",
-    "title": "Ticket Sales Act, 2017",
-    "citation": "S.O. 2017, c. 33, Sched. 3",
-    "url": "https://www.ontario.ca/laws/docs/17t33_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Ticket Sales Act"
-    ],
-    "why": "Ticket resale and cancelled-event refunds. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "ontario-works-act-1997",
-    "title": "Ontario Works Act, 1997",
-    "citation": "S.O. 1997, c. 25, Sched. A",
-    "url": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Ontario Works Act"
-    ],
-    "why": "Appeals of social assistance decisions (internal review, Social Benefits Tribunal). Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "odsp-act-1997",
-    "title": "Ontario Disability Support Program Act, 1997",
-    "citation": "S.O. 1997, c. 25, Sched. B",
-    "url": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Disability Support Program"
-    ],
-    "why": "Appeals of ODSP decisions. Case types were left out for want of it (2026-10-07)."
-  },
-  {
-    "id": "solicitors-act",
-    "title": "Solicitors Act",
-    "citation": "R.S.O. 1990, c. S.15",
-    "url": "https://www.ontario.ca/laws/docs/90s15_e.doc",
-    "format": "elaws-doc",
-    "mustContain": [
-      "CONSOLIDATION PERIOD",
-      "Solicitors Act"
-    ],
-    "why": "Assessing a lawyer's bill; needed by the lawyer and paralegal fee types. Case types were left out for want of it (2026-10-07)."
+    "why": "Named as missing by the research step (\"Land Titles Act, R.S.O. 1990, c. L.5\")."
   },
   {
     "id": "law-society-act",
@@ -566,6 +347,151 @@
     "why": "Disputes with a mortgage broker or brokerage. Case types were left out for want of it (2026-10-07)."
   },
   {
+    "id": "mortgages-act",
+    "title": "Mortgages Act",
+    "citation": "R.S.O. 1990, c. M.40",
+    "url": "https://www.ontario.ca/laws/docs/90m40_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "MORTGAGES ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Mortgages Act, R.S.O. 1990, c. M.40\")."
+  },
+  {
+    "id": "odsp-act-1997",
+    "title": "Ontario Disability Support Program Act, 1997",
+    "citation": "S.O. 1997, c. 25, Sched. B",
+    "url": "https://www.ontario.ca/laws/docs/97o25b_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Disability Support Program"
+    ],
+    "why": "Appeals of ODSP decisions. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "ontario-new-home-warranties-plan-act",
+    "title": "Ontario New Home Warranties Plan Act",
+    "citation": "R.S.O. 1990, c. O.31",
+    "url": "https://www.ontario.ca/laws/docs/90o31_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Ontario New Home Warranties Plan Act"
+    ],
+    "why": "New-home warranty and deposit disputes with builders. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "ontario-works-act-1997",
+    "title": "Ontario Works Act, 1997",
+    "citation": "S.O. 1997, c. 25, Sched. A",
+    "url": "https://www.ontario.ca/laws/docs/97o25a_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Ontario Works Act"
+    ],
+    "why": "Appeals of social assistance decisions (internal review, Social Benefits Tribunal). Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "oreg-285-01-esa-exemptions",
+    "title": "Exemptions, Special Rules and Establishment of Minimum Wage",
+    "citation": "O. Reg. 285/01",
+    "url": "https://www.ontario.ca/laws/docs/010285_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Employment Standards Act"
+    ],
+    "why": "Law exam, 2026-10-07: which employees are exempt from overtime, hours and other ESA parts is set here."
+  },
+  {
+    "id": "oreg-461-96-auto-court-proceedings",
+    "title": "Court Proceedings for Automobile Accidents that Occur on or after November 1, 1996",
+    "citation": "O. Reg. 461/96",
+    "url": "https://www.ontario.ca/laws/docs/960461_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Insurance Act"
+    ],
+    "why": "Law exam, 2026-10-07: what 'permanent serious impairment' means for suing after a car accident, and the evidence needed, is defined here."
+  },
+  {
+    "id": "oreg-516-06-rta-general",
+    "title": "General regulation under the Residential Tenancies Act, 2006",
+    "citation": "O. Reg. 516/06",
+    "url": "https://www.ontario.ca/laws/docs/060516_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Residential Tenancies Act"
+    ],
+    "why": "Law exam, 2026-10-07: the RTA's exceptions (fees a landlord may charge, rent rules) are prescribed here; the Act alone cannot answer them."
+  },
+  {
+    "id": "oreg-54-95-preferential-share",
+    "title": "Preferential Share regulation under the Succession Law Reform Act",
+    "citation": "O. Reg. 54/95",
+    "url": "https://www.ontario.ca/laws/docs/950054_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Succession Law Reform Act"
+    ],
+    "minCharacters": 300,
+    "why": "Law exam, 2026-10-07: the surviving spouse's preferential share on an intestacy is prescribed here; the Act only refers to it."
+  },
+  {
+    "id": "partition-act",
+    "title": "Partition Act",
+    "citation": "R.S.O. 1990, c. P.4",
+    "url": "https://www.ontario.ca/laws/docs/90p04_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PARTITION ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Partition Act, R.S.O. 1990, c. P.4\")."
+  },
+  {
+    "id": "partnerships-act",
+    "title": "Partnerships Act",
+    "citation": "R.S.O. 1990, c. P.5",
+    "url": "https://www.ontario.ca/laws/docs/90p05_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Partnerships Act"
+    ],
+    "why": "Partnership break-ups: when a partnership exists, partners' duties, dissolution and accounts. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "personal-health-information-protection-act",
+    "title": "Personal Health Information Protection Act",
+    "citation": "S.O. 2004, c. 3, Sched. A",
+    "url": "https://www.ontario.ca/laws/docs/04p03_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "PERSONAL HEALTH INFORMATION PROTECTION ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Personal Health Information Protection Act, 2004, S.O. 2004, c. 3, Sched. A\")."
+  },
+  {
+    "id": "real-property-limitations-act",
+    "title": "Real Property Limitations Act",
+    "citation": "R.S.O. 1990, c. L.15",
+    "url": "https://www.ontario.ca/laws/docs/90l15_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "REAL PROPERTY LIMITATIONS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Real Property Limitations Act, R.S.O. 1990, c. L.15\")."
+  },
+  {
     "id": "securities-act",
     "title": "Securities Act",
     "citation": "R.S.O. 1990, c. S.5",
@@ -578,37 +504,159 @@
     "why": "Disputes with a financial advisor or dealer; misrepresentation claims. Case types were left out for want of it (2026-10-07)."
   },
   {
-    "id": "energy-consumer-protection-act-2010",
-    "title": "Energy Consumer Protection Act, 2010",
-    "citation": "S.O. 2010, c. 8",
-    "url": "https://www.ontario.ca/laws/docs/10e08_e.doc",
+    "id": "solicitors-act",
+    "title": "Solicitors Act",
+    "citation": "R.S.O. 1990, c. S.15",
+    "url": "https://www.ontario.ca/laws/docs/90s15_e.doc",
     "format": "elaws-doc",
     "mustContain": [
       "CONSOLIDATION PERIOD",
-      "Energy Consumer Protection Act"
+      "Solicitors Act"
     ],
-    "why": "Electricity and gas retail contracts and billing disputes. Case types were left out for want of it (2026-10-07)."
+    "why": "Assessing a lawyer's bill; needed by the lawyer and paralegal fee types. Case types were left out for want of it (2026-10-07)."
   },
   {
-    "id": "air-passenger-protection-regulations",
-    "title": "Air Passenger Protection Regulations",
-    "citation": "SOR/2019-150",
-    "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-2019-150/FullText.html",
-    "format": "html",
+    "id": "statutory-accident-benefits-schedule",
+    "title": "Statutory Accident Benefits Schedule",
+    "citation": "O. Reg. 34/10",
+    "url": "https://www.ontario.ca/laws/docs/100034_e.doc",
+    "format": "elaws-doc",
     "mustContain": [
-      "Air Passenger Protection Regulations"
+      "STATUTORY ACCIDENT BENEFITS SCHEDULE",
+      "CONSOLIDATION PERIOD"
     ],
-    "why": "Flight delays, cancellations, denied boarding and lost baggage. Case types were left out for want of it (2026-10-07)."
+    "why": "Named as missing by the research step (\"Statutory Accident Benefits Schedule - Effective September 1, 2010, O. Reg. 34/10\")."
   },
   {
-    "id": "copyright-act",
-    "title": "Copyright Act",
-    "citation": "R.S.C. 1985, c. C-42",
-    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-42/FullText.html",
-    "format": "html",
+    "id": "statutory-conditions",
+    "title": "Statutory Conditions",
+    "citation": "O. Reg. 777/93",
+    "url": "https://www.ontario.ca/laws/docs/930777_e.doc",
+    "format": "elaws-doc",
     "mustContain": [
-      "Copyright Act"
+      "STATUTORY CONDITIONS",
+      "CONSOLIDATION PERIOD"
     ],
-    "why": "Copyright claims and which courts hear them. Case types were left out for want of it (2026-10-07)."
+    "why": "Named as missing by the research step (\"Statutory Conditions — Automobile Insurance, O. Reg. 777/93\")."
+  },
+  {
+    "id": "statutory-powers-procedure-act",
+    "title": "Statutory Powers Procedure Act",
+    "citation": "R.S.O. 1990, c. S.22",
+    "url": "https://www.ontario.ca/laws/docs/90s22_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Statutory Powers Procedure Act"
+    ],
+    "why": "How hearings before Ontario tribunals (the Landlord and Tenant Board, the Human Rights Tribunal) are run: notice, adjournments, reviews. People sent to a tribunal by a forum check need it."
+  },
+  {
+    "id": "substitute-decisions-act",
+    "title": "Substitute Decisions Act",
+    "citation": "S.O. 1992, c. 30",
+    "url": "https://www.ontario.ca/laws/docs/92s30_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "SUBSTITUTE DECISIONS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Substitute Decisions Act, 1992, S.O. 1992, c. 30\")."
+  },
+  {
+    "id": "succession-law-reform-act",
+    "title": "Succession Law Reform Act",
+    "citation": "R.S.O. 1990, c. S.26",
+    "url": "https://www.ontario.ca/laws/docs/90s26_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "SUCCESSION LAW REFORM ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Succession Law Reform Act, R.S.O. 1990, c. S.26\")."
+  },
+  {
+    "id": "termination-and-severance-of-employment",
+    "title": "Termination and Severance of Employment",
+    "citation": "O. Reg. 288/01",
+    "url": "https://www.ontario.ca/laws/docs/010288_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "TERMINATION AND SEVERANCE OF EMPLOYMENT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Termination and Severance of Employment, O. Reg. 288/01\")."
+  },
+  {
+    "id": "ticket-sales-act-2017",
+    "title": "Ticket Sales Act, 2017",
+    "citation": "S.O. 2017, c. 33, Sched. 3",
+    "url": "https://www.ontario.ca/laws/docs/17t33_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Ticket Sales Act"
+    ],
+    "why": "Ticket resale and cancelled-event refunds. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "towing-and-storage-safety-and-enforcement-act-2021",
+    "title": "Towing and Storage Safety and Enforcement Act, 2021",
+    "citation": "S.O. 2021, c. 26, Sched. 3",
+    "url": "https://www.ontario.ca/laws/docs/21t26_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "TOWING AND STORAGE SAFETY AND ENFORCEMENT ACT, 2021",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Towing and Storage Safety and Enforcement Act, 2021, S.O. 2021, c. 26, Sched. 3\")."
+  },
+  {
+    "id": "travel-industry-act-2002",
+    "title": "Travel Industry Act, 2002",
+    "citation": "S.O. 2002, c. 30, Sched. D",
+    "url": "https://www.ontario.ca/laws/docs/02t30_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Travel Industry Act"
+    ],
+    "why": "Travel agent and tour operator disputes: registration, the compensation fund, what a traveller can recover. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "trust-in-real-estate-services-act",
+    "title": "Trust in Real Estate Services Act, 2002",
+    "citation": "S.O. 2002, c. 30, Sched. C",
+    "url": "https://www.ontario.ca/laws/docs/02r30_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Real Estate"
+    ],
+    "why": "Disputes with a real estate agent or brokerage: registration, deposits held in trust, duties to clients. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "veterinarians-act",
+    "title": "Veterinarians Act",
+    "citation": "R.S.O. 1990, c. V.3",
+    "url": "https://www.ontario.ca/laws/docs/90v03_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "VETERINARIANS ACT",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Veterinarians Act, R.S.O. 1990, c. V.3\")."
+  },
+  {
+    "id": "wages-act",
+    "title": "Wages Act",
+    "citation": "R.S.O. 1990, c. W.1",
+    "url": "https://www.ontario.ca/laws/docs/90w01_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "CONSOLIDATION PERIOD",
+      "Wages Act"
+    ],
+    "why": "How much of a person's wages can be garnished after a judgment; needed by the garnishment case types. Case types were left out for want of it (2026-10-07)."
   }
 ]

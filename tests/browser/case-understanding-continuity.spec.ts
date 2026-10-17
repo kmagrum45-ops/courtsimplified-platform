@@ -77,6 +77,10 @@ async function mockUnderstand(page: Page, question: string) {
 }
 
 test("the date suggestion reads the story, and a new round of questions starts with empty boxes", async ({ page }) => {
+  // A local dev server compiles both the home page and stage-answer route on
+  // first use. CI serves a prebuilt app, but the same assertions run locally.
+  test.setTimeout(180_000);
+  page.setDefaultNavigationTimeout(120_000);
   await grantSiteAccess(page);
   await mockUnderstand(page, ROUND_1_QUESTION);
 
@@ -97,11 +101,16 @@ test("the date suggestion reads the story, and a new round of questions starts w
 
   /*
    * BUG (fixed 2026-10-16): CaseUnderstandingCard never passed storyHints to
-   * StageAnswerPanel, so this button -- which only renders when a date was
-   * read from the story -- never appeared, even though the story stated the
-   * date plainly. Its presence IS the regression test.
+   * StageAnswerPanel, so the date read from the story never appeared, even
+   * though the story stated it plainly. A date with an explicit year is now
+   * shown as known, with its story provenance, rather than as a suggestion
+   * button. Removing storyHints must still make this assertion fail.
    */
-  await expect(page.getByRole("button", { name: /Count my deadline from/i })).toBeVisible();
+  const knownDate = page.getByTestId("stage-answer-known-case-date-act-or-omission");
+  await expect(knownDate).toBeVisible({ timeout: 60_000 });
+  await expect(knownDate).toContainText("September");
+  await expect(knownDate).toContainText("2026");
+  await expect(knownDate).toContainText(/from your story/i);
 
   // Answer round 1's question, then trigger round 2 with a DIFFERENT question.
   await page.getByLabel(ROUND_1_QUESTION).fill(ROUND_1_ANSWER);

@@ -30,6 +30,7 @@
 import { loadCorpusIndex, type Passage } from "../../src/lib/case-system/retrieval/corpusIndex";
 import type { CheckedAnswerDeps } from "../../src/lib/case-system/retrieval/checkedAnswer";
 import {
+  betterDestinationKnown,
   parseUnderstanding,
   retrievalCourtFor,
   stepCatalogue,
@@ -216,6 +217,38 @@ async function main() {
   check("no reply in time answers unavailable", slow.status === "unavailable");
   const empty = await understandCase({ story: "   " }, { reason: async () => JSON.stringify(reasoned) });
   check("an empty story answers unavailable", empty.status === "unavailable");
+
+  // ---- 6. The "Continue" button's own style
+  //
+  // 2026-10-17 live bug: a landlord-held deposit was correctly read as
+  // belonging to the Landlord and Tenant Board, but the only button on the
+  // page still said "Continue with Small Claims" in the same bright green
+  // used when nothing better is known. betterDestinationKnown is the one
+  // thing CaseUnderstandingCard's button style depends on.
+  check(
+    "a tribunal reading (no CourtPath to offer) still downgrades the chosen-path button",
+    betterDestinationKnown("tribunal", "small-claims", null) === true,
+  );
+  check(
+    "outside Ontario downgrades it too",
+    betterDestinationKnown("outside-ontario", "small-claims", null) === true,
+  );
+  check(
+    "genuinely unclear keeps the chosen-path button primary -- nothing better is known",
+    betterDestinationKnown("unclear", "small-claims", null) === false,
+  );
+  check(
+    "the mainCourt agreeing with what the person chose keeps it primary",
+    betterDestinationKnown("small-claims", "small-claims", null) === false,
+  );
+  check(
+    "a different, available path still downgrades it (unchanged behaviour)",
+    betterDestinationKnown("civil", "small-claims", true) === true,
+  );
+  check(
+    "a different path that is NOT available in this build leaves it primary -- it is the only button left to click",
+    betterDestinationKnown("civil", "small-claims", false) === false,
+  );
 
   console.log(failures ? `\n${failures} failed` : "\nAll passed");
   process.exitCode = failures ? 1 : 0;

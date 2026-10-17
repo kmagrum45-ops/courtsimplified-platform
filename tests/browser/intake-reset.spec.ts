@@ -111,6 +111,12 @@ test("the story carries from the finder into the builder within one flow", async
   await page.waitForTimeout(2500);
 
   await expect(page).toHaveURL(/\/builder\?path=small-claims/);
+  await page.getByRole("checkbox", { name: /I understand that CourtSimplified/i }).check();
+  await page.getByRole("button", { name: /^Continue$/ }).click();
+  // The builder first asks which intake mode to use; the story is rendered
+  // by the selected intake, rather than by that chooser.
+  await page.getByRole("button", { name: /Fill in the form yourself/i }).click();
+  await expect(page.locator("textarea").filter({ visible: true }).first()).toBeVisible();
 
   const found = await findMarker(page, STORY);
   expect(
@@ -123,6 +129,13 @@ test("a signed-in user's saved draft is not wiped by the gate", async ({ page })
   test.setTimeout(300_000);
 
   const userId = "00000000-0000-4000-8000-000000000001";
+
+  // getUser validates the session with the server. A synthetic token alone
+  // is rejected there and makes the gate correctly take its anonymous path.
+  await page.route("**/auth/v1/user", (route) => route.fulfill({
+    status: 200,
+    json: { id: userId, aud: "authenticated", role: "authenticated", email: "reset@example.test" },
+  }));
 
   // Same synthetic-session approach golden-journeys.spec.ts uses: the builder
   // reads the Supabase token out of localStorage, so a seeded token makes the
@@ -156,7 +169,7 @@ test("a signed-in user's saved draft is not wiped by the gate", async ({ page })
   );
 
   await page.goto("/?path=small-claims", SLOW);
-  await page.waitForTimeout(2500);
+  await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible", timeout: 60_000 });
 
   const stillThere = await page.evaluate(
     (key) => (localStorage.getItem(key) || "").includes("SECRETMARKER"),

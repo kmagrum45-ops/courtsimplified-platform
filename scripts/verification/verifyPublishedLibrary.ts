@@ -31,7 +31,7 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 
-import { gateFailures, isPublishable } from "../content/blockGates";
+import { barExceptionProblems, gateFailures, isPublishable } from "../content/blockGates";
 import { ALL_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   hashBlocks,
@@ -39,6 +39,7 @@ import {
   PUBLISHED_RELEASE,
 } from "../../src/lib/content-library/publishedLibrary";
 import type { StageAnswer } from "../../src/lib/content-library/stageAnswers";
+import { renderDeadlineSection } from "../../src/lib/content-library/stageAnswers";
 import { buildSourceDisplay, SOURCE_DISPLAY_FILE } from "../content/buildSourceDisplay";
 import { NOT_A_SOURCE, sourceDisplayFor } from "../../src/lib/content-library/sourceDisplay";
 import { SENTENCE_RULES } from "../../src/lib/content-library/sentenceRules";
@@ -54,6 +55,21 @@ let passed = 0;
 function check(name: string, ok: boolean, detail?: string): void {
   if (ok) passed += 1;
   else failures.push(detail ? `${name}\n      ${detail}` : name);
+}
+
+// The civil stage reuses authored plain-language exceptions. Accept their
+// complete wording, but still fail when either qualification is removed.
+const civilLimitation = ALL_STAGES.find((stage) => stage.id === "civil:before-filing:deciding-whether-to-sue")!;
+const civilDeadline = renderDeadlineSection(civilLimitation.deadlines)!;
+check("authored civil deadline qualifications pass the completeness gate",
+  barExceptionProblems(civilDeadline, civilLimitation).every((problem) =>
+    !["s. 7 (3)", "s. 15 (5)"].some((pinpoint) => problem.includes(`exception at ${pinpoint}.`))));
+for (const [pinpoint, sentence] of [
+  ["s. 7 (3)", "If that condition ends with less than six months left, the time runs to six months after it ends."],
+  ["s. 15 (5)", "You must prove this."],
+] as const) {
+  check(`removing the authored ${pinpoint} qualification fails completeness`,
+    barExceptionProblems(civilDeadline.replace(sentence, ""), civilLimitation).some((problem) => problem.includes(`exception at ${pinpoint}.`)));
 }
 
 // ---------------------------------------------------------------------------

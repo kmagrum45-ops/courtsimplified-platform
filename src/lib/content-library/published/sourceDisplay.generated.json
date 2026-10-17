@@ -661,6 +661,11 @@
       "url": "https://www.ontario.ca/laws/statute/90c33",
       "checkedOn": "2026-09-27"
     },
+    "conveyancing-and-law-of-property-act": {
+      "name": "Conveyancing and Law of Property Act, R.S.O. 1990, c. C.34",
+      "url": "https://www.ontario.ca/laws/statute/90c34",
+      "checkedOn": "2026-10-16"
+    },
     "copyright-act": {
       "name": "Copyright Act, R.S.C. 1985, c. C-42",
       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-42/",
@@ -786,6 +791,11 @@
       "url": "https://www.ontario.ca/laws/statute/90d16",
       "checkedOn": "2026-09-27"
     },
+    "electronic-commerce-act-2000": {
+      "name": "Electronic Commerce Act, 2000, S.O. 2000, c. 17",
+      "url": "https://www.ontario.ca/laws/statute/00e17",
+      "checkedOn": "2026-10-17"
+    },
     "employment-insurance-act": {
       "name": "Employment Insurance Act, S.C. 1996, c. 23",
       "url": "https://laws-lois.justice.gc.ca/eng/acts/E-5.6/",
@@ -860,6 +870,11 @@
       "name": "Family Responsibility and Support Arrears Enforcement Act, 1996, S.O. 1996, c. 31",
       "url": "https://www.ontario.ca/laws/statute/96f31",
       "checkedOn": "2026-09-30"
+    },
+    "fault-determination-rules": {
+      "name": "Fault Determination Rules, R.R.O. 1990, Reg. 668",
+      "url": "https://www.ontario.ca/laws/regulation/900668",
+      "checkedOn": "2026-10-16"
     },
     "fc-glossary": {
       "name": "fct-cf.ca, Representing yourself — Glossary (Federal Court)",
@@ -1390,6 +1405,11 @@
       "name": "Statutory Accident Benefits Schedule, O. Reg. 34/10",
       "url": "https://www.ontario.ca/laws/regulation/100034",
       "checkedOn": "2026-10-05"
+    },
+    "statutory-conditions": {
+      "name": "Statutory Conditions, O. Reg. 777/93",
+      "url": "https://www.ontario.ca/laws/regulation/930777",
+      "checkedOn": "2026-10-16"
     },
     "statutory-powers-procedure-act": {
       "name": "Statutory Powers Procedure Act, R.S.O. 1990, c. S.22",
