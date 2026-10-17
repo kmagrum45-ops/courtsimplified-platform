@@ -24,6 +24,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { chunkSource, collapse, type ChunkSource } from "../../src/lib/case-system/retrieval/corpusChunker";
 
@@ -171,4 +172,21 @@ function main() {
   console.log(`Wrote ${count} provisions across ${Object.keys(JSON.parse(built)).length} answers.`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main();
+/*
+ * *** THIS GUARD USED TO NEVER MATCH, AND FAILED SILENTLY ***
+ *
+ * It compared `import.meta.url` against "file://" + process.argv[1]. When argv[1]
+ * is RELATIVE -- which is how npx/tsx passes it -- that compares
+ * "file://scripts/content/..." with "file:///C:/Users/.../scripts/content/...", so
+ * they never match: main() never ran, nothing was written, and the process exited 0.
+ * Running it with --check printed nothing and succeeded, which reads as "the
+ * generated file is current" when nothing had been checked at all.
+ *
+ * Found 2026-10-17: three bot PRs failed CI on "every source in the search index has
+ * a checked date" because a newly added Act had no source-display row, and
+ * regenerating it locally appeared to do nothing whatsoever.
+ *
+ * pathToFileURL resolves a relative argv against the working directory and produces
+ * the same absolute file: URL that import.meta.url carries.
+ */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
