@@ -394,8 +394,16 @@ const STORY_CUES: Record<string, RegExp> = {
   "sc-date-defence-filed": /\bfiled (?:my|a|the|our) defen[cs]e\b/i,
   "sc-date-settlement-conference": /\bsettlement conference\b/i,
   "sc-date-injury": /\b(hurt|injur(?:ed|y)|fell|slipped|tripped|bitten|bit|attacked|hit by|accident|crash(?:ed)?)\b/i,
-  // The day a non-injury claim is based on (2026-10-07).
-  "case-date-act-or-omission": /\b(invoice|never paid|stopped paying|(?:refused|won'?t|wont|didn'?t) (?:to )?pay|stopped (?:showing up|coming|work)|last day|was due|due date|bounced|fired|let me go|let go|terminated|dismissed me|laid (?:me )?off)\b/i,
+  // The day a non-injury claim is based on (2026-10-07). Widened 2026-10-16
+  // (live bug): "a contractor took a $3,000 deposit and never did the work"
+  // matched none of this -- the cue was written around unpaid-debt and
+  // dismissal stories and had nothing for a deposit-taker who never
+  // performed, so the sentence was never quoted back and no deadline hint
+  // was offered at all, however complete the date in it. The added phrases
+  // mirror sc-claim-breach-of-contract-services's own signals ("took my
+  // deposit and disappeared", "never came to do the work", "no-show for a
+  // booked service"), the claim type this story matches.
+  "case-date-act-or-omission": /\b(invoice|never paid|stopped paying|(?:refused|won'?t|wont|didn'?t) (?:to )?pay|stopped (?:showing up|coming|work)|last day|was due|due date|bounced|fired|let me go|let go|terminated|dismissed me|laid (?:me )?off|took (?:a |my |the )?deposit|never (?:did the work|came (?:to do|back)|showed up|finished|started)|walked off the job|no-?show|disappeared)\b/i,
   // Civil and family (2026-10-05). Each names the document or event the date
   // question asks about, so the quote beside the question is about that.
   "case-date-served-with-application": /\b(served|got|received)\b.*\bapplication\b/i,
@@ -468,6 +476,16 @@ export type StoryHint = {
   value: string | null;
   /** True when the story gave a month and day but no year, and the most recent such date was assumed. */
   yearAssumed?: boolean;
+  /**
+   * False when the quoted sentence names the moment but contains no date at
+   * all ("He never paid anything") -- distinct from a date missing its year.
+   * 2026-10-17 live bug: StageAnswerPanel's only "no value" message reads
+   * "Pick that date above, with its year", which is wrong and confusing for
+   * a quote with no date in it whatsoever; this lets that caller tell the
+   * two situations apart. Absent (not false) only means no sentence was
+   * quoted at all, which callers already handle.
+   */
+  mentionsDate?: boolean;
 };
 
 const MONTH_DAY = new RegExp(`\\b(${MONTH}) (\\d{1,2})(?:st|nd|rd|th)?\\b|\\b(\\d{1,2})(?:st|nd|rd|th)? (${MONTH})\\b`, "i");
@@ -719,6 +737,7 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
       quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence,
       value: value ?? assumed,
       ...(assumed ? { yearAssumed: true } : {}),
+      ...(value ?? assumed ? {} : { mentionsDate: MENTIONS_DATE.test(sentence) }),
     };
   }
   // "This happened January 13 2025" in its own sentence, after the sentence

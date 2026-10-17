@@ -414,7 +414,7 @@ async function main(): Promise<void> {
     seen.push(questions.map((question) => question.id));
     return [];
   };
-  const confirmedCategory = [{ questionId: "sc-orient-dispute-category", answerText: "A slip, a fall, or another injury" }];
+  const confirmedCategory = [{ questionId: "sc-orient-dispute-category", answerText: "A personal injury (a fall, an animal bite, or similar)" }];
   await applyConfirmedStoryAnswers(
     { role: "plaintiff" },
     [],
@@ -448,6 +448,65 @@ async function main(): Promise<void> {
     },
   );
   check("no re-read unless the caller asks for it", seen.length === before2);
+
+  // ---- 2026-10-16 live bug: pre-ticked answers the story doesn't support ----
+  //
+  // A dog-bite story that only said "I had to pay vet bills" (no figure, no
+  // working) was pre-ticked as the answer to "What did this cost you, and how
+  // did you work that out?", and a story with no location at all was
+  // pre-ticked as the answer to "What happened, and where were you when it
+  // happened?". Both quotes were real words from the story, so the
+  // quote-presence check alone let them through. TEXT_MUST_MENTION closes
+  // this: it is keyed by the QUESTION'S TEXT, since the depth-question bank
+  // repeats these exact two questions across many claim elements, each under
+  // its own id.
+  {
+    const dogWhatHappened = questionsForElement("dog-caused-bite-or-attack").find((q) => q.status === "reviewed");
+    const dogLoss = questionsForElement("loss-amount-dog-bite").find((q) => q.status === "reviewed");
+    check("the authored dog-bite 'what happened' question exists", Boolean(dogWhatHappened));
+    check("the authored dog-bite 'cost' question exists", Boolean(dogLoss));
+    const dogStory = "My neighbour's dog bit me and I had to pay vet bills. This happened on September 13, 2026.";
+
+    if (dogLoss) {
+      const costOffered = [depthAsIntakeQuestion(dogLoss)];
+      const noFigure = validateStoryProposals(
+        { proposals: [{ questionId: dogLoss.id, answer: "I had to pay vet bills, and I have the bills.", storyQuote: "I had to pay vet bills" }] },
+        dogStory,
+        costOffered,
+      );
+      check(
+        "a cost proposal with no figure or amount in the quote is dropped (the question is asked)",
+        noFigure.length === 0,
+        JSON.stringify(noFigure),
+      );
+      const withFigure = validateStoryProposals(
+        { proposals: [{ questionId: dogLoss.id, answer: "$340 in vet bills", storyQuote: "I had to pay $340 in vet bills" }] },
+        dogStory + " I had to pay $340 in vet bills.",
+        costOffered,
+      );
+      check("a cost proposal with a real figure in the quote is kept", withFigure.length === 1, JSON.stringify(withFigure));
+    }
+
+    if (dogWhatHappened) {
+      const whereOffered = [depthAsIntakeQuestion(dogWhatHappened)];
+      const noLocation = validateStoryProposals(
+        { proposals: [{ questionId: dogWhatHappened.id, answer: "My neighbour's dog bit me on September 13, 2026.", storyQuote: "My neighbour's dog bit me" }] },
+        dogStory,
+        whereOffered,
+      );
+      check(
+        "a 'where were you' proposal with no location in the quote is dropped (the question is asked)",
+        noLocation.length === 0,
+        JSON.stringify(noLocation),
+      );
+      const withLocation = validateStoryProposals(
+        { proposals: [{ questionId: dogWhatHappened.id, answer: "Bitten in my own backyard", storyQuote: "it happened in my backyard" }] },
+        dogStory + " It happened in my backyard.",
+        whereOffered,
+      );
+      check("a 'where were you' proposal with a real location in the quote is kept", withLocation.length === 1, JSON.stringify(withLocation));
+    }
+  }
 
   // ---- Depth questions (2026-10-04) ----
   //

@@ -454,3 +454,82 @@ jobs:
           if npm run test:mutations 2>&1 | tee mutations.log; then exit 0; fi
           grep -A3 "^FAIL" mutations.log | head -60 | python3 -c "import sys; t=sys.stdin.read().replace('%','%25').replace('\r','').replace('\n','%0A'); print('::error title=Mutation tests failed::'+t)"
           exit 1
+
+  # Added 2026-10-16, after a bug shipped through the front door
+  # (HomeLocationGate -> CaseUnderstandingCard, 2026-10-14) that every
+  # existing browser spec had zero chance of catching: they all navigate
+  # straight to /builder, skipping the home page entirely. The specs this
+  # job runs are deterministic (the AI call is mocked, or the spec needs no
+  # AI call at all) -- no OpenAI spend, unlike courtsimplified-walkthrough.yml.
+  #
+  # NOT in the branch-protection required-check list yet, deliberately:
+  # this job was written and wired up without a way to run it in this
+  # sandbox (no network egress to npm or to the live site), so it is proven
+  # correct by the mutation-style check described in each spec's own
+  # comments, not by a local pass here. Once it has run clean on a few real
+  # PRs, promoting it to a required check alongside typecheck-and-build is a
+  # one-line change to the repo's ruleset.
+  browser-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      # Staging only -- same reasoning as courtsimplified-walkthrough.yml. The
+      # repository's NEXT_PUBLIC_SUPABASE_* secrets point at PRODUCTION, so the
+      # STAGING_* secrets are read first and the guard step below refuses
+      # production by ref if they're ever missing.
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY || secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refuse a production database
+        run: node --import tsx scripts/walkthrough/guard.ts
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      # Same reasoning as courtsimplified-walkthrough.yml: the gate compares
+      # a cookie to SITE_ACCESS_PASSWORD, so this run makes up its own,
+      # masked, used only by this job's own server.
+      - name: Site access password for this run only
+        run: |
+          pw="$(openssl rand -hex 24)"
+          echo "::add-mask::$pw"
+          echo "SITE_ACCESS_PASSWORD=$pw" >> "$GITHUB_ENV"
+
+      - name: Production build
+        run: npm run build
+
+      - name: Start the site
+        run: |
+          nohup npx next start -p 3100 > server.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -s -o /dev/null http://localhost:3100; then echo "up"; exit 0; fi
+            sleep 2
+          done
+          echo "server did not start"; tail -50 server.log; exit 1
+
+      - name: Browser regressions found by hand in the front door (no AI spend)
+        env:
+          PLAYWRIGHT_BASE_URL: http://localhost:3100
+        run: >
+          npx playwright test
+          tests/browser/intake-reset.spec.ts
+          tests/browser/case-understanding-continuity.spec.ts
+          --reporter=line --workers=1

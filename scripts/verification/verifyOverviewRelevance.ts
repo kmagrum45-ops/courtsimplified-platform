@@ -100,6 +100,40 @@ function main(): void {
   const longest = [...DEFENCE_CONCEPTS].sort((a, b) => b.plainExplanation.length - a.plainExplanation.length)[0];
   check("the longest defence text is shortened to a lead", splitLead(longest.plainExplanation).rest.length > 0);
 
+  // ---- splitLead never stops on a legal-citation abbreviation ----
+  // Found live 2026-10-16: a defence with no sentence boundary before the
+  // 260-char target truncated to "Under s." because "s." reads as a sentence
+  // end. Property, not a pinned value: a lead that gets split (rest is
+  // non-empty) must be long enough to be a real sentence, for every defence
+  // AND for a citation-shaped sample built to provoke exactly this failure.
+  const citationSample =
+    "Under s. 4(1) of the Occupiers' Liability Act, an occupier owes a duty to see that people are reasonably safe. " +
+    "Repeating padding so the text passes the character threshold for splitting into a lead and a rest. ".repeat(3);
+  // 2026-10-16 live bug: the abbreviation check compared the regex match's
+  // index (an offset into the TRIMMED text) against the UNTRIMMED text, so
+  // any source string with leading whitespace shifted every index and
+  // silently defeated the check. Needs its own fixture: citationSample's
+  // later padding periods give the (shifted) loop another sentence end to
+  // land on before the budget regardless, masking the bug. This one has no
+  // other period at all before the budget, matching the live dog-bite
+  // defence text exactly -- the loop must skip the "s." abbreviation and
+  // keep hunting past 260 chars, which only happens if the skip check reads
+  // the right string. A content-library string is always trim()-clean; this
+  // sample exists only to prove the index bug stays fixed.
+  const leadingWhitespaceSample =
+    "  Under s. 3 of Ontario's Negligence Act, a person who suffers damage caused partly by their own " +
+    "negligence recovers only the share of the loss that corresponds to the share of fault found against " +
+    "the other party, and the court apportions fault between everyone found at fault in the case before it";
+  const allSplitSamples = [...DEFENCE_CONCEPTS.map((c) => c.plainExplanation), citationSample, leadingWhitespaceSample];
+  const abbreviationStubs = allSplitSamples
+    .map((text) => splitLead(text))
+    .filter(({ lead, rest }) => rest.length > 0 && lead.trim().length < 20);
+  check(
+    "no defence lead is truncated down to a bare abbreviation (e.g. 'Under s.')",
+    abbreviationStubs.length === 0,
+    abbreviationStubs.map((s) => s.lead).join(" | "),
+  );
+
   // ---- starting steps name real rules ----
   const rules = readFileSync(
     path.join(process.cwd(), "docs", "sources", "corpus", "oreg-258-98-small-claims-rules.txt"),

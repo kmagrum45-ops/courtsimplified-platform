@@ -59,7 +59,17 @@ type EvidenceGuidance = {
   categories: EvidenceCategory[];
 };
 
-type MatchedClaimType = { claimTypeId: string; claimTypeName: string };
+/**
+ * 2026-10-16 live bug: the results page labelled this "Kind of claim you
+ * confirmed" for every matched claim type, including the exact-phrase path
+ * below, which the person is never shown and never asked about -- no card,
+ * no message, nothing naming the claim type until the results page itself.
+ * `userConfirmed` records which path actually happened: true only when the
+ * person clicked "that's right" on the suggestion card (resolveSuggestion
+ * below), false for a silent exact-phrase match. The overview panel reads
+ * it to word the label honestly instead of overstating what occurred.
+ */
+type MatchedClaimType = { claimTypeId: string; claimTypeName: string; userConfirmed?: boolean };
 
 type GuidanceCitation = {
   sourceName: string;
@@ -639,7 +649,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // with the up-to-date value in this same pass.
       const freshMatch = result.matchedClaimTypes[0]?.claimType;
       const matchedClaimTypeThisTurn: MatchedClaimType | null = freshMatch
-        ? { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name }
+        ? { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name, userConfirmed: false }
         : matchedClaimType;
       if (freshMatch) {
         setMatchedClaimType(matchedClaimTypeThisTurn);
@@ -785,12 +795,14 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       }
 
       const result = json.result as
-        | { outcome: "confirmed"; claimType: MatchedClaimType; evidenceGuidance: EvidenceGuidance; claimGuidance: ClaimGuidance }
+        | { outcome: "confirmed"; claimType: { claimTypeId: string; claimTypeName: string }; evidenceGuidance: EvidenceGuidance; claimGuidance: ClaimGuidance }
         | { outcome: "revised"; suggestedClaimType: MatchedClaimType }
         | { outcome: "no-match" };
 
       if (result.outcome === "confirmed") {
-        setMatchedClaimType(result.claimType);
+        // This path only runs after the person clicked "that's right" on the
+        // suggestion card -- the one case where userConfirmed is actually true.
+        setMatchedClaimType({ ...result.claimType, userConfirmed: true });
         setEvidenceGuidance(result.evidenceGuidance);
         setClaimGuidance(result.claimGuidance);
         setPendingSuggestion(null);
@@ -1030,6 +1042,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         elementStateMap: stateMap || undefined,
         sourcedAnswers: sourced.answeredList(),
       });
+    } else {
+      // 2026-10-16 live bug: this branch silently did nothing when `payload`
+      // was missing, leaving the user on the closing chat line with no error,
+      // no save, and no way to continue -- a true dead end. Whatever the
+      // cause, the user must see SOMETHING rather than nothing.
+      setError("Something went wrong finishing the intake. Please try again, or go back and re-answer the last question.");
     }
   }
 
@@ -1404,7 +1422,20 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
 
       {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
 
-      {!halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive) ? (
+      {/*
+        2026-10-16 live bug: "Guided intake complete." rendered mid-flow, in
+        the gap between the generic phase ending (intakeComplete set true,
+        synchronously) and the claim-type depth phase actually starting
+        (depthActive set true only after its network round-trip resolves,
+        startDepthPhase below). That round-trip yields control back to the
+        browser, so React commits a real render in between with
+        intakeComplete true and depthActive still false -- exactly what this
+        guard was keying on. `loading` is the one flag already true for that
+        whole window (set at the top of startDepthPhase, before its await),
+        so adding it here keeps the input area (and its "..." Send button)
+        showing through the gap instead of a premature "complete" label.
+      */}
+      {!halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
         <div className="mt-4 flex gap-2">
           <textarea
             // Keyed to the question actually on screen, the same fix already
@@ -1441,9 +1472,31 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </button>
         </div>
       ) : (
-        <p className="mt-4 text-sm font-semibold text-[#4d675f]">
-          {halted ? "Intake stopped here." : "Guided intake complete."}
-        </p>
+        <div className="mt-4">
+          <p className="text-sm font-semibold text-[#4d675f]">
+            {halted ? "Intake stopped here." : "Guided intake complete."}
+          </p>
+          {/*
+            2026-10-16 live bug: once intake is marked complete and the depth
+            phase is no longer active, this was the ONLY thing rendered here --
+            a static line, no button. If onComplete above never actually fired
+            (completionPayload missing, a save error, anything), the user was
+            stuck on this exact screen with nothing to click. This button is
+            the escape hatch: it is always available once intake is complete
+            and not currently loading, and re-runs the same finish path, which
+            by now reads committed state rather than whatever was in flight
+            the first time.
+          */}
+          {!halted && !loading ? (
+            <button
+              type="button"
+              onClick={() => finishDepthPhase(depthStateMap)}
+              className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+            >
+              Continue to your next steps
+            </button>
+          ) : null}
+        </div>
       )}
 
       {depthActive ? (
@@ -1487,7 +1540,11 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         <GuidanceDisclosure
           evidenceGuidance={evidenceGuidance}
           claimGuidance={claimGuidance}
-          intakeComplete={intakeComplete && !depthActive}
+          // Same in-flight gap as the input-area guard above: expand only
+          // once the depth phase is either active or genuinely not coming
+          // (loading covers the window between the generic phase ending and
+          // depthActive flipping true).
+          intakeComplete={intakeComplete && !depthActive && !loading}
         />
       ) : null}
     </div>

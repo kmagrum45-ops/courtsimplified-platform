@@ -1895,7 +1895,19 @@ export default function StageAnswerPanel({
                   ) : null}
                   {hint && !hint.value && !suggestion && !value ? (
                     <p className="mt-2 text-sm text-[#4d675f]" data-testid={`stage-answer-story-hint-${question.id}`}>
-                      You wrote: &ldquo;{hint.quote}&rdquo; Pick that date above, with its year.
+                      {/*
+                        2026-10-17 live bug: this always said "Pick that date
+                        above, with its year" -- right for a date missing
+                        only its year, but wrong and confusing when the
+                        quoted sentence has no date in it at all ("He never
+                        paid anything" was quoted here and told the person
+                        to "pick that date"). hint.mentionsDate tells the two
+                        apart; false means genuinely no date was found.
+                      */}
+                      You wrote: &ldquo;{hint.quote}&rdquo;{" "}
+                      {hint.mentionsDate === false
+                        ? "That doesn't give a date. Enter it above if you know it."
+                        : "Pick that date above, with its year."}
                     </p>
                   ) : null}
                   {suggestion && !value && suggestion.yearAssumed ? (

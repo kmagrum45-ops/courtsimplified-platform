@@ -37,6 +37,7 @@ import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventReque
 import {
   consumeNarrativePrefill,
   directPrefillValues,
+  extractNarrativePrefill,
   type NarrativePrefillFact,
   type NarrativePrefill,
 } from "../../../src/lib/case-system/intelligence/narrativePrefill";
@@ -45,6 +46,8 @@ import {
   type IntakeQuestion,
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
+import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
+import { settledClaimTypeMatch } from "../../../src/lib/case-system/intake/claimTypeMatcher";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -169,6 +172,14 @@ function mergeStoredValuesIntoInput(
     filedDocuments: Array.isArray(values.documentStatus)
       ? (values.documentStatus as SmallClaimsIntelligenceInput["filedDocuments"])
       : base.filedDocuments,
+    // 2026-10-16 live bug: a claim type the guided route already confirmed
+    // (saved to extra.confirmedClaimTypeId, now in storedIntakeValues' own
+    // allow-list) never carried into the form route at all -- never merged
+    // here, so "kind of claim not clear yet" showed even for a saved case
+    // that already had one.
+    ...(values.confirmedClaimTypeId || base.confirmedClaimTypeId
+      ? { confirmedClaimTypeId: String(values.confirmedClaimTypeId || base.confirmedClaimTypeId) }
+      : {}),
   };
 }
 
@@ -457,9 +468,19 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
   // Nothing is guessed before there is a story (page review, 2026-10-06: a
   // blank form read "Likely direction: starting case · not yet classified").
   if (!hasText(input.facts)) return "";
-  const issueText = issues.length
-    ? issues.map((issue) => labels[issue]).join(", ")
-    : "kind of claim not clear yet";
+  // 2026-10-16 live bug: a claim type the guided route already confirmed
+  // (now carried into `input` by mergeStoredValuesIntoInput above) is the
+  // real answer, over the weaker generic-issue guesser below -- reopening a
+  // saved case showed "kind of claim not clear yet" even when one had
+  // already been settled.
+  const confirmedClaimType = input.confirmedClaimTypeId
+    ? CLAIM_TYPES.find((claimType) => claimType.id === input.confirmedClaimTypeId)
+    : null;
+  const issueText = confirmedClaimType
+    ? confirmedClaimType.name
+    : issues.length
+      ? issues.map((issue) => labels[issue]).join(", ")
+      : "kind of claim not clear yet";
 
   return `So far this looks like: ${stage.replace(/-/g, " ")} · ${issueText}`;
 }
@@ -598,11 +619,22 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       ...(storedValues ?? {}),
       ...(initialPrefill ? directPrefillValues(initialPrefill) : {}),
     };
-    return mergeStoredValuesIntoInput(
+    const merged = mergeStoredValuesIntoInput(
       { ...defaultInput, yourProvince: location.province, yourCity: location.city },
       values,
       initialStory,
     );
+    // 2026-10-16 live bug: "Case stage" showed "Not sure" even when the
+    // story plainly describes a dispute that hasn't gone to court yet --
+    // inferStage() already works this out correctly, but was only ever
+    // consulted at submission time (handleAnalyze below), never fed back
+    // into what the select actually shows while the person is filling in
+    // the form. Applying it here is a pre-filled SUGGESTION, same as any
+    // other prefilled field: the select stays editable, and nothing here
+    // is stored until the person submits or saves.
+    return merged.caseStage === "not-sure" && hasText(merged.facts)
+      ? { ...merged, caseStage: inferStage(merged) }
+      : merged;
   });
 
   /*
@@ -658,6 +690,59 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     if (inferredIssues.includes("work-or-services")) return "work-or-services";
     return undefined;
   }, [inferredIssues]);
+  // 2026-10-16 live bug: typing a story directly into THIS form's "Case
+  // story" box never extracted anything from it. extractNarrativePrefill
+  // only ran for the AI chat partner's first message (CourtAssistantChat
+  // .tsx), handed off through sessionStorage and consumed once at mount
+  // (initialPrefill above) -- a one-shot hand-off from chat to form, not a
+  // live extractor on the form's own story box. Someone who picked "fill in
+  // the form yourself" and typed their story here directly had to re-type
+  // the amount and dates they'd already written, even though the same
+  // regex extraction that works for the chat path works just as well on
+  // this text.
+  //
+  // Run once the person finishes editing the story (closes the toggle), not
+  // on every keystroke. Limited to plain-string fields with no name/type
+  // mismatch against NarrativePrefillFact.field (documentStatus ->
+  // filedDocuments, addressDetails -> yourAddress, and the role/caseStage
+  // facts are deliberately left out of this pass -- they need the same
+  // array/union-safe handling mergeStoredValuesIntoInput already has, and
+  // widening this fix to use that function would let a fresh extraction
+  // silently overwrite something the person already typed by hand, since
+  // mergeStoredValuesIntoInput's own `values.x || base.x` always prefers
+  // the new value). Only fills a field that is still blank.
+  const EXTRACTABLE_STORY_FIELDS = new Set([
+    "amountClaimed",
+    "timeline",
+    "evidence",
+    "settlementEfforts",
+    "yourEmail",
+    "goal",
+    "otherParty",
+    "yourName",
+  ]);
+  function extractFromStory() {
+    if (!input.facts.trim()) return;
+    const prefill = extractNarrativePrefill({ narrative: input.facts, courtPath: "small-claims" });
+    const direct = prefill.facts.filter(
+      (fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field),
+    );
+    if (direct.length === 0) return;
+    setExtractedFacts((current) => [
+      ...current.filter((fact) => !direct.some((found) => found.field === fact.field)),
+      ...direct,
+    ]);
+    setInput((current) => {
+      const next = { ...current } as Record<string, unknown>;
+      for (const fact of direct) {
+        const existing = next[fact.field];
+        if (typeof existing === "string" && existing.trim()) continue;
+        next[fact.field] = Array.isArray(fact.value) ? fact.value.join(", ") : fact.value;
+      }
+      return next as SmallClaimsIntelligenceInput;
+    });
+  }
+
   function updateField<K extends keyof SmallClaimsIntelligenceInput>(
     field: K,
     value: SmallClaimsIntelligenceInput[K],
@@ -802,6 +887,18 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // "I was served a plaintiff's claim"). Only the untouched default is
       // replaced; anything the user ticked stands.
       const untouchedDefault = input.filedDocuments.length === 0 || (input.filedDocuments.length === 1 && input.filedDocuments[0] === "nothing");
+      // 2026-10-16 live bug: this route never matched a claim type at all, so
+      // the overview's evidence checklist, court points and common defences
+      // (all driven by confirmedClaimTypeId) never appeared for anyone who
+      // filled in the form instead of using the guided chat. Matched here on
+      // "Case story" alone -- the same single field the guided route matches
+      // its opening story against -- via the same settledClaimTypeMatch bar
+      // orchestrateIntakeTurn.ts uses there (claimTypeMatcher.ts). A weaker,
+      // scattered-word candidate is left out rather than auto-applied: this
+      // route has no suggestion card to ask the person about it (CLAUDE.md
+      // §4, suggest never decide).
+      const matched = hasText(input.facts) ? settledClaimTypeMatch(input.facts, CLAIM_TYPES) : null;
+      const matchedClaimTypeId = matched?.claimType.id ?? null;
       const preparedInput: SmallClaimsIntelligenceInput = {
         ...input,
         caseStage: stage,
@@ -812,6 +909,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             : input.filedDocuments.length > 0
               ? input.filedDocuments
               : ["nothing"],
+        ...(matchedClaimTypeId ? { confirmedClaimTypeId: matchedClaimTypeId } : {}),
       };
 
       const response = await requestSmallClaimsAnalysis(
@@ -829,6 +927,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
             authenticated: response.authenticated === true,
             completedAt: new Date().toISOString(),
           },
+          // Never user-confirmed on this route -- there is no suggestion card
+          // here, only the automatic exact-phrase match above. Matches
+          // IntelligenceOverviewPanel.tsx's claimTypeUserConfirmed read, which
+          // words the "Kind of claim..." label honestly either way (see the
+          // guided route's same field, app/builder/page.tsx).
+          ...(matchedClaimTypeId ? { claimTypeUserConfirmed: false } : {}),
         },
       };
 
@@ -1000,7 +1104,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
         </div>
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" data-testid="sc-intake-edit-story" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" data-testid="sc-intake-facts" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" data-testid="sc-intake-edit-story" onClick={() => { if (editingStory) extractFromStory(); setEditingStory((current) => !current); }} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" data-testid="sc-intake-facts" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">

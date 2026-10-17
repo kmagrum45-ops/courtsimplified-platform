@@ -82,6 +82,35 @@ const QUOTE_MUST_MENTION: Record<string, RegExp> = {
 };
 
 /**
+ * Same idea as QUOTE_MUST_MENTION, but by the QUESTION'S TEXT rather than its
+ * id -- the depth-question bank (elementQuestionRegistry.ts) repeats "What did
+ * this cost you, and how did you work that out?" and "What happened, and
+ * where were you when it happened?" verbatim across dozens of claim elements,
+ * each under its own id, so an id-keyed map would need one entry per claim
+ * type and silently miss the next one.
+ *
+ * WHY (live run, 2026-10-16): a dog-bite story that only said "I had to pay
+ * vet bills" got pre-ticked as the answer to "What did this cost you, and how
+ * did you work that out?" -- no figure, no working, just the word "bills" --
+ * and a story with no location at all got pre-ticked as the answer to "What
+ * happened, and where were you when it happened?". Both quotes were real
+ * words from the story (so the quote-presence check alone passed them), but
+ * neither quote actually contains the thing the question asks for.
+ */
+const TEXT_MUST_MENTION: { pattern: RegExp; mustContain: RegExp }[] = [
+  {
+    // Any question asking for a dollar figure or how it was worked out.
+    pattern: /\b(cost you|how much|how did you (work|arrive)|amount (did|was))\b/i,
+    mustContain: /[$0-9]/,
+  },
+  {
+    // Any question asking where something happened.
+    pattern: /\bwhere were you\b|\bwhere did (it|this|the)\b/i,
+    mustContain: /\b(at|in|on|near|outside|inside|behind|across from|in front of)\s+\w/i,
+  },
+];
+
+/**
  * The code-side check. Pure, so it runs offline in the suite.
  *
  * Drops a proposal when:
@@ -129,6 +158,8 @@ export function validateStoryProposals(
     if (quote.length < 3 || !normalizedStory.includes(quote)) continue;
     const mustMention = QUOTE_MUST_MENTION[questionId];
     if (mustMention && !mustMention.test(storyQuote)) continue;
+    const textRule = TEXT_MUST_MENTION.find((rule) => rule.pattern.test(question.text));
+    if (textRule && !textRule.mustContain.test(storyQuote)) continue;
 
     if (question.answerType === "choice") {
       const choice = (question.choices || []).find((option) => normalize(option) === normalize(trimmedAnswer));

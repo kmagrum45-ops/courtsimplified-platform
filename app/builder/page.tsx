@@ -380,6 +380,20 @@ function BuilderPageContent() {
    */
   const [hydrated, setHydrated] = useState(false);
   /*
+   * Set the moment this mount loads a fresh story hand-off -- either the
+   * court-path finder's COURT_PATH_FINDER_KEY or the home page's
+   * GUEST_INTAKE_SESSION_STORAGE_KEY (both below) -- so the stale-case
+   * recovery effect (search caseIdRecoveryDecidedRef) knows not to clobber it.
+   * Found 2026-10-16 from the site owner's own live test: starting a brand
+   * new Small Claims case, right after finishing an earlier one, landed on
+   * the OLD case with its OLD story, because that recovery effect reads
+   * BUILDER_LAST_CASE_KEY and injects its caseId into the URL whenever the
+   * court path matches -- with no way to tell "this tab lost its place and
+   * should resume" from "this is an intentional new case of the same type".
+   * A hand-off that just set a fresh story IS that distinction.
+   */
+  const freshStoryHandoffRef = useRef(false);
+  /*
    * EACH BUILDER STEP IS A BACK STOP (2026-10-06).
    *
    * The mode chooser, the intake and the results were all React state on one
@@ -517,6 +531,7 @@ function BuilderPageContent() {
         try {
           const guide = JSON.parse(temporaryGuide) as { province?: string; city?: string; facts?: string };
           if (guide.province === "Ontario" && guide.city?.trim() && guide.facts?.trim()) {
+            freshStoryHandoffRef.current = true;
             setConfirmedLocation({ province: "Ontario", city: guide.city.trim() });
             setHomeStory(guide.facts.trim());
             return;
@@ -536,6 +551,7 @@ function BuilderPageContent() {
       if (!active) return;
       const draft = consumeGuestIntakeSession(sessionStorage);
       if (initialPath && draft?.courtPath === courtPath && draft.province === "Ontario" && draft.city.trim() && draft.facts.trim()) {
+        freshStoryHandoffRef.current = true;
         setConfirmedLocation({ province: "Ontario", city: draft.city.trim() });
         setHomeStory(draft.facts.trim());
         return;
@@ -1221,11 +1237,19 @@ function BuilderPageContent() {
           // rather than rebuilding its own (design section 5). Absent when no
           // claim type was confirmed or the user skipped — both legitimate.
           ...(result.elementStateMap ? { elementStateMap: result.elementStateMap } : {}),
-          // 2026-09-28. The claim type the USER confirmed, or null when none
-          // was. The overview reads this instead of re-matching the story, so
-          // its cards follow the user's confirmation rather than a separate
+          // 2026-09-28. The claim type MATCHED for this case, or null when
+          // none was. The overview reads this instead of re-matching the
+          // story, so its cards follow this match rather than a separate
           // keyword match that can disagree with it.
           confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
+          // 2026-10-16 live bug: the field above is named "confirmed" but an
+          // exact-phrase story match reaches it with the person never having
+          // seen or been asked about the claim type -- no card, no message,
+          // nothing names it before the results page. True only when the
+          // person clicked "that's right" on the suggestion card
+          // (GuidedSmallClaimsIntake.tsx's resolveSuggestion). The overview
+          // panel reads this to word its label honestly either way.
+          claimTypeUserConfirmed: result.matchedClaimType?.userConfirmed === true,
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
           // The side and filing answers the person gave or confirmed in the
@@ -1325,6 +1349,13 @@ function BuilderPageContent() {
    */
   useEffect(() => {
     if (!hydrated || stepParam !== "results" || analysis || queryCaseId) return;
+    // Same guard as the guided/form recovery below: a fresh story hand-off
+    // landing on this mount is an intentional new case and must never be
+    // overwritten with an old one of the same court type, even though this
+    // exact effect was not the one the 2026-10-16 live test happened to hit
+    // (it only fires on ?step=results). It shares the same flaw and the
+    // same fix belongs in both places.
+    if (freshStoryHandoffRef.current) return;
     let last: { caseId?: string; courtPath?: string } | null = null;
     try {
       last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
@@ -1387,6 +1418,12 @@ function BuilderPageContent() {
     if (stepParam !== "guided" && stepParam !== "form") return;
     if (caseIdRecoveryDecidedRef.current) return;
     caseIdRecoveryDecidedRef.current = true;
+    // A fresh story hand-off just landed on this mount (the home page or the
+    // court-path finder) -- that is an intentional new case, not a tab that
+    // lost its place, so it must never be overwritten with an old one of the
+    // same court type. See freshStoryHandoffRef above for the live-test bug
+    // this guards against (2026-10-16).
+    if (freshStoryHandoffRef.current) return;
     let last: { caseId?: string; courtPath?: string } | null = null;
     try {
       last = JSON.parse(sessionStorage.getItem(BUILDER_LAST_CASE_KEY) || "null");
@@ -1970,7 +2007,18 @@ function BuilderPageContent() {
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-[#4d675f]">
-                Your location is saved. Add the details of your case below.
+                {/*
+                  2026-10-16 live bug: this said "saved" the instant the
+                  location gate's Continue button was clicked -- purely
+                  client-side (setConfirmedLocation above), with nothing
+                  written to the database yet. The real write only happens
+                  later, in the saveMasterCase effect below, after the whole
+                  structured intake and its AI analysis complete. Someone who
+                  closed the tab here lost everything despite being told it
+                  was saved. Worded to promise only what has actually
+                  happened.
+                */}
+                Location noted. It will be saved with the rest of your case once you finish the details below.
               </p>
 
               {/*

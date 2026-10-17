@@ -141,8 +141,20 @@ export function matchClaimType(
         continue;
       }
 
+      // 2026-10-16 live bug: a MULTI-WORD signal that IGNORED_WORDS reduces to
+      // a single leftover word is not "all the content words of a phrase" --
+      // it's one incidental word. "i never did that" and "i was never there"
+      // both reduce to just ["never"], "it wasn't me" to ["wasnt"], "sued for
+      // something i did not do" to ["sued"] -- all on defendant-side claim
+      // types, all common enough to turn up in an unrelated plaintiff's
+      // story. A contractor-deposit story ("...never did the work...") scored
+      // on "never" alone and was classified as the DEFENDANT'S "being sued
+      // for something you did not do" claim type. A signal AUTHORED as one
+      // word (e.g. "defamation", "tripped") is unaffected: it already matches
+      // through the exact-phrase check above, which requires the word to
+      // actually appear, not merely survive the ignore-list.
       const words = contentWords(signal);
-      if (words.length > 0 && words.every((word) => storyWords.has(word))) {
+      if (words.length >= 2 && words.every((word) => storyWords.has(word))) {
         matchedSignals.push(signal);
         score += ALL_CONTENT_WORDS_SCORE;
       }
@@ -163,4 +175,22 @@ export function matchClaimType(
     matchedSignals: ranked[0].matchedSignals,
     exactPhraseMatched: ranked[0].exactPhrases > 0,
   };
+}
+
+/**
+ * The "settled" bar every caller that auto-applies a match without asking
+ * the person uses: an exact-phrase hit, never a scattered-words-only
+ * candidate (see ClaimTypeMatch.exactPhraseMatched). Extracted 2026-10-16 so
+ * every auto-apply site shares the one bar rather than re-deriving it --
+ * orchestrateIntakeTurn.ts's guided-chat opening story and
+ * SmallClaimsIntake.tsx's "Case story" field both call this, not
+ * matchClaimType() directly, when the plan is to apply the result without a
+ * confirmation step.
+ */
+export function settledClaimTypeMatch(
+  storyText: string,
+  claimTypes: readonly ClaimType[],
+): ClaimTypeMatch | null {
+  const candidate = matchClaimType(storyText, claimTypes);
+  return candidate && candidate.exactPhraseMatched ? candidate : null;
 }

@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
+import { betterDestinationKnown } from "@/src/lib/case-system/understanding/betterDestination";
+import { storyHintsForDates } from "@/src/lib/case-system/casePosition";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import CheckedAnswerPanel from "./CheckedAnswerPanel";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
@@ -68,11 +70,27 @@ export default function CaseUnderstandingCard({
 }) {
   const { understanding, answer } = result;
   const [replies, setReplies] = useState<Record<number, string>>({});
+  /*
+   * Each "Update with my answers" round replaces `result` with a fresh read
+   * (a new set of questions, in a new order, often a different length). Without
+   * this, `replies` -- keyed by array position -- kept last round's text and
+   * it silently reappeared under whatever new question now sat at that same
+   * index: a user's answer to "what extra care did the dog need" showed up
+   * under an unrelated later question. Found 2026-10-16 from the site owner's
+   * own live test. Clearing on every new `result` keeps each box starting
+   * blank for its own question, every round.
+   */
+  useEffect(() => {
+    setReplies({});
+  }, [result]);
   const answered = understanding.questions
     .map((item, index) => ({ question: item.question, answer: (replies[index] ?? "").trim() }))
     .filter((item) => item.answer);
   const suggested = asPath(understanding.mainCourt);
   const tribunal = understanding.matters.find((matter) => matter.court === "tribunal");
+  // 2026-10-17 live bug (Case 1, a landlord-held deposit): see
+  // betterDestinationKnown's own comment in betterDestination.ts.
+  const betterDestination = betterDestinationKnown(understanding.mainCourt, chosenPath, suggested ? isPathwayAvailable(suggested) : null);
 
   return (
     <div
@@ -160,6 +178,7 @@ export default function CaseUnderstandingCard({
             suggestedStepId={understanding.step}
             responding={understanding.side === "responding"}
             storyText={story}
+            storyHints={storyHintsForDates(story)}
             userWords={story}
             city={city}
           />
@@ -225,7 +244,7 @@ export default function CaseUnderstandingCard({
               data-testid="case-understanding-continue-chosen"
               onClick={() => onContinue(chosenPath, answered)}
               className={
-                suggested && isPathwayAvailable(suggested)
+                betterDestination
                   ? "rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
                   : "rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
               }

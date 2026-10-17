@@ -2257,6 +2257,11 @@ const CORE_CLAIM_TYPES: ClaimType[] = [
       "took my deposit and disappeared",
       "walked off the job halfway through",
       "never came to do the work",
+      // 2026-10-16 live bug: "A contractor took a $3,000 deposit and never
+      // did the work" matched nothing at all -- not one signal above shares
+      // enough words with it ("disappeared", "came", "showed up", "job" all
+      // miss). This is the claim's plainest possible wording.
+      "took a deposit and never did the work",
     ],
     typicalDefendantProfile: "either",
     citations: [
