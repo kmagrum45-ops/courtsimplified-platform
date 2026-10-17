@@ -866,6 +866,11 @@
       "url": "https://www.ontario.ca/laws/statute/96f31",
       "checkedOn": "2026-09-30"
     },
+    "fault-determination-rules": {
+      "name": "Fault Determination Rules, R.R.O. 1990, Reg. 668",
+      "url": "https://www.ontario.ca/laws/regulation/900668",
+      "checkedOn": "2026-10-16"
+    },
     "fc-glossary": {
       "name": "fct-cf.ca, Representing yourself — Glossary (Federal Court)",
       "url": "https://www.fct-cf.ca/en/pages/representing-yourself/glossary",
@@ -1395,6 +1400,11 @@
       "name": "Statutory Accident Benefits Schedule, O. Reg. 34/10",
       "url": "https://www.ontario.ca/laws/regulation/100034",
       "checkedOn": "2026-10-05"
+    },
+    "statutory-conditions": {
+      "name": "Statutory Conditions, O. Reg. 777/93",
+      "url": "https://www.ontario.ca/laws/regulation/930777",
+      "checkedOn": "2026-10-16"
     },
     "statutory-powers-procedure-act": {
       "name": "Statutory Powers Procedure Act, R.S.O. 1990, c. S.22",
