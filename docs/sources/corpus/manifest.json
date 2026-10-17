@@ -2015,6 +2015,18 @@
       "hashNote": "Reset 2026-09-30. The recorded hash came from a later re-fetch whose file was never committed. All sources were re-fetched on 2026-09-30 (Vendor Sources run 36792894579) and compared word by word with the committed copies: the English legal text is the same; differences are character encoding (accents in French equivalents, curly quotes) and page furniture (service notices). See docs/SOURCING_NOTES.md."
     },
     {
+      "id": "electronic-commerce-act-2000",
+      "title": "Electronic Commerce Act, 2000",
+      "citation": "S.O. 2000, c. 17",
+      "url": "https://www.ontario.ca/laws/docs/00e17_e.doc",
+      "retrievedAt": "2026-10-17T00:24:19.157Z",
+      "sha256": "8ba3815ed61c93d8df4c520de70fa4949d33d77a1cdc21418c9aba553b8275ac",
+      "consolidation": "CONSOLIDATION PERIOD: FROM MAY 15, 2020 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 32922,
+      "lines": 643,
+      "file": "electronic-commerce-act-2000.txt"
+    },
+    {
       "id": "employment-insurance-act",
       "title": "Employment Insurance Act",
       "citation": "S.C. 1996, c. 23",

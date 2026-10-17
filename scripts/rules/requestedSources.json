@@ -202,6 +202,18 @@
     "why": "Gig workers' pay: what a platform must pay and how a worker enforces it. Case types were left out for want of it (2026-10-07)."
   },
   {
+    "id": "electronic-commerce-act-2000",
+    "title": "Electronic Commerce Act, 2000",
+    "citation": "S.O. 2000, c. 17",
+    "url": "https://www.ontario.ca/laws/docs/00e17_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "ELECTRONIC COMMERCE ACT, 2000",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Electronic Commerce Act, 2000, S.O. 2000, c. 17, ss. 5 and 11\")."
+  },
+  {
     "id": "energy-consumer-protection-act-2010",
     "title": "Energy Consumer Protection Act, 2010",
     "citation": "S.O. 2010, c. 8",
