@@ -1413,9 +1413,75 @@ function BuilderPageContent() {
    * sidesteps the race instead of trying to win it.
    */
   const caseIdRecoveryDecidedRef = useRef(false);
+  /*
+   * THE STEP THIS PAGE MOUNTED ON, WHICH IS NOT THE STEP IT IS SHOWING.
+   *
+   * *** WHY THE "DECIDE ONCE PER MOUNT" REF ABOVE WAS NOT ENOUGH (2026-10-16) ***
+   *
+   * `caseIdRecoveryDecidedRef` is only set on the first run that gets PAST the
+   * guided/form guard. Mount on the chooser -- `/builder?path=small-claims`, which
+   * the dashboard's "Start a new case" opens -- and `stepParam` is null, so this
+   * effect returns at that guard having decided nothing. The moment the person
+   * enters a city and picks "Answer questions one at a time with AI help",
+   * `stepParam` becomes "guided", the effect runs for real, finds the previous
+   * case in BUILDER_LAST_CASE_KEY, and injects its caseId into the URL.
+   *
+   * So the person asked for a new case and got the old one's story and location
+   * back. `freshStoryHandoffRef` did not save them: it is only set by the home
+   * page's and the court-path finder's hand-offs, and arriving at the chooser
+   * from the dashboard is neither.
+   *
+   * The distinction that actually matters is WHERE THE PAGE CAME IN. A tab that
+   * lost its place and should resume re-enters directly on ?step=guided or
+   * ?step=form. Somebody starting a new case enters on the chooser and walks
+   * forward to guided/form. Both end up with the same `stepParam`, so the step
+   * being shown cannot tell them apart -- only the step it mounted on can.
+   */
+  const mountedStepRef = useRef<string | null>(null);
+  const mountedStepDecidedRef = useRef(false);
+  if (!mountedStepDecidedRef.current) {
+    mountedStepDecidedRef.current = true;
+    mountedStepRef.current = stepParam;
+  }
+
+  /*
+   * A new case started from the chooser forgets the last one.
+   *
+   * The second half of the same fix. Without this, the stale caseId sits in
+   * sessionStorage for the rest of the tab's life, so the NEXT thing that reads it
+   * -- a reload of the results step, or any future recovery path -- still reopens
+   * the finished case. Arriving at the chooser with no caseId is an intentional
+   * new case, and the whole purpose of that key is "this tab lost its place";
+   * a tab that is deliberately starting over has not lost its place.
+   *
+   * Only on a mount that is BOTH on the chooser and without a caseId. Opening a
+   * saved case (?caseId=...) must leave the key alone.
+   */
+  useEffect(() => {
+    if (!hydrated || queryCaseId) return;
+    if (mountedStepRef.current === "guided" || mountedStepRef.current === "form") return;
+    try {
+      sessionStorage.removeItem(BUILDER_LAST_CASE_KEY);
+    } catch {
+      // Storage unavailable: nothing was stored to clear.
+    }
+    /*
+     * `hydrated` and `queryCaseId` are the complete dependency list: the step this
+     * mount came in on is read from a ref, so it deliberately does not appear here
+     * and does not re-trigger when the person walks forward to guided or form.
+     * That is the whole point — an eslint-disable was added here at first and was
+     * unnecessary, which lint caught.
+     */
+  }, [hydrated, queryCaseId]);
+
   useEffect(() => {
     if (!hydrated || queryCaseId) return;
     if (stepParam !== "guided" && stepParam !== "form") return;
+    /*
+     * Recovery is for a tab that RE-ENTERED on the intake, not one that walked
+     * here from the chooser. See mountedStepRef above.
+     */
+    if (mountedStepRef.current !== "guided" && mountedStepRef.current !== "form") return;
     if (caseIdRecoveryDecidedRef.current) return;
     caseIdRecoveryDecidedRef.current = true;
     // A fresh story hand-off just landed on this mount (the home page or the
