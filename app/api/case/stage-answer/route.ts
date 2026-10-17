@@ -156,6 +156,8 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
     id: deadline.id,
     rule: deadline.rule,
     consequence: deadline.consequence,
+    qualifier: deadline.qualifier,
+    qualifierRules: deadline.exceptions,
     notABar: deadline.consequence === "bars-the-claim" ? notABarExceptions(deadline.exceptions) : [],
     statutory: deadline.regime === "legislation-act",
     // A point after which leave is needed, not a time to act (r. 20.08 (2.1)):

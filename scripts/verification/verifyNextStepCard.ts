@@ -72,6 +72,10 @@
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { NextStepCard } from "../../app/builder/_components/StageAnswerPanel";
+import { LIMITATION_ADMISSION_RESTARTS_CLOCK } from "../../src/lib/case-system/stage-map/civilStages";
 
 import { POST } from "../../app/api/case/stage-answer/route";
 import {
@@ -145,17 +149,35 @@ type Summary = {
 };
 type Body = { outcome: string; nextStep?: Summary | null; answer?: { sections: { heading: string; text: string }[] } };
 
-async function ask(stageId: string, courtPath: string, dateAnswers: Record<string, string> = {}): Promise<Body> {
+async function ask(stageId: string, courtPath: string, dateAnswers: Record<string, string> = {}, confirmedFacts: Record<string, string> = {}): Promise<Body> {
   const response = await POST(
     new Request("http://local/api/case/stage-answer", {
       method: "POST",
-      body: JSON.stringify({ stageId, courtPath, confirmedFacts: {}, dateAnswers }),
+      body: JSON.stringify({ stageId, courtPath, confirmedFacts, dateAnswers }),
     }),
   );
   return (await response.json()) as Body;
 }
 
 async function main() {
+  // PR #429 repaired the full answer but the summary dropped the qualifier.
+  // Exercise the real route and rendered alert for EVERY s. 4 stage, across
+  // courts, including the Small Claims filing step from the live report.
+  for (const stage of ALL_STAGES.filter((stage) => stage.deadlines.some((deadline) =>
+    deadline.rule.sourceId === "limitations-act-2002" && deadline.rule.pinpoint === "s. 4"))) {
+    const body = await ask(stage.id, stage.pathway ?? "small-claims", { "case-date-act-or-omission": "2023-12-31" }, { municipality: "Toronto" });
+    const props = body as unknown as Pick<Parameters<typeof NextStepCard>[0], "answer" | "summary"> & { nextStep: Parameters<typeof NextStepCard>[0]["summary"] };
+    const summary = props.nextStep;
+    check(`${stage.id}: the route retains the admission qualifier`, Boolean(summary && [...summary.deadlines, ...summary.periods].some((item) => item.qualifier?.includes(LIMITATION_ADMISSION_RESTARTS_CLOCK.trim()))));
+    if (!summary || !props.answer) continue;
+    const markup = renderToStaticMarkup(createElement(NextStepCard, {
+      summary, answer: props.answer, court: stage.pathway ?? "small-claims", stepId: stage.id,
+      userWords: "I lent my friend money and they texted admitting the debt", city: "Toronto", askedForDates: false,
+    }));
+    const alerts = markup.match(/<div[^>]*data-testid="next-step-passed-bar"[\s\S]*?<\/div>\s*<\/div>/g) ?? [];
+    check(`${stage.id}: the passed warning itself renders the full qualifier and admission source`, alerts.some((alert) =>
+      alert.includes("next-step-passed-qualifier") && alert.includes(LIMITATION_ADMISSION_RESTARTS_CLOCK.trim()) && alert.includes("s. 13 (1)")));
+  }
   // A served civil defendant: the counted date is on the card.
   const served = await ask("civil:defendant:served-defence-period-running", "civil", {
     "sc-date-claim-served": "2026-09-20",
@@ -562,7 +584,7 @@ async function main() {
     // One condition decides both places, so the card is never hidden above
     // before it shows below (review 2026-10-13): it includes the existing
     // order and the step panel being on screen (a confirmed step).
-    const gate = /const (\w+) =([\s\S]{0,500}?);\n/.exec(page.slice(page.indexOf("existingFamilyOrder(homeStory || userStory(caseData)) &&") - 200))?.[0] ?? "";
+    const gate = /const (\w+) =([\s\S]{0,500}?);\r?\n/.exec(page.slice(page.indexOf("existingFamilyOrder(homeStory || userStory(caseData)) &&") - 200))?.[0] ?? "";
     const gateName = /const (\w+) =/.exec(gate)?.[1] ?? "";
     check("one condition decides where the table card goes: an existing order and the step panel on screen", Boolean(gateName) && /existingFamilyOrder/.test(gate) && /confirmedStage/.test(gate) && /analysis/.test(gate));
     check(

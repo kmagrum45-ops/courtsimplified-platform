@@ -48,6 +48,7 @@ import {
   type RuleCitation,
 } from "../../src/lib/case-system/stage-map/citations";
 import * as CITATIONS from "../../src/lib/case-system/stage-map/citations";
+import { LIMITATION_ADMISSION_RESTARTS_CLOCK } from "../../src/lib/case-system/stage-map/civilStages";
 import {
   UNKNOWN_STAGE_MESSAGE,
   OUT_OF_SCOPE_STAGE_MESSAGE,
@@ -356,22 +357,24 @@ for (const expected of NOTICE_DEADLINES) {
  * which is exactly how a reader lost the one fact that could have kept
  * them from giving up on a claim that was still open.
  */
-const basicLimitationBars = bars.filter(
+const basicLimitationBars = ALL_STAGES.flatMap((stage) => stage.deadlines.map((deadline) => ({ stage, deadline }))).filter(
   ({ deadline }) => deadline.rule.sourceId === "limitations-act-2002" && deadline.rule.pinpoint === "s. 4",
 );
 if (basicLimitationBars.length === 0) {
   fail("no claim-barring deadline cites the basic Limitations Act, 2002, s. 4 limit -- the check below has nothing to test.");
 }
 for (const { stage, deadline } of basicLimitationBars) {
-  const hasAdmissionException = (deadline.exceptions ?? []).some(
-    (exception) => exception.sourceId === "limitations-act-2002" && exception.pinpoint === "s. 13 (1)",
-  );
+  const hasAdmissionException = ["s. 13 (1)", "s. 13 (9)", "s. 13 (10)", "s. 13 (11)"].every((pinpoint) =>
+    (deadline.exceptions ?? []).some((exception) => exception.sourceId === "limitations-act-2002" && exception.pinpoint === pinpoint));
   if (!hasAdmissionException) {
     fail(
       `${stage.id}'s basic limitation deadline bars the claim but does not carry the Limitations Act, 2002, s. 13 (1) ` +
         `written-admission exception. A reader told "that date has already passed" on this stage would never learn that ` +
         `an admission can restart the clock.`,
     );
+  }
+  if (!deadline.qualifier?.includes(LIMITATION_ADMISSION_RESTARTS_CLOCK.trim())) {
+    fail(`${stage.id}'s basic limitation deadline lacks the verified admission qualifier.`);
   }
 }
 

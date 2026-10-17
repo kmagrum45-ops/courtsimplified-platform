@@ -129,3 +129,31 @@ test("the date suggestion reads the story, and a new round of questions starts w
   await expect(round2Box).toHaveValue("");
   await expect(page.getByText(ROUND_1_ANSWER)).toHaveCount(0);
 });
+
+test("a passed Small Claims filing deadline shows the admission qualifier inside its warning", async ({ page }) => {
+  test.setTimeout(180_000);
+  await grantSiteAccess(page);
+  await page.route("**/api/case/understand", async (route) => {
+    const body = understandResponse(ROUND_1_QUESTION);
+    body.understanding.step = "plaintiff:claim-drafted-not-filed";
+    body.understanding.summary = "You lent your friend money, it was not repaid, and they later texted admitting the debt.";
+    body.understanding.facts = [];
+    await route.fulfill({ status: 200, json: body });
+  });
+  await page.goto("/?path=small-claims", { timeout: 120_000 });
+  await page.getByLabel("City or municipality").fill("Toronto");
+  await page.getByLabel("Tell us what happened in your own words").fill("I lent my friend $5,000 March 2023, due December 2023, never paid. January 2025 he texted admitting he owes the 5k.");
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  const dates = page.getByTestId("stage-answer-dates");
+  await expect(dates).toBeVisible({ timeout: 60_000 });
+  const change = dates.getByRole("button", { name: "Change", exact: true });
+  if (await change.count()) await change.first().click();
+  await dates.locator('input[type="date"]').first().fill("2023-12-31");
+  await dates.getByRole("button", { name: "Count my deadline", exact: true }).click();
+  const warning = page.getByTestId("next-step-passed-bar");
+  await expect(warning).toBeVisible({ timeout: 60_000 });
+  await expect(warning).toContainText("Missing this time limit");
+  await expect(warning.getByTestId("next-step-passed-qualifier")).toContainText("The other side may admit in writing, and sign");
+  await expect(warning).toContainText("before the time ran out");
+  await expect(warning).toContainText("s. 13 (1)");
+});

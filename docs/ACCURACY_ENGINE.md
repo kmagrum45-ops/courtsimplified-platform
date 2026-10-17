@@ -2405,3 +2405,14 @@ its distinctive source words were absent from their plain wording. Recognition
 is limited to the complete authored passages on their matching source and
 provision; removing either qualification must still fail the gate. Regenerate
 `sourceDisplay.generated.json` when the map's citation set changes.
+
+## Passed-warning qualifier transport (2026-10-17)
+
+The Small Claims filing step is `plaintiff:claim-drafted-not-filed`. PR #429
+fixed its map and published answer, but `stage-answer` omitted the qualifier
+from `nextStep`; the passed-warning card could not render it. Its separate
+`notABarExceptions` filter only recognizes the literal words "is not a bar".
+Keep that filter for its existing purpose and carry the full authored qualifier
+and its citations into the warning itself. The all-stage regression must start
+from `ALL_STAGES`, not `claimBarringDeadlines()` (which is Small Claims only),
+and check both the route payload and rendered alert, not only the lower answer.

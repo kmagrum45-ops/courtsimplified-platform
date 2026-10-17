@@ -1779,7 +1779,7 @@ function basicLimitation(id: string, withSuspensions = false): StageDeadline {
   return {
     id,
     what: "The general deadline to start a court case",
-    qualifier: LIMITATION_QUALIFIER + (withSuspensions ? LIMITATION_SUSPENSIONS : ""),
+    qualifier: LIMITATION_QUALIFIER + (withSuspensions ? LIMITATION_SUSPENSIONS : LIMITATION_ADMISSION_RESTARTS_CLOCK),
     countFrom: "the day the claim was discovered",
     countFromEvent: "claim-discovered",
     length: { unit: "years", count: 2 },
@@ -1797,6 +1797,10 @@ function basicLimitation(id: string, withSuspensions = false): StageDeadline {
       S_LIM_SCHEDULE_LIBEL,
       C.S_LS_6_LIMITATION,
       C.S_LS_7_SCOPE,
+      S_LIM_13_1_ACKNOWLEDGMENT,
+      S_LIM_13_9_BEFORE_EXPIRY,
+      S_LIM_13_10_WRITING,
+      S_LIM_13_11_PART_PAYMENT,
       ...(withSuspensions
         ? [
             S_LIM_6_MINORS,
@@ -1804,10 +1808,6 @@ function basicLimitation(id: string, withSuspensions = false): StageDeadline {
             S_LIM_7_2_PRESUMED_CAPABLE,
             S_LIM_7_3_SIX_MONTHS,
             S_LIM_11_1_RESOLUTION,
-            S_LIM_13_1_ACKNOWLEDGMENT,
-            S_LIM_13_9_BEFORE_EXPIRY,
-            S_LIM_13_10_WRITING,
-            S_LIM_13_11_PART_PAYMENT,
             S_LIM_5_3_DEMAND,
             S_LIM_15_4_C_MISLEADS,
             S_LIM_15_5_BURDEN,
