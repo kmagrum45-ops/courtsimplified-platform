@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
+import ts from "typescript";
 
 const builder = readFileSync("app/builder/page.tsx", "utf8");
 const client = readFileSync("src/lib/supabase/client.ts", "utf8");
@@ -23,7 +24,37 @@ assert.match(builder, /user_id:\s*user\.id/, "Case creation must use the authent
 // payload became `{ ...masterPayload, derivedFrom, ... }` though the scoping
 // was unchanged (found 2026-09-28, CI red on main).
 // The payload may span lines (2026-10-04: it gained a preserved `position`).
-assert.match(builder, /\.update\(\{[\s\S]*?master_result:\s*\{?\s*\.\.\.masterPayload[\s\S]*?\)\s*\.eq\("id", activeId\)/, "Selected-case updates must stay scoped to the selected case ID.");
+// Inspect the actual update chain, independently of payload spread ordering.
+// Queue identity must match the row filter; owner and court filters stay present.
+const tree = ts.createSourceFile("builder.tsx", builder, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+let inspected = 0;
+function inspect(node: ts.Node): void {
+  if (ts.isVariableDeclaration(node) && node.initializer) {
+    let cursor: ts.Node = node.initializer;
+    let cases = false, master = false;
+    const filters = new Map<string, string>();
+    while (ts.isCallExpression(cursor) && ts.isPropertyAccessExpression(cursor.expression)) {
+      const method = cursor.expression.name.text;
+      const args = cursor.arguments;
+      if (method === "from" && args[0] && ts.isStringLiteral(args[0]) && args[0].text === "cases") cases = true;
+      if (method === "update" && args[0] && ts.isObjectLiteralExpression(args[0])) master = args[0].properties.some(property => ts.isPropertyAssignment(property) && property.name.getText(tree) === "master_result");
+      if (method === "eq" && args[0] && ts.isStringLiteral(args[0]) && args[1]) filters.set(args[0].text, args[1].getText(tree).replace(/!/g, ""));
+      cursor = cursor.expression.expression;
+    }
+    if (cases && master) {
+      let queue: ts.Node | undefined = node.parent;
+      while (queue && !(ts.isCallExpression(queue) && queue.expression.getText(tree) === "runCaseWrite")) queue = queue.parent;
+      assert.ok(queue && ts.isCallExpression(queue), "A case master update must remain in the canonical write queue.");
+      assert.equal(filters.get("id"), queue.arguments[0]?.getText(tree), "The write must target the case selected by its queue.");
+      assert.equal(filters.get("user_id"), "user.id", "The write must filter the authenticated owner.");
+      assert.equal(filters.get("court_path"), "courtPath", "The write must filter the selected court.");
+      inspected++;
+    }
+  }
+  ts.forEachChild(node, inspect);
+}
+inspect(tree);
+assert.ok(inspected > 0, "The builder master-update scope check must not be empty.");
 assert.doesNotMatch(client, /SUPABASE_SERVICE_ROLE_KEY|service_role/, "Browser Supabase client must not use service-role credentials.");
 
 // pg_dump quotes every identifier, so these tolerate optional double quotes

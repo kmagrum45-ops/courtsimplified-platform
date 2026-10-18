@@ -21,8 +21,10 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await panel.getByRole("textbox", { name: /^Review: Input text$/i }).fill(CORRECTION);
   await expect(story).toHaveValue(CORRECTION);
   await recordInitialUnknowns(page);
-    await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-review-acknowledgement").check();
   await page.getByTestId("intake-confirm").click();
+  // Wait for the save to land: a reload mid-save correctly stays "reviewing" (CI race, 2026-10-18).
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.reload();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await expect(story).toHaveValue(CORRECTION);
@@ -127,12 +129,15 @@ for (const court of ["small-claims", "family", "civil"] as const) {
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
     }
     const panel = page.getByTestId("intake-review");
+    // Each transition must land before the reload that tests its recovery (CI race, 2026-10-18).
     await page.getByTestId("intake-start-review").click();
+    await expect(panel).toHaveAttribute("data-phase", "reviewing");
     await page.reload();
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
     await recordInitialUnknowns(page);
     await page.getByTestId("intake-review-acknowledgement").check();
     await page.getByTestId("intake-confirm").click();
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     await page.reload();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     expect(await page.evaluate(() => Object.keys(localStorage).filter(key => /intake|draft/i.test(key)))).toEqual([]);

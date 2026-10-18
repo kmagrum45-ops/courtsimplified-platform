@@ -36,8 +36,10 @@ import { HELD_BACK_PERSONAS } from "./walkthrough/heldBackPersonas";
 import { PERSONAS, type Persona } from "./walkthrough/personas";
 
 const OUT = path.resolve(process.cwd(), "walkthrough-output");
+// Worker-scoped options belong at file scope; real sessions must not enter traces.
+test.use({ trace: "off", screenshot: "off" });
 
-type Step = { n: number; step: string; url: string; text: string; screenshot: string; note?: string };
+type Step = { n: number; step: string; url: string; text: string; screenshot: string; note?: string; intake?: unknown };
 
 /**
  * The 10-day municipal notice box asks first whether the injury was on a
@@ -68,7 +70,11 @@ async function capture(page: Page, persona: Persona, steps: Step[], step: string
   const main = page.locator("main");
   const text = ((await main.count()) > 0 ? await main.first().innerText() : await page.locator("body").innerText()).trim();
   await page.screenshot({ path: path.join(dir, file), fullPage: true }).catch(() => undefined);
-  steps.push({ n, step, url: page.url(), text, screenshot: `${persona.id}/${file}`, note });
+  const intake = await page.evaluate(key => {
+    const saved = JSON.parse(sessionStorage.getItem(key) ?? "null");
+    return saved ? { checkpoint: saved.checkpoint, phase: document.querySelector('[data-testid="intake-review"]')?.getAttribute("data-phase") } : null;
+  }, GUEST_INTAKE_SESSION_KEY);
+  steps.push({ n, step, url: page.url(), text, screenshot: `${persona.id}/${file}`, note, intake });
 }
 
 async function passGate(page: Page, persona: Persona, steps: Step[]) {
@@ -535,8 +541,7 @@ function shardOf(all: Persona[]): Persona[] {
 }
 
 test.describe("page walkthrough", () => {
-  // A real session must never be serialized into a Playwright trace archive.
-  test.use({ navigationTimeout: 120_000, actionTimeout: 60_000, trace: "off", screenshot: "off" });
+  test.use({ navigationTimeout: 120_000, actionTimeout: 60_000 });
 
   // WALKTHROUGH_SET=held-back plays the ten held-back finish-line cases
   // (walkthrough/heldBackPersonas.ts) instead of the twenty tuning cases.
@@ -586,7 +591,7 @@ test.describe("page walkthrough", () => {
         await visitCaseHome(page, persona, steps);
         await reloadReopensCase(page, persona, steps);
       } catch (error) {
-        failure = error instanceof Error ? error.message.split("\n")[0].slice(0, 400) : String(error);
+        failure = error instanceof Error ? error.message.replace(/\u001b\[[0-9;]*m/g, "").split("\n").slice(0, 12).join(" ").slice(0, 900) : "Walkthrough failed.";
         await capture(page, persona, steps, "failed-here", failure).catch(() => undefined);
       }
       fs.mkdirSync(OUT, { recursive: true });
