@@ -380,13 +380,14 @@ function personsDatesWin(source: string): boolean {
 
 {
   const builder = read("app/builder/page.tsx");
-  const saveAt = builder.indexOf("master_result: {\n              ...masterPayload");
+  // 2026-10-18: the intake work spreads `...storedMaster` first; the layout may vary, the order may not.
+  const saveAt = builder.search(/master_result: \{\s*(?:\.\.\.storedMaster,\s*)?\.\.\.masterPayload/);
   const readAt = builder.lastIndexOf('.select("master_result,updated_at")', saveAt);
   check(
     "a builder re-save keeps the position and drafts, read fresh just before writing",
     saveAt !== -1 &&
       readAt !== -1 &&
-      /\.\.\.userOwned/.test(builder.slice(saveAt, saveAt + 400)) &&
+      /\.\.\.userOwned/.test(builder.slice(saveAt, saveAt + 700)) &&
       // The kept keys include position and drafts; more may join (Phase 1
       // added formApplicability and intakeAnswers).
       /\["position", "drafts"[^\]]*\]/.test(builder.slice(readAt, saveAt)),

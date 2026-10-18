@@ -1,6 +1,6 @@
 "use client";
 
-import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useIntakeRef, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -14,7 +14,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
  * feed into the builder's case-save/analysis pipeline the form path uses.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type {
   ConfirmedStoryAnswer,
   StoryAnswerProposal,
@@ -170,6 +170,8 @@ type ChatMessage = {
   text: string;
   /** Marks a message that carries a bank question, so the one-time intro fires once. */
   isQuestion?: boolean;
+  /** The opening story: shown from the one copy (useStory), never stored here a second time. */
+  isStory?: boolean;
 };
 
 /**
@@ -519,7 +521,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Sticky once set: the notice answers a question the user asked, and it
   // stays in view while they carry on with the intake.
   const [asksForAdvice, setAsksForAdvice] = useIntakeState("guided", "asksForAdvice", false);
-  const [inputText, setInputText] = useIntakeState("guided", "inputText", initialStory || "");
+  // Before the conversation starts the box IS the story (the one copy, intakeStory.ts);
+  // afterwards it holds the answer being typed.
+  const [story, setStory] = useStory();
+  const [answerDraft, setAnswerDraft] = useIntakeState("guided", "inputText", "");
+  const startedRef = useRef(false);
+  const setInputText = useCallback((value: string) => { (startedRef.current ? setAnswerDraft : setStory)(value); }, [setAnswerDraft, setStory]);
   const [loading, setLoading] = useState(false);
   const mounted = useRef(true);
   const turnRequest = useRef(new IntakeRequest());
@@ -534,6 +541,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const [halted, setHalted] = useIntakeState("guided", "halted", false);
   const [intakeComplete, setIntakeComplete] = useIntakeState("guided", "intakeComplete", false);
   const [started, setStarted] = useIntakeState("guided", "started", false);
+  useEffect(() => { startedRef.current = started; }, [started]);
+  const inputText = started ? answerDraft : story;
+  const shownMessages = useMemo(() => messages.map((message) => message.isStory ? { ...message, text: story } : message), [messages, story]);
   // Retained across turns rather than replaced with each response -- only
   // updated when a turn actually carries a new evidenceGuidance, so it
   // doesn't disappear the moment the user answers a plain multiple-choice
@@ -580,7 +590,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const [completionPayload, setCompletionPayload] = useIntakeState<GuidedIntakeCompletionResult | null>("guided", "completionPayload", null);
   const sourced = useSourcedQuestions("small-claims", previous?.sourcedAnswers ?? NO_EARLIER_SOURCED);
   const [heldPayload, setHeldPayload] = useIntakeState<GuidedIntakeCompletionResult | null>("guided", "heldPayload", null);
-  const storyRef = useIntakeRef("guided", "storyText", "");
+  const storyRef = useRef(story);
+  useEffect(() => { storyRef.current = story; }, [story]);
   // 2026-09-28. "Here's what I understood" -- answers the opening story
   // already gives, awaiting the user's confirmation. Null when none pending.
   const [proposalDrafts, setProposalDrafts] = useIntakeState<ProposalDraft[] | null>("guided", "proposalDrafts", null);
@@ -661,7 +672,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       setInputText("");
       setProposalDrafts(null);
       if (answeredQuestionId && newStoryText) setEarlierAnswers((current) => [...current.filter((item) => item.questionId !== answeredQuestionId), { questionId: answeredQuestionId, answerText: newStoryText }]);
-      if (newStoryText) setMessages((current) => [...current, { from: "user", text: newStoryText }]);
+      if (newStoryText) setMessages((current) => [...current, answeredQuestionId ? { from: "user", text: newStoryText } : { from: "user", text: "", isStory: true }]);
       setFacts(result.facts);
       setAnsweredIds(result.answeredIds);
       if (result.evidenceGuidance) {
@@ -879,7 +890,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     if (loading || turnRequest.current.pending || !currentQuestion) return;
     const answerText = inputText.trim();
     const nextAnsweredIds = [...answeredIds, currentQuestion.id];
-    const openingStory = messages.find((message) => message.from === "user")?.text || "";
+    const openingStory = story;
     const earlier = answerText
       ? { story: openingStory, answers: earlierAnswers, declined: declinedIds }
       : undefined;
@@ -901,7 +912,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     ] as const;
 
     return [
-      ...messages.filter((message) => message.from === "user").map((message) => message.text),
+      ...shownMessages.filter((message) => message.from === "user").map((message) => message.text),
       ...fields
         .map((field) => currentFacts[field as keyof IntakeFacts])
         .filter((value): value is string => typeof value === "string"),
@@ -1253,7 +1264,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             : "None of those were right.",
       },
     ]);
-    const openingStory = messages.find((message) => message.from === "user")?.text || "";
+    const openingStory = story;
     const repropose =
       !reproposed && openingStory
         ? { story: openingStory, alreadyOffered: proposalDrafts.map((draft) => draft.questionId) }
@@ -1282,7 +1293,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // waits, the question it arrived with is held back (its message, its help
   // and the answer box) and shown the moment the suggestion is answered.
   const suggestionFirst = !halted && !proposalDrafts && Boolean(pendingSuggestion);
-  const heldFrom = suggestionFirst ? unansweredQuestionStart(messages, FIRST_QUESTION_INTRO) : messages.length;
+  const heldFrom = suggestionFirst ? unansweredQuestionStart(shownMessages, FIRST_QUESTION_INTRO) : shownMessages.length;
 
   return (
     <div>
@@ -1298,7 +1309,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             follow-up questions one at a time.
           </p>
         ) : (
-          messages.slice(0, heldFrom).map((message, index) => (
+          shownMessages.slice(0, heldFrom).map((message, index) => (
             <div
               key={index}
               className="mb-3"

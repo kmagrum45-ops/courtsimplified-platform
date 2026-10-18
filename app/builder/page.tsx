@@ -1,6 +1,7 @@
 "use client";
 
-import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
+import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
+import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 
 import { reviewPhase } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "../_components/intakeRequest";
@@ -365,11 +366,11 @@ function BuilderPageContent() {
    */
   const [locationRestoredFromCase, setLocationRestoredFromCase] = useState(false);
 
-  const [confirmedLocation, setConfirmedLocation] = useIntakeState<{
-    province: "Ontario";
-    city: string;
-  } | null>("builder", "confirmedLocation", null);
-  const [homeStory, setHomeStory] = useIntakeState("builder", "homeStory", "");
+  // The one copy of the story and location (intakeStory.ts), shared with the home
+  // page and every intake form. A location counts as confirmed once it names a city.
+  const [caseLocation, setConfirmedLocation] = useCaseLocation();
+  const confirmedLocation = caseLocation?.city.trim() ? { province: "Ontario" as const, city: caseLocation.city } : null;
+  const [homeStory, setHomeStory] = useStory();
   // Ontario only, for now (CLAUDE.md: Ontario beta). See HomeLocationGate for the same fix.
   const intakeProvince = "Ontario";
   const [intakeCity, setIntakeCity] = useIntakeState("builder", "intakeCity", "");
@@ -664,7 +665,7 @@ function BuilderPageContent() {
       if (!queryCaseId) return;
 
       // A case opens with ITS story or none -- never the previous case's.
-      if (recovery?.read("builder", "homeStory") === undefined) setHomeStory("");
+      if (!storyOf(recovery?.getReview().checkpoint.sections ?? {}).trim()) setHomeStory("");
       setCaseLoadError("");
       setLoadingExistingCase(true);
 
@@ -731,7 +732,7 @@ function BuilderPageContent() {
           ? storedLocation.yourProvince.trim()
           : "";
 
-      if (storedProvince === "Ontario" && storedCity && recovery?.read("builder", "confirmedLocation") === undefined) {
+      if (storedProvince === "Ontario" && storedCity && !confirmedLocationOf(recovery?.getReview().checkpoint.sections ?? {})) {
         setConfirmedLocation({ province: "Ontario", city: storedCity });
         setLocationRestoredFromCase(true);
 

@@ -1,5 +1,6 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
+import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields } from "../../../app/builder/_components/guidedFields";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
@@ -19,28 +20,27 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   const source = courtPath === "family" ? object(sections.family) : object(sections[section]?.input);
   const entries: ReviewEntry[] = [];
   const add = (area: string, key: string, value: unknown, nested?: string) => {
-    if (UI.has(key) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
+    if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
     entries.push({ section: area, field: key, nested, label: definition?.label ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key) });
   };
-  for (const [key, value] of Object.entries(source)) add(section, key, value, courtPath === "family" ? undefined : "input");
+  // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
+  entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
   if (courtPath === "small-claims" && sections.builder?.step === "guided") {
-    entries.length = 0;
-    const storyField = sections.guided?.storyText ? "storyText" : "inputText";
-    add("guided", storyField, sections.guided?.[storyField] || sections.builder?.homeStory || "");
     for (const [key, value] of Object.entries(object(sections.guided?.facts))) add("guided", key, value, "facts");
+  } else {
+    for (const [key, value] of Object.entries(source)) add(section, key, value, courtPath === "family" ? undefined : "input");
   }
-  if (!entries.some(entry => ["facts", "storyText", "inputText"].includes(entry.field) && String(entry.value).trim())) add("builder", "homeStory", sections.builder?.homeStory || sections.home?.facts || "");
-  if (object(sections.builder?.confirmedLocation).city !== undefined) add("builder", "city", object(sections.builder?.confirmedLocation).city, "confirmedLocation");
-  else if (sections.home?.city !== undefined) add("home", "city", sections.home.city);
+  const location = locationOf(sections);
+  if (location) entries.push({ section: STORY_SECTION, nested: "location", field: "city", label: "City", value: location.city, essential: true });
   return entries;
 }
 
 /** UI navigation, research results and later evidence never masquerade as initial fact edits. */
 export function materialInitialFacts(checkpoint: Checkpoint): string {
   const entries = reviewEntries(checkpoint).filter(entry => !OPTIONAL.has(entry.field));
-  return JSON.stringify({ home: { facts: checkpoint.sections.home?.facts, city: checkpoint.sections.home?.city, answers: checkpoint.sections.home?.understoodAnswers }, court: checkpoint.courtPath, location: checkpoint.sections.builder?.confirmedLocation ?? { province: "Ontario", city: checkpoint.sections.home?.city ?? "" }, answers: entries.map(entry => [entry.section, entry.nested, entry.field, entry.value]).sort((a, b) => String(a.slice(0, 3)).localeCompare(String(b.slice(0, 3)))) });
+  return JSON.stringify({ home: { answers: checkpoint.sections.home?.understoodAnswers }, court: checkpoint.courtPath, story: storyOf(checkpoint.sections), location: locationOf(checkpoint.sections), answers: entries.map(entry => [entry.section, entry.nested, entry.field, entry.value]).sort((a, b) => String(a.slice(0, 3)).localeCompare(String(b.slice(0, 3)))) });
 }
 
 export const inputRevision = (checkpoint: Checkpoint) => checkpoint.inputRevision ?? checkpoint.revision;
@@ -76,8 +76,7 @@ export function invalidateReview(workflow: ObjectValue): ObjectValue {
   return { ...workflow, intakeCompleted: false, intakeReview: { version: 1 } };
 }
 export function canReview(checkpoint: Checkpoint): boolean {
-  const city = object(checkpoint.sections.builder?.confirmedLocation).city ?? checkpoint.sections.home?.city;
-  return typeof city === "string" && Boolean(city.trim()) && reviewEntries(checkpoint).some(entry => ["facts", "storyText", "inputText", "homeStory"].includes(entry.field) && String(entry.value).trim().length > 0);
+  return Boolean(confirmedLocationOf(checkpoint.sections)) && storyOf(checkpoint.sections).trim().length > 0;
 }
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */

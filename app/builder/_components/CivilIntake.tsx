@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -572,7 +572,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({ courtPath: "civil", caseId }),
   );
-  const [input, setInput] = useIntakeState<CivilInput>("civil", "input", () => {
+  const [input, setInput] = useInputWithStory<CivilInput>("civil", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {

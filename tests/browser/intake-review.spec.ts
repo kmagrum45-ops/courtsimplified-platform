@@ -18,7 +18,7 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await page.getByTestId("intake-start-review").click();
   const panel = page.getByTestId("intake-review");
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
-  await panel.getByRole("textbox", { name: /^Review: Input text$/i }).fill(CORRECTION);
+  await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(CORRECTION);
   await expect(story).toHaveValue(CORRECTION);
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();

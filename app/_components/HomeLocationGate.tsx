@@ -1,9 +1,10 @@
 "use client";
 
+import { STORY_SECTION } from "../../src/lib/case-system/intakeStory";
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
-import { useIntakeState, useIntakeRef, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "./IntakeRecovery";
+import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "./IntakeRecovery";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IntakeRequest } from "./intakeRequest";
 import { understandingInputError } from "../../src/lib/case-system/understanding/understandInput";
@@ -122,8 +123,11 @@ function HomeLocationGateContent() {
    * real selector again.
    */
   const province = "Ontario";
-  const [city, setCity] = useIntakeState("home", "city", "");
-  const [facts, setFacts] = useIntakeState("home", "facts", "");
+  // The one copy of the story and location (intakeStory.ts): the builder reads these same fields.
+  const [location, setLocation] = useCaseLocation();
+  const city = location?.city ?? "";
+  const setCity = useCallback((value: string) => setLocation({ province: "Ontario", city: value }), [setLocation]);
+  const [facts, setFacts] = useStory();
   const [userId, setUserId] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
@@ -206,12 +210,15 @@ function HomeLocationGateContent() {
     requestRef.current.cancel();
     // Answers given to the front door's questions travel with the story, so
     // the intake does not ask them again.
-    const answered = answers.filter((item) => item.answer.trim());
-    const story = [facts.trim(), ...answered.map((item) => `${item.question.trim()} ${item.answer.trim()}`)].join("\n\n");
+    // An answer already in the story (Back, then Continue again) is not appended twice.
+    const answered = answers.filter((item) => item.answer.trim()).map((item) => `${item.question.trim()} ${item.answer.trim()}`).filter((line) => !facts.includes(line));
+    const story = [facts.trim(), ...answered].join("\n\n");
     try {
       if (recovery && chosenPath === path) {
-        recovery.put("builder", "homeStory", story);
-        recovery.put("builder", "confirmedLocation", { province: "Ontario", city: city.trim() });
+        // Same flow, same single copy: the builder reads the story and location written here.
+        // Written to the store directly (and announced) so the flush below includes it.
+        recovery.put(STORY_SECTION, "text", story, true, true);
+        recovery.put(STORY_SECTION, "location", { province: "Ontario", city: city.trim() }, true, true);
         await recovery.flush();
         router.push(`/builder?path=${chosenPath}&intake=${recovery.flowId}`);
       } else {
@@ -219,7 +226,7 @@ function HomeLocationGateContent() {
         const flowId = crypto.randomUUID();
         const next = { version: 2 as const, ownerId: recovery?.ownerId ?? userId, caseId: null, serverRevision: null,
           checkpoint: { version: 1 as const, flowId, courtPath: chosenPath, revision: crypto.randomUUID(),
-            sections: { builder: { homeStory: story, confirmedLocation: { province: "Ontario", city: city.trim() } } } } };
+            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } } } } };
         if (!writeIntakeSession(sessionStorage, next)) throw new Error("Your text could not be retained. Please copy it before leaving and retry.");
         router.push(`/builder?path=${chosenPath}&intake=${flowId}`);
       }

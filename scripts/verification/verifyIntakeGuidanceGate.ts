@@ -23,7 +23,7 @@ const newer = "33333333-3333-4333-8333-333333333333";
 const owner = "44444444-4444-4444-8444-444444444444";
 async function main() {
   for (const court of ["small-claims", "family", "civil"] as const) {
-    const cp: Checkpoint = { version: 1, flowId: id, courtPath: court, revision, inputRevision: revision, sections: { builder: { homeStory: "Synthetic facts for initial intake", confirmedLocation: { city: "Toronto", province: "Ontario" } } } };
+    const cp: Checkpoint = { version: 1, flowId: id, courtPath: court, revision, inputRevision: revision, sections: { story: { text: "Synthetic facts for initial intake", location: { city: "Toronto", province: "Ontario" } }, builder: {} } };
     assert.throws(() => transitionReview(transitionReview({}, cp, "review", revision, "now"), cp, "confirm", revision, "now"), /initial questions/);
     cp.sections.builder.initialUnknowns = remainingEssentialQuestions(cp).map(question => question.id);
     const workflow = transitionReview(transitionReview({}, cp, "review", revision, "now"), cp, "confirm", revision, "now");

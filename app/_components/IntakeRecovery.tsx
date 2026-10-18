@@ -3,11 +3,12 @@
 import IntakeReviewPanel from "./IntakeReviewPanel";
 import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
-import { createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { migrateStory, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
 async function readAuthSession() {
@@ -110,6 +111,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         let snapshot: Checkpoint = session?.checkpoint ?? saved ?? { version: 1, flowId, courtPath: court, revision: crypto.randomUUID(), sections: {} };
         snapshot = JSON.parse(JSON.stringify(snapshot)) as Checkpoint;
         snapshot.inputRevision ??= snapshot.revision;
+        // One copy of the story: older checkpoints move theirs into sections.story once, here.
+        const unmigrated = snapshot;
+        snapshot = migrateStory(snapshot);
+        const migrated = snapshot !== unmigrated;
+        if (migrated) snapshot = { ...snapshot, revision: crypto.randomUUID() };
         let workflowStatus = ownerId ? record(row?.master_result.workflowStatus) : session?.workflowStatus ?? { intakeCompleted: false };
         let view: ReviewView = { checkpoint: snapshot, workflowStatus };
         const listeners = new Set<() => void>();
@@ -125,7 +131,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           // Import only the existing, read-once hand-off. A fresh URL never loads an old draft.
           const legacy = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));
           if (legacy.version !== 2 && legacy.courtPath === court && typeof legacy.facts === "string" && typeof legacy.city === "string") {
-            snapshot.sections.builder = { homeStory: legacy.facts, confirmedLocation: { province: "Ontario", city: legacy.city } };
+            snapshot.sections[STORY_SECTION] = { text: legacy.facts, location: { province: "Ontario", city: legacy.city } };
           }
           if (!ownerId && window.location.pathname === "/") resetIntakeInBrowser();
           if (!writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId: null, serverRevision: null, checkpoint: snapshot })) throw new Error("This tab cannot retain intake text. Please enable session storage before continuing.");
@@ -152,7 +158,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
         }
         let caseId = row?.id ?? null;
-        let dirty = Boolean(session && session.checkpoint.revision !== serverRevision);
+        let dirty = migrated || Boolean(session && session.checkpoint.revision !== serverRevision);
         let timer: ReturnType<typeof setTimeout> | undefined;
         let flight: Promise<void> | null = null;
         const invalid = new Set<string>();
@@ -344,7 +350,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
 }
 
 /** Existing component state remains the live UI; only its recoverable fields are checkpointed. */
-export function useIntakeState<T>(section: string, field: string, initial: T | (() => T)): [T, Dispatch<SetStateAction<T>>] {
+/** `shared`: other components read this same field, so every write is announced to them. */
+export function useIntakeState<T>(section: string, field: string, initial: T | (() => T), shared = false): [T, Dispatch<SetStateAction<T>>] {
   const recovery = useIntakeRecovery();
   const [value, setValue] = useState<T>(() => {
     const fallback = typeof initial === "function" ? (initial as () => T)() : initial;
@@ -368,9 +375,9 @@ export function useIntakeState<T>(section: string, field: string, initial: T | (
   }, [recovery, section, field]);
   const first = useRef(true);
   useEffect(() => {
-    recovery?.put(section, field, value, !first.current);
+    recovery?.put(section, field, value, !first.current, shared);
     first.current = false;
-  }, [recovery, section, field, value]);
+  }, [recovery, section, field, value, shared]);
   return [value, setValue];
 }
 
@@ -393,4 +400,49 @@ export function useBeforeIntakeAI() {
 export function useValidateIntakeResponse() {
   const recovery = useIntakeRecovery();
   return useCallback(async (signal?: AbortSignal) => { await recovery?.validate(signal); signal?.throwIfAborted(); }, [recovery]);
+}
+
+/** The person's story: the one copy every screen reads and every edit writes. */
+export function useStory(): [string, Dispatch<SetStateAction<string>>] {
+  return useIntakeState(STORY_SECTION, "text", "", true);
+}
+
+/** The person's location: one copy, `null` until a city has been entered. */
+export function useCaseLocation(): [CaseLocation | null, Dispatch<SetStateAction<CaseLocation | null>>] {
+  return useIntakeState<CaseLocation | null>(STORY_SECTION, "location", null, true);
+}
+
+type StoryInput = { facts: string; yourCity?: string; yourProvince?: string };
+const withoutStory = <T extends StoryInput>(value: T) => Object.fromEntries(Object.entries(value).filter(([key]) => !STORY_INPUT_KEYS.has(key))) as Omit<T, "facts" | "yourCity" | "yourProvince">;
+
+/**
+ * A court form's input object whose `facts` (and city) ARE the one story and
+ * location. Only the form's own answers are stored under `section.input`; the
+ * story is joined in on read and split out on write, so the form keeps its
+ * familiar `input.facts` while no second copy exists to go stale.
+ */
+export function useInputWithStory<T extends StoryInput>(section: string, initial: () => T): [T, Dispatch<SetStateAction<T>>] {
+  const [story, setStory] = useStory();
+  const [location] = useCaseLocation();
+  const [first] = useState(initial);
+  const [rest, setRest] = useIntakeState(section, "input", () => withoutStory(first));
+  const hasCity = "yourCity" in first;
+  // Stable between renders unless a part changes: forms run effects keyed on `input`.
+  const value = useMemo(() => ({ ...rest, facts: story, ...(hasCity ? { yourCity: location?.city ?? first.yourCity ?? "", yourProvince: location?.province ?? first.yourProvince ?? "" } : {}) }) as T, [rest, story, location, hasCity, first]);
+  const latest = useRef(value);
+  useEffect(() => { latest.current = value; }, [value]);
+  // A story read from a saved case or hand-off fills an empty story once; it never overwrites one.
+  const seeded = useRef(false);
+  useEffect(() => {
+    if (seeded.current) return;
+    seeded.current = true;
+    if (!story.trim() && first.facts.trim()) setStory(first.facts);
+  }, [first, setStory, story]);
+  const set = useCallback<Dispatch<SetStateAction<T>>>((next) => {
+    const resolved = typeof next === "function" ? (next as (current: T) => T)(latest.current) : next;
+    if (resolved.facts !== latest.current.facts) setStory(resolved.facts);
+    latest.current = resolved;
+    setRest(withoutStory(resolved));
+  }, [setRest, setStory]);
+  return [value, set];
 }

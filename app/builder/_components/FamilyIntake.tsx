@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -355,7 +355,15 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const [childrenInfo, setChildrenInfo] = useIntakeState("family", "childrenInfo", () => saved?.childrenInfo ?? "");
   const [currentLivingSituation, setCurrentLivingSituation] = useIntakeState("family", "currentLivingSituation", () => saved?.currentLivingSituation ?? "");
   const [pastLivingHistory, setPastLivingHistory] = useIntakeState("family", "pastLivingHistory", () => saved?.pastLivingHistory ?? "");
-  const [facts, setFacts] = useIntakeState("family", "facts", () => saved?.facts || String(initialValues.facts || initialStory || ""));
+  // The one copy of the story (intakeStory.ts). A story read from a saved case fills an empty one once.
+  const [facts, setFacts] = useStory();
+  const storySeeded = useRef(false);
+  useEffect(() => {
+    if (storySeeded.current) return;
+    storySeeded.current = true;
+    const legacy = saved?.facts || String(initialValues.facts || initialStory || "");
+    if (!facts.trim() && legacy.trim()) setFacts(legacy);
+  }, [facts, initialStory, initialValues.facts, saved?.facts, setFacts]);
   const [timeline, setTimeline] = useIntakeState("family", "timeline", () => saved?.timeline || String(initialValues.timeline || initialValues.enforcementDetails || ""));
   const [evidence, setEvidence] = useIntakeState("family", "evidence", () => saved?.evidence || String(initialValues.evidence || ""));
   const [missingEvidence, setMissingEvidence] = useIntakeState("family", "missingEvidence", () => saved?.missingEvidence ?? "");

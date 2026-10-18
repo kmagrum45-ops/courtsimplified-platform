@@ -69,7 +69,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
   assert.equal((await saveCheckpoint(db, "another-owner", id, { ...snapshot, revision: newer }, revision, () => true)).ok, false);
   assert.equal(writes, before, "conflicts, stale generations and wrong accounts never write");
   assert((await saveCheckpoint(db, owner, id, { ...snapshot, revision: newer }, revision, () => true)).ok);
-  const reviewSnapshot: Checkpoint = { ...snapshot, revision, inputRevision: revision, sections: { builder: { confirmedLocation: { city: "Toronto", province: "Ontario" }, homeStory: "Synthetic initial facts" } } };
+  const reviewSnapshot: Checkpoint = { ...snapshot, revision, inputRevision: revision, sections: { story: { location: { city: "Toronto", province: "Ontario" }, text: "Synthetic initial facts" }, builder: {} } };
   reviewSnapshot.sections.builder.initialUnknowns = remainingEssentialQuestions(reviewSnapshot).map(question => question.id);
   assert((await saveCheckpoint(db, owner, id, reviewSnapshot, newer, () => true)).ok);
   assert.equal((await saveReviewTransition(db, owner, id, reviewSnapshot, "confirm", revision, () => true)).ok, false, "analysis or a saved case is not review");
@@ -85,7 +85,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
   assert.equal((confirmedMaster.workflowStatus as Record<string, unknown>).intakeCompleted, true);
   assert.deepEqual(confirmedMaster.masterCase, { id });
   assert.deepEqual(confirmedMaster.caseSystemAssembly, { court });
-  const edited: Checkpoint = { ...reviewSnapshot, revision: newer, sections: { builder: { ...reviewSnapshot.sections.builder, homeStory: "Newer synthetic initial facts" } } };
+  const edited: Checkpoint = { ...reviewSnapshot, revision: newer, sections: { ...reviewSnapshot.sections, story: { ...reviewSnapshot.sections.story, text: "Newer synthetic initial facts" } } };
   assert((await saveCheckpoint(db, owner, id, edited, revision, () => true)).ok);
   const editedMaster = row!.master_result as Record<string, unknown>;
   assert.equal((editedMaster.workflowStatus as Record<string, unknown>).intakeCompleted, false, "material edits invalidate confirmation even if the caller reuses its input revision");

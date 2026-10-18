@@ -128,7 +128,7 @@ function main(): void {
 
   check(
     "the restore is conditional on a recorded city",
-    /if \(storedProvince === "Ontario" && storedCity && recovery\?\.read\("builder", "confirmedLocation"\) === undefined\)/.test(builder),
+    /if \(storedProvince === "Ontario" && storedCity && !confirmedLocationOf\(recovery\?\.getReview\(\)\.checkpoint\.sections \?\? \{\}\)\)/.test(builder),
     "an unconditional restore would set an empty or partial location",
   );
 

@@ -6,6 +6,7 @@ import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMessages";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
+import { locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 import { canReview, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 
 export default function IntakeReviewPanel() {
@@ -23,8 +24,8 @@ export default function IntakeReviewPanel() {
   const remaining = remainingEssentialQuestions(checkpoint);
   const unanswered = remainingEssentialQuestions(checkpoint, true);
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
-  const story = entries.filter(entry => ["facts", "storyText", "inputText", "homeStory"].includes(entry.field)).map(entry => String(entry.value)).join("\n");
-  const city = String(entries.find(entry => entry.field === "city")?.value ?? "");
+  const story = storyOf(checkpoint.sections);
+  const city = locationOf(checkpoint.sections)?.city ?? "";
   const legacy = workflowStatus.intakeCompleted === true && !workflowStatus.intakeReview;
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;

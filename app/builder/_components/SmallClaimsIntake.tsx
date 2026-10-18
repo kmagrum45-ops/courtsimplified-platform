@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -623,7 +623,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const recovery = useIntakeRecovery();
   const validateIntakeResponse = useValidateIntakeResponse();
-  const [input, setInput] = useIntakeState<SmallClaimsIntelligenceInput>("small-claims", "input", () => {
+  const [input, setInput] = useInputWithStory<SmallClaimsIntelligenceInput>("small-claims", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
