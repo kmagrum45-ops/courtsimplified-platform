@@ -78,6 +78,20 @@ async function main() {
       assert.equal(response.status, 401, `${route} ${method}: actual HTTP export must reject anonymous forged confirmation`);
     }
   }
+  // GUESTS (2026-10-18): only the routes that served guests before the gate let an
+  // anonymous request through, and only one that names no case.
+  const guestRoutes = ["small-claims/analyze", "family/analyze", "civil/analyze", "case/stage-answer", "case/resolve-stage", "rules/procedures"];
+  for (const route of protectedRoutes) {
+    const declared = /allowGuest: true/.test(readFileSync(`app/api/${route}/route.ts`, "utf8"));
+    assert.equal(declared, guestRoutes.includes(route), `${route}: guest access is ${guestRoutes.includes(route) ? "required" : "forbidden"}`);
+  }
+  const reached: string[] = [];
+  const guestGate = withConfirmedGuidance(async () => { reached.push("handler"); return Response.json({ ok: true }); }, { allowGuest: true }, { authenticate: async () => null });
+  assert.equal((await guestGate(new Request("http://localhost/x", { method: "POST", body: JSON.stringify({ input: {} }) }))).status, 200, "a guest with no case reaches an allowGuest handler");
+  assert.equal((await guestGate(new Request("http://localhost/x", { method: "POST", body: JSON.stringify({ caseId: id }) }))).status, 401, "a guest naming a case is refused even where guests are allowed");
+  const memberGate = withConfirmedGuidance(async () => { reached.push("member"); return Response.json({ ok: true }); }, {}, { authenticate: async () => null });
+  assert.equal((await memberGate(new Request("http://localhost/x", { method: "POST", body: JSON.stringify({ input: {} }) }))).status, 401, "without allowGuest a guest is refused");
+  assert.deepEqual(reached, ["handler"], "no refused request reaches its handler");
   const independentRoutes = ["case/understand", "classify-court-path", "intake/guided-turn", "intake/classify-claim-type", "intake/safety-check", "intake/tidy-wording", "law/explain", "cases", "cases/position", "cases/drafts", "cases/event-candidates", "workspace/documents", "workspace/documents/upload-url", "workspace/documents/extract", "canlii/case", "site-access"];
   const actualRoutes = readdirSync("app/api", { recursive: true }).map(String).filter(name => /route\.ts$/.test(name)).map(name => name.replaceAll("\\", "/").replace(/\/route\.ts$/, ""));
   assert.deepEqual(actualRoutes.sort(), [...protectedRoutes, ...independentRoutes].sort(), "new API routes require an explicit presentation/security audit");

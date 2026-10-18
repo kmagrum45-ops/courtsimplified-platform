@@ -1,6 +1,6 @@
 "use client";
 
-import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
+import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
 import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 
 import { reviewPhase } from "../../src/lib/case-system/intakeReview";
@@ -471,6 +471,21 @@ function BuilderPageContent() {
    * click the mode card, not at the top of the destination screen the app
    * otherwise guarantees on every real navigation.
    */
+  /*
+   * The review panel's Continue (re-test 2026-10-18: after confirming there was no
+   * Continue to press). The guided route turns its confirmed answers into guidance
+   * here; from the Small Claims chooser it opens the form, whose own action runs
+   * as soon as it mounts. Neither changes a fact, so neither un-confirms.
+   */
+  useContinueHandler("guided", () => {
+    const saved = recovery?.getReview().checkpoint.sections.guided ?? {};
+    void handleGuidedComplete({ facts: (saved.facts ?? {}) as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
+  });
+  useContinueHandler("choose", () => {
+    pushStep("form");
+    recovery?.continueToGuidance();
+  });
+
   function pushStep(step: "form" | "guided" | "results") {
     const url = new URL(window.location.href);
     if (url.searchParams.get("step") === step) return;
@@ -1218,6 +1233,13 @@ function BuilderPageContent() {
    */
   async function handleGuidedComplete(result: GuidedIntakeCompletionResult) {
     if (!confirmedLocation || guidedRequest.current.pending) return;
+    // The same rule as the Small Claims form ("Session 19"): its analysis needs the
+    // AI safety check first, and that check needs an account. The review panel's
+    // Continue made this reachable by a guest (2026-10-18), so it is checked here too.
+    if (recovery && !recovery.ownerId) {
+      setGuidedAnalysisError("Please sign in to continue. Small Claims intake requires a signed-in account so CourtSimplified can run its safety check before analyzing your case.");
+      return;
+    }
 
     setGuidedAnalyzing(true);
     setGuidedAnalysisError("");
@@ -1622,6 +1644,9 @@ function BuilderPageContent() {
    * could not be opened").
    */
   function savedCaseId(): string | null {
+    // A guest has no saved case, whatever id an analysis result carries
+    // (re-test 2026-10-18: a guest's step panel sent one and was refused).
+    if (recovery && !recovery.ownerId) return null;
     const id = getActiveCaseId();
     return id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) ? id : null;
   }
@@ -2364,10 +2389,6 @@ function BuilderPageContent() {
           </section>
         )}
 
-        {intakeConfirmed && courtPath === "small-claims" && visibleMode === "guided" && !resultsVisible && <button type="button" disabled={guidedAnalyzing} data-testid="receive-guided-guidance" onClick={() => {
-          const saved = recovery?.getReview().checkpoint.sections.guided ?? {};
-          void handleGuidedComplete({ facts: (saved.facts ?? {}) as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: String(saved.storyText || saved.inputText || homeStory), answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
-        }}>Receive verified procedural guidance</button>}
 
         {/*
           MOUNTED ON caseId ALONE, outside the analysis gate below.

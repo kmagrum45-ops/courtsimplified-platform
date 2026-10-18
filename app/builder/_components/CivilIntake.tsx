@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -714,6 +714,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useContinueHandler("civil", () => { void handleAnalyze(); });
+
   async function handleAnalyze() {
     if (analysisRequest.current.pending) return;
     try {
@@ -788,6 +790,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           input: {
             ...civilAnalysisInput,
             facts: withSourcedAnswerList(civilAnalysisInput.facts, sourced.answeredList()),
+            // No side recorded ("I do not know yet") is "not-sure" to the route; "" was refused with a 400.
+            yourRole: civilAnalysisInput.yourRole || "not-sure",
             caseId: caseId || undefined,
           },
         }),

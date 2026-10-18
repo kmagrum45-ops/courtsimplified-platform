@@ -346,7 +346,7 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
 
     if (await page.getByTestId("intake-review").getAttribute("data-phase") === "reviewing") {
       await reviewAndConfirm(page, persona, steps);
-      await page.getByTestId("receive-guided-guidance").click();
+      await page.getByTestId("intake-continue-guidance").click();
       continue;
     }
 

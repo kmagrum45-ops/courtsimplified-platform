@@ -62,7 +62,7 @@ export default function IntakeReviewPanel() {
       <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>
     </>}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && <><p>Your initial information is confirmed. Choose Continue in your intake below to receive verified procedural guidance. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button type="button" disabled={busy} onClick={() => void act("collect")}>Review or correct initial information</button></>}
+    {phase === "user-confirmed" && <><p>Your initial information is confirmed. Choose "Show my next step" to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy} onClick={() => recovery.continueToGuidance()} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button type="button" disabled={busy} onClick={() => void act("collect")}>Review or correct initial information</button></>}
     {error && <p role="alert">{error}</p>}
     {busy && <p role="status">Saving your review...</p>}
   </section>;

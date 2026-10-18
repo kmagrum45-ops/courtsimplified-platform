@@ -403,4 +403,4 @@ export function createSmallClaimsAnalyzePost(
   };
 }
 
-export const POST = withConfirmedGuidance(createSmallClaimsAnalyzePost(), { court: "small-claims", requireRevision: true });
+export const POST = withConfirmedGuidance(createSmallClaimsAnalyzePost(), { court: "small-claims", requireRevision: true, allowGuest: true });

@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -844,6 +844,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       ),
     }));
   }
+
+  useContinueHandler("form", () => { void handleAnalyze(); });
 
   async function handleAnalyze() {
     if (analysisRequest.current.pending) return;

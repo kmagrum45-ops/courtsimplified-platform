@@ -87,4 +87,4 @@ async function postGuidance(req: Request) {
   }
 }
 
-export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});
+export const POST = withConfirmedGuidance(postGuidance, { currentAnalysis: true, allowGuest: true });

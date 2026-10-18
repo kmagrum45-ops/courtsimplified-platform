@@ -18,6 +18,7 @@ async function readAuthSession() {
   return result;
 }
 
+export type ContinueKey = "form" | "guided" | "choose" | "family" | "civil";
 export type ReviewView = { checkpoint: Checkpoint; workflowStatus: Record<string, unknown> };
 type Recovery = {
   begin: (signal?: AbortSignal) => Promise<void>;
@@ -25,6 +26,10 @@ type Recovery = {
   subscribe: (listener: () => void) => () => void;
   getReview: () => ReviewView;
   transition: (action: "review" | "collect" | "confirm", expectedInput: string) => Promise<void>;
+  /** Each route registers the action that turns its confirmed answers into guidance. */
+  registerContinue: (key: ContinueKey, handler: () => void) => () => void;
+  /** The review panel's Continue: runs the open route's guidance action. */
+  continueToGuidance: () => void;
   read: (section: string, key: string) => unknown;
   put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean) => void;
   flush: (signal?: AbortSignal) => Promise<void>;
@@ -55,7 +60,8 @@ export function usePrepareCaseGuidance() {
       document.querySelector('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" });
       return false;
     }
-    if (!recovery.ownerId) throw new Error("Sign in to save and confirm your information on your own case before receiving case guidance. Guest text stays in this tab; copy it before signing in.");
+    // A guest who confirmed reaches guidance too (site owner, 2026-10-18); their
+    // confirmation lives in this tab, and the server serves guests without a case.
     return true;
   }, [recovery]);
 }
@@ -215,7 +221,25 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           signal?.throwIfAborted();
           if (dirty) await flush(signal);
         };
+        const continueHandlers = new Map<ContinueKey, () => void>();
+        let pendingContinue: ContinueKey | null = null;
+        const runContinue = (key: ContinueKey) => {
+          const handler = continueHandlers.get(key);
+          if (handler) { pendingContinue = null; handler(); } else pendingContinue = key;
+        };
         const store: Recovery = {
+          registerContinue: (key, handler) => {
+            continueHandlers.set(key, handler);
+            // A Continue pressed before this route mounted (Small Claims chooser -> form) runs now.
+            if (pendingContinue === key) runContinue(key);
+            return () => { if (continueHandlers.get(key) === handler) continueHandlers.delete(key); };
+          },
+          continueToGuidance: () => {
+            if (court !== "small-claims") return runContinue(court);
+            // The route on screen is the address bar's; the saved step lags behind Back/Forward.
+            const step = new URL(window.location.href).searchParams.get("step");
+            runContinue(step === "guided" ? "guided" : step === "form" ? "form" : "choose");
+          },
           begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, inputRevision(snapshot)); },
           subscribeField: (section, field, listener) => {
             const key = `${section}:${field}`;
@@ -445,4 +469,12 @@ export function useInputWithStory<T extends StoryInput>(section: string, initial
     setRest(withoutStory(resolved));
   }, [setRest, setStory]);
   return [value, set];
+}
+
+/** Registers this route's guidance action for the review panel's Continue; always calls the latest handler. */
+export function useContinueHandler(key: ContinueKey, handler: () => void) {
+  const recovery = useIntakeRecovery();
+  const latest = useRef(handler);
+  useEffect(() => { latest.current = handler; }, [handler]);
+  useEffect(() => recovery?.registerContinue(key, () => latest.current()), [recovery, key]);
 }

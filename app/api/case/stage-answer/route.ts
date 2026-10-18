@@ -189,4 +189,4 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
 
 /** Offline contract tests reuse the renderer; HTTP always enforces confirmation. */
 export function createStageAnswerPost() { return postGuidance; }
-export const POST = withConfirmedGuidance(createStageAnswerPost(), { currentAnalysis: true });
+export const POST = withConfirmedGuidance(createStageAnswerPost(), { currentAnalysis: true, allowGuest: true });

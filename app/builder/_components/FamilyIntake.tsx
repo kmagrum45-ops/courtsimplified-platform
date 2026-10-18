@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -624,6 +624,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
     // Once, for the story the page opened with; edits ask again on blur.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useContinueHandler("family", () => { void handleAnalyze(); });
 
   async function handleAnalyze() {
     if (analysisRequest.current.pending) return;

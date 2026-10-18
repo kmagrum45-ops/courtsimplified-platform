@@ -39,7 +39,15 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
 
 /** UI navigation, research results and later evidence never masquerade as initial fact edits. */
 export function materialInitialFacts(checkpoint: Checkpoint): string {
-  const entries = reviewEntries(checkpoint).filter(entry => !OPTIONAL.has(entry.field));
+  // Which Small Claims route is OPEN is navigation, not a fact: the answers of both
+  // routes count, so choosing the other route never cancels a confirmation (re-test 2026-10-18).
+  const onStep = (step: string): Checkpoint => ({ ...checkpoint, sections: { ...checkpoint.sections, builder: { ...checkpoint.sections.builder, step } } });
+  const views = checkpoint.courtPath === "small-claims" ? [onStep("form"), onStep("guided")] : [checkpoint];
+  const seen = new Set<string>();
+  const entries = views.flatMap(view => reviewEntries(view)).filter(entry => !OPTIONAL.has(entry.field)).filter(entry => {
+    const key = JSON.stringify([entry.section, entry.nested, entry.field]);
+    return !seen.has(key) && Boolean(seen.add(key));
+  });
   return JSON.stringify({ home: { answers: checkpoint.sections.home?.understoodAnswers }, court: checkpoint.courtPath, story: storyOf(checkpoint.sections), location: locationOf(checkpoint.sections), answers: entries.map(entry => [entry.section, entry.nested, entry.field, entry.value]).sort((a, b) => String(a.slice(0, 3)).localeCompare(String(b.slice(0, 3)))) });
 }
 
