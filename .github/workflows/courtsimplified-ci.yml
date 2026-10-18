@@ -550,3 +550,15 @@ jobs:
           tests/browser/intake-review.spec.ts
           tests/browser/intake-guidance-gate.spec.ts
           --reporter=line --workers=1
+
+      # A failure that does not reproduce locally needs the page as CI saw it.
+      # These specs use synthetic accounts only and keep traces off, so this
+      # holds error-context snapshots, never a real session.
+      - name: Keep failure snapshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-regression-failures
+          path: test-results/**/error-context.md
+          retention-days: 7
+          if-no-files-found: ignore

@@ -48,7 +48,6 @@ function admin() {
 
 
 async function postGuidance(req: NextRequest) {
-  if (!documentAnalysisEnabled()) return NextResponse.json({ enabled: false });
   const user = await getAuthenticatedUser(req);
   if (!user) return NextResponse.json({ error: "Sign in first." }, { status: 401 });
 
@@ -123,4 +122,10 @@ async function postGuidance(req: NextRequest) {
   return NextResponse.json({ enabled: true, help });
 }
 
-export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});
+const confirmedPost = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});
+
+export async function POST(req: NextRequest) {
+  // The ZDR switch refuses before the guidance gate authenticates or reads the case.
+  if (!documentAnalysisEnabled()) return NextResponse.json({ enabled: false });
+  return confirmedPost(req);
+}
