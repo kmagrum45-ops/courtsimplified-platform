@@ -16,6 +16,9 @@
  */
 
 import { readFileSync } from "node:fs";
+import { explanationFor } from "../../src/lib/content-library/questionExplanations";
+import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
+import ts from "typescript";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -197,30 +200,22 @@ async function main(): Promise<void> {
   check("withAbortableTimeout signals abort to the running request", sawAbort);
   check("withAbortableTimeout resolves null once aborted", result === null);
 
-  // explainQuestion.ts is the only former race site that still makes a
-  // request. voiceLayer.ts was in this loop too, and the abort-signal check
-  // had been FAILING since e5f76fb removed the model call from
-  // composeVoiceTurn() — the check outlived its subject and went on
-  // asserting a property of code that had deliberately been deleted.
-  //
-  // A stale check is worse than no check: it burns a failing line in every
-  // run, so a NEW failure has to be spotted among known noise. It is
-  // replaced below by one that defends what is actually true now.
-  //
-  // Comments may still mention Promise.race (they explain what was
-  // replaced), so this strips comment lines before looking for live usage.
-  for (const file of ["explainQuestion.ts"]) {
-    const src = readFileSync(
-      path.join(__dirname, "..", "..", "src", "lib", "case-system", "intake", file),
-      "utf8",
-    );
-    const code = src
-      .split("\n")
-      .filter((line) => !/^\s*(\/\/|\*|\/\*)/.test(line))
-      .join("\n");
-
-    check(`${file} no longer races a live request with Promise.race`, !code.includes("Promise.race"));
-    check(`${file} passes an abort signal to the request`, /\{\s*signal\s*\}/.test(code));
+  // 1ea1f87 deliberately removed the model explainer and its API. Keep the
+  // guard's purpose: the replacement must remain immediate, bank-derived and
+  // free of model/network calls, rather than requiring the deleted file.
+  for (const question of QUESTION_BANK) {
+    const explanation = explanationFor(question.id);
+    check(`explanation stays bank-derived: ${question.id}`, question.why
+      ? explanation?.text === question.why && explanation.sourceUrl === (question.sourceUrl ?? "")
+      : explanation === null);
+  }
+  check("an unknown question cannot invent an explanation", explanationFor("synthetic-unlisted-question") === null);
+  for (const [file, name] of [["SmallClaimsIntake.tsx", "FieldHelp"], ["GuidedSmallClaimsIntake.tsx", "QuestionHelp"]]) {
+    const source = readFileSync(path.join(__dirname, "..", "..", "app", "builder", "_components", file), "utf8");
+    const tree = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+    const node = tree.statements.find(statement => ts.isFunctionDeclaration(statement) && statement.name?.text === name);
+    const code = node?.getText(tree).replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g, "") ?? "";
+    check(`${name} is present and makes no model/network call`, Boolean(node) && !/fetch\s*\(|openai|withAbortableTimeout|Promise\.race/i.test(code));
   }
 
   // voiceLayer.ts makes NO request. composeVoiceTurn() returns the reviewed
