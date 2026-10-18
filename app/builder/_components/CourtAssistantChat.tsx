@@ -1,4 +1,5 @@
 "use client";
+import { authHeaders } from "../../cases/_components/CaseHomeContext";
 
 // Imported from utils rather than smallClaimsEngine: utils is a leaf module,
 // so a client component gets the constant without pulling an engine into the
@@ -967,9 +968,7 @@ function CourtAssistantChatInner({
     try {
       const response = await fetch("/api/guided-assistant", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: await authHeaders() ?? { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmed,
           caseId,

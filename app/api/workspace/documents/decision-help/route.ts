@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * POST /api/workspace/documents/decision-help { documentId }
  *
@@ -46,7 +47,7 @@ function admin() {
 }
 
 
-export async function POST(req: NextRequest) {
+async function postGuidance(req: NextRequest) {
   if (!documentAnalysisEnabled()) return NextResponse.json({ enabled: false });
   const user = await getAuthenticatedUser(req);
   if (!user) return NextResponse.json({ error: "Sign in first." }, { status: 401 });
@@ -121,3 +122,5 @@ export async function POST(req: NextRequest) {
   }
   return NextResponse.json({ enabled: true, help });
 }
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

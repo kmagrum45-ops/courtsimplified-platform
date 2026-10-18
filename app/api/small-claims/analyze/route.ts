@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { withAiCallIdentity } from "../../../../src/lib/audit/aiCallLog";
@@ -402,4 +403,4 @@ export function createSmallClaimsAnalyzePost(
   };
 }
 
-export const POST = createSmallClaimsAnalyzePost();
+export const POST = withConfirmedGuidance(createSmallClaimsAnalyzePost(), { court: "small-claims", requireRevision: true });

@@ -120,26 +120,14 @@ function main(): void {
     );
   }
 
-  // ---- The route must not have regained an auth requirement ----
-  //
-  // This is the specific regression that created the gap. If the route starts
-  // refusing anonymous callers again, every path that lacks an account
-  // requirement silently stops being checked -- exactly as before, and just as
-  // invisibly.
+  // Server-verified authentication is mandatory for paid AI, while safety
+  // resources and authenticated safety checks must not depend on confirmation.
   {
     const route = read(path.join("app", "api", "intake", "safety-check", "route.ts"));
-    const refusesAnonymous =
-      /Sign in required/.test(route) || /\bauthenticate\s*\(/.test(route);
-
-    check(
-      "the safety-check route still accepts anonymous callers",
-      !refusesAnonymous,
-      "The route appears to require a session again. That requirement is what " +
-        "silently removed the safety pass from Family and Civil: a constraint " +
-        "about model cost became a constraint about who gets protected. If an " +
-        "auth requirement is genuinely wanted, every intake path must adopt it " +
-        "at the same time, and this check should be updated deliberately.",
-    );
+    const panel = read(path.join("app", "_components", "IntakeReviewPanel.tsx"));
+    check("paid safety classification requires server authentication", /dependencies\.authenticate\(request\)/.test(route));
+    check("safety checks do not wait for intake confirmation", !/withConfirmedGuidance/.test(route));
+    check("fixed safety resources remain available during intake", /data-testid="intake-safety-resources"/.test(panel) && /IMMEDIATE_DANGER_MESSAGE/.test(panel));
   }
 
   // ---- The shared helper must fail open ----

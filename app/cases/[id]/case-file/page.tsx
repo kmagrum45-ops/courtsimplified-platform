@@ -97,8 +97,9 @@ export default function CaseFileSection() {
     void (async () => {
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: await authHeaders() ?? {},
         body: JSON.stringify({
+          caseId: caseRecord.id,
           stageId: stepId,
           courtPath: caseRecord.court_path,
           confirmedFacts: {},

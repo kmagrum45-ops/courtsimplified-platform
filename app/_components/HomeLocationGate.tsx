@@ -1,10 +1,14 @@
 "use client";
 
+import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
+import { useIntakeState, useIntakeRef, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "./IntakeRecovery";
+
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { IntakeRequest } from "./intakeRequest";
+import { understandingInputError } from "../../src/lib/case-system/understanding/understandInput";
 import { supabase } from "../../src/lib/supabase/client";
 import {
-  saveGuestIntakeSession,
   type BuilderDraftCourtPath,
 } from "../../src/lib/case-system/builderDraftStorage";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
@@ -98,6 +102,13 @@ function asCourtPath(value: unknown): BuilderDraftCourtPath | null {
 }
 
 export default function HomeLocationGate() {
+  return <IntakeRecoveryBoundary><HomeLocationGateContent /></IntakeRecoveryBoundary>;
+}
+
+function HomeLocationGateContent() {
+  const recovery = useIntakeRecovery();
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const validateIntakeResponse = useValidateIntakeResponse();
   const router = useRouter();
   const searchParams = useSearchParams();
   const rawPath = searchParams.get("path");
@@ -111,16 +122,24 @@ export default function HomeLocationGate() {
    * real selector again.
    */
   const province = "Ontario";
-  const [city, setCity] = useState("");
-  const [facts, setFacts] = useState("");
+  const [city, setCity] = useIntakeState("home", "city", "");
+  const [facts, setFacts] = useIntakeState("home", "facts", "");
   const [userId, setUserId] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
-  const [suggestion, setSuggestion] = useState<CourtPathSuggestion | null>(null);
-  const [understood, setUnderstood] = useState<UnderstandResponse | null>(null);
-  const [understoodAnswers, setUnderstoodAnswers] = useState<{ question: string; answer: string }[]>([]);
+  const [requestError, setRequestError] = useState("");
+  const requestRef = useRef(new IntakeRequest());
+  const [suggestion, setSuggestion] = useIntakeState<CourtPathSuggestion | null>("home", "suggestion", null);
+  const [understood, setUnderstood] = useIntakeState<UnderstandResponse | null>("home", "understood", null);
+  const [understoodAnswers, setUnderstoodAnswers] = useIntakeState<{ question: string; answer: string }[]>("home", "understoodAnswers", []);
+  const draftAnswersRef = useIntakeRef<{ question: string; answer: string }[]>("home", "draftAnswers", []);
   const cityRef = useRef<HTMLInputElement | null>(null);
   const suggestionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const request = requestRef.current;
+    return () => request.cancel();
+  }, [path, userId]);
 
   useEffect(() => {
     let active = true;
@@ -142,13 +161,17 @@ export default function HomeLocationGate() {
        * tab. They were already reset when they signed in (login page), and
        * this form never pre-fills from the browser -- see below.
        */
-      if (!id) resetIntakeInBrowser();
+      if (!id && !recovery) resetIntakeInBrowser();
 
       setUserId(id);
       setHydrated(true);
     }
     void hydrate();
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (recovery && (session?.user.id ?? null) === recovery.ownerId) return;
+      if (event === "INITIAL_SESSION") return;
+      requestRef.current.cancel();
+      setChecking(false);
       const id = session?.user.id || null;
       setUserId(id);
       setCity("");
@@ -156,6 +179,7 @@ export default function HomeLocationGate() {
       setSuggestion(null);
       setUnderstood(null);
       setUnderstoodAnswers([]);
+      draftAnswersRef.current = [];
       /*
        * Signing out leaves a browser that the next person may use. Clearing
        * the guest session alone left nineteen unscoped keys holding case
@@ -164,7 +188,7 @@ export default function HomeLocationGate() {
       if (!id) resetIntakeInBrowser();
     });
     return () => { active = false; listener.subscription.unsubscribe(); };
-  }, []);
+  }, [draftAnswersRef, recovery, setCity, setFacts, setSuggestion, setUnderstood, setUnderstoodAnswers]);
 
   useEffect(() => {
     if (hydrated && path) scrollAndFocus(cityRef.current);
@@ -178,24 +202,28 @@ export default function HomeLocationGate() {
   const isOntarioReady = province === "Ontario" && city.trim().length > 0 && facts.trim().length > 0;
 
   /** Commits to a path and leaves the gate. Only ever called from a user action. */
-  function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
+  async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
+    requestRef.current.cancel();
     // Answers given to the front door's questions travel with the story, so
     // the intake does not ask them again.
     const answered = answers.filter((item) => item.answer.trim());
     const story = [facts.trim(), ...answered.map((item) => `${item.question.trim()} ${item.answer.trim()}`)].join("\n\n");
-    const intakeStart = { courtPath: chosenPath, province: "Ontario", city: city.trim(), facts: story };
-    /*
-     * ONE HAND-OFF FOR EVERYONE, READ ONCE. Signed-in users used to get a
-     * per-user localStorage draft here instead, and the builder restored that
-     * draft on every later visit -- which is how a signed-in user found an old
-     * test story pre-filled in the Small Claims intake (2026-09-28). The
-     * "Saved case on this device" panel that offered to resume it is gone for
-     * the same reason: saved work is opened from the workspace, never from
-     * the browser. The session hand-off is tab-scoped and the builder deletes
-     * it the moment it reads it.
-     */
-    saveGuestIntakeSession(sessionStorage, intakeStart);
-    router.push(`/builder?path=${chosenPath}`);
+    try {
+      if (recovery && chosenPath === path) {
+        recovery.put("builder", "homeStory", story);
+        recovery.put("builder", "confirmedLocation", { province: "Ontario", city: city.trim() });
+        await recovery.flush();
+        router.push(`/builder?path=${chosenPath}&intake=${recovery.flowId}`);
+      } else {
+        // An explicit court change starts a distinct case; only the user's story travels.
+        const flowId = crypto.randomUUID();
+        const next = { version: 2 as const, ownerId: recovery?.ownerId ?? userId, caseId: null, serverRevision: null,
+          checkpoint: { version: 1 as const, flowId, courtPath: chosenPath, revision: crypto.randomUUID(),
+            sections: { builder: { homeStory: story, confirmedLocation: { province: "Ontario", city: city.trim() } } } } };
+        if (!writeIntakeSession(sessionStorage, next)) throw new Error("Your text could not be retained. Please copy it before leaving and retry.");
+        router.push(`/builder?path=${chosenPath}&intake=${flowId}`);
+      }
+    } catch (error) { setRequestError(error instanceof Error ? error.message : "Please retry saving your intake."); }
   }
 
   /**
@@ -211,10 +239,16 @@ export default function HomeLocationGate() {
    */
   async function understandStory(answers: { question: string; answer: string }[]): Promise<boolean> {
     if (!CASE_UNDERSTANDING_ON || !path) return false;
+    const inputError = understandingInputError(facts.trim(), city.trim(), answers);
+    if (inputError) { setRequestError(inputError); return true; }
     try {
+      return await requestRef.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+      const { data: { session } } = await supabase.auth.getSession();
       const response = await fetch("/api/case/understand", {
+        signal,
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
         body: JSON.stringify({
           story: facts.trim(),
           city: city.trim(),
@@ -222,20 +256,26 @@ export default function HomeLocationGate() {
           ...(answers.length ? { answers } : {}),
         }),
       });
-      if (!response.ok) return false;
-      const result = (await response.json()) as Partial<UnderstandResponse> & { ok?: boolean };
-      if (!result.understanding || !result.answer) return false;
+      const result = (await response.json().catch(() => ({}))) as Partial<UnderstandResponse> & { ok?: boolean; skipped?: string };
+      await validateIntakeResponse(signal);
+      signal.throwIfAborted();
+      if (response.ok && result.skipped === "off") return false;
+      if (!response.ok || !result.understanding || !result.answer) throw new Error("Your update could not be processed. Your answers are still here; please try again.");
       setUnderstood({ understanding: result.understanding, answer: result.answer });
       setUnderstoodAnswers(answers);
+      draftAnswersRef.current = [];
       return true;
+      }) ?? true;
     } catch {
-      return false;
+      setRequestError("Your update did not finish. Your answers are still here; please try again.");
+      return true;
     }
   }
 
   async function updateWithAnswers(answers: { question: string; answer: string }[]) {
-    if (checking) return;
+    if (requestRef.current.pending || checking) return;
     setChecking(true);
+    setRequestError("");
     // Earlier answers stay with the story; a new answer to the same question replaces the old.
     const merged = [...understoodAnswers.filter((old) => !answers.some((item) => item.question === old.question)), ...answers];
     await understandStory(merged);
@@ -243,21 +283,27 @@ export default function HomeLocationGate() {
   }
 
   async function continueToIntake() {
-    if (!isOntarioReady || !path || checking) return;
+    if (!isOntarioReady || !path || checking || requestRef.current.pending) return;
 
     setChecking(true);
+    setRequestError("");
     setSuggestion(null);
-    setUnderstood(null);
 
-    if (await understandStory([])) {
+    const drafts = draftAnswersRef.current;
+    const answers = [...understoodAnswers.filter((old) => !drafts.some((item) => item.question === old.question)), ...drafts];
+    if (await understandStory(answers)) {
       setChecking(false);
       return;
     }
 
     try {
+      await requestRef.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+      const { data: { session } } = await supabase.auth.getSession();
       const response = await fetch("/api/classify-court-path", {
+        signal,
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
         body: JSON.stringify({ story: facts.trim(), declaredCourtPath: path }),
       });
 
@@ -271,6 +317,8 @@ export default function HomeLocationGate() {
           crossForumNoteIds?: unknown;
           showSeveralMatters?: unknown;
         };
+        await validateIntakeResponse(signal);
+        signal.throwIfAborted();
 
         const confidence = typeof result.confidence === "number" ? result.confidence : 0;
 
@@ -322,13 +370,15 @@ export default function HomeLocationGate() {
           setChecking(false);
           return;
         }
-      }
+      } else { throw new Error("The court check did not finish."); }
+      signal.throwIfAborted();
+      goToIntake(path);
+      });
     } catch {
-      // A classification failure must never trap the user on this screen.
+      setRequestError("The court check did not finish. Your story is still here; please try again.");
     }
 
     setChecking(false);
-    goToIntake(path);
   }
 
   /*
@@ -374,10 +424,16 @@ export default function HomeLocationGate() {
               else to select anyway, so the no-op changes nothing in practice.
             */}
             <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select aria-label="Province or territory" value={province} onChange={() => {}} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3 text-[#16302b]"><option value="Ontario">Ontario (beta — other provinces are added later)</option></select></label>
-            <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input ref={cityRef} aria-label="City or municipality" value={city} onChange={(event) => setCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
+            <label className="block"><span className="font-semibold text-[#16302b]">City or municipality</span><input ref={cityRef} aria-label="City or municipality" value={city} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setCity(event.target.value); }} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="City or municipality" /></label>
           </div>
-          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { setFacts(event.target.value); setSuggestion(null); setUnderstood(null); setUnderstoodAnswers([]); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
+          <label className="mt-5 block"><span className="font-semibold text-[#16302b]">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={facts} onChange={(event) => { requestRef.current.cancel(); setChecking(false); setFacts(event.target.value); setSuggestion(null); }} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Share the main events, people involved, and what you are trying to resolve." /></label>
 
+          {requestError && <p role="alert" className="mt-4 text-sm text-red-700">{requestError}</p>}
+          {requestError && !understood && (
+            <button type="button" onClick={() => goToIntake(path, understoodAnswers)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">
+              Continue with my description
+            </button>
+          )}
           {understood && (
             <div ref={suggestionRef} tabIndex={-1}>
               <CaseUnderstandingCard
@@ -387,6 +443,7 @@ export default function HomeLocationGate() {
                 city={city}
                 updating={checking}
                 onAnswer={(answers) => void updateWithAnswers(answers)}
+                onDraftChange={(answers) => { draftAnswersRef.current = answers; recovery?.put("home", "draftAnswers", answers); }}
                 onContinue={(chosen, answers) => goToIntake(chosen, [...understoodAnswers.filter((old) => !answers.some((item) => item.question === old.question)), ...answers])}
               />
             </div>

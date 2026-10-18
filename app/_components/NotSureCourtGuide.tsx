@@ -18,6 +18,11 @@ export default function NotSureCourtGuide() {
   const [remedy, setRemedy] = useState("");
   const [amount, setAmount] = useState("");
   const [started, setStarted] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [attempted, setAttempted] = useState(false);
+  const [handoffError, setHandoffError] = useState("");
+  const missing = Object.entries({ province: province === "Ontario", city: city.trim(), facts: facts.trim(), relationship: relationship.trim(), remedy: remedy.trim(), started }).filter(([,value]) => !value).map(([key]) => key);
+  const fieldNames: Record<string,string> = { province: "Province or territory", city: "City or municipality", facts: "What happened", relationship: "Relationship", remedy: "Outcome or remedy", started: "Has a case already started?" };
   const ready = province === "Ontario" && city.trim() && facts.trim() && relationship.trim() && remedy.trim() && started;
   const family = /family|parent|spouse|partner|relative|child/i.test(relationship);
   const money = /money|payment|damages|refund|debt|cost/i.test(remedy) && amount.trim();
@@ -47,11 +52,12 @@ export default function NotSureCourtGuide() {
      * the life of the tab describing the user's situation, for no purpose.
      * Storing what nothing consumes is storing it for the next person.
      */
-    sessionStorage.setItem(
+    try { sessionStorage.setItem(
       COURT_PATH_FINDER_KEY,
       JSON.stringify({ province, city: city.trim(), facts: facts.trim() }),
     );
     router.push(`/builder?path=${path}`);
+    } catch { setHandoffError("This tab could not transfer your answers. Your text is still here. Please retry before leaving."); }
   }
   return (
     <>
@@ -76,7 +82,7 @@ export default function NotSureCourtGuide() {
       </button>
 
       {open ? (
-        <div className="col-span-full rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
+        <form noValidate className="col-span-full rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm" onChange={() => setSubmitted(false)} onSubmit={event => { event.preventDefault(); setAttempted(true); setSubmitted(Boolean(ready)); if (!ready) requestAnimationFrame(() => document.getElementById("finder-errors")?.focus()); }}>
           <h2 className="text-2xl font-bold text-[#10231f]">
             Find possible court paths to review
           </h2>
@@ -88,7 +94,7 @@ export default function NotSureCourtGuide() {
             <label>
               Province or territory
               <select
-                aria-label="Guide province or territory"
+                aria-label="Guide province or territory" id="finder-province" aria-invalid={attempted && missing.includes("province")} aria-describedby={attempted && missing.includes("province") ? "finder-errors" : undefined}
                 value={province}
                 onChange={(e) => setProvince(e.target.value)}
                 className="mt-1 w-full rounded border p-2"
@@ -100,7 +106,7 @@ export default function NotSureCourtGuide() {
             <label>
               City or municipality
               <input
-                aria-label="Guide city or municipality"
+                aria-label="Guide city or municipality" id="finder-city" aria-invalid={attempted && missing.includes("city")} aria-describedby={attempted && missing.includes("city") ? "finder-errors" : undefined}
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="mt-1 w-full rounded border p-2"
@@ -111,7 +117,7 @@ export default function NotSureCourtGuide() {
           <label className="mt-4 block">
             What happened
             <textarea
-              aria-label="Guide what happened"
+              aria-label="Guide what happened" id="finder-facts" aria-invalid={attempted && missing.includes("facts")} aria-describedby={attempted && missing.includes("facts") ? "finder-errors" : undefined}
               value={facts}
               onChange={(e) => setFacts(e.target.value)}
               className="mt-1 w-full rounded border p-2"
@@ -121,7 +127,7 @@ export default function NotSureCourtGuide() {
           <label className="mt-4 block">
             Relationship between the people or businesses
             <input
-              aria-label="Guide relationship"
+              aria-label="Guide relationship" id="finder-relationship" aria-invalid={attempted && missing.includes("relationship")} aria-describedby={attempted && missing.includes("relationship") ? "finder-errors" : undefined}
               value={relationship}
               onChange={(e) => setRelationship(e.target.value)}
               className="mt-1 w-full rounded border p-2"
@@ -131,7 +137,7 @@ export default function NotSureCourtGuide() {
           <label className="mt-4 block">
             What outcome or remedy is sought
             <input
-              aria-label="Guide remedy"
+              aria-label="Guide remedy" id="finder-remedy" aria-invalid={attempted && missing.includes("remedy")} aria-describedby={attempted && missing.includes("remedy") ? "finder-errors" : undefined}
               value={remedy}
               onChange={(e) => setRemedy(e.target.value)}
               className="mt-1 w-full rounded border p-2"
@@ -151,7 +157,7 @@ export default function NotSureCourtGuide() {
           <label className="mt-4 block">
             Has a case already started?
             <select
-              aria-label="Guide case started"
+              aria-label="Guide case started" id="finder-started" aria-invalid={attempted && missing.includes("started")} aria-describedby={attempted && missing.includes("started") ? "finder-errors" : undefined}
               value={started}
               onChange={(e) => setStarted(e.target.value)}
               className="mt-1 w-full rounded border p-2"
@@ -163,7 +169,10 @@ export default function NotSureCourtGuide() {
             </select>
           </label>
 
-          {ready ? (
+          <button type="submit" className="mt-5 rounded bg-[#2f7d67] px-5 py-3 font-semibold text-white">Review possible court paths</button>
+          {attempted && missing.length > 0 && <div id="finder-errors" role="alert" tabIndex={-1} className="mt-4 rounded border border-amber-400 p-4"><p>Please answer the following before continuing:</p><ul>{missing.map(key => <li key={key}><a className="underline" href={`#finder-${key}`}>{fieldNames[key]}</a></li>)}</ul></div>}
+          {handoffError && <p role="alert">{handoffError}</p>}
+          {submitted && ready ? (
             <div className="mt-6">
               <h3 className="text-lg font-bold">
                 Possible court paths to review
@@ -191,7 +200,7 @@ export default function NotSureCourtGuide() {
               ))}
             </div>
           ) : null}
-        </div>
+        </form>
       ) : null}
     </>
   );

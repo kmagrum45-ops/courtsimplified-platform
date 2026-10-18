@@ -22,7 +22,14 @@ function readBearerToken(request: Request): string {
  * accepts a user id supplied in a request body or query string as proof of
  * identity.
  */
-export async function getAuthenticatedUser(
+const requestUsers = new WeakMap<Request, Promise<User | null>>();
+export function getAuthenticatedUser(request: Request): Promise<User | null> {
+  let pending = requestUsers.get(request);
+  if (!pending) { pending = verifyAuthenticatedUser(request); requestUsers.set(request, pending); }
+  return pending;
+}
+
+async function verifyAuthenticatedUser(
   request: Request,
 ): Promise<User | null> {
   const accessToken = readBearerToken(request);
@@ -84,7 +91,7 @@ export async function getAuthenticatedOwnedCase(
   request: Request,
   user: User,
   caseId: string,
-  options: { masterKeys?: readonly string[] } = {},
+  options: { masterKeys?: readonly string[]; intakeIdentityOnly?: boolean } = {},
 ): Promise<AuthenticatedOwnedCase | null> {
   const accessToken = readBearerToken(request);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -101,7 +108,9 @@ export async function getAuthenticatedOwnedCase(
     });
     const { data, error } = await supabase
       .from("cases")
-      .select(ownedCaseColumns(options.masterKeys))
+      .select(options.intakeIdentityOnly
+        ? "id,court_path,mr_workflowStatus:master_result->workflowStatus,mr_guidanceInputRevision:master_result->guidanceInputRevision,intakeFlow:master_result->intakeCheckpoint->>flowId,intakeCourt:master_result->intakeCheckpoint->>courtPath,intakeVersion:master_result->intakeCheckpoint->>version,intakeRevision:master_result->intakeCheckpoint->>revision,inputRevision:master_result->intakeCheckpoint->>inputRevision"
+        : ownedCaseColumns(options.masterKeys))
       .eq("id", caseId)
       .eq("user_id", user.id)
       .maybeSingle();
@@ -110,7 +119,9 @@ export async function getAuthenticatedOwnedCase(
       ? {
           id: row.id as string,
           court_path: (row.court_path as string | null) || null,
-          master_result: options.masterKeys ? masterFromPaths(row, options.masterKeys) : row.master_result || {},
+          master_result: options.intakeIdentityOnly
+            ? { ...masterFromPaths(row, ["workflowStatus", "guidanceInputRevision"]), intakeCheckpoint: { version: Number(row.intakeVersion), flowId: row.intakeFlow, courtPath: row.intakeCourt, revision: row.intakeRevision, ...(row.inputRevision ? { inputRevision: row.inputRevision } : {}), sections: {} } }
+            : options.masterKeys ? masterFromPaths(row, options.masterKeys) : row.master_result || {},
         }
       : null;
   } catch {

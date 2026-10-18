@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useIntakeState } from "../../_components/IntakeRecovery";
 
 import GetHelp from "../../_components/GetHelp";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
-import { injuryDateWords, municipalNoticeFirst, turnsOnJudge } from "@/src/lib/content-library/municipalNoticeFirst";
+import { injuryDateWords, municipalNoticeFirst, noticeAnswerKey, showsFullNotice, turnsOnJudge, type NoticeAnswer } from "@/src/lib/content-library/municipalNoticeFirst";
 import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
 
 /**
@@ -25,7 +26,8 @@ import { SOURCE_SAVED_ON } from "@/src/lib/content-library/nextStepPractical";
  * a wrong legal warning.
  */
 
-export type NoticeAnswer = "yes" | "no" | "not-sure" | null;
+export { noticeAnswerKey, showsFullNotice } from "@/src/lib/content-library/municipalNoticeFirst";
+export type { NoticeAnswer } from "@/src/lib/content-library/municipalNoticeFirst";
 
 function Rule({ rule }: { rule: RuleCitation }) {
   const saved = SOURCE_SAVED_ON[rule.sourceId];
@@ -41,41 +43,15 @@ function Rule({ rule }: { rule: RuleCitation }) {
   );
 }
 
-/** The storage key for one story's answer (a short hash, never the story itself). */
-export function noticeAnswerKey(story: string): string {
-  let hash = 0;
-  for (const ch of story.trim().toLowerCase()) hash = (hash * 31 + ch.charCodeAt(0)) | 0;
-  return `cs-municipal-notice:${(hash >>> 0).toString(36)}`;
-}
-
-/** Whether the full notice shows for this answer. Exported for test:municipal-notice-first. */
-export function showsFullNotice(answer: NoticeAnswer): boolean {
-  return answer === "yes" || answer === "not-sure";
-}
-
 export default function MunicipalNoticeFirst({ story, city = "" }: { story: string; city?: string }) {
   const notice = useMemo(() => municipalNoticeFirst(story, { city }), [story, city]);
   const key = noticeAnswerKey(story);
-  const [answer, setAnswerState] = useState<NoticeAnswer>(null);
-  // Going back to the story must not ask again (walkthrough noRepeat): the
-  // answer is kept in this browser for this story, best effort only.
-  useEffect(() => {
-    try {
-      const kept = window.sessionStorage.getItem(key);
-      // A new or edited story starts unanswered unless this story was answered.
-      setAnswerState(kept === "yes" || kept === "no" || kept === "not-sure" ? kept : null);
-    } catch {
-      /* storage unavailable: ask */
-    }
-  }, [key]);
+  const [kept, setKept] = useIntakeState<{ key: string; answer: NoticeAnswer } | null>("urgent-warning", "municipalNotice", null);
+  // Reuse the same owned case / exact-flow guest checkpoint as the intake.
+  // A changed story cannot inherit the earlier warning answer.
+  const answer = kept?.key === key ? kept.answer : null;
   const setAnswer = (next: NoticeAnswer) => {
-    setAnswerState(next);
-    try {
-      if (next) window.sessionStorage.setItem(key, next);
-      else window.sessionStorage.removeItem(key);
-    } catch {
-      /* storage unavailable */
-    }
+    setKept({ key, answer: next });
   };
   if (!notice) return null;
   const passed = notice.counted?.passed ?? false;

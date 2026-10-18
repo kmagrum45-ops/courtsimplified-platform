@@ -1,40 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useIntakeState } from "./IntakeRecovery";
+
+import { useEffect, useRef } from "react";
 
 import type { CheckedAnswerView } from "@/src/lib/case-system/intelligence/intelligenceTypes";
 import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/understanding/understandCase";
 import { betterDestinationKnown } from "@/src/lib/case-system/understanding/betterDestination";
-import { storyHintsForDates } from "@/src/lib/case-system/casePosition";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
-import CheckedAnswerPanel from "./CheckedAnswerPanel";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
-import StageAnswerPanel from "../builder/_components/StageAnswerPanel";
 
-/**
- * The front door's answer to a person's story (understanding/understandCase.ts,
- * site owner 2026-10-14). Three parts, in the order a lawyer would give them:
- *
- *   1. What we understood: the person's own facts restated, for them to
- *      correct. Model-written, but it states no law (law sentences are
- *      removed before it reaches here) and it is offered as a reading to confirm.
- *   2. What we need to know: the questions whose answers change the court or
- *      the next step. Answering them runs the reading again with the answers.
- *   3. The next step, from the stage map (CLAUDE.md s. 2a): the reading picks
- *      the step, and StageAnswerPanel shows its form, deadline, filing, fee and
- *      what comes after from the map, for the person to confirm or change.
- *   4. The law that applies: only statements that passed the check against
- *      the official text, each with its source (CheckedAnswerPanel).
- *
- * The court is a suggestion with a button; the person chooses (CLAUDE.md s. 4).
- */
+/** Initial intake: factual reading, category clarification and questions only. */
 
 export type UnderstandResponse = { understanding: CaseUnderstanding; answer: CheckedAnswerView };
 
 type CourtPath = "small-claims" | "civil" | "family";
 
-/** Points shown before "More of the law that applies". The first is the next step. */
-const FIRST_POINTS = 6;
 
 const COURT_LABEL: Record<UnderstoodCourt, string> = {
   "small-claims": "Small Claims Court",
@@ -55,9 +36,8 @@ export default function CaseUnderstandingCard({
   chosenPath,
   updating,
   onAnswer,
+  onDraftChange,
   onContinue,
-  story = "",
-  city = "",
 }: {
   result: UnderstandResponse;
   /** The person's own words, for the step panel's dates and service. */
@@ -66,10 +46,11 @@ export default function CaseUnderstandingCard({
   chosenPath: CourtPath;
   updating: boolean;
   onAnswer: (answers: { question: string; answer: string }[]) => void;
+  onDraftChange?: (answers: { question: string; answer: string }[]) => void;
   onContinue: (path: CourtPath, answers: { question: string; answer: string }[]) => void;
 }) {
-  const { understanding, answer } = result;
-  const [replies, setReplies] = useState<Record<number, string>>({});
+  const { understanding } = result;
+  const [replies, setReplies] = useIntakeState<Record<number, string>>("home-card", "replies", {});
   /*
    * Each "Update with my answers" round replaces `result` with a fresh read
    * (a new set of questions, in a new order, often a different length). Without
@@ -80,9 +61,11 @@ export default function CaseUnderstandingCard({
    * own live test. Clearing on every new `result` keeps each box starting
    * blank for its own question, every round.
    */
+  const previousResult = useRef(result);
   useEffect(() => {
-    setReplies({});
-  }, [result]);
+    if (previousResult.current !== result) setReplies({});
+    previousResult.current = result;
+  }, [result, setReplies]);
   const answered = understanding.questions
     .map((item, index) => ({ question: item.question, answer: (replies[index] ?? "").trim() }))
     .filter((item) => item.answer);
@@ -137,9 +120,14 @@ export default function CaseUnderstandingCard({
                   <span className="font-semibold text-[#16302b]">{item.question}</span>
                   {item.why ? <span className="mt-1 block text-xs text-[#4d675f]">Why we ask: {item.why}</span> : null}
                   <input
+                    disabled={updating}
                     aria-label={item.question}
                     value={replies[index] ?? ""}
-                    onChange={(event) => setReplies((current) => ({ ...current, [index]: event.target.value }))}
+                    onChange={(event) => {
+                      const next = { ...replies, [index]: event.target.value };
+                      setReplies(next);
+                      onDraftChange?.(understanding.questions.map((question, at) => ({ question: question.question, answer: next[at] ?? "" })).filter((item) => item.answer.trim()));
+                    }}
                     className="mt-2 w-full rounded-xl border border-[#d8e6df] px-3 py-2"
                     placeholder="Your answer (optional)"
                   />
@@ -165,51 +153,13 @@ export default function CaseUnderstandingCard({
           {understanding.regime.ownProcedure && !understanding.step ? (
             <p className="mt-2 text-sm leading-6 text-[#4a3b17]" data-testid="case-understanding-not-covered">
               Our step-by-step guide does not cover this kind of proceeding yet, so we are not listing steps, forms or
-              deadlines for it. The law below is checked against the official text.
+              deadlines for it. You can review your information before continuing.
             </p>
           ) : null}
         </section>
       )}
 
-      {suggested && (!understanding.regime?.ownProcedure || understanding.step) && (
-        <section data-testid="case-understanding-next-step">
-          <StageAnswerPanel
-            courtPath={suggested}
-            suggestedStepId={understanding.step}
-            responding={understanding.side === "responding"}
-            storyText={story}
-            storyHints={storyHintsForDates(story)}
-            userWords={story}
-            city={city}
-          />
-        </section>
-      )}
-
-      <section>
-        <h3 className="font-bold text-[#10231f]">The law that applies</h3>
-        <div className="mt-2">
-          {answer.status === "answered" || answer.declinedToJudge || answer.status === "outside-scope" ? (
-            <>
-              {/* The next step and the main points first; the rest folded, the way a lawyer leads with what to do now. */}
-              <CheckedAnswerPanel answer={{ ...answer, statements: answer.statements.slice(0, FIRST_POINTS), notConfirmed: answer.statements.length > FIRST_POINTS ? [] : answer.notConfirmed }} />
-              {answer.statements.length > FIRST_POINTS && (
-                <details className="mt-3" data-testid="case-understanding-more-law">
-                  <summary className="cursor-pointer text-sm font-semibold text-[#1c473d]">
-                    More of the law that applies ({answer.statements.length - FIRST_POINTS} more points)
-                  </summary>
-                  <div className="mt-2">
-                    <CheckedAnswerPanel answer={{ ...answer, declinedToJudge: false, statements: answer.statements.slice(FIRST_POINTS) }} />
-                  </div>
-                </details>
-              )}
-            </>
-          ) : (
-            <p className="text-sm text-[#4d675f]">
-              We could not confirm the law for this against the official text yet, so we are not stating it. You can still continue, and the next screens will guide you.
-            </p>
-          )}
-        </div>
-      </section>
+      <p className="text-sm">After the initial questions, you will review and confirm your information before receiving case-specific procedural guidance.</p>
 
       {tribunal && (
         <section className="rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4" data-testid="case-understanding-tribunal">
@@ -231,6 +181,7 @@ export default function CaseUnderstandingCard({
           {suggested && isPathwayAvailable(suggested) && (
             <button
               type="button"
+              disabled={updating}
               data-testid="case-understanding-continue-suggested"
               onClick={() => onContinue(suggested, answered)}
               className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
@@ -241,6 +192,7 @@ export default function CaseUnderstandingCard({
           {suggested !== chosenPath && (
             <button
               type="button"
+              disabled={updating}
               data-testid="case-understanding-continue-chosen"
               onClick={() => onContinue(chosenPath, answered)}
               className={

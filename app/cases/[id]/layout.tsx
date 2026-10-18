@@ -36,6 +36,7 @@ import type { StoredCaseData } from "../../builder/_components/builderTypes";
 import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/casePosition";
 import { caseStepFor } from "@/src/lib/case-system/caseStep";
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { guidanceIsCurrent } from "@/src/lib/case-system/intakeReview";
 import {
   CaseHomeContext,
   COURT_LABELS,
@@ -67,12 +68,17 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
   const [caseRecord, setCaseRecord] = useState<CaseRecord | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "missing" | "failed">("loading");
   const [loadError, setLoadError] = useState("");
+  const ownerRef = useRef<string | null>(null);
+  const loadVersion = useRef(0);
 
   const loadOnce = useCallback(async () => {
+    const version = ++loadVersion.current;
     const { supabase } = await import("@/src/lib/supabase/client");
     const {
       data: { user },
     } = await supabase.auth.getUser();
+    if (version !== loadVersion.current) return;
+    ownerRef.current = user?.id ?? null;
     if (!user) {
       router.replace(`/login?next=${encodeURIComponent(`/cases/${caseId}`)}`);
       return;
@@ -87,6 +93,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
         .from("cases")
         .select("id,title,court_path,status,current_stage,created_at,updated_at,master_result")
         .eq("id", caseId)
+        .eq("user_id", user.id)
         .maybeSingle();
     let { data, error } = await read();
     // A failed read is not a missing case (2026-10-08: a walkthrough reload was
@@ -95,6 +102,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
       ({ data, error } = await read());
     }
+    if (version !== loadVersion.current) return;
     if (error) {
       setLoadError(error.message);
       setState("failed");
@@ -142,6 +150,24 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
     if (caseId) void load();
   }, [caseId, load]);
 
+  useEffect(() => {
+    let active = true;
+    let unsubscribe = () => {};
+    const invalidateLoads = () => { loadVersion.current++; };
+    void import("@/src/lib/supabase/client").then(({ supabase }) => {
+      if (!active) return;
+      const { data } = supabase.auth.onAuthStateChange((event, session) => {
+        if (event === "INITIAL_SESSION" || ownerRef.current === (session?.user.id ?? null)) return;
+        ownerRef.current = session?.user.id ?? null;
+        loadVersion.current++;
+        setCaseRecord(null); setState("loading");
+        void load();
+      });
+      unsubscribe = () => data.subscription.unsubscribe();
+    });
+    return () => { active = false; invalidateLoads(); unsubscribe(); };
+  }, [load]);
+
   const home = useMemo<CaseHome | null>(() => {
     if (!caseRecord) return null;
     const master = asRecord(caseRecord.master_result);
@@ -167,7 +193,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
     };
   }, [caseRecord, load]);
 
-  if (state === "loading") {
+  if (state === "loading" || caseRecord && caseRecord.id !== caseId) {
     return (
       <main className="mx-auto max-w-6xl px-4 py-16 text-center text-sm text-[#4f685f]" aria-live="polite">
         Opening your case…
@@ -218,6 +244,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
 
   const base = `/cases/${encodeURIComponent(caseId)}`;
   const record = home.caseRecord;
+  if (caseRecord && !guidanceIsCurrent(caseRecord.master_result, caseRecord.court_path, caseRecord.id)) return <main className="mx-auto max-w-3xl p-8" data-testid="case-intake-gate"><h1 className="text-2xl font-bold">Review your initial information before receiving case guidance</h1><p className="my-4">Your saved documents, evidence and other case information remain on this case. Complete the initial questions, review your answers and confirm them, then generate guidance for the current information. Older completion records do not establish this confirmation.</p><Link className="underline" href={builderHref(caseRecord)}>Continue this case’s intake and review</Link><p className="my-4"><Link href="/guides">General legal information</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></p><GetHelp /><LegalInformationNotice /></main>;
   const side = home.courtPath
     ? home.responding
       ? home.courtPath === "family" ? "You are responding (respondent)" : "You are responding (defendant)"

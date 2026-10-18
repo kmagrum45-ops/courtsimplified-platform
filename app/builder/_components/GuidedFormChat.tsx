@@ -1,5 +1,7 @@
 "use client";
 
+import { useIntakeState } from "../../_components/IntakeRecovery";
+
 /**
  * ONE QUESTION AT A TIME, OVER THE COURT'S OWN FORM (build order Step 2C,
  * 2026-10-12).
@@ -20,7 +22,7 @@
  * - Nothing here calls a model.
  */
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
@@ -29,6 +31,8 @@ export type GuidedChoice = { value: string; label: string };
 export type GuidedField = {
   /** The form field this question fills. */
   key: string;
+  /** Initial orientation versus optional later detail. */
+  initial?: boolean;
   question: string;
   /** Why it matters, in plain words about what the answer is used for. */
   why: string;
@@ -72,18 +76,8 @@ export function answerNeedsMore(field: GuidedField, value: string | string[]): s
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
 
-export function isAnswered(field: GuidedField, value: GuidedValues[string]): boolean {
-  if (Array.isArray(value)) return value.filter((item) => !(field.emptyValues ?? []).includes(item)).length > 0;
-  const text = (value ?? "").trim();
-  return text.length > 0 && !(field.emptyValues ?? []).includes(text);
-}
-
-/** The questions still to ask, in order: applicable, unanswered, not skipped. */
-export function pendingFields(fields: readonly GuidedField[], values: GuidedValues, skipped: ReadonlySet<string>): GuidedField[] {
-  return fields.filter(
-    (field) => (field.when ? field.when(values) : true) && !isAnswered(field, values[field.key]) && !skipped.has(field.key),
-  );
-}
+export { isAnswered, pendingFields } from "./guidedFields";
+import { isAnswered, pendingFields } from "./guidedFields";
 
 /**
  * `text` cut to at most `max` characters at the end of a whole word, with an
@@ -151,24 +145,29 @@ export default function GuidedFormChat({
   /** A plain answer to what the person asked, said when the questions are done, with the rules it restates (motionToChange.ts chatClosingFor). */
   closing?: { say: string; rules: RuleCitation[] } | null;
 }) {
-  const [skipped, setSkipped] = useState<Set<string>>(new Set());
-  const [heard, setHeard] = useState<{ question: string; reply: string }[]>([]);
-  const [draft, setDraft] = useState<string | string[]>("");
-  const [changing, setChanging] = useState<string | null>(null);
+  const [skipped, setSkipped] = useIntakeState<Set<string>>("form-chat", "skipped", new Set());
+  const [heard, setHeard] = useIntakeState<{ question: string; reply: string }[]>("form-chat", "heard", []);
+  const [changing, setChanging] = useIntakeState<string | null>("form-chat", "changing", null);
   // Story answers the person said were not right: asked plainly instead.
-  const [notFromStory, setNotFromStory] = useState<Set<string>>(new Set());
+  const [notFromStory, setNotFromStory] = useIntakeState<Set<string>>("form-chat", "notFromStory", new Set());
   // What the answer just given still needs (answerNeedsMore), shown under the box.
-  const [needsMore, setNeedsMore] = useState<string | null>(null);
+  const [needsMore, setNeedsMore] = useIntakeState<string | null>("form-chat", "needsMore", null);
   // Questions whose story-filled part the person has edited (partialFromStory).
-  const [edited, setEdited] = useState<Set<string>>(new Set());
+  const [edited, setEdited] = useIntakeState<Set<string>>("form-chat", "edited", new Set());
 
   // Known when this opened: listed, not asked (the story, the saved case).
-  const [knownAtStart] = useState(() =>
+  const [knownAtStart] = useIntakeState("form-chat", "knownAtStart", () =>
     fields.filter((field) => (field.when ? field.when(values) : true) && isAnswered(field, values[field.key])).map((field) => field.key),
   );
 
   const pending = useMemo(() => pendingFields(fields, values, skipped), [fields, values, skipped]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
+  // An unsent reply belongs to its question, including when the form changes which question comes next.
+  const [drafts, setDrafts] = useIntakeState<Record<string, string | string[]>>("form-chat", "drafts", {});
+  const draft = drafts[current?.key ?? "complete"] ?? "";
+  function setDraft(value: string | string[], key = current?.key ?? "complete") {
+    setDrafts((previous) => ({ ...previous, [key]: value }));
+  }
 
   function answer(value: string | string[], fromStory = false) {
     if (!current) return;
@@ -220,7 +219,7 @@ export default function GuidedFormChat({
                   type="button"
                   onClick={() => {
                     setChanging(field.key);
-                    setDraft(values[field.key] ?? (field.kind === "multi" ? [] : ""));
+                    setDraft(values[field.key] ?? (field.kind === "multi" ? [] : ""), field.key);
                   }}
                   className="text-[#2f7d67] underline"
                 >

@@ -77,6 +77,19 @@ function deadlineFor(id: string): StageDeadline | undefined {
  * on a municipal way. `city` is the person's saved city, when known; `now`
  * and `today` are for the suite.
  */
+export type NoticeAnswer = "yes" | "no" | "not-sure" | null;
+
+/** Stable story identity within the existing owned intake checkpoint. */
+export function noticeAnswerKey(story: string): string {
+  let hash = 0;
+  for (const ch of story.trim().toLowerCase()) hash = (hash * 31 + ch.charCodeAt(0)) | 0;
+  return `cs-municipal-notice:${(hash >>> 0).toString(36)}`;
+}
+
+export function showsFullNotice(answer: NoticeAnswer): boolean {
+  return answer === "yes" || answer === "not-sure";
+}
+
 export function municipalNoticeFirst(
   words: string,
   options: { city?: string; now?: Date; today?: string } = {},

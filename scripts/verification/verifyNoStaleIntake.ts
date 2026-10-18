@@ -25,7 +25,9 @@
  * exist today.
  *
  * The rule now: saved work is opened from the workspace (it comes from the
- * account); the browser is only a read-once hand-off between two pages. This
+ * account). An explicit active flow can recover its owner/case/court-scoped
+ * tab checkpoint; a fresh URL never adopts it. The legacy browser hand-off
+ * remains read-once. This
  * suite asserts the PROPERTIES that keep that true:
  *
  *   1. No page reads or writes the per-user resumable browser draft.
@@ -152,14 +154,14 @@ check("a full clear leaves no case content in the browser", left.length === 0, l
 //    a case must start from no story. The site owner pressed Back after an
 //    intake and found an earlier case's story prefilled in a fresh one.
 const builder = strip(read("app/builder/page.tsx"));
-const leaveEffect = builder.match(/previousCaseIdRef\.current = queryCaseId;[\s\S]{0,400}?\}, \[queryCaseId\]\);/);
+const leaveEffect = builder.match(/previousCaseIdRef\.current = queryCaseId;[\s\S]{0,400}?\}, \[queryCaseId[^\]]*\]\);/);
 check(
   "leaving a case clears the story loaded from it",
   Boolean(leaveEffect && /if \(previous && !queryCaseId\)[\s\S]*setHomeStory\(""\)/.test(leaveEffect[0])),
 );
-const loadStart = builder.match(/async function loadExistingCase\(\) \{[\s\S]{0,300}?from\("cases"\)/);
+const loadStart = builder.match(/async function loadExistingCase\(\) \{[\s\S]{0,900}?const data = recovery\?\.row\?\.id === queryCaseId \? recovery.row : null;/);
 check(
-  "opening a case clears the previous story before loading its own",
+  "opening a case uses only its validated recovery row and clears uncheckpointed story",
   Boolean(loadStart && /setHomeStory\(""\)/.test(loadStart[0])),
 );
 const newCase = builder.match(/setChatSessionId\(createChatSessionId\(courtPath\)\);[\s\S]{0,200}?router\.replace\(`\/builder\?path=/);

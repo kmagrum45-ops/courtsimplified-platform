@@ -1,4 +1,5 @@
 "use client";
+import { authHeaders } from "../../cases/_components/CaseHomeContext";
 
 import { useState } from "react";
 
@@ -61,7 +62,7 @@ export default function TidyWordingReview({ fields }: { fields: TidyableField[] 
       for (const fieldsInBatch of batches) {
         const response = await fetch("/api/intake/tidy-wording", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: await authHeaders() ?? { "Content-Type": "application/json" },
           body: JSON.stringify({ fields: fieldsInBatch }),
         });
         const body = (await response.json()) as { ok?: boolean; suggestions?: Suggestion[]; error?: string };

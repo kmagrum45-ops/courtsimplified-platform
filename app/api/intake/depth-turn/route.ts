@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
@@ -278,4 +279,4 @@ function toClientQuestion(item: SelectedDepthQuestion) {
   };
 }
 
-export const POST = createDepthTurnPost();
+export const POST = withConfirmedGuidance(createDepthTurnPost(), {});

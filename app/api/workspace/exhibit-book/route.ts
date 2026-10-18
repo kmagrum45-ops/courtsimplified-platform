@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * Builds the exhibit book, and applies a numbering the user has confirmed.
  *
@@ -96,7 +97,7 @@ const toNumberable = (row: Row): NumberableDocument => ({
   originalName: row.original_name,
 });
 
-export async function GET(req: NextRequest) {
+async function getGuidance(req: NextRequest) {
   try {
     const user = await getAuthenticatedUser(req);
     if (!user) return refuse(401, "Authentication is required.");
@@ -230,7 +231,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest) {
+async function postGuidance(req: NextRequest) {
   try {
     const user = await getAuthenticatedUser(req);
     if (!user) return refuse(401, "Authentication is required.");
@@ -348,3 +349,7 @@ export async function POST(req: NextRequest) {
     return refuse(500, "CourtSimplified could not number these documents.");
   }
 }
+
+export const GET = withConfirmedGuidance(getGuidance, {"currentAnalysis":true});
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

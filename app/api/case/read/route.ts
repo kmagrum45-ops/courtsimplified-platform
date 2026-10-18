@@ -1,3 +1,5 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
+import { confirmedIntakeRevision } from "@/src/lib/case-system/intakeReview";
 import { createClient } from "@supabase/supabase-js";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import { NextResponse } from "next/server";
@@ -31,7 +33,7 @@ type Dependencies = {
   ownedCase: (request: Request, user: { id: string }, caseId: string) => Promise<OwnedCase | null>;
   read: (personsWords: string, transcript: string, caseId: string) => Promise<CasePicture>;
   /** Writes casePicture only, onto the case as it is NOW (the read takes seconds; the person may have saved since). */
-  save: (request: Request, user: { id: string }, caseId: string, picture: Record<string, unknown>) => Promise<boolean>;
+  save: (request: Request, user: { id: string }, caseId: string, picture: Record<string, unknown>, inputRevision?: string | null) => Promise<boolean>;
 };
 
 function authenticatedClient(request: Request) {
@@ -54,12 +56,12 @@ export function createCaseReadPost(overrides: Partial<Dependencies> = {}) {
     ownedCase: async (request, user, caseId) =>
       (await getAuthenticatedOwnedCase(request, user as never, caseId)) as OwnedCase | null,
     read: (personsWords, transcript, caseId) => readCase(personsWords, transcript, process.env.OPENAI_API_KEY ?? "", { caseId }),
-    save: async (request, user, caseId, picture) => {
+    save: async (request, user, caseId, picture, inputRevision) => {
       const supabase = authenticatedClient(request);
       if (!supabase) return false;
       // Never over a stage or date saved while the reading was running
       // (updateCaseRecord.ts).
-      const saved = await updateMasterResult(supabase, { caseId, userId: user.id }, (current) => ({ ...current, casePicture: picture }));
+      const saved = await updateMasterResult(supabase, { caseId, userId: user.id }, (current) => inputRevision && confirmedIntakeRevision(current, undefined, caseId) !== inputRevision ? { reject: "stale-intake" } : ({ ...current, casePicture: picture }));
       return saved.ok;
     },
     ...overrides,
@@ -109,9 +111,9 @@ export function createCaseReadPost(overrides: Partial<Dependencies> = {}) {
     }
     const storedPicture = { ...picture, readAt: new Date().toISOString() };
     if (!saveOnServer) return NextResponse.json({ ok: true, picture, saved: false, storedPicture });
-    const saved = await deps.save(request, user, caseId, storedPicture).catch(() => false);
+    const saved = await deps.save(request, user, caseId, storedPicture, confirmedIntakeRevision(master, owned.court_path, caseId)).catch(() => false);
     return NextResponse.json({ ok: true, picture, saved });
   };
 }
 
-export const POST = createCaseReadPost();
+export const POST = withConfirmedGuidance(createCaseReadPost(), {"currentAnalysis":true});

@@ -1,5 +1,9 @@
 "use client";
 
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+
+import { IntakeRequest } from "../../_components/intakeRequest";
+
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
 import { civilGuidedFields } from "./guidedFields";
@@ -564,11 +568,11 @@ const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "am
 const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
 
 export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
-  const [editingStory, setEditingStory] = useState(false);
+  const [editingStory, setEditingStory] = useIntakeState("civil", "editingStory", false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({ courtPath: "civil", caseId }),
   );
-  const [input, setInput] = useState<CivilInput>(() => {
+  const [input, setInput] = useIntakeState<CivilInput>("civil", "input", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
@@ -601,9 +605,15 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const analysisRequest = useRef(new IntakeRequest());
+  const requestScope = input;
+  useEffect(() => {
+    const request = analysisRequest.current;
+    return () => request.cancel();
+  }, [requestScope, caseId]);
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
-  const [mode, setMode] = useState<"chat" | "form">("chat");
+  const [mode, setMode] = useIntakeState<"chat" | "form">("civil", "mode", "chat");
   /** Set only on "immediate-danger". Blocks analysis and shows crisis resources. */
   const [safetyHalt, setSafetyHalt] = useState("");
   /** Set on "distress". Shown alongside the intake, which continues. */
@@ -620,12 +630,19 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
    * case they have not touched (stageFromAnswers.ts, walkthrough SW
    * 2026-10-14). Only these can stand as their confirmation of the stage.
    */
-  const personSet = useRef<Set<"yourRole">>(new Set());
+  const recovery = useIntakeRecovery();
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const prepareCaseGuidance = usePrepareCaseGuidance();
+  const validateIntakeResponse = useValidateIntakeResponse();
+  const [restoredPersonSet] = useIntakeState<Set<"yourRole">>("civil", "personSet", new Set());
+  const personSet = useRef(restoredPersonSet);
   // Each document item the person chose or cleared themselves; a chat
   // answer sets the whole list. The list counts as theirs only when every
   // item on it is one they chose (review 2026-10-14: one click made a whole
   // prefilled list theirs).
-  const personDocuments = useRef<Set<string>>(new Set());
+  const [restoredPersonDocuments] = useIntakeState<Set<string>>("civil", "personDocuments", new Set());
+  const personDocuments = useRef(restoredPersonDocuments);
+  useEffect(() => { recovery?.put("civil", "personSet", [...personSet.current], false); recovery?.put("civil", "personDocuments", [...personDocuments.current], false); });
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
@@ -687,15 +704,22 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   // Questions from the law that applies to the story, asked for as soon as
   // there is a story (it usually arrives from the home page) and again when
   // it is edited. Never blocks the analysis.
+  const restoredSourced = useRef(recovery?.read("sourced", "state") !== undefined);
   const sourced = useSourcedQuestions("civil", earlierSourcedAnswers ?? NO_EARLIER_ANSWERS);
   const startSourced = sourced.start;
   useEffect(() => {
+    if (restoredSourced.current) return;
     void startSourced(input.facts, input.yourRole || undefined);
     // Once, for the story the page opened with; edits ask again on blur.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function handleAnalyze() {
+    if (analysisRequest.current.pending) return;
+    try {
+      await analysisRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+        if (!(await prepareCaseGuidance())) return;
     if (submissionInFlight.current) return;
     if (!input.facts.trim()) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
@@ -726,6 +750,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       } = await supabase.auth.getSession();
 
       const safety = await runClientSafetyCheck(input.facts, session?.access_token);
+      await validateIntakeResponse(signal);
+      signal.throwIfAborted();
       setAsksForAdvice(safety.requestsLegalAdvice);
 
       if (safety.classification === "immediate-danger") {
@@ -737,6 +763,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
       setSafetyNotice(safety.classification === "distress" ? safety.userMessage || "" : "");
     } catch {
+      if (signal.aborted) return;
       // Fails open. A classifier fault must never stop someone reaching their
       // own case.
     }
@@ -746,10 +773,13 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         data: { session },
       } = await supabase.auth.getSession();
       const { province: _province, city: _city, ...civilAnalysisInput } = input;
+      signal.throwIfAborted();
       const response = await fetch("/api/civil/analyze", {
+        signal,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...intakeGuidanceHeaders(recovery),
           ...(session?.access_token
             ? { Authorization: `Bearer ${session.access_token}` }
             : {}),
@@ -841,11 +871,19 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       },
     };
 
+      await validateIntakeResponse(signal);
+
+      signal.throwIfAborted();
       onComplete(analysis, payload);
     } catch (error) {
+      if (signal.aborted) return;
       setAnalysisError(
         error instanceof Error ? error.message : "Civil analysis could not be completed.",
       );
+    }
+      });
+    } catch {
+      setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
       submissionInFlight.current = false;
       setIsAnalyzing(false);
@@ -883,7 +921,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   }
 
   return (
-    <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+    <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <h2 className="text-2xl font-bold text-[#10231f]">Civil Intake</h2>
 
       <p className="mt-3 text-[#4d675f]">
@@ -1088,7 +1126,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} onBlur={() => void sourced.start(input.facts, input.yourRole || undefined)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} onBlur={(event) => { if (event.relatedTarget instanceof HTMLElement && event.relatedTarget.dataset.testid === "civil-intake-continue") return; void sourced.start(input.facts, input.yourRole || undefined); }} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">
@@ -1281,11 +1319,12 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         {mode === "form" ? (
         <button
           type="button"
+          data-testid="civil-intake-continue"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || sourced.state === "loading"}
+          disabled={isAnalyzing}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Finding questions for your situation…" : "Continue to your next steps"}
+          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}
         </button>
         ) : null}
       </div>

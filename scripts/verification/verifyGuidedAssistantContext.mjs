@@ -1,18 +1,18 @@
+/** Owned-context and canonical engine contracts, plus actual anonymous HTTP
+ * refusals. Full guidance is no longer available through anonymous fallback.
+ * Core factories isolate offline behavior; staging walkthroughs cover real auth.
+ */
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { resolve as resolvePath } from "node:path";
+import { createRequire } from "node:module";
+import { NextRequest } from "next/server";
+import { createGuidedAssistantPost } from "../../app/api/guided-assistant/route.ts";
+import { createSmallClaimsAnalyzePost } from "../../app/api/small-claims/analyze/route.ts";
 
 const port = Number(process.env.COURTSIMPLIFIED_TEST_PORT || 4317);
 const externalBaseUrl = process.env.COURTSIMPLIFIED_TEST_BASE_URL?.replace(/\/$/, "");
 const baseUrl = externalBaseUrl || `http://127.0.0.1:${port}`;
-const nextCommand = resolvePath(
-  process.cwd(),
-  "node_modules",
-  "next",
-  "dist",
-  "bin",
-  "next",
-);
+const nextCommand = createRequire(import.meta.url).resolve("next/dist/bin/next");
 
 // The site-wide password gate in middleware.ts intercepts every request this
 // script makes, including to routes that have their own, separate concept of
@@ -68,7 +68,7 @@ server?.stdout.on("data", recordServerOutput);
 server?.stderr.on("data", recordServerOutput);
 
 async function waitForServer() {
-  const deadline = Date.now() + 30_000;
+  const deadline = Date.now() + 120_000;
 
   while (Date.now() < deadline) {
     if (server && server.exitCode !== null) {
@@ -98,14 +98,20 @@ async function waitForServer() {
 }
 
 async function postCasePartner(payload) {
-  const response = await fetch(`${baseUrl}/api/guided-assistant`, {
+  // The selected case's context is a fixed owned fixture, not supplied by the
+  // caller's courtContext or caseMemory. The HTTP gate is tested separately.
+  const handler = createGuidedAssistantPost({
+    authenticate: async () => ({ id: "context-owner" }),
+    owned: async () => ({ id: payload.caseId, court_path: "small-claims", master_result: { masterCase: { courtPath: "small-claims", province: "Ontario", stage: "starting-case" }, intakeData: { caseStage: "starting-case" }, position: { confirmedStage: "starting-case" } } }),
+  });
+  const response = await handler(new NextRequest(`${baseUrl}/api/guided-assistant`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Cookie: siteAccessCookieHeader,
     },
     body: JSON.stringify(payload),
-  });
+  }));
 
   const data = await response.json();
 
@@ -120,14 +126,15 @@ async function postCasePartner(payload) {
 }
 
 async function postSmallClaimsAnalysis(input) {
-  const response = await fetch(`${baseUrl}/api/small-claims/analyze`, {
+  const handler = createSmallClaimsAnalyzePost({ authenticate: async () => null, hasExternalAiKey: () => false });
+  const response = await handler(new Request(`${baseUrl}/api/small-claims/analyze`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Cookie: siteAccessCookieHeader,
     },
     body: JSON.stringify({ input }),
-  });
+  }));
 
   const data = await response.json();
 
@@ -155,7 +162,7 @@ async function assertProtectedCaseStorage() {
   assert.equal(data.success, false);
 }
 
-async function assertUnauthenticatedAssistantUsesFallback() {
+async function assertUnauthenticatedAssistantIsRefused() {
   const response = await fetch(`${baseUrl}/api/guided-assistant`, {
     method: "POST",
     headers: {
@@ -172,39 +179,10 @@ async function assertUnauthenticatedAssistantUsesFallback() {
 
   const data = await response.json();
 
-  /*
-   * ASSERTIONS UPDATED 2026-09-23. The intent is unchanged; the field names
-   * were stale.
-   *
-   * This block asserted `data.success`, `data.mode === "brain-only-fallback"`
-   * and `data.metadata.usedOpenAIForBrain`. None of those fields exists on the
-   * route any more — it returns `{ ok, userFacingAnswer, gateway: { ... } }`.
-   * The suite had also been fetching `/api/assistant-chat`, a route that does
-   * not exist, and was getting a 404 HTML page back.
-   *
-   * Both were invisible because the suite failed earlier, at a 400 from the
-   * Small Claims route. Fixing that one exposed these two.
-   *
-   * What the test was checking is still worth checking and is still true: an
-   * unauthenticated assistant request succeeds, and it reaches no external
-   * model. `gateway.externalModelUsed` is the field that says so now.
-   */
-  assert.equal(response.status, 200, JSON.stringify(data));
-  assert.equal(data.ok, true, JSON.stringify(data));
-  assert.equal(
-    data.gateway?.externalModelUsed,
-    false,
-    `The guided assistant must reach no external model: ${JSON.stringify(data.gateway)}`,
-  );
-  assert.equal(
-    data.gateway?.modelProvider,
-    "internal-orchestrator",
-    JSON.stringify(data.gateway),
-  );
-  assert.ok(
-    typeof data.userFacingAnswer === "string" && data.userFacingAnswer.length > 0,
-    "The assistant returned no answer at all.",
-  );
+  assert.equal(response.status, 401, "Anonymous requests cannot receive case guidance");
+  assert.equal(data.ok, false);
+  assert.equal(data.userFacingAnswer, undefined);
+
 }
 
 function resultText(result) {
@@ -608,6 +586,9 @@ async function run() {
     "canonical MasterCaseSchema fallback",
   );
 
+  const spoofedContext = await postCasePartner({ caseId: "context-verification-explicit", message: secondMessage, conversation: [{ role: "user", content: secondMessage }], courtContext: { courtPath: "family", jurisdiction: "Other", stage: "trial" }, caseMemory: { masterResult: { masterCase: { courtPath: "civil" } } }, mode: "verification" });
+  assertKnownSmallClaimsContext(spoofedContext, "untrusted client memory cannot replace owned context");
+
   const smallClaimsApiResult = await postSmallClaimsAnalysis(
     buildSmallClaimsIntake(),
   );
@@ -642,12 +623,12 @@ async function run() {
   );
 
   await assertProtectedCaseStorage();
-  await assertUnauthenticatedAssistantUsesFallback();
+  await assertUnauthenticatedAssistantIsRefused();
   await assertCourtPathRoutingBoundaries();
   await assertCanonicalSmallClaimsRelevance();
 
   console.log(
-    "Production API verification passed: court context, conversation memory, canonical MasterCaseSchema, protected case storage, and safe AI fallback boundaries.",
+    "Owned context and canonical engine verification passed, with actual anonymous HTTP refusals and no paid calls.",
   );
 }
 

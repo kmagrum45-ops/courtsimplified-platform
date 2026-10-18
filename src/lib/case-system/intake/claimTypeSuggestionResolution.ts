@@ -40,6 +40,10 @@ export type ClaimTypeSuggestionResolution =
  * this same suggestion cycle -- empty on the very first rejection, and
  * capped at one retry (see file header).
  */
+type InitialResolution = Exclude<ClaimTypeSuggestionResolution, { outcome: "confirmed" }> | { outcome: "confirmed"; claimType: { claimTypeId: string; claimTypeName: string } };
+type ResolveArgs = [action: "confirm" | "reject", storyText: string, claimTypes: readonly ClaimType[], facts: IntakeFacts, apiKey: string, claimTypeId: string, priorRejectedIds?: readonly string[]];
+export function resolveClaimTypeSuggestion(...args: [...ResolveArgs, intakeOnly: true]): Promise<InitialResolution>;
+export function resolveClaimTypeSuggestion(...args: ResolveArgs): Promise<ClaimTypeSuggestionResolution>;
 export async function resolveClaimTypeSuggestion(
   action: "confirm" | "reject",
   storyText: string,
@@ -48,7 +52,8 @@ export async function resolveClaimTypeSuggestion(
   apiKey: string,
   claimTypeId: string,
   priorRejectedIds: readonly string[] = [],
-): Promise<ClaimTypeSuggestionResolution> {
+  intakeOnly = false,
+): Promise<ClaimTypeSuggestionResolution | InitialResolution> {
   if (action === "confirm") {
     const claimType = claimTypes.find((candidate) => candidate.id === claimTypeId);
     if (!claimType) return { outcome: "no-match" };
@@ -56,8 +61,7 @@ export async function resolveClaimTypeSuggestion(
     return {
       outcome: "confirmed",
       claimType: { claimTypeId: claimType.id, claimTypeName: claimType.name },
-      evidenceGuidance: buildEvidenceCategoryGuidance(claimType),
-      claimGuidance: buildClaimGuidance(claimType, facts),
+      ...(!intakeOnly ? { evidenceGuidance: buildEvidenceCategoryGuidance(claimType), claimGuidance: buildClaimGuidance(claimType, facts) } : {}),
     };
   }
 

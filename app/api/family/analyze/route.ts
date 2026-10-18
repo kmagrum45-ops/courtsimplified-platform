@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 
 import { runFamilyIntakeCanonicalIntegration } from "@/src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
@@ -208,7 +209,7 @@ function errorResponse(error: string, status: number) {
   return NextResponse.json({ ok: false, error }, { status });
 }
 
-export async function POST(request: NextRequest) {
+async function postGuidance(request: NextRequest) {
   const contentLength = Number(request.headers.get("content-length") || 0);
 
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
@@ -262,3 +263,8 @@ export async function POST(request: NextRequest) {
     return errorResponse("Family intake analysis could not be completed.", 500);
   }
 }
+
+export const POST = withConfirmedGuidance(postGuidance, { court: "family", requireRevision: true });
+
+/** Offline contract tests exercise the existing validator/engine without bypassing the HTTP export. */
+export function createFamilyAnalyzePost() { return postGuidance; }

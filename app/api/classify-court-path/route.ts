@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import {
@@ -55,12 +56,14 @@ export async function POST(request: Request) {
       : null;
 
   try {
+    if (!(await getAuthenticatedUser(request))) return NextResponse.json({ primaryPath: "unknown", secondaryPath: null, outOfScopeForum: null, confidence: 0, reasoning: "Choose a court path to continue; sign in for an AI-assisted clarification.", source: "authentication-required", aiCalled: false, matters: { issues: [], severalOtherParties: false, earlierDecision: false, unmarriedCouple: false }, crossForumNoteIds: [], showSeveralMatters: false });
     const classification = await classifyCourtPath({ story, declaredCourtPath });
     // Which fixed, sourced connection notes the story's topics call for. Ids
     // only: the page renders the registry's own text for each.
     const amounts = statedDollarAmounts(story);
     return NextResponse.json({
       ...classification,
+      reasoning: "This is a provisional court-category suggestion. Review and confirm your initial information before receiving procedural guidance.",
       crossForumNoteIds: selectCrossForumNotes(classification.matters, amounts).map((note) => note.id),
       showSeveralMatters: hasSeveralMattersContent(classification.matters, amounts),
     });

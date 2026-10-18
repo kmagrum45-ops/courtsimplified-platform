@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * Suggests what a document is, by sending its extracted text to a model.
  *
@@ -67,7 +68,7 @@ function refuse(status: number, error: string, detail?: string) {
   return NextResponse.json({ success: false, error, detail }, { status });
 }
 
-export async function POST(req: NextRequest) {
+async function postGuidance(req: NextRequest) {
   /*
    * *** FIRST, BEFORE ANYTHING ELSE ***
    *
@@ -228,3 +229,5 @@ export async function POST(req: NextRequest) {
   }
   /* c8 ignore stop */
 }
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

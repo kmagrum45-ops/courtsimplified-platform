@@ -1,4 +1,6 @@
 "use client";
+import { useIntakeReviewView } from "../../_components/IntakeRecovery";
+import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
 /**
  * The family status-and-routing triage, on screen.
@@ -118,6 +120,8 @@ export function respondingInFamilyStory(story: string): boolean {
 }
 
 export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
+  const review = useIntakeReviewView();
+  const confirmed = Boolean(review && reviewPhase(review.workflowStatus, review.checkpoint) === "user-confirmed");
   const [showWhy, setShowWhy] = useState(false);
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
@@ -413,7 +417,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
         </div>
       )}
 
-      {outcome.topics.length > 0 && (
+      {confirmed && outcome.topics.length > 0 && (
         <div className="mt-6">
           <h3 className="text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
             Topics worth reading about
@@ -444,7 +448,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
           You told us there is already a court order, so the rules about where to start a new family case are not shown here.
         </p>
       ) : null}
-      {startingNewCase && outcome.courtInformation.length > 0 && (
+      {confirmed && startingNewCase && outcome.courtInformation.length > 0 && (
         <details className="mt-6">
           <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
             What the statutes say about which court
@@ -466,7 +470,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       */}
       {/* Folded, not filtered: every row stays on the page (page review,
           2026-10-07: 24 rows were the longest thing on a phone screen). */}
-      {!startingNewCase ? null : (
+      {!confirmed || !startingNewCase ? null : (
       <details className="mt-6">
         <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
           Municipalities named in the Courts of Justice Act

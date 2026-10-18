@@ -29,6 +29,9 @@ import path from "node:path";
 import { expect, test, type Page } from "@playwright/test";
 
 import { authenticateRealTestUser } from "./harness/intakeDriver";
+import { deleteHarnessUser } from "./harness/realTestSession";
+import { confirmInitialInformation } from "./harness/intakeReview";
+import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { HELD_BACK_PERSONAS } from "./walkthrough/heldBackPersonas";
 import { PERSONAS, type Persona } from "./walkthrough/personas";
 
@@ -98,6 +101,33 @@ async function fillLabelled(page: Page, label: string, value: string) {
   if ((await field.count()) === 0) return false;
   await field.fill(value);
   return true;
+}
+
+/** Exercise actual persisted review and confirmation before any full guidance. */
+async function reviewAndConfirm(page: Page, persona: Persona, steps: Step[]) {
+  await expect(page.getByTestId("completed-case-overview")).toHaveCount(0);
+  const review = page.getByTestId("intake-review");
+  if (await review.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").click();
+  await expect(review).toHaveAttribute("data-phase", "reviewing");
+  await capture(page, persona, steps, "review-initial-information");
+  await page.reload();
+  await expect(review).toHaveAttribute("data-phase", "reviewing");
+  await expect(page.getByTestId("completed-case-overview")).toHaveCount(0);
+  const withheld = await page.evaluate(async ({ key, courtPath }) => {
+    const checkpoint = JSON.parse(sessionStorage.getItem(key) ?? "null");
+    const authKey = Object.keys(localStorage).find(name => /^sb-.+-auth-token$/.test(name));
+    const session = authKey ? JSON.parse(localStorage.getItem(authKey) ?? "null") : null;
+    if (!checkpoint?.caseId || !session?.access_token) return 0;
+    const response = await fetch("/api/case/stage-answer", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify({ caseId: checkpoint.caseId, courtPath, stageId: "synthetic-unconfirmed-probe" }) });
+    return response.status;
+  }, { key: GUEST_INTAKE_SESSION_KEY, courtPath: persona.path });
+  expect(withheld, "A real authenticated unconfirmed case must be refused by the API").toBe(409);
+  // The persona explicitly records unknown answers rather than inventing facts.
+  await confirmInitialInformation(page);
+  await capture(page, persona, steps, "initial-information-confirmed");
+  await page.reload();
+  await expect(review).toHaveAttribute("data-phase", "user-confirmed");
+  await expect(page.getByTestId("completed-case-overview")).toHaveCount(0);
 }
 
 async function runSpellingCheck(page: Page, persona: Persona, steps: Step[]) {
@@ -210,6 +240,7 @@ async function familyOrCivil(page: Page, persona: Persona, steps: Step[]) {
   await capture(page, persona, steps, "intake-filled");
   await answerMunicipalNotice(page, persona, steps);
 
+  await reviewAndConfirm(page, persona, steps);
   await page.getByRole("button", { name: /Continue to your next steps/ }).click({ timeout: 150_000 });
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 180_000 });
   await page.waitForTimeout(4_000);
@@ -235,6 +266,7 @@ async function smallClaims(page: Page, persona: Persona, steps: Step[]) {
   await runSpellingCheck(page, persona, steps);
   await capture(page, persona, steps, "intake-filled");
 
+  await reviewAndConfirm(page, persona, steps);
   await page.getByTestId("sc-intake-analyze").click();
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 180_000 });
   await page.waitForTimeout(4_000);
@@ -305,6 +337,12 @@ async function guidedSmallClaims(page: Page, persona: Persona, steps: Step[]) {
   for (let turn = 0; turn < 60; turn += 1) {
     await waitUntilIdle(page);
     if (await overview.isVisible().catch(() => false)) break;
+
+    if (await page.getByTestId("intake-review").getAttribute("data-phase") === "reviewing") {
+      await reviewAndConfirm(page, persona, steps);
+      await page.getByTestId("receive-guided-guidance").click();
+      continue;
+    }
 
     const proposals = page.getByTestId("story-proposals");
     if (await proposals.isVisible().catch(() => false)) {
@@ -442,7 +480,10 @@ async function backAndForward(page: Page, persona: Persona, steps: Step[]) {
  * blank intake. Run last: it leaves the builder.
  */
 async function reloadReopensCase(page: Page, persona: Persona, steps: Step[]) {
-  await page.goto(`/builder?path=${persona.path}&step=results`, { waitUntil: "domcontentloaded" });
+  const current = new URL(page.url());
+  const caseId = current.pathname.match(/^\/cases\/([^/]+)/)?.[1] ?? current.searchParams.get("caseId");
+  expect(caseId, "Recovery must explicitly select this run's owned case").toMatch(/^[a-f0-9-]{36}$/i);
+  await page.goto(`/builder?path=${persona.path}&caseId=${caseId}&step=results`, { waitUntil: "domcontentloaded" });
   await expect(page.getByTestId("case-home-title")).toBeVisible({ timeout: 60_000 });
   await capture(page, persona, steps, "reload-reopens-case", "Reloading the results step opened the saved case.");
 }
@@ -494,7 +535,8 @@ function shardOf(all: Persona[]): Persona[] {
 }
 
 test.describe("page walkthrough", () => {
-  test.use({ navigationTimeout: 120_000, actionTimeout: 60_000 });
+  // A real session must never be serialized into a Playwright trace archive.
+  test.use({ navigationTimeout: 120_000, actionTimeout: 60_000, trace: "off", screenshot: "off" });
 
   // WALKTHROUGH_SET=held-back plays the ten held-back finish-line cases
   // (walkthrough/heldBackPersonas.ts) instead of the twenty tuning cases.
@@ -504,6 +546,13 @@ test.describe("page walkthrough", () => {
       test.setTimeout(persona.mode === "guided" ? 1_200_000 : 600_000);
       const steps: Step[] = [];
       let failure: string | null = null;
+      let harnessUserId: string | null = null;
+      const generations: { authenticated: boolean; mode: string; available: boolean }[] = [];
+      page.on("response", async response => {
+        if (!response.ok() || !/\/api\/(small-claims|family|civil)\/analyze$/.test(new URL(response.url()).pathname)) return;
+        const body = await response.json().catch(() => null);
+        if (body) generations.push({ authenticated: body.authenticated === true, mode: String(body.reasoningMode), available: body.analysisAvailable === true });
+      });
       // Every failed request to the app or the database, with its status and
       // the start of its error body, and every page error (2026-10-08: three
       // runs stopped on a failed save or load and none recorded why). Only
@@ -525,11 +574,13 @@ test.describe("page walkthrough", () => {
       page.on("pageerror", (error) => problems.push(`page error: ${error.message.slice(0, 300)}`));
       try {
         // Real case rows (staging only, see the guard) so the case page can open.
-        await authenticateRealTestUser(page, { realCases: true });
+        harnessUserId = await authenticateRealTestUser(page, { realCases: true });
         await passGate(page, persona, steps);
         if (persona.path === "small-claims" && persona.mode === "guided") await guidedSmallClaims(page, persona, steps);
         else if (persona.path === "small-claims") await smallClaims(page, persona, steps);
         else await familyOrCivil(page, persona, steps);
+        await expect.poll(() => generations.length).toBeGreaterThan(0);
+        expect(generations.every(result => result.authenticated && result.available && result.mode === "structured-ai"), "A fallback is not successful paid-AI verification").toBe(true);
         await confirmStage(page, persona, steps);
         await backAndForward(page, persona, steps);
         await visitCaseHome(page, persona, steps);
@@ -541,8 +592,9 @@ test.describe("page walkthrough", () => {
       fs.mkdirSync(OUT, { recursive: true });
       fs.writeFileSync(
         path.join(OUT, `${persona.id}.json`),
-        JSON.stringify({ persona, failure, problems: problems.slice(0, 50), steps }, null, 2),
+        JSON.stringify({ persona, failure, generations, problems: problems.slice(0, 50), steps }, null, 2),
       );
+      if (harnessUserId) await deleteHarnessUser(harnessUserId);
       expect(failure, `persona ${persona.id} did not get through: ${failure}`).toBeNull();
     });
   }

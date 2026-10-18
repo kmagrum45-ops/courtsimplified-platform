@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 
 import {
@@ -127,4 +128,4 @@ export function createCivilAnalyzePost(
   };
 }
 
-export const POST = createCivilAnalyzePost();
+export const POST = withConfirmedGuidance(createCivilAnalyzePost(), { court: "civil", requireRevision: true });

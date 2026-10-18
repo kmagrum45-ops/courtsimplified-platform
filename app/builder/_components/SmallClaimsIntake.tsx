@@ -1,5 +1,9 @@
 "use client";
 
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+
+import { IntakeRequest } from "../../_components/intakeRequest";
+
 import TidyWordingReview from "./TidyWordingReview";
 
 import Link from "next/link";
@@ -563,6 +567,8 @@ export async function requestSmallClaimsAnalysis(
    * before confirmed events were wired in.
    */
   caseId?: string | null,
+  signal?: AbortSignal,
+  guidanceHeaders: Record<string, string> = {},
 ): Promise<SmallClaimsAnalysisResponse> {
   // Only a real case row id is sent. `masterCaseId` and similar in-memory ids
   // are not `cases.id` values, and sending one would earn a 400 that failed
@@ -577,6 +583,7 @@ export async function requestSmallClaimsAnalysis(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...guidanceHeaders,
       ...(session?.access_token
         ? { Authorization: `Bearer ${session.access_token}` }
         : {}),
@@ -584,7 +591,7 @@ export async function requestSmallClaimsAnalysis(
     body: JSON.stringify(sendCaseId ? { input, caseId: sendCaseId } : { input }),
     // Stops waiting just before the server's own limit, so a person is told
     // something rather than left on "Analyzing..." (2026-10-10, outside test).
-    signal: AbortSignal.timeout(290_000),
+    signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(290_000)]) : AbortSignal.timeout(290_000),
   }).catch((error: unknown) => {
     throw new Error(
       error instanceof Error && error.name === "TimeoutError"
@@ -612,7 +619,11 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       caseId: new URLSearchParams(window.location.search).get("caseId"),
     }),
   );
-  const [input, setInput] = useState<SmallClaimsIntelligenceInput>(() => {
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const prepareCaseGuidance = usePrepareCaseGuidance();
+  const recovery = useIntakeRecovery();
+  const validateIntakeResponse = useValidateIntakeResponse();
+  const [input, setInput] = useIntakeState<SmallClaimsIntelligenceInput>("small-claims", "input", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
@@ -661,15 +672,21 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     storedValuesTaken.current = true;
     const values: Record<string, unknown> = { ...storedValues };
     setInput((current) => mergeStoredValuesIntoInput(current, values, ""));
-  }, [storedValues]);
+  }, [setInput, storedValues]);
 
   // Starts open when there's no story yet to display (e.g. the pre-builder
   // gate no longer collects it for Small Claims) -- otherwise the user would
   // land on an empty "Case story" summary with no visible way to type into it
   // until they notice the "Edit case story" toggle.
-  const [editingStory, setEditingStory] = useState(() => !input.facts.trim());
+  const [editingStory, setEditingStory] = useIntakeState("small-claims", "editingStory", () => !input.facts.trim());
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const analysisRequest = useRef(new IntakeRequest());
+  const requestScope = input;
+  useEffect(() => {
+    const request = analysisRequest.current;
+    return () => request.cancel();
+  }, [requestScope]);
   const [analysisError, setAnalysisError] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
   const [safetyHalted, setSafetyHalted] = useState(false);
@@ -829,6 +846,11 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   }
 
   async function handleAnalyze() {
+    if (analysisRequest.current.pending) return;
+    try {
+      await analysisRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+        if (!(await prepareCaseGuidance())) return;
     if (!hasText(input.facts)) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;
@@ -867,6 +889,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       .join("\n\n");
     const safety = await runFormSafetyCheck(safetyCheckText);
 
+    await validateIntakeResponse(signal);
+
+    signal.throwIfAborted();
     if (safety.halted) {
       setSafetyHalted(true);
       setSafetyHaltMessage(safety.haltMessage || "");
@@ -914,7 +939,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
 
       const response = await requestSmallClaimsAnalysis(
         preparedInput,
-        new URLSearchParams(window.location.search).get("caseId"),
+        recovery?.getCaseId(),
+        signal,
+        intakeGuidanceHeaders(recovery),
       );
       const result = response.result!;
       const payload: StoredCaseData = {
@@ -936,22 +963,29 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         },
       };
 
+      await validateIntakeResponse(signal);
+
+      signal.throwIfAborted();
       onComplete(result.analysis, payload);
     } catch (error) {
-      console.error("Small Claims intelligence analysis failed:", error);
+
 
       setAnalysisError(
         error instanceof Error
           ? error.message
           : "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
       );
+    }
+      });
+    } catch {
+      setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
       setIsAnalyzing(false);
     }
   }
 
   return (
-    <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+    <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2f7d67]">
           Small Claims intake

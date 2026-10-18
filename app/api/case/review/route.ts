@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextResponse } from "next/server";
 
 import { caseFileFromMasterResult } from "@/src/lib/case-system/caseReview/caseReview";
@@ -19,7 +20,7 @@ export const runtime = "nodejs";
 
 const MAX_CASE_ID_LENGTH = 100;
 
-export async function POST(request: Request) {
+async function postGuidance(request: Request) {
   let body: unknown;
   try {
     body = await request.json();
@@ -53,3 +54,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "The case review could not run right now." }, { status: 500 });
   }
 }
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

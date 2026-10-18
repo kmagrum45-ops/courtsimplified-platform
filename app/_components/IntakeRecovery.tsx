@@ -1,0 +1,396 @@
+"use client";
+
+import IntakeReviewPanel from "./IntakeReviewPanel";
+import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { IntakeRequest } from "./intakeRequest";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
+import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
+import { useSearchParams } from "next/navigation";
+import { supabase } from "../../src/lib/supabase/client";
+import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
+
+async function readAuthSession() {
+  const request = new IntakeRequest();
+  const result = await request.run(() => supabase.auth.getSession(), 10_000);
+  if (!result || result.error) throw new Error("Your account could not be checked. Reconnect and retry; your pending text remains in this tab.");
+  return result;
+}
+
+export type ReviewView = { checkpoint: Checkpoint; workflowStatus: Record<string, unknown> };
+type Recovery = {
+  begin: (signal?: AbortSignal) => Promise<void>;
+  subscribeField: (section: string, field: string, listener: () => void) => () => void;
+  subscribe: (listener: () => void) => () => void;
+  getReview: () => ReviewView;
+  transition: (action: "review" | "collect" | "confirm", expectedInput: string) => Promise<void>;
+  read: (section: string, key: string) => unknown;
+  put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean) => void;
+  flush: (signal?: AbortSignal) => Promise<void>;
+  validate: (signal?: AbortSignal) => Promise<void>;
+  getCaseId: () => string | null;
+  flowId: string;
+  ownerId: string | null;
+  resuming: boolean;
+  row: CheckpointRow | null;
+};
+const Context = createContext<Recovery | null>(null);
+export const useIntakeRecovery = () => useContext(Context);
+
+export function useIntakeReviewView() {
+  const recovery = useIntakeRecovery();
+  return useSyncExternalStore(recovery?.subscribe ?? (() => () => {}), recovery?.getReview ?? (() => null), () => null);
+}
+
+/** Initial questions can run; full analysis must wait for the explicit review action. */
+export function usePrepareCaseGuidance() {
+  const recovery = useIntakeRecovery();
+  return useCallback(async () => {
+    if (!recovery) return false;
+    await recovery.flush();
+    const view = recovery.getReview();
+    if (reviewPhase(view.workflowStatus, view.checkpoint) !== "user-confirmed") {
+      await recovery.transition("review", inputRevision(view.checkpoint));
+      document.querySelector('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" });
+      return false;
+    }
+    if (!recovery.ownerId) throw new Error("Sign in to save and confirm your information on your own case before receiving case guidance. Guest text stays in this tab; copy it before signing in.");
+    return true;
+  }, [recovery]);
+}
+
+export function intakeGuidanceHeaders(recovery: Recovery | null): Record<string, string> {
+  const caseId = recovery?.getCaseId();
+  return caseId && recovery ? { "x-courtsimplified-case-id": caseId, "x-courtsimplified-input-revision": inputRevision(recovery.getReview().checkpoint) } : {};
+}
+
+/** The existing case row is authoritative; this boundary connects unfinished UI fields to it. */
+export function IntakeRecoveryBoundary({ children }: { children: ReactNode }) {
+  const params = useSearchParams();
+  const path = params.get("path");
+  const caseId = params.get("caseId");
+  const flow = params.get("intake");
+  if (path !== "small-claims" && path !== "family" && path !== "civil") return <>{children}</>;
+  return <RecoveryProvider key={`${path}:${caseId ?? ""}:${flow ?? ""}`} court={path} selectedId={caseId} requestedFlow={flow}>{children}</RecoveryProvider>;
+}
+
+function RecoveryProvider({ court, selectedId, requestedFlow, children }: { court: IntakeCourt; selectedId: string | null; requestedFlow: string | null; children: ReactNode }) {
+  const [recovery, setRecovery] = useState<Recovery | null>(null);
+  const [notice, setNotice] = useState("Opening your intake…");
+  const [failed, setFailed] = useState(false);
+  const [conflict, setConflict] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const generation = useRef(0);
+
+  useEffect(() => {
+    let active = true;
+    let identity: string | null | undefined;
+    let disposeStore = () => {};
+    async function initialize(ownerId: string | null) {
+      const epoch = ++generation.current;
+      disposeStore();
+      setRecovery(null);
+      setFailed(false);
+      setConflict(false);
+      const current = () => active && epoch === generation.current;
+      try {
+        if ((selectedId && !intakeId(selectedId)) || (requestedFlow && !intakeId(requestedFlow))) throw new Error("This intake address is invalid. Please open the selected case from your account.");
+        if (selectedId && !ownerId) throw new Error("Sign in to the account that owns this case to continue.");
+        const flowId = selectedId || requestedFlow || crypto.randomUUID();
+        const session = readIntakeSession(sessionStorage, flowId, ownerId, court);
+        const row = ownerId && (selectedId || requestedFlow) ? await loadCheckpointCase(supabase, selectedId || flowId, ownerId, court) : null;
+        if (!current()) return;
+        if (selectedId && !row) throw new Error("The selected case is unavailable for this account or court. No other case has been opened.");
+        if (requestedFlow && !row && !session) throw new Error("This intake is not available in this tab or account. Open your saved case, or start a new intake.");
+        if (session?.caseId && !row) throw new Error("The selected saved intake could not be found. No other case has been opened.");
+        const saved = readCheckpoint(row?.master_result.intakeCheckpoint, court, flowId);
+        if (row?.master_result.intakeCheckpoint && !saved) throw new Error("This case has an incompatible intake checkpoint. No other case has been opened.");
+        let serverRevision = saved?.revision ?? null;
+        const initialConflict = Boolean(session && row && session.serverRevision !== serverRevision && session.checkpoint.revision !== serverRevision);
+        let snapshot: Checkpoint = session?.checkpoint ?? saved ?? { version: 1, flowId, courtPath: court, revision: crypto.randomUUID(), sections: {} };
+        snapshot = JSON.parse(JSON.stringify(snapshot)) as Checkpoint;
+        snapshot.inputRevision ??= snapshot.revision;
+        let workflowStatus = ownerId ? record(row?.master_result.workflowStatus) : session?.workflowStatus ?? { intakeCompleted: false };
+        let view: ReviewView = { checkpoint: snapshot, workflowStatus };
+        const listeners = new Set<() => void>();
+        const fieldListeners = new Map<string, Set<() => void>>();
+        const emit = () => { view = { checkpoint: snapshot, workflowStatus }; listeners.forEach(listener => listener()); };
+        let acknowledgedInput = inputRevision(snapshot);
+        const leases = new WeakMap<AbortSignal, string>();
+        const guided = snapshot.sections.guided;
+        if (guided?.started && !guided.currentQuestion && !guided.proposalDrafts && !guided.intakeComplete && !guided.depthActive) guided.started = false;
+        const sourced = snapshot.sections.sourced;
+        if (sourced?.state === "loading") { sourced.state = Array.isArray(sourced.questions) && sourced.questions.length ? "ready" : "idle"; sourced.askedFor = ""; }
+        if (!requestedFlow && !selectedId) {
+          // Import only the existing, read-once hand-off. A fresh URL never loads an old draft.
+          const legacy = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));
+          if (legacy.version !== 2 && legacy.courtPath === court && typeof legacy.facts === "string" && typeof legacy.city === "string") {
+            snapshot.sections.builder = { homeStory: legacy.facts, confirmedLocation: { province: "Ontario", city: legacy.city } };
+          }
+          if (!ownerId && window.location.pathname === "/") resetIntakeInBrowser();
+          if (!writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId: null, serverRevision: null, checkpoint: snapshot })) throw new Error("This tab cannot retain intake text. Please enable session storage before continuing.");
+          const url = new URL(window.location.href);
+          url.searchParams.set("intake", flowId);
+          window.history.replaceState(null, "", `${url.pathname}?${url.searchParams}`);
+          return;
+        }
+        const address = new URL(window.location.href);
+        const step = snapshot.sections.builder?.step;
+        if (address.pathname === "/builder" && address.searchParams.get("step") === "results") {
+          // Preserve the existing completed-case route; an interrupted unsaved analysis resumes intake.
+          const pending = Boolean(session && session.checkpoint.revision !== serverRevision);
+          if (row && guidanceIsCurrent(row.master_result, court, row.id) && !pending && !initialConflict) {
+            window.location.replace(`/cases/${encodeURIComponent(row.id)}`);
+            return;
+          }
+          if (step === "form" || step === "guided") address.searchParams.set("step", step);
+          else address.searchParams.delete("step");
+          window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+        }
+        if (address.pathname === "/builder" && !address.searchParams.has("step") && (step === "form" || step === "guided")) {
+          address.searchParams.set("step", step);
+          window.history.replaceState(null, "", `${address.pathname}?${address.searchParams}`);
+        }
+        let caseId = row?.id ?? null;
+        let dirty = Boolean(session && session.checkpoint.revision !== serverRevision);
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        let flight: Promise<void> | null = null;
+        const invalid = new Set<string>();
+        const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : {}) });
+        const failure = (message: string) => { if (current()) { setFailed(true); setNotice(message); } };
+        const flush = async (signal?: AbortSignal): Promise<void> => {
+          signal?.throwIfAborted();
+          // Let a discrete input event commit its last state and effects before taking the snapshot.
+          await new Promise((resolve) => setTimeout(resolve, 0));
+          if (!current()) throw new Error("The intake account or case changed. Please retry in the current case.");
+          if (invalid.size) throw new Error("Your latest text is too large to save. Copy it before leaving and shorten it before continuing.");
+          if (flight) { await flight; if (dirty) return flush(signal); return; }
+          clearTimeout(timer);
+          if (!cache()) { failure("This tab could not retain your latest text. Copy it before leaving and retry saving."); throw new Error("Your intake has not been saved. Your text is still on this page."); }
+          if (!ownerId) return;
+          const work = async () => {
+            const { data: { session: auth } } = await readAuthSession();
+            if (!current() || auth?.user.id !== ownerId) throw new Error("Sign in again to the same account before saving. Your pending text remains in this tab.");
+            signal?.throwIfAborted();
+            const sent = snapshot;
+            let savedInput = inputRevision(sent);
+            if (caseId && sent.revision === serverRevision) { dirty = false; return; }
+            setNotice("Saving intake…");
+            if (!caseId) {
+              await createCheckpointCase(supabase, ownerId, sent);
+              if (!current()) throw new Error("The account changed while saving.");
+              caseId = sent.flowId;
+              workflowStatus = { intakeCompleted: false, intakeReview: { version: 1 } };
+            } else {
+              const outcome = await saveCheckpoint(supabase, ownerId, caseId, sent, serverRevision, current, inputRevision(sent) !== acknowledgedInput);
+              if (!outcome.ok && !(outcome.reason === "rejected" && outcome.error === "intake-unchanged")) {
+                if (!outcome.ok && outcome.error === "intake-conflict") { setConflict(true); throw new Error("Another tab changed this intake. Your pending text is retained here; open the saved case in a new tab before resolving the difference."); }
+                throw new Error("Your intake could not be saved. Your pending text remains in this tab. Please retry before continuing.");
+              }
+              if (outcome.ok) {
+                workflowStatus = record(outcome.master.workflowStatus);
+                const committed = readCheckpoint(outcome.master.intakeCheckpoint, court, caseId);
+                if (committed) savedInput = inputRevision(committed);
+                if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) snapshot = { ...snapshot, inputRevision: inputRevision(committed) };
+              }
+            }
+            if (!current()) return;
+            acknowledgedInput = savedInput;
+            if (inputRevision(snapshot) !== acknowledgedInput) workflowStatus = reconcileReview(view.workflowStatus, view.checkpoint, snapshot);
+            emit();
+            serverRevision = sent.revision;
+            dirty = snapshot.revision !== sent.revision;
+            cache();
+            setFailed(false);
+            setNotice(dirty ? "Newer answers are waiting to save…" : "Intake saved to your account.");
+          };
+          flight = work().catch((error: unknown) => { failure(error instanceof Error && !["TypeError", "SyntaxError"].includes(error.name) ? error.message : "Your intake could not be saved. Please retry."); throw error; }).finally(() => { flight = null; });
+          await flight;
+          signal?.throwIfAborted();
+          if (dirty) await flush(signal);
+        };
+        const store: Recovery = {
+          begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, inputRevision(snapshot)); },
+          subscribeField: (section, field, listener) => {
+            const key = `${section}:${field}`;
+            const group = fieldListeners.get(key) ?? new Set<() => void>();
+            fieldListeners.set(key, group); group.add(listener);
+            return () => { group.delete(listener); };
+          },
+          subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
+          getReview: () => view,
+          transition: async (action, expectedInput) => {
+            await flush();
+            if (!current() || inputRevision(snapshot) !== expectedInput) throw new Error("Your initial facts changed. Review them again before confirming.");
+            if (ownerId && caseId) {
+              const result = await saveReviewTransition(supabase, ownerId, caseId, snapshot, action, expectedInput, current);
+              if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
+              if (!current()) return;
+              workflowStatus = record(result.master.workflowStatus);
+              if (inputRevision(snapshot) !== expectedInput) {
+                workflowStatus = reconcileReview(view.workflowStatus, view.checkpoint, snapshot);
+                emit(); cache();
+                throw new Error("Initial information changed while saving. Review the current information again.");
+              }
+            } else workflowStatus = transitionReview(workflowStatus, snapshot, action, expectedInput, new Date().toISOString());
+            if (!current()) return;
+            if (!cache()) { workflowStatus = view.workflowStatus; failure("Your review could not be retained in this tab. Copy your text before leaving."); throw new Error("Review was not retained. Please retry."); }
+            emit();
+          },
+          ownerId, flowId: snapshot.flowId, resuming: Boolean(session || saved), row,
+          getCaseId: () => caseId,
+          read: (section, key) => snapshot.sections[section]?.[key],
+          put: (section, key, value, touched = true, external = false) => {
+            if (!current()) return;
+            const field = `${section}:${key}`;
+            const json = JSON.stringify(value instanceof Set ? [...value] : value);
+            if (json === undefined) return;
+            const encoded: unknown = JSON.parse(json);
+            if (JSON.stringify(snapshot.sections[section]?.[key]) === JSON.stringify(encoded)) { invalid.delete(field); return; }
+            const next = { ...snapshot, revision: crypto.randomUUID(), sections: { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } } };
+            if (touched && materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next); }
+            if (!readCheckpoint(next, court)) { invalid.add(field); dirty = true; emit(); failure("This intake is too large to save together. Nothing has been removed; copy your text before leaving."); return; }
+            invalid.delete(field);
+            snapshot = next;
+            if (external) fieldListeners.get(field)?.forEach(listener => listener());
+            emit();
+            if (!cache()) failure("This tab could not retain your pending text. Copy it before leaving and retry saving.");
+            if (!touched) return;
+            dirty = true;
+            if (ownerId) {
+              clearTimeout(timer);
+              timer = setTimeout(() => { void flush().catch(() => {}); }, 400);
+            }
+          },
+          flush,
+          validate: async (signal) => {
+            signal?.throwIfAborted();
+            if (signal && leases.has(signal) && leases.get(signal) !== inputRevision(snapshot)) throw new Error("Initial information changed. The outdated AI response was discarded.");
+            if (!current()) throw new Error("The intake account or case changed. Please retry.");
+            if (flight) await flight;
+            if (ownerId && caseId) {
+              const matches = await checkpointMatches(supabase, caseId, ownerId, court, serverRevision);
+              if (!current()) throw new Error("The intake account or case changed. Please retry.");
+              if (!matches) {
+                setConflict(true);
+                const message = "Another tab changed this intake. The older AI response was discarded; your pending text remains here.";
+                failure(message);
+                throw new Error(message);
+              }
+            }
+            signal?.throwIfAborted();
+          },
+        };
+        const interruption = () => { if (dirty && current()) void flush().catch(() => {}); };
+        const navigate = (event: MouseEvent) => {
+          if (!ownerId || !dirty || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+          const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
+          if (!(anchor instanceof HTMLAnchorElement) || anchor.target === "_blank" || anchor.hasAttribute("download")) return;
+          const target = new URL(anchor.href);
+          if (target.origin !== window.location.origin || target.href === window.location.href) return;
+          event.preventDefault();
+          event.stopPropagation();
+          void flush().then(() => { if (current()) window.location.assign(target.href); }).catch(() => {});
+        };
+        const beforeUnload = (event: BeforeUnloadEvent) => { if (dirty && ownerId) { event.preventDefault(); } };
+        document.addEventListener("click", navigate, true);
+        window.addEventListener("pagehide", interruption);
+        window.addEventListener("beforeunload", beforeUnload);
+        document.addEventListener("visibilitychange", interruption);
+        window.addEventListener("online", interruption);
+        disposeStore = () => {
+          clearTimeout(timer);
+          document.removeEventListener("click", navigate, true);
+          window.removeEventListener("pagehide", interruption);
+          window.removeEventListener("beforeunload", beforeUnload);
+          document.removeEventListener("visibilitychange", interruption);
+          window.removeEventListener("online", interruption);
+        };
+        if (!cache()) failure("This tab cannot retain your pending intake text. Copy it before leaving.");
+        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Signing in or out, or starting fresh, clears it. Copy your text before signing in.");
+        setRecovery(store);
+        if (initialConflict) { setConflict(true); failure("Another tab changed this intake. Your pending text is shown here for you to copy. Open the saved case separately before resolving the difference."); }
+        else if (dirty && ownerId) void flush().catch(() => {});
+      } catch (error) { if (current()) { setFailed(true); setNotice(error instanceof Error && !["TypeError", "SyntaxError"].includes(error.name) ? error.message : "Your intake could not be opened. Please retry."); } }
+    }
+    void readAuthSession().then(({ data, error }) => {
+      if (!active || identity !== undefined) return; // A newer auth event already chose this account.
+      if (error) { setFailed(true); setNotice("Your account could not be checked. Reconnect and retry before continuing."); return; }
+      identity = data.session?.user.id ?? null;
+      void initialize(identity);
+    }).catch(() => { if (active && identity === undefined) { setFailed(true); setNotice("Your account could not be checked. Reconnect and retry before continuing."); } });
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "INITIAL_SESSION") return;
+      const next = session?.user.id ?? null;
+      if (identity === next) return; // Token refresh and tab focus must not reset answers.
+      identity = next;
+      void initialize(next);
+    });
+    return () => { active = false; disposeStore(); listener.subscription.unsubscribe(); };
+  }, [court, selectedId, requestedFlow, attempt]);
+
+  const here = typeof window === "undefined" ? "/builder" : `${window.location.pathname}${window.location.search}`;
+  return <Context.Provider value={recovery}>
+    <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
+      {notice}{" "}
+      {failed && <button type="button" className="underline" onClick={() => recovery ? void recovery.flush().catch(() => {}) : setAttempt((value) => value + 1)}>Retry saving intake</button>}{" "}
+      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(recovery && !recovery.ownerId ? `/builder?path=${court}` : here)}`}>Sign in for account recovery</a>}
+      {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
+      {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
+    </div>
+    {recovery && <IntakeReviewPanel />}
+    {recovery ? children : null}
+  </Context.Provider>;
+}
+
+/** Existing component state remains the live UI; only its recoverable fields are checkpointed. */
+export function useIntakeState<T>(section: string, field: string, initial: T | (() => T)): [T, Dispatch<SetStateAction<T>>] {
+  const recovery = useIntakeRecovery();
+  const [value, setValue] = useState<T>(() => {
+    const fallback = typeof initial === "function" ? (initial as () => T)() : initial;
+    const stored = recovery?.read(section, field);
+    if (stored === undefined) return fallback;
+    if (fallback instanceof Set) return (Array.isArray(stored) ? new Set(stored) : fallback) as T;
+    if (fallback !== null && (stored === null || typeof stored !== typeof fallback)) return fallback;
+    if (Array.isArray(fallback) !== Array.isArray(stored) && fallback !== null) return fallback;
+    return stored as T;
+  });
+  useEffect(() => {
+    if (!recovery) return;
+    return recovery.subscribeField(section, field, () => {
+      const stored = recovery.read(section, field);
+      if (stored === undefined) return;
+      setValue(current => {
+        const next = current instanceof Set && Array.isArray(stored) ? new Set(stored) : stored;
+        return JSON.stringify(current instanceof Set ? [...current] : current) === JSON.stringify(stored) ? current : next as T;
+      });
+    });
+  }, [recovery, section, field]);
+  const first = useRef(true);
+  useEffect(() => {
+    recovery?.put(section, field, value, !first.current);
+    first.current = false;
+  }, [recovery, section, field, value]);
+  return [value, setValue];
+}
+
+export function useIntakeRef<T>(section: string, field: string, initial: T) {
+  const recovery = useIntakeRecovery();
+  const [restored] = useIntakeState(section, field, initial);
+  const reference = useRef(restored);
+  useEffect(() => recovery?.subscribeField(section, field, () => {
+    reference.current = recovery.read(section, field) as T;
+  }), [recovery, section, field]);
+  useEffect(() => { recovery?.put(section, field, reference.current, false); });
+  return reference;
+}
+
+export function useBeforeIntakeAI() {
+  const recovery = useIntakeRecovery();
+  return useCallback(async (signal?: AbortSignal) => { await recovery?.begin(signal); signal?.throwIfAborted(); }, [recovery]);
+}
+
+export function useValidateIntakeResponse() {
+  const recovery = useIntakeRecovery();
+  return useCallback(async (signal?: AbortSignal) => { await recovery?.validate(signal); signal?.throwIfAborted(); }, [recovery]);
+}

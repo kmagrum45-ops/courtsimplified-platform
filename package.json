@@ -15,7 +15,7 @@
     "test:amendment-trails": "node --import tsx scripts/verification/verifyAmendmentTrails.ts",
     "test:ai-real-integration": "node --import tsx scripts/verification/checkConfiguredAiReasoning.integration.ts",
     "test:ai-route-contract": "node --import tsx scripts/verification/verifyServerAiReasoningContract.ts",
-    "test:assistant-context": "node scripts/verification/verifyGuidedAssistantContext.mjs",
+    "test:assistant-context": "node --import tsx scripts/verification/verifyGuidedAssistantContext.mjs",
     "test:anon-grants": "node --import tsx scripts/verification/verifyAnonGrants.ts",
     "test:authority-bridge": "node --import tsx scripts/verification/verifyAuthorityKnowledgeBridge.ts",
     "test:authority-seed-integrity": "node --import tsx scripts/verification/verifyAuthoritySeedRegistryIntegrity.ts",
@@ -71,6 +71,7 @@
     "test:generate-form-authorization": "node --import tsx scripts/verification/verifyGenerateFormSelectedCaseAuthorization.ts",
     "test:harness-coverage": "node --import tsx scripts/verification/verifyHarnessCoverage.ts",
     "test:intake-coverage": "node --import tsx scripts/verification/verifyIntakeCoverage.ts",
+    "test:intake-requests": "node --import tsx scripts/verification/verifyIntakeRequests.ts",
     "test:intake-sequencing": "node --import tsx scripts/verification/verifyIntakeSequencing.ts",
     "test:journey-battery": "node --import tsx scripts/verification/runJourneyBattery.ts",
     "test:journey-invariants": "node --import tsx scripts/verification/verifyJourneyInvariantSelfTest.ts",
@@ -233,7 +234,10 @@
     "test:check-oracles": "node --import tsx scripts/verification/verifyCheckOracles.ts",
     "test:workspace-rls": "node --import tsx scripts/verification/verifyWorkspaceRls.ts",
     "test:rls-matrix": "node scripts/verification/verifyRlsMatrix.mjs",
-    "test:rls-matrix-catches": "node scripts/verification/verifyRlsMatrixCatches.mjs"
+    "test:rls-matrix-catches": "node scripts/verification/verifyRlsMatrixCatches.mjs",
+    "test:intake-guidance-gate": "node --import tsx scripts/verification/verifyIntakeGuidanceGate.ts",
+    "test:intake-review": "node --import tsx scripts/verification/verifyIntakeReview.ts",
+    "test:intake-recovery": "node --import tsx scripts/verification/verifyIntakeRecovery.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

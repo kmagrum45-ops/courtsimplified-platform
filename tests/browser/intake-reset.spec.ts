@@ -15,6 +15,7 @@
  */
 import { expect, test } from "@playwright/test";
 
+import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 
 /** Generous: the first navigation after a dev-server restart pays for a cold compile. */
@@ -32,6 +33,7 @@ async function fillFinder(page: import("@playwright/test").Page, story: string) 
   await page.getByLabel("Guide remedy").fill("money back");
   await page.getByLabel("Guide amount").fill("1200");
   await page.getByLabel("Guide case started").selectOption("no");
+  await page.getByRole("button", { name: "Review possible court paths" }).click();
 }
 
 /** Every place the marker could be hiding, named so a failure says where. */
@@ -128,45 +130,12 @@ test("the story carries from the finder into the builder within one flow", async
 test("a signed-in user's saved draft is not wiped by the gate", async ({ page }) => {
   test.setTimeout(300_000);
 
-  const userId = "00000000-0000-4000-8000-000000000001";
-
-  // getUser validates the session with the server. A synthetic token alone
-  // is rejected there and makes the gate correctly take its anonymous path.
-  await page.route("**/auth/v1/user", (route) => route.fulfill({
-    status: 200,
-    json: { id: userId, aud: "authenticated", role: "authenticated", email: "reset@example.test" },
-  }));
-
-  // Same synthetic-session approach golden-journeys.spec.ts uses: the builder
-  // reads the Supabase token out of localStorage, so a seeded token makes the
-  // page take its signed-in branch without a real login.
-  await page.addInitScript(
-    ({ id, draftStory }) => {
-      const token = {
-        access_token: "synthetic-browser-token",
-        refresh_token: "synthetic-browser-refresh-token",
-        token_type: "bearer",
-        expires_at: 4_102_444_800,
-        user: { id, aud: "authenticated", role: "authenticated", email: "reset@example.test" },
-      };
-      const nativeGetItem = Storage.prototype.getItem;
-      Storage.prototype.getItem = function getItem(key: string) {
-        if (key.startsWith("sb-") && key.endsWith("-auth-token")) return JSON.stringify(token);
-        return nativeGetItem.call(this, key);
-      };
-      localStorage.setItem(
-        `courtSimplifiedBuilderDraft:${id}`,
-        JSON.stringify({
-          version: 1,
-          courtPath: "small-claims",
-          province: "Ontario",
-          city: "Toronto",
-          facts: draftStory,
-        }),
-      );
-    },
-    { id: userId, draftStory: STORY },
-  );
+  test.setTimeout(180_000);
+  await fakeAccount(page);
+  const userId = "11111111-1111-4111-8111-111111111111";
+  await page.addInitScript(({ id, draftStory }) => {
+    localStorage.setItem(`courtSimplifiedBuilderDraft:${id}`, JSON.stringify({ version: 1, courtPath: "small-claims", province: "Ontario", city: "Toronto", facts: draftStory }));
+  }, { id: userId, draftStory: STORY });
 
   await page.goto("/?path=small-claims", SLOW);
   await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible", timeout: 60_000 });
@@ -190,28 +159,12 @@ test("a signed-in user's saved draft is not wiped by the gate", async ({ page })
  * neither page shows it.
  */
 test("a signed-in user's old browser draft is never shown in the gate or the builder", async ({ page }) => {
-  const userId = "00000000-0000-4000-8000-000000000002";
-  await page.addInitScript(
-    ({ id, draftStory }) => {
-      const token = {
-        access_token: "synthetic-browser-token",
-        refresh_token: "synthetic-browser-refresh-token",
-        token_type: "bearer",
-        expires_at: 4_102_444_800,
-        user: { id, aud: "authenticated", role: "authenticated", email: "stale@example.test" },
-      };
-      const nativeGetItem = Storage.prototype.getItem;
-      Storage.prototype.getItem = function getItem(key: string) {
-        if (key.startsWith("sb-") && key.endsWith("-auth-token")) return JSON.stringify(token);
-        return nativeGetItem.call(this, key);
-      };
-      localStorage.setItem(
-        `courtSimplifiedBuilderDraft:${id}`,
-        JSON.stringify({ version: 1, courtPath: "small-claims", province: "Ontario", city: "Toronto", facts: draftStory }),
-      );
-    },
-    { id: userId, draftStory: STORY },
-  );
+  test.setTimeout(180_000);
+  await fakeAccount(page);
+  const userId = "11111111-1111-4111-8111-111111111111";
+  await page.addInitScript(({ id, draftStory }) => {
+    localStorage.setItem(`courtSimplifiedBuilderDraft:${id}`, JSON.stringify({ version: 1, courtPath: "small-claims", province: "Ontario", city: "Toronto", facts: draftStory }));
+  }, { id: userId, draftStory: STORY });
 
   await page.goto("/?path=small-claims", SLOW);
   await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible", timeout: 60_000 });

@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * The published "what happens next" answer for a stage THE USER CHOSE.
  *
@@ -43,7 +44,7 @@ type Body = {
   dateAnswers?: unknown;
 };
 
-export async function POST(request: Request) {
+async function postGuidance(request: Request) {
   let body: Body;
   try {
     body = (await request.json()) as Body;
@@ -185,3 +186,7 @@ function nextStepSummary(stageId: string, dates: ReturnType<typeof caseDatesFrom
       })),
   };
 }
+
+/** Offline contract tests reuse the renderer; HTTP always enforces confirmation. */
+export function createStageAnswerPost() { return postGuidance; }
+export const POST = withConfirmedGuidance(createStageAnswerPost(), { currentAnalysis: true });

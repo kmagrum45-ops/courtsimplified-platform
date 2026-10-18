@@ -1,5 +1,10 @@
 "use client";
 
+import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useIntakeRef, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+
+import { IntakeRequest } from "../../_components/intakeRequest";
+
 /**
  * Guided Small Claims intake -- one question at a time, answered through a
  * chat-style conversation, powered by /api/intake/guided-turn (the real
@@ -501,46 +506,61 @@ function previousAnsweredIds(previous: Props["previous"]): string[] {
 }
 
 export default function GuidedSmallClaimsIntake({ location, initialStory, onComplete, previous }: Props) {
-  const [facts, setFacts] = useState<IntakeFacts>(() => previousFacts(previous));
-  const [answeredIds, setAnsweredIds] = useState<string[]>(() => previousAnsweredIds(previous));
-  const [currentQuestion, setCurrentQuestion] = useState<IntakeQuestion | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const reviewView = useIntakeReviewView();
+  const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
+  const recovery = useIntakeRecovery();
+  const resumedHeld = useRef(Boolean(recovery?.read("guided", "heldPayload")));
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const validateIntakeResponse = useValidateIntakeResponse();
+  const [facts, setFacts] = useIntakeState<IntakeFacts>("guided", "facts", () => previousFacts(previous));
+  const [answeredIds, setAnsweredIds] = useIntakeState<string[]>("guided", "answeredIds", () => previousAnsweredIds(previous));
+  const [currentQuestion, setCurrentQuestion] = useIntakeState<IntakeQuestion | null>("guided", "currentQuestion", null);
+  const [messages, setMessages] = useIntakeState<ChatMessage[]>("guided", "messages", []);
   // Sticky once set: the notice answers a question the user asked, and it
   // stays in view while they carry on with the intake.
-  const [asksForAdvice, setAsksForAdvice] = useState(false);
-  const [inputText, setInputText] = useState(initialStory || "");
+  const [asksForAdvice, setAsksForAdvice] = useIntakeState("guided", "asksForAdvice", false);
+  const [inputText, setInputText] = useIntakeState("guided", "inputText", initialStory || "");
   const [loading, setLoading] = useState(false);
+  const mounted = useRef(true);
+  const turnRequest = useRef(new IntakeRequest());
+  const depthRequest = useRef(new IntakeRequest());
+  const suggestionRequest = useRef(new IntakeRequest());
+  useEffect(() => {
+    const requests = [turnRequest.current, depthRequest.current, suggestionRequest.current];
+    mounted.current = true;
+    return () => { mounted.current = false; requests.forEach((request) => request.cancel()); };
+  }, []);
   const [error, setError] = useState("");
-  const [halted, setHalted] = useState(false);
-  const [intakeComplete, setIntakeComplete] = useState(false);
-  const [started, setStarted] = useState(false);
+  const [halted, setHalted] = useIntakeState("guided", "halted", false);
+  const [intakeComplete, setIntakeComplete] = useIntakeState("guided", "intakeComplete", false);
+  const [started, setStarted] = useIntakeState("guided", "started", false);
   // Retained across turns rather than replaced with each response -- only
   // updated when a turn actually carries a new evidenceGuidance, so it
   // doesn't disappear the moment the user answers a plain multiple-choice
   // question with no new free text (see GuidedTurnResult.evidenceGuidance).
-  const [evidenceGuidance, setEvidenceGuidance] = useState<EvidenceGuidance | null>(null);
+  const [evidenceGuidance, setEvidenceGuidance] = useIntakeState<EvidenceGuidance | null>("guided", "evidenceGuidance", null);
   // Same retain-the-last-value pattern as evidenceGuidance -- claimGuidance
   // is turn-scoped server-side too (see GuidedTurnResult.claimGuidance).
-  const [claimGuidance, setClaimGuidance] = useState<ClaimGuidance | null>(null);
+  const [claimGuidance, setClaimGuidance] = useIntakeState<ClaimGuidance | null>("guided", "claimGuidance", null);
   // Same retain-the-last-value pattern as evidenceGuidance -- matchedClaimTypes
   // is turn-scoped server-side, so this is what makes a matched claim type
   // survive to the completion callback even when the LAST turn's text
   // didn't itself re-match one.
-  const [matchedClaimType, setMatchedClaimType] = useState<MatchedClaimType | null>(null);
+  const [matchedClaimType, setMatchedClaimType] = useIntakeState<MatchedClaimType | null>("guided", "matchedClaimType", null);
   // Session 37 -- an AI-suggested claim type awaiting explicit user
   // confirmation (see suggestedClaimType on GuidedTurnResult). Never fed
   // into matchedClaimType, evidenceGuidance, or claimGuidance until the
   // user says yes via handleConfirmSuggestion below.
-  const [pendingSuggestion, setPendingSuggestion] = useState<MatchedClaimType | null>(null);
+  const [pendingSuggestion, setPendingSuggestion] = useIntakeState<MatchedClaimType | null>("guided", "pendingSuggestion", null);
   // The exact story text the pending suggestion was classified from --
   // confirming/rejecting re-uses this same text rather than re-sending
   // whatever the user has typed since.
-  const [suggestionStoryText, setSuggestionStoryText] = useState("");
+  const [suggestionStoryText, setSuggestionStoryText] = useIntakeState("guided", "suggestionStoryText", "");
   // Ids already rejected in this suggestion cycle -- capped at one retry,
   // enforced server-side too (claimTypeSuggestionResolution.ts).
-  const [rejectedSuggestionIds, setRejectedSuggestionIds] = useState<string[]>([]);
+  const [rejectedSuggestionIds, setRejectedSuggestionIds] = useIntakeState<string[]>("guided", "rejectedSuggestionIds", []);
   const [resolvingSuggestion, setResolvingSuggestion] = useState(false);
-  const [noClaimTypeMatch, setNoClaimTypeMatch] = useState(false);
+  const [noClaimTypeMatch, setNoClaimTypeMatch] = useIntakeState("guided", "noClaimTypeMatch", false);
 
   // --- Claim-type depth phase (docs/CLAIM_TYPE_INTAKE_DEPTH_DESIGN.md) ---
   //
@@ -551,40 +571,40 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   //
   // Skippable at any point (design section 7): the phase improves draft
   // quality, it is not a prerequisite, and a skipper still reaches a draft.
-  const [depthQuestions, setDepthQuestions] = useState<DepthClientQuestion[]>([]);
-  const [depthIndex, setDepthIndex] = useState(0);
-  const [depthStateMap, setDepthStateMap] = useState<Record<string, unknown> | null>(null);
-  const [depthActive, setDepthActive] = useState(false);
+  const [depthQuestions, setDepthQuestions] = useIntakeState<DepthClientQuestion[]>("guided", "depthQuestions", []);
+  const [depthIndex, setDepthIndex] = useIntakeState("guided", "depthIndex", 0);
+  const [depthStateMap, setDepthStateMap] = useIntakeState<Record<string, unknown> | null>("guided", "depthStateMap", null);
+  const [depthActive, setDepthActive] = useIntakeState("guided", "depthActive", false);
   // Retained so onComplete fires with the same facts/answeredIds the
   // completing turn produced, rather than whatever state has become since.
-  const [completionPayload, setCompletionPayload] = useState<GuidedIntakeCompletionResult | null>(null);
+  const [completionPayload, setCompletionPayload] = useIntakeState<GuidedIntakeCompletionResult | null>("guided", "completionPayload", null);
   const sourced = useSourcedQuestions("small-claims", previous?.sourcedAnswers ?? NO_EARLIER_SOURCED);
-  const [heldPayload, setHeldPayload] = useState<GuidedIntakeCompletionResult | null>(null);
-  const storyRef = useRef("");
+  const [heldPayload, setHeldPayload] = useIntakeState<GuidedIntakeCompletionResult | null>("guided", "heldPayload", null);
+  const storyRef = useIntakeRef("guided", "storyText", "");
   // 2026-09-28. "Here's what I understood" -- answers the opening story
   // already gives, awaiting the user's confirmation. Null when none pending.
-  const [proposalDrafts, setProposalDrafts] = useState<ProposalDraft[] | null>(null);
+  const [proposalDrafts, setProposalDrafts] = useIntakeState<ProposalDraft[] | null>("guided", "proposalDrafts", null);
   // Which phase the proposals panel is confirming: the opening intake
   // questions, or the claim-type depth questions (2026-10-04).
-  const [proposalMode, setProposalMode] = useState<"intake" | "depth">("intake");
+  const [proposalMode, setProposalMode] = useIntakeState<"intake" | "depth">("guided", "proposalMode", "intake");
   // One extra read of the story after the first confirmations, never more.
-  const [reproposed, setReproposed] = useState(false);
+  const [reproposed, setReproposed] = useIntakeState("guided", "reproposed", false);
   // 2026-10-05. Everything the person has answered, and every proposal they
   // unticked, sent with each answer so the next questions are checked against
   // the whole conversation, not only the opening story. Live run: the date
   // given to "when did it happen?" was asked for again as the injury date.
-  const [earlierAnswers, setEarlierAnswers] = useState<ConfirmedStoryAnswer[]>(() => (previous?.answers ?? []).slice(-200));
+  const [earlierAnswers, setEarlierAnswers] = useIntakeState<ConfirmedStoryAnswer[]>("guided", "earlierAnswers", () => (previous?.answers ?? []).slice(-200));
   // The saved case can finish loading after this mounts; take its earlier
   // answers then too, as long as the conversation hasn't started.
-  const previousTaken = useRef(Boolean(previous));
+  const previousTaken = useRef(Boolean(previous || recovery?.read("guided", "facts")));
   useEffect(() => {
     if (!previous || previousTaken.current || started) return;
     previousTaken.current = true;
     setFacts(previousFacts(previous));
     setAnsweredIds(previousAnsweredIds(previous));
     setEarlierAnswers(previous.answers.slice(-200));
-  }, [previous, started]);
-  const [declinedIds, setDeclinedIds] = useState<string[]>([]);
+  }, [previous, setAnsweredIds, setEarlierAnswers, setFacts, started]);
+  const [declinedIds, setDeclinedIds] = useIntakeState<string[]>("guided", "declinedIds", []);
 
   async function sendTurn(
     newStoryText: string | undefined,
@@ -595,16 +615,24 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     repropose?: { story: string; alreadyOffered: string[] },
     earlier?: { story: string; answers: ConfirmedStoryAnswer[]; declined: string[] },
   ) {
+    if (turnRequest.current.pending || depthRequest.current.pending) return;
+    if (answeredQuestionId && newStoryText && newStoryText.length > 1000) {
+      setError("This answer is longer than the 1,000-character limit. Your full text is still here; please review it before retrying.");
+      return;
+    }
     setLoading(true);
     setError("");
 
     try {
+      await turnRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
       const response = await fetch("/api/intake/guided-turn", {
         method: "POST",
+        signal,
         headers: {
           "Content-Type": "application/json",
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
@@ -621,13 +649,19 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       });
 
       const json = await response.json();
+      await validateIntakeResponse(signal);
+      signal.throwIfAborted();
       if (!response.ok || !json.ok) {
         setError(json.error || "That didn't go through. Please try again.");
-        setLoading(false);
+        if (!answeredQuestionId && !confirmedAnswers) setStarted(false);
         return;
       }
 
       const result: GuidedTurnResult = json.result;
+      setInputText("");
+      setProposalDrafts(null);
+      if (answeredQuestionId && newStoryText) setEarlierAnswers((current) => [...current.filter((item) => item.questionId !== answeredQuestionId), { questionId: answeredQuestionId, answerText: newStoryText }]);
+      if (newStoryText) setMessages((current) => [...current, { from: "user", text: newStoryText }]);
       setFacts(result.facts);
       setAnsweredIds(result.answeredIds);
       if (result.evidenceGuidance) {
@@ -750,10 +784,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         { from: "assistant" as const, text: displayText, isQuestion: true },
       ]);
       setCurrentQuestion(result.nextQuestion);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      });
+    } catch {
+      if (!answeredQuestionId && !confirmedAnswers) setStarted(false);
+      setError("That request did not finish. Your answer is still here; please try again.");
     } finally {
-      setLoading(false);
+      if (!depthRequest.current.pending) setLoading(false);
     }
   }
 
@@ -764,17 +800,20 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // the rejected id, and gives up honestly after that (see
   // claimTypeSuggestionResolution.ts).
   async function resolveSuggestion(action: "confirm" | "reject") {
-    if (!pendingSuggestion) return;
+    if (!pendingSuggestion || suggestionRequest.current.pending) return;
     setResolvingSuggestion(true);
     setError("");
 
     try {
+      await suggestionRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
       const response = await fetch("/api/intake/classify-claim-type", {
         method: "POST",
+        signal,
         headers: {
           "Content-Type": "application/json",
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
@@ -789,6 +828,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       });
 
       const json = await response.json();
+      await validateIntakeResponse(signal);
+      signal.throwIfAborted();
       if (!response.ok || !json.ok) {
         setError(json.error || "That didn't go through. Please try again.");
         return;
@@ -803,8 +844,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         // This path only runs after the person clicked "that's right" on the
         // suggestion card -- the one case where userConfirmed is actually true.
         setMatchedClaimType({ ...result.claimType, userConfirmed: true });
-        setEvidenceGuidance(result.evidenceGuidance);
-        setClaimGuidance(result.claimGuidance);
+        setEvidenceGuidance(result.evidenceGuidance ?? null);
+        setClaimGuidance(result.claimGuidance ?? null);
         setPendingSuggestion(null);
         setRejectedSuggestionIds([]);
       } else if (result.outcome === "revised") {
@@ -815,6 +856,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setRejectedSuggestionIds([]);
         setNoClaimTypeMatch(true);
       }
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
@@ -823,12 +865,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   }
 
   function handleStorySubmit() {
-    if (!inputText.trim()) return;
+    if (loading || turnRequest.current.pending || !inputText.trim()) return;
     setStarted(true);
-    setMessages((current) => [...current, { from: "user", text: inputText }]);
     const story = inputText;
     storyRef.current = story;
-    setInputText("");
     // The law that applies is researched while the guided questions run, so
     // its questions are ready when they end.
     void sourced.start(story);
@@ -836,20 +876,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   }
 
   function handleAnswerSubmit() {
-    if (!currentQuestion) return;
+    if (loading || turnRequest.current.pending || !currentQuestion) return;
     const answerText = inputText.trim();
-    if (answerText) {
-      setMessages((current) => [...current, { from: "user", text: answerText }]);
-    }
     const nextAnsweredIds = [...answeredIds, currentQuestion.id];
-    setInputText("");
     const openingStory = messages.find((message) => message.from === "user")?.text || "";
     const earlier = answerText
-      ? { story: openingStory.slice(0, 8000), answers: earlierAnswers.slice(-45), declined: declinedIds.slice(-45) }
+      ? { story: openingStory, answers: earlierAnswers, declined: declinedIds }
       : undefined;
-    if (answerText) {
-      setEarlierAnswers((current) => [...current, { questionId: currentQuestion.id, answerText: answerText.slice(0, 1000) }]);
-    }
     void sendTurn(answerText || undefined, nextAnsweredIds, facts, currentQuestion.id, undefined, undefined, earlier);
   }
 
@@ -881,14 +914,18 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     answered?: { questionId: string; answerText: string },
     confirmedAnswers?: ConfirmedStoryAnswer[],
   ) {
+    const result = await depthRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
     const {
       data: { session },
     } = await supabase.auth.getSession();
 
     const response = await fetch("/api/intake/depth-turn", {
       method: "POST",
+      signal,
       headers: {
         "Content-Type": "application/json",
+        ...intakeGuidanceHeaders(recovery),
         ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
       },
       body: JSON.stringify({
@@ -911,6 +948,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     });
 
     const json = await response.json();
+    await validateIntakeResponse(signal);
+    signal.throwIfAborted();
     if (!response.ok || !json.ok) {
       throw new Error(json.error || "That didn't go through. Please try again.");
     }
@@ -923,6 +962,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       halted: boolean;
       haltMessage?: string;
     };
+    });
+    if (!result) throw new Error("A request is already in progress.");
+    return result;
   }
 
   // `payload` is passed in rather than read from completionPayload state: the
@@ -934,6 +976,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     currentFacts: IntakeFacts,
     payload: GuidedIntakeCompletionResult,
   ) {
+    if (!intakeConfirmed) { setCompletionPayload(payload); onComplete?.({ ...payload, answers: earlierAnswers }); return; }
     setLoading(true);
     try {
       const result = await callDepthTurn(claimTypeId, currentFacts);
@@ -982,6 +1025,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         { from: "assistant", text: result.questions[0].text },
       ]);
     } catch (err) {
+      if (!mounted.current) return;
       // A depth failure must never strand the user short of a draft.
       setError(err instanceof Error ? err.message : "Could not load the detailed questions.");
       setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
@@ -997,10 +1041,6 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // type with its own reviewed questions (the depth phase) uses those.
   function completeWithSourced(completed: GuidedIntakeCompletionResult) {
     const payload = { ...completed, answers: earlierAnswers };
-    if (sourced.state === "loading" || (sourced.state === "ready" && sourced.questions.length > 0)) {
-      setHeldPayload(payload);
-      return;
-    }
     const kept = sourced.answeredList();
     const followUpText = sourcedAnswerListText(kept);
     onComplete?.({ ...payload, sourcedAnswers: kept, ...(followUpText ? { followUpText } : {}) });
@@ -1017,12 +1057,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   useEffect(() => {
     // A municipal notice line holds the page until the person continues
     // (round 4 review, 2026-10-14): moving on at once would hide it.
-    if (heldPayload && (sourced.state === "none" || sourced.state === "idle") && !municipalNoticeFirst(storyRef.current, { city: location?.city ?? "" })) {
+    if (!resumedHeld.current && heldPayload && (sourced.state === "none" || sourced.state === "idle") && !municipalNoticeFirst(storyRef.current, { city: location?.city ?? "" })) {
       setHeldPayload(null);
       // Nothing new to ask: still keep the answers from earlier visits.
       onComplete?.({ ...heldPayload, sourcedAnswers: sourced.answeredList() });
     }
-  }, [heldPayload, sourced.state, sourced.answeredList, onComplete, location?.city]);
+  }, [heldPayload, sourced.state, sourced.answeredList, onComplete, location?.city, sourced, storyRef, setHeldPayload]);
 
   function finishDepthPhase(
     stateMap: Record<string, unknown> | null,
@@ -1053,13 +1093,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
 
   function handleDepthAnswerSubmit() {
     const question = depthQuestions[depthIndex];
-    if (!question || !completionPayload?.matchedClaimType) return;
+    if (loading || depthRequest.current.pending || !question || !completionPayload?.matchedClaimType) return;
 
     const answerText = inputText.trim();
     if (answerText) {
       setMessages((current) => [...current, { from: "user", text: answerText }]);
     }
-    setInputText("");
     setLoading(true);
 
     void (async () => {
@@ -1069,6 +1108,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           completionPayload.facts,
           { questionId: question.id, answerText },
         );
+        setInputText("");
         setDepthStateMap(result.stateMap);
 
         if (result.halted) {
@@ -1110,6 +1150,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   }
 
   function handleSkipDepth() {
+    if (loading || depthRequest.current.pending) return;
     setMessages((current) => [
       ...current,
       { from: "assistant", text: "No problem — skipping the rest of these." },
@@ -1160,7 +1201,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       } catch (err) {
         // Not recorded means simply asked: put every question back.
         setError(err instanceof Error ? err.message : "That didn't go through. Please try again.");
-        remaining.splice(0, remaining.length, ...depthQuestions);
+        if (!mounted.current) return;
+        setProposalDrafts(drafts);
+        setProposalMode("depth");
+        return;
       } finally {
         setLoading(false);
       }
@@ -1189,6 +1233,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   }
 
   function handleConfirmProposals() {
+    if (loading || turnRequest.current.pending || depthRequest.current.pending) return;
     if (proposalMode === "depth") {
       handleConfirmDepthProposals();
       return;
@@ -1198,7 +1243,6 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     const confirmed: ConfirmedStoryAnswer[] = drafts
       .filter((draft) => draft.keep && draft.answer.trim())
       .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
-    setProposalDrafts(null);
     setMessages((current) => [
       ...current,
       {
@@ -1225,6 +1269,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   }
 
   function handleSend() {
+    if (loading || resolvingSuggestion || turnRequest.current.pending || depthRequest.current.pending) return;
     if (!started) handleStorySubmit();
     else if (depthActive) handleDepthAnswerSubmit();
     else if (currentQuestion) handleAnswerSubmit();
@@ -1298,6 +1343,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                 <label className="flex items-start gap-2">
                   <input
                     type="checkbox"
+                    disabled={loading}
                     checked={draft.keep}
                     onChange={(event) => updateProposalDraft(index, { keep: event.target.checked })}
                     className="mt-1"
@@ -1307,7 +1353,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                 {draft.choices && draft.choices.length > 0 ? (
                   <select
                     value={draft.answer}
-                    disabled={!draft.keep}
+                    disabled={loading || !draft.keep}
                     onChange={(event) => updateProposalDraft(index, { answer: event.target.value })}
                     className="mt-2 w-full rounded-lg border border-[#d8e6df] px-3 py-2 disabled:opacity-50"
                   >
@@ -1321,7 +1367,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
                   <input
                     type="text"
                     value={draft.answer}
-                    disabled={!draft.keep}
+                    disabled={loading || !draft.keep}
                     onChange={(event) => updateProposalDraft(index, { answer: event.target.value })}
                     className="mt-2 w-full rounded-lg border border-[#d8e6df] px-3 py-2 disabled:opacity-50"
                   />
@@ -1450,6 +1496,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             // twice (the $5,000-split question, then "do you still have pain").
             key={depthActive ? depthQuestions[depthIndex]?.id : currentQuestion?.id}
             value={inputText}
+            disabled={loading}
             onChange={(event) => setInputText(event.target.value)}
             placeholder={
               depthActive || currentQuestion ? "Your answer..." : "Tell us what happened..."
@@ -1536,7 +1583,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         </div>
       ) : null}
 
-      {!halted ? (
+      {!halted && intakeConfirmed ? (
         <GuidanceDisclosure
           evidenceGuidance={evidenceGuidance}
           claimGuidance={claimGuidance}

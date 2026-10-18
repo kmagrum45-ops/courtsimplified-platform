@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { AuthError } from "@supabase/supabase-js";
 import { supabase } from "../../src/lib/supabase/client";
+import { readIntakeSession, writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 
 /**
@@ -100,7 +101,7 @@ export default function LoginPage() {
         return;
       }
 
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
       });
@@ -110,16 +111,22 @@ export default function LoginPage() {
         return;
       }
 
-      /*
-       * SIGNING IN STARTS FROM NOTHING. Whatever this browser holds -- an
-       * earlier session's story, analysis, evidence list or chat, this user's
-       * or anyone else's -- is removed before the workspace opens. A user's
-       * saved work lives in their account and is loaded from there, never
-       * from the browser. (2026-09-28: a signed-in user found an old test
-       * story pre-filled in the Small Claims intake.)
-       */
+      /* Clean shared and other-account browser state before navigation. Only an
+       * explicit return to this verified owner's exact intake flow keeps its
+       * tab checkpoint; the builder rechecks ownership of the saved case. */
+      const destination = afterSignIn();
+      const params = new URL(destination, window.location.origin).searchParams;
+      const court = params.get("path");
+      const flow = params.get("caseId") || params.get("intake");
+      // Only this exact flow belonging to the authenticated owner survives cleanup.
+      const returning = data.user && flow && (court === "family" || court === "civil" || court === "small-claims")
+        ? readIntakeSession(sessionStorage, flow, data.user.id, court) : null;
       resetIntakeInBrowser();
-      router.push(afterSignIn());
+      if (returning && !writeIntakeSession(sessionStorage, returning)) {
+        setError("Signed in, but this tab could not retain pending text. Please return to your intake and copy it before retrying.");
+        return;
+      }
+      router.push(destination);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {

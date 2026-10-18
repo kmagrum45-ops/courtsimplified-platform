@@ -94,7 +94,7 @@ export function familyTimelineAnswer(key: string, value: string, timeline: strin
 }
 
 export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: GuidedChoice[] }): GuidedField[] {
-  return [
+  const fields: GuidedField[] = [
     {
       key: "facts",
       label: "Your story",
@@ -193,10 +193,12 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       kind: "longtext",
     },
   ];
+  const initial = new Set(["facts", "yourRole", "issues", "childrenInfo", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "urgent"]);
+  return fields.map(field => ({ ...field, initial: initial.has(field.key) }));
 }
 
 export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: GuidedChoice[] }): GuidedField[] {
-  return [
+  const fields: GuidedField[] = [
     {
       key: "facts",
       label: "Your story",
@@ -287,4 +289,19 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       kind: "longtext",
     },
   ];
+  const initial = new Set(["facts", "yourRole", "issues", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "urgent"]);
+  return fields.map(field => ({ ...field, initial: initial.has(field.key) }));
+}
+
+export function isAnswered(field: GuidedField, value: GuidedValues[string]): boolean {
+  if (Array.isArray(value)) return value.filter((item) => !(field.emptyValues ?? []).includes(item)).length > 0;
+  const text = (value ?? "").trim();
+  return text.length > 0 && !(field.emptyValues ?? []).includes(text);
+}
+
+/** The questions still to ask, in order: applicable, unanswered, not skipped. */
+export function pendingFields(fields: readonly GuidedField[], values: GuidedValues, skipped: ReadonlySet<string>): GuidedField[] {
+  return fields.filter(
+    (field) => field.initial !== false && (field.when ? field.when(values) : true) && !isAnswered(field, values[field.key]) && !skipped.has(field.key),
+  );
 }

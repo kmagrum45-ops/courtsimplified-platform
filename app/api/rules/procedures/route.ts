@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
@@ -36,7 +37,7 @@ export function withBetaProcedureAuthority(
   }));
 }
 
-export async function POST(req: Request) {
+async function postGuidance(req: Request) {
   try {
     const body = (await req.json()) as { courtPath?: unknown; stage?: unknown };
     const courtArea = normalizeCourtArea(body.courtPath);
@@ -85,3 +86,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

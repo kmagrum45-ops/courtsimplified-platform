@@ -1,8 +1,12 @@
 "use client";
 
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+
+import { IntakeRequest } from "../../_components/intakeRequest";
+
 import { buildFamilyAnalysis } from "./familyAnalysis";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   AnalysisResult,
   StoredCaseData,
@@ -315,10 +319,10 @@ function savedFamilyValues(stored: unknown) {
 export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDone, location, initialStory, earlierSourcedAnswers, storedIntake }: Props) {
   // Read once: what the saved case holds wins over a fresh story hand-off.
   const [saved] = useState(() => savedFamilyValues(storedIntake));
-  const [editingStory, setEditingStory] = useState(false);
+  const [editingStory, setEditingStory] = useIntakeState("family", "editingStory", false);
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
-  const [mode, setMode] = useState<"chat" | "form">("chat");
+  const [mode, setMode] = useIntakeState<"chat" | "form">("family", "mode", "chat");
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({
       courtPath: "family",
@@ -328,39 +332,39 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const initialValues = initialPrefill
     ? directPrefillValues(initialPrefill)
     : {};
-  const [caseStage, setCaseStage] = useState<UniversalStage>(
+  const [caseStage, setCaseStage] = useIntakeState<UniversalStage>("family", "caseStage",
     () => (saved?.caseStage || initialValues.caseStage ? (saved?.caseStage || initialValues.caseStage) as UniversalStage : "not-sure"),
   );
   // Which side the user is on, ASKED — never guessed from keywords. A role read
   // from the story ("I was served") only pre-selects the answer the user sees.
-  const [yourRole, setYourRole] = useState<FamilyRole>(() => {
+  const [yourRole, setYourRole] = useIntakeState<FamilyRole>("family", "yourRole", () => {
     const prefilled = String(saved?.yourRole || initialValues.yourRole || "").toLowerCase();
     if (prefilled.includes("respondent")) return "respondent";
     if (prefilled.includes("applicant")) return "applicant";
     return "not-sure";
   });
-  const [filedDocuments, setFiledDocuments] = useState<FiledDocument[]>(
+  const [filedDocuments, setFiledDocuments] = useIntakeState<FiledDocument[]>("family", "filedDocuments",
     () => (saved?.filedDocuments.length ? saved.filedDocuments : Array.isArray(initialValues.documentStatus) ? ["application"] : []),
   );
-  const [issues, setIssues] = useState<FamilyIssue[]>(() => saved?.issues ?? []);
+  const [issues, setIssues] = useIntakeState<FamilyIssue[]>("family", "issues", () => saved?.issues ?? []);
 
-  const [yourName, setYourName] = useState(() => saved?.yourName || String(initialValues.yourName || ""));
+  const [yourName, setYourName] = useIntakeState("family", "yourName", () => saved?.yourName || String(initialValues.yourName || ""));
   const province = location.province;
   const city = location.city;
-  const [otherParty, setOtherParty] = useState(() => saved?.otherParty || String(initialValues.otherParty || ""));
-  const [childrenInfo, setChildrenInfo] = useState(() => saved?.childrenInfo ?? "");
-  const [currentLivingSituation, setCurrentLivingSituation] = useState(() => saved?.currentLivingSituation ?? "");
-  const [pastLivingHistory, setPastLivingHistory] = useState(() => saved?.pastLivingHistory ?? "");
-  const [facts, setFacts] = useState(() => saved?.facts || String(initialValues.facts || initialStory || ""));
-  const [timeline, setTimeline] = useState(() => saved?.timeline || String(initialValues.timeline || initialValues.enforcementDetails || ""));
-  const [evidence, setEvidence] = useState(() => saved?.evidence || String(initialValues.evidence || ""));
-  const [missingEvidence, setMissingEvidence] = useState(() => saved?.missingEvidence ?? "");
-  const [goal, setGoal] = useState(() => saved?.goal || String(initialValues.goal || ""));
-  const [urgent, setUrgent] = useState(() => saved?.urgent || String(initialValues.urgent || ""));
-  const [safetyConcerns, setSafetyConcerns] = useState(() => saved?.safetyConcerns ?? "");
-  const [propertyHomeDetails, setPropertyHomeDetails] = useState(() => saved?.propertyHomeDetails || String(initialValues.addressDetails || initialValues.existingOrderDetails || ""));
-  const [upcomingCourtDate, setUpcomingCourtDate] = useState(() => saved?.upcomingCourtDate ?? "");
-  const [adoptionDetails, setAdoptionDetails] = useState(() => saved?.adoptionDetails ?? "");
+  const [otherParty, setOtherParty] = useIntakeState("family", "otherParty", () => saved?.otherParty || String(initialValues.otherParty || ""));
+  const [childrenInfo, setChildrenInfo] = useIntakeState("family", "childrenInfo", () => saved?.childrenInfo ?? "");
+  const [currentLivingSituation, setCurrentLivingSituation] = useIntakeState("family", "currentLivingSituation", () => saved?.currentLivingSituation ?? "");
+  const [pastLivingHistory, setPastLivingHistory] = useIntakeState("family", "pastLivingHistory", () => saved?.pastLivingHistory ?? "");
+  const [facts, setFacts] = useIntakeState("family", "facts", () => saved?.facts || String(initialValues.facts || initialStory || ""));
+  const [timeline, setTimeline] = useIntakeState("family", "timeline", () => saved?.timeline || String(initialValues.timeline || initialValues.enforcementDetails || ""));
+  const [evidence, setEvidence] = useIntakeState("family", "evidence", () => saved?.evidence || String(initialValues.evidence || ""));
+  const [missingEvidence, setMissingEvidence] = useIntakeState("family", "missingEvidence", () => saved?.missingEvidence ?? "");
+  const [goal, setGoal] = useIntakeState("family", "goal", () => saved?.goal || String(initialValues.goal || ""));
+  const [urgent, setUrgent] = useIntakeState("family", "urgent", () => saved?.urgent || String(initialValues.urgent || ""));
+  const [safetyConcerns, setSafetyConcerns] = useIntakeState("family", "safetyConcerns", () => saved?.safetyConcerns ?? "");
+  const [propertyHomeDetails, setPropertyHomeDetails] = useIntakeState("family", "propertyHomeDetails", () => saved?.propertyHomeDetails || String(initialValues.addressDetails || initialValues.existingOrderDetails || ""));
+  const [upcomingCourtDate, setUpcomingCourtDate] = useIntakeState("family", "upcomingCourtDate", () => saved?.upcomingCourtDate ?? "");
+  const [adoptionDetails, setAdoptionDetails] = useIntakeState("family", "adoptionDetails", () => saved?.adoptionDetails ?? "");
 
   // Issues, side and what the person has written, reported after a short
   // pause so the whole page does not re-render on every keystroke.
@@ -371,10 +375,16 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   }, [issues, yourRole, onScopeChange, yourName, otherParty, childrenInfo, currentLivingSituation, evidence, facts]);
 
   const [uploadedEvidenceFiles, setUploadedEvidenceFiles] =
-    useState<EvidenceFile[]>([]);
+    useIntakeState<EvidenceFile[]>("family", "uploadedEvidenceFiles", []);
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const analysisRequest = useRef(new IntakeRequest());
+  const requestScope = JSON.stringify([caseStage, yourRole, filedDocuments, issues, yourName, otherParty, childrenInfo, currentLivingSituation, pastLivingHistory, facts, timeline, evidence, missingEvidence, goal, urgent, safetyConcerns, propertyHomeDetails, upcomingCourtDate, adoptionDetails, uploadedEvidenceFiles]);
+  useEffect(() => {
+    const request = analysisRequest.current;
+    return () => request.cancel();
+  }, [requestScope]);
   /**
    * Result of the safety pass over `facts`. Drives the resource panel below.
    * Never halts this path — see the comment in handleAnalyze.
@@ -394,11 +404,18 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
    * case they have not touched (stageFromAnswers.ts, 2026-10-14). Only these
    * can stand as their confirmation of the stage.
    */
-  const personSet = useRef<Set<"yourRole">>(new Set());
+  const recovery = useIntakeRecovery();
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const prepareCaseGuidance = usePrepareCaseGuidance();
+  const validateIntakeResponse = useValidateIntakeResponse();
+  const [restoredPersonSet] = useIntakeState<Set<"yourRole">>("family", "personSet", new Set());
+  const personSet = useRef(restoredPersonSet);
   // Each document item the person chose or cleared themselves; a chat
   // answer sets the whole list. The list counts as theirs only when every
   // item on it is one they chose (review 2026-10-14).
-  const personDocuments = useRef<Set<string>>(new Set());
+  const [restoredPersonDocuments] = useIntakeState<Set<string>>("family", "personDocuments", new Set());
+  const personDocuments = useRef(restoredPersonDocuments);
+  useEffect(() => { recovery?.put("family", "personSet", [...personSet.current], false); recovery?.put("family", "personDocuments", [...personDocuments.current], false); });
 
   const textareaFields: TextareaField[] = useMemo(
     () => [
@@ -473,19 +490,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           "Upcoming court date, deadline, missed service, urgent motion need, safety issue, missed support, withheld child, eviction/home issue, or financial emergency.",
       },
     ],
-    [
-      childrenInfo,
-      currentLivingSituation,
-      pastLivingHistory,
-      facts,
-      timeline,
-      evidence,
-      missingEvidence,
-      safetyConcerns,
-      propertyHomeDetails,
-      goal,
-      urgent,
-    ],
+    [childrenInfo, setChildrenInfo, currentLivingSituation, setCurrentLivingSituation, pastLivingHistory, setPastLivingHistory, timeline, setTimeline, evidence, setEvidence, missingEvidence, setMissingEvidence, safetyConcerns, setSafetyConcerns, propertyHomeDetails, setPropertyHomeDetails, goal, setGoal, urgent, setUrgent],
   );
 
   function handleEvidenceFilesSelected(files: FileList | null) {
@@ -602,15 +607,22 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
   // Questions from the law that applies to the story, asked for as soon as
   // there is a story and again when it is edited. Never blocks the analysis.
+  const restoredSourced = useRef(recovery?.read("sourced", "state") !== undefined);
   const sourced = useSourcedQuestions("family", earlierSourcedAnswers ?? NO_EARLIER_ANSWERS);
   const startSourced = sourced.start;
   React.useEffect(() => {
+    if (restoredSourced.current) return;
     void startSourced(facts, yourRole !== "not-sure" ? yourRole : undefined);
     // Once, for the story the page opened with; edits ask again on blur.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function handleAnalyze() {
+    if (analysisRequest.current.pending) return;
+    try {
+      await analysisRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+        if (!(await prepareCaseGuidance())) return;
     if (submissionInFlight.current) return;
     if (!facts.trim()) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
@@ -651,10 +663,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       } = await supabase.auth.getSession();
 
       const safety = await runClientSafetyCheck(facts, session?.access_token);
+      await validateIntakeResponse(signal);
+      signal.throwIfAborted();
       setSafetyClassification(safety.classification);
       setSafetyMessage(safety.userMessage || "");
       setAsksForAdvice(safety.requestsLegalAdvice);
     } catch {
+      if (signal.aborted) return;
       // Fails open, same as the helper itself. A classifier fault must never
       // stop someone reaching their own case.
     }
@@ -696,10 +711,13 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       const {
         data: { session },
       } = await supabase.auth.getSession();
+      signal.throwIfAborted();
       const response = await fetch("/api/family/analyze", {
+        signal,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...intakeGuidanceHeaders(recovery),
           ...(session?.access_token
             ? { Authorization: `Bearer ${session.access_token}` }
             : {}),
@@ -780,13 +798,21 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       },
     };
 
+      await validateIntakeResponse(signal);
+
+      signal.throwIfAborted();
       onComplete(analysis, payload);
     } catch (error) {
+      if (signal.aborted) return;
       setAnalysisError(
         error instanceof Error
           ? error.message
           : "Family analysis could not be completed.",
       );
+    }
+      });
+    } catch {
+      setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
       submissionInFlight.current = false;
       setIsAnalyzing(false);
@@ -825,7 +851,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   }
 
   return (
-    <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+    <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <h2 className="text-2xl font-bold text-[#10231f]">Family Intake</h2>
 
       <p className="mt-3 text-[#4d675f]">
@@ -1069,7 +1095,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={facts} onChange={(event) => setFacts(event.target.value)} onBlur={() => void sourced.start(facts, yourRole !== "not-sure" ? yourRole : undefined)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={facts} onChange={(event) => setFacts(event.target.value)} onBlur={(event) => { if (event.relatedTarget instanceof HTMLElement && event.relatedTarget.dataset.testid === "family-intake-continue") return; void sourced.start(facts, yourRole !== "not-sure" ? yourRole : undefined); }} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">
@@ -1294,11 +1320,12 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         {mode === "form" ? (
         <button
           type="button"
+          data-testid="family-intake-continue"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || sourced.state === "loading"}
+          disabled={isAnalyzing}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Finding questions for your situation…" : "Continue to your next steps"}
+          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}
         </button>
         ) : null}
       </div>

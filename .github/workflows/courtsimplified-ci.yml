@@ -44,6 +44,18 @@ jobs:
       - name: TypeScript check
         run: npx tsc --noEmit --pretty false
 
+      - name: Intake request reliability
+        run: npm run test:intake-requests
+
+      - name: Explicit intake review and confirmation
+        run: npm run test:intake-review
+
+      - name: Case guidance requires confirmed current intake on the server
+        run: npm run test:intake-guidance-gate
+
+      - name: Intake persistence and account isolation
+        run: npm run test:intake-recovery
+
       - name: Small Claims engine verification
         run: npm run test:small-claims
 
@@ -532,4 +544,9 @@ jobs:
           npx playwright test
           tests/browser/intake-reset.spec.ts
           tests/browser/case-understanding-continuity.spec.ts
+          tests/browser/intake-reliability.spec.ts
+          tests/browser/family-civil-intake-reliability.spec.ts
+          tests/browser/intake-recovery.spec.ts
+          tests/browser/intake-review.spec.ts
+          tests/browser/intake-guidance-gate.spec.ts
           --reporter=line --workers=1

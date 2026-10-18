@@ -2,7 +2,7 @@
 
 /**
  * My cases: every case the signed-in user has, newest first, each opening its
- * case page (/cases/[id]).
+ * case page (/cases/[id]), or resuming its unfinished intake.
  *
  * Rewritten 2026-10-04. The old dashboard graded cases: it created each new
  * case with a starter record carrying a readiness score of 0 and a
@@ -13,12 +13,13 @@
  * that no longer exist. A case now shows what the user confirmed — where it
  * is — and opens the case page, which shows the next step.
  *
- * New cases start in the builder, which creates the case when the story is
- * saved, so a case is never an empty shell with invented content in it.
+ * The builder saves unfinished intake before AI runs. Those records resume
+ * intake; completed cases retain their existing case-page destination.
  */
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { guidanceIsCurrent } from "@/src/lib/case-system/intakeReview";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { supabase } from "../../src/lib/supabase/client";
@@ -93,7 +94,9 @@ function CaseCard({ record, highlighted, reminder }: { record: CaseRecord; highl
   const drafts = readCaseDrafts(record.master_result).length;
   return (
     <Link
-      href={`/cases/${encodeURIComponent(record.id)}`}
+      href={!guidanceIsCurrent(record.master_result, record.court_path, record.id) && record.court_path
+        ? `/builder?path=${encodeURIComponent(record.court_path)}&caseId=${encodeURIComponent(record.id)}`
+        : `/cases/${encodeURIComponent(record.id)}`}
       data-testid="dashboard-case"
       className={`block rounded-3xl border bg-white p-6 shadow-sm transition hover:border-[#2f7d67] hover:shadow-md ${
         highlighted ? "border-[#2f7d67]" : "border-[#d8e6df]"
@@ -103,15 +106,15 @@ function CaseCard({ record, highlighted, reminder }: { record: CaseRecord; highl
         {(record.court_path && COURT_LABELS[record.court_path]) || "Court not chosen yet"}
       </p>
       <h3 className="mt-1 text-xl font-bold text-[#10231f]">{caseTitle(record)}</h3>
-      <p className="mt-2 text-sm text-[#24463d]">{stageLine(record)}</p>
-      {reminder ? (
+      <p className="mt-2 text-sm text-[#24463d]">{guidanceIsCurrent(record.master_result, record.court_path, record.id) ? stageLine(record) : "Complete initial intake and review"}</p>
+      {reminder && (guidanceIsCurrent(record.master_result, record.court_path, record.id) || reminder.passed || reminder.daysAway <= 7) ? (
         <p
           data-testid="dashboard-reminder"
           className={`mt-3 rounded-2xl px-3 py-2 text-sm ${
             reminder.passed || reminder.daysAway <= 7 ? "bg-[#fdf3e3] text-[#7a5418]" : "bg-[#e8f6f4] text-[#1c5c55]"
           }`}
         >
-          {reminderLine(reminder)}
+          {!guidanceIsCurrent(record.master_result, record.court_path, record.id) && "Urgent procedural warning — previously recorded date; verify it: "}{reminderLine(reminder)}
         </p>
       ) : null}
       <p className="mt-3 text-xs text-[#4f685f]">
@@ -130,14 +133,19 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [reminders, setReminders] = useState<Record<string, CountedDateReminder>>({});
+  const ownerRef = useRef<string | null>(null);
+  const loadVersion = useRef(0);
 
   async function loadDashboard() {
+    const version = ++loadVersion.current;
     setLoading(true);
     setError("");
     const {
       data: { user },
       error: userError,
     } = await supabase.auth.getUser();
+    if (version !== loadVersion.current) return;
+    ownerRef.current = user?.id ?? null;
     if (userError || !user) {
       router.push("/login?next=%2Fdashboard");
       return;
@@ -153,17 +161,21 @@ export default function DashboardPage() {
     const { data, error: loadError } = await supabase
       .from("cases")
       .select(
-        "id,title,court_path,status,current_stage,created_at,updated_at,position:master_result->position,drafts:master_result->drafts,otherParty:master_result->intakeData->otherParty",
+        "id,title,court_path,status,current_stage,created_at,updated_at,position:master_result->position,drafts:master_result->drafts,otherParty:master_result->intakeData->otherParty,lifecycleStage:master_result->>lifecycleStage,workflowStatus:master_result->workflowStatus,guidanceInputRevision:master_result->>guidanceInputRevision,flowId:master_result->intakeCheckpoint->>flowId,cpCourt:master_result->intakeCheckpoint->>courtPath,cpVersion:master_result->intakeCheckpoint->>version,revision:master_result->intakeCheckpoint->>revision,inputRevision:master_result->intakeCheckpoint->>inputRevision",
       )
+      .eq("user_id", user.id)
       .order("updated_at", { ascending: false });
+    if (version !== loadVersion.current) return;
     if (loadError) {
       setError("Your cases could not be loaded. Please refresh the page.");
       setCases([]);
     } else {
-      type Row = Omit<CaseRecord, "master_result"> & { position?: unknown; drafts?: unknown; otherParty?: unknown };
-      const records = ((data || []) as unknown as Row[]).map(({ position, drafts, otherParty, ...row }) => ({
+      type Row = Omit<CaseRecord, "master_result"> & { position?: unknown; drafts?: unknown; otherParty?: unknown; lifecycleStage?: unknown; workflowStatus?: unknown; guidanceInputRevision?: unknown; flowId?: unknown; cpCourt?: unknown; cpVersion?: unknown; revision?: unknown; inputRevision?: unknown };
+      const records = ((data || []) as unknown as Row[]).map(({ position, drafts, otherParty, lifecycleStage, workflowStatus, guidanceInputRevision, flowId, cpCourt, cpVersion, revision, inputRevision, ...row }) => ({
         ...row,
         master_result: {
+          workflowStatus, guidanceInputRevision, intakeCheckpoint: { version: Number(cpVersion), flowId, courtPath: cpCourt, revision, inputRevision, sections: {} },
+          ...(typeof lifecycleStage === "string" ? { lifecycleStage } : {}),
           ...(position !== null && position !== undefined ? { position } : {}),
           ...(drafts !== null && drafts !== undefined ? { drafts } : {}),
           ...(otherParty !== null && otherParty !== undefined ? { intakeData: { otherParty } } : {}),
@@ -171,7 +183,7 @@ export default function DashboardPage() {
       })) as CaseRecord[];
       setCases(records);
       // After the cards show, not before: a slow count never holds up the page.
-      void loadReminders(records).then(setReminders);
+      void loadReminders(records).then(value => { if (version === loadVersion.current) setReminders(value); });
     }
     setLoading(false);
   }
@@ -187,6 +199,15 @@ export default function DashboardPage() {
 
   useEffect(() => {
     void loadDashboard();
+    const invalidateLoads = () => { loadVersion.current++; };
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "INITIAL_SESSION" || ownerRef.current === (session?.user.id ?? null)) return;
+      ownerRef.current = session?.user.id ?? null;
+      loadVersion.current++;
+      setCases([]); setReminders({});
+      void loadDashboard();
+    });
+    return () => { invalidateLoads(); data.subscription.unsubscribe(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

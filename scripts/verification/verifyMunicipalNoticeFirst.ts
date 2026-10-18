@@ -484,8 +484,8 @@ console.log("\n10. The right Act is added on top; research passages are never pu
 
 console.log("\n11. The box asks first; the date and the bar show only after Yes or Not sure");
 {
-  const box = readFileSync(path.join(process.cwd(), "app/builder/_components/MunicipalNoticeFirst.tsx"), "utf8");
-  const { showsFullNotice } = await import("../../app/builder/_components/MunicipalNoticeFirst");
+  const box = readFileSync(path.join(process.cwd(), "app/builder/_components/MunicipalNoticeFirst.tsx"), "utf8").replace(/\r\n/g, "\n");
+  const { showsFullNotice } = await import("../../src/lib/content-library/municipalNoticeFirst");
   check("only Yes and Not sure show the full notice", showsFullNotice("yes") && showsFullNotice("not-sure") && !showsFullNotice("no") && !showsFullNotice(null));
   const asking = box.slice(box.indexOf("if (!showsFullNotice(answer))"), box.indexOf("  return (\n    <section", box.indexOf("if (!showsFullNotice(answer))") + 1));
   check(
