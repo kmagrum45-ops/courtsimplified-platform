@@ -549,6 +549,9 @@ jobs:
           tests/browser/intake-recovery.spec.ts
           tests/browser/intake-review.spec.ts
           tests/browser/intake-guidance-gate.spec.ts
+          tests/browser/story-single-source.spec.ts
+          tests/browser/guest-guidance.spec.ts
+          tests/browser/intake-review-polish.spec.ts
           --reporter=line --workers=1
 
       # A failure that does not reproduce locally needs the page as CI saw it.
