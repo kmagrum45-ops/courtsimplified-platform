@@ -13,20 +13,21 @@ import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { confirmInitialInformation } from "./harness/intakeReview";
+import { fakeAccount } from "./harness/syntheticIntakeAccount";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
 const SC_STORY = "Synthetic story: I paid a contractor $9,000 on May 12, 2026 to fix my roof and he never came back.";
 const FAMILY_STORY = "Synthetic story: my former partner and I separated in March 2026 and we have not agreed on parenting time.";
 
-async function smallClaimsFromStart(page: Page) {
+async function smallClaimsFromStart(page: Page, story = SC_STORY) {
   await grantSiteAccess(page);
   await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "small-claims", confidence: 0.95 } }));
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Sudbury");
-  await page.getByLabel("Tell us what happened in your own words").fill(SC_STORY);
+  await page.getByLabel("Tell us what happened in your own words").fill(story);
   await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
   await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
@@ -123,4 +124,41 @@ test("starting a new case warns before discarding an unsaved one", async ({ page
   await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
   const fresh = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
   expect(fresh, "the discarded case is gone").not.toContain("parenting time");
+});
+
+// Re-test round 2.
+test("signed in, Small Claims: the first Show my next step keeps the confirmation", async ({ page }) => {
+  test.setTimeout(180_000);
+  const account = await fakeAccount(page);
+  await smallClaimsFromStart(page);
+  const panel = page.getByTestId("intake-review");
+  await confirmInitialInformation(page);
+  await expect.poll(() => account.rows.size).toBe(1);
+  await page.getByTestId("intake-continue-guidance").click();
+  // The form opens and registers its defaults; that is not a change of facts.
+  await expect(page.getByTestId("sc-intake-edit-story")).toBeVisible({ timeout: 60_000 });
+  await page.waitForTimeout(1500);
+  await expect(panel, "the first click keeps the confirmation").toHaveAttribute("data-phase", "user-confirmed");
+  await expect(page.getByTestId("intake-confirm-needs")).toHaveCount(0);
+});
+
+test("Small Claims: month and year, and the side of someone who paid, are suggested", async ({ page }) => {
+  test.setTimeout(180_000);
+  await smallClaimsFromStart(page, "Synthetic story: a contractor took a $3,000 deposit and never did the work, in August 2026.");
+  await page.getByTestId("intake-start-review").click();
+  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByLabel(/^Answer: /)).toHaveValue("August 2026");
+  await expect(page.locator('[data-question="sc-orient-role"]').getByRole("button", { name: "Bringing the claim (plaintiff) (suggested from your story)" })).toBeVisible();
+});
+
+test("Family: one sentence that answers several questions is confirmed once", async ({ page }) => {
+  test.setTimeout(180_000);
+  await openBuilder(page, "family", { story: "Synthetic story: we were never married and there has never been a court order. I was served with her Application on October 9, 2026." });
+  const offer = page.getByTestId("guided-form-from-story");
+  await expect(offer).toBeVisible({ timeout: 60_000 });
+  const group = (await offer.getAttribute("data-group")) ?? "";
+  expect(group.split(" ").length, `the served sentence answers several questions at once (${group})`).toBeGreaterThan(1);
+  await page.getByTestId("guided-form-from-story-yes").click();
+  const quote = "I was served with her Application on October 9, 2026";
+  await expect(page.getByTestId("guided-form-from-story").filter({ hasText: quote })).toHaveCount(0);
+  await expect(page.getByText("You told us there is already a court order")).toHaveCount(0);
 });

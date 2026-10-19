@@ -59,7 +59,7 @@ export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDepende
     if (!await dependencies.authenticate(request)) return errorResponse("Sign in required for the AI safety check.", 401);
     // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
     const limited = await aiLimitResponse(request, "safety");
-    if (limited) return limited;
+    if (limited) { console.error("Safety-check route refused: AI limit reached."); return limited; }
 
     let body: unknown;
     try {
@@ -74,6 +74,7 @@ export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDepende
 
     try {
       if (!dependencies.hasExternalAiKey()) {
+        console.error("Safety-check route unavailable: no AI key.");
         return errorResponse("The safety check is not available right now.", 503);
       }
       const apiKey = process.env.OPENAI_API_KEY;

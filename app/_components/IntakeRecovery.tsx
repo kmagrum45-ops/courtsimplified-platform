@@ -1,6 +1,7 @@
 "use client";
 
 import IntakeReviewPanel from "./IntakeReviewPanel";
+import { signInFromIntake } from "../builder/_components/SignInForSafetyCheck";
 import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
@@ -29,7 +30,7 @@ type Recovery = {
   /** Each route registers the action that turns its confirmed answers into guidance. */
   registerContinue: (key: ContinueKey, handler: () => void) => () => void;
   /** The review panel's Continue: runs the open route's guidance action. */
-  continueToGuidance: () => void;
+  continueToGuidance: () => boolean;
   read: (section: string, key: string) => unknown;
   /** `fromReview`: an edit made in the review panel (see reconcileReview). */
   put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean) => void;
@@ -233,9 +234,12 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         };
         const continueHandlers = new Map<ContinueKey, () => void>();
         let pendingContinue: ContinueKey | null = null;
-        const runContinue = (key: ContinueKey) => {
+        /** True when a route took it now; false when it waits for that route to appear. */
+        const runContinue = (key: ContinueKey): boolean => {
           const handler = continueHandlers.get(key);
-          if (handler) { pendingContinue = null; handler(); } else pendingContinue = key;
+          if (handler) { pendingContinue = null; handler(); return true; }
+          pendingContinue = key;
+          return false;
         };
         const store: Recovery = {
           registerContinue: (key, handler) => {
@@ -248,7 +252,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (court !== "small-claims") return runContinue(court);
             // The route on screen is the address bar's; the saved step lags behind Back/Forward.
             const step = new URL(window.location.href).searchParams.get("step");
-            runContinue(step === "guided" ? "guided" : step === "form" ? "form" : "choose");
+            return runContinue(step === "guided" ? "guided" : step === "form" ? "form" : "choose");
           },
           begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, inputRevision(snapshot)); },
           subscribeField: (section, field, listener) => {
@@ -347,7 +351,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           window.removeEventListener("online", interruption);
         };
         if (!cache()) failure("This tab cannot retain your pending intake text. Copy it before leaving.");
-        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Signing in or out, or starting fresh, clears it. Copy your text before signing in.");
+        else setNotice(ownerId ? (dirty ? "Pending answers recovered in this tab. Saving…" : caseId ? "Intake saved to your account." : "Answers will be saved to your account as you type.") : "Guest progress stays in this tab only. Seeing your next steps needs a free account; sign in from here and what you entered comes with you.");
         setRecovery(store);
         if (initialConflict) { setConflict(true); failure("Another tab changed this intake. Your pending text is shown here for you to copy. Open the saved case separately before resolving the difference."); }
         else if (dirty && ownerId) void flush().catch(() => {});
@@ -382,7 +386,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
       {notice}{" "}
       {failed && <button type="button" className="underline" onClick={() => recovery ? void recovery.flush().catch(() => {}) : setAttempt((value) => value + 1)}>Retry saving intake</button>}{" "}
-      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(recovery && !recovery.ownerId ? `/builder?path=${court}` : here)}`}>Sign in for account recovery</a>}
+      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { if (recovery && !recovery.ownerId) { event.preventDefault(); signInFromIntake(); } }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>

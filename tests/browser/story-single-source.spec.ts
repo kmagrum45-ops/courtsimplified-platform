@@ -102,3 +102,33 @@ test("first click on Continue to intake proceeds when the understanding step is 
   expect(understood, "the understanding route answered").toBe(1);
   await expect(page.getByText("Your update did not finish")).toHaveCount(0);
 });
+
+// PR #463 re-test round 2: after a correction, Back showed the start page's reading
+// of the OLD story as current. A reading shows only while its story is current.
+test("Back after a correction never shows the old story's reading as current", async ({ page }) => {
+  test.setTimeout(240_000);
+  await grantSiteAccess(page);
+  await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
+  await startPage(page, "family");
+  // After startPage, whose own court-path answer would otherwise win.
+  await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "civil", confidence: 0.95, reasoning: "Synthetic reading of the original story." } }));
+  await page.getByLabel("City or municipality").fill("Sudbury");
+  await page.getByLabel("Tell us what happened in your own words").fill(ORIGINAL);
+  await page.getByRole("button", { name: "Continue to Family intake" }).click();
+  await expect(page.getByTestId("court-path-suggestion")).toBeVisible();
+  await page.getByTestId("court-path-suggestion-keep").click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+
+  const panel = page.getByTestId("intake-review");
+  await page.getByTestId("intake-start-review").click();
+  await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(CORRECTION);
+  await recordInitialUnknowns(page);
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+
+  await page.goBack();
+  await expect(page.getByLabel("Tell us what happened in your own words")).toHaveValue(CORRECTION);
+  await expect(page.getByTestId("court-path-suggestion"), "the old reading is not shown as current").toHaveCount(0);
+  await expect(page.getByTestId("reading-outdated")).toContainText("Your story has changed since it was last read");
+});

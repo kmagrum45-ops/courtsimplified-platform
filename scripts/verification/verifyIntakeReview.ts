@@ -5,10 +5,11 @@
  * Synthetic in-memory inputs only; no external AI or real cases.
  */
 import assert from "node:assert/strict";
-import { canReview, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { canReview, existingFactChanged, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { selectQuestions } from "../../src/lib/case-system/intake/selectQuestions";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
+import { SERVED_LINE } from "../../src/lib/case-system/casePosition";
 import { migrateStory } from "../../src/lib/case-system/intakeStory";
 
 for (const courtPath of ["small-claims", "family", "civil"] as const) {
@@ -90,4 +91,31 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
   assert.equal(reviewPhase(reconcileReview(confirmed, sc, next, true), next), "reviewing");
   assert.equal(reviewPhase(reconcileReview(confirmed, sc, next), next), "collecting");
   console.log("PASS suggestions never answer by themselves; a review edit stays in review");
+}
+
+// PR #463 re-test round 2 (2026-10-18).
+{
+  // A form registering defaults is not an edit; changing an answer is.
+  const base: Checkpoint = { version: 1, flowId: "11111111-1111-4111-8111-111111111111", courtPath: "small-claims", revision: "22222222-2222-4222-8222-222222222222",
+    sections: { story: { text: "A contractor took a $3,000 deposit and never did the work, in August 2026.", location: { province: "Ontario", city: "Sudbury" } }, builder: { step: "form" } } };
+  const registered = structuredClone(base); registered.sections["small-claims"] = { input: { yourRole: "", caseStage: "starting-case", goal: "" } };
+  assert.equal(existingFactChanged(base, registered), false, "a field getting its first value is not a changed answer");
+  const changed = structuredClone(registered); (changed.sections.story as Record<string, unknown>).text = "A different story.";
+  assert.equal(existingFactChanged(registered, changed), true, "a changed story is a changed answer");
+  const removed = structuredClone(registered); (removed.sections["small-claims"].input as Record<string, unknown>).caseStage = "";
+  assert.equal(existingFactChanged(registered, removed), true, "a removed answer is a changed answer");
+  // Month and year, and the side of someone telling a story about money they paid.
+  const suggested = suggestInitialAnswers(base);
+  assert.equal(suggested["sc-orient-when-happened"], "August 2026");
+  assert.equal(suggested["sc-orient-role"], "Bringing the claim (plaintiff)");
+  // Family: the story and the Timeline's served date count as answered; choices read in the form's words.
+  const family: Checkpoint = { version: 1, flowId: "11111111-1111-4111-8111-111111111111", courtPath: "family", revision: "22222222-2222-4222-8222-222222222222",
+    sections: { story: { text: "We were never married. I was served with her Application on October 9, 2026.", location: { province: "Ontario", city: "Ottawa" } }, family: { yourRole: "respondent", filedDocuments: ["application"], timeline: `${SERVED_LINE}2026-10-09` } } };
+  const missing = remainingEssentialQuestions(family, true).map(question => question.id);
+  assert(!missing.includes("facts"), "the story answers 'In your own words'");
+  assert(!missing.includes("servedDate"), "the Timeline's served date answers 'What day were you served'");
+  const entries = reviewEntries(family);
+  assert.equal(entries.find(entry => entry.field === "yourRole")?.choices?.find(choice => choice.value === "respondent")?.label, "The other person started it and I was served");
+  assert(entries.find(entry => entry.field === "filedDocuments")?.choices?.some(choice => choice.value === "application"), "filed documents carry their words");
+  console.log("PASS defaults are not edits; month suggestions; Family reads the story and its choices in words");
 }

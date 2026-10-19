@@ -197,6 +197,27 @@ export default function GuidedFormChat({
     setChanging(null);
   }
 
+  /*
+   * ONE SENTENCE, ONE CONFIRMATION. "I was served with her Application on October
+   * 9, 2026" answers your side, what has been filed and the day you were served;
+   * asking "Is that right?" three times about the same sentence read as not
+   * listening (PR #463 re-test, 2026-10-18). Pending questions the same sentence
+   * answers are offered together; "Yes" records each, "No" asks this one plainly.
+   */
+  function storyGroup(quote: string) {
+    return pending.flatMap((field) => {
+      if (notFromStory.has(field.key)) return [];
+      const offer = field.fromStory?.(values) ?? null;
+      return offer && offer.quote === quote && !answerNeedsMore(field, offer.value) ? [{ field, offer }] : [];
+    });
+  }
+  function acceptGroup(group: { field: GuidedField; offer: { value: string | string[] } }[]) {
+    for (const { field, offer } of group) onAnswer(field.key, offer.value);
+    setHeard((now) => [...now, ...group.map(({ field, offer }) => ({ question: heardAs(field, true), reply: acknowledgement(field, offer.value) }))]);
+    setDraft("");
+    setChanging(null);
+  }
+
   const known = fields.filter((field) => knownAtStart.includes(field.key) && isAnswered(field, values[field.key]));
 
   return (
@@ -247,12 +268,14 @@ export default function GuidedFormChat({
           {(() => {
             const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
             if (!offered || answerNeedsMore(current, offered.value)) return null;
-            const shown = (Array.isArray(offered.value) ? offered.value : [offered.value])
-              .map((item) => current.options?.find((option) => option.value === item)?.label ?? item)
+            const words = (field: GuidedField, value: string | string[]) => (Array.isArray(value) ? value : [value])
+              .map((item) => field.options?.find((option) => option.value === item)?.label ?? item)
               .join("; ");
+            const together = storyGroup(offered.quote);
+            const group = together.some(({ field }) => field.key === current.key) ? together : [{ field: current, offer: offered }];
             return (
-              <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)}>
-                <p className="font-semibold text-[#10231f]">{current.label}: {cutAtWord(shown, 160)}</p>
+              <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)} data-group={group.map(({ field }) => field.key).join(" ")}>
+                {group.map(({ field, offer }) => <p key={field.key} className="font-semibold text-[#10231f]">{field.label}: {cutAtWord(words(field, offer.value), 160)}</p>)}
                 <p className="mt-1 text-sm text-[#4d675f]">
                   From what you told us: &ldquo;{cutAtWord(offered.quote, 200)}&rdquo; Is that right?
                 </p>
@@ -260,7 +283,7 @@ export default function GuidedFormChat({
                   <button
                     type="button"
                     data-testid="guided-form-from-story-yes"
-                    onClick={() => answer(offered.value, true)}
+                    onClick={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
                   >
                     Yes, that&apos;s right

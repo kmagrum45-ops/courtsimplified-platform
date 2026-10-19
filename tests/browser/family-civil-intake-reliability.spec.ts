@@ -174,3 +174,31 @@ for (const court of ["family", "civil"] as const) {
     expect(analysisCalls).toBe(0);
   });
 }
+
+// Site owner, 2026-10-18: when the AI safety check fails for a signed-in Family user,
+// guidance is not blocked, but the fixed safety and help resources come first.
+// Civil keeps its behaviour (no notice).
+for (const court of ["family", "civil"] as const) {
+  test(`${court}: a safety check that cannot run ${court === "family" ? "puts the safety resources before the guidance" : "changes nothing on the results page"}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    await fakeAccount(page);
+    await page.route("**/api/**", (route) => route.fulfill({ json: { ok: true, questions: [], passageIds: [] } }));
+    await page.route("**/api/intake/safety-check", (route) => route.fulfill({ status: 503, json: { ok: false, error: "Synthetic: the safety check is not available." } }));
+    await page.route(`**/api/${court}/analyze`, async (route) => route.fulfill({ json: await canonicalReply(route, court) }));
+    await openBuilder(page, court, { story: ORIGINAL });
+    await page.getByTestId("guided-form-show-form").click();
+    await confirmInitialInformation(page);
+    await page.getByTestId(`${court}-intake-continue`).click();
+    await expect(page).toHaveURL(/step=results/, { timeout: 60_000 });
+    const notice = page.getByTestId("safety-check-unavailable");
+    if (court === "family") {
+      await expect(notice).toContainText("Our safety check could not run just now");
+      const noticeTop = (await notice.boundingBox())!.y;
+      const guidance = page.getByTestId("stage-answer-panel").or(page.getByRole("heading", { name: "A few questions about your situation" })).first();
+      await expect(guidance).toBeVisible({ timeout: 60_000 });
+      expect(noticeTop, "the resources come before the guidance").toBeLessThan((await guidance.boundingBox())!.y);
+    } else {
+      await expect(notice).toHaveCount(0);
+    }
+  });
+}

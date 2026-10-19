@@ -85,9 +85,11 @@ function stageLine(record: CaseRecord): string {
   const position = readCasePosition(record.master_result, record.court_path);
   const stage = settledStage(position);
   if (stage) {
-    return getStageLabel(stage) || "Stage confirmed";
+    return `Court stage: ${getStageLabel(stage) || "confirmed"}`;
   }
-  return "Where the case is: not confirmed yet";
+  // The court stage, not the intake: "Where the case is" read as the intake not
+  // being confirmed right after confirming it (re-test 2026-10-18).
+  return "Court stage: not confirmed yet";
 }
 
 function CaseCard({ record, highlighted, reminder }: { record: CaseRecord; highlighted?: boolean; reminder?: CountedDateReminder }) {

@@ -1,5 +1,5 @@
 /** Intake answers and explicit review transitions on the existing owned case record. */
-import { inputRevision, materialInitialFacts, reconcileReview, transitionReview } from "./intakeReview";
+import { existingFactChanged, inputRevision, reconcileReview, transitionReview } from "./intakeReview";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { updateMasterResult } from "./updateCaseRecord";
 import { CASE_REQUEST_TIMEOUT_MS, runCaseWrite } from "../../../app/builder/_components/positionSave";
@@ -87,8 +87,14 @@ export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, sn
     const previous = readCheckpoint(master.intakeCheckpoint, snapshot.courtPath, caseId);
     const workflow = record(master.workflowStatus);
     const proof = record(workflow.intakeReview);
-    const materialDifference = Boolean(previous && materialInitialFacts(previous) !== materialInitialFacts(snapshot));
-    const mustRenew = materialDifference && Boolean(proof.reviewedRevision || proof.confirmedRevision) && previous && inputRevision(previous) === inputRevision(snapshot);
+    /*
+     * A safety net for a caller that changes the facts without a new input revision.
+     * It counts only a changed or removed answer, never a field getting its first
+     * value: a form registering its defaults (an empty field, a stage read from the
+     * story) cancelled the confirmation on the first "Show my next step" (re-test
+     * 2026-10-18).
+     */
+    const mustRenew = Boolean(previous && (proof.reviewedRevision || proof.confirmedRevision) && inputRevision(previous) === inputRevision(snapshot) && existingFactChanged(previous, snapshot));
     const committed = mustRenew ? { ...snapshot, inputRevision: snapshot.revision } : snapshot;
     const changed = materialEdited || Boolean(previous && inputRevision(previous) !== inputRevision(committed));
     return { ...master, intakeCheckpoint: committed, ...(changed ? { workflowStatus: reconcileReview(workflow, previous ?? snapshot, committed, fromReview) } : {}) };

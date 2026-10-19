@@ -205,6 +205,12 @@ jobs:
       - name: Intake coverage verification
         run: npm run test:intake-coverage
 
+      - name: Family story reading (a denied court order is not an existing order)
+        run: npm run test:family-story-reading
+
+      - name: A guest intake carries into an account only when the guest asks
+        run: npm run test:guest-carry
+
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
 

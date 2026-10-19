@@ -38,6 +38,8 @@ export type ClientSafetyResult = {
    * safetyPass.ts. Never model-generated text.
    */
   userMessage?: string;
+  /** The check did not run (service down, refused, network). The result still reads as clear; a caller that must act on the failure can. */
+  failed?: boolean;
 };
 
 type SafetyCheckResponse = {
@@ -73,7 +75,7 @@ export async function runClientSafetyCheck(
     });
 
     const json: SafetyCheckResponse | null = await response.json().catch(() => null);
-    if (!response.ok || !json?.ok) return CLEAR;
+    if (!response.ok || !json?.ok) return { ...CLEAR, failed: true };
 
     const classification =
       json.classification === "immediate-danger" || json.classification === "distress"
@@ -86,6 +88,6 @@ export async function runClientSafetyCheck(
       userMessage: typeof json.userMessage === "string" ? json.userMessage : undefined,
     };
   } catch {
-    return CLEAR;
+    return { ...CLEAR, failed: true };
   }
 }

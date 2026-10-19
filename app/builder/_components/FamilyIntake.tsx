@@ -34,7 +34,7 @@ import {
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
-import { familyGuidedFields, familyTimelineAnswer, familyTimelineValues } from "./guidedFields";
+import { FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, familyGuidedFields, familyTimelineAnswer, familyTimelineValues } from "./guidedFields";
 import { chatClosingFor } from "./motionToChange";
 import { existingFamilyOrder, respondingInFamilyStory } from "./FamilyStatusTriage";
 import type { PersonAnswers } from "./stageFromAnswers";
@@ -157,34 +157,9 @@ type TextareaField = {
   placeholder: string;
 };
 
-const filedOptions: { value: FiledDocument; label: string }[] = [
-  // Was "Application already filed / served", which did not say by whom, and
-  // whose word "served" made the role guesser call an applicant a respondent.
-  { value: "application", label: "Application filed (by either person)" },
-  { value: "answer", label: "Answer / response already filed" },
-  { value: "financial-statement", label: "Financial statement already completed" },
-  { value: "affidavit", label: "Affidavit already prepared" },
-  { value: "motion-materials", label: "Motion materials already filed" },
-  { value: "conference-brief", label: "Conference brief already filed" },
-  { value: "order-agreement", label: "Existing court order or agreement" },
-  { value: "nothing", label: "Nothing filed yet" },
-  { value: "not-sure", label: "Not sure" },
-];
+const filedOptions = FAMILY_FILED_OPTIONS as { value: FiledDocument; label: string }[];
 
-const issueOptions: { value: FamilyIssue; label: string }[] = [
-  { value: "decision-making-responsibility", label: "Decision-making responsibility / custody" },
-  { value: "parenting-time", label: "Parenting time / access" },
-  { value: "child-support", label: "Child support" },
-  { value: "spousal-support", label: "Spousal support" },
-  { value: "property-division", label: "Property / equalization" },
-  { value: "matrimonial-home", label: "Matrimonial home / exclusive possession" },
-  { value: "safety-concerns", label: "Safety concerns" },
-  { value: "relocation", label: "Relocation / moving with child" },
-  { value: "disclosure", label: "Disclosure problems" },
-  { value: "enforcement", label: "Enforcement / arrears" },
-  { value: "adoption", label: "Adoption — step-parent, relative, or adult adoption" },
-  { value: "other", label: "Other family issue" },
-];
+const issueOptions = FAMILY_ISSUE_OPTIONS as { value: FamilyIssue; label: string }[];
 
 const evidenceCategoryOptions = [
   "Parenting / decision-making",
@@ -388,6 +363,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [authRequired, setAuthRequired] = useState(false);
+  // Family: a safety check that could not run puts the safety resources before the guidance (2026-10-18).
+  const [, setSafetyUnavailable] = useIntakeState("safety", "checkUnavailable", false, true);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
   const requestScope = JSON.stringify([caseStage, yourRole, filedDocuments, issues, yourName, otherParty, childrenInfo, currentLivingSituation, pastLivingHistory, facts, timeline, evidence, missingEvidence, goal, urgent, safetyConcerns, propertyHomeDetails, upcomingCourtDate, adoptionDetails, uploadedEvidenceFiles]);
@@ -685,7 +662,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       setSafetyClassification(safety.classification);
       setSafetyMessage(safety.userMessage || "");
       setAsksForAdvice(safety.requestsLegalAdvice);
+      setSafetyUnavailable(Boolean(safety.failed));
     } catch {
+      setSafetyUnavailable(true);
       if (signal.aborted) return;
       // Fails open, same as the helper itself. A classifier fault must never
       // stop someone reaching their own case.

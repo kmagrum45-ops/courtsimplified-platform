@@ -1,7 +1,7 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
-import { familyGuidedFields, civilGuidedFields, pendingFields } from "../../../app/builder/_components/guidedFields";
+import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 
@@ -9,7 +9,9 @@ type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
 const OPTIONAL = new Set(["evidence", "missingEvidence", "uploadedEvidenceFiles", "uploadedFiles", "evidenceFiles", "evidenceText", "defenceEvidenceText"]);
 const UI = new Set(["mode", "editingStory", "personSet", "personDocuments"]);
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[] };
+const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
+const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
 const FIELD_LABELS: Record<string, string> = {
   adoptionDetails: "Adoption details", caseStage: "Case stage", currentLivingSituation: "Current living situation",
@@ -23,14 +25,14 @@ const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/
 export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   const { sections, courtPath } = checkpoint;
   const section = courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims";
-  const fields = courtPath === "family" ? familyGuidedFields({ issues: [], filed: [] }) : courtPath === "civil" ? civilGuidedFields({ issues: [], documents: [] }) : [];
+  const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
   const source = courtPath === "family" ? object(sections.family) : object(sections[section]?.input);
   const entries: ReviewEntry[] = [];
   const add = (area: string, key: string, value: unknown, nested?: string) => {
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key) });
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(definition?.options?.length ? { choices: definition.options } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -45,17 +47,41 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
 }
 
 /** UI navigation, research results and later evidence never masquerade as initial fact edits. */
-export function materialInitialFacts(checkpoint: Checkpoint): string {
+/** Each material fact, keyed by where it lives: the basis of materialInitialFacts. */
+function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   // Which Small Claims route is OPEN is navigation, not a fact: the answers of both
   // routes count, so choosing the other route never cancels a confirmation (re-test 2026-10-18).
   const onStep = (step: string): Checkpoint => ({ ...checkpoint, sections: { ...checkpoint.sections, builder: { ...checkpoint.sections.builder, step } } });
   const views = checkpoint.courtPath === "small-claims" ? [onStep("form"), onStep("guided")] : [checkpoint];
-  const seen = new Set<string>();
-  const entries = views.flatMap(view => reviewEntries(view)).filter(entry => !OPTIONAL.has(entry.field)).filter(entry => {
+  const facts = new Map<string, string>();
+  for (const entry of views.flatMap(view => reviewEntries(view))) {
+    if (OPTIONAL.has(entry.field)) continue;
+    // Unknown is not a fact: an empty field or "not sure" is the same as no answer.
+    if (entry.section !== STORY_SECTION && (entry.value === "" || entry.value === "not-sure" || (Array.isArray(entry.value) && entry.value.length === 0))) continue;
     const key = JSON.stringify([entry.section, entry.nested, entry.field]);
-    return !seen.has(key) && Boolean(seen.add(key));
-  });
-  return JSON.stringify({ initialAnswers: initialAnswersOf(checkpoint), home: { answers: checkpoint.sections.home?.understoodAnswers }, court: checkpoint.courtPath, story: storyOf(checkpoint.sections), location: locationOf(checkpoint.sections), answers: entries.map(entry => [entry.section, entry.nested, entry.field, entry.value]).sort((a, b) => String(a.slice(0, 3)).localeCompare(String(b.slice(0, 3)))) });
+    if (!facts.has(key)) facts.set(key, JSON.stringify(entry.value));
+  }
+  facts.set("court", JSON.stringify(checkpoint.courtPath));
+  for (const [question, answer] of Object.entries(initialAnswersOf(checkpoint))) facts.set(JSON.stringify(["initialAnswers", question]), JSON.stringify(answer));
+  const answers = checkpoint.sections.home?.understoodAnswers;
+  if (Array.isArray(answers) && answers.length) facts.set("home.understoodAnswers", JSON.stringify(answers));
+  return facts;
+}
+
+export function materialInitialFacts(checkpoint: Checkpoint): string {
+  return JSON.stringify([...materialFacts(checkpoint)].sort(([a], [b]) => a.localeCompare(b)));
+}
+
+/**
+ * True when an answer the person already had was changed or removed. A field that
+ * was empty getting its first value is not counted: that is how a form registers
+ * its defaults, and treating it as an edit cancelled the confirmation on the first
+ * "Show my next step" (re-test 2026-10-18).
+ */
+export function existingFactChanged(previous: Checkpoint, next: Checkpoint): boolean {
+  const after = materialFacts(next);
+  for (const [key, value] of materialFacts(previous)) if (after.get(key) !== value) return true;
+  return false;
 }
 
 export const inputRevision = (checkpoint: Checkpoint) => checkpoint.inputRevision ?? checkpoint.revision;
@@ -101,7 +127,11 @@ export function remainingEssentialQuestions(checkpoint: Checkpoint, includeUnkno
     const source = checkpoint.courtPath === "family" ? object(checkpoint.sections.family) : object(checkpoint.sections.civil?.input);
     const values: Record<string, string | string[] | undefined> = {};
     for (const [key, value] of Object.entries(source)) if (typeof value === "string" || Array.isArray(value) && value.every(item => typeof item === "string")) values[key] = value as string | string[];
-    const fields = checkpoint.courtPath === "family" ? familyGuidedFields({ issues: [], filed: [] }) : civilGuidedFields({ issues: [], documents: [] });
+    // The story lives in its own section, and Family keeps the served date in the
+    // Timeline: both count as answered (re-test 2026-10-18 listed them as missing).
+    values.facts = storyOf(checkpoint.sections);
+    if (checkpoint.courtPath === "family") Object.assign(values, familyTimelineValues(String(values.timeline ?? "")));
+    const fields = checkpoint.courtPath === "family" ? FAMILY_FIELDS() : CIVIL_FIELDS();
     const skipped = new Set(Array.isArray(checkpoint.sections["form-chat"]?.skipped) ? checkpoint.sections["form-chat"].skipped as string[] : []);
     return pendingFields(fields, values, skipped).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
   }
@@ -127,11 +157,14 @@ export function initialAnswersOf(checkpoint: Checkpoint): Record<string, string>
 const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 const SIDE_CUES: [RegExp, string][] = [
   [/\b(i was served|served me|sued me|suing me|claim against me|claimed against me|they are claiming|plaintiff's claim against)\b/i, "Responding to a claim (defendant)"],
-  [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return)\b/i, "Bringing the claim (plaintiff)"],
+  // The person telling a story about money they paid out is the one bringing the claim
+  // ("a contractor took a $3,000 deposit and never did the work", re-test 2026-10-18).
+  [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return|i paid|we paid|paid (him|her|them|a|an|the)|took (my|our|a|an|the)\b[^.]{0,30}\b(deposit|money|payment)|never (did|finished|completed|delivered|showed up|started))\b/i, "Bringing the claim (plaintiff)"],
 ];
 const CATEGORY_CUES: [RegExp, string][] = [
-  [/\bdeposit\b/i, "A deposit that wasn't returned"],
+  // A contractor's deposit is about the work, so this comes before "deposit".
   [/\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i, "Work or a service you paid for (e.g. a contractor)"],
+  [/\bdeposit\b/i, "A deposit that wasn't returned"],
   [/\b(loan\w*|lent|borrow\w*)\b/i, "A loan or debt"],
   [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
   [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
@@ -143,6 +176,8 @@ const CATEGORY_CUES: [RegExp, string][] = [
 ];
 const WRITTEN_DATE = new RegExp(String.raw`\b(${MONTHS.join("|")})\s+(\d{1,2}),?\s+(\d{4})\b`, "i");
 const ISO_DATE = /\b(\d{4})-(\d{2})-(\d{2})\b/;
+/** "August 2026": the question asks roughly when, so a month answers it. */
+const MONTH_YEAR = new RegExp(String.raw`\b(${MONTHS.join("|")})\s+(\d{4})\b`, "i");
 
 /**
  * Suggestions for the Small Claims initial questions, read from the story without
@@ -158,6 +193,9 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   if (date) {
     const [year, month, day] = /^\d{4}$/.test(date[1]) ? [date[1], date[2], date[3]] : [date[3], String(MONTHS.indexOf(date[1].toLowerCase()) + 1).padStart(2, "0"), date[2].padStart(2, "0")];
     out["sc-orient-when-happened"] = `${year}-${month}-${day}`;
+  } else {
+    const month = MONTH_YEAR.exec(story);
+    if (month) out["sc-orient-when-happened"] = `${month[1][0].toUpperCase()}${month[1].slice(1).toLowerCase()} ${month[2]}`;
   }
   const side = SIDE_CUES.find(([cue]) => cue.test(story));
   if (side) out["sc-orient-role"] = side[1];

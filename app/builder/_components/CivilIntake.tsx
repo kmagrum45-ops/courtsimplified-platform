@@ -7,7 +7,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
 
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
-import { civilGuidedFields } from "./guidedFields";
+import { CIVIL_DOCUMENT_OPTIONS, CIVIL_ISSUE_OPTIONS, civilGuidedFields } from "./guidedFields";
 import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
@@ -200,54 +200,9 @@ const defaultInput: CivilInput = {
   privacyRecordsFacts: "",
 };
 
-const issueOptions: { value: CivilIssue; label: string }[] = [
-  { value: "contract", label: "Contract / agreement dispute" },
-  { value: "negligence", label: "Negligence / harm / damages" },
-  { value: "institutional-negligence", label: "Institutional negligence / system failure" },
-  { value: "professional-negligence", label: "Professional negligence" },
-  { value: "human-rights", label: "Human Rights / discrimination" },
-  { value: "disability-accommodation", label: "Disability accommodation issue" },
-  { value: "employment-human-rights", label: "Employment discrimination / accommodation" },
-  { value: "housing-human-rights", label: "Housing discrimination" },
-  { value: "education-human-rights", label: "School / education discrimination" },
-  { value: "charter", label: "Charter / constitutional issue" },
-  { value: "government-public-authority", label: "Government / public authority conduct" },
-  { value: "police-conduct", label: "Police / law enforcement conduct" },
-  { value: "judicial-review", label: "Judicial review / review of decision" },
-  { value: "tribunal-overlap", label: "Tribunal and court overlap" },
-  { value: "defamation", label: "Defamation / reputational harm" },
-  { value: "privacy", label: "Privacy / records / disclosure issue" },
-  { value: "property", label: "Property / land / possession issue" },
-  { value: "debt", label: "Debt / money owed" },
-  { value: "employment", label: "Employment-related civil issue" },
-  { value: "fraud-misrepresentation", label: "Fraud / misrepresentation" },
-  { value: "intentional-tort", label: "Intentional harm / harassment / assault-related civil issue" },
-  { value: "injunction", label: "Injunction / urgent court order" },
-  { value: "estate", label: "Estate / probate / trust issue" },
-  { value: "motion", label: "Motion in an existing case" },
-  { value: "appeal", label: "Appeal / leave to appeal" },
-  { value: "enforcement", label: "Enforcement / collection after judgment" },
-  { value: "other", label: "Other civil issue" },
-];
+const issueOptions = CIVIL_ISSUE_OPTIONS as { value: CivilIssue; label: string }[];
 
-const documentOptions: { value: CivilDocument; label: string }[] = [
-  { value: "statement-claim", label: "Statement of Claim already filed / served" },
-  { value: "statement-defence", label: "Statement of Defence already filed / received" },
-  { value: "notice-application", label: "Notice of Application already filed / received" },
-  { value: "notice-motion", label: "Notice of Motion already filed / received" },
-  { value: "affidavit-service", label: "Affidavit of Service completed" },
-  { value: "affidavit", label: "Affidavit already prepared" },
-  { value: "tribunal-application", label: "Tribunal application already started" },
-  { value: "human-rights-application", label: "Human Rights application already started" },
-  { value: "judicial-review-materials", label: "Judicial review materials started" },
-  { value: "demand-letter", label: "Demand letter / warning letter sent" },
-  { value: "order", label: "Order already made" },
-  { value: "judgment", label: "Judgment already obtained" },
-  { value: "discovery", label: "Discovery / Affidavit of Documents started" },
-  { value: "trial-record", label: "Trial record / trial materials started" },
-  { value: "nothing", label: "Nothing filed yet" },
-  { value: "not-sure", label: "Not sure" },
-];
+const documentOptions = CIVIL_DOCUMENT_OPTIONS as { value: CivilDocument; label: string }[];
 
 function toggleArrayValue<T extends string>(items: T[], value: T): T[] {
   if (value === "nothing") return items.includes(value) ? [] : [value];

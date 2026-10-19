@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-155 documented, 27 without a header.
+157 documented, 27 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -58,6 +58,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
 | `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |
+| `npm run test:family-story-reading` | **Family story reading: a denied mention is not a mention.**<br>What it checks: existingFamilyOrder (which hides the "where to start a new case" rules behind "You told us there is already a court order") fires on a story that says there IS an order, and not on one that says there never was — "never married, never a court o |
 | `npm run test:fixed-regimes` | **Checks the routing rules fixed by law (src/lib/case-system/intelligence/**<br>fixedRegimes.ts, CLAUDE.md s. 2a): a construction lien goes to the Superior Court whatever the amount, and a claimed amount over $50,000 leaves Small Claims -- decided in code, winning over the keyword pass and the model. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
@@ -68,6 +69,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the law's own definitions verbatim. |
 | `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
+| `npm run test:guest-carry` | **A guest's intake carries into their account only when they ask for it.**<br>What it checks (carryGuestIntake, the login page's only way to keep a guest intake): the intake carries when "Sign in" was pressed from inside it in this tab, the sign-in returns to that same intake and court, and less than 30 minutes have passed. It does not  |
 | `npm run test:guided-form-chat` | **One question at a time for family and civil (GuidedFormChat, build order**<br>Step 2C, 2026-10-12). |
 | `npm run test:guided-stage-by-role` | **Guided intake must not hand a user the OTHER side's next steps.**<br>mapGuidedIntakeToSmallClaimsInput() picks the case stage, and the stage picks a next-step block (src/lib/content-library/nextSteps.ts) that is written for one side. Until 2026-09-27 the stage was inferred from filed documents alone, and the case-review batch c |
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |

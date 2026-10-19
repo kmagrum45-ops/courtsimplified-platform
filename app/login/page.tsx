@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { AuthError } from "@supabase/supabase-js";
 import { supabase } from "../../src/lib/supabase/client";
 import { readIntakeSession, writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
+import { carryGuestIntake } from "../../src/lib/case-system/guestCarry";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 
 /**
@@ -92,8 +93,13 @@ export default function LoginPage() {
         // turned off, `session` comes back null and the branch below tells the
         // user the truth for that configuration instead.
         if (data.session) {
-          resetIntakeInBrowser(); // a new account starts with nothing from this browser
-          router.push(afterSignIn());
+          // A new account starts with nothing from this browser, except the guest
+          // intake this person chose to bring with them (guestCarry.ts).
+          const destination = afterSignIn();
+          const carried = data.user ? carryGuestIntake(sessionStorage, destination, data.user.id) : null;
+          resetIntakeInBrowser();
+          if (carried) writeIntakeSession(sessionStorage, carried);
+          router.push(destination);
           return;
         }
 
@@ -119,8 +125,10 @@ export default function LoginPage() {
       const court = params.get("path");
       const flow = params.get("caseId") || params.get("intake");
       // Only this exact flow belonging to the authenticated owner survives cleanup.
-      const returning = data.user && flow && (court === "family" || court === "civil" || court === "small-claims")
-        ? readIntakeSession(sessionStorage, flow, data.user.id, court) : null;
+      const returning = (data.user && flow && (court === "family" || court === "civil" || court === "small-claims")
+        ? readIntakeSession(sessionStorage, flow, data.user.id, court) : null)
+        // Or the guest intake this person chose to bring into their account (guestCarry.ts).
+        ?? (data.user ? carryGuestIntake(sessionStorage, destination, data.user.id) : null);
       resetIntakeInBrowser();
       if (returning && !writeIntakeSession(sessionStorage, returning)) {
         setError("Signed in, but this tab could not retain pending text. Please return to your intake and copy it before retrying.");

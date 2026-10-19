@@ -83,3 +83,38 @@ test("small-claims guest: switching route keeps the confirmation; Show my next s
   await confirmed(page);
   expect(calls, "a guest's story never reaches analysis unchecked").toEqual([]);
 });
+
+// Re-test round 2: say up front that guidance needs a free account, and make the
+// sign-in link bring this intake along (the carry rules: verifyGuestCarry).
+test("guests are told up front, and signing in from the intake marks it to come along", async ({ page }) => {
+  test.setTimeout(240_000);
+  await grantSiteAccess(page);
+  await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
+  await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "family", confidence: 0.95 } }));
+  await page.goto("/?path=family");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await expect(page.getByText("To see your next steps, you will need a free account")).toBeVisible();
+  await page.getByLabel("City or municipality").fill("Sudbury");
+  await page.getByLabel("Tell us what happened in your own words").fill(STORY.family);
+  await page.getByRole("button", { name: "Continue to Family intake" }).click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  const flow = new URL(page.url()).searchParams.get("intake");
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await confirmInitialInformation(page);
+  // The "Before you start" step still showing: Show my next step says so instead of doing nothing.
+  if (await acknowledgement.isVisible()) {
+    await page.getByTestId("intake-continue-guidance").click();
+    await expect(page.getByTestId("intake-continue-waiting")).toContainText("Finish the step shown below first");
+    await acknowledgement.check();
+    await page.getByTestId("acknowledgement-continue").click();
+  }
+  await page.getByTestId("intake-continue-guidance").click();
+  await page.getByTestId("sign-in-for-safety-check").getByRole("link", { name: "Sign in or create a free account" }).click();
+  await page.waitForURL(/\/login\?next=/);
+  const next = new URL(page.url()).searchParams.get("next") ?? "";
+  expect(next, "sign-in returns to this intake").toContain(`intake=${flow}`);
+  const mark = await page.evaluate(() => JSON.parse(sessionStorage.getItem("courtSimplifiedGuestCarry") ?? "null"));
+  expect(mark?.flowId, "this intake, and only it, is marked to come along").toBe(flow);
+  const kept = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
+  expect(kept, "what the guest entered is still here for the login page to carry").toContain("parenting time");
+});

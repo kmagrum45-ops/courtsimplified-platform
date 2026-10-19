@@ -305,3 +305,82 @@ export function pendingFields(fields: readonly GuidedField[], values: GuidedValu
     (field) => field.initial !== false && (field.when ? field.when(values) : true) && !isAnswered(field, values[field.key]) && !skipped.has(field.key),
   );
 }
+
+/** The Family and Civil forms' choice lists: one copy, read by the forms and by the review (plain words, not stored values). */
+export const FAMILY_FILED_OPTIONS: GuidedChoice[] = [
+  // Was "Application already filed / served", which did not say by whom, and
+  // whose word "served" made the role guesser call an applicant a respondent.
+  { value: "application", label: "Application filed (by either person)" },
+  { value: "answer", label: "Answer / response already filed" },
+  { value: "financial-statement", label: "Financial statement already completed" },
+  { value: "affidavit", label: "Affidavit already prepared" },
+  { value: "motion-materials", label: "Motion materials already filed" },
+  { value: "conference-brief", label: "Conference brief already filed" },
+  { value: "order-agreement", label: "Existing court order or agreement" },
+  { value: "nothing", label: "Nothing filed yet" },
+  { value: "not-sure", label: "Not sure" },
+];
+
+export const FAMILY_ISSUE_OPTIONS: GuidedChoice[] = [
+  { value: "decision-making-responsibility", label: "Decision-making responsibility / custody" },
+  { value: "parenting-time", label: "Parenting time / access" },
+  { value: "child-support", label: "Child support" },
+  { value: "spousal-support", label: "Spousal support" },
+  { value: "property-division", label: "Property / equalization" },
+  { value: "matrimonial-home", label: "Matrimonial home / exclusive possession" },
+  { value: "safety-concerns", label: "Safety concerns" },
+  { value: "relocation", label: "Relocation / moving with child" },
+  { value: "disclosure", label: "Disclosure problems" },
+  { value: "enforcement", label: "Enforcement / arrears" },
+  { value: "adoption", label: "Adoption — step-parent, relative, or adult adoption" },
+  { value: "other", label: "Other family issue" },
+];
+
+export const CIVIL_ISSUE_OPTIONS: GuidedChoice[] = [
+  { value: "contract", label: "Contract / agreement dispute" },
+  { value: "negligence", label: "Negligence / harm / damages" },
+  { value: "institutional-negligence", label: "Institutional negligence / system failure" },
+  { value: "professional-negligence", label: "Professional negligence" },
+  { value: "human-rights", label: "Human Rights / discrimination" },
+  { value: "disability-accommodation", label: "Disability accommodation issue" },
+  { value: "employment-human-rights", label: "Employment discrimination / accommodation" },
+  { value: "housing-human-rights", label: "Housing discrimination" },
+  { value: "education-human-rights", label: "School / education discrimination" },
+  { value: "charter", label: "Charter / constitutional issue" },
+  { value: "government-public-authority", label: "Government / public authority conduct" },
+  { value: "police-conduct", label: "Police / law enforcement conduct" },
+  { value: "judicial-review", label: "Judicial review / review of decision" },
+  { value: "tribunal-overlap", label: "Tribunal and court overlap" },
+  { value: "defamation", label: "Defamation / reputational harm" },
+  { value: "privacy", label: "Privacy / records / disclosure issue" },
+  { value: "property", label: "Property / land / possession issue" },
+  { value: "debt", label: "Debt / money owed" },
+  { value: "employment", label: "Employment-related civil issue" },
+  { value: "fraud-misrepresentation", label: "Fraud / misrepresentation" },
+  { value: "intentional-tort", label: "Intentional harm / harassment / assault-related civil issue" },
+  { value: "injunction", label: "Injunction / urgent court order" },
+  { value: "estate", label: "Estate / probate / trust issue" },
+  { value: "motion", label: "Motion in an existing case" },
+  { value: "appeal", label: "Appeal / leave to appeal" },
+  { value: "enforcement", label: "Enforcement / collection after judgment" },
+  { value: "other", label: "Other civil issue" },
+];
+
+export const CIVIL_DOCUMENT_OPTIONS: GuidedChoice[] = [
+  { value: "statement-claim", label: "Statement of Claim already filed / served" },
+  { value: "statement-defence", label: "Statement of Defence already filed / received" },
+  { value: "notice-application", label: "Notice of Application already filed / received" },
+  { value: "notice-motion", label: "Notice of Motion already filed / received" },
+  { value: "affidavit-service", label: "Affidavit of Service completed" },
+  { value: "affidavit", label: "Affidavit already prepared" },
+  { value: "tribunal-application", label: "Tribunal application already started" },
+  { value: "human-rights-application", label: "Human Rights application already started" },
+  { value: "judicial-review-materials", label: "Judicial review materials started" },
+  { value: "demand-letter", label: "Demand letter / warning letter sent" },
+  { value: "order", label: "Order already made" },
+  { value: "judgment", label: "Judgment already obtained" },
+  { value: "discovery", label: "Discovery / Affidavit of Documents started" },
+  { value: "trial-record", label: "Trial record / trial materials started" },
+  { value: "nothing", label: "Nothing filed yet" },
+  { value: "not-sure", label: "Not sure" },
+];

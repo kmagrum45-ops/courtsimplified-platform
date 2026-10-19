@@ -13,6 +13,8 @@ import { canReview, initialAnswersOf, inputRevision, remainingEssentialQuestions
 /** A stored choice such as "not-sure" or "moving-party", shown in words. */
 const SLUG = /^[a-z]+(?:-[a-z]+)+$/;
 const words = (value: string) => SLUG.test(value) ? value.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase()) : value;
+/** A stored choice in the words the form shows ("respondent" reads as the form's own sentence). */
+const shown = (entry: ReviewEntry, value: string) => entry.choices?.find(choice => choice.value === value)?.label ?? words(value);
 const empty = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
 
 export default function IntakeReviewPanel() {
@@ -25,6 +27,8 @@ export default function IntakeReviewPanel() {
   // Opening a confirmed intake to look at it is not a change (re-test 2026-10-18).
   const [viewing, setViewing] = useState(false);
   const [dates, setDates] = useState<Record<string, string>>({});
+  // "Show my next step" with no intake on the page yet (the "Before you start" step is showing).
+  const [waiting, setWaiting] = useState(false);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
@@ -78,9 +82,9 @@ export default function IntakeReviewPanel() {
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         {entries.map(entry => <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
-          {Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {words(value)}</label>) : <span>Not recorded</span>}</div>
+          {Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
             : typeof entry.value === "boolean" ? <input aria-label={`Review: ${entry.label}`} type="checkbox" checked={entry.value} disabled={busy} onChange={event => edit(entry, event.target.checked)} />
-              : typeof entry.value === "string" && SLUG.test(entry.value) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{words(entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
+              : typeof entry.value === "string" && (entry.choices || SLUG.test(entry.value)) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{shown(entry, entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
                 : <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={String(entry.value)} disabled={busy} onChange={event => { if (typeof entry.value === "number") { if (event.target.value.trim() && Number.isFinite(Number(event.target.value))) edit(entry, Number(event.target.value)); } else edit(entry, event.target.value); }} />}
         </div>)}
       </div>
@@ -90,7 +94,7 @@ export default function IntakeReviewPanel() {
         return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id}>
           <p className="font-semibold">{question.label}</p>
           {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(checkpoint)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}{choice === suggested ? " (suggested from your story)" : ""}</button>)}</div>}
-          {bank?.answerType === "date" && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="date" aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? suggested ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} className="rounded border px-2 py-1" />{suggested && dates[question.id] === undefined && <span className="text-[#4d675f]">(suggested from your story; check it)</span>}<button type="button" disabled={busy || !(dates[question.id] ?? suggested)} onClick={() => answer(question.id, dates[question.id] ?? suggested ?? "")} className="rounded border px-3 py-1">Use this date</button></div>}
+          {bank?.answerType === "date" && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder="For example: August 2026, or 2026-08-15" aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? suggested ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} className="rounded border px-2 py-1" />{suggested && dates[question.id] === undefined && <span className="text-[#4d675f]">(suggested from your story; check it)</span>}<button type="button" disabled={busy || !(dates[question.id] ?? suggested)} onClick={() => answer(question.id, dates[question.id] ?? suggested ?? "")} className="rounded border px-3 py-1">Use this date</button></div>}
           <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(question.id)} disabled={busy} onChange={event => recovery.put("builder", "initialUnknowns", event.target.checked ? [...unknowns, question.id] : unknowns.filter(id => id !== question.id), true, false, true)} /> I do not know yet</label>
         </div>;
       })}</fieldset>}
@@ -102,7 +106,8 @@ export default function IntakeReviewPanel() {
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy} onClick={() => recovery.continueToGuidance()} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button></>}
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy} onClick={() => setWaiting(!recovery.continueToGuidance())} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button></>}
+    {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
     {error && <p role="alert">{error}</p>}
     {busy && <p role="status">Saving your review...</p>}
   </section>;

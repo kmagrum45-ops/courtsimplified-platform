@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
+import SafetyCheckUnavailable from "./_components/SafetyCheckUnavailable";
 import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 
 import { reviewPhase } from "../../src/lib/case-system/intakeReview";
@@ -371,6 +372,7 @@ function BuilderPageContent() {
   const [caseLocation, setConfirmedLocation] = useCaseLocation();
   const confirmedLocation = caseLocation?.city.trim() ? { province: "Ontario" as const, city: caseLocation.city } : null;
   const [homeStory, setHomeStory] = useStory();
+  const [safetyCheckUnavailable] = useIntakeState("safety", "checkUnavailable", false, true);
   // Ontario only, for now (CLAUDE.md: Ontario beta). See HomeLocationGate for the same fix.
   const intakeProvince = "Ontario";
   const [intakeCity, setIntakeCity] = useIntakeState("builder", "intakeCity", "");
@@ -2121,6 +2123,8 @@ function BuilderPageContent() {
           written by the familyStatus effect above, so nothing is lost by
           asking later.
         */}
+        {/* Before every Family question and step on the results page (2026-10-18). */}
+        {resultsVisible && courtPath === "family" && safetyCheckUnavailable && <SafetyCheckUnavailable />}
         {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (familyQuestionsDone || Boolean(queryCaseId)) && (
           <FamilyStatusTriage
             state={triageState}

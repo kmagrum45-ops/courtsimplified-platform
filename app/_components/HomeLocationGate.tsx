@@ -133,8 +133,18 @@ function HomeLocationGateContent() {
   const [checking, setChecking] = useState(false);
   const [requestError, setRequestError] = useState("");
   const requestRef = useRef(new IntakeRequest());
-  const [suggestion, setSuggestion] = useIntakeState<CourtPathSuggestion | null>("home", "suggestion", null);
-  const [understood, setUnderstood] = useIntakeState<UnderstandResponse | null>("home", "understood", null);
+  const [storedSuggestion, setSuggestion] = useIntakeState<CourtPathSuggestion | null>("home", "suggestion", null);
+  const [storedUnderstood, setUnderstood] = useIntakeState<UnderstandResponse | null>("home", "understood", null);
+  /*
+   * WHICH STORY THE READING WAS MADE FROM. A correction in the review changes the
+   * one story; Back then showed the reading of the OLD story as current (re-test
+   * 2026-10-18). A reading shows only while the story is the one it read.
+   */
+  const [readFrom, setReadFrom] = useIntakeState("home", "readFrom", "");
+  const readIsCurrent = readFrom === facts.trim();
+  const suggestion = readIsCurrent ? storedSuggestion : null;
+  const understood = readIsCurrent ? storedUnderstood : null;
+  const readingOutdated = !readIsCurrent && Boolean(storedSuggestion || storedUnderstood);
   const [understoodAnswers, setUnderstoodAnswers] = useIntakeState<{ question: string; answer: string }[]>("home", "understoodAnswers", []);
   const draftAnswersRef = useIntakeRef<{ question: string; answer: string }[]>("home", "draftAnswers", []);
   const cityRef = useRef<HTMLInputElement | null>(null);
@@ -272,6 +282,7 @@ function HomeLocationGateContent() {
       if (response.ok && typeof result.skipped === "string") return false;
       if (!response.ok || !result.understanding || !result.answer) throw new Error("Your update could not be processed. Your answers are still here; please try again.");
       setUnderstood({ understanding: result.understanding, answer: result.answer });
+      setReadFrom(facts.trim());
       setUnderstoodAnswers(answers);
       draftAnswersRef.current = [];
       return true;
@@ -354,6 +365,7 @@ function HomeLocationGateContent() {
         // must not hide the ones that belong in court.
         if (result.showSeveralMatters === true) {
           const noteIds = Array.isArray(result.crossForumNoteIds) ? result.crossForumNoteIds : [];
+          setReadFrom(facts.trim());
           setSuggestion({
             kind: "several-matters",
             issues: asIssues(result.matters),
@@ -366,12 +378,14 @@ function HomeLocationGateContent() {
         }
 
         if (outOfScope) {
+          setReadFrom(facts.trim());
           setSuggestion({ kind: "out-of-scope", ...outOfScope });
           setChecking(false);
           return;
         }
 
         if (suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR) {
+          setReadFrom(facts.trim());
           setSuggestion({
             kind: "switch-path",
             suggestedPath: suggested,
@@ -419,7 +433,7 @@ function HomeLocationGateContent() {
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabels[path]} intake</p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#10231f]">Confirm your location before starting this path</h1>
         {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : <div data-testid="court-path-location-gate-ready">
-          {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. Sign in when you want to save and return to this case.</p>}
+          {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. To see your next steps, you will need a free account, so a safety check can read your story first. What you enter now comes with you when you sign in from your case.</p>}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {/*
               Ontario only, for now: a single fixed option, not a real choice
@@ -444,6 +458,7 @@ function HomeLocationGateContent() {
               Continue with my description
             </button>
           )}
+          {readingOutdated && <p data-testid="reading-outdated" className="mt-5 rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4 text-sm text-[#5c4a14]">Your story has changed since it was last read, so the earlier reading is not shown. Continue to have the corrected story read.</p>}
           {understood && (
             <div ref={suggestionRef} tabIndex={-1}>
               <CaseUnderstandingCard

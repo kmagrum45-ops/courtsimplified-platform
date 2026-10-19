@@ -106,18 +106,8 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
 }
 
 /** The person's story says a family court order already exists. */
-export function existingFamilyOrder(story: string): boolean {
-  return /\b(?:court order|(?:final|support|custody|parenting) order|ordered (?:him |her |them |me )?to pay|motion to change|family responsibility office|\bFRO\b|order (?:from|says|made) )/i.test(story);
-}
-
-/**
- * The person was served with someone else's family case (2026-10-13,
- * walkthrough: a father served with an application read the rules about where
- * to START a case first). They answer in the court where it was started.
- */
-export function respondingInFamilyStory(story: string): boolean {
-  return /\b(?:(?:was|been|got|i was|they) served|served (?:me|with)|application (?:against|from)|respondent|filed (?:a case |an application )?against me|took me to court|taking me to court|answer (?:the|her|his|their) application)\b/i.test(story);
-}
+import { existingFamilyOrder, respondingInFamilyStory } from "../../../src/lib/case-system/familyStoryReading";
+export { existingFamilyOrder, respondingInFamilyStory };
 
 export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
   const review = useIntakeReviewView();
