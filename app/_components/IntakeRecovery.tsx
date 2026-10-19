@@ -9,7 +9,8 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
-import { guidedReadingOutdated, migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
+import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
+import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
 async function readAuthSession() {
@@ -31,6 +32,10 @@ type Recovery = {
   registerContinue: (key: ContinueKey, handler: () => void) => () => void;
   /** The review panel's Continue: runs the open route's guidance action. */
   continueToGuidance: () => boolean;
+  /** "Start the questions again": answers based on an earlier version of the story are emptied, in every area (storyBasis.ts). */
+  discardStaleAnswers: () => void;
+  /** "Go to the questions": opens this area's questions and scrolls to them. */
+  openQuestions: () => void;
   read: (section: string, key: string) => unknown;
   /** `fromReview`: an edit made in the review panel (see reconcileReview). */
   put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean) => void;
@@ -58,7 +63,7 @@ export function usePrepareCaseGuidance() {
     await recovery.flush();
     const view = recovery.getReview();
     // Every route's guidance passes here: none is built from questions that read an earlier story.
-    if (guidedReadingOutdated(view.checkpoint)) {
+    if (storyAnswersOutdated(view.checkpoint)) {
       document.querySelector('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" });
       return false;
     }
@@ -249,6 +254,27 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           return false;
         };
         const store: Recovery = {
+          discardStaleAnswers: () => {
+            if (!current()) return;
+            const fields = discardedFields(snapshot);
+            const next = { ...discardStale(snapshot), revision: crypto.randomUUID() };
+            if (materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next); }
+            snapshot = next;
+            for (const [section, key] of fields) fieldListeners.get(`${section}:${key}`)?.forEach(listener => listener());
+            emit();
+            dirty = true;
+            if (!cache()) failure("This tab could not retain your pending text. Copy it before leaving and retry saving.");
+            if (ownerId) { clearTimeout(timer); timer = setTimeout(() => { void flush().catch(() => {}); }, 400); }
+          },
+          openQuestions: () => {
+            if (court === "small-claims") {
+              const url = new URL(window.location.href);
+              url.searchParams.set("step", "guided");
+              window.history.pushState(null, "", `${url.pathname}?${url.searchParams}`);
+            } else store.put(court, "mode", "chat", false, true);
+            // After the questions have rendered: scroll to them.
+            window.setTimeout(() => [...document.querySelectorAll<HTMLElement>('[data-testid="questions-story-changed"], [data-testid="guided-reading-outdated"], [data-testid="guided-form-chat"]')].find((element) => element.offsetParent !== null)?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+          },
           registerContinue: (key, handler) => {
             continueHandlers.set(key, handler);
             // A Continue pressed before this route mounted (Small Claims chooser -> form) runs now.
@@ -257,7 +283,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           },
           continueToGuidance: () => {
             // Never a next step from questions that read an earlier story, on any route.
-            if (guidedReadingOutdated(snapshot)) return false;
+            if (storyAnswersOutdated(snapshot)) return false;
             if (court !== "small-claims") return runContinue(court);
             // The route on screen is the address bar's; the saved step lags behind Back/Forward.
             const step = new URL(window.location.href).searchParams.get("step");
@@ -300,12 +326,19 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (json === undefined) return;
             const encoded: unknown = JSON.parse(json);
             if (JSON.stringify(snapshot.sections[section]?.[key]) === JSON.stringify(encoded)) { invalid.delete(field); return; }
-            const next = { ...snapshot, revision: crypto.randomUUID(), sections: { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } } };
+            let sections: Checkpoint["sections"] = { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } };
+            // One record of which story each answer was based on (storyBasis.ts).
+            const storyChanged = field === STORY_TEXT_FIELD;
+            if (storyChanged) sections = onStoryChange(sections);
+            // Only what the person enters or confirms is an answer; a form registering its defaults is not.
+            if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);
+            const next = { ...snapshot, revision: crypto.randomUUID(), sections };
             if (touched && materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next, fromReview); }
             if (!readCheckpoint(next, court)) { invalid.add(field); dirty = true; emit(); failure("This intake is too large to save together. Nothing has been removed; copy your text before leaving."); return; }
             invalid.delete(field);
             snapshot = next;
             if (external) fieldListeners.get(field)?.forEach(listener => listener());
+            if (storyChanged) for (const cleared of ["home:understoodAnswers", "home:draftAnswers", "form-chat:drafts"]) fieldListeners.get(cleared)?.forEach(listener => listener());
             emit();
             if (touched) dirty = true;
             if (!cache()) failure("This tab could not retain your pending text. Copy it before leaving and retry saving.");

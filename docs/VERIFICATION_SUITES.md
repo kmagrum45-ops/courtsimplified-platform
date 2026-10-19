@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-158 documented, 27 without a header.
+159 documented, 27 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -147,6 +147,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
 | `npm run test:story-answers` | **What the person's story already answers is offered, not asked again**<br>(storyAnswers.ts, guidedFields.ts; walkthrough R2 and V2, 2026-10-13). |
+| `npm run test:story-basis` | **One record of which story version each story-derived answer was based on.**<br>What it checks (storyBasis.ts): an answer is tagged with the story version it was stored under; when the story changes, every older answer is stale in all three areas (Small Claims, civil, family): emptied in the view screens read, never shown as current, and  |
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |

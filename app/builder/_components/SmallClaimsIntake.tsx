@@ -1,6 +1,8 @@
 "use client";
 
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
+import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -695,6 +697,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   /** Step 6d: set when the safety pass reports the user asked for legal advice. */
   const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [authRequired, setAuthRequired] = useState(false);
+  // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
+  const storyChanged = useStoryAnswersOutdated();
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
@@ -978,12 +982,24 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           : "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
       );
     }
-      });
+      }, ANALYSIS_TIMEOUT_MS);
     } catch {
       setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
       setIsAnalyzing(false);
     }
+  }
+
+  // Answers based on an earlier version of the story are not shown or pre-filled anywhere in
+  // this form until the questions start again from the story (storyBasis.ts, re-test 2026-10-18).
+  if (storyChanged) {
+    return (
+      <section data-testid="sc-intake-story-changed" className="mt-6 rounded-3xl border border-[#d8e6df] bg-white p-6">
+        <h2 className="text-xl font-bold text-[#10231f]">Small Claims intake</h2>
+        <StoryChangedNotice where="questions" />
+        <button type="button" data-testid="sc-intake-analyze" disabled className="mt-4 rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">Continue to your next steps</button>
+      </section>
+    );
   }
 
   return (
@@ -1039,6 +1055,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           {analysisError}
         </div>
       )}
+      <AnalysisProgress reading={isAnalyzing} error={analysisError} onRetry={() => void handleAnalyze()} onStop={() => { analysisRequest.current.cancel(); setAnalysisError("Stopped. Your answers are still here; you can try again."); }} />
 
       {storageWarning && (
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
@@ -1540,11 +1557,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           type="button"
           data-testid="sc-intake-analyze"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || safetyHalted}
+          disabled={isAnalyzing || safetyHalted || storyChanged}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
         </button>
+        <StoryChangedNotice where="button" />
       </div>
     </section>
   );

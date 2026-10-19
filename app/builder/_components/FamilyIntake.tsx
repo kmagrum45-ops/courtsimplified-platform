@@ -1,6 +1,8 @@
 "use client";
 
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
+import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -363,6 +365,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [authRequired, setAuthRequired] = useState(false);
+  // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
+  const storyChanged = useStoryAnswersOutdated();
   // Family: a safety check that could not run puts the safety resources before the guidance (2026-10-18).
   const [, setSafetyUnavailable] = useIntakeState("safety", "checkUnavailable", false, true);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -806,7 +810,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           : "Family analysis could not be completed.",
       );
     }
-      });
+      }, ANALYSIS_TIMEOUT_MS);
     } catch {
       setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
@@ -844,6 +848,18 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       case "otherParty": setOtherParty(one); break;
       case "urgent": setUrgent(one); break;
     }
+  }
+
+  // Answers based on an earlier version of the story are not shown or pre-filled anywhere in
+  // this form until the questions start again from the story (storyBasis.ts, re-test 2026-10-18).
+  if (storyChanged) {
+    return (
+      <section data-testid="family-intake-story-changed" className="mt-6 rounded-3xl border border-[#d8e6df] bg-white p-6">
+        <h2 className="text-xl font-bold text-[#10231f]">Family intake</h2>
+        <StoryChangedNotice where="questions" />
+        <button type="button" data-testid="family-intake-continue" disabled className="mt-4 rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">Continue to your next steps</button>
+      </section>
+    );
   }
 
   return (
@@ -928,6 +944,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           {analysisError}
         </div>
       )}
+      <AnalysisProgress reading={isAnalyzing} error={analysisError} onRetry={() => void handleAnalyze()} onStop={() => { analysisRequest.current.cancel(); setAnalysisError("Stopped. Your answers are still here; you can try again."); }} />
 
       {extractedFacts.length > 0 && (
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
@@ -1315,17 +1332,18 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           </p>
         ) : null}
         {/* In the one-at-a-time view, its own Continue is the one to press. */}
-        {mode === "form" ? (
+        {mode === "form" ? (<>
         <button
           type="button"
           data-testid="family-intake-continue"
           onClick={handleAnalyze}
-          disabled={isAnalyzing}
+          disabled={isAnalyzing || storyChanged}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}
         </button>
-        ) : null}
+        <StoryChangedNotice where="button" />
+        </>) : null}
       </div>
     </section>
   );

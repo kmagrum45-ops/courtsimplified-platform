@@ -16,11 +16,20 @@
 
 export type StoryAnswer = { value: string; quote: string };
 
-function sentences(story: string): string[] {
-  return story
-    .split(/(?<=[.!?])\s+|\n+/)
-    .map((sentence) => sentence.trim())
-    .filter(Boolean);
+/*
+ * A full stop after one of these does not end a sentence: "I want Test Builder
+ * Ltd. to finish the work" was cut at "Ltd." (PR #463 re-test, 2026-10-18).
+ */
+const ABBREVIATIONS = /\b(?:ltd|inc|corp|co|llc|llp|mr|mrs|ms|dr|st|ave|rd|no|jr|sr|vs|etc|e\.g|i\.e|approx|apt)\.$/i;
+
+export function sentences(story: string): string[] {
+  const out: string[] = [];
+  for (const piece of story.split(/(?<=[.!?])\s+|\n+/)) {
+    const previous = out[out.length - 1];
+    if (previous !== undefined && ABBREVIATIONS.test(previous)) out[out.length - 1] = `${previous} ${piece.trim()}`;
+    else out.push(piece.trim());
+  }
+  return out.filter(Boolean);
 }
 
 /*
@@ -156,7 +165,7 @@ export function familyRoleFromStory(story: string): StoryAnswer | null {
   return roleFromStory(story, FAMILY_WANT_ORDER, { sued: "respondent", starting: "applicant" });
 }
 
-const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d+(?:\.\d+)?\s?k\b|\b\d{3,7}\s?dollars\b|\b(?:for|owe[sd]?|of|paid|lent|worth|costs?|claim(?:ing)?)\s+\$?\d{3,7}\b|\b\d{4,7}\b/gi;
+const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d+(?:\.\d+)?\s?k\b|\b\d{3,7}\s?dollars\b|\b(?:for|owe[sd]?|of|paid|lent|worth|costs?|claim(?:ing)?)\s+\$?(?:\d{1,3}(?:,\d{3})+|\d{3,7})(?:\.\d{2})?\b|\b\d{4,7}\b/gi;
 
 /** The first amount of money the story names ("75,000", "$5,200", "for 68000"); never a year. */
 export function amountFromStory(story: string): StoryAnswer | null {

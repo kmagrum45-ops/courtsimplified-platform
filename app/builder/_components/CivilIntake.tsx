@@ -1,6 +1,8 @@
 "use client";
 
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
+import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -561,6 +563,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [authRequired, setAuthRequired] = useState(false);
+  // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
+  const storyChanged = useStoryAnswersOutdated();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
   const requestScope = input;
@@ -847,7 +851,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         error instanceof Error ? error.message : "Civil analysis could not be completed.",
       );
     }
-      });
+      }, ANALYSIS_TIMEOUT_MS);
     } catch {
       setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
@@ -884,6 +888,18 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       case "otherParty": updateField("otherParty", one); break;
       case "urgent": updateField("urgent", one); break;
     }
+  }
+
+  // Answers based on an earlier version of the story are not shown or pre-filled anywhere in
+  // this form until the questions start again from the story (storyBasis.ts, re-test 2026-10-18).
+  if (storyChanged) {
+    return (
+      <section data-testid="civil-intake-story-changed" className="mt-6 rounded-3xl border border-[#d8e6df] bg-white p-6">
+        <h2 className="text-xl font-bold text-[#10231f]">Civil intake</h2>
+        <StoryChangedNotice where="questions" />
+        <button type="button" data-testid="civil-intake-continue" disabled className="mt-4 rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">Continue to your next steps</button>
+      </section>
+    );
   }
 
   return (
@@ -938,6 +954,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           {analysisError}
         </div>
       )}
+      <AnalysisProgress reading={isAnalyzing} error={analysisError} onRetry={() => void handleAnalyze()} onStop={() => { analysisRequest.current.cancel(); setAnalysisError("Stopped. Your answers are still here; you can try again."); }} />
 
       {extractedFacts.length > 0 && (
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
@@ -1284,17 +1301,18 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </p>
         ) : null}
         {/* In the one-at-a-time view, its own Continue is the one to press. */}
-        {mode === "form" ? (
+        {mode === "form" ? (<>
         <button
           type="button"
           data-testid="civil-intake-continue"
           onClick={handleAnalyze}
-          disabled={isAnalyzing}
+          disabled={isAnalyzing || storyChanged}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}
         </button>
-        ) : null}
+        <StoryChangedNotice where="button" />
+        </>) : null}
       </div>
     </section>
   );

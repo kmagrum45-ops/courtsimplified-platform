@@ -269,7 +269,7 @@ test("Small Claims: questions that read an earlier story block every route's nex
   const panel = page.getByTestId("intake-review");
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   const show = page.getByTestId("intake-continue-guidance");
-  const message = page.getByTestId("intake-questions-outdated");
+  const message = page.getByTestId("intake-review").getByTestId("story-changed-beside-button");
 
   // The route chooser.
   await expect(page.getByRole("button", { name: "Fill in the form yourself" })).toBeVisible();
@@ -277,17 +277,17 @@ test("Small Claims: questions that read an earlier story block every route's nex
   await expect(message, "the message sits beside the button").toContainText("Start the questions again from your story first");
   expect(Math.abs((await message.boundingBox())!.y - (await show.boundingBox())!.y), "next to the button, not further down").toBeLessThan(200);
 
-  // The form route, including its own Continue.
+  // The form route: its own Continue is disabled, with the message beside it.
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   await expect(show, "form: blocked").toBeDisabled();
-  await page.getByTestId("sc-intake-analyze").click();
-  await page.waitForTimeout(1500);
-  await expect(message).toBeVisible();
+  await expect(page.getByTestId("sc-intake-analyze"), "the form's own Continue is disabled").toBeDisabled();
+  await expect(page.getByTestId("sc-intake-story-changed")).toContainText("Start the questions again from my story");
 
   // The guided route.
   await page.goBack();
   await message.getByRole("button", { name: "Go to the questions" }).click();
   await expect(page.getByTestId("guided-reading-outdated")).toContainText("Your story has changed since it was last read");
+  await expect(page.getByTestId("guided-reading-outdated"), "Go to the questions scrolls to them").toBeInViewport({ timeout: 10_000 });
   await expect(show, "guided: blocked").toBeDisabled();
   expect(analysed, "no next step was built from the old reading").toBe(0);
 

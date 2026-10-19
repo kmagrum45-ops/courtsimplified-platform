@@ -67,6 +67,7 @@ import {
 } from "../../app/builder/_components/guidedFields";
 import {
   amountFromStory,
+  sentences,
   childrenFromStory,
   childrenPartialFromStory,
   civilRoleFromStory,
@@ -857,6 +858,18 @@ console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, 
   check("'our two girls' is filled in with its count", childrenPartialFromStory("our two girls live with me")?.prefill.trim() === "Two girls.");
   const childrenField = familyGuidedFields({ issues: [], filed: [] }).find((field) => field.key === "childrenInfo");
   check("the children question reads the partial answer from the story", Boolean(childrenField?.partialFromStory) && childrenField?.partialFromStory?.({ facts: FR })?.prefill.trim() === "One daughter.");
+}
+
+// PR #463 re-test (2026-10-18), civil: "$180,000" was read as "$180", and "I want
+// Test Builder Ltd. to finish the work" was cut at "Ltd.".
+{
+  const story = "I hired Test Builder Ltd. to build an addition. The contract was for $180,000. I want Test Builder Ltd. to finish the work or pay me back.";
+  check("'for $180,000' is $180,000, not $180", amountFromStory(story)?.value === "$180,000");
+  check("'paid 12,500' keeps its thousands", amountFromStory("We paid 12,500 for the roof.")?.value === "$12,500");
+  check("an amount with no commas is unchanged", amountFromStory("they owe me 4500")?.value === "$4,500");
+  check("'Ltd.' does not end the sentence", goalFromStory(story)?.value === "I want Test Builder Ltd. to finish the work or pay me back");
+  check("'Inc.' and 'Mr.' do not end a sentence either", sentences("Mr. Smith of Acme Inc. kept my deposit. Then he left.").length === 2);
+  check("an ordinary full stop still ends one", sentences("He left. I called him.").length === 2);
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

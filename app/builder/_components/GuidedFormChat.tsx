@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntakeState } from "../../_components/IntakeRecovery";
+import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 
 /**
  * ONE QUESTION AT A TIME, OVER THE COURT'S OWN FORM (build order Step 2C,
@@ -236,7 +237,19 @@ export default function GuidedFormChat({
     setChanging(null);
   }
 
+  // Answers based on an earlier version of the story (storyBasis.ts): not shown, not asked from.
+  const storyChanged = useStoryAnswersOutdated();
+
   const known = fields.filter((field) => knownAtStart.includes(field.key) && isAnswered(field, values[field.key]));
+
+  if (storyChanged) {
+    return (
+      <div data-testid="guided-form-chat" className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
+        <h3 className="text-lg font-bold text-[#10231f]">A few questions, one at a time</h3>
+        <StoryChangedNotice where="questions" />
+      </div>
+    );
+  }
 
   return (
     <div data-testid="guided-form-chat" className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">

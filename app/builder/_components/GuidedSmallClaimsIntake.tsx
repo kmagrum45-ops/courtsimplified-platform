@@ -1,6 +1,7 @@
 "use client";
 
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -883,7 +884,9 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
    * questions again from the story as it now is.
    */
   const [readFrom, setReadFrom] = useIntakeState("guided", "readFrom", "");
-  const readingOutdated = started && Boolean(readFrom.trim()) && readFrom.trim() !== story.trim();
+  // This conversation read an earlier story, or any answer anywhere was based on one (storyBasis.ts).
+  const storyAnswersChanged = useStoryAnswersOutdated();
+  const readingOutdated = (started && Boolean(readFrom.trim()) && readFrom.trim() !== story.trim()) || storyAnswersChanged;
   function startAgainFromStory() {
     setStarted(false); setMessages([]); setFacts({} as IntakeFacts); setAnsweredIds([]); setCurrentQuestion(null);
     setHalted(false); setIntakeComplete(false); setEvidenceGuidance(null); setClaimGuidance(null); setMatchedClaimType(null);
@@ -1330,7 +1333,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <div data-testid="guided-reading-outdated" className="text-sm text-[#5c4a14]">
             <p className="font-semibold">Your story has changed since it was last read.</p>
             <p className="mt-1">The answers read from your earlier story are set aside, so nothing here reflects the old version.</p>
-            <button type="button" onClick={startAgainFromStory} className="mt-3 rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white">Start the questions again from my story</button>
+            <button type="button" onClick={() => { startAgainFromStory(); recovery?.discardStaleAnswers(); }} className="mt-3 rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white">Start the questions again from my story</button>
           </div>
         ) : !started && showSavedStory && story.trim() ? (
           <div data-testid="guided-saved-story" className="text-sm">

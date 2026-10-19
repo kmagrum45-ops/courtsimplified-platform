@@ -1,5 +1,6 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
+import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { QUESTION_BANK } from "./intake/questionBank";
@@ -23,7 +24,9 @@ const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/
 
 /** A projection of existing answers, not another case model or question selector. */
 export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
-  const { sections, courtPath } = checkpoint;
+  // Answers based on an earlier version of the story are not shown as answers (storyBasis.ts).
+  const { courtPath } = checkpoint;
+  const sections = freshSections(checkpoint);
   const section = courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims";
   const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
   const source = courtPath === "family" ? object(sections.family) : object(sections[section]?.input);
@@ -128,7 +131,9 @@ export function canReview(checkpoint: Checkpoint): boolean {
 }
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
-export function remainingEssentialQuestions(checkpoint: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
+export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
+  // A question answered only for an earlier version of the story is asked again (storyBasis.ts).
+  const checkpoint: Checkpoint = { ...stored, sections: freshSections(stored) };
   const unknowns = new Set(Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : []);
   if (checkpoint.courtPath === "family" || checkpoint.courtPath === "civil") {
     const source = checkpoint.courtPath === "family" ? object(checkpoint.sections.family) : object(checkpoint.sections.civil?.input);

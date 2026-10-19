@@ -2,7 +2,8 @@
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
 import SafetyCheckUnavailable from "./_components/SafetyCheckUnavailable";
-import { confirmedLocationOf, guidedReadingOutdated, storyOf } from "../../src/lib/case-system/intakeStory";
+import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
+import { storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 
 import { reviewPhase } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "../_components/intakeRequest";
@@ -484,7 +485,7 @@ function BuilderPageContent() {
     // A conversation that read an earlier story gives no guidance, and no claim
     // type, for the corrected one (re-test 2026-10-18).
     const view = recovery?.getReview();
-    if (view && guidedReadingOutdated(view.checkpoint)) {
+    if (view && storyAnswersOutdated(view.checkpoint)) {
       setGuidedAnalysisError("Your story has changed since the questions read it. Start the questions again from your story first, so your next step comes from what you have now.");
       return;
     }

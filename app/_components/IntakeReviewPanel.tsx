@@ -7,7 +7,9 @@ import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMe
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { withServedDate } from "../builder/_components/guidedFields";
-import { guidedReadingOutdated, locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
+import { locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
+import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
+import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { canReview, initialAnswersOf, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 
@@ -49,12 +51,10 @@ export default function IntakeReviewPanel() {
   const legacy = workflowStatus.intakeCompleted === true && !workflowStatus.intakeReview;
   const showEntries = phase === "reviewing" || (phase === "user-confirmed" && viewing);
   // The guided questions read an earlier story: no next step from them, on any route.
-  const questionsOutdated = guidedReadingOutdated(checkpoint);
-  function openQuestions() {
-    const url = new URL(window.location.href);
-    url.searchParams.set("step", "guided");
-    window.history.pushState(null, "", `${url.pathname}?${url.searchParams}`);
-  }
+  // Answers based on an earlier version of the story, in any area (storyBasis.ts).
+  const questionsOutdated = storyAnswersOutdated(checkpoint);
+  const staleKeys = new Set(staleAnswerKeys(checkpoint));
+  const fresh = { ...checkpoint, sections: freshSections(checkpoint) };
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");
@@ -76,7 +76,7 @@ export default function IntakeReviewPanel() {
   /** The person's answer to an initial question; a chosen side also fills an empty side field in the form. */
   function answer(questionId: string, value: string) {
     if (!recovery) return;
-    recovery.put("builder", "initialAnswers", { ...initialAnswersOf(checkpoint), [questionId]: value }, true, false, true);
+    recovery.put("builder", "initialAnswers", { ...initialAnswersOf(fresh), [questionId]: value }, true, false, true);
     const input = recovery.read("small-claims", "input") as Record<string, unknown> | undefined;
     if (questionId === "sc-orient-role" && input && !["plaintiff", "defendant"].includes(String(input.yourRole))) {
       recovery.put("small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, true, true, true);
@@ -85,6 +85,7 @@ export default function IntakeReviewPanel() {
   const needs = [
     !canReview(checkpoint) && "your city and a description of what happened",
     remaining.length > 0 && `an answer, or "I do not know yet", for: ${remaining.map(question => question.label).join("; ")}`,
+    questionsOutdated && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
     acceptedRevision !== revision && "a tick in \"I have reviewed this information\"",
   ].filter(Boolean) as string[];
   return <section className="mx-auto my-4 max-w-6xl rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
@@ -100,6 +101,7 @@ export default function IntakeReviewPanel() {
         {entries.map(entry => <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
+          {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
             : typeof entry.value === "boolean" ? <input aria-label={`Review: ${entry.label}`} type="checkbox" checked={entry.value} disabled={busy} onChange={event => edit(entry, event.target.checked)} />
               : typeof entry.value === "string" && (entry.choices || SLUG.test(entry.value)) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{shown(entry, entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
@@ -112,7 +114,7 @@ export default function IntakeReviewPanel() {
         const suggested = suggestions[question.id];
         return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id}>
           <p className="font-semibold">{question.label}</p>
-          {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(checkpoint)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}{choice === suggested ? " (suggested from your story)" : ""}</button>)}</div>}
+          {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}{choice === suggested ? " (suggested from your story)" : ""}</button>)}</div>}
           {bank?.answerType === "date" && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder="For example: August 2026, or 2026-08-15" aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? suggested ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} className="rounded border px-2 py-1" />{suggested && dates[question.id] === undefined && <span className="text-[#4d675f]">(suggested from your story; check it)</span>}<button type="button" disabled={busy || !(dates[question.id] ?? suggested)} onClick={() => answer(question.id, dates[question.id] ?? suggested ?? "")} className="rounded border px-3 py-1">Use this date</button></div>}
           <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(question.id)} disabled={busy} onChange={event => recovery.put("builder", "initialUnknowns", event.target.checked ? [...unknowns, question.id] : unknowns.filter(id => id !== question.id), true, false, true)} /> I do not know yet</label>
         </div>;
@@ -122,14 +124,12 @@ export default function IntakeReviewPanel() {
         <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Confirm my initial information</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>
         {needs.length > 0 && <p data-testid="intake-confirm-needs" className="mt-2 text-sm text-[#4d675f]">Still needed before you can confirm: {needs.join("; ")}.</p>}
+        <StoryChangedNotice where="button" />
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
     {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated} onClick={() => setWaiting(!recovery.continueToGuidance())} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
-      {questionsOutdated && <div data-testid="intake-questions-outdated" role="status" className="mt-3 rounded-xl border border-[#ead9a7] bg-[#fffaf0] p-3 text-sm text-[#5c4a14]">
-        <p>Your story has changed since the questions read it. Start the questions again from your story first, so your next step comes from what you have now.</p>
-        <button type="button" onClick={openQuestions} className="mt-2 font-semibold text-[#2f7d67] underline">Go to the questions</button>
-      </div>}</>}
+      <StoryChangedNotice where="button" /></>}
     {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
     {error && <p role="alert">{error}</p>}
     {busy && <p role="status">Saving your review...</p>}
