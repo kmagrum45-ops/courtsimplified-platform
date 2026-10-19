@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-157 documented, 27 without a header.
+158 documented, 27 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -142,6 +142,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
 | `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |
 | `npm run test:stage-sequence` | **test:stage-sequence -- every step leads to the next by a rule**<br>(stage-map/stageSequence.ts, site owner 2026-10-12: "every step and every procedure is governed by the last"). |
+| `npm run test:statement-of-claim-text` | **The Form 7A step's claim sentence reads as a sentence.**<br>What it checks: StatementOfClaimSurface, rendered for a confirmed claim type, says 'Claims described as “<description>” generally involve …' — the description quoted, with a space on each side of it. |
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |

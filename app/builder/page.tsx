@@ -481,6 +481,12 @@ function BuilderPageContent() {
    */
   useContinueHandler("guided", () => {
     const saved = recovery?.getReview().checkpoint.sections.guided ?? {};
+    // A conversation that read an earlier story gives no guidance, and no claim
+    // type, for the corrected one (re-test 2026-10-18).
+    if (typeof saved.readFrom === "string" && saved.readFrom.trim() && saved.readFrom.trim() !== homeStory.trim()) {
+      setGuidedAnalysisError("Your story has changed since the questions read it. Start the questions again from your story first, so your next step comes from what you have now.");
+      return;
+    }
     void handleGuidedComplete({ facts: (saved.facts ?? {}) as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
   });
   useContinueHandler("choose", () => {

@@ -21,6 +21,8 @@ export type IntakeSession = {
   serverRevision: string | null;
   /** Guest-only mirror; authenticated workflowStatus lives on the case record. */
   workflowStatus?: Record<string, unknown>;
+  /** Signed in: something entered here has not reached the account yet. */
+  pending?: boolean;
   checkpoint: Checkpoint;
 };
 export type CheckpointRow = { id: string; user_id: string; court_path: string; current_stage?: string; master_result: Record<string, unknown> };

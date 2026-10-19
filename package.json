@@ -239,7 +239,8 @@
     "test:intake-review": "node --import tsx scripts/verification/verifyIntakeReview.ts",
     "test:intake-recovery": "node --import tsx scripts/verification/verifyIntakeRecovery.ts",
     "test:family-story-reading": "node --import tsx scripts/verification/verifyFamilyStoryReading.ts",
-    "test:guest-carry": "node --import tsx scripts/verification/verifyGuestCarry.ts"
+    "test:guest-carry": "node --import tsx scripts/verification/verifyGuestCarry.ts",
+    "test:statement-of-claim-text": "node --import tsx scripts/verification/verifyStatementOfClaimText.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

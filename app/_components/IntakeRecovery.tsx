@@ -90,7 +90,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   const [conflict, setConflict] = useState(false);
   const [attempt, setAttempt] = useState(0);
   // An unsaved intake in this tab that a new one would overwrite (re-test 2026-10-18).
-  const [unsaved, setUnsaved] = useState<{ court: IntakeCourt; flowId: string } | null>(null);
+  const [unsaved, setUnsaved] = useState<{ court: IntakeCourt; flowId: string; signedIn: boolean } | null>(null);
   const discardAllowed = useRef(false);
   const generation = useRef(0);
 
@@ -178,7 +178,9 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         let timer: ReturnType<typeof setTimeout> | undefined;
         let flight: Promise<void> | null = null;
         const invalid = new Set<string>();
-        const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : {}) });
+        // `pending`: something entered here has not reached the account (still saving,
+        // a failed save, or no case created yet). Default values a form writes are not.
+        const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : { pending: dirty || !caseId }) });
         const failure = (message: string) => { if (current()) { setFailed(true); setNotice(message); } };
         const flush = async (signal?: AbortSignal): Promise<void> => {
           signal?.throwIfAborted();
@@ -298,9 +300,9 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             snapshot = next;
             if (external) fieldListeners.get(field)?.forEach(listener => listener());
             emit();
+            if (touched) dirty = true;
             if (!cache()) failure("This tab could not retain your pending text. Copy it before leaving and retry saving.");
             if (!touched) return;
-            dirty = true;
             if (ownerId) {
               clearTimeout(timer);
               timer = setTimeout(() => { void flush().catch(() => {}); }, 400);
@@ -376,7 +378,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   const here = typeof window === "undefined" ? "/builder" : `${window.location.pathname}${window.location.search}`;
   if (unsaved) return <div className="mx-auto max-w-3xl px-6 py-8" role="alertdialog" aria-labelledby="unsaved-case-heading" data-testid="unsaved-case-warning">
     <h2 id="unsaved-case-heading" className="text-xl font-bold">You have an unsaved case in this tab</h2>
-    <p className="mt-2">Starting a new case here will discard what you have entered so far. It is not saved to an account{unsaved.court !== court ? `, and it is a ${unsaved.court === "small-claims" ? "Small Claims" : unsaved.court === "family" ? "Family" : "Civil"} case` : ""}.</p>
+    <p className="mt-2">Starting a new case here will discard what you have entered so far. {unsaved.signedIn ? "Some of it has not reached your account yet (it may still be saving, or a save did not go through); open it to save it" : "It is not saved to an account"}{unsaved.court !== court ? `, and it is a ${unsaved.court === "small-claims" ? "Small Claims" : unsaved.court === "family" ? "Family" : "Civil"} case` : ""}.</p>
     <div className="mt-4 flex flex-wrap gap-3">
       <a data-testid="unsaved-case-keep" className="rounded bg-[#2f7d67] px-4 py-2 text-white" href={`/builder?path=${unsaved.court}&intake=${unsaved.flowId}`}>Keep working on it</a>
       <button data-testid="unsaved-case-discard" type="button" className="rounded border px-4 py-2" onClick={() => { discardAllowed.current = true; setUnsaved(null); setAttempt((value) => value + 1); }}>Discard it and start a new case</button>
@@ -510,14 +512,16 @@ export function useContinueHandler(key: ContinueKey, handler: () => void) {
 }
 
 /** The intake this tab holds, when it has a story and is not saved to the account. */
-function readHeldIntake(ownerId: string | null): { court: IntakeCourt; flowId: string } | null {
+function readHeldIntake(ownerId: string | null): { court: IntakeCourt; flowId: string; signedIn: boolean } | null {
   try {
     const value = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));
     const checkpoint = record(value.checkpoint);
     const court = checkpoint.courtPath;
     if (value.version !== 2 || value.ownerId !== ownerId || (court !== "small-claims" && court !== "family" && court !== "civil") || !intakeId(checkpoint.flowId)) return null;
-    const saved = ownerId !== null && value.caseId !== null && value.serverRevision === checkpoint.revision;
+    // Signed in: held only when something entered has not reached the account. A
+    // version check alone counted a form writing its defaults as unsaved text.
+    const saved = ownerId !== null && (typeof value.pending === "boolean" ? !value.pending : value.caseId !== null && value.serverRevision === checkpoint.revision);
     const sections = record(checkpoint.sections) as Checkpoint["sections"];
-    return !saved && storyOf(migrateStory({ ...(checkpoint as Checkpoint), sections }).sections).trim() ? { court, flowId: checkpoint.flowId as string } : null;
+    return !saved && storyOf(migrateStory({ ...(checkpoint as Checkpoint), sections }).sections).trim() ? { court, flowId: checkpoint.flowId as string, signedIn: ownerId !== null } : null;
   } catch { return null; }
 }

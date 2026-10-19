@@ -210,7 +210,39 @@ test("Family: being served is not recorded as an application filed without its o
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   await expect(panel).toContainText("Day you were served");
   await expect(panel).toContainText("Your story says: “Synthetic story: I got served the papers last week.”");
-  await panel.getByRole("textbox", { name: "Review: Day you were served", exact: true }).fill("2026-10-11");
-  await expect(panel.getByRole("textbox", { name: "Review: Timeline", exact: true }), "the served date is kept in the Timeline").toHaveValue(/2026-10-11/);
+  // Typed key by key (re-test round 4: spaces vanished while typing; pasting kept them).
+  const served = panel.getByRole("textbox", { name: "Review: Day you were served", exact: true });
+  await served.click();
+  await served.pressSequentially("October 12, 2026", { delay: 30 });
+  await expect(served, "spaces survive typing").toHaveValue("October 12, 2026");
+  await served.press("Tab");
+  await expect(served).toHaveValue("October 12, 2026");
+  await expect(panel.getByRole("textbox", { name: "Review: Timeline", exact: true }), "the served date is kept in the Timeline, as typed").toHaveValue(/October 12, 2026/);
   expect(await panel.innerText()).not.toMatch(/Property \/ equalization|Matrimonial home \/ exclusive possession/);
+});
+
+// Re-test round 4: a signed-in person was told "You have an unsaved case in this tab
+// ... It is not saved to an account" for a case that was saved. Only text that has
+// really not reached the account may raise it.
+test("signed in: a saved case raises no unsaved-case warning; a failed save does", async ({ page }) => {
+  test.setTimeout(240_000);
+  const account = await fakeAccount(page);
+  await openBuilder(page, "small-claims");
+  await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+  await page.getByLabel("Case story", { exact: true }).fill(SC_STORY);
+  await expect.poll(() => JSON.stringify([...account.rows.values()])).toContain(SC_STORY);
+  await expect(page.getByTestId("intake-save-status")).toContainText("Intake saved to your account");
+  await page.goto("/builder?path=small-claims");
+  await expect(page.getByLabel("Province or territory"), "everything was saved: a new case starts, no warning").toBeVisible({ timeout: 60_000 });
+  await expect(page.getByTestId("unsaved-case-warning")).toHaveCount(0);
+  await openBuilder(page, "small-claims");
+
+  // Now text that cannot reach the account.
+  await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+  account.fail(true);
+  await page.getByLabel("Case story", { exact: true }).fill("Synthetic second story that could not be saved.");
+  await expect(page.getByTestId("intake-save-status")).toContainText(/could not be saved|not saved/i, { timeout: 30_000 });
+  page.on("dialog", (dialog) => void dialog.accept()); // the browser's own "leave this page?" for unsaved text
+  await page.goto("/builder?path=small-claims");
+  await expect(page.getByTestId("unsaved-case-warning")).toContainText("has not reached your account yet");
 });

@@ -211,6 +211,9 @@ jobs:
       - name: A guest intake carries into an account only when the guest asks
         run: npm run test:guest-carry
 
+      - name: The Form 7A claim sentence reads as a sentence
+        run: npm run test:statement-of-claim-text
+
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
 

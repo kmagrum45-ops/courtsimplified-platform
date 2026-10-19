@@ -30,6 +30,10 @@ export default function IntakeReviewPanel() {
   const [dates, setDates] = useState<Record<string, string>>({});
   // "Show my next step" with no intake on the page yet (the "Before you start" step is showing).
   const [waiting, setWaiting] = useState(false);
+  // The day of service is saved into a Timeline line, which trims it: typed key by key,
+  // "October 12" lost its spaces (re-test 2026-10-18). It is kept as typed here and
+  // saved, trimmed, when the person leaves the field.
+  const [servedDraft, setServedDraft] = useState<string | null>(null);
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
@@ -92,6 +96,7 @@ export default function IntakeReviewPanel() {
           {Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
             : typeof entry.value === "boolean" ? <input aria-label={`Review: ${entry.label}`} type="checkbox" checked={entry.value} disabled={busy} onChange={event => edit(entry, event.target.checked)} />
               : typeof entry.value === "string" && (entry.choices || SLUG.test(entry.value)) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{shown(entry, entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
+                : entry.section === "family" && entry.field === "servedDate" ? <input aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={servedDraft ?? String(entry.value)} disabled={busy} onChange={event => setServedDraft(event.target.value)} onBlur={() => { if (servedDraft !== null) { edit(entry, servedDraft.trim()); setServedDraft(null); } }} />
                 : <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={String(entry.value)} disabled={busy} onChange={event => { if (typeof entry.value === "number") { if (event.target.value.trim() && Number.isFinite(Number(event.target.value))) edit(entry, Number(event.target.value)); } else edit(entry, event.target.value); }} />}
         </div>)}
       </div>
