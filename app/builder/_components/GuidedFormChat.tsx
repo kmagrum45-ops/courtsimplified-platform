@@ -52,6 +52,12 @@ export type GuidedField = {
    */
   fromStory?: (values: GuidedValues) => { value: string | string[]; quote: string } | null;
   /**
+   * A reading that goes beyond the words (being served is read as an application
+   * having been filed): always its own "Is that right?", never folded into one
+   * confirmation with answers the sentence states outright (re-test 2026-10-18).
+   */
+  confirmAlone?: boolean;
+  /**
    * For a text answer the site cannot use as given, what to add, asked
    * before it is kept (review 2026-10-13: "october 6" for the day served was
    * kept with no year, and the step page then asked "Which year was that?").
@@ -205,11 +211,23 @@ export default function GuidedFormChat({
    * answers are offered together; "Yes" records each, "No" asks this one plainly.
    */
   function storyGroup(quote: string) {
-    return pending.flatMap((field) => {
-      if (notFromStory.has(field.key)) return [];
-      const offer = field.fromStory?.(values) ?? null;
-      return offer && offer.quote === quote && !answerNeedsMore(field, offer.value) ? [{ field, offer }] : [];
-    });
+    // Including a question the group itself makes due: accepting "I was served"
+    // as your side is what makes "what day were you served" a question at all.
+    const group: { field: GuidedField; offer: { value: string | string[]; quote: string } }[] = [];
+    const assumed: GuidedValues = { ...values };
+    for (let changed = true; changed;) {
+      changed = false;
+      for (const field of fields) {
+        if (group.some((item) => item.field.key === field.key) || notFromStory.has(field.key) || skipped.has(field.key) || field.confirmAlone) continue;
+        if ((field.when && !field.when(assumed)) || isAnswered(field, assumed[field.key])) continue;
+        const offer = field.fromStory?.(assumed) ?? null;
+        if (!offer || offer.quote !== quote || answerNeedsMore(field, offer.value)) continue;
+        group.push({ field, offer });
+        assumed[field.key] = offer.value;
+        changed = true;
+      }
+    }
+    return group;
   }
   function acceptGroup(group: { field: GuidedField; offer: { value: string | string[] } }[]) {
     for (const { field, offer } of group) onAnswer(field.key, offer.value);
@@ -271,7 +289,7 @@ export default function GuidedFormChat({
             const words = (field: GuidedField, value: string | string[]) => (Array.isArray(value) ? value : [value])
               .map((item) => field.options?.find((option) => option.value === item)?.label ?? item)
               .join("; ");
-            const together = storyGroup(offered.quote);
+            const together = current.confirmAlone ? [] : storyGroup(offered.quote);
             const group = together.some(({ field }) => field.key === current.key) ? together : [{ field: current, offer: offered }];
             return (
               <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)} data-group={group.map(({ field }) => field.key).join(" ")}>

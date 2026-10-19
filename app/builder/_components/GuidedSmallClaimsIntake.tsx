@@ -875,10 +875,33 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     }
   }
 
+  /*
+   * WHICH STORY THE CONVERSATION READ. A correction made in the review changes the
+   * one story; Back then showed this conversation's "Confirmed from my story"
+   * reading of the OLD story with no notice (re-test 2026-10-18). When the story
+   * has changed since, the old reading is set aside and the person can start the
+   * questions again from the story as it now is.
+   */
+  const [readFrom, setReadFrom] = useIntakeState("guided", "readFrom", "");
+  const readingOutdated = started && Boolean(readFrom.trim()) && readFrom.trim() !== story.trim();
+  function startAgainFromStory() {
+    setStarted(false); setMessages([]); setFacts({} as IntakeFacts); setAnsweredIds([]); setCurrentQuestion(null);
+    setHalted(false); setIntakeComplete(false); setEvidenceGuidance(null); setClaimGuidance(null); setMatchedClaimType(null);
+    setPendingSuggestion(null); setSuggestionStoryText(""); setRejectedSuggestionIds([]); setNoClaimTypeMatch(false);
+    setDepthQuestions([]); setDepthIndex(0); setDepthActive(false); setCompletionPayload(null); setHeldPayload(null);
+    setProposalDrafts(null); setProposalMode("intake"); setReproposed(false); setEarlierAnswers([]); setDeclinedIds([]);
+    setAnswerDraft(""); setReadFrom(""); setShowSavedStory(true);
+  }
+  // A saved story is shown as text with "Send" and "Edit", never hidden inside an
+  // empty-looking box that typing would add to (re-test 2026-10-18).
+  // Only a story that was already saved when this opened; one being typed stays in the box.
+  const [showSavedStory, setShowSavedStory] = useState(() => Boolean(story.trim()));
+
   function handleStorySubmit() {
     if (loading || turnRequest.current.pending || !inputText.trim()) return;
     setStarted(true);
     const story = inputText;
+    setReadFrom(story);
     storyRef.current = story;
     // The law that applies is researched while the guided questions run, so
     // its questions are ready when they end.
@@ -1303,7 +1326,22 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         </div>
       ) : null}
       <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4" style={{ minHeight: 220 }}>
-        {messages.length === 0 ? (
+        {readingOutdated ? (
+          <div data-testid="guided-reading-outdated" className="text-sm text-[#5c4a14]">
+            <p className="font-semibold">Your story has changed since it was last read.</p>
+            <p className="mt-1">The answers read from your earlier story are set aside, so nothing here reflects the old version.</p>
+            <button type="button" onClick={startAgainFromStory} className="mt-3 rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white">Start the questions again from my story</button>
+          </div>
+        ) : !started && showSavedStory && story.trim() ? (
+          <div data-testid="guided-saved-story" className="text-sm">
+            <p className="font-semibold text-[#16302b]">Your story</p>
+            <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button type="button" data-testid="guided-send-saved-story" disabled={loading} onClick={handleStorySubmit} className="rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white disabled:opacity-50">Send my story</button>
+              <button type="button" onClick={() => setShowSavedStory(false)} className="rounded-xl border border-[#d8e6df] px-4 py-2 font-semibold text-[#2f7d67]">Edit my story</button>
+            </div>
+          </div>
+        ) : messages.length === 0 ? (
           <p className="text-sm text-[#5a736a]">
             Describe what happened in your own words below to get started. CourtSimplified will ask
             follow-up questions one at a time.
@@ -1334,7 +1372,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         )}
       </div>
 
-      {!halted && proposalDrafts ? (
+      {!halted && !readingOutdated && proposalDrafts ? (
         <div
           data-testid="story-proposals"
           className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#16302b]"
@@ -1408,13 +1446,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         </div>
       ) : null}
 
-      {!halted && currentQuestion && !suggestionFirst ? (
+      {!halted && !readingOutdated && currentQuestion && !suggestionFirst ? (
         <QuestionHelp key={currentQuestion.id} question={currentQuestion} />
       ) : null}
 
       {/* After the story proposals, not beside them (page review, 2026-10-07:
           "What kind of dispute is this?" and this box asked at once). */}
-      {!halted && !proposalDrafts && pendingSuggestion ? (
+      {!halted && !readingOutdated && !proposalDrafts && pendingSuggestion ? (
         <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-[#4a3b12]">
           <p className="font-semibold text-[#3a2e0e]">
             This sounds like it may be about: {pendingSuggestion.claimTypeName} — is that right?
@@ -1492,7 +1530,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         so adding it here keeps the input area (and its "..." Send button)
         showing through the gap instead of a premature "complete" label.
       */}
-      {!halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
+      {readingOutdated || (!started && showSavedStory && story.trim()) ? null : !halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
         <div className="mt-4 flex gap-2">
           <textarea
             // Keyed to the question actually on screen, the same fix already

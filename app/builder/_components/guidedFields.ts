@@ -128,6 +128,7 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       label: "What has been filed",
       // "i got served the papers last week" answers this (walkthrough FR, 2026-10-13).
       fromStory: (values) => offeredFiled(familyFiledFromStory(storyOf(values)), options.filed),
+      confirmAlone: true,
       question: "Has anything been filed with the court or given to you yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
       kind: "multi",
@@ -226,6 +227,7 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       label: "What has been filed",
       // "i got served a statement of claim", "i want to sue the city" (walkthrough SW, 2026-10-13).
       fromStory: (values) => offeredFiled(civilFiledFromStory(storyOf(values)), options.documents),
+      confirmAlone: true,
       question: "Has anything been filed with the court or served yet?",
       why: "This tells us where your case is, so the next step we show is the right one.",
       kind: "multi",
@@ -326,8 +328,8 @@ export const FAMILY_ISSUE_OPTIONS: GuidedChoice[] = [
   { value: "parenting-time", label: "Parenting time / access" },
   { value: "child-support", label: "Child support" },
   { value: "spousal-support", label: "Spousal support" },
-  { value: "property-division", label: "Property / equalization" },
-  { value: "matrimonial-home", label: "Matrimonial home / exclusive possession" },
+  { value: "property-division", label: "Dividing property (equalization)" },
+  { value: "matrimonial-home", label: "Who lives in the family home (matrimonial home, exclusive possession)" },
   { value: "safety-concerns", label: "Safety concerns" },
   { value: "relocation", label: "Relocation / moving with child" },
   { value: "disclosure", label: "Disclosure problems" },

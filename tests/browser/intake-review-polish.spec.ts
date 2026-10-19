@@ -162,3 +162,55 @@ test("Family: one sentence that answers several questions is confirmed once", as
   await expect(page.getByTestId("guided-form-from-story").filter({ hasText: quote })).toHaveCount(0);
   await expect(page.getByText("You told us there is already a court order")).toHaveCount(0);
 });
+
+// Re-test round 3 (2026-10-18).
+test("Small Claims guided: a saved story shows as text with Send and Edit; an outdated reading is set aside", async ({ page }) => {
+  test.setTimeout(180_000);
+  await smallClaimsFromStart(page);
+  await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
+  const saved = page.getByTestId("guided-saved-story");
+  await expect(saved, "the saved story is visible, not hidden in an empty-looking box").toContainText(SC_STORY);
+  await expect(page.getByRole("textbox", { name: "Tell us what happened..." })).toHaveCount(0);
+  await saved.getByRole("button", { name: "Edit my story" }).click();
+  await expect(page.getByRole("textbox", { name: "Tell us what happened..." }), "editing shows the story itself").toHaveValue(SC_STORY);
+
+  // A conversation that read an earlier version of the story.
+  await page.evaluate(() => {
+    const value = JSON.parse(sessionStorage.getItem("courtSimplifiedGuestIntakeSession")!);
+    value.checkpoint.sections.guided = { ...value.checkpoint.sections.guided, started: true, intakeComplete: true, readFrom: "Synthetic EARLIER story that was read first.",
+      messages: [{ from: "user", text: "", isStory: true }, { from: "user", text: "Confirmed from my story:\n• Synthetic stale reading" }] };
+    value.checkpoint.revision = crypto.randomUUID();
+    sessionStorage.setItem("courtSimplifiedGuestIntakeSession", JSON.stringify(value));
+  });
+  await page.reload();
+  await expect(page.getByTestId("guided-reading-outdated")).toContainText("Your story has changed since it was last read");
+  await expect(page.getByText("Synthetic stale reading"), "the old reading is not listed").toHaveCount(0);
+  await page.getByRole("button", { name: "Start the questions again from my story" }).click();
+  await expect(page.getByTestId("guided-saved-story")).toContainText(SC_STORY);
+});
+
+test("Family: being served is not recorded as an application filed without its own question; the served date is in the review", async ({ page }) => {
+  test.setTimeout(180_000);
+  await openBuilder(page, "family", { story: "Synthetic story: I got served the papers last week. This is not a court order, just a separation." });
+  const offer = page.getByTestId("guided-form-from-story");
+  await expect(offer).toBeVisible({ timeout: 60_000 });
+  expect((await offer.getAttribute("data-group")) ?? "", "the filed reading is not folded into another confirmation").not.toMatch(/filedDocuments.+|.+filedDocuments/);
+  await page.getByTestId("guided-form-from-story-yes").click();
+  const filed = page.locator('[data-testid="guided-form-from-story"][data-group="filedDocuments"]');
+  // Pass over the questions the story does not answer ("What is the case about?") to reach it.
+  for (let step = 0; step < 4 && !(await filed.isVisible()); step++) {
+    const next = page.getByTestId("guided-form-next");
+    if (await next.isVisible()) await next.click();
+  }
+  await expect(filed, "'What has been filed' is asked on its own").toBeVisible();
+  await expect(filed).toContainText("Is that right?");
+
+  const panel = page.getByTestId("intake-review");
+  await page.getByTestId("intake-start-review").click();
+  await expect(panel).toHaveAttribute("data-phase", "reviewing");
+  await expect(panel).toContainText("Day you were served");
+  await expect(panel).toContainText("Your story says: “Synthetic story: I got served the papers last week.”");
+  await panel.getByRole("textbox", { name: "Review: Day you were served", exact: true }).fill("2026-10-11");
+  await expect(panel.getByRole("textbox", { name: "Review: Timeline", exact: true }), "the served date is kept in the Timeline").toHaveValue(/2026-10-11/);
+  expect(await panel.innerText()).not.toMatch(/Property \/ equalization|Matrimonial home \/ exclusive possession/);
+});

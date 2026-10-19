@@ -84,7 +84,9 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await question.fill(STORY);
     await expect.poll(() => JSON.stringify([...account.rows.values()])).toContain(STORY);
     await page.reload();
-    await expect(question).toHaveValue(STORY, { timeout: 60_000 });
+    // A story saved before the guided route opens is shown as text (with Send and Edit), not hidden in the box (2026-10-18).
+    if (court === "small-claims") await expect(page.getByTestId("guided-saved-story")).toContainText(STORY, { timeout: 60_000 });
+    else await expect(question).toHaveValue(STORY, { timeout: 60_000 });
     if (court !== "small-claims") {
       // Correcting an earlier answer in the form must not attach its unsent chat draft to a new question.
       await page.getByTestId("guided-form-show-form").click();

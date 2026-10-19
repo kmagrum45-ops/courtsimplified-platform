@@ -1,7 +1,7 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
-import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../../app/builder/_components/guidedFields";
+import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 
@@ -9,7 +9,7 @@ type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
 const OPTIONAL = new Set(["evidence", "missingEvidence", "uploadedEvidenceFiles", "uploadedFiles", "evidenceFiles", "evidenceText", "defenceEvidenceText"]);
 const UI = new Set(["mode", "editingStory", "personSet", "personDocuments"]);
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[] };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string };
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -40,6 +40,13 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     for (const [key, value] of Object.entries(object(sections.guided?.facts))) add("guided", key, value, "facts");
   } else {
     for (const [key, value] of Object.entries(source)) add(section, key, value, courtPath === "family" ? undefined : "input");
+  }
+  // Family keeps the day of service inside the Timeline; it is shown as its own line
+  // (re-test 2026-10-18: a confirmed "served last week" appeared nowhere in the review).
+  if (courtPath === "family" && (object(sections.family).yourRole === "respondent" || servedDateOf(String(object(sections.family).timeline ?? "")))) {
+    const served = servedDateOf(String(object(sections.family).timeline ?? ""));
+    const said = served ? undefined : storyOf(sections).split(/(?<=[.!?])\s+|\n+/).find(sentence => /\bserved\b/i.test(sentence))?.trim();
+    entries.push({ section: "family", field: "servedDate", label: "Day you were served", value: served, essential: true, ...(said ? { hint: `Your story says: “${said}”` } : {}) });
   }
   const location = locationOf(sections);
   if (location) entries.push({ section: STORY_SECTION, nested: "location", field: "city", label: "City", value: location.city, essential: true });

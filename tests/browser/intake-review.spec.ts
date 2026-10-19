@@ -27,6 +27,9 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
   await page.reload();
   await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+  // After a reload the saved story is shown as text; "Edit my story" opens it in the box (2026-10-18).
+  await expect(page.getByTestId("guided-saved-story")).toContainText(CORRECTION);
+  await page.getByRole("button", { name: "Edit my story" }).click();
   await expect(story).toHaveValue(CORRECTION);
   await story.fill(`${CORRECTION} Further change.`);
   await expect(panel).toHaveAttribute("data-phase", "collecting");

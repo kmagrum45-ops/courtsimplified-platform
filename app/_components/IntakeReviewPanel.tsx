@@ -6,6 +6,7 @@ import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMessages";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
+import { withServedDate } from "../builder/_components/guidedFields";
 import { locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { canReview, initialAnswersOf, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
@@ -53,6 +54,11 @@ export default function IntakeReviewPanel() {
   /** Edits made here are review edits: a confirmed intake goes back to reviewing, not to the start. */
   function edit(entry: ReviewEntry, value: ReviewEntry["value"]) {
     if (!recovery) return;
+    // The day of service lives in the Family Timeline, as the form keeps it.
+    if (entry.section === "family" && entry.field === "servedDate") {
+      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true);
+      return;
+    }
     if (entry.nested) recovery.put(entry.section, entry.nested, { ...(recovery.read(entry.section, entry.nested) as Record<string, unknown>), [entry.field]: value }, true, true, true);
     else recovery.put(entry.section, entry.field, value, true, true, true);
   }
@@ -82,6 +88,7 @@ export default function IntakeReviewPanel() {
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         {entries.map(entry => <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
+          {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
           {Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
             : typeof entry.value === "boolean" ? <input aria-label={`Review: ${entry.label}`} type="checkbox" checked={entry.value} disabled={busy} onChange={event => edit(entry, event.target.checked)} />
               : typeof entry.value === "string" && (entry.choices || SLUG.test(entry.value)) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{shown(entry, entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
