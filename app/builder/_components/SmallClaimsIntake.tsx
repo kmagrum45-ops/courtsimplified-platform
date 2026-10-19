@@ -1,6 +1,7 @@
 "use client";
 
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 
@@ -930,8 +931,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // §4, suggest never decide).
       const matched = hasText(input.facts) ? settledClaimTypeMatch(input.facts, CLAIM_TYPES) : null;
       const matchedClaimTypeId = matched?.claimType.id ?? null;
+      // Answers given in the review panel count here too, where the form left them empty
+      // (re-test round 7: after "start the questions again" they were the only answers).
+      const panel = recovery ? panelAnswerFacts(recovery.getReview().checkpoint) : {};
       const preparedInput: SmallClaimsIntelligenceInput = {
         ...input,
+        amountClaimed: input.amountClaimed || String(panel.amountClaimedText ?? ""),
+        goal: input.goal || String(panel.remedySoughtText ?? ""),
+        yourRole: input.yourRole === "plaintiff" || input.yourRole === "defendant" ? input.yourRole : (panel.role === "plaintiff" || panel.role === "defendant" ? panel.role : input.yourRole),
+        timeline: input.timeline || String(panel.timelineText ?? ""),
         caseStage: stage,
         issues: inferIssuesFromStory(input),
         filedDocuments:

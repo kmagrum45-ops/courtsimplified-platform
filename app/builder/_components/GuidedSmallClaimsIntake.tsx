@@ -887,14 +887,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // This conversation read an earlier story, or any answer anywhere was based on one (storyBasis.ts).
   const storyAnswersChanged = useStoryAnswersOutdated();
   const readingOutdated = (started && Boolean(readFrom.trim()) && readFrom.trim() !== story.trim()) || storyAnswersChanged;
+  // One restart for every route: the store resets this conversation with every stale answer.
   function startAgainFromStory() {
-    setStarted(false); setMessages([]); setFacts({} as IntakeFacts); setAnsweredIds([]); setCurrentQuestion(null);
-    setHalted(false); setIntakeComplete(false); setEvidenceGuidance(null); setClaimGuidance(null); setMatchedClaimType(null);
-    setPendingSuggestion(null); setSuggestionStoryText(""); setRejectedSuggestionIds([]); setNoClaimTypeMatch(false);
-    setDepthQuestions([]); setDepthIndex(0); setDepthActive(false); setCompletionPayload(null); setHeldPayload(null);
-    setProposalDrafts(null); setProposalMode("intake"); setReproposed(false); setEarlierAnswers([]); setDeclinedIds([]);
-    setAnswerDraft(""); setReadFrom(""); setShowSavedStory(true);
+    recovery?.discardStaleAnswers();
+    setShowSavedStory(true);
   }
+
   // A saved story is shown as text with "Send" and "Edit", never hidden inside an
   // empty-looking box that typing would add to (re-test 2026-10-18).
   // Only a story that was already saved when this opened; one being typed stays in the box.
@@ -1333,7 +1331,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <div data-testid="guided-reading-outdated" className="text-sm text-[#5c4a14]">
             <p className="font-semibold">Your story has changed since it was last read.</p>
             <p className="mt-1">The answers read from your earlier story are set aside, so nothing here reflects the old version.</p>
-            <button type="button" onClick={() => { startAgainFromStory(); recovery?.discardStaleAnswers(); }} className="mt-3 rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white">Start the questions again from my story</button>
+            <button type="button" onClick={startAgainFromStory} className="mt-3 rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white">Start the questions again from my story</button>
           </div>
         ) : !started && showSavedStory && story.trim() ? (
           <div data-testid="guided-saved-story" className="text-sm">

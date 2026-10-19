@@ -4,6 +4,7 @@ import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, use
 import SafetyCheckUnavailable from "./_components/SafetyCheckUnavailable";
 import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 import { storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
+import { panelAnswerFacts } from "../../src/lib/case-system/intakeReview";
 
 import { reviewPhase } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "../_components/intakeRequest";
@@ -489,7 +490,9 @@ function BuilderPageContent() {
       setGuidedAnalysisError("Your story has changed since the questions read it. Start the questions again from your story first, so your next step comes from what you have now.");
       return;
     }
-    void handleGuidedComplete({ facts: (saved.facts ?? {}) as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
+    // The review panel's answers are answers too (re-test round 7).
+    const panel = view ? panelAnswerFacts(view.checkpoint) : {};
+    void handleGuidedComplete({ facts: { ...panel, ...(saved.facts ?? {}) } as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
   });
   useContinueHandler("choose", () => {
     pushStep("form");

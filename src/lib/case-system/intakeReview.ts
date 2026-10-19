@@ -3,6 +3,7 @@ import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
 import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../../app/builder/_components/guidedFields";
+import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 
@@ -147,18 +148,56 @@ export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown =
     const skipped = new Set(Array.isArray(checkpoint.sections["form-chat"]?.skipped) ? checkpoint.sections["form-chat"].skipped as string[] : []);
     return pendingFields(fields, values, skipped).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
   }
-  const guided = checkpoint.sections.builder?.step === "guided";
+  const { facts, answered } = smallClaimsInitialAnswers(checkpoint);
+  return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial").map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
+}
+
+/** What an answer given in the review panel says as a fact, for the questions that depend on it. */
+const PANEL_FACT: Record<string, (answer: string) => IntakeFacts> = {
+  "sc-orient-role": answer => ({ role: /defendant|responding/i.test(answer) ? "defendant" : "plaintiff" }),
+  "sc-orient-dispute-category": answer => (/injury/i.test(answer) ? { disputeCategory: "personal-injury" } : {}),
+  "sc-claim-filed": answer => ({ claimFiled: /^yes/i.test(answer) }),
+  "sc-defendant-served": answer => ({ claimServed: /^yes/i.test(answer) }),
+  "sc-defence-filed": answer => ({ defenceFiled: /^yes/i.test(answer) }),
+  "sc-defendant-defence-filed": answer => ({ defenceFiled: /^yes/i.test(answer) }),
+};
+
+/** The facts the review panel's own answers stand for (a question's captured field, or its yes/no or choice). */
+export function panelAnswerFacts(checkpoint: Checkpoint): IntakeFacts {
+  const facts: IntakeFacts = {};
+  for (const [id, answer] of Object.entries(initialAnswersOf(checkpoint))) {
+    const question = QUESTION_BANK.find(item => item.id === id);
+    if (question?.capturesField && question.answerType !== "yes-no") facts[question.capturesField] = answer;
+    Object.assign(facts, PANEL_FACT[id]?.(answer) ?? {});
+  }
+  return facts;
+}
+
+/**
+ * Small Claims' initial questions, answered from every place an answer can be
+ * given: the guided questions, the form, and the review panel. One merged set,
+ * whichever route is open (re-test round 7: an answer given in the panel never
+ * reached the facts the next questions depend on, so "what you want", the
+ * amount and Form 7A were never asked, and the panel's own answers could not
+ * clear "Still needed").
+ */
+export function smallClaimsInitialAnswers(checkpoint: Checkpoint): { facts: IntakeFacts; answered: string[] } {
   const source = object(checkpoint.sections["small-claims"]?.input);
-  const facts = guided ? object(checkpoint.sections.guided?.facts) as IntakeFacts : Object.fromEntries(QUESTION_BANK.flatMap(question => {
+  const aliases: Record<string, string> = { role: "yourRole", remedySought: "goal", remedySoughtText: "goal", amountClaimedText: "amountClaimed", evidenceText: "evidence", timelineText: "timeline" };
+  const formFacts = Object.fromEntries(QUESTION_BANK.flatMap(question => {
     if (!question.capturesField) return [];
-    const aliases: Record<string, string> = { role: "yourRole", remedySought: "goal", evidenceText: "evidence", timelineText: "timeline" };
     const value = source[aliases[question.capturesField] ?? question.capturesField];
     return (typeof value === "string" && value.trim() && value !== "not-sure") || typeof value === "boolean" || typeof value === "number" ? [[question.capturesField, value]] : [];
   })) as IntakeFacts;
-  const base = guided && Array.isArray(checkpoint.sections.guided?.answeredIds) ? checkpoint.sections.guided.answeredIds as string[] : QUESTION_BANK.filter(question => question.capturesField && facts[question.capturesField] !== undefined).map(question => question.id);
-  // Answers given in the review panel itself, and a side already chosen in the form.
-  const answered = [...base, ...Object.keys(initialAnswersOf(checkpoint)), ...(!guided && (source.yourRole === "plaintiff" || source.yourRole === "defendant") ? ["sc-orient-role"] : [])];
-  return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial").map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
+  if (source.yourRole === "plaintiff" || source.yourRole === "defendant") formFacts.role = source.yourRole;
+  const facts: IntakeFacts = { ...formFacts, ...(object(checkpoint.sections.guided?.facts) as IntakeFacts), ...panelAnswerFacts(checkpoint) };
+  const answered = [
+    ...(Array.isArray(checkpoint.sections.guided?.answeredIds) ? checkpoint.sections.guided.answeredIds as string[] : []),
+    ...QUESTION_BANK.filter(question => question.capturesField && facts[question.capturesField] !== undefined).map(question => question.id),
+    ...Object.keys(initialAnswersOf(checkpoint)),
+    ...(facts.role ? ["sc-orient-role"] : []),
+  ];
+  return { facts, answered: [...new Set(answered)] };
 }
 /** Answers to the initial questions given in the review panel (question id -> answer). */
 export function initialAnswersOf(checkpoint: Checkpoint): Record<string, string> {
@@ -201,19 +240,48 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
   if (checkpoint.courtPath !== "small-claims") return {};
   const story = storyOf(checkpoint.sections);
   const out: Record<string, string> = {};
-  const date = WRITTEN_DATE.exec(story) ?? ISO_DATE.exec(story);
-  if (date) {
-    const [year, month, day] = /^\d{4}$/.test(date[1]) ? [date[1], date[2], date[3]] : [date[3], String(MONTHS.indexOf(date[1].toLowerCase()) + 1).padStart(2, "0"), date[2].padStart(2, "0")];
-    out["sc-orient-when-happened"] = `${year}-${month}-${day}`;
-  } else {
-    const month = MONTH_YEAR.exec(story);
-    if (month) out["sc-orient-when-happened"] = `${month[1][0].toUpperCase()}${month[1].slice(1).toLowerCase()} ${month[2]}`;
-  }
+  const date = whenItHappened(story);
+  if (date) out["sc-orient-when-happened"] = date;
   const side = SIDE_CUES.find(([cue]) => cue.test(story));
   if (side) out["sc-orient-role"] = side[1];
-  const category = CATEGORY_CUES.find(([cue]) => cue.test(story));
+  // Someone billed for work they did and was not paid is owed money, whatever the work was
+  // (re-test round 7: an unpaid renovation invoice was suggested as "a service you paid for").
+  const owedForWork = /\b(invoice\w*|unpaid|never paid|did not pay|didn't pay|won't pay)\b/i.test(story) && !/\b(i|we) paid\b|\bdeposit\b/i.test(story);
+  const category = owedForWork ? [/./, "Unpaid money owed to you"] as const : CATEGORY_CUES.find(([cue]) => cue.test(story));
   if (category) out["sc-orient-dispute-category"] = category[1];
+  // The amount and the outcome, read as the form already reads them (storyAnswers.ts).
+  const amount = amountFromStory(story);
+  if (amount) out["sc-amount-claimed"] = amount.value;
+  const goal = goalFromStory(story);
+  if (goal) out["sc-remedy-sought"] = goal.value;
   return out;
+}
+
+/** "payment was due July 10", "by July 10": a deadline, not when it happened. */
+const DEADLINE_BEFORE = /\b(?:due|deadline|payable|by|until|before|no later than|expires?|expiring)\s*(?:on\s*)?$/i;
+const MONTH_DAY = new RegExp(String.raw`\b(${MONTHS.join("|")})\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(\d{4}))?\b`, "gi");
+
+/**
+ * When it happened, from the story: the first date that is not written as a
+ * deadline (re-test round 7: "work finished June 10, payment due July 10" was
+ * read as July 10). A date with no year takes the year another date in the
+ * story gives; a month and year alone ("August 2026") is used when no day is.
+ */
+function whenItHappened(story: string): string | null {
+  const iso = ISO_DATE.exec(story);
+  const candidates = [...story.matchAll(MONTH_DAY)].map(match => ({ match, deadline: DEADLINE_BEFORE.test(story.slice(Math.max(0, (match.index ?? 0) - 30), match.index)) }));
+  const yearInStory = candidates.find(item => item.match[3])?.match[3] ?? MONTH_YEAR.exec(story)?.[2];
+  const chosen = candidates.find(item => !item.deadline) ?? null;
+  if (chosen) {
+    const [, monthName, day, year] = chosen.match;
+    const month = String(MONTHS.indexOf(monthName.toLowerCase()) + 1).padStart(2, "0");
+    const knownYear = year ?? yearInStory;
+    return knownYear ? `${knownYear}-${month}-${day.padStart(2, "0")}` : `${monthName[0].toUpperCase()}${monthName.slice(1).toLowerCase()} ${day}`;
+  }
+  if (iso && !DEADLINE_BEFORE.test(story.slice(Math.max(0, iso.index - 30), iso.index))) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+  const month = MONTH_YEAR.exec(story);
+  if (month) return `${month[1][0].toUpperCase()}${month[1].slice(1).toLowerCase()} ${month[2]}`;
+  return null;
 }
 
 export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string): ObjectValue {

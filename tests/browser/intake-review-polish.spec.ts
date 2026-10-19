@@ -57,9 +57,14 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
   await kind.getByRole("button", { name: /Work or a service you paid for .*\(suggested from your story\)/ }).click();
   const when = page.locator('[data-question="sc-orient-when-happened"]');
   if (await when.count()) {
-    await expect(when.getByLabel(/^Answer: /)).toHaveValue("2026-05-12");
-    await when.getByRole("button", { name: "Use this date" }).click();
+    await when.getByRole("button", { name: "Use “2026-05-12” (from your story)" }).click();
   }
+  // Choosing a side brings up the questions that depend on it (re-test round 7).
+  await page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use “$9,000” (from your story)" }).click();
+  await page.locator('[data-question="sc-claim-filed"]').getByRole("button", { name: "No", exact: true }).click();
+  const outcome = page.locator('[data-question="sc-remedy-sought"]').getByLabel(/^Answer: /);
+  await outcome.fill("Synthetic: my $9,000 back");
+  await outcome.press("Tab");
   await expect(page.locator('input[data-testid="intake-unknown"]:checked')).toHaveCount(0);
   await expect(needs).not.toContainText("an answer");
   await page.getByTestId("intake-review-acknowledgement").check();
@@ -146,7 +151,7 @@ test("Small Claims: month and year, and the side of someone who paid, are sugges
   test.setTimeout(180_000);
   await smallClaimsFromStart(page, "Synthetic story: a contractor took a $3,000 deposit and never did the work, in August 2026.");
   await page.getByTestId("intake-start-review").click();
-  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByLabel(/^Answer: /)).toHaveValue("August 2026");
+  await expect(page.locator('[data-question="sc-orient-when-happened"]').getByRole("button", { name: "Use “August 2026” (from your story)" })).toBeVisible();
   await expect(page.locator('[data-question="sc-orient-role"]').getByRole("button", { name: "Bringing the claim (plaintiff) (suggested from your story)" })).toBeVisible();
 });
 
@@ -295,4 +300,66 @@ test("Small Claims: questions that read an earlier story block every route's nex
   await page.getByRole("button", { name: "Start the questions again from my story" }).click();
   await expect(message).toHaveCount(0);
   await expect(show).toBeEnabled();
+});
+
+// Re-test round 7: the whole Small Claims restart path, start to next step, with no
+// "I do not know yet". The analysis is answered offline by the real engine.
+test("Small Claims: answer, confirm, change the story, start again once, answer in the review, confirm, reach the next step", async ({ page }) => {
+  test.setTimeout(240_000);
+  await fakeAccount(page);
+  await page.route("**/api/intake/safety-check", (route) => route.fulfill({ json: { ok: true, classification: "clear", requestsLegalAdvice: false } }));
+  let sent: Record<string, unknown> | null = null;
+  await page.route("**/api/small-claims/analyze", async (route) => {
+    const { input } = route.request().postDataJSON();
+    sent = input;
+    const { analyzeSmallClaimsWithBrain } = await import("../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine");
+    await route.fulfill({ json: { ok: true, result: await analyzeSmallClaimsWithBrain(input, { allowExternalCognition: false }), authenticated: true, reasoningMode: "deterministic-fallback", analysisAvailable: false } });
+  });
+  await smallClaimsFromStart(page);
+  const panel = page.getByTestId("intake-review");
+  const question = (id: string) => page.locator(`[data-question="${id}"]`);
+
+  // Answer and confirm (the old story).
+  await page.getByTestId("intake-start-review").click();
+  await question("sc-orient-role").getByRole("button", { name: /Bringing the claim/ }).click();
+  await question("sc-orient-dispute-category").getByRole("button", { name: /Work or a service you paid for/ }).click();
+  await question("sc-orient-when-happened").getByTestId("intake-use-suggestion").click();
+  await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$9,000");
+  await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
+  await question("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
+  await question("sc-remedy-sought").getByLabel(/^Answer: /).fill("Synthetic: my $9,000 back");
+  await question("sc-remedy-sought").getByLabel(/^Answer: /).press("Tab");
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+
+  // The story changes: an unpaid invoice.
+  await page.getByTestId("intake-view-review").click();
+  await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill("Synthetic: I finished renovation work on June 10, 2026 and sent an invoice for $8,500. Payment was due July 10, 2026 and the client never paid.");
+  await panel.getByTestId("story-changed-beside-button").getByRole("button", { name: "Go to the questions" }).click();
+
+  // One click starts the questions again.
+  await page.getByRole("button", { name: "Start the questions again from my story" }).filter({ visible: true }).first().click();
+  await expect(page.getByTestId("story-changed-beside-button"), "one click clears the block").toHaveCount(0);
+
+  // The review asks again, with the story's date (June 10, not the July 10 due date) suggested.
+  await question("sc-orient-when-happened").getByRole("button", { name: "Use “2026-06-10” (from your story)" }).click();
+  await question("sc-orient-role").getByRole("button", { name: /Bringing the claim/ }).click();
+  await question("sc-orient-dispute-category").getByRole("button", { name: /Unpaid money owed to you/ }).click();
+  // Typed values count when the box is left; no separate button.
+  await question("sc-amount-claimed").getByLabel(/^Answer: /).fill("$8,500");
+  await question("sc-amount-claimed").getByLabel(/^Answer: /).press("Tab");
+  await question("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
+  await question("sc-remedy-sought").getByLabel(/^Answer: /).fill("Synthetic: payment of the invoice");
+  await question("sc-remedy-sought").getByLabel(/^Answer: /).press("Tab");
+  await expect(page.locator('input[data-testid="intake-unknown"]:checked'), "no 'I do not know yet' needed").toHaveCount(0);
+  await expect(page.getByTestId("intake-confirm-needs")).not.toContainText("an answer");
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+
+  // The next step, built from these answers.
+  await page.getByTestId("intake-continue-guidance").click();
+  await expect(page).toHaveURL(/step=results/, { timeout: 60_000 });
+  expect(String((sent as Record<string, unknown> | null)?.amountClaimed ?? ""), "the review's amount reaches the analysis").toContain("8,500");
 });

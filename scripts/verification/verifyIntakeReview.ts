@@ -5,7 +5,7 @@
  * Synthetic in-memory inputs only; no external AI or real cases.
  */
 import assert from "node:assert/strict";
-import { canReview, existingFactChanged, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { canReview, existingFactChanged, panelAnswerFacts, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { selectQuestions } from "../../src/lib/case-system/intake/selectQuestions";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
@@ -118,4 +118,23 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
   assert.equal(entries.find(entry => entry.field === "yourRole")?.choices?.find(choice => choice.value === "respondent")?.label, "The other person started it and I was served");
   assert(entries.find(entry => entry.field === "filedDocuments")?.choices?.some(choice => choice.value === "application"), "filed documents carry their words");
   console.log("PASS defaults are not edits; month suggestions; Family reads the story and its choices in words");
+}
+
+// Re-test round 7 (Small Claims restart path).
+{
+  const invoice = "Synthetic: I finished renovation work on June 10, 2026 and sent an invoice for $8,500. Payment was due July 10, 2026 and the client never paid.";
+  const sc: Checkpoint = { version: 1, flowId: "11111111-1111-4111-8111-111111111111", courtPath: "small-claims", revision: "22222222-2222-4222-8222-222222222222",
+    sections: { story: { text: invoice, location: { province: "Ontario", city: "Sudbury" } }, builder: { step: "guided" } } };
+  const suggested = suggestInitialAnswers(sc);
+  assert.equal(suggested["sc-orient-when-happened"], "2026-06-10", "when it happened, not the due date");
+  assert.equal(suggestInitialAnswers({ ...sc, sections: { ...sc.sections, story: { text: "Work finished June 10, payment due July 10, 2026." } } })["sc-orient-when-happened"], "2026-06-10", "a date with no year takes the story's year");
+  assert.equal(suggested["sc-orient-dispute-category"], "Unpaid money owed to you", "an unpaid invoice is money owed, whatever the work");
+  // A side chosen in the review makes its questions due; their answers clear them.
+  const withSide = structuredClone(sc); withSide.sections.builder.initialAnswers = { "sc-orient-role": "Bringing the claim (plaintiff)" };
+  const due = remainingEssentialQuestions(withSide).map(question => question.id);
+  for (const id of ["sc-amount-claimed", "sc-claim-filed", "sc-remedy-sought"]) assert(due.includes(id), `a side chosen in the review makes ${id} a question`);
+  withSide.sections.builder.initialAnswers = { ...withSide.sections.builder.initialAnswers as object, "sc-orient-when-happened": "2026-06-10", "sc-orient-dispute-category": "Unpaid money owed to you", "sc-amount-claimed": "$8,500", "sc-claim-filed": "No", "sc-remedy-sought": "Payment" };
+  assert.deepEqual(remainingEssentialQuestions(withSide), [], "answers given in the review clear every question, with no 'I do not know yet'");
+  assert.deepEqual(panelAnswerFacts(withSide), { role: "plaintiff", timelineText: "2026-06-10", amountClaimedText: "$8,500", claimFiled: false, remedySoughtText: "Payment" }, "the review's answers are facts for the next step");
+  console.log("PASS the review's answers are facts; the due date is not when it happened");
 }

@@ -37,6 +37,13 @@ const WHOLE = new Set(["guided.answeredIds", "guided.matchedClaimType", "guided.
 const CONVERSATION: Record<string, Record<string, unknown>> = {
   "form-chat": { heard: [], drafts: {}, skipped: [], notFromStory: [], edited: [], knownAtStart: [], changing: null, needsMore: null },
   home: { understoodAnswers: [], draftAnswers: [] },
+  // The Small Claims guided conversation, read from the old story: started again from the beginning, so
+  // one "Start the questions again" clears the block from any route (re-test round 7: from the form it
+  // cleared the answers but not this reading, and only a second click on the guided page did).
+  guided: { readFrom: "", started: false, messages: [], facts: {}, answeredIds: [], currentQuestion: null, halted: false, intakeComplete: false,
+    evidenceGuidance: null, claimGuidance: null, matchedClaimType: null, pendingSuggestion: null, suggestionStoryText: "", rejectedSuggestionIds: [],
+    noClaimTypeMatch: false, depthQuestions: [], depthIndex: 0, depthActive: false, completionPayload: null, heldPayload: null, proposalDrafts: null,
+    proposalMode: "intake", reproposed: false, earlierAnswers: [], declinedIds: [], inputText: "" },
 };
 
 /** A version of the story: the same words in the same order (case and spacing ignored) are the same version. */
@@ -128,7 +135,10 @@ export function discardStale(checkpoint: Checkpoint): Checkpoint {
   const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
   for (const answer of stale) delete basis[answer];
   sections[BASIS_SECTION] = basis;
-  for (const [section, keys] of Object.entries(CONVERSATION)) sections[section] = { ...sections[section], ...keys };
+  for (const [section, keys] of Object.entries(CONVERSATION)) {
+    if (section === "guided" && !sections.guided) continue; // only where that conversation exists
+    sections[section] = { ...sections[section], ...keys };
+  }
   return { ...checkpoint, sections };
 }
 
