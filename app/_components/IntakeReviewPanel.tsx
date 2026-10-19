@@ -7,7 +7,7 @@ import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMe
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { withServedDate } from "../builder/_components/guidedFields";
-import { locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
+import { guidedReadingOutdated, locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { canReview, initialAnswersOf, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 
@@ -48,6 +48,13 @@ export default function IntakeReviewPanel() {
   const city = locationOf(checkpoint.sections)?.city ?? "";
   const legacy = workflowStatus.intakeCompleted === true && !workflowStatus.intakeReview;
   const showEntries = phase === "reviewing" || (phase === "user-confirmed" && viewing);
+  // The guided questions read an earlier story: no next step from them, on any route.
+  const questionsOutdated = guidedReadingOutdated(checkpoint);
+  function openQuestions() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("step", "guided");
+    window.history.pushState(null, "", `${url.pathname}?${url.searchParams}`);
+  }
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");
@@ -118,7 +125,11 @@ export default function IntakeReviewPanel() {
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy} onClick={() => setWaiting(!recovery.continueToGuidance())} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button></>}
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated} onClick={() => setWaiting(!recovery.continueToGuidance())} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+      {questionsOutdated && <div data-testid="intake-questions-outdated" role="status" className="mt-3 rounded-xl border border-[#ead9a7] bg-[#fffaf0] p-3 text-sm text-[#5c4a14]">
+        <p>Your story has changed since the questions read it. Start the questions again from your story first, so your next step comes from what you have now.</p>
+        <button type="button" onClick={openQuestions} className="mt-2 font-semibold text-[#2f7d67] underline">Go to the questions</button>
+      </div>}</>}
     {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
     {error && <p role="alert">{error}</p>}
     {busy && <p role="status">Saving your review...</p>}

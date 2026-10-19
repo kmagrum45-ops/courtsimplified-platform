@@ -74,3 +74,16 @@ export function migrateStory(checkpoint: Checkpoint): Checkpoint {
   }
   return { ...checkpoint, sections };
 }
+
+/**
+ * The Small Claims guided questions read an earlier version of the story. Their
+ * answers, claim type and checklist describe that version, so no next step may be
+ * built from them until the questions are started again (re-test 2026-10-18: a
+ * story changed after a confirmed reading still produced the old claim type from
+ * the route chooser).
+ */
+export function guidedReadingOutdated(checkpoint: Checkpoint): boolean {
+  if (checkpoint.courtPath !== "small-claims") return false;
+  const read = checkpoint.sections.guided?.readFrom;
+  return typeof read === "string" && Boolean(read.trim()) && read.trim() !== storyOf(checkpoint.sections).trim();
+}

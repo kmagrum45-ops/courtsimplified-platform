@@ -2,7 +2,7 @@
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
 import SafetyCheckUnavailable from "./_components/SafetyCheckUnavailable";
-import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
+import { confirmedLocationOf, guidedReadingOutdated, storyOf } from "../../src/lib/case-system/intakeStory";
 
 import { reviewPhase } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "../_components/intakeRequest";
@@ -483,7 +483,8 @@ function BuilderPageContent() {
     const saved = recovery?.getReview().checkpoint.sections.guided ?? {};
     // A conversation that read an earlier story gives no guidance, and no claim
     // type, for the corrected one (re-test 2026-10-18).
-    if (typeof saved.readFrom === "string" && saved.readFrom.trim() && saved.readFrom.trim() !== homeStory.trim()) {
+    const view = recovery?.getReview();
+    if (view && guidedReadingOutdated(view.checkpoint)) {
       setGuidedAnalysisError("Your story has changed since the questions read it. Start the questions again from your story first, so your next step comes from what you have now.");
       return;
     }
@@ -2426,6 +2427,7 @@ function BuilderPageContent() {
           <div className="mt-8">
             <EventCandidateSurface
               caseId={savedCaseId() as string}
+              currentText={[homeStory, caseData?.timeline].filter(Boolean).join("\n")}
               recordedDates={savedPosition.dateAnswers}
               // The step they confirmed, as on the case Timeline: a sentence
               // naming its event is offered as that step, not asked cold

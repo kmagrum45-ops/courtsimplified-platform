@@ -9,7 +9,7 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
-import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
+import { guidedReadingOutdated, migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
 async function readAuthSession() {
@@ -57,6 +57,11 @@ export function usePrepareCaseGuidance() {
     if (!recovery) return false;
     await recovery.flush();
     const view = recovery.getReview();
+    // Every route's guidance passes here: none is built from questions that read an earlier story.
+    if (guidedReadingOutdated(view.checkpoint)) {
+      document.querySelector('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" });
+      return false;
+    }
     if (reviewPhase(view.workflowStatus, view.checkpoint) !== "user-confirmed") {
       await recovery.transition("review", inputRevision(view.checkpoint));
       document.querySelector('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" });
@@ -251,6 +256,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             return () => { if (continueHandlers.get(key) === handler) continueHandlers.delete(key); };
           },
           continueToGuidance: () => {
+            // Never a next step from questions that read an earlier story, on any route.
+            if (guidedReadingOutdated(snapshot)) return false;
             if (court !== "small-claims") return runContinue(court);
             // The route on screen is the address bar's; the saved step lags behind Back/Forward.
             const step = new URL(window.location.href).searchParams.get("step");

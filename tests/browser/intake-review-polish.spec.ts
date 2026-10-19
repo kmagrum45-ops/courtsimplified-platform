@@ -246,3 +246,53 @@ test("signed in: a saved case raises no unsaved-case warning; a failed save does
   await page.goto("/builder?path=small-claims");
   await expect(page.getByTestId("unsaved-case-warning")).toContainText("has not reached your account yet");
 });
+
+// Re-test round 5: after a story change, "Show my next step" from the route chooser
+// still built the next step from the questions' reading of the OLD story (its claim
+// type and checklist). It is blocked on every route until the questions start again.
+test("Small Claims: questions that read an earlier story block every route's next step", async ({ page }) => {
+  test.setTimeout(240_000);
+  let analysed = 0;
+  page.on("request", (request) => { if (/\/api\/small-claims\/analyze/.test(request.url())) analysed++; });
+  await smallClaimsFromStart(page);
+  await confirmInitialInformation(page);
+  // The guided questions read an earlier version of the story (a claim type with it).
+  await page.evaluate(() => {
+    const value = JSON.parse(sessionStorage.getItem("courtSimplifiedGuestIntakeSession")!);
+    value.checkpoint.sections.guided = { ...value.checkpoint.sections.guided, started: true, intakeComplete: true,
+      readFrom: "Synthetic EARLIER story: I paid a contractor $3,000 in August 2026 and he never did the work.",
+      matchedClaimType: { claimTypeId: "sc-claim-contractor-took-deposit-and-left", name: "Synthetic old claim type" } };
+    value.checkpoint.revision = crypto.randomUUID();
+    sessionStorage.setItem("courtSimplifiedGuestIntakeSession", JSON.stringify(value));
+  });
+  await page.reload();
+  const panel = page.getByTestId("intake-review");
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+  const show = page.getByTestId("intake-continue-guidance");
+  const message = page.getByTestId("intake-questions-outdated");
+
+  // The route chooser.
+  await expect(page.getByRole("button", { name: "Fill in the form yourself" })).toBeVisible();
+  await expect(show, "chooser: blocked").toBeDisabled();
+  await expect(message, "the message sits beside the button").toContainText("Start the questions again from your story first");
+  expect(Math.abs((await message.boundingBox())!.y - (await show.boundingBox())!.y), "next to the button, not further down").toBeLessThan(200);
+
+  // The form route, including its own Continue.
+  await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+  await expect(show, "form: blocked").toBeDisabled();
+  await page.getByTestId("sc-intake-analyze").click();
+  await page.waitForTimeout(1500);
+  await expect(message).toBeVisible();
+
+  // The guided route.
+  await page.goBack();
+  await message.getByRole("button", { name: "Go to the questions" }).click();
+  await expect(page.getByTestId("guided-reading-outdated")).toContainText("Your story has changed since it was last read");
+  await expect(show, "guided: blocked").toBeDisabled();
+  expect(analysed, "no next step was built from the old reading").toBe(0);
+
+  // Starting the questions again clears the block.
+  await page.getByRole("button", { name: "Start the questions again from my story" }).click();
+  await expect(message).toHaveCount(0);
+  await expect(show).toBeEnabled();
+});

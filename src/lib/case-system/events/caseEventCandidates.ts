@@ -303,3 +303,15 @@ export function candidatesFromTimeline(timeline: unknown): EventCandidate[] {
 
   return candidates;
 }
+
+/**
+ * Only the candidates whose sentence is still in the current story or Timeline.
+ * A saved case holds the sentences of the story it was last analysed with; after
+ * a correction they were still quoted as "things that may have happened"
+ * (re-test 2026-10-18).
+ */
+export function candidatesStillInText<T extends { narrativeBasis: string }>(candidates: T[], currentText: string): T[] {
+  const words = (text: string) => text.toLowerCase().replace(/\s+/g, " ").trim();
+  const current = words(currentText);
+  return candidates.filter((candidate) => current.includes(words(candidate.narrativeBasis)));
+}
