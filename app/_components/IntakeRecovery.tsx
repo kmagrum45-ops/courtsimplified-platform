@@ -421,6 +421,7 @@ export function useIntakeState<T>(section: string, field: string, initial: T | (
        * matches it (CI, PR #463, 2026-10-18). It adopts the stored value instead.
        */
       const stored = adoptStored(recovery.read(section, field), value);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- adopting the external store's value once, on first mount, is the point
       if (JSON.stringify(stored instanceof Set ? [...stored] : stored) !== JSON.stringify(value instanceof Set ? [...value] : value)) { setValue(stored); return; }
       recovery.put(section, field, value, false, shared);
       return;
