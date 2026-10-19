@@ -8,7 +8,7 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
-import { migrateStory, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
+import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
 async function readAuthSession() {
@@ -31,7 +31,8 @@ type Recovery = {
   /** The review panel's Continue: runs the open route's guidance action. */
   continueToGuidance: () => void;
   read: (section: string, key: string) => unknown;
-  put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean) => void;
+  /** `fromReview`: an edit made in the review panel (see reconcileReview). */
+  put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean) => void;
   flush: (signal?: AbortSignal) => Promise<void>;
   validate: (signal?: AbortSignal) => Promise<void>;
   getCaseId: () => string | null;
@@ -87,6 +88,9 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   const [failed, setFailed] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  // An unsaved intake in this tab that a new one would overwrite (re-test 2026-10-18).
+  const [unsaved, setUnsaved] = useState<{ court: IntakeCourt; flowId: string } | null>(null);
+  const discardAllowed = useRef(false);
   const generation = useRef(0);
 
   useEffect(() => {
@@ -139,6 +143,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           if (legacy.version !== 2 && legacy.courtPath === court && typeof legacy.facts === "string" && typeof legacy.city === "string") {
             snapshot.sections[STORY_SECTION] = { text: legacy.facts, location: { province: "Ontario", city: legacy.city } };
           }
+          // This tab holds one intake. Starting another would overwrite an unsaved one
+          // (a guest's, or text not yet saved to the account): ask first.
+          const held = readHeldIntake(ownerId);
+          if (held && !discardAllowed.current) { setUnsaved(held); setNotice("You have an unsaved case in this tab."); return; }
+          discardAllowed.current = false;
           if (!ownerId && window.location.pathname === "/") resetIntakeInBrowser();
           if (!writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId: null, serverRevision: null, checkpoint: snapshot })) throw new Error("This tab cannot retain intake text. Please enable session storage before continuing.");
           const url = new URL(window.location.href);
@@ -194,7 +203,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
               caseId = sent.flowId;
               workflowStatus = { intakeCompleted: false, intakeReview: { version: 1 } };
             } else {
-              const outcome = await saveCheckpoint(supabase, ownerId, caseId, sent, serverRevision, current, inputRevision(sent) !== acknowledgedInput);
+              // The saved record follows this tab: an edit made while reviewing stays in review.
+              const outcome = await saveCheckpoint(supabase, ownerId, caseId, sent, serverRevision, current, inputRevision(sent) !== acknowledgedInput, reviewPhase(workflowStatus, sent) === "reviewing");
               if (!outcome.ok && !(outcome.reason === "rejected" && outcome.error === "intake-unchanged")) {
                 if (!outcome.ok && outcome.error === "intake-conflict") { setConflict(true); throw new Error("Another tab changed this intake. Your pending text is retained here; open the saved case in a new tab before resolving the difference."); }
                 throw new Error("Your intake could not be saved. Your pending text remains in this tab. Please retry before continuing.");
@@ -270,7 +280,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           ownerId, flowId: snapshot.flowId, resuming: Boolean(session || saved), row,
           getCaseId: () => caseId,
           read: (section, key) => snapshot.sections[section]?.[key],
-          put: (section, key, value, touched = true, external = false) => {
+          put: (section, key, value, touched = true, external = false, fromReview = false) => {
             if (!current()) return;
             const field = `${section}:${key}`;
             const json = JSON.stringify(value instanceof Set ? [...value] : value);
@@ -278,7 +288,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             const encoded: unknown = JSON.parse(json);
             if (JSON.stringify(snapshot.sections[section]?.[key]) === JSON.stringify(encoded)) { invalid.delete(field); return; }
             const next = { ...snapshot, revision: crypto.randomUUID(), sections: { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } } };
-            if (touched && materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next); }
+            if (touched && materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next, fromReview); }
             if (!readCheckpoint(next, court)) { invalid.add(field); dirty = true; emit(); failure("This intake is too large to save together. Nothing has been removed; copy your text before leaving."); return; }
             invalid.delete(field);
             snapshot = next;
@@ -360,6 +370,14 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   }, [court, selectedId, requestedFlow, attempt]);
 
   const here = typeof window === "undefined" ? "/builder" : `${window.location.pathname}${window.location.search}`;
+  if (unsaved) return <div className="mx-auto max-w-3xl px-6 py-8" role="alertdialog" aria-labelledby="unsaved-case-heading" data-testid="unsaved-case-warning">
+    <h2 id="unsaved-case-heading" className="text-xl font-bold">You have an unsaved case in this tab</h2>
+    <p className="mt-2">Starting a new case here will discard what you have entered so far. It is not saved to an account{unsaved.court !== court ? `, and it is a ${unsaved.court === "small-claims" ? "Small Claims" : unsaved.court === "family" ? "Family" : "Civil"} case` : ""}.</p>
+    <div className="mt-4 flex flex-wrap gap-3">
+      <a data-testid="unsaved-case-keep" className="rounded bg-[#2f7d67] px-4 py-2 text-white" href={`/builder?path=${unsaved.court}&intake=${unsaved.flowId}`}>Keep working on it</a>
+      <button data-testid="unsaved-case-discard" type="button" className="rounded border px-4 py-2" onClick={() => { discardAllowed.current = true; setUnsaved(null); setAttempt((value) => value + 1); }}>Discard it and start a new case</button>
+    </div>
+  </div>;
   return <Context.Provider value={recovery}>
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
       {notice}{" "}
@@ -477,4 +495,17 @@ export function useContinueHandler(key: ContinueKey, handler: () => void) {
   const latest = useRef(handler);
   useEffect(() => { latest.current = handler; }, [handler]);
   useEffect(() => recovery?.registerContinue(key, () => latest.current()), [recovery, key]);
+}
+
+/** The intake this tab holds, when it has a story and is not saved to the account. */
+function readHeldIntake(ownerId: string | null): { court: IntakeCourt; flowId: string } | null {
+  try {
+    const value = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));
+    const checkpoint = record(value.checkpoint);
+    const court = checkpoint.courtPath;
+    if (value.version !== 2 || value.ownerId !== ownerId || (court !== "small-claims" && court !== "family" && court !== "civil") || !intakeId(checkpoint.flowId)) return null;
+    const saved = ownerId !== null && value.caseId !== null && value.serverRevision === checkpoint.revision;
+    const sections = record(checkpoint.sections) as Checkpoint["sections"];
+    return !saved && storyOf(migrateStory({ ...(checkpoint as Checkpoint), sections }).sections).trim() ? { court, flowId: checkpoint.flowId as string } : null;
+  } catch { return null; }
 }

@@ -83,3 +83,22 @@ for (const court of ["small-claims", "family"] as const) {
     });
   }
 }
+
+// PR #463 re-test: the first click on "Continue to … intake" showed "Your update
+// did not finish…" although /api/case/understand answered 200 (it skips for a
+// guest). The real route runs here; only the court-path check is answered locally.
+test("first click on Continue to intake proceeds when the understanding step is skipped", async ({ page }) => {
+  test.setTimeout(180_000);
+  await grantSiteAccess(page);
+  await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "family", confidence: 0.95 } }));
+  let understood = 0;
+  page.on("response", (response) => { if (response.url().includes("/api/case/understand") && response.status() === 200) understood++; });
+  await page.goto("/?path=family");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Sudbury");
+  await page.getByLabel("Tell us what happened in your own words").fill(ORIGINAL);
+  await page.getByRole("button", { name: "Continue to Family intake" }).click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  expect(understood, "the understanding route answered").toBe(1);
+  await expect(page.getByText("Your update did not finish")).toHaveCount(0);
+});

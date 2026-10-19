@@ -1,0 +1,126 @@
+/**
+ * PR #463 re-test, remaining review items (2026-10-18):
+ *  - opening "Review or correct initial information" does not cancel the
+ *    confirmation; an actual edit there returns it to review (not the start);
+ *  - Confirm says what is still needed, and Small Claims' date, side and kind of
+ *    dispute are offered from the story as suggestions the person chooses —
+ *    no forced "I do not know yet";
+ *  - stored choices read "Not sure", not "not-sure"; Family's boxes carry the
+ *    form's labels, not code names; empty optional details are hidden;
+ *  - starting a new case warns before it discards an unsaved one.
+ */
+import { expect, test, type Page } from "@playwright/test";
+import { openBuilder } from "./harness/builderGate";
+import { grantSiteAccess } from "./harness/siteAccess";
+import { confirmInitialInformation } from "./harness/intakeReview";
+
+test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
+
+const SC_STORY = "Synthetic story: I paid a contractor $9,000 on May 12, 2026 to fix my roof and he never came back.";
+const FAMILY_STORY = "Synthetic story: my former partner and I separated in March 2026 and we have not agreed on parenting time.";
+
+async function smallClaimsFromStart(page: Page) {
+  await grantSiteAccess(page);
+  await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
+  await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "small-claims", confidence: 0.95 } }));
+  await page.goto("/?path=small-claims");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Sudbury");
+  await page.getByLabel("Tell us what happened in your own words").fill(SC_STORY);
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await expect(acknowledgement.or(page.getByRole("button", { name: "Fill in the form yourself" }))).toBeVisible({ timeout: 60_000 });
+  if (await acknowledgement.isVisible()) {
+    await acknowledgement.check();
+    await page.getByTestId("acknowledgement-continue").click();
+  }
+}
+
+test("Small Claims: suggestions from the story answer the initial questions; Confirm says what is missing", async ({ page }) => {
+  test.setTimeout(180_000);
+  await smallClaimsFromStart(page);
+  const panel = page.getByTestId("intake-review");
+  await page.getByTestId("intake-start-review").click();
+  await expect(panel).toHaveAttribute("data-phase", "reviewing");
+  const needs = page.getByTestId("intake-confirm-needs");
+  await expect(needs).toContainText("What kind of dispute is this?");
+  await expect(needs).toContainText("I have reviewed this information");
+  await expect(page.getByTestId("intake-confirm")).toBeDisabled();
+
+  // Suggested, never chosen for the person.
+  const role = page.locator('[data-question="sc-orient-role"]');
+  await expect(role.getByRole("button", { name: "Bringing the claim (plaintiff) (suggested from your story)" })).toHaveAttribute("aria-pressed", "false");
+  await role.getByRole("button", { name: /Bringing the claim/ }).click();
+  const kind = page.locator('[data-question="sc-orient-dispute-category"]');
+  await kind.getByRole("button", { name: /Work or a service you paid for .*\(suggested from your story\)/ }).click();
+  const when = page.locator('[data-question="sc-orient-when-happened"]');
+  if (await when.count()) {
+    await expect(when.getByLabel(/^Answer: /)).toHaveValue("2026-05-12");
+    await when.getByRole("button", { name: "Use this date" }).click();
+  }
+  await expect(page.locator('input[data-testid="intake-unknown"]:checked')).toHaveCount(0);
+  await expect(needs).not.toContainText("an answer");
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await expect(needs).toHaveCount(0);
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+});
+
+test("Small Claims: viewing the confirmed review does not cancel it; an edit there returns it to review", async ({ page }) => {
+  test.setTimeout(180_000);
+  await smallClaimsFromStart(page);
+  const panel = page.getByTestId("intake-review");
+  await confirmInitialInformation(page);
+  await page.getByTestId("intake-view-review").click();
+  await expect(panel.getByRole("textbox", { name: "Review: Your story", exact: true })).toHaveValue(SC_STORY);
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+  await page.getByTestId("intake-close-review").click();
+  await page.reload();
+  await expect(panel, "looking was not a change").toHaveAttribute("data-phase", "user-confirmed");
+
+  await page.getByTestId("intake-view-review").click();
+  await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(`${SC_STORY} He also kept the deposit.`);
+  await expect(panel, "an actual change needs confirming again, from the review").toHaveAttribute("data-phase", "reviewing");
+  await page.reload();
+  await expect(panel).toHaveAttribute("data-phase", "reviewing");
+});
+
+test("Family: boxes carry the form's labels, stored choices read in words, empty optional details are hidden", async ({ page }) => {
+  test.setTimeout(180_000);
+  await openBuilder(page, "family", { story: FAMILY_STORY });
+  await page.getByTestId("guided-form-show-form").click();
+  const panel = page.getByTestId("intake-review");
+  await page.getByTestId("intake-start-review").click();
+  await expect(panel).toHaveAttribute("data-phase", "reviewing");
+  const text = await panel.innerText();
+  for (const codeName of ["Past Living History", "Property Home Details", "Current Living Situation", "Safety Concerns", "Adoption Details", "Missing Evidence", "Case Stage", "Your Name"]) {
+    expect(text, `no box is labelled from its code name: ${codeName}`).not.toContain(codeName);
+  }
+  expect(text, "a stored choice reads in words").not.toMatch(/\bnot-sure\b/);
+  expect(text, "empty optional details are hidden").not.toContain("Evidence still missing (optional later detail)");
+  const unlabeled = await panel.locator("textarea:not([aria-label]), input[type=checkbox]:not([aria-label]):not([data-testid])").count();
+  expect(unlabeled, "every review box has a label").toBe(0);
+});
+
+test("starting a new case warns before discarding an unsaved one", async ({ page }) => {
+  test.setTimeout(180_000);
+  await openBuilder(page, "family", { story: FAMILY_STORY });
+  const firstUrl = page.url();
+  await page.goto("/builder?path=small-claims");
+  const warning = page.getByTestId("unsaved-case-warning");
+  await expect(warning).toContainText("You have an unsaved case in this tab");
+  await expect(warning).toContainText("Family case");
+  await warning.getByTestId("unsaved-case-keep").click();
+  await expect(page).toHaveURL(new RegExp(new URL(firstUrl).searchParams.get("intake")!));
+  await expect(page.getByTestId("intake-review")).toBeVisible();
+  const kept = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
+  expect(kept).toContain("parenting time");
+
+  await page.goto("/builder?path=small-claims");
+  await page.getByTestId("unsaved-case-discard").click();
+  await expect(page.getByTestId("unsaved-case-warning")).toHaveCount(0);
+  await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
+  const fresh = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
+  expect(fresh, "the discarded case is gone").not.toContain("parenting time");
+});

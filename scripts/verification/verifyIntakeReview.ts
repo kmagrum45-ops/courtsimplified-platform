@@ -5,7 +5,7 @@
  * Synthetic in-memory inputs only; no external AI or real cases.
  */
 import assert from "node:assert/strict";
-import { canReview, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { canReview, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { selectQuestions } from "../../src/lib/case-system/intake/selectQuestions";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
@@ -69,4 +69,25 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
   assert.equal(scMoved.sections.story.text, "SC story");
   assert.deepEqual(scMoved.sections["small-claims"].input, { goal: "repayment" }, "the form input keeps only its own answers");
   console.log("PASS one copy of the story: legacy copies migrate once and are removed");
+}
+
+// SUGGEST, NEVER DECIDE (2026-10-18): a suggestion read from the story answers
+// nothing until the person chooses it; their choice answers the question.
+{
+  const sc: Checkpoint = { version: 1, flowId: "11111111-1111-4111-8111-111111111111", courtPath: "small-claims", revision: "22222222-2222-4222-8222-222222222222",
+    sections: { story: { text: "I paid a contractor $9,000 on May 12, 2026 to fix my roof and he never came back.", location: { province: "Ontario", city: "Sudbury" } }, builder: {} } };
+  const suggested = suggestInitialAnswers(sc);
+  assert.equal(suggested["sc-orient-when-happened"], "2026-05-12");
+  assert(suggested["sc-orient-role"]?.includes("plaintiff"));
+  const before = remainingEssentialQuestions(sc).map(question => question.id);
+  assert(before.includes("sc-orient-role"), "a suggestion alone answers nothing");
+  const chosen = structuredClone(sc); chosen.sections.builder.initialAnswers = { "sc-orient-role": suggested["sc-orient-role"] };
+  assert(!remainingEssentialQuestions(chosen).some(question => question.id === "sc-orient-role"), "the person's choice answers it");
+  assert.notEqual(materialInitialFacts(chosen), materialInitialFacts(sc), "an answer is a material fact");
+  // A review-panel edit of a confirmed intake returns it to reviewing; any other edit to collecting.
+  const confirmed = { intakeCompleted: true, intakeReview: { version: 1, reviewedRevision: sc.revision, confirmedRevision: sc.revision } };
+  const next = { ...sc, revision: "33333333-3333-4333-8333-333333333333", inputRevision: "33333333-3333-4333-8333-333333333333" };
+  assert.equal(reviewPhase(reconcileReview(confirmed, sc, next, true), next), "reviewing");
+  assert.equal(reviewPhase(reconcileReview(confirmed, sc, next), next), "collecting");
+  console.log("PASS suggestions never answer by themselves; a review edit stays in review");
 }

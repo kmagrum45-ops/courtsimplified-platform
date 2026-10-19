@@ -10,6 +10,13 @@ const object = (value: unknown): ObjectValue => value && typeof value === "objec
 const OPTIONAL = new Set(["evidence", "missingEvidence", "uploadedEvidenceFiles", "uploadedFiles", "evidenceFiles", "evidenceText", "defenceEvidenceText"]);
 const UI = new Set(["mode", "editingStory", "personSet", "personDocuments"]);
 export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean };
+/** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
+const FIELD_LABELS: Record<string, string> = {
+  adoptionDetails: "Adoption details", caseStage: "Case stage", currentLivingSituation: "Current living situation",
+  missingEvidence: "Evidence still missing", pastLivingHistory: "Past caregiving / living history",
+  propertyHomeDetails: "Property / home / financial disclosure details", safetyConcerns: "Safety or urgent concerns",
+  timeline: "Timeline", yourName: "Your name", evidence: "Evidence you have",
+};
 const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, c => c.toUpperCase());
 
 /** A projection of existing answers, not another case model or question selector. */
@@ -23,7 +30,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key) });
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -48,7 +55,7 @@ export function materialInitialFacts(checkpoint: Checkpoint): string {
     const key = JSON.stringify([entry.section, entry.nested, entry.field]);
     return !seen.has(key) && Boolean(seen.add(key));
   });
-  return JSON.stringify({ home: { answers: checkpoint.sections.home?.understoodAnswers }, court: checkpoint.courtPath, story: storyOf(checkpoint.sections), location: locationOf(checkpoint.sections), answers: entries.map(entry => [entry.section, entry.nested, entry.field, entry.value]).sort((a, b) => String(a.slice(0, 3)).localeCompare(String(b.slice(0, 3)))) });
+  return JSON.stringify({ initialAnswers: initialAnswersOf(checkpoint), home: { answers: checkpoint.sections.home?.understoodAnswers }, court: checkpoint.courtPath, story: storyOf(checkpoint.sections), location: locationOf(checkpoint.sections), answers: entries.map(entry => [entry.section, entry.nested, entry.field, entry.value]).sort((a, b) => String(a.slice(0, 3)).localeCompare(String(b.slice(0, 3)))) });
 }
 
 export const inputRevision = (checkpoint: Checkpoint) => checkpoint.inputRevision ?? checkpoint.revision;
@@ -102,13 +109,63 @@ export function remainingEssentialQuestions(checkpoint: Checkpoint, includeUnkno
   const source = object(checkpoint.sections["small-claims"]?.input);
   const facts = guided ? object(checkpoint.sections.guided?.facts) as IntakeFacts : Object.fromEntries(QUESTION_BANK.flatMap(question => {
     if (!question.capturesField) return [];
-    const aliases: Record<string, string> = { role: "yourRole", remedySought: "goal", evidenceText: "evidence" };
+    const aliases: Record<string, string> = { role: "yourRole", remedySought: "goal", evidenceText: "evidence", timelineText: "timeline" };
     const value = source[aliases[question.capturesField] ?? question.capturesField];
     return (typeof value === "string" && value.trim() && value !== "not-sure") || typeof value === "boolean" || typeof value === "number" ? [[question.capturesField, value]] : [];
   })) as IntakeFacts;
-  const answered = guided && Array.isArray(checkpoint.sections.guided?.answeredIds) ? checkpoint.sections.guided.answeredIds as string[] : QUESTION_BANK.filter(question => question.capturesField && facts[question.capturesField] !== undefined).map(question => question.id);
+  const base = guided && Array.isArray(checkpoint.sections.guided?.answeredIds) ? checkpoint.sections.guided.answeredIds as string[] : QUESTION_BANK.filter(question => question.capturesField && facts[question.capturesField] !== undefined).map(question => question.id);
+  // Answers given in the review panel itself, and a side already chosen in the form.
+  const answered = [...base, ...Object.keys(initialAnswersOf(checkpoint)), ...(!guided && (source.yourRole === "plaintiff" || source.yourRole === "defendant") ? ["sc-orient-role"] : [])];
   return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial").map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
 }
+/** Answers to the initial questions given in the review panel (question id -> answer). */
+export function initialAnswersOf(checkpoint: Checkpoint): Record<string, string> {
+  const answers = object(checkpoint.sections.builder?.initialAnswers);
+  return Object.fromEntries(Object.entries(answers).filter(([, value]) => typeof value === "string" && value.trim())) as Record<string, string>;
+}
+
+const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const SIDE_CUES: [RegExp, string][] = [
+  [/\b(i was served|served me|sued me|suing me|claim against me|claimed against me|they are claiming|plaintiff's claim against)\b/i, "Responding to a claim (defendant)"],
+  [/\b(owes? me|owed me|never paid|did not pay|didn't pay|won't pay|refused to (pay|refund|return)|kept my|i want to sue|i want (my|the) money|never came back|left the work|did not return)\b/i, "Bringing the claim (plaintiff)"],
+];
+const CATEGORY_CUES: [RegExp, string][] = [
+  [/\bdeposit\b/i, "A deposit that wasn't returned"],
+  [/\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i, "Work or a service you paid for (e.g. a contractor)"],
+  [/\b(loan\w*|lent|borrow\w*)\b/i, "A loan or debt"],
+  [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
+  [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
+  [/\b(car|vehicle|truck|collision)\b/i, "A vehicle-related dispute"],
+  [/\b(damaged|damage to)\b/i, "Property damage"],
+  [/\b(invoice\w*|unpaid)\b/i, "Unpaid money owed to you"],
+  [/\b(bought|purchase\w*|refund)\b/i, "A consumer purchase problem"],
+  [/\b(contract|agreement)\b/i, "A contract or agreement dispute"],
+];
+const WRITTEN_DATE = new RegExp(String.raw`\b(${MONTHS.join("|")})\s+(\d{1,2}),?\s+(\d{4})\b`, "i");
+const ISO_DATE = /\b(\d{4})-(\d{2})-(\d{2})\b/;
+
+/**
+ * Suggestions for the Small Claims initial questions, read from the story without
+ * AI: the first full date written in it, and plain wording cues for side and kind
+ * of dispute. Shown as suggestions the person confirms; never saved on their own
+ * (re-test 2026-10-18: Confirm forced "I do not know yet" for what the story said).
+ */
+export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, string> {
+  if (checkpoint.courtPath !== "small-claims") return {};
+  const story = storyOf(checkpoint.sections);
+  const out: Record<string, string> = {};
+  const date = WRITTEN_DATE.exec(story) ?? ISO_DATE.exec(story);
+  if (date) {
+    const [year, month, day] = /^\d{4}$/.test(date[1]) ? [date[1], date[2], date[3]] : [date[3], String(MONTHS.indexOf(date[1].toLowerCase()) + 1).padStart(2, "0"), date[2].padStart(2, "0")];
+    out["sc-orient-when-happened"] = `${year}-${month}-${day}`;
+  }
+  const side = SIDE_CUES.find(([cue]) => cue.test(story));
+  if (side) out["sc-orient-role"] = side[1];
+  const category = CATEGORY_CUES.find(([cue]) => cue.test(story));
+  if (category) out["sc-orient-dispute-category"] = category[1];
+  return out;
+}
+
 export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string): ObjectValue {
   if (inputRevision(checkpoint) !== expectedInputRevision) throw new Error("The initial facts changed. Please review the current information again.");
   if (action === "collect") return invalidateReview(workflow);
@@ -119,7 +176,13 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
   return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now } : {}) } };
 }
 
-export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): ObjectValue {
-  const reviewing = reviewPhase(workflow, previous) === "reviewing";
+/**
+ * A material change cancels confirmation. `fromReview`: the change was made in the
+ * review panel itself, so a confirmed intake returns to reviewing (the person is
+ * already looking at it) rather than to collecting (re-test 2026-10-18).
+ */
+export function reconcileReview(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint, fromReview = false): ObjectValue {
+  const phase = reviewPhase(workflow, previous);
+  const reviewing = phase === "reviewing" || (fromReview && phase === "user-confirmed");
   return { ...invalidateReview(workflow), ...(reviewing ? { intakeReview: { version: 1, reviewedRevision: inputRevision(next) } } : {}) };
 }

@@ -147,6 +147,8 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await page.reload();
     await expect(story).toHaveValue(STORY);
     await page.goto(`/?path=${court}`);
+    // A fresh start first asks before discarding the unsaved case (2026-10-18).
+    await page.getByTestId("unsaved-case-discard").click();
     await expect(story).toHaveValue("");
     await expect(page.getByLabel("City or municipality")).toHaveValue("");
   });

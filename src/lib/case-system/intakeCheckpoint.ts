@@ -76,7 +76,7 @@ export async function loadCheckpointCase(db: Db, id: string, ownerId: string, co
   return { ...data, master_result: record(data.master_result) } as CheckpointRow;
 }
 
-export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, snapshot: Checkpoint, expectedRevision: string | null, current: () => boolean, materialEdited = false) {
+export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, snapshot: Checkpoint, expectedRevision: string | null, current: () => boolean, materialEdited = false, fromReview = false) {
   if (!readCheckpoint(snapshot, snapshot.courtPath, caseId)) return { ok: false as const, reason: "rejected" as const, error: "intake-invalid" };
   return runCaseWrite(caseId, () => updateMasterResult(db, { caseId, userId: ownerId, courtPath: snapshot.courtPath }, (master) => {
     if (!current()) return { reject: "intake-cancelled" };
@@ -91,7 +91,7 @@ export async function saveCheckpoint(db: Db, ownerId: string, caseId: string, sn
     const mustRenew = materialDifference && Boolean(proof.reviewedRevision || proof.confirmedRevision) && previous && inputRevision(previous) === inputRevision(snapshot);
     const committed = mustRenew ? { ...snapshot, inputRevision: snapshot.revision } : snapshot;
     const changed = materialEdited || Boolean(previous && inputRevision(previous) !== inputRevision(committed));
-    return { ...master, intakeCheckpoint: committed, ...(changed ? { workflowStatus: reconcileReview(workflow, previous ?? snapshot, committed) } : {}) };
+    return { ...master, intakeCheckpoint: committed, ...(changed ? { workflowStatus: reconcileReview(workflow, previous ?? snapshot, committed, fromReview) } : {}) };
   }, 2, { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS }));
 }
 

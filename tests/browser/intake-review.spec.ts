@@ -142,6 +142,8 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     expect(await page.evaluate(() => Object.keys(localStorage).filter(key => /intake|draft/i.test(key)))).toEqual([]);
     await page.goto(`/builder?path=${court}`);
+    // A fresh start first asks before discarding the unsaved case (2026-10-18).
+    await page.getByTestId("unsaved-case-discard").click();
     await expect(panel).toHaveAttribute("data-phase", "collecting");
     await expect(page.getByTestId("intake-start-review")).toBeDisabled();
   });

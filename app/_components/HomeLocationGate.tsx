@@ -266,7 +266,10 @@ function HomeLocationGateContent() {
       const result = (await response.json().catch(() => ({}))) as Partial<UnderstandResponse> & { ok?: boolean; skipped?: string };
       await validateIntakeResponse(signal);
       signal.throwIfAborted();
-      if (response.ok && result.skipped === "off") return false;
+      // Any skip ("off", "authentication-required", "unavailable") is "no answer": the
+      // court-path check below runs instead. Only "off" did, so a guest's first click
+      // showed "Your update did not finish" on a 200 (PR #463 re-test, 2026-10-18).
+      if (response.ok && typeof result.skipped === "string") return false;
       if (!response.ok || !result.understanding || !result.answer) throw new Error("Your update could not be processed. Your answers are still here; please try again.");
       setUnderstood({ understanding: result.understanding, answer: result.answer });
       setUnderstoodAnswers(answers);
