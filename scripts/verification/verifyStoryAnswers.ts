@@ -62,6 +62,8 @@ import {
   familyTimelineValues,
   servedDateOf,
   withServedDate,
+  FAMILY_FILED_OPTIONS,
+  CIVIL_DOCUMENT_OPTIONS,
 } from "../../app/builder/_components/guidedFields";
 import {
   amountFromStory,
@@ -410,14 +412,13 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
 {
   // Walkthrough FR/SW (2026-10-13): "i got served the papers last week" was
   // followed by "Has anything been filed with the court or given to you yet?".
-  // The labels are read from each form's own option list, so the check holds
+  // The forms' own option lists, imported (2026-10-18: they moved to
+  // guidedFields.ts so the review shows the same words), so the check holds
   // whatever values and labels the forms carry.
-  const optionsIn = (file: string) =>
-    new Map([...read(file).matchAll(/\{\s*value:\s*"([^"]+)",\s*label:\s*"([^"]+)"\s*\}/g)].map((match) => [match[1], match[2]] as [string, string]));
-  const familyLabels = optionsIn("app/builder/_components/FamilyIntake.tsx");
-  const civilLabels = optionsIn("app/builder/_components/CivilIntake.tsx");
-  const familyOptions = [...familyLabels].map(([value, label]) => ({ value, label }));
-  const civilOptions = [...civilLabels].map(([value, label]) => ({ value, label }));
+  const familyOptions = [...FAMILY_FILED_OPTIONS];
+  const civilOptions = [...CIVIL_DOCUMENT_OPTIONS];
+  const familyLabels = new Map(familyOptions.map((option) => [option.value, option.label] as [string, string]));
+  const civilLabels = new Map(civilOptions.map((option) => [option.value, option.label] as [string, string]));
   const familyField = familyGuidedFields({ issues: [], filed: familyOptions }).find((item) => item.key === "filedDocuments") as GuidedField;
   const civilField = civilGuidedFields({ issues: [], documents: civilOptions }).find((item) => item.key === "documents") as GuidedField;
   check("family: 'Has anything been filed' is offered from the story", typeof familyField?.fromStory === "function");
