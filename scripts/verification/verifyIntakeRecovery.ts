@@ -6,7 +6,7 @@ import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeRev
  * Catches lost drafts and old writes replacing newer intake without AI, network or real cases.
  */
 import assert from "node:assert/strict";
-import { checkpointMatches, createCheckpointCase, loadCheckpointCase, readCheckpoint, readIntakeSession, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { adoptStored, checkpointMatches, createCheckpointCase, loadCheckpointCase, readCheckpoint, readIntakeSession, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
@@ -100,3 +100,14 @@ for (const court of ["small-claims", "family", "civil"] as const) {
 
 }
 void main().catch((error: unknown) => { console.error(error instanceof Error ? error.stack : "FAIL intake recovery verification"); process.exitCode = 1; });
+
+// THE FIRST REGISTRATION NEVER OVERWRITES (CI, PR #463, 2026-10-18): a component
+// that mounts holding an older value adopts what the store already has, so a
+// correction written in the gap before it subscribed is not put back to the old text.
+{
+  assert.equal(adoptStored("corrected story", "old story"), "corrected story", "a differing stored value wins over the component's stale one");
+  assert.equal(adoptStored(undefined, "own value"), "own value", "with nothing stored the component's value registers");
+  assert.equal(adoptStored(null, "text"), "text", "a stored value of the wrong type is not adopted");
+  assert.deepEqual([...adoptStored(["a"], new Set<string>())], ["a"], "sets are restored from arrays");
+  console.log("PASS first registration adopts the stored value");
+}

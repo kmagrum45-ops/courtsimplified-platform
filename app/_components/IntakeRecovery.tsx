@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
-import { checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
+import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -395,15 +395,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
 /** `shared`: other components read this same field, so every write is announced to them. */
 export function useIntakeState<T>(section: string, field: string, initial: T | (() => T), shared = false): [T, Dispatch<SetStateAction<T>>] {
   const recovery = useIntakeRecovery();
-  const [value, setValue] = useState<T>(() => {
-    const fallback = typeof initial === "function" ? (initial as () => T)() : initial;
-    const stored = recovery?.read(section, field);
-    if (stored === undefined) return fallback;
-    if (fallback instanceof Set) return (Array.isArray(stored) ? new Set(stored) : fallback) as T;
-    if (fallback !== null && (stored === null || typeof stored !== typeof fallback)) return fallback;
-    if (Array.isArray(fallback) !== Array.isArray(stored) && fallback !== null) return fallback;
-    return stored as T;
-  });
+  const [value, setValue] = useState<T>(() => adoptStored(recovery?.read(section, field), typeof initial === "function" ? (initial as () => T)() : initial));
   useEffect(() => {
     if (!recovery) return;
     return recovery.subscribeField(section, field, () => {
@@ -417,8 +409,23 @@ export function useIntakeState<T>(section: string, field: string, initial: T | (
   }, [recovery, section, field]);
   const first = useRef(true);
   useEffect(() => {
-    recovery?.put(section, field, value, !first.current, shared);
-    first.current = false;
+    if (!recovery) { first.current = false; return; }
+    if (first.current) {
+      first.current = false;
+      /*
+       * THE FIRST REGISTRATION NEVER OVERWRITES. Between React showing the page
+       * and this component subscribing, a write can land in the store (a
+       * correction typed into the review panel just after a reload). This
+       * component then still holds the value it read before, and registering it
+       * would silently put the old text back under a confirmation that no longer
+       * matches it (CI, PR #463, 2026-10-18). It adopts the stored value instead.
+       */
+      const stored = adoptStored(recovery.read(section, field), value);
+      if (JSON.stringify(stored instanceof Set ? [...stored] : stored) !== JSON.stringify(value instanceof Set ? [...value] : value)) { setValue(stored); return; }
+      recovery.put(section, field, value, false, shared);
+      return;
+    }
+    recovery.put(section, field, value, true, shared);
   }, [recovery, section, field, value, shared]);
   return [value, setValue];
 }

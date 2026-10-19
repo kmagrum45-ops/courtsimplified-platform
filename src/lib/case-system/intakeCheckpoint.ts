@@ -125,3 +125,12 @@ export async function saveReviewTransition(db: Db, ownerId: string, caseId: stri
     catch { return { reject: "intake-review-required" }; }
   }, 2, { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS }));
 }
+
+/** The stored value when it fits this field's type, else the component's own value. */
+export function adoptStored<T>(stored: unknown, fallback: T): T {
+  if (stored === undefined) return fallback;
+  if (fallback instanceof Set) return (Array.isArray(stored) ? new Set(stored) : fallback) as T;
+  if (fallback !== null && (stored === null || typeof stored !== typeof fallback)) return fallback;
+  if (Array.isArray(fallback) !== Array.isArray(stored) && fallback !== null) return fallback;
+  return stored as T;
+}
