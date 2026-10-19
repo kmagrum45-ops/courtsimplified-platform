@@ -1,18 +1,15 @@
 /**
- * GUESTS REACH GUIDANCE (PR #463 re-test, 2026-10-18).
+ * GUESTS AND GUIDANCE (PR #463 re-test, 2026-10-18; site owner's decision).
  *
- * After confirming, a guest was told to "choose Continue in your intake below"
- * and there was no Continue; choosing the other Small Claims route cancelled
- * the confirmation. This confirms as a guest, presses the review panel's
- * Continue, and requires guidance from the real analysis routes (which serve
- * guests without AI): the next step's stage question and the form it offers,
- * then — once the stage is chosen — the step with its deadline. The
- * confirmation must stand throughout.
+ * Every area's analysis runs the AI danger/distress safety check first, and
+ * that check needs an account, so a guest must sign in before guidance —
+ * Small Claims since "Session 19", Family and Civil from 2026-10-18 (Family is
+ * the highest-risk area). Before this, a Family or Civil guest's story reached
+ * analysis with the safety check silently refused (401, read as "clear").
  *
- * Small Claims guests still need to sign in first: its analysis requires the AI
- * safety check, which needs an account (SmallClaimsIntake, "Session 19"). The
- * test pins that Continue says so plainly rather than doing nothing, and that
- * switching route on the chooser keeps the confirmation.
+ * After confirming, "Show my next step" must not do nothing: a guest is told
+ * plainly to sign in, no analysis request is made, and the confirmation
+ * stands. Switching Small Claims route must not cancel it either.
  */
 import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
@@ -31,35 +28,28 @@ async function confirmed(page: Page) {
   await expect(page.getByTestId("intake-review"), "the confirmation stands").toHaveAttribute("data-phase", "user-confirmed");
 }
 
+function watchAnalysis(page: Page) {
+  const calls: string[] = [];
+  page.on("request", (request) => { if (/\/api\/(small-claims|family|civil)\/analyze/.test(request.url())) calls.push(request.url()); });
+  return calls;
+}
+
 for (const court of ["family", "civil"] as const) {
-  test(`${court} guest: confirm, then Continue shows the next step, its form and deadline`, async ({ page }) => {
+  test(`${court} guest: Show my next step asks for sign-in and sends nothing for analysis`, async ({ page }) => {
     test.setTimeout(240_000);
+    const calls = watchAnalysis(page);
     await openBuilder(page, court, { story: STORY[court] });
     await confirmInitialInformation(page);
     await page.getByTestId("intake-continue-guidance").click();
-    await expect(page).toHaveURL(/step=results/, { timeout: 120_000 });
+    await expect(page.getByTestId("sign-in-for-safety-check")).toContainText(`${court === "family" ? "Family" : "Civil"} intake requires a signed-in account`);
     await confirmed(page);
-
-    // The next step: choosing where the case stands, then the step it leads to.
-    const stage = page.getByRole("combobox", { name: "Case stage" });
-    await expect(stage).toBeVisible({ timeout: 60_000 });
-    const firstStage = await stage.locator("option").nth(1).getAttribute("value");
-    await stage.selectOption(firstStage!);
-    await page.getByRole("button", { name: "Use this", exact: true }).click();
-    const answer = page.getByTestId("stage-answer-panel");
-    await expect(answer).toBeVisible({ timeout: 60_000 });
-    // The step loads after the panel appears; these wait for it.
-    await expect(answer, "the next step is shown").toContainText("YOUR NEXT STEP", { ignoreCase: true, timeout: 60_000 });
-    await expect(answer, "the next step names its form").toContainText(/\bForm\s+[0-9]+[A-Z]?\b/);
-    await expect(answer, "the next step states its deadline").toContainText(/\b\d+ days after\b/);
-    await expect(answer, "the step cites its rule").toContainText(/checked \d{4}-\d{2}-\d{2}/);
-    await expect(answer).not.toContainText("We could not load this just now");
-    await confirmed(page);
+    expect(calls, "a guest's story never reaches analysis unchecked").toEqual([]);
   });
 }
 
-test("small-claims guest: switching route keeps the confirmation; Continue asks for sign-in plainly", async ({ page }) => {
+test("small-claims guest: switching route keeps the confirmation; Show my next step asks for sign-in", async ({ page }) => {
   test.setTimeout(240_000);
+  const calls = watchAnalysis(page);
   await grantSiteAccess(page);
   await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
   await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: "small-claims", confidence: 0.95 } }));
@@ -79,19 +69,17 @@ test("small-claims guest: switching route keeps the confirmation; Continue asks 
   await confirmInitialInformation(page);
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
   await confirmed(page);
-  // The guided route: Continue says sign-in is needed, and runs no analysis.
-  let analysed = false;
-  await page.route("**/api/small-claims/analyze", (route) => { analysed = true; return route.continue(); });
+  // The guided route: Show my next step says sign-in is needed.
   await page.getByTestId("intake-continue-guidance").click();
   await expect(page.getByText("Please sign in to continue. Small Claims intake requires a signed-in account")).toBeVisible({ timeout: 60_000 });
   await confirmed(page);
 
-  // Back on the chooser, Continue opens the form, which says the same.
+  // Back on the chooser, it opens the form, which says the same.
   await page.goBack();
   await expect(page.getByRole("button", { name: "Fill in the form yourself" })).toBeVisible();
   await confirmed(page);
   await page.getByTestId("intake-continue-guidance").click();
-  await expect(page.getByText("Please sign in to continue. Small Claims intake now requires a signed-in account")).toBeVisible({ timeout: 60_000 });
+  await expect(page.getByTestId("sign-in-for-safety-check")).toContainText("Small Claims intake requires a signed-in account");
   await confirmed(page);
-  expect(analysed, "a Small Claims guest's story never reaches analysis without the safety check").toBe(false);
+  expect(calls, "a guest's story never reaches analysis unchecked").toEqual([]);
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import SignInForSafetyCheck from "./SignInForSafetyCheck";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -386,6 +387,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
     useIntakeState<EvidenceFile[]>("family", "uploadedEvidenceFiles", []);
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
+  const [authRequired, setAuthRequired] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
   const requestScope = JSON.stringify([caseStage, yourRole, filedDocuments, issues, yourName, otherParty, childrenInfo, currentLivingSituation, pastLivingHistory, facts, timeline, evidence, missingEvidence, goal, urgent, safetyConcerns, propertyHomeDetails, upcomingCourtDate, adoptionDetails, uploadedEvidenceFiles]);
@@ -638,6 +640,11 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;
     }
+    // Guests sign in first: the AI danger/distress safety check runs before every
+    // analysis and needs an account (site owner, 2026-10-18; same rule as Small Claims).
+    setAuthRequired(false);
+    const { data: { session: signedIn } } = await supabase.auth.getSession();
+    if (!signedIn?.access_token) { setAuthRequired(true); return; }
     submissionInFlight.current = true;
     // The questions are finished: the page may now ask its own (V1).
     onQuestionsDone?.();
@@ -934,6 +941,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           {storageWarning}
         </div>
       )}
+
+      {authRequired && <SignInForSafetyCheck area="Family" />}
 
       {analysisError && (
         <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">

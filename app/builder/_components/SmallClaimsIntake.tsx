@@ -6,7 +6,7 @@ import { IntakeRequest } from "../../_components/intakeRequest";
 
 import TidyWordingReview from "./TidyWordingReview";
 
-import Link from "next/link";
+import SignInForSafetyCheck from "./SignInForSafetyCheck";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type {
@@ -1014,15 +1014,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
       ) : null}
 
-      {authRequired && (
-        <div className="mt-5 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm leading-6 text-blue-900">
-          Please sign in to continue. Small Claims intake now requires a signed-in account so
-          CourtSimplified can run its safety check before analyzing your case.{" "}
-          <Link href="/login" className="font-semibold underline">
-            Sign in
-          </Link>
-        </div>
-      )}
+      {authRequired && <SignInForSafetyCheck area="Small Claims" />}
 
       {asksForAdvice && (
         <div className="mt-5">

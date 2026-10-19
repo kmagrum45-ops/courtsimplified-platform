@@ -128,4 +128,4 @@ export function createCivilAnalyzePost(
   };
 }
 
-export const POST = withConfirmedGuidance(createCivilAnalyzePost(), { court: "civil", requireRevision: true, allowGuest: true });
+export const POST = withConfirmedGuidance(createCivilAnalyzePost(), { court: "civil", requireRevision: true });

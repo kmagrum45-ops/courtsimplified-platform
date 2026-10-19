@@ -13,7 +13,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-
 const object = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
 const refusal = (error: string, status: number) => NextResponse.json({ ok: false, error, code: "INTAKE_CONFIRMATION_REQUIRED" }, { status, headers: { "Cache-Control": "private, no-store" } });
 
-export function withConfirmedGuidance<T extends Request>(handler: (request: T) => Promise<Response>, options: { court?: string; currentAnalysis?: boolean; requireRevision?: boolean; allowGuest?: boolean } = {}, overrides: Partial<Dependencies> = {}) {
+export function withConfirmedGuidance<T extends Request>(handler: (request: T) => Promise<Response>, options: { court?: string; currentAnalysis?: boolean; requireRevision?: boolean } = {}, overrides: Partial<Dependencies> = {}) {
   const deps: Dependencies = {
     authenticate: getAuthenticatedUser,
     owned: (request, user, id) => getAuthenticatedOwnedCase(request, user as never, id, { masterKeys: ["workflowStatus", "guidanceInputRevision", "intakeCheckpoint"], intakeIdentityOnly: true }),
@@ -21,6 +21,7 @@ export function withConfirmedGuidance<T extends Request>(handler: (request: T) =
   };
   return async (request: T): Promise<Response> => {
     const user = await deps.authenticate(request);
+    if (!user) return refusal("Sign in to save and confirm your initial information before receiving case guidance.", 401);
     let body: Record<string, unknown> = {};
     if (!["GET", "HEAD"].includes(request.method)) {
       try {
@@ -30,22 +31,6 @@ export function withConfirmedGuidance<T extends Request>(handler: (request: T) =
       } catch { return refusal("A valid request body is required.", 400); }
     }
     const ids = [request.headers.get("x-courtsimplified-case-id"), new URL(request.url).searchParams.get("caseId"), body.caseId, object(body.input).caseId].filter(value => value !== undefined && value !== null && value !== "");
-    /*
-     * GUESTS (site owner, PR #463 re-test, 2026-10-18): a guest has no saved case, so
-     * the server cannot hold their confirmation; the browser enforces review before
-     * it asks. On the routes that served guests before this gate (allowGuest), an
-     * anonymous request naming NO case reaches the handler, which serves anonymous
-     * callers as it always has (no AI, no case access). An anonymous request that
-     * names a case is still refused: it is claiming a confirmation it cannot prove.
-     */
-    if (!user) {
-      if (options.allowGuest && ids.length === 0) {
-        const response = await handler(request);
-        response.headers.set("Cache-Control", "private, no-store");
-        return response;
-      }
-      return refusal("Sign in to save and confirm your initial information before receiving case guidance.", 401);
-    }
     const caseId = ids[0];
     if (typeof caseId !== "string" || !UUID.test(caseId) || ids.some(id => id !== caseId)) return refusal("Open your selected case and complete its intake review first.", 409);
     const owned = await deps.owned(request, user, caseId);

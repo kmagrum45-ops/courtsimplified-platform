@@ -332,4 +332,4 @@ async function postGuidance(request: Request) {
   return NextResponse.json(present(position, dates, facts));
 }
 
-export const POST = withConfirmedGuidance(postGuidance, { currentAnalysis: true, allowGuest: true });
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

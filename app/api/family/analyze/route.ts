@@ -264,7 +264,7 @@ async function postGuidance(request: NextRequest) {
   }
 }
 
-export const POST = withConfirmedGuidance(postGuidance, { court: "family", requireRevision: true, allowGuest: true });
+export const POST = withConfirmedGuidance(postGuidance, { court: "family", requireRevision: true });
 
 /** Offline contract tests exercise the existing validator/engine without bypassing the HTTP export. */
 export function createFamilyAnalyzePost() { return postGuidance; }

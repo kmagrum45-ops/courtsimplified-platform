@@ -134,3 +134,9 @@ name; when that is not plain, no route is offered and the side question is asked
 | L8 | Guided (AI help) route: earlier it ended with "continue to the next step" and no button, and nothing saved; not re-tested since the new-case fix (#449) | dog bite | Re-test | live retest | needs re-test |
 | L9 | First-screen analysis takes 1.5 to 2.5 minutes with only a grey button; no progress shown | all | Progress indicator | run | open |
 | L10 | Starting a new case from /builder?path=small-claims reopened the previous case's story and location | loan then dog bite | PR #449 | live retest 2026-10-17: story box and location start empty on both routes | closed |
+
+## PR #463 re-test decisions (site owner, 2026-10-18)
+
+| # | Cause | Cases | Fix | Check | Status |
+|---|---|---|---|---|---|
+| G1 | Guests cannot reach guidance in any area: every analysis runs the AI danger/distress safety check first, and that check needs an account. Family and Civil guests had been reaching analysis with the check silently refused (401 read as "clear"); now all three ask a guest to sign in. Kept on purpose: no real users yet, and the A2I commitment is no users before ZDR approval. | all guests | **Revisit before beta:** option 2 — open the safety check to guests, with strict per-visitor rate limits (cost and abuse exposure on an endpoint anyone can call). | `tests/browser/guest-guidance.spec.ts`; `verifyIntakeGuidanceGate` (anonymous refused on every guidance route) | open (deferred to before beta) |
