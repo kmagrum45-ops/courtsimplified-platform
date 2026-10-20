@@ -164,10 +164,10 @@ name; when that is not plain, no route is offered and the side question is asked
 ### New items from the PR #463 testing (2026-10-18 to 2026-10-19), all open
 
 - **L24** (open): The case never names which courthouse to go to, though the Courthouses page addresses are correct (Hamilton, Kingston tests). Build a "which court" step for all three areas from the checked law library: Small Claims from where the other side lives or carries on business or where the claim arose (check the rule text in the corpus, expected r. 6.01); Family from claim type, where the child ordinarily lives and where the parties live (FLR r. 5) and whether the area has a single Family Court; civil likewise. Show the courthouse and the reason, or ask for the missing location. Never guess from the person's city alone.
-- **L25** (open): Log out only appears on the My cases page. Put "Log out" and "Signed in as..." in the header on every page, live and preview, narrow screens too.
-- **L26** (open): Dead-end message on the guided page: "Something went wrong finishing the intake" appears when the review panel at the top is unconfirmed. Say so and link to the review panel.
-- **L27** (open): After "Show my next step", the progress message sits about 2,350px below the button and nothing changes for about 90 seconds. Show progress and errors beside the control just pressed.
-- **L28** (open): "Start a new case" is about 6,800px down My Workspace. Put it at the top; collapse older cases.
+- **L25** (fixed in #465, awaiting re-test): Log out only appears on the My cases page. Put "Log out" and "Signed in as..." in the header on every page, live and preview, narrow screens too.
+- **L26** (fixed in #465, awaiting re-test): Dead-end message on the guided page: "Something went wrong finishing the intake" appears when the review panel at the top is unconfirmed. Say so and link to the review panel.
+- **L27** (fixed in #465, awaiting re-test): After "Show my next step", the progress message sits about 2,350px below the button and nothing changes for about 90 seconds. Show progress and errors beside the control just pressed.
+- **L28** (fixed in #465, awaiting re-test): "Start a new case" is about 6,800px down My Workspace. Put it at the top; collapse older cases.
 - **L29** (open): The review panel's story box is about two lines tall with its own scroll bar. Make it grow to fit the story. City shows as "ottawa"; capitalize it.
 - **L30** (open): The legal name entered in the form doesn't fill "Your full legal name" on the next-step page.
 - **L31** (open): The next-step page still says "Choose what you are asking the court for" after the outcome was given. The "When it happened" suggestion includes the due date as well as the work date.
