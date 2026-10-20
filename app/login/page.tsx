@@ -95,11 +95,10 @@ export default function LoginPage() {
         if (data.session) {
           // A new account starts with nothing from this browser, except the guest
           // intake this person chose to bring with them (guestCarry.ts).
-          const destination = afterSignIn();
-          const carried = data.user ? carryGuestIntake(sessionStorage, destination, data.user.id) : null;
+          const carried = data.user ? carryGuestIntake(sessionStorage, afterSignIn(), data.user.id) : null;
           resetIntakeInBrowser();
-          if (carried) writeIntakeSession(sessionStorage, carried);
-          router.push(destination);
+          if (carried) writeIntakeSession(sessionStorage, carried.session);
+          router.push(carried?.destination ?? afterSignIn());
           return;
         }
 
@@ -125,16 +124,17 @@ export default function LoginPage() {
       const court = params.get("path");
       const flow = params.get("caseId") || params.get("intake");
       // Only this exact flow belonging to the authenticated owner survives cleanup.
-      const returning = (data.user && flow && (court === "family" || court === "civil" || court === "small-claims")
-        ? readIntakeSession(sessionStorage, flow, data.user.id, court) : null)
-        // Or the guest intake this person chose to bring into their account (guestCarry.ts).
-        ?? (data.user ? carryGuestIntake(sessionStorage, destination, data.user.id) : null);
+      const own = data.user && flow && (court === "family" || court === "civil" || court === "small-claims")
+        ? readIntakeSession(sessionStorage, flow, data.user.id, court) : null;
+      // Or the guest intake this person chose to bring into their account, under a new id (guestCarry.ts).
+      const carried = !own && data.user ? carryGuestIntake(sessionStorage, destination, data.user.id) : null;
+      const returning = own ?? carried?.session ?? null;
       resetIntakeInBrowser();
       if (returning && !writeIntakeSession(sessionStorage, returning)) {
         setError("Signed in, but this tab could not retain pending text. Please return to your intake and copy it before retrying.");
         return;
       }
-      router.push(destination);
+      router.push(carried?.destination ?? destination);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {

@@ -29,6 +29,7 @@ import { cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./
 import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
+import { startSignIn } from "../../_components/startSignIn";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 
 type IntakeFacts = Record<string, string | number | boolean>;
@@ -539,6 +540,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     return () => { mounted.current = false; requests.forEach((request) => request.cancel()); };
   }, []);
   const [error, setError] = useState("");
+  // A 401 from the guided AI routes: the line gets a sign-in link beside it.
+  const [signInNeeded, setSignInNeeded] = useState(false);
   const [halted, setHalted] = useIntakeState("guided", "halted", false);
   const [intakeComplete, setIntakeComplete] = useIntakeState("guided", "intakeComplete", false);
   const [started, setStarted] = useIntakeState("guided", "started", false);
@@ -633,7 +636,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       return;
     }
     setLoading(true);
-    setError("");
+    setError(""); setSignInNeeded(false);
 
     try {
       await turnRequest.current.run(async (signal) => {
@@ -665,6 +668,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       signal.throwIfAborted();
       if (!response.ok || !json.ok) {
         setError(json.error || "That didn't go through. Please try again.");
+        setSignInNeeded(response.status === 401);
         if (!answeredQuestionId && !confirmedAnswers) setStarted(false);
         return;
       }
@@ -814,7 +818,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   async function resolveSuggestion(action: "confirm" | "reject") {
     if (!pendingSuggestion || suggestionRequest.current.pending) return;
     setResolvingSuggestion(true);
-    setError("");
+    setError(""); setSignInNeeded(false);
 
     try {
       await suggestionRequest.current.run(async (signal) => {
@@ -844,6 +848,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       signal.throwIfAborted();
       if (!response.ok || !json.ok) {
         setError(json.error || "That didn't go through. Please try again.");
+        setSignInNeeded(response.status === 401);
         return;
       }
 
@@ -1516,7 +1521,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         process. They now render BELOW the input; see GuidanceDisclosure.
       */}
 
-      {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
+      {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]" data-testid="guided-error">{error}{signInNeeded ? <>{" "}<a href="/login" data-testid="guided-sign-in" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="underline">Sign in or create a free account (what you entered comes with you)</a></> : null}</p> : null}
 
       {/*
         2026-10-16 live bug: "Guided intake complete." rendered mid-flow, in

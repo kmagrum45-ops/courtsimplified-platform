@@ -13,6 +13,7 @@ import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
+import { startSignIn } from "../_components/startSignIn";
 import GetHelp from "../_components/GetHelp";
 import { readStoredPicture, stepFromPicture, type CasePicture } from "../../src/lib/case-system/intake/caseReader";
 import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
@@ -2688,9 +2689,9 @@ function BuilderPageContent() {
                 <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="case-not-saved">
                   This case is not saved to an account, so it has no case page yet and will not be here
                   when you come back.{" "}
-                  <Link href="/login" className="font-semibold text-[#2f7d67] underline">
+                  <a href="/login" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="font-semibold text-[#2f7d67] underline">
                     Sign in or create an account
-                  </Link>{" "}
+                  </a>{" "}
                   before you start, and your case, its next steps, documents and drafts are kept for you.
                 </p>
               ) : null}

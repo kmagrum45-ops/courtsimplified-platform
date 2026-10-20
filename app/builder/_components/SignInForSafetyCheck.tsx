@@ -1,14 +1,6 @@
 "use client";
 
-import { markGuestCarry } from "../../../src/lib/case-system/guestCarry";
-
-/** "Sign in" from inside a guest intake: brings this intake into the account and returns to it (guestCarry.ts). */
-export function signInFromIntake() {
-  const here = `${window.location.pathname}${window.location.search}`;
-  const flow = new URLSearchParams(window.location.search).get("intake");
-  if (flow) markGuestCarry(sessionStorage, flow);
-  window.location.assign(`/login?next=${encodeURIComponent(here)}`);
-}
+import { startSignIn } from "../../_components/startSignIn";
 
 /**
  * Shown when a guest asks for case guidance. Every area's analysis runs the AI
@@ -23,7 +15,7 @@ export default function SignInForSafetyCheck({ area }: { area: "Small Claims" | 
       Please sign in to continue. {area} intake requires a signed-in account so
       CourtSimplified can run its safety check before analyzing your case. What you have
       entered comes with you.{" "}
-      <a href="/login" onClick={(event) => { event.preventDefault(); signInFromIntake(); }} className="font-semibold underline">
+      <a href="/login" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="font-semibold underline">
         Sign in or create a free account
       </a>
     </div>

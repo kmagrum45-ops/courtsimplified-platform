@@ -23,6 +23,8 @@ export type IntakeSession = {
   workflowStatus?: Record<string, unknown>;
   /** Signed in: something entered here has not reached the account yet. */
   pending?: boolean;
+  /** A guest intake brought into this account at sign-in (guestCarry.ts) that has not created its case yet. */
+  carried?: boolean;
   checkpoint: Checkpoint;
 };
 export type CheckpointRow = { id: string; user_id: string; court_path: string; current_stage?: string; master_result: Record<string, unknown> };
@@ -58,7 +60,8 @@ export function readIntakeSession(storage: Pick<Storage, "getItem">, flowId: str
     const checkpoint = readCheckpoint(value.checkpoint, court, flowId);
     if (value.version !== 2 || value.ownerId !== ownerId || !checkpoint ||
         (value.caseId !== null && value.caseId !== flowId) || (value.serverRevision !== null && !intakeId(value.serverRevision))) return null;
-    return { version: 2, ownerId, checkpoint, caseId: value.caseId as string | null, serverRevision: value.serverRevision as string | null, ...(ownerId === null && safeJson(value.workflowStatus) ? { workflowStatus: record(value.workflowStatus) } : {}) };
+    return { version: 2, ownerId, checkpoint, caseId: value.caseId as string | null, serverRevision: value.serverRevision as string | null, ...(ownerId === null && safeJson(value.workflowStatus) ? { workflowStatus: record(value.workflowStatus) } : {}),
+      ...(ownerId !== null && value.carried === true && value.caseId === null ? { carried: true } : {}) };
   } catch { return null; }
 }
 

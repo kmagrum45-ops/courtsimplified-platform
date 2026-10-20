@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "../../src/lib/supabase/client";
+import { startSignIn } from "./startSignIn";
 
 /**
  * Single nav slot that reads as "Sign in" or "My Workspace" depending on
@@ -35,8 +36,9 @@ export default function AuthNavAction({ className }: { className?: string }) {
       My Workspace
     </Link>
   ) : (
-    <Link href="/login" className={className}>
+    // Through startSignIn, so a guest intake open in this tab comes with them (guestCarry.ts).
+    <a href="/login" onClick={(event) => { event.preventDefault(); startSignIn(); }} className={className} data-testid="header-sign-in">
       Sign in
-    </Link>
+    </a>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import IntakeReviewPanel from "./IntakeReviewPanel";
-import { signInFromIntake } from "../builder/_components/SignInForSafetyCheck";
+import { startSignIn } from "./startSignIn";
 import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
@@ -124,6 +124,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         if (!current()) return;
         if (selectedId && !row) throw new Error("The selected case is unavailable for this account or court. No other case has been opened.");
         if (requestedFlow && !row && !session) throw new Error("This intake is not available in this tab or account. Open your saved case, or start a new intake.");
+        // A guest intake brought in at sign-in only ever creates a new case (guestCarry.ts).
+        if (session?.carried && row) throw new Error("This intake was brought into your account when you signed in, and it is never added to a case you already have. Your saved cases were not changed; start a new intake to continue.");
         if (session?.caseId && !row) throw new Error("The selected saved intake could not be found. No other case has been opened.");
         const saved = readCheckpoint(row?.master_result.intakeCheckpoint, court, flowId);
         if (row?.master_result.intakeCheckpoint && !saved) throw new Error("This case has an incompatible intake checkpoint. No other case has been opened.");
@@ -190,7 +192,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const invalid = new Set<string>();
         // `pending`: something entered here has not reached the account (still saving,
         // a failed save, or no case created yet). Default values a form writes are not.
-        const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : { pending: dirty || !caseId }) });
+        const cache = () => writeIntakeSession(sessionStorage, { version: 2, ownerId, caseId, serverRevision, checkpoint: snapshot, ...(!ownerId ? { workflowStatus } : { pending: dirty || !caseId, ...(session?.carried && !caseId ? { carried: true } : {}) }) });
         const failure = (message: string) => { if (current()) { setFailed(true); setNotice(message); } };
         const flush = async (signal?: AbortSignal): Promise<void> => {
           signal?.throwIfAborted();
@@ -428,7 +430,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
       {notice}{" "}
       {failed && <button type="button" className="underline" onClick={() => recovery ? void recovery.flush().catch(() => {}) : setAttempt((value) => value + 1)}>Retry saving intake</button>}{" "}
-      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { if (recovery && !recovery.ownerId) { event.preventDefault(); signInFromIntake(); } }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
+      {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
