@@ -127,22 +127,23 @@ test("the story carries from the finder into the builder within one flow", async
   ).toBe(true);
 });
 
+// What a signed-in person keeps in this browser survives the gate. It used the
+// retired per-user draft key until Part 3, which removes keys nothing writes on
+// every page load; the follow-up chat transcript is a current one.
 test("a signed-in user's saved draft is not wiped by the gate", async ({ page }) => {
-  test.setTimeout(300_000);
-
   test.setTimeout(180_000);
   await fakeAccount(page);
-  const userId = "11111111-1111-4111-8111-111111111111";
-  await page.addInitScript(({ id, draftStory }) => {
-    localStorage.setItem(`courtSimplifiedBuilderDraft:${id}`, JSON.stringify({ version: 1, courtPath: "small-claims", province: "Ontario", city: "Toronto", facts: draftStory }));
-  }, { id: userId, draftStory: STORY });
+  const key = "courtsimplified-ai-case-partner-chat:case:11111111-1111-4111-8111-111111111111";
+  await page.addInitScript(({ name, draftStory }) => {
+    localStorage.setItem(name, JSON.stringify({ messages: [{ role: "user", content: draftStory }] }));
+  }, { name: key, draftStory: STORY });
 
   await page.goto("/?path=small-claims", SLOW);
   await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible", timeout: 60_000 });
 
   const stillThere = await page.evaluate(
     (key) => (localStorage.getItem(key) || "").includes("SECRETMARKER"),
-    `courtSimplifiedBuilderDraft:${userId}`,
+    key,
   );
 
   expect(stillThere, "a signed-in user's saved draft was cleared by the gate").toBe(true);

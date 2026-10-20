@@ -71,7 +71,8 @@ test("small-claims guest: switching route keeps the confirmation; Show my next s
   await confirmed(page);
   // The guided route: Show my next step says sign-in is needed.
   await page.getByTestId("intake-continue-guidance").click();
-  await expect(page.getByText("Please sign in to continue. Small Claims intake requires a signed-in account")).toBeVisible({ timeout: 60_000 });
+  // Said on the screen, and since L27 beside the button too: either copy will do.
+  await expect(page.getByText("Please sign in to continue. Small Claims intake requires a signed-in account").first()).toBeVisible({ timeout: 60_000 });
   await confirmed(page);
 
   // Back on the chooser, it opens the form, which says the same.
