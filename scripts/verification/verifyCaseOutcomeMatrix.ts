@@ -1,16 +1,20 @@
 import { NextRequest } from "next/server";
 import { pathToFileURL } from "node:url";
 
-import { POST as smallClaimsPost } from "../../app/api/small-claims/analyze/route";
-import { POST as familyPost } from "../../app/api/family/analyze/route";
+// Offline engine/serialization matrix; HTTP confirmation is independently enforced
+// and tested for the actual exports by test:intake-guidance-gate.
+import { createSmallClaimsAnalyzePost } from "../../app/api/small-claims/analyze/route";
+import { createFamilyAnalyzePost } from "../../app/api/family/analyze/route";
 import {
-  POST as civilPost,
   createCivilAnalyzePost,
 } from "../../app/api/civil/analyze/route";
-import { POST as aiPartnerPost } from "../../app/api/guided-assistant/route";
+import { createGuidedAssistantPost } from "../../app/api/guided-assistant/route";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 
 export type CourtPath = "small-claims" | "family" | "civil" | "guided-assistant";
+const smallClaimsPost = createSmallClaimsAnalyzePost();
+const familyPost = createFamilyAnalyzePost();
+const civilPost = createCivilAnalyzePost();
 type ExpectedRoute = {
   status: number;
   ok: boolean;
@@ -374,6 +378,10 @@ export async function runRouteFixture(fixture: Fixture): Promise<FixtureRun> {
       isolationIds: [(firstBody.result?.masterResultPatch?.masterCase as any)?.id, (secondBody.result?.masterResultPatch?.masterCase as any)?.id] }, externalAiObserved: false };
   }
   if (fixture.selectedCourtPath === "guided-assistant") {
+    const aiPartnerPost = createGuidedAssistantPost({
+      authenticate: async () => ({ id: "user-alpha" }) as never,
+      owned: async () => ({ id: fixture.id, court_path: String((fixture.structuredIntake.courtContext as Record<string, unknown> | undefined)?.courtPath ?? "small-claims"), master_result: { intakeData: { facts: fixture.narrative, caseStage: fixture.stage } } }),
+    });
     const response = await aiPartnerPost(new NextRequest("http://matrix/api/guided-assistant", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ caseId: fixture.id, message: fixture.narrative, conversation: [{ role: "user", content: fixture.narrative }], ...fixture.structuredIntake, mode: "verification" }) }));
     return { fixture, status: response.status, body: await response.json(), externalAiObserved: false };

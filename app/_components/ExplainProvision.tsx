@@ -1,4 +1,5 @@
 "use client";
+import { authHeaders } from "../cases/_components/CaseHomeContext";
 
 import { useState } from "react";
 
@@ -25,7 +26,7 @@ export default function ExplainProvision({ id }: { id: string }) {
     try {
       const response = await fetch("/api/law/explain", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: await authHeaders() ?? { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
       const body = (await response.json()) as { ok?: boolean; explanation?: string };

@@ -111,7 +111,6 @@ export type UnderstandInput = {
 
 // ------------------------------------------------------------------ limits
 
-const STORY_MAX = 8_000;
 const MAX_QUESTIONS = 4;
 const MAX_FACTS = 10;
 const MAX_POINTS = 12;
@@ -373,13 +372,15 @@ export function storyWithAnswers(input: UnderstandInput): string {
     ...answered.map((item) => `Q: ${item.question.trim()}\nA: ${item.answer.trim()}`),
   ]
     .filter(Boolean)
-    .join("\n\n")
-    .slice(0, STORY_MAX);
+    .join("\n\n");
 }
 
 // ------------------------------------------------------------------ the pipeline
 
 export type UnderstandDeps = {
+  /** Initial intake reads facts and categories only; legal research follows confirmation. */
+  intakeOnly?: boolean;
+  signal?: AbortSignal;
   /** The reasoning call; returns the model's JSON text. */
   reason?: (story: string, chosenCourt?: RetrievalCourt | null) => Promise<string>;
   /** Passed through to the checked-answer engine (tests inject fakes). */
@@ -390,19 +391,24 @@ export type UnderstandDeps = {
 
 /** Resolves to `fallback` when `promise` has not settled within `ms`. */
 function within<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
-  return Promise.race([promise.catch(() => fallback), new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms).unref?.())]);
+  let timer: ReturnType<typeof setTimeout>;
+  return Promise.race([promise.catch(() => fallback), new Promise<T>((resolve) => { timer = setTimeout(() => resolve(fallback), ms); })])
+    .finally(() => clearTimeout(timer));
 }
 
 export async function understandCase(input: UnderstandInput, deps: UnderstandDeps = {}): Promise<UnderstandResult> {
   try {
     const story = storyWithAnswers(input);
     if (!input.story.trim()) return { status: "unavailable" };
+    deps.signal?.throwIfAborted();
 
-    const raw = await within((deps.reason ?? reasonWithModel)(story, input.chosenCourt), deps.understandMs ?? UNDERSTAND_TIME_MS, "");
+    const raw = await within(deps.reason ? deps.reason(story, input.chosenCourt) : reasonWithModel(story, input.chosenCourt, deps.signal, deps.understandMs, deps.intakeOnly), deps.understandMs ?? UNDERSTAND_TIME_MS, "");
+    deps.signal?.throwIfAborted();
     const parsed = raw ? parseUnderstanding(raw) : null;
     if (!parsed) return { status: "unavailable" };
     const { points } = parsed;
     const understanding = withFixedRegime(parsed.understanding, story);
+    if (deps.intakeOnly) return { status: "understood", understanding: { ...understanding, stage: "", step: null }, answer: { status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }, drafted: [] };
 
     // The reasoning step's points become the draft the checker works on. The
     // checker never sees the reasoning, only each point and the official text.
@@ -435,6 +441,7 @@ export async function understandCase(input: UnderstandInput, deps: UnderstandDep
     );
     // The checker's second look can add points of its own; the map's ground is
     // held here too (s. 2a).
+    deps.signal?.throwIfAborted();
     const kept = answer.statements.filter((statement) => !isMapOwnedProcedure(statement.text));
     return { status: "understood", understanding, answer: { ...answer, statements: kept }, drafted: points };
   } catch {
@@ -457,21 +464,21 @@ function reasonUserPrompt(story: string, chosenCourt?: RetrievalCourt | null): s
     .join("\n\n");
 }
 
-export async function reasonWithModel(story: string, chosenCourt?: RetrievalCourt | null): Promise<string> {
+export async function reasonWithModel(story: string, chosenCourt?: RetrievalCourt | null, signal?: AbortSignal, timeoutMs = UNDERSTAND_TIME_MS, intakeOnly = false): Promise<string> {
   const { withAiCallContext } = await import("../../audit/aiCallLog");
-  const { createOpenAIClient } = await import("../openaiClient");
+  const { createOpenAIClient, withAbortableTimeout } = await import("../openaiClient");
   const { modelParams } = await import("../aiModels");
   // Audited as the court-path check it replaces at the front door.
   return withAiCallContext({ callType: "court-path-classifier" }, async () => {
     const client = createOpenAIClient();
-    const response = await client.chat.completions.create({
+    const response = await withAbortableTimeout((timeoutSignal) => client.chat.completions.create({
       ...modelParams("deep", { effort: process.env.AI_EFFORT_UNDERSTAND || "medium" }),
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: UNDERSTAND_SYSTEM_PROMPT },
-        { role: "user", content: reasonUserPrompt(story, chosenCourt) },
+        { role: "system", content: UNDERSTAND_SYSTEM_PROMPT + (intakeOnly ? "\nINITIAL INTAKE ONLY: restate factual circumstances, suggest court/case categories and ask only essential initial questions. Do not generate procedural steps, forms, deadlines, evidence guidance or legal points. Return step:null and points:[]; omit procedural recommendations from every field, including questions and why explanations." : "") },
+        { role: "user", content: intakeOnly ? `INITIAL INTAKE. THEIR WORDS:\n${story}\nTheir provisional court choice: ${chosenCourt ?? "unknown"}` : reasonUserPrompt(story, chosenCourt) },
       ],
-    });
-    return response.choices[0]?.message?.content ?? "";
+    }, { signal: signal ? AbortSignal.any([signal, timeoutSignal]) : timeoutSignal }), timeoutMs);
+    return response?.choices[0]?.message?.content ?? "";
   });
 }

@@ -93,14 +93,21 @@ export function selectQuestions(
   answeredIds: readonly string[],
   bank: readonly IntakeQuestion[] = QUESTION_BANK,
   courtArea: CourtArea = "small-claims",
+  purpose: "all" | "initial" = "all",
 ): string[] {
   const answered = new Set(answeredIds);
 
   return bank
     .filter((question) => question.courtArea === courtArea)
     .filter((question) => question.status === "reviewed")
+    .filter((question) => purpose === "all" || initialQuestion(question))
     .filter((question) => !answered.has(question.id))
     .filter((question) => questionApplies(question, facts))
     .sort((a, b) => PHASE_ORDER[a.phase] - PHASE_ORDER[b.phase]) // stable: preserves bank order within a phase
     .map((question) => question.id);
+}
+
+/** Initial orientation uses the existing bank; detailed evidence and claim research stay available later. */
+export function initialQuestion(question: IntakeQuestion): boolean {
+  return question.phase === "orientation" || question.id === "sc-safety-check" || question.id.startsWith("sc-date-") || ["sc-amount-claimed", "sc-claim-filed", "sc-defendant-served", "sc-defence-filed", "sc-defence-time-elapsed", "sc-defendant-noted-in-default", "sc-defendant-defence-filed", "sc-defendant-claim-received", "sc-defendant-response-facts", "sc-defendant-outcome", "sc-defendant-service-method", "sc-defendant-counterclaim", "sc-remedy-sought"].includes(question.id);
 }

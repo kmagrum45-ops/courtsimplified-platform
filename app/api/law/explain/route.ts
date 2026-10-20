@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import { explainPassage } from "@/src/lib/case-system/retrieval/explainProvision";
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest) {
   if (typeof id !== "string" || !ID.test(id)) {
     return NextResponse.json({ ok: false, error: "A valid request body is required." }, { status: 400 });
   }
+  if (!(await getAuthenticatedUser(request))) return NextResponse.json({ ok: false, error: "Sign in required for AI explanations. The official source remains available." }, { status: 401 });
   if (!plainExplanationsEnabled() || !hasConfiguredServerAi()) {
     return NextResponse.json({ ok: false, error: "Plain explanations are not available right now." }, { status: 503 });
   }

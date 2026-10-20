@@ -27,6 +27,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { EVENT_TO_DATE_QUESTION, dateInSentence } from "@/src/lib/case-system/casePosition";
 import { suggestedEventForSentence } from "@/src/lib/case-system/events/stepEvent";
+import { candidatesStillInText } from "@/src/lib/case-system/events/caseEventCandidates";
 
 import { supabase } from "../../../src/lib/supabase/client";
 import {
@@ -102,8 +103,15 @@ export default function EventCandidateSurface({
   onRecorded,
   recordedDates = {},
   confirmedStep = null,
+  currentText,
 }: {
   caseId: string;
+  /**
+   * The story (and Timeline) as they are now. A sentence is offered only while it
+   * is still in them: after a story change the saved case still held the OLD
+   * sentences until analysed again, and quoted them (re-test 2026-10-18).
+   */
+  currentText?: string;
   /**
    * The step the person confirmed. A sentence that names the event of that
    * step is offered as that kind of step instead of being asked cold (R6).
@@ -300,10 +308,11 @@ export default function EventCandidateSurface({
   }
 
   if (loading) return null;
-  if (candidates.length === 0) return null;
+  const shownCandidates = currentText === undefined ? candidates : candidatesStillInText(candidates, currentText);
+  if (shownCandidates.length === 0) return null;
 
-  const unanswered = candidates.filter((candidate) => candidate.state === "unanswered");
-  const decided = candidates.filter((candidate) => candidate.state !== "unanswered");
+  const unanswered = shownCandidates.filter((candidate) => candidate.state === "unanswered");
+  const decided = shownCandidates.filter((candidate) => candidate.state !== "unanswered");
 
   return (
     <section

@@ -44,6 +44,18 @@ jobs:
       - name: TypeScript check
         run: npx tsc --noEmit --pretty false
 
+      - name: Intake request reliability
+        run: npm run test:intake-requests
+
+      - name: Explicit intake review and confirmation
+        run: npm run test:intake-review
+
+      - name: Case guidance requires confirmed current intake on the server
+        run: npm run test:intake-guidance-gate
+
+      - name: Intake persistence and account isolation
+        run: npm run test:intake-recovery
+
       - name: Small Claims engine verification
         run: npm run test:small-claims
 
@@ -192,6 +204,18 @@ jobs:
 
       - name: Intake coverage verification
         run: npm run test:intake-coverage
+
+      - name: Family story reading (a denied court order is not an existing order)
+        run: npm run test:family-story-reading
+
+      - name: A guest intake carries into an account only when the guest asks
+        run: npm run test:guest-carry
+
+      - name: The Form 7A claim sentence reads as a sentence
+        run: npm run test:statement-of-claim-text
+
+      - name: One record of which story each answer was based on (all three areas)
+        run: npm run test:story-basis
 
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
@@ -532,4 +556,26 @@ jobs:
           npx playwright test
           tests/browser/intake-reset.spec.ts
           tests/browser/case-understanding-continuity.spec.ts
+          tests/browser/intake-reliability.spec.ts
+          tests/browser/family-civil-intake-reliability.spec.ts
+          tests/browser/intake-recovery.spec.ts
+          tests/browser/intake-review.spec.ts
+          tests/browser/intake-guidance-gate.spec.ts
+          tests/browser/story-single-source.spec.ts
+          tests/browser/guest-guidance.spec.ts
+          tests/browser/intake-review-polish.spec.ts
+          tests/browser/story-change-every-flow.spec.ts
+          tests/browser/guest-sign-in-carry.spec.ts
           --reporter=line --workers=1
+
+      # A failure that does not reproduce locally needs the page as CI saw it.
+      # These specs use synthetic accounts only and keep traces off, so this
+      # holds error-context snapshots, never a real session.
+      - name: Keep failure snapshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-regression-failures
+          path: test-results/**/error-context.md
+          retention-days: 7
+          if-no-files-found: ignore

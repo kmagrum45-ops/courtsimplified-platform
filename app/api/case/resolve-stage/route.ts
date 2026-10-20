@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * PART 5 — the runtime door for working out where a case stands.
  *
@@ -257,7 +258,7 @@ function present(
   };
 }
 
-export async function POST(request: Request) {
+async function postGuidance(request: Request) {
   // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
   const limited = await aiLimitResponse(request, "light");
   if (limited) return limited;
@@ -330,3 +331,5 @@ export async function POST(request: Request) {
 
   return NextResponse.json(present(position, dates, facts));
 }
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

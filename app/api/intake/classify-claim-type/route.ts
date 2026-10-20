@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 import {
   resolveClaimTypeSuggestion,
-  type ClaimTypeSuggestionResolution,
 } from "@/src/lib/case-system/intake/claimTypeSuggestionResolution";
 import { KNOWN_FACT_FIELDS } from "@/src/lib/case-system/intake/questionBank";
 import { CLAIM_TYPES, type ClaimType } from "@/src/lib/case-system/intake/claimTypes";
@@ -144,7 +143,7 @@ export function createClassifyClaimTypePost(overrides: Partial<ClassifyClaimType
       const courtArea = body.courtArea ?? "small-claims";
       const { claimTypes } = COURT_AREA_CONTENT[courtArea];
 
-      const result: ClaimTypeSuggestionResolution = await dependencies.resolve(
+      const result = await dependencies.resolve(
         body.action,
         body.storyText,
         claimTypes,
@@ -152,9 +151,10 @@ export function createClassifyClaimTypePost(overrides: Partial<ClassifyClaimType
         apiKey,
         body.claimTypeId,
         body.priorRejectedIds ?? [],
+        true,
       );
 
-      return NextResponse.json({ ok: true, result, authenticated });
+      return NextResponse.json({ ok: true, result: { ...result, evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
     } catch {
       console.error("Claim-type confirmation route failed.");
       return errorResponse("CourtSimplified could not process this claim-type confirmation right now.", 500);

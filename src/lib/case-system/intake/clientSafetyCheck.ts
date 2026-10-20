@@ -16,10 +16,8 @@
  *
  * FAILS OPEN, DELIBERATELY. A network error, a non-ok response, a malformed
  * body, or a missing API key all return "clear". A legitimate user is never
- * blocked from their own case by a technical fault in a classifier. The cost
- * of that choice is that an outage silently disables the check — which is why
- * the route is now reachable without a session, so the commonest cause of
- * "no check ran" is gone.
+ * blocked from their own case by a technical fault in a classifier. Classification outages never block intake. Fixed safety resources remain
+ * available independently of authentication, AI availability and confirmation.
  */
 
 export type ClientSafetyClassification = "immediate-danger" | "distress" | "clear";
@@ -40,6 +38,8 @@ export type ClientSafetyResult = {
    * safetyPass.ts. Never model-generated text.
    */
   userMessage?: string;
+  /** The check did not run (service down, refused, network). The result still reads as clear; a caller that must act on the failure can. */
+  failed?: boolean;
 };
 
 type SafetyCheckResponse = {
@@ -54,10 +54,9 @@ const CLEAR: ClientSafetyResult = { classification: "clear", requestsLegalAdvice
 /**
  * Runs the safety pass over a user's narrative.
  *
- * `accessToken` is optional and is sent when present. Its absence does NOT
- * skip the check — that was the defect. The route accepts anonymous requests
- * because the whole site is behind the beta password gate and this is the
- * cheapest model call in the system.
+ * `accessToken` is sent when present. The server requires a verified session
+ * before paid classification; a missing session cannot trigger external AI.
+ * Fixed safety resources remain available in the shared intake panel.
  */
 export async function runClientSafetyCheck(
   storyText: string,
@@ -76,7 +75,7 @@ export async function runClientSafetyCheck(
     });
 
     const json: SafetyCheckResponse | null = await response.json().catch(() => null);
-    if (!response.ok || !json?.ok) return CLEAR;
+    if (!response.ok || !json?.ok) return { ...CLEAR, failed: true };
 
     const classification =
       json.classification === "immediate-danger" || json.classification === "distress"
@@ -89,6 +88,6 @@ export async function runClientSafetyCheck(
       userMessage: typeof json.userMessage === "string" ? json.userMessage : undefined,
     };
   } catch {
-    return CLEAR;
+    return { ...CLEAR, failed: true };
   }
 }

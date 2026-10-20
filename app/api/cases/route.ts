@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { intakeRecordView } from "@/src/lib/case-system/intakeReview";
 import { DOCUMENT_BUCKET, caseObjectPaths, removeObjects } from "@/src/lib/case-workspace/caseFileCleanup";
 import { recordServerError } from "@/src/lib/monitoring/serverErrorLog";
 
@@ -237,7 +238,7 @@ export async function GET(req: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        case: data,
+        case: { ...data, master_result: intakeRecordView(data.master_result, data.court_path, data.id) },
       });
     }
 
@@ -262,7 +263,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      cases: data || [],
+      cases: (data || []).map(row => ({ ...row, master_result: intakeRecordView(row.master_result, row.court_path, row.id) })),
     });
   } catch (error) {
     console.error("cases GET error:", error);
@@ -362,7 +363,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      case: data,
+      case: { ...data, master_result: intakeRecordView(data.master_result, data.court_path, data.id) },
       metadata: {
         id: data?.id || row.id,
         savedAt: new Date().toISOString(),

@@ -134,3 +134,13 @@ name; when that is not plain, no route is offered and the side question is asked
 | L8 | Guided (AI help) route: earlier it ended with "continue to the next step" and no button, and nothing saved; not re-tested since the new-case fix (#449) | dog bite | Re-test | live retest | needs re-test |
 | L9 | First-screen analysis takes 1.5 to 2.5 minutes with only a grey button; no progress shown | all | Progress indicator | run | open |
 | L10 | Starting a new case from /builder?path=small-claims reopened the previous case's story and location | loan then dog bite | PR #449 | live retest 2026-10-17: story box and location start empty on both routes | closed |
+
+## PR #463 re-test decisions (site owner, 2026-10-18)
+
+| # | Cause | Cases | Fix | Check | Status |
+|---|---|---|---|---|---|
+| G1 | Guests cannot reach guidance in any area: every analysis runs the AI danger/distress safety check first, and that check needs an account. Family and Civil guests had been reaching analysis with the check silently refused (401 read as "clear"); now all three ask a guest to sign in. Kept on purpose: no real users yet, and the A2I commitment is no users before ZDR approval. | all guests | **Revisit before beta:** option 2 — open the safety check to guests, with strict per-visitor rate limits (cost and abuse exposure on an endpoint anyone can call). | `tests/browser/guest-guidance.spec.ts`; `verifyIntakeGuidanceGate` (anonymous refused on every guidance route) | open (deferred to before beta) |
+| P3-1 | Form 10 Answer draft: parties from saved names; "agree/disagree" built from the Application's claims; facts as numbered paragraphs (not the pasted story and questions); the respondent's own claims (e.g. joint decision-making, proposed schedule, credit for past payments, support on actual income) | family respondent | Part 3 | browser test of the draft | open (queued for Part 3) |
+| P3-2 | Mandatory information program for a respondent: the site counts 45 days "after the case was started"; check Family Law Rules r. 8.1 for the respondent's actual start point and count from service if that is what the rule says | family respondent | Part 3 (rule to be read and quoted, not recalled) | stage-map check | open (queued for Part 3) |
+| P3-3 | Remove the question "confirm that your door where service occurred was in Ontario?" | service | Part 3 | browser test | open (queued for Part 3) |
+| P3-4 | Existing saved cases on the live site (a real tester uses one) must still open and show correctly after the isolation changes and the removal of legacy browser keys | all | Part 3: a test that opens a case saved in the current format | browser test | open (queued for Part 3) |

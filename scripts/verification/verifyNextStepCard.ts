@@ -77,7 +77,9 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { NextStepCard } from "../../app/builder/_components/StageAnswerPanel";
 import { LIMITATION_ADMISSION_RESTARTS_CLOCK } from "../../src/lib/case-system/stage-map/civilStages";
 
-import { POST } from "../../app/api/case/stage-answer/route";
+// Renderer contract; actual HTTP confirmation/ownership is checked by test:intake-guidance-gate.
+import { createStageAnswerPost } from "../../app/api/case/stage-answer/route";
+const POST = createStageAnswerPost();
 import {
   cardFilingDeadline,
   THRESHOLD_ASK,

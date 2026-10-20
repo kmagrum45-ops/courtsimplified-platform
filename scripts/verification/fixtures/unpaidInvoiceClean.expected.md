@@ -258,3 +258,11 @@ provisions come back is not pinned: retrieval is by meaning and the model's
 search phrases vary run to run, so an exact list would fail on the work we
 want done. An empty list is acceptable; it means the analysis relied only on
 the catalogue.
+
+## 2026-10-18 � initial-intake stopping-rule verification
+
+The real paid pipeline completed in seven turns: the opening story and six essential questions (when, role, category, amount, filing status and requested outcome). Optional evidence and the explicit later safety question are no longer prerequisites for initial completion; the existing automated safety pass still reads each new narrative turn. This is the approved initial-versus-later distinction, not a missing essential question.
+
+Earlier evidence-completeness comparisons apply after the optional evidence answer is supplied. These initial-intake artifacts do not supply that answer, so an empty structured evidence field records missing input rather than a conclusion about the case. The original story remains in the analysis input; described records are not treated as uploaded or reviewed documents.
+
+The claim-type match, plaintiff role, unfiled status and amount were retained. The uncertain-date fixture retained its uncertainty, and the over-limit fixture retained its existing warning. The empty legacy nextBestActions array does not authorize model-written procedure: procedural guidance continues through the existing stage-map presentation after explicit confirmation. These engine fixtures do not establish UI confirmation; authenticated staging walkthroughs are required separately. Generated actual files are retained as review artifacts and are not included in this PR.

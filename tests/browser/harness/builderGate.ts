@@ -39,9 +39,8 @@ const PATH_LABEL: Record<BuilderPath, string> = {
 /**
  * Site access, then `/builder?path=<path>`, then through the location gate.
  *
- * `story` is required on every path except small-claims, where the gate does
- * not render the field — the button stays disabled without it, so passing it
- * is not optional decoration.
+ * Location is collected at the gate. A supplied Family/Civil story is then
+ * answered through the intake's own first question.
  */
 export async function openBuilder(
   page: Page,
@@ -59,14 +58,16 @@ export async function openBuilder(
   // start…" until React has attached its handlers. Waiting for the select is
   // waiting for that, without asserting on the mechanism.
   const province = page.getByLabel("Province or territory");
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await expect(province.or(acknowledgement)).toBeVisible({ timeout: 60_000 });
+  if (await acknowledgement.isVisible()) {
+    await acknowledgement.check();
+    await page.getByTestId("acknowledgement-continue").click();
+  }
   await expect(province).toBeVisible({ timeout: 60_000 });
 
   await province.selectOption("Ontario");
   await page.getByLabel("City or municipality").fill(city);
-
-  if (path !== "small-claims") {
-    await page.getByLabel("Tell us what happened in your own words").fill(story);
-  }
 
   // The gate's button text is NOT uniform across paths. app/builder/page.tsx:
   //   courtPath === "small-claims" ? "Continue" : `Continue with ${label} questions`
@@ -83,8 +84,16 @@ export async function openBuilder(
   await expect(
     button,
     "the gate's Continue button is disabled — it requires Ontario, a non-empty " +
-      "city, and on every path but small-claims a non-empty story",
+    "city",
   ).toBeEnabled();
 
   await button.click();
+  // The location gate now asks only location on every path. Family and Civil
+  // collect the story as their first intake question.
+  if (path !== "small-claims" && story) {
+    const question = page.getByTestId("guided-form-question");
+    await expect(question).toHaveAttribute("data-key", "facts");
+    await question.getByRole("textbox").fill(story);
+    await question.getByTestId("guided-form-next").click();
+  }
 }

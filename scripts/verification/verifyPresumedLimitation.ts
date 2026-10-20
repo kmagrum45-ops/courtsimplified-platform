@@ -26,7 +26,9 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { POST } from "../../app/api/case/stage-answer/route";
+// Renderer contract; actual HTTP confirmation/ownership is checked by test:intake-guidance-gate.
+import { createStageAnswerPost } from "../../app/api/case/stage-answer/route";
+const POST = createStageAnswerPost();
 import { S_LIMITATIONS_5_2_PRESUMPTION } from "../../src/lib/case-system/stage-map/citations";
 import { dateQuestionsForStep } from "../../src/lib/case-system/casePosition";
 

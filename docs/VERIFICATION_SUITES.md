@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-150 documented, 28 without a header.
+159 documented, 27 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -19,6 +19,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
+| `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |
 | `npm run test:canlii` | **Court decisions from CanLII: the rules CanLII's Terms of Use (2026) set for**<br>this feature hold in code (docs/SOURCING_NOTES.md, "CanLII"). |
 | `npm run test:case-drafts` | **Drafts are saved on the user's own case, hold only what the user gave us,**<br>and never cross from one case to another. |
@@ -57,6 +58,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
 | `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |
+| `npm run test:family-story-reading` | **Family story reading: a denied mention is not a mention.**<br>What it checks: existingFamilyOrder (which hides the "where to start a new case" rules behind "You told us there is already a court order") fires on a story that says there IS an order, and not on one that says there never was — "never married, never a court o |
 | `npm run test:fixed-regimes` | **Checks the routing rules fixed by law (src/lib/case-system/intelligence/**<br>fixedRegimes.ts, CLAUDE.md s. 2a): a construction lien goes to the Superior Court whatever the amount, and a claimed amount over $50,000 leaves Small Claims -- decided in code, winning over the keyword pass and the model. |
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
@@ -67,12 +69,16 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the law's own definitions verbatim. |
 | `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
+| `npm run test:guest-carry` | **A guest's intake carries into their account only when they ask for it.**<br>What it checks (carryGuestIntake, the login page's only way to keep a guest intake): the intake carries when "Sign in" was pressed from inside it in this tab, the sign-in returns to that same intake and court, and less than 30 minutes have passed. It does not  |
 | `npm run test:guided-form-chat` | **One question at a time for family and civil (GuidedFormChat, build order**<br>Step 2C, 2026-10-12). |
 | `npm run test:guided-stage-by-role` | **Guided intake must not hand a user the OTHER side's next steps.**<br>mapGuidedIntakeToSmallClaimsInput() picks the case stage, and the stage picks a next-step block (src/lib/content-library/nextSteps.ts) that is written for one side. Until 2026-09-27 the stage was inferred from filed documents alone, and the case-review batch c |
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |
 | `npm run test:held-back-cases` | **The ten held-back finish-line cases stay held back**<br>(tests/browser/walkthrough/heldBackPersonas.ts; master plan decision log, 2026-10-08). |
 | `npm run test:help-at-limits` | **Where the site says it cannot do something, it points to a person who can**<br>(master plan finish line: "a case the site cannot fully handle says so and points to help"). |
 | `npm run test:historical-law` | **test:historical-law -- the "law as it read on a past date" shelf**<br>(scripts/retrieval/historicalSources.ts, 2026-10-09). |
+| `npm run test:intake-guidance-gate` | **Phase 4: the same confirmation/revision policy governs HTTP and presentation.**<br>Synthetic owned cases exercise collecting, review, legacy, forged proofs, cross-case/court/account refusal, late responses and stale generated guidance. Actual unauthenticated endpoints are called too: no network, AI or real data. |
+| `npm run test:intake-requests` | **Synthetic request failures only. No network, credentials, or case writes.**<br>Synthetic request failures only. No network, credentials, or case writes. |
+| `npm run test:intake-review` | **Explicit initial-intake review across all three courts. Exercises revision-bound**<br>confirmation, legacy compatibility, editable summaries and optional evidence. Prevents analysis or stale answers from silently completing a user's intake. Synthetic in-memory inputs only; no external AI or real cases. |
 | `npm run test:intake-sequencing` | **Asserts that during intake nothing renders between the question and the**<br>answer box. |
 | `npm run test:intake-start-screens` | **Checks two front-door fixes from the owner's walkthrough of a real Small**<br>Claims default-judgment case (2026-10-14): |
 | `npm run test:inventory-coverage` | **Every body of live, user-facing legal content is in the review packet.**<br>COSTS NOTHING. Calls the inventory and reads source off disk. |
@@ -136,11 +142,14 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
 | `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |
 | `npm run test:stage-sequence` | **test:stage-sequence -- every step leads to the next by a rule**<br>(stage-map/stageSequence.ts, site owner 2026-10-12: "every step and every procedure is governed by the last"). |
+| `npm run test:statement-of-claim-text` | **The Form 7A step's claim sentence reads as a sentence.**<br>What it checks: StatementOfClaimSurface, rendered for a confirmed claim type, says 'Claims described as “<description>” generally involve …' — the description quoted, with a space on each side of it. |
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
 | `npm run test:story-answers` | **What the person's story already answers is offered, not asked again**<br>(storyAnswers.ts, guidedFields.ts; walkthrough R2 and V2, 2026-10-13). |
+| `npm run test:story-basis` | **One record of which story version each story-derived answer was based on.**<br>What it checks (storyBasis.ts): an answer is tagged with the story version it was stored under; when the story changes, every older answer is stale in all three areas (Small Claims, civil, family): emptied in the view screens read, never shown as current, and  |
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
+| `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
@@ -168,7 +177,6 @@ purpose is undocumented is one nobody can safely change or delete.
 - `test:account-recovery-ux (scripts/verification/verifyAccountRecoveryUx.ts)`
 - `test:ai-real-integration (scripts/verification/checkConfiguredAiReasoning.integration.ts)`
 - `test:ai-route-contract (scripts/verification/verifyServerAiReasoningContract.ts)`
-- `test:assistant-context (scripts/verification/verifyGuidedAssistantContext.mjs)`
 - `test:authority-bridge (scripts/verification/verifyAuthorityKnowledgeBridge.ts)`
 - `test:authority-seed-integrity (scripts/verification/verifyAuthoritySeedRegistryIntegrity.ts)`
 - `test:builder-persistence (scripts/verification/verifyBuilderPersistenceReliability.ts)`
@@ -191,5 +199,5 @@ purpose is undocumented is one nobody can safely change or delete.
 - `test:scenario-registry (scripts/verification/verifyScenarioRegistry.ts)`
 - `test:select-questions (scripts/verification/verifySelectQuestions.ts)`
 - `test:small-claims (scripts/verification/verifySmallClaimsEngine.ts)`
-- `test:three-area (scripts/verification/verifyThreeAreaContract.ts)`
 - `test:user-facing-scenarios (scripts/verification/verifyUserFacingScenarioLibrary.ts)`
+- `test:intake-recovery (scripts/verification/verifyIntakeRecovery.ts)`

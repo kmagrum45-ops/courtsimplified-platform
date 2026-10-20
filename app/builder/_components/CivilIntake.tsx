@@ -1,8 +1,15 @@
 "use client";
 
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
+import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
+import SignInForSafetyCheck from "./SignInForSafetyCheck";
+
+import { IntakeRequest } from "../../_components/intakeRequest";
+
 import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
-import { civilGuidedFields } from "./guidedFields";
+import { CIVIL_DOCUMENT_OPTIONS, CIVIL_ISSUE_OPTIONS, civilGuidedFields } from "./guidedFields";
 import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
@@ -195,54 +202,9 @@ const defaultInput: CivilInput = {
   privacyRecordsFacts: "",
 };
 
-const issueOptions: { value: CivilIssue; label: string }[] = [
-  { value: "contract", label: "Contract / agreement dispute" },
-  { value: "negligence", label: "Negligence / harm / damages" },
-  { value: "institutional-negligence", label: "Institutional negligence / system failure" },
-  { value: "professional-negligence", label: "Professional negligence" },
-  { value: "human-rights", label: "Human Rights / discrimination" },
-  { value: "disability-accommodation", label: "Disability accommodation issue" },
-  { value: "employment-human-rights", label: "Employment discrimination / accommodation" },
-  { value: "housing-human-rights", label: "Housing discrimination" },
-  { value: "education-human-rights", label: "School / education discrimination" },
-  { value: "charter", label: "Charter / constitutional issue" },
-  { value: "government-public-authority", label: "Government / public authority conduct" },
-  { value: "police-conduct", label: "Police / law enforcement conduct" },
-  { value: "judicial-review", label: "Judicial review / review of decision" },
-  { value: "tribunal-overlap", label: "Tribunal and court overlap" },
-  { value: "defamation", label: "Defamation / reputational harm" },
-  { value: "privacy", label: "Privacy / records / disclosure issue" },
-  { value: "property", label: "Property / land / possession issue" },
-  { value: "debt", label: "Debt / money owed" },
-  { value: "employment", label: "Employment-related civil issue" },
-  { value: "fraud-misrepresentation", label: "Fraud / misrepresentation" },
-  { value: "intentional-tort", label: "Intentional harm / harassment / assault-related civil issue" },
-  { value: "injunction", label: "Injunction / urgent court order" },
-  { value: "estate", label: "Estate / probate / trust issue" },
-  { value: "motion", label: "Motion in an existing case" },
-  { value: "appeal", label: "Appeal / leave to appeal" },
-  { value: "enforcement", label: "Enforcement / collection after judgment" },
-  { value: "other", label: "Other civil issue" },
-];
+const issueOptions = CIVIL_ISSUE_OPTIONS as { value: CivilIssue; label: string }[];
 
-const documentOptions: { value: CivilDocument; label: string }[] = [
-  { value: "statement-claim", label: "Statement of Claim already filed / served" },
-  { value: "statement-defence", label: "Statement of Defence already filed / received" },
-  { value: "notice-application", label: "Notice of Application already filed / received" },
-  { value: "notice-motion", label: "Notice of Motion already filed / received" },
-  { value: "affidavit-service", label: "Affidavit of Service completed" },
-  { value: "affidavit", label: "Affidavit already prepared" },
-  { value: "tribunal-application", label: "Tribunal application already started" },
-  { value: "human-rights-application", label: "Human Rights application already started" },
-  { value: "judicial-review-materials", label: "Judicial review materials started" },
-  { value: "demand-letter", label: "Demand letter / warning letter sent" },
-  { value: "order", label: "Order already made" },
-  { value: "judgment", label: "Judgment already obtained" },
-  { value: "discovery", label: "Discovery / Affidavit of Documents started" },
-  { value: "trial-record", label: "Trial record / trial materials started" },
-  { value: "nothing", label: "Nothing filed yet" },
-  { value: "not-sure", label: "Not sure" },
-];
+const documentOptions = CIVIL_DOCUMENT_OPTIONS as { value: CivilDocument; label: string }[];
 
 function toggleArrayValue<T extends string>(items: T[], value: T): T[] {
   if (value === "nothing") return items.includes(value) ? [] : [value];
@@ -564,11 +526,11 @@ const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "am
 const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
 
 export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
-  const [editingStory, setEditingStory] = useState(false);
+  const [editingStory, setEditingStory] = useIntakeState("civil", "editingStory", false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({ courtPath: "civil", caseId }),
   );
-  const [input, setInput] = useState<CivilInput>(() => {
+  const [input, setInput] = useInputWithStory<CivilInput>("civil", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
@@ -600,10 +562,19 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
+  const [authRequired, setAuthRequired] = useState(false);
+  // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
+  const storyChanged = useStoryAnswersOutdated();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const analysisRequest = useRef(new IntakeRequest());
+  const requestScope = input;
+  useEffect(() => {
+    const request = analysisRequest.current;
+    return () => request.cancel();
+  }, [requestScope, caseId]);
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
-  const [mode, setMode] = useState<"chat" | "form">("chat");
+  const [mode, setMode] = useIntakeState<"chat" | "form">("civil", "mode", "chat");
   /** Set only on "immediate-danger". Blocks analysis and shows crisis resources. */
   const [safetyHalt, setSafetyHalt] = useState("");
   /** Set on "distress". Shown alongside the intake, which continues. */
@@ -620,12 +591,19 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
    * case they have not touched (stageFromAnswers.ts, walkthrough SW
    * 2026-10-14). Only these can stand as their confirmation of the stage.
    */
-  const personSet = useRef<Set<"yourRole">>(new Set());
+  const recovery = useIntakeRecovery();
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const prepareCaseGuidance = usePrepareCaseGuidance();
+  const validateIntakeResponse = useValidateIntakeResponse();
+  const [restoredPersonSet] = useIntakeState<Set<"yourRole">>("civil", "personSet", new Set());
+  const personSet = useRef(restoredPersonSet);
   // Each document item the person chose or cleared themselves; a chat
   // answer sets the whole list. The list counts as theirs only when every
   // item on it is one they chose (review 2026-10-14: one click made a whole
   // prefilled list theirs).
-  const personDocuments = useRef<Set<string>>(new Set());
+  const [restoredPersonDocuments] = useIntakeState<Set<string>>("civil", "personDocuments", new Set());
+  const personDocuments = useRef(restoredPersonDocuments);
+  useEffect(() => { recovery?.put("civil", "personSet", [...personSet.current], false); recovery?.put("civil", "personDocuments", [...personDocuments.current], false); });
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
@@ -687,20 +665,34 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   // Questions from the law that applies to the story, asked for as soon as
   // there is a story (it usually arrives from the home page) and again when
   // it is edited. Never blocks the analysis.
+  const restoredSourced = useRef(recovery?.read("sourced", "state") !== undefined);
   const sourced = useSourcedQuestions("civil", earlierSourcedAnswers ?? NO_EARLIER_ANSWERS);
   const startSourced = sourced.start;
   useEffect(() => {
+    if (restoredSourced.current) return;
     void startSourced(input.facts, input.yourRole || undefined);
     // Once, for the story the page opened with; edits ask again on blur.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useContinueHandler("civil", () => { void handleAnalyze(); });
+
   async function handleAnalyze() {
+    if (analysisRequest.current.pending) return;
+    try {
+      await analysisRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+        if (!(await prepareCaseGuidance())) return;
     if (submissionInFlight.current) return;
     if (!input.facts.trim()) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;
     }
+    // Guests sign in first: the AI danger/distress safety check runs before every
+    // analysis and needs an account (site owner, 2026-10-18; same rule as Small Claims).
+    setAuthRequired(false);
+    const { data: { session: signedIn } } = await supabase.auth.getSession();
+    if (!signedIn?.access_token) { setAuthRequired(true); return; }
     submissionInFlight.current = true;
     setStorageWarning("");
     setAnalysisError("");
@@ -726,6 +718,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       } = await supabase.auth.getSession();
 
       const safety = await runClientSafetyCheck(input.facts, session?.access_token);
+      await validateIntakeResponse(signal);
+      signal.throwIfAborted();
       setAsksForAdvice(safety.requestsLegalAdvice);
 
       if (safety.classification === "immediate-danger") {
@@ -737,6 +731,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
       setSafetyNotice(safety.classification === "distress" ? safety.userMessage || "" : "");
     } catch {
+      if (signal.aborted) return;
       // Fails open. A classifier fault must never stop someone reaching their
       // own case.
     }
@@ -746,10 +741,13 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         data: { session },
       } = await supabase.auth.getSession();
       const { province: _province, city: _city, ...civilAnalysisInput } = input;
+      signal.throwIfAborted();
       const response = await fetch("/api/civil/analyze", {
+        signal,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...intakeGuidanceHeaders(recovery),
           ...(session?.access_token
             ? { Authorization: `Bearer ${session.access_token}` }
             : {}),
@@ -758,6 +756,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           input: {
             ...civilAnalysisInput,
             facts: withSourcedAnswerList(civilAnalysisInput.facts, sourced.answeredList()),
+            // No side recorded ("I do not know yet") is "not-sure" to the route; "" was refused with a 400.
+            yourRole: civilAnalysisInput.yourRole || "not-sure",
             caseId: caseId || undefined,
           },
         }),
@@ -841,11 +841,19 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       },
     };
 
+      await validateIntakeResponse(signal);
+
+      signal.throwIfAborted();
       onComplete(analysis, payload);
     } catch (error) {
+      if (signal.aborted) return;
       setAnalysisError(
         error instanceof Error ? error.message : "Civil analysis could not be completed.",
       );
+    }
+      }, ANALYSIS_TIMEOUT_MS);
+    } catch {
+      setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
       submissionInFlight.current = false;
       setIsAnalyzing(false);
@@ -882,8 +890,20 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     }
   }
 
+  // Answers based on an earlier version of the story are not shown or pre-filled anywhere in
+  // this form until the questions start again from the story (storyBasis.ts, re-test 2026-10-18).
+  if (storyChanged) {
+    return (
+      <section data-testid="civil-intake-story-changed" className="mt-6 rounded-3xl border border-[#d8e6df] bg-white p-6">
+        <h2 className="text-xl font-bold text-[#10231f]">Civil intake</h2>
+        <StoryChangedNotice where="questions" />
+        <button type="button" data-testid="civil-intake-continue" disabled className="mt-4 rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">Continue to your next steps</button>
+      </section>
+    );
+  }
+
   return (
-    <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+    <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <h2 className="text-2xl font-bold text-[#10231f]">Civil Intake</h2>
 
       <p className="mt-3 text-[#4d675f]">
@@ -927,11 +947,14 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         </div>
       )}
 
+      {authRequired && <SignInForSafetyCheck area="Civil" />}
+
       {analysisError && (
         <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
           {analysisError}
         </div>
       )}
+      <AnalysisProgress reading={isAnalyzing} error={analysisError} onRetry={() => void handleAnalyze()} onStop={() => { analysisRequest.current.cancel(); setAnalysisError("Stopped. Your answers are still here; you can try again."); }} />
 
       {extractedFacts.length > 0 && (
         <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
@@ -1088,7 +1111,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} onBlur={() => void sourced.start(input.facts, input.yourRole || undefined)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} onBlur={(event) => { if (event.relatedTarget instanceof HTMLElement && event.relatedTarget.dataset.testid === "civil-intake-continue") return; void sourced.start(input.facts, input.yourRole || undefined); }} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">
@@ -1278,16 +1301,18 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </p>
         ) : null}
         {/* In the one-at-a-time view, its own Continue is the one to press. */}
-        {mode === "form" ? (
+        {mode === "form" ? (<>
         <button
           type="button"
+          data-testid="civil-intake-continue"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || sourced.state === "loading"}
+          disabled={isAnalyzing || storyChanged}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Finding questions for your situation…" : "Continue to your next steps"}
+          {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}
         </button>
-        ) : null}
+        <StoryChangedNotice where="button" />
+        </>) : null}
       </div>
     </section>
   );

@@ -62,9 +62,12 @@ import {
   familyTimelineValues,
   servedDateOf,
   withServedDate,
+  FAMILY_FILED_OPTIONS,
+  CIVIL_DOCUMENT_OPTIONS,
 } from "../../app/builder/_components/guidedFields";
 import {
   amountFromStory,
+  sentences,
   childrenFromStory,
   childrenPartialFromStory,
   civilRoleFromStory,
@@ -410,14 +413,13 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
 {
   // Walkthrough FR/SW (2026-10-13): "i got served the papers last week" was
   // followed by "Has anything been filed with the court or given to you yet?".
-  // The labels are read from each form's own option list, so the check holds
+  // The forms' own option lists, imported (2026-10-18: they moved to
+  // guidedFields.ts so the review shows the same words), so the check holds
   // whatever values and labels the forms carry.
-  const optionsIn = (file: string) =>
-    new Map([...read(file).matchAll(/\{\s*value:\s*"([^"]+)",\s*label:\s*"([^"]+)"\s*\}/g)].map((match) => [match[1], match[2]] as [string, string]));
-  const familyLabels = optionsIn("app/builder/_components/FamilyIntake.tsx");
-  const civilLabels = optionsIn("app/builder/_components/CivilIntake.tsx");
-  const familyOptions = [...familyLabels].map(([value, label]) => ({ value, label }));
-  const civilOptions = [...civilLabels].map(([value, label]) => ({ value, label }));
+  const familyOptions = [...FAMILY_FILED_OPTIONS];
+  const civilOptions = [...CIVIL_DOCUMENT_OPTIONS];
+  const familyLabels = new Map(familyOptions.map((option) => [option.value, option.label] as [string, string]));
+  const civilLabels = new Map(civilOptions.map((option) => [option.value, option.label] as [string, string]));
   const familyField = familyGuidedFields({ issues: [], filed: familyOptions }).find((item) => item.key === "filedDocuments") as GuidedField;
   const civilField = civilGuidedFields({ issues: [], documents: civilOptions }).find((item) => item.key === "documents") as GuidedField;
   check("family: 'Has anything been filed' is offered from the story", typeof familyField?.fromStory === "function");
@@ -856,6 +858,18 @@ console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, 
   check("'our two girls' is filled in with its count", childrenPartialFromStory("our two girls live with me")?.prefill.trim() === "Two girls.");
   const childrenField = familyGuidedFields({ issues: [], filed: [] }).find((field) => field.key === "childrenInfo");
   check("the children question reads the partial answer from the story", Boolean(childrenField?.partialFromStory) && childrenField?.partialFromStory?.({ facts: FR })?.prefill.trim() === "One daughter.");
+}
+
+// PR #463 re-test (2026-10-18), civil: "$180,000" was read as "$180", and "I want
+// Test Builder Ltd. to finish the work" was cut at "Ltd.".
+{
+  const story = "I hired Test Builder Ltd. to build an addition. The contract was for $180,000. I want Test Builder Ltd. to finish the work or pay me back.";
+  check("'for $180,000' is $180,000, not $180", amountFromStory(story)?.value === "$180,000");
+  check("'paid 12,500' keeps its thousands", amountFromStory("We paid 12,500 for the roof.")?.value === "$12,500");
+  check("an amount with no commas is unchanged", amountFromStory("they owe me 4500")?.value === "$4,500");
+  check("'Ltd.' does not end the sentence", goalFromStory(story)?.value === "I want Test Builder Ltd. to finish the work or pay me back");
+  check("'Inc.' and 'Mr.' do not end a sentence either", sentences("Mr. Smith of Acme Inc. kept my deposit. Then he left.").length === 2);
+  check("an ordinary full stop still ends one", sentences("He left. I called him.").length === 2);
 }
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");

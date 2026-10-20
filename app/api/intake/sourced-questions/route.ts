@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 
 import { loadCorpusIndex } from "@/src/lib/case-system/retrieval/corpusIndex";
@@ -141,4 +142,4 @@ export function createSourcedQuestionsPost(overrides: Partial<Dependencies> = {}
   };
 }
 
-export const POST = createSourcedQuestionsPost();
+export const POST = withConfirmedGuidance(createSourcedQuestionsPost(), {});

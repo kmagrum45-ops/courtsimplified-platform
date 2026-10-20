@@ -75,6 +75,14 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     note: "Hand-off from the home gate into the builder, signed in or not. Consumed on entry.",
   },
   {
+    key: "courtSimplifiedGuestCarry",
+    area: "session",
+    scope: "guest",
+    matches: "exact",
+    holdsCaseContent: false,
+    note: "Which guest intake this tab chose to bring into an account, set when the guest presses Sign in from it. Read once by the login page; expires after 30 minutes.",
+  },
+  {
     key: "courtSimplifiedNotSureGuide",
     area: "session",
     scope: "guest",
@@ -336,6 +344,7 @@ export const USER_STORAGE_KEYS = INTAKE_STORAGE_KEYS.filter((k) => k.scope === "
 export const BUILDER_DRAFT_KEY = "courtSimplifiedBuilderDraft";
 export const ACTIVE_CASE_ID_KEY = "courtSimplifiedActiveCaseId";
 export const GUEST_INTAKE_SESSION_KEY = "courtSimplifiedGuestIntakeSession";
+export const GUEST_CARRY_KEY = "courtSimplifiedGuestCarry";
 export const COURT_PATH_FINDER_KEY = "courtSimplifiedNotSureGuide";
 export const LOADED_CASE_CONTEXT_KEY = "courtSimplifiedLoadedCaseContext";
 export const EVIDENCE_PACKAGE_LEGACY_KEY = "courtSimplifiedEvidencePackage";
@@ -348,6 +357,7 @@ export const NAMED_STORAGE_KEYS = [
   BUILDER_DRAFT_KEY,
   ACTIVE_CASE_ID_KEY,
   GUEST_INTAKE_SESSION_KEY,
+  GUEST_CARRY_KEY,
   COURT_PATH_FINDER_KEY,
   LOADED_CASE_CONTEXT_KEY,
   EVIDENCE_PACKAGE_LEGACY_KEY,

@@ -1,5 +1,8 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
+import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
+import { readCasePosition } from "@/src/lib/case-system/casePosition";
 
 import { runGuidedAssistantGateway } from "@/src/lib/case-system/guided-assistant/guidedAssistantGateway";
 import type { GuidedAssistantCourtContextInput } from "@/src/lib/case-system/guided-assistant/guidedAssistantOrchestrator";
@@ -73,7 +76,10 @@ function sanitizeConversation(
     }));
 }
 
-export async function POST(request: NextRequest) {
+/** The same owned-case handler supports dependency-injected offline contract tests. */
+export function createGuidedAssistantPost(overrides: Partial<{ authenticate: typeof getAuthenticatedUser; owned: typeof getAuthenticatedOwnedCase }> = {}) {
+const dependencies = { authenticate: getAuthenticatedUser, owned: getAuthenticatedOwnedCase, ...overrides };
+return async function postGuidance(request: NextRequest) {
   // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
   const limited = await aiLimitResponse(request, "light");
   if (limited) return limited;
@@ -116,13 +122,18 @@ export async function POST(request: NextRequest) {
     };
 
     const gatewayStartedAt = Date.now();
+    const user = await dependencies.authenticate(request);
+    const owned = user ? await dependencies.owned(request, user, caseId) : null;
+    if (!owned) return jsonResponse({ ok: false, error: "The selected case is unavailable." }, 404);
+    const master = owned.master_result && typeof owned.master_result === "object" ? owned.master_result as Record<string, unknown> : {};
+    const intake = master.intakeData && typeof master.intakeData === "object" ? master.intakeData as Record<string, unknown> : {};
 
     const result = runGuidedAssistantGateway({
       caseId: caseId || undefined,
       message,
       conversation,
-      caseMemory: body.caseMemory,
-      courtContext: body.courtContext,
+      caseMemory: { caseData: intake, masterResult: master, path: owned.court_path },
+      courtContext: { courtPath: owned.court_path ?? undefined, jurisdiction: "Ontario", stage: readCasePosition(master, owned.court_path).confirmedStage ?? String(intake.caseStage ?? "not-sure") },
       mode: mode || undefined,
       diagnosticId,
     });
@@ -191,3 +202,6 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+}
+export const POST = withConfirmedGuidance(createGuidedAssistantPost(), { currentAnalysis: true });

@@ -1,9 +1,13 @@
+/** Canonical three-area engines and core payload validators, entirely offline.
+ * HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate.
+ * Keeps source integration, specialized outputs and malformed-input coverage intact.
+ */
 import assert from "node:assert/strict";
 import { NextRequest } from "next/server";
 
-import { POST as analyzeFamilyRoute } from "../../app/api/family/analyze/route";
+import { createFamilyAnalyzePost } from "../../app/api/family/analyze/route";
+const analyzeFamilyRoute = createFamilyAnalyzePost();
 import {
-  POST as analyzeCivilRoute,
   createCivilAnalyzePost,
   isCivilInput,
 } from "../../app/api/civil/analyze/route";
@@ -17,7 +21,9 @@ import {
   analyzeSmallClaimsWithBrain,
   type SmallClaimsIntelligenceInput,
 } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
-import { POST as analyzeSmallClaimsRoute } from "../../app/api/small-claims/analyze/route";
+import { createSmallClaimsAnalyzePost } from "../../app/api/small-claims/analyze/route";
+const analyzeSmallClaimsRoute = createSmallClaimsAnalyzePost();
+const analyzeCivilRoute = createCivilAnalyzePost();
 import { buildFamilyAnalysis } from "../../app/builder/_components/familyAnalysis";
 import { buildCivilGeneratedQuestions } from "../../app/builder/_components/civilAnalysis";
 import { baseScenarios } from "./scenarioRegistry";

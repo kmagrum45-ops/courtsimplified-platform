@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import { checkedAnswerView } from "@/src/lib/case-system/retrieval/checkedAnswer";
@@ -6,6 +7,7 @@ import { fileSourceRequests } from "@/src/lib/case-system/retrieval/sourceReques
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 import { understandCase } from "@/src/lib/case-system/understanding/understandCase";
 import { caseUnderstandingEnabled } from "@/src/lib/content-library/phaseScope";
+import { understandingInputError, isUnderstandingBody } from "@/src/lib/case-system/understanding/understandInput";
 
 /**
  * The front door's reading of a person's story (site owner, 2026-10-14):
@@ -23,42 +25,6 @@ export const runtime = "nodejs";
 // Vercel's 300 s limit.
 export const maxDuration = 300;
 
-const MAX_STORY = 6_000;
-const MAX_ANSWERS = 8;
-const COURTS = new Set(["small-claims", "civil", "family"]);
-
-type Body = {
-  story: string;
-  city?: string;
-  chosenCourt?: "small-claims" | "civil" | "family";
-  answers?: { question: string; answer: string }[];
-};
-
-function isBody(value: unknown): value is Body {
-  if (!value || typeof value !== "object") return false;
-  const body = value as Record<string, unknown>;
-  if (Object.keys(body).some((key) => !["story", "city", "chosenCourt", "answers"].includes(key))) return false;
-  return (
-    typeof body.story === "string" &&
-    body.story.trim().length >= 10 &&
-    body.story.length <= MAX_STORY &&
-    (body.city === undefined || (typeof body.city === "string" && body.city.length <= 120)) &&
-    (body.chosenCourt === undefined || (typeof body.chosenCourt === "string" && COURTS.has(body.chosenCourt))) &&
-    (body.answers === undefined ||
-      (Array.isArray(body.answers) &&
-        body.answers.length <= MAX_ANSWERS &&
-        body.answers.every(
-          (item) =>
-            item &&
-            typeof item === "object" &&
-            typeof (item as { question?: unknown }).question === "string" &&
-            typeof (item as { answer?: unknown }).answer === "string" &&
-            (item as { question: string }).question.length <= 400 &&
-            (item as { answer: string }).answer.length <= 1_000,
-        )))
-  );
-}
-
 export async function POST(request: Request) {
   // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
   const limited = await aiLimitResponse(request, "understand");
@@ -66,11 +32,16 @@ export async function POST(request: Request) {
 
   let body: unknown;
   try {
-    body = await request.json();
+    const raw = await request.text();
+    if (new TextEncoder().encode(raw).byteLength > 120_000) return NextResponse.json({ ok: false, error: "This request is too long. Your answers have not been processed." }, { status: 413 });
+    body = JSON.parse(raw);
   } catch {
     return NextResponse.json({ ok: false, error: "A valid request body is required." }, { status: 400 });
   }
-  if (!isBody(body)) return NextResponse.json({ ok: false, error: "A valid request body is required." }, { status: 400 });
+  if (!isUnderstandingBody(body)) return NextResponse.json({ ok: false, error: "A valid request body is required." }, { status: 400 });
+  const inputError = understandingInputError(body.story, body.city ?? "", body.answers ?? []);
+  if (inputError) return NextResponse.json({ ok: false, error: inputError }, { status: 400 });
+  if (!(await getAuthenticatedUser(request))) return NextResponse.json({ ok: true, skipped: "authentication-required" });
   if (!caseUnderstandingEnabled() || !hasConfiguredServerAi()) return NextResponse.json({ ok: true, skipped: "off" });
 
   const result = await understandCase({
@@ -78,7 +49,7 @@ export async function POST(request: Request) {
     ...(body.city ? { city: body.city } : {}),
     ...(body.chosenCourt ? { chosenCourt: body.chosenCourt } : {}),
     ...(body.answers ? { answers: body.answers } : {}),
-  });
+  }, { signal: request.signal, intakeOnly: true });
   if (result.status !== "understood") return NextResponse.json({ ok: true, skipped: "unavailable" });
 
   // Law the library does not hold yet becomes a source request, as on every

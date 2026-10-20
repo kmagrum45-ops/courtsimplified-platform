@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * POST /api/cases/events — records a procedural event on a case.
  *
@@ -316,7 +317,7 @@ export async function POST(request: Request) {
 }
 
 /** GET /api/cases/events?caseId=… — the case's live events, newest first. */
-export async function GET(request: Request) {
+async function getGuidance(request: Request) {
   const caseId = new URL(request.url).searchParams.get("caseId") || "";
   if (!UUID_PATTERN.test(caseId)) {
     return NextResponse.json({ error: "A valid selected case is required." }, { status: 400 });
@@ -371,3 +372,5 @@ export async function GET(request: Request) {
     inconsistencies: findCaseEventInconsistencies(rows),
   });
 }
+
+export const GET = withConfirmedGuidance(getGuidance, {"currentAnalysis":true});

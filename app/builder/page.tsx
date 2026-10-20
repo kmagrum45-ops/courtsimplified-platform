@@ -1,9 +1,19 @@
 "use client";
 
+import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
+import SafetyCheckUnavailable from "./_components/SafetyCheckUnavailable";
+import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
+import { storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
+import { panelAnswerFacts } from "../../src/lib/case-system/intakeReview";
+
+import { reviewPhase } from "../../src/lib/case-system/intakeReview";
+import { IntakeRequest } from "../_components/intakeRequest";
+
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
+import { startSignIn } from "../_components/startSignIn";
 import GetHelp from "../_components/GetHelp";
 import { readStoredPicture, stepFromPicture, type CasePicture } from "../../src/lib/case-system/intake/caseReader";
 import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
@@ -223,6 +233,13 @@ function isAnalysisAvailable(caseData: StoredCaseData | null): boolean {
 
 function BuilderPageContent() {
   const router = useRouter();
+  const recovery = useIntakeRecovery();
+  const reviewView = useIntakeReviewView();
+  const prepareCaseGuidance = usePrepareCaseGuidance();
+  const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
+  const analysisInputRevision = useRef<string | null>(null);
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const validateIntakeResponse = useValidateIntakeResponse();
   const searchParams = useSearchParams();
 
   const queryCaseId = searchParams.get("caseId");
@@ -316,7 +333,7 @@ function BuilderPageContent() {
    * already told it is worse than no triage — it asks the same questions
    * again and teaches them the answers do not stick.
    */
-  const [triageState, setTriageState] = useState<FamilyTriageState>(emptyTriageState);
+  const [triageState, setTriageState] = useIntakeState<FamilyTriageState>("builder", "triageState", emptyTriageState);
   // Issues and side from the family intake (or the saved case). Decides
   // whether the child-support draft fits this case at all.
   const [familyScope, setFamilyScope] = useState<FamilyScope | null>(null);
@@ -325,7 +342,7 @@ function BuilderPageContent() {
   // child-support builder wait, so one thing is asked at a time (walkthrough
   // 2026-10-13, V1: the marriage question sat beside the one-at-a-time chat).
   // A saved case reopened (queryCaseId) is past its intake, so they show.
-  const [familyQuestionsDone, setFamilyQuestionsDone] = useState(false);
+  const [familyQuestionsDone, setFamilyQuestionsDone] = useIntakeState("builder", "familyQuestionsDone", false);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
   const [existingMasterResult, setExistingMasterResult] = useState<
     Record<string, unknown>
@@ -353,14 +370,15 @@ function BuilderPageContent() {
    */
   const [locationRestoredFromCase, setLocationRestoredFromCase] = useState(false);
 
-  const [confirmedLocation, setConfirmedLocation] = useState<{
-    province: "Ontario";
-    city: string;
-  } | null>(null);
-  const [homeStory, setHomeStory] = useState("");
+  // The one copy of the story and location (intakeStory.ts), shared with the home
+  // page and every intake form. A location counts as confirmed once it names a city.
+  const [caseLocation, setConfirmedLocation] = useCaseLocation();
+  const confirmedLocation = caseLocation?.city.trim() ? { province: "Ontario" as const, city: caseLocation.city } : null;
+  const [homeStory, setHomeStory] = useStory();
+  const [safetyCheckUnavailable] = useIntakeState("safety", "checkUnavailable", false, true);
   // Ontario only, for now (CLAUDE.md: Ontario beta). See HomeLocationGate for the same fix.
   const intakeProvince = "Ontario";
-  const [intakeCity, setIntakeCity] = useState("");
+  const [intakeCity, setIntakeCity] = useIntakeState("builder", "intakeCity", "");
   /*
    * `intakeStory` was removed on 2026-09-17. See the gate below.
    *
@@ -392,7 +410,7 @@ function BuilderPageContent() {
    * should resume" from "this is an intentional new case of the same type".
    * A hand-off that just set a fresh story IS that distinction.
    */
-  const freshStoryHandoffRef = useRef(false);
+  const freshStoryHandoffRef = useRef(Boolean(recovery));
   /*
    * EACH BUILDER STEP IS A BACK STOP (2026-10-06).
    *
@@ -409,7 +427,7 @@ function BuilderPageContent() {
   const visibleMode: "choose" | "form" | "guided" | null =
     stepParam === "form" || stepParam === "guided" ? stepParam : stepParam === "results" ? null : "choose";
   const smallClaimsMode = visibleMode ?? "choose";
-  const [startedModes, setStartedModes] = useState<{ form: boolean; guided: boolean }>({ form: false, guided: false });
+  const [startedModes, setStartedModes] = useIntakeState<{ form: boolean; guided: boolean }>("builder", "startedModes", { form: false, guided: false });
   if ((visibleMode === "form" || visibleMode === "guided") && !startedModes[visibleMode]) {
     setStartedModes({ ...startedModes, [visibleMode]: true });
   }
@@ -422,6 +440,11 @@ function BuilderPageContent() {
   // succeeds, handleComplete's own analysis/canonicalIntakeSaved state
   // takes over rendering, same as the form path.
   const [guidedAnalyzing, setGuidedAnalyzing] = useState(false);
+  const guidedRequest = useRef(new IntakeRequest());
+  useEffect(() => {
+    const request = guidedRequest.current;
+    return () => request.cancel();
+  }, [queryCaseId, courtPath]);
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
   // Dates confirmed in the guided intake, offered on the next-steps panel.
   const [guidedDates, setGuidedDates] = useState<Record<string, SuggestedDate>>({});
@@ -453,12 +476,41 @@ function BuilderPageContent() {
    * click the mode card, not at the top of the destination screen the app
    * otherwise guarantees on every real navigation.
    */
+  /*
+   * The review panel's Continue (re-test 2026-10-18: after confirming there was no
+   * Continue to press). The guided route turns its confirmed answers into guidance
+   * here; from the Small Claims chooser it opens the form, whose own action runs
+   * as soon as it mounts. Neither changes a fact, so neither un-confirms.
+   */
+  useContinueHandler("guided", () => {
+    const saved = recovery?.getReview().checkpoint.sections.guided ?? {};
+    // A conversation that read an earlier story gives no guidance, and no claim
+    // type, for the corrected one (re-test 2026-10-18).
+    const view = recovery?.getReview();
+    if (view && storyAnswersOutdated(view.checkpoint)) {
+      setGuidedAnalysisError("Your story has changed since the questions read it. Start the questions again from your story first, so your next step comes from what you have now.");
+      return;
+    }
+    // The review panel's answers are answers too (re-test round 7).
+    const panel = view ? panelAnswerFacts(view.checkpoint) : {};
+    void handleGuidedComplete({ facts: { ...panel, ...(saved.facts ?? {}) } as GuidedIntakeCompletionResult["facts"], answeredIds: Array.isArray(saved.answeredIds) ? saved.answeredIds as string[] : [], matchedClaimType: (saved.matchedClaimType ?? null) as GuidedIntakeCompletionResult["matchedClaimType"], storyText: homeStory, answers: (Array.isArray(saved.earlierAnswers) ? saved.earlierAnswers : []) as NonNullable<GuidedIntakeCompletionResult["answers"]> });
+  });
+  useContinueHandler("choose", () => {
+    pushStep("form");
+    recovery?.continueToGuidance();
+  });
+
   function pushStep(step: "form" | "guided" | "results") {
     const url = new URL(window.location.href);
     if (url.searchParams.get("step") === step) return;
+    if (step !== "results") recovery?.put("builder", "step", step);
     url.searchParams.set("step", step);
     window.history.pushState(null, "", `${url.pathname}?${url.searchParams.toString()}`);
   }
+
+  useEffect(() => {
+    if (stepParam === "form" || stepParam === "guided") recovery?.put("builder", "step", stepParam);
+  }, [recovery, stepParam]);
 
   useEffect(() => {
     if (smallClaimsMode !== "choose") {
@@ -560,7 +612,7 @@ function BuilderPageContent() {
     }
     void loadUserDraft();
     return () => { active = false; };
-  }, [courtPath, initialPath, queryCaseId, router]);
+  }, [courtPath, initialPath, queryCaseId, router, setConfirmedLocation, setHomeStory]);
   /*
    * Important:
    * A case is active here only when:
@@ -606,7 +658,7 @@ function BuilderPageContent() {
     setSaveError("");
     setLastSavedAt("");
     setChatSessionId(createChatSessionId(courtPath));
-  }, [initialPath, queryCaseId]);
+  }, [courtPath, initialPath, queryCaseId]);
 
   /*
    * LEAVING A CASE CLEARS ITS STORY (2026-09-30).
@@ -633,7 +685,7 @@ function BuilderPageContent() {
       setConfirmedLocation(null);
       setLocationRestoredFromCase(false);
     }
-  }, [queryCaseId]);
+  }, [queryCaseId, setConfirmedLocation, setHomeStory]);
 
   useEffect(() => {
     let active = true;
@@ -642,15 +694,13 @@ function BuilderPageContent() {
       if (!queryCaseId) return;
 
       // A case opens with ITS story or none -- never the previous case's.
-      setHomeStory("");
+      if (!storyOf(recovery?.getReview().checkpoint.sections ?? {}).trim()) setHomeStory("");
       setCaseLoadError("");
       setLoadingExistingCase(true);
 
-      const { data, error } = await supabase
-        .from("cases")
-        .select("id,current_stage,master_result")
-        .eq("id", queryCaseId)
-        .maybeSingle();
+      const data = recovery?.row?.id === queryCaseId ? recovery.row : null;
+      const error = !data;
+
 
       if (!active) return;
 
@@ -658,7 +708,7 @@ function BuilderPageContent() {
         setExistingMasterResult({});
         setExistingCaseStage("");
         setCaseLoadError(
-          error?.message || "The selected case could not be loaded.",
+          "The selected case could not be loaded.",
         );
         setLoadingExistingCase(false);
         return;
@@ -711,7 +761,7 @@ function BuilderPageContent() {
           ? storedLocation.yourProvince.trim()
           : "";
 
-      if (storedProvince === "Ontario" && storedCity) {
+      if (storedProvince === "Ontario" && storedCity && !confirmedLocationOf(recovery?.getReview().checkpoint.sections ?? {})) {
         setConfirmedLocation({ province: "Ontario", city: storedCity });
         setLocationRestoredFromCase(true);
 
@@ -746,7 +796,7 @@ function BuilderPageContent() {
     return () => {
       active = false;
     };
-  }, [queryCaseId]);
+  }, [queryCaseId, recovery, setConfirmedLocation, setHomeStory, setTriageState]);
 
   /*
    * ONE SAVE AT A TIME (walkthrough, 2026-10-09). Saving the case set its id,
@@ -779,7 +829,7 @@ function BuilderPageContent() {
         data: { user },
       } = await supabase.auth.getUser();
 
-      let finalCaseId = queryCaseId || masterCaseIdRef.current || masterCaseId || "";
+      let finalCaseId = queryCaseId || recovery?.getCaseId() || masterCaseIdRef.current || masterCaseId || "";
       const stage = getStageForPersistence(analysis, caseData);
       const now = new Date().toISOString();
 
@@ -871,7 +921,7 @@ function BuilderPageContent() {
         intakeData: caseData,
 
         source: "builder-intake",
-        lifecycleStage: "intake-completed",
+        lifecycleStage: "intake-analyzed",
 
         updatedSubsystems: {
           intake: now,
@@ -880,8 +930,10 @@ function BuilderPageContent() {
           intelligence: now,
         },
 
+        guidanceInputRevision: analysisInputRevision.current,
         workflowStatus: {
-          intakeCompleted: true,
+          // Completion is written only by the explicit review action.
+          intakeCompleted: false,
           evidenceStarted: false,
           formsReviewed: false,
           documentWorkspaceStarted: false,
@@ -899,7 +951,8 @@ function BuilderPageContent() {
 
       const activeId = finalCaseId || recordId;
 
-      // No browser copy of the case is kept: it is saved to the account below.
+      // The full case stays in the account. Only the active intake checkpoint
+      // and pending UI text use the existing tab-scoped session slot.
 
       masterCaseIdRef.current = activeId || null;
       setMasterCaseId(activeId);
@@ -996,12 +1049,14 @@ function BuilderPageContent() {
           .from("cases")
           .select("master_result,updated_at")
           .eq("id", activeId)
+          .eq("user_id", user!.id).eq("court_path", courtPath)
           // Given up after a time, so a read that never answers cannot hold
           // the case's write queue (review 2026-10-14).
           .abortSignal(AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS))
           .maybeSingle();
         if (readError) return { error: readError, conflict: false };
         const storedMaster = asRecord(userOwnedRow?.master_result);
+        if (analysisInputRevision.current && asRecord(storedMaster.intakeCheckpoint).inputRevision !== analysisInputRevision.current) return { error: { message: "Initial information changed. Please analyze the current information again." }, conflict: false };
         const userOwned: Record<string, unknown> = Object.fromEntries(
           // formApplicability (the Forms page answers) and intakeAnswers (the
           // guided answers) are the user's too; a re-save erased them.
@@ -1010,6 +1065,12 @@ function BuilderPageContent() {
             .filter((key) => storedMaster[key] !== undefined && storedMaster[key] !== null)
             .map((key) => [key, storedMaster[key]]),
         );
+        if (storedMaster.guidanceInputRevision !== analysisInputRevision.current) {
+          // Old procedural choices/readings cannot be relabelled as guidance
+          // for corrected facts. Preserve the person's recorded dates/service.
+          if (storedMaster.position) userOwned.position = { ...asRecord(storedMaster.position), confirmedStage: null, confirmedStageAt: null, confirmedStageFrom: null, stepId: null, stepChosenAt: null };
+          userOwned.casePicture = null;
+        }
         // Dates confirmed in the guided intake join the position; a date the
         // user gave on the case page since wins.
         if (guidedAnswersRef.current.length) userOwned.intakeAnswers = guidedAnswersRef.current;
@@ -1034,7 +1095,9 @@ function BuilderPageContent() {
             status: "active",
             current_stage: stage,
             master_result: {
+              ...storedMaster,
               ...masterPayload,
+              workflowStatus: { ...asRecord(masterPayload.workflowStatus), ...asRecord(storedMaster.workflowStatus) },
               derivedFrom,
               intakeFacts,
               familyStatus: triageState,
@@ -1042,7 +1105,7 @@ function BuilderPageContent() {
             },
             updated_at: new Date().toISOString(),
           })
-          .eq("id", activeId);
+          .eq("id", activeId).eq("user_id", user!.id).eq("court_path", courtPath);
         if (userOwnedRow?.updated_at) write = write.eq("updated_at", userOwnedRow.updated_at);
         const { data: written, error: writeError } = await write.abortSignal(AbortSignal.timeout(CASE_REQUEST_TIMEOUT_MS)).select("id");
         if (writeError) return { error: writeError, conflict: false };
@@ -1106,18 +1169,20 @@ function BuilderPageContent() {
               data: { session },
             } = await supabase.auth.getSession();
             if (!session?.access_token) return;
+            const readerRevision = analysisInputRevision.current;
             const response = await fetch("/api/case/read", {
               method: "POST",
               headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
               body: JSON.stringify({ caseId: activeId, saveOnServer: false }),
             });
             const result = (await response.json()) as { picture?: unknown; storedPicture?: unknown };
+            if (analysisInputRevision.current !== readerRevision || recovery?.getReview().checkpoint.inputRevision !== readerRevision) return;
             const picture = readStoredPicture(result.picture);
             if (picture) setCasePicture(picture);
             const stored = result.storedPicture;
             if (picture && stored && typeof stored === "object" && !Array.isArray(stored)) {
               await runCaseWrite(activeId, () =>
-                updateMasterResult(supabase, { caseId: activeId }, (current) => ({ ...current, casePicture: stored }), 4, {
+                updateMasterResult(supabase, { caseId: activeId }, (current) => asRecord(current.intakeCheckpoint).inputRevision !== readerRevision ? { reject: "stale-intake" } : ({ ...current, casePicture: stored }), 4, {
                   requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS,
                 }),
               ).catch(() => undefined);
@@ -1136,14 +1201,7 @@ function BuilderPageContent() {
     }
     if (analysis && caseData) lastSavedInputsRef.current = { analysis, caseData, courtPath, attempt: saveAttempt };
     saveChainRef.current = saveChainRef.current.then(saveMasterCase).catch(() => undefined);
-  }, [
-    analysis,
-    caseData,
-    courtPath,
-    masterCaseId,
-    queryCaseId,
-    saveAttempt,
-  ]);
+  }, [analysis, caseData, courtPath, draftIntakeFacts, masterCaseId, queryCaseId, recovery, saveAttempt, triageState]);
 
   /*
    * Family questions answered AFTER the case was saved were never saved: the
@@ -1188,12 +1246,22 @@ function BuilderPageContent() {
    * here (guided mode only ever renders once it is).
    */
   async function handleGuidedComplete(result: GuidedIntakeCompletionResult) {
-    if (!confirmedLocation) return;
+    if (!confirmedLocation || guidedRequest.current.pending) return;
+    // The same rule as the Small Claims form ("Session 19"): its analysis needs the
+    // AI safety check first, and that check needs an account. The review panel's
+    // Continue made this reachable by a guest (2026-10-18), so it is checked here too.
+    if (recovery && !recovery.ownerId) {
+      setGuidedAnalysisError("Please sign in to continue. Small Claims intake requires a signed-in account so CourtSimplified can run its safety check before analyzing your case.");
+      return;
+    }
 
     setGuidedAnalyzing(true);
     setGuidedAnalysisError("");
 
     try {
+      await guidedRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+        if (!(await prepareCaseGuidance())) return;
       const mappedInput = mapGuidedIntakeToSmallClaimsInput(result, confirmedLocation, homeStory);
 
       // Retained for the Statement of Claim surface below.
@@ -1205,7 +1273,7 @@ function BuilderPageContent() {
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
       setDraftIntakeFacts(result.facts as Record<string, unknown>);
-      guidedAnswersRef.current = (result.answers ?? []).slice(-200);
+      guidedAnswersRef.current = (result.answers ?? []);
       const confirmedDates = suggestedDatesFromAnswers(result.answers ?? []);
       setGuidedDates(confirmedDates);
       // Only dates the person gave in full are kept as their answers; a date
@@ -1219,7 +1287,9 @@ function BuilderPageContent() {
       // The active case, so the run sees the events the user confirmed.
       const response = await requestSmallClaimsAnalysis(
         mappedInput,
-        getActiveCaseId(),
+        recovery?.getCaseId() ?? getActiveCaseId(),
+        signal,
+        intakeGuidanceHeaders(recovery),
       );
       const analysisResult = response.result!;
       const payload: StoredCaseData = {
@@ -1257,7 +1327,10 @@ function BuilderPageContent() {
           personAnswers: personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>),
         },
       };
+      await validateIntakeResponse(signal);
+      signal.throwIfAborted();
       handleComplete(analysisResult.analysis, payload);
+      });
     } catch (error) {
       setGuidedAnalysisError(
         error instanceof Error
@@ -1273,6 +1346,13 @@ function BuilderPageContent() {
     result: AnalysisResult,
     payload: StoredCaseData,
   ) {
+    const previousRevision = analysisInputRevision.current;
+    analysisInputRevision.current = recovery?.getReview().checkpoint.inputRevision ?? null;
+    const sameInitialInformation = previousRevision === analysisInputRevision.current || asRecord(existingMasterResult).guidanceInputRevision === analysisInputRevision.current;
+    if (recovery) {
+      const view = recovery.getReview();
+      if (reviewPhase(view.workflowStatus, view.checkpoint) === "collecting") void recovery.transition("review", view.checkpoint.inputRevision ?? view.checkpoint.revision).catch(() => {});
+    }
     setCanonicalIntakeSaved(false);
     const masterResultPatch = mergeMasterResult(
       queryCaseId ? existingMasterResult : {},
@@ -1285,14 +1365,14 @@ function BuilderPageContent() {
     // unless this case already has a stage the person confirmed, which stays
     // theirs and can still be changed (Phase 1: a returning user was asked
     // to confirm their stage again on every re-run).
-    const storedPositionOnCase = queryCaseId ? readCasePosition(existingMasterResult, courtPath) : null;
+    const storedPositionOnCase = queryCaseId && sameInitialInformation ? readCasePosition(existingMasterResult, courtPath) : null;
     // A stage recorded from earlier answers is not one the person chose: it
     // is worked out again from the answers given now (review 2026-10-14: Back,
     // a changed side, and the old "responding" stayed).
     const storedOnCase =
       storedPositionOnCase?.confirmedStage && storedPositionOnCase.confirmedStageFrom !== "answers" ? storedPositionOnCase.confirmedStage : null;
     // Only a Confirm or Change click this visit (never a stage read from answers).
-    const thisVisit = lastConfirmedRef.current;
+    const thisVisit = sameInitialInformation ? lastConfirmedRef.current : null;
     const sameCase = Boolean(thisVisit && (queryCaseId || masterCaseIdRef.current) && thisVisit.caseId === (queryCaseId || masterCaseIdRef.current));
     const stored = storedOnCase && storedOnCase !== "not-sure" ? storedOnCase : sameCase ? thisVisit!.stage : null;
     /*
@@ -1328,7 +1408,7 @@ function BuilderPageContent() {
    * The results show only on the results step, so Back from them returns to
    * the intake as it was, and Forward brings them back.
    */
-  const resultsVisible = Boolean(analysis) && stepParam === "results";
+  const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && stepParam === "results";
 
   // The case this tab last saved, so a reload of the results step reopens it.
   useEffect(() => {
@@ -1566,7 +1646,7 @@ function BuilderPageContent() {
     !originatingDocumentFiled && !respondingSide && !(courtPath === "family" && existingFamilyOrder(homeStory || userStory(caseData)));
 
   function getActiveCaseId() {
-    return masterCaseId || queryCaseId || null;
+    return masterCaseId || queryCaseId || recovery?.getCaseId() || null;
   }
 
   /**
@@ -1578,6 +1658,9 @@ function BuilderPageContent() {
    * could not be opened").
    */
   function savedCaseId(): string | null {
+    // A guest has no saved case, whatever id an analysis result carries
+    // (re-test 2026-10-18: a guest's step panel sent one and was refused).
+    if (recovery && !recovery.ownerId) return null;
     const id = getActiveCaseId();
     return id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) ? id : null;
   }
@@ -2052,6 +2135,8 @@ function BuilderPageContent() {
           written by the familyStatus effect above, so nothing is lost by
           asking later.
         */}
+        {/* Before every Family question and step on the results page (2026-10-18). */}
+        {resultsVisible && courtPath === "family" && safetyCheckUnavailable && <SafetyCheckUnavailable />}
         {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (familyQuestionsDone || Boolean(queryCaseId)) && (
           <FamilyStatusTriage
             state={triageState}
@@ -2241,7 +2326,7 @@ function BuilderPageContent() {
           the respondent. The table card is general information about support,
           so it needs only the issue.
         */}
-        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (() => {
+        {intakeConfirmed && courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (() => {
           const savedExtra = (caseData as (StoredCaseData & { extra?: Record<string, unknown> }) | null)?.extra;
           const issues: string[] =
             familyScope?.issues ?? (Array.isArray(savedExtra?.issues) ? (savedExtra.issues as string[]) : []);
@@ -2265,7 +2350,7 @@ function BuilderPageContent() {
                   until it succeeds. The triage keeps its never-disappears rule
                   and is NOT gated this way. A reopened saved case still shows
                   it. Its draft never reads the analysis. */}
-              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
+              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && intakeConfirmed && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
                 <ChildSupportIntake
                   recorded={childSupportPrefill(
                     familyScope?.recorded ?? {
@@ -2283,7 +2368,7 @@ function BuilderPageContent() {
               {/* With an order already in place, the table card is folded
                   under the next-step guidance instead (walkthrough run
                   38500825561, MC). */}
-              {!supportTableAfterStep ? <ChildSupportTableCard /> : null}
+              {intakeConfirmed && !supportTableAfterStep ? <ChildSupportTableCard /> : null}
             </div>
           );
         })()}
@@ -2320,6 +2405,7 @@ function BuilderPageContent() {
           </section>
         )}
 
+
         {/*
           MOUNTED ON caseId ALONE, outside the analysis gate below.
 
@@ -2346,6 +2432,7 @@ function BuilderPageContent() {
           <div className="mt-8">
             <EventCandidateSurface
               caseId={savedCaseId() as string}
+              currentText={[homeStory, caseData?.timeline].filter(Boolean).join("\n")}
               recordedDates={savedPosition.dateAnswers}
               // The step they confirmed, as on the case Timeline: a sentence
               // naming its event is offered as that step, not asked cold
@@ -2497,6 +2584,7 @@ function BuilderPageContent() {
                 on "Not sure" or "No" it is shown as before. */}
             {!confirmedStage && temporaryMotionCardMode(motionLead, motionChoice) === "shown" ? (
               <ProcedureAuthorityDisplay
+                caseId={savedCaseId()}
                 courtArea={courtPath}
                 procedureStage={getStageForPersistence(analysis, caseData)}
               />
@@ -2504,6 +2592,7 @@ function BuilderPageContent() {
               <details data-testid="temporary-motion-folded" className="rounded-2xl border border-[#d8e6df] bg-white p-4">
                 <summary className="cursor-pointer text-sm font-semibold text-[#2f7d67]">{TEMPORARY_MOTION_FOLD_LABEL}</summary>
                 <ProcedureAuthorityDisplay
+                  caseId={savedCaseId()}
                   courtArea={courtPath}
                   procedureStage={getStageForPersistence(analysis, caseData)}
                 />
@@ -2600,9 +2689,9 @@ function BuilderPageContent() {
                 <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="case-not-saved">
                   This case is not saved to an account, so it has no case page yet and will not be here
                   when you come back.{" "}
-                  <Link href="/login" className="font-semibold text-[#2f7d67] underline">
+                  <a href="/login" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="font-semibold text-[#2f7d67] underline">
                     Sign in or create an account
-                  </Link>{" "}
+                  </a>{" "}
                   before you start, and your case, its next steps, documents and drafts are kept for you.
                 </p>
               ) : null}
@@ -2661,7 +2750,7 @@ export default function BuilderPage() {
         </main>
       }
     >
-      <BuilderPageContent />
+      <IntakeRecoveryBoundary><BuilderPageContent /></IntakeRecoveryBoundary>
     </Suspense>
   );
 }

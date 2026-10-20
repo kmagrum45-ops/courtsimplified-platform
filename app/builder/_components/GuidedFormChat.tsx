@@ -1,5 +1,8 @@
 "use client";
 
+import { useIntakeState } from "../../_components/IntakeRecovery";
+import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
+
 /**
  * ONE QUESTION AT A TIME, OVER THE COURT'S OWN FORM (build order Step 2C,
  * 2026-10-12).
@@ -20,7 +23,7 @@
  * - Nothing here calls a model.
  */
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 
@@ -29,6 +32,8 @@ export type GuidedChoice = { value: string; label: string };
 export type GuidedField = {
   /** The form field this question fills. */
   key: string;
+  /** Initial orientation versus optional later detail. */
+  initial?: boolean;
   question: string;
   /** Why it matters, in plain words about what the answer is used for. */
   why: string;
@@ -47,6 +52,12 @@ export type GuidedField = {
    * what you told us: ... Is that right?" -- never filled in unseen.
    */
   fromStory?: (values: GuidedValues) => { value: string | string[]; quote: string } | null;
+  /**
+   * A reading that goes beyond the words (being served is read as an application
+   * having been filed): always its own "Is that right?", never folded into one
+   * confirmation with answers the sentence states outright (re-test 2026-10-18).
+   */
+  confirmAlone?: boolean;
   /**
    * For a text answer the site cannot use as given, what to add, asked
    * before it is kept (review 2026-10-13: "october 6" for the day served was
@@ -72,18 +83,8 @@ export function answerNeedsMore(field: GuidedField, value: string | string[]): s
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
 
-export function isAnswered(field: GuidedField, value: GuidedValues[string]): boolean {
-  if (Array.isArray(value)) return value.filter((item) => !(field.emptyValues ?? []).includes(item)).length > 0;
-  const text = (value ?? "").trim();
-  return text.length > 0 && !(field.emptyValues ?? []).includes(text);
-}
-
-/** The questions still to ask, in order: applicable, unanswered, not skipped. */
-export function pendingFields(fields: readonly GuidedField[], values: GuidedValues, skipped: ReadonlySet<string>): GuidedField[] {
-  return fields.filter(
-    (field) => (field.when ? field.when(values) : true) && !isAnswered(field, values[field.key]) && !skipped.has(field.key),
-  );
-}
+export { isAnswered, pendingFields } from "./guidedFields";
+import { isAnswered, pendingFields } from "./guidedFields";
 
 /**
  * `text` cut to at most `max` characters at the end of a whole word, with an
@@ -151,24 +152,29 @@ export default function GuidedFormChat({
   /** A plain answer to what the person asked, said when the questions are done, with the rules it restates (motionToChange.ts chatClosingFor). */
   closing?: { say: string; rules: RuleCitation[] } | null;
 }) {
-  const [skipped, setSkipped] = useState<Set<string>>(new Set());
-  const [heard, setHeard] = useState<{ question: string; reply: string }[]>([]);
-  const [draft, setDraft] = useState<string | string[]>("");
-  const [changing, setChanging] = useState<string | null>(null);
+  const [skipped, setSkipped] = useIntakeState<Set<string>>("form-chat", "skipped", new Set());
+  const [heard, setHeard] = useIntakeState<{ question: string; reply: string }[]>("form-chat", "heard", []);
+  const [changing, setChanging] = useIntakeState<string | null>("form-chat", "changing", null);
   // Story answers the person said were not right: asked plainly instead.
-  const [notFromStory, setNotFromStory] = useState<Set<string>>(new Set());
+  const [notFromStory, setNotFromStory] = useIntakeState<Set<string>>("form-chat", "notFromStory", new Set());
   // What the answer just given still needs (answerNeedsMore), shown under the box.
-  const [needsMore, setNeedsMore] = useState<string | null>(null);
+  const [needsMore, setNeedsMore] = useIntakeState<string | null>("form-chat", "needsMore", null);
   // Questions whose story-filled part the person has edited (partialFromStory).
-  const [edited, setEdited] = useState<Set<string>>(new Set());
+  const [edited, setEdited] = useIntakeState<Set<string>>("form-chat", "edited", new Set());
 
   // Known when this opened: listed, not asked (the story, the saved case).
-  const [knownAtStart] = useState(() =>
+  const [knownAtStart] = useIntakeState("form-chat", "knownAtStart", () =>
     fields.filter((field) => (field.when ? field.when(values) : true) && isAnswered(field, values[field.key])).map((field) => field.key),
   );
 
   const pending = useMemo(() => pendingFields(fields, values, skipped), [fields, values, skipped]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
+  // An unsent reply belongs to its question, including when the form changes which question comes next.
+  const [drafts, setDrafts] = useIntakeState<Record<string, string | string[]>>("form-chat", "drafts", {});
+  const draft = drafts[current?.key ?? "complete"] ?? "";
+  function setDraft(value: string | string[], key = current?.key ?? "complete") {
+    setDrafts((previous) => ({ ...previous, [key]: value }));
+  }
 
   function answer(value: string | string[], fromStory = false) {
     if (!current) return;
@@ -198,7 +204,52 @@ export default function GuidedFormChat({
     setChanging(null);
   }
 
+  /*
+   * ONE SENTENCE, ONE CONFIRMATION. "I was served with her Application on October
+   * 9, 2026" answers your side, what has been filed and the day you were served;
+   * asking "Is that right?" three times about the same sentence read as not
+   * listening (PR #463 re-test, 2026-10-18). Pending questions the same sentence
+   * answers are offered together; "Yes" records each, "No" asks this one plainly.
+   */
+  function storyGroup(quote: string) {
+    // Including a question the group itself makes due: accepting "I was served"
+    // as your side is what makes "what day were you served" a question at all.
+    const group: { field: GuidedField; offer: { value: string | string[]; quote: string } }[] = [];
+    const assumed: GuidedValues = { ...values };
+    for (let changed = true; changed;) {
+      changed = false;
+      for (const field of fields) {
+        if (group.some((item) => item.field.key === field.key) || notFromStory.has(field.key) || skipped.has(field.key) || field.confirmAlone) continue;
+        if ((field.when && !field.when(assumed)) || isAnswered(field, assumed[field.key])) continue;
+        const offer = field.fromStory?.(assumed) ?? null;
+        if (!offer || offer.quote !== quote || answerNeedsMore(field, offer.value)) continue;
+        group.push({ field, offer });
+        assumed[field.key] = offer.value;
+        changed = true;
+      }
+    }
+    return group;
+  }
+  function acceptGroup(group: { field: GuidedField; offer: { value: string | string[] } }[]) {
+    for (const { field, offer } of group) onAnswer(field.key, offer.value);
+    setHeard((now) => [...now, ...group.map(({ field, offer }) => ({ question: heardAs(field, true), reply: acknowledgement(field, offer.value) }))]);
+    setDraft("");
+    setChanging(null);
+  }
+
+  // Answers based on an earlier version of the story (storyBasis.ts): not shown, not asked from.
+  const storyChanged = useStoryAnswersOutdated();
+
   const known = fields.filter((field) => knownAtStart.includes(field.key) && isAnswered(field, values[field.key]));
+
+  if (storyChanged) {
+    return (
+      <div data-testid="guided-form-chat" className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
+        <h3 className="text-lg font-bold text-[#10231f]">A few questions, one at a time</h3>
+        <StoryChangedNotice where="questions" />
+      </div>
+    );
+  }
 
   return (
     <div data-testid="guided-form-chat" className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
@@ -220,7 +271,7 @@ export default function GuidedFormChat({
                   type="button"
                   onClick={() => {
                     setChanging(field.key);
-                    setDraft(values[field.key] ?? (field.kind === "multi" ? [] : ""));
+                    setDraft(values[field.key] ?? (field.kind === "multi" ? [] : ""), field.key);
                   }}
                   className="text-[#2f7d67] underline"
                 >
@@ -248,12 +299,14 @@ export default function GuidedFormChat({
           {(() => {
             const offered = !changing && !notFromStory.has(current.key) ? current.fromStory?.(values) ?? null : null;
             if (!offered || answerNeedsMore(current, offered.value)) return null;
-            const shown = (Array.isArray(offered.value) ? offered.value : [offered.value])
-              .map((item) => current.options?.find((option) => option.value === item)?.label ?? item)
+            const words = (field: GuidedField, value: string | string[]) => (Array.isArray(value) ? value : [value])
+              .map((item) => field.options?.find((option) => option.value === item)?.label ?? item)
               .join("; ");
+            const together = current.confirmAlone ? [] : storyGroup(offered.quote);
+            const group = together.some(({ field }) => field.key === current.key) ? together : [{ field: current, offer: offered }];
             return (
-              <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)}>
-                <p className="font-semibold text-[#10231f]">{current.label}: {cutAtWord(shown, 160)}</p>
+              <div data-testid="guided-form-from-story" data-value={JSON.stringify(offered.value)} data-group={group.map(({ field }) => field.key).join(" ")}>
+                {group.map(({ field, offer }) => <p key={field.key} className="font-semibold text-[#10231f]">{field.label}: {cutAtWord(words(field, offer.value), 160)}</p>)}
                 <p className="mt-1 text-sm text-[#4d675f]">
                   From what you told us: &ldquo;{cutAtWord(offered.quote, 200)}&rdquo; Is that right?
                 </p>
@@ -261,7 +314,7 @@ export default function GuidedFormChat({
                   <button
                     type="button"
                     data-testid="guided-form-from-story-yes"
-                    onClick={() => answer(offered.value, true)}
+                    onClick={() => (group.length > 1 ? acceptGroup(group) : answer(offered.value, true))}
                     className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
                   >
                     Yes, that&apos;s right

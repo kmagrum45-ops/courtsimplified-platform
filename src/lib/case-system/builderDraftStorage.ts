@@ -142,6 +142,8 @@ export function consumeGuestIntakeSession(
 ) {
   try {
     const value = storage.getItem(GUEST_INTAKE_SESSION_STORAGE_KEY);
+    const envelope = value ? JSON.parse(value) as Record<string, unknown> : null;
+    if (envelope?.version === 2) return null; // Active flow recovery is not a read-once hand-off.
     storage.removeItem(GUEST_INTAKE_SESSION_STORAGE_KEY);
     const parsed = value ? JSON.parse(value) as Record<string, unknown> : null;
     if (!parsed || typeof parsed !== "object") return null;

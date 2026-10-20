@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { supabase } from "@/src/lib/supabase/client";
 
 import { dateQuestionsForStep, isServiceDateQuestion } from "@/src/lib/case-system/casePosition";
 import {
@@ -1478,10 +1479,11 @@ export default function StageAnswerPanel({
     setLoading(true);
     setFailed(false);
     try {
+      const { data: { session } } = await supabase.auth.getSession();
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped) }),
+        headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
+        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped) }),
       });
       if (!response.ok) throw new Error(String(response.status));
       setResult((await response.json()) as Response);

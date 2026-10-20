@@ -1,8 +1,15 @@
 "use client";
 
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
+import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
+import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
+
+import { IntakeRequest } from "../../_components/intakeRequest";
+
 import TidyWordingReview from "./TidyWordingReview";
 
-import Link from "next/link";
+import SignInForSafetyCheck from "./SignInForSafetyCheck";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type {
@@ -563,6 +570,8 @@ export async function requestSmallClaimsAnalysis(
    * before confirmed events were wired in.
    */
   caseId?: string | null,
+  signal?: AbortSignal,
+  guidanceHeaders: Record<string, string> = {},
 ): Promise<SmallClaimsAnalysisResponse> {
   // Only a real case row id is sent. `masterCaseId` and similar in-memory ids
   // are not `cases.id` values, and sending one would earn a 400 that failed
@@ -577,6 +586,7 @@ export async function requestSmallClaimsAnalysis(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...guidanceHeaders,
       ...(session?.access_token
         ? { Authorization: `Bearer ${session.access_token}` }
         : {}),
@@ -584,7 +594,7 @@ export async function requestSmallClaimsAnalysis(
     body: JSON.stringify(sendCaseId ? { input, caseId: sendCaseId } : { input }),
     // Stops waiting just before the server's own limit, so a person is told
     // something rather than left on "Analyzing..." (2026-10-10, outside test).
-    signal: AbortSignal.timeout(290_000),
+    signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(290_000)]) : AbortSignal.timeout(290_000),
   }).catch((error: unknown) => {
     throw new Error(
       error instanceof Error && error.name === "TimeoutError"
@@ -612,7 +622,11 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       caseId: new URLSearchParams(window.location.search).get("caseId"),
     }),
   );
-  const [input, setInput] = useState<SmallClaimsIntelligenceInput>(() => {
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const prepareCaseGuidance = usePrepareCaseGuidance();
+  const recovery = useIntakeRecovery();
+  const validateIntakeResponse = useValidateIntakeResponse();
+  const [input, setInput] = useInputWithStory<SmallClaimsIntelligenceInput>("small-claims", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
@@ -661,15 +675,21 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     storedValuesTaken.current = true;
     const values: Record<string, unknown> = { ...storedValues };
     setInput((current) => mergeStoredValuesIntoInput(current, values, ""));
-  }, [storedValues]);
+  }, [setInput, storedValues]);
 
   // Starts open when there's no story yet to display (e.g. the pre-builder
   // gate no longer collects it for Small Claims) -- otherwise the user would
   // land on an empty "Case story" summary with no visible way to type into it
   // until they notice the "Edit case story" toggle.
-  const [editingStory, setEditingStory] = useState(() => !input.facts.trim());
+  const [editingStory, setEditingStory] = useIntakeState("small-claims", "editingStory", () => !input.facts.trim());
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const analysisRequest = useRef(new IntakeRequest());
+  const requestScope = input;
+  useEffect(() => {
+    const request = analysisRequest.current;
+    return () => request.cancel();
+  }, [requestScope]);
   const [analysisError, setAnalysisError] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
   const [safetyHalted, setSafetyHalted] = useState(false);
@@ -678,6 +698,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   /** Step 6d: set when the safety pass reports the user asked for legal advice. */
   const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [authRequired, setAuthRequired] = useState(false);
+  // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
+  const storyChanged = useStoryAnswersOutdated();
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
@@ -828,7 +850,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     }));
   }
 
+  useContinueHandler("form", () => { void handleAnalyze(); });
+
   async function handleAnalyze() {
+    if (analysisRequest.current.pending) return;
+    try {
+      await analysisRequest.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
+        if (!(await prepareCaseGuidance())) return;
     if (!hasText(input.facts)) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;
@@ -867,6 +896,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       .join("\n\n");
     const safety = await runFormSafetyCheck(safetyCheckText);
 
+    await validateIntakeResponse(signal);
+
+    signal.throwIfAborted();
     if (safety.halted) {
       setSafetyHalted(true);
       setSafetyHaltMessage(safety.haltMessage || "");
@@ -899,8 +931,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // §4, suggest never decide).
       const matched = hasText(input.facts) ? settledClaimTypeMatch(input.facts, CLAIM_TYPES) : null;
       const matchedClaimTypeId = matched?.claimType.id ?? null;
+      // Answers given in the review panel count here too, where the form left them empty
+      // (re-test round 7: after "start the questions again" they were the only answers).
+      const panel = recovery ? panelAnswerFacts(recovery.getReview().checkpoint) : {};
       const preparedInput: SmallClaimsIntelligenceInput = {
         ...input,
+        amountClaimed: input.amountClaimed || String(panel.amountClaimedText ?? ""),
+        goal: input.goal || String(panel.remedySoughtText ?? ""),
+        yourRole: input.yourRole === "plaintiff" || input.yourRole === "defendant" ? input.yourRole : (panel.role === "plaintiff" || panel.role === "defendant" ? panel.role : input.yourRole),
+        timeline: input.timeline || String(panel.timelineText ?? ""),
         caseStage: stage,
         issues: inferIssuesFromStory(input),
         filedDocuments:
@@ -914,7 +953,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
 
       const response = await requestSmallClaimsAnalysis(
         preparedInput,
-        new URLSearchParams(window.location.search).get("caseId"),
+        recovery?.getCaseId(),
+        signal,
+        intakeGuidanceHeaders(recovery),
       );
       const result = response.result!;
       const payload: StoredCaseData = {
@@ -936,22 +977,41 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         },
       };
 
+      await validateIntakeResponse(signal);
+
+      signal.throwIfAborted();
       onComplete(result.analysis, payload);
     } catch (error) {
-      console.error("Small Claims intelligence analysis failed:", error);
+
 
       setAnalysisError(
         error instanceof Error
           ? error.message
           : "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
       );
+    }
+      }, ANALYSIS_TIMEOUT_MS);
+    } catch {
+      setAnalysisError("That request did not finish. Your answers are still here; please try again.");
     } finally {
       setIsAnalyzing(false);
     }
   }
 
+  // Answers based on an earlier version of the story are not shown or pre-filled anywhere in
+  // this form until the questions start again from the story (storyBasis.ts, re-test 2026-10-18).
+  if (storyChanged) {
+    return (
+      <section data-testid="sc-intake-story-changed" className="mt-6 rounded-3xl border border-[#d8e6df] bg-white p-6">
+        <h2 className="text-xl font-bold text-[#10231f]">Small Claims intake</h2>
+        <StoryChangedNotice where="questions" />
+        <button type="button" data-testid="sc-intake-analyze" disabled className="mt-4 rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">Continue to your next steps</button>
+      </section>
+    );
+  }
+
   return (
-    <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
+    <section onChangeCapture={() => analysisRequest.current.cancel()} className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2f7d67]">
           Small Claims intake
@@ -978,15 +1038,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         </div>
       ) : null}
 
-      {authRequired && (
-        <div className="mt-5 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm leading-6 text-blue-900">
-          Please sign in to continue. Small Claims intake now requires a signed-in account so
-          CourtSimplified can run its safety check before analyzing your case.{" "}
-          <Link href="/login" className="font-semibold underline">
-            Sign in
-          </Link>
-        </div>
-      )}
+      {authRequired && <SignInForSafetyCheck area="Small Claims" />}
 
       {asksForAdvice && (
         <div className="mt-5">
@@ -1011,6 +1063,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           {analysisError}
         </div>
       )}
+      <AnalysisProgress reading={isAnalyzing} error={analysisError} onRetry={() => void handleAnalyze()} onStop={() => { analysisRequest.current.cancel(); setAnalysisError("Stopped. Your answers are still here; you can try again."); }} />
 
       {storageWarning && (
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
@@ -1512,11 +1565,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           type="button"
           data-testid="sc-intake-analyze"
           onClick={handleAnalyze}
-          disabled={isAnalyzing || safetyHalted}
+          disabled={isAnalyzing || safetyHalted || storyChanged}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
         </button>
+        <StoryChangedNotice where="button" />
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * Suggests what a document is, by sending its extracted text to a model.
  *
@@ -67,26 +68,7 @@ function refuse(status: number, error: string, detail?: string) {
   return NextResponse.json({ success: false, error, detail }, { status });
 }
 
-export async function POST(req: NextRequest) {
-  /*
-   * *** FIRST, BEFORE ANYTHING ELSE ***
-   *
-   * Not after authentication, not after the case lookup. Nothing about this request is
-   * read until it is established that analysis may happen at all.
-   */
-  if (!documentAnalysisEnabled()) {
-    return NextResponse.json({
-      success: true,
-      enabled: false,
-      reason: ANALYSIS_DISABLED_REASON,
-      /*
-       * Said explicitly so a client does not treat this as a transient failure and
-       * retry. The door is closed on purpose and will stay closed.
-       */
-      retryable: false,
-    });
-  }
-
+async function postGuidance(req: NextRequest) {
   /* c8 ignore start — unreachable while the flag is off; see the header. */
   try {
     const user = await getAuthenticatedUser(req);
@@ -227,4 +209,29 @@ export async function POST(req: NextRequest) {
     return refuse(500, "CourtSimplified could not analyse this document.");
   }
   /* c8 ignore stop */
+}
+
+const confirmedPost = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});
+
+export async function POST(req: NextRequest) {
+  /*
+   * *** FIRST, BEFORE ANYTHING ELSE ***
+   *
+   * Not after authentication, not after the case lookup — and not after the
+   * confirmed-guidance gate, which authenticates and reads the case. Nothing about
+   * this request is read until it is established that analysis may happen at all.
+   */
+  if (!documentAnalysisEnabled()) {
+    return NextResponse.json({
+      success: true,
+      enabled: false,
+      reason: ANALYSIS_DISABLED_REASON,
+      /*
+       * Said explicitly so a client does not treat this as a transient failure and
+       * retry. The door is closed on purpose and will stay closed.
+       */
+      retryable: false,
+    });
+  }
+  return confirmedPost(req);
 }

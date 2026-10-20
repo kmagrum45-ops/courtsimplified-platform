@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * POST /api/workspace/documents/decision-help { documentId }
  *
@@ -46,8 +47,7 @@ function admin() {
 }
 
 
-export async function POST(req: NextRequest) {
-  if (!documentAnalysisEnabled()) return NextResponse.json({ enabled: false });
+async function postGuidance(req: NextRequest) {
   const user = await getAuthenticatedUser(req);
   if (!user) return NextResponse.json({ error: "Sign in first." }, { status: 401 });
 
@@ -120,4 +120,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ enabled: true, help: null, message: "We could not produce a checked explanation this time." });
   }
   return NextResponse.json({ enabled: true, help });
+}
+
+const confirmedPost = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});
+
+export async function POST(req: NextRequest) {
+  // The ZDR switch refuses before the guidance gate authenticates or reads the case.
+  if (!documentAnalysisEnabled()) return NextResponse.json({ enabled: false });
+  return confirmedPost(req);
 }

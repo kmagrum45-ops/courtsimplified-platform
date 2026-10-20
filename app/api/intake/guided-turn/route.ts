@@ -303,10 +303,10 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
           apiKey,
           questionBank,
           courtArea,
-          {},
+          { intakeOnly: true },
           body.repropose,
         );
-        return NextResponse.json({ ok: true, result: confirmedResult, authenticated });
+        return NextResponse.json({ ok: true, result: { ...confirmedResult, evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
       }
 
       const result: OrchestrateIntakeTurnResult = await dependencies.orchestrate(
@@ -318,11 +318,11 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         claimTypes,
         courtArea,
         body.answeredQuestionId,
-        {},
+        { intakeOnly: true },
         body.earlier,
       );
 
-      return NextResponse.json({ ok: true, result, authenticated });
+      return NextResponse.json({ ok: true, result: { ...result, evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
     } catch (error) {
       // The error's kind and where it was thrown, never its message (which can
       // carry the person's words) or anything secret.

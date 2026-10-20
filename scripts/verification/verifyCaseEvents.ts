@@ -69,6 +69,7 @@ import {
   describesNothingHappening,
   resolveCandidates,
   type CandidateDismissalRow,
+  candidatesStillInText,
 } from "../../src/lib/case-system/events/caseEventCandidates";
 import {
   deriveCaseStageWithEvents,
@@ -732,7 +733,8 @@ function main(): void {
   // told intake they had filed saw "Not enough recorded to say".
   check(
     "the analysis save site writes intakeFacts",
-    /master_result: \{[^}]*intakeFacts/.test(BUILDER_SRC),
+    // The payload may nest objects (workflowStatus); look through the block, not to its first "}".
+    /master_result: \{[\s\S]{0,800}?\bintakeFacts\b/.test(BUILDER_SRC),
     "without it deriveCaseStageWithEvents gets {} for the intake half",
   );
   check(
@@ -1001,6 +1003,14 @@ function main(): void {
       "step-event: the Timeline passes its step, whether a stage is confirmed, and whether the step was chosen",
       /confirmedStep=/.test(timeline) && /confirmedStage/.test(timeline) && /position\.stepId/.test(timeline),
     );
+  }
+
+  // Re-test 2026-10-18: after a correction the saved case still quoted the OLD story.
+  {
+    const candidates = [{ narrativeBasis: "On August 3, 2026 I paid him $3,000." }, { narrativeBasis: "He  started on   September 1, 2026." }];
+    const now = candidatesStillInText(candidates, "Corrected: he started on September 1, 2026. He left after a day.");
+    check("candidates: a sentence no longer in the story is not offered", now.length === 1 && now[0].narrativeBasis.includes("started"));
+    check("candidates: spacing and case do not hide a sentence that is still there", candidatesStillInText(candidates, "on august 3, 2026 i paid him $3,000.").length === 1);
   }
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);

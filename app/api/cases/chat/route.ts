@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
@@ -57,7 +58,7 @@ async function signedIn(request: Request) {
   return user && supabase ? { user, supabase } : null;
 }
 
-export async function GET(request: Request) {
+async function getGuidance(request: Request) {
   const caseId = new URL(request.url).searchParams.get("caseId") ?? "";
   if (!UUID_PATTERN.test(caseId)) return NextResponse.json({ ok: false, error: "A saved case is required." }, { status: 400 });
   const session = await signedIn(request);
@@ -73,7 +74,7 @@ export async function GET(request: Request) {
   return NextResponse.json({ ok: true, messages: rows.reverse().map(({ role, content }) => ({ role, content })) });
 }
 
-export async function POST(request: Request) {
+async function postGuidance(request: Request) {
   let body: Record<string, unknown>;
   try {
     body = (await request.json()) as Record<string, unknown>;
@@ -105,3 +106,7 @@ export async function DELETE(request: Request) {
   const { error } = await session.supabase.from("case_chat_messages").delete().eq("case_id", caseId);
   return NextResponse.json({ ok: !error });
 }
+
+export const GET = withConfirmedGuidance(getGuidance, {"currentAnalysis":true});
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

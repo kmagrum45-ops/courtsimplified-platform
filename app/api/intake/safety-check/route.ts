@@ -3,21 +3,11 @@ import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import { runSafetyPass } from "@/src/lib/case-system/intake/safetyPass";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
+import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 
-/**
- * Session 17 -- the Small Claims static form's own path to the same
- * safety pass guided mode already runs on every free-text turn
- * (orchestrateIntakeTurn.ts calls runSafetyPass() directly; this route
- * calls the identical function, not a reimplementation). SmallClaimsIntake.tsx
- * calls this before its existing /api/small-claims/analyze submission --
- * that route's own logic is untouched by this session.
- *
- * Auth pattern matches guided-turn/route.ts: required unconditionally,
- * no deterministic fallback, since runSafetyPass() always calls real AI
- * and there's no safe deterministic substitute for a safety
- * classification. An unauthenticated form submission simply skips this
- * check client-side rather than calling this route -- same as today,
- * not a new gap this route introduces.
+/** The existing safety pass remains independent of intake confirmation.
+ * Paid classification requires server authentication; fixed resources are
+ * available to every intake user without waiting for AI.
  */
 
 export const runtime = "nodejs";
@@ -49,24 +39,27 @@ function errorResponse(error: string, status: number) {
 }
 
 type SafetyCheckRouteDependencies = {
-  // `authenticate` was removed on 2026-09-17 along with the auth requirement.
-  // Left as a comment rather than a dead field: an injectable dependency that
-  // nothing calls reads as "this route authenticates" to the next person.
+  authenticate: typeof getAuthenticatedUser;
   runSafety: typeof runSafetyPass;
   hasExternalAiKey: () => boolean;
 };
 
 export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDependencies> = {}) {
   const dependencies: SafetyCheckRouteDependencies = {
+    authenticate: getAuthenticatedUser,
     runSafety: runSafetyPass,
     hasExternalAiKey: hasConfiguredServerAi,
     ...overrides,
   };
 
   return async function safetyCheckPost(request: NextRequest) {
+    // Safety classification is available during intake, independently of review.
+    // Paid AI still requires a server-verified session. General fixed safety
+    // information is available in the intake review panel without classification.
+    if (!await dependencies.authenticate(request)) return errorResponse("Sign in required for the AI safety check.", 401);
     // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
     const limited = await aiLimitResponse(request, "safety");
-    if (limited) return limited;
+    if (limited) { console.error("Safety-check route refused: AI limit reached."); return limited; }
 
     let body: unknown;
     try {
@@ -80,42 +73,8 @@ export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDepende
     }
 
     try {
-      /*
-       * NO AUTH REQUIREMENT. THIS IS DELIBERATE, AND IT IS A REVERSAL.
-       *
-       * This route used to require a signed-in user. The reason given was
-       * "runSafetyPass() always calls real AI and there's no safe
-       * deterministic substitute" -- a cost and abuse argument. That
-       * requirement then propagated: Small Claims began requiring an account
-       * "so CourtSimplified can run its safety check", and the two paths that
-       * never adopted the account requirement -- Family and Civil -- never
-       * adopted the check either.
-       *
-       * So the most likely place for a real disclosure of danger was the one
-       * place nothing read it. A constraint about money became a constraint
-       * about who gets protected, through four individually-sound steps that
-       * nobody stated as a whole. Recorded in OUTSTANDING_ISSUES section 0k.
-       *
-       * WHY THIS IS SAFE TO OPEN:
-       *   - middleware.ts gates the entire site, /api/* included, on
-       *     SITE_ACCESS_PASSWORD. "Anonymous" here means someone who already
-       *     has the shared beta password, not the open internet.
-       *   - The call is the standard-tier model (src/lib/case-system/aiModels.ts,
-       *     low reasoning effort), input capped at 8,000 characters by
-       *     isSafetyCheckRequestBody above. It is one of the cheapest model
-       *     calls in the system.
-       *   - The response is one of three labels plus a FIXED constant. There
-       *     is no model-generated text to extract and nothing worth stealing.
-       *   - Prompt injection can at worst flip a classification, which lands
-       *     the user where they already are today on Family and Civil: no
-       *     check at all.
-       *
-       * A rate limiter is still wanted and is deliberately NOT a precondition.
-       * There is no rate-limiting infrastructure in this codebase, so building
-       * one would have delayed the fix by days. An abusable safety check is
-       * strictly better than no safety check. See OUTSTANDING_ISSUES.
-       */
       if (!dependencies.hasExternalAiKey()) {
+        console.error("Safety-check route unavailable: no AI key.");
         return errorResponse("The safety check is not available right now.", 503);
       }
       const apiKey = process.env.OPENAI_API_KEY;

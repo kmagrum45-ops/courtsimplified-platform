@@ -22,11 +22,18 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { acknowledgement, answerNeedsMore, cutAtWord, isAnswered, pendingFields, type GuidedField } from "../../app/builder/_components/GuidedFormChat";
+import type { GuidedField } from "../../app/builder/_components/GuidedFormChat";
 import { civilGuidedFields, familyGuidedFields, withServedDate } from "../../app/builder/_components/guidedFields";
 import { storyHintsForDates, storyWithTimeline } from "../../src/lib/case-system/casePosition";
 import { amountFromStory, childrenFromStory, civilRoleFromStory, familyRoleFromStory, goalFromStory } from "../../app/builder/_components/storyAnswers";
 import { CARD_LABELS, RESPONDING_CARD_LABELS, cardLabel, confirmedDrafts, dayOf, respondingFromAnswers, sameDayAs } from "../../app/builder/_components/proposalCard";
+
+async function main() {
+// Component imports initialize the public browser client. This offline suite uses
+// synthetic configuration only and never reads a real environment file.
+process.env.NEXT_PUBLIC_SUPABASE_URL = "http://127.0.0.1:1";
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "synthetic-offline-test-key";
+const { acknowledgement, answerNeedsMore, cutAtWord, isAnswered, pendingFields } = await import("../../app/builder/_components/GuidedFormChat");
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const read = (file: string) => readFileSync(path.join(ROOT, file), "utf8");
@@ -63,6 +70,10 @@ console.log("\n2. Questions that depend on the answers");
   check("no children question unless the case is about children", !noChildren.some((field) => field.key === "childrenInfo"));
   const children = pendingFields(family, { facts: "x", yourRole: "applicant", issues: ["child-support"] }, new Set());
   check("the children question follows a child issue", children.some((field) => field.key === "childrenInfo"));
+  for (const [court, fields] of [["family", family], ["civil", civil]] as const) {
+    check(`${court}: later detail stays available without extending initial questioning`, fields.some(field => field.initial === false) && pendingFields(fields, {}, new Set()).every(field => field.initial === true));
+    check(`${court}: skipping the finite initial list reaches a stopping point`, pendingFields(fields, {}, new Set(fields.filter(field => field.initial).map(field => field.key))).length === 0);
+  }
   const plaintiff = pendingFields(civil, { facts: "x", yourRole: "plaintiff" }, new Set());
   check("a plaintiff isn't asked when they were served", !plaintiff.some((field) => field.key === "serviceDetails"));
   const defendant = pendingFields(civil, { facts: "x", yourRole: "defendant" }, new Set());
@@ -92,7 +103,7 @@ console.log("\n4. Every answer reaches the form, with the form's own values");
   check("family: the form's issue and document lists are the ones offered", /familyGuidedFields\(\{ issues: issueOptions, filed: filedOptions \}\)/.test(familySource));
   check("civil: the form's issue and document lists are the ones offered", /civilGuidedFields\(\{ issues: issueOptions, documents: documentOptions \}\)/.test(civilSource));
   for (const [court, source] of [["family", familySource], ["civil", civilSource]] as const) {
-    check(`${court}: opens one question at a time`, /useState<"chat" \| "form">\("chat"\)/.test(source) && /<GuidedFormChat/.test(source));
+    check(`${court}: opens one question at a time with recoverable mode`, /useIntakeState<"chat" \| "form">\("(?:family|civil)", "mode", "chat"\)/.test(source) && /<GuidedFormChat/.test(source));
     check(`${court}: the chat's Continue is the form's own`, /onDone=\{handleAnalyze\}/.test(source));
     check(`${court}: the whole form is one click away`, /onShowForm=\{\(\) => setMode\("form"\)\}/.test(source));
   }
@@ -238,3 +249,6 @@ check("the walkthrough answers the chat for family and civil", /playGuidedChat\(
 
 console.log(failures ? `\n${failures} check(s) FAILED.` : "\nAll checks passed.");
 process.exitCode = failures ? 1 : 0;
+
+}
+void main().catch(() => { console.error('FAIL offline guided form verification'); process.exitCode = 1; });

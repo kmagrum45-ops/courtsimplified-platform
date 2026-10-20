@@ -11,6 +11,7 @@
  */
 
 import Link from "next/link";
+import { guidanceIsCurrent } from "@/src/lib/case-system/intakeReview";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -469,7 +470,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     async function loadVerifiedRecommendations() {
       setApplicabilityError("");
 
-      if (!caseId || caseLoading || caseUnavailable) {
+      if (!caseId || caseLoading || caseUnavailable || !guidanceIsCurrent(masterResult, path, caseId)) {
         setVerifiedRecommendations([]);
         setApplicabilityQuestions([]);
         return;
@@ -505,7 +506,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
     }
 
     loadVerifiedRecommendations();
-  }, [caseId, caseLoading, caseUnavailable]);
+  }, [caseId, caseLoading, caseUnavailable, masterResult, path]);
 
   useEffect(() => {
     async function loadForms() {
@@ -824,6 +825,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   }
 
   const Frame = embedded ? "div" : "main";
+  if (caseId && !guidanceIsCurrent(masterResult, path, caseId)) return <Frame data-testid="forms-intake-gate" className="p-6"><h2>Confirm your initial information before receiving case-specific forms guidance</h2><p>Your existing documents remain saved.</p><Link href={`/builder?path=${path}&caseId=${encodeURIComponent(caseId)}`}>Continue intake and review</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></Frame>;
 
   return (
     <Frame className={embedded ? "text-[#16302b]" : "min-h-screen bg-[#f8faf8] px-6 py-10 text-[#16302b]"}>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { authHeaders } from "../../cases/_components/CaseHomeContext";
 
 import {
   resolveBetaProcedureAuthority,
@@ -76,9 +77,11 @@ export function getProcedureAuthorityDisplayItems(
 export default function ProcedureAuthorityDisplay({
   courtArea,
   procedureStage,
+  caseId,
 }: {
   courtArea: CourtArea;
   procedureStage: string;
+  caseId?: string | null;
 }) {
   const [items, setItems] = useState<AuthorityDisplayItem[]>([
     { state: "review-required", guidance: [], officialSourceUrl: null, citation: null, pinpoint: null },
@@ -89,10 +92,12 @@ export default function ProcedureAuthorityDisplay({
 
     async function load() {
       try {
+        const headers = await authHeaders();
+        if (!headers || !caseId) return;
         const response = await fetch("/api/rules/procedures", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ courtPath: courtArea, stage: procedureStage }),
+          headers,
+          body: JSON.stringify({ caseId, courtPath: courtArea, stage: procedureStage }),
         });
         const body: unknown = response.ok ? await response.json() : null;
         if (active) setItems(getProcedureAuthorityDisplayItems(body, { courtArea, procedureStage }));
@@ -103,7 +108,7 @@ export default function ProcedureAuthorityDisplay({
 
     void load();
     return () => { active = false; };
-  }, [courtArea, procedureStage]);
+  }, [caseId, courtArea, procedureStage]);
 
   // Nothing verified means nothing worth showing. The panel used to render a
   // lone amber box announcing its own absence, in data-model wording, directly

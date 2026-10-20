@@ -1,4 +1,6 @@
 "use client";
+import { useIntakeReviewView } from "../../_components/IntakeRecovery";
+import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
 /**
  * The family status-and-routing triage, on screen.
@@ -104,20 +106,12 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
 }
 
 /** The person's story says a family court order already exists. */
-export function existingFamilyOrder(story: string): boolean {
-  return /\b(?:court order|(?:final|support|custody|parenting) order|ordered (?:him |her |them |me )?to pay|motion to change|family responsibility office|\bFRO\b|order (?:from|says|made) )/i.test(story);
-}
-
-/**
- * The person was served with someone else's family case (2026-10-13,
- * walkthrough: a father served with an application read the rules about where
- * to START a case first). They answer in the court where it was started.
- */
-export function respondingInFamilyStory(story: string): boolean {
-  return /\b(?:(?:was|been|got|i was|they) served|served (?:me|with)|application (?:against|from)|respondent|filed (?:a case |an application )?against me|took me to court|taking me to court|answer (?:the|her|his|their) application)\b/i.test(story);
-}
+import { existingFamilyOrder, respondingInFamilyStory } from "../../../src/lib/case-system/familyStoryReading";
+export { existingFamilyOrder, respondingInFamilyStory };
 
 export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
+  const review = useIntakeReviewView();
+  const confirmed = Boolean(review && reviewPhase(review.workflowStatus, review.checkpoint) === "user-confirmed");
   const [showWhy, setShowWhy] = useState(false);
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
@@ -413,7 +407,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
         </div>
       )}
 
-      {outcome.topics.length > 0 && (
+      {confirmed && outcome.topics.length > 0 && (
         <div className="mt-6">
           <h3 className="text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
             Topics worth reading about
@@ -444,7 +438,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
           You told us there is already a court order, so the rules about where to start a new family case are not shown here.
         </p>
       ) : null}
-      {startingNewCase && outcome.courtInformation.length > 0 && (
+      {confirmed && startingNewCase && outcome.courtInformation.length > 0 && (
         <details className="mt-6">
           <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
             What the statutes say about which court
@@ -466,7 +460,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       */}
       {/* Folded, not filtered: every row stays on the page (page review,
           2026-10-07: 24 rows were the longest thing on a phone screen). */}
-      {!startingNewCase ? null : (
+      {!confirmed || !startingNewCase ? null : (
       <details className="mt-6">
         <summary className="cursor-pointer text-sm font-bold uppercase tracking-wide text-[#2f7d67]">
           Municipalities named in the Courts of Justice Act

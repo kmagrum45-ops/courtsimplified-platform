@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextResponse } from "next/server";
 import { FORM_COMPLETION_PAUSED, FORM_COMPLETION_PAUSED_MESSAGE } from "../../../src/lib/content-library/phaseScope";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
@@ -1189,7 +1190,7 @@ function buildFailureMessage(
   return "No fields were filled. This form may need additional field mapping or richer case data.";
 }
 
-export async function POST(req: Request) {
+async function postGuidance(req: Request) {
   // Paused: see FORM_COMPLETION_PAUSED in phaseScope.ts. Refuses before the
   // request is read, so no case data is touched.
   if (FORM_COMPLETION_PAUSED) {
@@ -1399,3 +1400,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+
+export const POST = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});

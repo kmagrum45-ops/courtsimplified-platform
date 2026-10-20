@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 
 import { ANSWER_TIME_MS, checkedAnswer, checkedAnswerView } from "@/src/lib/case-system/retrieval/checkedAnswer";
@@ -179,4 +180,4 @@ export function createAssistantLawPost(overrides: Partial<Dependencies> = {}) {
   };
 }
 
-export const POST = createAssistantLawPost();
+export const POST = withConfirmedGuidance(createAssistantLawPost(), {"currentAnalysis":true});

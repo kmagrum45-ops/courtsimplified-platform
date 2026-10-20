@@ -35,6 +35,7 @@ import { caseStepFor } from "@/src/lib/case-system/caseStep";
 import { decisionAttribution } from "@/src/lib/case-workspace/courtDecision";
 import { COURT_DECISION_TYPE, DECISION_COLUMNS, decisionDetailsFor } from "@/src/lib/case-workspace/courtDecisionStore";
 import { NextRequest, NextResponse } from "next/server";
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 
 import { createClient } from "@supabase/supabase-js";
 
@@ -173,7 +174,7 @@ function ambiguityPrompt(row: DocumentRow, text: string | null): {
   return null;
 }
 
-export async function GET(req: NextRequest) {
+async function getOrganisation(req: NextRequest) {
   try {
     const user = await getAuthenticatedUser(req);
     if (!user) return refuse(401, "Authentication is required.");
@@ -534,3 +535,9 @@ export async function GET(req: NextRequest) {
     return refuse(500, "CourtSimplified could not load this case.");
   }
 }
+
+// Document tables and counts remain factual and available during intake.
+// The timeline view can include computed procedural information.
+export const GET = (request: NextRequest) => new URL(request.url).searchParams.get("view") === "timeline"
+  ? withConfirmedGuidance(getOrganisation, { currentAnalysis: true })(request)
+  : getOrganisation(request);

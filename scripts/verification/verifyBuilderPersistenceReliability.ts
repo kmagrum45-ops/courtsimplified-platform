@@ -62,7 +62,7 @@ assert.match(
   builderSource,
   // Property, not spelling: the payload is now `{ ...masterPayload, ... }` (2026-09-28).
   // and may span lines (2026-10-04: it gained a preserved `position`).
-  /\.update\(\{[\s\S]*master_result:\s*\{?\s*\.\.\.masterPayload[\s\S]*\}\)\s*\.eq\("id", activeId\)/,
+  /\.update\(\{[\s\S]*master_result:\s*\{?\s*\.\.\.storedMaster,\s*\.\.\.masterPayload[\s\S]*\}\)\s*\.eq\("id", activeId\)/,
   "An authorized selected case must retain the canonical Supabase master_result update",
 );
 assert.match(
@@ -80,8 +80,8 @@ assert.doesNotMatch(
 // was deleted on 2026-10-04; getActiveCaseId() is the resolver that remains.)
 assert.match(
   builderSource,
-  /(?:const activeCaseId =|return) masterCaseId \|\| queryCaseId \|\| null;/,
-  "Selected case routing must not fall back to a local case",
+  /(?:const activeCaseId =|return) masterCaseId \|\| queryCaseId \|\| recovery\?\.getCaseId\(\) \|\| null;/,
+  "Selected case routing uses only the URL or a saved/owned recovery case",
 );
 assert.doesNotMatch(
   builderSource,

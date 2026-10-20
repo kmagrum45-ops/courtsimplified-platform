@@ -206,9 +206,9 @@ export default function StatementOfClaimSurface({
         </a>
       </p>
       <p className="mt-2 text-sm text-[#4d675f]">
-        You fill in the form yourself. Claims described as {claimType.name.toLowerCase()} generally
-        involve the items below. Recording what you have (or don&apos;t have) for each one keeps it
-        in your case file, ready for when you write your claim.
+        {/* One string, the description quoted: the live page read "…and disappearedgenerally"
+            (re-test 2026-10-18), so no space here depends on JSX line breaks. */}
+        {`You fill in the form yourself. Claims described as “${claimType.name.toLowerCase()}” generally involve the items below. Recording what you have (or don't have) for each one keeps it in your case file, ready for when you write your claim.`}
       </p>
 
       {/* --- Remedy: seeded from the claim type, confirmed by the user --- */}

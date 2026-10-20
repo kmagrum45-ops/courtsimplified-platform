@@ -21,6 +21,12 @@
  */
 import { expect, test, type Page } from "@playwright/test";
 
+import { fakeAccount } from "./harness/syntheticIntakeAccount";
+import { openBuilder } from "./harness/builderGate";
+import { confirmInitialInformation } from "./harness/intakeReview";
+import { createStageAnswerPost } from "../../app/api/case/stage-answer/route";
+import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
+
 import { grantSiteAccess } from "./harness/siteAccess";
 
 type UnderstandBody = {
@@ -76,6 +82,28 @@ async function mockUnderstand(page: Page, question: string) {
   });
 }
 
+// Deadline assertions belong after explicit review, not on the home intake.
+async function openConfirmedStage(page: Page, story: string, stepId: string) {
+  const account = await fakeAccount(page);
+  await openBuilder(page, "small-claims");
+  await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+  await page.getByLabel("Case story", { exact: true }).fill(story);
+  await expect(page.getByTestId("stage-answer-dates")).toHaveCount(0);
+  await confirmInitialInformation(page);
+  const row = [...account.rows.values()][0];
+  const master = row.master_result as Record<string, unknown>;
+  master.guidanceInputRevision = (master.intakeCheckpoint as Record<string, unknown>).inputRevision;
+  master.intakeData = { courtPath: "small-claims", facts: story, extra: { yourProvince: "Ontario", yourCity: "Toronto", yourRole: "plaintiff" } };
+  master.position = { confirmedStage: "starting-case", stepId, dateAnswers: {} };
+  await page.route("**/api/case/stage-answer", async route => {
+    expect(guidanceIsCurrent(row.master_result, "small-claims", String(row.id))).toBe(true);
+    expect(route.request().postDataJSON().caseId).toBe(row.id);
+    const result = await createStageAnswerPost()(new Request(route.request().url(), { method: "POST", headers: { "Content-Type": "application/json" }, body: route.request().postData() }));
+    await route.fulfill({ status: result.status, json: await result.json() });
+  });
+  await page.goto(`/cases/${row.id}`, { timeout: 120_000 });
+}
+
 test("the date suggestion reads the story, and a new round of questions starts with empty boxes", async ({ page }) => {
   // A local dev server compiles both the home page and stage-answer route on
   // first use. CI serves a prebuilt app, but the same assertions run locally.
@@ -99,18 +127,7 @@ test("the date suggestion reads the story, and a new round of questions starts w
   const card = page.getByTestId("case-understanding");
   await expect(card).toBeVisible();
 
-  /*
-   * BUG (fixed 2026-10-16): CaseUnderstandingCard never passed storyHints to
-   * StageAnswerPanel, so the date read from the story never appeared, even
-   * though the story stated it plainly. A date with an explicit year is now
-   * shown as known, with its story provenance, rather than as a suggestion
-   * button. Removing storyHints must still make this assertion fail.
-   */
-  const knownDate = page.getByTestId("stage-answer-known-case-date-act-or-omission");
-  await expect(knownDate).toBeVisible({ timeout: 60_000 });
-  await expect(knownDate).toContainText("September");
-  await expect(knownDate).toContainText("2026");
-  await expect(knownDate).toContainText(/from your story/i);
+  await expect(page.getByTestId("stage-answer-dates")).toHaveCount(0);
 
   // Answer round 1's question, then trigger round 2 with a DIFFERENT question.
   await page.getByLabel(ROUND_1_QUESTION).fill(ROUND_1_ANSWER);
@@ -128,22 +145,19 @@ test("the date suggestion reads the story, and a new round of questions starts w
    */
   await expect(round2Box).toHaveValue("");
   await expect(page.getByText(ROUND_1_ANSWER)).toHaveCount(0);
+  await openConfirmedStage(page, "My neighbour's dog bit me. This happened on September 13, 2026.", "before-filing:deciding-whether-to-sue");
+  const knownDate = page.getByTestId("stage-answer-known-case-date-act-or-omission");
+  await expect(knownDate).toBeVisible({ timeout: 60_000 });
+  await expect(knownDate).toContainText("September");
+  await expect(knownDate).toContainText("2026");
+  await expect(knownDate).toContainText(/from your story/i);
+
+
 });
 
 test("a passed Small Claims filing deadline shows the admission qualifier inside its warning", async ({ page }) => {
   test.setTimeout(180_000);
-  await grantSiteAccess(page);
-  await page.route("**/api/case/understand", async (route) => {
-    const body = understandResponse(ROUND_1_QUESTION);
-    body.understanding.step = "plaintiff:claim-drafted-not-filed";
-    body.understanding.summary = "You lent your friend money, it was not repaid, and they later texted admitting the debt.";
-    body.understanding.facts = [];
-    await route.fulfill({ status: 200, json: body });
-  });
-  await page.goto("/?path=small-claims", { timeout: 120_000 });
-  await page.getByLabel("City or municipality").fill("Toronto");
-  await page.getByLabel("Tell us what happened in your own words").fill("I lent my friend $5,000 March 2023, due December 2023, never paid. January 2025 he texted admitting he owes the 5k.");
-  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await openConfirmedStage(page, "I lent my friend $5,000 March 2023, due December 2023, never paid. January 2025 he texted admitting he owes the 5k.", "plaintiff:claim-drafted-not-filed");
   const dates = page.getByTestId("stage-answer-dates");
   await expect(dates).toBeVisible({ timeout: 60_000 });
   const change = dates.getByRole("button", { name: "Change", exact: true });

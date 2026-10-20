@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
 import {
@@ -60,6 +61,7 @@ export async function POST(request: NextRequest) {
   if (!isTidyBody(body)) {
     return NextResponse.json({ ok: false, error: "A valid request body is required." }, { status: 400 });
   }
+  if (!(await getAuthenticatedUser(request))) return NextResponse.json({ ok: false, error: "Sign in required for AI wording suggestions." }, { status: 401 });
 
   /*
    * The suggestion is model-written text shown to a user, so it honours the

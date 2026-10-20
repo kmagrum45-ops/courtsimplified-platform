@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * Export everything this product holds about the person asking.
  *
@@ -96,7 +97,7 @@ function getSupabaseAdmin() {
   });
 }
 
-export async function GET(req: NextRequest) {
+async function getGuidance(req: NextRequest) {
   try {
     const user = await getAuthenticatedUser(req);
     if (!user) {
@@ -193,3 +194,5 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export const GET = withConfirmedGuidance(getGuidance, {"currentAnalysis":true});

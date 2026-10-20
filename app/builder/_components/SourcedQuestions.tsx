@@ -1,6 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useIntakeReviewView, useIntakeState, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, intakeGuidanceHeaders } from "../../_components/IntakeRecovery";
+import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+
+import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import { IntakeRequest } from "../../_components/intakeRequest";
 
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { supabase } from "../../../src/lib/supabase/client";
@@ -56,39 +60,56 @@ export { readSourcedAnswers, sourcedAnswerListText, withSourcedAnswerList, MAX_K
  * reach the analysis. Before, they were lost after the analysis ran.
  */
 export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "family", earlier: readonly SourcedAnswer[] = []) {
-  const [state, setState] = useState<SourcedQuestionsState>("idle");
-  const [questions, setQuestions] = useState<ClientSourcedQuestion[]>([]);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
-  const askedFor = useRef<string>("");
+  const recovery = useIntakeRecovery();
+  const beforeIntakeAI = useBeforeIntakeAI();
+  const validateIntakeResponse = useValidateIntakeResponse();
+  const [state, setState] = useIntakeState<SourcedQuestionsState>("sourced", "state", "idle");
+  const [questions, setQuestions] = useIntakeState<ClientSourcedQuestion[]>("sourced", "questions", []);
+  const [answers, setAnswers] = useIntakeState<Record<string, string>>("sourced", "answers", {});
+  const [askedStory] = useIntakeState("sourced", "askedFor", "");
+  const askedFor = useRef(askedStory);
+  useEffect(() => { recovery?.put("sourced", "askedFor", askedFor.current, false); });
+  const requestRef = useRef(new IntakeRequest());
+  useEffect(() => {
+    const request = requestRef.current;
+    return () => request.cancel();
+  }, [courtPath]);
   const earlierRef = useRef<readonly SourcedAnswer[]>(earlier);
   earlierRef.current = earlier;
 
   const start = useCallback(
     async (story: string, side?: string) => {
+      const view = recovery?.getReview();
+      if (!view || reviewPhase(view.workflowStatus, view.checkpoint) !== "user-confirmed") return;
       const text = story.trim();
       if (text.length < 40 || text.length > 8_000) return;
       if (askedFor.current === text) return;
+      requestRef.current.cancel();
       askedFor.current = text;
       // The story plus what was answered before, when it fits the route's limit.
       const withEarlier = withSourcedAnswerList(text, earlierRef.current);
       const sentStory = withEarlier.length <= 8_000 ? withEarlier : text;
       setState("loading");
       try {
+        await requestRef.current.run(async (signal) => {
+        await beforeIntakeAI(signal);
         // Signed-in only, like every route that sends a story to a model.
         const {
           data: { session },
         } = await supabase.auth.getSession();
         const headers = {
           "Content-Type": "application/json",
+          ...intakeGuidanceHeaders(recovery),
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
         };
         const base = { story: sentStory, courtPath, ...(side ? { side } : {}) };
         // Two calls, each with a whole request's time: research, then the
         // questions from the passages it found (route.ts explains why).
-        const first = (await (
-          await fetch("/api/intake/sourced-questions", { method: "POST", headers, body: JSON.stringify(base) })
-        ).json()) as { passageIds?: string[]; situation?: string };
-        if (askedFor.current !== text) return;
+        const firstResponse = await fetch("/api/intake/sourced-questions", { method: "POST", signal, headers, body: JSON.stringify(base) });
+        if (!firstResponse.ok) throw new Error("Question research did not finish.");
+        const first = (await firstResponse.json()) as { passageIds?: string[]; situation?: string };
+        await validateIntakeResponse(signal);
+        if (signal.aborted || askedFor.current !== text) return;
         const passageIds = Array.isArray(first.passageIds) ? first.passageIds : [];
         if (passageIds.length === 0) {
           setState("none");
@@ -96,11 +117,14 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
         }
         const response = await fetch("/api/intake/sourced-questions", {
           method: "POST",
+          signal,
           headers,
           body: JSON.stringify({ ...base, passageIds, situation: first.situation ?? "" }),
         });
         const data = (await response.json()) as { ok?: boolean; questions?: ClientSourcedQuestion[] };
-        if (askedFor.current !== text) return;
+        await validateIntakeResponse(signal);
+        if (signal.aborted || askedFor.current !== text) return;
+        if (!response.ok || !data.ok) throw new Error("Questions did not finish.");
         // A question already answered on an earlier visit, word for word, is not asked again.
         const already = new Set(earlierRef.current.map((item) => item.question.trim().toLowerCase()));
         const list = (Array.isArray(data.questions) ? data.questions : [])
@@ -109,16 +133,20 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
         setQuestions(list);
         setAnswers({});
         setState(list.length > 0 ? "ready" : "none");
+        }, 580_000);
       } catch {
-        if (askedFor.current === text) setState("none");
+        if (askedFor.current === text) {
+          askedFor.current = "";
+          setState("none");
+        }
       }
     },
-    [courtPath],
+    [recovery, setState, beforeIntakeAI, courtPath, validateIntakeResponse, setQuestions, setAnswers],
   );
 
   const setAnswer = useCallback((id: string, value: string) => {
     setAnswers((current) => ({ ...current, [id]: value.slice(0, MAX_SOURCED_ANSWER_LENGTH) }));
-  }, []);
+  }, [setAnswers]);
 
   /** Every answer to keep: earlier visits, then this one (a re-answered question takes the new answer). */
   const answeredList = useCallback((): SourcedAnswer[] => {
@@ -141,7 +169,12 @@ export function useSourcedQuestions(courtPath: "small-claims" | "civil" | "famil
  * what they answered stays listed above, and every answer is kept exactly as
  * before (withSourcedAnswers).
  */
-export function SourcedQuestionsCard({
+export function SourcedQuestionsCard(props: Parameters<typeof SourcedQuestionsCardContent>[0]) {
+  const view = useIntakeReviewView();
+  return view && reviewPhase(view.workflowStatus, view.checkpoint) === "user-confirmed" ? <SourcedQuestionsCardContent {...props} /> : null;
+}
+
+function SourcedQuestionsCardContent({
   state,
   questions,
   answers,
@@ -154,9 +187,13 @@ export function SourcedQuestionsCard({
   setAnswer: (id: string, value: string) => void;
   footer?: ReactNode;
 }) {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useIntakeState("sourced", "index", 0);
   // A new set of questions (a changed story) starts again at the first.
-  useEffect(() => setIndex(0), [questions]);
+  const previousQuestions = useRef(questions);
+  useEffect(() => {
+    if (previousQuestions.current !== questions) setIndex(0);
+    previousQuestions.current = questions;
+  }, [questions, setIndex]);
   if (state === "loading") {
     return (
       <div data-testid="sourced-questions-loading" className="rounded-xl border border-[#d9e7e1] bg-[#f6fbf9] p-4 text-sm text-[#4d675f]">

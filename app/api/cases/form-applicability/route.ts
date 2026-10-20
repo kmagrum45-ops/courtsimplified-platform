@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import { suggestApplicability } from "@/src/lib/case-system/forms/applicabilitySuggestions";
@@ -200,7 +201,7 @@ async function readinessForOwnedCase(request: Request, caseId: string) {
   return { area, masterResult, applicabilityQuestions, recommendations, stageSupport } as const;
 }
 
-export async function GET(request: Request) {
+async function getGuidance(request: Request) {
   const caseId = new URL(request.url).searchParams.get("caseId") || "";
   if (!CASE_ID_PATTERN.test(caseId)) return NextResponse.json({ error: "A valid selected case is required." }, { status: 400 });
   const result = await readinessForOwnedCase(request, caseId);
@@ -211,7 +212,7 @@ export async function GET(request: Request) {
 function suggestionsFor(result: { area: FormsCourtPath; masterResult: Record<string, unknown>; applicabilityQuestions: ApplicabilityQuestion[] }) {
   return suggestApplicability(result.applicabilityQuestions, readCaseRecord(result.masterResult, result.area), result.masterResult);
 }
-export async function PATCH(request: Request) {
+async function patchGuidance(request: Request) {
   const contentLength = Number(request.headers.get("content-length") || 0);
   if (contentLength > MAX_REQUEST_BYTES) return NextResponse.json({ error: "The request is too large." }, { status: 413 });
   let body: FormApplicabilityRequest;
@@ -234,3 +235,7 @@ export async function PATCH(request: Request) {
   if ("error" in updated) return NextResponse.json({ error: updated.error }, { status: updated.status });
   return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, suggestedApplicability: suggestionsFor(updated), recommendations: updated.recommendations, stageSupport: updated.stageSupport });
 }
+
+export const GET = withConfirmedGuidance(getGuidance, {"currentAnalysis":true});
+
+export const PATCH = withConfirmedGuidance(patchGuidance, {"currentAnalysis":true});

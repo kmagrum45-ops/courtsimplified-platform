@@ -8,7 +8,7 @@ import NextStepPractical from "../../../_components/NextStepPractical";
 import { practicalFor, type PracticalCourt } from "@/src/lib/content-library/nextStepPractical";
 import FormsWorkspace from "../../../forms/FormsWorkspace";
 import { officialFormsNamedIn, relevantToFamilyCase, userWordsOf } from "@/src/lib/content-library/forms/formsInText";
-import { useCaseHome } from "../../_components/CaseHomeContext";
+import { authHeaders, useCaseHome } from "../../_components/CaseHomeContext";
 import { noticeStepForCase } from "@/src/lib/case-system/caseStep";
 
 /**
@@ -53,14 +53,14 @@ export default function CaseFormsSection() {
     void (async () => {
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stageId: stepId, courtPath, confirmedFacts: {} }),
+        headers: await authHeaders() ?? {},
+        body: JSON.stringify({ caseId: caseRecord.id, stageId: stepId, courtPath, confirmedFacts: {} }),
       }).catch(() => null);
       const body = response?.ok ? await response.json() : null;
       const sections = (body?.answer?.sections ?? []) as { text: string }[];
       setStepTexts(sections.length ? sections.map((section) => section.text) : fallback());
     })();
-  }, [courtPath, position.confirmedStage, stepId]);
+  }, [caseRecord.id, courtPath, position.confirmedStage, stepId]);
 
   return (
     <div className="space-y-6">

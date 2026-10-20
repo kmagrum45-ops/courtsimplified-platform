@@ -61,7 +61,7 @@ export type UpdateOptions = {
 
 export async function updateMasterResult(
   supabase: CaseRecordClient,
-  ids: { caseId: string; userId?: string },
+  ids: { caseId: string; userId?: string; courtPath?: string },
   change: (master: Record<string, unknown>) => Record<string, unknown> | { reject: string },
   tries = 4,
   options: UpdateOptions = {},
@@ -70,6 +70,7 @@ export async function updateMasterResult(
   for (let attempt = 0; attempt < tries; attempt += 1) {
     let read = db.from("cases").select("master_result,updated_at").eq("id", ids.caseId);
     if (ids.userId) read = read.eq("user_id", ids.userId);
+    if (ids.courtPath) read = read.eq("court_path", ids.courtPath);
     const { data: fresh, error: readError } = await within(read, options.requestTimeoutMs).maybeSingle();
     if (readError) return { ok: false, reason: "error", ...describe(readError) };
     if (!fresh) return { ok: false, reason: "not-found" };
@@ -82,6 +83,7 @@ export async function updateMasterResult(
 
     let write = db.from("cases").update({ master_result: next, updated_at: new Date().toISOString() }).eq("id", ids.caseId);
     if (ids.userId) write = write.eq("user_id", ids.userId);
+    if (ids.courtPath) write = write.eq("court_path", ids.courtPath);
     if (fresh.updated_at) write = write.eq("updated_at", fresh.updated_at);
     const { data: written, error } = await within(write, options.requestTimeoutMs).select("id");
     if (error) return { ok: false, reason: "error", ...describe(error) };

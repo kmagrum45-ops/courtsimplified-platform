@@ -42,10 +42,10 @@ import type { SelectedScenario } from "./scenarioSelection";
 export async function authenticateRealTestUser(
   page: Page,
   { realCases = false }: { realCases?: boolean } = {},
-): Promise<void> {
+): Promise<string> {
   await grantSiteAccess(page);
 
-  const { session, supabaseUrl } = await mintRealTestSession();
+  const { session, supabaseUrl, userId } = await mintRealTestSession();
   const storageKey = authStorageKey(supabaseUrl);
 
   await page.addInitScript(
@@ -55,7 +55,7 @@ export async function authenticateRealTestUser(
     { key: storageKey, value: JSON.stringify(session) },
   );
 
-  if (realCases) return;
+  if (realCases) return userId;
 
   await page.route("**/rest/v1/cases**", (route) => {
     const method = route.request().method();
@@ -67,6 +67,7 @@ export async function authenticateRealTestUser(
     }
     return route.fulfill({ status: 200, json: [] });
   });
+  return userId;
 }
 
 /** What the overview rendered, as text a reader would see. */

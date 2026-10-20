@@ -1,3 +1,4 @@
+import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextRequest, NextResponse } from "next/server";
 
 import { buildStrategy } from "@/src/lib/case-system/retrieval/strategy";
@@ -76,4 +77,4 @@ export function createStrategyPost(overrides: Partial<Dependencies> = {}) {
   };
 }
 
-export const POST = createStrategyPost();
+export const POST = withConfirmedGuidance(createStrategyPost(), {"currentAnalysis":true});
