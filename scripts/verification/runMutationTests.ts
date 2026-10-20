@@ -572,8 +572,8 @@ const CASES: MutationCase[] = [
     mutations: [
       {
         file: ANALYZE_ROUTE,
-        find: "            liveCaseEvents(\n              await dependencies.loadCaseEvents(request, user, caseId),\n            ),",
-        replace: "            await dependencies.loadCaseEvents(request, user, caseId),",
+        find: "            liveCaseEvents(\n              // Events read from sentences of an earlier story no longer feed an analysis.\n              eventsForStory(await dependencies.loadCaseEvents(request, user, caseId), validatedInput.facts),\n            ),",
+        replace: "            eventsForStory(await dependencies.loadCaseEvents(request, user, caseId), validatedInput.facts),",
       },
     ],
   },

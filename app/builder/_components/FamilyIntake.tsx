@@ -42,10 +42,7 @@ import { existingFamilyOrder, respondingInFamilyStory } from "./FamilyStatusTria
 import type { PersonAnswers } from "./stageFromAnswers";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import {
-  consumeNarrativePrefill,
-  directPrefillValues,
   type NarrativePrefillFact,
-  type NarrativePrefill,
 } from "@/src/lib/case-system/intelligence/narrativePrefill";
 
 type FiledDocument =
@@ -204,33 +201,6 @@ function labelForIssue(value: FamilyIssue): string {
 }
 
 
-function isQuotaExceededError(error: unknown): boolean {
-  if (!(error instanceof DOMException)) return false;
-
-  return (
-    error.name === "QuotaExceededError" ||
-    error.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
-    error.code === 22 ||
-    error.code === 1014
-  );
-}
-
-function safelyStoreJson(key: string, value: unknown): boolean {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (error) {
-    if (isQuotaExceededError(error)) {
-      console.warn(
-        `CourtSimplified browser storage is full. The key "${key}" was not saved.`,
-      );
-      return false;
-    }
-
-    throw error;
-  }
-}
-
 function buildCompactFamilyPayload(
   payload: StoredCaseData,
 ): Record<string, unknown> {
@@ -301,15 +271,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
   const [mode, setMode] = useIntakeState<"chat" | "form">("family", "mode", "chat");
-  const [initialPrefill] = useState<NarrativePrefill | null>(() =>
-    consumeNarrativePrefill({
-      courtPath: "family",
-      caseId: new URLSearchParams(window.location.search).get("caseId"),
-    }),
-  );
-  const initialValues = initialPrefill
-    ? directPrefillValues(initialPrefill)
-    : {};
+  // No values handed over from the follow-up chat any more: a second copy of the
+  // story outside the version record (Part 3, stale-story audit item 4).
+  const initialValues: Record<string, string | string[]> = {};
   const [caseStage, setCaseStage] = useIntakeState<UniversalStage>("family", "caseStage",
     () => (saved?.caseStage || initialValues.caseStage ? (saved?.caseStage || initialValues.caseStage) as UniversalStage : "not-sure"),
   );
@@ -386,7 +350,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   /** Step 6d: set when the safety pass reports the user asked for legal advice. */
   const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [extractedFacts] = useState<NarrativePrefillFact[]>(
-    () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
+    () => [],
   );
   const submissionInFlight = useRef(false);
   /*

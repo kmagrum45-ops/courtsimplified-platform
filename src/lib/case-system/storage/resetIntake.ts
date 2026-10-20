@@ -167,6 +167,46 @@ export function resetIntake(args: ResetIntakeArgs = {}): ResetIntakeResult {
 }
 
 /**
+ * Removes every key the registry marks "legacy" -- nothing writes it any more --
+ * from both storages, whoever is signed in. Run on every page load
+ * (AuthStorageGuard), so an old copy of a case left in a browser (the four
+ * Forms-page keys, the retired per-user draft, the chat pre-fill) is gone before
+ * anything could read it (Part 3).
+ */
+export function removeLegacyKeys(args: { local?: ClearableStorage | null; session?: ClearableStorage | null }): ResetIntakeResult {
+  const removed: string[] = [];
+  for (const [storage, area] of [[args.local, "local"], [args.session, "session"]] as const) {
+    if (!storage) continue;
+    const legacy = INTAKE_STORAGE_KEYS.filter((entry) => entry.storyData === "legacy" && entry.area === area);
+    let present: string[];
+    try {
+      present = keysIn(storage);
+    } catch {
+      continue;
+    }
+    for (const name of present) {
+      if (!legacy.some((entry) => shouldRemove(entry, name))) continue;
+      try {
+        storage.removeItem(name);
+        removed.push(name);
+      } catch {
+        // Never let a storage failure break the page.
+      }
+    }
+  }
+  return { removed };
+}
+
+export function removeLegacyBrowserKeys(): ResetIntakeResult {
+  if (typeof window === "undefined") return { removed: [] };
+  try {
+    return removeLegacyKeys({ local: window.localStorage, session: window.sessionStorage });
+  } catch {
+    return { removed: [] };
+  }
+}
+
+/**
  * The browser-side call. Reads `window` itself so call sites stay one line and
  * cannot forget an area.
  */

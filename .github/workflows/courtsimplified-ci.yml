@@ -217,6 +217,9 @@ jobs:
       - name: One record of which story each answer was based on (all three areas)
         run: npm run test:story-basis
 
+      - name: Every place that stores data is listed with where it stands when the story changes
+        run: npm run test:story-data-registry
+
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
 

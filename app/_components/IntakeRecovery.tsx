@@ -151,11 +151,6 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const sourced = snapshot.sections.sourced;
         if (sourced?.state === "loading") { sourced.state = Array.isArray(sourced.questions) && sourced.questions.length ? "ready" : "idle"; sourced.askedFor = ""; }
         if (!requestedFlow && !selectedId) {
-          // Import only the existing, read-once hand-off. A fresh URL never loads an old draft.
-          const legacy = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));
-          if (legacy.version !== 2 && legacy.courtPath === court && typeof legacy.facts === "string" && typeof legacy.city === "string") {
-            snapshot.sections[STORY_SECTION] = { text: legacy.facts, location: { province: "Ontario", city: legacy.city } };
-          }
           // This tab holds one intake. Starting another would overwrite an unsaved one
           // (a guest's, or text not yet saved to the account): ask first.
           const held = readHeldIntake(ownerId);

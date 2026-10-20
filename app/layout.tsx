@@ -84,7 +84,7 @@ export default function RootLayout({
                   </Link>
                 ))}
 
-                <AuthNavAction className="rounded-full bg-[#2FB8AC] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#239B91]" />
+                <AuthNavAction account className="rounded-full bg-[#2FB8AC] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#239B91]" />
               </nav>
 
               <MobileNav navLinks={navLinks} />

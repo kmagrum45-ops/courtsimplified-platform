@@ -3,7 +3,7 @@
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
 import SafetyCheckUnavailable from "./_components/SafetyCheckUnavailable";
 import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
-import { storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
+import { positionForStory, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import { panelAnswerFacts } from "../../src/lib/case-system/intakeReview";
 
 import { reviewPhase } from "../../src/lib/case-system/intakeReview";
@@ -14,6 +14,7 @@ import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
 import { startSignIn } from "../_components/startSignIn";
+import { usePublishNextStepStatus } from "../_components/NextStepStatus";
 import GetHelp from "../_components/GetHelp";
 import { readStoredPicture, stepFromPicture, type CasePicture } from "../../src/lib/case-system/intake/caseReader";
 import { stepNamedInStory } from "../../src/lib/case-system/stage-map/suggestedStep";
@@ -110,7 +111,6 @@ import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 import { supabase } from "../../src/lib/supabase/client";
-import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
 import { BUILDER_LAST_CASE_KEY, COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { userStory } from "@/src/lib/case-system/userStory";
 
@@ -446,6 +446,8 @@ function BuilderPageContent() {
     return () => request.cancel();
   }, [queryCaseId, courtPath]);
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
+  // The guided route's analysis, shown beside "Show my next step" at the top too (L27).
+  usePublishNextStepStatus(guidedAnalyzing, guidedAnalysisError);
   // Dates confirmed in the guided intake, offered on the next-steps panel.
   const [guidedDates, setGuidedDates] = useState<Record<string, SuggestedDate>>({});
   /*
@@ -600,14 +602,8 @@ function BuilderPageContent() {
        * account. (2026-09-28: a per-user localStorage draft was restored here
        * on every visit, so an old test story reappeared after signing in.)
        */
-      if (!active) return;
-      const draft = consumeGuestIntakeSession(sessionStorage);
-      if (initialPath && draft?.courtPath === courtPath && draft.province === "Ontario" && draft.city.trim() && draft.facts.trim()) {
-        freshStoryHandoffRef.current = true;
-        setConfirmedLocation({ province: "Ontario", city: draft.city.trim() });
-        setHomeStory(draft.facts.trim());
-        return;
-      }
+      // The home page now hands over in the intake record itself (HomeLocationGate,
+      // ?intake=); the older hand-off format is no longer written or read (Part 3).
       return;
     }
     void loadUserDraft();
@@ -1071,6 +1067,10 @@ function BuilderPageContent() {
           if (storedMaster.position) userOwned.position = { ...asRecord(storedMaster.position), confirmedStage: null, confirmedStageAt: null, confirmedStageFrom: null, stepId: null, stepChosenAt: null };
           userOwned.casePicture = null;
         }
+        // Dates and service details recorded for an earlier story do not count deadlines for this one.
+        const analysedStory = asRecord(storedMaster.intakeData).facts;
+        if (userOwned.position) userOwned.position = positionForStory(asRecord(userOwned.position), analysedStory, caseData.facts);
+        setPositionThisVisit((current) => positionForStory(current, analysedStory, caseData.facts));
         // Dates confirmed in the guided intake join the position; a date the
         // user gave on the case page since wins.
         if (guidedAnswersRef.current.length) userOwned.intakeAnswers = guidedAnswersRef.current;

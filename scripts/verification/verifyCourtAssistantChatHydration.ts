@@ -134,11 +134,8 @@ assert.doesNotMatch(
   /useState\(\(\) =>[\s\S]{0,1200}(?:localStorage|sessionStorage)/,
 );
 assert.doesNotMatch(source, /setTimeout|eslint-disable|hydrationWarning/);
-assert.match(
-  source,
-  /!messages\.some\(\(message\) => message\.role === "user"\)/,
-);
-assert.match(source, /persistNarrativePrefill\(/);
+// The chat hands nothing to the forms (Part 3, stale-story audit item 4).
+assert.doesNotMatch(source, /persistNarrativePrefill|narrativePrefill/);
 
 const prefill = extractNarrativePrefill({
   narrative: restoredNarrative,
@@ -149,5 +146,5 @@ assert.equal(prefill.narrative, restoredNarrative);
 assert.equal(directPrefillValues(prefill).facts, restoredNarrative);
 
 console.log(
-  "CourtAssistantChat hydration verification passed: stable server snapshot, post-hydration restoration, live input enablement, notified single-write persistence, and narrative handoff.",
+  "CourtAssistantChat hydration verification passed: stable server snapshot, post-hydration restoration, live input enablement, notified single-write persistence, and no chat-to-form handoff.",
 );

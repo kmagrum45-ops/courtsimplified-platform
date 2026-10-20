@@ -286,31 +286,6 @@ function extractMasterResult(value: unknown): MasterResult | null {
   return null;
 }
 
-function parseStoredMasterResult(): MasterResult | null {
-  const keys = [
-    "courtSimplifiedMasterResult",
-    "master_result",
-    "courtSimplifiedCase",
-    "caseData",
-  ];
-
-  for (const key of keys) {
-    try {
-      const raw = localStorage.getItem(key);
-      if (!raw) continue;
-
-      const parsed = JSON.parse(raw);
-      const result = extractMasterResult(parsed);
-
-      if (result) return result;
-    } catch {
-      continue;
-    }
-  }
-
-  return null;
-}
-
 function extractUnifiedFormSignals(
   masterResult: MasterResult | null,
 ): UnifiedFormSignals {
@@ -419,7 +394,10 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       setCaseUnavailable(false);
 
       if (!caseId) {
-        setMasterResult(parseStoredMasterResult());
+        // No case selected: nothing to list forms from. Old analyses left in this
+        // browser (four unscoped keys, removed on load) are never read (Part 3,
+        // stale-story audit item 3).
+        setMasterResult(null);
         setFormApplicability({});
         setApplicabilityQuestions([]);
         setVerifiedRecommendations([]);

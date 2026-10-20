@@ -63,7 +63,7 @@ export default function MobileNav({ navLinks }: { navLinks: NavLink[] }) {
               </Link>
             ))}
 
-            <AuthNavAction className="mt-2 rounded-xl bg-[#2FB8AC] px-3 py-3 text-center text-base font-bold text-white transition hover:bg-[#239B91]" />
+            <AuthNavAction account className="mt-2 rounded-xl bg-[#2FB8AC] px-3 py-3 text-center text-base font-bold text-white transition hover:bg-[#239B91]" />
           </nav>
         </div>
       ) : null}

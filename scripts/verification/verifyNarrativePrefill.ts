@@ -1,12 +1,23 @@
+/**
+ * What the narrative extractor reads from a story, and that nothing hands it to a form.
+ *
+ * What it checks: extractNarrativePrefill keeps the story exactly, reads only
+ * literal facts (names, amount, remedy, dates, evidence, contact, role and who
+ * served whom), and turns unclear or contradictory ones into questions; and the
+ * follow-up chat no longer pre-fills any of the three forms.
+ *
+ * Failure it exists to catch: a form filled from a second copy of an old story
+ * after the story changed (Part 3, stale-story audit item 4), and before that a
+ * chat story from an earlier test filling the form (2026-10-06).
+ *
+ * Run: npm run test:narrative-prefill
+ */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import {
-  PREFILL_MAX_AGE_MS,
-  consumeNarrativePrefill,
   directPrefillValues,
   extractNarrativePrefill,
-  persistNarrativePrefill,
 } from "../../src/lib/case-system/intelligence/narrativePrefill";
 
 const narrative = "I am Alex Example. Alex Example served Jordan Example with a Plaintiff's Claim on March 4, 2026. I seek $2,500 for the unpaid invoice. I have emails, screenshots, and a witness.";
@@ -55,60 +66,25 @@ const unclearContact = extractNarrativePrefill({ narrative: "My address is uncle
 assert.ok(unclearContact.facts.some((fact) => fact.field === "addressDetails" && fact.state === "unclear"));
 assert.ok(unclearContact.questions.some((question) => /exact address or contact detail/i.test(question)));
 
+// Part 3 (stale-story audit item 4): the follow-up chat's first message no
+// longer pre-fills any form. It was a second copy of the story, handed over in
+// the tab outside the version record, so a form could be filled from an old
+// story after the story changed. The property: the chat writes no hand-off,
+// no intake reads one, and the extractor itself touches no browser storage.
 const chat = readFileSync("app/builder/_components/CourtAssistantChat.tsx", "utf8");
 const helper = readFileSync("src/lib/case-system/intelligence/narrativePrefill.ts", "utf8");
+assert.doesNotMatch(chat, /narrativePrefill|NarrativePrefill/, "the follow-up chat hands nothing to the forms");
+assert.doesNotMatch(helper, /\b(?:localStorage|sessionStorage)\b/, "the extractor stores nothing in the browser");
 for (const file of [
   "app/builder/_components/SmallClaimsIntake.tsx",
   "app/builder/_components/FamilyIntake.tsx",
   "app/builder/_components/CivilIntake.tsx",
 ]) {
   const source = readFileSync(file, "utf8");
-  assert.match(source, /consumeNarrativePrefill/);
+  assert.doesNotMatch(source, /consumeNarrativePrefill|initialPrefill/, `${file}: no form is filled from a chat hand-off`);
   assert.match(source, /Found in your description — review\/edit/);
-}
-assert.match(chat, /!messages\.some\(\(message\) => message\.role === "user"\)/);
-assert.match(chat, /persistNarrativePrefill/);
-assert.doesNotMatch(helper, /localStorage/);
-assert.doesNotMatch(chat, /narrative[^\n]{0,80}location\.assign/i);
-assert.match(helper, /value\.caseId && value\.caseId !== args\.caseId/);
-for (const file of [
-  "app/builder/_components/SmallClaimsIntake.tsx",
-  "app/builder/_components/FamilyIntake.tsx",
-  "app/builder/_components/CivilIntake.tsx",
-]) {
-  const source = readFileSync(file, "utf8");
-  assert.match(source, /const \[initialPrefill\] = useState/);
-  assert.match(source, /useState[\s\S]{0,500}initialPrefill/);
-  // The prefill is consumed once, in useState's initialiser -- never in an
-  // effect, which runs twice in development and after every render it
-  // depends on. Asserted on an effect's BODY: the earlier form ("useEffect"
-  // anywhere within 1,200 characters before the call) failed on a plain
-  // `import { useEffect, ... }` at the top of CivilIntake (2026-10-05).
-  assert.doesNotMatch(source, /useEffect\(\s*\(\)\s*=>\s*\{[^}]{0,1200}consumeNarrativePrefill/);
 }
 assert.match(readFileSync("app/builder/_components/SmallClaimsIntake.tsx", "utf8"), /damagesBreakdown: String\(values\.damagesBreakdown/);
 assert.match(readFileSync("app/builder/_components/CivilIntake.tsx", "utf8"), /settlementEfforts: String\(values\.settlementEfforts/);
-assert.match(readFileSync("app/builder/_components/FamilyIntake.tsx", "utf8"), /initialValues\.urgent/);
 
-console.log("Narrative prefill verification passed: one story, direct-fact prefill, actor direction, focused review questions, and three-area isolated handoff.");
-
-// 2026-10-06: a story typed into the chat in an earlier test, same tab,
-// filled the form after the site owner pressed Back. The hand-off is read
-// once and expires.
-{
-  const store = new Map<string, string>();
-  const storage = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k) };
-  const prefill = extractNarrativePrefill({ narrative: "I hired a guy off kijiji to redo my bathroom.", courtPath: "small-claims" });
-  persistNarrativePrefill(prefill, storage, 1_000_000);
-  assert.ok(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000 + 60_000), "a recent hand-off is used");
-  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000 + 60_000), null, "and used only once");
-  persistNarrativePrefill(prefill, storage, 1_000_000);
-  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000 + PREFILL_MAX_AGE_MS + 1), null, "an old hand-off is never used");
-  assert.equal(store.size, 0, "and is removed, not left for the next visit");
-  store.set("courtsimplified-ai-case-partner-chat:narrative-prefill:small-claims", JSON.stringify(prefill));
-  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims" }, storage, 1_000_000), null, "one stored before expiry existed is dropped");
-  persistNarrativePrefill({ ...prefill, caseId: "case-a" }, storage, 1_000_000);
-  assert.equal(consumeNarrativePrefill({ courtPath: "small-claims", caseId: "case-b" }, storage, 1_000_000), null, "another case's hand-off is not used");
-  assert.equal(store.size, 0, "and is not kept either");
-  console.log("narrative prefill: read once, expires, never another case's");
-}
+console.log("Narrative prefill verification passed: one story, direct-fact extraction, actor direction, focused review questions, and no chat-to-form hand-off.");

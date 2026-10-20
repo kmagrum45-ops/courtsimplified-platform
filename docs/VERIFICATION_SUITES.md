@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-159 documented, 27 without a header.
+161 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -92,6 +92,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:mount-conditions` | **Surfaces that mount independently of the analysis pipeline are not gated on**<br>it. |
 | `npm run test:municipal-notice-first` | **The right municipality's law for an injury on a municipal way, and the**<br>10-day notice shown first in the intake (round 4 senior-lawyer review, 2026-10-14, persona civil-plaintiff-municipal-slip). |
 | `npm run test:mutations` | **Every family §3 / §2 check is proven able to fail.**<br>COSTS NOTHING. Local file edits plus suite runs. Slower than the suites themselves (it runs each one once per mutation), so it is not wired into the per-change loop — run it when a check is added or changed. |
+| `npm run test:narrative-prefill` | **What the narrative extractor reads from a story, and that nothing hands it to a form.**<br>What it checks: extractNarrativePrefill keeps the story exactly, reads only literal facts (names, amount, remedy, dates, evidence, contact, role and who served whom), and turns unclear or contradictory ones into questions; and the follow-up chat no longer pre- |
 | `npm run test:next-step` | **"Your next step" comes first: the step, its deadline counted from the**<br>person's dates (or the period and what it runs from), what to do and the forms, with the full answer folded underneath. Master plan Phase 2 (docs/MASTER_PLAN.md). |
 | `npm run test:next-step-practical` | **The next-step card's form, fee, filing and service lines are the law's own**<br>words, for every step (content-library/nextStepPractical.ts, master plan Phase 2, 2026-10-08). |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |
@@ -148,6 +149,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
 | `npm run test:story-answers` | **What the person's story already answers is offered, not asked again**<br>(storyAnswers.ts, guidedFields.ts; walkthrough R2 and V2, 2026-10-13). |
 | `npm run test:story-basis` | **One record of which story version each story-derived answer was based on.**<br>What it checks (storyBasis.ts): an answer is tagged with the story version it was stored under; when the story changes, every older answer is stale in all three areas (Small Claims, civil, family): emptied in the view screens read, never shown as current, and  |
+| `npm run test:story-data-registry` | **Every place that stores data is listed, with where it stands when the story changes.**<br>What it checks (storyDataRegistry.ts, intakeStorageKeys.ts, storyDataScan.ts): - every intake section the code uses, every master_result key it writes and every table it writes is in the registry with one class, and every listed one is still used (an unused li |
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
@@ -190,7 +192,6 @@ purpose is undocumented is one nobody can safely change or delete.
 - `test:forms-case-isolation (scripts/verification/verifyFormsSelectedCaseIsolation.ts)`
 - `test:generate-form-authorization (scripts/verification/verifyGenerateFormSelectedCaseAuthorization.ts)`
 - `test:intake-coverage (scripts/verification/verifyIntakeCoverage.ts)`
-- `test:narrative-prefill (scripts/verification/verifyNarrativePrefill.ts)`
 - `test:ontario-beta-bundle (scripts/verification/verifyOntarioBetaProcedureAuthorityBundle.ts)`
 - `test:procedural-stage-conflict (scripts/verification/verifySharedProceduralStageConflict.ts)`
 - `test:reasoning-contract (scripts/verification/verifyReasoningContract.ts)`

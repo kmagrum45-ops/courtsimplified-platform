@@ -1,0 +1,17 @@
+{
+  "_about": "Files that may name localStorage or sessionStorage. Read by eslint.config.mjs (no-restricted-globals) and by npm run test:story-data-registry. New code stores through the storage module or the intake store; 'existing' lists older files with what they keep, to move here over time. Never add to 'existing'.",
+  "allowed": {
+    "src/lib/case-system/storage/": "The storage module: the registry, the reset and the legacy-key cleanup.",
+    "app/_components/IntakeRecovery.tsx": "The intake store: the tab's copy of the intake record."
+  },
+  "existing": {
+    "app/_components/HomeLocationGate.tsx": "Writes the home page's hand-off into the intake record's session slot.",
+    "app/_components/NotSureCourtGuide.tsx": "The court-path finder's read-once hand-off (courtSimplifiedNotSureGuide).",
+    "app/_components/startSignIn.ts": "Marks the guest intake to carry at sign-in (guestCarry.ts).",
+    "app/builder/_components/CourtAssistantChat.tsx": "The follow-up chat transcript and its route transfer.",
+    "app/builder/page.tsx": "The last-saved case id for this tab, the finder hand-off, and the shared-key cleanup.",
+    "app/cases/[id]/drafts/page.tsx": "Moves drafts kept only in this browser before drafts were saved to the account, then removes them.",
+    "app/login/page.tsx": "Reads and rewrites the intake record's session slot at sign-in.",
+    "src/lib/content-library/acknowledgement.ts": "Whether the person accepted the first-use notice."
+  }
+}

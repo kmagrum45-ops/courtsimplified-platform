@@ -30,6 +30,7 @@ import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 import { startSignIn } from "../../_components/startSignIn";
+import { scrollAndFocus } from "../../_components/scrollFocus";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 
 type IntakeFacts = Record<string, string | number | boolean>;
@@ -542,6 +543,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   const [error, setError] = useState("");
   // A 401 from the guided AI routes: the line gets a sign-in link beside it.
   const [signInNeeded, setSignInNeeded] = useState(false);
+  // L26: finishing needs the review panel at the top confirmed; the error line links to it.
+  const [reviewNeeded, setReviewNeeded] = useState(false);
   const [halted, setHalted] = useIntakeState("guided", "halted", false);
   const [intakeComplete, setIntakeComplete] = useIntakeState("guided", "intakeComplete", false);
   const [started, setStarted] = useIntakeState("guided", "started", false);
@@ -636,7 +639,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       return;
     }
     setLoading(true);
-    setError(""); setSignInNeeded(false);
+    setError(""); setSignInNeeded(false); setReviewNeeded(false);
 
     try {
       await turnRequest.current.run(async (signal) => {
@@ -818,7 +821,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   async function resolveSuggestion(action: "confirm" | "reject") {
     if (!pendingSuggestion || suggestionRequest.current.pending) return;
     setResolvingSuggestion(true);
-    setError(""); setSignInNeeded(false);
+    setError(""); setSignInNeeded(false); setReviewNeeded(false);
 
     try {
       await suggestionRequest.current.run(async (signal) => {
@@ -1127,7 +1130,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // was missing, leaving the user on the closing chat line with no error,
       // no save, and no way to continue -- a true dead end. Whatever the
       // cause, the user must see SOMETHING rather than nothing.
-      setError("Something went wrong finishing the intake. Please try again, or go back and re-answer the last question.");
+      if (!intakeConfirmed) {
+        // L26: the usual cause. Say so, with a link to the panel, instead of a dead end.
+        setError("Your initial case information at the top of this page is not confirmed yet. Confirm it there first; your answers here are kept.");
+        setReviewNeeded(true);
+      } else {
+        setError("Something went wrong finishing the intake. Please try again, or go back and re-answer the last question.");
+      }
     }
   }
 
@@ -1521,7 +1530,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         process. They now render BELOW the input; see GuidanceDisclosure.
       */}
 
-      {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]" data-testid="guided-error">{error}{signInNeeded ? <>{" "}<a href="/login" data-testid="guided-sign-in" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="underline">Sign in or create a free account (what you entered comes with you)</a></> : null}</p> : null}
+      {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]" data-testid="guided-error">{error}{reviewNeeded ? <>{" "}<button type="button" data-testid="guided-go-to-review" onClick={() => scrollAndFocus(document.querySelector<HTMLElement>("[data-testid=\"intake-review\"]"))} className="underline">Go to your initial case information</button></> : null}{signInNeeded ? <>{" "}<a href="/login" data-testid="guided-sign-in" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="underline">Sign in or create a free account (what you entered comes with you)</a></> : null}</p> : null}
 
       {/*
         2026-10-16 live bug: "Guided intake complete." rendered mid-flow, in

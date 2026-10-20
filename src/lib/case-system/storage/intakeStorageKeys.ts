@@ -53,8 +53,27 @@ export type IntakeStorageKey = {
   matches: "exact" | "prefix";
   /** Whether the value can contain what the user wrote about their case. */
   holdsCaseContent: boolean;
+  /** What it holds relative to the story (StoryDataClass; verifyStoryDataRegistry). */
+  storyData: StoryDataClass;
   note: string;
 };
+
+/**
+ * Where a piece of stored data stands when the story changes (Part 3,
+ * `npm run test:story-data-registry`). Every key here, every intake section,
+ * every master_result key and every table written has exactly one:
+ *
+ *   "version-record" — part of the intake record, whose answers are tagged with
+ *                      the story version they were given for (storyBasis.ts)
+ *                      and set aside when the story changes.
+ *   "analysis-gate"  — shown only while the saved analysis matches the
+ *                      currently confirmed facts (withConfirmedGuidance), or
+ *                      checked against the current story where it is read.
+ *   "not-story"      — not read from the story; the note says what it holds.
+ *   "legacy"         — nothing writes it any more. Browser keys of this kind
+ *                      are removed on every page load (removeLegacyBrowserKeys).
+ */
+export type StoryDataClass = "version-record" | "analysis-gate" | "not-story" | "legacy";
 
 /**
  * Suffix used by the user-scoped keys. Kept here so the one place that knows
@@ -72,6 +91,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "guest",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "version-record",
     note: "Hand-off from the home gate into the builder, signed in or not. Consumed on entry.",
   },
   {
@@ -80,6 +100,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "guest",
     matches: "exact",
     holdsCaseContent: false,
+    storyData: "not-story",
     note: "Which guest intake this tab chose to bring into an account, set when the guest presses Sign in from it. Read once by the login page; expires after 30 minutes.",
   },
   {
@@ -88,6 +109,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "guest",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "version-record",
     note:
       "Court-path finder hand-off. Written with seven fields; only province, city and facts " +
       "are ever read. Removed only when all three validate, so a payload failing that guard " +
@@ -99,6 +121,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "guest",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "not-story",
     note: "Case-partner chat hand-off between routes.",
   },
   {
@@ -107,7 +130,8 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "guest",
     matches: "prefix",
     holdsCaseContent: true,
-    note: "Suffixed by court path. The user's narrative, extracted into intake fields.",
+    storyData: "legacy",
+    note: "RETIRED in Part 3: the follow-up chat no longer hands its first message to the forms (a second copy of the story outside the version record). Suffixed by court path.",
   },
 
   {
@@ -116,6 +140,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: false,
+    storyData: "not-story",
     note:
       "The id and court path of the case this tab's builder last saved, so a reload of the results " +
       "step reopens that case instead of a blank intake (2026-10-06). An id, never case content.",
@@ -128,6 +153,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "user",
     matches: "prefix",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "RETIRED 2026-09-28: no page reads or writes it (test:no-stale-intake). Listed so the reset still clears copies an older build left in a browser.",
   },
   {
@@ -136,9 +162,10 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "user",
     matches: "prefix",
     holdsCaseContent: false,
+    storyData: "legacy",
     note:
-      "Written user-scoped by builderDraftStorage, but ALSO read and written UNSCOPED by " +
-      "the evidence, forms and document-workspace routes. The prefix match covers both.",
+      "Once written user-scoped by builderDraftStorage and unscoped by the evidence, forms and " +
+      "document-workspace routes; nothing writes it now (checked in Part 3). The prefix match covers both.",
   },
 
   // --------------------------------------------------------------- shared
@@ -150,6 +177,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Every case context this browser has held.",
   },
   {
@@ -158,6 +186,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "The active case context.",
   },
   {
@@ -166,6 +195,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Case context loaded by the document workspace.",
   },
   {
@@ -174,6 +204,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Persisted case records, including intake facts.",
   },
   {
@@ -182,6 +213,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "The active case record.",
   },
   {
@@ -190,6 +222,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Unsynced case writes waiting for Supabase. Survives sign-out.",
   },
   {
@@ -198,6 +231,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Assembled evidence packages.",
   },
   {
@@ -206,6 +240,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note:
       "Legacy single evidence package. casePersistenceEngine.ts (the only reader) was retired " +
       "2026-10-15 (MASTER_PLAN build order 6B); kept here so a browser carrying old data from " +
@@ -217,6 +252,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Raw uploaded evidence metadata.",
   },
   {
@@ -225,6 +261,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "prefix",
     holdsCaseContent: true,
+    storyData: "not-story",
     note:
       "Bare key is the legacy form; `:draft` and `:<caseId>` are current. Prefix covers all " +
       "three. Holds generated document text.",
@@ -235,6 +272,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Assembled master case.",
   },
   {
@@ -243,6 +281,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Analysis output, which embeds the intake facts.",
   },
   {
@@ -251,6 +290,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Pending patch to the analysis output.",
   },
   {
@@ -259,6 +299,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Pending dashboard patch.",
   },
   {
@@ -267,6 +308,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: false,
+    storyData: "legacy",
     note: "Where the app last suggested the user go next.",
   },
   {
@@ -275,7 +317,8 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
-    note: "Legacy case blob. Still read by the forms route.",
+    storyData: "legacy",
+    note: "Legacy case blob. The Forms page stopped reading it in Part 3.",
   },
   {
     key: "caseData",
@@ -283,6 +326,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
+    storyData: "legacy",
     note: "Legacy, and unprefixed — collides with anything else on the origin.",
   },
   {
@@ -291,7 +335,8 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "exact",
     holdsCaseContent: true,
-    note: "Legacy, unprefixed. Read by the forms route.",
+    storyData: "legacy",
+    note: "Legacy, unprefixed. The Forms page stopped reading it in Part 3.",
   },
   {
     key: "courtsimplified_parsed_messages",
@@ -299,6 +344,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "prefix",
     holdsCaseContent: true,
+    storyData: "legacy",
     note:
       "Bare key plus `:case:<caseId>`. Parsed message threads — among the most sensitive " +
       "content the platform holds.",
@@ -323,6 +369,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "shared",
     matches: "prefix",
     holdsCaseContent: true,
+    storyData: "not-story",
     note:
       "Case-partner chat transcripts, suffixed by case id, path and session. The user's own " +
       "words about their matter.",

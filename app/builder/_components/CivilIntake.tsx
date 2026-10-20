@@ -43,10 +43,7 @@ import {
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import {
-  consumeNarrativePrefill,
-  directPrefillValues,
   type NarrativePrefillFact,
-  type NarrativePrefill,
 } from "../../../src/lib/case-system/intelligence/narrativePrefill";
 
 type EvidenceFile = {
@@ -279,33 +276,6 @@ function buildCivilNarrative(input: CivilInput): string {
   ]).join("\n");
 }
 
-function isQuotaExceededError(error: unknown): boolean {
-  if (!(error instanceof DOMException)) return false;
-
-  return (
-    error.name === "QuotaExceededError" ||
-    error.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
-    error.code === 22 ||
-    error.code === 1014
-  );
-}
-
-function safelyStoreJson(key: string, value: unknown): boolean {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (error) {
-    if (isQuotaExceededError(error)) {
-      console.warn(
-        `CourtSimplified browser storage is full. The key "${key}" was not saved.`,
-      );
-      return false;
-    }
-
-    throw error;
-  }
-}
-
 function buildCompactCivilPayload(
   payload: StoredCaseData,
   input: CivilInput,
@@ -527,15 +497,11 @@ const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
 
 export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
   const [editingStory, setEditingStory] = useIntakeState("civil", "editingStory", false);
-  const [initialPrefill] = useState<NarrativePrefill | null>(() =>
-    consumeNarrativePrefill({ courtPath: "civil", caseId }),
-  );
   const [input, setInput] = useInputWithStory<CivilInput>("civil", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
       ...(storedValues ?? {}),
-      ...(initialPrefill ? directPrefillValues(initialPrefill) : {}),
     };
     return {
       ...defaultInput,
@@ -582,7 +548,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   /** Step 6d: set when the safety pass reports the user asked for legal advice. */
   const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
-    () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
+    () => [],
   );
   const submissionInFlight = useRef(false);
   /*

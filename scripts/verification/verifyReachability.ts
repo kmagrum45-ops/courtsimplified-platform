@@ -71,6 +71,12 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "one chat (MASTER_PLAN build order 6B), when it is either wired to the page or deleted.",
   },
   {
+    file: "src/lib/case-system/storage/storyDataRegistry.ts",
+    reason:
+      "A registry, not running code: where each intake section, master_result key and table stands when " +
+      "the story changes. Only test:story-data-registry reads it, which is the point (Part 3).",
+  },
+  {
     file: "src/lib/case-system/chat/assembleChatAnswer.ts",
     reason:
       "Assembles libraryChat's selected block ids into the reply; dormant with it, for the same " +

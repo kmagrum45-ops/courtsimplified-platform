@@ -287,15 +287,18 @@ const caseLoaderSource = formsPageSource.slice(
   formsPageSource.indexOf("async function loadForms()"),
 );
 
+// Part 3 (stale-story audit item 3): with no case selected the Forms page lists
+// nothing; it never reads an old analysis left in this browser, and no path
+// substitutes browser data for a selected case.
 assert.match(
   caseLoaderSource,
-  /if \(!caseId\) \{\s*setMasterResult\(parseStoredMasterResult\(\)\);/,
-  "Draft fallback must remain available only when there is no selected case ID",
+  /if \(!caseId\) \{[\s\S]{0,400}?setMasterResult\(null\);/,
+  "With no selected case, the Forms page starts from nothing",
 );
-assert.equal(
-  (caseLoaderSource.match(/parseStoredMasterResult\(\)/g) || []).length,
-  1,
-  "Selected-case failure paths must not substitute local draft data",
+assert.doesNotMatch(
+  formsPageSource,
+  /\b(?:localStorage|sessionStorage)\b/,
+  "The Forms page reads no browser storage, so leftover data never drives the list",
 );
 
 const formRouteSource = readFileSync("app/api/generate-form/route.ts", "utf8");
