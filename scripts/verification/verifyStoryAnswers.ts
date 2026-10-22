@@ -742,8 +742,8 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
 
   const card = read("app/builder/_components/MotionToChangeRoute.tsx");
   check(
-    "confirm: the card asks \"From what you told us, it sounds like ... Is that right?\" and renders route text only from routeShown",
-    /From what you told us, it sounds like/.test(card) && /Is that right\?/.test(card) && /const shown = routeShown\(lead, choice\)/.test(card) && !/\{lead\.line\}/.test(card) && !/lead\.rules\.map/.test(card),
+    "confirm: the card asks \"Does this fit your situation: ...?\" (no unquoted \"you told us\", #469) and renders route text only from routeShown",
+    /Does this fit your situation: /.test(card) && /const shown = routeShown\(lead, choice\)/.test(card) && !/\{lead\.line\}/.test(card) && !/lead\.rules\.map/.test(card),
   );
 
   const builder = read("app/builder/page.tsx");

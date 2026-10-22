@@ -74,7 +74,8 @@ export default function MunicipalNoticeFirst({ story, city = "" }: { story: stri
         className="rounded-xl border border-[#f0c88a] bg-[#fffaf2] px-4 py-3 text-sm leading-6 text-[#5a3a0e]"
       >
         <h3 className="text-base font-semibold">
-          From what you told us, it sounds like you were hurt on a public sidewalk, road or bridge that {who} looks after. Is that right?
+          {/* A question, not a fact of ours: no quote to show here (#469 re-test). */}
+          Were you hurt on a public sidewalk, road or bridge that {who} looks after?
         </h3>
         <p className="mt-1">
           Why we ask: if it was, the law says a lawsuit about the condition of the sidewalk, road or bridge cannot go ahead unless written notice is served on,

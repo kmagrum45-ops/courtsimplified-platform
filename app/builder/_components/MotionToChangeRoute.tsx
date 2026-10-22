@@ -35,7 +35,8 @@ export default function MotionToChangeRoute({
     return (
       <section data-testid="motion-to-change-reading" data-kind={lead.kind} className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm">
         <p className="text-sm leading-6 text-[#16302b]">
-          From what you told us, it sounds like <strong className="text-[#10231f]">{lead.reading}</strong>. Is that right?
+          {/* A question, not a fact of ours: no quote to show here (#469 re-test). */}
+          Does this fit your situation: <strong className="text-[#10231f]">{lead.reading}</strong>?
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <button

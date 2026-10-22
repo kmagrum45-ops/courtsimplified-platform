@@ -870,7 +870,12 @@ function buildEvidenceAnswer(args: {
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
+  recorded?: string[];
 }): string {
+  // What the person already said they have, in their own words (#469 re-test: the
+  // reply asked what proof they had when the story listed it).
+  const recorded = args.recorded ?? [];
+  const opening = recorded.length ? assistantText("assistant:evidence:recorded", { items: recorded.map((item) => `\u201C${item}\u201D`).join(" ") }) : "";
   const evidenceNeeds = uniqueStrings([
     ...(args.investigation.evidenceNeeded || []).map(
       (item: any) => item?.label,
@@ -879,15 +884,19 @@ function buildEvidenceAnswer(args: {
     ...(args.intelligence.caseMemoryPatch.evidenceToRequest || []),
   ]);
 
-  if (evidenceNeeds.length === 0) {
-    return assistantText("assistant:evidence:none");
+  // Once something is recorded, "what proof do you already have" is not asked again.
+  const stillNeeded = recorded.length ? evidenceNeeds.filter((need) => !/^what proof do you already have/i.test(clean(need))) : evidenceNeeds;
+
+  if (stillNeeded.length === 0) {
+    return opening || assistantText("assistant:evidence:none");
   }
 
-  return formatList(
+  const list = formatList(
     assistantText("assistant:evidence:heading"),
-    evidenceNeeds,
+    stillNeeded,
     5,
   );
+  return opening ? `${opening}\n\n${list}` : list;
 }
 
 function buildLegalIssuesAnswer(args: {
@@ -1001,8 +1010,22 @@ function buildCaution(
   return "";
 }
 
+/**
+ * Evidence the person already named, in their own words: their answer to the
+ * evidence question, and up to two sentences of their story that mention it.
+ */
+function recordedEvidenceOf(caseMemory: unknown): string[] {
+  const caseData = getNestedValue(caseMemory, ["caseData"]);
+  const answer = clean(getNestedValue(caseData, ["evidence"]));
+  const story = clean(getNestedValue(caseData, ["facts"]));
+  const EVIDENCE = /\b(text messages?|texts|messages?|emails?|receipts?|invoices?|contracts?|photos?|pictures?|screenshots?|recordings?|videos?|witness(?:es)?|letters?|records?|statements?|documents?)\b/i;
+  const sentences = story.split(/(?<=[.!?])\s+/).map((sentence) => sentence.trim()).filter((sentence) => EVIDENCE.test(sentence) && !sentence.endsWith("?"));
+  return uniqueStrings([...(answer ? [answer] : []), ...sentences]).slice(0, 3);
+}
+
 function buildDirectAnswer(args: {
   intent: ResponseIntent;
+  recorded?: string[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1037,7 +1060,16 @@ function buildGeneralAnswer(args: {
 }): string {
   const paragraphs: string[] = [];
 
-  if (args.firstTurn) {
+  if (args.firstTurn && !(args.askedQuestion && args.courtConfirmed)) {
+    paragraphs.push(buildWarmOpening(args.intelligence));
+    paragraphs.push(
+      buildLegalExplanation({
+        intelligence: args.intelligence,
+        legalReasoning: args.legalReasoning,
+        courtConfirmed: args.courtConfirmed,
+      }),
+    );
+  } else if (args.firstTurn) {
     // A question on a confirmed case: the first line says where its answer is (the
     // checked law, shown beside this reply), not a generic opening (#468 re-test).
     paragraphs.push(args.askedQuestion && args.courtConfirmed ? assistantText("assistant:opening:question") : buildWarmOpening(args.intelligence));
@@ -1048,12 +1080,16 @@ function buildGeneralAnswer(args: {
         courtConfirmed: args.courtConfirmed,
       }),
     );
+  } else if (args.askedQuestion && args.courtConfirmed) {
+    // A question is never recorded as a fact (#469 re-test: "I've added the new
+    // information to the case record: How long do I have to respond?").
+    paragraphs.push(assistantText("assistant:opening:question"));
   } else {
-    const newlyAddedFacts =
-      args.intelligence.caseMemoryPatch.factsToAdd || [];
+    const newlyAddedFacts: string[] = [];
 
-    const newlyIdentifiedIssues =
-      args.intelligence.caseMemoryPatch.legalIssuesToReview || [];
+    // The engine's own facts and issue labels ("The user appears to have ...",
+    // "Possible legal issue identified: ...") are not the person's words: not shown.
+    const newlyIdentifiedIssues: string[] = [];
 
     if (newlyAddedFacts.length > 0) {
       paragraphs.push(
@@ -1098,17 +1134,25 @@ function buildGeneralAnswer(args: {
     }),
   );
 
-  return deduplicateParagraphs(
-    paragraphs,
-    args.previousAssistantText,
-  )
-    .join("\n\n")
-    .trim();
+  const kept = deduplicateParagraphs(paragraphs, args.previousAssistantText);
+
+  // The law-answer line names the checked law shown beside THIS reply, so every
+  // question gets it, even after an earlier one did. Removed as a repeat, a third
+  // message fell through to "I recorded that update" (#469 re-test, found by the
+  // route-level chat test).
+  if (args.askedQuestion && args.courtConfirmed) {
+    const opening = assistantText("assistant:opening:question");
+    if (kept[0] !== opening) kept.unshift(opening);
+  }
+
+  return kept.join("\n\n").trim();
 }
 
 function buildAnswer(args: {
   message: string;
   courtConfirmed: boolean;
+  /** Evidence the person already named: quotes from their story and their own answer. */
+  recordedEvidence?: string[];
   conversation: CasePartnerConversationMessage[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
@@ -1123,6 +1167,7 @@ function buildAnswer(args: {
   if (intent !== "general") {
     const directAnswer = buildDirectAnswer({
       intent,
+      recorded: args.recordedEvidence,
       intelligence: args.intelligence,
       legalReasoning: args.legalReasoning,
       investigation: args.investigation,
@@ -1278,6 +1323,7 @@ export function runGuidedAssistantOrchestrator(
         message,
         // The caller named the case's court: the guided route passes the confirmed case's.
         courtConfirmed: Boolean(clean(input.courtContext?.courtPath)),
+        recordedEvidence: recordedEvidenceOf(input.caseMemory),
         conversation,
         intelligence: conversationIntelligence,
         legalReasoning,

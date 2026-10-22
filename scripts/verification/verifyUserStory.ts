@@ -153,7 +153,7 @@ check("a story with no such words offers nothing", storyAnswerFor("married-to-ot
   const triage = readFileSync(path.resolve(process.cwd(), "app/builder/_components/FamilyStatusTriage.tsx"), "utf8");
   check(
     "the triage says the suggestion plainly and records it on one click",
-    /storySuggestionFor\(current\.id, story\)/.test(triage) && /data-testid="triage-story-suggestion"[\s\S]{0,400}From what you told us: <strong>\{suggestion\.say\}<\/strong>\. Is that right\?[\s\S]{0,400}onClick=\{\(\) => record\(suggestion\.value\)\}/.test(triage),
+    /storySuggestionFor\(current\.id, story\)/.test(triage) && /data-testid="triage-story-suggestion"[\s\S]{0,500}Is this right: <strong>\{suggestion\.say\}<\/strong>\?[\s\S]{0,400}onClick=\{\(\) => record\(suggestion\.value\)\}/.test(triage),
   );
 }
 

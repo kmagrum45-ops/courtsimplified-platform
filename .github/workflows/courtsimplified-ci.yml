@@ -226,6 +226,9 @@ jobs:
       - name: The follow-up chat's first reply reads from the confirmed intake
         run: npm run test:chat-first-line
 
+      - name: No fact about the person's case is shown without its source
+        run: npm run test:fact-sources
+
       - name: The next-step analysis finishes inside the page's wait and the server's limit
         run: npm run test:analysis-time-budget
 

@@ -528,7 +528,8 @@ export function NextStepCard({
   /** The person's city, which decides the filing portal (Toronto region or not). */
   city: string;
   /** Dates used for this count that came from the person's own words and are not yet saved. */
-  fromStory?: { label: string; date: string }[];
+  /** Each with the sentence it came from (basis), shown beside it (#469: no fact without its source). */
+  fromStory?: { label: string; date: string; basis?: string }[];
   /** The person's side, so an "either side" step leads with their own limit ("If you are responding ..."). */
   responding?: boolean;
   /** A service date the story gives as the day the papers ARRIVED, for a way of serving that counts from the day they were sent. */
@@ -606,7 +607,7 @@ export function NextStepCard({
       )}
       {fromStory.length > 0 ? (
         <p data-testid="next-step-from-story" className="mt-2 text-sm leading-6 text-[#16302b]">
-          Counted from what you told us: {fromStory.map((entry) => `${entry.label} ${entry.date}`).join("; ")}. Check the date
+          Counted from what you told us: {fromStory.map((entry) => `${entry.label} ${entry.date}`.trim() + (entry.basis ? ` (${entry.basis})` : "")).join("; ")}. Check the date
           below and save it to your case.
         </p>
       ) : null}
@@ -1667,7 +1668,7 @@ export default function StageAnswerPanel({
         {noticeFirst && suggested === stageId
           ? "Before filing: this step may apply to the kind of claim you described. It shows a written-notice deadline counted from the day of the injury, with the rule it comes from. If it does not fit, choose the question closest to where your case is."
           : suggested
-          ? "Based on what you told us, this is your step. If it is not right, choose the question closest to where your case is."
+          ? "This step is suggested for your case. If it is not right, choose the question closest to where your case is."
           : "Choose the question closest to where your case is. We will show what the court rules and official guides say about that step, with the sources."}
       </p>
 
@@ -1755,7 +1756,7 @@ export default function StageAnswerPanel({
           noticeStepId={noticeStepId ?? ""}
           fromStory={(result.dateQuestions ?? [])
             .filter((question) => !dateAnswers[question.id] && storyDates[question.id] && !rejected[question.id])
-            .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value) }))}
+            .map((question) => ({ label: "", date: formatIso(storyDates[question.id].value), basis: storyDates[question.id].basis }))}
           arrival={arrivalNoteFor(result.dateQuestions ?? [], arrivalOnly, dateAnswers, serviceCourt, serviceMethod, storyServiceMethod, {
             stageId,
             hints: storyHints,

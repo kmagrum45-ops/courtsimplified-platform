@@ -23,6 +23,17 @@ const FIELD_LABELS: Record<string, string> = {
 };
 const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, c => c.toUpperCase());
 
+/**
+ * The civil or Family form field a remaining question fills, so the review panel can
+ * offer a way to answer it there (#469 re-test: civil's remaining questions had only
+ * an "I do not know yet" box). Small Claims questions come from the question bank.
+ */
+export function reviewQuestionField(courtPath: string, id: string): { kind: "text" | "longtext" | "choice" | "multi"; options: { value: string; label: string }[] } | null {
+  const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
+  const field = fields.find((item) => item.key === id);
+  return field ? { kind: field.kind, options: field.options ?? [] } : null;
+}
+
 /** A projection of existing answers, not another case model or question selector. */
 export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   // Answers based on an earlier version of the story are not shown as answers (storyBasis.ts).

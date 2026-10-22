@@ -603,9 +603,11 @@ function personsDatesWin(source: string): boolean {
     check(`answers: ${testCase.name} -> ${testCase.settles ?? "nothing settled"}`, (settled?.stage ?? null) === testCase.settles, JSON.stringify(settled));
     for (const suggested of suggestions) {
       const recorded = stageRecordedFromAnswers(testCase.court, testCase.answers, suggested);
-      const expected = testCase.settles && testCase.settles === suggested ? testCase.settles : null;
+      // Recorded when the answer and the suggestion agree, or the analysis was not sure
+      // either (#469 re-test: civil and Family "Nothing filed yet" ended at "I am not sure").
+      const expected = testCase.settles && (testCase.settles === suggested || suggested === "not-sure") ? testCase.settles : null;
       if ((recorded?.stage ?? null) !== expected) {
-        check(`answers: ${testCase.name}, suggested ${suggested}: recorded only when the two agree`, false, JSON.stringify(recorded));
+        check(`answers: ${testCase.name}, suggested ${suggested}: recorded when the two agree, or the analysis was not sure`, false, JSON.stringify(recorded));
       }
     }
     if (settled) check(`answers: ${testCase.name} shows the answer it came from`, settled.because.trim().length > 0);

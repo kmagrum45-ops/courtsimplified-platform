@@ -11,7 +11,7 @@ import { locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { canReview, initialAnswersOf, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
+import { canReview, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import NextStepStatus from "./NextStepStatus";
 
 /** A stored choice such as "not-sure" or "moving-party", shown in words. */
@@ -75,6 +75,17 @@ export default function IntakeReviewPanel() {
     else recovery.put(entry.section, entry.field, value, true, true, true);
   }
   /** The person's answer to an initial question; a chosen side also fills an empty side field in the form. */
+  /** A civil or Family remaining question, answered in the panel: written into that form's own field. */
+  function answerField(questionId: string, value: string | string[]) {
+    if (!recovery) return;
+    if (checkpoint.courtPath === "civil") {
+      const input = (recovery.read("civil", "input") as Record<string, unknown> | undefined) ?? {};
+      recovery.put("civil", "input", { ...input, [questionId]: value }, true, false, true);
+    } else if (checkpoint.courtPath === "family") {
+      recovery.put("family", questionId, value, true, false, true);
+    }
+  }
+
   function answer(questionId: string, value: string) {
     if (!recovery) return;
     // From the store as it is now, not as last drawn: typing an amount and then clicking "No"
@@ -123,6 +134,13 @@ export default function IntakeReviewPanel() {
           {bank?.answerType === "yes-no" && <div className="mt-1 flex flex-wrap gap-2">{["Yes", "No"].map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}</div>}
           {/* Typed answers save when the person leaves the box (Enter too): a value typed but never "used" counted for nothing (re-test round 7). */}
           {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed !== undefined && typed.trim()) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && <button type="button" data-testid="intake-use-suggestion" disabled={busy} onClick={() => answer(question.id, suggested)} className="rounded border px-3 py-1">Use “{suggested}” (from your story)</button>}</div>}
+          {/* Civil and Family: the form's own field, answerable here (#469 re-test). */}
+          {!bank && (() => {
+            const field = reviewQuestionField(checkpoint.courtPath, question.id);
+            if (!field) return null;
+            if (field.kind === "choice" || field.kind === "multi") return <div className="mt-1 flex flex-wrap gap-2">{field.options.map(option => <button key={option.value} type="button" data-testid="intake-field-choice" disabled={busy} onClick={() => answerField(question.id, field.kind === "multi" ? [option.value] : option.value)} className="rounded border px-3 py-1">{option.label}</button>)}</div>;
+            return <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = (dates[question.id] ?? "").trim(); if (typed) answerField(question.id, typed); }} onKeyDown={event => { if (event.key === "Enter") { const typed = (dates[question.id] ?? "").trim(); if (typed) answerField(question.id, typed); } }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>;
+          })()}
           <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(question.id)} disabled={busy} onChange={event => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", event.target.checked ? [...current.filter(id => id !== question.id), question.id] : current.filter(id => id !== question.id), true, false, true); }} /> I do not know yet</label>
         </div>;
       })}</fieldset>}

@@ -286,8 +286,8 @@ for (const court of ["family", "civil"] as const) {
     await confirmInitialInformation(page);
     await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
     await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
-    // Offered as "From what you told us: ..." with Yes / No (the drop-down follows a No).
-    const suggestion = page.locator("p", { hasText: "From what you told us:" }).first();
+    // Offered as "Suggested for your case: ..." with Yes / No (the drop-down follows a No).
+    const suggestion = page.locator("p", { hasText: "Suggested for your case:" }).first();
     await expect(suggestion).toContainText("I was served and need to respond", { timeout: 30_000 });
     await expect(suggestion).not.toContainText("I am not sure");
   });

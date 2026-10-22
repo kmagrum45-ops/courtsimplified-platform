@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-164 documented, 26 without a header.
+165 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -36,7 +36,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-understanding` | **The front door understands the story, and shows only law that is checked.**<br>WHAT THIS CATCHES: the reasoning step's words reaching a person without the official-text check. understandCase (understanding/understandCase.ts) lets the strongest model read the whole story and reason about it; this suite drives it with a fake reasoner and a |
 | `npm run test:case-write-queue` | **No two writes to the same case's row are in flight at once from the builder,**<br>the case pages and the Forms page, and nothing can stall their one queue. |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
-| `npm run test:chat-first-line` | **The follow-up chat's first reply reads from the confirmed intake (L47).**<br>What it checks: for a case whose court the route supplies (the guided assistant route only answers for a case with a confirmed intake, and passes that case's court), the first reply in Small Claims, Family and civil never says there is "not enough information  |
+| `npm run test:chat-first-line` | **The follow-up chat's replies read from the confirmed intake (L47), tested the**<br>way a person's message reaches it live. |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:checked-answer` | **Checked answers show only what the official text supports.**<br>WHAT THIS CATCHES: an answer the site shows without proof. The checked answer (retrieval/checkedAnswer.ts) lets the model answer first and then checks every statement against the library. This suite drives that pipeline with a fake drafter and a fake checker o |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
@@ -57,6 +57,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
 | `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
+| `npm run test:fact-sources` | **No fact about the person's case is shown without its source.**<br>What it checks: 1. Every place in app/ that states something about the person's case ("you told us", "from what you told us", "from your story", "you said", "you wrote", "we understood") renders the source beside it -- the person's words quoted, or their confi |
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
 | `npm run test:family-role` | **A family user's side comes from their own answer, never from stray keywords.**<br>COSTS NOTHING. Pure normalizer runs plus a source scan of the intake. |

@@ -106,7 +106,7 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
 }
 
 /** The person's story says a family court order already exists. */
-import { existingFamilyOrder, respondingInFamilyStory } from "../../../src/lib/case-system/familyStoryReading";
+import { existingFamilyOrder, existingFamilyOrderQuote, respondingInFamilyStory } from "../../../src/lib/case-system/familyStoryReading";
 export { existingFamilyOrder, respondingInFamilyStory };
 
 export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
@@ -125,7 +125,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   // not being paid) is not choosing where to START a case; the start-a-case
   // court statutes and municipality list were the first thing they read
   // (held-back walkthrough, 2026-10-09). Hidden for them, with a line saying so.
-  const hasOrderAlready = existingFamilyOrder(story);
+  const orderQuote = existingFamilyOrderQuote(story);
+  const hasOrderAlready = orderQuote !== null;
   // The rules about where to start a case are for someone starting one: shown
   // once their story is known and says they are, not before and not to a
   // person responding (walkthrough run 38470954003: they led the page for a
@@ -186,7 +187,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
           // 38525903567, FR: "my ex gf" was asked "Were you married?").
           <div data-testid="triage-story-suggestion" className="mt-4 rounded-xl border border-[#2f7d67] bg-white p-3">
             <p className="text-sm text-[#10231f]">
-              From what you told us: <strong>{suggestion.say}</strong>. Is that right?
+              {/* A question, not a fact of ours: no quote to show here (#469 re-test). */}
+              Is this right: <strong>{suggestion.say}</strong>?
             </p>
             <button
               type="button"
@@ -435,7 +437,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
           every family run). The next-step card names their court and filing. */}
       {hasOrderAlready ? (
         <p data-testid="triage-existing-order" className="mt-6 text-sm text-[#4f685f]">
-          You told us there is already a court order, so the rules about where to start a new family case are not shown here.
+          {/* With the person's own words, never as a fact of the site's (#469 re-test). */}
+          From your story: &ldquo;{orderQuote}&rdquo; So the rules about where to start a new family case are not shown here.
         </p>
       ) : null}
       {confirmed && startingNewCase && outcome.courtInformation.length > 0 && (

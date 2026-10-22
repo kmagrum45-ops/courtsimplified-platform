@@ -358,6 +358,15 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
   // Evidence, issues, readiness — list headings plus the empty-state text.
   // =====================================================================
   {
+    id: "assistant:evidence:recorded",
+    kind: "conversational",
+    template: "From what you told us, you have: {{items}} Keep these together, with the dates they cover.",
+    slots: ["items"],
+    statesLaw: false,
+    citations: [],
+    appearsIn: "Guided assistant, an evidence question on a case whose story or answers already name evidence (quoted)",
+  },
+  {
     id: "assistant:evidence:heading",
     kind: "evidence-guidance",
     template: "The most important evidence gaps currently identified are:",
