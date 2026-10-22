@@ -118,6 +118,16 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
   // Conversational — states nothing about law. No citation required.
   // =====================================================================
   {
+    id: "assistant:opening:question",
+    kind: "conversational",
+    template:
+      "The law on your question is shown below, checked against the official text where our library covers it. To keep your case record complete:",
+    slots: [],
+    statesLaw: false,
+    citations: [],
+    appearsIn: "Guided assistant, first turn when the person asked a question (the follow-up chat looks the law up beside it)",
+  },
+  {
     id: "assistant:opening:generic",
     kind: "conversational",
     template:

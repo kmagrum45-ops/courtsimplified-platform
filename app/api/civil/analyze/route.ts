@@ -12,6 +12,8 @@ import {
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 
 export const runtime = "nodejs";
+// As Small Claims: the analysis researches before it writes (test:analysis-time-budget).
+export const maxDuration = 300;
 
 const MAX_REQUEST_BYTES = 200_000;
 const MAX_TEXT_LENGTH = 20_000;

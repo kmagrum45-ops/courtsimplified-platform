@@ -2060,6 +2060,15 @@ ${JSON.stringify(normalizedIntake, null, 2)}
 `;
 }
 
+/**
+ * The longest the main reasoning call may take (#468 re-test). With no limit it ran
+ * past the page's 120 s wait on new Small Claims cases, three times in a row, and
+ * the person saw "could not reach the server". 150 s plus research (45 s) fits the
+ * page's wait (ANALYSIS_TIMEOUT_MS, 270 s) and the route's 300 s. Past it the analysis
+ * uses the code-written cognition, as when no model is configured.
+ */
+export const COGNITION_TIMEOUT_MS = 150_000;
+
 async function runStructuredGptCognition(
   input: CourtSimplifiedBrainInput,
   normalizedIntake: NormalizedIntake,
@@ -2120,7 +2129,9 @@ async function runStructuredGptCognitionInner(
           content: buildCognitionPrompt(input, normalizedIntake, pack),
         },
       ],
-    });
+    // Bounded: past this, the analysis finishes on the code-written cognition below
+    // instead of outliving the page's wait (COGNITION_TIMEOUT_MS).
+    }, { timeout: COGNITION_TIMEOUT_MS });
 
     const content = response.choices[0]?.message?.content;
     if (!content) return null;

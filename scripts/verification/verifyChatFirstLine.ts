@@ -24,8 +24,8 @@ const check = (name: string, ok: boolean, detail = "") => {
   if (!ok) failures += 1;
 };
 const GENERIC = /not enough information yet|confirm the court path/i;
-const firstReply = (courtPath?: string) => runGuidedAssistantGateway({
-  message: "What should I do next?",
+const firstReply = (courtPath?: string, message = "What should I do next?") => runGuidedAssistantGateway({
+  message,
   conversation: [],
   caseMemory: { caseData: { facts: "Synthetic confirmed story." }, masterResult: {}, path: courtPath },
   courtContext: courtPath ? { courtPath, jurisdiction: "Ontario", stage: "not-sure" } : undefined,
@@ -38,6 +38,19 @@ for (const court of ["small-claims", "family", "civil"]) {
   check(`${court}: and it is not empty`, reply.trim().length > 0);
   // #468 re-test: "The province or jurisdiction must be confirmed" on a confirmed Ontario case.
   check(`${court}: nor says the province must be confirmed`, !/province or jurisdiction must be confirmed/i.test(reply), reply.slice(0, 300));
+}
+// #468 re-test: the first line answers the question asked, and the engine's own
+// warnings ("procedural stage is uncertain", "Digital evidence requires context
+// and authenticity review") never reach the person.
+const INTERNAL = /Important limitation|Knowledge retrieval warning|must not be cited|procedural stage is uncertain/i;
+for (const court of ["small-claims", "family", "civil"]) {
+  const gather = firstReply(court, "What should I gather first?");
+  check(`${court}: "What should I gather first?" is answered with the evidence answer first`, /evidence/i.test(gather.split(String.fromCharCode(10))[0] ?? ""), gather.slice(0, 200));
+  const asked = firstReply(court, "How long do I have to respond?");
+  check(`${court}: another question opens by saying where its answer is (the checked law beside it)`, (asked.split(String.fromCharCode(10))[0] ?? "").startsWith("The law on your question is shown below"), asked.slice(0, 200));
+  for (const [label, reply] of [["gather", gather], ["asked", asked], ["next", firstReply(court)]] as const) {
+    check(`${court} (${label}): no internal warning reaches the person`, !INTERNAL.test(reply), reply.slice(0, 300));
+  }
 }
 check("with no court given, the generic fallback is still there", GENERIC.test(firstReply()), firstReply().slice(0, 300));
 

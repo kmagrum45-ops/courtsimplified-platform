@@ -620,7 +620,10 @@ function detectResponseIntent(message: string): ResponseIntent {
     text.includes("what evidence am i missing") ||
     text.includes("missing evidence") ||
     text.includes("what proof") ||
-    text.includes("evidence do i need")
+    text.includes("evidence do i need") ||
+    // Everyday wording of the same question (#468 re-test: "What should I gather
+    // first?" got the general reply).
+    /\b(gather|collect|evidence|proof|documents? (do|should) i|what (do|should) i (need|bring|keep))\b/.test(text)
   ) {
     return "evidence";
   }
@@ -988,18 +991,14 @@ function buildCaution(
     normalize(warning).includes("jurisdiction"),
   );
 
-  if (jurisdictionWarning) {
-    // "The province ... must be confirmed" is not true of a confirmed Ontario case.
-    if (!courtConfirmed) return assistantText("assistant:caution:jurisdiction");
-  }
+  // "The province ... must be confirmed" is not true of a confirmed Ontario case.
+  if (jurisdictionWarning && !courtConfirmed) return assistantText("assistant:caution:jurisdiction");
 
-  const firstWarning = firstItem(warnings.filter((warning) => !(courtConfirmed && normalize(warning).includes("jurisdiction"))));
-
-  if (!hasText(firstWarning)) {
-    return "";
-  }
-
-  return `Important limitation: ${firstWarning}`;
+  // The other warnings are the engine's notes to itself ("Knowledge retrieval
+  // warning: procedural stage is uncertain", a doctrine seed "must not be cited
+  // until verification is complete"). Shown as "Important limitation: ..." they
+  // answered nothing the person asked (#468 re-test). Never shown.
+  return "";
 }
 
 function buildDirectAnswer(args: {
@@ -1029,6 +1028,8 @@ function buildDirectAnswer(args: {
 function buildGeneralAnswer(args: {
   firstTurn: boolean;
   courtConfirmed: boolean;
+  /** The message asks something (the follow-up chat looks the law up beside the reply). */
+  askedQuestion: boolean;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1037,7 +1038,9 @@ function buildGeneralAnswer(args: {
   const paragraphs: string[] = [];
 
   if (args.firstTurn) {
-    paragraphs.push(buildWarmOpening(args.intelligence));
+    // A question on a confirmed case: the first line says where its answer is (the
+    // checked law, shown beside this reply), not a generic opening (#468 re-test).
+    paragraphs.push(args.askedQuestion && args.courtConfirmed ? assistantText("assistant:opening:question") : buildWarmOpening(args.intelligence));
     paragraphs.push(
       buildLegalExplanation({
         intelligence: args.intelligence,
@@ -1157,6 +1160,7 @@ function buildAnswer(args: {
   return buildGeneralAnswer({
     firstTurn,
     courtConfirmed: args.courtConfirmed,
+    askedQuestion: /\?\s*$/.test(args.message.trim()) || /^(what|how|when|where|who|why|which|can|could|do|does|did|should|is|are|will|would)\b/i.test(args.message.trim()),
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
     investigation: args.investigation,

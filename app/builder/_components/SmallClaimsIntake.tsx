@@ -596,7 +596,9 @@ export async function requestSmallClaimsAnalysis(
     signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(290_000)]) : AbortSignal.timeout(290_000),
   }).catch((error: unknown) => {
     throw new Error(
-      error instanceof Error && error.name === "TimeoutError"
+      // The page stopping its wait (or the person pressing Stop) is not a network
+      // failure: it read "could not reach the server" (#468 re-test).
+      error instanceof Error && (error.name === "TimeoutError" || signal?.aborted)
         ? "This is taking longer than it should. Your answers are still here; please press the button to try again."
         : "CourtSimplified could not reach the server. Please check your connection and try again.",
     );

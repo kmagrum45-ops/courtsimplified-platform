@@ -3,8 +3,18 @@
 import { useEffect, useState } from "react";
 import { usePublishNextStepStatus } from "../../_components/NextStepStatus";
 
-/** How long reading a case may take before it is stopped (IntakeRequest's own default was 290 s). */
-export const ANALYSIS_TIMEOUT_MS = 120_000;
+/**
+ * How long the page waits for a case to be read before it stops waiting.
+ *
+ * Was 120 s. A new Small Claims case took longer (research up to 45 s, then the
+ * main reasoning call), so the page gave up at 120 s three times running and
+ * said "could not reach the server" while the server, allowed 300 s, was still
+ * working (#468 re-test). Now 270 s: research (RESEARCH_TIMEOUT_MS, 45 s) plus
+ * the reasoning call (COGNITION_TIMEOUT_MS, 150 s) fit inside it, and it stays
+ * under the route's maxDuration of 300 s. After 45 s the person may stop and retry.
+ * test:analysis-time-budget keeps these in order.
+ */
+export const ANALYSIS_TIMEOUT_MS = 270_000;
 const SLOW_AFTER_MS = 45_000;
 
 /**

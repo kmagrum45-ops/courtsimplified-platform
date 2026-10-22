@@ -61,7 +61,7 @@ const MAX_QUERIES_PER_ISSUE = 3;
 const PASSAGES_PER_ISSUE = 5;
 const MAX_ITEMS = 24;
 const PASSAGE_CHARS_FOR_READING = 1200;
-const RESEARCH_TIMEOUT_MS = 45_000;
+export const RESEARCH_TIMEOUT_MS = 45_000;
 
 export type ResearchIssue = {
   id: string;
