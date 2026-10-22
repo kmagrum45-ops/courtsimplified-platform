@@ -734,6 +734,32 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     "otherParty",
     "yourName",
   ]);
+  /*
+   * "Save story" (StoryEditor): values this form read from the earlier story are
+   * read again from the new one, rather than kept and set aside as answers to an
+   * earlier story (which blocked Continue, #468 CI). A field the person typed is
+   * left alone. Cleared first, so each re-read value is recorded under the new story.
+   */
+  function saveStory(text: string) {
+    // Read from the story as it was (not this visit's list, which a reload empties).
+    const fromStory = new Map(
+      extractNarrativePrefill({ narrative: input.facts, courtPath: "small-claims" }).facts
+        .filter((fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field))
+        .map((fact) => [fact.field, Array.isArray(fact.value) ? fact.value.join(", ") : fact.value]),
+    );
+    if (fromStory.size) {
+      setInput((current) => {
+        const next = { ...current } as Record<string, unknown>;
+        for (const [field, value] of fromStory) if (next[field] === value) next[field] = "";
+        return next as SmallClaimsIntelligenceInput;
+      });
+    }
+    updateField("facts", text);
+    // After the clear and the new story are written (the intake store writes in an
+    // effect, so a clear and refill in one click would be one unchanged write).
+    setTimeout(() => extractFromStory(text), 0);
+  }
+
   function extractFromStory(text: string = input.facts) {
     if (!text.trim()) return;
     const prefill = extractNarrativePrefill({ narrative: text, courtPath: "small-claims" });
@@ -1150,7 +1176,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
         </div>
 
-        <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={(text) => { updateField("facts", text); extractFromStory(text); }} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
+        <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={saveStory} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">

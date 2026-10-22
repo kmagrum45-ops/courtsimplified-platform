@@ -33,13 +33,19 @@ export default function StoryEditor({
   /** Open from the start (Small Claims, where the story is first written here). */
   startOpen?: boolean;
 }) {
-  const [draft, setDraft] = useIntakeState<string | null>(section, "storyDraft", () => (startOpen ? story : null));
+  // The draft remembers the story it started from. With no unsaved edits the box
+  // shows the story as it is now, however it changed (the review panel, a reload);
+  // unsaved edits are never overwritten. (A plain string is an older draft.)
+  const [stored, setStored] = useIntakeState<{ text: string; base: string } | string | null>(section, "storyDraft", () => (startOpen ? { text: story, base: story } : null));
+  const draft = typeof stored === "string" ? { text: stored, base: stored } : stored;
+  const unsaved = draft !== null && draft.text !== draft.base;
+  const shown = draft === null ? "" : unsaved ? draft.text : story;
   return (
     <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
       <h3 className="font-semibold text-[#16302b]">Case story</h3>
       <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{story}</p>
       {draft === null ? (
-        <button type="button" data-testid={ids.toggle} onClick={() => setDraft(story)} className="mt-3 text-sm font-semibold text-[#2f7d67]">
+        <button type="button" data-testid={ids.toggle} onClick={() => setStored({ text: story, base: story })} className="mt-3 text-sm font-semibold text-[#2f7d67]">
           Edit case story
         </button>
       ) : (
@@ -47,22 +53,22 @@ export default function StoryEditor({
           <textarea
             aria-label="Case story"
             data-testid={ids.draft}
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
+            value={shown}
+            onChange={(event) => setStored({ text: event.target.value, base: unsaved ? draft.base : story })}
             className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
           />
           <div className="mt-2 flex flex-wrap gap-3">
             <button
               type="button"
               data-testid={ids.save}
-              disabled={!draft.trim() || draft === story}
-              onClick={() => { if (draft.trim()) onSave(draft); }}
+              disabled={!unsaved || !shown.trim()}
+              onClick={() => { if (!shown.trim()) return; onSave(shown); setStored({ text: shown, base: shown }); }}
               className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
             >
               Save story
             </button>
-            <button type="button" onClick={() => setDraft(null)} className="text-sm font-semibold text-[#2f7d67] underline">
-              {draft === story ? "Close" : "Close without saving"}
+            <button type="button" onClick={() => setStored(null)} className="text-sm font-semibold text-[#2f7d67] underline">
+              {unsaved ? "Close without saving" : "Close"}
             </button>
           </div>
         </>
