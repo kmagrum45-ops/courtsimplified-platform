@@ -25,6 +25,12 @@ import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/or
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
 
+/**
+ * The text a locator shows as answers: the choices a remaining review question offers as
+ * buttons (#469 re-test) are left out, since listing a choice is not pre-filling it.
+ */
+const shownAnswers = (locator: ReturnType<Page["locator"]>) => locator.evaluate(node => { const copy = node.cloneNode(true) as HTMLElement; copy.querySelectorAll("[data-testid=intake-field-choice]").forEach(button => button.remove()); return copy.innerText || copy.textContent || ""; });
+
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
 const CASES = {
@@ -69,7 +75,7 @@ for (const court of ["family", "civil"] as const) {
     await expect(page.getByTestId("intake-answer-stale").first()).toBeVisible();
     // The answers shown, not the choices offered: a remaining question lists every choice as a
     // button (#469 re-test), and one of them is the old answer's label without being pre-filled.
-    const answersShown = () => panel.evaluate(node => { const copy = node.cloneNode(true) as HTMLElement; copy.querySelectorAll("[data-testid=intake-field-choice]").forEach(button => button.remove()); return copy.innerText || copy.textContent || ""; });
+    const answersShown = () => shownAnswers(panel);
     for (const text of story.oldText) await expect.poll(answersShown, { message: `the review does not show "${text}"`, timeout: 5_000 }).not.toContain(text);
     await expect(page.getByTestId("intake-confirm-needs")).toContainText("earlier version of your story");
     await expect(page.getByTestId("intake-confirm")).toBeDisabled();
@@ -79,7 +85,7 @@ for (const court of ["family", "civil"] as const) {
     // The form: no old values, its own Continue disabled with the message beside it.
     await expect(page.getByTestId(`${court}-intake-story-changed`)).toBeVisible();
     await expect(page.getByTestId(`${court}-intake-continue`)).toBeDisabled();
-    const shown = await page.locator("body").evaluate(node => { const copy = node.cloneNode(true) as HTMLElement; copy.querySelectorAll("[data-testid=intake-field-choice]").forEach(button => button.remove()); return copy.innerText || copy.textContent || ""; });
+    const shown = await shownAnswers(page.locator("body"));
     for (const text of story.oldText) expect(shown, `nothing on the page shows "${text}"`).not.toContain(text);
     expect(shown).not.toContain(story.old);
 
@@ -94,7 +100,7 @@ for (const court of ["family", "civil"] as const) {
     await expect(page.getByTestId("intake-answer-stale")).toHaveCount(0);
     const stored = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
     for (const text of story.oldStored) expect(stored, `the tab no longer holds "${text}"`).not.toContain(text);
-    const after = await page.locator("body").innerText();
+    const after = await shownAnswers(page.locator("body"));
     for (const text of story.oldText) expect(after, `"${text}" does not come back`).not.toContain(text);
   });
 }
