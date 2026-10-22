@@ -67,7 +67,10 @@ for (const court of ["family", "civil"] as const) {
 
     // The review: old answers are not pre-filled; they are marked; Confirm is blocked.
     await expect(page.getByTestId("intake-answer-stale").first()).toBeVisible();
-    for (const text of story.oldText) await expect(panel, `the review does not show "${text}"`).not.toContainText(text);
+    // The answers shown, not the choices offered: a remaining question lists every choice as a
+    // button (#469 re-test), and one of them is the old answer's label without being pre-filled.
+    const answersShown = () => panel.evaluate(node => { const copy = node.cloneNode(true) as HTMLElement; copy.querySelectorAll("[data-testid=intake-field-choice]").forEach(button => button.remove()); return copy.innerText || copy.textContent || ""; });
+    for (const text of story.oldText) await expect.poll(answersShown, { message: `the review does not show "${text}"`, timeout: 5_000 }).not.toContain(text);
     await expect(page.getByTestId("intake-confirm-needs")).toContainText("earlier version of your story");
     await expect(page.getByTestId("intake-confirm")).toBeDisabled();
     await expect(panel.getByTestId("story-changed-beside-button")).toContainText("Start the questions again from your story first");
