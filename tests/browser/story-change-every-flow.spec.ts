@@ -238,6 +238,7 @@ for (const court of COURTS) {
     await expect(notice).toBeVisible();
     await expect(notice).toContainText("needs confirming");
     await notice.getByRole("button", { name: "Go to your initial case information" }).click();
-    await expect(page.getByTestId("intake-review")).toBeInViewport({ timeout: 10_000 });
+    // Its heading, not partway down its fields (#465 re-test).
+    await expect(page.getByTestId("intake-review").getByRole("heading", { level: 2 }).first()).toBeInViewport({ timeout: 10_000 });
   });
 }

@@ -82,7 +82,7 @@ export default function CourthouseList({
                       <li key={`${service.court}-${contact.event}`}>
                         <span className="font-semibold text-[#16302b]">{contact.event}:</span>{" "}
                         {contact.email ? (
-                          <a href={`mailto:${contact.email}`} className="underline">
+                          <a href={`mailto:${contact.email}`} className="underline [overflow-wrap:anywhere]">
                             {contact.email}
                           </a>
                         ) : null}

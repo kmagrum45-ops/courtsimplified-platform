@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-161 documented, 26 without a header.
+162 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -153,6 +153,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
+| `npm run test:time-ran-out` | **A step whose time is "still running" is never shown beside a counted date that has passed.**<br>What it checks: each stage with whenTimeRunsOut links one of its OWN deadlines to a stage that exists, is a went-wrong stage, and that the map's own distinguishedFrom already tells apart from it (both ways) by whether the time has run out -- so the link adds n |
 | `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:upcoming-deadline` | **Checks the in-app deadline reminder on "My cases"**<br>(src/lib/case-workspace/upcomingDeadline.ts, master plan 6D). |

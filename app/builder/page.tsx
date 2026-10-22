@@ -2705,7 +2705,9 @@ function BuilderPageContent() {
             </section>
             {analysisAvailable && !showFollowUp && <button type="button" onClick={() => setShowFollowUp(true)} className="text-sm font-semibold text-[#2f7d67]">Ask follow-up questions</button>}
             {analysisAvailable && showFollowUp && <CourtAssistantChat
-              caseId={queryCaseId || undefined}
+              // The saved case, also when this visit created it (?intake=): without it the guided
+              // assistant's gate refused every message (409, Part 3b).
+              caseId={queryCaseId || masterCaseId || undefined}
               chatSessionId={queryCaseId ? undefined : chatSessionId}
               path={courtPath}
               proceduralStage={analysis?.intelligence?.proceduralPosture?.stage || caseData?.caseStage || existingCaseStage}

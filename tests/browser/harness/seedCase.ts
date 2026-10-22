@@ -19,6 +19,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { createClient } from "@supabase/supabase-js";
+import { refuseProduction } from "./realTestSession";
 
 function readEnvVar(name: string): string {
   if (process.env[name]) return process.env[name] as string;
@@ -52,6 +53,7 @@ export async function seedCaseWithTimeline(userId: string): Promise<SeededCase> 
     );
   }
 
+  refuseProduction(supabaseUrl);
   const admin = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });

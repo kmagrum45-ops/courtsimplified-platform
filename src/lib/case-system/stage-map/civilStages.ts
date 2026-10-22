@@ -3435,6 +3435,8 @@ const DEFENDANT: CaseStage[] = [
     wentWrong: false,
     userQuestion: "I was served with a statement of claim in a construction lien action. What do I have to do, and by when?",
     title: "Served with a statement of claim in a lien action, time to defend running",
+    // No stage yet for a lien defence missed: said as not covered (law map gap, Part 3b).
+    whenTimeRunsOut: { deadline: "deadline:civil:lien-defence-20-days", stage: null },
     description:
       "The owner or another defendant has been served with a statement of claim in an action to enforce a construction lien, and the time to deliver a defence has not run out.",
     cues: [
@@ -3491,6 +3493,7 @@ const DEFENDANT: CaseStage[] = [
     wentWrong: false,
     userQuestion: "I was served with a statement of claim — what do I have to do, and by when?",
     title: "Served with a statement of claim, time to defend running",
+    whenTimeRunsOut: { deadline: "deadline:civil:defence", stage: "civil:defendant:defence-period-expired-not-noted" },
     description:
       "The defendant has been served with a statement of claim and the time to deliver a defence has not run out.",
     cues: [

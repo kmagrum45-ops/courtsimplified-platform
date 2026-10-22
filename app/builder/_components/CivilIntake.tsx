@@ -649,7 +649,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     try {
       await analysisRequest.current.run(async (signal) => {
         await beforeIntakeAI(signal);
-        if (!(await prepareCaseGuidance())) return;
+        if (!(await prepareCaseGuidance("civil"))) return;
     if (submissionInFlight.current) return;
     if (!input.facts.trim()) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
@@ -1279,7 +1279,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}
         </button>
         <StoryChangedNotice where="button" />
-        <ReviewNeededNotice />
+        <ReviewNeededNotice from="civil" />
         </>) : null}
       </div>
     </section>

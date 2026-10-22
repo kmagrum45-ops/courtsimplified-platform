@@ -215,6 +215,17 @@ export type CaseStage = {
   cues: string[];
   /** What separates this from each neighbour it is confused with. */
   distinguishedFrom: Array<{ stage: string; by: string }>;
+  /**
+   * For a stage whose time is still running: once `deadline` (one of this
+   * stage's own) has passed, `stage` is where the person is -- the stage
+   * distinguishedFrom already tells apart by "whether the time has run out".
+   * The next-step card then shows that stage's title, not this one's "still
+   * running" beside "That date has already passed" (Part 3b, #465 re-test).
+   * test:time-ran-out checks each link against the map's own distinguishedFrom.
+   * `stage: null`: the map has no stage for after the time ran out yet; the card
+   * says that step is not covered yet (CLAUDE.md s. 2a: gaps are said, not filled).
+   */
+  whenTimeRunsOut?: { deadline: string; stage: string | null };
   rules: RuleCitation[];
   deadlines: StageDeadline[];
   /**
@@ -1668,6 +1679,7 @@ const DEFENDANT: CaseStage[] = [
     wentWrong: false,
     userQuestion: "I have been sued — what do I have to do, and by when?",
     title: "Served with a claim, time to defend still running",
+    whenTimeRunsOut: { deadline: "deadline:defence-20-days", stage: "defendant:defence-period-expired-not-yet-noted" },
     description:
       "The defendant has been served with a claim and the 20 days to deliver a defence have not run out.",
     cues: [

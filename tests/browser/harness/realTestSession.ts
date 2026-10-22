@@ -22,6 +22,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 
 import { createClient, type Session, type SupabaseClient } from "@supabase/supabase-js";
+import { productionRef, refFromUrl } from "../../../scripts/db/assertNotProduction";
 
 /**
  * A FRESH USER PER RUN, deliberately, rather than one reused user cleaned up
@@ -88,6 +89,17 @@ async function createHarnessUser(
  *
  * Returns the user id as well, so a spec can delete the user it made.
  */
+/**
+ * Never creates accounts or cases in production (Part 3b). CI's browser job falls back
+ * to the production secrets when the staging ones are missing, and this harness writes
+ * with the service key.
+ */
+export function refuseProduction(supabaseUrl: string): void {
+  if (refFromUrl(supabaseUrl) === productionRef()) {
+    throw new Error(`Refusing to create harness data in production (${productionRef()}). Point NEXT_PUBLIC_SUPABASE_URL at staging.`);
+  }
+}
+
 export async function mintRealTestSession(): Promise<{
   session: Session;
   supabaseUrl: string;
@@ -106,6 +118,7 @@ export async function mintRealTestSession(): Promise<{
     );
   }
 
+  refuseProduction(supabaseUrl);
   const password = crypto.randomBytes(24).toString("base64url");
 
   const admin = createClient(supabaseUrl, serviceRoleKey, {

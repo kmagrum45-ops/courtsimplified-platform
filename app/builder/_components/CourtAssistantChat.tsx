@@ -905,13 +905,15 @@ function CourtAssistantChatInner({
     setInput("");
     setLoading(true);
 
+    // Whether the checked-law lookup for this message brought an answer back (Part 3b).
+    let lawLookup: Promise<boolean> = Promise.resolve(false);
     if (path === "small-claims" || path === "civil" || path === "family") {
       const turn = nextMessages.length - 1;
       const record = (caseData && typeof caseData === "object" ? caseData : {}) as Record<string, unknown>;
       const story = clean(record.facts).slice(0, 8000);
       const side = clean(record.yourRole) || clean(record.role);
       setLaw((current) => ({ ...current, [turn]: { state: "loading" } }));
-      void (async () => {
+      lawLookup = (async () => {
         try {
           const {
             data: { session },
@@ -942,8 +944,10 @@ function CourtAssistantChatInner({
           const findings = Array.isArray(data.findings) ? data.findings : [];
           const answer = data.answer && data.answer.status !== "unavailable" ? data.answer : undefined;
           setLaw((current) => ({ ...current, [turn]: { state: "done", findings, ...(answer ? { answer } : {}) } }));
+          return findings.length > 0 || Boolean(answer);
         } catch {
           setLaw((current) => ({ ...current, [turn]: { state: "done", findings: [] } }));
+          return false;
         }
       })();
     }
@@ -962,15 +966,8 @@ function CourtAssistantChatInner({
             city: location.city || undefined,
             stage: proceduralStage,
           },
-          caseMemory: caseMemory || {
-            caseData,
-            masterResult,
-            evidenceData,
-            strategyData,
-            workspaceDocument,
-            proceduralStage,
-            path,
-          },
+          // No case memory: the route reads the saved case itself, and sending the whole
+          // case risked the gate's 1,000,000-byte limit (Part 3b).
           conversation: nextMessages,
         }),
       });
@@ -1059,14 +1056,16 @@ function CourtAssistantChatInner({
         error instanceof Error ? { message: error.message } : { message: "unknown" },
       );
 
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          content:
-            "CourtSimplified could not respond right now. Please try again in a moment.",
-        },
-      ]);
+      // Never while the checked-law lookup is still running, and not at all when it
+      // answered: that answer is the reply (Part 3b, #465 re-test). The reply is added
+      // empty at once, because the law answer is shown inside the reply to its question.
+      const reply = nextMessages.length;
+      setMessages((current) => [...current, { role: "assistant", content: "" }]);
+      if (!(await lawLookup)) {
+        setMessages((current) => current.map((message, index) => index === reply
+          ? { ...message, content: "CourtSimplified could not respond right now. Please try again in a moment." }
+          : message));
+      }
     } finally {
       setLoading(false);
     }
