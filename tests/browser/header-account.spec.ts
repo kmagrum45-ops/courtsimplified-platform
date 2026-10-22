@@ -22,7 +22,8 @@ for (const width of [375, 768, 855, 1024, 1280, 1440]) {
     await grantSiteAccess(page);
     for (const path of ["/about", "/builder?path=small-claims"]) {
       await page.goto(path);
-      await expect(page.locator('[data-testid="header-log-out"]').or(page.getByRole("button", { name: "Open menu" })).first()).toBeVisible({ timeout: 60_000 });
+      // The visible one: below 1024px Log out is in the page but hidden in the desktop row.
+      await expect(page.locator('[data-testid="header-log-out"]:visible, button[aria-label="Open menu"]:visible').first()).toBeVisible({ timeout: 60_000 });
       const sideways = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
       expect(sideways, `${path}: the page does not scroll sideways`).toBeLessThanOrEqual(0);
       const menu = page.getByRole("button", { name: "Open menu" });
