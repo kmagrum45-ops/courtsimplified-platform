@@ -3,6 +3,7 @@
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
+import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -1278,6 +1279,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           {isAnalyzing ? "Reading what you told us..." : sourced.state === "loading" ? "Continue without them" : "Continue to your next steps"}
         </button>
         <StoryChangedNotice where="button" />
+        <ReviewNeededNotice />
         </>) : null}
       </div>
     </section>

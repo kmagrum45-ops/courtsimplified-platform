@@ -569,6 +569,7 @@ jobs:
           tests/browser/intake-review-polish.spec.ts
           tests/browser/story-change-every-flow.spec.ts
           tests/browser/guest-sign-in-carry.spec.ts
+          tests/browser/header-account.spec.ts
           --reporter=line --workers=1
 
       # A failure that does not reproduce locally needs the page as CI saw it.

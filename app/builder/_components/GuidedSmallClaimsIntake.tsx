@@ -31,6 +31,7 @@ import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type 
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 import { startSignIn } from "../../_components/startSignIn";
 import { scrollAndFocus } from "../../_components/scrollFocus";
+import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 
 type IntakeFacts = Record<string, string | number | boolean>;
@@ -1598,7 +1599,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             by now reads committed state rather than whatever was in flight
             the first time.
           */}
-          {!halted && !loading ? (
+          {!halted && !loading ? (<>
             <button
               type="button"
               onClick={() => finishDepthPhase(depthStateMap)}
@@ -1606,7 +1607,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             >
               Continue to your next steps
             </button>
-          ) : null}
+            <ReviewNeededNotice />
+          </>) : null}
         </div>
       )}
 
@@ -1644,6 +1646,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           >
             {sourced.state === "loading" ? "Skip and continue" : "Continue to your next steps"}
           </button>
+          <ReviewNeededNotice />
         </div>
       ) : null}
 

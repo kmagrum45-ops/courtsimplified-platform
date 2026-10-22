@@ -2,6 +2,7 @@
 
 import IntakeReviewPanel from "./IntakeReviewPanel";
 import { startSignIn } from "./startSignIn";
+import { markReviewNeeded } from "./reviewNeeded";
 import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
@@ -69,7 +70,9 @@ export function usePrepareCaseGuidance() {
     }
     if (reviewPhase(view.workflowStatus, view.checkpoint) !== "user-confirmed") {
       await recovery.transition("review", inputRevision(view.checkpoint));
-      document.querySelector('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" });
+      // Said beside the button just pressed, with a link up to the panel, rather than
+      // jumping the page there with no word why (L26, #465 re-test D).
+      markReviewNeeded();
       return false;
     }
     // A guest who confirmed reaches guidance too (site owner, 2026-10-18); their

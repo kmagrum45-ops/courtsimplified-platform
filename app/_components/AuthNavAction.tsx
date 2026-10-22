@@ -14,9 +14,10 @@ import { startSignIn } from "./startSignIn";
  *
  * With `account` (the header and the narrow-screen menu), a signed-in person
  * also sees who they are signed in as and a Log out button, on every page
- * (L25: Log out was only on My cases).
+ * (L25: Log out was only on My cases). The header shows the email only on wide
+ * screens (emailClassName), so a long address never pushes Log out off-screen.
  */
-export default function AuthNavAction({ className, account = false }: { className?: string; account?: boolean }) {
+export default function AuthNavAction({ className, account = false, emailClassName = "" }: { className?: string; account?: boolean; emailClassName?: string }) {
   const [email, setEmail] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(false);
 
@@ -65,7 +66,7 @@ export default function AuthNavAction({ className, account = false }: { classNam
   return (
     <>
       {email ? (
-        <span data-testid="signed-in-as" title={email} className="max-w-[16rem] truncate text-sm text-[#4B5563]">
+        <span data-testid="signed-in-as" title={email} className={`max-w-[16rem] truncate text-sm text-[#4B5563] ${emailClassName}`}>
           Signed in as {email}
         </span>
       ) : null}

@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
+import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -1561,6 +1562,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
         </button>
         <StoryChangedNotice where="button" />
+        <ReviewNeededNotice />
       </div>
     </section>
   );

@@ -1097,6 +1097,13 @@ function BuilderPageContent() {
             master_result: {
               ...storedMaster,
               ...masterPayload,
+              // The intake record belongs to the intake store and is written only there.
+              // masterPayload carries a copy of the case as it was when the page opened
+              // (handleComplete merges existingMasterResult), so spreading it put back the
+              // previous story's record after a re-analysis: the review reopened, the case
+              // page and chat refused guidance (409) and the tab saw "Another tab changed
+              // this intake" (#465 re-test E and G). Always the record just read.
+              ...(storedMaster.intakeCheckpoint !== undefined ? { intakeCheckpoint: storedMaster.intakeCheckpoint } : {}),
               workflowStatus: { ...asRecord(masterPayload.workflowStatus), ...asRecord(storedMaster.workflowStatus) },
               derivedFrom,
               intakeFacts,

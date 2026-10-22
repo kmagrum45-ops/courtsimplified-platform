@@ -23,6 +23,7 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
+import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -178,5 +179,65 @@ for (const court of COURTS) {
     const values = await page.locator("input, textarea").evaluateAll((fields) => fields.map((field) => (field as HTMLInputElement).value).join(" | "));
     expect(values).not.toContain("SYNTHETIC CHAT");
     expect(await page.evaluate((path) => sessionStorage.getItem(`courtsimplified-ai-case-partner-chat:narrative-prefill:${path}`), court), "the old hand-off is removed").toBeNull();
+  });
+}
+
+/*
+ * #465 RE-TEST E AND G: CHANGING THE STORY ON A SAVED CASE AND ANALYSING AGAIN.
+ *
+ * Small Claims and Family showed "Another tab changed this intake" with one tab
+ * open, the case page stayed on "Review your initial information" after the
+ * person had re-confirmed and seen results, and the follow-up chat was refused
+ * (409) on every message. All three are the guidance gate: the case page and the
+ * chat routes show guidance only while the saved analysis was built from the
+ * confirmed intake (guidanceIsCurrent). This walks the same path in all three
+ * areas and requires: no conflict message, one confirm is enough, the saved
+ * case passes the gate the chat routes apply, and the case page shows guidance.
+ */
+for (const court of COURTS) {
+  test(`${court}: change the story, analyse again: no false conflict, the case page reaches guidance after one confirm, the chat is not refused`, async ({ page }) => {
+    test.setTimeout(300_000);
+    const account = await fakeAccount(page);
+    await page.route(`**/api/${court}/analyze`, async (route) => route.fulfill({ json: await reply(route, court) }));
+    await openForm(page, court, ANALYSIS_STORY);
+    await confirmInitialInformation(page);
+    const submit = page.getByRole("button", { name: "Continue to your next steps", exact: true });
+    await submit.click();
+    await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
+    const row = [...account.rows.values()][0];
+
+    await page.goto(`/builder?path=${court}&caseId=${row.id}&step=form`);
+    await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
+    if (court !== "small-claims") await page.getByRole("button", { name: "Edit case story", exact: true }).click();
+    await page.getByLabel("Case story", { exact: true }).fill("Synthetic new story: a different matter, analysed again.");
+    const restart = page.getByTestId("questions-story-changed").getByRole("button", { name: "Start the questions again from my story" });
+    if (await restart.isVisible().catch(() => false)) await restart.click();
+    await confirmInitialInformation(page);
+    await submit.click();
+    await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
+    // Let any save the analysis started finish.
+    await expect(page.getByTestId("intake-save-status")).not.toContainText("Saving", { timeout: 30_000 });
+    await expect(page.getByText("Another tab changed this intake"), "one tab: no conflict").toHaveCount(0);
+    await expect.poll(() => guidanceIsCurrent(row.master_result, court, String(row.id)), {
+      message: "the saved analysis was built from the confirmed intake, so the chat routes' gate (withConfirmedGuidance) lets the chat answer",
+      timeout: 30_000,
+    }).toBe(true);
+    await page.goto(`/cases/${row.id}`);
+    await expect(page.getByTestId("case-intake-gate"), "the case page does not ask for the review again").toHaveCount(0, { timeout: 60_000 });
+  });
+}
+
+// L26 (#465 re-test D): Continue before the review is confirmed says so beside
+// the button, with a link up to the review, instead of only jumping the page.
+for (const court of COURTS) {
+  test(`${court}: Continue before confirming the review says so beside the button, with a link to it`, async ({ page }) => {
+    test.setTimeout(180_000);
+    await openForm(page, court, ANALYSIS_STORY);
+    await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
+    const notice = page.getByTestId("review-needed-beside-button");
+    await expect(notice).toBeVisible();
+    await expect(notice).toContainText("needs confirming");
+    await notice.getByRole("button", { name: "Go to your initial case information" }).click();
+    await expect(page.getByTestId("intake-review")).toBeInViewport({ timeout: 10_000 });
   });
 }

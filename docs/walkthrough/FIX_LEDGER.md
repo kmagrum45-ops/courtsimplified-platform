@@ -178,3 +178,6 @@ name; when that is not plain, no route is offered and the side question is asked
 - **L36** (open): Facts given once (evidence the person has, the other party's name, the money claim) don't carry to the next-step page. Same root as L18.
 - **L37** (open): One-flow redesign: see the brief the site owner will send separately; hold until after Part 3.
 - **L38** (open): The PR #463 description's first line shows "?" for "Phases 1-4" and arrows; ignore unless a similar encoding problem appears elsewhere.
+- **L39** (open, from the #465 re-test): The Forms page opens on "Family" for no clear reason, and says "Sign in..." when the person is already signed in.
+- **L40** (open, from the #465 re-test): The Small Claims intake page blocked leaving ("Saving intake...") for a while.
+- **L41** (confirmed intentional, from the #465 re-test): "A guest can't use the guided questions" on the next-step page is on purpose. Each guided turn is an AI call, and app/api/intake/guided-turn refuses one without an account ("Sign in required to continue guided intake"), the same decision as G1 (the AI safety check needs an account). Related: L33 (guests are blocked before the first question).
