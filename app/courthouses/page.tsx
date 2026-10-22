@@ -34,7 +34,7 @@ export default async function CourthousesPage({
       <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#2f7d67]">Courthouses</p>
       <h1 className="mt-2 text-3xl font-bold tracking-tight text-[#10231f] sm:text-4xl">Find a courthouse</h1>
       <p className="mt-3 max-w-3xl text-base leading-7 text-[#4d675f]">
-        Addresses and contact details for {COURT_LOCATIONS.length} Superior Court of Justice locations, including
+        Addresses and contact details for {`${COURT_LOCATIONS.length} Superior Court of Justice locations`}, including
         Small Claims Court, as the court publishes them. Contacts change; the court&apos;s own page for each location
         is linked and is the one to rely on.
       </p>
@@ -78,7 +78,7 @@ export default async function CourthousesPage({
                     const address = email.match(/[\w.+-]+@[\w.-]+/)?.[0];
                     return (
                       <span key={email} className="block text-[#4d675f]">
-                        {address ? <a href={`mailto:${address}`} className="underline">{email}</a> : email}
+                        {address ? <a href={`mailto:${address}`} className="underline [overflow-wrap:anywhere]">{email}</a> : email}
                       </span>
                     );
                   })}

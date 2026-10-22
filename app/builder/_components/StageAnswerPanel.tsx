@@ -423,6 +423,23 @@ export function latestFromArrival(
  * passed only once the next open weekday has too (limitPassedState;
  * Legislation Act s. 89 (2)). Exported for test:next-step.
  */
+/**
+ * The stage the person is at once a running-time step's own deadline has passed
+ * (the map's whenTimeRunsOut), or null while it is running or not yet counted.
+ * The card shows that stage's title instead of "time ... still running" beside
+ * "That date has already passed" (Part 3b, #465 re-test). Exported for test:time-ran-out.
+ */
+/** The map has no stage for after this time ran out (whenTimeRunsOut.stage null). */
+export const NOT_COVERED = { id: "", title: "the step after this time has run out is not covered yet" } as const;
+
+export function stageAfterTimeRanOut(stepId: string, deadlines: { id?: string; date: string; statement: string; statutory?: boolean }[], today: string = todayIso()) {
+  const link = findStage(stepId)?.whenTimeRunsOut;
+  if (!link) return null;
+  const own = deadlines.find((deadline) => deadline.id === link.deadline && deadline.date);
+  if (!own || !deadlineLineFor(own, today).passed) return null;
+  return link.stage ? findStage(link.stage) ?? null : NOT_COVERED;
+}
+
 export function passedBars(kept: Pick<NextStepSummary, "deadlines">, today: string = todayIso()) {
   return kept.deadlines.filter((deadline) => deadline.consequence === "bars-the-claim" && limitPassedState(deadline, today).passed);
 }
@@ -487,6 +504,7 @@ export function cardFilingDeadline(
  * the card only chooses what goes first.
  */
 export function NextStepCard({
+  onChooseStep,
   summary: summaryAsGiven,
   answer,
   court,
@@ -499,6 +517,8 @@ export function NextStepCard({
   arrival = null,
   noticeStepId = "",
 }: {
+  /** Opens another step, as choosing it in "Where is your case?" does. */
+  onChooseStep?: (id: string) => void;
   summary: NextStepSummary;
   answer: RenderedAnswer;
   court: string;
@@ -542,6 +562,7 @@ export function NextStepCard({
     periods: conditional.periods.filter((item) => !notClaimed.periods.includes(item) && !changeMip.periods.includes(item)),
   };
   const passed = passedBars({ deadlines: kept }, today);
+  const ranOut = stageAfterTimeRanOut(stepId, main.deadlines, today);
   const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => {
     // limitPassedState decides "passed"; deadlineLineFor decides the words, so
     // a statutory counted day on a closed day is never called THE last day
@@ -574,7 +595,15 @@ export function NextStepCard({
   return (
     <div data-testid="next-step-card" className="mt-4 rounded-2xl border-2 border-[#2f7d67] bg-[#f2fbf7] p-4">
       <p className="text-xs font-semibold uppercase tracking-wide text-[#2f7d67]">Your next step</p>
-      <p className="mt-1 text-sm text-[#4d675f]">Where you are: {summary.title}</p>
+      {ranOut ? (
+        // The counted deadline has passed: the title agrees with it (whenTimeRunsOut).
+        <p data-testid="next-step-time-ran-out" className="mt-1 text-sm text-[#4d675f]">
+          Where you are: {ranOut.title}{" "}
+          {onChooseStep && ranOut.id ? <button type="button" onClick={() => onChooseStep(ranOut.id)} className="font-semibold text-[#2f7d67] underline">Open this step</button> : null}
+        </p>
+      ) : (
+        <p className="mt-1 text-sm text-[#4d675f]">Where you are: {summary.title}</p>
+      )}
       {fromStory.length > 0 ? (
         <p data-testid="next-step-from-story" className="mt-2 text-sm leading-6 text-[#16302b]">
           Counted from what you told us: {fromStory.map((entry) => `${entry.label} ${entry.date}`).join("; ")}. Check the date
@@ -1433,6 +1462,26 @@ export default function StageAnswerPanel({
     for (const [id, date] of Object.entries(storyDates)) if (!dropped[id]) fromStory[id] = date.value;
     return { ...fromStory, ...answers };
   };
+  /** The person chooses a step: from "Where is your case?", or the card's "Open this step" (whenTimeRunsOut). */
+  function chooseStep(id: string) {
+    setStageId(id);
+    setChoosingStep(false);
+    setResult(null);
+    setMunicipality("");
+    // Choosing the Toronto question IS the person saying it was in
+    // Toronto — the fact comes from them, which is what the stage's
+    // confirmed-fact rule requires. Every other municipality has its
+    // own question.
+    const facts = factsForStep(id, "");
+    setMunicipality(facts.municipality ?? "");
+    if (id) void load(id, facts);
+    // The user picked this: recorded on their case (queued first, so
+    // a page that waits for the save before reading waits for this
+    // one), and kept on the page for this visit.
+    if (caseId) void savePosition(caseId, { stepId: id || null });
+    onSaved?.({ stepId: id || null });
+  }
+
   const amountNote = amountNoteFor({ courtPath, stepId: stageId, recordedAmount });
 
   // Dates saved to the case after this panel mounted (the guided intake's
@@ -1651,25 +1700,7 @@ export default function StageAnswerPanel({
           aria-label="Where is your case?"
           data-testid="stage-answer-select"
           value={stageId}
-          onChange={(event) => {
-            const id = event.target.value;
-            setStageId(id);
-            setChoosingStep(false);
-            setResult(null);
-            setMunicipality("");
-            // Choosing the Toronto question IS the person saying it was in
-            // Toronto — the fact comes from them, which is what the stage's
-            // confirmed-fact rule requires. Every other municipality has its
-            // own question.
-            const facts = factsForStep(id, "");
-            setMunicipality(facts.municipality ?? "");
-            if (id) void load(id, facts);
-            // The user picked this: recorded on their case (queued first, so
-            // a page that waits for the save before reading waits for this
-            // one), and kept on the page for this visit.
-            if (caseId) void savePosition(caseId, { stepId: id || null });
-            onSaved?.({ stepId: id || null });
-          }}
+          onChange={(event) => chooseStep(event.target.value)}
           className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
         >
           <option value="">Choose one…</option>
@@ -1712,6 +1743,7 @@ export default function StageAnswerPanel({
 
       {result?.outcome === "rendered" && result.nextStep ? (
         <NextStepCard
+          onChooseStep={chooseStep}
           summary={result.nextStep}
           answer={result.answer}
           court={courtPath}

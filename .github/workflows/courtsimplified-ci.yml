@@ -220,6 +220,9 @@ jobs:
       - name: Every place that stores data is listed with where it stands when the story changes
         run: npm run test:story-data-registry
 
+      - name: A running-time step is never shown beside a counted date that has passed
+        run: npm run test:time-ran-out
+
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
 
@@ -570,6 +573,8 @@ jobs:
           tests/browser/story-change-every-flow.spec.ts
           tests/browser/guest-sign-in-carry.spec.ts
           tests/browser/header-account.spec.ts
+          tests/browser/chat-follow-up.spec.ts
+          tests/browser/courthouses-phone.spec.ts
           --reporter=line --workers=1
 
       # A failure that does not reproduce locally needs the page as CI saw it.

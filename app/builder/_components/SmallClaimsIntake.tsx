@@ -848,7 +848,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     try {
       await analysisRequest.current.run(async (signal) => {
         await beforeIntakeAI(signal);
-        if (!(await prepareCaseGuidance())) return;
+        if (!(await prepareCaseGuidance("form"))) return;
     if (!hasText(input.facts)) {
       setAnalysisError("Add a short description of what happened before continuing the core intake.");
       return;
@@ -1562,7 +1562,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
         </button>
         <StoryChangedNotice where="button" />
-        <ReviewNeededNotice />
+        <ReviewNeededNotice from="form" />
       </div>
     </section>
   );

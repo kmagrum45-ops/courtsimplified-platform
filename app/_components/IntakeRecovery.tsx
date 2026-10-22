@@ -57,9 +57,10 @@ export function useIntakeReviewView() {
 }
 
 /** Initial questions can run; full analysis must wait for the explicit review action. */
+/** `from`: the route whose Continue was pressed, so "needs confirming" shows beside it (L26). */
 export function usePrepareCaseGuidance() {
   const recovery = useIntakeRecovery();
-  return useCallback(async () => {
+  return useCallback(async (from?: string) => {
     if (!recovery) return false;
     await recovery.flush();
     const view = recovery.getReview();
@@ -72,7 +73,7 @@ export function usePrepareCaseGuidance() {
       await recovery.transition("review", inputRevision(view.checkpoint));
       // Said beside the button just pressed, with a link up to the panel, rather than
       // jumping the page there with no word why (L26, #465 re-test D).
-      markReviewNeeded();
+      if (from) markReviewNeeded(from, inputRevision(view.checkpoint));
       return false;
     }
     // A guest who confirmed reaches guidance too (site owner, 2026-10-18); their

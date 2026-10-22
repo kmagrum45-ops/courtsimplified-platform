@@ -2,7 +2,8 @@
 
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
-import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { inputRevision, reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { markReviewNeeded } from "../../_components/reviewNeeded";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -514,6 +515,9 @@ function previousAnsweredIds(previous: Props["previous"]): string[] {
 export default function GuidedSmallClaimsIntake({ location, initialStory, onComplete, previous }: Props) {
   const reviewView = useIntakeReviewView();
   const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
+  // A press of this route's Continue before the review is confirmed: said beside it (L26).
+  // Only a press: finishing the questions on its own shows nothing (#465 re-test).
+  const pressedContinue = () => { if (reviewView && !intakeConfirmed) markReviewNeeded("guided", inputRevision(reviewView.checkpoint)); };
   const recovery = useIntakeRecovery();
   const resumedHeld = useRef(Boolean(recovery?.read("guided", "heldPayload")));
   const beforeIntakeAI = useBeforeIntakeAI();
@@ -1602,12 +1606,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           {!halted && !loading ? (<>
             <button
               type="button"
-              onClick={() => finishDepthPhase(depthStateMap)}
+              onClick={() => { pressedContinue(); finishDepthPhase(depthStateMap); }}
               className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
             >
               Continue to your next steps
             </button>
-            <ReviewNeededNotice />
+            <ReviewNeededNotice from="guided" />
           </>) : null}
         </div>
       )}
@@ -1641,12 +1645,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           />
           <button
             type="button"
-            onClick={releaseHeld}
+            onClick={() => { pressedContinue(); releaseHeld(); }}
             className="mt-3 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
           >
             {sourced.state === "loading" ? "Skip and continue" : "Continue to your next steps"}
           </button>
-          <ReviewNeededNotice />
+          <ReviewNeededNotice from="guided" />
         </div>
       ) : null}
 

@@ -2444,6 +2444,7 @@ const RESPONDENT: CaseStage[] = [
     wentWrong: false,
     userQuestion: "I was served with family court papers — what do I have to do, and by when?",
     title: "Served with an application, time to answer still running",
+    whenTimeRunsOut: { deadline: "deadline:family:answer-30-days", stage: "family:respondent:answer-time-missed" },
     description:
       "The respondent has been served with an application, or has been added as a respondent by another party's answer, and the time to serve and file an answer has not run out. In the Ontario Court of Justice and on the Family Court's fast track, the application shows a court date set by the clerk; if no answer has been filed by then, the clerk sends the case to a judge to decide on affidavit evidence, unless the applicant asks for a case conference.",
     cues: [
