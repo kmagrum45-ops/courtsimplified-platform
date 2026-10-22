@@ -15,10 +15,6 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import {
-  extractNarrativePrefill,
-  persistNarrativePrefill,
-} from "../../../src/lib/case-system/intelligence/narrativePrefill";
 import type { CheckedAnswerView, ResearchFindingView } from "../../../src/lib/case-system/intelligence/intelligenceTypes";
 import { supabase } from "../../../src/lib/supabase/client";
 import CheckedAnswerPanel from "../../_components/CheckedAnswerPanel";
@@ -904,19 +900,6 @@ function CourtAssistantChatInner({
     };
 
     const nextMessages = [...messages, userMessage];
-
-    if (
-      !messages.some((message) => message.role === "user") &&
-      (path === "small-claims" || path === "family" || path === "civil")
-    ) {
-      persistNarrativePrefill(
-        extractNarrativePrefill({
-          narrative: trimmed,
-          courtPath: path,
-          caseId,
-        }),
-      );
-    }
 
     setMessages(nextMessages);
     setInput("");

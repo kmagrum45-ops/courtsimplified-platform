@@ -13,7 +13,7 @@ import {
   getAuthenticatedUser,
 } from "@/src/lib/supabase/serverAuth";
 import {
-  liveCaseEvents,
+  eventsForStory, liveCaseEvents,
   toProceduralEvents,
 } from "@/src/lib/case-system/events/caseEventAdapter";
 import { UUID_PATTERN } from "@/src/lib/case-system/events/caseEventRequest";
@@ -350,7 +350,8 @@ export function createSmallClaimsAnalyzePost(
       user && caseId
         ? toProceduralEvents(
             liveCaseEvents(
-              await dependencies.loadCaseEvents(request, user, caseId),
+              // Events read from sentences of an earlier story no longer feed an analysis.
+              eventsForStory(await dependencies.loadCaseEvents(request, user, caseId), validatedInput.facts),
             ),
           )
         : [];

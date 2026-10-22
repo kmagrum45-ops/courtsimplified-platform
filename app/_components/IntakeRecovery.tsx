@@ -2,6 +2,7 @@
 
 import IntakeReviewPanel from "./IntakeReviewPanel";
 import { startSignIn } from "./startSignIn";
+import { markReviewNeeded } from "./reviewNeeded";
 import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
@@ -69,7 +70,9 @@ export function usePrepareCaseGuidance() {
     }
     if (reviewPhase(view.workflowStatus, view.checkpoint) !== "user-confirmed") {
       await recovery.transition("review", inputRevision(view.checkpoint));
-      document.querySelector('[data-testid="intake-review"]')?.scrollIntoView({ behavior: "auto", block: "start" });
+      // Said beside the button just pressed, with a link up to the panel, rather than
+      // jumping the page there with no word why (L26, #465 re-test D).
+      markReviewNeeded();
       return false;
     }
     // A guest who confirmed reaches guidance too (site owner, 2026-10-18); their
@@ -151,11 +154,6 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         const sourced = snapshot.sections.sourced;
         if (sourced?.state === "loading") { sourced.state = Array.isArray(sourced.questions) && sourced.questions.length ? "ready" : "idle"; sourced.askedFor = ""; }
         if (!requestedFlow && !selectedId) {
-          // Import only the existing, read-once hand-off. A fresh URL never loads an old draft.
-          const legacy = record(JSON.parse(sessionStorage.getItem(GUEST_INTAKE_SESSION_KEY) || "null"));
-          if (legacy.version !== 2 && legacy.courtPath === court && typeof legacy.facts === "string" && typeof legacy.city === "string") {
-            snapshot.sections[STORY_SECTION] = { text: legacy.facts, location: { province: "Ontario", city: legacy.city } };
-          }
           // This tab holds one intake. Starting another would overwrite an unsaved one
           // (a guest's, or text not yet saved to the account): ask first.
           const held = readHeldIntake(ownerId);

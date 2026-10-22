@@ -18,7 +18,7 @@
  */
 import assert from "node:assert/strict";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
-import { BASIS_SECTION, discardStale, freshSections, onStoryChange, staleAnswerKeys, storyAnswersOutdated, storyVersion, tagAnswers } from "../../src/lib/case-system/storyBasis";
+import { BASIS_SECTION, discardStale, freshSections, onStoryChange, positionForStory, staleAnswerKeys, storyAnswersOutdated, storyVersion, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
 
 const OLD = "Synthetic old story: we disagree about parenting time for our daughter.";
@@ -90,6 +90,16 @@ const afterHome = withStory(home, NEW).sections;
 assert.deepEqual(afterHome.home.understoodAnswers, [], "Home answers are cleared");
 assert.deepEqual(afterHome.home.draftAnswers, []);
 assert.deepEqual(afterHome["form-chat"].drafts, { goal: "keep" }, "the old story's copy in the question box goes; other drafts stay");
+// The Home page card's replies too (found by the Part 3 registry check).
+const card: Checkpoint = { ...home, sections: { ...home.sections, "home-card": { replies: { 0: "a reply about the old story" } } } };
+assert.deepEqual(withStory(card, NEW).sections["home-card"].replies, {}, "Home card replies are cleared");
+assert.deepEqual(discardStale(withStory(card, NEW)).sections["home-card"].replies, {});
+
+// Part 3 audit item 2: dates and service details recorded for an earlier story count no deadline after a re-analysis.
+const position = { dateAnswers: { "sc-date-claim-served": "2026-09-01" }, service: { "sc-date-claim-served": { method: "mail" } }, stepId: "x" };
+assert.deepEqual(positionForStory(position, OLD, NEW), { ...position, dateAnswers: {}, service: {} }, "a different story: its dates and service details go");
+assert.equal(positionForStory(position, OLD, ` ${OLD.toUpperCase()} `), position, "the same story (case and spacing aside): kept");
+assert.equal(positionForStory(position, undefined, NEW), position, "an older case with no recorded story: kept");
 
 // A form registering an answer before any story exists: writing the story is not "changing" it.
 let early = base("family", "");

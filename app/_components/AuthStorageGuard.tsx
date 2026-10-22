@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { supabase } from "../../src/lib/supabase/client";
-import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
+import { removeLegacyBrowserKeys, resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 
 /**
  * Clears every trace of case content from this browser whenever the session
@@ -20,6 +20,9 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
  */
 export default function AuthStorageGuard() {
   useEffect(() => {
+    // Keys nothing writes any more (the registry marks them "legacy") are removed
+    // on every page load, signed in or not (Part 3).
+    removeLegacyBrowserKeys();
     const { data: listener } = supabase.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_OUT") resetIntakeInBrowser();
     });

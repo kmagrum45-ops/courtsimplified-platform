@@ -101,6 +101,22 @@ export const EVENT_TYPE_MAPPING: Record<
 };
 
 /**
+ * Events that belong to the story as it now reads. An event confirmed from a
+ * sentence of the story ("confirmed-from-narrative", the sentence kept in
+ * narrative_basis) counts only while that sentence is still in the story; after
+ * the story changes, it no longer decides the stage or feeds an analysis (Part 3,
+ * stale-story audit item 1). Events the person stated or confirmed from a
+ * document are not story-derived and always count. With no story to compare
+ * (an older case), nothing is dropped.
+ */
+export function eventsForStory(rows: CaseEventRow[], story: string | null | undefined): CaseEventRow[] {
+  if (typeof story !== "string" || !story.trim()) return rows;
+  const words = (text: string) => text.toLowerCase().replace(/\s+/g, " ").trim();
+  const current = words(story);
+  return rows.filter((row) => row.source !== "confirmed-from-narrative" || !row.narrative_basis || current.includes(words(row.narrative_basis)));
+}
+
+/**
  * Live events: not retracted, and not superseded by another live row.
  *
  * Superseded rows are kept (decision 3 — the user was shown things based on the

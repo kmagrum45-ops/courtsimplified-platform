@@ -245,38 +245,8 @@ export default function DashboardPage() {
         </p>
       ) : null}
 
-      {latest ? (
-        <section aria-labelledby="latest-heading" className="mt-8">
-          <h2 id="latest-heading" className="text-lg font-bold text-[#10231f]">
-            Pick up where you left off
-          </h2>
-          <div className="mt-3">
-            <CaseCard record={latest} highlighted reminder={reminders[latest.id]} />
-          </div>
-        </section>
-      ) : (
-        <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6">
-          <h2 className="text-xl font-bold text-[#10231f]">You have no cases yet</h2>
-          <p className="mt-2 text-sm text-[#4f685f]">
-            Start with the court your matter is in. If you are not sure, the home page can help you find it.
-          </p>
-        </section>
-      )}
-
-      {others.length ? (
-        <section aria-labelledby="all-heading" className="mt-8">
-          <h2 id="all-heading" className="text-lg font-bold text-[#10231f]">
-            Your other cases
-          </h2>
-          <div className="mt-3 grid gap-4 md:grid-cols-2">
-            {others.map((record) => (
-              <CaseCard key={record.id} record={record} reminder={reminders[record.id]} />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <section aria-labelledby="start-heading" className="mt-10">
+      {/* At the top, not about 6,800px down below every case (L28). */}
+      <section aria-labelledby="start-heading" className="mt-8" data-testid="dashboard-start">
         <h2 id="start-heading" className="text-lg font-bold text-[#10231f]">
           Start a new case
         </h2>
@@ -299,6 +269,41 @@ export default function DashboardPage() {
           </Link>
         </p>
       </section>
+
+      {latest ? (
+        <section aria-labelledby="latest-heading" className="mt-8">
+          <h2 id="latest-heading" className="text-lg font-bold text-[#10231f]">
+            Pick up where you left off
+          </h2>
+          <div className="mt-3">
+            <CaseCard record={latest} highlighted reminder={reminders[latest.id]} />
+          </div>
+        </section>
+      ) : (
+        <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6">
+          <h2 className="text-xl font-bold text-[#10231f]">You have no cases yet</h2>
+          <p className="mt-2 text-sm text-[#4f685f]">
+            Start with the court your matter is in. If you are not sure, the home page can help you find it.
+          </p>
+        </section>
+      )}
+
+      {others.length ? (
+        // Older cases folded away, so the page leads with what to do now (L28).
+        <details aria-labelledby="all-heading" className="mt-8" data-testid="dashboard-other-cases">
+          <summary className="cursor-pointer">
+            <h2 id="all-heading" className="inline text-lg font-bold text-[#10231f]">
+              Your other cases ({others.length})
+            </h2>
+          </summary>
+          <div className="mt-3 grid gap-4 md:grid-cols-2">
+            {others.map((record) => (
+              <CaseCard key={record.id} record={record} reminder={reminders[record.id]} />
+            ))}
+          </div>
+        </details>
+      ) : null}
+
     </main>
   );
 }

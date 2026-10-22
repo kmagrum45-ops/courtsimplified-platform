@@ -97,9 +97,12 @@ const first = consumeGuestIntakeSession(session);
 const second = consumeGuestIntakeSession(session);
 check("the hand-off delivers the story once", first?.facts === "HANDOFF story");
 check("the hand-off is gone after it is read", second === null && store.size === 0);
+// Part 3: the home page hands over inside the intake record (?intake=), so no
+// screen reads a starting story from the older hand-off format any more.
 check(
-  "the builder takes its starting story only from the read-once hand-off",
-  /consumeGuestIntakeSession\(sessionStorage\)/.test(strip(read("app/builder/page.tsx"))),
+  "no screen reads a starting story from the older hand-off format",
+  !/consumeGuestIntakeSession\s*\(/.test(strip(read("app/builder/page.tsx"))) &&
+    !/legacy\.facts/.test(strip(read("app/_components/IntakeRecovery.tsx"))),
 );
 
 // 3. Signing in clears before navigating.
@@ -198,9 +201,14 @@ check(
   unguarded.length === 0,
   `${unguarded.length} of ${lastCaseReads.length} unguarded`,
 );
+// A property, not a count: every hand-off that sets a starting story marks the
+// ref first. (It pinned "two sources" until Part 3 removed the older home-page
+// format, leaving the court-path finder's.)
+const handoffStories = [...builder.matchAll(/setHomeStory\(\w+\.facts/g)];
 check(
-  "a fresh story hand-off (either source) marks freshStoryHandoffRef so the guard above has something to check",
-  (builder.match(/freshStoryHandoffRef\.current\s*=\s*true;/g) ?? []).length >= 2,
+  "every fresh story hand-off marks freshStoryHandoffRef so the guard above has something to check",
+  handoffStories.length > 0 &&
+    handoffStories.every((match) => /freshStoryHandoffRef\.current\s*=\s*true;/.test(builder.slice(Math.max(0, (match.index ?? 0) - 300), match.index))),
 );
 
 // ---------------------------------------------------------------------------

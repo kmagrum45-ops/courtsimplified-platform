@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
+import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -42,11 +43,8 @@ import {
 } from "../../../src/lib/content-library/questionExplanations";
 import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventRequest";
 import {
-  consumeNarrativePrefill,
-  directPrefillValues,
   extractNarrativePrefill,
   type NarrativePrefillFact,
-  type NarrativePrefill,
 } from "../../../src/lib/case-system/intelligence/narrativePrefill";
 import {
   QUESTION_BANK,
@@ -616,12 +614,6 @@ export async function requestSmallClaimsAnalysis(
 }
 
 export default function SmallClaimsIntake({ onComplete, location, initialStory, storedValues }: Props) {
-  const [initialPrefill] = useState<NarrativePrefill | null>(() =>
-    consumeNarrativePrefill({
-      courtPath: "small-claims",
-      caseId: new URLSearchParams(window.location.search).get("caseId"),
-    }),
-  );
   const beforeIntakeAI = useBeforeIntakeAI();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const recovery = useIntakeRecovery();
@@ -631,7 +623,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
       ...(storedValues ?? {}),
-      ...(initialPrefill ? directPrefillValues(initialPrefill) : {}),
     };
     const merged = mergeStoredValuesIntoInput(
       { ...defaultInput, yourProvince: location.province, yourCity: location.city },
@@ -701,7 +692,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // Answers based on an earlier version of the story: no next step until the questions start again (storyBasis.ts).
   const storyChanged = useStoryAnswersOutdated();
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
-    () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
+    () => [],
   );
 
   const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
@@ -716,7 +707,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // story" box never extracted anything from it. extractNarrativePrefill
   // only ran for the AI chat partner's first message (CourtAssistantChat
   // .tsx), handed off through sessionStorage and consumed once at mount
-  // (initialPrefill above) -- a one-shot hand-off from chat to form, not a
+  // (since removed: Part 3, stale-story audit item 4) -- a hand-off, not a
   // live extractor on the form's own story box. Someone who picked "fill in
   // the form yourself" and typed their story here directly had to re-type
   // the amount and dates they'd already written, even though the same
@@ -1571,6 +1562,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           {isAnalyzing ? "Reading what you told us..." : "Continue to your next steps"}
         </button>
         <StoryChangedNotice where="button" />
+        <ReviewNeededNotice />
       </div>
     </section>
   );

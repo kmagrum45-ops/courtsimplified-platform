@@ -47,6 +47,7 @@ import {
 } from "../../../../src/lib/case-system/events/caseEventTypes";
 import {
   CASE_EVENT_SELECT_COLUMNS,
+  eventsForStory,
   liveCaseEvents,
   type CaseEventRow,
 } from "../../../../src/lib/case-system/events/caseEventAdapter";
@@ -55,6 +56,7 @@ import {
   findCaseEventInconsistencies,
 } from "../../../../src/lib/case-system/events/caseEventConsistency";
 import { deriveCaseStageWithEvents } from "../../../../src/lib/case-system/events/caseStageFromEvents";
+import { storyOfMaster } from "../../../../src/lib/case-system/intakeStory";
 import {
   analysisFreshness,
   freshnessMessage,
@@ -329,7 +331,7 @@ async function getGuidance(request: Request) {
   // Only the two parts of master_result read below, not the whole record: this
   // runs every time a case page opens (2026-10-14, GET 57014 in run
   // 38525903567).
-  const ownedCase = await getAuthenticatedOwnedCase(request, user, caseId, { masterKeys: ["intakeFacts", "derivedFrom"] });
+  const ownedCase = await getAuthenticatedOwnedCase(request, user, caseId, { masterKeys: ["intakeFacts", "derivedFrom", "intakeCheckpoint"] });
   if (!ownedCase) {
     return NextResponse.json({ error: "The selected case could not be found." }, { status: 404 });
   }
@@ -347,7 +349,9 @@ async function getGuidance(request: Request) {
     return NextResponse.json({ error: "Could not read the case's events." }, { status: 500 });
   }
 
-  const rows = (data || []) as unknown as CaseEventRow[];
+  const all = (data || []) as unknown as CaseEventRow[];
+  // Events read from sentences of an earlier story no longer decide anything (eventsForStory).
+  const rows = eventsForStory(all, storyOfMaster(ownedCase.master_result));
 
   // Stage, derived from intake answers AND the events just read. Returned here
   // rather than computed in the client so the basis and the events come from
@@ -365,7 +369,7 @@ async function getGuidance(request: Request) {
     // Superseded and retracted rows are returned too, under `all`, because the
     // user was shown things based on them and the record stays auditable.
     events: liveCaseEvents(rows),
-    all: rows,
+    all,
     stage,
     freshness,
     freshnessMessage: freshnessMessage(freshness),

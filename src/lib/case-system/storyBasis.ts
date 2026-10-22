@@ -37,6 +37,8 @@ const WHOLE = new Set(["guided.answeredIds", "guided.matchedClaimType", "guided.
 const CONVERSATION: Record<string, Record<string, unknown>> = {
   "form-chat": { heard: [], drafts: {}, skipped: [], notFromStory: [], edited: [], knownAtStart: [], changing: null, needsMore: null },
   home: { understoodAnswers: [], draftAnswers: [] },
+  // Replies to the Home page card's questions about the story (CaseUnderstandingCard; found by the Part 3 registry check).
+  "home-card": { replies: {} },
   // The Small Claims guided conversation, read from the old story: started again from the beginning, so
   // one "Start the questions again" clears the block from any route (re-test round 7: from the form it
   // cleared the answers but not this reading, and only a second click on the guided page did).
@@ -52,6 +54,18 @@ export function storyVersion(text: string): string {
   let hash = 0x811c9dc5;
   for (let index = 0; index < words.length; index++) hash = Math.imul(hash ^ words.charCodeAt(index), 0x01000193) >>> 0;
   return `${words.length}:${hash.toString(16)}`;
+}
+
+/**
+ * A saved position re-analysed for a story that differs from the one its last
+ * analysis read: the dates and service details recorded for the old story no
+ * longer count any deadline (Part 3, stale-story audit item 2). Same story, or
+ * either story unknown (an older case): unchanged.
+ */
+export function positionForStory<T extends { dateAnswers?: unknown; service?: unknown }>(position: T, analysedStory: unknown, story: unknown): T {
+  if (typeof analysedStory !== "string" || typeof story !== "string" || !analysedStory.trim() || !story.trim()) return position;
+  if (storyVersion(analysedStory) === storyVersion(story)) return position;
+  return { ...position, dateAnswers: {}, service: {} };
 }
 
 const empty = (value: unknown) => value === undefined || value === null || value === "" || value === "not-sure" || value === false ||
@@ -142,9 +156,9 @@ export function discardStale(checkpoint: Checkpoint): Checkpoint {
   return { ...checkpoint, sections };
 }
 
-/** When the story itself changes: the answers given about the old one on the Home page, and an unsent copy of it in the question box, go. */
+/** When the story itself changes: the answers given about the old one on the Home page (and its card), and an unsent copy of it in the question box, go. */
 export function onStoryChange(sections: Sections): Sections {
-  const next: Sections = { ...sections, home: { ...sections.home, ...CONVERSATION.home } };
+  const next: Sections = { ...sections, home: { ...sections.home, ...CONVERSATION.home }, "home-card": { ...sections["home-card"], ...CONVERSATION["home-card"] } };
   const drafts = object(sections["form-chat"]?.drafts);
   if ("facts" in drafts) next["form-chat"] = { ...sections["form-chat"], drafts: Object.fromEntries(Object.entries(drafts).filter(([key]) => key !== "facts")) };
   return next;

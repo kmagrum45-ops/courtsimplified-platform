@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePublishNextStepStatus } from "../../_components/NextStepStatus";
 
 /** How long reading a case may take before it is stopped (IntakeRequest's own default was 290 s). */
 export const ANALYSIS_TIMEOUT_MS = 120_000;
@@ -13,6 +14,8 @@ const SLOW_AFTER_MS = 45_000;
  * failure, to try again. Nothing the person entered is lost either way.
  */
 export default function AnalysisProgress({ reading, error, onStop, onRetry }: { reading: boolean; error: string; onStop: () => void; onRetry: () => void }) {
+  // Also shown beside "Show my next step" at the top of the page (L27).
+  usePublishNextStepStatus(reading, error, onStop, onRetry);
   const [slow, setSlow] = useState(false);
   useEffect(() => {
     if (!reading) return;

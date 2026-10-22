@@ -241,7 +241,8 @@
     "test:family-story-reading": "node --import tsx scripts/verification/verifyFamilyStoryReading.ts",
     "test:guest-carry": "node --import tsx scripts/verification/verifyGuestCarry.ts",
     "test:statement-of-claim-text": "node --import tsx scripts/verification/verifyStatementOfClaimText.ts",
-    "test:story-basis": "node --import tsx scripts/verification/verifyStoryBasis.ts"
+    "test:story-basis": "node --import tsx scripts/verification/verifyStoryBasis.ts",
+    "test:story-data-registry": "node --import tsx scripts/verification/verifyStoryDataRegistry.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

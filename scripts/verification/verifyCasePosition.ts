@@ -387,7 +387,8 @@ function personsDatesWin(source: string): boolean {
     "a builder re-save keeps the position and drafts, read fresh just before writing",
     saveAt !== -1 &&
       readAt !== -1 &&
-      /\.\.\.userOwned/.test(builder.slice(saveAt, saveAt + 700)) &&
+      // Anywhere in the saved object (it pinned 700 characters until a comment grew it, #465).
+      /\.\.\.userOwned/.test(builder.slice(saveAt, builder.indexOf("updated_at:", saveAt))) &&
       // The kept keys include position and drafts; more may join (Phase 1
       // added formApplicability and intakeAnswers).
       /\["position", "drafts"[^\]]*\]/.test(builder.slice(readAt, saveAt)),

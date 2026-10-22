@@ -217,6 +217,9 @@ jobs:
       - name: One record of which story each answer was based on (all three areas)
         run: npm run test:story-basis
 
+      - name: Every place that stores data is listed with where it stands when the story changes
+        run: npm run test:story-data-registry
+
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
 
@@ -566,6 +569,7 @@ jobs:
           tests/browser/intake-review-polish.spec.ts
           tests/browser/story-change-every-flow.spec.ts
           tests/browser/guest-sign-in-carry.spec.ts
+          tests/browser/header-account.spec.ts
           --reporter=line --workers=1
 
       # A failure that does not reproduce locally needs the page as CI saw it.

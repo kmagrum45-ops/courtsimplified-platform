@@ -7,17 +7,20 @@ import AuthNavAction from "./AuthNavAction";
 type NavLink = { href: string; label: string };
 
 /**
- * The header's `md:flex` desktop nav is `hidden` below that breakpoint with
+ * The header's `lg:flex` desktop nav is `hidden` below that breakpoint with
  * nothing standing in for it, so on a phone the primary nav was previously
  * unreachable -- only the wordmark showed. This is the phone-width
  * counterpart: a toggle button plus a full-width panel using the same link
  * list.
+ *
+ * lg, not md (#465 re-test A): with "Signed in as" and Log out added, the
+ * desktop row overflowed at about 855px and every page scrolled sideways.
  */
 export default function MobileNav({ navLinks }: { navLinks: NavLink[] }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
@@ -63,7 +66,7 @@ export default function MobileNav({ navLinks }: { navLinks: NavLink[] }) {
               </Link>
             ))}
 
-            <AuthNavAction className="mt-2 rounded-xl bg-[#2FB8AC] px-3 py-3 text-center text-base font-bold text-white transition hover:bg-[#239B91]" />
+            <AuthNavAction account className="mt-2 rounded-xl bg-[#2FB8AC] px-3 py-3 text-center text-base font-bold text-white transition hover:bg-[#239B91]" />
           </nav>
         </div>
       ) : null}

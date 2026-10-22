@@ -26,6 +26,18 @@ export function storyOf(sections: Sections): string {
   return text(sections[STORY_SECTION]?.text);
 }
 
+/** The story a saved case holds now: its intake record's, else the last analysis's; null when neither has one. */
+export function storyOfMaster(master: unknown): string | null {
+  const record = object(master);
+  const checkpoint = object(record.intakeCheckpoint);
+  if (checkpoint.sections && typeof checkpoint.sections === "object") {
+    const story = storyOf(migrateStory(checkpoint as unknown as Checkpoint).sections);
+    if (story.trim()) return story;
+  }
+  const facts = object(record.intakeData).facts;
+  return typeof facts === "string" && facts.trim() ? facts : null;
+}
+
 export function locationOf(sections: Sections): CaseLocation | null {
   const location = object(sections[STORY_SECTION]?.location);
   return typeof location.city === "string" ? { province: text(location.province) || "Ontario", city: location.city } : null;
