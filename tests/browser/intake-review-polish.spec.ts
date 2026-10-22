@@ -87,6 +87,8 @@ test("Small Claims: viewing the confirmed review does not cancel it; an edit the
 
   await page.getByTestId("intake-view-review").click();
   await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(`${SC_STORY} He also kept the deposit.`);
+  // The story changes on "Save story", not as it is typed (#470 re-test).
+  await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await expect(panel, "an actual change needs confirming again, from the review").toHaveAttribute("data-phase", "reviewing");
   await page.reload();
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
@@ -336,6 +338,8 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   // The story changes: an unpaid invoice.
   await page.getByTestId("intake-view-review").click();
   await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill("Synthetic: I finished renovation work on June 10, 2026 and sent an invoice for $8,500. Payment was due July 10, 2026 and the client never paid.");
+  // The story changes on "Save story", not as it is typed (#470 re-test).
+  await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await panel.getByTestId("story-changed-beside-button").getByRole("button", { name: "Go to the questions" }).click();
 
   // One click starts the questions again.
@@ -377,13 +381,15 @@ test("civil: every remaining question in the review can be answered there, and a
   test.skip(count === 0, "the story answered every initial question");
   for (let index = 0; index < count; index++) {
     const question = questions.nth(index);
-    const answerable = question.locator("button:not([data-testid=intake-unknown]), input[type=text]");
+    const answerable = question.locator("button:not([data-testid=intake-unknown]), input[type=text], input[data-testid=intake-field-pick]");
     expect(await answerable.count(), `"${await question.locator("p").first().innerText()}" has a way to answer it`).toBeGreaterThan(0);
   }
   const first = questions.first();
   const id = await first.getAttribute("data-question");
   const choice = first.getByTestId("intake-field-choice").first();
+  const pick = first.getByTestId("intake-field-pick").first();
   if (await choice.count()) await choice.click();
+  else if (await pick.count()) { await pick.check(); await first.getByTestId("intake-field-save").click(); }
   else {
     const box = first.locator("input[type=text]");
     await box.fill("Synthetic answer");

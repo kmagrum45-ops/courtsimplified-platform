@@ -60,6 +60,12 @@ void (async () => {
     for (const [label, reply] of [["next", next], ["gather", gather], ["asked", asked]] as const) {
       check(`${court} (${label}): no internal warning or label reaches the person`, !INTERNAL.test(reply), reply.slice(0, 300));
     }
+    // #470 re-test: "To keep your case record complete:" ended a reply, its question
+    // removed as a repeat. Asked again and again, it always leads into something.
+    const again = await chatReplies(court, STORY, ["How long do I have to respond?", "How long do I have to respond?", "What happens next?", "Can I get my costs back?"]);
+    const dangling = again.filter((reply) => /To keep your case record complete:\s*$/m.test(reply));
+    check(`${court}: "To keep your case record complete:" never ends a line with nothing after it`, dangling.length === 0, dangling[0]?.slice(-200) ?? "");
+    check(`${court}: and a repeated question still opens with the law-answer line`, again.every((reply) => firstLine(reply).startsWith("The law on your question is shown below")), again.map((reply) => firstLine(reply).slice(0, 60)).join(" / "));
   }
 
   const fallback = runGuidedAssistantGateway({

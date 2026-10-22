@@ -28,10 +28,11 @@ const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/
  * offer a way to answer it there (#469 re-test: civil's remaining questions had only
  * an "I do not know yet" box). Small Claims questions come from the question bank.
  */
-export function reviewQuestionField(courtPath: string, id: string): { kind: "text" | "longtext" | "choice" | "multi"; options: { value: string; label: string }[] } | null {
+export function reviewQuestionField(courtPath: string, id: string): { kind: "text" | "longtext" | "choice" | "multi"; options: { value: string; label: string }[]; needsMore?: (value: string) => string | null } | null {
   const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
   const field = fields.find((item) => item.key === id);
-  return field ? { kind: field.kind, options: field.options ?? [] } : null;
+  // The field's own check (the served date's year) applies here as in the questions.
+  return field ? { kind: field.kind, options: field.options ?? [], ...(field.needsMore ? { needsMore: field.needsMore } : {}) } : null;
 }
 
 /** A projection of existing answers, not another case model or question selector. */

@@ -4,6 +4,7 @@ import {
   CasePartnerConversationMessage,
 } from "./conversationIntelligenceEngine";
 
+import { sentenceFromRecord, userStory } from "../userStory";
 import { buildConversationMemory } from "./conversationMemoryEngine";
 
 import { buildCaseInvestigation } from "./caseInvestigationEngine";
@@ -1016,8 +1017,11 @@ function buildCaution(
  */
 function recordedEvidenceOf(caseMemory: unknown): string[] {
   const caseData = getNestedValue(caseMemory, ["caseData"]);
-  const answer = clean(getNestedValue(caseData, ["evidence"]));
-  const story = clean(getNestedValue(caseData, ["facts"]));
+  // The person's own words, never the labelled record the analysis reads ("Court path:
+  // Civil / Stage: Stage unclear / Main story: ..." was quoted back, #470 re-test).
+  const answer = clean(sentenceFromRecord(clean(getNestedValue(caseData, ["evidence"]))));
+  const own = getNestedValue(caseData, ["story"]);
+  const story = clean(typeof own === "string" && own.trim() ? own : userStory(caseData as Parameters<typeof userStory>[0]));
   const EVIDENCE = /\b(text messages?|texts|messages?|emails?|receipts?|invoices?|contracts?|photos?|pictures?|screenshots?|recordings?|videos?|witness(?:es)?|letters?|records?|statements?|documents?)\b/i;
   const sentences = story.split(/(?<=[.!?])\s+/).map((sentence) => sentence.trim()).filter((sentence) => EVIDENCE.test(sentence) && !sentence.endsWith("?"));
   return uniqueStrings([...(answer ? [answer] : []), ...sentences]).slice(0, 3);
@@ -1127,12 +1131,11 @@ function buildGeneralAnswer(args: {
     paragraphs.push(caution);
   }
 
-  paragraphs.push(
-    buildBestQuestion({
-      intelligence: args.intelligence,
-      legalReasoning: args.legalReasoning,
-    }),
-  );
+  const bestQuestion = buildBestQuestion({
+    intelligence: args.intelligence,
+    legalReasoning: args.legalReasoning,
+  });
+  paragraphs.push(bestQuestion);
 
   const kept = deduplicateParagraphs(paragraphs, args.previousAssistantText);
 
@@ -1143,6 +1146,11 @@ function buildGeneralAnswer(args: {
   if (args.askedQuestion && args.courtConfirmed) {
     const opening = assistantText("assistant:opening:question");
     if (kept[0] !== opening) kept.unshift(opening);
+    // "To keep your case record complete:" leads into the question for the record, so it
+    // goes with that question and only when it is still there: removed as a repeat, the
+    // line ended the reply with nothing after it (#470 re-test).
+    const at = kept.indexOf(clean(bestQuestion));
+    if (at > 0) kept[at] = `${assistantText("assistant:opening:question-record")} ${kept[at]}`;
   }
 
   return kept.join("\n\n").trim();

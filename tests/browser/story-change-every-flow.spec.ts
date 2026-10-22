@@ -31,7 +31,7 @@ import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
  */
 const shownAnswers = (locator: ReturnType<Page["locator"]>) => locator.evaluate((node: HTMLElement) => {
   // Hidden on the live page, not removed from a copy: a detached copy's innerText includes hidden text.
-  const buttons = [...node.querySelectorAll<HTMLElement>("[data-testid=intake-field-choice]")];
+  const buttons = [...node.querySelectorAll<HTMLElement>("[data-testid=intake-field-choice], [data-testid=intake-field-pick]")].map(item => item.closest("label") ?? item);
   buttons.forEach(button => { button.style.display = "none"; });
   const text = node.innerText;
   buttons.forEach(button => { button.style.display = ""; });
@@ -76,6 +76,8 @@ for (const court of ["family", "civil"] as const) {
     const panel = page.getByTestId("intake-review");
     await page.getByTestId("intake-view-review").click();
     await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(story.fresh);
+    // The story changes on "Save story", not as it is typed (#470 re-test).
+    await page.getByTestId("intake-review").getByTestId("review-story-save").click();
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
 
     // The review: old answers are not pre-filled; they are marked; Confirm is blocked.

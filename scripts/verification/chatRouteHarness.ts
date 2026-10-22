@@ -17,12 +17,26 @@ export type Court = "small-claims" | "family" | "civil";
 const CASE_ID = "77777777-7777-4777-8777-777777777777";
 
 /** What the builder saves for a confirmed case (the parts the route reads). */
+/**
+ * The labelled record each form saves as `facts` for the analysis (CivilIntake
+ * buildCivilNarrative, FamilyIntake buildNarrative, smallClaimsIntelligenceEngine
+ * buildRawUserText), with the person's own words kept beside it as the forms keep
+ * them. Saving the plain story here hid the #470 re-test's "Court path: Civil /
+ * Stage: Stage unclear / Main story:" quoted back as evidence.
+ */
+const RECORD: Record<Court, (story: string) => { facts: string; extra: Record<string, unknown> }> = {
+  civil: (story) => ({ facts: ["Court path: Civil", "Stage: Stage unclear", "User role: plaintiff", "Existing document signals: Nothing filed yet", `Main story: ${story}`].join("\n"), extra: { civilInput: { facts: story }, story } }),
+  family: (story) => ({ facts: ["Court path: Family", "Stage: Stage unclear", "Existing family documents: Nothing filed yet", `Case story: ${story}`].join("\n"), extra: { story } }),
+  "small-claims": (story) => ({ facts: ["Small Claims Ontario intake", "Stage selected: Stage unclear", "Selected issue hints: None selected", `Facts: ${story}`].join("\n\n"), extra: { story } }),
+};
+
 export function savedCase(court: Court, story: string, extra: Record<string, unknown> = {}) {
+  const record = RECORD[court](story);
   return {
     id: CASE_ID,
     court_path: court,
     master_result: {
-      intakeData: { courtPath: court, facts: story, caseStage: "starting-case", evidence: "", timeline: "", goal: "", ...extra },
+      intakeData: { courtPath: court, facts: record.facts, extra: record.extra, caseStage: "starting-case", evidence: "", timeline: "", goal: "", ...extra },
       intakeFacts: { role: court === "family" ? "applicant" : "plaintiff" },
       position: { confirmedStage: "starting-case", stepId: null, dateAnswers: {} },
       workflowStatus: { intakeCompleted: true },

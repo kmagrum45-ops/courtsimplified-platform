@@ -562,14 +562,19 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const beforeIntakeAI = useBeforeIntakeAI();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const validateIntakeResponse = useValidateIntakeResponse();
-  const [restoredPersonSet] = useIntakeState<Set<"yourRole">>("civil", "personSet", new Set());
-  const personSet = useRef(restoredPersonSet);
+  const [storedPersonSet] = useIntakeState<Set<"yourRole">>("civil", "personSet", new Set());
+  const personSet = useRef(new Set(storedPersonSet));
   // Each document item the person chose or cleared themselves; a chat
   // answer sets the whole list. The list counts as theirs only when every
   // item on it is one they chose (review 2026-10-14: one click made a whole
   // prefilled list theirs).
-  const [restoredPersonDocuments] = useIntakeState<Set<string>>("civil", "personDocuments", new Set());
-  const personDocuments = useRef(restoredPersonDocuments);
+  const [storedPersonDocuments] = useIntakeState<Set<string>>("civil", "personDocuments", new Set());
+  const personDocuments = useRef(new Set(storedPersonDocuments));
+  // A side or filing answered in the review panel is the person's own answer too: taken in
+  // when it arrives, before the line below writes these back (#470 re-test: "Nothing filed
+  // yet" answered there settled no stage). The panel sets the whole filing list, like a chat answer.
+  useEffect(() => { for (const item of storedPersonSet) personSet.current.add(item); }, [storedPersonSet]);
+  useEffect(() => { personDocuments.current = new Set(storedPersonDocuments); }, [storedPersonDocuments]);
   useEffect(() => { recovery?.put("civil", "personSet", [...personSet.current], false); recovery?.put("civil", "personDocuments", [...personDocuments.current], false); });
 
   /** "Save story" in the story editor (StoryEditor, L42): never called with an empty story. */
@@ -943,6 +948,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       )}
 
       <div className="mt-6 grid gap-5">
+        {/* In both views once there is a story: in the questions it was hidden (#470 re-test). */}
+        {(mode !== "chat" || input.facts.trim()) ? <StoryEditor section="civil" story={input.facts} onSave={saveStoryDraft} ids={{ draft: "civil-story-draft", save: "civil-story-save" }} /> : null}
+
         {mode === "chat" ? (<>
           <GuidedFormChat
             fields={guidedFields}
@@ -1085,8 +1093,6 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             />
           </label>
         ))}
-
-        <StoryEditor section="civil" story={input.facts} onSave={saveStoryDraft} ids={{ draft: "civil-story-draft", save: "civil-story-save" }} />
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

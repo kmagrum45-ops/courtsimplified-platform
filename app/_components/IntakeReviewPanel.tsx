@@ -7,7 +7,8 @@ import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMe
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { withServedDate } from "../builder/_components/guidedFields";
-import { locationOf, storyOf } from "../../src/lib/case-system/intakeStory";
+import { locationOf, STORY_SECTION, storyOf } from "../../src/lib/case-system/intakeStory";
+import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
@@ -37,6 +38,10 @@ export default function IntakeReviewPanel() {
   // "October 12" lost its spaces (re-test 2026-10-18). It is kept as typed here and
   // saved, trimmed, when the person leaves the field.
   const [servedDraft, setServedDraft] = useState<string | null>(null);
+  // "Pick everything that fits" in the panel: ticked here, saved together (#470 re-test:
+  // the question closed after the first pick).
+  const [picks, setPicks] = useState<Record<string, string[]>>({});
+  const [fieldNotes, setFieldNotes] = useState<Record<string, string>>({});
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
   const phase = reviewPhase(workflowStatus, checkpoint);
@@ -77,13 +82,34 @@ export default function IntakeReviewPanel() {
   /** The person's answer to an initial question; a chosen side also fills an empty side field in the form. */
   /** A civil or Family remaining question, answered in the panel: written into that form's own field. */
   function answerField(questionId: string, value: string | string[]) {
-    if (!recovery) return;
-    if (checkpoint.courtPath === "civil") {
-      const input = (recovery.read("civil", "input") as Record<string, unknown> | undefined) ?? {};
-      recovery.put("civil", "input", { ...input, [questionId]: value }, true, false, true);
-    } else if (checkpoint.courtPath === "family") {
-      recovery.put("family", questionId, value, true, false, true);
+    const court = checkpoint.courtPath;
+    if (!recovery || (court !== "civil" && court !== "family")) return;
+    // Every write here tells the form (external): without it the form never saw the answer
+    // and wrote its own value back (#470 re-test: the served date was "rejected", the role
+    // showed "Select your role", "Nothing filed yet" reached no analysis).
+    if (court === "family" && questionId === "servedDate") {
+      // Family keeps the day of service in its Timeline, as the form does.
+      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true);
+      return;
     }
+    if (court === "civil") {
+      const input = (recovery.read("civil", "input") as Record<string, unknown> | undefined) ?? {};
+      recovery.put("civil", "input", { ...input, [questionId]: value }, true, true, true);
+    } else recovery.put("family", questionId, value, true, true, true);
+    // Chosen here by the person, so their own side and filings (stageFromAnswers.ts).
+    if (questionId === "yourRole") {
+      const set = recovery.read(court, "personSet");
+      recovery.put(court, "personSet", [...new Set([...(Array.isArray(set) ? set : []), "yourRole"])], false, true);
+    }
+    if (questionId === (court === "civil" ? "documents" : "filedDocuments")) recovery.put(court, "personDocuments", Array.isArray(value) ? value : [value], false, true);
+  }
+  /** A typed answer to a civil or Family question: kept only once the field's own check passes. */
+  function typedField(questionId: string, needsMore?: (value: string) => string | null) {
+    const typed = (dates[questionId] ?? "").trim();
+    if (!typed) return;
+    const more = needsMore?.(typed) ?? null;
+    setFieldNotes(current => ({ ...current, [questionId]: more ?? "" }));
+    if (!more) answerField(questionId, typed);
   }
 
   function answer(questionId: string, value: string) {
@@ -118,7 +144,10 @@ export default function IntakeReviewPanel() {
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
-          {Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
+          {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
+              changed the story at once and set every answer aside). */}
+          {entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ draft: "review-story-draft", save: "review-story-save" }} /></div>
+          : Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
             : typeof entry.value === "boolean" ? <input aria-label={`Review: ${entry.label}`} type="checkbox" checked={entry.value} disabled={busy} onChange={event => edit(entry, event.target.checked)} />
               : typeof entry.value === "string" && (entry.choices || SLUG.test(entry.value)) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{shown(entry, entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
                 : entry.section === "family" && entry.field === "servedDate" ? <input aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={servedDraft ?? String(entry.value)} disabled={busy} onChange={event => setServedDraft(event.target.value)} onBlur={() => { if (servedDraft !== null) { edit(entry, servedDraft.trim()); setServedDraft(null); } }} />
@@ -138,8 +167,12 @@ export default function IntakeReviewPanel() {
           {!bank && (() => {
             const field = reviewQuestionField(checkpoint.courtPath, question.id);
             if (!field) return null;
-            if (field.kind === "choice" || field.kind === "multi") return <div className="mt-1 flex flex-wrap gap-2">{field.options.map(option => <button key={option.value} type="button" data-testid="intake-field-choice" disabled={busy} onClick={() => answerField(question.id, field.kind === "multi" ? [option.value] : option.value)} className="rounded border px-3 py-1">{option.label}</button>)}</div>;
-            return <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = (dates[question.id] ?? "").trim(); if (typed) answerField(question.id, typed); }} onKeyDown={event => { if (event.key === "Enter") { const typed = (dates[question.id] ?? "").trim(); if (typed) answerField(question.id, typed); } }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>;
+            if (field.kind === "choice") return <div className="mt-1 flex flex-wrap gap-2">{field.options.map(option => <button key={option.value} type="button" data-testid="intake-field-choice" disabled={busy} onClick={() => answerField(question.id, option.value)} className="rounded border px-3 py-1">{option.label}</button>)}</div>;
+            if (field.kind === "multi") {
+              const ticked = picks[question.id] ?? [];
+              return <div className="mt-1" role="group" aria-label={question.label}>{field.options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}</label>)}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
+            }
+            return <div className="mt-1"><div className="flex flex-wrap items-center gap-2"><input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, field.needsMore)} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, field.needsMore); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
           })()}
           <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(question.id)} disabled={busy} onChange={event => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", event.target.checked ? [...current.filter(id => id !== question.id), question.id] : current.filter(id => id !== question.id), true, false, true); }} /> I do not know yet</label>
         </div>;

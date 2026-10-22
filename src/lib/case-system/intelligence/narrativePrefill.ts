@@ -1,4 +1,6 @@
-export type NarrativeFactState = "direct" | "unclear" | "contradictory" | "missing";
+import { claimAmountFromStory } from "../claimAmount";
+
+export type NarrativeFactState ="direct" | "unclear" | "contradictory" | "missing";
 
 export type NarrativePrefillFact = {
   field: string;
@@ -61,9 +63,10 @@ export function extractNarrativePrefill(args: {
   const namedOther = /\b(?:against|from|by)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\b/i.exec(narrative);
   if (namedOther) addDirect(facts, "otherParty", namedOther[1], namedOther[0]);
 
-  const amount = /\b(?:total(?: amount)? (?:is|of)|claim(?:ed)? (?:is|for))\s*(?:\$\s*|CAD\s*)(\d{1,3}(?:,\d{3})*(?:\.\d{2})?|\d+(?:\.\d{2})?)/i.exec(narrative)
-    || /(?:\$\s*|CAD\s*)(\d{1,3}(?:,\d{3})*(?:\.\d{2})?|\d+(?:\.\d{2})?)/i.exec(narrative);
-  if (amount) addDirect(facts, "amountClaimed", `$${amount[1]}`, amount[0]);
+  // The same reading as every other place that offers an amount (claimAmount.ts): the
+  // first dollar amount in the story was the deck's price or a payment (#470 re-test).
+  const amount = claimAmountFromStory(narrative);
+  if (amount) addDirect(facts, "amountClaimed", amount.value, amount.quote);
 
   const remedy = /\b(?:i (?:want|seek|am seeking)|seeking)\s+([^.!?]{3,100})/i.exec(narrative);
   if (remedy) {
