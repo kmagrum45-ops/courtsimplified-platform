@@ -12,7 +12,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { grantSiteAccess } from "./harness/siteAccess";
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
@@ -234,7 +234,7 @@ test("signed in: a saved case raises no unsaved-case warning; a failed save does
   const account = await fakeAccount(page);
   await openBuilder(page, "small-claims");
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
-  await page.getByLabel("Case story", { exact: true }).fill(SC_STORY);
+  await page.getByLabel("Case story", { exact: true }).fill(SC_STORY); await saveCaseStory(page);
   await expect.poll(() => JSON.stringify([...account.rows.values()])).toContain(SC_STORY);
   await expect(page.getByTestId("intake-save-status")).toContainText("Intake saved to your account");
   await page.goto("/builder?path=small-claims");
@@ -245,7 +245,7 @@ test("signed in: a saved case raises no unsaved-case warning; a failed save does
   // Now text that cannot reach the account.
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   account.fail(true);
-  await page.getByLabel("Case story", { exact: true }).fill("Synthetic second story that could not be saved.");
+  await page.getByLabel("Case story", { exact: true }).fill("Synthetic second story that could not be saved."); await saveCaseStory(page);
   await expect(page.getByTestId("intake-save-status")).toContainText(/could not be saved|not saved/i, { timeout: 30_000 });
   page.on("dialog", (dialog) => void dialog.accept()); // the browser's own "leave this page?" for unsaved text
   await page.goto("/builder?path=small-claims");

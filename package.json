@@ -243,7 +243,8 @@
     "test:statement-of-claim-text": "node --import tsx scripts/verification/verifyStatementOfClaimText.ts",
     "test:story-basis": "node --import tsx scripts/verification/verifyStoryBasis.ts",
     "test:story-data-registry": "node --import tsx scripts/verification/verifyStoryDataRegistry.ts",
-    "test:time-ran-out": "node --import tsx scripts/verification/verifyTimeRanOut.ts"
+    "test:time-ran-out": "node --import tsx scripts/verification/verifyTimeRanOut.ts",
+    "test:chat-first-line": "node --import tsx scripts/verification/verifyChatFirstLine.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

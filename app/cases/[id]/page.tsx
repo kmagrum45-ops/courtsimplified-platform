@@ -38,6 +38,7 @@ import { positionSavesSettled, savePositionQueued } from "../../builder/_compone
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
+import { suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 
 type EventsResponse = {
   events: Array<{
@@ -112,9 +113,7 @@ export default function CaseOverviewPage() {
   const unsettledFromAnswers = position.confirmedStage !== null && settledStage(position) === null;
   const suggestedStage: UniversalStage =
     (unsettledFromAnswers ? null : position.confirmedStage) ??
-    asConfirmable(events?.stage.stage) ??
-    asConfirmable(caseRecord.current_stage) ??
-    "not-sure";
+    suggestionForSide(asConfirmable(events?.stage.stage) ?? asConfirmable(caseRecord.current_stage) ?? "not-sure", responding);
 
   const confirmed = unsettledFromAnswers ? null : position.confirmedStage;
 
@@ -219,7 +218,9 @@ export default function CaseOverviewPage() {
         {/* Only before the person has confirmed where they are: after that,
             a second "what your records say" stage contradicted theirs
             (held-back walkthrough, 2026-10-09). */}
-        {!confirmed && events?.stage.basis.length && events.stage.stage !== "unknown" ? (
+        {/* And only when it explains the stage suggested: "Case already started" under an "I was
+            served" suggestion read as a contradiction (#468 re-test). */}
+        {!confirmed && events?.stage.basis.length && events.stage.stage !== "unknown" && events.stage.stage === suggestedStage ? (
           <details className="rounded-2xl border border-[#e3efe9] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
             <summary className="cursor-pointer font-semibold text-[#24463d]">
               What your records say: {getStageLabel(events.stage.stage as UniversalStage)}

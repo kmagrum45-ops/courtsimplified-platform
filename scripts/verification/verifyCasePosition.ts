@@ -82,6 +82,7 @@ import {
   personAnswersOf,
   stageFromPersonAnswers,
   stageRecordedFromAnswers,
+  suggestionForSide,
   yesOrNo,
   type PersonAnswers,
 } from "../../app/builder/_components/stageFromAnswers";
@@ -660,6 +661,19 @@ function personsDatesWin(source: string): boolean {
     "answers: the results record a stage from answers only when the person has set none (\"not sure\" included), and show the answer beside it",
     /personSetStage = storedOnCase \|\| /.test(builder) && /personSetStage \? null : stageRecordedFromAnswers\(/.test(builder) && /basis=\{/.test(builder) && /personAnswersFromGuided\(/.test(builder),
   );
+
+  // L48 (#466 re-test): someone served is offered "I was served and need to respond",
+  // not "The case has started", on the results page and the case page alike.
+  check("side: a served person is offered the responding stage, not \"the case has started\"", suggestionForSide("already-started", true) === "responding");
+  check("side: a person bringing the case keeps \"the case has started\"", suggestionForSide("already-started", false) === "already-started");
+  check("side: a served person whose analysis is \"not sure\" is offered the responding stage (civil, Family)", suggestionForSide("not-sure", true) === "responding" && suggestionForSide("not-sure", false) === "not-sure");
+  check("side: other stages are offered unchanged", suggestionForSide("trial", true) === "trial" && suggestionForSide("starting-case", true) === "starting-case");
+  check("side: both pages offer the side-aware suggestion, and a confirmed stage still wins on the case page",
+    builder.includes("suggestedStage={suggestionForSide(detectedStage, respondingSide)}") &&
+      /\(unsettledFromAnswers \? null : position\.confirmedStage\) \?\?\s*suggestionForSide\(/.test(read("app/cases/[id]/page.tsx")));
+
+  check("side: \"What your records say\" shows only when it explains the stage suggested (#468 re-test)",
+    read("app/cases/[id]/page.tsx").includes("events.stage.stage === suggestedStage ? ("));
 
   // A stage read from answers is never taken later for one the person chose
   // (re-review 2026-10-14: Back, side changed to plaintiff, re-run, and the

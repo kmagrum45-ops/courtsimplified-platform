@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
+import StoryEditor from "./StoryEditor";
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -497,7 +498,6 @@ const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "am
 const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
 
 export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
-  const [editingStory, setEditingStory] = useIntakeState("civil", "editingStory", false);
   const [input, setInput] = useInputWithStory<CivilInput>("civil", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
@@ -571,6 +571,12 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [restoredPersonDocuments] = useIntakeState<Set<string>>("civil", "personDocuments", new Set());
   const personDocuments = useRef(restoredPersonDocuments);
   useEffect(() => { recovery?.put("civil", "personSet", [...personSet.current], false); recovery?.put("civil", "personDocuments", [...personDocuments.current], false); });
+
+  /** "Save story" in the story editor (StoryEditor, L42): never called with an empty story. */
+  function saveStoryDraft(draft: string) {
+    if (draft !== input.facts) updateField("facts", draft);
+    void sourced.start(draft, input.yourRole || undefined);
+  }
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
@@ -937,7 +943,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       )}
 
       <div className="mt-6 grid gap-5">
-        {mode === "chat" ? (
+        {mode === "chat" ? (<>
           <GuidedFormChat
             fields={guidedFields}
             values={guidedValues}
@@ -946,7 +952,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             onShowForm={() => setMode("form")}
             busy={isAnalyzing || sourced.state === "loading"}
           />
-        ) : (
+          {/* The one-at-a-time route too: its Continue says what is missing beside it (#468 re-test). */}
+          <ReviewNeededNotice from="civil" />
+        </>) : (
           <button type="button" onClick={() => setMode("chat")} className="justify-self-start text-sm font-semibold text-[#2f7d67] underline">
             Answer one question at a time instead
           </button>
@@ -1078,7 +1086,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} onBlur={(event) => { if (event.relatedTarget instanceof HTMLElement && event.relatedTarget.dataset.testid === "civil-intake-continue") return; void sourced.start(input.facts, input.yourRole || undefined); }} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <StoryEditor section="civil" story={input.facts} onSave={saveStoryDraft} ids={{ draft: "civil-story-draft", save: "civil-story-save" }} />
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

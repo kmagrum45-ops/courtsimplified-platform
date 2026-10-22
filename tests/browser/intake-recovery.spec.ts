@@ -1,4 +1,4 @@
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 ﻿import { expect, test } from "@playwright/test";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { openBuilder } from "./harness/builderGate";
@@ -20,6 +20,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await name.fill("Synthetic unfinished name");
     if (court === "small-claims") {
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
+      await saveCaseStory(page);
     } else await page.getByRole("button", { name: "Edit case story", exact: true }).click();
     const story = page.getByLabel("Case story", { exact: true });
     await expect.poll(() => [...account.rows.values()].some(row => JSON.stringify(row.master_result).includes("Synthetic unfinished name"))).toBe(true);
@@ -34,6 +35,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(name).toHaveValue("Synthetic unfinished name");
     account.fail(true, 401);
     await story.fill(`${STORY} New unsent text after a failed save.`);
+    await saveCaseStory(page);
     await expect(page.getByTestId("intake-save-status")).toContainText("could not be saved", { timeout: 20_000 });
     const callsBefore = account.calls();
     const submit = court === "small-claims" ? page.getByRole("button", { name: /Continue to your next steps|Analyze my case|Analyse/ }).last() : page.getByTestId(`${court}-intake-continue`);
@@ -92,6 +94,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
       await page.getByTestId("guided-form-show-form").click();
       await page.getByRole("button", { name: "Edit case story", exact: true }).click();
       await page.getByLabel("Case story", { exact: true }).fill(`${STORY} Corrected in the form.`);
+      await saveCaseStory(page);
       await page.getByRole("button", { name: "Answer one question at a time instead", exact: true }).click();
       const position = page.getByTestId("guided-form-question");
       await expect(position).not.toHaveAttribute("data-key", "facts");
@@ -126,6 +129,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await page.getByLabel("City or municipality").fill("Ottawa");
     const story = page.getByLabel("Tell us what happened in your own words");
     await story.fill(STORY);
+    await saveCaseStory(page);
     const label = court === "small-claims" ? "Small Claims" : court === "family" ? "Family" : "Civil";
     await page.getByRole("button", { name: `Continue to ${label} intake` }).click();
     await expect(page.getByRole("alert").filter({ hasText: "Your answers are still here" })).toBeVisible();
@@ -145,6 +149,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await page.goto(`/?path=${court}`);
     const story = page.getByLabel("Tell us what happened in your own words");
     await story.fill(STORY);
+    await saveCaseStory(page);
     await page.getByLabel("City or municipality").fill("Ottawa");
     await page.reload();
     await expect(story).toHaveValue(STORY);

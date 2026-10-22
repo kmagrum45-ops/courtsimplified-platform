@@ -26,7 +26,7 @@ export const BASIS_SECTION = "storyBasis";
 const object = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
 
 /** Navigation and display state that holds no answer, and facts about the person rather than the story (their own name and contact details, the court file number). */
-const NOT_ANSWERS = new Set(["mode", "editingStory", "personSet", "personDocuments", "step", "startedModes", "intakeCity", "familyQuestionsDone", "uploadedEvidenceFiles",
+const NOT_ANSWERS = new Set(["mode", "editingStory", "storyDraft", "personSet", "personDocuments", "step", "startedModes", "intakeCity", "familyQuestionsDone", "uploadedEvidenceFiles",
   "yourName", "yourAddress", "yourPhone", "yourEmail", "courtFileNumber", "courtLocation"]);
 /** Fields holding one answer per key: each key is tagged on its own. */
 const KEYED = new Set(["civil.input", "small-claims.input", "guided.facts", "builder.initialAnswers"]);

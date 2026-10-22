@@ -23,7 +23,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { openBuilder } from "./harness/builderGate";
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { createStageAnswerPost } from "../../app/api/case/stage-answer/route";
 import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
 
@@ -88,6 +88,7 @@ async function openConfirmedStage(page: Page, story: string, stepId: string) {
   await openBuilder(page, "small-claims");
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   await page.getByLabel("Case story", { exact: true }).fill(story);
+  await saveCaseStory(page);
   await expect(page.getByTestId("stage-answer-dates")).toHaveCount(0);
   await confirmInitialInformation(page);
   const row = [...account.rows.values()][0];

@@ -94,7 +94,7 @@ import {
   type MotionToChangeKind,
   type ReadingChoice,
 } from "./_components/motionToChange";
-import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, type StageFromAnswers } from "./_components/stageFromAnswers";
+import { personAnswersFromGuided, personAnswersOf, stageRecordedFromAnswers, suggestionForSide, type StageFromAnswers } from "./_components/stageFromAnswers";
 import StageAnswerPanel from "./_components/StageAnswerPanel";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "../../src/lib/case-system/drafts/respondingDocumentDraft";
 import { movingOnMotionToChange, originatingDocumentRecorded, respondingDocumentStillDue, userIsResponding } from "./_components/respondingSide";
@@ -2486,7 +2486,7 @@ function BuilderPageContent() {
             ) : null}
             {stageQuestionWaits(motionLead, motionChoice, confirmedStage) ? null : (
             <StageConfirmation
-              suggestedStage={detectedStage}
+              suggestedStage={suggestionForSide(detectedStage, respondingSide)}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
               basis={

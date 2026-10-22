@@ -17,7 +17,7 @@
  */
 import { expect, test, type Page, type Route } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
@@ -117,7 +117,7 @@ async function openForm(page: Page, court: Court, story?: string) {
   await openBuilder(page, court, { story: court === "small-claims" ? undefined : ANALYSIS_STORY });
   if (court === "small-claims") {
     await page.getByRole("button", { name: "Fill in the form yourself" }).click();
-    if (story) await page.getByLabel("Case story", { exact: true }).fill(story);
+    if (story) await page.getByLabel("Case story", { exact: true }).fill(story); await saveCaseStory(page);
   } else await page.getByTestId("guided-form-show-form").click();
 }
 
@@ -140,6 +140,7 @@ for (const court of COURTS) {
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
     if (court !== "small-claims") await page.getByRole("button", { name: "Edit case story", exact: true }).click();
     await page.getByLabel("Case story", { exact: true }).fill("Synthetic new story: a different matter with different dates.");
+    await saveCaseStory(page);
     const restart = page.getByTestId("questions-story-changed").getByRole("button", { name: "Start the questions again from my story" });
     if (await restart.isVisible().catch(() => false)) await restart.click();
     await confirmInitialInformation(page);
@@ -210,6 +211,7 @@ for (const court of COURTS) {
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
     if (court !== "small-claims") await page.getByRole("button", { name: "Edit case story", exact: true }).click();
     await page.getByLabel("Case story", { exact: true }).fill("Synthetic new story: a different matter, analysed again.");
+    await saveCaseStory(page);
     const restart = page.getByTestId("questions-story-changed").getByRole("button", { name: "Start the questions again from my story" });
     if (await restart.isVisible().catch(() => false)) await restart.click();
     await confirmInitialInformation(page);
@@ -240,5 +242,96 @@ for (const court of COURTS) {
     await notice.getByRole("button", { name: "Go to your initial case information" }).click();
     // Its heading, not partway down its fields (#465 re-test).
     await expect(page.getByTestId("intake-review").getByRole("heading", { level: 2 }).first()).toBeInViewport({ timeout: 10_000 });
+    // And clear of the sticky header, not under it (L46: it landed ~25px from the top under a 77px header).
+    await expect.poll(() => page.evaluate(() => {
+      const heading = document.querySelector('[data-testid="intake-review"] h2')?.getBoundingClientRect();
+      const header = document.querySelector("header")?.getBoundingClientRect();
+      return heading && header ? Math.round(heading.top - header.bottom) : -1;
+    }), { message: "the review heading sits below the sticky header", timeout: 10_000 }).toBeGreaterThanOrEqual(0);
   });
 }
+
+// #468 re-test: the civil and Family one-at-a-time route's Continue, before the
+// review is confirmed, also says what is missing beside it, with the link.
+for (const court of ["family", "civil"] as const) {
+  test(`${court}: one-at-a-time route, Continue before confirming the review says so beside it`, async ({ page }) => {
+    test.setTimeout(180_000);
+    await openBuilder(page, court, { story: ANALYSIS_STORY });
+    const done = page.getByTestId("guided-form-done");
+    for (let step = 0; step < 40 && !(await done.isVisible()); step++) {
+      const skip = page.getByTestId("guided-form-skip");
+      if (await skip.isVisible()) await skip.click();
+      else await page.waitForTimeout(250);
+    }
+    await done.click();
+    const notice = page.getByTestId("review-needed-beside-button");
+    await expect(notice).toBeVisible();
+    await expect(notice).toContainText("needs confirming");
+    await notice.getByRole("button", { name: "Go to your initial case information" }).click();
+    await expect(page.getByTestId("intake-review").getByRole("heading", { level: 2 }).first()).toBeInViewport({ timeout: 10_000 });
+  });
+}
+
+// #468 re-test: on the results page, a served civil or Family case is offered
+// "I was served and need to respond", not "I am not sure" (the case page and
+// Small Claims already were).
+for (const court of ["family", "civil"] as const) {
+  test(`${court}: results page offers "I was served and need to respond" to a served person`, async ({ page }) => {
+    test.setTimeout(300_000);
+    await fakeAccount(page);
+    await page.route(`**/api/${court}/analyze`, async (route) => route.fulfill({ json: await reply(route, court) }));
+    await openForm(page, court);
+    if (court === "family") await page.getByTestId("family-role-select").selectOption("respondent");
+    else await page.getByRole("combobox", { name: "Your role" }).selectOption("defendant");
+    await confirmInitialInformation(page);
+    await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
+    await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
+    // Offered as "From what you told us: ..." with Yes / No (the drop-down follows a No).
+    const suggestion = page.locator("p", { hasText: "From what you told us:" }).first();
+    await expect(suggestion).toContainText("I was served and need to respond", { timeout: 30_000 });
+    await expect(suggestion).not.toContainText("I am not sure");
+  });
+}
+
+// #468 re-test: "Edit case story" in all three areas is a draft saved by "Save
+// story". Small Claims and Family closed on the first keystroke and kept only it.
+for (const court of COURTS) {
+  test(`${court}: editing the story keeps every keystroke, stays open while empty, and changes the story only on Save`, async ({ page }) => {
+    test.setTimeout(180_000);
+    await openForm(page, court, ANALYSIS_STORY);
+    if (court === "small-claims") await saveCaseStory(page);
+    const toggle = page.getByRole("button", { name: "Edit case story", exact: true });
+    if (await toggle.isVisible()) await toggle.click();
+    const box = page.getByLabel("Case story", { exact: true });
+    await box.click();
+    await page.keyboard.press("Control+A");
+    await page.keyboard.press("Delete");
+    await expect(box, "still open while empty").toBeVisible();
+    await expect(page.locator('[data-testid$="story-save"]:visible'), "an empty story cannot be saved").toBeDisabled();
+    await page.keyboard.type(" We separated in March 2026.", { delay: 20 });
+    await expect(box, "every keystroke kept").toHaveValue(" We separated in March 2026.");
+    const storyNow = () => page.evaluate(() => (JSON.parse(sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "{}").checkpoint?.sections?.story?.text ?? "") as string);
+    expect(await storyNow(), "the story is unchanged until Save").toBe(ANALYSIS_STORY);
+    await expect(page.getByRole("button", { name: "Close without saving" }), "unsaved edits are named as such").toBeVisible();
+    await saveCaseStory(page);
+    await expect.poll(storyNow, { message: "saved on Save" }).toBe(" We separated in March 2026.");
+  });
+}
+
+// #468 re-test: after "Start the questions again", a Small Claims role given for
+// the old story reads as unanswered ("Choose your role"), not "Plaintiff / claimant".
+test("small-claims: a role emptied by starting the questions again reads as unanswered", async ({ page }) => {
+  test.setTimeout(180_000);
+  await openForm(page, "small-claims", ANALYSIS_STORY);
+  const role = page.getByTestId("sc-intake-yourRole");
+  await role.selectOption("Defendant / responding party");
+  const toggle = page.getByRole("button", { name: "Edit case story", exact: true });
+  if (await toggle.isVisible()) await toggle.click();
+  await page.getByLabel("Case story", { exact: true }).fill("Synthetic new story: a different matter.");
+  await saveCaseStory(page);
+  const restart = page.getByTestId("questions-story-changed").getByRole("button", { name: "Start the questions again from my story" });
+  await expect(restart).toBeVisible({ timeout: 30_000 });
+  await restart.click();
+  await expect(role).toHaveValue("");
+  await expect(role.locator("option:checked")).toHaveText("Choose your role");
+});

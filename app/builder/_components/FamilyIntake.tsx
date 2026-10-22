@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
+import StoryEditor from "./StoryEditor";
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -268,7 +269,6 @@ function savedFamilyValues(stored: unknown) {
 export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDone, location, initialStory, earlierSourcedAnswers, storedIntake }: Props) {
   // Read once: what the saved case holds wins over a fresh story hand-off.
   const [saved] = useState(() => savedFamilyValues(storedIntake));
-  const [editingStory, setEditingStory] = useIntakeState("family", "editingStory", false);
   // One question at a time by default (Step 2C, 2026-10-12); the whole form
   // is one click away and holds exactly the same answers.
   const [mode, setMode] = useIntakeState<"chat" | "form">("family", "mode", "chat");
@@ -923,7 +923,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       )}
 
       <div className="mt-6 grid gap-5">
-        {mode === "chat" ? (
+        {mode === "chat" ? (<>
           <GuidedFormChat
             fields={guidedFields}
             values={guidedValues}
@@ -939,7 +939,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
               respondingInFamilyStory(facts),
             )}
           />
-        ) : (
+          {/* The one-at-a-time route too: its Continue says what is missing beside it (#468 re-test). */}
+          <ReviewNeededNotice from="family" />
+        </>) : (
           <button type="button" onClick={() => setMode("chat")} className="justify-self-start text-sm font-semibold text-[#2f7d67] underline">
             Answer one question at a time instead
           </button>
@@ -1075,7 +1077,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={facts} onChange={(event) => setFacts(event.target.value)} onBlur={(event) => { if (event.relatedTarget instanceof HTMLElement && event.relatedTarget.dataset.testid === "family-intake-continue") return; void sourced.start(facts, yourRole !== "not-sure" ? yourRole : undefined); }} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <StoryEditor section="family" story={facts} onSave={(text) => { setFacts(text); void sourced.start(text, yourRole !== "not-sure" ? yourRole : undefined); }} ids={{ draft: "family-story-draft", save: "family-story-save" }} />
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

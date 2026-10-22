@@ -20,7 +20,7 @@
  */
 import { expect, test, type Page, type Route } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
@@ -46,7 +46,7 @@ async function chatOnNewCase(page: Page, court: Court, chatRoutes: () => Promise
   await chatRoutes();
   await page.route(`**/api/${court}/analyze`, async (route) => route.fulfill({ json: await reply(route, court) }));
   await openBuilder(page, court, { story: court === "small-claims" ? undefined : STORY });
-  if (court === "small-claims") { await page.getByRole("button", { name: "Fill in the form yourself" }).click(); await page.getByLabel("Case story", { exact: true }).fill(STORY); }
+  if (court === "small-claims") { await page.getByRole("button", { name: "Fill in the form yourself" }).click(); await page.getByLabel("Case story", { exact: true }).fill(STORY); await saveCaseStory(page); }
   else await page.getByTestId("guided-form-show-form").click();
   await confirmInitialInformation(page);
   await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
@@ -104,4 +104,39 @@ test("small-claims: when the assistant and the law lookup both come back empty, 
   });
   await ask(page, "What happens next?");
   await expect(page.getByTestId("case-partner-transcript")).toContainText(ERROR, { timeout: 30_000 });
+});
+
+// L47 (#466 re-test): after the review is confirmed, the first reply is the
+// assistant's, not "must confirm the province, amount and remedy" (Small Claims,
+// civil) or a wrong-court-path line (Family).
+for (const court of ["small-claims", "family", "civil"] as const) {
+  test(`${court}: after confirmation the chat's first line is the reply, not a request to confirm the court path`, async ({ page }) => {
+    test.setTimeout(240_000);
+    await chatOnNewCase(page, court, async () => {
+      await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
+      await page.route("**/api/guided-assistant", (route) => route.fulfill({ json: {
+        ok: true,
+        answer: "Synthetic assistant reply.",
+        // What used to trigger the routing line: the message read as civil or Small Claims.
+        conversationIntelligence: { conversationFocus: { courtArea: court === "family" ? "civil" : court } },
+      } }));
+    });
+    await ask(page, "What should I gather first?");
+    const transcript = page.getByTestId("case-partner-transcript");
+    await expect(transcript).toContainText("Synthetic assistant reply.", { timeout: 60_000 });
+    await expect(transcript).not.toContainText("must confirm the province");
+    await expect(transcript).not.toContainText("wrong court path");
+  });
+}
+
+// #468 re-test: the Small Claims limit is still said after confirmation, as a dollar amount.
+test("small-claims: an amount over the limit is still flagged after confirmation, with the dollar sign", async ({ page }) => {
+  test.setTimeout(240_000);
+  await chatOnNewCase(page, "small-claims", async () => {
+    await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
+    await page.route("**/api/guided-assistant", (route) => route.fulfill({ json: { ok: true, answer: "Synthetic assistant reply.", conversationIntelligence: { conversationFocus: { courtArea: "small-claims" } } } }));
+  });
+  await ask(page, "I am claiming $62,000.");
+  const transcript = page.getByTestId("case-partner-transcript");
+  await expect(transcript).toContainText("$50,000", { timeout: 60_000 });
 });

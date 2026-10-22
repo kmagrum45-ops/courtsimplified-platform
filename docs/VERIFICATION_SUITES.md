@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-162 documented, 26 without a header.
+163 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -35,6 +35,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-understanding` | **The front door understands the story, and shows only law that is checked.**<br>WHAT THIS CATCHES: the reasoning step's words reaching a person without the official-text check. understandCase (understanding/understandCase.ts) lets the strongest model read the whole story and reason about it; this suite drives it with a fake reasoner and a |
 | `npm run test:case-write-queue` | **No two writes to the same case's row are in flight at once from the builder,**<br>the case pages and the Forms page, and nothing can stall their one queue. |
 | `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
+| `npm run test:chat-first-line` | **The follow-up chat's first reply reads from the confirmed intake (L47).**<br>What it checks: for a case whose court the route supplies (the guided assistant route only answers for a case with a confirmed intake, and passes that case's court), the first reply in Small Claims, Family and civil never says there is "not enough information  |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:checked-answer` | **Checked answers show only what the official text supports.**<br>WHAT THIS CATCHES: an answer the site shows without proof. The checked answer (retrieval/checkedAnswer.ts) lets the model answer first and then checks every statement against the library. This suite drives that pipeline with a fake drafter and a fake checker o |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |

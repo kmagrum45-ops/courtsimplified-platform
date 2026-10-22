@@ -17,3 +17,13 @@ export async function confirmInitialInformation(page: Page) {
   await page.getByTestId("intake-confirm").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
 }
+
+/**
+ * "Edit case story" is a draft saved by "Save story" in all three areas (StoryEditor,
+ * L42 and the #468 re-test). Call after typing into "Case story": it presses Save
+ * when there are unsaved edits, and does nothing otherwise.
+ */
+export async function saveCaseStory(page: Page) {
+  const save = page.locator('[data-testid$="story-save"]:visible').first();
+  if ((await save.count()) && (await save.isEnabled())) await save.click();
+}

@@ -789,7 +789,12 @@ function buildWarmOpening(
 function buildLegalExplanation(args: {
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
+  /** The case's court came from its confirmed intake (the route only answers for one). */
+  courtConfirmed?: boolean;
 }): string {
+  // With the court already confirmed, "confirm the court path" is not the next step:
+  // nothing is said rather than that (L47: Family's first reply was this generic line).
+  const unknown = () => (args.courtConfirmed ? "" : assistantText("assistant:explain:unknown"));
   const hypothesis = args.intelligence.hypotheses?.[0];
   const signal = args.intelligence.legalSignals?.[0];
 
@@ -813,7 +818,7 @@ function buildLegalExplanation(args: {
   }
 
   if (!hypothesis && !signal) {
-    return assistantText("assistant:explain:unknown");
+    return unknown();
   }
 
   const label =
@@ -824,7 +829,7 @@ function buildLegalExplanation(args: {
   const normalizedLabel = normalize(label);
 
   if (normalizedLabel.includes("defamation")) {
-    return assistantText("assistant:explain:defamation") || assistantText("assistant:explain:unknown");
+    return assistantText("assistant:explain:defamation") || unknown();
   }
 
   if (
@@ -832,11 +837,11 @@ function buildLegalExplanation(args: {
     normalizedLabel.includes("payment") ||
     normalizedLabel.includes("debt")
   ) {
-    return assistantText("assistant:explain:contract") || assistantText("assistant:explain:unknown");
+    return assistantText("assistant:explain:contract") || unknown();
   }
 
   if (normalizedLabel.includes("property damage")) {
-    return assistantText("assistant:explain:property-damage") || assistantText("assistant:explain:unknown");
+    return assistantText("assistant:explain:property-damage") || unknown();
   }
 
   if (
@@ -844,7 +849,7 @@ function buildLegalExplanation(args: {
     normalizedLabel.includes("parenting") ||
     normalizedLabel.includes("support")
   ) {
-    return assistantText("assistant:explain:family") || assistantText("assistant:explain:unknown");
+    return assistantText("assistant:explain:family") || unknown();
   }
 
   if (
@@ -852,7 +857,7 @@ function buildLegalExplanation(args: {
     normalizedLabel.includes("crown") ||
     normalizedLabel.includes("police")
   ) {
-    return assistantText("assistant:explain:public-authority") || assistantText("assistant:explain:unknown");
+    return assistantText("assistant:explain:public-authority") || unknown();
   }
 
   return assistantText("assistant:explain:working-issue", { label });
@@ -972,6 +977,8 @@ function buildBestQuestion(args: {
 
 function buildCaution(
   investigation: ReturnType<typeof buildCaseInvestigation>,
+  /** The case's court, in Ontario, came from its confirmed intake (#468 re-test). */
+  courtConfirmed = false,
 ): string {
   const warnings = uniqueStrings(
     investigation.validation?.warnings || [],
@@ -982,10 +989,11 @@ function buildCaution(
   );
 
   if (jurisdictionWarning) {
-    return assistantText("assistant:caution:jurisdiction");
+    // "The province ... must be confirmed" is not true of a confirmed Ontario case.
+    if (!courtConfirmed) return assistantText("assistant:caution:jurisdiction");
   }
 
-  const firstWarning = firstItem(warnings);
+  const firstWarning = firstItem(warnings.filter((warning) => !(courtConfirmed && normalize(warning).includes("jurisdiction"))));
 
   if (!hasText(firstWarning)) {
     return "";
@@ -1020,6 +1028,7 @@ function buildDirectAnswer(args: {
 
 function buildGeneralAnswer(args: {
   firstTurn: boolean;
+  courtConfirmed: boolean;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1033,6 +1042,7 @@ function buildGeneralAnswer(args: {
       buildLegalExplanation({
         intelligence: args.intelligence,
         legalReasoning: args.legalReasoning,
+        courtConfirmed: args.courtConfirmed,
       }),
     );
   } else {
@@ -1072,7 +1082,7 @@ function buildGeneralAnswer(args: {
    * DIRECT-intent answers carry it every time instead -- see buildAnswer --
    * because those are the ones a person acts on.
    */
-  const caution = buildCaution(args.investigation);
+  const caution = buildCaution(args.investigation, args.courtConfirmed);
 
   if (args.firstTurn && hasText(caution)) {
     paragraphs.push(caution);
@@ -1095,6 +1105,7 @@ function buildGeneralAnswer(args: {
 
 function buildAnswer(args: {
   message: string;
+  courtConfirmed: boolean;
   conversation: CasePartnerConversationMessage[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
@@ -1131,7 +1142,7 @@ function buildAnswer(args: {
      * every message in a conversation, which is what made the first-turn-only
      * rule tempting in the first place.
      */
-    const directCaution = buildCaution(args.investigation);
+    const directCaution = buildCaution(args.investigation, args.courtConfirmed);
 
     return (
       deduplicateParagraphs(
@@ -1145,6 +1156,7 @@ function buildAnswer(args: {
 
   return buildGeneralAnswer({
     firstTurn,
+    courtConfirmed: args.courtConfirmed,
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
     investigation: args.investigation,
@@ -1260,6 +1272,8 @@ export function runGuidedAssistantOrchestrator(
     operation: () =>
       buildAnswer({
         message,
+        // The caller named the case's court: the guided route passes the confirmed case's.
+        courtConfirmed: Boolean(clean(input.courtContext?.courtPath)),
         conversation,
         intelligence: conversationIntelligence,
         legalReasoning,
