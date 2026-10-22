@@ -29,7 +29,14 @@ import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
  * The text a locator shows as answers: the choices a remaining review question offers as
  * buttons (#469 re-test) are left out, since listing a choice is not pre-filling it.
  */
-const shownAnswers = (locator: ReturnType<Page["locator"]>) => locator.evaluate(node => { const copy = node.cloneNode(true) as HTMLElement; copy.querySelectorAll("[data-testid=intake-field-choice]").forEach(button => button.remove()); return copy.innerText || copy.textContent || ""; });
+const shownAnswers = (locator: ReturnType<Page["locator"]>) => locator.evaluate((node: HTMLElement) => {
+  // Hidden on the live page, not removed from a copy: a detached copy's innerText includes hidden text.
+  const buttons = [...node.querySelectorAll<HTMLElement>("[data-testid=intake-field-choice]")];
+  buttons.forEach(button => { button.style.display = "none"; });
+  const text = node.innerText;
+  buttons.forEach(button => { button.style.display = ""; });
+  return text;
+});
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
