@@ -51,6 +51,16 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(panel).toHaveAttribute("data-phase", "collecting");
     await expect(page.getByTestId("intake-start-review")).toBeEnabled();
     await expect.poll(() => account.rows.size).toBe(1);
+    // Wait for the intake's saves to settle before changing the saved case directly:
+    // a save still in flight (Small Claims re-reads story values just after "Save
+    // story") would write its own copy over the changes below.
+    let lastWrites = -1;
+    await expect.poll(async () => {
+      const now = account.writes();
+      const settled = now === lastWrites;
+      lastWrites = now;
+      return settled;
+    }, { intervals: [1_500], timeout: 30_000 }).toBe(true);
     const row = [...account.rows.values()][0];
     const master = () => row.master_result as Record<string, unknown>;
     expect((master().workflowStatus as Record<string, unknown>).intakeCompleted).toBe(false);

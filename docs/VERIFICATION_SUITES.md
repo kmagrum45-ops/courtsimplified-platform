@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-163 documented, 26 without a header.
+164 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -17,6 +17,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
 | `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
 | `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
+| `npm run test:analysis-time-budget` | **The next-step analysis finishes inside the time the page and the server allow.**<br>What it checks: research's limit plus the main reasoning call's limit (plus a margin for the rest) fit inside how long the page waits (ANALYSIS_TIMEOUT_MS), and the page stops waiting before every area's analysis route reaches its maxDuration; the reasoning ca |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |

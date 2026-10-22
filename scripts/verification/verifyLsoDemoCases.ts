@@ -271,15 +271,31 @@ function assistantAnswer(message: string): string {
     fail("C1", "the assistant did not answer an opening evidence question", answer.slice(0, 160));
   }
 
-  if (answer.includes("must be confirmed before relying on any deadline")) {
-    pass("C1", "and it carries a caution — not just on the general path");
+  // The caution belongs where it is true. With no court and province on record,
+  // a direct answer says the province must be confirmed; on a case whose court
+  // the route supplies (a confirmed intake, in Ontario) it must not, and the
+  // engine's internal warnings are never shown (#468 re-test: "Important
+  // limitation: Digital evidence requires context and authenticity review").
+  const noCourt = runGuidedAssistantGateway({
+    message: "What evidence do I need for this?",
+    conversation: [],
+    caseMemory: null,
+    mode: "builder-chat",
+  } as never).userFacingAnswer;
+  if (noCourt.includes("must be confirmed before relying on any deadline")) {
+    pass("C1", "with no court on record, a substantive answer carries the province caution");
   } else {
     fail(
       "C1",
-      "a substantive opening answer carried no caution",
+      "a substantive opening answer with no court on record carried no caution",
       "This is the defect the chat-engine report found: the four direct-intent\n" +
         "answers are the ones a person acts on, and they had none.",
     );
+  }
+  if (!answer.includes("must be confirmed before relying on any deadline") && !/Important limitation|Knowledge retrieval warning|must not be cited/.test(answer)) {
+    pass("C1", "on a confirmed case it neither asks to confirm the province nor shows an internal warning");
+  } else {
+    fail("C1", "a confirmed case's answer asked to confirm the province or showed an internal warning", answer.slice(0, 200));
   }
 
   // Everything it said must be catalogued. This is the property the whole
