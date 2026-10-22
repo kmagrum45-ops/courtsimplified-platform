@@ -1,4 +1,4 @@
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { expect, test, type Route } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
@@ -42,6 +42,7 @@ for (const court of ["family", "civil"] as const) {
     await page.getByRole("button", { name: "Edit case story", exact: true }).click();
     const story = page.getByLabel("Case story", { exact: true });
     await story.fill(UPDATED);
+    await saveCaseStory(page);
     await submit.click();
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
     expect(analysisCalls).toBe(0);
@@ -127,6 +128,7 @@ for (const court of ["family", "civil"] as const) {
     await submit.click();
     await expect.poll(() => Boolean(releaseOld)).toBe(true);
     await story.fill(UPDATED);
+    await saveCaseStory(page);
     await expect(submit).toBeEnabled();
     releaseOld();
     await expect(story).toHaveValue(UPDATED);
@@ -164,6 +166,7 @@ for (const court of ["family", "civil"] as const) {
     await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
     await expect.poll(() => waiting).toBe(true);
     await page.getByLabel("Case story", { exact: true }).fill(UPDATED);
+    await saveCaseStory(page);
     await expect(page.getByRole("button", { name: "Continue to your next steps", exact: true })).toBeEnabled();
     const completed = page.waitForResponse("**/api/intake/safety-check");
     release();
@@ -202,3 +205,28 @@ for (const court of ["family", "civil"] as const) {
     }
   });
 }
+
+// L42 (#465 re-test): in civil's "Edit case story", select-all and delete closed
+// the editor and lost the next keystrokes. Typing is now a draft, saved by
+// "Save story": the editor stays open while empty, an empty draft cannot be
+// saved over the story, and the story changes only on Save.
+test("civil: emptying the story while editing keeps the editor open and the typing; only Save changes the story", async ({ page }) => {
+  test.setTimeout(180_000);
+  await openBuilder(page, "civil", { story: ORIGINAL });
+  await page.getByTestId("guided-form-show-form").click();
+  await page.getByRole("button", { name: "Edit case story", exact: true }).click();
+  const draft = page.getByTestId("civil-story-draft");
+  const save = page.getByTestId("civil-story-save");
+  await draft.click();
+  await page.keyboard.press("Control+A");
+  await page.keyboard.press("Delete");
+  await expect(draft, "still open while empty").toBeVisible();
+  await expect(save, "an empty story cannot be saved over the real one").toBeDisabled();
+  await page.keyboard.type("Synthetic retyped story", { delay: 20 });
+  await expect(draft).toHaveValue("Synthetic retyped story");
+  const storyNow = () => page.evaluate(() => (JSON.parse(sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "{}").checkpoint?.sections?.story?.text ?? "") as string);
+  expect(await storyNow(), "not changed before Save").toBe(ORIGINAL);
+  await save.click();
+  await expect.poll(storyNow, { message: "changed on Save" }).toBe("Synthetic retyped story");
+  await expect(draft, "the editor stays open on the saved text").toHaveValue("Synthetic retyped story");
+});

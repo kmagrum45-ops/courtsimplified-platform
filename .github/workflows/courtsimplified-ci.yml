@@ -223,6 +223,9 @@ jobs:
       - name: A running-time step is never shown beside a counted date that has passed
         run: npm run test:time-ran-out
 
+      - name: The follow-up chat's first reply reads from the confirmed intake
+        run: npm run test:chat-first-line
+
       - name: Catalogue verification log holds against the catalogue
         run: npm run test:catalogue-verified
 

@@ -1,7 +1,7 @@
 import { expect, test, type Route } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
@@ -56,6 +56,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
     if (court !== "small-claims") await page.getByRole("button", { name: "Edit case story", exact: true }).click();
     await page.getByLabel("Case story", { exact: true }).fill(`${STORY} A material correction.`);
+    await saveCaseStory(page);
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "collecting");
     await expect.poll(() => guidanceIsCurrent(row.master_result, court, String(row.id))).toBe(false);
     await expect(overview).toHaveCount(0);
@@ -91,10 +92,12 @@ test("Small Claims: an old full analysis cannot reintroduce guidance after a mat
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   const story = page.getByLabel("Case story", { exact: true });
   await story.fill(STORY);
+  await saveCaseStory(page);
   await confirmInitialInformation(page);
   await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
   await expect.poll(() => Boolean(release)).toBe(true);
   await story.fill(`${STORY} Newer facts must win.`);
+  await saveCaseStory(page);
   release(); await finished;
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "collecting");
@@ -147,6 +150,7 @@ test("Urgent verified notice and public information remain available during coll
   await openBuilder(page, "small-claims", { city: "Toronto" });
   await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   await page.getByLabel("Case story", { exact: true }).fill("I slipped on ice on the sidewalk on Queen Street in Toronto on September 30, 2025. I want to sue the city.");
+  await saveCaseStory(page);
   await expect(page.getByRole("complementary", { name: "Urgent procedural warning" })).toBeVisible();
   await expect(page.getByTestId("completed-case-overview")).toHaveCount(0);
   await page.goto("/guides");

@@ -17,3 +17,13 @@ export async function confirmInitialInformation(page: Page) {
   await page.getByTestId("intake-confirm").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
 }
+
+/**
+ * Civil's "Edit case story" is a draft saved by "Save story" (L42); Small Claims
+ * and Family change the story as it is typed. Call after typing into "Case
+ * story": it saves where there is a Save button and does nothing elsewhere.
+ */
+export async function saveCaseStory(page: Page) {
+  const save = page.getByTestId("civil-story-save");
+  if (await save.isVisible().catch(() => false)) await save.click();
+}

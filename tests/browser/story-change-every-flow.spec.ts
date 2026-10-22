@@ -17,7 +17,7 @@
  */
 import { expect, test, type Page, type Route } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
@@ -140,6 +140,7 @@ for (const court of COURTS) {
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
     if (court !== "small-claims") await page.getByRole("button", { name: "Edit case story", exact: true }).click();
     await page.getByLabel("Case story", { exact: true }).fill("Synthetic new story: a different matter with different dates.");
+    await saveCaseStory(page);
     const restart = page.getByTestId("questions-story-changed").getByRole("button", { name: "Start the questions again from my story" });
     if (await restart.isVisible().catch(() => false)) await restart.click();
     await confirmInitialInformation(page);
@@ -210,6 +211,7 @@ for (const court of COURTS) {
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "user-confirmed");
     if (court !== "small-claims") await page.getByRole("button", { name: "Edit case story", exact: true }).click();
     await page.getByLabel("Case story", { exact: true }).fill("Synthetic new story: a different matter, analysed again.");
+    await saveCaseStory(page);
     const restart = page.getByTestId("questions-story-changed").getByRole("button", { name: "Start the questions again from my story" });
     if (await restart.isVisible().catch(() => false)) await restart.click();
     await confirmInitialInformation(page);
@@ -240,5 +242,11 @@ for (const court of COURTS) {
     await notice.getByRole("button", { name: "Go to your initial case information" }).click();
     // Its heading, not partway down its fields (#465 re-test).
     await expect(page.getByTestId("intake-review").getByRole("heading", { level: 2 }).first()).toBeInViewport({ timeout: 10_000 });
+    // And clear of the sticky header, not under it (L46: it landed ~25px from the top under a 77px header).
+    await expect.poll(() => page.evaluate(() => {
+      const heading = document.querySelector('[data-testid="intake-review"] h2')?.getBoundingClientRect();
+      const header = document.querySelector("header")?.getBoundingClientRect();
+      return heading && header ? Math.round(heading.top - header.bottom) : -1;
+    }), { message: "the review heading sits below the sticky header", timeout: 10_000 }).toBeGreaterThanOrEqual(0);
   });
 }

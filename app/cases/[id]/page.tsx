@@ -38,6 +38,7 @@ import { positionSavesSettled, savePositionQueued } from "../../builder/_compone
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
+import { suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 
 type EventsResponse = {
   events: Array<{
@@ -112,9 +113,7 @@ export default function CaseOverviewPage() {
   const unsettledFromAnswers = position.confirmedStage !== null && settledStage(position) === null;
   const suggestedStage: UniversalStage =
     (unsettledFromAnswers ? null : position.confirmedStage) ??
-    asConfirmable(events?.stage.stage) ??
-    asConfirmable(caseRecord.current_stage) ??
-    "not-sure";
+    suggestionForSide(asConfirmable(events?.stage.stage) ?? asConfirmable(caseRecord.current_stage) ?? "not-sure", responding);
 
   const confirmed = unsettledFromAnswers ? null : position.confirmedStage;
 

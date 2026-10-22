@@ -497,7 +497,15 @@ const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "am
 const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
 
 export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
-  const [editingStory, setEditingStory] = useIntakeState("civil", "editingStory", false);
+  /*
+   * The story being edited: a draft, saved to the story only by "Save story" (L42).
+   * Typing changed the story key by key, so select-all and delete made it empty
+   * mid-edit; the editor closed and the next keystrokes were lost (#465 re-test).
+   * Open while the draft is not null, even when it is empty; an empty draft can
+   * never be saved over a real story. Saving keeps the editor open; Close puts it
+   * away (discarding anything unsaved). Kept in the intake record, so a reload keeps it.
+   */
+  const [storyDraft, setStoryDraft] = useIntakeState<string | null>("civil", "storyDraft", null);
   const [input, setInput] = useInputWithStory<CivilInput>("civil", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
@@ -571,6 +579,15 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [restoredPersonDocuments] = useIntakeState<Set<string>>("civil", "personDocuments", new Set());
   const personDocuments = useRef(restoredPersonDocuments);
   useEffect(() => { recovery?.put("civil", "personSet", [...personSet.current], false); recovery?.put("civil", "personDocuments", [...personDocuments.current], false); });
+
+  /** Saves the edited story (L42). Never an empty one over a real story. */
+  function saveStoryDraft() {
+    const draft = storyDraft ?? "";
+    if (!draft.trim()) return;
+    // The editor stays open on the saved text; Close puts it away.
+    if (draft !== input.facts) updateField("facts", draft);
+    void sourced.start(draft, input.yourRole || undefined);
+  }
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
@@ -1078,7 +1095,15 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} onBlur={(event) => { if (event.relatedTarget instanceof HTMLElement && event.relatedTarget.dataset.testid === "civil-intake-continue") return; void sourced.start(input.facts, input.yourRole || undefined); }} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p>{storyDraft === null ? (
+          <button type="button" onClick={() => setStoryDraft(input.facts)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>
+        ) : (<>
+          <textarea aria-label="Case story" data-testid="civil-story-draft" value={storyDraft} onChange={(event) => setStoryDraft(event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />
+          <div className="mt-2 flex flex-wrap gap-3">
+            <button type="button" data-testid="civil-story-save" disabled={!storyDraft.trim()} onClick={saveStoryDraft} className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">Save story</button>
+            <button type="button" onClick={() => setStoryDraft(null)} className="text-sm font-semibold text-[#2f7d67] underline">{storyDraft === input.facts ? "Close" : "Close without saving"}</button>
+          </div>
+        </>)}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

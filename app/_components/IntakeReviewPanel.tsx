@@ -92,7 +92,8 @@ export default function IntakeReviewPanel() {
     questionsOutdated && "the answers marked as given for an earlier version of your story answered again, or the questions started again from your story",
     acceptedRevision !== revision && "a tick in \"I have reviewed this information\"",
   ].filter(Boolean) as string[];
-  return <section className="mx-auto my-4 max-w-6xl rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
+  // scroll-mt-28: a scroll to the panel stops below the 77px sticky header, not under it (L46).
+  return <section className="mx-auto my-4 max-w-6xl scroll-mt-28 rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
     <h2 className="text-xl font-bold">{phase === "user-confirmed" ? "Initial intake confirmed" : phase === "reviewing" ? "Review your initial case information" : "Your initial case information"}</h2>
     <details data-testid="intake-safety-resources" className="my-3"><summary>Safety information and support</summary><p className="whitespace-pre-line">{[IMMEDIATE_DANGER_MESSAGE.split("\n\n")[0], ...IMMEDIATE_DANGER_MESSAGE.split("\n\n").slice(2)].join("\n\n")}</p><p>This information is available without an AI safety check. An unavailable check does not establish that a situation is safe.</p></details>
     {checkpoint.courtPath !== "family" && municipalNoticeFirst(story, { city }) && <aside aria-label="Urgent procedural warning" className="my-4"><h3 className="font-bold">Urgent procedural warning — check this while completing intake</h3><MunicipalNoticeFirst story={story} city={city} /></aside>}

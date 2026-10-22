@@ -1,4 +1,4 @@
-import { recordInitialUnknowns } from "./harness/intakeReview";
+import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
 import { expect, test } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
@@ -15,6 +15,7 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await page.getByRole("button", { name: "Answer questions one at a time with AI help" }).click();
   const story = page.getByRole("textbox", { name: "Tell us what happened..." });
   await story.fill(STORY);
+  await saveCaseStory(page);
   await page.getByTestId("intake-start-review").click();
   const panel = page.getByTestId("intake-review");
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
@@ -32,6 +33,7 @@ test("Small Claims guided route: review edits update the existing unsent story",
   await page.getByRole("button", { name: "Edit my story" }).click();
   await expect(story).toHaveValue(CORRECTION);
   await story.fill(`${CORRECTION} Further change.`);
+  await saveCaseStory(page);
   await expect(panel).toHaveAttribute("data-phase", "collecting");
 });
 
@@ -43,6 +45,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     if (court === "small-claims") {
       await page.getByRole("button", { name: "Fill in the form yourself" }).click();
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
+      await saveCaseStory(page);
     } else await page.getByTestId("guided-form-show-form").click();
     const panel = page.getByTestId("intake-review");
     await expect(panel).toHaveAttribute("data-phase", "collecting");
@@ -82,6 +85,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     const originalForm = page.getByLabel("Case story", { exact: true });
     await expect(originalForm).toHaveValue(CORRECTION);
     await originalForm.fill(`${CORRECTION} Further material change.`);
+    await saveCaseStory(page);
     await expect(panel).toHaveAttribute("data-phase", "collecting");
     await expect.poll(() => (master().workflowStatus as Record<string, unknown>).intakeCompleted).toBe(false);
   });
@@ -93,6 +97,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     if (court === "small-claims") {
       await page.getByRole("button", { name: "Fill in the form yourself" }).click();
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
+      await saveCaseStory(page);
     }
     const panel = page.getByTestId("intake-review");
     await page.getByTestId("intake-start-review").click();
@@ -130,6 +135,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     if (court === "small-claims") {
       await page.getByRole("button", { name: "Fill in the form yourself" }).click();
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
+      await saveCaseStory(page);
     }
     const panel = page.getByTestId("intake-review");
     // Each transition must land before the reload that tests its recovery (CI race, 2026-10-18).
@@ -158,6 +164,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     if (court === "small-claims") {
       await page.getByRole("button", { name: "Fill in the form yourself" }).click();
       await page.getByLabel("Case story", { exact: true }).fill(STORY);
+      await saveCaseStory(page);
     }
     await page.getByTestId("intake-start-review").click();
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");

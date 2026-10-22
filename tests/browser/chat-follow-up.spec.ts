@@ -105,3 +105,26 @@ test("small-claims: when the assistant and the law lookup both come back empty, 
   await ask(page, "What happens next?");
   await expect(page.getByTestId("case-partner-transcript")).toContainText(ERROR, { timeout: 30_000 });
 });
+
+// L47 (#466 re-test): after the review is confirmed, the first reply is the
+// assistant's, not "must confirm the province, amount and remedy" (Small Claims,
+// civil) or a wrong-court-path line (Family).
+for (const court of ["small-claims", "family", "civil"] as const) {
+  test(`${court}: after confirmation the chat's first line is the reply, not a request to confirm the court path`, async ({ page }) => {
+    test.setTimeout(240_000);
+    await chatOnNewCase(page, court, async () => {
+      await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
+      await page.route("**/api/guided-assistant", (route) => route.fulfill({ json: {
+        ok: true,
+        answer: "Synthetic assistant reply.",
+        // What used to trigger the routing line: the message read as civil or Small Claims.
+        conversationIntelligence: { conversationFocus: { courtArea: court === "family" ? "civil" : court } },
+      } }));
+    });
+    await ask(page, "What should I gather first?");
+    const transcript = page.getByTestId("case-partner-transcript");
+    await expect(transcript).toContainText("Synthetic assistant reply.", { timeout: 60_000 });
+    await expect(transcript).not.toContainText("must confirm the province");
+    await expect(transcript).not.toContainText("wrong court path");
+  });
+}

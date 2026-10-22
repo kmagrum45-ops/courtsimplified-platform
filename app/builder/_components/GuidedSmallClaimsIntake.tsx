@@ -31,7 +31,6 @@ import { unansweredQuestionStart } from "./heldQuestion";
 import { SourcedQuestionsCard, sourcedAnswerListText, useSourcedQuestions, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 import { startSignIn } from "../../_components/startSignIn";
-import { scrollAndFocus } from "../../_components/scrollFocus";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 
@@ -1535,7 +1534,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         process. They now render BELOW the input; see GuidanceDisclosure.
       */}
 
-      {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]" data-testid="guided-error">{error}{reviewNeeded ? <>{" "}<button type="button" data-testid="guided-go-to-review" onClick={() => scrollAndFocus(document.querySelector<HTMLElement>("[data-testid=\"intake-review\"]"))} className="underline">Go to your initial case information</button></> : null}{signInNeeded ? <>{" "}<a href="/login" data-testid="guided-sign-in" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="underline">Sign in or create a free account (what you entered comes with you)</a></> : null}</p> : null}
+      {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]" data-testid="guided-error">{error}{reviewNeeded ? <>{" "}<button type="button" data-testid="guided-go-to-review" onClick={() => document.querySelector<HTMLElement>("[data-testid=\"intake-review\"]")?.scrollIntoView({ block: "start" })} className="underline">Go to your initial case information</button></> : null}{signInNeeded ? <>{" "}<a href="/login" data-testid="guided-sign-in" onClick={(event) => { event.preventDefault(); startSignIn(); }} className="underline">Sign in or create a free account (what you entered comes with you)</a></> : null}</p> : null}
 
       {/*
         2026-10-16 live bug: "Guided intake complete." rendered mid-flow, in

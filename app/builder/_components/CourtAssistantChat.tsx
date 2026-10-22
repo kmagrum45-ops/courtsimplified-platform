@@ -1,5 +1,7 @@
 "use client";
 import { authHeaders } from "../../cases/_components/CaseHomeContext";
+import { useIntakeReviewView } from "../../_components/IntakeRecovery";
+import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
 // Imported from utils rather than smallClaimsEngine: utils is a leaf module,
 // so a client component gets the constant without pulling an engine into the
@@ -382,6 +384,12 @@ function buildCourtPathGuidance(
   intelligence: unknown,
   routingConfirmed: boolean,
   detectedClaimAmount: number | null,
+  /**
+   * The intake's court path was confirmed in its review: the chat opens only after
+   * that. Nothing then asks to confirm the province, amount and remedy again (L47);
+   * only the Small Claims limit, from an amount typed in the chat, is still said.
+   */
+  intakeConfirmed = false,
 ): CourtPathGuidance | null {
   const currentPath = clean(selectedPath);
   const detectedArea =
@@ -399,6 +407,10 @@ function buildCourtPathGuidance(
     detectedArea === "unknown" ||
     detectedArea === "mixed"
   ) {
+    return null;
+  }
+
+  if (intakeConfirmed && !(currentPath === "small-claims" && detectedClaimAmount !== null && detectedClaimAmount > ONTARIO_SMALL_CLAIMS_LIMIT)) {
     return null;
   }
 
@@ -800,6 +812,9 @@ function CourtAssistantChatInner({
     "money-or-property" | "other-relief"
   >("money-or-property");
   const [routingError, setRoutingError] = useState("");
+  // The intake was confirmed in its review (L47): its court path is not asked about again.
+  const reviewView = useIntakeReviewView();
+  const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
   const [routingConfirmed, setRoutingConfirmed] = useState(
     initialChatState.routingConfirmed,
   );
@@ -827,8 +842,9 @@ function CourtAssistantChatInner({
         latestIntelligence,
         routingConfirmed,
         detectedClaimAmount,
+        intakeConfirmed,
       ),
-    [detectedClaimAmount, latestIntelligence, path, routingConfirmed],
+    [detectedClaimAmount, latestIntelligence, path, routingConfirmed, intakeConfirmed],
   );
 
   const investigationIssues = useMemo(
@@ -1019,6 +1035,7 @@ function CourtAssistantChatInner({
         data.conversationIntelligence,
         routingConfirmed,
         extractClaimAmount(trimmed),
+        intakeConfirmed,
       );
 
       const detectedArea = clean(
