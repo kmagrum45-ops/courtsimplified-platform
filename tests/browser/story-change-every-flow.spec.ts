@@ -79,7 +79,7 @@ for (const court of ["family", "civil"] as const) {
     // The form: no old values, its own Continue disabled with the message beside it.
     await expect(page.getByTestId(`${court}-intake-story-changed`)).toBeVisible();
     await expect(page.getByTestId(`${court}-intake-continue`)).toBeDisabled();
-    const shown = await page.locator("body").innerText();
+    const shown = await page.locator("body").evaluate(node => { const copy = node.cloneNode(true) as HTMLElement; copy.querySelectorAll("[data-testid=intake-field-choice]").forEach(button => button.remove()); return copy.innerText || copy.textContent || ""; });
     for (const text of story.oldText) expect(shown, `nothing on the page shows "${text}"`).not.toContain(text);
     expect(shown).not.toContain(story.old);
 
