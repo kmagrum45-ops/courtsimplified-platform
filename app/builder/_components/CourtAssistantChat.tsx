@@ -437,7 +437,7 @@ function buildCourtPathGuidance(
         title: "Small Claims Court limit exceeded",
         message: `You indicated a claim of ${formatCurrency(
           detectedClaimAmount,
-        )}. This exceeds Ontario Small Claims Court's ${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()} monetary limit. Based on the amount stated, proceed through a Superior Court of Justice civil action.`,
+        )}. This exceeds Ontario Small Claims Court's ${formatCurrency(ONTARIO_SMALL_CLAIMS_LIMIT)} monetary limit. Based on the amount stated, proceed through a Superior Court of Justice civil action.`,
         routingMode: "direct-civil",
       };
     }

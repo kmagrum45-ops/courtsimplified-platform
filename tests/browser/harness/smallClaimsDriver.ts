@@ -44,6 +44,7 @@ import { expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
 import { openBuilder } from "./builderGate";
+import { saveCaseStory } from "./intakeReview";
 import { authStorageKey, deleteHarnessUser, mintRealTestSession } from "./realTestSession";
 
 /**
@@ -137,6 +138,7 @@ export async function setStory(page: Page, story: string): Promise<void> {
     await page.getByTestId("sc-intake-edit-story").click();
   }
   await field.fill(story);
+  await saveCaseStory(page);
 }
 
 /** Fills the named fields and leaves everything else alone. */

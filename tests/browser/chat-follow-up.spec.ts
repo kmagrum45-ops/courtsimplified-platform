@@ -20,7 +20,7 @@
  */
 import { expect, test, type Page, type Route } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
-import { confirmInitialInformation } from "./harness/intakeReview";
+import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
@@ -46,7 +46,7 @@ async function chatOnNewCase(page: Page, court: Court, chatRoutes: () => Promise
   await chatRoutes();
   await page.route(`**/api/${court}/analyze`, async (route) => route.fulfill({ json: await reply(route, court) }));
   await openBuilder(page, court, { story: court === "small-claims" ? undefined : STORY });
-  if (court === "small-claims") { await page.getByRole("button", { name: "Fill in the form yourself" }).click(); await page.getByLabel("Case story", { exact: true }).fill(STORY); }
+  if (court === "small-claims") { await page.getByRole("button", { name: "Fill in the form yourself" }).click(); await page.getByLabel("Case story", { exact: true }).fill(STORY); await saveCaseStory(page); }
   else await page.getByTestId("guided-form-show-form").click();
   await confirmInitialInformation(page);
   await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
@@ -128,3 +128,15 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(transcript).not.toContainText("wrong court path");
   });
 }
+
+// #468 re-test: the Small Claims limit is still said after confirmation, as a dollar amount.
+test("small-claims: an amount over the limit is still flagged after confirmation, with the dollar sign", async ({ page }) => {
+  test.setTimeout(240_000);
+  await chatOnNewCase(page, "small-claims", async () => {
+    await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
+    await page.route("**/api/guided-assistant", (route) => route.fulfill({ json: { ok: true, answer: "Synthetic assistant reply.", conversationIntelligence: { conversationFocus: { courtArea: "small-claims" } } } }));
+  });
+  await ask(page, "I am claiming $62,000.");
+  const transcript = page.getByTestId("case-partner-transcript");
+  await expect(transcript).toContainText("$50,000", { timeout: 60_000 });
+});

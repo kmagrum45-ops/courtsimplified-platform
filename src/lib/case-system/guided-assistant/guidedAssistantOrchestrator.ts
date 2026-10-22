@@ -977,6 +977,8 @@ function buildBestQuestion(args: {
 
 function buildCaution(
   investigation: ReturnType<typeof buildCaseInvestigation>,
+  /** The case's court, in Ontario, came from its confirmed intake (#468 re-test). */
+  courtConfirmed = false,
 ): string {
   const warnings = uniqueStrings(
     investigation.validation?.warnings || [],
@@ -987,10 +989,11 @@ function buildCaution(
   );
 
   if (jurisdictionWarning) {
-    return assistantText("assistant:caution:jurisdiction");
+    // "The province ... must be confirmed" is not true of a confirmed Ontario case.
+    if (!courtConfirmed) return assistantText("assistant:caution:jurisdiction");
   }
 
-  const firstWarning = firstItem(warnings);
+  const firstWarning = firstItem(warnings.filter((warning) => !(courtConfirmed && normalize(warning).includes("jurisdiction"))));
 
   if (!hasText(firstWarning)) {
     return "";
@@ -1079,7 +1082,7 @@ function buildGeneralAnswer(args: {
    * DIRECT-intent answers carry it every time instead -- see buildAnswer --
    * because those are the ones a person acts on.
    */
-  const caution = buildCaution(args.investigation);
+  const caution = buildCaution(args.investigation, args.courtConfirmed);
 
   if (args.firstTurn && hasText(caution)) {
     paragraphs.push(caution);
@@ -1139,7 +1142,7 @@ function buildAnswer(args: {
      * every message in a conversation, which is what made the first-turn-only
      * rule tempting in the first place.
      */
-    const directCaution = buildCaution(args.investigation);
+    const directCaution = buildCaution(args.investigation, args.courtConfirmed);
 
     return (
       deduplicateParagraphs(

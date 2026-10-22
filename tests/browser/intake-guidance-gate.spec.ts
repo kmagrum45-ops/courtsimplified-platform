@@ -30,7 +30,7 @@ for (const court of ["small-claims", "family", "civil"] as const) {
       await route.fulfill({ json: await reply(route, court) });
     });
     await openBuilder(page, court, { story: court === "small-claims" ? undefined : STORY });
-    if (court === "small-claims") { await page.getByRole("button", { name: "Fill in the form yourself" }).click(); await page.getByLabel("Case story", { exact: true }).fill(STORY); }
+    if (court === "small-claims") { await page.getByRole("button", { name: "Fill in the form yourself" }).click(); await page.getByLabel("Case story", { exact: true }).fill(STORY); await saveCaseStory(page); }
     else await page.getByTestId("guided-form-show-form").click();
     const overview = page.getByTestId("completed-case-overview");
     await expect(overview).toHaveCount(0);

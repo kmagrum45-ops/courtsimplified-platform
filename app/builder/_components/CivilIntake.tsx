@@ -4,6 +4,7 @@ import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIn
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
+import StoryEditor from "./StoryEditor";
 import SignInForSafetyCheck from "./SignInForSafetyCheck";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
@@ -497,15 +498,6 @@ const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "am
 const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
 
 export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
-  /*
-   * The story being edited: a draft, saved to the story only by "Save story" (L42).
-   * Typing changed the story key by key, so select-all and delete made it empty
-   * mid-edit; the editor closed and the next keystrokes were lost (#465 re-test).
-   * Open while the draft is not null, even when it is empty; an empty draft can
-   * never be saved over a real story. Saving keeps the editor open; Close puts it
-   * away (discarding anything unsaved). Kept in the intake record, so a reload keeps it.
-   */
-  const [storyDraft, setStoryDraft] = useIntakeState<string | null>("civil", "storyDraft", null);
   const [input, setInput] = useInputWithStory<CivilInput>("civil", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
@@ -580,11 +572,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const personDocuments = useRef(restoredPersonDocuments);
   useEffect(() => { recovery?.put("civil", "personSet", [...personSet.current], false); recovery?.put("civil", "personDocuments", [...personDocuments.current], false); });
 
-  /** Saves the edited story (L42). Never an empty one over a real story. */
-  function saveStoryDraft() {
-    const draft = storyDraft ?? "";
-    if (!draft.trim()) return;
-    // The editor stays open on the saved text; Close puts it away.
+  /** "Save story" in the story editor (StoryEditor, L42): never called with an empty story. */
+  function saveStoryDraft(draft: string) {
     if (draft !== input.facts) updateField("facts", draft);
     void sourced.start(draft, input.yourRole || undefined);
   }
@@ -954,7 +943,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       )}
 
       <div className="mt-6 grid gap-5">
-        {mode === "chat" ? (
+        {mode === "chat" ? (<>
           <GuidedFormChat
             fields={guidedFields}
             values={guidedValues}
@@ -963,7 +952,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             onShowForm={() => setMode("form")}
             busy={isAnalyzing || sourced.state === "loading"}
           />
-        ) : (
+          {/* The one-at-a-time route too: its Continue says what is missing beside it (#468 re-test). */}
+          <ReviewNeededNotice from="civil" />
+        </>) : (
           <button type="button" onClick={() => setMode("chat")} className="justify-self-start text-sm font-semibold text-[#2f7d67] underline">
             Answer one question at a time instead
           </button>
@@ -1095,15 +1086,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </label>
         ))}
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p>{storyDraft === null ? (
-          <button type="button" onClick={() => setStoryDraft(input.facts)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>
-        ) : (<>
-          <textarea aria-label="Case story" data-testid="civil-story-draft" value={storyDraft} onChange={(event) => setStoryDraft(event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />
-          <div className="mt-2 flex flex-wrap gap-3">
-            <button type="button" data-testid="civil-story-save" disabled={!storyDraft.trim()} onClick={saveStoryDraft} className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">Save story</button>
-            <button type="button" onClick={() => setStoryDraft(null)} className="text-sm font-semibold text-[#2f7d67] underline">{storyDraft === input.facts ? "Close" : "Close without saving"}</button>
-          </div>
-        </>)}</div>
+        <StoryEditor section="civil" story={input.facts} onSave={saveStoryDraft} ids={{ draft: "civil-story-draft", save: "civil-story-save" }} />
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

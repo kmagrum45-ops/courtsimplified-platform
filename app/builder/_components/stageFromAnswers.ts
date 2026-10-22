@@ -201,8 +201,10 @@ export function yesOrNo(text: string): boolean | null {
  * who was served, "The case has started" is true but sat beside a "Where you
  * are" step on the defending side ("Defence period missed"), as if it said
  * something else; they are offered "I was served and need to respond" instead.
+ * Civil and Family analyses suggest "I am not sure" for the same person, so
+ * that is offered as responding too (#468 re-test).
  * Only the suggestion: a stage the person confirmed stays theirs (CLAUDE.md s. 4).
  */
 export function suggestionForSide(stage: UniversalStage, responding: boolean): UniversalStage {
-  return responding && stage === "already-started" ? "responding" : stage;
+  return responding && (stage === "already-started" || stage === "not-sure") ? "responding" : stage;
 }

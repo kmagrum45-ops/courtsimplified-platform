@@ -218,7 +218,9 @@ export default function CaseOverviewPage() {
         {/* Only before the person has confirmed where they are: after that,
             a second "what your records say" stage contradicted theirs
             (held-back walkthrough, 2026-10-09). */}
-        {!confirmed && events?.stage.basis.length && events.stage.stage !== "unknown" ? (
+        {/* And only when it explains the stage suggested: "Case already started" under an "I was
+            served" suggestion read as a contradiction (#468 re-test). */}
+        {!confirmed && events?.stage.basis.length && events.stage.stage !== "unknown" && events.stage.stage === suggestedStage ? (
           <details className="rounded-2xl border border-[#e3efe9] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
             <summary className="cursor-pointer font-semibold text-[#24463d]">
               What your records say: {getStageLabel(events.stage.stage as UniversalStage)}

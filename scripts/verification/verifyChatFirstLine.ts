@@ -4,7 +4,8 @@
  * What it checks: for a case whose court the route supplies (the guided
  * assistant route only answers for a case with a confirmed intake, and passes
  * that case's court), the first reply in Small Claims, Family and civil never
- * says there is "not enough information yet" or asks to confirm the court path;
+ * says there is "not enough information yet", asks to confirm the court path, or
+ * says the province must be confirmed;
  * and with no court given, that fallback is still available. The other half,
  * the chat page not asking to confirm the province, amount and remedy after the
  * review is confirmed, is tested in tests/browser/chat-follow-up.spec.ts.
@@ -35,6 +36,8 @@ for (const court of ["small-claims", "family", "civil"]) {
   const reply = firstReply(court);
   check(`${court}: the first reply on a confirmed case does not say "not enough information yet" or ask to confirm the court`, !GENERIC.test(reply), reply.slice(0, 300));
   check(`${court}: and it is not empty`, reply.trim().length > 0);
+  // #468 re-test: "The province or jurisdiction must be confirmed" on a confirmed Ontario case.
+  check(`${court}: nor says the province must be confirmed`, !/province or jurisdiction must be confirmed/i.test(reply), reply.slice(0, 300));
 }
 check("with no court given, the generic fallback is still there", GENERIC.test(firstReply()), firstReply().slice(0, 300));
 

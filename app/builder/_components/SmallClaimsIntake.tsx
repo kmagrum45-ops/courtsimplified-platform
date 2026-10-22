@@ -5,6 +5,7 @@ import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
+import StoryEditor from "./StoryEditor";
 
 import { IntakeRequest } from "../../_components/intakeRequest";
 
@@ -672,7 +673,6 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   // gate no longer collects it for Small Claims) -- otherwise the user would
   // land on an empty "Case story" summary with no visible way to type into it
   // until they notice the "Edit case story" toggle.
-  const [editingStory, setEditingStory] = useIntakeState("small-claims", "editingStory", () => !input.facts.trim());
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const analysisRequest = useRef(new IntakeRequest());
@@ -734,9 +734,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
     "otherParty",
     "yourName",
   ]);
-  function extractFromStory() {
-    if (!input.facts.trim()) return;
-    const prefill = extractNarrativePrefill({ narrative: input.facts, courtPath: "small-claims" });
+  function extractFromStory(text: string = input.facts) {
+    if (!text.trim()) return;
+    const prefill = extractNarrativePrefill({ narrative: text, courtPath: "small-claims" });
     const direct = prefill.facts.filter(
       (fact) => fact.state === "direct" && EXTRACTABLE_STORY_FIELDS.has(fact.field),
     );
@@ -1114,6 +1114,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               onChange={(event) => updateField("yourRole", event.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
             >
+              {/* An emptied role ("Start the questions again") reads as unanswered, not as the first option (#468 re-test). */}
+              <option value="">Choose your role</option>
               <option value="Plaintiff / claimant">Plaintiff / claimant</option>
               <option value="Defendant / responding party">Defendant / responding party</option>
               <option value="Not sure">Not sure</option>
@@ -1148,7 +1150,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </label>
         </div>
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" data-testid="sc-intake-edit-story" onClick={() => { if (editingStory) extractFromStory(); setEditingStory((current) => !current); }} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" data-testid="sc-intake-facts" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <StoryEditor section="small-claims" story={input.facts} startOpen={!input.facts.trim()} onSave={(text) => { updateField("facts", text); extractFromStory(text); }} ids={{ toggle: "sc-intake-edit-story", draft: "sc-intake-facts", save: "sc-story-save" }} />
 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
