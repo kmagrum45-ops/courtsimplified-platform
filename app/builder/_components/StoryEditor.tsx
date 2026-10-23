@@ -59,7 +59,9 @@ export default function StoryEditor({
   return (
     <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
       {heading ? <h3 className="font-semibold text-[#16302b]">{heading}</h3> : null}
-      {showStory ? <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{story}</p> : null}
+      {/* Shown above an open box only where asked; always when the box is closed, so "Close" never
+          leaves an empty space with only "Edit case story" (#470 re-test, review panel). */}
+      {showStory || draft === null ? <p data-testid={ids.toggle ? `${ids.toggle}-text` : undefined} className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{story}</p> : null}
       {draft === null ? (
         <button type="button" data-testid={ids.toggle} onClick={() => setStored({ text: story, base: story })} className="mt-3 text-sm font-semibold text-[#2f7d67]">
           Edit case story

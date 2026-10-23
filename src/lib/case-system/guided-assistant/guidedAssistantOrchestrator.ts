@@ -5,6 +5,7 @@ import {
 } from "./conversationIntelligenceEngine";
 
 import { sentenceFromRecord, userStory } from "../userStory";
+import { sentences as splitSentences } from "../sentences";
 import { buildConversationMemory } from "./conversationMemoryEngine";
 
 import { buildCaseInvestigation } from "./caseInvestigationEngine";
@@ -1022,8 +1023,21 @@ function recordedEvidenceOf(caseMemory: unknown): string[] {
   const answer = clean(sentenceFromRecord(clean(getNestedValue(caseData, ["evidence"]))));
   const own = getNestedValue(caseData, ["story"]);
   const story = clean(typeof own === "string" && own.trim() ? own : userStory(caseData as Parameters<typeof userStory>[0]));
-  const EVIDENCE = /\b(text messages?|texts|messages?|emails?|receipts?|invoices?|contracts?|photos?|pictures?|screenshots?|recordings?|videos?|witness(?:es)?|letters?|records?|statements?|documents?)\b/i;
-  const sentences = story.split(/(?<=[.!?])\s+/).map((sentence) => sentence.trim()).filter((sentence) => EVIDENCE.test(sentence) && !sentence.endsWith("?"));
+  // #470 re-test: Family and Small Claims stories said "I have our tax returns" or "I have
+  // my pay stubs", which this list did not know, and the reply fell back to "what proof do
+  // you have". A sentence saying what the person has comes first; one that only describes
+  // court papers ("I was served with a Statement of Claim") is not their evidence.
+  const EVIDENCE = /\b(text messages?|texts|messages?|emails?|receipts?|invoices?|contracts?|agreements?|leases?|guarantees?|photos?|pictures?|screenshots?|recordings?|videos?|witness(?:es)?|letters?|records?|statements?|documents?|tax returns?|pay ?stubs?|estimates?|surveys?|certificates?|reports?|notes|logs?|diary|journal|calendar|job offer|offer letter|e-transfer|can confirm|will confirm|saw (?:it|what happened))\b/i;
+  const HAVE = /\b(?:I|we)(?:'ve| have| still have| kept| saved| got)\b/i;
+  // Court papers are not the person's evidence; a sentence is left out only when they are
+  // all it names ("I was served with a Statement of Claim"), not when it also names their
+  // own ("served me with an application ...; my bank statements show I paid", #471 re-test).
+  const COURT_PAPERS = /\bstatement of claim\b|\bplaintiff'?s claim\b|\bstatement of defence\b|\bapplication\b|\banswer\b/gi;
+  const ownEvidence = (sentence: string) => EVIDENCE.test(sentence.replace(COURT_PAPERS, " "));
+  // Sentences, and lines: evidence written on its own line ("Evidence: contract, emails").
+  const found = splitSentences(story).flatMap((sentence) => sentence.split(/(?<=;)\s+/)).map((sentence) => sentence.trim())
+    .filter((sentence) => sentence && ownEvidence(sentence) && !sentence.endsWith("?"));
+  const sentences = [...found.filter((sentence) => HAVE.test(sentence)), ...found.filter((sentence) => !HAVE.test(sentence))];
   return uniqueStrings([...(answer ? [answer] : []), ...sentences]).slice(0, 3);
 }
 
@@ -1057,6 +1071,8 @@ function buildGeneralAnswer(args: {
   courtConfirmed: boolean;
   /** The message asks something (the follow-up chat looks the law up beside the reply). */
   askedQuestion: boolean;
+  /** Evidence the person already named, in their own words. */
+  recordedEvidence?: string[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1135,7 +1151,10 @@ function buildGeneralAnswer(args: {
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
   });
-  paragraphs.push(bestQuestion);
+  // Not "what proof do you already have" when the person has said what they have
+  // (#470 re-test: it followed a reply quoting their own list of evidence).
+  const askedForProof = /what proof do you (?:already |currently )?have/i.test(bestQuestion);
+  if (!(askedForProof && (args.recordedEvidence?.length ?? 0) > 0)) paragraphs.push(bestQuestion);
 
   const kept = deduplicateParagraphs(paragraphs, args.previousAssistantText);
 
@@ -1213,6 +1232,7 @@ function buildAnswer(args: {
   return buildGeneralAnswer({
     firstTurn,
     courtConfirmed: args.courtConfirmed,
+    recordedEvidence: args.recordedEvidence,
     askedQuestion: /\?\s*$/.test(args.message.trim()) || /^(what|how|when|where|who|why|which|can|could|do|does|did|should|is|are|will|would)\b/i.test(args.message.trim()),
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,

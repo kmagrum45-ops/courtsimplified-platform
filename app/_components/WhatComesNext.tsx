@@ -14,7 +14,9 @@ import { nextStepsFor, type NextStepView } from "@/src/lib/case-system/stage-map
  */
 
 /** "r. 17 (5)", "r. 17 (5) and r. 17 (10)", "r. 1, r. 2 and r. 3". */
-export function joinPinpoints(pinpoints: string[]): string {
+export function joinPinpoints(all: string[]): string {
+  // Each pinpoint once (#470 re-test: a repeated citation in one line).
+  const pinpoints = [...new Set(all)];
   return pinpoints.length <= 1 ? (pinpoints[0] ?? "") : `${pinpoints.slice(0, -1).join(", ")} and ${pinpoints[pinpoints.length - 1]}`;
 }
 

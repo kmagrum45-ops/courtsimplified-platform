@@ -22,17 +22,9 @@ export type StoryAnswer = { value: string; quote: string };
  * A full stop after one of these does not end a sentence: "I want Test Builder
  * Ltd. to finish the work" was cut at "Ltd." (PR #463 re-test, 2026-10-18).
  */
-const ABBREVIATIONS = /\b(?:ltd|inc|corp|co|llc|llp|mr|mrs|ms|dr|st|ave|rd|no|jr|sr|vs|etc|e\.g|i\.e|approx|apt)\.$/i;
-
-export function sentences(story: string): string[] {
-  const out: string[] = [];
-  for (const piece of story.split(/(?<=[.!?])\s+|\n+/)) {
-    const previous = out[out.length - 1];
-    if (previous !== undefined && ABBREVIATIONS.test(previous)) out[out.length - 1] = `${previous} ${piece.trim()}`;
-    else out.push(piece.trim());
-  }
-  return out.filter(Boolean);
-}
+// Now the shared splitter (src/lib/case-system/sentences.ts), kept exported here for its callers.
+export { sentences } from "../../../src/lib/case-system/sentences";
+import { sentences } from "../../../src/lib/case-system/sentences";
 
 /*
  * Words that make what follows a question, a doubt or a "what if" rather than

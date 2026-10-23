@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-166 documented, 26 without a header.
+168 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -129,6 +129,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:responding-draft` | **The side responding to a case is offered a draft of its response -- Defence**<br>(Small Claims Form 9A), Statement of Defence (civil Form 18A), Answer (family Form 10) -- built only from its own answers. |
 | `npm run test:responding-side` | **The document that STARTS a case is never offered to the side responding to it.**<br>COSTS NOTHING. A pure function plus a source scan of the builder page. |
 | `npm run test:retrieval-bundled` | **The deployed analysis routes carry the retrieval index and the corpus.**<br>WHAT IT CATCHES. Retrieval reads its index and the vendored corpus from disk by file names the bundler cannot see, so next.config.ts lists them in outputFileTracingIncludes. If that stops working -- a renamed route, a changed config key, a Next.js upgrade that |
+| `npm run test:review-follow-ups` | **The #470 re-test's follow-up items that are pure functions (the browser half is**<br>tests/browser/retest-471.spec.ts and the story pack). |
 | `npm run test:rls-matrix` | **Every RLS scenario, attacked for real: two litigants, an anonymous visitor and the**<br>service role against a database built from supabase/migrations/, on every table. |
 | `npm run test:rls-matrix-catches` | **The RLS suite fails on every kind of hole it exists to find. Proved by planting each**<br>one and watching it go red. |
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
@@ -154,6 +155,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-answers` | **What the person's story already answers is offered, not asked again**<br>(storyAnswers.ts, guidedFields.ts; walkthrough R2 and V2, 2026-10-13). |
 | `npm run test:story-basis` | **One record of which story version each story-derived answer was based on.**<br>What it checks (storyBasis.ts): an answer is tagged with the story version it was stored under; when the story changes, every older answer is stale in all three areas (Small Claims, civil, family): emptied in the view screens read, never shown as current, and  |
 | `npm run test:story-data-registry` | **Every place that stores data is listed, with where it stands when the story changes.**<br>What it checks (storyDataRegistry.ts, intakeStorageKeys.ts, storyDataScan.ts): - every intake section the code uses, every master_result key it writes and every table it writes is in the registry with one class, and every listed one is still used (an unused li |
+| `npm run test:story-pack` | **Runs the story pack (tests/browser/story-pack.spec.ts) and prints its findings,**<br>grouped by what failed. Exits non-zero when there are any, so it can gate a PR. |
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |

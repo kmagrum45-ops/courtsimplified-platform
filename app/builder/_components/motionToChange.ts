@@ -47,6 +47,7 @@
  * Pure: no I/O.
  */
 
+import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
 import type { RuleCitation } from "../../../src/lib/case-system/stage-map/citations";
 import { findStage } from "../../../src/lib/case-system/stage-map/stageMap";
 
@@ -179,7 +180,8 @@ const MY_MOTION: RegExp[] = [
   /\b(?:i|we) (?:served|filed|brought|issued)\s+(?:(?:him|her|them|my ex(?:-?(?:wife|husband|partner))?|the other (?:parent|party))\s+(?:with\s+)?)?(?:a |the )?motion to change\b(?!\s+(?:that\s+|which\s+)?(?:he|she|they|my ex)\b)/i,
 ];
 
-const sentencesOf = (story: string) => story.split(/(?<=[.!?])\s+|\n+/).filter((sentence) => sentence.trim());
+// The shared splitter: "Ltd." does not end a sentence (sentences.ts).
+const sentencesOf = (story: string) => splitSentences(story);
 
 /** "I do not want the support lowered": a want said with a no is not an ask (kept as a second guard). */
 const NEGATED_WANT = /\b(?:don'?t|do not|doesn'?t|does not|didn'?t|did not|never|not|won'?t|will not|wouldn'?t|would not|no longer)\s+(?:\w+\s+)?(?:want|need|would like|wish|hope|plan|agree|ask)\b/i;

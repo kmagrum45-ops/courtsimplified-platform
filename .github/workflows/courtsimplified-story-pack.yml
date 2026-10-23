@@ -1,0 +1,82 @@
+name: CourtSimplified story pack
+
+# The story pack (tests/browser/story-pack.spec.ts): 30 made-up stories, each run in a
+# real browser through the questions and through the review panel, then the next step,
+# the follow-up chat and the case page. Every check asserts a property (no internal
+# wording, no doubled full stop, the side named, the amount owed never a fee...).
+#
+# Run before any PR is marked ready (#470 re-test, 2026-10-23). No AI spend: the site's
+# server calls are answered by this commit's own code. Staging only, like the browser
+# regression job; its own job because it takes longer than that job's limit.
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  story-pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY || secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refuse a production database
+        run: node --import tsx scripts/walkthrough/guard.ts
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Site access password for this run only
+        run: |
+          pw="$(openssl rand -hex 24)"
+          echo "::add-mask::$pw"
+          echo "SITE_ACCESS_PASSWORD=$pw" >> "$GITHUB_ENV"
+
+      - name: Production build
+        run: npm run build
+
+      - name: Start the site
+        run: |
+          nohup npx next start -p 3100 > server.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -s -o /dev/null http://localhost:3100; then echo "up"; exit 0; fi
+            sleep 2
+          done
+          echo "server did not start"; tail -50 server.log; exit 1
+
+      - name: The story pack
+        env:
+          PLAYWRIGHT_BASE_URL: http://localhost:3100
+        run: npm run test:story-pack
+
+      - name: Keep the findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: story-pack-findings
+          path: |
+            test-results/story-pack-findings.jsonl
+            test-results/**/error-context.md
+          retention-days: 14
+          if-no-files-found: ignore

@@ -10,7 +10,7 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
-import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
+import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, reaffirmAnswers, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -39,7 +39,8 @@ type Recovery = {
   openQuestions: () => void;
   read: (section: string, key: string) => unknown;
   /** `fromReview`: an edit made in the review panel (see reconcileReview). */
-  put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean) => void;
+  /** `reaffirm`: the person answered this again (true: the whole field; a key: that one answer), so it is based on the current story even when the value is unchanged. */
+  put: (section: string, key: string, value: unknown, touched?: boolean, external?: boolean, fromReview?: boolean, reaffirm?: true | string) => void;
   flush: (signal?: AbortSignal) => Promise<void>;
   validate: (signal?: AbortSignal) => Promise<void>;
   getCaseId: () => string | null;
@@ -320,19 +321,22 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           ownerId, flowId: snapshot.flowId, resuming: Boolean(session || saved), row,
           getCaseId: () => caseId,
           read: (section, key) => snapshot.sections[section]?.[key],
-          put: (section, key, value, touched = true, external = false, fromReview = false) => {
+          put: (section, key, value, touched = true, external = false, fromReview = false, reaffirm = undefined) => {
             if (!current()) return;
             const field = `${section}:${key}`;
             const json = JSON.stringify(value instanceof Set ? [...value] : value);
             if (json === undefined) return;
             const encoded: unknown = JSON.parse(json);
-            if (JSON.stringify(snapshot.sections[section]?.[key]) === JSON.stringify(encoded)) { invalid.delete(field); return; }
+            const unchanged = JSON.stringify(snapshot.sections[section]?.[key]) === JSON.stringify(encoded);
+            if (unchanged && reaffirm === undefined) { invalid.delete(field); return; }
             let sections: Checkpoint["sections"] = { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } };
             // One record of which story each answer was based on (storyBasis.ts).
             const storyChanged = field === STORY_TEXT_FIELD;
             if (storyChanged) sections = onStoryChange(sections);
             // Only what the person enters or confirms is an answer; a form registering its defaults is not.
             if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);
+            if (reaffirm !== undefined) sections[BASIS_SECTION] = reaffirmAnswers(sections, section, key, encoded, reaffirm === true ? undefined : reaffirm);
+            if (unchanged && JSON.stringify(sections[BASIS_SECTION]) === JSON.stringify(snapshot.sections[BASIS_SECTION])) { invalid.delete(field); return; }
             const next = { ...snapshot, revision: crypto.randomUUID(), sections };
             if (touched && materialInitialFacts(next) !== materialInitialFacts(snapshot)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next, fromReview); }
             if (!readCheckpoint(next, court)) { invalid.add(field); dirty = true; emit(); failure("This intake is too large to save together. Nothing has been removed; copy your text before leaving."); return; }

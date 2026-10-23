@@ -1,5 +1,6 @@
 "use client";
 
+import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/src/lib/supabase/client";
 
@@ -259,7 +260,7 @@ const ABOUT_THE_PAPERS = /\b(?:papers?|claim|application|summons|served|serve|se
 export function serviceMethodShown(court: ServiceCourt, story: string): { method: ServiceMethod; quote: string } | null {
   const method = serviceMethodFromStory(court, story);
   if (!method) return null;
-  const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  const sentences = splitSentences(story);
   // Only a sentence about the court papers reaching them (review 2026-10-13:
   // "I emailed him the invoice three times", "we met in person to sign the
   // lease" and "i mailed my defence to the court" are not how they were served).
@@ -341,6 +342,16 @@ export function receivesPapersStep(stageId: string, responding = false): boolean
 }
 
 /** The person's answer to the motion-to-change reading (casePosition `motionToChange`). */
+/**
+ * Where a date came from, in the person's words: their story, or an answer they gave.
+ * The dates are read from the story together with the Timeline, where an answer such as
+ * the day they were served is kept, and that answer was labelled "From your story"
+ * (#470 re-test).
+ */
+export function hintBasis(quote: string, storyText: string | undefined): string {
+  return (storyText ?? "").includes(quote) ? `from your story: “${quote}”` : `from your answer: “${quote.replace(/^[^:“]{1,40}:s*/, "")}”`;
+}
+
 export type MotionSide = { answer: "yes" | "other" | "not-sure"; readingKind: "asking" | "responding" | "if-served" };
 
 /**
@@ -1450,14 +1461,14 @@ export default function StageAnswerPanel({
   const storyDates = useMemo(() => {
     const out: Record<string, { value: string; basis: string }> = {};
     for (const [id, hint] of Object.entries(storyHints)) {
-      if (hint.value && !hint.yearAssumed && !arrivalOnly[id]) out[id] = { value: hint.value, basis: `from your story: “${hint.quote}”` };
+      if (hint.value && !hint.yearAssumed && !arrivalOnly[id]) out[id] = { value: hint.value, basis: hintBasis(hint.quote, storyText) };
     }
     for (const [id, offered] of Object.entries(offeredDates)) {
       if (offered.value && !offered.yearAssumed && !arrivalOnly[id]) out[id] = { value: offered.value, basis: offered.basis };
     }
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [offeredKey, hintsKey, arrivalKey]);
+  }, [offeredKey, hintsKey, arrivalKey, storyText]);
   const withStoryDates = (answers: Record<string, string>, dropped: Record<string, boolean> = rejected) => {
     const fromStory: Record<string, string> = {};
     for (const [id, date] of Object.entries(storyDates)) if (!dropped[id]) fromStory[id] = date.value;
@@ -1781,7 +1792,7 @@ export default function StageAnswerPanel({
                 ? undefined
                 : offeredDates[question.id] ??
                   (hint?.value
-                    ? { value: hint.value, basis: `from your story: “${hint.quote}”`, yearAssumed: hint.yearAssumed }
+                    ? { value: hint.value, basis: hintBasis(hint.quote, storyText), yearAssumed: hint.yearAssumed }
                     : undefined);
               const value = dateDraft[question.id] ?? "";
               const saved = dateAnswers[question.id];
@@ -1810,9 +1821,9 @@ export default function StageAnswerPanel({
                     <p className="text-xs text-[#4d675f]">
                       {saved
                         ? keptFromStory[question.id]
-                          ? `${keptFromStory[question.id].replace(/^from your story/, "From your story")}. Saved to your case.`
+                          ? `${keptFromStory[question.id].replace(/^from your/, "From your")}. Saved to your case.`
                           : "Saved to your case."
-                        : `${fromStory!.basis.replace(/^from your story/, "From your story")}`}{" "}
+                        : `${fromStory!.basis.replace(/^from your/, "From your")}`}{" "}
                       Used for:{" "}
                       {question.sets.join("; ")}
                     </p>
@@ -1963,7 +1974,7 @@ export default function StageAnswerPanel({
                     // click on their year uses it and counts the deadline.
                     <div className="mt-2" data-testid={`stage-answer-year-choice-${question.id}`}>
                       <p className="text-sm text-[#16302b]">
-                        {suggestion.basis.replace(/^from your story/, "From your story")}.{" "}
+                        {suggestion.basis.replace(/^from your/, "From your")}.{" "}
                         <span className="font-semibold">Which year was that?</span>
                       </p>
                       <div className="mt-2 flex flex-wrap gap-2">

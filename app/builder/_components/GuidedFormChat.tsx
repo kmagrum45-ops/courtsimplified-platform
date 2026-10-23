@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntakeState } from "../../_components/IntakeRecovery";
+import { asksForDate, needsYear } from "../../../src/lib/case-system/dateYear";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 
 /**
@@ -78,7 +79,10 @@ export type GuidedField = {
 
 /** What a text answer still needs before it is kept, or null (GuidedField.needsMore). */
 export function answerNeedsMore(field: GuidedField, value: string | string[]): string | null {
-  return typeof value === "string" && value.trim() && field.needsMore ? field.needsMore(value.trim()) : null;
+  if (typeof value !== "string" || !value.trim()) return null;
+  // Every question that asks for a date asks for its year (dateYear.ts, #471 re-test).
+  const check = field.needsMore ?? (asksForDate(field.question) ? needsYear : null);
+  return check ? check(value.trim()) : null;
 }
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
@@ -112,9 +116,14 @@ export function acknowledgement(field: GuidedField, value: string | string[]): s
     .filter(Boolean);
   if (labels.length === 0) return "Okay, we'll leave that for now.";
   const shown = labels.join("; ");
-  if (shown.length <= 160) return `Got it: ${shown}.`;
+  if (shown.length <= 160) return `Got it: ${withFullStop(shown)}`;
   if (field.kind === "longtext" && !Array.isArray(value)) return `Got it. We have ${field.label.charAt(0).toLowerCase()}${field.label.slice(1)}, in your own words.`;
-  return `Got it: ${cutAtWord(shown, 157)}.`;
+  return `Got it: ${withFullStop(cutAtWord(shown, 157))}`;
+}
+
+/** The text with one closing full stop: "Leo, age 7." was shown as "Leo, age 7.." (#470 re-test). */
+export function withFullStop(text: string): string {
+  return /[.!?…]$/.test(text.trim()) ? text.trim() : `${text.trim()}.`;
 }
 
 /** What the transcript shows above an answer: the question, or for an answer confirmed from the story, that it came from the story. */
@@ -354,8 +363,10 @@ export default function GuidedFormChat({
                   key={option.value}
                   type="button"
                   data-testid={`guided-option-${option.value}`}
+                  // The answer it holds is marked, so changing it shows what it was (#471 re-test).
+                  aria-pressed={values[current.key] === option.value}
                   onClick={() => answer(option.value)}
-                  className="rounded-xl border border-[#d8e6df] px-4 py-2 text-left text-sm font-semibold text-[#16302b] hover:border-[#2f7d67]"
+                  className="rounded-xl border border-[#d8e6df] px-4 py-2 text-left text-sm font-semibold text-[#16302b] hover:border-[#2f7d67] aria-pressed:bg-[#2f7d67] aria-pressed:text-white"
                 >
                   {option.label}
                 </button>

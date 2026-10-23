@@ -68,6 +68,28 @@ void (async () => {
     check(`${court}: and a repeated question still opens with the law-answer line`, again.every((reply) => firstLine(reply).startsWith("The law on your question is shown below")), again.map((reply) => firstLine(reply).slice(0, 60)).join(" / "));
   }
 
+  // #470 re-test: Family and Small Claims gave the generic "what proof do you have" with no
+  // quote, and asked for "the main dates" with a served date recorded. Stories worded as
+  // people in each area wrote them.
+  const AREA_STORIES: [("small-claims" | "family" | "civil"), string][] = [
+    ["family", "My former spouse served me with an Application for child support on October 1, 2026. Our children are ages 10 and 12. I have my pay stubs."],
+    ["family", "My spouse and I separated in March 2026 after 12 years of marriage. I want spousal support. I have our tax returns."],
+    ["small-claims", "Test Supply Ltd. is suing me for $4,200 they say I owe for tools. I was served with a Plaintiff's Claim on October 6, 2026. I have my receipts."],
+    ["civil", "Test Equipment Ltd. is suing me for $80,000. I was served with a Statement of Claim on October 6, 2026. I have the purchase agreement."],
+    // #471 re-test: evidence not introduced by "I have", on its own line, or in a sentence
+    // that also names the court papers was not quoted in civil and Family.
+    ["civil", "Northwind Supplies Ltd. kept my deposit\nEvidence: contract, emails, bank statements"],
+    ["family", "My ex served me with an application for support last week; my bank statements show I paid every month."],
+    ["family", "My spouse left in March 2026. Our daughter's school can confirm she lives with me. I kept a calendar of every visit."],
+  ];
+  for (const [court, story] of AREA_STORIES) {
+    const [gatherIt, askIt] = await chatReplies(court, story, ["What should I gather first?", "How long do I have to respond?"]);
+    const quoted = [...gatherIt.matchAll(/“([^”]+)”/g)].map((match) => match[1]);
+    check(`${court} ("${story.slice(-30)}"): the evidence reply quotes the person's own words`, quoted.length > 0 && quoted.every((quote) => story.includes(quote)), gatherIt.slice(0, 200));
+    check(`${court} ("${story.slice(-30)}"): no "what proof do you have" once they have said`, !/what proof do you (?:already |currently )?have/i.test(gatherIt + askIt), (gatherIt + askIt).slice(0, 300));
+    if (/served/i.test(story)) check(`${court} ("${story.slice(-30)}"): no "main dates" with a served date in the story`, !/main dates/i.test(gatherIt + askIt), (gatherIt + askIt).slice(0, 300));
+  }
+
   const fallback = runGuidedAssistantGateway({
     message: "What should I do next?", conversation: [], mode: "builder-chat",
     caseMemory: { caseData: { facts: "Synthetic story." }, masterResult: {}, path: undefined },
