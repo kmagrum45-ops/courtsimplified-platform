@@ -6,7 +6,7 @@ import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMessages";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
-import { withServedDate } from "../builder/_components/guidedFields";
+import { servedDateNeedsYear, withServedDate } from "../builder/_components/guidedFields";
 import { locationOf, STORY_SECTION, storyOf } from "../../src/lib/case-system/intakeStory";
 import StoryEditor from "../builder/_components/StoryEditor";
 import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
@@ -41,6 +41,10 @@ export default function IntakeReviewPanel() {
   // "Pick everything that fits" in the panel: ticked here, saved together (#470 re-test:
   // the question closed after the first pick).
   const [picks, setPicks] = useState<Record<string, string[]>>({});
+  // Questions answered here stay on screen with the answer shown, so the person can change
+  // it, including back to what it was (#470 re-test: the question vanished after one answer).
+  const [answeredHere, setAnsweredHere] = useState<string[]>([]);
+  const keepShown = (id: string) => setAnsweredHere(current => current.includes(id) ? current : [...current, id]);
   const [fieldNotes, setFieldNotes] = useState<Record<string, string>>({});
   if (!view || !recovery || pathname !== "/builder") return null;
   const { checkpoint, workflowStatus } = view;
@@ -50,6 +54,12 @@ export default function IntakeReviewPanel() {
   const entries = reviewEntries(checkpoint).filter(entry => entry.essential || !empty(entry.value));
   const remaining = remainingEssentialQuestions(checkpoint);
   const unanswered = remainingEssentialQuestions(checkpoint, true);
+  const shownQuestions = [
+    ...unanswered,
+    ...answeredHere.filter(id => !unanswered.some(question => question.id === id)).map(id => ({ id, label: reviewQuestionField(checkpoint.courtPath, id)?.question ?? QUESTION_BANK.find(item => item.id === id)?.text ?? id })),
+  ];
+  /** The answer a civil or Family question holds now, as the form keeps it. */
+  const fieldValue = (id: string): unknown => checkpoint.courtPath === "civil" ? (checkpoint.sections.civil?.input as Record<string, unknown> | undefined)?.[id] : checkpoint.sections.family?.[id];
   const unknowns = Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : [];
   const suggestions = suggestInitialAnswers(checkpoint);
   const story = storyOf(checkpoint.sections);
@@ -89,13 +99,17 @@ export default function IntakeReviewPanel() {
     // showed "Select your role", "Nothing filed yet" reached no analysis).
     if (court === "family" && questionId === "servedDate") {
       // Family keeps the day of service in its Timeline, as the form does.
-      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true);
+      recovery.put("family", "timeline", withServedDate(String(recovery.read("family", "timeline") ?? ""), String(value)), true, true, true, true);
+      keepShown(questionId);
       return;
     }
+    keepShown(questionId);
+    // Answered again here: based on the current story even when the value is the same
+    // (#470 re-test: re-choosing the same side never cleared "earlier version").
     if (court === "civil") {
       const input = (recovery.read("civil", "input") as Record<string, unknown> | undefined) ?? {};
-      recovery.put("civil", "input", { ...input, [questionId]: value }, true, true, true);
-    } else recovery.put("family", questionId, value, true, true, true);
+      recovery.put("civil", "input", { ...input, [questionId]: value }, true, true, true, questionId);
+    } else recovery.put("family", questionId, value, true, true, true, true);
     // Chosen here by the person, so their own side and filings (stageFromAnswers.ts).
     if (questionId === "yourRole") {
       const set = recovery.read(court, "personSet");
@@ -117,7 +131,8 @@ export default function IntakeReviewPanel() {
     // From the store as it is now, not as last drawn: typing an amount and then clicking "No"
     // straight away saved the click over the amount (re-test round 7).
     const now = recovery.getReview().checkpoint;
-    recovery.put("builder", "initialAnswers", { ...initialAnswersOf({ ...now, sections: freshSections(now) }), [questionId]: value }, true, false, true);
+    recovery.put("builder", "initialAnswers", { ...initialAnswersOf({ ...now, sections: freshSections(now) }), [questionId]: value }, true, false, true, questionId);
+    keepShown(questionId);
     const input = recovery.read("small-claims", "input") as Record<string, unknown> | undefined;
     if (questionId === "sc-orient-role" && input && !["plaintiff", "defendant"].includes(String(input.yourRole))) {
       recovery.put("small-claims", "input", { ...input, yourRole: value.includes("defendant") ? "defendant" : "plaintiff" }, true, true, true);
@@ -146,30 +161,33 @@ export default function IntakeReviewPanel() {
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
               changed the story at once and set every answer aside). */}
-          {entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ draft: "review-story-draft", save: "review-story-save" }} /></div>
+          {entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ toggle: "review-story-edit", draft: "review-story-draft", save: "review-story-save" }} /></div>
           : Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
-            : typeof entry.value === "boolean" ? <input aria-label={`Review: ${entry.label}`} type="checkbox" checked={entry.value} disabled={busy} onChange={event => edit(entry, event.target.checked)} />
+            : typeof entry.value === "boolean" ? <div role="group" aria-label={`Review: ${entry.label}`} className="mt-1 flex gap-2">{/* Yes or No, the answer marked: an unticked box read the same as no answer (#470 re-test: "nothing filed" showed no "Claim Filed" tick). */}{([true, false] as const).map(choice => <button key={String(choice)} type="button" data-testid="intake-entry-yes-no" aria-pressed={entry.value === choice} disabled={busy} onClick={() => edit(entry, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#e9f7f2]">{choice ? "Yes" : "No"}</button>)}</div>
               : typeof entry.value === "string" && (entry.choices || SLUG.test(entry.value)) ? <p className="mt-1" aria-label={`Review: ${entry.label}`}>{shown(entry, entry.value)} <span className="text-[#4d675f]">(change this in the intake controls)</span></p>
-                : entry.section === "family" && entry.field === "servedDate" ? <input aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={servedDraft ?? String(entry.value)} disabled={busy} onChange={event => setServedDraft(event.target.value)} onBlur={() => { if (servedDraft !== null) { edit(entry, servedDraft.trim()); setServedDraft(null); } }} />
+                : entry.section === "family" && entry.field === "servedDate" ? <>{/* The year is asked for here as in the questions (#470 re-test: "October 6" was kept, and the results then asked "2026 or 2025?"). */}{fieldNotes["entry:servedDate"] ? <p data-testid="intake-entry-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes["entry:servedDate"]}</p> : null}<input aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={servedDraft ?? String(entry.value)} disabled={busy} onChange={event => setServedDraft(event.target.value)} onBlur={() => { if (servedDraft === null) return; const typed = servedDraft.trim(); const more = typed ? servedDateNeedsYear(typed) : null; setFieldNotes(current => ({ ...current, "entry:servedDate": more ?? "" })); if (more) return; edit(entry, typed); setServedDraft(null); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} /></>
                 : <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={String(entry.value)} disabled={busy} onChange={event => { if (typeof entry.value === "number") { if (event.target.value.trim() && Number.isFinite(Number(event.target.value))) edit(entry, Number(event.target.value)); } else edit(entry, event.target.value); }} />}
         </div>)}
       </div>
-      {phase === "reviewing" && unanswered.length > 0 && <fieldset className="mt-5"><legend>Remaining initial questions</legend><p>Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{unanswered.map(question => {
+      {phase === "reviewing" && shownQuestions.length > 0 && <fieldset className="mt-5"><legend>Remaining initial questions</legend><p>Answer these here or in the intake controls, or record that you do not know. A suggestion read from your story is only a suggestion until you choose it. Evidence research is optional.</p>{shownQuestions.map(question => {
         const bank = QUESTION_BANK.find(item => item.id === question.id);
         const suggested = suggestions[question.id];
-        return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id}>
+        const answered = !unanswered.some(item => item.id === question.id);
+        return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={answered ? "true" : "false"}>
           <p className="font-semibold">{question.label}</p>
           {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}{choice === suggested ? " (suggested from your story)" : ""}</button>)}</div>}
           {bank?.answerType === "yes-no" && <div className="mt-1 flex flex-wrap gap-2">{["Yes", "No"].map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}</button>)}</div>}
           {/* Typed answers save when the person leaves the box (Enter too): a value typed but never "used" counted for nothing (re-test round 7). */}
-          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed !== undefined && typed.trim()) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && <button type="button" data-testid="intake-use-suggestion" disabled={busy} onClick={() => answer(question.id, suggested)} className="rounded border px-3 py-1">Use “{suggested}” (from your story)</button>}</div>}
+          {bank && ["date", "amount", "short-text"].includes(bank.answerType) && <div className="mt-1 flex flex-wrap items-center gap-2"><input type="text" placeholder={bank.answerType === "date" ? "For example: August 2026, or 2026-08-15" : bank.answerType === "amount" ? "For example: $8,500" : "Your answer"} aria-label={`Answer: ${question.label}`} value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => { const typed = dates[question.id]; if (typed === undefined || !typed.trim()) return; const more = bank.answerType === "date" ? servedDateNeedsYear(typed.trim()) : null; setFieldNotes(current => ({ ...current, [question.id]: more ?? "" })); if (!more) answer(question.id, typed.trim()); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} className="rounded border px-2 py-1" />{/* A suggestion is a button, never a filled-looking box that was not saved (re-test round 7). */}{suggested && <button type="button" data-testid="intake-use-suggestion" disabled={busy} onClick={() => answer(question.id, suggested)} className="rounded border px-3 py-1">Use “{suggested}” (from your story)</button>}</div>}
+          {bank && fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}
           {/* Civil and Family: the form's own field, answerable here (#469 re-test). */}
           {!bank && (() => {
             const field = reviewQuestionField(checkpoint.courtPath, question.id);
             if (!field) return null;
-            if (field.kind === "choice") return <div className="mt-1 flex flex-wrap gap-2">{field.options.map(option => <button key={option.value} type="button" data-testid="intake-field-choice" disabled={busy} onClick={() => answerField(question.id, option.value)} className="rounded border px-3 py-1">{option.label}</button>)}</div>;
+            if (field.kind === "choice") return <div className="mt-1 flex flex-wrap gap-2">{field.options.map(option => <button key={option.value} type="button" data-testid="intake-field-choice" aria-pressed={answered && fieldValue(question.id) === option.value} disabled={busy} onClick={() => answerField(question.id, option.value)} className="rounded border px-3 py-1">{option.label}</button>)}</div>;
             if (field.kind === "multi") {
-              const ticked = picks[question.id] ?? [];
+              const held = fieldValue(question.id);
+              const ticked = picks[question.id] ?? (answered && Array.isArray(held) ? held as string[] : []);
               return <div className="mt-1" role="group" aria-label={question.label}>{field.options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}</label>)}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
             }
             return <div className="mt-1"><div className="flex flex-wrap items-center gap-2"><input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, field.needsMore)} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, field.needsMore); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;

@@ -36,11 +36,14 @@ const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d
 const KINDS: [Kind, RegExp][] = [
   ["owed", /\b(?:still owe[sd]?|owe[sd]?|owing|is owed|are owed|outstanding|unpaid|balance|remaining|left to pay|still due|never paid (?:me|us)|(?:didn'?t|did not|won'?t|will not|refuses? to|refused to) pay (?:me|us)(?: back)?)\b/i],
   ["claim", /\b(?:claim(?:ing|ed)?|su(?:e|ing) (?:\w+ )?for|(?:want(?:s|ed)?|get|recover) [^.]{0,30}?\bback|money back|lost|total)\b/i],
-  ["damage", /\bdamage[sd]?\b|\bto repair\b|\brepairs? (?:cost|will cost|came to)\b/i],
+  // A fee before the damage: "a $3,800 repair fee" is a fee (#470 re-test).
   ["fee", /\bfees?\b|\bcharge[sd]?\b|\binterest\b|\bfines?\b|\bpenalt(?:y|ies)\b|\bcommission\b/i],
+  ["damage", /\bdamage[sd]?\b|\brepair\w*\b|\breplac\w*\b|\bestimate[sd]?\b/i],
   ["paid", /\b(?:already paid|paid (?:me |us )?back|repaid|refund(?:ed)?|returned|gave (?:me |us )?back|paid|deposit)\b/i],
   ["price", /\b(?:for|quoted?|price[sd]?|contract(?:ed)?|agreed|cost)\b/i],
 ];
+const WORTH =/\bworth\b|\bvalued?\b|\bvalue of\b/i;
+const HARMED = /\b(?:broke|broken|break|damag\w*|destroy\w*|ruin\w*|smash\w*|crack\w*|stole|stolen|lost|missing)\b/i;
 // What the person says they claim or want back comes first ("I owe $500 ... I want the
 // $1,800 back"), then what is owed, then the damage.
 const CLAIMABLE: Kind[] = ["claim", "owed", "damage"];
@@ -77,7 +80,10 @@ export function moneyMentions(story: string): Mention[] {
       if (number >= 1900 && number <= 2100 && !/[$,]|dollars/i.test(match[0])) continue;
       const start = match.index ?? 0;
       const clause = clauseAround(sentence, start, start + match[0].length);
-      const kind = KINDS.find(([, test]) => test.test(clause))?.[0] ?? "plain";
+      const read = KINDS.find(([, test]) => test.test(clause))?.[0] ?? "plain";
+      // What something lost or broken was worth is the damage ("They broke my table and TV,
+      // worth $2,500 together", #470 re-test), never a price or a payment.
+      const kind: Kind = (read === "plain" || read === "price") && WORTH.test(clause) && HARMED.test(sentence) ? "damage" : read;
       found.push({ value: `$${number.toLocaleString("en-CA")}`, quote: sentence, number, kind });
     }
   }

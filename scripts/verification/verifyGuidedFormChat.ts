@@ -233,8 +233,9 @@ console.log("\n4b. Walkthrough run 38525903567: the echo, the closing answer, th
   const issues = family.find((field) => field.key === "issues")!;
   const many = acknowledgement({ ...issues, options: opt("a".repeat(70), "b".repeat(70), "c".repeat(70)) }, ["a".repeat(70), "b".repeat(70), "c".repeat(70)]);
   const full = ["a".repeat(70), "b".repeat(70), "c".repeat(70)].join("; ");
-  const shownHead = many.replace(/^Got it: /, "").replace(/…\.$/, "");
-  check("a long list is cut at a whole label, not mid-word", /…\.$/.test(many) && full.startsWith(shownHead) && /[\s;]/.test(full.charAt(shownHead.length)), many);
+  // Marked as cut with "…", and no full stop after it ("…." was a doubled stop, #470 re-test).
+  const shownHead = many.replace(/^Got it: /, "").replace(/…$/, "");
+  check("a long list is cut at a whole label, not mid-word", /…$/.test(many) && full.startsWith(shownHead) && /[\s;]/.test(full.charAt(shownHead.length)), many);
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("no part of the chat slices text for display any more", !/\.slice\(0, (?:157|197)\)/.test(chat));
   // 5: the closing answer is shown when the questions end, with its rules.

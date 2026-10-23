@@ -38,6 +38,11 @@ export function numberedSources(answer: Pick<CheckedAnswerView, "statements">): 
   return { list, numbersFor };
 }
 
+/** A statement's sources as one line, each citation once. */
+export function citationLine(sources: { citation: string }[]): string {
+  return [...new Set(sources.map((source) => source.citation))].join("; ");
+}
+
 export default function CheckedAnswerPanel({ answer }: { answer: CheckedAnswerView }) {
   if (answer.status === "unavailable") return null;
   if (answer.status === "outside-scope") {
@@ -65,7 +70,8 @@ export default function CheckedAnswerPanel({ answer }: { answer: CheckedAnswerVi
                 </p>
                 <details className="mt-1 text-xs">
                   <summary className="cursor-pointer font-semibold text-[#2f7d67]">
-                    {statement.sources.map((source) => source.citation).join("; ")}
+                    {/* Each citation once: two quotes from one section listed it twice (#470 re-test). */}
+                    {citationLine(statement.sources)}
                   </summary>
                   {statement.sources.map((source) => {
                     const link = publicSourceUrl(source.sourceUrl);

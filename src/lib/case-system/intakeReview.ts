@@ -28,11 +28,11 @@ const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/
  * offer a way to answer it there (#469 re-test: civil's remaining questions had only
  * an "I do not know yet" box). Small Claims questions come from the question bank.
  */
-export function reviewQuestionField(courtPath: string, id: string): { kind: "text" | "longtext" | "choice" | "multi"; options: { value: string; label: string }[]; needsMore?: (value: string) => string | null } | null {
+export function reviewQuestionField(courtPath: string, id: string): { kind: "text" | "longtext" | "choice" | "multi"; question: string; options: { value: string; label: string }[]; needsMore?: (value: string) => string | null } | null {
   const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
   const field = fields.find((item) => item.key === id);
   // The field's own check (the served date's year) applies here as in the questions.
-  return field ? { kind: field.kind, options: field.options ?? [], ...(field.needsMore ? { needsMore: field.needsMore } : {}) } : null;
+  return field ? { kind: field.kind, question: field.question, options: field.options ?? [], ...(field.needsMore ? { needsMore: field.needsMore } : {}) } : null;
 }
 
 /** A projection of existing answers, not another case model or question selector. */
@@ -53,7 +53,12 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
   if (courtPath === "small-claims" && sections.builder?.step === "guided") {
-    for (const [key, value] of Object.entries(object(sections.guided?.facts))) add("guided", key, value, "facts");
+    const guided = object(sections.guided?.facts);
+    for (const [key, value] of Object.entries(guided)) add("guided", key, value, "facts");
+    // What an answer given in this panel stands for ("No" to "Has a Plaintiff's Claim been
+    // filed?" is Claim Filed: no), where the guided questions did not record it (#470 re-test:
+    // no "Claim Filed" line after "nothing filed" was answered).
+    for (const [key, value] of Object.entries(panelAnswerFacts({ ...checkpoint, sections }))) if (!(key in guided)) add("guided", key, value, "facts");
   } else {
     for (const [key, value] of Object.entries(source)) add(section, key, value, courtPath === "family" ? undefined : "input");
   }

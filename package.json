@@ -247,6 +247,8 @@
     "test:chat-first-line": "node --import tsx scripts/verification/verifyChatFirstLine.ts",
     "test:fact-sources": "node --import tsx scripts/verification/verifyFactSources.ts",
     "test:claim-amount": "node --import tsx scripts/verification/verifyClaimAmount.ts",
+    "test:review-follow-ups": "node --import tsx scripts/verification/verifyReviewFollowUps.ts",
+    "test:story-pack": "node scripts/browser/storyPack.mjs",
     "test:analysis-time-budget": "node --import tsx scripts/verification/verifyAnalysisTimeBudget.ts"
   },
   "dependencies": {

@@ -112,9 +112,14 @@ export function acknowledgement(field: GuidedField, value: string | string[]): s
     .filter(Boolean);
   if (labels.length === 0) return "Okay, we'll leave that for now.";
   const shown = labels.join("; ");
-  if (shown.length <= 160) return `Got it: ${shown}.`;
+  if (shown.length <= 160) return `Got it: ${withFullStop(shown)}`;
   if (field.kind === "longtext" && !Array.isArray(value)) return `Got it. We have ${field.label.charAt(0).toLowerCase()}${field.label.slice(1)}, in your own words.`;
-  return `Got it: ${cutAtWord(shown, 157)}.`;
+  return `Got it: ${withFullStop(cutAtWord(shown, 157))}`;
+}
+
+/** The text with one closing full stop: "Leo, age 7." was shown as "Leo, age 7.." (#470 re-test). */
+export function withFullStop(text: string): string {
+  return /[.!?…]$/.test(text.trim()) ? text.trim() : `${text.trim()}.`;
 }
 
 /** What the transcript shows above an answer: the question, or for an answer confirmed from the story, that it came from the story. */

@@ -96,6 +96,23 @@ export function tagAnswers(sections: Sections, section: string, key: string, bef
   return basis;
 }
 
+/**
+ * The basis after the person answers again with the same value: that answer (or,
+ * without `only`, every answer in the field) is now based on the current story.
+ * An unchanged value is otherwise not re-tagged, so re-choosing the same side after
+ * the story changed left "Answered for an earlier version of your story" in place
+ * (#470 re-test).
+ */
+export function reaffirmAnswers(sections: Sections, section: string, key: string, value: unknown, only?: string): Record<string, string> {
+  const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
+  const version = storyVersion(storyOf(sections));
+  for (const [answer, item] of answersIn(section, key, value)) {
+    if (only !== undefined && answer !== `${section}.${key}` && !answer.endsWith(`.${only}`)) continue;
+    if (!empty(item)) basis[answer] = version;
+  }
+  return basis;
+}
+
 /** Answers that still hold a value but were based on another version of the story. */
 export function staleAnswerKeys(checkpoint: Checkpoint): string[] {
   const version = storyVersion(storyOf(checkpoint.sections));

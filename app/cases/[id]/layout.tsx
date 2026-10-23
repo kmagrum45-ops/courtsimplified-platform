@@ -35,7 +35,7 @@ import { positionSavesSettled } from "../../builder/_components/positionSave";
 import type { StoredCaseData } from "../../builder/_components/builderTypes";
 import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/casePosition";
 import { caseStepFor } from "@/src/lib/case-system/caseStep";
-import { readCaseRecord } from "@/src/lib/case-system/caseRecord";
+import { readCaseRecord, sideFromParts } from "@/src/lib/case-system/caseRecord";
 import { guidanceIsCurrent } from "@/src/lib/case-system/intakeReview";
 import {
   CaseHomeContext,
@@ -245,10 +245,15 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
   const base = `/cases/${encodeURIComponent(caseId)}`;
   const record = home.caseRecord;
   if (caseRecord && !guidanceIsCurrent(caseRecord.master_result, caseRecord.court_path, caseRecord.id)) return <main className="mx-auto max-w-3xl p-8" data-testid="case-intake-gate"><h1 className="text-2xl font-bold">Review your initial information before receiving case guidance</h1><p className="my-4">Your saved documents, evidence and other case information remain on this case. Complete the initial questions, review your answers and confirm them, then generate guidance for the current information. Older completion records do not establish this confirmation.</p><Link className="underline" href={builderHref(caseRecord)}>Continue this case’s intake and review</Link><p className="my-4"><Link href="/guides">General legal information</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></p><GetHelp /><LegalInformationNotice /></main>;
+  // Both sides are named, from the same rule (caseRecord.ts sideFromParts): only the responding
+  // side had a line, so applicant and plaintiff pages said nothing about the side (#470 re-test).
+  const starting = !home.responding && sideFromParts({ confirmedStage: home.position.confirmedStage, intakeData: asRecord(record.master_result).intakeData, intakeFacts: asRecord(record.master_result).intakeFacts })?.value === "starting";
   const side = home.courtPath
     ? home.responding
       ? home.courtPath === "family" ? "You are responding (respondent)" : "You are responding (defendant)"
-      : null
+      : starting
+        ? home.courtPath === "family" ? "You started, or plan to start, this case (applicant)" : "You are bringing this case (plaintiff)"
+        : null
     : null;
 
   return (

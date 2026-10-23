@@ -9,6 +9,7 @@ import {
 } from "../knowledge/legalReasoningProfiles";
 
 import type { CaseProvince } from "../architecture/masterCaseSchema";
+import { userStory } from "../userStory";
 
 export type CasePartnerRole = "user" | "assistant" | "system";
 
@@ -2131,6 +2132,14 @@ function courtAreaLabel(area: CasePartnerCourtArea): string {
   }
 }
 
+/** The person's story and recorded timeline from the saved case, for what is already known. */
+function savedCaseText(caseMemory: unknown): string {
+  const data = caseMemory && typeof caseMemory === "object" ? (caseMemory as { caseData?: unknown }).caseData : null;
+  if (!data || typeof data !== "object") return "";
+  const timeline = (data as { timeline?: unknown }).timeline;
+  return [userStory(data as Parameters<typeof userStory>[0]), typeof timeline === "string" ? timeline : ""].join(" ");
+}
+
 export function buildConversationIntelligence(
   input: CasePartnerInput,
 ): ConversationIntelligenceResult {
@@ -2221,7 +2230,9 @@ export function buildConversationIntelligence(
   const hypotheses = buildHypotheses(frameworks);
 
   const missingInformation = buildMissingInformation({
-    message: combinedText,
+    // The saved case counts too: a served date already recorded was asked for again as "the
+    // main dates" because only the message just sent was read (#470 re-test).
+    message: `${combinedText} ${savedCaseText(input.caseMemory)}`,
     frameworks,
     stage,
     jurisdiction,
