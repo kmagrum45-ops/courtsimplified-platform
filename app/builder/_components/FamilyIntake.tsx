@@ -364,13 +364,18 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   const beforeIntakeAI = useBeforeIntakeAI();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const validateIntakeResponse = useValidateIntakeResponse();
-  const [restoredPersonSet] = useIntakeState<Set<"yourRole">>("family", "personSet", new Set());
-  const personSet = useRef(restoredPersonSet);
+  const [storedPersonSet] = useIntakeState<Set<"yourRole">>("family", "personSet", new Set());
+  const personSet = useRef(new Set(storedPersonSet));
   // Each document item the person chose or cleared themselves; a chat
   // answer sets the whole list. The list counts as theirs only when every
   // item on it is one they chose (review 2026-10-14).
-  const [restoredPersonDocuments] = useIntakeState<Set<string>>("family", "personDocuments", new Set());
-  const personDocuments = useRef(restoredPersonDocuments);
+  const [storedPersonDocuments] = useIntakeState<Set<string>>("family", "personDocuments", new Set());
+  const personDocuments = useRef(new Set(storedPersonDocuments));
+  // A side or filing answered in the review panel is the person's own answer too: taken in
+  // when it arrives, before the line below writes these back (#470 re-test: "Nothing filed
+  // yet" answered there settled no stage). The panel sets the whole filing list, like a chat answer.
+  useEffect(() => { for (const item of storedPersonSet) personSet.current.add(item); }, [storedPersonSet]);
+  useEffect(() => { personDocuments.current = new Set(storedPersonDocuments); }, [storedPersonDocuments]);
   useEffect(() => { recovery?.put("family", "personSet", [...personSet.current], false); recovery?.put("family", "personDocuments", [...personDocuments.current], false); });
 
   const textareaFields: TextareaField[] = useMemo(
@@ -923,6 +928,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
       )}
 
       <div className="mt-6 grid gap-5">
+        {/* In both views once there is a story: in the questions it was hidden (#470 re-test). */}
+        {(mode !== "chat" || facts.trim()) ? <StoryEditor section="family" story={facts} onSave={(text) => { setFacts(text); void sourced.start(text, yourRole !== "not-sure" ? yourRole : undefined); }} ids={{ draft: "family-story-draft", save: "family-story-save" }} /> : null}
+
         {mode === "chat" ? (<>
           <GuidedFormChat
             fields={guidedFields}
@@ -1076,8 +1084,6 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             />
           </label>
         ))}
-
-        <StoryEditor section="family" story={facts} onSave={(text) => { setFacts(text); void sourced.start(text, yourRole !== "not-sure" ? yourRole : undefined); }} ids={{ draft: "family-story-draft", save: "family-story-save" }} />
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

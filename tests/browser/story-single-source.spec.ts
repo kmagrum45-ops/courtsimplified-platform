@@ -61,6 +61,8 @@ for (const court of ["small-claims", "family"] as const) {
       const reviewStory = panel.getByRole("textbox", { name: "Review: Your story", exact: true });
       await expect(reviewStory).toHaveValue(ORIGINAL);
       await reviewStory.fill(CORRECTION);
+      // The story changes on "Save story", not as it is typed (#470 re-test).
+      await page.getByTestId("intake-review").getByTestId("review-story-save").click();
       await recordInitialUnknowns(page);
       await page.getByTestId("intake-review-acknowledgement").check();
       await page.getByTestId("intake-confirm").click();
@@ -122,6 +124,8 @@ test("Back after a correction never shows the old story's reading as current", a
   const panel = page.getByTestId("intake-review");
   await page.getByTestId("intake-start-review").click();
   await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(CORRECTION);
+  // The story changes on "Save story", not as it is typed (#470 re-test).
+  await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();
   await page.getByTestId("intake-confirm").click();

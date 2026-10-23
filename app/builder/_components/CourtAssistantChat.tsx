@@ -172,7 +172,7 @@ const quickActions = [
   "What should I fix before generating documents?",
 ];
 
-const INITIAL_ASSISTANT_MESSAGE: ChatMessage = Object.freeze({
+export const INITIAL_ASSISTANT_MESSAGE: ChatMessage = Object.freeze({
   role: "assistant",
   content:
     "I have your saved case story and structured intake. What important date, document, or case detail should we clarify next?",
@@ -1249,18 +1249,8 @@ function CourtAssistantChatInner({
           </div>
         )}
 
-        {investigationIssues.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {investigationIssues.slice(0, 5).map((issue) => (
-              <div
-                key={issue.id}
-                className="rounded-full bg-[#e7f5ef] px-3 py-1 text-xs font-semibold text-[#2f7d67]"
-              >
-                {issue.label}
-              </div>
-            ))}
-          </div>
-        )}
+        {/* No issue chips: they were the engine's internal labels ("Context / privilege /
+            recipient issue", "Reasoning domain: unknown") (#469 re-test). */}
       </div>
 
       {courtPathGuidance && (
@@ -1420,7 +1410,7 @@ function CourtAssistantChatInner({
             </div>
             {message.role === "assistant" && law[index - 1]?.state === "loading" ? (
               <p data-testid="assistant-law-loading" className="mt-3 text-xs text-[#4d675f]">
-                Looking up the law on your question and checking every statement against the official text. This can take up to two minutes.
+                Looking up the law on your question and checking every statement against the official text. This usually takes one to three minutes, and can take up to four and a half when the question needs a wider search.
               </p>
             ) : null}
             {message.role === "assistant" && law[index - 1]?.state === "done"
@@ -1455,24 +1445,9 @@ function CourtAssistantChatInner({
           </div>
         )}
 
-        {systemWarnings.length > 0 && (
-          <div className="border border-[#ead9a7] bg-[#fffaf0] p-4">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8a6517]">
-              Information still to confirm
-            </p>
-
-            <div className="space-y-2">
-              {systemWarnings.slice(0, 4).map((warning) => (
-                <div
-                  key={normalize(warning)}
-                  className="rounded-xl border border-[#ead9a7] bg-white px-3 py-2 text-sm text-[#6e5726]"
-                >
-                  {warning}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* No "Information still to confirm" box: its lines were the engine's own warnings
+            ("Knowledge retrieval warning: procedural stage is uncertain ..."), not
+            anything the person needs to confirm (#469 re-test). */}
       </div>
 
       {!courtPathGuidance && (

@@ -122,7 +122,9 @@ export function stageRecordedFromAnswers(
   suggested: UniversalStage,
 ): StageFromAnswers | null {
   const settled = stageFromPersonAnswers(courtPath, answers);
-  return settled && settled.stage === suggested ? settled : null;
+  // The person's own answer settles the stage where the analysis was not sure either
+  // (#469 re-test: civil and Family "Nothing filed yet" ended at "I am not sure").
+  return settled && (settled.stage === suggested || suggested === "not-sure") ? settled : null;
 }
 
 /** Reads the person's answers kept on the intake payload (`extra.personAnswers`). */

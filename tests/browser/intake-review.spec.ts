@@ -20,6 +20,8 @@ test("Small Claims guided route: review edits update the existing unsent story",
   const panel = page.getByTestId("intake-review");
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(CORRECTION);
+  // The story changes on "Save story", not as it is typed (#470 re-test).
+  await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await expect(story).toHaveValue(CORRECTION);
   await recordInitialUnknowns(page);
   await page.getByTestId("intake-review-acknowledgement").check();
@@ -76,6 +78,8 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
     const reviewStory = panel.getByRole("textbox", { name: /^Review: (Your story|Facts)$/ });
     await reviewStory.fill(CORRECTION);
+    // The story changes on "Save story", not as it is typed (#470 re-test).
+    await page.getByTestId("intake-review").getByTestId("review-story-save").click();
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
     await recordInitialUnknowns(page);
     await page.getByTestId("intake-review-acknowledgement").check();

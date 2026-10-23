@@ -493,7 +493,7 @@ console.log("\n11. The box asks first; the date and the bar show only after Yes 
     asking.length > 0 && !/notice\.(?:counted|notABar|injury|ruleSay|judgeDecides)/.test(asking),
     asking.slice(0, 200),
   );
-  check("the question says 'Is that right?' and gives its reason", /Is that right\?/.test(asking) && /Why we ask/.test(asking));
+  check("it is asked as a question (no unquoted \"from what you told us\", #469 re-test) and gives its reason", /looks after\?/.test(asking) && !/From what you told us/.test(asking) && /Why we ask/.test(asking));
   check("the reason's legal sentence carries its rule", /Why we ask[\s\S]*?<Rule rule=\{notice\.rule\} \/>/.test(asking));
   check("the unanswered box is never drawn in the 'passed' alarm style", !/passed \?/.test(asking));
   check("every answer can be changed", (box.match(/setAnswer\(null\)/g) ?? []).length >= 2);

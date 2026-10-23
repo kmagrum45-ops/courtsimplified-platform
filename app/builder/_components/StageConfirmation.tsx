@@ -107,7 +107,9 @@ export default function StageConfirmation({
         className="rounded-3xl border-2 border-[#2f7d67] bg-white p-5 shadow-sm"
       >
         <p className="text-sm leading-6 text-[#16302b]">
-          From what you told us: <strong className="text-[#10231f]">{labelFor(suggestedStage)}</strong>.
+          {/* No "From what you told us" without what they told us (#469 re-test): the
+              suggestion is the analysis's, and its basis is quoted when there is one. */}
+          Suggested for your case: <strong className="text-[#10231f]">{labelFor(suggestedStage)}</strong>.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <button

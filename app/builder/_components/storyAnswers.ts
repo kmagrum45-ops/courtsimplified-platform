@@ -14,6 +14,8 @@
  * Pure: no browser, no network, no model.
  */
 
+import { claimAmountFromStory } from "../../../src/lib/case-system/claimAmount";
+
 export type StoryAnswer = { value: string; quote: string };
 
 /*
@@ -165,23 +167,13 @@ export function familyRoleFromStory(story: string): StoryAnswer | null {
   return roleFromStory(story, FAMILY_WANT_ORDER, { sued: "respondent", starting: "applicant" });
 }
 
-const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d+(?:\.\d+)?\s?k\b|\b\d{3,7}\s?dollars\b|\b(?:for|owe[sd]?|of|paid|lent|worth|costs?|claim(?:ing)?)\s+\$?(?:\d{1,3}(?:,\d{3})+|\d{3,7})(?:\.\d{2})?\b|\b\d{4,7}\b/gi;
-
-/** The first amount of money the story names ("75,000", "$5,200", "for 68000"); never a year. */
+/**
+ * The amount to offer as the amount claimed: one owed, claimed or the damage, or a
+ * story's only amount; never one already paid, a fee or a price, and nothing when
+ * unclear (claimAmount.ts, #470 re-test). Never a year.
+ */
 export function amountFromStory(story: string): StoryAnswer | null {
-  for (const sentence of sentences(story)) {
-    // Every number in the sentence, not only the first: "in march 2025 i
-    // sued them for 175000" has a year before the amount (2026-10-13).
-    for (const match of sentence.matchAll(MONEY)) {
-      const digits = match[0].replace(/[^\d.k]/gi, "");
-      const number = /k$/i.test(digits) ? Number(digits.slice(0, -1)) * 1000 : Number(digits);
-      if (!Number.isFinite(number) || number <= 0) continue;
-      // "in 2022", "since 2019": a year, not money.
-      if (number >= 1900 && number <= 2100 && !/[$,]|dollars/i.test(match[0])) continue;
-      return { value: `$${number.toLocaleString("en-CA")}`, quote: sentence };
-    }
-  }
-  return null;
+  return claimAmountFromStory(story);
 }
 
 const TYPOS: [RegExp, string][] = [
@@ -617,3 +609,4 @@ export function familyFiledFromStory(story: string): FiledAnswer | null {
 export function civilFiledFromStory(story: string): FiledAnswer | null {
   return filedFromStory(story, "civil");
 }
+

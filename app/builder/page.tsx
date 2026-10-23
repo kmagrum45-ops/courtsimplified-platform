@@ -2357,7 +2357,9 @@ function BuilderPageContent() {
                   until it succeeds. The triage keeps its never-disappears rule
                   and is NOT gated this way. A reopened saved case still shows
                   it. Its draft never reads the analysis. */}
-              {role !== "respondent" && !existingFamilyOrder(homeStory || userStory(caseData)) && intakeConfirmed && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
+              {/* Never for the responding side, by any record of it: the triage's role alone missed a
+                  side given in the intake (#470 re-test: a respondent was told "This produces your application"). */}
+              {role !== "respondent" && !respondingSide && !existingFamilyOrder(homeStory || userStory(caseData)) && intakeConfirmed && ((familyQuestionsDone && resultsVisible) || Boolean(queryCaseId)) && (
                 <ChildSupportIntake
                   recorded={childSupportPrefill(
                     familyScope?.recorded ?? {

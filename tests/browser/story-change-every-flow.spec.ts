@@ -25,6 +25,19 @@ import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/or
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
 
+/**
+ * The text a locator shows as answers: the choices a remaining review question offers as
+ * buttons (#469 re-test) are left out, since listing a choice is not pre-filling it.
+ */
+const shownAnswers = (locator: ReturnType<Page["locator"]>) => locator.evaluate((node: HTMLElement) => {
+  // Hidden on the live page, not removed from a copy: a detached copy's innerText includes hidden text.
+  const buttons = [...node.querySelectorAll<HTMLElement>("[data-testid=intake-field-choice], [data-testid=intake-field-pick]")].map(item => item.closest("label") ?? item);
+  buttons.forEach(button => { button.style.display = "none"; });
+  const text = node.innerText;
+  buttons.forEach(button => { button.style.display = ""; });
+  return text;
+});
+
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
 const CASES = {
@@ -63,11 +76,16 @@ for (const court of ["family", "civil"] as const) {
     const panel = page.getByTestId("intake-review");
     await page.getByTestId("intake-view-review").click();
     await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(story.fresh);
+    // The story changes on "Save story", not as it is typed (#470 re-test).
+    await page.getByTestId("intake-review").getByTestId("review-story-save").click();
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
 
     // The review: old answers are not pre-filled; they are marked; Confirm is blocked.
     await expect(page.getByTestId("intake-answer-stale").first()).toBeVisible();
-    for (const text of story.oldText) await expect(panel, `the review does not show "${text}"`).not.toContainText(text);
+    // The answers shown, not the choices offered: a remaining question lists every choice as a
+    // button (#469 re-test), and one of them is the old answer's label without being pre-filled.
+    const answersShown = () => shownAnswers(panel);
+    for (const text of story.oldText) await expect.poll(answersShown, { message: `the review does not show "${text}"`, timeout: 5_000 }).not.toContain(text);
     await expect(page.getByTestId("intake-confirm-needs")).toContainText("earlier version of your story");
     await expect(page.getByTestId("intake-confirm")).toBeDisabled();
     await expect(panel.getByTestId("story-changed-beside-button")).toContainText("Start the questions again from your story first");
@@ -76,7 +94,7 @@ for (const court of ["family", "civil"] as const) {
     // The form: no old values, its own Continue disabled with the message beside it.
     await expect(page.getByTestId(`${court}-intake-story-changed`)).toBeVisible();
     await expect(page.getByTestId(`${court}-intake-continue`)).toBeDisabled();
-    const shown = await page.locator("body").innerText();
+    const shown = await shownAnswers(page.locator("body"));
     for (const text of story.oldText) expect(shown, `nothing on the page shows "${text}"`).not.toContain(text);
     expect(shown).not.toContain(story.old);
 
@@ -91,7 +109,7 @@ for (const court of ["family", "civil"] as const) {
     await expect(page.getByTestId("intake-answer-stale")).toHaveCount(0);
     const stored = await page.evaluate(() => sessionStorage.getItem("courtSimplifiedGuestIntakeSession") ?? "");
     for (const text of story.oldStored) expect(stored, `the tab no longer holds "${text}"`).not.toContain(text);
-    const after = await page.locator("body").innerText();
+    const after = await shownAnswers(page.locator("body"));
     for (const text of story.oldText) expect(after, `"${text}" does not come back`).not.toContain(text);
   });
 }
@@ -286,8 +304,8 @@ for (const court of ["family", "civil"] as const) {
     await confirmInitialInformation(page);
     await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
     await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
-    // Offered as "From what you told us: ..." with Yes / No (the drop-down follows a No).
-    const suggestion = page.locator("p", { hasText: "From what you told us:" }).first();
+    // Offered as "Suggested for your case: ..." with Yes / No (the drop-down follows a No).
+    const suggestion = page.locator("p", { hasText: "Suggested for your case:" }).first();
     await expect(suggestion).toContainText("I was served and need to respond", { timeout: 30_000 });
     await expect(suggestion).not.toContainText("I am not sure");
   });

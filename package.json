@@ -245,6 +245,8 @@
     "test:story-data-registry": "node --import tsx scripts/verification/verifyStoryDataRegistry.ts",
     "test:time-ran-out": "node --import tsx scripts/verification/verifyTimeRanOut.ts",
     "test:chat-first-line": "node --import tsx scripts/verification/verifyChatFirstLine.ts",
+    "test:fact-sources": "node --import tsx scripts/verification/verifyFactSources.ts",
+    "test:claim-amount": "node --import tsx scripts/verification/verifyClaimAmount.ts",
     "test:analysis-time-budget": "node --import tsx scripts/verification/verifyAnalysisTimeBudget.ts"
   },
   "dependencies": {

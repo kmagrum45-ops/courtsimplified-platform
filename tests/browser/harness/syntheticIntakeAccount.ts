@@ -31,7 +31,10 @@ export async function fakeAccount(page: Page) {
     const row = id ? rows.get(id) : undefined;
     if (req.method() === "PATCH") {
       if (fail) return route.fulfill({ status: failureStatus, json: { message: "Synthetic save failure" } });
-      if (!row || url.searchParams.get("user_id") !== `eq.${OWNER}` || url.searchParams.get("updated_at") !== `eq.${row.updated_at}`) return route.fulfill({ json: [] });
+      // Like the database: a write that names no owner is limited to the owner's rows by
+      // row-level security (the position save sends only id and updated_at).
+      const ownerFilter = url.searchParams.get("user_id");
+      if (!row || row.user_id !== OWNER || (ownerFilter !== null && ownerFilter !== `eq.${OWNER}`) || url.searchParams.get("updated_at") !== `eq.${row.updated_at}`) return route.fulfill({ json: [] });
       Object.assign(row, req.postDataJSON());
       writes++;
       return route.fulfill({ json: [{ id }] });

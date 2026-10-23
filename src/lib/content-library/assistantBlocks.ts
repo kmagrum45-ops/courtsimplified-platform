@@ -121,11 +121,20 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
     id: "assistant:opening:question",
     kind: "conversational",
     template:
-      "The law on your question is shown below, checked against the official text where our library covers it. To keep your case record complete:",
+      "The law on your question is shown below, checked against the official text where our library covers it.",
     slots: [],
     statesLaw: false,
     citations: [],
     appearsIn: "Guided assistant, first turn when the person asked a question (the follow-up chat looks the law up beside it)",
+  },
+  {
+    id: "assistant:opening:question-record",
+    kind: "conversational",
+    template: "To keep your case record complete:",
+    slots: [],
+    statesLaw: false,
+    citations: [],
+    appearsIn: "Guided assistant, after the law-answer line, only when a question for the case record follows it (#470 re-test: it ended a reply with nothing after it)",
   },
   {
     id: "assistant:opening:generic",
@@ -357,6 +366,15 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
   // =====================================================================
   // Evidence, issues, readiness — list headings plus the empty-state text.
   // =====================================================================
+  {
+    id: "assistant:evidence:recorded",
+    kind: "conversational",
+    template: "From what you told us, you have: {{items}} Keep these together, with the dates they cover.",
+    slots: ["items"],
+    statesLaw: false,
+    citations: [],
+    appearsIn: "Guided assistant, an evidence question on a case whose story or answers already name evidence (quoted)",
+  },
   {
     id: "assistant:evidence:heading",
     kind: "evidence-guidance",

@@ -87,6 +87,8 @@ test("Small Claims: viewing the confirmed review does not cancel it; an edit the
 
   await page.getByTestId("intake-view-review").click();
   await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill(`${SC_STORY} He also kept the deposit.`);
+  // The story changes on "Save story", not as it is typed (#470 re-test).
+  await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await expect(panel, "an actual change needs confirming again, from the review").toHaveAttribute("data-phase", "reviewing");
   await page.reload();
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
@@ -336,6 +338,8 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   // The story changes: an unpaid invoice.
   await page.getByTestId("intake-view-review").click();
   await panel.getByRole("textbox", { name: "Review: Your story", exact: true }).fill("Synthetic: I finished renovation work on June 10, 2026 and sent an invoice for $8,500. Payment was due July 10, 2026 and the client never paid.");
+  // The story changes on "Save story", not as it is typed (#470 re-test).
+  await page.getByTestId("intake-review").getByTestId("review-story-save").click();
   await panel.getByTestId("story-changed-beside-button").getByRole("button", { name: "Go to the questions" }).click();
 
   // One click starts the questions again.
@@ -362,4 +366,34 @@ test("Small Claims: answer, confirm, change the story, start again once, answer 
   await page.getByTestId("intake-continue-guidance").click();
   await expect(page).toHaveURL(/step=results/, { timeout: 60_000 });
   expect(String((sent as Record<string, unknown> | null)?.amountClaimed ?? ""), "the review's amount reaches the analysis").toContain("8,500");
+});
+
+// #469 re-test: civil's remaining questions had only "I do not know yet" boxes.
+test("civil: every remaining question in the review can be answered there, and an answer clears it", async ({ page }) => {
+  test.setTimeout(180_000);
+  await openBuilder(page, "civil", { story: "Synthetic story: a supplier kept my $62,000 deposit and never delivered the equipment." });
+  await page.getByTestId("guided-form-show-form").click();
+  const panel = page.getByTestId("intake-review");
+  await page.getByTestId("intake-start-review").click();
+  await expect(panel).toHaveAttribute("data-phase", "reviewing");
+  const questions = panel.getByTestId("intake-initial-question");
+  const count = await questions.count();
+  test.skip(count === 0, "the story answered every initial question");
+  for (let index = 0; index < count; index++) {
+    const question = questions.nth(index);
+    const answerable = question.locator("button:not([data-testid=intake-unknown]), input[type=text], input[data-testid=intake-field-pick]");
+    expect(await answerable.count(), `"${await question.locator("p").first().innerText()}" has a way to answer it`).toBeGreaterThan(0);
+  }
+  const first = questions.first();
+  const id = await first.getAttribute("data-question");
+  const choice = first.getByTestId("intake-field-choice").first();
+  const pick = first.getByTestId("intake-field-pick").first();
+  if (await choice.count()) await choice.click();
+  else if (await pick.count()) { await pick.check(); await first.getByTestId("intake-field-save").click(); }
+  else {
+    const box = first.locator("input[type=text]");
+    await box.fill("Synthetic answer");
+    await box.press("Enter");
+  }
+  await expect(panel.locator(`[data-testid=intake-initial-question][data-question="${id}"]`)).toHaveCount(0);
 });
