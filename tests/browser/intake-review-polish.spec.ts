@@ -395,5 +395,5 @@ test("civil: every remaining question in the review can be answered there, and a
     await box.fill("Synthetic answer");
     await box.press("Enter");
   }
-  await expect(panel.locator(`[data-testid=intake-initial-question][data-question="${id}"]`)).toHaveCount(0);
+  await expect(panel.locator(`[data-testid=intake-initial-question][data-question="${id}"]`)).toHaveAttribute("data-answered", "true");
 });

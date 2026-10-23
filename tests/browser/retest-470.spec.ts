@@ -126,7 +126,7 @@ for (const court of ["civil", "family"] as const) {
         const question = reviewQuestion(page, FILED[court]);
         await question.getByRole("checkbox", { name: "Nothing filed yet" }).check();
         await question.getByTestId("intake-field-save").click();
-        await expect(question).toHaveCount(0);
+        await expect(question).toHaveAttribute("data-answered", "true");
       }
       await confirmAndContinue(page);
       await expectStageSettled(page, "results");
@@ -143,14 +143,14 @@ for (const court of ["civil", "family"] as const) {
     await openBuilder(page, court, { story: STORY[court] });
     await answerQuestions(page, { side, stopAt: "yourRole" });
     await reviewQuestion(page, "yourRole").getByTestId("intake-field-choice").first().click();
-    await expect(reviewQuestion(page, "yourRole")).toHaveCount(0);
+    await expect(reviewQuestion(page, "yourRole")).toHaveAttribute("data-answered", "true");
     const issues = reviewQuestion(page, "issues");
     const picks = issues.getByTestId("intake-field-pick");
     await picks.nth(0).check();
     await expect(issues, "the question stays open after the first pick").toBeVisible();
     await picks.nth(1).check();
     await issues.getByTestId("intake-field-save").click();
-    await expect(issues).toHaveCount(0);
+    await expect(issues).toHaveAttribute("data-answered", "true");
     await page.getByTestId("guided-form-show-form").click().catch(() => {});
     if (court === "civil") {
       await expect(page.getByLabel("Your role"), "the form shows the side chosen in the review").toHaveValue("plaintiff");
@@ -172,7 +172,7 @@ test("Family: the served date answered in the review accepts real dates, and ask
   await expect(question.getByTestId("intake-field-needs-more")).toContainText("add the year");
   await box.fill("October 6, 2026");
   await box.press("Enter");
-  await expect(question, "the example's own date is accepted").toHaveCount(0);
+  await expect(question, "the example's own date is accepted").toHaveAttribute("data-answered", "true");
   await expect(page.getByTestId("intake-review")).toContainText("October 6, 2026");
 });
 

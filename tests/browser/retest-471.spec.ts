@@ -143,6 +143,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
     await page.getByTestId("intake-review-acknowledgement").check();
     await page.getByTestId("intake-confirm").click();
+    await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
     await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
     await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
     const row = [...account.rows.values()][0] as Record<string, unknown>;
@@ -169,6 +170,7 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
   await page.getByTestId("intake-review-acknowledgement").check();
   await page.getByTestId("intake-confirm").click();
+  await expect(panel(page)).toHaveAttribute("data-phase", "user-confirmed");
   await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
   await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
   await page.waitForTimeout(2_000);
