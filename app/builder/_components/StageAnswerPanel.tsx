@@ -1,5 +1,6 @@
 "use client";
 
+import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/src/lib/supabase/client";
 
@@ -259,7 +260,7 @@ const ABOUT_THE_PAPERS = /\b(?:papers?|claim|application|summons|served|serve|se
 export function serviceMethodShown(court: ServiceCourt, story: string): { method: ServiceMethod; quote: string } | null {
   const method = serviceMethodFromStory(court, story);
   if (!method) return null;
-  const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  const sentences = splitSentences(story);
   // Only a sentence about the court papers reaching them (review 2026-10-13:
   // "I emailed him the invoice three times", "we met in person to sign the
   // lease" and "i mailed my defence to the court" are not how they were served).

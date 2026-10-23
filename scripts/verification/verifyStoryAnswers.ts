@@ -864,8 +864,11 @@ console.log("\nWalkthrough run 38525903567: the rule 14 card, one confirmation, 
 // Test Builder Ltd. to finish the work" was cut at "Ltd.".
 {
   const story = "I hired Test Builder Ltd. to build an addition. The contract was for $180,000. I want Test Builder Ltd. to finish the work or pay me back.";
-  check("'for $180,000' is $180,000, not $180", amountFromStory(story)?.value === "$180,000");
-  check("'paid 12,500' keeps its thousands", amountFromStory("We paid 12,500 for the roof.")?.value === "$12,500");
+  // A contract price is never offered as the claim (#471 re-test), so the thousands are
+  // checked on amounts said to be owed.
+  check("a contract price is not offered as the amount claimed", amountFromStory(story) === null);
+  check("'owe me $180,000' is $180,000, not $180", amountFromStory("They owe me $180,000 for the addition.")?.value === "$180,000");
+  check("'12,500 is unpaid' keeps its thousands", amountFromStory("The balance of 12,500 is unpaid.")?.value === "$12,500");
   check("an amount with no commas is unchanged", amountFromStory("they owe me 4500")?.value === "$4,500");
   check("'Ltd.' does not end the sentence", goalFromStory(story)?.value === "I want Test Builder Ltd. to finish the work or pay me back");
   check("'Inc.' and 'Mr.' do not end a sentence either", sentences("Mr. Smith of Acme Inc. kept my deposit. Then he left.").length === 2);

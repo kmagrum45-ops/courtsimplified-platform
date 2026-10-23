@@ -1,3 +1,4 @@
+import { sentences as splitSentences } from "./sentences";
 /**
  * THE AMOUNT OFFERED AS "THE AMOUNT CLAIMED", READ FROM THE STORY (#470 re-test).
  *
@@ -28,17 +29,20 @@
 
 export type ClaimAmount = { value: string; quote: string };
 
-type Kind = "owed" | "claim" | "damage" | "fee" | "paid" | "price" | "plain";
+type Kind = "owed" | "claim" | "damage" | "fee" | "rent" | "paid" | "price" | "plain";
 
 const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d+(?:\.\d+)?\s?k\b|\b\d{3,7}\s?dollars\b|\b(?:for|owe[sd]?|of|paid|lent|worth|costs?|claim(?:ing)?)\s+\$?(?:\d{1,3}(?:,\d{3})+|\d{3,7})(?:\.\d{2})?\b|\b\d{4,7}\b/gi;
 
 // What a part of a sentence says about its amount (the first that fits).
 const KINDS: [Kind, RegExp][] = [
-  ["owed", /\b(?:still owe[sd]?|owe[sd]?|owing|is owed|are owed|outstanding|unpaid|balance|remaining|left to pay|still due|never paid (?:me|us)|(?:didn'?t|did not|won'?t|will not|refuses? to|refused to) pay (?:me|us)(?: back)?)\b/i],
+  ["owed", /\b(?:invoiced?|billed|still owe[sd]?|owe[sd]?|owing|is owed|are owed|outstanding|unpaid|balance|remaining|left to pay|still due|never paid (?:me|us)|(?:didn'?t|did not|won'?t|will not|refuses? to|refused to) pay (?:me|us)(?: back)?)\b/i],
   ["claim", /\b(?:claim(?:ing|ed)?|su(?:e|ing) (?:\w+ )?for|(?:want(?:s|ed)?|get|recover) [^.]{0,30}?\bback|money back|lost|total)\b/i],
   // A fee before the damage: "a $3,800 repair fee" is a fee (#470 re-test).
   ["fee", /\bfees?\b|\bcharge[sd]?\b|\binterest\b|\bfines?\b|\bpenalt(?:y|ies)\b|\bcommission\b/i],
   ["damage", /\bdamage[sd]?\b|\brepair\w*\b|\breplac\w*\b|\bestimate[sd]?\b/i],
+  // A rent or wage is a rate, never the claim on its own (#471 re-test: "Use $1,800" was the
+  // monthly rent); rent still owed is read above, as owed.
+  ["rent", /\b(?:rent|per month|a month|monthly|per week|a week|weekly|per hour|an hour|hourly|salary|wages?)\b/i],
   ["paid", /\b(?:already paid|paid (?:me |us )?back|repaid|refund(?:ed)?|returned|gave (?:me |us )?back|paid|deposit)\b/i],
   ["price", /\b(?:for|quoted?|price[sd]?|contract(?:ed)?|agreed|cost)\b/i],
 ];
@@ -51,7 +55,7 @@ const CLAIMABLE: Kind[] = ["claim", "owed", "damage"];
 const BOUNDARY = /[,;:]|\b(?:and|but|while|although|though|then|so|which|because)\b/gi;
 
 function sentences(story: string): string[] {
-  return story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  return splitSentences(story);
 }
 
 /** The part of the sentence an amount sits in: from the boundary before it to the one after. */
@@ -105,5 +109,7 @@ export function claimAmountFromStory(story: string): ClaimAmount | null {
   const only = distinct(mentions);
   if (only.length !== 1) return null;
   const first = mentions[0];
-  return first.kind === "fee" ? null : { value: first.value, quote: first.quote };
+  // Only an amount the story says nothing about: never a rent, fee, price or amount already
+  // paid as a one-click amount (#471 re-test); those are asked instead.
+  return first.kind === "plain" ? { value: first.value, quote: first.quote } : null;
 }

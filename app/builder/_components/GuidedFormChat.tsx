@@ -1,6 +1,7 @@
 "use client";
 
 import { useIntakeState } from "../../_components/IntakeRecovery";
+import { asksForDate, needsYear } from "../../../src/lib/case-system/dateYear";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 
 /**
@@ -78,7 +79,10 @@ export type GuidedField = {
 
 /** What a text answer still needs before it is kept, or null (GuidedField.needsMore). */
 export function answerNeedsMore(field: GuidedField, value: string | string[]): string | null {
-  return typeof value === "string" && value.trim() && field.needsMore ? field.needsMore(value.trim()) : null;
+  if (typeof value !== "string" || !value.trim()) return null;
+  // Every question that asks for a date asks for its year (dateYear.ts, #471 re-test).
+  const check = field.needsMore ?? (asksForDate(field.question) ? needsYear : null);
+  return check ? check(value.trim()) : null;
 }
 
 export type GuidedValues = Record<string, string | string[] | undefined>;
@@ -359,8 +363,10 @@ export default function GuidedFormChat({
                   key={option.value}
                   type="button"
                   data-testid={`guided-option-${option.value}`}
+                  // The answer it holds is marked, so changing it shows what it was (#471 re-test).
+                  aria-pressed={values[current.key] === option.value}
                   onClick={() => answer(option.value)}
-                  className="rounded-xl border border-[#d8e6df] px-4 py-2 text-left text-sm font-semibold text-[#16302b] hover:border-[#2f7d67]"
+                  className="rounded-xl border border-[#d8e6df] px-4 py-2 text-left text-sm font-semibold text-[#16302b] hover:border-[#2f7d67] aria-pressed:bg-[#2f7d67] aria-pressed:text-white"
                 >
                   {option.label}
                 </button>

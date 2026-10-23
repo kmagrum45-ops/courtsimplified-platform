@@ -1,3 +1,4 @@
+import { sentences as splitSentences } from "../sentences";
 /**
  * Page review, 2026-10-07: the family triage asked "Were you and the other
  * person married to each other?" of a mother whose story said "we were never
@@ -34,7 +35,7 @@ const STORY_CUES: Record<string, RegExp> = {
 export function storyQuoteFor(questionId: string, story: string | undefined): string | null {
   const cue = STORY_CUES[questionId];
   if (!cue || !story) return null;
-  for (const sentence of story.split(/(?<=[.!?])\s+|\n+/)) {
+  for (const sentence of splitSentences(story)) {
     if (cue.test(sentence)) return sentence.trim();
   }
   return null;

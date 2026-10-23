@@ -1,5 +1,6 @@
 "use client";
 
+import { asksForDate, needsYear } from "../../../src/lib/case-system/dateYear";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import { inputRevision, reviewPhase } from "../../../src/lib/case-system/intakeReview";
@@ -925,6 +926,13 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   function handleAnswerSubmit() {
     if (loading || turnRequest.current.pending || !currentQuestion) return;
     const answerText = inputText.trim();
+    // A date without its year is asked for its year before it is sent; sent without one, it
+    // was kept as "October 6" and then dropped (dateYear.ts, #471 re-test).
+    const year = (currentQuestion as { answerType?: string }).answerType === "date" || asksForDate(currentQuestion.text) ? needsYear(answerText) : null;
+    if (year) {
+      setMessages((current) => [...current, { from: "assistant", text: year }]);
+      return;
+    }
     const nextAnsweredIds = [...answeredIds, currentQuestion.id];
     const openingStory = story;
     const earlier = answerText
@@ -1296,6 +1304,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     const confirmed: ConfirmedStoryAnswer[] = drafts
       .filter((draft) => draft.keep && draft.answer.trim())
       .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
+    // What was unticked is not offered again, as in the claim-details card below: here it was
+    // not recorded, so "A claim of your own" came back after each answer (#471 re-test).
+    const unticked = drafts.filter((draft) => !draft.keep).map((draft) => draft.questionId);
+    if (unticked.length) setDeclinedIds((current) => [...new Set([...current, ...unticked])]);
     setMessages((current) => [
       ...current,
       {

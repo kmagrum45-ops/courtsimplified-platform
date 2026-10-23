@@ -185,5 +185,13 @@ export const STORY_TEXT_FIELD = `${STORY_SECTION}:text`;
 
 /** No next step while any answer was based on another version of the story, in any area. */
 export function storyAnswersOutdated(checkpoint: Checkpoint): boolean {
-  return staleAnswerKeys(checkpoint).length > 0 || guidedReadingOutdated(checkpoint);
+  if (staleAnswerKeys(checkpoint).length > 0) return true;
+  // The Small Claims guided reading of an earlier story blocks while any of its answers is
+  // still from that story. Once each one is given again or set aside in the review (each is
+  // tagged, so each can be), it no longer does, as in Family (#471 re-test: Small Claims stayed
+  // blocked after every answer was given again). Answers saved before they were tagged cannot
+  // be told apart, so they still block until the questions are started again.
+  if (!guidedReadingOutdated(checkpoint)) return false;
+  const basis = object(checkpoint.sections[BASIS_SECTION]);
+  return !Object.keys(basis).some((answer) => answer.startsWith("guided."));
 }

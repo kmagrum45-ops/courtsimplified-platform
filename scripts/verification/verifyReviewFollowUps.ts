@@ -19,7 +19,8 @@
  *
  * Run: npm run test:review-follow-ups
  */
-import { reaffirmAnswers, staleAnswerKeys, tagAnswers, BASIS_SECTION } from "../../src/lib/case-system/storyBasis";
+import { reaffirmAnswers, staleAnswerKeys, storyAnswersOutdated, tagAnswers, BASIS_SECTION } from "../../src/lib/case-system/storyBasis";
+import { asksForDate, needsYear } from "../../src/lib/case-system/dateYear";
 import { servedDateNeedsYear } from "../../app/builder/_components/guidedFields";
 import { withFullStop, acknowledgement } from "../../app/builder/_components/GuidedFormChat";
 import { citationLine } from "../../app/_components/CheckedAnswerPanel";
@@ -78,6 +79,38 @@ const entries = reviewEntries({
 } as never);
 const claimFiled = entries.find((entry) => entry.field === "claimFiled");
 check("\"No\" to the claim-filed question shows as the Claim Filed line, unticked", claimFiled !== undefined && claimFiled.value === false, JSON.stringify(entries.map((entry) => entry.field)));
+
+// 6b. #471 re-test: a Small Claims guided answer to an earlier story stays on its line with
+// its value (marked as earlier), not a blank box.
+{
+  const sections: Record<string, Record<string, unknown>> = { story: { text: "Synthetic old story." }, builder: { step: "guided" }, guided: { facts: { role: "plaintiff", claimFiled: false } } };
+  sections[BASIS_SECTION] = tagAnswers(sections as never, "guided", "facts", undefined, sections.guided.facts);
+  sections.story = { text: "Synthetic new story." };
+  const shown = reviewEntries({ courtPath: "small-claims", sections } as never);
+  const role = shown.find((entry) => entry.field === "role");
+  const filed = shown.find((entry) => entry.field === "claimFiled");
+  check("Small Claims: after a story change the side and Yes/No answers keep their values on their lines", role?.value === "plaintiff" && filed?.value === false, JSON.stringify(shown.map((entry) => [entry.field, entry.value])));
+}
+
+// 7. #471 re-test: one year rule for every date box, in every area.
+check("every date box: a day without its year is asked for it", ["October 6", "Oct 6", "6 October", "10/06"].every((date) => needsYear(date) !== null));
+check("every date box: a full date, a month and year, or no date is not asked", ["October 6, 2026", "2026-10-06", "May 2026", "last week", "$6,000"].every((date) => needsYear(date) === null));
+check("questions that ask for a date are known by their words", asksForDate("How and when were you served?") && asksForDate("What day were you served?") && !asksForDate("What would you like the court to order?"));
+
+// 8. #471 re-test: the Small Claims guided reading of an earlier story blocks only while one of its answers is still from that story.
+{
+  const OLD = "Synthetic old story.";
+  const NEW = "Synthetic new story, changed in the review.";
+  const base: Record<string, Record<string, unknown>> = { story: { text: OLD }, guided: { readFrom: OLD, facts: { role: "plaintiff" } } };
+  base[BASIS_SECTION] = tagAnswers(base as never, "guided", "facts", undefined, base.guided.facts);
+  base.story = { text: NEW };
+  const cp = (s: Record<string, Record<string, unknown>>) => ({ courtPath: "small-claims", sections: s }) as never;
+  check("Small Claims: after the story changes, the guided answers block confirm", storyAnswersOutdated(cp(base)));
+  const again = { ...base, [BASIS_SECTION]: reaffirmAnswers(base as never, "guided", "facts", base.guided.facts) };
+  check("Small Claims: each guided answer given again, confirm is no longer blocked", !storyAnswersOutdated(cp(again)));
+  const untagged = { story: { text: NEW }, guided: { readFrom: OLD, facts: { role: "plaintiff" } } };
+  check("Small Claims: guided answers saved before they were tagged still block until the questions start again", storyAnswersOutdated(cp(untagged)));
+}
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
 console.log("PASS review follow-ups: answers re-confirm, years asked, one full stop, one citation, labels say their source");

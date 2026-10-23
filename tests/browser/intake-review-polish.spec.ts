@@ -60,7 +60,11 @@ test("Small Claims: suggestions from the story answer the initial questions; Con
     await when.getByRole("button", { name: "Use “2026-05-12” (from your story)" }).click();
   }
   // Choosing a side brings up the questions that depend on it (re-test round 7).
-  await page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use “$9,000” (from your story)" }).click();
+  // An amount already paid is never offered in one click (#471 re-test): it is typed.
+  const amount = page.locator('[data-question="sc-amount-claimed"]');
+  await expect(amount.getByRole("button", { name: /from your story/ })).toHaveCount(0);
+  await amount.getByLabel(/^Answer: /).fill("$9,000");
+  await amount.getByLabel(/^Answer: /).press("Tab");
   await page.locator('[data-question="sc-claim-filed"]').getByRole("button", { name: "No", exact: true }).click();
   const outcome = page.locator('[data-question="sc-remedy-sought"]').getByLabel(/^Answer: /);
   await outcome.fill("Synthetic: my $9,000 back");

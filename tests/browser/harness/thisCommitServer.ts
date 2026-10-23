@@ -6,7 +6,10 @@
  * fakeAccount, whose catch-all would otherwise answer them.
  *
  * Only what needs a model stays unanswered: the checked law lookup reports nothing
- * found, so the chat's own reply is what a person reads.
+ * found, so the chat's own reply is what a person reads. The Small Claims questions
+ * one at a time (guided-turn) run the real turn with every model step replaced by its
+ * plain stand-in: only the side read from an answer, one fixed proposal (the voice step calls no model and runs as it is) -- each answer
+ * is recorded as the person gave it, which is what the page then has to handle.
  */
 import type { Page, Route } from "@playwright/test";
 import { runFamilyIntakeCanonicalIntegration } from "../../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
@@ -15,6 +18,9 @@ import { analyzeSmallClaimsWithBrain } from "../../../src/lib/case-system/intell
 import { applyPositionPatch, readCasePosition } from "../../../src/lib/case-system/casePosition";
 import { createStageAnswerPost } from "../../../app/api/case/stage-answer/route";
 import { createGuidedAssistantPost } from "../../../app/api/guided-assistant/route";
+import { createGuidedTurnPost } from "../../../app/api/intake/guided-turn/route";
+import { orchestrateIntakeTurn } from "../../../src/lib/case-system/intake/orchestrateIntakeTurn";
+import { sideInAnswer } from "../../../app/builder/_components/stageFromAnswers";
 
 export type Court = "small-claims" | "civil" | "family";
 type Rows = Map<string, Record<string, unknown>>;
@@ -58,5 +64,26 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
     return viaHandler(route, post);
   });
   await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
+  await page.route("**/api/intake/guided-turn", (route) => {
+    // The route requires a key to be configured; no model is called (every step is replaced).
+    process.env.OPENAI_API_KEY ||= "no-model-in-tests";
+    const post = createGuidedTurnPost({
+      authenticate: (async () => ({ id: OWNER })) as never,
+      hasExternalAiKey: () => true,
+      orchestrate: ((facts, answeredIds, text, _key, bank, types, area, questionId, options, earlier) => orchestrateIntakeTurn(facts, answeredIds, text, "no-model", bank, types, area, questionId, {
+        ...options,
+        runSafety: async () => ({ classification: "clear" as const, reason: "test", requestsLegalAdvice: false }),
+        // Only the side, by the site's own plain reading of an answer ("... (defendant)").
+        extractFacts: async (text) => { const side = sideInAnswer(text); return side ? { facts: { role: side }, directFields: ["role"] } : { facts: {}, directFields: [] }; },
+        classifyClaimType: async () => null,
+        // One plain proposal, so the "Here's what I understood" card is exercised: a
+        // counterclaim offered to a defendant, quoting the story's first sentence.
+        proposeAnswers: async (story, questions) => questions.filter((question) => question.id === "sc-defendant-counterclaim").map((question) => ({ questionId: question.id, questionText: question.text, answer: "Yes", storyQuote: story.split(/(?<=[.!?])\s+/)[0] ?? story })),
+      }, earlier)) as typeof orchestrateIntakeTurn,
+    });
+    return viaHandler(route, post);
+  });
+  await page.route("**/api/intake/classify-claim-type", (route) => route.fulfill({ status: 503, json: { ok: false } }));
+  await page.route("**/api/intake/depth-turn", (route) => route.fulfill({ status: 503, json: { ok: false } }));
   await page.route("**/api/cases/chat**", (route) => route.fulfill({ json: { ok: true, messages: [] } }));
 }

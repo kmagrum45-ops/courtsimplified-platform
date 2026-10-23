@@ -23,6 +23,7 @@
  * Pure: no I/O. The route that writes it is app/api/cases/position.
  */
 
+import { sentences as splitSentences } from "./sentences";
 import { SERVICE_RULES, type ServiceCourt, type ServiceMethod } from "./deadlines/serviceEffectiveDate";
 import {
   DEADLINE_EVENTS,
@@ -718,7 +719,7 @@ export function storyWithTimeline(story: string | null | undefined, timeline: st
 export function storyHintsForDates(story: string | null | undefined, now: Date = new Date()): Record<string, StoryHint> {
   const hints: Record<string, StoryHint> = {};
   if (!story) return hints;
-  const sentences = story.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  const sentences = splitSentences(story);
   for (const { id: questionId, question } of allDateQuestions()) {
     const cue = cueFor(questionId, question);
     if (!cue) continue;

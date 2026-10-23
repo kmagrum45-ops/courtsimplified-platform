@@ -54,7 +54,12 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
   if (courtPath === "small-claims" && sections.builder?.step === "guided") {
     const guided = object(sections.guided?.facts);
-    for (const [key, value] of Object.entries(guided)) add("guided", key, value, "facts");
+    // An answer given for an earlier version of the story stays on its line, marked, as
+    // in Family; it was dropped, so a story change "wiped" the side and Yes/No answers (#471 re-test).
+    const earlier = object(checkpoint.sections.guided?.facts);
+    // The earlier answer is shown where the current story has none (an emptied key showed as a blank box).
+    const isBlank = (value: unknown) => value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
+    for (const key of new Set([...Object.keys(earlier), ...Object.keys(guided)])) add("guided", key, isBlank(guided[key]) ? earlier[key] : guided[key], "facts");
     // What an answer given in this panel stands for ("No" to "Has a Plaintiff's Claim been
     // filed?" is Claim Filed: no), where the guided questions did not record it (#470 re-test:
     // no "Claim Filed" line after "nothing filed" was answered).

@@ -33,6 +33,7 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
+import { asksForDate } from "../../src/lib/case-system/dateYear";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -52,7 +53,7 @@ const STORIES: Story[] = [
   // Small Claims
   { id: "sc-deck-owed", court: "small-claims", side: "plaintiff", filed: [], amount: "$6,000", story: "I hired Test Decks Ltd. in March 2026 to build a deck for $8,000. I paid $2,000 and $6,000 is still owed. I have the contract, text messages and a bank receipt." },
   { id: "sc-movers-damage", court: "small-claims", side: "plaintiff", filed: [], amount: "$2,500", story: "Test Movers Inc. charged me a $3,800 moving fee on May 2, 2026. They broke my dining table and TV, worth $2,500 together. I have photos and the invoice." },
-  { id: "sc-roofer-single", court: "small-claims", side: "plaintiff", filed: [], amount: "$9,000", story: "I paid Test Roofing Ltd. $9,000 on May 12, 2026 to fix my roof and they never came back. I have emails and the receipt." },
+  { id: "sc-roofer-single", court: "small-claims", side: "plaintiff", filed: [], amount: null, story: "I paid Test Roofing Ltd. $9,000 on May 12, 2026 to fix my roof and they never came back. I have emails and the receipt." },
   { id: "sc-deposit-back", court: "small-claims", side: "plaintiff", filed: [], amount: "$1,800", story: "My landlord kept my $1,800 deposit when I moved out in June 2026. He says I owe $500 for cleaning but I want the $1,800 back. I have the lease and move-out photos." },
   { id: "sc-loan-friend", court: "small-claims", side: "plaintiff", filed: [], amount: "$3,000", story: "I lent my former friend $3,000 in January 2026 and he never paid me back. I have the e-transfer record and his text messages." },
   { id: "sc-car-estimate", court: "small-claims", side: "plaintiff", filed: [], amount: "$2,500", story: "A driver backed into my parked car on April 4, 2026. The repair estimate is $2,500 and I paid a $500 deductible. I have photos and the estimate." },
@@ -61,6 +62,8 @@ const STORIES: Story[] = [
   // A defendant is not asked the amount (the claim states it): nothing is offered.
   { id: "sc-defendant-served", court: "small-claims", side: "defendant", filed: [], amount: null, story: "Test Supply Ltd. is suing me for $4,200 they say I owe for tools. I was served with a Plaintiff's Claim on October 6, 2026. I have my receipts." },
   { id: "sc-defendant-unclear", court: "small-claims", side: "defendant", filed: [], amount: null, story: "My former roommate says I owe her money for utilities and served me with court papers last week. I have our text messages." },
+  // #471 re-test: a monthly rent is never offered as the amount (nothing is, here).
+  { id: "sc-rent-unclear", court: "small-claims", side: "plaintiff", filed: [], amount: null, story: "I rent my apartment for $1,800 a month. When I moved out in June 2026 the landlord kept my deposit and will not say how much he is keeping. I have the lease." },
   // Civil
   { id: "civil-deposit", court: "civil", side: "plaintiff", filed: ["nothing"], issues: ["contract"], story: "A supplier, Northwind Supplies Ltd., kept my $62,000 deposit and never delivered the equipment. I have the invoice and emails." },
   { id: "civil-defendant", court: "civil", side: "defendant", filed: ["statement-claim"], issues: ["contract"], story: "Test Equipment Ltd. is suing me for $80,000. I was served with a Statement of Claim on October 6, 2026. I have the purchase agreement." },
@@ -72,6 +75,8 @@ const STORIES: Story[] = [
   { id: "civil-already-filed", court: "civil", side: "plaintiff", filed: ["statement-claim"], issues: ["contract"], story: "I already filed a Statement of Claim against Test Motors Ltd. in September 2026 for $90,000 over a defective truck. I have the purchase papers." },
   { id: "civil-defendant-debt", court: "civil", side: "defendant", filed: ["statement-claim"], issues: ["debt"], story: "A lender, Test Capital Corp., sued me for $150,000 on a loan guarantee. I was served on October 1, 2026. I have the guarantee and emails." },
   { id: "civil-property", court: "civil", side: "plaintiff", filed: ["nothing"], issues: ["property"], story: "My neighbour built a fence two metres onto my land in June 2026 and refuses to move it. I have the survey and photos." },
+  // #471 re-test: evidence on its own line, not introduced by "I have".
+  { id: "civil-evidence-line", court: "civil", side: "plaintiff", filed: ["nothing"], issues: ["contract"], story: "Northwind Supplies Ltd. kept my $45,000 deposit for a machine they never delivered.\nEvidence: contract, emails, bank statements" },
   // Family
   { id: "family-spousal", court: "family", side: "applicant", filed: ["nothing"], issues: ["spousal-support"], story: "My spouse and I separated in March 2026 after 12 years of marriage. I want spousal support. I have our tax returns." },
   { id: "family-child-support", court: "family", side: "applicant", filed: ["nothing"], issues: ["child-support"], story: "We separated in April 2026. Our son is Leo, age 7. I want child support. I have his school records and my pay stubs." },
@@ -82,11 +87,14 @@ const STORIES: Story[] = [
   { id: "family-no-order", court: "family", side: "applicant", filed: ["nothing"], issues: ["decision-making-responsibility"], story: "We were never married and there has never been a court order. I want decision-making responsibility for our son, age 3." },
   { id: "family-divorce", court: "family", side: "applicant", filed: ["nothing"], issues: ["other"], story: "We separated in 2024 and agree on everything. I just want a divorce. I have our marriage certificate." },
   { id: "family-relocation", court: "family", side: "applicant", filed: ["nothing"], issues: ["relocation"], story: "I want to move to Ottawa with our daughter, age 8, for a new job in January 2027. Her father does not agree. I have the job offer." },
+  // #471 re-test: evidence in a sentence that also names the court papers, and a witness and a calendar.
+  { id: "family-evidence-served", court: "family", side: "respondent", filed: ["application"], issues: ["child-support"], story: "My ex served me with an application for child support on October 1, 2026; my bank statements show I paid every month." },
+  { id: "family-evidence-witness", court: "family", side: "applicant", filed: ["nothing"], issues: ["parenting-time"], story: "My spouse left in March 2026. Our daughter's school can confirm she lives with me. I kept a calendar of every visit." },
   { id: "family-safety", court: "family", side: "applicant", filed: ["nothing"], issues: ["safety-concerns", "parenting-time"], story: "I left my partner in September 2026 after he threatened me. I want a parenting order for our son, age 6. I have messages he sent." },
 ];
 
 const INTERNAL = /Court path:|Stage: Stage unclear|Main story:|Case story:|Reasoning domain|privilege \/ recipient|procedural stage is uncertain|Important limitation|Knowledge retrieval warning|\bundefined\b|\[object Object\]|\bNaN\b/;
-const EVIDENCE = /\b(?:text messages?|messages|emails?|receipts?|invoices?|contracts?|photos?|screenshots?|records?|letters?|pay stubs|tax returns|survey|lease|estimate|agreement|offer letter|job offer|certificate)\b/i;
+const EVIDENCE = /\b(?:text messages?|messages|emails?|receipts?|invoices?|contracts?|photos?|screenshots?|records?|letters?|pay stubs|tax returns|survey|lease|estimate|agreement|offer letter|job offer|certificate|bank statements|calendar|can confirm)\b/i;
 const DOUBLE_STOP = /[A-Za-z0-9)][.]{2}(?![.])/;
 // Appended as found: a failed test restarts its worker, which would lose an in-memory list.
 const FINDINGS = "test-results/story-pack-findings.jsonl";
@@ -145,10 +153,17 @@ async function guidedQuestions(page: Page, story: Story, viaReview: boolean) {
     }
     const yes = question.getByTestId("guided-form-from-story-yes");
     if (await yes.isVisible().catch(() => false)) { await yes.click(); continue; }
-    if (key === "servedDate") { await question.getByRole("textbox").fill("October 6, 2026"); await question.getByTestId("guided-form-next").click(); continue; }
+    // A question asking for a date: a day without its year is asked for the year (dateYear.ts).
+    const box = question.getByRole("textbox");
+    if ((await box.count()) && asksForDate(await question.innerText()) && !(await box.inputValue()).trim()) {
+      await box.fill("October 6");
+      await question.getByTestId("guided-form-next").click();
+      note(story.id, `questions (${key})`, "a date without its year is asked for the year", await question.getByTestId("guided-form-needs-more").isVisible({ timeout: 5_000 }).catch(() => false));
+      if (await question.getByTestId("guided-form-needs-more").isVisible().catch(() => false)) { await box.fill("October 6, 2026"); await question.getByTestId("guided-form-next").click(); }
+      continue;
+    }
     // A box already filled from the story ("Leo, age 7."): the person keeps it, so the
     // chat's "Got it" line echoes their own words (where "Leo, age 7.." showed).
-    const box = question.getByRole("textbox");
     if ((await box.count()) && (await box.inputValue()).trim()) { await question.getByTestId("guided-form-next").click(); continue; }
     await question.getByTestId("guided-form-skip").click();
   }
@@ -169,8 +184,25 @@ async function answerInReview(page: Page, story: Story) {
     for (const item of items) await box.locator(`input[data-testid=intake-field-pick][value="${item}"]`).check();
     await box.getByTestId("intake-field-save").click();
   }
-  const served = question("servedDate");
-  if (await served.count()) { await served.getByRole("textbox").fill("October 6, 2026"); await served.getByRole("textbox").press("Enter"); }
+  await reviewDates(page, story.id);
+}
+
+/** Every review question asking for a date: "October 6" is asked for its year, then the full date is kept. */
+async function reviewDates(page: Page, run: string) {
+  const panel = page.getByTestId("intake-review");
+  const open = panel.locator("[data-testid=intake-initial-question][data-answered=false]");
+  for (let i = 0; i < (await open.count()); i++) {
+    const question = open.nth(i);
+    const box = question.getByRole("textbox");
+    if (!(await box.count()) || !asksForDate(await question.locator("p").first().innerText())) continue;
+    const id = (await question.getAttribute("data-question")) ?? "";
+    await box.fill("October 6");
+    await box.press("Enter");
+    const asked = question.getByTestId("intake-field-needs-more");
+    note(run, `review (${id})`, "a date without its year is asked for the year", await asked.isVisible({ timeout: 5_000 }).catch(() => false));
+    await box.fill("October 6, 2026");
+    await box.press("Enter");
+  }
 }
 
 /** Small Claims, from the home page; answered in the review panel, or through the form's own boxes. Returns the amount offered. */
@@ -185,12 +217,11 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
   await expect(acknowledgement.or(page.getByRole("button", { name: "Fill in the form yourself" }))).toBeVisible({ timeout: 60_000 });
   if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
   if (!viaReview) {
-    await page.getByRole("button", { name: "Fill in the form yourself" }).click();
-    await page.getByTestId("sc-intake-yourRole").selectOption(story.side === "defendant" ? "Defendant / responding party" : "Plaintiff / claimant");
-    const offered = (await page.getByTestId("sc-intake-amountClaimed").inputValue()).trim() || null;
-    await page.getByTestId("intake-start-review").click();
-    await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
-    return offered;
+    // The questions one at a time (the guided route), answered as the person would.
+    await smallClaimsGuided(page, story);
+    // The review then offers nothing it has not been told, or the amount the story claims.
+    const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
+    return (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
   }
   await page.getByTestId("intake-start-review").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
@@ -203,7 +234,67 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
   const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
   const offered = (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
   if (offered) await use.first().click();
+  await reviewDates(page, story.id);
   return offered;
+}
+
+/**
+ * Small Claims' questions one at a time, answered as the person would: a date first
+ * without its year (it must be asked for), the side in words, "No" to filed, nothing
+ * known otherwise. "Here's what I understood" is confirmed as offered, except a claim
+ * of their own, which is unticked: it must not be offered again (#471 re-test).
+ * Returns how many times the counterclaim was offered.
+ */
+async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
+  await page.getByRole("button", { name: /Answer questions one at a time/ }).click();
+  const send = page.getByTestId("guided-send-saved-story");
+  if (await send.isVisible({ timeout: 5_000 }).catch(() => false)) await send.click();
+  let counterclaimOffers = 0;
+  let lastQuestion = "";
+  for (let i = 0; i < 25; i++) {
+    const finished = page.getByText("That's everything needed for now");
+    const proposals = page.getByTestId("story-proposals");
+    const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
+    await expect(finished.or(proposals).or(question).first()).toBeVisible({ timeout: 30_000 });
+    await page.waitForTimeout(600);
+    if (await finished.isVisible().catch(() => false)) break;
+    if (await proposals.isVisible().catch(() => false)) {
+      for (const row of await proposals.getByTestId("story-proposal-row").all()) {
+        if (/A claim of your own/.test(await row.innerText())) {
+          counterclaimOffers += 1;
+          const tick = row.locator("input[type=checkbox]").first();
+          if (await tick.count()) await tick.uncheck();
+        }
+      }
+      await proposals.getByRole("button").last().click();
+      continue;
+    }
+    const text = (await question.innerText()).replace(/\s+/g, " ");
+    if (text === lastQuestion && !/add the year/i.test(text)) break;
+    lastQuestion = text;
+    const answer = /add the year/i.test(text) ? "October 6, 2026"
+      : asksForDate(text) ? "October 6"
+      : /bringing this claim|responding to a claim/i.test(text) ? (story.side === "defendant" ? "Responding to a claim (defendant)" : "Bringing the claim (plaintiff)")
+      : /kind of dispute/i.test(text) ? "A contract or agreement dispute"
+      : /filed|served/i.test(text) ? "No"
+      : "I don't know";
+    const before = await page.locator("[data-testid=guided-message]").count();
+    await page.locator("textarea").last().fill(answer);
+    await page.getByRole("button", { name: "Send", exact: true }).click();
+    // The reply (the next question, or the request for the year) before reading on.
+    await expect.poll(() => page.locator("[data-testid=guided-message]").count(), { timeout: 30_000 }).toBeGreaterThan(before + 1).catch(() => {});
+    if (answer === "October 6") {
+      const asked = page.locator("[data-testid=guided-message][data-from=assistant]").last();
+      note(story.id, "questions (Small Claims)", "a date without its year is asked for the year", await expect(asked).toContainText("add the year", { timeout: 15_000 }).then(() => true, () => false), text.slice(0, 120));
+    }
+  }
+  note(story.id, "questions (Small Claims)", "a claim of their own, unticked, is not offered again", counterclaimOffers <= 1, `offered ${counterclaimOffers} times`);
+  checkText(story.id, "questions", await page.locator("[data-testid=guided-message]").allInnerTexts().then((all) => all.join("\n")));
+  if ((await page.getByTestId("intake-review").getAttribute("data-phase")) !== "reviewing") {
+    await page.getByTestId("intake-start-review").click().catch(() => {});
+  }
+  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
+  return counterclaimOffers;
 }
 
 async function confirmAndContinue(page: Page) {
@@ -302,3 +393,156 @@ for (const story of STORIES) {
   }
 }
 
+
+/*
+ * SITUATIONS FROM THE #471 RE-TEST, EACH THROUGH BOTH ROUTES WHERE THE SCREEN EXISTS.
+ * The served-date year, the rent amount, the evidence quote and the counterclaim are
+ * checked in every story run above; these need steps of their own.
+ */
+const byId = (id: string) => STORIES.find((story) => story.id === id)!;
+
+/** Answers given again after a story change: kept, re-chosen or re-entered, until none is from the earlier story. */
+async function answerAgain(page: Page, story: Story) {
+  const panel = page.getByTestId("intake-review");
+  for (let round = 0; round < 6 && (await page.getByTestId("intake-answer-stale").count()) + (await panel.getByTestId("intake-hidden-keep").count()) > 0; round++) {
+    for (const keep of ["intake-keep-answer", "intake-hidden-keep"]) {
+      while (await panel.getByTestId(keep).count()) await panel.getByTestId(keep).first().click();
+    }
+    const open = panel.locator("[data-testid=intake-initial-question][data-answered=false]");
+    for (let i = 0; i < (await open.count()); i++) {
+      const question = open.nth(i);
+      const id = (await question.getAttribute("data-question")) ?? "";
+      const label = await question.locator("p").first().innerText();
+      if (id === "yourRole" || id === "sc-orient-role") {
+        const sides: Record<Story["side"], RegExp> = { plaintiff: /plaintiff/i, defendant: /defendant/i, applicant: /starting it/i, respondent: /served/i };
+        await question.getByRole("button", { name: sides[story.side] }).first().click();
+        continue;
+      }
+      const picks = question.getByTestId("intake-field-pick");
+      if (await picks.count()) {
+        const wanted = id === "issues" ? story.issues ?? [] : story.filed;
+        const ticks = wanted.length ? wanted.map((value) => question.locator(`input[data-testid=intake-field-pick][value="${value}"]`)) : [picks.first()];
+        for (const tick of ticks) if (await tick.count()) await tick.check();
+        await question.getByTestId("intake-field-save").click();
+        continue;
+      }
+      const box = question.getByRole("textbox");
+      if (await box.count()) { await box.fill(asksForDate(label) ? "October 6, 2026" : "Synthetic answer"); await box.press("Enter"); continue; }
+      const no = question.getByRole("button", { name: "No", exact: true });
+      if (await no.count()) { await no.click(); continue; }
+      const choice = question.locator("button:not([data-testid=intake-unknown]):not([data-testid=intake-keep-answer])").first();
+      if (await choice.count()) await choice.click();
+    }
+    // A line answered for the earlier story with no question: given again as it stands.
+    // One labelled line at a time: each answered line loses its label, so the list moves.
+    for (let n = 0; n < 12; n++) {
+      const lines = panel.locator("div:has(> [data-testid=intake-answer-stale])");
+      let acted = false;
+      for (let k = 0; k < (await lines.count()) && !acted; k++) {
+        const line = lines.nth(k);
+        const box = line.locator("textarea:visible:enabled, input[type=text]:visible:enabled").first();
+        const pressed = line.locator("[data-testid=intake-entry-yes-no][aria-pressed=true]").first();
+        if ((await box.count()) && (await box.inputValue()).trim()) { const value = await box.inputValue(); acted = await box.fill(`${value} `, { timeout: 3_000 }).then(() => box.fill(value, { timeout: 3_000 })).then(() => box.blur()).then(() => true, () => true); }
+        else if (await pressed.count()) { await pressed.click(); acted = true; }
+      }
+      if (!acted) break;
+      await page.waitForTimeout(300);
+    }
+    await page.waitForTimeout(400);
+  }
+}
+
+for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "family"], ["sc-loan-friend", "small-claims"]] as const) {
+  for (const route of ["questions", "review"] as const) {
+    test(`situation: story changed in the review, every answer given again, confirm opens -- ${court} (${route})`, async ({ page }) => {
+      test.setTimeout(240_000);
+      const story = byId(id);
+      const run = `story-change ${court} (${route})`;
+      await grantSiteAccess(page);
+      const account = await fakeAccount(page);
+      await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+      if (court === "small-claims") await smallClaims(page, story, route === "review");
+      else {
+        await openBuilder(page, court, { story: story.story });
+        await guidedQuestions(page, story, route === "review");
+        if (route === "review") await answerInReview(page, story);
+      }
+      const panel = page.getByTestId("intake-review");
+      const box = panel.getByRole("textbox", { name: "Review: Your story", exact: true });
+      await box.fill(`${await box.inputValue()} Synthetic: one more detail added later.`);
+      await panel.getByTestId("review-story-save").click();
+      await page.waitForTimeout(800);
+      note(run, "review", "answers to the earlier story are labelled, not wiped", (await page.getByTestId("intake-answer-stale").count()) > 0);
+      await answerAgain(page, story);
+      note(run, "review", "every answer given again: nothing is left from the earlier story", (await page.getByTestId("intake-answer-stale").count()) === 0 && (await panel.getByTestId("intake-hidden-keep").count()) === 0);
+      const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+      while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+      await page.getByTestId("intake-review-acknowledgement").check();
+      const needs = await page.getByTestId("intake-confirm-needs").innerText().catch(() => "");
+      note(run, "review", "confirm is not blocked by answers already given again", !/earlier version/.test(needs) && (await page.getByTestId("intake-confirm").isEnabled()), needs);
+    });
+  }
+}
+
+for (const court of ["civil", "family"] as const) {
+  test(`situation: the side chosen is shown chosen after switching away and back -- ${court} (review)`, async ({ page }) => {
+    test.setTimeout(180_000);
+    const story = byId(court === "civil" ? "civil-deposit" : "family-spousal");
+    await grantSiteAccess(page);
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, court, { story: story.story });
+    await guidedQuestions(page, story, true);
+    const role = page.getByTestId("intake-review").locator('[data-testid=intake-initial-question][data-question="yourRole"]');
+    const choices = role.getByTestId("intake-field-choice");
+    await choices.nth(0).click();
+    await choices.nth(1).click();
+    await choices.nth(0).click();
+    const pressed = choices.nth(0);
+    const shown = await pressed.evaluate((element) => getComputedStyle(element).backgroundColor);
+    note(`side-highlight ${court}`, "review", "the side chosen is marked, and looks chosen", (await pressed.getAttribute("aria-pressed")) === "true" && shown === "rgb(47, 125, 103)", shown);
+  });
+}
+
+for (const court of ["small-claims", "civil", "family"] as const) {
+  test(`situation: review questions keep their places while answered -- ${court}`, async ({ page }) => {
+    test.setTimeout(180_000);
+    const story = byId(court === "small-claims" ? "sc-unclear" : court === "civil" ? "civil-deposit" : "family-spousal");
+    await grantSiteAccess(page);
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") {
+      await page.goto("/?path=small-claims");
+      await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+      await page.getByLabel("City or municipality").fill("Sudbury");
+      await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+      await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+      await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+      const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+      await expect(acknowledgement.or(page.getByRole("button", { name: "Fill in the form yourself" }))).toBeVisible({ timeout: 60_000 });
+      if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+      await page.getByTestId("intake-start-review").click();
+    } else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+    }
+    const panel = page.getByTestId("intake-review");
+    const order = () => panel.locator("[data-testid=intake-initial-question]").evaluateAll((elements) => elements.map((element) => element.getAttribute("data-question") ?? ""));
+    const before = await order();
+    // Answer each question in turn, typing where there is a box; none moves.
+    for (const id of before) {
+      const question = panel.locator(`[data-testid=intake-initial-question][data-question="${id}"]`);
+      const box = question.getByRole("textbox");
+      const pick = question.getByTestId("intake-field-pick").first();
+      if (await pick.count()) { await pick.check(); await question.getByTestId("intake-field-save").click(); }
+      else if (await box.count()) { await box.pressSequentially("Synthetic 2026-05-12", { delay: 10 }); await box.press("Tab"); }
+      else { const choice = question.locator("button:not([data-testid=intake-unknown]):enabled").first(); if (await choice.count()) await choice.click(); }
+      const now = (await order()).filter((item) => before.includes(item));
+      if (JSON.stringify(now) !== JSON.stringify(before.filter((item) => now.includes(item)))) {
+        note(`order ${court}`, "review", "questions keep their places while answered", false, `${before.join(" > ")}  became  ${now.join(" > ")}`);
+        return;
+      }
+    }
+    note(`order ${court}`, "review", "questions keep their places while answered", true);
+  });
+}

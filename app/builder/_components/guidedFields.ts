@@ -12,6 +12,7 @@
  * ticking the same box on the form would record.
  */
 
+import { needsYear } from "../../../src/lib/case-system/dateYear";
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import {
@@ -65,8 +66,8 @@ export { SERVED_LINE };
  * date the site can read (the step page asks for that date in full).
  */
 export function servedDateNeedsYear(answer: string): string | null {
-  const hint = storyHintsForDates(withServedDate("", answer))["case-date-served-with-application"];
-  return hint?.value && hint.yearAssumed ? "Please add the year, for example October 6, 2026." : null;
+  // The one rule for every date box (dateYear.ts, #471 re-test).
+  return needsYear(answer);
 }
 
 /** The service date kept in the timeline, or "" when none is. */
