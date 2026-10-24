@@ -85,12 +85,6 @@ export type CasePosition = {
    * remembered and not asked again.
    */
   claimKind?: string;
-  /**
-   * Date questions for a day the person said they do not know, already offered once more
-   * at the end (the results page's step panel): the case page shows them folded, never as
-   * a question a third time (the case file, caseFile.ts).
-   */
-  offeredDates?: string[];
 };
 
 const CLAIM_KIND_VALUE = /^(?:sc-claim-[a-z0-9-]{1,80}|not-sure)$/;
@@ -181,7 +175,6 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
     dateAnswers: withSituationDates(dateAnswers, courtPath, situationOfCase(masterResult)),
     service: readService(raw.service, courtPath),
     ...(typeof raw.claimKind === "string" && CLAIM_KIND_VALUE.test(raw.claimKind) ? { claimKind: raw.claimKind } : {}),
-    ...(Array.isArray(raw.offeredDates) && raw.offeredDates.some((id) => typeof id === "string" && isDateQuestionId(id)) ? { offeredDates: raw.offeredDates.filter((id): id is string => typeof id === "string" && isDateQuestionId(id)) } : {}),
   };
 }
 
@@ -219,8 +212,6 @@ export type PositionPatch = {
   service?: unknown;
   /** A kind-of-claim id or "not-sure", or null to remove. */
   claimKind?: unknown;
-  /** Date question ids offered once more at the end: added to those already recorded. */
-  offeredDates?: unknown;
 };
 
 export type PositionPatchResult =
@@ -262,11 +253,6 @@ export function applyPositionPatch(
       if (!answer) return { ok: false, error: "Unknown motion-to-change answer." };
       next.motionToChange = answer;
     }
-  }
-
-  if (patch.offeredDates !== undefined) {
-    if (!Array.isArray(patch.offeredDates) || patch.offeredDates.length > 20 || !patch.offeredDates.every((id) => typeof id === "string" && isDateQuestionId(id))) return { ok: false, error: "Unknown date question." };
-    next.offeredDates = [...new Set([...(current.offeredDates ?? []), ...(patch.offeredDates as string[])])];
   }
 
   if (patch.claimKind !== undefined) {

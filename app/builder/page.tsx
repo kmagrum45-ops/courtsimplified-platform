@@ -2563,14 +2563,9 @@ function BuilderPageContent() {
                 sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
-                // A day the person said they do not know, shown here: its one offer at the end, recorded
-                // so the case page folds it (caseFile.ts).
-                onOffered={(ids) => {
-                  const unsure = unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult));
-                  const offered = ids.filter((id) => unsure.includes(id));
-                  const id = savedCaseId();
-                  if (offered.length && id) void savePositionQueuedOutcome(id, { offeredDates: offered });
-                }}
+                // A day the person said they do not know had its one more offer in the review: folded
+                // here ("not known yet — Add it"), never asked a second time (caseFile.ts).
+                laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {

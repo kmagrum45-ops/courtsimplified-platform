@@ -73,8 +73,6 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
                 {slot.state === "unsure" && STEP_PAGE_DATES.has(fact) ? (
                   // A day not known yet is offered once at the end on the step page below, not here as well.
                   <Link data-testid="case-file-change" href={stepHref} className="font-semibold text-[#2f7d67] underline">Add it with your next step</Link>
-                ) : slot.state === "unsure" ? (
-                  <Link data-testid="case-file-answer-now" href={href} className="font-semibold text-[#2f7d67] underline">Answer it now</Link>
                 ) : (
                   <Link data-testid="case-file-change" href={href} className="font-semibold text-[#2f7d67] underline">Change</Link>
                 )}

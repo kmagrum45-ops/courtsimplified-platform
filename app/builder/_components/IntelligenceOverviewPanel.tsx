@@ -404,7 +404,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
                   <>
                     <dt className="font-semibold text-[#10231f]">Kind of claim</dt>
                     <dd data-testid="claim-kind" data-claim-type="not-sure">
-                      <ClaimKindChooser caseId={caseId} chosen={chosenKind} onChosen={setChosenKind} />
+                      <ClaimKindChooser caseId={caseId} chosen={chosenKind} onChosen={setChosenKind} saidNotSure={heldKind?.state === "unsure"} />
                     </dd>
                   </>
                   )
@@ -573,8 +573,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
  * to choose from, or "I'm not sure", which is remembered and not asked again (a Choose
  * link stays). The person's choice is kept with the case (position.claimKind).
  */
-function ClaimKindChooser({ caseId, chosen, onChosen }: { caseId: string | null; chosen: string | null; onChosen: (value: string) => void }) {
-  const [open, setOpen] = useState(chosen !== "not-sure");
+function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { caseId: string | null; chosen: string | null; onChosen: (value: string) => void; saidNotSure?: boolean }) {
+  // Folded once they said "not sure" (here, or in the review, its one more offer): "Choose it" stays.
+  const [open, setOpen] = useState(chosen !== "not-sure" && !saidNotSure);
   const [pick, setPick] = useState("");
   const [failed, setFailed] = useState(false);
   const kinds = kindsOfClaim(CLAIM_TYPES).slice().sort((a, b) => a.name.localeCompare(b.name));

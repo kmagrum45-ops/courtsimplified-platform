@@ -26,8 +26,9 @@
  *
  * "NOT SURE" COUNTS AS ASKED (Jason, 2026-10-24). A skip, "I don't know yet", "not yet" or
  * "I don't know the date" is an answer too: the fact is given as unsure, and asking it
- * again is a repeat -- except once at the end (the step page's date questions and the
- * "What we have so far" lines), where each unsure fact may be offered once more.
+ * again is a repeat -- except ONCE, in the review (its box or its question; option 1), or as
+ * the story's own suggestion ("Is that right?"). The next step shows it folded ("not known
+ * yet -- Add it"), which is not a question; a date question there, or any second offer, fails.
  * The screen is the page's path, and the builder's step.
  */
 import type { Page } from "@playwright/test";
@@ -161,8 +162,8 @@ export function unsureFromSituation(answers: SituationAnswers | false): string[]
   return facts;
 }
 
-/** Where an unsure fact may be offered once more: the end of the case (step page dates, "What we have so far"). */
-const END_SURFACES = new Set(["date", "end", "claim-kind", "chat-story"]);
+/** Where an unsure fact may be offered once more (once, in total): the review, or the story's suggestion. */
+const END_SURFACES = new Set(["review", "review-entry", "chat-story"]);
 
 export type Repeat = { fact: string; given: Asked; asks: Asked[] };
 
@@ -192,8 +193,6 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
       if (!gave || ask.at <= gave.at) continue;
       if (gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
       // An unsure fact, offered once more at the end: allowed once.
-      // "What we have so far" shows "Answer it now" only for a fact held as unsure: its one offer at the end.
-      if (ask.surface === "end" && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       if (gave.text === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       const repeat = repeats.get(fact) ?? { fact, given: gave, asks: [] };
       repeat.asks.push(ask);

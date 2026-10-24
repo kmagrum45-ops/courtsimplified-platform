@@ -78,7 +78,7 @@ export async function POST(request: Request) {
   // One shared save path for the case record (updateCaseRecord.ts, 2026-10-14
   // audit): the same guarded read-change-write, with a short pause between
   // retries, instead of this route's own copy of it.
-  const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service, claimKind: body.claimKind, offeredDates: body.offeredDates };
+  const patch = { confirmedStage: body.confirmedStage, confirmedStageFrom: body.confirmedStageFrom, motionToChange: body.motionToChange, stepId: body.stepId, dateAnswers: body.dateAnswers, service: body.service, claimKind: body.claimKind };
   const saved = await updateMasterResult(
     supabase as unknown as CaseRecordClient,
     { caseId, userId: user.id },

@@ -99,7 +99,8 @@ export default function IntakeReviewPanel() {
   // The case file (caseFile.ts): an empty box whose fact was given, or answered "not sure",
   // somewhere else shows that answer instead of asking for it again.
   const caseFile = caseFileOf(checkpoint);
-  const heldSlot = (field: string) => { const slot = slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state !== "not-asked"); return slot ?? null; };
+  // Only an answer is shown in place of the box: a "not sure" fact is offered here once more, in its box.
+  const heldSlot = (field: string) => { const slot = slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "answered"); return slot ?? null; };
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");

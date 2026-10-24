@@ -9,7 +9,7 @@ import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineVal
 import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
-import { alreadyAsked, caseFileOf } from "./caseFile/caseFile";
+import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
 
 type ObjectValue = Record<string, unknown>;
@@ -178,12 +178,21 @@ export function canReview(checkpoint: Checkpoint): boolean {
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
 export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
-  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere --
-  // answered, or "not sure" -- is not asked again here. Those this review marked "I don't
-  // know yet" stay listed (marked) when asked for, so they can be changed.
+  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere is not
+  // asked again here, and never blocks Confirm. A fact the person said they did not know gets
+  // its one more offer in this review (Jason, 2026-10-24, option 1), as ONE field: its box when
+  // the review shows one, otherwise this question (listed with `includeUnknown`, never required).
+  // Those this review marked "I don't know yet" stay listed (marked) so they can be changed.
   const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
   const file = caseFileOf(stored);
-  return remainingBeforeCaseFile(stored, includeUnknown).filter(question => (includeUnknown && unknown.has(question.id)) || !alreadyAsked(file, question.id));
+  const boxFacts = new Set(reviewEntries(stored).flatMap(entry => slotsOfQuestion(entry.field)));
+  return remainingBeforeCaseFile(stored, includeUnknown).filter(question => {
+    if (!alreadyAsked(file, question.id)) return true;
+    if (!includeUnknown) return false;
+    if (unknown.has(question.id)) return true;
+    const facts = slotsOfQuestion(question.id);
+    return facts.length > 0 && facts.every(fact => file[fact].state === "unsure") && !facts.some(fact => boxFacts.has(fact));
+  });
 }
 
 function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): { id: string; label: string }[] {

@@ -277,8 +277,8 @@ export default function CaseOverviewPage() {
               sideFromRecord={sideOf(situationOfCase(master)) !== null}
               caseId={caseId}
               initialStepId={position.stepId ?? situationStep}
-              // A day not known, already offered once more on the results page: folded here (caseFile.ts).
-              laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)).filter((id) => (position.offeredDates ?? []).includes(id))}
+              // A day not known had its one more offer in the review: folded here (caseFile.ts).
+              laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
               initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}

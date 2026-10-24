@@ -15,6 +15,8 @@ import { grantSiteAccess } from "./harness/siteAccess";
 import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { passSituationGate } from "./harness/situation";
+import { serveFromThisCommit } from "./harness/thisCommitServer";
+import { confirmAndShowNextStep, expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 30_000 });
 
@@ -219,7 +221,10 @@ test("Small Claims guided: a saved story shows as text with Send and Edit; an ou
 });
 
 test("Family: being served is not recorded as an application filed without its own question; the served date is in the review", async ({ page }) => {
-  test.setTimeout(180_000);
+  test.setTimeout(240_000);
+  // Signed in, with this commit's own server, so the next step can be opened at the end.
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
   await openBuilder(page, "family", { story: "Synthetic story: I got served the papers last week. This is not a court order, just a separation.", situation: { where: "going", started: "them", papers: "not-sure", receivedOn: "unknown" } });
   const offer = page.getByTestId("guided-form-from-story");
   for (let step = 0; step < 4 && !(await offer.isVisible()); step++) {
@@ -238,6 +243,8 @@ test("Family: being served is not recorded as an application filed without its o
   await expect(panel).toHaveAttribute("data-phase", "reviewing");
   await expect(panel).toContainText("Day you were served");
   await expect(panel).toContainText("Your story says: “Synthetic story: I got served the papers last week.”");
+  // Offered once more in the review, as one field (Jason, 2026-10-24, option 1).
+  await expectServedOfferedOnceInReview(page);
   // Typed key by key (re-test round 4: spaces vanished while typing; pasting kept them).
   const served = panel.getByRole("textbox", { name: "Review: Day you were served", exact: true });
   await served.click();
@@ -247,6 +254,9 @@ test("Family: being served is not recorded as an application filed without its o
   await expect(served).toHaveValue("October 12, 2026");
   await expect(panel.getByRole("textbox", { name: "Review: Timeline", exact: true }), "the served date is kept in the Timeline, as typed").toHaveValue(/October 12, 2026/);
   expect(await panel.innerText()).not.toMatch(/Property \/ equalization|Matrimonial home \/ exclusive possession/);
+  // Offered exactly once: the next step does not ask it again.
+  await confirmAndShowNextStep(page);
+  await expectServedNotAskedOnNextStep(page);
 });
 
 // Re-test round 4: a signed-in person was told "You have an unsaved case in this tab
