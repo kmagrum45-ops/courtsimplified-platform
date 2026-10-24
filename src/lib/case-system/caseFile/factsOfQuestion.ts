@@ -42,7 +42,6 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   urgent: ["urgent"],
   amountClaimed: ["amount"],
   courtFileNumber: ["courtFileNumber"],
-  timeline: ["whenHappened"],
   defendantOutcomeText: ["outcome"],
   remedySought: ["wants"],
   placeOfMarriage: ["marriedWhere"],

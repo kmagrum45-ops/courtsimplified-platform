@@ -145,7 +145,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const startingNewCase = story.trim().length > 0 && !hasOrderAlready && (answeredSide ? answeredSide === "bringing" : !respondingInFamilyStory(story));
 
   function update(next: Partial<FamilyStatusRecord>) {
-    onChange({ ...state, record: { ...record, ...next } });
+    // The person's own triage record; what the case file already held is read over it, never copied in.
+    onChange({ ...state, record: { ...ownRecord, ...next } });
     setShowWhy(false);
   }
 

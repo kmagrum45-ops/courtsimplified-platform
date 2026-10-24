@@ -30,7 +30,8 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
-import { situationOf, sideOf, firstPageOf } from "../situation/situation";
+import { situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
+import { isKindOfClaim } from "../intake/claimKind";
 import { factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
@@ -122,6 +123,13 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const sections = checkpoint ? freshSections(checkpoint) : {};
   const court = checkpoint?.courtPath ?? (typeof object(master).courtPath === "string" ? (object(master).courtPath as string) : null);
 
+  // 0. A step the person chose on the step page is their latest answer to "where the case is":
+  // it wins over the stage given at the start (reviewer, 2026-10-24: a later correction never won).
+  const position = object(object(master).position);
+  if (typeof position.stepId === "string" && position.stepId) give(file, "stage", position.stepId, "step");
+  // Likewise a kind of claim they chose themselves.
+  if (typeof position.claimKind === "string" && (position.claimKind === "not-sure" || isKindOfClaim(position.claimKind))) give(file, "claimKind", position.claimKind, "claim-kind");
+
   // 1. The situation answers: the person's own, never tied to the story.
   const situation = situationOf(sections);
   const side = sideOf(situation);
@@ -130,7 +138,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   else if (court) give(file, "court", court, "situation:court");
   if (situation.where === "served") give(file, "stage", "responding", "situation:where");
   if (situation.where === "starting" && situation.filed === "nothing") give(file, "stage", "starting-case", "situation:filed");
-  if (situation.where === "going" && situation.stage) give(file, "stage", situation.stage, "situation:stage");
+  if (situation.where === "going" && situation.stage === "not-sure") give(file, "stage", "not-sure", "situation:stage");
+  else if (situation.where === "going" && stepFromSituation(situation, situation.court ?? court)) give(file, "stage", situation.stage, "situation:stage");
+  // An older record: "something filed" when starting is a case that has started (stageFromSituation agrees).
+  if (situation.where === "starting" && situation.filed === "something") give(file, "stage", "already-started", "situation:filed");
   if (situation.where === "starting" && situation.filed) give(file, "filed", situation.filed === "something", "situation:filed");
   if (situation.where === "going" || situation.where === "served") give(file, "filed", true, "situation:where");
   if (situation.papers) give(file, "papers", situation.papers === "not-sure" ? "not-sure" : firstPageOf(situation.papers)?.title ?? situation.papers, "situation:papers");
@@ -147,9 +158,12 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       if (key === "facts") continue;
       // The Small Claims form starts with "Nothing filed yet" ticked: only an answer the person changed counts.
       if (area === "small-claims" && key === "filedDocuments" && strings(value).join() === "nothing") continue;
-      if (area === "small-claims" && key === "caseStage" && value === "not-sure") continue;
+      // A form's "not sure" is its starting value, never asked by itself: no answer (the
+      // questions one at a time record a skip separately, which is a "not sure").
+      if (value === "not-sure") continue;
       const list = strings(value);
-      const said = Array.isArray(value) ? (list.length === 1 && list[0] === "not-sure" ? "not-sure" : list.filter((item) => item !== "not-sure")) : value;
+      if (Array.isArray(value) && list.every((item) => item === "not-sure")) continue;
+      const said = Array.isArray(value) ? list.filter((item) => item !== "not-sure") : value;
       for (const fact of slotsOf(key)) give(file, fact, said, `${area}:${key}`);
     }
   }
@@ -172,11 +186,12 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
       const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : undefined;
       if (captured === undefined && DATED.has(fact)) unsure(file, fact, id);
-      else give(file, fact, captured ?? true, id);
+      else if (captured === undefined) file[fact] = { state: "answered", source: { kind: "answer", question: id }, confirmed: true };
+      else give(file, fact, captured, id);
     }
   }
   const matched = object(guided.matchedClaimType);
-  if (typeof matched.claimTypeId === "string") give(file, "claimKind", matched.claimTypeId, "claim-kind-suggestion");
+  if (typeof matched.claimTypeId === "string" && matched.userConfirmed === true && isKindOfClaim(matched.claimTypeId)) give(file, "claimKind", matched.claimTypeId, "claim-kind-suggestion");
 
   // 4. The review's answers, and its "I don't know yet".
   const builder = object(sections.builder);
@@ -193,7 +208,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // married (item 12, case 14: a marriage abroad is a fact to carry, never assumed Ontario).
   if (file.married.state === "answered" && file.married.value === true && file.marriedWhere.state === "not-asked") {
     const said = marriedWhereIn(String(object(sections.story).text ?? ""));
-    if (said) file.marriedWhere = { state: "answered", value: said.place, source: { kind: "story", quote: said.quote }, confirmed: true };
+    if (said) file.marriedWhere = { state: "answered", value: said.place, source: { kind: "story", quote: said.quote }, confirmed: false };
   }
   if (yesNo(triage.caseInvolvesChildren) !== undefined) give(file, "children", yesNo(triage.caseInvolvesChildren), "case-involves-children");
   else if (yesNo(triage.haveChildTogether) !== undefined) give(file, "children", yesNo(triage.haveChildTogether), "child-together");
@@ -202,13 +217,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const [fact, entry] of Object.entries(object(object(sections[CASE_FILE_SECTION]).unsure))) unsure(file, fact, String(object(entry).question ?? "unsure"));
 
   // 7. The saved case: dates given on the step page, the stage and kind of claim chosen there.
-  const position = object(object(master).position);
   const dates = object(position.dateAnswers);
   for (const [id, value] of Object.entries(dates)) for (const fact of slotsOf(id)) give(file, fact, value, id);
-  if (typeof position.stepId === "string" && position.stepId) give(file, "stage", position.stepId, "step");
-  if (typeof position.claimKind === "string") give(file, "claimKind", position.claimKind, "claim-kind");
   const extra = object(object(object(master).intakeData).extra);
-  if (typeof extra.confirmedClaimTypeId === "string") give(file, "claimKind", extra.confirmedClaimTypeId, "claim-kind-suggestion");
+  if (typeof extra.confirmedClaimTypeId === "string" && extra.claimTypeUserConfirmed === true && isKindOfClaim(extra.confirmedClaimTypeId)) give(file, "claimKind", extra.confirmedClaimTypeId, "claim-kind-suggestion");
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
     const item = object(answer);
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
@@ -283,7 +295,7 @@ export function slotText(slot: Slot, formatDay: (iso: string) => string): string
  */
 const DATE_QUESTIONS_OF: Partial<Record<SlotFact, readonly string[]>> = {
   whenHappened: ["case-date-act-or-omission"],
-  servedDate: ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
+  servedDate: [],
   conferenceDate: ["sc-date-settlement-conference", "case-date-case-conference-date"],
   courtDate: ["case-date-trial-date"],
 };
@@ -306,6 +318,13 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
     const day = slotDay(file[fact], readDay);
     if (day) for (const id of ids) if (!out[id]) out[id] = day;
   }
+  // The day served, given anywhere but the situation questions (whose day withSituationDates
+  // places by the papers picked): only the court's own first served-date question (reviewer 2).
+  const served = file.servedDate;
+  const servedDay = served.source?.kind === "answer" && !served.source.question.startsWith("situation:") ? slotDay(served, readDay) : null;
+  const court = typeof file.court.value === "string" ? file.court.value : "";
+  const servedId = court === "family" ? "case-date-served-with-application" : court === "small-claims" || court === "civil" ? "sc-date-claim-served" : null;
+  if (servedDay && servedId && !out[servedId]) out[servedId] = servedDay;
   return out;
 }
 

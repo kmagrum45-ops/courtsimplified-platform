@@ -2531,7 +2531,8 @@ function BuilderPageContent() {
               suggestedStage={suggestionForSide(detectedStage, respondingSide)}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
-              stepWords={stepFromSituation(situation, courtPath) && !positionThisVisit.stepId && !storedPosition.stepId ? findStage(stepFromSituation(situation, courtPath)!)?.userQuestion ?? null : null}
+              // A case already going: the step the next step follows, the latest chosen (the step page's, else the start's).
+              stepWords={situation.where === "going" ? findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.userQuestion ?? null : null}
               basis={
                 stageBasis && stageBasis.stage === confirmedStage
                   ? stageBasis.because

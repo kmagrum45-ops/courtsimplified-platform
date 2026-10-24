@@ -20,6 +20,7 @@
  */
 import { alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
+import { situationOf, withSituationDates } from "../../src/lib/case-system/situation/situation";
 import { withCaseFileAnswers } from "../../src/lib/case-system/caseFile/triageFromCaseFile";
 import { emptyStatusRecord } from "../../src/lib/case-system/family/statusTriage";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
@@ -88,7 +89,29 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   check("the carried day is not frozen into the saved position", Object.keys(withoutCaseFileDates({ "case-date-act-or-omission": "2026-05-12" }, {}, file, fullDayIn)).length === 0);
   check("a day the person saved there is kept", withoutCaseFileDates({ "case-date-act-or-omission": "2026-05-13" }, {}, file, fullDayIn)["case-date-act-or-omission"] === "2026-05-13");
   const served = caseFileOf(checkpoint("family", { situation: { record: { where: "served", papers: "family-8", receivedOn: "2026-10-12", court: "family", courtFrom: "papers" } } }));
-  check("Family served: the application's service day is the step page's answer", withCaseFileDates({}, served, fullDayIn)["case-date-served-with-application"] === "2026-10-12");
+  const placed = withCaseFileDates(withSituationDates({}, "family", situationOf(checkpoint("family", { situation: { record: { where: "served", papers: "family-8", receivedOn: "2026-10-12", court: "family", courtFrom: "papers" } } }).sections)), served, fullDayIn);
+  check("Family served: the application's service day is the step page's answer (placed by the papers picked)", placed["case-date-served-with-application"] === "2026-10-12", JSON.stringify(placed));
+  check("one served day is never copied into another paper's served-date question", !("case-date-served-with-motion-to-change" in placed) && !("sc-date-defendants-claim-served" in placed) && !("sc-date-claim-served" in placed), JSON.stringify(placed));
+}
+
+// 6. The independent reviewer's findings (2026-10-24), each held as a property.
+{
+  const going = checkpoint("small-claims", { situation: { record: { where: "going", started: "them", papers: "not-sure", receivedOn: "unknown", court: "small-claims", courtFrom: "choice", stage: "defendant:noted-in-default" } } });
+  check("a step chosen later on the step page wins over the stage given at the start", caseFileOf(going, { position: { stepId: "defendant:defence-filed" } }).stage.value === "defendant:defence-filed");
+  const moved = checkpoint("family", { situation: { record: { where: "going", started: "them", papers: "not-sure", receivedOn: "unknown", court: "family", courtFrom: "choice", stage: "defendant:noted-in-default" } } });
+  check("a stage that no longer fits the court is not held", caseFileOf(moved).stage.state === "not-asked");
+  const civil = caseFileOf(checkpoint("civil", { civil: { input: { caseStage: "not-sure", yourRole: "not-sure", documents: ["not-sure"] } } }));
+  check("a form's untouched \"not sure\" is no answer, in civil too", civil.stage.state === "not-asked" && civil.side.state === "not-asked" && civil.filed.state === "not-asked");
+  const unconfirmed = caseFileOf(checkpoint("small-claims", { guided: { matchedClaimType: { claimTypeId: "sc-claim-unpaid-debt-services", userConfirmed: false } } }), { position: { claimKind: "sc-claim-breach-of-contract-services" } });
+  check("a kind of claim the person chose wins over a match they never confirmed", unconfirmed.claimKind.value === "sc-claim-breach-of-contract-services");
+  check("a match the person never confirmed is not their answer", caseFileOf(checkpoint("small-claims", { guided: { matchedClaimType: { claimTypeId: "sc-claim-unpaid-debt-services", userConfirmed: false } } })).claimKind.state === "not-asked");
+  check("a defendant-side situation is never held as a kind of claim", caseFileOf(checkpoint("small-claims", {}), { intakeData: { extra: { confirmedClaimTypeId: "sc-defence-served-and-confused", claimTypeUserConfirmed: true } } }).claimKind.state === "not-asked");
+  check("\"We don't have any children\" is a no for the triage", withCaseFileAnswers(emptyStatusRecord(), caseFileOf(checkpoint("family", { family: { childrenInfo: "We don't have any children" } }))).caseInvolvesChildren === "no");
+  check("a child from another relationship never answers \"a child together\"", withCaseFileAnswers(emptyStatusRecord(), caseFileOf(checkpoint("family", { family: { childrenInfo: "My son, from my first marriage" } }))).haveChildTogether === "not-yet");
+  const married = caseFileOf(checkpoint("family", { story: { text: "We were married in Lisbon, Portugal in 2009." }, builder: { triageState: { record: { marriedToOtherParty: "yes" } } } }));
+  check("where they married is carried from the story as a suggestion with its words, not as their confirmed answer", married.marriedWhere.value === "Lisbon, Portugal" && married.marriedWhere.confirmed === false && married.marriedWhere.source?.kind === "story");
+  const role = caseFileOf(checkpoint("small-claims", { guided: { answeredIds: ["sc-orient-role"], facts: {} } }));
+  check("an answered question with no words kept shows no made-up value", role.side.state === "answered" && role.side.value === undefined);
 }
 
 // 5. The saved case adds what the step page and results hold.
