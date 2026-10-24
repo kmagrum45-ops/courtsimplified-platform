@@ -40,6 +40,10 @@ import { authHeaders, builderHref, formatDate, useCaseHome } from "../_component
 import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 import { sideOf, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
+import { caseFileOf, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
+import { fullDayIn } from "@/src/lib/case-system/casePosition";
+import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
+import CaseFilePanel from "../_components/CaseFilePanel";
 
 type EventsResponse = {
   events: Array<{
@@ -195,6 +199,14 @@ export default function CaseOverviewPage() {
         </section>
       ) : null}
 
+      {/* The case file (caseFile.ts): everything the person has told us, each asked once. */}
+      <CaseFilePanel
+        file={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)}
+        changeHref={builderHref(caseRecord)}
+        situationHref={`${builderHref(caseRecord)}&situation=change`}
+        stepHref="#next-heading"
+      />
+
       <section aria-labelledby="where-heading" className="space-y-3">
         <h2 id="where-heading" className="text-xl font-bold text-[#10231f]">
           Where your case is
@@ -258,7 +270,7 @@ export default function CaseOverviewPage() {
               sideFromRecord={sideOf(situationOfCase(master)) !== null}
               caseId={caseId}
               initialStepId={position.stepId ?? situationStep}
-              initialDateAnswers={position.dateAnswers}
+              initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}
               // Once a date counted here is saved, the case is read again, so

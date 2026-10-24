@@ -23,6 +23,11 @@
  * Skip; a review question that becomes answered; a Small Claims question followed by the
  * person's reply; a confirmed proposal; a saved date; a triage question that moves on
  * without "not yet"; a recorded stage; an accepted kind of claim.
+ *
+ * "NOT SURE" COUNTS AS ASKED (Jason, 2026-10-24). A skip, "I don't know yet", "not yet" or
+ * "I don't know the date" is an answer too: the fact is given as unsure, and asking it
+ * again is a repeat -- except once at the end (the step page's date questions and the
+ * "What we have so far" lines), where each unsure fact may be offered once more.
  * The screen is the page's path, and the builder's step.
  */
 import type { Page } from "@playwright/test";
@@ -45,7 +50,7 @@ const SCAN = `(() => {
   };
   const now = () => Date.now() * 1000 + (order++ % 1000);
   const emit = (kind, surface, id, text) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now() });
-  const answer = (surface, id) => { const key = surface + "|" + id; if (answered.has(key) || skipped.has(key)) return; answered.add(key); emit("answer", surface, id, ""); };
+  const answer = (surface, id) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : ""); };
   const surfaces = [
     ["situation", "[data-testid=situation-questions]", (el) => [el.getAttribute("data-question")]],
     ["chat", "[data-testid=guided-form-question]", (el) => [el.getAttribute("data-key")]],
@@ -59,6 +64,9 @@ const SCAN = `(() => {
     ["date", "[data-testid=stage-answer-date-question]", (el) => [el.getAttribute("data-question-id")]],
     // An empty, editable box in the review asks for its fact; so does the Small Claims form's documents list with nothing ticked.
     ["review-entry", "[data-testid=intake-entry][data-empty=true]", (el) => [el.getAttribute("data-field")]],
+    // The end: "What we have so far" offers an unsure fact once more; the kind-of-claim chooser asks it.
+    ["end", "[data-testid=case-file-line][data-state=unsure] [data-testid=case-file-answer-now]", (el) => [el.closest("[data-testid=case-file-line]").getAttribute("data-question")]],
+    ["claim-kind", "[data-testid=claim-kind-chooser]", () => ["claim-kind-suggestion"]],
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
   ];
   let chatKey = null, triageKey = null, scQuestion = null, scUsers = 0, situationKey = null;
@@ -116,6 +124,8 @@ const SCAN = `(() => {
     triageKey = nextTriage;
     // Stage recorded; kind of claim accepted.
     if (document.querySelector("[data-testid=stage-confirmed]")) answer("stage", "stage-confirmation");
+    // Review questions marked "I don't know yet": answered as unsure.
+    for (const el of document.querySelectorAll("[data-testid=intake-initial-question][data-unknown=true]")) { skipped.add("review|" + el.getAttribute("data-question")); answer("review", el.getAttribute("data-question")); }
   };
   setInterval(scan, 200);
 })()`;
@@ -131,7 +141,7 @@ export async function recordAsks(page: Page): Promise<Asked[]> {
 /** The facts the person's situation answers give. */
 export function factsFromSituation(answers: SituationAnswers | false): string[] {
   if (!answers) return [];
-  const facts = ["situation"];
+  const facts = ["situation", "court"];
   if (answers.where === "starting" || answers.where === "served") facts.push("side", "stage");
   // A case already going: the side, that papers are filed, and what has happened so far (asked once).
   if (answers.where === "going") facts.push("filed", "stage");
@@ -141,6 +151,18 @@ export function factsFromSituation(answers: SituationAnswers | false): string[] 
   if (answers.receivedOn && answers.receivedOn !== "unknown") facts.push("servedDate");
   return facts;
 }
+
+/** The facts the situation answers give as unsure ("I don't know the date", papers "not sure", stage "not sure"). */
+export function unsureFromSituation(answers: SituationAnswers | false): string[] {
+  if (!answers) return [];
+  const facts: string[] = [];
+  if (answers.receivedOn === "unknown" && (answers.where === "served" || (answers.where === "going" && answers.started === "them"))) facts.push("servedDate");
+  if (answers.where === "going" && (answers.stage ?? "not-sure") === "not-sure") facts.push("stage");
+  return facts;
+}
+
+/** Where an unsure fact may be offered once more: the end of the case (step page dates, "What we have so far"). */
+const END_SURFACES = new Set(["date", "end", "claim-kind"]);
 
 export type Repeat = { fact: string; given: Asked; asks: Asked[] };
 
@@ -154,19 +176,23 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
   const given = new Map<string, Asked>();
   const situationGiven: Asked = { kind: "answer", surface: "situation", id: "answers", screen: "/", text: "the situation questions", at: 0 };
   for (const fact of factsFromSituation(situation)) given.set(fact, situationGiven);
+  for (const fact of unsureFromSituation(situation)) given.set(fact, { ...situationGiven, text: "unsure" });
   const firstAsk = (surface: string, id: string) => asks.find((item) => item.surface === surface && item.id === id);
   // Answers, in order, give their question's facts.
   for (const item of events.filter((event) => event.kind === "answer").sort((a, b) => a.at - b.at)) {
     const ask = firstAsk(item.surface, item.id);
-    for (const fact of factsOfQuestion(item.id, item.surface)) if (!given.has(fact)) given.set(fact, { ...item, text: ask?.text ?? "", screen: ask?.screen ?? item.screen });
+    for (const fact of factsOfQuestion(item.id, item.surface)) if (!given.has(fact)) given.set(fact, { ...item, text: item.text === "unsure" ? "unsure" : ask?.text ?? "", screen: ask?.screen ?? item.screen });
   }
   const repeats = new Map<string, Repeat>();
+  const offeredAgain = new Set<string>();
   for (const ask of asks) {
     if (ask.surface === "situation") continue;
     for (const fact of factsOfQuestion(ask.id, ask.surface)) {
       const gave = given.get(fact);
       if (!gave || ask.at <= gave.at) continue;
       if (gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
+      // An unsure fact, offered once more at the end: allowed once.
+      if (gave.text === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       const repeat = repeats.get(fact) ?? { fact, given: gave, asks: [] };
       repeat.asks.push(ask);
       repeats.set(fact, repeat);

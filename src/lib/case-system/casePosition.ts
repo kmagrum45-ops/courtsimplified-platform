@@ -812,3 +812,9 @@ export function dateInSentence(sentence: string | null | undefined): { raw: stri
   const partial = findDayMonthWithoutYear(sentence).find((date) => !date.numeric);
   return partial ? { raw: partial.source, iso: null } : null;
 }
+
+/** The one full day (with its year) an answer's words give, as YYYY-MM-DD, or null: a day with no year is asked, never guessed. */
+export function fullDayIn(text: string): string | null {
+  const worded = firstWordedDate(text);
+  return worded ? parseUserDate(worded.source) : null;
+}

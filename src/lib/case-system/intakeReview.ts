@@ -9,6 +9,8 @@ import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineVal
 import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
+import { alreadyAsked, caseFileOf } from "./caseFile/caseFile";
+import { LOAN_WORDS } from "./intake/claimKind";
 
 type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
@@ -173,6 +175,15 @@ export function canReview(checkpoint: Checkpoint): boolean {
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
 export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
+  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere --
+  // answered, or "not sure" -- is not asked again here. Those this review marked "I don't
+  // know yet" stay listed (marked) when asked for, so they can be changed.
+  const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
+  const file = caseFileOf(stored);
+  return remainingBeforeCaseFile(stored, includeUnknown).filter(question => (includeUnknown && unknown.has(question.id)) || !alreadyAsked(file, question.id));
+}
+
+function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): { id: string; label: string }[] {
   // A question answered only for an earlier version of the story is asked again (storyBasis.ts).
   const checkpoint: Checkpoint = { ...stored, sections: freshSections(stored) };
   const unknowns = new Set(Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : []);
@@ -269,7 +280,7 @@ const CATEGORY_CUES: [RegExp, string][] = [
   // A contractor's deposit is about the work, so this comes before "deposit".
   [/\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i, "Work or a service you paid for (e.g. a contractor)"],
   [/\bdeposit\b/i, "A deposit that wasn't returned"],
-  [/\b(loan\w*|lent|borrow\w*)\b/i, "A loan or debt"],
+  [LOAN_WORDS, "A loan or debt"],
   [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
   [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
   [/\b(car|vehicle|truck|collision)\b/i, "A vehicle-related dispute"],

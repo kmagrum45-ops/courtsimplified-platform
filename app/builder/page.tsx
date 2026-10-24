@@ -2,6 +2,8 @@
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
+import { caseFileOf, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
 /** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
 function personAnswersFromSituation(situation: Situation): { side?: "plaintiff" | "defendant"; claimFiled?: boolean } {
@@ -1698,7 +1700,12 @@ function BuilderPageContent() {
     ...storedPosition,
     stepId: positionThisVisit.stepId !== undefined ? positionThisVisit.stepId : storedPosition.stepId,
     // The day they got the papers, from the situation answers, is their answer to that date question (step 2).
-    dateAnswers: withSituationDates({ ...storedPosition.dateAnswers, ...(positionThisVisit.dateAnswers ?? {}) }, courtPath, situation),
+    dateAnswers: withCaseFileDates(
+      withSituationDates({ ...storedPosition.dateAnswers, ...(positionThisVisit.dateAnswers ?? {}) }, courtPath, situation),
+      // A day given anywhere else (the guided questions, the review) is the answer here too (caseFile.ts).
+      caseFileOf(reviewView?.checkpoint ?? null, { ...asRecord(existingMasterResult), intakeAnswers: guidedAnswersRef.current.length ? guidedAnswersRef.current : asRecord(existingMasterResult).intakeAnswers }),
+      fullDayIn,
+    ),
   };
 
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {

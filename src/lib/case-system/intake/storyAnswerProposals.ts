@@ -36,6 +36,7 @@ import { withAiCallContext } from "../../audit/aiCallLog";
 import type { IntakeQuestion } from "./questionBank";
 import { dateAnswerCheck, findDates } from "../dates";
 import { isDateQuestionId } from "../casePosition";
+import { describesLoan } from "./claimKind";
 
 /** Upper bound on one proposed answer, matching the captured-answer cap. */
 const MAX_PROPOSED_ANSWER_LENGTH = 400;
@@ -168,6 +169,8 @@ export function validateStoryProposals(
     if (question.answerType === "choice") {
       const choice = (question.choices || []).find((option) => normalize(option) === normalize(trimmedAnswer));
       if (!choice) continue;
+      // Never a loan unless the person's words describe one (step 2b: no loan fallback).
+      if (/\bloan\b/i.test(choice) && !describesLoan(storyQuote)) continue;
       kept.push({
         questionId,
         questionText: question.text,

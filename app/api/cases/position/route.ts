@@ -18,7 +18,9 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
-import { applyPositionPatch, readCasePosition } from "../../../../src/lib/case-system/casePosition";
+import { applyPositionPatch, fullDayIn, readCasePosition } from "../../../../src/lib/case-system/casePosition";
+import { caseFileOf, withoutCaseFileDates } from "../../../../src/lib/case-system/caseFile/caseFile";
+import { readCheckpoint } from "../../../../src/lib/case-system/intakeCheckpoint";
 import { updateMasterResult, type CaseRecordClient } from "../../../../src/lib/case-system/updateCaseRecord";
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
@@ -83,7 +85,11 @@ export async function POST(request: Request) {
     (master) => {
       const result = applyPositionPatch(readCasePosition(master, ownedCase.court_path), patch, ownedCase.court_path, new Date());
       // The situation's own date is read over the position, never written into it (situation.ts).
-      return result.ok ? { ...master, position: { ...result.position, dateAnswers: withoutSituationDates(result.position.dateAnswers, ownedCase.court_path, situationOfCase(master)) } } : { reject: result.error };
+      // Nor a day the case file holds from another answer (caseFile.ts): it is read over the position too.
+      const before = readCasePosition(master, ownedCase.court_path).dateAnswers;
+      const court = ownedCase.court_path === "small-claims" || ownedCase.court_path === "civil" || ownedCase.court_path === "family" ? ownedCase.court_path : null;
+      const file = caseFileOf(court ? readCheckpoint((master as Record<string, unknown>).intakeCheckpoint, court) : null, { ...(master as Record<string, unknown>), position: undefined });
+      return result.ok ? { ...master, position: { ...result.position, dateAnswers: withoutCaseFileDates(withoutSituationDates(result.position.dateAnswers, ownedCase.court_path, situationOfCase(master)), before, file, fullDayIn) } } : { reject: result.error };
     },
     3,
   );

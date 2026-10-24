@@ -25,6 +25,17 @@
 import type { ClaimType } from "./claimTypes";
 import { matchClaimType } from "./claimTypeMatcher";
 
+/**
+ * Words that describe a loan in the person's own story (step 2b). "A loan or debt" and the
+ * personal-loan kind are never a fallback: without these words, neither is suggested or kept.
+ */
+export const LOAN_WORDS = /\b(?:lent|lend(?:ing)?|loan(?:ed|s)?|borrow(?:ed|ing|s)?|i\s*o\s*u|promissory)\b/i;
+
+/** Whether the person's words describe a loan. */
+export function describesLoan(text: string): boolean {
+  return LOAN_WORDS.test(text);
+}
+
 /** A kind of claim (what the claim is about), not a defendant-side situation. */
 export function isKindOfClaim(id: string | null | undefined): boolean {
   return typeof id === "string" && id.startsWith("sc-claim-");
@@ -94,6 +105,7 @@ export function storyQuoteFor(story: string, claimType: Pick<ClaimType, "signals
 export function kindFromStory<T extends ClaimType>(story: string, claimTypes: readonly T[]): { claimType: T; quote: string } | null {
   const match = matchClaimType(story, kindsOfClaim(claimTypes));
   if (!match || !match.exactPhraseMatched) return null;
+  if (/loan/.test(match.claimType.id) && !describesLoan(story)) return null;
   const quote = storyQuoteFor(story, match.claimType);
   return quote ? { claimType: match.claimType as T, quote } : null;
 }
@@ -140,4 +152,12 @@ export function claimKindShown(args: {
   return fromStory
     ? { status: "fits", claimTypeId: fromStory.claimType.id, name: fromStory.claimType.name, source: "story", quote: fromStory.quote, confirmed: false }
     : { status: "not-sure" };
+}
+
+/** The guided route's automatic match: the same rule as kindFromStory, as a matcher result. */
+export function settledKindMatch(story: string, claimTypes: readonly ClaimType[]): ReturnType<typeof matchClaimType> {
+  const kind = kindFromStory(story, claimTypes);
+  if (!kind) return null;
+  const match = matchClaimType(story, kindsOfClaim(claimTypes));
+  return match && match.claimType.id === kind.claimType.id ? match : null;
 }

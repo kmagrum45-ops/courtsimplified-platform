@@ -7,7 +7,8 @@ import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMe
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
 import { withServedDate } from "../builder/_components/guidedFields";
-import { dateAnswerCheck, isDateQuestion } from "../../src/lib/case-system/dates";
+import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
+import { caseFileOf, slotsOfQuestion, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { isDateQuestionId } from "../../src/lib/case-system/casePosition";
 import { situationAnswers, situationOf } from "../../src/lib/case-system/situation/situation";
 import { locationOf, STORY_SECTION, storyOf } from "../../src/lib/case-system/intakeStory";
@@ -95,6 +96,10 @@ export default function IntakeReviewPanel() {
   const shownKeys = new Set(entries.map(entry => `${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`));
   const hiddenStale = [...staleKeys].filter(key => !shownKeys.has(key) && !key.startsWith("builder.initialAnswers."));
   const fresh = { ...checkpoint, sections: freshSections(checkpoint) };
+  // The case file (caseFile.ts): an empty box whose fact was given, or answered "not sure",
+  // somewhere else shows that answer instead of asking for it again.
+  const caseFile = caseFileOf(checkpoint);
+  const heldSlot = (field: string) => { const slot = slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state !== "not-asked"); return slot ?? null; };
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");
@@ -208,13 +213,14 @@ export default function IntakeReviewPanel() {
     {showEntries && <>
       <p>{phase === "user-confirmed" ? "This is what you confirmed. Changing anything here means confirming again." : "Edit the information below, or return to the intake controls to change choices. Empty answers remain unknown."}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {entries.map(entry => <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart ? "true" : "false"} className="block text-sm">
+        {entries.map(entry => { const held = empty(entry.value) && !entry.fromStart ? heldSlot(entry.field) : null; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
               changed the story at once and set every answer aside). */}
-          {entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ toggle: "review-story-edit", draft: "review-story-draft", save: "review-story-save" }} /></div>
+          {held ? <p className="mt-1" data-testid="intake-entry-held" aria-label={`Review: ${entry.label}`}>{slotText(held, formatForCourt)} <span className="text-[#4d675f]">(your answer {held.source?.kind === "answer" && held.source.question.startsWith("situation:") ? "at the start; change it at the top of the page" : "already given; it is not asked again"})</span></p>
+          : entry.section === STORY_SECTION && entry.field === "text" ? <div className="mt-1"><StoryEditor section={checkpoint.courtPath} story={String(entry.value)} onSave={text => edit(entry, text)} startOpen draftField="reviewStoryDraft" label={`Review: ${entry.label}`} heading={null} showStory={false} ids={{ toggle: "review-story-edit", draft: "review-story-draft", save: "review-story-save" }} /></div>
           : entry.fromStart ? <p className="mt-1" data-testid="intake-entry-from-start" aria-label={`Review: ${entry.label}`}>{Array.isArray(entry.value) ? entry.value.map(value => shown(entry, value)).join(", ") : typeof entry.value === "string" ? shown(entry, entry.value) : String(entry.value)} <span className="text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
           : Array.isArray(entry.value) ? <div role="group" aria-label={`Review: ${entry.label}`}>{entry.value.length ? entry.value.map(value => <label key={value} className="mr-3 block"><input type="checkbox" checked disabled={busy} onChange={() => edit(entry, (entry.value as string[]).filter(item => item !== value))} /> {shown(entry, value)}</label>) : <span>Not recorded</span>}</div>
             : typeof entry.value === "boolean" ? <div role="group" aria-label={`Review: ${entry.label}`} className="mt-1 flex gap-2">{/* Yes or No, the answer marked: an unticked box read the same as no answer (#470 re-test: "nothing filed" showed no "Claim Filed" tick). */}{([true, false] as const).map(choice => <button key={String(choice)} type="button" data-testid="intake-entry-yes-no" aria-pressed={entry.value === choice} disabled={busy} onClick={() => edit(entry, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice ? "Yes" : "No"}</button>)}</div>
@@ -226,7 +232,7 @@ export default function IntakeReviewPanel() {
                   return <>{fieldNotes[key] ? <p data-testid="intake-entry-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[key]}</p> : null}<input type="text" aria-label={`Review: ${entry.label}`} className="mt-1 block w-full rounded border p-2" placeholder="For example: October 12, 2026" value={draft ?? String(entry.value)} disabled={busy} onChange={event => setDateDrafts(current => ({ ...current, [key]: event.target.value }))} onBlur={() => { if (draft === undefined) return; const typed = draft.trim(); const servedDate = entry.section === "family" && entry.field === "servedDate"; const more = typed ? dateAnswerCheck(entry.question ?? entry.label, typed, { dateQuestion: servedDate, oneDate: servedDate }) : null; setFieldNotes(current => ({ ...current, [key]: more ?? "" })); if (more) return; edit(entry, typed); setDateDrafts(current => { const next = { ...current }; delete next[key]; return next; }); }} onKeyDown={event => { if (event.key === "Enter") (event.target as HTMLInputElement).blur(); }} /></>;
                 })()
                 : <textarea aria-label={`Review: ${entry.label}`} className="mt-1 block min-h-20 w-full rounded border p-2" value={String(entry.value)} disabled={busy} onChange={event => { if (typeof entry.value === "number") { if (event.target.value.trim() && Number.isFinite(Number(event.target.value))) edit(entry, Number(event.target.value)); } else edit(entry, event.target.value); }} />}
-        </div>)}
+        </div>; })}
       </div>
       {phase === "reviewing" && hiddenStale.length > 0 && <fieldset className="mt-5" data-testid="intake-hidden-stale"><legend>Other answers given for an earlier version of your story</legend>{hiddenStale.map(key => <div key={key} className="my-3" data-testid="intake-hidden-stale-item" data-key={key}>
         <p className="font-semibold">{HIDDEN_ANSWER_NAMES[key] ?? HIDDEN_ANSWER_NAMES[key.split(".").slice(0, 2).join(".")] ?? "An earlier answer"}</p>
@@ -238,7 +244,7 @@ export default function IntakeReviewPanel() {
         const bank = QUESTION_BANK.find(item => item.id === question.id);
         const suggested = suggestions[question.id];
         const answered = !unanswered.some(item => item.id === question.id);
-        return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={answered ? "true" : "false"}>
+        return <div key={question.id} className="my-4" data-testid="intake-initial-question" data-question={question.id} data-answered={answered ? "true" : "false"} data-unknown={unknowns.includes(question.id) ? "true" : "false"}>
           <p className="font-semibold">{question.label}</p>
           {staleInitial[question.id] ? <p data-testid="intake-answer-stale" className="text-[#7a4b12]">Answered for an earlier version of your story: &ldquo;{staleInitial[question.id]}&rdquo;. <button type="button" data-testid="intake-keep-answer" disabled={busy} onClick={() => answer(question.id, staleInitial[question.id])} className="underline">Keep this answer</button> or choose again.</p> : null}
           {bank?.answerType === "choice" && Array.isArray(bank.choices) && <div className="mt-1 flex flex-wrap gap-2">{bank.choices.map(choice => <button key={choice} type="button" disabled={busy} aria-pressed={initialAnswersOf(fresh)[question.id] === choice} onClick={() => answer(question.id, choice)} className="rounded border px-3 py-1 aria-pressed:bg-[#2f7d67] aria-pressed:text-white">{choice}{choice === suggested ? " (suggested from your story)" : ""}</button>)}</div>}

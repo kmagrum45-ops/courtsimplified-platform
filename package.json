@@ -251,6 +251,7 @@
     "test:shared-behaviour": "node --import tsx scripts/verification/verifySharedBehaviour.ts",
     "test:date-entry-points": "node --import tsx scripts/verification/verifyDateEntryPoints.ts",
     "test:situation": "node --import tsx scripts/verification/verifySituation.ts",
+    "test:case-file": "node --import tsx scripts/verification/verifyCaseFile.ts",
     "test:story-pack": "node scripts/browser/storyPack.mjs",
     "test:analysis-time-budget": "node --import tsx scripts/verification/verifyAnalysisTimeBudget.ts"
   },

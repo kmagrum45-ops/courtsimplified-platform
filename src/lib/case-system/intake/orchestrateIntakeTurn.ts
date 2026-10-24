@@ -41,10 +41,10 @@
 
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
-import { settledClaimTypeMatch, type ClaimTypeMatch } from "./claimTypeMatcher";
+import type { ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
-import { kindsOfClaim } from "./claimKind";
+import { settledKindMatch } from "./claimKind";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
@@ -429,7 +429,7 @@ export async function orchestrateIntakeTurn(
     // match is unchanged. (2026-10-16: this bar is now settledClaimTypeMatch,
     // shared with SmallClaimsIntake.tsx's form route -- see claimTypeMatcher.ts.)
     // Kinds of claim only (claimKind.ts): a defendant-side situation is never matched as one.
-    const match = isOpeningStory ? settledClaimTypeMatch(newStoryText, kindsOfClaim(claimTypes)) : null;
+    const match = isOpeningStory ? settledKindMatch(newStoryText, claimTypes) : null;
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       if (!overrides.intakeOnly) {

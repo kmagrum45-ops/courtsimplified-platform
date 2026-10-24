@@ -15,7 +15,7 @@ export type CaseFact =
   | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
   | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
-  | "settlementConferenceDate" | "claimIssuedDate" | "defenceFiledDate";
+  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome";
 
 const FACTS: Record<string, readonly CaseFact[]> = {
   // The situation questions (situation.ts).
@@ -42,6 +42,12 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   urgent: ["urgent"],
   amountClaimed: ["amount"],
   courtFileNumber: ["courtFileNumber"],
+  timeline: ["whenHappened"],
+  defendantOutcomeText: ["outcome"],
+  remedySought: ["wants"],
+  placeOfMarriage: ["marriedWhere"],
+  "case-date-case-conference-date": ["conferenceDate"],
+  "case-date-trial-date": ["courtDate"],
   caseStage: ["stage"],
   // Small Claims guided questions and the review's.
   "sc-orient-role": ["side"],
@@ -61,14 +67,16 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-date-defendants-claim-served": ["servedDate"],
   "case-date-served-with-application": ["servedDate"],
   "case-date-served-with-motion-to-change": ["servedDate"],
-  "sc-date-settlement-conference": ["settlementConferenceDate"],
-  "case-date-family-settlement-conference-date": ["settlementConferenceDate"],
+  "sc-date-settlement-conference": ["conferenceDate"],
+  "case-date-served-with-crossclaim": ["servedDate"],
+  "case-date-served-with-third-party-claim": ["servedDate"],
   "sc-date-claim-issued": ["claimIssuedDate"],
   "sc-date-defence-filed": ["defenceFiledDate"],
   "case-date-own-defence-delivered": ["defenceFiledDate"],
   "case-date-act-or-omission": ["whenHappened"],
   // The Family triage.
   "married-to-other-party": ["married"],
+  "situation:marriedWhere": ["marriedWhere"],
   "child-together": ["children"],
   "case-involves-children": ["children"],
   // The stage question on the results and case pages.

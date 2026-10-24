@@ -36,6 +36,7 @@ import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
+import { alreadyAsked, caseFileOf } from "@/src/lib/case-system/caseFile/caseFile";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 
 type IntakeFacts = Record<string, string | number | boolean>;
@@ -670,7 +671,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         },
         body: JSON.stringify({
           facts: nextFacts,
-          answeredIds: newAnsweredIds,
+          // The case file is the one gate (caseFile.ts): a question whose fact the person
+          // gave anywhere (the review, the form, the step page), or said "not sure" to, is
+          // sent as answered, so it is never asked here again.
+          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint), question.id)).map((question) => question.id) : [])])],
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,

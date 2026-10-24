@@ -1354,9 +1354,13 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </div>
         </div>
 
-        <div data-testid="sc-intake-documents" data-empty={input.filedDocuments.length === 0 ? "true" : "false"}>
+        {/* Whether anything is filed was answered at the start (the case file, caseFile.ts): the list is
+            shown for detail, never as the question again. */}
+        <div data-testid="sc-intake-documents" data-empty={input.filedDocuments.length === 0 && !(situation.where === "served" || situation.where === "going" || (situation.where === "starting" && situation.filed)) ? "true" : "false"}>
           <h3 className="font-semibold text-[#16302b]">
-            What documents already exist?
+            {situation.where === "served" || situation.where === "going" || (situation.where === "starting" && situation.filed)
+              ? "Any other documents that already exist? (optional detail; what you said at the start stands)"
+              : "What documents already exist?"}
           </h3>
 
           <div className="mt-3 grid gap-3 md:grid-cols-2">
