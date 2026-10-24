@@ -313,6 +313,17 @@ const SAME_MOMENT: readonly (readonly string[])[] = [
   ["sc-date-defence-filed", "case-date-own-defence-delivered"],
 ];
 
+/** The step page's date questions for each day the person said they do not know (offered once more at the end). */
+export function unsureDateQuestions(file: CaseFile): string[] {
+  const ids: Record<string, readonly string[]> = {
+    servedDate: ["sc-date-claim-served", "sc-date-defendants-claim-served", "case-date-served-with-application", "case-date-served-with-motion-to-change"],
+    whenHappened: DATE_QUESTIONS_OF.whenHappened ?? [],
+    conferenceDate: DATE_QUESTIONS_OF.conferenceDate ?? [],
+    courtDate: DATE_QUESTIONS_OF.courtDate ?? [],
+  };
+  return Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : []));
+}
+
 /** The one full day (with its year) a slot holds, as YYYY-MM-DD, or null. */
 export function slotDay(slot: Slot, readDay: (text: string) => string | null): string | null {
   if (slot.state !== "answered" || typeof slot.value !== "string") return null;

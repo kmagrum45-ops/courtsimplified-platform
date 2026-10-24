@@ -1294,6 +1294,7 @@ export default function StageAnswerPanel({
   picture = null,
   motionToChange = null,
   suggestedStepId = null,
+  laterDates = [],
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1344,6 +1345,12 @@ export default function StageAnswerPanel({
    * suggestion, with "Not right? Choose another step"; never saved as theirs.
    */
   suggestedStepId?: string | null;
+  /**
+   * Date questions whose day the person said they do not know, already offered once more
+   * at the end (the results page): shown folded with "Add it", never asked a third time
+   * (the case file, caseFile.ts).
+   */
+  laterDates?: readonly string[];
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1372,6 +1379,8 @@ export default function StageAnswerPanel({
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);
   const [choosingStep, setChoosingStep] = useState(false);
+  // A folded "not known yet" date the person chose to add after all.
+  const [openedLater, setOpenedLater] = useState<Record<string, boolean>>({});
   const [result, setResult] = useState<Response | null>(null);
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1787,6 +1796,14 @@ export default function StageAnswerPanel({
           </p>
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
+              if (laterDates.includes(question.id) && !dateAnswers[question.id] && !openedLater[question.id]) {
+                return (
+                  <p key={question.id} data-testid="stage-answer-date-later" className="text-sm text-[#16302b]">
+                    <span className="font-semibold">{shortLabel(dateQuestionTextFor(question, serving(question.id)))}:</span> not known yet.{" "}
+                    <button type="button" onClick={() => setOpenedLater((now) => ({ ...now, [question.id]: true }))} className="font-semibold text-[#2f7d67] underline">Add it</button>
+                  </p>
+                );
+              }
               const hint = storyHints[question.id];
               // An arrival day is not offered as the date to count from (see offerStoryDate).
               const suggestion: { value: string; basis: string; yearAssumed?: boolean } | undefined = !offerStoryDate(question.id, arrivalOnly)

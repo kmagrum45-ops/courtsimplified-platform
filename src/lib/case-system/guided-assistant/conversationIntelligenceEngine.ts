@@ -2007,6 +2007,8 @@ function buildUserFacingAnswer(args: {
   frameworks: IssueFramework[];
   signals: CasePartnerLegalSignal[];
   nextQuestion: CasePartnerQuestion | null;
+  /** A date is already known (this message or the saved case): "the main dates" is not asked for (messy pack case 11). */
+  datesKnown?: boolean;
 }): string {
   const primary = args.frameworks[0];
 
@@ -2031,7 +2033,9 @@ function buildUserFacingAnswer(args: {
 
     const questionText = args.nextQuestion
       ? `\n\nMy next question is: ${args.nextQuestion.question}\n\nI'm asking because ${args.nextQuestion.reason}`
-      : "\n\nTell me the exact facts, the proof you have, the main dates, and what you want the legal process to fix.";
+      : args.datesKnown
+        ? "\n\nTell me the exact facts, the proof you have, and what you want the legal process to fix."
+        : "\n\nTell me the exact facts, the proof you have, the main dates, and what you want the legal process to fix.";
 
     return [
       `I understand. This looks like ${primary.label.toLowerCase()}.`,
@@ -2078,7 +2082,9 @@ function buildUserFacingAnswer(args: {
 
   const questionText = args.nextQuestion
     ? `\n\nMy next question is: ${args.nextQuestion.question}\n\nI'm asking because ${args.nextQuestion.reason}`
-    : "\n\nTell me the main dates, the proof you have, and what you want the legal process to fix.";
+    : args.datesKnown
+      ? "\n\nTell me the proof you have, and what you want the legal process to fix."
+      : "\n\nTell me the main dates, the proof you have, and what you want the legal process to fix.";
 
   return `${opening}${actorText}${courtText}${stageText}${questionText}`;
 }
@@ -2277,6 +2283,7 @@ export function buildConversationIntelligence(
     frameworks,
     signals: legalSignals,
     nextQuestion: selectedNextQuestion,
+    datesKnown: extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low"),
   });
 
   return {
