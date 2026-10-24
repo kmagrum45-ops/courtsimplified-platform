@@ -1,8 +1,9 @@
 "use client";
 
 import { STORY_SECTION } from "../../src/lib/case-system/intakeStory";
+import { courtOfPapers, sideOf, situationAnswers, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt } from "../../src/lib/case-system/situation/situation";
 import { writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
-import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "./IntakeRecovery";
+import { useIntakeState, useIntakeRef, useStory, useCaseLocation, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation, IntakeRecoveryBoundary } from "./IntakeRecovery";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -128,6 +129,7 @@ function HomeLocationGateContent() {
   const city = location?.city ?? "";
   const setCity = useCallback((value: string) => setLocation({ province: "Ontario", city: value }), [setLocation]);
   const [facts, setFacts] = useStory();
+  const [situation] = useSituation();
   const [userId, setUserId] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
@@ -232,11 +234,14 @@ function HomeLocationGateContent() {
         await recovery.flush();
         router.push(`/builder?path=${chosenPath}&intake=${recovery.flowId}`);
       } else {
-        // An explicit court change starts a distinct case; only the user's story travels.
+        // An explicit court change starts a distinct case; the user's story and their
+        // situation answers travel (step 2), the court now the one they chose.
         const flowId = crypto.randomUUID();
+        const situation = situationFromRaw(recovery?.read(SITUATION_SECTION, SITUATION_FIELD));
+        const carried = withKnownCourt({ ...situation, court: chosenPath, courtFrom: courtOfPapers(situation) === chosenPath ? "papers" : "asked" }, chosenPath);
         const next = { version: 2 as const, ownerId: recovery?.ownerId ?? userId, caseId: null, serverRevision: null,
           checkpoint: { version: 1 as const, flowId, courtPath: chosenPath, revision: crypto.randomUUID(),
-            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } } } } };
+            sections: { [STORY_SECTION]: { text: story, location: { province: "Ontario", city: city.trim() } }, ...situationSection(carried) } } };
         if (!writeIntakeSession(sessionStorage, next)) throw new Error("Your text could not be retained. Please copy it before leaving and retry.");
         router.push(`/builder?path=${chosenPath}&intake=${flowId}`);
       }
@@ -271,6 +276,8 @@ function HomeLocationGateContent() {
           city: city.trim(),
           chosenCourt: path,
           ...(answers.length ? { answers } : {}),
+          // The person's situation answers (step 2): their side and the day served, never read from the story instead.
+          ...(sideOf(situation) ? { situation: { side: sideOf(situation) === "responding" ? "responding" : "starting", ...(situationAnswers(path, situation).servedOn ? { servedOn: situationAnswers(path, situation).servedOn } : {}) } } : {}),
         }),
       });
       const result = (await response.json().catch(() => ({}))) as Partial<UnderstandResponse> & { ok?: boolean; skipped?: string };

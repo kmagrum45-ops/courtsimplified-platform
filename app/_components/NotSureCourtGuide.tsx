@@ -54,7 +54,8 @@ export default function NotSureCourtGuide() {
      */
     try { sessionStorage.setItem(
       COURT_PATH_FINDER_KEY,
-      JSON.stringify({ province, city: city.trim(), facts: facts.trim() }),
+      // "Has a case already started?" is the situation questions' first answer (step 2): handed over, not asked again.
+      JSON.stringify({ province, city: city.trim(), facts: facts.trim(), ...(started === "yes" || started === "no" ? { started } : {}) }),
     );
     router.push(`/builder?path=${path}`);
     } catch { setHandoffError("This tab could not transfer your answers. Your text is still here. Please retry before leaving."); }

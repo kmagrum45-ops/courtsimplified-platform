@@ -236,9 +236,13 @@ const STEP_BY_EVENT: Record<StagePathway, { event: CaseEvent; side?: "bringing" 
   ],
 };
 
-export function stepFromPicture(court: StagePathway, picture: CasePicture | null | undefined, responding: boolean): string {
+/**
+ * `sideFromRecord`: `responding` comes from the person's situation answer (situation.ts),
+ * which then wins over the story's reading of the side (step 2: the story is a cross-check).
+ */
+export function stepFromPicture(court: StagePathway, picture: CasePicture | null | undefined, responding: boolean, sideFromRecord = false): string {
   if (!picture || picture.events.length === 0) return "";
-  const side = picture.side?.value ?? (responding ? "responding" : "bringing");
+  const side = sideFromRecord ? (responding ? "responding" : "bringing") : picture.side?.value ?? (responding ? "responding" : "bringing");
   const described = new Set(picture.events.map((event) => event.value));
   for (const row of STEP_BY_EVENT[court]) {
     if (!described.has(row.event)) continue;

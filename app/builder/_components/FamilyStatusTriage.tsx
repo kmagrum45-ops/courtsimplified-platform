@@ -1,5 +1,6 @@
 "use client";
-import { useIntakeReviewView } from "../../_components/IntakeRecovery";
+import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
 /**
@@ -111,6 +112,7 @@ export { existingFamilyOrder, respondingInFamilyStory };
 
 export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
   const review = useIntakeReviewView();
+  const [situation] = useSituation();
   const confirmed = Boolean(review && reviewPhase(review.workflowStatus, review.checkpoint) === "user-confirmed");
   const [showWhy, setShowWhy] = useState(false);
   const [dateStart, setDateStart] = useState("");
@@ -131,7 +133,9 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   // once their story is known and says they are, not before and not to a
   // person responding (walkthrough run 38470954003: they led the page for a
   // respondent and for a parent changing a support order).
-  const startingNewCase = story.trim().length > 0 && !hasOrderAlready && !respondingInFamilyStory(story);
+  // The situation answer is the side; the story only where there is none (step 2).
+  const answeredSide = sideOf(situation);
+  const startingNewCase = story.trim().length > 0 && !hasOrderAlready && (answeredSide ? answeredSide === "bringing" : !respondingInFamilyStory(story));
 
   function update(next: Partial<FamilyStatusRecord>) {
     onChange({ ...state, record: { ...record, ...next } });

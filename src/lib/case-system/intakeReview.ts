@@ -1,6 +1,7 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { sentences as sharedSentences } from "./sentences";
-import { countable, dayWrittenBefore, findDates, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
+import { situationAnswers, situationOf } from "./situation/situation";
+import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
@@ -13,7 +14,7 @@ type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
 const OPTIONAL = new Set(["evidence", "missingEvidence", "uploadedEvidenceFiles", "uploadedFiles", "evidenceFiles", "evidenceText", "defenceEvidenceText"]);
 const UI = new Set(["mode", "editingStory", "personSet", "personDocuments"]);
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean };
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -44,18 +45,30 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   const sections = freshSections(checkpoint);
   const section = courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims";
   const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
-  const source = courtPath === "family" ? object(sections.family) : object(sections[section]?.input);
+  // The situation answers (situation.ts) are the side, what was filed and the day served: shown
+  // as the person gave them, never the area's own stale copy, and changed only at the top (step 2).
+  const fromStart = situationAnswers(courtPath, situationOf(sections));
+  const startKeys = new Set<string>();
+  const stored = courtPath === "family" ? object(sections.family) : object(sections[section]?.input);
+  const source: Record<string, unknown> = { ...stored };
+  if (fromStart.role) { source.yourRole = courtPath === "small-claims" ? (fromStart.role === "defendant" ? "Defendant / responding party" : "Plaintiff / claimant") : fromStart.role; startKeys.add("yourRole"); }
+  if (fromStart.documents) { source[courtPath === "civil" ? "documents" : "filedDocuments"] = fromStart.documents; startKeys.add(courtPath === "civil" ? "documents" : "filedDocuments"); }
+  if (fromStart.caseStage) { source.caseStage = fromStart.caseStage; startKeys.add("caseStage"); }
+  else if (Array.isArray(source[courtPath === "civil" ? "documents" : "filedDocuments"]) && fromStart.excludeDocuments) source[courtPath === "civil" ? "documents" : "filedDocuments"] = (source[courtPath === "civil" ? "documents" : "filedDocuments"] as string[]).filter(item => !fromStart.excludeDocuments!.includes(item));
   const entries: ReviewEntry[] = [];
   const add = (area: string, key: string, value: unknown, nested?: string) => {
-    if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
+    // Civil keeps the location as city and province in its form input too: a second copy of the one location, not a second answer.
+    if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || (area === "civil" && (key === "city" || key === "province")) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(definition?.options?.length ? { choices: definition.options } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}) });
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(definition?.options?.length ? { choices: definition.options } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
   if (courtPath === "small-claims" && sections.builder?.step === "guided") {
-    const guided = object(sections.guided?.facts);
+    const guided: Record<string, unknown> = { ...object(sections.guided?.facts) };
+    if (fromStart.role) guided.role = fromStart.role;
+    if (fromStart.claimFiled !== undefined) guided.claimFiled = fromStart.claimFiled;
     // An answer given for an earlier version of the story stays on its line, marked, as
     // in Family; it was dropped, so a story change "wiped" the side and Yes/No answers (#471 re-test).
     const earlier = object(checkpoint.sections.guided?.facts);
@@ -71,10 +84,11 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   }
   // Family keeps the day of service inside the Timeline; it is shown as its own line
   // (re-test 2026-10-18: a confirmed "served last week" appeared nowhere in the review).
-  if (courtPath === "family" && (object(sections.family).yourRole === "respondent" || servedDateOf(String(object(sections.family).timeline ?? "")))) {
-    const served = servedDateOf(String(object(sections.family).timeline ?? ""));
+  if (courtPath === "family" && (source.yourRole === "respondent" || servedDateOf(String(object(sections.family).timeline ?? "")))) {
+    const startServed = fromStart.servedOn ? formatForCourt(fromStart.servedOn) : "";
+    const served = startServed || servedDateOf(String(object(sections.family).timeline ?? ""));
     const said = served ? undefined : sharedSentences(storyOf(sections)).find(sentence => /\bserved\b/i.test(sentence))?.trim();
-    entries.push({ section: "family", field: "servedDate", label: "Day you were served", value: served, essential: true, ...(said ? { hint: `Your story says: “${said}”` } : {}) });
+    entries.push({ section: "family", field: "servedDate", label: "Day you were served", value: served, essential: true, ...(said ? { hint: `Your story says: “${said}”` } : {}), ...(startServed ? { fromStart: true } : {}) });
   }
   const location = locationOf(sections);
   if (location) entries.push({ section: STORY_SECTION, nested: "location", field: "city", label: "City", value: location.city, essential: true });
@@ -100,6 +114,8 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
   for (const [question, answer] of Object.entries(initialAnswersOf(checkpoint))) facts.set(JSON.stringify(["initialAnswers", question]), JSON.stringify(answer));
   const answers = checkpoint.sections.home?.understoodAnswers;
   if (Array.isArray(answers) && answers.length) facts.set("home.understoodAnswers", JSON.stringify(answers));
+  // The situation answers (situation.ts) are facts the guidance rests on: changing one is confirmed again.
+  for (const [key, value] of Object.entries(situationOf(checkpoint.sections))) facts.set(JSON.stringify(["situation", key]), JSON.stringify(value));
   return facts;
 }
 
@@ -168,11 +184,25 @@ export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown =
     // Timeline: both count as answered (re-test 2026-10-18 listed them as missing).
     values.facts = storyOf(checkpoint.sections);
     if (checkpoint.courtPath === "family") Object.assign(values, familyTimelineValues(String(values.timeline ?? "")));
+    // What the situation answers settle is answered, never asked again (step 2).
+    const fromStart = situationAnswers(checkpoint.courtPath, situationOf(checkpoint.sections));
+    if (fromStart.role) values.yourRole = fromStart.role;
+    if (fromStart.documents) values[checkpoint.courtPath === "family" ? "filedDocuments" : "documents"] = fromStart.documents;
+    if (fromStart.servedOn && checkpoint.courtPath === "family") values.servedDate = formatForCourt(fromStart.servedOn);
     const fields = checkpoint.courtPath === "family" ? FAMILY_FIELDS() : CIVIL_FIELDS();
     const skipped = new Set(Array.isArray(checkpoint.sections["form-chat"]?.skipped) ? checkpoint.sections["form-chat"].skipped as string[] : []);
     return pendingFields(fields, values, skipped).map(field => ({ id: field.key, label: field.question })).filter(field => includeUnknown || !unknowns.has(field.id));
   }
-  const { facts, answered } = smallClaimsInitialAnswers(checkpoint);
+  const initial = smallClaimsInitialAnswers(checkpoint);
+  // What the situation answers settle is answered, never asked again (step 2).
+  const fromStart = situationAnswers("small-claims", situationOf(checkpoint.sections));
+  const facts: IntakeFacts = {
+    ...initial.facts,
+    ...(fromStart.role ? { role: fromStart.role as IntakeFacts["role"] } : {}),
+    ...(fromStart.claimFiled !== undefined ? { claimFiled: fromStart.claimFiled } : {}),
+    ...(fromStart.claimServed !== undefined ? { claimServed: fromStart.claimServed } : {}),
+  };
+  const answered = [...new Set([...initial.answered, ...fromStart.questionIds])];
   return selectQuestions(facts, answered, QUESTION_BANK, "small-claims", "initial").map(id => ({ id, label: QUESTION_BANK.find(question => question.id === id)!.text })).filter(question => includeUnknown || !unknowns.has(question.id));
 }
 

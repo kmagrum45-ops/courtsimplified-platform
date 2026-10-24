@@ -2082,3 +2082,22 @@ billed OpenAI call CLAUDE.md s. 7 already marks manual-only, and this change
 touches only the deterministic practical-content citation table, not
 intake/extraction, which `verifyNextStepPractical.ts` and `verifyStageMap.ts`
 already check end to end.
+
+## Pictures of a court form's first page, from the official PDF (2026-10-24, step 2)
+
+**What works.** The per-form PDF addresses are the ones recorded in
+`src/lib/content-library/forms/officialFormLinks.json` (read from the index pages by
+`scripts/forms/fetchOfficialFormLinks.ts`, see "ontariocourtforms.on.ca" above, where the
+pattern was once recorded as unknown: it is not guessed, it is read from that file). From
+the development machine's own shell a plain `fetch`/`curl` of one of those PDFs returns
+HTTP 200 `application/pdf` (Small Claims Form 7A: 189 KB). `scripts/forms/captureFirstPageTops.ts`
+renders page 1 with `pdfjs-dist` (already a dependency, legacy build) inside Playwright's
+Chromium (no `canvas` package needed), keeps the top 30%, and writes `public/form-tops/`.
+Each picture's title, form date, PDF address and the day taken are recorded in
+`src/lib/case-system/situation/firstPageTops.json`; `test:situation` checks every record
+against `officialFormLinks.json` and that each image exists.
+
+**Traps.** pdfjs 6 takes `getDocument({ url })`, not a bare string (it throws "expected
+either `data`, `range`, or `url`"). Re-run the capture when `officialFormLinks.json` gains a
+new form version, or the recorded date will no longer match and the suite fails, which is
+the intended signal.

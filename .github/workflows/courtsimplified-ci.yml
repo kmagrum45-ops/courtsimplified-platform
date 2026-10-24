@@ -241,6 +241,9 @@ jobs:
       - name: Every entry point reads a date and splits sentences the same way
         run: npm run test:date-entry-points
 
+      - name: The situation answers are read the same way everywhere and never asked again
+        run: npm run test:situation
+
       - name: The next-step analysis finishes inside the page's wait and the server's limit
         run: npm run test:analysis-time-budget
 

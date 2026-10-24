@@ -1,6 +1,14 @@
 "use client";
 
-import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary } from "../_components/IntakeRecovery";
+import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
+import { sideOf, situationAnswers, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
+
+/** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
+function personAnswersFromSituation(situation: Situation): { side?: "plaintiff" | "defendant"; claimFiled?: boolean } {
+  const fromStart = situationAnswers("small-claims", situation);
+  const side = fromStart.role === "plaintiff" || fromStart.role === "defendant" ? fromStart.role : undefined;
+  return { ...(side ? { side } : {}), ...(side === "plaintiff" && fromStart.claimFiled !== undefined ? { claimFiled: fromStart.claimFiled } : {}) };
+}
 import SafetyCheckUnavailable from "./_components/SafetyCheckUnavailable";
 import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeStory";
 import { positionForStory, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
@@ -234,6 +242,7 @@ function isAnalysisAvailable(caseData: StoredCaseData | null): boolean {
 function BuilderPageContent() {
   const router = useRouter();
   const recovery = useIntakeRecovery();
+  const [situation] = useSituation();
   const reviewView = useIntakeReviewView();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
@@ -1269,7 +1278,9 @@ function BuilderPageContent() {
       await guidedRequest.current.run(async (signal) => {
         await beforeIntakeAI(signal);
         if (!(await prepareCaseGuidance())) return;
-      const mappedInput = mapGuidedIntakeToSmallClaimsInput(result, confirmedLocation, homeStory);
+      // The side and filing are the situation answers, current even before the next guided turn (step 2).
+      const situationFacts = personAnswersFromSituation(situation);
+      const mappedInput = mapGuidedIntakeToSmallClaimsInput({ ...result, facts: { ...(result.facts ?? {}), ...(situationFacts.side ? { role: situationFacts.side } : {}), ...(situationFacts.claimFiled !== undefined ? { claimFiled: situationFacts.claimFiled } : {}) } }, confirmedLocation, homeStory);
 
       // Retained for the Statement of Claim surface below.
       setDraftInput(mappedInput);
@@ -1331,7 +1342,8 @@ function BuilderPageContent() {
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
           // The side and filing answers the person gave or confirmed in the
           // conversation itself (stageFromAnswers.ts), never the story alone.
-          personAnswers: personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>),
+          // The situation answers (situation.ts) are the person's own and win; the guided answers add what they do not settle.
+          personAnswers: { ...personAnswersFromGuided(result.answers ?? [], (result.facts ?? {}) as Record<string, unknown>), ...personAnswersFromSituation(situation) },
         },
       };
       await validateIntakeResponse(signal);
@@ -1397,7 +1409,7 @@ function BuilderPageContent() {
     // Any stage the person set -- "I am not sure" included -- is theirs and
     // is never replaced by one read from answers (review 2026-10-14).
     const personSetStage = storedOnCase || (sameCase ? thisVisit!.stage : null);
-    const fromAnswers = personSetStage ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested);
+    const fromAnswers = personSetStage ? null : stageRecordedFromAnswers(courtPath, personAnswersOf(payload.extra), suggested, situation);
     // Kept apart from lastConfirmedRef, and saved marked as from the answers,
     // so the next run reads the answers afresh.
     setStageBasis(fromAnswers);
@@ -1593,6 +1605,7 @@ function BuilderPageContent() {
     confirmedStage,
     caseData,
     intakeFacts: draftIntakeFacts,
+    situation,
   });
   // With an order already in place, the support-table card moves below the
   // step panel, folded -- but only once that panel is on screen, so the card
@@ -1616,7 +1629,8 @@ function BuilderPageContent() {
           // The urgent answer counts only when it says something is urgent.
           [familyStory, caseData?.goal, /^\s*(?:no|none|nothing|not|n\/a)\b/i.test(caseData?.urgent ?? "") ? "" : caseData?.urgent].filter(Boolean).join("\n"),
           existingFamilyOrder(familyStory),
-          respondingInFamilyStory(familyStory),
+          // The situation answer is the side; the story only where there is none (step 2).
+          sideOf(situation) ? sideOf(situation) === "responding" : respondingInFamilyStory(familyStory),
         )
       : null;
   // The answer that stands for this reading: given this visit, else saved on
@@ -1629,7 +1643,7 @@ function BuilderPageContent() {
     (courtPath === "small-claims" || courtPath === "civil" || courtPath === "family"
       ? positionThisVisit.stepId ||
         readCasePosition(existingMasterResult, courtPath).stepId ||
-        stepFromPicture(courtPath, casePicture, respondingSide) ||
+        stepFromPicture(courtPath, casePicture, respondingSide, sideOf(situation) !== null) ||
         stepNamedInStory(courtPath, respondingSide, [userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n"))
       : "") || "";
   const offerRespondingDraft = respondingSide && respondingDocumentStillDue(respondingStep);
@@ -1681,7 +1695,8 @@ function BuilderPageContent() {
   const savedPosition = {
     ...storedPosition,
     stepId: positionThisVisit.stepId !== undefined ? positionThisVisit.stepId : storedPosition.stepId,
-    dateAnswers: { ...storedPosition.dateAnswers, ...(positionThisVisit.dateAnswers ?? {}) },
+    // The day they got the papers, from the situation answers, is their answer to that date question (step 2).
+    dateAnswers: withSituationDates({ ...storedPosition.dateAnswers, ...(positionThisVisit.dateAnswers ?? {}) }, courtPath, situation),
   };
 
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
@@ -2518,6 +2533,7 @@ function BuilderPageContent() {
                 courtPath={courtPath}
                 confirmedStage={confirmedStage}
                 responding={respondingSide}
+                sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId}
                 initialDateAnswers={savedPosition.dateAnswers}

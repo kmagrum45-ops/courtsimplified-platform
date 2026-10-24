@@ -11,6 +11,7 @@ import { CLAIM_TYPES, type ClaimType } from "@/src/lib/case-system/intake/claimT
 import type { IntakeFacts } from "@/src/lib/case-system/intake/selectQuestions";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
+import { situationAnswers, situationFromRaw } from "@/src/lib/case-system/situation/situation";
 
 /**
  * Session 11 -- the first piece of the intake foundation (Sessions 3-10)
@@ -105,6 +106,13 @@ const COURT_AREA_CONTENT: Record<
 type GuidedTurnRequestBody = {
   facts: IntakeFacts;
   answeredIds: string[];
+  /**
+   * Step 2. The situation answers the person gave before their story (situation.ts).
+   * The facts they settle (the side, whether a claim was filed or served) are applied
+   * over the turn's facts, before and after it, and their questions count as answered:
+   * the story never overrides them and they are never asked again.
+   */
+  situation?: Record<string, unknown>;
   newStoryText?: string;
   /** Defaults to "small-claims" when omitted -- every caller today omits it. */
   courtArea?: SupportedCourtArea;
@@ -193,11 +201,13 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     "confirmedAnswers",
     "repropose",
     "earlier",
+    "situation",
   ]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
   if (!isIntakeFacts(value.facts)) return false;
   if (!isAnsweredIds(value.answeredIds)) return false;
+  if (value.situation !== undefined && !(isRecord(value.situation) && JSON.stringify(value.situation).length <= 2_000)) return false;
   if (
     value.newStoryText !== undefined &&
     !(typeof value.newStoryText === "string" && value.newStoryText.length <= MAX_STORY_TEXT_LENGTH)
@@ -252,6 +262,18 @@ type GuidedTurnRouteDependencies = {
   hasExternalAiKey: () => boolean;
 };
 
+/** The Small Claims facts and answered questions the situation answers settle (situation.ts). */
+export function situationFacts(raw: Record<string, unknown> | undefined): { facts: IntakeFacts; questionIds: string[] } {
+  if (!raw) return { facts: {} as IntakeFacts, questionIds: [] };
+  const fromStart = situationAnswers("small-claims", situationFromRaw(raw));
+  const facts: Record<string, unknown> = {};
+  if (fromStart.role) facts.role = fromStart.role;
+  if (fromStart.claimFiled !== undefined) facts.claimFiled = fromStart.claimFiled;
+  if (fromStart.claimServed !== undefined) facts.claimServed = fromStart.claimServed;
+  // The day served and "when did you receive the claim" are answered too (step 2 reviewer: both were asked again).
+  return { facts: facts as IntakeFacts, questionIds: fromStart.questionIds };
+}
+
 export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependencies> = {}) {
   const dependencies: GuidedTurnRouteDependencies = {
     authenticate: getAuthenticatedUser,
@@ -294,6 +316,14 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
 
       const courtArea = body.courtArea ?? "small-claims";
       const { questionBank, claimTypes } = COURT_AREA_CONTENT[courtArea];
+      const fixed = situationFacts(body.situation);
+      body.facts = { ...body.facts, ...fixed.facts };
+      body.answeredIds = [...new Set([...body.answeredIds, ...fixed.questionIds])];
+      const withSituation = <T extends { facts: IntakeFacts; answeredIds: string[] }>(result: T): T => ({
+        ...result,
+        facts: { ...result.facts, ...fixed.facts },
+        answeredIds: [...new Set([...result.answeredIds, ...fixed.questionIds])],
+      });
 
       if (body.confirmedAnswers) {
         const confirmedResult: OrchestrateIntakeTurnResult = await dependencies.applyConfirmed(
@@ -306,7 +336,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
           { intakeOnly: true },
           body.repropose,
         );
-        return NextResponse.json({ ok: true, result: { ...confirmedResult, evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
+        return NextResponse.json({ ok: true, result: { ...withSituation(confirmedResult), evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
       }
 
       const result: OrchestrateIntakeTurnResult = await dependencies.orchestrate(
@@ -322,7 +352,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         body.earlier,
       );
 
-      return NextResponse.json({ ok: true, result: { ...result, evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
+      return NextResponse.json({ ok: true, result: { ...withSituation(result), evidenceGuidance: undefined, claimGuidance: undefined }, authenticated });
     } catch (error) {
       // The error's kind and where it was thrown, never its message (which can
       // carry the person's words) or anything secret.

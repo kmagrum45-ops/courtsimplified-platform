@@ -100,8 +100,10 @@ console.log("\n4. Every answer reaches the form, with the form's own values");
   }
   const familyRole = family.find((field) => field.key === "yourRole") as GuidedField;
   check("family: the sides are the form's own values", (familyRole.options ?? []).every((option) => ["applicant", "respondent"].includes(option.value)));
-  check("family: the form's issue and document lists are the ones offered", /familyGuidedFields\(\{ issues: issueOptions, filed: filedOptions \}\)/.test(familySource));
-  check("civil: the form's issue and document lists are the ones offered", /civilGuidedFields\(\{ issues: issueOptions, documents: documentOptions \}\)/.test(civilSource));
+  // One list, shared by the questions and the form: the form's own, less only what the situation
+  // answers rule out (step 2: "Nothing filed yet" once papers exist).
+  check("family: the form's issue and document lists are the ones offered", /familyGuidedFields\(\{ issues: issueOptions, filed: filedChoices \}\)/.test(familySource) && /const filedChoices = useMemo\(\(\) => filedOptions\.filter\(/.test(familySource) && /\{filedChoices\.map\(/.test(familySource));
+  check("civil: the form's issue and document lists are the ones offered", /civilGuidedFields\(\{ issues: issueOptions, documents: documentChoices \}\)/.test(civilSource) && /const documentChoices = documentOptions\.filter\(/.test(civilSource) && /\{documentChoices\.map\(/.test(civilSource));
   for (const [court, source] of [["family", familySource], ["civil", civilSource]] as const) {
     check(`${court}: opens one question at a time with recoverable mode`, /useIntakeState<"chat" \| "form">\("(?:family|civil)", "mode", "chat"\)/.test(source) && /<GuidedFormChat/.test(source));
     check(`${court}: the chat's Continue is the form's own`, /onDone=\{handleAnalyze\}/.test(source));

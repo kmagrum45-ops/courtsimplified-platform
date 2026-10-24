@@ -30,6 +30,7 @@ import { suggestedNoticeStep } from "./claim-types/noticeStep";
 import { readStoredPicture, stepFromPicture } from "./intake/caseReader";
 import { stagesForPathway, type StagePathway } from "./stage-map/stageMap";
 import { suggestedStageFor } from "./stage-map/suggestedStep";
+import { sideOf, situationOfCase } from "./situation/situation";
 
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
@@ -66,7 +67,7 @@ export function suggestedStepForCase(masterResult: unknown, courtPath: StagePath
     stagesForPathway(courtPath).some((stage) => stage.id === notice);
   if (noticeFirst) return notice as string;
   return (
-    stepFromPicture(courtPath, readStoredPicture(master.casePicture), responding) ||
+    stepFromPicture(courtPath, readStoredPicture(master.casePicture), responding, sideOf(situationOfCase(master)) !== null) ||
     suggestedStageFor(courtPath, confirmedStage, responding, stepStoryText(master, courtPath))
   );
 }

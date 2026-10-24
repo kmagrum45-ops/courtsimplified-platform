@@ -1,3 +1,4 @@
+import { isRealIsoDate } from "../dates";
 /** One bounded contract for the front door and its API; never trim away facts. */
 export const MAX_UNDERSTAND_TEXT = 48_000;
 export type UnderstandingAnswer = { question: string; answer: string };
@@ -20,12 +21,18 @@ type Body = {
   city?: string;
   chosenCourt?: "small-claims" | "civil" | "family";
   answers?: { question: string; answer: string }[];
+  /** The person's own situation answers (situation.ts): their side, and the day they were served. */
+  situation?: { side?: "starting" | "responding"; servedOn?: string };
 };
 
 export function isUnderstandingBody(value: unknown): value is Body {
   if (!value || typeof value !== "object") return false;
   const body = value as Record<string, unknown>;
-  if (Object.keys(body).some((key) => !["story", "city", "chosenCourt", "answers"].includes(key))) return false;
+  if (Object.keys(body).some((key) => !["story", "city", "chosenCourt", "answers", "situation"].includes(key))) return false;
+  const situation = body.situation as Record<string, unknown> | undefined;
+  if (situation !== undefined && (typeof situation !== "object" || situation === null || Object.keys(situation).some((key) => key !== "side" && key !== "servedOn") ||
+    (situation.side !== undefined && situation.side !== "starting" && situation.side !== "responding") ||
+    (situation.servedOn !== undefined && !(typeof situation.servedOn === "string" && isRealIsoDate(situation.servedOn))))) return false;
   return (
     typeof body.story === "string" &&
     body.story.trim().length >= 10 &&

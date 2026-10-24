@@ -36,6 +36,7 @@ import type { StoredCaseData } from "../../builder/_components/builderTypes";
 import { courtPathAsPathway, readCasePosition } from "@/src/lib/case-system/casePosition";
 import { caseStepFor } from "@/src/lib/case-system/caseStep";
 import { readCaseRecord, sideFromParts } from "@/src/lib/case-system/caseRecord";
+import { situationLine, situationOfCase } from "@/src/lib/case-system/situation/situation";
 import { guidanceIsCurrent } from "@/src/lib/case-system/intakeReview";
 import {
   CaseHomeContext,
@@ -177,6 +178,7 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
       confirmedStage: position.confirmedStage,
       caseData: (master.intakeData as StoredCaseData | undefined) ?? null,
       intakeFacts: asRecord(master.intakeFacts),
+      situation: situationOfCase(master),
     });
     return {
       caseRecord,
@@ -244,10 +246,10 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
 
   const base = `/cases/${encodeURIComponent(caseId)}`;
   const record = home.caseRecord;
-  if (caseRecord && !guidanceIsCurrent(caseRecord.master_result, caseRecord.court_path, caseRecord.id)) return <main className="mx-auto max-w-3xl p-8" data-testid="case-intake-gate"><h1 className="text-2xl font-bold">Review your initial information before receiving case guidance</h1><p className="my-4">Your saved documents, evidence and other case information remain on this case. Complete the initial questions, review your answers and confirm them, then generate guidance for the current information. Older completion records do not establish this confirmation.</p><Link className="underline" href={builderHref(caseRecord)}>Continue this case’s intake and review</Link><p className="my-4"><Link href="/guides">General legal information</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></p><GetHelp /><LegalInformationNotice /></main>;
+  if (caseRecord && !guidanceIsCurrent(caseRecord.master_result, caseRecord.court_path, caseRecord.id)) return <main className="mx-auto max-w-3xl p-8" data-testid="case-intake-gate">{situationLine(situationOfCase(caseRecord.master_result)) ? <p data-testid="situation-line" className="mb-4 text-sm font-semibold text-[#16302b]">{situationLine(situationOfCase(caseRecord.master_result))} · <Link data-testid="situation-change" href={`${builderHref(caseRecord)}${builderHref(caseRecord).includes("?") ? "&" : "?"}situation=change`} className="text-[#2f7d67] underline">Change</Link></p> : null}<h1 className="text-2xl font-bold">Review your initial information before receiving case guidance</h1><p className="my-4">Your saved documents, evidence and other case information remain on this case. Complete the initial questions, review your answers and confirm them, then generate guidance for the current information. Older completion records do not establish this confirmation.</p><Link className="underline" href={builderHref(caseRecord)}>Continue this case’s intake and review</Link><p className="my-4"><Link href="/guides">General legal information</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></p><GetHelp /><LegalInformationNotice /></main>;
   // Both sides are named, from the same rule (caseRecord.ts sideFromParts): only the responding
   // side had a line, so applicant and plaintiff pages said nothing about the side (#470 re-test).
-  const starting = !home.responding && sideFromParts({ confirmedStage: home.position.confirmedStage, intakeData: asRecord(record.master_result).intakeData, intakeFacts: asRecord(record.master_result).intakeFacts })?.value === "starting";
+  const starting = !home.responding && sideFromParts({ confirmedStage: home.position.confirmedStage, intakeData: asRecord(record.master_result).intakeData, intakeFacts: asRecord(record.master_result).intakeFacts, situation: situationOfCase(record.master_result) })?.value === "starting";
   const side = home.courtPath
     ? home.responding
       ? home.courtPath === "family" ? "You are responding (respondent)" : "You are responding (defendant)"
@@ -269,7 +271,10 @@ export default function CaseLayout({ children }: { children: React.ReactNode }) 
                 {caseTitle(record)}
               </h1>
               <p className="mt-2 text-sm text-[#4f685f]">
-                {side ? `${side} · ` : ""}
+                {/* The person's own answers from before their story (situation.ts), with Change; the older side line only for a case saved before them. */}
+                {situationLine(situationOfCase(record.master_result))
+                  ? <><span data-testid="situation-line" className="font-semibold text-[#16302b]">{situationLine(situationOfCase(record.master_result))}</span>{" · "}<Link data-testid="situation-change" href={`${builderHref(record)}${builderHref(record).includes("?") ? "&" : "?"}situation=change`} className="font-semibold text-[#2f7d67] underline">Change</Link>{" · "}</>
+                  : side ? `${side} · ` : ""}
                 {record.updated_at ? `Last updated ${formatDate(record.updated_at)}` : ""}
               </p>
             </div>

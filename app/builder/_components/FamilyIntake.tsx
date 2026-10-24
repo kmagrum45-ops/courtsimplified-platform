@@ -1,6 +1,8 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { situationAnswers } from "../../../src/lib/case-system/situation/situation";
+import { formatForCourt } from "../../../src/lib/case-system/dates";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
@@ -275,20 +277,31 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
   // No values handed over from the follow-up chat any more: a second copy of the
   // story outside the version record (Part 3, stale-story audit item 4).
   const initialValues: Record<string, string | string[]> = {};
-  const [caseStage, setCaseStage] = useIntakeState<UniversalStage>("family", "caseStage",
+  const [storedCaseStage, setCaseStage] = useIntakeState<UniversalStage>("family", "caseStage",
     () => (saved?.caseStage || initialValues.caseStage ? (saved?.caseStage || initialValues.caseStage) as UniversalStage : "not-sure"),
   );
   // Which side the user is on, ASKED — never guessed from keywords. A role read
   // from the story ("I was served") only pre-selects the answer the user sees.
-  const [yourRole, setYourRole] = useIntakeState<FamilyRole>("family", "yourRole", () => {
+  const [storedYourRole, setYourRole] = useIntakeState<FamilyRole>("family", "yourRole", () => {
     const prefilled = String(saved?.yourRole || initialValues.yourRole || "").toLowerCase();
     if (prefilled.includes("respondent")) return "respondent";
     if (prefilled.includes("applicant")) return "applicant";
     return "not-sure";
   });
-  const [filedDocuments, setFiledDocuments] = useIntakeState<FiledDocument[]>("family", "filedDocuments",
+  const [storedFiledDocuments, setFiledDocuments] = useIntakeState<FiledDocument[]>("family", "filedDocuments",
     () => (saved?.filedDocuments.length ? saved.filedDocuments : Array.isArray(initialValues.documentStatus) ? ["application"] : []),
   );
+  // The situation answers, given before the story (situation.ts), answer the side, what
+  // was filed and the day they were served: read from there, never asked again (step 2).
+  const [situation] = useSituation();
+  const fromStart = useMemo(() => situationAnswers("family", situation), [situation]);
+  const yourRole: FamilyRole = (fromStart.role as FamilyRole | undefined) ?? storedYourRole;
+  const ruledOut = useMemo(() => new Set(fromStart.excludeDocuments ?? []), [fromStart.excludeDocuments]);
+  const filedDocuments: FiledDocument[] = useMemo(() => (fromStart.documents as FiledDocument[] | undefined) ?? storedFiledDocuments.filter((item) => !ruledOut.has(item)), [fromStart.documents, storedFiledDocuments, ruledOut]);
+  // A stage the situation answers settle; for a case already going, never "starting".
+  const caseStage: UniversalStage = fromStart.caseStage ?? (situation.where === "going" && storedCaseStage === "starting-case" ? "already-started" : storedCaseStage);
+  // "Nothing filed yet" is not offered once papers exist (they were served, or something was filed).
+  const filedChoices = useMemo(() => filedOptions.filter((option) => !ruledOut.has(option.value)), [ruledOut]);
   const [issues, setIssues] = useIntakeState<FamilyIssue[]>("family", "issues", () => saved?.issues ?? []);
 
   const [yourName, setYourName] = useIntakeState("family", "yourName", () => saved?.yourName || String(initialValues.yourName || ""));
@@ -748,8 +761,8 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         // What the person answered themselves about their side and filings
         // (stageFromAnswers.ts): only fields they set, never a prefill.
         personAnswers: {
-          ...(personSet.current.has("yourRole") && yourRole !== "not-sure" ? { side: yourRole } : {}),
-          ...(filedDocuments.length > 0 && filedDocuments.every((item) => personDocuments.current.has(item))
+          ...((fromStart.role || personSet.current.has("yourRole")) && yourRole !== "not-sure" ? { side: yourRole } : {}),
+          ...(filedDocuments.length > 0 && (fromStart.documents || filedDocuments.every((item) => personDocuments.current.has(item)))
             ? { filed: [...filedDocuments], filedLabels: filedDocuments.map(labelForFiledDocument) }
             : {}),
         } satisfies PersonAnswers,
@@ -789,15 +802,17 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
     }
   }
 
-  const guidedFields = familyGuidedFields({ issues: issueOptions, filed: filedOptions });
+  const guidedFields = familyGuidedFields({ issues: issueOptions, filed: filedChoices });
   const guidedValues: GuidedValues = {
     facts,
     yourRole,
     issues,
     filedDocuments,
     childrenInfo,
-    // Kept as a line of the Timeline, which the step page reads for dates.
+    // Kept as a line of the Timeline, which the step page reads for dates; the day given
+    // in the situation answers is the person's answer, and is not asked again.
     ...familyTimelineValues(timeline),
+    ...(fromStart.servedOn ? { servedDate: formatForCourt(fromStart.servedOn) } : {}),
     upcomingCourtDate,
     goal,
     otherParty,
@@ -941,10 +956,11 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             busy={isAnalyzing || sourced.state === "loading"}
             // "how do i get it lowered" is answered when the questions end
             // (walkthrough run 38525903567, FM; motionToChange.ts chatClosingFor).
+            fromStart={[...(fromStart.role ? ["yourRole"] : []), ...(fromStart.documents ? ["filedDocuments"] : []), ...(fromStart.servedOn ? ["servedDate"] : [])]}
             closing={chatClosingFor(
               [facts, goal].filter(Boolean).join("\n"),
               existingFamilyOrder(facts) || filedDocuments.includes("order-agreement"),
-              respondingInFamilyStory(facts),
+              fromStart.role ? fromStart.role === "respondent" : respondingInFamilyStory(facts),
             )}
           />
           {/* The one-at-a-time route too: its Continue says what is missing beside it (#468 re-test). */}
@@ -961,6 +977,9 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         </div>
         <label className="block">
           <span className="font-semibold text-[#16302b]">Who started the court case?</span>
+          {fromStart.role ? (
+            <p data-testid="role-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.role === "respondent" ? "The other person started it and I was served (respondent)" : "I started it, or I plan to start it (applicant)"} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+          ) : (
           <select
             aria-label="Who started the court case?"
             data-testid="family-role-select"
@@ -975,10 +994,14 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             <option value="applicant">I started it, or I plan to start it (applicant)</option>
             <option value="respondent">The other person started it and I was served (respondent)</option>
           </select>
+          )}
         </label>
 
         <label className="block">
           <span className="font-semibold text-[#16302b]">Case stage</span>
+          {fromStart.caseStage ? (
+            <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.caseStage === "responding" ? "Responding to a case" : fromStart.caseStage === "already-started" ? "Case already started" : "Starting a new case"} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+          ) : (
           <select
             value={caseStage}
             onChange={(e) => setCaseStage(e.target.value as UniversalStage)}
@@ -994,6 +1017,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             <option value="enforcement">Enforcement</option>
             <option value="urgent">Urgent issue</option>
           </select>
+          )}
         </label>
 
         <div className="grid gap-5 md:grid-cols-2">
@@ -1023,7 +1047,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             What documents already exist?
           </h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
-            {filedOptions.map((option) => (
+            {filedChoices.map((option) => (
               <button
                 key={option.value}
                 type="button"

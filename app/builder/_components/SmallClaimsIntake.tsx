@@ -1,7 +1,8 @@
 "use client";
 
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { situationAnswers } from "../../../src/lib/case-system/situation/situation";
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -622,7 +623,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const recovery = useIntakeRecovery();
   const validateIntakeResponse = useValidateIntakeResponse();
-  const [input, setInput] = useInputWithStory<SmallClaimsIntelligenceInput>("small-claims", () => {
+  const [storedInput, setInput] = useInputWithStory<SmallClaimsIntelligenceInput>("small-claims", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
@@ -645,6 +646,22 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       ? { ...merged, caseStage: inferStage(merged) }
       : merged;
   });
+  // The situation answers, given before the story (situation.ts), answer the side and what
+  // has been filed: read from there, never asked again (step 2).
+  const [situation] = useSituation();
+  const fromStart = useMemo(() => situationAnswers("small-claims", situation), [situation]);
+  const roleFromStart = fromStart.role === "defendant" ? "Defendant / responding party" : fromStart.role === "plaintiff" ? "Plaintiff / claimant" : null;
+  const input: SmallClaimsIntelligenceInput = useMemo(() => {
+    const ruledOut = new Set(fromStart.excludeDocuments ?? []);
+    const documents = fromStart.documents?.includes("nothing")
+      ? ["nothing"]
+      : fromStart.documents
+        ? [...new Set([...(storedInput.filedDocuments ?? []).filter((item) => item !== "nothing"), ...fromStart.documents])]
+        : (storedInput.filedDocuments ?? []).filter((item) => !ruledOut.has(item));
+    // A stage the situation answers settle; for a case already going, only a stage that is not "starting".
+    const caseStage = fromStart.caseStage ?? (situation.where === "going" && storedInput.caseStage === "starting-case" ? "already-started" : storedInput.caseStage);
+    return { ...storedInput, ...(roleFromStart ? { yourRole: roleFromStart } : {}), caseStage, filedDocuments: documents as SmallClaimsIntelligenceInput["filedDocuments"] };
+  }, [storedInput, roleFromStart, fromStart.documents, fromStart.excludeDocuments, fromStart.caseStage, situation.where]);
 
   /*
    * The same "tab forgot its state" problem GuidedSmallClaimsIntake already
@@ -958,7 +975,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         ...input,
         amountClaimed: input.amountClaimed || String(panel.amountClaimedText ?? ""),
         goal: input.goal || String(panel.remedySoughtText ?? ""),
-        yourRole: input.yourRole === "plaintiff" || input.yourRole === "defendant" ? input.yourRole : (panel.role === "plaintiff" || panel.role === "defendant" ? panel.role : input.yourRole),
+        // The situation answer is the side; an older answer in the review panel never replaces it (step 2 reviewer).
+        yourRole: fromStart.role === "plaintiff" || fromStart.role === "defendant" ? fromStart.role : input.yourRole === "plaintiff" || input.yourRole === "defendant" ? input.yourRole : (panel.role === "plaintiff" || panel.role === "defendant" ? panel.role : input.yourRole),
         timeline: input.timeline || String(panel.timelineText ?? ""),
         caseStage: stage,
         issues: inferIssuesFromStory(input),
@@ -994,6 +1012,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           // words the "Kind of claim..." label honestly either way (see the
           // guided route's same field, app/builder/page.tsx).
           ...(matchedClaimTypeId ? { claimTypeUserConfirmed: false } : {}),
+          // The side and filing the situation answers settle, as the person's own (stageFromAnswers.ts).
+          ...(fromStart.role === "plaintiff" || fromStart.role === "defendant"
+            ? { personAnswers: { side: fromStart.role, ...(fromStart.role === "plaintiff" && fromStart.claimFiled !== undefined ? { claimFiled: fromStart.claimFiled } : {}) } }
+            : {}),
         },
       };
 
@@ -1117,6 +1139,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Case stage</span>
+            {fromStart.caseStage ? (
+              <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.caseStage === "responding" ? "Responding to a case" : fromStart.caseStage === "already-started" ? "Case already started" : "Starting a new case"} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+            ) : (
             <select
               data-testid="sc-intake-caseStage" value={input.caseStage}
               onChange={(event) =>
@@ -1134,10 +1159,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               <option value="enforcement">Enforcement</option>
               <option value="urgent">Urgent issue</option>
             </select>
+            )}
           </label>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your role</span>
+{roleFromStart ? (
+              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+            ) : (
             <select
               data-testid="sc-intake-yourRole" value={input.yourRole}
               onChange={(event) => updateField("yourRole", event.target.value)}
@@ -1149,6 +1178,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               <option value="Defendant / responding party">Defendant / responding party</option>
               <option value="Not sure">Not sure</option>
             </select>
+            )}
             <FieldHelp question={ROLE_QUESTION} />
           </label>
         </div>
@@ -1314,7 +1344,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
                 updateField("serviceDetails", event.target.value)
               }
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
-              placeholder="Service details, only if anything has already been served"
+              placeholder={fromStart.servedOn ? "How the papers were served (in person, by mail, by email)" : "Service details, only if anything has already been served"}
             />
             {/* The same date check as every date box (dates.ts), as in the civil form: a note, since nothing is counted from this box. */}
             {input.serviceDetails.trim() && dateAnswerCheck("When and how was it served?", input.serviceDetails.trim()) ? (

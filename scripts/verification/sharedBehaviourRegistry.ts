@@ -23,6 +23,15 @@ export type Behaviour = {
 
 export const BEHAVIOURS: Behaviour[] = [
   {
+    name: "the situation answers (where the person is, asked before the story)",
+    module: "src/lib/case-system/situation/situation.ts",
+    forbidden: [
+      { pattern: /\[SITUATION_SECTION\]|sections\.situation\b|\.situation\?\.record\b/, means: "the situation record built or read by hand instead of situationFromRaw / situationSection / useSituation" },
+      { pattern: /You're (?:being sued|suing) in|You're (?:bringing|responding to) a (?:civil|family) case/, means: "the top line's wording written a second time" },
+    ],
+    allowed: [],
+  },
+  {
     name: "splitting text into sentences",
     module: "src/lib/case-system/sentences.ts",
     forbidden: [

@@ -32,6 +32,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 
@@ -48,6 +49,27 @@ type Story = {
   /** Small Claims: the amount the story's own words claim, or null when they leave it unclear. */
   amount?: string | null;
 };
+
+/**
+ * The situation answers (step 2) each story's person gives before writing it: served
+ * with their court's papers when the story names them ("not sure" otherwise) on the
+ * day the story gives, a case already going that they started when something is
+ * filed, or starting with nothing filed.
+ */
+const ORIGINATING: Record<Court, { names: RegExp; papers: string }> = {
+  "small-claims": { names: /plaintiff's claim/i, papers: "small-claims-7A" },
+  civil: { names: /statement of claim/i, papers: "civil-14A" },
+  family: { names: /application/i, papers: "family-8" },
+};
+function situationForStory(story: Story): SituationAnswers {
+  if (story.side === "defendant" || story.side === "respondent") {
+    const day = /served[^.]*?on ([A-Z][a-z]+ d{1,2}, d{4})/.exec(story.story)?.[1];
+    const papers = ORIGINATING[story.court].names.test(story.story) ? ORIGINATING[story.court].papers : "not-sure";
+    return { where: "served", papers, receivedOn: day ?? "unknown" };
+  }
+  if (story.filed.some((item) => item !== "nothing")) return { where: "going", started: "me" };
+  return STARTING_NOTHING_FILED;
+}
 
 const STORIES: Story[] = [
   // Small Claims
@@ -226,7 +248,8 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
   await page.getByTestId("intake-start-review").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
   const q = (id: string) => page.locator(`[data-question="${id}"]`);
-  await q("sc-orient-role").getByRole("button", { name: story.side === "defendant" ? /Responding/ : /Bringing the claim/ }).first().click();
+  // The side was given in the situation questions (step 2): the review never asks it again.
+  note(story.id, "review", "the side given at the start is not asked again", (await q("sc-orient-role").count()) === 0);
   const kind = q("sc-orient-dispute-category").getByRole("button").first();
   if (await kind.count()) await kind.click();
   const filedQuestion = story.side === "defendant" ? "sc-defendant-defence-filed" : "sc-claim-filed";
@@ -320,11 +343,12 @@ async function lastReply(page: Page, question: string): Promise<string> {
   return reply.innerText();
 }
 
+// The case page's top line repeats the situation answers (step 2); a case saved before them keeps the older side line.
 const SIDE_LINE: Record<Story["side"], RegExp> = {
-  plaintiff: /You are bringing this case \(plaintiff\)/,
-  applicant: /You started, or plan to start, this case \(applicant\)/,
-  defendant: /You are responding \(defendant\)/,
-  respondent: /You are responding \(respondent\)/,
+  plaintiff: /You are bringing this case \(plaintiff\)|You're suing in Small Claims Court|You're bringing a civil case/,
+  applicant: /You started, or plan to start, this case \(applicant\)|You're bringing a family case/,
+  defendant: /You are responding \(defendant\)|You're being sued in Small Claims Court|You're responding to a civil case/,
+  respondent: /You are responding \(respondent\)|You're responding to a family case/,
 };
 
 for (const story of STORIES) {
@@ -333,6 +357,7 @@ for (const story of STORIES) {
       test.setTimeout(240_000);
       const run = `${story.id} (${route})`;
       await grantSiteAccess(page);
+      await autoAnswerSituation(page, situationForStory(story));
       const account = await fakeAccount(page);
       await serveFromThisCommit(page, story.court, account.rows as unknown as Map<string, Record<string, unknown>>);
 
@@ -459,6 +484,7 @@ for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "famil
       const story = byId(id);
       const run = `story-change ${court} (${route})`;
       await grantSiteAccess(page);
+      await autoAnswerSituation(page, situationForStory(story));
       const account = await fakeAccount(page);
       await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
       if (court === "small-claims") await smallClaims(page, story, route === "review");
@@ -485,22 +511,27 @@ for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "famil
 }
 
 for (const court of ["civil", "family"] as const) {
-  test(`situation: the side chosen is shown chosen after switching away and back -- ${court} (review)`, async ({ page }) => {
+  test(`situation: the side given at the start is shown, and shows chosen when changed -- ${court} (review)`, async ({ page }) => {
     test.setTimeout(180_000);
     const story = byId(court === "civil" ? "civil-deposit" : "family-spousal");
     await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
     const account = await fakeAccount(page);
     await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
     await openBuilder(page, court, { story: story.story });
     await guidedQuestions(page, story, true);
-    const role = page.getByTestId("intake-review").locator('[data-testid=intake-initial-question][data-question="yourRole"]');
-    const choices = role.getByTestId("intake-field-choice");
-    await choices.nth(0).click();
-    await choices.nth(1).click();
-    await choices.nth(0).click();
-    const pressed = choices.nth(0);
+    // The side is chosen in the situation questions (step 2): the review shows it as given, and
+    // Change, from anywhere, opens the questions with it marked and looking chosen.
+    note(`side-highlight ${court}`, "review", "the review shows the side given at the start", await page.getByTestId("intake-entry-from-start").first().isVisible());
+    // This step looks at the questions itself: the automatic answers are switched off for it.
+    await autoAnswerSituation(page, false);
+    await page.getByTestId("situation-change").click();
+    const pressed = page.getByTestId("situation-questions").locator('[data-testid="situation-option"][aria-pressed="true"]').first();
+    await expect(pressed).toBeVisible();
     const shown = await pressed.evaluate((element) => getComputedStyle(element).backgroundColor);
-    note(`side-highlight ${court}`, "review", "the side chosen is marked, and looks chosen", (await pressed.getAttribute("aria-pressed")) === "true" && shown === "rgb(47, 125, 103)", shown);
+    note(`side-highlight ${court}`, "situation", "the answer given is marked, and looks chosen", (await pressed.getAttribute("data-value")) === situationForStory(story).where && shown === "rgb(47, 125, 103)", shown);
+    await page.getByTestId("situation-change-done").click();
+    await expect(page.getByTestId("situation-line")).toBeVisible();
   });
 }
 
@@ -509,6 +540,7 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     test.setTimeout(180_000);
     const story = byId(court === "small-claims" ? "sc-unclear" : court === "civil" ? "civil-deposit" : "family-spousal");
     await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
     const account = await fakeAccount(page);
     await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
     if (court === "small-claims") {

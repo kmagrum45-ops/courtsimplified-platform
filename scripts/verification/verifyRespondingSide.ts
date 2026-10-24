@@ -49,14 +49,14 @@ const withRole = (yourRole: string) =>
   ({ extra: { yourRole } }) as unknown as Parameters<typeof userIsResponding>[0]["caseData"];
 
 for (const role of ["Defendant / responding party", "defendant", "respondent", "responding-party"]) {
-  check(`role "${role}" is the responding side`, userIsResponding({ confirmedStage: null, caseData: withRole(role), intakeFacts: null }));
+  check(`role "${role}" is the responding side`, userIsResponding({ confirmedStage: null, caseData: withRole(role), intakeFacts: null, situation: null }));
 }
 for (const role of ["Plaintiff / claimant", "plaintiff", "applicant", "not-sure", ""]) {
-  check(`role "${role || "(none)"}" is not the responding side`, !userIsResponding({ confirmedStage: null, caseData: withRole(role), intakeFacts: null }));
+  check(`role "${role || "(none)"}" is not the responding side`, !userIsResponding({ confirmedStage: null, caseData: withRole(role), intakeFacts: null, situation: null }));
 }
-check("a confirmed 'responding' stage is the responding side", userIsResponding({ confirmedStage: "responding", caseData: null, intakeFacts: null }));
-check("the guided intake's defendant role is the responding side", userIsResponding({ confirmedStage: null, caseData: null, intakeFacts: { role: "defendant" } }));
-check("starting a case is not the responding side", !userIsResponding({ confirmedStage: "starting-case", caseData: null, intakeFacts: { role: "plaintiff" } }));
+check("a confirmed 'responding' stage is the responding side", userIsResponding({ confirmedStage: "responding", caseData: null, intakeFacts: null, situation: null }));
+check("the guided intake's defendant role is the responding side", userIsResponding({ confirmedStage: null, caseData: null, intakeFacts: { role: "defendant" }, situation: null }));
+check("starting a case is not the responding side", !userIsResponding({ confirmedStage: "starting-case", caseData: null, intakeFacts: { role: "plaintiff" }, situation: null }));
 // Civil keeps the role in extra.civilInput; the old rule never read it, so a
 // civil defendant was treated as starting the case (Step 2A, 2026-10-12).
 check(
@@ -65,6 +65,7 @@ check(
     confirmedStage: null,
     caseData: ({ extra: { civilInput: { yourRole: "defendant" } } }) as unknown as Parameters<typeof userIsResponding>[0]["caseData"],
     intakeFacts: null,
+    situation: null,
   }),
 );
 

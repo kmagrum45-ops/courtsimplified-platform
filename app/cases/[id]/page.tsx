@@ -39,6 +39,7 @@ import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 import { suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
+import { sideOf, situationOfCase } from "@/src/lib/case-system/situation/situation";
 
 type EventsResponse = {
   events: Array<{
@@ -249,6 +250,7 @@ export default function CaseOverviewPage() {
               courtPath={courtPath}
               confirmedStage={confirmed}
               responding={responding}
+              sideFromRecord={sideOf(situationOfCase(master)) !== null}
               caseId={caseId}
               initialStepId={position.stepId}
               initialDateAnswers={position.dateAnswers}

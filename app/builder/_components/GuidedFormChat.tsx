@@ -2,6 +2,7 @@
 
 import { useIntakeState } from "../../_components/IntakeRecovery";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
+import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 
 /**
@@ -149,6 +150,7 @@ export default function GuidedFormChat({
   busy = false,
   doneLabel = "Continue to your next steps",
   closing = null,
+  fromStart = [],
 }: {
   fields: readonly GuidedField[];
   values: GuidedValues;
@@ -160,6 +162,8 @@ export default function GuidedFormChat({
   doneLabel?: string;
   /** A plain answer to what the person asked, said when the questions are done, with the rules it restates (motionToChange.ts chatClosingFor). */
   closing?: { say: string; rules: RuleCitation[] } | null;
+  /** Fields the situation questions answered (situation.ts): their Change opens those questions. */
+  fromStart?: readonly string[];
 }) {
   const [skipped, setSkipped] = useIntakeState<Set<string>>("form-chat", "skipped", new Set());
   const [heard, setHeard] = useIntakeState<{ question: string; reply: string }[]>("form-chat", "heard", []);
@@ -278,7 +282,10 @@ export default function GuidedFormChat({
                 <span className="font-semibold">{field.label}:</span> {display(field, values[field.key])}{" "}
                 <button
                   type="button"
+                  data-testid="guided-form-known-change"
                   onClick={() => {
+                    // An answer given in the situation questions changes there, in its one place (step 2).
+                    if (fromStart.includes(field.key)) { openSituationChange(); return; }
                     setChanging(field.key);
                     setDraft(values[field.key] ?? (field.kind === "multi" ? [] : ""), field.key);
                   }}

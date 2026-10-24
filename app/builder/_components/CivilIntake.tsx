@@ -1,6 +1,7 @@
 "use client";
 
-import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
+import { situationAnswers } from "../../../src/lib/case-system/situation/situation";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
@@ -17,7 +18,7 @@ import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AnalysisResult,
   StoredCaseData,
@@ -502,7 +503,7 @@ const CIVIL_TIDY_SKIP = new Set<string>(["courtLocation", "courtFileNumber", "am
 const NO_EARLIER_ANSWERS: SourcedAnswer[] = [];
 
 export default function CivilIntake({ onComplete, caseId, location, initialStory, storedValues, earlierSourcedAnswers }: Props) {
-  const [input, setInput] = useInputWithStory<CivilInput>("civil", () => {
+  const [storedInput, setInput] = useInputWithStory<CivilInput>("civil", () => {
     // What the case already holds, under anything newly read from a story
     // (master plan Phase 1: "Update your story" opened a blank form).
     const values: Record<string, unknown> = {
@@ -530,6 +531,20 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         : defaultInput.documents,
     };
   });
+  // The situation answers, given before the story (situation.ts), answer the side and what
+  // was filed: read from there, never asked again (step 2).
+  const [situation] = useSituation();
+  const fromStart = useMemo(() => situationAnswers("civil", situation), [situation]);
+  const input: CivilInput = useMemo(
+    () => ({
+      ...storedInput,
+      ...(fromStart.role ? { yourRole: fromStart.role } : {}),
+      documents: (fromStart.documents ?? storedInput.documents.filter((item) => !(fromStart.excludeDocuments ?? []).includes(item))) as CivilInput["documents"],
+      // A stage the situation answers settle; for a case already going, never "starting".
+      caseStage: fromStart.caseStage ?? (situation.where === "going" && storedInput.caseStage === "starting-case" ? "already-started" : storedInput.caseStage),
+    }),
+    [storedInput, fromStart.role, fromStart.documents, fromStart.excludeDocuments, fromStart.caseStage, situation.where],
+  );
 
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
@@ -792,8 +807,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         // What the person answered themselves about their side and filings
         // (stageFromAnswers.ts): only fields they set, never a prefill.
         personAnswers: {
-          ...(personSet.current.has("yourRole") && input.yourRole ? { side: input.yourRole } : {}),
-          ...(input.documents.length > 0 && input.documents.every((item) => personDocuments.current.has(item))
+          // The situation answers are the person's own (step 2), as much as a field they set.
+          ...((fromStart.role || personSet.current.has("yourRole")) && input.yourRole ? { side: input.yourRole } : {}),
+          ...(input.documents.length > 0 && (fromStart.documents || input.documents.every((item) => personDocuments.current.has(item)))
             ? { filed: [...input.documents], filedLabels: labelsFromValues(input.documents, documentOptions) }
             : {}),
         } satisfies PersonAnswers,
@@ -842,7 +858,12 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     }
   }
 
-  const guidedFields = civilGuidedFields({ issues: issueOptions, documents: documentOptions });
+  // With the day of service already given, the service question asks only how they were served.
+  // "Nothing filed yet" is not offered once papers exist (they were served, or something was filed).
+  const documentChoices = documentOptions.filter((option) => !(fromStart.excludeDocuments ?? []).includes(option.value));
+  const guidedFields = civilGuidedFields({ issues: issueOptions, documents: documentChoices }).map((field) =>
+    field.key === "serviceDetails" && fromStart.servedOn ? { ...field, question: "How were you served with the papers (in person, by mail, by email)?" } : field,
+  );
   const guidedValues: GuidedValues = {
     facts: input.facts,
     yourRole: input.yourRole,
@@ -959,6 +980,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           <GuidedFormChat
             fields={guidedFields}
             values={guidedValues}
+            fromStart={[...(fromStart.role ? ["yourRole"] : []), ...(fromStart.documents ? ["documents"] : [])]}
             onAnswer={answerGuided}
             onDone={handleAnalyze}
             onShowForm={() => setMode("form")}
@@ -978,6 +1000,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         </div>
         <label className="block">
           <span className="font-semibold text-[#16302b]">Case stage</span>
+          {fromStart.caseStage ? (
+            <p data-testid="stage-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.caseStage === "responding" ? "Responding to a case" : fromStart.caseStage === "already-started" ? "Case already started" : "Starting a new case"} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+          ) : (
           <select
             value={input.caseStage}
             onChange={(e) => updateField("caseStage", e.target.value as UniversalStage)}
@@ -993,6 +1018,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             <option value="enforcement">Enforcement</option>
             <option value="urgent">Urgent issue</option>
           </select>
+          )}
         </label>
 
         <div className="grid gap-5 md:grid-cols-2">
@@ -1019,6 +1045,9 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
         <label className="block">
           <span className="font-semibold text-[#16302b]">Your role</span>
+          {fromStart.role ? (
+            <p data-testid="role-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.role === "defendant" ? "Defendant" : "Plaintiff"} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+          ) : (
           <select
             value={input.yourRole}
             onChange={(e) => {
@@ -1037,12 +1066,13 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             <option value="other">Other</option>
             <option value="not-sure">Not sure</option>
           </select>
+          )}
         </label>
 
         <div>
           <h3 className="font-semibold text-[#16302b]">What documents already exist?</h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
-            {documentOptions.map((option) => (
+            {documentChoices.map((option) => (
               <button
                 key={option.value}
                 type="button"

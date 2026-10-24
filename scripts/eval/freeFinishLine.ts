@@ -58,6 +58,7 @@ export function scoreCase(persona: Persona): CaseScore {
     sideFromParts({
       confirmedStage: persona.confirmStage,
       intakeData: { extra: { yourRole: persona.role } },
+      situation: null,
       intakeFacts: null,
     })?.value === "responding";
   const step =
