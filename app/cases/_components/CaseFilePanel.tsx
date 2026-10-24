@@ -35,6 +35,9 @@ const LABEL: Record<SlotFact, string> = {
   courtDate: "Court date",
 };
 
+/** The days the step page itself asks for: their one offer at the end is there. */
+const STEP_PAGE_DATES = new Set<SlotFact>(["servedDate", "whenHappened", "conferenceDate", "courtDate"]);
+
 const COURT: Record<string, string> = { "small-claims": "Small Claims Court", civil: "Civil (Superior Court)", family: "Family" };
 const SIDE: Record<string, string> = { bringing: "Bringing the case", responding: "Responding to the case" };
 const BROAD: Record<string, string> = { "starting-case": "Starting a case", responding: "Served and responding", "already-started": "The case has started" };
@@ -67,7 +70,10 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
               <dt className="font-semibold text-[#10231f]">{LABEL[fact]}</dt>
               <dd>
                 {shownValue(fact, file)}{" "}
-                {slot.state === "unsure" ? (
+                {slot.state === "unsure" && STEP_PAGE_DATES.has(fact) ? (
+                  // A day not known yet is offered once at the end on the step page below, not here as well.
+                  <Link data-testid="case-file-change" href={stepHref} className="font-semibold text-[#2f7d67] underline">Add it with your next step</Link>
+                ) : slot.state === "unsure" ? (
                   <Link data-testid="case-file-answer-now" href={href} className="font-semibold text-[#2f7d67] underline">Answer it now</Link>
                 ) : (
                   <Link data-testid="case-file-change" href={href} className="font-semibold text-[#2f7d67] underline">Change</Link>

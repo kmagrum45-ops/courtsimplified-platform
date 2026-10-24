@@ -2203,7 +2203,13 @@ export function buildConversationIntelligence(
       ? providedStage
       : inferredStage;
   const inferredActors = inferActors(combinedText);
-  const extractedFacts = extractFacts(message, inferredActors, frameworks);
+  // The dates the saved case already holds (the story and timeline) are facts too: the chat
+  // asked a person served on a stated day for "the main dates" (messy pack case 11).
+  const savedDates = extractDateSignals(savedCaseText(input.caseMemory)).filter((date) => date !== "relative date mentioned" && date !== "date mentioned");
+  const extractedFacts = [
+    ...extractFacts(message, inferredActors, frameworks),
+    ...savedDates.map((date): CasePartnerFact => ({ id: createId("fact"), text: `Date or time signal mentioned: ${date}`, source: "case-memory", confidence: "medium", category: "date" })),
+  ];
   const legalSignals = detectLegalSignals(combinedText, frameworks);
 
   const hypotheses = buildHypotheses(frameworks);
