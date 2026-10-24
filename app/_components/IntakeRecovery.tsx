@@ -15,6 +15,7 @@ import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocati
 import { answerSituation, courtOfPapers, nextSituationQuestion, sideContradiction, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt, type Situation } from "../../src/lib/case-system/situation/situation";
 import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/storyAnswers";
 import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
+import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -468,9 +469,17 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   const incomplete = nextSituationQuestion(known, court) !== null;
   // The court-path finder asked "Has a case already started?": that answer is the first one here.
   useEffect(() => {
-    if (situation.where) return;
     try {
-      const started = (JSON.parse(sessionStorage.getItem(COURT_PATH_FINDER_KEY) ?? "null") as { started?: string } | null)?.started;
+      const handed = JSON.parse(sessionStorage.getItem(COURT_PATH_FINDER_KEY) ?? "null") as Record<string, unknown> | null;
+      const started = handed?.started;
+      // Taken once: what is left of the hand-off is the builder's to read, or nothing.
+      if (handed && "started" in handed) {
+        const { started: _taken, ...rest } = handed;
+        void _taken;
+        if (Object.keys(rest).length) sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify(rest));
+        else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+      }
+      if (situation.where) return;
       if (started === "no") setSituation(withKnownCourt(answerSituation(situation, "where", "starting"), court));
       if (started === "yes") setSituation(withKnownCourt(answerSituation(situation, "where", "going"), court));
     } catch { /* nothing handed over */ }
@@ -505,6 +514,7 @@ function SituationGate({ court, ownerId, children }: { court: IntakeCourt; owner
   return <>
     <SituationLine situation={known} onChange={() => setChanging(true)} />
     <SideCrossCheck court={court} situation={known} onChange={() => setChanging(true)} />
+    <IntakeSafetyNotice />
     {children}
   </>;
 }
@@ -593,6 +603,12 @@ export function useValidateIntakeResponse() {
 }
 
 /** The person's story: the one copy every screen reads and every edit writes. */
+/** The safety notice for the intake's story, on every builder screen once the story is written (SafetyNotice.tsx). */
+function IntakeSafetyNotice() {
+  const [story] = useStory();
+  return <SafetyNotice story={story} />;
+}
+
 export function useStory(): [string, Dispatch<SetStateAction<string>>] {
   return useIntakeState(STORY_SECTION, "text", "", true);
 }

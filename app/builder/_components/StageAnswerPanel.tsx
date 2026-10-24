@@ -813,7 +813,7 @@ export function NextStepCard({
       {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
-      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} /> : null}
+      {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} /> : null}
       {!practical?.forms.length && toDo ? <FormsNamedHere texts={[toDo]} court={court} userWords={userWords} heading="Forms for this step" /> : null}
       {(() => {
         // Say what the card doesn't list yet, instead of leaving a gap the

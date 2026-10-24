@@ -458,7 +458,9 @@ function BuilderPageContent() {
   }, [queryCaseId, courtPath]);
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
   // The guided route's analysis, shown beside "Show my next step" at the top too (L27).
-  usePublishNextStepStatus(guidedAnalyzing, guidedAnalysisError);
+  // A failed next step is never silent: the message, and Try again with the same answers (item 9).
+  const lastGuidedResult = useRef<GuidedIntakeCompletionResult | null>(null);
+  usePublishNextStepStatus(guidedAnalyzing, guidedAnalysisError, undefined, () => { if (lastGuidedResult.current) void handleGuidedComplete(lastGuidedResult.current); });
   // Dates confirmed in the guided intake, offered on the next-steps panel.
   const [guidedDates, setGuidedDates] = useState<Record<string, SuggestedDate>>({});
   /*
@@ -590,7 +592,15 @@ function BuilderPageContent() {
        * will not use is still a story we should not keep.
        */
       const temporaryGuide = sessionStorage.getItem(COURT_PATH_FINDER_KEY);
-      if (temporaryGuide) sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+      // The story and city go at once; "Has a case already started?" stays only until the
+      // situation questions take it (IntakeRecovery), which may read after this runs:
+      // deleting it here made them ask it again (finding 1, the "not sure" path).
+      if (temporaryGuide) {
+        let started: unknown;
+        try { started = (JSON.parse(temporaryGuide) as { started?: unknown }).started; } catch { started = undefined; }
+        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started }));
+        else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+      }
 
       if (initialPath && temporaryGuide) {
         try {
@@ -1264,7 +1274,12 @@ function BuilderPageContent() {
    * here (guided mode only ever renders once it is).
    */
   async function handleGuidedComplete(result: GuidedIntakeCompletionResult) {
-    if (!confirmedLocation || guidedRequest.current.pending) return;
+    lastGuidedResult.current = result;
+    if (guidedRequest.current.pending) return;
+    if (!confirmedLocation) {
+      setGuidedAnalysisError("Your city is needed first. Add it at the top of this page, then press Try again.");
+      return;
+    }
     // The same rule as the Small Claims form ("Session 19"): its analysis needs the
     // AI safety check first, and that check needs an account. The review panel's
     // Continue made this reachable by a guest (2026-10-18), so it is checked here too.
@@ -2308,8 +2323,9 @@ function BuilderPageContent() {
                   <AnalyzingNote />
                 ) : null}
                 {guidedAnalysisError ? (
-                  <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-                    {guidedAnalysisError}
+                  <div role="alert" data-testid="guided-analysis-error" className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                    {guidedAnalysisError}{" "}
+                    {lastGuidedResult.current ? <button type="button" data-testid="guided-analysis-retry" onClick={() => void handleGuidedComplete(lastGuidedResult.current!)} className="font-semibold underline">Try again</button> : null}
                   </div>
                 ) : null}
               </div>
@@ -2515,6 +2531,7 @@ function BuilderPageContent() {
               suggestedStage={suggestionForSide(detectedStage, respondingSide)}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
+              stepWords={stepFromSituation(situation, courtPath) && !positionThisVisit.stepId && !storedPosition.stepId ? findStage(stepFromSituation(situation, courtPath)!)?.userQuestion ?? null : null}
               basis={
                 stageBasis && stageBasis.stage === confirmedStage
                   ? stageBasis.because

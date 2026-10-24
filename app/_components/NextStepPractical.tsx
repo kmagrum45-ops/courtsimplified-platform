@@ -36,6 +36,8 @@ function Line({ line }: { line: PlainLine }) {
   );
 }
 
+const ONLY_WHILE_TIME_RUNS = new Set(["civil-18B"]);
+
 export default function NextStepPractical({
   stepId,
   court,
@@ -47,6 +49,7 @@ export default function NextStepPractical({
   serveBy = "",
   divisionalOnly = false,
   today = "",
+  timeRanOut = false,
 }: {
   stepId: string;
   court: string;
@@ -63,10 +66,16 @@ export default function NextStepPractical({
   /** The filing deadline is an appeal step the guide covers only in the Divisional Court. */
   divisionalOnly?: boolean;
   today?: string;
+  /** The step's own counted time has passed (whenTimeRunsOut): forms that can only be used inside that time are not listed. */
+  timeRanOut?: boolean;
 }) {
   if (court !== "small-claims" && court !== "civil" && court !== "family") return null;
-  const view = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly });
-  if (!view) return null;
+  const found = practicalFor(stepId, court as PracticalCourt, city, responding, story, noticeStepId, { deadline, serveBy, today, divisionalOnly });
+  if (!found) return null;
+  // Form 18B, the notice of intent to defend, is delivered "within the time for delivering a
+  // statement of defence" (r. 18.02 (1), as the step's own content quotes it): once that time
+  // has passed, it is not offered (item 12, case 11).
+  const view = timeRanOut ? { ...found, forms: found.forms.filter((form) => !ONLY_WHILE_TIME_RUNS.has(`${form.court}-${form.number}`)) } : found;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">
       {view.forms.length > 0 ? (

@@ -44,6 +44,8 @@ import { caseFileOf, withCaseFileDates } from "@/src/lib/case-system/caseFile/ca
 import { fullDayIn } from "@/src/lib/case-system/casePosition";
 import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import CaseFilePanel from "../_components/CaseFilePanel";
+import SafetyNotice from "@/app/_components/SafetyNotice";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 
 type EventsResponse = {
   events: Array<{
@@ -199,6 +201,9 @@ export default function CaseOverviewPage() {
         </section>
       ) : null}
 
+      {/* Kept open while the story mentions threats, fear or violence (SafetyNotice.tsx). */}
+      <SafetyNotice story={record.story ?? ""} />
+
       {/* The case file (caseFile.ts): everything the person has told us, each asked once. */}
       <CaseFilePanel
         file={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)}
@@ -217,6 +222,7 @@ export default function CaseOverviewPage() {
             suggestedStage={suggestedStage}
             pathway={courtPath}
             confirmedStage={confirmed}
+            stepWords={situationStep && !position.stepId ? findStage(situationStep)?.userQuestion ?? null : null}
             onConfirm={(stage) => void confirmStage(stage)}
           />
         ) : (

@@ -25,7 +25,9 @@ export default function NotSureCourtGuide() {
   const fieldNames: Record<string,string> = { province: "Province or territory", city: "City or municipality", facts: "What happened", relationship: "Relationship", remedy: "Outcome or remedy", started: "Has a case already started?" };
   const ready = province === "Ontario" && city.trim() && facts.trim() && relationship.trim() && remedy.trim() && started;
   const family = /family|parent|spouse|partner|relative|child/i.test(relationship);
-  const money = /money|payment|damages|refund|debt|cost/i.test(remedy) && amount.trim();
+  // Any amount of money asked for, or a money remedy in their words, makes Small Claims a path
+  // to review (finding 6: a $35,000 claim was offered Civil only). Never chosen for them.
+  const money = Boolean(amount.trim()) || /money|pay|paid|owe|damages|refund|deposit|debt|cost|\$/i.test(remedy);
   const paths: Path[] = Array.from(new Set([...(family ? ["family" as const] : []), ...(money ? ["small-claims" as const] : []), "civil" as const]));
   /**
    * Opening the finder starts a new flow, so anything a previous visitor left
@@ -55,7 +57,7 @@ export default function NotSureCourtGuide() {
     try { sessionStorage.setItem(
       COURT_PATH_FINDER_KEY,
       // "Has a case already started?" is the situation questions' first answer (step 2): handed over, not asked again.
-      JSON.stringify({ province, city: city.trim(), facts: facts.trim(), ...(started === "yes" || started === "no" ? { started } : {}) }),
+      JSON.stringify({ province, city: city.trim(), facts: facts.trim(), ...(started ? { started } : {}) }),
     );
     router.push(`/builder?path=${path}`);
     } catch { setHandoffError("This tab could not transfer your answers. Your text is still here. Please retry before leaving."); }
@@ -184,7 +186,7 @@ export default function NotSureCourtGuide() {
                     {path === "family"
                       ? "Family may be a path to review because the information concerns a family relationship."
                       : path === "small-claims"
-                        ? "Small Claims may be a path to review because you selected a money remedy and entered an amount. Confirm the court and procedure before filing."
+                        ? "Small Claims may be a path to review because you are asking for money. Confirm the court and procedure before filing."
                         : "Civil may be a path to review where the matter does not fit the other available paths."}
                   </p>
                   <button

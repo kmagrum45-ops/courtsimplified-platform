@@ -438,7 +438,7 @@ function HomeLocationGateContent() {
     <section className="border-y border-[#d9e6df] bg-white" data-testid="court-path-location-gate" tabIndex={-1}>
       <div className="mx-auto max-w-4xl px-6 py-12">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabels[path]} intake</p>
-        <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#10231f]">Confirm your location before starting this path</h1>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#10231f]">Your location and your story</h1>
         {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : <div data-testid="court-path-location-gate-ready">
           {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. To see your next steps, you will need a free account, so a safety check can read your story first. What you enter now comes with you when you sign in from your case.</p>}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
@@ -710,6 +710,8 @@ function HomeLocationGateContent() {
           </div>
 
           <button type="button" onClick={continueToIntake} disabled={!isOntarioReady || checking} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">{checking ? "Reading your story and checking the law (this can take a minute or two)…" : understood ? "Check again" : `Continue to ${pathLabels[path]} intake`}</button>
+          {/* A button that cannot be pressed says why (item 12: a blank city gave no message). */}
+          {province === "Ontario" && !checking && !isOntarioReady ? <p data-testid="location-missing" role="status" className="mt-2 text-sm text-[#8a4b12]">{[!city.trim() ? "Add your city or municipality" : "", !facts.trim() ? "tell us what happened" : ""].filter(Boolean).join(" and ").replace(/^./, (c) => c.toUpperCase())} to continue.</p> : null}
         </div>}
       </div>
     </section>

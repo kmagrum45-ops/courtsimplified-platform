@@ -33,6 +33,8 @@ import { freshSections } from "../storyBasis";
 import { situationOf, sideOf, firstPageOf } from "../situation/situation";
 import { factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
+import { firstWordedDate, isRealIsoDate } from "../dates";
+import { QUESTION_BANK } from "../intake/questionBank";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
 export const SLOT_FACTS = [
@@ -66,6 +68,23 @@ export function emptyCaseFile(): CaseFile {
   return Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])) as CaseFile;
 }
 
+/** The slots that hold a day. */
+const DATED = new Set<SlotFact>(["whenHappened", "servedDate", "conferenceDate", "courtDate"]);
+
+/** The one full day an answer's words give, or null (a day with no year is not one). */
+function readFullDay(text: string): string | null {
+  const worded = firstWordedDate(text);
+  return worded && isRealIsoDate(worded.iso) ? worded.iso : null;
+}
+
+/** "We were married in Lisbon, Portugal in 2009": the place named, with the words it came from, or null. */
+export function marriedWhereIn(story: string): { place: string; quote: string } | null {
+  const match = /\b(?:[Ww]e|I)\s+(?:were|was|got)\s+married\s+in\s+((?:[A-Z][\w'.-]*)(?:[ ,]+(?:[A-Z][\w'.-]*))*)/.exec(story);
+  if (!match) return null;
+  const place = match[1].replace(/[ ,]+$/, "").trim();
+  return place ? { place, quote: match[0] } : null;
+}
+
 /** Records one answer into the file: the first answer stands; an unsure one never covers a real one. */
 function give(file: CaseFile, fact: string, value: unknown, question: string) {
   if (!isSlot(fact) || blank(value)) return;
@@ -75,6 +94,12 @@ function give(file: CaseFile, fact: string, value: unknown, question: string) {
     return;
   }
   if (slot.state === "answered") return;
+  // A rough time ("last summer", "June 2026") is kept as given, but is not the day itself:
+  // the fact stays unsure, so the exact day is offered once more at the end (item 12).
+  if (DATED.has(fact) && typeof value === "string" && !isRealIsoDate(value) && !readFullDay(value)) {
+    if (slot.state === "not-asked") file[fact] = { state: "unsure", value, source: { kind: "answer", question }, confirmed: true };
+    return;
+  }
   const kept = fact === "amount" ? (typeof value === "number" ? value : parseRecordedAmount(String(value)) ?? String(value)) : (value as Slot["value"]);
   file[fact] = { state: "answered", value: kept, source: { kind: "answer", question }, confirmed: true };
 }
@@ -142,8 +167,12 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   for (const id of strings(guided.answeredIds)) {
     for (const fact of slotsOf(id)) {
       if (file[fact].state !== "not-asked") continue;
-      const captured = id === "sc-amount-claimed" ? guidedFacts.amountClaimedText : id === "sc-orient-role" ? guidedFacts.role : undefined;
-      give(file, fact, captured ?? true, id);
+      // The answer's own words where the question keeps them (its captured field); a dated
+      // fact with no words kept is unsure (the exact day is offered once more at the end).
+      const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
+      const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : undefined;
+      if (captured === undefined && DATED.has(fact)) unsure(file, fact, id);
+      else give(file, fact, captured ?? true, id);
     }
   }
   const matched = object(guided.matchedClaimType);
@@ -160,6 +189,12 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   const triage = object(object(builder.triageState).record);
   const yesNo = (value: unknown) => (value === "yes" ? true : value === "no" ? false : value === "unsure" ? "not-sure" : undefined);
   if (yesNo(triage.marriedToOtherParty) !== undefined) give(file, "married", yesNo(triage.marriedToOtherParty), "married-to-other-party");
+  // Where they married, carried from the story's own sentence once the person says they were
+  // married (item 12, case 14: a marriage abroad is a fact to carry, never assumed Ontario).
+  if (file.married.state === "answered" && file.married.value === true && file.marriedWhere.state === "not-asked") {
+    const said = marriedWhereIn(String(object(sections.story).text ?? ""));
+    if (said) file.marriedWhere = { state: "answered", value: said.place, source: { kind: "story", quote: said.quote }, confirmed: true };
+  }
   if (yesNo(triage.caseInvolvesChildren) !== undefined) give(file, "children", yesNo(triage.caseInvolvesChildren), "case-involves-children");
   else if (yesNo(triage.haveChildTogether) !== undefined) give(file, "children", yesNo(triage.haveChildTogether), "child-together");
 
@@ -237,7 +272,7 @@ export function slotText(slot: Slot, formatDay: (iso: string) => string): string
   if (typeof value === "boolean") return value ? "Yes" : "No";
   if (typeof value === "number") return `$${value.toLocaleString("en-CA", { maximumFractionDigits: 2 })}`;
   if (Array.isArray(value)) return value.join(", ");
-  if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) return formatDay(value);
+  if (typeof value === "string" && isRealIsoDate(value)) return formatDay(value);
   return typeof value === "string" ? value : "";
 }
 
@@ -256,7 +291,7 @@ const DATE_QUESTIONS_OF: Partial<Record<SlotFact, readonly string[]>> = {
 /** The one full day (with its year) a slot holds, as YYYY-MM-DD, or null. */
 export function slotDay(slot: Slot, readDay: (text: string) => string | null): string | null {
   if (slot.state !== "answered" || typeof slot.value !== "string") return null;
-  if (/^\d{4}-\d{2}-\d{2}$/.test(slot.value)) return slot.value;
+  if (isRealIsoDate(slot.value)) return slot.value;
   return readDay(slot.value);
 }
 

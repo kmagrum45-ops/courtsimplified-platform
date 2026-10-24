@@ -659,9 +659,15 @@ export function readAnswerDate(answer: string, options: { oneDate?: boolean } = 
   if (partial.length) return { iso: null, ask: ADD_THE_YEAR };
   // Full dates, with the year written, beside other words: kept as words where nothing is counted.
   if (counted.length) return none;
+  // A rough period ("last summer", "a few months ago") answers a box that asks roughly when, as
+  // words, never as a day (item 12): the exact day is asked once more where a count needs it.
+  if (!options.oneDate && relative && ROUGH_PERIOD.test(text) && !IMPOSSIBLE_DATE.test(text) && !DAY_ONLY.test(text)) return none;
   if (IMPOSSIBLE_DATE.test(text) || DAY_ONLY.test(text) || relative) return { iso: null, ask: GIVE_THE_DATE };
   return none;
 }
+
+/** A period, not a day: a season, a month or a year counted from now, or some months or years ago. */
+const ROUGH_PERIOD = /\b(?:(?:last|this|next|past)\s+(?:summer|winter|spring|fall|autumn|year|month)|(?:a\s+few|several|some|\d+|two|three|four|five|six)\s+(?:months?|years?)\s+ago)\b/i;
 
 /** Whether a question asks for a date ("When ...?", "What day ...?", "... date ..."). */
 export function asksForDate(question: string): boolean {

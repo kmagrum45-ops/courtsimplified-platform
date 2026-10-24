@@ -37,7 +37,19 @@ const STAGE_OPTIONS: { value: UniversalStage; label: string }[] = [
   { value: "not-sure", label: "I am not sure" },
 ];
 
-function labelFor(stage: UniversalStage): string {
+/**
+ * The court's own name for its conference (item 11, 2026-10-24): Small Claims holds a
+ * settlement conference; a civil action a pre-trial conference; a family case a case
+ * conference first, then settlement and trial management conferences.
+ */
+const CONFERENCE_LABEL: Record<"small-claims" | "family" | "civil", string> = {
+  "small-claims": "A settlement conference is coming up",
+  civil: "A pre-trial conference is coming up",
+  family: "A case conference, settlement conference or trial management conference is coming up",
+};
+
+function labelFor(stage: UniversalStage, pathway?: "small-claims" | "family" | "civil"): string {
+  if (stage === "conference" && pathway) return CONFERENCE_LABEL[pathway];
   return STAGE_OPTIONS.find((option) => option.value === stage)?.label ?? "I am not sure";
 }
 
@@ -55,13 +67,21 @@ export type StageConfirmationProps = {
    * asked again and can change it.
    */
   basis?: string | null;
+  /**
+   * The stage map step the person chose for a case already going (situation.ts), in the
+   * map's own words: shown as the stage recorded, so the card says exactly what the
+   * next step below follows (case 16: "I'm starting it" above a filed case's step).
+   */
+  stepWords?: string | null;
 };
 
 export default function StageConfirmation({
   suggestedStage,
+  pathway,
   onConfirm,
   confirmedStage,
   basis = null,
+  stepWords = null,
 }: StageConfirmationProps) {
   const [choice, setChoice] = useState<UniversalStage>(suggestedStage);
   const [changing, setChanging] = useState(false);
@@ -73,8 +93,8 @@ export default function StageConfirmation({
         className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm"
       >
         <p className="text-sm text-[#4d675f]">
-          Stage recorded: <strong className="text-[#10231f]">{labelFor(confirmedStage)}</strong>
-          {basis ? <span data-testid="stage-confirmed-basis"> (from your answer: &ldquo;{basis}&rdquo;)</span> : null}
+          Stage recorded: <strong className="text-[#10231f]">{stepWords ?? labelFor(confirmedStage, pathway)}</strong>
+          {basis && basis !== stepWords ? <span data-testid="stage-confirmed-basis"> (from your answer: &ldquo;{basis}&rdquo;)</span> : stepWords ? <span data-testid="stage-confirmed-basis"> (your answer at the start)</span> : null}
         </p>
         <button
           type="button"
@@ -109,7 +129,7 @@ export default function StageConfirmation({
         <p className="text-sm leading-6 text-[#16302b]">
           {/* No "From what you told us" without what they told us (#469 re-test): the
               suggestion is the analysis's, and its basis is quoted when there is one. */}
-          Suggested for your case: <strong className="text-[#10231f]">{labelFor(suggestedStage)}</strong>.
+          Suggested for your case: <strong className="text-[#10231f]">{labelFor(suggestedStage, pathway)}</strong>.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <button
@@ -153,7 +173,7 @@ export default function StageConfirmation({
         >
           {STAGE_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {labelFor(option.value, pathway)}
             </option>
           ))}
         </select>

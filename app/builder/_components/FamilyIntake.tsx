@@ -65,6 +65,8 @@ export type FamilyIssue =
   | "parenting-time"
   | "child-support"
   | "spousal-support"
+  | "divorce"
+  | "sale-of-home"
   | "property-division"
   | "matrimonial-home"
   | "safety-concerns"

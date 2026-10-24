@@ -25,8 +25,11 @@ const FIELD_LABELS: Record<string, string> = {
   missingEvidence: "Evidence still missing", pastLivingHistory: "Past caregiving / living history",
   propertyHomeDetails: "Property / home / financial disclosure details", safetyConcerns: "Safety or urgent concerns",
   timeline: "Timeline", yourName: "Your name", evidence: "Evidence you have",
+  uploadedEvidenceFiles: "Documents you uploaded", uploadedFiles: "Documents you uploaded", evidenceFiles: "Documents you uploaded",
+  placeOfMarriage: "Where you married", existingOrderDate: "Date of the existing order",
 };
-const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, c => c.toUpperCase());
+// Plain sentence case for a field with no written label ("Children info", not "Children Info").
+const label = (key: string) => key.replace(/([a-z])([A-Z])/g, (_, a: string, b: string) => `${a} ${b.toLowerCase()}`).replace(/^./, c => c.toUpperCase());
 
 /**
  * The civil or Family form field a remaining question fills, so the review panel can
