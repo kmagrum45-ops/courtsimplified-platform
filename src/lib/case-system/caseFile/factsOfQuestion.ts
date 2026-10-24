@@ -15,7 +15,7 @@ export type CaseFact =
   | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
   | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
-  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome";
+  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments";
 
 const FACTS: Record<string, readonly CaseFact[]> = {
   // The situation questions (situation.ts).
@@ -29,8 +29,10 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   // Civil and Family, one at a time and in the review.
   facts: ["story"],
   yourRole: ["side"],
-  filedDocuments: ["filed"],
-  documents: ["filed"],
+  // Which documents exist is a detail of its own: the situation answers say whether anything
+  // is filed, not which papers (the case file reads "filed" from these lists itself).
+  filedDocuments: ["filedDocuments"],
+  documents: ["filedDocuments"],
   issues: ["claimKind"],
   childrenInfo: ["children"],
   servedDate: ["servedDate"],

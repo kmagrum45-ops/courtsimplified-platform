@@ -1,7 +1,7 @@
 "use client";
 
 import { useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
-import { alreadyAsked, caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { alreadyAsked, caseFileOf, slotsOfQuestion } from "../../../src/lib/case-system/caseFile/caseFile";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -188,7 +188,10 @@ export default function GuidedFormChat({
   const heldElsewhere = useMemo(() => {
     if (!checkpoint) return new Set<string>();
     const file = caseFileOf(checkpoint);
-    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && alreadyAsked(file, field.key)).map((field) => field.key));
+    // A fact they said they did not know, which their story states, is offered once as the
+    // story's suggestion ("Is that right?"); without a story suggestion it is not asked again.
+    const unsureWithStory = (field: GuidedField) => slotsOfQuestion(field.key).every((fact) => file[fact].state === "unsure") && Boolean(field.fromStory?.(values));
+    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && alreadyAsked(file, field.key) && !unsureWithStory(field)).map((field) => field.key));
   }, [checkpoint, fields, values]);
   const pending = useMemo(() => pendingFields(fields, values, skipped).filter((field) => !heldElsewhere.has(field.key)), [fields, values, skipped, heldElsewhere]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;

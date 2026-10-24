@@ -1295,6 +1295,7 @@ export default function StageAnswerPanel({
   motionToChange = null,
   suggestedStepId = null,
   laterDates = [],
+  onOffered,
   onSaved,
 }: {
   courtPath: StagePathway;
@@ -1351,6 +1352,8 @@ export default function StageAnswerPanel({
    * (the case file, caseFile.ts).
    */
   laterDates?: readonly string[];
+  /** Told which date questions are on screen unanswered (so the page can record a "not sure" day as offered at the end). */
+  onOffered?: (ids: string[]) => void;
   /** Told what the person chose (dates and step), so a page that remounts this panel can show it again; called just AFTER the save to the case is queued, so positionSavesSettled(caseId) inside it waits for that save. */
   onSaved?: (saved: {
     stepId?: string | null;
@@ -1422,6 +1425,12 @@ export default function StageAnswerPanel({
   // application (legal review 2026-10-14; serviceRulesFor with the question).
   // The moving party on a motion to change served it: their questions are
   // about the other party receiving it (servesPapersFor; walkthrough FM).
+  const shownDatesKey = (result && "dateQuestions" in result ? result.dateQuestions ?? [] : []).filter((question) => !dateAnswers[question.id] && !laterDates.includes(question.id)).map((question) => question.id).join(" ");
+  useEffect(() => {
+    if (shownDatesKey && onOffered) onOffered(shownDatesKey.split(" "));
+    // Once per set of questions shown.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shownDatesKey]);
   const serving = (questionId: string) => servesPapersFor(stageId, questionId, serviceCourt, responding, motionToChange);
   // The ways offered for one question: the same list everywhere on this panel
   // (review of bee9daf), for who was served (servedOnFor) and said from the

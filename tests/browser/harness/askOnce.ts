@@ -54,7 +54,7 @@ const SCAN = `(() => {
   const surfaces = [
     ["situation", "[data-testid=situation-questions]", (el) => [el.getAttribute("data-question")]],
     ["chat", "[data-testid=guided-form-question]", (el) => [el.getAttribute("data-key")]],
-    ["chat", "[data-testid=guided-form-from-story]", (el) => (el.getAttribute("data-group") || "").split(" ")],
+    ["chat-story", "[data-testid=guided-form-from-story]", (el) => (el.getAttribute("data-group") || "").split(" ")],
     ["sc-chat", "[data-testid=guided-message][data-question-id]", (el) => [el.getAttribute("data-question-id")]],
     ["sc-proposal", "[data-testid=story-proposal-row]", (el) => [el.getAttribute("data-question-id")]],
     ["review", "[data-testid=intake-initial-question][data-answered=false]", (el) => [el.getAttribute("data-question")]],
@@ -162,7 +162,7 @@ export function unsureFromSituation(answers: SituationAnswers | false): string[]
 }
 
 /** Where an unsure fact may be offered once more: the end of the case (step page dates, "What we have so far"). */
-const END_SURFACES = new Set(["date", "end", "claim-kind"]);
+const END_SURFACES = new Set(["date", "end", "claim-kind", "chat-story"]);
 
 export type Repeat = { fact: string; given: Asked; asks: Asked[] };
 

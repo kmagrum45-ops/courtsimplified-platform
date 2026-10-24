@@ -165,6 +165,8 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       const list = strings(value);
       if (Array.isArray(value) && list.every((item) => item === "not-sure")) continue;
       const said = Array.isArray(value) ? list.filter((item) => item !== "not-sure") : value;
+      // A list of documents also answers whether anything is filed.
+      if ((key === "documents" || key === "filedDocuments") && Array.isArray(said) && said.length) give(file, "filed", !(said.length === 1 && said[0] === "nothing"), `${area}:${key}`);
       for (const fact of slotsOf(key)) give(file, fact, said, `${area}:${key}`);
     }
   }

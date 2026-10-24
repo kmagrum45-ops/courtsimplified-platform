@@ -39,7 +39,8 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   check("served: side, court, stage, filed, papers and the day served are held", ["side", "court", "stage", "filed", "papers", "servedDate"].every((fact) => file[fact as SlotFact].state === "answered"));
   check("held facts are the person's own answers", file.servedDate.confirmed && file.servedDate.source?.kind === "answer");
   check("the day served is not asked again by any question for it", ["sc-defendant-claim-received", "sc-date-claim-served", "serviceDetails", "servedDate"].every((id) => alreadyAsked(file, id)));
-  check("nor the side or the filing", ["sc-orient-role", "yourRole", "sc-claim-filed", "documents", "filedDocuments"].every((id) => alreadyAsked(file, id)));
+  check("nor the side or whether anything is filed", ["sc-orient-role", "yourRole", "sc-claim-filed"].every((id) => alreadyAsked(file, id)));
+  check("which documents exist is a detail of its own (asked once, where the answers do not list them)", !alreadyAsked(file, "filedDocuments"));
 }
 
 // 2. "Not sure" counts as asked, and never covers a real answer.

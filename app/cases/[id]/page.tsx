@@ -278,7 +278,7 @@ export default function CaseOverviewPage() {
               caseId={caseId}
               initialStepId={position.stepId ?? situationStep}
               // A day not known, already offered once more on the results page: folded here (caseFile.ts).
-              laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
+              laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)).filter((id) => (position.offeredDates ?? []).includes(id))}
               initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}

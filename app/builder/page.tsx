@@ -2,7 +2,7 @@
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
 import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
-import { caseFileOf, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
 /** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
@@ -2563,6 +2563,14 @@ function BuilderPageContent() {
                 sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
                 initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
+                // A day the person said they do not know, shown here: its one offer at the end, recorded
+                // so the case page folds it (caseFile.ts).
+                onOffered={(ids) => {
+                  const unsure = unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult));
+                  const offered = ids.filter((id) => unsure.includes(id));
+                  const id = savedCaseId();
+                  if (offered.length && id) void savePositionQueuedOutcome(id, { offeredDates: offered });
+                }}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
                 onSaved={(saved) => {
