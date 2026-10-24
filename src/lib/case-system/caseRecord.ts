@@ -24,9 +24,10 @@ import { readCasePosition, suggestedDatesFromAnswers, type CasePosition } from "
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
 import { userStory } from "./userStory";
 import { recordedAmountOf } from "./amountNotes";
+import { sideOf as situationSide, situationOfCase, type Situation } from "./situation/situation";
 
 export type CourtPath = "small-claims" | "civil" | "family";
-export type Provenance = "confirmed" | "intake" | "guided";
+export type Provenance = "confirmed" | "intake" | "guided" | "situation";
 export type RecordedFact<T> = { value: T; source: Provenance };
 
 /** The side of the case the person is on, in the stage map's two words. */
@@ -87,7 +88,11 @@ export function sideFromParts(parts: {
   confirmedStage: string | null | undefined;
   intakeData: unknown;
   intakeFacts: unknown;
+  /** The situation answers given before the story (situation.ts): the person's own answer, read first (step 2). */
+  situation: Situation | null;
 }): RecordedFact<Side> | null {
+  const answered = parts.situation ? situationSide(parts.situation) : null;
+  if (answered) return { value: answered === "bringing" ? "starting" : "responding", source: "situation" };
   if (parts.confirmedStage === "responding") return { value: "responding", source: "confirmed" };
   const facts = asRecord(parts.intakeFacts);
   if (facts.role === "defendant") return { value: "responding", source: "guided" };
@@ -109,6 +114,7 @@ function sideOf(master: Record<string, unknown>, position: CasePosition): Record
     confirmedStage: position.confirmedStage,
     intakeData: master.intakeData,
     intakeFacts: master.intakeFacts,
+    situation: situationOfCase(master),
   });
 }
 

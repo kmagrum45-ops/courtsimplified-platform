@@ -1279,6 +1279,7 @@ export default function StageAnswerPanel({
   courtPath,
   confirmedStage = null,
   responding = false,
+  sideFromRecord = false,
   caseId = null,
   initialStepId = null,
   initialDateAnswers = {},
@@ -1298,6 +1299,8 @@ export default function StageAnswerPanel({
   courtPath: StagePathway;
   confirmedStage?: string | null;
   responding?: boolean;
+  /** `responding` is the person's situation answer (situation.ts): it wins over the story's reading of the side. */
+  sideFromRecord?: boolean;
   /**
    * With a case, the step the user picks and the dates they enter are saved
    * to it (master_result.position), so the case page and a return visit show
@@ -1362,7 +1365,7 @@ export default function StageAnswerPanel({
   const readStep = suggestedStepId && options.some((option) => option.id === suggestedStepId) ? suggestedStepId : "";
   const suggested = noticeFirst
     ? (noticeStepId as string)
-    : readStep || stepFromPicture(courtPath, picture, responding) || suggestedStageFor(courtPath, confirmedStage, responding, storyText);
+    : readStep || stepFromPicture(courtPath, picture, responding, sideFromRecord) || suggestedStageFor(courtPath, confirmedStage, responding, storyText);
   // Dates the case reader found in their words, under what the guided intake recorded.
   const offeredDates = { ...datesFromPicture(picture), ...suggestedDates };
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";

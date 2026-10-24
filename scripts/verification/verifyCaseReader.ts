@@ -156,7 +156,7 @@ async function main() {
 
   console.log("\n6. Every page puts the reader first, and keeps it");
   const panel = readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
-  check("the panel suggests the reader's step before the phrase lists", /stepFromPicture\(courtPath, picture, responding\) \|\| suggestedStageFor\(/.test(panel));
+  check("the panel suggests the reader's step before the phrase lists", /stepFromPicture\(courtPath, picture, responding(?:, sideFromRecord)?\) \|\| suggestedStageFor\(/.test(panel));
   check("the panel offers the reader's dates", /datesFromPicture\(picture\)/.test(panel));
   const builder = readFileSync(path.join(ROOT, "app/builder/page.tsx"), "utf8");
   check("the builder's re-save keeps the picture", /"intakeAnswers", "casePicture"\]/.test(builder));

@@ -1,6 +1,7 @@
 import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
 import { expect, test } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
+import { answerSituation, autoAnswerSituation } from "./harness/situation";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 
@@ -164,9 +165,14 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     await page.reload();
     await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
     expect(await page.evaluate(() => Object.keys(localStorage).filter(key => /intake|draft/i.test(key)))).toEqual([]);
+    // This test answers the new case's situation questions itself, after seeing them.
+    await autoAnswerSituation(page, false);
     await page.goto(`/builder?path=${court}`);
     // A fresh start first asks before discarding the unsaved case (2026-10-18).
     await page.getByTestId("unsaved-case-discard").click();
+    // The new case starts at the situation questions (step 2), with nothing from the old one.
+    await expect(page.getByTestId("situation-questions")).toHaveAttribute("data-question", "where");
+    await answerSituation(page);
     await expect(panel).toHaveAttribute("data-phase", "collecting");
     await expect(page.getByTestId("intake-start-review")).toBeDisabled();
   });

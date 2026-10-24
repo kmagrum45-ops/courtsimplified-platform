@@ -13,6 +13,9 @@
  *  - a served date the person typed is labelled as their answer, not "From your
  *    story", on the results (Family);
  *  - Small Claims: "No" to "Has a Plaintiff's Claim been filed?" shows as Claim Filed.
+ * Step 2: the side and "has anything been filed" are answered once, in the situation
+ * questions before the story, so a story change never sets them aside and no later
+ * step asks them again; these tests assert that where they used to answer them again.
  * The server calls are this commit's own code (harness/thisCommitServer.ts).
  */
 import { expect, test, type Page } from "@playwright/test";
@@ -20,6 +23,7 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
+import { autoAnswerSituation } from "./harness/situation";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -68,12 +72,14 @@ async function smallClaimsReview(page: Page) {
   if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
   await page.getByTestId("intake-start-review").click();
   await expect(panel(page)).toHaveAttribute("data-phase", "reviewing");
-  await question(page, "sc-orient-role").getByRole("button", { name: /Bringing the claim/ }).first().click();
-  await question(page, "sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
+  // The side and "nothing filed" were given in the situation questions (step 2): not asked here.
+  await expect(question(page, "sc-orient-role")).toHaveCount(0);
+  await expect(question(page, "sc-claim-filed")).toHaveCount(0);
 }
 
 async function start(page: Page, court: Court) {
   await grantSiteAccess(page);
+  await autoAnswerSituation(page, { where: "starting", filed: "nothing" });
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, court, account.rows as unknown as Rows);
   if (court === "small-claims") await smallClaimsReview(page);
@@ -89,40 +95,20 @@ async function changeStory(page: Page) {
   const box = panel(page).getByRole("textbox", { name: "Review: Your story", exact: true });
   await box.fill(`${await box.inputValue()} Synthetic: one more detail added later.`);
   await panel(page).getByTestId("review-story-save").click();
-  // Civil and Family mark each answer; Small Claims asks its answered questions again.
-  await expect(page.getByTestId("intake-answer-stale").or(page.getByTestId("intake-confirm-needs").filter({ hasText: "earlier version of your story" })).first()).toBeVisible();
+  await expect(panel(page).getByTestId("review-story-save")).toBeDisabled();
 }
 
 for (const court of ["small-claims", "civil", "family"] as const) {
-  test(`${court}: after the story changes, the same side chosen again clears "earlier version"; a different side can be switched back`, async ({ page }) => {
+  test(`${court}: after the story changes, the side and "filed" given at the start are never set aside or asked again`, async ({ page }) => {
     test.setTimeout(240_000);
     await start(page, court);
     await changeStory(page);
-    const roleId = court === "small-claims" ? "sc-orient-role" : "yourRole";
-    const role = question(page, roleId);
-    const staleBefore = await page.getByTestId("intake-answer-stale").count();
-    const same = court === "small-claims" ? role.getByRole("button", { name: /Bringing the claim/ }).first() : role.getByTestId("intake-field-choice").first();
-    const other = court === "small-claims" ? role.getByRole("button", { name: /Responding/ }).first() : role.getByTestId("intake-field-choice").nth(1);
-    await same.click();
-    await expect(role, "the question stays on screen").toBeVisible();
-    await expect(same).toHaveAttribute("aria-pressed", "true");
-    if (court !== "small-claims") await expect(page.getByTestId("intake-answer-stale"), "the side is no longer from an earlier version").toHaveCount(staleBefore - 1);
-    await other.click();
-    await expect(other).toHaveAttribute("aria-pressed", "true");
-    await same.click();
-    await expect(same, "switched back").toHaveAttribute("aria-pressed", "true");
-    // The same ticks saved again move that answer onto the current story too.
-    if (court !== "small-claims") {
-      const filed = question(page, court === "civil" ? "documents" : "filedDocuments");
-      const before = await page.getByTestId("intake-answer-stale").count();
-      await filed.locator('input[data-testid=intake-field-pick][value="nothing"]').check();
-      await filed.getByTestId("intake-field-save").click();
-      await expect(page.getByTestId("intake-answer-stale"), "the same ticks saved again are no longer from an earlier version").toHaveCount(before - 1);
-    } else {
-      // Small Claims: with the side and "No" given again, nothing is from an earlier version.
-      await question(page, "sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-      await expect(page.getByTestId("intake-confirm-needs")).not.toContainText("earlier version of your story");
-    }
+    const sideId = court === "small-claims" ? "sc-orient-role" : "yourRole";
+    const filedId = court === "small-claims" ? "sc-claim-filed" : court === "civil" ? "documents" : "filedDocuments";
+    await expect(question(page, sideId), "the side is not asked again").toHaveCount(0);
+    await expect(question(page, filedId), "\"filed\" is not asked again").toHaveCount(0);
+    await expect(page.getByTestId("intake-confirm-needs")).not.toContainText(/side|filed/i);
+    await expect(page.getByTestId("situation-line"), "the answers given at the start stand").toContainText(court === "small-claims" ? "You're suing in Small Claims Court · nothing filed yet" : court === "civil" ? "You're bringing a civil case · nothing filed yet" : "You're bringing a family case · nothing filed yet");
   });
 
   test(`${court}: "Close without saving" on the review's story box leaves the story shown`, async ({ page }) => {
@@ -148,7 +134,9 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
     const row = [...account.rows.values()][0] as Record<string, unknown>;
     await page.goto(`/cases/${row.id}`);
-    await expect(page.getByText(court === "family" ? "You started, or plan to start, this case (applicant)" : "You are bringing this case (plaintiff)")).toBeVisible({ timeout: 60_000 });
+    // The case page's top line: the person's own answers from before their story (step 2), with Change.
+    await expect(page.getByTestId("situation-line")).toContainText(court === "small-claims" ? "You're suing in Small Claims Court" : court === "civil" ? "You're bringing a civil case" : "You're bringing a family case", { timeout: 60_000 });
+    await expect(page.getByTestId("situation-change")).toHaveAttribute("href", /situation=change/);
   });
 }
 
@@ -157,7 +145,8 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   await grantSiteAccess(page);
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "family", account.rows as unknown as Rows);
-  await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case about parenting time for our daughter, age 5." });
+  // Served, the day not known at the start: the questions and the review ask it, with the year rule.
+  await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case about parenting time for our daughter, age 5.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
   await guided(page, "family", "respondent", ["application"], "October 6, 2026");
   const served = panel(page).getByRole("textbox", { name: "Review: Day you were served" });
   await served.fill("October 6");
@@ -179,11 +168,10 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   if (/October 6, 2026/.test(results)) expect(results).toMatch(/From your answer: “[^”]*October 6, 2026/);
 });
 
-test("Small Claims: \"No\" to the claim-filed question stays shown as the answer given", async ({ page }) => {
+test("Small Claims: \"nothing filed yet\", given at the start, stays shown as the answer given", async ({ page }) => {
   test.setTimeout(180_000);
   await start(page, "small-claims");
-  // On the guided route the review also shows it as Claim Filed: Yes / No, the answer
-  // marked (an unticked box read as no answer); reviewEntries is checked for that in
-  // test:review-follow-ups, since the guided route needs the AI questions.
-  await expect(question(page, "sc-claim-filed").getByRole("button", { name: "No", exact: true })).toHaveAttribute("aria-pressed", "true");
+  // Answered once, in the situation questions (step 2): shown in the top line, never asked again.
+  await expect(page.getByTestId("situation-line")).toContainText("nothing filed yet");
+  await expect(question(page, "sc-claim-filed")).toHaveCount(0);
 });

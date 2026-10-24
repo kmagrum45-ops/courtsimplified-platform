@@ -49,6 +49,7 @@ export async function POST(request: Request) {
     ...(body.city ? { city: body.city } : {}),
     ...(body.chosenCourt ? { chosenCourt: body.chosenCourt } : {}),
     ...(body.answers ? { answers: body.answers } : {}),
+    ...(body.situation ? { situation: body.situation } : {}),
   }, { signal: request.signal, intakeOnly: true });
   if (result.status !== "understood") return NextResponse.json({ ok: true, skipped: "unavailable" });
 

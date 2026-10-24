@@ -3,6 +3,8 @@ import path from "node:path";
 
 import type { Page } from "@playwright/test";
 
+import { autoAnswerSituation } from "./situation";
+
 /**
  * The gate in middleware.ts compares the cs_site_access cookie to
  * SITE_ACCESS_PASSWORD and 401s everything else, including /api/*. The harness
@@ -45,4 +47,7 @@ export async function grantSiteAccess(page: Page): Promise<void> {
       sameSite: "Lax",
     },
   ]);
+  // The situation questions now come before every story (step 2): answered as "starting, nothing
+  // filed" unless the spec set its own (harness/situation.ts).
+  await autoAnswerSituation(page, undefined, true);
 }

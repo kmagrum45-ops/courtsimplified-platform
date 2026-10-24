@@ -20,6 +20,7 @@ import { openBuilder } from "./harness/builderGate";
 import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { autoAnswerSituation } from "./harness/situation";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
@@ -27,11 +28,13 @@ import { guidanceIsCurrent } from "../../src/lib/case-system/intakeReview";
 
 /**
  * The text a locator shows as answers: the choices a remaining review question offers as
- * buttons (#469 re-test) are left out, since listing a choice is not pre-filling it.
+ * buttons (#469 re-test), and the choices the questions one at a time offer (step 2: with
+ * the side given at the start, "What is the case about?" is asked first), are left out,
+ * since listing a choice is not pre-filling it.
  */
 const shownAnswers = (locator: ReturnType<Page["locator"]>) => locator.evaluate((node: HTMLElement) => {
   // Hidden on the live page, not removed from a copy: a detached copy's innerText includes hidden text.
-  const buttons = [...node.querySelectorAll<HTMLElement>("[data-testid=intake-field-choice], [data-testid=intake-field-pick]")].map(item => item.closest("label") ?? item);
+  const buttons = [...node.querySelectorAll<HTMLElement>("[data-testid=intake-field-choice], [data-testid=intake-field-pick], [data-testid^=guided-check-], [data-testid^=guided-option-]")].map(item => item.closest("label") ?? item);
   buttons.forEach(button => { button.style.display = "none"; });
   const text = node.innerText;
   buttons.forEach(button => { button.style.display = ""; });
@@ -298,16 +301,18 @@ for (const court of ["family", "civil"] as const) {
     test.setTimeout(300_000);
     await fakeAccount(page);
     await page.route(`**/api/${court}/analyze`, async (route) => route.fulfill({ json: await reply(route, court) }));
+    // Served, given in the situation questions before the story (step 2).
+    await autoAnswerSituation(page, { where: "served", papers: court === "family" ? "family-8" : "civil-14A", receivedOn: "unknown" });
     await openForm(page, court);
-    if (court === "family") await page.getByTestId("family-role-select").selectOption("respondent");
-    else await page.getByRole("combobox", { name: "Your role" }).selectOption("defendant");
+    await expect(page.getByTestId("role-from-start"), "the form shows the side given at the start").toContainText(court === "family" ? "respondent" : "Defendant");
     await confirmInitialInformation(page);
     await page.getByRole("button", { name: "Continue to your next steps", exact: true }).click();
     await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
-    // Offered as "Suggested for your case: ..." with Yes / No (the drop-down follows a No).
-    const suggestion = page.locator("p", { hasText: "Suggested for your case:" }).first();
-    await expect(suggestion).toContainText("I was served and need to respond", { timeout: 30_000 });
-    await expect(suggestion).not.toContainText("I am not sure");
+    // The side is the person's own answer from the start (step 2), so the stage is recorded, not
+    // only suggested: "I was served and need to respond", never "I am not sure".
+    const recorded = page.locator("p", { hasText: /Stage recorded:|Suggested for your case:/ }).first();
+    await expect(recorded).toContainText("I was served and need to respond", { timeout: 30_000 });
+    await expect(recorded).not.toContainText("I am not sure");
   });
 }
 
@@ -336,13 +341,17 @@ for (const court of COURTS) {
   });
 }
 
-// #468 re-test: after "Start the questions again", a Small Claims role given for
-// the old story reads as unanswered ("Choose your role"), not "Plaintiff / claimant".
-test("small-claims: a role emptied by starting the questions again reads as unanswered", async ({ page }) => {
+// #468 re-test, under step 2: the side is the person's situation answer, given before the
+// story, so changing the story and starting the questions again never sets it aside or
+// empties it (it used to be the form's own answer, emptied by the restart).
+test("small-claims: the side given at the start stands after the story changes and the questions start again", async ({ page }) => {
   test.setTimeout(180_000);
+  await autoAnswerSituation(page, { where: "served", papers: "small-claims-7A", receivedOn: "October 6, 2026" });
   await openForm(page, "small-claims", ANALYSIS_STORY);
-  const role = page.getByTestId("sc-intake-yourRole");
-  await role.selectOption("Defendant / responding party");
+  const role = page.getByTestId("sc-intake-yourRole-from-start");
+  await expect(role).toContainText("Defendant / responding party");
+  // An answer based on the story, so changing the story has something to set aside.
+  await page.getByTestId("sc-intake-amountClaimed").fill("$4,200");
   const toggle = page.getByRole("button", { name: "Edit case story", exact: true });
   if (await toggle.isVisible()) await toggle.click();
   await page.getByLabel("Case story", { exact: true }).fill("Synthetic new story: a different matter.");
@@ -350,6 +359,7 @@ test("small-claims: a role emptied by starting the questions again reads as unan
   const restart = page.getByTestId("questions-story-changed").getByRole("button", { name: "Start the questions again from my story" });
   await expect(restart).toBeVisible({ timeout: 30_000 });
   await restart.click();
-  await expect(role).toHaveValue("");
-  await expect(role.locator("option:checked")).toHaveText("Choose your role");
+  await expect(role).toContainText("Defendant / responding party");
+  await expect(page.getByTestId("sc-intake-yourRole"), "no role to choose again").toHaveCount(0);
+  await expect(page.getByTestId("situation-line")).toContainText("You're being sued in Small Claims Court");
 });

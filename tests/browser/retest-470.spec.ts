@@ -59,11 +59,13 @@ async function serverRoutes(page: Page, court: Court, rows: Rows) {
  * yet" (or `filed`), a suggestion from the story accepted, anything else skipped.
  * At `stopAt` the person stops the questions and goes to the review.
  */
-async function answerQuestions(page: Page, options: { side: string; filed?: string[]; issues?: string[]; stopAt?: string }) {
+async function answerQuestions(page: Page, options: { side: string; filed?: string[]; issues?: string[]; stopAt?: string; neverAsked?: string[] }) {
   for (let i = 0; i < 30; i++) {
     const question = page.getByTestId("guided-form-question");
     if (!(await question.isVisible().catch(() => false))) break;
     const key = (await question.getAttribute("data-key")) ?? "";
+    // The situation answers, given before the story, settle these: never asked again (step 2).
+    expect(options.neverAsked ?? [], `"${key}" is asked again after the situation questions`).not.toContain(key);
     if (key === options.stopAt) {
       await page.getByTestId("intake-start-review").click();
       await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
@@ -116,18 +118,15 @@ const reviewQuestion = (page: Page, id: string) => page.getByTestId("intake-revi
 for (const court of ["civil", "family"] as const) {
   const side = court === "civil" ? "plaintiff" : "applicant";
   for (const where of ["questions", "review"] as const) {
-    test(`${court}: "Nothing filed yet" answered in the ${where} settles the stage on the results and the case page`, async ({ page }) => {
+    // "Nothing filed yet" is answered once, in the situation questions (step 2); the intake is then
+    // finished in the questions or the review, and neither asks it again.
+    test(`${court}: "Nothing filed yet" answered at the start settles the stage on the results and the case page (intake finished in the ${where})`, async ({ page }) => {
       test.setTimeout(240_000);
       const account = await fakeAccount(page);
       await serverRoutes(page, court, account.rows as unknown as Rows);
-      await openBuilder(page, court, { story: STORY[court] });
-      await answerQuestions(page, { side, stopAt: where === "review" ? FILED[court] : undefined });
-      if (where === "review") {
-        const question = reviewQuestion(page, FILED[court]);
-        await question.getByRole("checkbox", { name: "Nothing filed yet" }).check();
-        await question.getByTestId("intake-field-save").click();
-        await expect(question).toHaveAttribute("data-answered", "true");
-      }
+      await openBuilder(page, court, { story: STORY[court], situation: { where: "starting", filed: "nothing" } });
+      await answerQuestions(page, { side, stopAt: where === "review" ? "issues" : undefined, neverAsked: ["yourRole", FILED[court]] });
+      if (where === "review") await expect(reviewQuestion(page, FILED[court]), "the review does not ask it again").toHaveCount(0);
       await confirmAndContinue(page);
       await expectStageSettled(page, "results");
       const row = [...account.rows.values()][0] as Record<string, unknown>;
@@ -137,13 +136,12 @@ for (const court of ["civil", "family"] as const) {
     });
   }
 
-  test(`${court}: a side answered in the review shows in the form's own role, and "Pick everything" keeps every pick until saved`, async ({ page }) => {
+  test(`${court}: the side given at the start shows in the form's own role, and "Pick everything" keeps every pick until saved`, async ({ page }) => {
     test.setTimeout(180_000);
     await fakeAccount(page);
-    await openBuilder(page, court, { story: STORY[court] });
-    await answerQuestions(page, { side, stopAt: "yourRole" });
-    await reviewQuestion(page, "yourRole").getByTestId("intake-field-choice").first().click();
-    await expect(reviewQuestion(page, "yourRole")).toHaveAttribute("data-answered", "true");
+    await openBuilder(page, court, { story: STORY[court], situation: { where: "starting", filed: "nothing" } });
+    await answerQuestions(page, { side, stopAt: "issues", neverAsked: ["yourRole"] });
+    await expect(reviewQuestion(page, "yourRole"), "the review does not ask the side again").toHaveCount(0);
     const issues = reviewQuestion(page, "issues");
     const picks = issues.getByTestId("intake-field-pick");
     await picks.nth(0).check();
@@ -152,19 +150,16 @@ for (const court of ["civil", "family"] as const) {
     await issues.getByTestId("intake-field-save").click();
     await expect(issues).toHaveAttribute("data-answered", "true");
     await page.getByTestId("guided-form-show-form").click().catch(() => {});
-    if (court === "civil") {
-      await expect(page.getByLabel("Your role"), "the form shows the side chosen in the review").toHaveValue("plaintiff");
-    } else {
-      await expect(page.getByLabel("Who started the court case?")).toHaveValue("applicant");
-    }
+    await expect(page.getByTestId("role-from-start"), "the form shows the side given at the start").toContainText(court === "civil" ? "Plaintiff" : "applicant");
   });
 }
 
 test("Family: the served date answered in the review accepts real dates, and asks for a year only when one is missing", async ({ page }) => {
   test.setTimeout(180_000);
   await fakeAccount(page);
-  await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case and I was served with the Application." });
-  await answerQuestions(page, { side: "respondent", filed: ["application"], stopAt: "servedDate" });
+  // Served, the day not known at the start: the review asks it (step 2 keeps the date rule here too).
+  await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case and I was served with the Application.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
+  await answerQuestions(page, { side: "respondent", filed: ["application"], stopAt: "servedDate", neverAsked: ["yourRole", "filedDocuments"] });
   const question = reviewQuestion(page, "servedDate");
   const box = question.getByRole("textbox");
   await box.fill("October 6");
@@ -199,7 +194,8 @@ async function smallClaimsReview(page: Page, story: string) {
   }
   await page.getByTestId("intake-start-review").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
-  await page.locator('[data-question="sc-orient-role"]').getByRole("button", { name: /Bringing the claim/ }).click();
+  // The side was given in the situation questions (step 2): the review does not ask it again.
+  await expect(page.locator('[data-question="sc-orient-role"]')).toHaveCount(0);
   return page.locator('[data-question="sc-amount-claimed"]');
 }
 
@@ -273,26 +269,29 @@ for (const court of ["small-claims", "civil", "family"] as const) {
  * in the questions and in the review panel (whose answers did not reach the form).
  */
 for (const where of ["questions", "review"] as const) {
-  test(`civil defendant (side given in the ${where}): no Statement of Claim draft is offered`, async ({ page }) => {
+  test(`civil defendant (side given at the start; intake finished in the ${where}): no Statement of Claim draft is offered`, async ({ page }) => {
     test.setTimeout(240_000);
     const account = await fakeAccount(page);
     await serverRoutes(page, "civil", account.rows as unknown as Rows);
-    await openBuilder(page, "civil", { story: "Synthetic story: Test Supply Ltd. is suing me for $62,000 they say I owe for equipment. I was served with a Statement of Claim." });
-    await answerQuestions(page, { side: "defendant", filed: ["statement-claim"], stopAt: where === "review" ? "yourRole" : undefined });
-    if (where === "review") await reviewQuestion(page, "yourRole").getByRole("button", { name: /defendant/i }).click();
+    await openBuilder(page, "civil", { story: "Synthetic story: Test Supply Ltd. is suing me for $62,000 they say I owe for equipment. I was served with a Statement of Claim.", situation: { where: "served", papers: "civil-14A", receivedOn: "unknown" } });
+    await answerQuestions(page, { side: "defendant", filed: ["statement-claim"], stopAt: where === "review" ? "issues" : undefined, neverAsked: ["yourRole", "documents"] });
     await confirmAndContinue(page);
     await expect(page.getByTestId("completed-case-overview")).toBeVisible();
     await expect(page.getByRole("button", { name: /Statement of Claim draft/ })).toHaveCount(0);
     await expect(page.getByText(/Statement of Claim draft/)).toHaveCount(0);
   });
 
-  test(`Family respondent (side given in the ${where}): the results never say "This produces your application"`, async ({ page }) => {
+  test(`Family respondent (side given at the start; intake finished in the ${where}): the results never say "This produces your application"`, async ({ page }) => {
     test.setTimeout(240_000);
     const account = await fakeAccount(page);
     await serverRoutes(page, "family", account.rows as unknown as Rows);
-    await openBuilder(page, "family", { story: "Synthetic story: my former partner started a case for child support and I was served with the Application." });
-    await answerQuestions(page, { side: "respondent", filed: ["application"], issues: ["child-support"], stopAt: where === "review" ? "yourRole" : undefined });
-    if (where === "review") await reviewQuestion(page, "yourRole").getByRole("button", { name: /served/i }).click();
+    await openBuilder(page, "family", { story: "Synthetic story: my former partner started a case for child support and I was served with the Application.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
+    await answerQuestions(page, { side: "respondent", filed: ["application"], issues: ["child-support"], stopAt: where === "review" ? "issues" : undefined, neverAsked: ["yourRole", "filedDocuments"] });
+    if (where === "review") {
+      const issues = reviewQuestion(page, "issues");
+      await issues.getByRole("checkbox", { name: /Child support/ }).check();
+      await issues.getByTestId("intake-field-save").click();
+    }
     await confirmAndContinue(page);
     await expect(page.getByTestId("completed-case-overview")).toBeVisible();
     await page.waitForTimeout(2_000);

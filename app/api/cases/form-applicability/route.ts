@@ -13,6 +13,7 @@ import {
 } from "../../../../src/lib/case-system/authority-intelligence/betaProcedureAuthority";
 import { getCanonicalFormLookup, type FormsCourtPath } from "../../../../src/lib/case-system/formsSelectedCase";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
+import { situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 
 type FormApplicability = Record<string, unknown>;
 type ScalarAnswer = boolean | string;
@@ -148,6 +149,9 @@ function procedureStage(masterResult: Record<string, unknown>): string {
   // because it read only the first analysis's stage fields.
   const confirmed = text((asRecord(masterResult.position) || {}).confirmedStage);
   if (confirmed === "starting-case" || confirmed === "responding") return confirmed;
+  // Then the stage the person's situation answers settle (situation.ts), before any analysis guess.
+  const fromStart = stageFromSituation(situationOfCase(masterResult));
+  if (fromStart) return fromStart.stage;
   const masterCase = asRecord(masterResult.masterCase) || {};
   // The older assembly copy of the stage (caseSystemAssembly.proceduralState)
   // is not read: it was retired on 2026-10-14 (CLAUDE.md s. 2a, one copy).

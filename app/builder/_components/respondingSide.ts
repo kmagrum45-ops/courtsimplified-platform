@@ -1,5 +1,6 @@
 import type { StoredCaseData } from "./builderTypes";
 import { sideFromParts } from "@/src/lib/case-system/caseRecord";
+import type { Situation } from "@/src/lib/case-system/situation/situation";
 
 /**
  * Whether the user is on the RESPONDING side of the case.
@@ -17,6 +18,7 @@ export function userIsResponding(args: {
   confirmedStage: string | null;
   caseData: StoredCaseData | null;
   intakeFacts: Record<string, unknown> | null;
+  situation: Situation | null;
 }): boolean {
   // One rule for the side, shared with the case record (Step 2A, 2026-10-12).
   return (
@@ -24,6 +26,7 @@ export function userIsResponding(args: {
       confirmedStage: args.confirmedStage,
       intakeData: args.caseData,
       intakeFacts: args.intakeFacts,
+      situation: args.situation,
     })?.value === "responding"
   );
 }

@@ -2,7 +2,7 @@
 
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
-import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
+import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import { inputRevision, reviewPhase } from "../../../src/lib/case-system/intakeReview";
 import { markReviewNeeded } from "../../_components/reviewNeeded";
@@ -520,6 +520,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // Only a press: finishing the questions on its own shows nothing (#465 re-test).
   const pressedContinue = () => { if (reviewView && !intakeConfirmed) markReviewNeeded("guided", inputRevision(reviewView.checkpoint)); };
   const recovery = useIntakeRecovery();
+  // The situation answers (situation.ts) settle the side and whether a claim was filed or served; the server applies them every turn.
+  const [situation] = useSituation();
   const resumedHeld = useRef(Boolean(recovery?.read("guided", "heldPayload")));
   const beforeIntakeAI = useBeforeIntakeAI();
   const validateIntakeResponse = useValidateIntakeResponse();
@@ -669,6 +671,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           confirmedAnswers,
           repropose,
           earlier,
+          situation,
         }),
       });
 

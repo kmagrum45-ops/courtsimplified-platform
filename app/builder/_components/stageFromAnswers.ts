@@ -31,6 +31,7 @@
  */
 
 import type { UniversalStage } from "./builderTypes";
+import { stageFromSituation, type Situation } from "@/src/lib/case-system/situation/situation";
 
 /**
  * What the person themselves answered about their side and what has been
@@ -120,8 +121,10 @@ export function stageRecordedFromAnswers(
   courtPath: string,
   answers: PersonAnswers | null | undefined,
   suggested: UniversalStage,
+  /** The situation answers (situation.ts): the person's own, read first (step 2). */
+  situation: Situation | null = null,
 ): StageFromAnswers | null {
-  const settled = stageFromPersonAnswers(courtPath, answers);
+  const settled = (situation ? stageFromSituation(situation) : null) ?? stageFromPersonAnswers(courtPath, answers);
   // The person's own answer settles the stage where the analysis was not sure either
   // (#469 re-test: civil and Family "Nothing filed yet" ended at "I am not sure").
   return settled && (settled.stage === suggested || suggested === "not-sure") ? settled : null;

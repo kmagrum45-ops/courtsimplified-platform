@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-170 documented, 26 without a header.
+171 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -140,6 +140,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:shared-behaviour` | **No shared behaviour is implemented a second time (the guard for the eight steps).**<br>What it checks: for each behaviour in sharedBehaviourRegistry.ts, every .ts/.tsx file in app/ and src/ other than the behaviour's one module is scanned, with comments removed, for the patterns that mean "this re-implements it". Any hit not on the behaviour's w |
+| `npm run test:situation` | **The situation answers are read the same way everywhere, and never asked again (step 2, gate A).**<br>What it checks: each situation (starting with nothing filed, starting with something filed, served with each picked first page, a case going that they started, a case going they are responding to, papers they are not sure of), in each of Small Claims, civil an |
 | `npm run test:small-claims-limit` | **The Small Claims limit is $50,000 everywhere the site states it, and the old**<br>$35,000 limit appears nowhere the site ships. |
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |
 | `npm run test:source-link-labels` | **test:source-link-labels -- source links name their law, and the name is the**<br>library's own. |

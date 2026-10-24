@@ -41,6 +41,7 @@ const check = (name: string, ok: boolean, detail = "") => {
 // ---- 1. Every place that states a fact shows its source -------------------
 type Reviewed = { file: string; text: string; kind: "generic" | "own-answer" | "quoted-in-text"; why: string };
 const REVIEWED: Reviewed[] = [
+  { file: "app/_components/IntakeRecovery.tsx", text: "Your story says &ldquo;{reading.quote}&rdquo;, which sounds like you are", kind: "quoted-in-text", why: "the step 2 cross-check: the story's own sentence, quoted, beside the person's own situation answer, asked about and never applied" },
   { file: "app/builder/page.tsx", text: "Start the questions again from your story first", kind: "generic", why: "an instruction, not a fact" },
   { file: "app/builder/page.tsx", text: "We are saving what you told us to your case", kind: "generic", why: "a status line" },
   { file: "app/builder/_components/ChildSupportIntake.tsx", text: "Filled in from what you told us earlier", kind: "own-answer", why: "the field shows the person's own earlier answer, which they can change" },

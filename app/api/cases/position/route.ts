@@ -22,6 +22,7 @@ import { applyPositionPatch, readCasePosition } from "../../../../src/lib/case-s
 import { updateMasterResult, type CaseRecordClient } from "../../../../src/lib/case-system/updateCaseRecord";
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
+import { situationOfCase, withoutSituationDates } from "../../../../src/lib/case-system/situation/situation";
 
 const MAX_REQUEST_BYTES = 4_000;
 
@@ -81,7 +82,8 @@ export async function POST(request: Request) {
     { caseId, userId: user.id },
     (master) => {
       const result = applyPositionPatch(readCasePosition(master, ownedCase.court_path), patch, ownedCase.court_path, new Date());
-      return result.ok ? { ...master, position: result.position } : { reject: result.error };
+      // The situation's own date is read over the position, never written into it (situation.ts).
+      return result.ok ? { ...master, position: { ...result.position, dateAnswers: withoutSituationDates(result.position.dateAnswers, ownedCase.court_path, situationOfCase(master)) } } : { reject: result.error };
     },
     3,
   );

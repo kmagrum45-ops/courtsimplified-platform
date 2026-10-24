@@ -9,9 +9,13 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
-import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { COURT_PATH_FINDER_KEY, GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, reaffirmAnswers, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
+import { answerSituation, courtOfPapers, nextSituationQuestion, sideContradiction, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt, type Situation } from "../../src/lib/case-system/situation/situation";
+import { civilRoleFromStory, familyRoleFromStory } from "../builder/_components/storyAnswers";
+import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./SituationQuestions";
+import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 
 async function readAuthSession() {
@@ -437,9 +441,94 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}
     </div>
-    {recovery && <IntakeReviewPanel />}
-    {recovery ? children : null}
+    {recovery ? <SituationGate court={court} ownerId={recovery.ownerId ?? null}><IntakeReviewPanel />{children}</SituationGate> : null}
   </Context.Provider>;
+}
+
+/**
+ * THE SITUATION QUESTIONS COME FIRST (step 2). Until the person has said where they
+ * are, the page shows only those questions, so the story box and every later step
+ * come after them; once answered, the top line repeats the answers on every page of
+ * the intake, with a Change link. ?situation=change (the case page's Change link)
+ * opens them again.
+ */
+function SituationGate({ court, ownerId, children }: { court: IntakeCourt; ownerId: string | null; children: ReactNode }) {
+  const recovery = useIntakeRecovery();
+  const params = useSearchParams();
+  const [situation, setSituation] = useSituation();
+  const [changing, setChanging] = useState(params.get("situation") === "change");
+  useEffect(() => {
+    const open = () => { setChanging(true); window.scrollTo({ top: 0 }); };
+    window.addEventListener(SITUATION_CHANGE_EVENT, open);
+    return () => window.removeEventListener(SITUATION_CHANGE_EVENT, open);
+  }, []);
+  // The first-use notice (not a lawyer; AI is used) comes before any question, these included.
+  const [notice, setNotice] = useState<boolean | null>(null);
+  const known = withKnownCourt(situation, court);
+  const incomplete = nextSituationQuestion(known, court) !== null;
+  // The court-path finder asked "Has a case already started?": that answer is the first one here.
+  useEffect(() => {
+    if (situation.where) return;
+    try {
+      const started = (JSON.parse(sessionStorage.getItem(COURT_PATH_FINDER_KEY) ?? "null") as { started?: string } | null)?.started;
+      if (started === "no") setSituation(withKnownCourt(answerSituation(situation, "where", "starting"), court));
+      if (started === "yes") setSituation(withKnownCourt(answerSituation(situation, "where", "going"), court));
+    } catch { /* nothing handed over */ }
+    // Once, on arrival.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  /** Another court, picked here: a new case in that court, carrying the story, location and these answers. */
+  const switchCourt = (target: IntakeCourt, next: Situation) => {
+    const flowId = crypto.randomUUID();
+    const sections = {
+      [STORY_SECTION]: { text: String(recovery?.read(STORY_SECTION, "text") ?? ""), location: recovery?.read(STORY_SECTION, "location") ?? null },
+      ...situationSection(withKnownCourt({ ...next, court: target, courtFrom: courtOfPapers(next) === target ? "papers" : "asked" }, target)),
+    };
+    const session = { version: 2 as const, ownerId, caseId: null, serverRevision: null, checkpoint: { version: 1 as const, flowId, courtPath: target, revision: crypto.randomUUID(), sections } };
+    if (!writeIntakeSession(sessionStorage, session)) return;
+    window.location.assign(`${window.location.pathname}?path=${target}&intake=${flowId}`);
+  };
+  // On the builder, as before; the home page has always taken the city and story before it.
+  const onBuilder = typeof window !== "undefined" && window.location.pathname.startsWith("/builder");
+  if ((incomplete || changing) && onBuilder && notice !== false) {
+    return <div className="mx-auto max-w-3xl space-y-4 px-6 py-6">
+      <FirstUseAcknowledgement onStatus={setNotice} />
+      {notice === null && <p className="text-sm text-[#4d675f]" aria-live="polite">Loading…</p>}
+    </div>;
+  }
+  if (incomplete || changing) {
+    return <div className="mx-auto max-w-4xl px-6" data-testid="situation-gate">
+      <SituationQuestions situation={known} chosenCourt={court} reviewing={changing && !incomplete} onChange={setSituation} onSwitchCourt={switchCourt} onDone={() => setChanging(false)} />
+      {changing && !incomplete && <button type="button" data-testid="situation-change-done" onClick={() => setChanging(false)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">Keep my answers as they are</button>}
+    </div>;
+  }
+  return <>
+    <SituationLine situation={known} onChange={() => setChanging(true)} />
+    <SideCrossCheck court={court} situation={known} onChange={() => setChanging(true)} />
+    {children}
+  </>;
+}
+
+/**
+ * THE STORY IS A CROSS-CHECK, NEVER THE ANSWER (step 2). When the story plainly says
+ * the other side from the person's own answer, they are asked which is right; nothing
+ * changes unless they change their answer. "My answer is right" hides it for that quote.
+ */
+function SideCrossCheck({ court, situation, onChange }: { court: IntakeCourt; situation: Situation; onChange: () => void }) {
+  const [story] = useStory();
+  const [kept, setKept] = useIntakeState<string>(SITUATION_SECTION, "keptAgainst", "");
+  const reading = court === "family" ? familyRoleFromStory(story) : civilRoleFromStory(story);
+  const storySide = reading ? (reading.value === "defendant" || reading.value === "respondent" ? "responding" : "bringing") : null;
+  const contradiction = sideContradiction(situation, storySide);
+  if (!contradiction || !reading || kept === reading.quote) return null;
+  const words = { bringing: "bringing the case", responding: "responding to a case" } as const;
+  return <div data-testid="situation-cross-check" role="status" className="mx-auto max-w-6xl px-6 py-2">
+    <p className="rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4 text-sm text-[#5c4a14]">
+      Your story says &ldquo;{reading.quote}&rdquo;, which sounds like you are {words[contradiction.story]}. You told us you are {words[contradiction.answered]}. Which is right?{" "}
+      <button type="button" data-testid="situation-cross-check-change" onClick={onChange} className="font-semibold underline">Change my answers</button>{" · "}
+      <button type="button" data-testid="situation-cross-check-keep" onClick={() => setKept(reading.quote)} className="font-semibold underline">My answer is right</button>
+    </p>
+  </div>;
 }
 
 /** Existing component state remains the live UI; only its recoverable fields are checkpointed. */
@@ -569,4 +658,15 @@ function readHeldIntake(ownerId: string | null): { court: IntakeCourt; flowId: s
     const sections = record(checkpoint.sections) as Checkpoint["sections"];
     return !saved && storyOf(migrateStory({ ...(checkpoint as Checkpoint), sections }).sections).trim() ? { court, flowId: checkpoint.flowId as string, signedIn: ownerId !== null } : null;
   } catch { return null; }
+}
+
+/**
+ * The situation record (situation.ts): the person's own answers to where they are,
+ * asked before the story. One copy, shared by the questions, the top line and every
+ * step that reads it. Not tied to a version of the story.
+ */
+export function useSituation(): [Situation, (next: Situation) => void] {
+  const [raw, setRaw] = useIntakeState<Record<string, unknown>>(SITUATION_SECTION, SITUATION_FIELD, {}, true);
+  const situation = useMemo(() => situationFromRaw(raw), [raw]);
+  return [situation, (next: Situation) => setRaw(next as Record<string, unknown>)];
 }

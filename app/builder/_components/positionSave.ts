@@ -14,6 +14,7 @@
 
 import { applyPositionPatch, readCasePosition, type PositionPatch } from "../../../src/lib/case-system/casePosition";
 import { updateMasterResult } from "../../../src/lib/case-system/updateCaseRecord";
+import { situationOfCase, withoutSituationDates } from "../../../src/lib/case-system/situation/situation";
 
 /*
  * ONE QUEUE FOR EVERY WRITE TO A CASE'S ROW THAT A PAGE STARTS (2026-10-14,
@@ -247,7 +248,8 @@ async function directSave(
         }
         // Already on the case by the time of the full read: nothing is written.
         if (canonical(applied.position) === canonical(current)) return { reject: UNCHANGED };
-        return { ...stored, position: applied.position };
+        // The situation's own date is read over the position, never written into it (situation.ts).
+        return { ...stored, position: { ...applied.position, dateAnswers: withoutSituationDates(applied.position.dateAnswers, courtPath, situationOfCase(stored)) } };
       },
       4,
       { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS },

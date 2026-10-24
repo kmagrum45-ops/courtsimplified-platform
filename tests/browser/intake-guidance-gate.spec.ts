@@ -3,6 +3,7 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { confirmInitialInformation, saveCaseStory } from "./harness/intakeReview";
 import { grantSiteAccess } from "./harness/siteAccess";
+import { passSituationGate } from "./harness/situation";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
@@ -125,6 +126,8 @@ for (const [court, label] of [["small-claims", "Small Claims"], ["family", "Fami
     await page.getByRole("button", { name: "Review possible court paths" }).click();
     await page.getByRole("button", { name: `Choose ${label}`, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`/builder\\?path=${court}`));
+    // The situation questions come first on the builder too (step 2).
+    await passSituationGate(page);
     await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "collecting");
     await page.getByTestId("intake-start-review").click();
     await expect(page.getByTestId("intake-review").getByRole("textbox", { name: "Review: City", exact: true })).toHaveValue("Toronto");

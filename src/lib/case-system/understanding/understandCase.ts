@@ -108,6 +108,12 @@ export type UnderstandInput = {
   answers?: { question: string; answer: string }[];
   /** The court the person chose from the menu before writing; a guess, not a fact. */
   chosenCourt?: RetrievalCourt | null;
+  /**
+   * The person's own situation answers, given before their story (situation.ts): their
+   * side, and the day they were served. Told to the reasoning as their answers, and the
+   * side read from the story never replaces them (step 2).
+   */
+  situation?: { side?: "starting" | "responding"; servedOn?: string };
 };
 
 // ------------------------------------------------------------------ limits
@@ -369,6 +375,8 @@ export function storyWithAnswers(input: UnderstandInput): string {
   return [
     input.story.trim(),
     input.city?.trim() ? `I live in ${input.city.trim()}, Ontario.` : "",
+    input.situation?.side ? (input.situation.side === "responding" ? "I am responding to this case: the other side started it." : "I am the one bringing this case.") : "",
+    input.situation?.servedOn ? `I was served on ${input.situation.servedOn}.` : "",
     ...answered.map((item) => `Q: ${item.question.trim()}\nA: ${item.answer.trim()}`),
   ]
     .filter(Boolean)
@@ -396,6 +404,20 @@ function within<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
     .finally(() => clearTimeout(timer));
 }
 
+/**
+ * The person's situation answers over the reading: their side, never the model's, and
+ * no question asking when they were served once they have said (step 2).
+ */
+function withSituation(understanding: CaseUnderstanding, situation: UnderstandInput["situation"]): CaseUnderstanding {
+  if (!situation) return understanding;
+  const askedWhenServed = (question: string) => /\b(?:when|what (?:day|date))\b[^?]*\bserved\b|\bserved\b[^?]*\bwhen\b/i.test(question);
+  return {
+    ...understanding,
+    ...(situation.side ? { side: situation.side } : {}),
+    questions: situation.servedOn ? understanding.questions.filter((item) => !askedWhenServed(item.question)) : understanding.questions,
+  };
+}
+
 export async function understandCase(input: UnderstandInput, deps: UnderstandDeps = {}): Promise<UnderstandResult> {
   try {
     const story = storyWithAnswers(input);
@@ -407,7 +429,7 @@ export async function understandCase(input: UnderstandInput, deps: UnderstandDep
     const parsed = raw ? parseUnderstanding(raw) : null;
     if (!parsed) return { status: "unavailable" };
     const { points } = parsed;
-    const understanding = withFixedRegime(parsed.understanding, story);
+    const understanding = withSituation(withFixedRegime(parsed.understanding, story), input.situation);
     if (deps.intakeOnly) return { status: "understood", understanding: { ...understanding, stage: "", step: null }, answer: { status: "unavailable", statements: [], notConfirmed: [], declinedToJudge: false, missingLaw: [] }, drafted: [] };
 
     // The reasoning step's points become the draft the checker works on. The

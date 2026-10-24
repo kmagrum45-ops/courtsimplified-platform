@@ -37,6 +37,7 @@ import { formSummaryFor } from "../../src/lib/content-library/forms/formSummarie
 import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/content-library/forms/officialFormLink";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
+import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -821,6 +822,10 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                   <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#10231f] md:text-5xl">
                     Court forms
                   </h1>
+                  {/* The case's top line: the person's situation answers, with Change (step 2). */}
+                  {caseId && situationLine(situationOfCase(masterResult)) ? (
+                    <p data-testid="situation-line" className="mt-3 text-sm font-semibold text-[#16302b]">{situationLine(situationOfCase(masterResult))} · <a data-testid="situation-change" href={`/builder?path=${path}&caseId=${encodeURIComponent(caseId)}&situation=change`} className="text-[#2f7d67] underline">Change</a></p>
+                  ) : null}
                 </>
               )}
 
@@ -1446,6 +1451,9 @@ function applicableStage(masterResult: MasterResult | null): string {
   // The user's confirmed stage first, as the form-applicability route does.
   const confirmed = asRecord(asRecord(masterResult)?.position)?.confirmedStage;
   if (confirmed === "starting-case" || confirmed === "responding") return confirmed;
+  // Then the stage the person's situation answers settle (situation.ts), before any analysis guess.
+  const fromStart = stageFromSituation(situationOfCase(masterResult));
+  if (fromStart) return fromStart.stage;
   for (const value of [masterResult?.stage, masterResult?.proceduralStage, masterResult?.currentStage]) {
     if (value === "starting-case" || value === "responding") return value;
   }

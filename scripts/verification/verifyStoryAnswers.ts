@@ -750,7 +750,8 @@ console.log("\n5. What has been filed: offered from the story, as the form's own
   const leadAt = builder.indexOf("<MotionToChangeRoute");
   const stageAt = builder.indexOf("<StageConfirmation");
   check("motion to change: the route leads the results, above the stage", leadAt > 0 && stageAt > leadAt);
-  check("motion to change: the page passes whether the person was served", /motionToChangeLead\([\s\S]{0,400}respondingInFamilyStory\(familyStory\)/.test(builder));
+  // Whether the person was served: their situation answer, else the story (step 2).
+  check("motion to change: the page passes whether the person was served", /motionToChangeLead\([\s\S]{0,600}sideOf\(situation\)[\s\S]{0,120}respondingInFamilyStory\(familyStory\)/.test(builder));
   check(
     "motion to change: the page shows, folds or hides the temporary-motion card by temporaryMotionCardMode, and passes the standing answer to the card",
     /temporaryMotionCardMode\(motionLead, motionChoice\) === "shown" \? \(\s*<ProcedureAuthorityDisplay/.test(builder) &&

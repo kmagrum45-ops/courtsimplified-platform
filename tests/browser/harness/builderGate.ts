@@ -27,6 +27,7 @@ import { expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
 import { grantSiteAccess } from "./siteAccess";
+import { answerSituation, autoAnswerSituation, situationAnswersFor, STARTING_NOTHING_FILED, type SituationAnswers } from "./situation";
 
 export type BuilderPath = "family" | "small-claims" | "civil";
 
@@ -45,12 +46,14 @@ const PATH_LABEL: Record<BuilderPath, string> = {
 export async function openBuilder(
   page: Page,
   path: BuilderPath,
-  options: { city?: string; story?: string } = {},
+  options: { city?: string; story?: string; situation?: SituationAnswers } = {},
 ): Promise<void> {
   const city = options.city ?? "Sudbury";
   const story = options.story ?? "";
 
   await grantSiteAccess(page);
+  // A spec that set the page's situation answers (autoAnswerSituation) keeps them unless it passes others.
+  await autoAnswerSituation(page, options.situation ?? STARTING_NOTHING_FILED, options.situation === undefined);
   await page.goto(`/builder?path=${path}`, { waitUntil: "domcontentloaded" });
 
   // The gate renders nothing until the mount effect has run — the hydration
@@ -59,11 +62,15 @@ export async function openBuilder(
   // waiting for that, without asserting on the mechanism.
   const province = page.getByLabel("Province or territory");
   const acknowledgement = page.getByTestId("acknowledgement-checkbox");
-  await expect(province.or(acknowledgement)).toBeVisible({ timeout: 60_000 });
+  const situation = page.getByTestId("situation-questions");
+  await expect(province.or(acknowledgement).or(situation)).toBeVisible({ timeout: 60_000 });
   if (await acknowledgement.isVisible()) {
     await acknowledgement.check();
     await page.getByTestId("acknowledgement-continue").click();
   }
+  // The situation questions come before the story and the location (step 2).
+  await expect(province.or(situation)).toBeVisible({ timeout: 60_000 });
+  await answerSituation(page, situationAnswersFor(page));
   await expect(province).toBeVisible({ timeout: 60_000 });
 
   await province.selectOption("Ontario");

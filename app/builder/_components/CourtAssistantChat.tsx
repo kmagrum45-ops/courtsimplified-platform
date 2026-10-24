@@ -1,6 +1,7 @@
 "use client";
 import { authHeaders } from "../../cases/_components/CaseHomeContext";
-import { useIntakeReviewView } from "../../_components/IntakeRecovery";
+import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
+import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
 
 // Imported from utils rather than smallClaimsEngine: utils is a leaf module,
@@ -814,6 +815,9 @@ function CourtAssistantChatInner({
   const [routingError, setRoutingError] = useState("");
   // The intake was confirmed in its review (L47): its court path is not asked about again.
   const reviewView = useIntakeReviewView();
+  // The side is the person's situation answer (situation.ts), when they gave one (step 2).
+  const [situation] = useSituation();
+  const sideFromStart = sideOf(situation);
   const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
   const [routingConfirmed, setRoutingConfirmed] = useState(
     initialChatState.routingConfirmed,
@@ -927,7 +931,7 @@ function CourtAssistantChatInner({
       const turn = nextMessages.length - 1;
       const record = (caseData && typeof caseData === "object" ? caseData : {}) as Record<string, unknown>;
       const story = clean(record.facts).slice(0, 8000);
-      const side = clean(record.yourRole) || clean(record.role);
+      const side = sideFromStart ? (sideFromStart === "responding" ? "defendant" : "plaintiff") : clean(record.yourRole) || clean(record.role);
       setLaw((current) => ({ ...current, [turn]: { state: "loading" } }));
       lawLookup = (async () => {
         try {

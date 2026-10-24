@@ -33,6 +33,7 @@ import {
 } from "./deadlines/deadlineEvents";
 import { findStage, isSpecialStage, pathwayOf, type StagePathway } from "./stage-map/stageMap";
 import { isInScope } from "./policy/a2iScope";
+import { situationOfCase, withSituationDates } from "./situation/situation";
 
 /** The broad stages the builder's confirmation offers. Mirrors UniversalStage. */
 export const CONFIRMABLE_STAGES = [
@@ -162,7 +163,8 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
     ...(readMotionAnswer(raw.motionToChange) ? { motionToChange: readMotionAnswer(raw.motionToChange) } : {}),
     stepId: stepValid ? (raw.stepId as string) : null,
     stepChosenAt: stepValid && typeof raw.stepChosenAt === "string" ? raw.stepChosenAt : null,
-    dateAnswers,
+    // The day they got the papers, from the situation answers (situation.ts), under any date given on the step page.
+    dateAnswers: withSituationDates(dateAnswers, courtPath, situationOfCase(masterResult)),
     service: readService(raw.service, courtPath),
   };
 }
