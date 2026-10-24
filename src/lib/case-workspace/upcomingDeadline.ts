@@ -17,6 +17,7 @@
  */
 
 import type { TimelineItem } from "./timeline";
+import { isRealIsoDate, todayInOntario } from "../case-system/dates";
 
 export type CountedDateReminder = {
   /** The stage map's name for the deadline. */
@@ -35,25 +36,14 @@ export const REMINDER_HORIZON_DAYS = 30;
 /** How long a passed date stays on the card, so it is seen, then gives way. */
 export const PASSED_SHOWN_DAYS = 14;
 
-const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
 function dayNumber(iso: string): number {
   const [y, m, d] = iso.split("-").map(Number);
   return Math.round(Date.UTC(y, m - 1, d) / 86_400_000);
 }
 
-/** Today in Ontario, as an ISO date. */
-export function ontarioToday(now: Date = new Date()): string {
-  try {
-    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now);
-    const part = (type: string) => parts.find((item) => item.type === type)?.value ?? "";
-    const iso = `${part("year")}-${part("month")}-${part("day")}`;
-    if (ISO.test(iso)) return iso;
-  } catch {
-    // No time-zone data: the device's own day.
-  }
-  return now.toISOString().slice(0, 10);
-}
+/** Today in Ontario, as an ISO date: the one definition, in dates.ts. */
+export const ontarioToday = (now: Date = new Date()): string => todayInOntario(now);
 
 /**
  * The one counted date to show for a case: the nearest one still to come
@@ -62,10 +52,10 @@ export function ontarioToday(now: Date = new Date()): string {
  * otherwise none.
  */
 export function nextCountedDate(items: readonly TimelineItem[], today: string): CountedDateReminder | null {
-  if (!ISO.test(today)) return null;
+  if (!isRealIsoDate(today)) return null;
   const now = dayNumber(today);
   const counted = items
-    .filter((item) => item.source.kind === "computed" && ISO.test(item.date))
+    .filter((item) => item.source.kind === "computed" && isRealIsoDate(item.date))
     .map((item) => {
       const daysAway = dayNumber(item.date) - now;
       return {

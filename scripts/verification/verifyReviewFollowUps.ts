@@ -20,8 +20,7 @@
  * Run: npm run test:review-follow-ups
  */
 import { reaffirmAnswers, staleAnswerKeys, storyAnswersOutdated, tagAnswers, BASIS_SECTION } from "../../src/lib/case-system/storyBasis";
-import { asksForDate, needsYear } from "../../src/lib/case-system/dateYear";
-import { servedDateNeedsYear } from "../../app/builder/_components/guidedFields";
+import { asksForDate, needsYear } from "../../src/lib/case-system/dates";
 import { withFullStop, acknowledgement } from "../../app/builder/_components/GuidedFormChat";
 import { citationLine } from "../../app/_components/CheckedAnswerPanel";
 import { joinPinpoints } from "../../app/_components/WhatComesNext";
@@ -54,8 +53,8 @@ const check = (name: string, ok: boolean, detail = "") => {
 }
 
 // 2. A date with no year is asked for its year.
-check("\"October 6\" is asked for its year", Boolean(servedDateNeedsYear("October 6")));
-check("\"October 6, 2026\", \"2026-10-06\" and \"6 October 2026\" are accepted", ["October 6, 2026", "2026-10-06", "6 October 2026"].every((date) => servedDateNeedsYear(date) === null));
+check("\"October 6\" is asked for its year", Boolean(needsYear("October 6")));
+check("\"October 6, 2026\", \"2026-10-06\" and \"6 October 2026\" are accepted", ["October 6, 2026", "2026-10-06", "6 October 2026"].every((date) => needsYear(date) === null));
 
 // 3. One closing full stop.
 check("one full stop after words that already end with one", withFullStop("Leo, age 7.") === "Leo, age 7." && withFullStop("Northwind Supplies Ltd.") === "Northwind Supplies Ltd." && withFullStop("Leo, age 7") === "Leo, age 7.");
@@ -94,7 +93,9 @@ check("\"No\" to the claim-filed question shows as the Claim Filed line, unticke
 
 // 7. #471 re-test: one year rule for every date box, in every area.
 check("every date box: a day without its year is asked for it", ["October 6", "Oct 6", "6 October", "10/06"].every((date) => needsYear(date) !== null));
-check("every date box: a full date, a month and year, or no date is not asked", ["October 6, 2026", "2026-10-06", "May 2026", "last week", "$6,000"].every((date) => needsYear(date) === null));
+check("every date box: a full date, a month and year, or no date is not asked", ["October 6, 2026", "2026-10-06", "May 2026", "$6,000"].every((date) => needsYear(date) === null));
+// Step 1 (one date module): a time only relative to now is not a date; the box asks for one.
+check("every date box: \"last week\" or \"two weeks ago\" is asked for the date", ["last week", "two weeks ago", "last Tuesday"].every((date) => needsYear(date) !== null));
 check("questions that ask for a date are known by their words", asksForDate("How and when were you served?") && asksForDate("What day were you served?") && !asksForDate("What would you like the court to order?"));
 
 // 8. #471 re-test: the Small Claims guided reading of an earlier story blocks only while one of its answers is still from that story.

@@ -308,9 +308,9 @@ const CASES: MutationCase[] = [
     mutations: [
       {
         file: EVENT_REQUEST,
-        find: "  if (!ISO_DATE.test(candidate)) return { ok: false };",
+        find: "  if (!isRealIsoDate(candidate)) return { ok: false };",
         replace:
-          "  if (!ISO_DATE.test(candidate)) {\n" +
+          "  if (!isRealIsoDate(candidate)) {\n" +
           "    const guess = new Date(candidate);\n" +
           "    return Number.isNaN(guess.getTime())\n" +
           "      ? { ok: false }\n" +

@@ -1,3 +1,4 @@
+import { mentionsDate } from "./dates";
 import type {
   CaseFormNeed,
   CaseRisk,
@@ -285,7 +286,7 @@ function detectRemedies(input: CivilWorkflowInput): CivilRemedyType[] {
 }
 
 function hasTimeline(input: CivilWorkflowInput): boolean {
-  return Boolean(input.timeline?.length) || includesAny(combinedText(input), ["timeline", "january", "february", "march", "202"]);
+  return Boolean(input.timeline?.length) || includesAny(combinedText(input), ["timeline"]) || mentionsDate(combinedText(input));
 }
 
 function evidenceCount(input: CivilWorkflowInput): number {

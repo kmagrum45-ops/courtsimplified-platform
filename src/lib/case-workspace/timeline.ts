@@ -46,7 +46,7 @@
  */
 
 import type { ComputedDeadline } from "../content-library/computedDeadline";
-import { formatForCourt, type DatePrecision } from "./parseDate";
+import { formatForCourt, isRealIsoDate, type DatePrecision } from "../case-system/dates";
 import { exhibitLabel } from "./exhibitNumbering";
 import type { TimelineEventTypeId } from "./documentTypes";
 
@@ -184,7 +184,7 @@ export type Timeline = {
 function dayOf(value: string | null | undefined): string | null {
   if (typeof value !== "string" || value.length < 10) return null;
   const day = value.slice(0, 10);
-  return /^\d{4}-\d{2}-\d{2}$/.test(day) ? day : null;
+  return isRealIsoDate(day) ? day : null;
 }
 
 /**

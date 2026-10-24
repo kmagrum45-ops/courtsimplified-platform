@@ -35,7 +35,7 @@ import {
   formatTimeForCourt,
   parseDate,
   resolveRelative,
-} from "../../src/lib/case-workspace/parseDate";
+} from "../../src/lib/case-system/dates";
 
 let failures = 0;
 const pass = (m: string) => console.log(`pass  ${m}`);

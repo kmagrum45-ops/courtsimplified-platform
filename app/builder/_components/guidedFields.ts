@@ -12,7 +12,6 @@
  * ticking the same box on the form would record.
  */
 
-import { needsYear } from "../../../src/lib/case-system/dateYear";
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
 import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import {
@@ -59,16 +58,6 @@ const has = (values: GuidedValues, key: string, ...wanted: string[]) => {
  */
 export { SERVED_LINE };
 
-/**
- * A service-date answer with a month and day but no year ("october 6"): the
- * chat asks for the year before keeping it, instead of the step page asking
- * "Which year was that?" later. Null when the answer is complete, or has no
- * date the site can read (the step page asks for that date in full).
- */
-export function servedDateNeedsYear(answer: string): string | null {
-  // The one rule for every date box (dateYear.ts, #471 re-test).
-  return needsYear(answer);
-}
 
 /** The service date kept in the timeline, or "" when none is. */
 export function servedDateOf(timeline: string): string {
@@ -158,7 +147,6 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       question: "What day were you served with the court papers, with the year (for example, October 6, 2026)? If you're not sure of the exact day, you can leave this for now.",
       why: "We use this date to work out the timing of your next step for you.",
       kind: "text",
-      needsMore: servedDateNeedsYear,
       // Someone who has already filed their answer is past that deadline.
       when: (values) => has(values, "yourRole", "respondent") && !has(values, "filedDocuments", "answer"),
     },

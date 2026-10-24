@@ -42,7 +42,7 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 
 import { exhibitLabel } from "./exhibitNumbering";
-import { formatForCourt, type DatePrecision } from "./parseDate";
+import { formatForCourt, type DatePrecision } from "../case-system/dates";
 import { documentTypeById } from "./documentTypes";
 
 export type ExhibitBookDocument = {

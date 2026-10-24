@@ -1,7 +1,7 @@
 "use client";
 
 import { useIntakeState } from "../../_components/IntakeRecovery";
-import { asksForDate, needsYear } from "../../../src/lib/case-system/dateYear";
+import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 
 /**
@@ -80,9 +80,9 @@ export type GuidedField = {
 /** What a text answer still needs before it is kept, or null (GuidedField.needsMore). */
 export function answerNeedsMore(field: GuidedField, value: string | string[]): string | null {
   if (typeof value !== "string" || !value.trim()) return null;
-  // Every question that asks for a date asks for its year (dateYear.ts, #471 re-test).
-  const check = field.needsMore ?? (asksForDate(field.question) ? needsYear : null);
-  return check ? check(value.trim()) : null;
+  // A field's own check, else the one check every date box uses (dates.ts).
+  // Family's served date is counted from (the Timeline line): one date, as every counted box.
+  return field.needsMore ? field.needsMore(value.trim()) : dateAnswerCheck(field.question, value.trim(), { oneDate: field.key === "servedDate" });
 }
 
 export type GuidedValues = Record<string, string | string[] | undefined>;

@@ -1,6 +1,7 @@
 "use client";
 
-import { asksForDate, needsYear } from "../../../src/lib/case-system/dateYear";
+import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
+import { isDateQuestionId } from "../../../src/lib/case-system/casePosition";
 import { intakeGuidanceHeaders, useIntakeReviewView, useIntakeState, useStory, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 import { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
 import { inputRevision, reviewPhase } from "../../../src/lib/case-system/intakeReview";
@@ -927,8 +928,8 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     if (loading || turnRequest.current.pending || !currentQuestion) return;
     const answerText = inputText.trim();
     // A date without its year is asked for its year before it is sent; sent without one, it
-    // was kept as "October 6" and then dropped (dateYear.ts, #471 re-test).
-    const year = (currentQuestion as { answerType?: string }).answerType === "date" || asksForDate(currentQuestion.text) ? needsYear(answerText) : null;
+    // was kept as "October 6" and then dropped (dates.ts, #471 re-test).
+    const year = dateAnswerCheck(currentQuestion.text, answerText, { dateQuestion: (currentQuestion as { answerType?: string }).answerType === "date", oneDate: isDateQuestionId(currentQuestion.id) });
     if (year) {
       setMessages((current) => [...current, { from: "assistant", text: year }]);
       return;
@@ -1223,6 +1224,18 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   function handleConfirmDepthProposals() {
     if (!proposalDrafts || !completionPayload?.matchedClaimType) return;
     const drafts = resolvedDrafts(proposalDrafts);
+    // An edited date follows the same rule as a typed one (dates.ts): asked for its year, not kept without it.
+    const dateNote = drafts
+      .filter((draft) => draft.keep && draft.answer.trim())
+      .map((draft) => {
+        const note = dateAnswerCheck(draft.questionText, draft.answer.trim(), { dateQuestion: draft.dateQuestion, oneDate: isDateQuestionId(draft.questionId) });
+        return note ? `${draft.questionText} ${note}` : null;
+      })
+      .find(Boolean);
+    if (dateNote) {
+      setMessages((current) => [...current, { from: "assistant", text: dateNote }]);
+      return;
+    }
     const confirmed: ConfirmedStoryAnswer[] = drafts
       .filter((draft) => draft.keep && draft.answer.trim())
       .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
@@ -1301,6 +1314,18 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
     }
     if (!proposalDrafts) return;
     const drafts = resolvedDrafts(proposalDrafts);
+    // An edited date follows the same rule as a typed one (dates.ts): asked for its year, not kept without it.
+    const dateNote = drafts
+      .filter((draft) => draft.keep && draft.answer.trim())
+      .map((draft) => {
+        const note = dateAnswerCheck(draft.questionText, draft.answer.trim(), { dateQuestion: draft.dateQuestion, oneDate: isDateQuestionId(draft.questionId) });
+        return note ? `${draft.questionText} ${note}` : null;
+      })
+      .find(Boolean);
+    if (dateNote) {
+      setMessages((current) => [...current, { from: "assistant", text: dateNote }]);
+      return;
+    }
     const confirmed: ConfirmedStoryAnswer[] = drafts
       .filter((draft) => draft.keep && draft.answer.trim())
       .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));

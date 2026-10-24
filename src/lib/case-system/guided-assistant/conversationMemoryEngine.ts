@@ -1,3 +1,4 @@
+import { mentionsDate } from "../dates";
 import {
   CasePartnerConversationMessage,
   CasePartnerCourtArea,
@@ -451,7 +452,7 @@ function inferAnsweredQuestions(
 
     if (
       q.includes("dates") &&
-      /\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/.test(text)
+      mentionsDate(text)
     ) {
       answered.push(question.value);
     }

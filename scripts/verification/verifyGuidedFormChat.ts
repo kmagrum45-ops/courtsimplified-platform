@@ -194,7 +194,9 @@ console.log("\n8. The family service date is asked with its year, and its why st
   });
   check("no answer the chat keeps leaves the step page asking which year", stepPageWouldAskYear.length === 0, stepPageWouldAskYear.join(" | "));
   check("a month and day with no year is asked for its year", Boolean(answerNeedsMore(served, "october 6")) && /year/i.test(answerNeedsMore(served, "october 6") ?? ""));
-  check("a full date, or no readable date, is kept as given", !answerNeedsMore(served, "October 6, 2026") && !answerNeedsMore(served, "last tuesday") && !answerNeedsMore(served, ""));
+  check("a full date, or no answer, is kept as given", !answerNeedsMore(served, "October 6, 2026") && !answerNeedsMore(served, ""));
+  // Step 1 (one date module): a time only relative to now is not a date; the box asks for one.
+  check("\"last tuesday\" is asked for the date", Boolean(answerNeedsMore(served, "last tuesday")));
   const chat = read("app/builder/_components/GuidedFormChat.tsx");
   check("the chat checks every typed answer before keeping it", /const more = answerNeedsMore\(current, cleaned\);\s*if \(more\) \{/.test(chat));
   check("a story answer that needs more is not offered for one click", /if \(!offered \|\| answerNeedsMore\(current, offered\.value\)\) return null;/.test(chat));

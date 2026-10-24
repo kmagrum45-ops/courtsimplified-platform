@@ -41,6 +41,7 @@
  * requirement that every draft is a proposal, not a finished document.
  */
 
+import { sentences as sharedSentences } from "./sentences";
 import type { SmallClaimsIntelligenceInput } from "./intelligence/smallClaimsIntelligenceEngine";
 import { sanitizeCognitionOutput } from "./intelligence/caseStrengthLanguageValidator";
 import { parseRecordedAmount, formatRecordedAmount } from "./format/recordedAmount";
@@ -77,30 +78,9 @@ const MISSING_AMOUNT = "[amount claimed to be confirmed]";
  * this constant) -- just enough that the naive [.!?]-followed-by-whitespace
  * split doesn't cut "Cedar & Co. never paid me" into two fragments at "Co.".
  */
-const SENTENCE_SPLIT_EXCEPTIONS = [
-  "Mr", "Mrs", "Ms", "Dr", "Prof", "Rev", "Hon", "Jr", "Sr",
-  "St", "Ave", "Blvd", "Rd",
-  "Co", "Inc", "Ltd", "Corp",
-  "vs", "etc", "No",
-];
-
-/**
- * Same split points as before ([.!?] followed by whitespace, or a newline)
- * except it never splits right after one of SENTENCE_SPLIT_EXCEPTIONS --
- * the negative lookbehind checks whether the text ending at the split point
- * (the whitespace immediately after the [.!?]) matches "<exception>.", and
- * if so, skips that split point.
- */
-const SENTENCE_SPLIT_REGEX = new RegExp(
-  `(?<!\\b(?:${SENTENCE_SPLIT_EXCEPTIONS.join("|")})\\.)(?<=[.!?])\\s+|\\n+`,
-  "gi",
-);
-
+/** The shared splitter (sentences.ts): it never splits after "Mr.", "Ltd.", "No." and the like. */
 function splitIntoSentences(text: string): string[] {
-  return text
-    .split(SENTENCE_SPLIT_REGEX)
-    .map((item) => item.trim())
-    .filter((item) => item.length > 0);
+  return sharedSentences(text);
 }
 
 function trimmed(value: string | undefined | null): string {

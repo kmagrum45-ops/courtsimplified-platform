@@ -32,7 +32,7 @@
  * NO MODEL IS CALLED HERE. Pure functions.
  */
 
-import { formatForCourt } from "./parseDate";
+import { formatForCourt } from "../case-system/dates";
 
 export type CommunicationDirection = "sent" | "received";
 

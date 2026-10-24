@@ -1,5 +1,6 @@
 "use client";
 
+import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse } from "../../_components/IntakeRecovery";
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
 import AnalysisProgress, { ANALYSIS_TIMEOUT_MS } from "./AnalysisProgress";
@@ -437,7 +438,7 @@ function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
   if (!hasText(input.facts)) missing.push("the case story");
   // Dates and evidence already in the story count (page review, 2026-10-06:
   // "important dates" was asked for after "the papers came on September 25").
-  const storyHasDate = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{1,2}\b|\b\d{4}-\d{2}-\d{2}\b/i.test(input.facts);
+  const storyHasDate = dateSpans(input.facts).length > 0;
   if (!hasText(input.timeline) && !storyHasDate) missing.push("important dates");
   if (!hasText(input.evidence)) missing.push("what evidence you have");
   if (!hasText(input.amountClaimed)) missing.push(isDefendantRole(input.yourRole) ? "the amount the claim asks for" : "the amount claimed, if money is requested");
@@ -1315,6 +1316,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
               placeholder="Service details, only if anything has already been served"
             />
+            {/* The same date check as every date box (dates.ts), as in the civil form: a note, since nothing is counted from this box. */}
+            {input.serviceDetails.trim() && dateAnswerCheck("When and how was it served?", input.serviceDetails.trim()) ? (
+              <span data-testid="sc-field-needs-more" className="text-sm text-[#8a4b12] md:col-span-2">{dateAnswerCheck("When and how was it served?", input.serviceDetails.trim())}</span>
+            ) : null}
           </div>
         </div>
 

@@ -1,3 +1,4 @@
+import { findDates, findDayMonthWithoutYear } from "../dates";
 import {
   CaseClaim,
   CaseEvidenceItem,
@@ -113,11 +114,11 @@ function extractYearValues(text: string): string[] {
 }
 
 function extractDateLikeValues(text: string): string[] {
-  const matches = text.match(
-    /\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?\s+\d{1,2}(?:,\s*\d{4})?|\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b|\b(19\d{2}|20\d{2})\b/gi,
-  );
-
-  return uniqueStrings(matches || []);
+  // The shared reader (dates.ts): each date written, as written.
+  return uniqueStrings([
+    ...findDates(text).filter((date) => date.precision !== "year").map((date) => date.source),
+    ...findDayMonthWithoutYear(text).map((date) => date.source),
+  ]);
 }
 
 function detectOppositeSignals(textA: string, textB: string): boolean {

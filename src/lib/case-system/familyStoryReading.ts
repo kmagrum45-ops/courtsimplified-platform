@@ -1,4 +1,15 @@
 /** Plain readings of a Family story, shared by the triage and the builder (no React, no network). */
+import { sentenceAt } from "./sentences";
+
+/**
+ * The clause of the story just before a position: from the start of its sentence (the
+ * shared splitter, so "Dr. Patel" does not start one) to the position, after any ";"
+ * or ", but" / ", and".
+ */
+function clauseBefore(story: string, index: number): string {
+  const sentence = sentenceAt(story, index);
+  return story.slice(sentence ? sentence.start : 0, index).split(/;|,\s*(?:but|and)\b/i).pop() ?? "";
+}
 
 export function existingFamilyOrder(story: string): boolean {
   return existingFamilyOrderQuote(story) !== null;
@@ -14,14 +25,13 @@ export function existingFamilyOrder(story: string): boolean {
 export function existingFamilyOrderQuote(story: string): string | null {
   const pattern = /\b(?:court order|(?:final|support|custody|parenting) order|ordered (?:him |her |them |me )?to pay|motion to change|family responsibility office|\bFRO\b|order (?:from|says|made) )/gi;
   for (const match of story.matchAll(pattern)) {
-    const clause = story.slice(0, match.index).split(/[.;!?\n]|,\s*(?:but|and)\b/i).pop() ?? "";
+    const clause = clauseBefore(story, match.index ?? 0);
     if (/\b(?:no|never|not|without|nor|n't)\b/i.test(clause)) continue;
     // Asking for an order is not having one; wanting a motion to change, or the FRO, still means one exists.
     if (/order/i.test(match[0]) && !/motion to change/i.test(match[0]) && /\b(?:want|wants|wanted|asking|ask|asked|seek|seeking|apply|applying|need|needs|get|getting|hope|hoping|like|request|requesting|would)\b/i.test(clause)) continue;
-    const start = Math.max(story.lastIndexOf(".", match.index ?? 0), story.lastIndexOf("\n", match.index ?? 0)) + 1;
-    const ends = [".", "!", "?", "\n"].map((mark) => story.indexOf(mark, match.index ?? 0)).filter((at) => at >= 0);
-    const end = ends.length ? Math.min(...ends) + 1 : story.length;
-    return story.slice(start, end).trim();
+    // The whole sentence, by the shared splitter (step 1 reviewer: "My lawyer is Dr. Patel and
+    // there is a court order" was quoted from "Patel").
+    return sentenceAt(story, match.index ?? 0)?.text ?? story.trim();
   }
   return null;
 }
@@ -34,7 +44,7 @@ export function existingFamilyOrderQuote(story: string): string | null {
  */
 function mentionedNotNegated(pattern: RegExp, story: string): boolean {
   for (const match of story.matchAll(pattern)) {
-    const clause = story.slice(0, match.index).split(/[.;!?\n]|,\s*(?:but|and)\b/i).pop() ?? "";
+    const clause = clauseBefore(story, match.index ?? 0);
     if (!/\b(?:no|never|not|without|nor|n't)\b/i.test(clause)) return true;
   }
   return false;

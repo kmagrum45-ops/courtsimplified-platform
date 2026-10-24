@@ -12,6 +12,7 @@
  */
 
 import { COURT_DECISION_TYPE, type DecisionDetails } from "./courtDecision";
+import { isRealIsoDate } from "../case-system/dates";
 
 export { COURT_DECISION_TYPE };
 
@@ -63,7 +64,7 @@ export function decisionUpdate(body: Record<string, unknown>): Record<string, st
   }
   if (body.decisionDate !== undefined) {
     const value = body.decisionDate === null ? "" : String(body.decisionDate).trim();
-    update.decision_date = /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : null;
+    update.decision_date = isRealIsoDate(value) ? value : null;
   }
   return Object.keys(update).length ? update : null;
 }

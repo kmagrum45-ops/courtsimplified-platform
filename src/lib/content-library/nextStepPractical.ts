@@ -25,6 +25,8 @@
  * how it is done, never whether to take it.
  */
 
+import { sentences as sharedSentences } from "../case-system/sentences";
+import { MONTH_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN, isRealIsoDate, todayInOntario } from "../case-system/dates";
 import type { RuleCitation } from "../case-system/stage-map/citations";
 import { R_15_01_MOTION_FORM, R_6_01_PLACE, S_CLPA_18_1_NOTICE } from "../case-system/stage-map/citations";
 import { COURT_LOCATIONS, COURT_LOCATIONS_RETRIEVED_AT, OCJ_COURTHOUSES, OCJ_SOURCE } from "./courts/courtLocations";
@@ -791,7 +793,7 @@ export const PERSON_SERVE_OR_FILE: Record<string, { files: boolean; serves: bool
  */
 export function personDeadlineOf(items: readonly { id?: string; date: string }[], kind: "files" | "serves"): string {
   return items
-    .filter((item) => item.id && PERSON_SERVE_OR_FILE[item.id]?.[kind] && /^\d{4}-\d{2}-\d{2}$/.test(item.date))
+    .filter((item) => item.id && PERSON_SERVE_OR_FILE[item.id]?.[kind] && isRealIsoDate(item.date))
     .map((item) => item.date)
     .sort()[0] ?? "";
 }
@@ -1152,7 +1154,7 @@ const UNNAMED_PLACE = /\b(?:works?|working|employed|job)\b[^.!?\n]*\b(?:at|for)\
  * employer ("works at Kanata Toyota") is not vague.
  */
 export function vagueEmployerSentence(story: string): string | null {
-  const sentences = proseOf(story).split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter(Boolean);
+  const sentences = sharedSentences(proseOf(story)).map((sentence) => sentence.trim()).filter(Boolean);
   return sentences.find((sentence) => WORKS_AT.test(sentence) && (HEDGED.test(sentence) || UNNAMED_PLACE.test(sentence))) ?? null;
 }
 
@@ -2091,23 +2093,8 @@ export function closedDayLine(countedDay: string, runsTo: string, today = ""): P
   };
 }
 
-/**
- * Today's date in Ontario (walkthrough run 38500825561, 2026-10-13 22:30 in
- * Toronto: a browser clock on UTC read 14 October and called a Toronto notice
- * passed whose next open day was still today). The deadlines are Ontario
- * deadlines, so the day is Ontario's day.
- */
-export function todayInOntario(now: Date = new Date()): string {
-  try {
-    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now);
-    const part = (type: string) => parts.find((item) => item.type === type)?.value ?? "";
-    const iso = `${part("year")}-${part("month")}-${part("day")}`;
-    if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
-  } catch {
-    // No time-zone data: fall back to the device's own day.
-  }
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-}
+/** Today's date in Ontario: the one definition, in dates.ts. */
+export { todayInOntario };
 
 /**
  * The words the card shows for a counted last day (walkthrough run
@@ -2480,8 +2467,8 @@ const NAMED_STREET_FALL = /^\s+(?:(?:on\s+(?:the\s+)?ice|on\s+(?:some\s+)?snow|b
 const WAY_BEFORE = new RegExp(`\\b(?:on|onto|in|into|along|across|over)\\s+(?:the|a|an|some)\\s+(?:[a-z][a-z'’-]*\\s+){0,3}${WAY}\\b|\\bpotholes?\\b`, "i");
 /** A defective way named before the fall, with no preposition: "There was a cracked sidewalk outside my building, I tripped". */
 const DEFECTIVE_WAY_BEFORE = new RegExp(`\\b(?:a|an|the)\\s+(?:[a-z]+\\s+){0,2}?(?:uneven|broken|cracked|raised|lifted|icy|unsalted|slippery|sunken|heaved)\\s+(?:[a-z]+\\s+){0,1}${WAY}\\b`, "i");
-const NO_OTHER_PLACE_AFTER =
-  /^\s*(?:$|[,.;!?]|and\b|then\b|but\b|(?:down|over|badly|hard)\b|on\s+(?:(?:january|february|march|april|may|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b|\d))/i;
+const NO_OTHER_PLACE_AFTER = new RegExp(
+  String.raw`^\s*(?:$|[,.;!?]|and\b|then\b|but\b|(?:down|over|badly|hard)\b|on\s+(?:(?:${MONTH_NAMES_PATTERN}|${WEEKDAY_NAMES_PATTERN})\b|\d))`, "i");
 const REFERS_BACK = /^\s+(?:on|over|into|in)\s+(?:it|that|there|them)\b/i;
 const ELSEWHERE_IN_SENTENCE =
   /\b(?:in|inside|at|into)\s+(?:the\s+|a\s+|an\s+|my\s+|their\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:store|shop|mall|supermarket|grocery|restaurant|plaza|community\s+cent(?:re|er)|construction\s+site|cottage|arena|condo\s+complex|hospital|yard|backyard)\b|\bon\s+(?:the\s+|a\s+|their\s+|his\s+|her\s+|my\s+|our\s+)?(?:[\w'’-]+\s+){0,2}(?:stairs|steps|staircase|stairwell|deck|porch|track)\b|\b(?:in|on|at|into)\s+(?:the\s+|a\s+|their\s+|my\s+|his\s+|her\s+)?(?:[\w'’-]+\s+){0,2}(?:parking\s+(?:lot|garage)|driveway)\b|\b(?:on|in|off|onto|boarding|getting\s+(?:off|on))\s+(?:the\s+|a\s+)?(?:ttc\s+)?(?:bus|streetcar|subway|train)\b|\b(?:bus|streetcar|subway|train)\s+(?:braked|stopped|lurched|jerked|started|moved|pulled)\b|\bon\s+(?:their|his|her)\s+(?:property|land|premises)\b|\bprivate\b|\bcondo\s+complex\b|\b(?:at|on|around)\s+the\s+(?:[\w'’-]+\s+){0,2}track\b|\bat\s+(?:my\s+|his\s+|her\s+|the\s+|their\s+)?school\b|\bschool\s+board\b|\b(?:deck|cottage|roof|ladder|yard|backyard|hospital)\b|\b(?:highway|hwy)\s*\d+|\bqew\b|\bprovincial\b/i;
@@ -2497,8 +2484,7 @@ const DEFECT = /\b(?:uneven|broken|cracked|raised|lifted|icy|ice|potholes?|holes
 
 /** The sentences of the person's words. */
 function sentencesOf(text: string): string[] {
-  return text
-    .split(/(?<=[.!?])\s+|\n+/)
+  return sharedSentences(text)
     .map((sentence) => sentence.trim())
     .filter(Boolean);
 }
@@ -2711,7 +2697,7 @@ export function practicalFor(
   const foldFees = court === "family" && claims !== null && parentingOnly(claims) && fees.some((fee) => FIRST_INSTANCE_FAMILY_FEES.has(fee.id));
   const familyNotes = foldFees ? familyFeeNotesFor(claims, true) : [];
   // `deadline`: the person's own filing deadline; `serveBy`: their own serving deadline (personDeadlineOf).
-  const iso = (value?: string) => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value));
+  const iso = (value?: string) => Boolean(value && isRealIsoDate(value));
   const tooClose = iso(timing.deadline) && iso(timing.today) ? tooCloseFilingLine(court, timing.today!, timing.deadline!, Boolean(timing.divisionalOnly)) : null;
   const portalLines = [...(toronto === true ? [filingLines.toronto] : toronto === false ? [filingLines.elsewhere] : [filingLines.toronto, filingLines.elsewhere]), ...filingLines.more];
   const mailTiming = iso(timing.serveBy) && iso(timing.today) && court === "small-claims" && step.serve === "ordinary" ? mailTimingLines(timing.today!, timing.serveBy!) : [];

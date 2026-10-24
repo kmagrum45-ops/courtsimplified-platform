@@ -56,6 +56,7 @@
  * function precisely so that can be tested without a flag and without a network.
  */
 import { OWNER_LIVE_TESTING } from "../case-system/policy/a2iScope";
+import { isRealIsoDate } from "../case-system/dates";
 
 /**
  * The date OpenAI confirmed, in writing, that zero data retention and modified abuse
@@ -451,8 +452,8 @@ export function validateAnalysis(raw: unknown): ValidationOutcome {
   }
 
   const date = text("date", 10);
-  if (date !== null && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-    return { ok: false, reason: `"${date}" is not a date written as YYYY-MM-DD` };
+  if (date !== null && !isRealIsoDate(date)) {
+    return { ok: false, reason: `"${date}" is not a real date written as YYYY-MM-DD` };
   }
 
   const precisionRaw = value.datePrecision;

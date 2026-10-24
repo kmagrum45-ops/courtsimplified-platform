@@ -14,6 +14,8 @@
  * Pure: no browser, no network, no model.
  */
 
+import { MONTH_FULL_NAMES_PATTERN, WEEKDAY_NAMES_PATTERN } from "../../../src/lib/case-system/dates";
+import { dateMentionsIn, MONTH_NAMES_PATTERN, MONTH_WORDS_EN } from "../../../src/lib/case-system/dates";
 import { claimAmountFromStory } from "../../../src/lib/case-system/claimAmount";
 
 export type StoryAnswer = { value: string; quote: string };
@@ -222,7 +224,7 @@ export function goalFromStory(story: string): StoryAnswer | null {
 export function childrenFromStory(story: string): StoryAnswer | null {
   const AGE = "(?:\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)";
   // "on september 29" is a day of the month, not an age (2026-10-13).
-  const NOT_A_DAY = `(?<!${MONTH_WORD}\\s)(?<!${MONTH_WORD}\\s\\d)`;
+  const NOT_A_DAY = `(?<!\\b(?:${MONTH_NAMES_PATTERN})\\s)(?<!\\b(?:${MONTH_NAMES_PATTERN})\\s\\d)`;
   const pattern = new RegExp(
     `\\b(?:daughters?|sons?|kids?|children|child|baby|boys?|girls?)\\b[^.]{0,30}?\\b(?:is|are|aged|age)?\\s*${NOT_A_DAY}${AGE}\\b(?!\\s*(?:years?|yrs?)\\s+ago)(?!\\s*(?:st|nd|rd|th)\\b)|\\b${AGE}[- ](?:year|yr)s?[- ]old\\b`,
     "i",
@@ -383,10 +385,12 @@ export function otherPartyFromStory(story: string): StoryAnswer | null {
   return null;
 }
 
-const LEAD_WORDS =
-  /^(?:(?:yesterday|today|tonight|tomorrow|last|next|this|in|on|then|now|so|ok|okay|and|but|also|recently|later|after|before|when|once|early|late|monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|march|april|may|june|july|august|september|october|november|december|week|month|year|morning|night)\s+)+/i;
+const LEAD_WORDS = new RegExp(
+  `^(?:(?:yesterday|today|tonight|tomorrow|last|next|this|in|on|then|now|so|ok|okay|and|but|also|recently|later|after|before|when|once|early|late|${WEEKDAY_NAMES_PATTERN}|${MONTH_FULL_NAMES_PATTERN}|week|month|year|morning|night)\\s+)+`,
+  "i",
+);
 
-const MONTH_NAMES = /^(?:january|february|march|april|may|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|saturday|sunday|ontario|canada)\b/i;
+const MONTH_NAMES = new RegExp(`^(?:${MONTH_FULL_NAMES_PATTERN}|${WEEKDAY_NAMES_PATTERN}|ontario|canada)\\b`, "i");
 
 /**
  * Family: the other person's name, only when the story gives one ("my ex,
@@ -419,9 +423,7 @@ export function otherPartyNameFromStory(story: string): StoryAnswer | null {
   return null;
 }
 
-const MONTH_WORD = "(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";
 // "march 2 weeks ago" is not March 2 (review, 2026-10-13).
-const SERVED_DATE = new RegExp(`\\b(${MONTH_WORD})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?(?!\\s*(?:weeks?|days?|months?|years?|hours?|wks?|yrs?)\\b)(?:,?\\s+(\\d{4}))?\\b|\\b(\\d{4})-(\\d{1,2})-(\\d{1,2})\\b`, "gi");
 // The person is the one served (review, 2026-10-13: "he was served on may 5"
 // and "i served my ex on september 3" were offered as their own service date).
 const SERVED_WORDS =
@@ -430,15 +432,7 @@ const SERVED_WORDS =
 const OTHER_MOMENT =
   /\b(?:filed|issued|hearing|conference|trial|mediation|scheduled|court date|motion date|questioning|discovery|moved|separated|married|split|bought|sold|signed|born|happened|rented|hired|started|ended|fired|paid|lent|closed|died|turns?)\b/i;
 
-/** A real calendar day: no June 31, May 99 or 2026-09-31. */
-function realDay(month: number, day: number, year?: number): boolean {
-  if (month < 1 || month > 12 || day < 1) return false;
-  // Without a year, 2024 (a leap year) keeps February 29 possible.
-  const last = new Date(Date.UTC(year ?? 2024, month, 0)).getUTCDate();
-  return day <= last;
-}
 const HOW_SERVED = /\b(?:in person|by (?:registered )?mail|by email|by courier|by a process server|at my (?:house|home|door|work|office))\b/i;
-const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 
 /**
  * The day the person was served, when the story gives one in the same words
@@ -453,17 +447,13 @@ export function servedDateFromStory(story: string): StoryAnswer | null {
     if (!served) continue;
     const servedAt = served.index ?? 0;
     let best: { text: string; distance: number } | null = null;
-    for (const match of sentence.matchAll(SERVED_DATE)) {
-      const at = match.index ?? 0;
-      const end = at + match[0].length;
+    for (const mention of dateMentionsIn(sentence)) {
+      const at = mention.index;
+      const end = at + mention.source.length;
       const between = at > servedAt ? sentence.slice(servedAt + served[0].length, at) : sentence.slice(end, servedAt);
       if (OTHER_MOMENT.test(between)) continue;
       // "the house we bought on june 3": the words just before the date name its moment.
       if (OTHER_MOMENT.test(clauseBefore(sentence, at).slice(-40))) continue;
-      const month = match[1] ? MONTHS.findIndex((name) => name.startsWith(match[1].toLowerCase().slice(0, 3))) + 1 : Number(match[5]);
-      const day = Number(match[1] ? match[2] : match[6]);
-      const year = match[1] ? (match[3] ? Number(match[3]) : undefined) : Number(match[4]);
-      if (!realDay(month, day, year)) continue;
       if (at < servedAt) {
         // "we separated on march 3 2024 and i got served last week": a date
         // whose clause closes with "and" before the served words is that
@@ -471,9 +461,10 @@ export function servedDateFromStory(story: string): StoryAnswer | null {
         if (/^[\s,.]*(?:and|then|but|later|so)\b/i.test(between)) continue;
         if (OTHER_MOMENT.test(clauseBefore(sentence, at))) continue;
       }
-      const text = match[1]
-        ? `${capital(MONTHS.find((month) => month.startsWith(match[1].toLowerCase().slice(0, 3))) ?? match[1])} ${Number(match[2])}${match[3] ? `, ${match[3]}` : ""}`
-        : `${match[4]}-${match[5].padStart(2, "0")}-${match[6].padStart(2, "0")}`;
+      // As written: an ISO date stays ISO; otherwise the month in words, the year only if given.
+      const text = /^\d{4}-/.test(mention.source) && mention.iso
+        ? mention.iso
+        : `${MONTH_WORDS_EN[mention.month - 1]} ${mention.day}${mention.year ? `, ${mention.year}` : ""}`;
       const distance = Math.abs(at - servedAt);
       if (!best || distance < best.distance) best = { text, distance };
     }

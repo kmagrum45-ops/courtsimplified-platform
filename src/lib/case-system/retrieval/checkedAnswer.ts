@@ -31,6 +31,7 @@
  * showed before.
  */
 
+import { sentences as sharedSentences } from "../sentences";
 import type { CheckedAnswerView } from "../intelligence/intelligenceTypes";
 import { historicalStatementOk, isHistoricalId } from "./historicalLaw";
 import { hasLegalContent } from "../intelligence/groundedCognition";
@@ -285,7 +286,7 @@ export function withoutTalkAboutPassages(text: string): string {
   // A sentence ends at . ! or ? followed by a space, so "$2.5 million" and
   // "s. 64 (1)" stay whole (2026-10-07 exam: an earlier pattern cut "$2." off
   // and showed "5 million" as the threshold).
-  const sentences = text.trim().split(/(?<=[.!?])\s+/);
+  const sentences = sharedSentences(text.trim());
   return sentences.filter((sentence) => !PASSAGE_TALK.test(sentence)).join(" ").trim();
 }
 
@@ -468,7 +469,8 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
       const texts = drafted.statements.map((statement) => statement.text);
       const judge = async (i: number, searchCount: number, hint?: string): Promise<Judged> => {
         const text = texts[i];
-        const fallbackTopic = text.split(/[.;:]/)[0].slice(0, 80);
+        // The first sentence (the shared splitter: "Under s. 4" is not cut at "s."), to its first ; or :.
+        const fallbackTopic = (sharedSentences(text)[0] ?? text).split(/[;:]/)[0].slice(0, 80);
         const passages = passagesFor(i, searchCount);
         const failed = (why: string, topic = fallbackTopic): Judged => ({ why, topic, text });
         if (!passages.length) return failed("no passage found");

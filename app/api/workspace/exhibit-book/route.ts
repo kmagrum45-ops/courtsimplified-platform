@@ -44,7 +44,7 @@ import {
   buildExhibitBook,
   type ExhibitBookDocument,
 } from "@/src/lib/case-workspace/exhibitBook";
-import type { DatePrecision } from "@/src/lib/case-workspace/parseDate";
+import type { DatePrecision } from "@/src/lib/case-system/dates";
 
 export const runtime = "nodejs";
 

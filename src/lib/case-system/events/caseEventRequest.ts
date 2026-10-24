@@ -28,9 +28,9 @@
  */
 
 import { caseEventType, type CaseEventType } from "./caseEventTypes";
+import { isRealIsoDate } from "../dates";
 
 /** ISO calendar date, as a date picker produces. Never parsed from prose. */
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 export const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -66,7 +66,7 @@ export function pickedDate(
   if (value === undefined || value === null || value === "") return { ok: true, date: null };
 
   const candidate = text(value);
-  if (!ISO_DATE.test(candidate)) return { ok: false };
+  if (!isRealIsoDate(candidate)) return { ok: false };
 
   // Reject a well-formed but impossible date (2026-02-31) without computing
   // anything about it: round-trip it and require the same string back.

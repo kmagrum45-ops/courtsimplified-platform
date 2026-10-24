@@ -41,6 +41,7 @@
  * the user to confirm what they already recorded.
  */
 
+import { mentionsDate } from "../dates";
 import { createHash } from "node:crypto";
 
 import { type CaseEventRow } from "./caseEventAdapter";
@@ -203,24 +204,6 @@ export function candidatesFromMasterResult(masterResult: unknown): EventCandidat
 }
 
 /*
- * A date of any kind: a month ("may" only as a date: "in may", "may 14"), a
- * numeric date or year, a weekday, or "yesterday", "last week", "3 weeks
- * ago". "It's been months" is a length of time, not a date.
- */
-const ANY_DATE = new RegExp(
-  [
-    "\\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\\b",
-    "\\b(?:in|on|since|of|last|by|until|early|late|mid|this|next)\\s+may\\b",
-    "\\bmay\\s+\\d",
-    "\\b\\d{1,4}[/-]\\d{1,2}(?:[/-]\\d{1,4})?\\b",
-    "\\b(?:19|20)\\d{2}\\b",
-    "\\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|yesterday|today|tonight|tomorrow)\\b",
-    "\\blast (?:week|month|year|night|spring|summer|fall|autumn|winter)\\b",
-    "\\bago\\b",
-  ].join("|"),
-  "i",
-);
-/*
  * The ONLY sentences dropped: still waiting for someone to pay or reply, or
  * "nothing has happened", optionally after "it's been <time>". Review
  * 2026-10-13/14: a rule that dropped any negative sentence without a listed
@@ -252,7 +235,7 @@ const WAITING_SENTENCE = new RegExp(
  * sidewalk wasnt salted at all"). Exported for test:case-events.
  */
 export function describesNothingHappening(sentence: string): boolean {
-  if (ANY_DATE.test(sentence)) return false;
+  if (mentionsDate(sentence)) return false;
   return WAITING_SENTENCE.test(sentence.trim());
 }
 

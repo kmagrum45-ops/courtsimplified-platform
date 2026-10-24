@@ -48,7 +48,8 @@
  * worse answer, which is the only way an optional question stays honest.
  */
 
-import { parseIso, type IsoDate } from "./holidays";
+import { type IsoDate } from "./holidays";
+import { parseAnswerDate } from "../dates";
 
 export type DeadlineEventKey =
   | "served-with-claim"
@@ -486,11 +487,6 @@ export const DEADLINE_EVENTS = {
 /** The dates a case is known to have. Every one optional, all ISO. */
 export type CaseDates = Partial<Record<DeadlineEventKey, IsoDate>>;
 
-const MONTHS = [
-  "january", "february", "march", "april", "may", "june",
-  "july", "august", "september", "october", "november", "december",
-];
-
 /**
  * Turns whatever a user typed into an ISO date, or nothing.
  *
@@ -509,49 +505,8 @@ const MONTHS = [
  * what they would have got without answering.
  */
 export function parseUserDate(input: string): IsoDate | null {
-  const text = input.trim().toLowerCase().replace(/,/g, " ").replace(/\s+/g, " ");
-  if (!text) return null;
-
-  const iso = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(text);
-  if (iso) return validated(Number(iso[1]), Number(iso[2]), Number(iso[3]));
-
-  const monthName = MONTHS.map((month) => month.slice(0, 3)).join("|");
-
-  // 3 April 2026 / 3 Apr 2026 / 3rd April 2026
-  const dayFirst = new RegExp(
-    `^(\\d{1,2})(?:st|nd|rd|th)? (${monthName})[a-z]* (\\d{4})$`,
-  ).exec(text);
-  if (dayFirst) {
-    return validated(Number(dayFirst[3]), monthNumber(dayFirst[2]), Number(dayFirst[1]));
-  }
-
-  // April 3 2026 / Apr 3rd 2026
-  const monthFirst = new RegExp(
-    `^(${monthName})[a-z]* (\\d{1,2})(?:st|nd|rd|th)? (\\d{4})$`,
-  ).exec(text);
-  if (monthFirst) {
-    return validated(Number(monthFirst[3]), monthNumber(monthFirst[1]), Number(monthFirst[2]));
-  }
-
-  return null;
-}
-
-function monthNumber(prefix: string): number {
-  return MONTHS.findIndex((month) => month.startsWith(prefix)) + 1;
-}
-
-/** A well-formed date that does not exist — 31 February — is refused too. */
-function validated(year: number, month: number, day: number): IsoDate | null {
-  const candidate =
-    `${String(year).padStart(4, "0")}-` +
-    `${String(month).padStart(2, "0")}-` +
-    `${String(day).padStart(2, "0")}`;
-  try {
-    parseIso(candidate);
-    return candidate;
-  } catch {
-    return null;
-  }
+  // The one reader of a typed date (dates.ts); its rules are the ones above.
+  return parseAnswerDate(input);
 }
 
 /** Every event we do ask about, for the intake bank and its coverage check. */

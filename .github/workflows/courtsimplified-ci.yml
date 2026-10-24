@@ -235,6 +235,12 @@ jobs:
       - name: Review follow-ups (answers re-confirm, years asked, one full stop, one citation)
         run: npm run test:review-follow-ups
 
+      - name: One sentence splitter and one date reader; no second copy (shared behaviour guard)
+        run: npm run test:shared-behaviour
+
+      - name: Every entry point reads a date and splits sentences the same way
+        run: npm run test:date-entry-points
+
       - name: The next-step analysis finishes inside the page's wait and the server's limit
         run: npm run test:analysis-time-budget
 

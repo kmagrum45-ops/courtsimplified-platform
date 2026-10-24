@@ -1,3 +1,4 @@
+import { mentionsDate } from "./dates";
 import {
   analyzeEvidenceBundle,
   type EvidenceBundleAnalysis,
@@ -818,9 +819,7 @@ function buildTimelineFromEvidence(
 
   const factEvents: CaseTimelineEvent[] = cleanList(facts)
     .filter((fact) =>
-      /\b(19|20)\d{2}\b|\bjan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\byesterday\b|\btoday\b|\blast\b|\bnext\b/i.test(
-        fact,
-      ),
+      mentionsDate(fact) || /\b(?:last|next)\b/i.test(fact),
     )
     .map((fact) => ({
       id: createId("timeline_fact"),

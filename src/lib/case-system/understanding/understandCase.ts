@@ -38,6 +38,7 @@
  * its official source and quote (s. 2). Never throws.
  */
 
+import { sentences as sharedSentences } from "../sentences";
 import { checkedAnswer, type CheckedAnswer, type CheckedAnswerDeps } from "../retrieval/checkedAnswer";
 import type { RetrievalCourt } from "../retrieval/storyRetrieval";
 import { fixedRegimeFor, lienStepFor, type FixedRegimeId } from "../intelligence/fixedRegimes";
@@ -215,8 +216,7 @@ const CITES_LAW = {
 
 /** Drops the sentences of `text` that state law. Pure. */
 export function withoutLaw(text: string): string {
-  return text
-    .split(/(?<=[.!?])\s+/)
+  return sharedSentences(text)
     .filter((sentence) => sentence.trim() && !statesLaw(sentence))
     .join(" ")
     .trim();

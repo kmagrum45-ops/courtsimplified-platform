@@ -1,4 +1,6 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
+import { sentences as sharedSentences } from "./sentences";
+import { countable, dayWrittenBefore, findDates, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
@@ -11,7 +13,7 @@ type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
 const OPTIONAL = new Set(["evidence", "missingEvidence", "uploadedEvidenceFiles", "uploadedFiles", "evidenceFiles", "evidenceText", "defenceEvidenceText"]);
 const UI = new Set(["mode", "editingStory", "personSet", "personDocuments"]);
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string };
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -48,7 +50,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(definition?.options?.length ? { choices: definition.options } : {}) });
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(definition?.options?.length ? { choices: definition.options } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -71,7 +73,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   // (re-test 2026-10-18: a confirmed "served last week" appeared nowhere in the review).
   if (courtPath === "family" && (object(sections.family).yourRole === "respondent" || servedDateOf(String(object(sections.family).timeline ?? "")))) {
     const served = servedDateOf(String(object(sections.family).timeline ?? ""));
-    const said = served ? undefined : storyOf(sections).split(/(?<=[.!?])\s+|\n+/).find(sentence => /\bserved\b/i.test(sentence))?.trim();
+    const said = served ? undefined : sharedSentences(storyOf(sections)).find(sentence => /\bserved\b/i.test(sentence))?.trim();
     entries.push({ section: "family", field: "servedDate", label: "Day you were served", value: served, essential: true, ...(said ? { hint: `Your story says: “${said}”` } : {}) });
   }
   const location = locationOf(sections);
@@ -227,7 +229,6 @@ export function initialAnswersOf(checkpoint: Checkpoint): Record<string, string>
   return Object.fromEntries(Object.entries(answers).filter(([, value]) => typeof value === "string" && value.trim())) as Record<string, string>;
 }
 
-const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 const SIDE_CUES: [RegExp, string][] = [
   [/\b(i was served|served me|sued me|suing me|claim against me|claimed against me|they are claiming|plaintiff's claim against)\b/i, "Responding to a claim (defendant)"],
   // The person telling a story about money they paid out is the one bringing the claim
@@ -247,10 +248,6 @@ const CATEGORY_CUES: [RegExp, string][] = [
   [/\b(bought|purchase\w*|refund)\b/i, "A consumer purchase problem"],
   [/\b(contract|agreement)\b/i, "A contract or agreement dispute"],
 ];
-const WRITTEN_DATE = new RegExp(String.raw`\b(${MONTHS.join("|")})\s+(\d{1,2}),?\s+(\d{4})\b`, "i");
-const ISO_DATE = /\b(\d{4})-(\d{2})-(\d{2})\b/;
-/** "August 2026": the question asks roughly when, so a month answers it. */
-const MONTH_YEAR = new RegExp(String.raw`\b(${MONTHS.join("|")})\s+(\d{4})\b`, "i");
 
 /**
  * Suggestions for the Small Claims initial questions, read from the story without
@@ -281,29 +278,26 @@ export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, st
 
 /** "payment was due July 10", "by July 10": a deadline, not when it happened. */
 const DEADLINE_BEFORE = /\b(?:due|deadline|payable|by|until|before|no later than|expires?|expiring)\s*(?:on\s*)?$/i;
-const MONTH_DAY = new RegExp(String.raw`\b(${MONTHS.join("|")})\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(\d{4}))?\b`, "gi");
 
 /**
  * When it happened, from the story: the first date that is not written as a
  * deadline (re-test round 7: "work finished June 10, payment due July 10" was
- * read as July 10). A date with no year takes the year another date in the
- * story gives; a month and year alone ("August 2026") is used when no day is.
+ * read as July 10), read by the shared reader (dates.ts). A full date is offered
+ * as it is, a month and year ("August 2026") as it is. A day and month with no
+ * year is not offered: its year would be a guess (it took another date's year
+ * before), so the person types it and is asked for the year.
  */
 function whenItHappened(story: string): string | null {
-  const iso = ISO_DATE.exec(story);
-  const candidates = [...story.matchAll(MONTH_DAY)].map(match => ({ match, deadline: DEADLINE_BEFORE.test(story.slice(Math.max(0, (match.index ?? 0) - 30), match.index)) }));
-  const yearInStory = candidates.find(item => item.match[3])?.match[3] ?? MONTH_YEAR.exec(story)?.[2];
-  const chosen = candidates.find(item => !item.deadline) ?? null;
-  if (chosen) {
-    const [, monthName, day, year] = chosen.match;
-    const month = String(MONTHS.indexOf(monthName.toLowerCase()) + 1).padStart(2, "0");
-    const knownYear = year ?? yearInStory;
-    return knownYear ? `${knownYear}-${month}-${day.padStart(2, "0")}` : `${monthName[0].toUpperCase()}${monthName.slice(1).toLowerCase()} ${day}`;
-  }
-  if (iso && !DEADLINE_BEFORE.test(story.slice(Math.max(0, iso.index - 30), iso.index))) return `${iso[1]}-${iso[2]}-${iso[3]}`;
-  const month = MONTH_YEAR.exec(story);
-  if (month) return `${month[1][0].toUpperCase()}${month[1].slice(1).toLowerCase()} ${month[2]}`;
-  return null;
+  const notDeadline = (index: number) => !DEADLINE_BEFORE.test(story.slice(Math.max(0, index - 30), index));
+  const mentions = [
+    ...findDates(story).filter((date) => (date.precision === "day" ? countable(date) : date.precision === "month" && !dayWrittenBefore(story, date))).map((date) => ({ index: story.indexOf(date.source), date })),
+    ...findDayMonthWithoutYear(story).filter((date) => !date.numeric).map((date) => ({ index: date.index, date: null })),
+  ].filter((mention) => mention.index >= 0).sort((a, b) => a.index - b.index);
+  const chosen = mentions.find((mention) => notDeadline(mention.index));
+  if (!chosen || !chosen.date) return null;
+  if (chosen.date.precision === "day") return chosen.date.iso;
+  const [year, month] = chosen.date.iso.split("-").map(Number);
+  return `${MONTH_WORDS_EN[month - 1]} ${year}`;
 }
 
 export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, action: "review" | "collect" | "confirm", expectedInputRevision: string, now: string): ObjectValue {

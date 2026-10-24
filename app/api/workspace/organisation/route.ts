@@ -52,7 +52,7 @@ import {
   buildCommunicationLog,
   type CommunicationRow,
 } from "@/src/lib/case-workspace/communicationLog";
-import { findDates, formatForCourt, type DatePrecision } from "@/src/lib/case-workspace/parseDate";
+import { findDates, formatForCourt, type DatePrecision } from "@/src/lib/case-system/dates";
 import { DOCUMENT_TYPES } from "@/src/lib/case-workspace/documentTypes";
 import { computedDeadlinesFor } from "@/src/lib/content-library/computedDeadline";
 import { keptForNotices, timelineStandingFor, todayInOntario } from "@/src/lib/content-library/nextStepPractical";
