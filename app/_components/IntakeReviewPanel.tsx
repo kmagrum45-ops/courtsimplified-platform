@@ -100,7 +100,18 @@ export default function IntakeReviewPanel() {
   // somewhere else shows that answer instead of asking for it again.
   const caseFile = caseFileOf(checkpoint);
   // Only an answer is shown in place of the box: a "not sure" fact is offered here once more, in its box.
-  const heldSlot = (field: string) => { const slot = slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "answered"); return slot ?? null; };
+  const answeredSlot = (field: string) => slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "answered") ?? null;
+  // A "not sure" fact gets ONE box here (its one more offer): a later box for the same fact shows "Not sure yet".
+  const offeredInBox = new Set<string>();
+  const duplicateUnsure = new Set<string>();
+  for (const entry of entries) {
+    if (!empty(entry.value) || entry.fromStart || answeredSlot(entry.field)) continue;
+    const unsure = slotsOfQuestion(entry.field).filter(fact => caseFile[fact].state === "unsure");
+    if (!unsure.length) continue;
+    if (unsure.every(fact => offeredInBox.has(fact))) duplicateUnsure.add(entry.field);
+    else for (const fact of unsure) offeredInBox.add(fact);
+  }
+  const heldSlot = (field: string) => answeredSlot(field) ?? (duplicateUnsure.has(field) ? slotsOfQuestion(field).map(fact => caseFile[fact]).find(item => item.state === "unsure") ?? null : null);
   async function act(action: "review" | "collect" | "confirm") {
     if (!recovery || busy) return;
     setBusy(true); setError("");

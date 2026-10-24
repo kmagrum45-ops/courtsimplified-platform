@@ -492,7 +492,7 @@ for (const story of STORIES) {
         checkText(run, "chat", asked);
         note(run, "chat", "no line ends on its lead-in with nothing after it", !/To keep your case record complete:\s*$/m.test(gather + "\n" + asked), asked.slice(-160));
         if (/served/i.test(story.story) && /October \d/.test(story.story)) {
-          note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(0, 200));
+          note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(Math.max(0, (gather + asked).search(/main dates/i) - 200), (gather + asked).search(/main dates/i) + 80));
         }
       } else note(run, "chat", "the follow-up chat can be opened", false);
 

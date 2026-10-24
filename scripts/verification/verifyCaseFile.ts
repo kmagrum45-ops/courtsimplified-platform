@@ -18,8 +18,9 @@
  * decided on its own (Jason's walkthrough findings 1-3 and the 22 repeats the ask-once
  * gate found on 2026-10-23).
  */
-import { type SlotFact, alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
+import { type SlotFact, slotsOfQuestion, alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
+import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { situationOf, withSituationDates } from "../../src/lib/case-system/situation/situation";
 import { withCaseFileAnswers } from "../../src/lib/case-system/caseFile/triageFromCaseFile";
 import { emptyStatusRecord } from "../../src/lib/case-system/family/statusTriage";
@@ -120,6 +121,19 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   const file = caseFileOf(checkpoint("small-claims", {}), { position: { claimKind: "not-sure", stepId: "plaintiff:defence-filed" } });
   check("a kind of claim answered \"not sure\" on the results counts as asked", file.claimKind.state === "unsure" && alreadyAsked(file, "claim-kind-suggestion"));
   check("a step chosen is the stage", file.stage.state === "answered" && alreadyAsked(file, "stage-confirmation"));
+}
+
+// 7. Option 1 (Jason, 2026-10-24): a "not sure" fact gets its one more offer in the review,
+// as ONE field, and never blocks Confirm.
+{
+  for (const court of ["small-claims", "civil", "family"] as const) {
+    const served = checkpoint(court, { story: { text: "Synthetic story.", location: { province: "Ontario", city: "Sudbury" } }, situation: { record: { where: "served", papers: "not-sure", receivedOn: "unknown", court, courtFrom: "choice" } } });
+    const file = caseFileOf(served);
+    const listed = remainingEssentialQuestions(served, true).filter((question) => slotsOfQuestion(question.id).includes("servedDate"));
+    const boxes = reviewEntries(served).filter((entry) => (entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))) && slotsOfQuestion(entry.field).includes("servedDate") && !entry.fromStart);
+    check(`${court}: an unknown served day is offered once in the review, as one field`, file.servedDate.state === "unsure" && (boxes.length > 0 ? listed.length === 0 : listed.length <= 1), `questions ${listed.map((q) => q.id).join(", ")}; boxes ${boxes.map((b) => b.field).join(", ")}`);
+    check(`${court}: a "not sure" fact never blocks Confirm`, !remainingEssentialQuestions(served).some((question) => slotsOfQuestion(question.id).includes("servedDate")));
+  }
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

@@ -986,7 +986,9 @@ function buildBestQuestion(args: {
     return assistantText("assistant:question:plain", { question: reasoningQuestion });
   }
 
-  return assistantText("assistant:question:fallback");
+  // The case already holds a date (the message or the saved story): "the main dates" is not asked for.
+  const datesKnown = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low");
+  return datesKnown ? assistantText("assistant:question:fallback-dated") : assistantText("assistant:question:fallback");
 }
 
 function buildCaution(
