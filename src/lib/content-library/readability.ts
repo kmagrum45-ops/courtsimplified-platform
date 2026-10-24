@@ -1,3 +1,4 @@
+import { sentences as sharedSentences } from "../case-system/sentences";
 /**
  * Reading level, measured rather than asserted.
  *
@@ -65,8 +66,11 @@ const CITATION_PATTERNS: RegExp[] = [
   /\bO\.\s*Reg\.\s*\d+\/\d+(?:,\s*[sr]\.\s*[\d.()\s]+)?/gi,
   /\b[RS]\.S\.[OC]\.\s*\d{4},?\s*c\.\s*[\w.]+/gi,
   /\bS\.O\.\s*\d{4},?\s*c\.\s*[\w.]+(?:,\s*Sched\.\s*\w+)?/gi,
-  /\brr?\.\s*\d{1,2}\.\d{1,2}(?:\.\d{1,2})?(?:\s*\(\s*[\d.]+\s*\))*/gi,
-  /\bss?\.\s*\d{1,3}(?:\.\d{1,2})?(?:\s*\(\s*[\d.]+\s*\))*/gi,
+  // "r. 11.01 (1)" (Small Claims, civil) and "r. 3 (2)", "r. 13 (11) (a)" (Family Law Rules,
+  // whose rules have one number). Until step 1 the Family form escaped this pattern and was
+  // hidden only because the old sentence split cut "r. 3 (2)" into two "sentences".
+  /\brr?\.\s*\d{1,2}(?:\.\d{1,2}){0,2}(?:\s*\(\s*[\da-z.]+\s*\))*/gi,
+  /\bss?\.\s*\d{1,3}(?:\.\d{1,2})?(?:\s*\(\s*[\da-z.]+\s*\))*/gi,
   /\bForm\s+\d{1,2}[A-Z]?\b/gi,
 ];
 
@@ -105,8 +109,7 @@ export function countSyllables(word: string): number {
 }
 
 function splitSentences(text: string): string[] {
-  return text
-    .split(/(?<=[.!?])\s+|\n+/)
+  return sharedSentences(text)
     .map((sentence) => sentence.trim())
     .filter((sentence) => /[a-z]/i.test(sentence));
 }

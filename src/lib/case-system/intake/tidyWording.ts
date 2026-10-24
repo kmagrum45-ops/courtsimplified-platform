@@ -26,6 +26,7 @@
  * A suggestion failing any check is dropped; the user's text simply stays.
  */
 
+import { sentences as sharedSentences } from "../sentences";
 import { createOpenAIClient } from "../openaiClient";
 import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
@@ -88,7 +89,7 @@ const quotedPassages = (text: string) =>
 function capitalisedWords(text: string): Set<string> {
   const words = new Set<string>();
   // Skip the first word of each sentence, and "I".
-  for (const sentence of text.split(/(?<=[.!?])\s+|\n+/)) {
+  for (const sentence of sharedSentences(text)) {
     const tokens = sentence.trim().split(/\s+/).slice(1);
     for (const token of tokens) {
       const word = token.replace(/[^A-Za-z'’-]/g, "");

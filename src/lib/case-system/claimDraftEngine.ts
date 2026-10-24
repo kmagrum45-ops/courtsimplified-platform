@@ -1,3 +1,4 @@
+import { sentences as sharedSentences } from "./sentences";
 export type ClaimDraftInput = {
   courtPath?: string;
   caseStage?: string;
@@ -42,8 +43,7 @@ function cleanList(items: string[]) {
 function splitIntoSentences(text?: string) {
   if (!text) return [];
 
-  return text
-    .split(/(?<=[.!?])\s+|\n+/)
+  return sharedSentences(text)
     .map((item) => item.trim())
     .filter((item) => item.length > 0);
 }

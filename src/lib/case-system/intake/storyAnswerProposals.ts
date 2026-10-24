@@ -34,6 +34,8 @@ import { createOpenAIClient } from "../openaiClient";
 import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import type { IntakeQuestion } from "./questionBank";
+import { dateAnswerCheck, findDates } from "../dates";
+import { isDateQuestionId } from "../casePosition";
 
 /** Upper bound on one proposed answer, matching the captured-answer cap. */
 const MAX_PROPOSED_ANSWER_LENGTH = 400;
@@ -46,6 +48,8 @@ export type StoryAnswerProposal = {
   answer: string;
   /** The words from the user's own story the proposal relies on. Verified present. */
   storyQuote: string;
+  /** The question asks for a date by its type: the card checks an edited answer as every date box does. */
+  dateQuestion?: boolean;
   /** The reviewed choices, for a choice question, so the user can pick another. */
   choices?: string[];
 };
@@ -176,8 +180,17 @@ export function validateStoryProposals(
     }
 
     if (question.answerType === "yes-no" && !/^(yes|no)\b/i.test(trimmedAnswer)) continue;
+    // A date follows the one rule for every date box (dates.ts): a drafted "Oct 6",
+    // "10/06/2026" or "last Tuesday" is not offered (the question is asked, with its
+    // year), and a full date must be one the person wrote, year and all, in the quote
+    // (step 1 reviewer: the model could turn "Oct 6" into "October 6, 2026").
+    const dateQuestion = (question as { answerType?: string }).answerType === "date";
+    if (dateAnswerCheck(question.text, trimmedAnswer, { dateQuestion, oneDate: isDateQuestionId(questionId) })) continue;
+    // Every date in the answer, of any precision ("October 2026" too), must be in the quote as written.
+    const quoted = findDates(storyQuote);
+    if (!findDates(trimmedAnswer).every((date) => quoted.some((same) => same.iso === date.iso && same.precision === date.precision))) continue;
 
-    kept.push({ questionId, questionText: question.text, answer: trimmedAnswer, storyQuote: storyQuote.trim() });
+    kept.push({ questionId, questionText: question.text, answer: trimmedAnswer, storyQuote: storyQuote.trim(), ...(dateQuestion ? { dateQuestion } : {}) });
     seen.add(questionId);
   }
 

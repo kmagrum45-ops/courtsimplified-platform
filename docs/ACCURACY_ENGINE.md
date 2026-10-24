@@ -176,6 +176,17 @@ Enforced on pipeline output. **Reported, not gated, on content that predates
 it**: 33 of 42 existing passages are above Grade 8, and the Small Claims
 next-step blocks measure 10.5–13.3.
 
+**This caught me (2026-10-23, step 1 of the shared-behaviour plan).** Until then the
+score split sentences with its own plain `split(/(?<=[.!?])\s+/)`, which ended a
+sentence at every "r." and "s.". The citation patterns only matched "r. 11.01"-style
+numbers, so Family's one-number rules ("r. 3 (2)", "r. 13 (3.1)") were never collapsed
+and were cut into extra "sentences" instead, pulling the grade down. Two published
+Family blocks measured 7.93 and passed. With the one splitter (`sentences.ts`) and the
+pattern widened to one-number rules, they measure 8.07 and 8.10: the same words, now
+counted honestly. Under 8 needs rewording verified content, which is the site
+owner's decision; it is not waived. The same splitter also fixed two real joins
+the old abbreviation list made: "the respondent's." read as "s.", and "Part V." read as "v.".
+
 ---
 
 ## Checked answers: answer first, then prove each statement (2026-10-07)

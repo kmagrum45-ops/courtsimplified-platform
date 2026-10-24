@@ -25,6 +25,7 @@
  * it themselves and uploads it here.
  */
 
+import { sentences as sharedSentences } from "../case-system/sentences";
 import { validateCaseStrengthLanguage } from "../case-system/intelligence/caseStrengthLanguageValidator";
 import { quoteAppearsIn } from "../case-system/intelligence/quoteMatch";
 import { isMapOwnedInstruction } from "../case-system/procedureOwnership";
@@ -152,8 +153,7 @@ export function numbersIn(text: string): string[] {
  */
 export function checkedExplanation(explanation: string, decisionText: string): string {
   const present = new Set(numbersIn(decisionText));
-  return explanation
-    .split(/(?<=[.!?])\s+/)
+  return sharedSentences(explanation)
     .filter((sentence) => sentence.trim())
     .filter((sentence) => !isMapOwnedInstruction(sentence))
     .filter((sentence) => numbersIn(sentence).every((n) => present.has(n)))

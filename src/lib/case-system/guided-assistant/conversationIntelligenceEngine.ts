@@ -1,3 +1,5 @@
+import { sentences as sharedSentences } from "../sentences";
+import { findDates, findDayMonthWithoutYear, mentionsDate, mentionsRelativeDate } from "../dates";
 import {
   extractDollarAmounts,
   ONTARIO_SMALL_CLAIMS_LIMIT,
@@ -351,8 +353,8 @@ function currentDomainText(
   domainTerms: string[],
   domainNonCurrentTerms: string[],
 ): string {
-  return text
-    .split(/(?<=[.!?])\s+|\s*;\s*|\s+but\s+/i)
+  return sharedSentences(text)
+    .flatMap((sentence) => sentence.split(/\s*;\s*|\s+but\s+/i))
     .map((item) => item.trim())
     .filter(Boolean)
     .filter((item) => {
@@ -715,40 +717,17 @@ function enrichFrameworkWithProfile(
   };
 }
 
-function extractDateSignals(message: string): string[] {
-  const dates: string[] = [];
-
-  const numericDates = message.match(
-    /\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{4}[/-]\d{1,2}[/-]\d{1,2})\b/g,
-  );
-
-  if (numericDates) dates.push(...numericDates);
-
-  const monthDates = message.match(
-    /\b(?:jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\s+\d{1,2}(?:,\s*\d{4})?\b/gi,
-  );
-
-  if (monthDates) dates.push(...monthDates);
-
-  if (
-    includesAny(message, [
-      "yesterday",
-      "today",
-      "last week",
-      "last month",
-      "last year",
-      "a year ago",
-      "two years ago",
-      "years ago",
-      "recently",
-      "before",
-      "after",
-      "then",
-    ])
-  ) {
+/** Exported for test:date-entry-points: the chat reads dates as every other place does. */
+export function extractDateSignals(message: string): string[] {
+  // The shared reader (dates.ts): every date written, and whether a time relative to now is.
+  const dates = [
+    ...findDates(message).filter((date) => date.precision !== "year").map((date) => date.source),
+    ...findDayMonthWithoutYear(message).map((date) => date.source),
+  ];
+  if (!dates.length && mentionsDate(message)) dates.push("date mentioned");
+  if (mentionsRelativeDate(message) || includesAny(message, ["recently", "before", "after", "then", "years ago"])) {
     dates.push("relative date mentioned");
   }
-
   return unique(dates);
 }
 

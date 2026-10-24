@@ -15,6 +15,7 @@
  * rules here are keyed on the question's own field path.
  */
 
+import { sentences as sharedSentences } from "../sentences";
 import type { CaseRecord } from "../caseRecord";
 import { caseStepFor } from "../caseStep";
 
@@ -79,8 +80,7 @@ const CLAIM_BACK = [
 const SAYS_NO = /\b(?:no|not|never|nothing|don'?t|do not|doesn'?t|does not|won'?t|will not|didn'?t|did not|can'?t|cannot)\b/i;
 
 function sentencesOf(text: string): string[] {
-  return text
-    .split(/(?<=[.!?])\s+|\n+/)
+  return sharedSentences(text)
     .map((sentence) => sentence.trim())
     .filter(Boolean);
 }

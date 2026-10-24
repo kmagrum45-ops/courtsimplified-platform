@@ -34,6 +34,8 @@
  * model output).
  */
 
+import { dateMentionsIn, yearChoices } from "../dates";
+import { isUpcomingDateQuestion } from "../casePosition";
 import { isDateQuestionId } from "../casePosition";
 import { findStage, type StagePathway } from "../stage-map/stageMap";
 
@@ -103,19 +105,6 @@ function normalize(text: string): string {
     .trim();
 }
 
-const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-
-/** The quote names this month: by name ("nov", "November") or as a number in a numeric date. */
-function quoteNamesMonth(quote: string, month: number): boolean {
-  const text = quote.toLowerCase();
-  if (new RegExp(`\\b${MONTHS[month - 1]}`).test(text)) return true;
-  return new RegExp(`\\b0?${month}[/-]\\d{1,2}\\b|\\b\\d{1,2}[/-]0?${month}\\b|\\d{4}-0?${month}-`).test(text);
-}
-
-function quoteNamesDay(quote: string, day: number): boolean {
-  return new RegExp(`(?<![\\d])0?${day}(?:st|nd|rd|th)?(?![\\d])`, "i").test(quote);
-}
-
 const isQuote = (value: unknown, words: string): value is string => {
   if (typeof value !== "string") return false;
   const quote = normalize(value);
@@ -159,12 +148,14 @@ export function validateCasePicture(raw: unknown, personsWords: string): CasePic
       if (!Number.isInteger(month) || month < 1 || month > 12 || !Number.isInteger(day) || day < 1 || day > 31) continue;
       if (!isQuote(date.quote, words)) continue;
       const quote = String(date.quote).trim();
-      // The month and day must be in the quote; the year is kept only if it is too.
-      if (!quoteNamesMonth(quote, month) || !quoteNamesDay(quote, day)) continue;
-      const year = Number(date.year);
-      const yearInQuote = Number.isInteger(year) && year >= 1950 && year <= 2100 && quote.includes(String(year));
-      const iso = yearInQuote ? `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}` : null;
-      if (iso && Number.isNaN(Date.parse(iso))) continue;
+      // The quote is read by the shared reader (dates.ts), and the model's month and day
+      // must be a date the person wrote there: a day that exists, the month in words or
+      // ISO (an all-numbers "10/06/2026" is asked, never settled by the model), and the
+      // year only when the person wrote it (step 1 reviewer: "In October 2026 I paid $6"
+      // read as October 6, and "February 30 2026" was offered).
+      const written = dateMentionsIn(quote).find((mention) => mention.month === month && mention.day === day);
+      if (!written) continue;
+      const iso = written.iso;
       seen.add(date.questionId);
       picture.dates.push({ questionId: date.questionId, date: iso, month, day, quote });
     }
@@ -277,19 +268,10 @@ export function datesFromPicture(
       offers[date.questionId] = { value: date.date, basis: `You wrote: “${date.quote}”` };
       continue;
     }
-    // No year in their words: the nearest such date is listed first among the
-    // two the card offers, and nothing is counted until they pick one.
-    const today = now.toISOString().slice(0, 10);
-    const thisYear = `${now.getFullYear()}-${String(date.month).padStart(2, "0")}-${String(date.day).padStart(2, "0")}`;
-    if (Number.isNaN(Date.parse(thisYear))) continue;
-    const upcoming = /conference|trial|hearing|mediation/.test(date.questionId);
-    const nearest = upcoming
-      ? thisYear >= today
-        ? thisYear
-        : `${now.getFullYear() + 1}${thisYear.slice(4)}`
-      : thisYear <= today
-        ? thisYear
-        : `${now.getFullYear() - 1}${thisYear.slice(4)}`;
+    // No year in their words: the two years it can mean, nearest first (dates.ts);
+    // nothing is counted until they pick one.
+    const nearest = yearChoices(Number(date.month), Number(date.day), { now, upcoming: isUpcomingDateQuestion(date.questionId) })[0];
+    if (!nearest) continue;
     offers[date.questionId] = { value: nearest, basis: `You wrote: “${date.quote}”`, yearAssumed: true };
   }
   return offers;

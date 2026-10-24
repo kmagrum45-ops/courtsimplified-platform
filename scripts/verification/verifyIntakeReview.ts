@@ -127,7 +127,11 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
     sections: { story: { text: invoice, location: { province: "Ontario", city: "Sudbury" } }, builder: { step: "guided" } } };
   const suggested = suggestInitialAnswers(sc);
   assert.equal(suggested["sc-orient-when-happened"], "2026-06-10", "when it happened, not the due date");
-  assert.equal(suggestInitialAnswers({ ...sc, sections: { ...sc.sections, story: { text: "Work finished June 10, payment due July 10, 2026." } } })["sc-orient-when-happened"], "2026-06-10", "a date with no year takes the story's year");
+  // Step 1 (one date module): a missing year is asked, never guessed. "June 10" used to take
+  // the deadline's year; now nothing is offered (the only full date is the deadline), and the
+  // person types the date and is asked for its year.
+  assert.equal(suggestInitialAnswers({ ...sc, sections: { ...sc.sections, story: { text: "Work finished June 10, payment due July 10, 2026." } } })["sc-orient-when-happened"], undefined, "a date with no year is not given another date's year, and the deadline is not offered");
+  assert.equal(suggestInitialAnswers({ ...sc, sections: { ...sc.sections, story: { text: "Work finished in August 2026 and they never paid." } } })["sc-orient-when-happened"], "August 2026", "a month and year is offered as it is");
   assert.equal(suggested["sc-orient-dispute-category"], "Unpaid money owed to you", "an unpaid invoice is money owed, whatever the work");
   // A side chosen in the review makes its questions due; their answers clear them.
   const withSide = structuredClone(sc); withSide.sections.builder.initialAnswers = { "sc-orient-role": "Bringing the claim (plaintiff)" };

@@ -37,6 +37,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { isRealIsoDate } from "@/src/lib/case-system/dates";
 
 import { COURT_DECISION_TYPE, decisionUpdate } from "@/src/lib/case-workspace/courtDecisionStore";
 
@@ -372,8 +373,8 @@ export async function PATCH(req: NextRequest) {
 
     if (body.userDate !== undefined) {
       const date = body.userDate === null ? null : String(body.userDate).trim();
-      if (date !== null && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-        return refuse(422, "A date must be written as YYYY-MM-DD.");
+      if (date !== null && !isRealIsoDate(date)) {
+        return refuse(422, "A date must be a real date written as YYYY-MM-DD.");
       }
 
       const precision = String(body.userDatePrecision ?? "day");

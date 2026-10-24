@@ -30,6 +30,7 @@
  */
 
 import type { CorpusChunk } from "./corpusChunker";
+import { sentences } from "../sentences";
 
 export type ProvisionReference = { number: string; sub?: string };
 
@@ -62,7 +63,7 @@ export function referencedProvisions(text: string, ownNumber?: string): Provisio
     // rest of the sentence naming another law, before "this Act", rules the
     // reference out -- losing a reference costs less than following one
     // into the wrong statute.
-    const clause = text.slice((match.index ?? 0) + match[0].length).split(/[.;](?:\s|$)/)[0];
+    const clause = (sentences(text.slice((match.index ?? 0) + match[0].length))[0] ?? "").split(/;(?:\s|$)/)[0];
     const otherLaw = clause.search(/\b(?:of|under)\s+(?:that\s+Act|the\s+[A-Z][\w’'(), -]*?\bAct\b)/);
     const thisLaw = clause.search(/\bof\s+this\s+Act\b|\bof\s+these\s+rules\b/i);
     if (otherLaw >= 0 && (thisLaw < 0 || otherLaw < thisLaw)) continue;

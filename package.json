@@ -248,6 +248,8 @@
     "test:fact-sources": "node --import tsx scripts/verification/verifyFactSources.ts",
     "test:claim-amount": "node --import tsx scripts/verification/verifyClaimAmount.ts",
     "test:review-follow-ups": "node --import tsx scripts/verification/verifyReviewFollowUps.ts",
+    "test:shared-behaviour": "node --import tsx scripts/verification/verifySharedBehaviour.ts",
+    "test:date-entry-points": "node --import tsx scripts/verification/verifyDateEntryPoints.ts",
     "test:story-pack": "node scripts/browser/storyPack.mjs",
     "test:analysis-time-budget": "node --import tsx scripts/verification/verifyAnalysisTimeBudget.ts"
   },

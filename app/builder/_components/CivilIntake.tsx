@@ -13,6 +13,7 @@ import TidyWordingReview from "./TidyWordingReview";
 import GuidedFormChat, { type GuidedValues } from "./GuidedFormChat";
 import { CIVIL_DOCUMENT_OPTIONS, CIVIL_ISSUE_OPTIONS, civilGuidedFields } from "./guidedFields";
 import type { PersonAnswers } from "./stageFromAnswers";
+import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { SourcedQuestionsCard, useSourcedQuestions, withSourcedAnswerList, type SourcedAnswer } from "./SourcedQuestions";
 import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 
@@ -468,6 +469,9 @@ function buildCivilAnalysisFromMaster(
     ...(result.brain.intelligence.research ? { research: result.brain.intelligence.research } : {}),
   };
 }
+
+/** The question each civil field answers in the questions one at a time, for the shared date check. */
+const CIVIL_QUESTIONS = new Map(civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS }).map((item) => [item.key, item.question]));
 
 /** The free-text fields of the civil intake, as [field, label, placeholder]. */
 const CIVIL_TEXT_FIELDS: [keyof CivilInput, string, string][] = [
@@ -1080,7 +1084,14 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
           </div>
         </div>
 
-        {CIVIL_TEXT_FIELDS.map(([field, label, placeholder]) => (
+        {CIVIL_TEXT_FIELDS.map(([field, label, placeholder]) => {
+          // The same date check as the questions one at a time (dates.ts): a box whose
+          // question asks for a date says what it still needs (step 1 reviewer: "Oct 6,
+          // in person" was kept here without asking for the year).
+          const question = CIVIL_QUESTIONS.get(field);
+          const typed = String(input[field as keyof CivilInput] ?? "").trim();
+          const needsMore = question && typed ? dateAnswerCheck(question, typed) : null;
+          return (
           <label key={field} className="block">
             <span className="font-semibold text-[#16302b]">{label}</span>
             <textarea
@@ -1091,8 +1102,10 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
               className="mt-2 min-h-24 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder={placeholder}
             />
+            {needsMore ? <span data-testid="civil-field-needs-more" className="mt-1 block text-sm text-[#8a4b12]">{needsMore}</span> : null}
           </label>
-        ))}
+          );
+        })}
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

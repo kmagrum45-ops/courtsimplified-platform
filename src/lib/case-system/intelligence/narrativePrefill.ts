@@ -1,3 +1,5 @@
+import { dateMentionsIn } from "../dates";
+import { sentences } from "../sentences";
 import { claimAmountFromStory } from "../claimAmount";
 
 export type NarrativeFactState ="direct" | "unclear" | "contradictory" | "missing";
@@ -68,14 +70,26 @@ export function extractNarrativePrefill(args: {
   const amount = claimAmountFromStory(narrative);
   if (amount) addDirect(facts, "amountClaimed", amount.value, amount.quote);
 
-  const remedy = /\b(?:i (?:want|seek|am seeking)|seeking)\s+([^.!?]{3,100})/i.exec(narrative);
+  // Each value below runs to the end of its sentence, read by the shared splitter, so
+  // "Test Builder Ltd.", "12 Main St." and "$1,250.75" are not cut at their full stop
+  // (step 1 reviewer).
+  const inSentence = (pattern: RegExp) => {
+    for (const sentence of sentences(narrative)) {
+      const match = pattern.exec(sentence.replace(/[.!?]+$/, ""));
+      if (match) return match;
+    }
+    return null;
+  };
+
+  const remedy = inSentence(/\b(?:i (?:want|seek|am seeking)|seeking)\s+(.{3,100})/i);
   if (remedy) {
     const value = clean(remedy[1]);
     addDirect(facts, args.courtPath === "civil" ? "legalRemedy" : "goal", value, remedy[0]);
   }
 
-  const dateMatches = narrative.match(/\b(?:on\s+)?(?:\d{4}-\d{2}-\d{2}|(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},?\s+\d{4})\b/gi);
-  if (dateMatches?.length) addDirect(facts, "timeline", dateMatches.join("; "), dateMatches.join("; "));
+  // The full dates written, by the shared reader (dates.ts).
+  const dateMatches = dateMentionsIn(narrative).filter((mention) => mention.year !== null).map((mention) => mention.source);
+  if (dateMatches.length) addDirect(facts, "timeline", dateMatches.join("; "), dateMatches.join("; "));
 
   const evidence = narrative.match(/\b(?:screenshots?|emails?|text messages?|messages?|receipts?|invoices?|photos?|witness(?:es)?|documents?|records?)\b/gi);
   if (evidence?.length) addDirect(facts, "evidence", Array.from(new Set(evidence.map(clean))).join(", "), evidence.join(", "));
@@ -85,19 +99,19 @@ export function extractNarrativePrefill(args: {
     addDirect(facts, "yourEmail", email[0], email[0]);
   }
 
-  const address = /\b(?:my address is|i live at|my mailing address is)\s+(\d{1,5}\s+[^.!?]{4,140})/i.exec(narrative);
+  const address = inSentence(/\b(?:my address is|i live at|my mailing address is)\s+(\d{1,5}\s+.{4,140})/i);
   if (address) addDirect(facts, "addressDetails", clean(address[1]), address[0]);
 
-  const settlement = /\b(?:i offered to settle|we discussed settlement|they rejected my settlement offer|we reached a settlement)\b[^.!?]*/i.exec(narrative);
+  const settlement = inSentence(/\b(?:i offered to settle|we discussed settlement|they rejected my settlement offer|we reached a settlement)\b.*/i);
   if (settlement) addDirect(facts, "settlementEfforts", clean(settlement[0]), settlement[0]);
 
-  const enforcement = /\b(?:i am trying to enforce|enforcement is needed|the judgment remains unpaid|the order remains unpaid)\b[^.!?]*/i.exec(narrative);
+  const enforcement = inSentence(/\b(?:i am trying to enforce|enforcement is needed|the judgment remains unpaid|the order remains unpaid)\b.*/i);
   if (enforcement) addDirect(facts, "enforcementDetails", clean(enforcement[0]), enforcement[0]);
 
-  const urgency = /\b(?:this is urgent|urgent because|immediate harm|deadline is)\b[^.!?]*/i.exec(narrative);
+  const urgency = inSentence(/\b(?:this is urgent|urgent because|immediate harm|deadline is)\b.*/i);
   if (urgency) addDirect(facts, "urgent", clean(urgency[0]), urgency[0]);
 
-  const existingOrder = /\b(?:there is an existing court order|an order was made|we have a court order|there is a judgment)\b[^.!?]*/i.exec(narrative);
+  const existingOrder = inSentence(/\b(?:there is an existing court order|an order was made|we have a court order|there is a judgment)\b.*/i);
   if (existingOrder) {
     addDirect(facts, "existingOrderDetails", clean(existingOrder[0]), existingOrder[0]);
     addDirect(
@@ -108,7 +122,7 @@ export function extractNarrativePrefill(args: {
     );
   }
 
-  const breakdown = /\b(?:breakdown is|made up of|includes)\s+([^.!?]{6,180})/i.exec(narrative);
+  const breakdown = inSentence(/\b(?:breakdown is|made up of|includes)\s+(.{6,180})/i);
   if (breakdown && /\$|amount|cost|damage|invoice|loss/i.test(breakdown[0])) {
     addDirect(facts, "damagesBreakdown", clean(breakdown[1]), breakdown[0]);
   }

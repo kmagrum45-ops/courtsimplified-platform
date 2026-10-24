@@ -1,3 +1,4 @@
+import { sentences as sharedSentences } from "../../../src/lib/case-system/sentences";
 /**
  * What the child-support builder can start from, out of what the family
  * intake already recorded (walkthrough 2026-10-13, R3: it asked "Tell me about
@@ -71,8 +72,8 @@ const OTHER_PERSON_OR_REFUSAL =
 
 /** Sentences, and clauses that start a new subject after a comma ("two kids, 9 and 11, they live with..."). */
 function clauses(text: string): string[] {
-  return text
-    .split(/(?<=[.!?;])\s+|\n+|,\s+(?=(?:they|he|she|we|i|both|the (?:kids|children|boys|girls))\b)/i)
+  return sharedSentences(text)
+    .flatMap((sentence) => sentence.split(/(?<=;)\s+|,\s+(?=(?:they|he|she|we|i|both|the (?:kids|children|boys|girls))\b)/i))
     .map((part) => part.trim())
     .filter(Boolean);
 }

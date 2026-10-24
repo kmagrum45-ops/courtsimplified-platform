@@ -40,6 +40,7 @@
  * "it's the weekend, so I have until Monday" loses the claim.
  */
 
+import { MONTH_WORDS_EN } from "../dates";
 import type { RuleCitation } from "../stage-map/citations";
 import * as C from "../stage-map/citations";
 
@@ -374,10 +375,7 @@ export function unsourcedHolidayNames(regime: HolidayRegime): string[] {
  * date alone.
  */
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
+const MONTH_NAMES = MONTH_WORDS_EN;
 
 export function formatLongDate(date: IsoDate): string {
   const when = new Date(parseIso(date));

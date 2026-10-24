@@ -33,7 +33,7 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
-import { asksForDate } from "../../src/lib/case-system/dateYear";
+import { asksForDate } from "../../src/lib/case-system/dates";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
 

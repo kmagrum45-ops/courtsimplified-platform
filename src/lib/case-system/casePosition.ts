@@ -23,6 +23,7 @@
  * Pure: no I/O. The route that writes it is app/api/cases/position.
  */
 
+import { dateSpans, findDayMonthWithoutYear, firstWordedDate, mentionsDate, offeredDate } from "./dates";
 import { sentences as splitSentences } from "./sentences";
 import { SERVICE_RULES, type ServiceCourt, type ServiceMethod } from "./deadlines/serviceEffectiveDate";
 import {
@@ -427,13 +428,7 @@ const STORY_CUES: Record<string, RegExp> = {
   "case-date-mediation-session-date": /\bmediation\b/i,
 };
 
-const MONTH = "(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";
-const FULL_DATE = new RegExp(
-  `\\b(\\d{4}-\\d{1,2}-\\d{1,2}|\\d{1,2}(?:st|nd|rd|th)? ${MONTH},? \\d{4}|${MONTH} \\d{1,2}(?:st|nd|rd|th)?,? \\d{4})\\b`,
-  "i",
-);
 
-const MENTIONS_DATE = new RegExp(`\\b${MONTH}\\b|\\b\\d{1,2}[/-]\\d{1,2}\\b|\\b\\d{4}-\\d{1,2}-\\d{1,2}\\b`, "i");
 
 /**
  * Dates the person already gave in the guided intake, offered -- never
@@ -449,12 +444,12 @@ export function suggestedDatesFromAnswers(
   const suggestions: Record<string, SuggestedDate> = {};
   for (const answer of answers) {
     if (!isDateQuestionId(answer.questionId) || suggestions[answer.questionId]) continue;
-    const match = FULL_DATE.exec(answer.answerText);
-    const full = match ? parseUserDate(match[1].replace(/,/g, "")) : null;
+    const worded = firstWordedDate(answer.answerText);
+    const full = worded ? parseUserDate(worded.source) : null;
     // "October 1" with no year (walkthrough, 2026-10-08: a tenant confirmed
     // October 1 service and was asked for the date again): offered with the
     // card asks which year it was, and nothing is used until they choose.
-    const assumed = full ? null : assumedYearDate(answer.answerText, now, UPCOMING_QUESTIONS.has(answer.questionId));
+    const assumed = full ? null : assumedYearDate(answer.answerText, now, isUpcomingDateQuestion(answer.questionId));
     const value = full ?? assumed;
     if (!value) continue;
     const quoted = answer.answerText.trim().slice(0, 120);
@@ -489,7 +484,6 @@ export type StoryHint = {
   mentionsDate?: boolean;
 };
 
-const MONTH_DAY = new RegExp(`\\b(${MONTH}) (\\d{1,2})(?:st|nd|rd|th)?\\b|\\b(\\d{1,2})(?:st|nd|rd|th)? (${MONTH})\\b`, "i");
 
 /**
  * The date questions about something still to come: a conference, a trial, a
@@ -507,6 +501,7 @@ const UPCOMING_QUESTIONS = new Set([
   "case-date-motion-hearing-date",
   "case-date-mediation-session-date",
 ]);
+/** Whether a date question is about an event still to come (its year is this one or next). One rule for the story reader and the case reader. */export function isUpcomingDateQuestion(questionId: string): boolean {  return UPCOMING_QUESTIONS.has(questionId) || /conference|trial|hearing|mediation/.test(questionId);}
 
 /**
  * "September 20" with no year: the most recent September 20 on or before
@@ -518,17 +513,9 @@ const UPCOMING_QUESTIONS = new Set([
  * (CLAUDE.md section 4).
  */
 function assumedYearDate(sentence: string, now: Date, upcoming: boolean): string | null {
-  const match = MONTH_DAY.exec(sentence);
-  if (!match) return null;
-  const month = (match[1] ?? match[4]) as string;
-  const day = (match[2] ?? match[3]) as string;
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-  const years = upcoming ? [now.getFullYear(), now.getFullYear() + 1] : [now.getFullYear(), now.getFullYear() - 1];
-  for (const year of years) {
-    const value = parseUserDate(`${month} ${day} ${year}`);
-    if (value && (upcoming ? value >= today : value <= today)) return value;
-  }
-  return null;
+  // The shared reader and year choices (dates.ts): nearest first, asked, never counted until chosen.
+  const offered = offeredDate(sentence, { now, upcoming });
+  return offered?.yearMissing ? offered.value : null;
 }
 
 /*
@@ -574,7 +561,8 @@ function orderReject(text: string): boolean {
   const match = new RegExp(STORY_CUES["case-date-order-made"].source, "i").exec(text);
   if (!match) return false;
   const before = text.slice(0, match.index);
-  const clause = before.slice(Math.max(before.lastIndexOf(","), before.lastIndexOf("."), before.lastIndexOf(";"), before.lastIndexOf("?")) + 1);
+  // The clause: the last sentence before the cue (the shared splitter, so "Ltd." does not end one), after any , ; or ?.
+  const clause = (splitSentences(before).pop() ?? "").split(/[,;?]/).pop() ?? "";
   return ORDER_HEDGE.test(clause) || /\?/.test(text.slice(match.index));
 }
 
@@ -604,7 +592,6 @@ function cueFor(questionId: string, question: string): Cue | null {
   return written ? { key: written } : genericCue(question);
 }
 
-const DATE_ANYWHERE = new RegExp(`${FULL_DATE.source}|${MONTH_DAY.source}`, "gi");
 /*
  * Words naming a different KIND of moment. Between a served question's words
  * and its date, "filed" or "hearing" means the date belongs to something else;
@@ -664,9 +651,9 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
   const injuryCue = cue.key === STORY_CUES["sc-date-injury"];
   let best: { sentence: string; date: string; distance: number } | null = null;
   for (const sentence of sentences) {
-    for (const match of sentence.matchAll(DATE_ANYWHERE)) {
-      const at = match.index ?? 0;
-      const end = at + match[0].length;
+    for (const span of dateSpans(sentence)) {
+      const at = span.index;
+      const end = at + span.source.length;
       const from = Math.max(0, at - 110);
       const window = sentence.slice(from, end + 70);
       if (!cueMatches(cue, window)) continue;
@@ -674,7 +661,7 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
       // A date followed by a medical event ("october 1 surgery") is skipped
       // only when the sentence has another date that can be the injury's;
       // otherwise "i broke my arm on june 5 2026 hospital said..." loses it.
-      if (injuryCue && AFTER_INJURY_EVENT.test(sentence.slice(end)) && [...sentence.matchAll(DATE_ANYWHERE)].length > 1) continue;
+      if (injuryCue && AFTER_INJURY_EVENT.test(sentence.slice(end)) && dateSpans(sentence).length > 1) continue;
       for (const [position, cueEnd] of cuePositions(cue, window).map(([start, stop]) => [start + from, stop + from])) {
         const between = position < at ? sentence.slice(position, at) : sentence.slice(end, position);
         // The cue's own words may be "hearing" (a hearing question); only a
@@ -692,7 +679,7 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
         // after September 30, not nearer October 1 because the gap was
         // measured from the start of each date (review 2026-10-13).
         const distance = position < at ? Math.max(0, at - cueEnd) : Math.max(0, position - end);
-        if (!best || distance < best.distance) best = { sentence, date: match[0], distance };
+        if (!best || distance < best.distance) best = { sentence, date: span.source, distance };
       }
     }
   }
@@ -731,27 +718,25 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
     const sentence = dated?.sentence ?? sentences.find((candidate) => cueMatches(cue, candidate));
     if (!sentence) continue;
     const dateText = dated?.date ?? "";
-    const full = FULL_DATE.exec(dateText);
-    const value = full ? parseUserDate(full[1].replace(/,/g, "")) : null;
-    const assumed = value || !dateText ? null : assumedYearDate(dateText, now, UPCOMING_QUESTIONS.has(questionId));
+    const worded = firstWordedDate(dateText);
+    const value = worded ? parseUserDate(worded.source) : null;
+    const assumed = value || !dateText ? null : assumedYearDate(dateText, now, isUpcomingDateQuestion(questionId));
     hints[questionId] = {
       quote: sentence.length > 240 ? `${sentence.slice(0, 237)}…` : sentence,
       value: value ?? assumed,
       ...(assumed ? { yearAssumed: true } : {}),
-      ...(value ?? assumed ? {} : { mentionsDate: MENTIONS_DATE.test(sentence) }),
+      ...(value ?? assumed ? {} : { mentionsDate: mentionsDate(sentence) }),
     };
   }
   // "This happened January 13 2025" in its own sentence, after the sentence
   // that says what happened: the date of the event the claim is about
   // (2026-10-12, free finish line: an icy-entrance story's date was never
   // linked, because the injury words and the date sat in different sentences).
-  const happened = sentences.find((candidate) => /\b(?:this|it|that|all this)\s+(?:all\s+)?(?:happened|occurred|was)\b/i.test(candidate) && DATE_ANYWHERE.test(candidate));
-  DATE_ANYWHERE.lastIndex = 0;
+  const happened = sentences.find((candidate) => /\b(?:this|it|that|all this)\s+(?:all\s+)?(?:happened|occurred|was)\b/i.test(candidate) && dateSpans(candidate).length > 0);
   if (happened) {
-    const dateText = happened.match(DATE_ANYWHERE)?.[0] ?? "";
-    DATE_ANYWHERE.lastIndex = 0;
-    const full = FULL_DATE.exec(dateText);
-    const value = full ? parseUserDate(full[1].replace(/,/g, "")) : null;
+    const dateText = dateSpans(happened)[0]?.source ?? "";
+    const worded = firstWordedDate(dateText);
+    const value = worded ? parseUserDate(worded.source) : null;
     const assumed = value || !dateText ? null : assumedYearDate(dateText, now, false);
     if (value || assumed) {
       const hint: StoryHint = { quote: happened.length > 240 ? `${happened.slice(0, 237)}…` : happened, value: value ?? assumed, ...(assumed ? { yearAssumed: true } : {}) };
@@ -780,10 +765,9 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
     .filter((line) => line.startsWith(SERVED_LINE.trim()))
     .pop();
   if (servedLine) {
-    const dateText = servedLine.slice(SERVED_LINE.trim().length).match(DATE_ANYWHERE)?.[0] ?? "";
-    DATE_ANYWHERE.lastIndex = 0;
-    const full = FULL_DATE.exec(dateText);
-    const value = full ? parseUserDate(full[1].replace(/,/g, "")) : null;
+    const dateText = dateSpans(servedLine.slice(SERVED_LINE.trim().length))[0]?.source ?? "";
+    const worded = firstWordedDate(dateText);
+    const value = worded ? parseUserDate(worded.source) : null;
     const assumed = value || !dateText ? null : assumedYearDate(dateText, now, false);
     hints["case-date-served-with-application"] = {
       quote: servedLine.length > 240 ? `${servedLine.slice(0, 237)}…` : servedLine,
@@ -804,11 +788,8 @@ export function storyHintsForDates(story: string | null | undefined, now: Date =
  */
 export function dateInSentence(sentence: string | null | undefined): { raw: string; iso: string | null } | null {
   if (!sentence) return null;
-  const full = FULL_DATE.exec(sentence);
-  if (full) {
-    const iso = parseUserDate(full[1].replace(/,/g, ""));
-    return { raw: full[1], iso };
-  }
-  const partial = MONTH_DAY.exec(sentence);
-  return partial ? { raw: partial[0], iso: null } : null;
+  const worded = firstWordedDate(sentence);
+  if (worded) return { raw: worded.source, iso: parseUserDate(worded.source) };
+  const partial = findDayMonthWithoutYear(sentence).find((date) => !date.numeric);
+  return partial ? { raw: partial.source, iso: null } : null;
 }

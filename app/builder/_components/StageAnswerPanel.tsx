@@ -1,5 +1,6 @@
 "use client";
 
+import { isRealIsoDate, yearChoicesAround } from "../../../src/lib/case-system/dates";
 import { sentences as splitSentences } from "../../../src/lib/case-system/sentences";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/src/lib/supabase/client";
@@ -173,10 +174,7 @@ export function orderGroupsForReader<T extends { side: string; label: string }>(
  * Exported for test:case-position.
  */
 export function yearChoices(isoDate: string, today: string = todayIso()): string[] {
-  const year = Number(isoDate.slice(0, 4));
-  const rest = isoDate.slice(4);
-  const other = isoDate >= today ? year + 1 : year - 1;
-  return [`${year}${rest}`, `${other}${rest}`].filter((date) => !Number.isNaN(Date.parse(date)));
+  return yearChoicesAround(isoDate, today);
 }
 
 /** The courts whose service rules the site holds. */
@@ -383,7 +381,7 @@ export function dateQuestionTextFor(question: { id: string; question: string }, 
 
 /** The step's last days that run from service date `questionId`, counted from `serviceDay`, each with whether it has passed. */
 export function countedFromService(stageId: string, questionId: string, serviceDay: string, today: string = todayIso(), responding = false): ArrivalDate[] {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(serviceDay)) return [];
+  if (!isRealIsoDate(serviceDay)) return [];
   const stage = findStage(stageId);
   if (!stage) return [];
   const runsFromIt = stage.deadlines.filter(
@@ -422,7 +420,7 @@ export function latestFromArrival(
   responding = false,
 ): ArrivalDate[] {
   if (!method || !SENT_ON_OR_BEFORE_ARRIVAL.has(method) || isOriginatingService(court, questionId) || !receivesPapersStep(stageId, responding)) return [];
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(arrivedOn)) return [];
+  if (!isRealIsoDate(arrivedOn)) return [];
   return countedFromService(stageId, questionId, effectiveServiceDate(court, method, arrivedOn).date, today, responding);
 }
 
@@ -477,7 +475,7 @@ export function servedOnFor(words: string, stageId: string, responding: boolean,
  * read as unclear). Says plainly which day was used. Exported for test:service-dates.
  */
 export function yearAssumedWords(arrivedOn: string): string {
-  return /^\d{4}-\d{2}-\d{2}$/.test(arrivedOn)
+  return isRealIsoDate(arrivedOn)
     ? ` (you did not say which year, so we counted from ${formatLongDate(arrivedOn)})`
     : " (you did not say which year, so we counted from the most recent one)";
 }
@@ -1057,7 +1055,7 @@ export const THRESHOLD_ASK = "Give the order date below to see whether leave is 
 
 export function thresholdNear(item: { threshold?: boolean; date?: string }, today: string = todayIso()): boolean {
   if (!item.threshold) return true;
-  if (!item.date || !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) return true;
+  if (!item.date || !isRealIsoDate(item.date)) return true;
   const yearOut = `${Number(today.slice(0, 4)) + 1}${today.slice(4)}`;
   return item.date <= yearOut;
 }
@@ -1246,8 +1244,7 @@ export function forThisPerson(paragraph: string, { userWords, filingShown }: { u
     text = text.replace(/,? or Form 14B for a mortgage action/g, "").replace(/ \(Form 14A, or Form 14B for a mortgage action\)/g, " (Form 14A)");
   }
   if (filingShown) {
-    text = text
-      .split(/(?<=[.!?])\s+/)
+    text = splitSentences(text)
       .filter((sentence) => !/\bportal\b/i.test(sentence))
       .join(" ");
   }

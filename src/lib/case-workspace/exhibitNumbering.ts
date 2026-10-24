@@ -39,7 +39,7 @@
  * NO MODEL IS CALLED HERE. Pure functions.
  */
 
-import { chronological, type DatePrecision } from "./parseDate";
+import { chronological, type DatePrecision } from "../case-system/dates";
 
 export type NumberableDocument = {
   id: string;

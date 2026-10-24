@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-168 documented, 26 without a header.
+170 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -53,6 +53,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:court-locations` | **Every courthouse address and contact shown is on the court's own page.**<br>COSTS NOTHING. Reads src/lib/content-library/courts/courtLocations.json and the saved page text in docs/sources/court-locations/. |
 | `npm run test:crisis-numbers` | **Every phone number in a crisis message is on the official page it came from.**<br>COSTS NOTHING. Reads crisisMessages.ts and the vendored ontario.ca pages. |
 | `npm run test:cross-forum-notes` | **Connection notes quote their sources exactly, are selected by topic alone,**<br>and a story's issues can only carry the user's own words. |
+| `npm run test:date-entry-points` | **Every entry point reads a date the same way (step 1, gate A: the same-behaviour check).**<br>What it checks: at least 40 real-world phrasings ("Oct 6", "6 Oct 2026", "2026-10-06", "last Tuesday", "10/06/2026", "Feb 30, 2026", "6 octobre 2026" ...) are fed, unchanged, through every place that reads a date the person typed or wrote: - the date boxes: th |
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
@@ -138,6 +139,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:server-error-log` | **test:server-error-log -- the built-in error log records a server error**<br>without anything that identifies a person (src/lib/monitoring/ serverErrorLog.ts, instrumentation.ts; 2026-10-14 audit). |
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
+| `npm run test:shared-behaviour` | **No shared behaviour is implemented a second time (the guard for the eight steps).**<br>What it checks: for each behaviour in sharedBehaviourRegistry.ts, every .ts/.tsx file in app/ and src/ other than the behaviour's one module is scanned, with comments removed, for the patterns that mean "this re-implements it". Any hit not on the behaviour's w |
 | `npm run test:small-claims-limit` | **The Small Claims limit is $50,000 everywhere the site states it, and the old**<br>$35,000 limit appears nowhere the site ships. |
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |
 | `npm run test:source-link-labels` | **test:source-link-labels -- source links name their law, and the name is the**<br>library's own. |

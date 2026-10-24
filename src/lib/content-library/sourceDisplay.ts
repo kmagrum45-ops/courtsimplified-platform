@@ -14,6 +14,7 @@
  */
 
 import TABLE from "./published/sourceDisplay.generated.json";
+import { isRealIsoDate } from "../case-system/dates";
 
 export type SourceDisplay = { name: string; url: string; checkedOn: string };
 
@@ -26,7 +27,7 @@ export const NOT_A_SOURCE: ReadonlySet<string> = new Set(["stage-premise"]);
 export function sourceDisplayFor(sourceId: string): SourceDisplay | null {
   if (NOT_A_SOURCE.has(sourceId)) return null;
   const row = SOURCES[sourceId];
-  return row && row.name && row.url && /^\d{4}-\d{2}-\d{2}$/.test(row.checkedOn) ? row : null;
+  return row && row.name && row.url && isRealIsoDate(row.checkedOn) ? row : null;
 }
 
 /**

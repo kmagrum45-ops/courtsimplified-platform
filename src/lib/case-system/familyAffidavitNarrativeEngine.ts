@@ -1,3 +1,4 @@
+import { sentences as sharedSentences } from "./sentences";
 import type {
   FamilyCaseType,
   ParentingIssueType,
@@ -147,8 +148,7 @@ function includesAny(text: string, terms: string[]): boolean {
 
 function splitSentences(text: string): string[] {
   return cleanList(
-    clean(text)
-      .split(/(?<=[.!?])\s+|\n+/g)
+    sharedSentences(clean(text))
       .map((sentence) => sentence.trim())
       .filter((sentence) => sentence.length > 0),
   );

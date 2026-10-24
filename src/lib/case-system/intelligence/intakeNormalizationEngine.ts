@@ -1,3 +1,5 @@
+import { findDates } from "../dates";
+import { sentences as sharedSentences } from "../sentences";
 import {
   CourtSimplifiedBrainInput,
   DesiredOutcome,
@@ -57,15 +59,13 @@ function includesAny(text: string, terms: string[]): boolean {
 
 function sentenceSplit(text: string): string[] {
   return cleanList(
-    normalizeWhitespace(text)
-      .split(/(?<=[.!?])\s+|\n+/)
+    sharedSentences(normalizeWhitespace(text))
       .map((item) => item.trim()),
   ).filter((item) => item.length > 12);
 }
 
 function currentClassificationText(text: string): string {
-  return text
-    .split(/\n+|(?<=[.!?])\s+/)
+  return sharedSentences(text)
     .map((item) => normalizeWhitespace(item))
     .filter(Boolean)
     .filter(
@@ -558,8 +558,9 @@ function extractMoneyAmounts(text: string): ExtractedMoneyAmount[] {
 }
 
 function extractDates(text: string): ExtractedDate[] {
-  const exactDateMatches = text.match(/\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/g) || [];
-  const yearMatches = text.match(/\b(19[8-9]\d|20[0-3]\d)\b/g) || [];
+  // The shared reader (dates.ts): full dates, and years written alone.
+  const exactDateMatches = findDates(text).filter((date) => date.precision === "day").map((date) => date.source);
+  const yearMatches = findDates(text).filter((date) => date.precision === "year").map((date) => date.source);
 
   const exactDates: ExtractedDate[] = exactDateMatches.map((match): ExtractedDate => ({
     id: createId("date"),

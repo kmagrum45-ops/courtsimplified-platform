@@ -1,3 +1,4 @@
+import { firstWordedDate } from "../../../src/lib/case-system/dates";
 /**
  * How the "Here's what I understood" card reads (2026-10-13).
  *
@@ -71,16 +72,9 @@ export function respondingFromAnswers(
 
 type Draft = { questionId: string; answer: string; keep: boolean };
 
-const MONTHS = "jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?";
-const DAY = new RegExp(`\\b(${MONTHS})\\.? (\\d{1,2})(?:st|nd|rd|th)?,? (\\d{4})\\b|\\b(\\d{4})-(\\d{2})-(\\d{2})\\b`, "i");
-
-/** "January 13, 2025, at 2 pm" -> "2025-01-13". Null when there is no full day. */
+/** "January 13, 2025, at 2 pm" -> "2025-01-13". Null when there is no full day (dates.ts). */
 export function dayOf(answer: string): string | null {
-  const match = DAY.exec(answer);
-  if (!match) return null;
-  if (match[4]) return `${match[4]}-${match[5]}-${match[6]}`;
-  const month = MONTHS.split("|").findIndex((name) => new RegExp(`^(?:${name})$`, "i").test(match[1])) + 1;
-  return `${match[3]}-${String(month).padStart(2, "0")}-${match[2].padStart(2, "0")}`;
+  return firstWordedDate(answer)?.iso ?? null;
 }
 
 const isDateQuestion = (questionId: string) => questionId === "sc-orient-when-happened" || questionId.startsWith("sc-date-");
