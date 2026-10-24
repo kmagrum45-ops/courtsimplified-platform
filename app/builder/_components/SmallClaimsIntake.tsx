@@ -1359,7 +1359,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
         <div data-testid="sc-intake-documents" data-empty={input.filedDocuments.length === 0 && !(situation.where === "served" || situation.where === "going" || (situation.where === "starting" && situation.filed)) ? "true" : "false"}>
           <h3 className="font-semibold text-[#16302b]">
             {situation.where === "served" || situation.where === "going" || (situation.where === "starting" && situation.filed)
-              ? "Any other documents that already exist? (optional detail; what you said at the start stands)"
+              ? "Any other documents that already exist? (optional detail)"
               : "What documents already exist?"}
           </h3>
 

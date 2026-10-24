@@ -26,7 +26,7 @@ export default function NotSureCourtGuide() {
   const ready = province === "Ontario" && city.trim() && facts.trim() && relationship.trim() && remedy.trim() && started;
   const family = /family|parent|spouse|partner|relative|child/i.test(relationship);
   // Any amount of money asked for, or a money remedy in their words, makes Small Claims a path
-  // to review (finding 6: a $35,000 claim was offered Civil only). Never chosen for them.
+  // to review (finding 6: a money claim under the limit was offered Civil only). Never chosen for them.
   const money = Boolean(amount.trim()) || /money|pay|paid|owe|damages|refund|deposit|debt|cost|\$/i.test(remedy);
   const paths: Path[] = Array.from(new Set([...(family ? ["family" as const] : []), ...(money ? ["small-claims" as const] : []), "civil" as const]));
   /**
