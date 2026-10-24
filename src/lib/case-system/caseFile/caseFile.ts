@@ -47,7 +47,8 @@ export type SlotFact = (typeof SLOT_FACTS)[number];
 export type SlotState = "not-asked" | "answered" | "unsure";
 export type SlotSource = { kind: "answer"; question: string } | { kind: "story"; quote: string };
 export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean };
-export type CaseFile = Record<SlotFact, Slot>;
+/** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
+export type CaseFile = Record<SlotFact, Slot> & { answers?: Record<string, string> };
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
 export const CASE_FILE_SECTION = "caseFile";
@@ -66,7 +67,7 @@ const blank = (value: unknown) =>
   value === undefined || value === null || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
 
 export function emptyCaseFile(): CaseFile {
-  return Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])) as CaseFile;
+  return Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])) as unknown as CaseFile;
 }
 
 /** The slots that hold a day. */
@@ -173,8 +174,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
 
   // 3. Small Claims guided answers (typed, or confirmed from the story's proposals).
   const guided = object(sections.guided);
+  const answers: Record<string, string> = {};
   for (const answer of Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers : []) {
     const item = object(answer);
+    if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
   }
   const guidedFacts = object(guided.facts);
@@ -195,7 +198,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
 
   // 4. The review's answers, and its "I don't know yet".
   const builder = object(sections.builder);
-  for (const [id, answer] of Object.entries(object(builder.initialAnswers))) for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
+  for (const [id, answer] of Object.entries(object(builder.initialAnswers))) {
+    if (typeof answer === "string") answers[id] ??= answer;
+    for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
+  }
   for (const id of strings(builder.initialUnknowns)) for (const fact of slotsOf(id)) unsure(file, fact, `review:${id}`);
   // Skipped in the questions one at a time (civil, Family).
   for (const key of strings(object(sections["form-chat"]).skipped)) for (const fact of slotsOf(key)) unsure(file, fact, `chat:${key}`);
@@ -223,8 +229,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (typeof extra.confirmedClaimTypeId === "string" && extra.claimTypeUserConfirmed === true && isKindOfClaim(extra.confirmedClaimTypeId)) give(file, "claimKind", extra.confirmedClaimTypeId, "claim-kind-suggestion");
   for (const answer of Array.isArray(object(master).intakeAnswers) ? (object(master).intakeAnswers as unknown[]) : []) {
     const item = object(answer);
+    if (typeof item.questionId === "string" && typeof item.answerText === "string") answers[item.questionId] ??= item.answerText;
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
   }
+  file.answers = answers;
   return file;
 }
 
@@ -300,6 +308,11 @@ const DATE_QUESTIONS_OF: Partial<Record<SlotFact, readonly string[]>> = {
   courtDate: ["case-date-trial-date"],
 };
 
+/** Date questions that ask for the same moment under different ids (the Small Claims and the civil step maps). */
+const SAME_MOMENT: readonly (readonly string[])[] = [
+  ["sc-date-defence-filed", "case-date-own-defence-delivered"],
+];
+
 /** The one full day (with its year) a slot holds, as YYYY-MM-DD, or null. */
 export function slotDay(slot: Slot, readDay: (text: string) => string | null): string | null {
   if (slot.state !== "answered" || typeof slot.value !== "string") return null;
@@ -325,6 +338,17 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
   const court = typeof file.court.value === "string" ? file.court.value : "";
   const servedId = court === "family" ? "case-date-served-with-application" : court === "small-claims" || court === "civil" ? "sc-date-claim-served" : null;
   if (servedDay && servedId && !out[servedId]) out[servedId] = servedDay;
+  // A date question answered in the questions or the review is answered on the step page too,
+  // and so is its twin there (the same moment asked under another id, w4/w5 in the story pack).
+  for (const [id, words] of Object.entries(file.answers ?? {})) {
+    if (!/-date-/.test(id) || out[id]) continue;
+    const day = isRealIsoDate(words) ? words : readDay(words);
+    if (day) out[id] = day;
+  }
+  for (const group of SAME_MOMENT) {
+    const day = group.map((id) => out[id]).find(Boolean);
+    if (day) for (const id of group) if (!out[id]) out[id] = day;
+  }
   return out;
 }
 

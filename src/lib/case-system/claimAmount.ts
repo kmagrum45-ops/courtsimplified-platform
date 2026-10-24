@@ -29,12 +29,15 @@ import { sentences as splitSentences } from "./sentences";
 
 export type ClaimAmount = { value: string; quote: string };
 
-type Kind = "owed" | "claim" | "damage" | "fee" | "rent" | "paid" | "price" | "plain";
+type Kind = "against" | "owed" | "claim" | "damage" | "fee" | "rent" | "paid" | "price" | "plain";
 
 const MONEY = /\$\s?\d[\d,]*(?:\.\d{2})?|\b\d{1,3}(?:,\d{3})+(?:\.\d{2})?\b|\b\d+(?:\.\d+)?\s?k\b|\b\d{3,7}\s?dollars\b|\b(?:for|owe[sd]?|of|paid|lent|worth|costs?|claim(?:ing)?)\s+\$?(?:\d{1,3}(?:,\d{3})+|\d{3,7})(?:\.\d{2})?\b|\b\d{4,7}\b/gi;
 
 // What a part of a sentence says about its amount (the first that fits).
 const KINDS: [Kind, RegExp][] = [
+  // A claim the other side makes against the person ("serves him with a claim for $3,200",
+  // "is suing me for $6,000") is never the person's own amount (messy pack case 19).
+  ["against", /\b(?:serve[sd]? (?:me|him|her|them|us) with (?:a|their|his|her) claim|su(?:e|es|ed|ing) (?:me|him|her|us)\b|claim(?:s|ed)? against (?:me|him|her|us)\b)/i],
   ["owed", /\b(?:invoiced?|billed|still owe[sd]?|owe[sd]?|owing|is owed|are owed|outstanding|unpaid|balance|remaining|left to pay|still due|never paid (?:me|us)|(?:didn'?t|did not|won'?t|will not|refuses? to|refused to) pay (?:me|us)(?: back)?)\b/i],
   ["claim", /\b(?:claim(?:ing|ed)?|su(?:e|ing) (?:\w+ )?for|(?:want(?:s|ed)?|get|recover) [^.]{0,30}?\bback|money back|lost|total)\b/i],
   // A fee before the damage: "a $3,800 repair fee" is a fee (#470 re-test).

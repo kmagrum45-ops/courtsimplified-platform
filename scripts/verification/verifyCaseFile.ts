@@ -18,7 +18,7 @@
  * decided on its own (Jason's walkthrough findings 1-3 and the 22 repeats the ask-once
  * gate found on 2026-10-23).
  */
-import { alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
+import { type SlotFact, alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 import { situationOf, withSituationDates } from "../../src/lib/case-system/situation/situation";
 import { withCaseFileAnswers } from "../../src/lib/case-system/caseFile/triageFromCaseFile";
@@ -36,7 +36,7 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
 // 1. The situation answers fill their slots, as the person's own.
 {
   const file = caseFileOf(checkpoint("small-claims", { situation: { record: { where: "served", papers: "small-claims-7A", receivedOn: "2026-10-06", court: "small-claims", courtFrom: "papers" } } }));
-  check("served: side, court, stage, filed, papers and the day served are held", ["side", "court", "stage", "filed", "papers", "servedDate"].every((fact) => file[fact as keyof typeof file].state === "answered"));
+  check("served: side, court, stage, filed, papers and the day served are held", ["side", "court", "stage", "filed", "papers", "servedDate"].every((fact) => file[fact as SlotFact].state === "answered"));
   check("held facts are the person's own answers", file.servedDate.confirmed && file.servedDate.source?.kind === "answer");
   check("the day served is not asked again by any question for it", ["sc-defendant-claim-received", "sc-date-claim-served", "serviceDetails", "servedDate"].every((id) => alreadyAsked(file, id)));
   check("nor the side or the filing", ["sc-orient-role", "yourRole", "sc-claim-filed", "documents", "filedDocuments"].every((id) => alreadyAsked(file, id)));

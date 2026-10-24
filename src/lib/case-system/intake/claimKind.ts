@@ -91,9 +91,16 @@ export function wordsInStory(story: string, phrase: string): string | null {
   }
 }
 
+/**
+ * Phrases too general to show a kind of claim on their own: "owes me money" is said of a
+ * loan, an unpaid invoice and a deposit alike (messy pack case 20 was shown as an unpaid
+ * invoice on those words alone). They still count toward a match; they are never its quote.
+ */
+const GENERAL_PHRASES = new Set(["owes me money", "owe me money", "non-payment", "money owed"]);
+
 /** The story's words that show this kind: its longest signal phrase found whole in the story, or null. */
 export function storyQuoteFor(story: string, claimType: Pick<ClaimType, "signals">): string | null {
-  const quotes = claimType.signals.map((signal) => wordsInStory(story, signal)).filter((quote): quote is string => Boolean(quote));
+  const quotes = claimType.signals.filter((signal) => !GENERAL_PHRASES.has(signal.toLowerCase().trim())).map((signal) => wordsInStory(story, signal)).filter((quote): quote is string => Boolean(quote));
   return quotes.sort((a, b) => b.length - a.length)[0] ?? null;
 }
 

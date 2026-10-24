@@ -71,6 +71,7 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "case-date-served-with-third-party-claim": ["servedDate"],
   "sc-date-claim-issued": ["claimIssuedDate"],
   "sc-date-defence-filed": ["defenceFiledDate"],
+  "case-date-defence-served": ["defenceFiledDate"],
   "case-date-own-defence-delivered": ["defenceFiledDate"],
   "case-date-act-or-omission": ["whenHappened"],
   // The Family triage.

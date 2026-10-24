@@ -34,6 +34,7 @@ import { storySuggestsDanger } from "@/src/lib/case-system/intake/dangerWords";
 import { claimKindShown, kindsOfClaim, type ClaimKindShown } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
+import type { Slot } from "@/src/lib/case-system/caseFile/caseFile";
 
 type Props = {
   analysis: AnalysisResult;
@@ -48,6 +49,8 @@ type Props = {
   caseId?: string | null;
   /** The kind of claim the person chose themselves (position.claimKind), or "not-sure". */
   chosenClaimKind?: string | null;
+  /** The case file's kind-of-claim slot (caseFile.ts): their answer to "What kind of dispute is this?", or "not sure". */
+  heldKind?: Slot | null;
 };
 
 function listField(intake: StoredCaseData | null, field: string): string[] {
@@ -126,7 +129,7 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null }: Props) {
   const [chosenKind, setChosenKind] = useState<string | null>(chosenClaimKind);
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
@@ -391,12 +394,20 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
                     </dd>
                   </>
                 ) : (
+                  heldKind?.state === "answered" && typeof heldKind.value === "string" && heldKind.value.trim() && !chosenKind ? (
+                    // Their own answer to "What kind of dispute is this?": shown as given, never asked again.
+                    <>
+                      <dt className="font-semibold text-[#10231f]">Kind of dispute (your answer)</dt>
+                      <dd data-testid="claim-kind" data-claim-type="your-answer">{heldKind.value}</dd>
+                    </>
+                  ) : (
                   <>
                     <dt className="font-semibold text-[#10231f]">Kind of claim</dt>
                     <dd data-testid="claim-kind" data-claim-type="not-sure">
                       <ClaimKindChooser caseId={caseId} chosen={chosenKind} onChosen={setChosenKind} />
                     </dd>
                   </>
+                  )
                 )
               ) : null}
             </div>

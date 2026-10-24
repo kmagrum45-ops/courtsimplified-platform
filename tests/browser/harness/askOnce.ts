@@ -192,6 +192,8 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
       if (!gave || ask.at <= gave.at) continue;
       if (gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
       // An unsure fact, offered once more at the end: allowed once.
+      // "What we have so far" shows "Answer it now" only for a fact held as unsure: its one offer at the end.
+      if (ask.surface === "end" && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       if (gave.text === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       const repeat = repeats.get(fact) ?? { fact, given: gave, asks: [] };
       repeat.asks.push(ask);
