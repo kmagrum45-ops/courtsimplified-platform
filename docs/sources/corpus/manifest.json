@@ -3743,6 +3743,18 @@
       "characters": 5448,
       "lines": 342,
       "file": "wsib-injured-or-ill-people.txt"
+    },
+    {
+      "id": "statute-of-frauds",
+      "title": "Statute of Frauds",
+      "citation": "R.S.O. 1990, c. S.19",
+      "url": "https://www.ontario.ca/laws/docs/90s19_e.doc",
+      "retrievedAt": "2026-10-24T16:25:53.969Z",
+      "sha256": "a1354e8c3d750e104f3c296629b088facbe45ffb315537047b57de68beed5945",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 9, 1994 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 6075,
+      "lines": 115,
+      "file": "statute-of-frauds.txt"
     }
   ],
   "failures": []

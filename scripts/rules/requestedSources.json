@@ -658,5 +658,17 @@
       "Wages Act"
     ],
     "why": "How much of a person's wages can be garnished after a judgment; needed by the garnishment case types. Case types were left out for want of it (2026-10-07)."
+  },
+  {
+    "id": "statute-of-frauds",
+    "title": "Statute of Frauds",
+    "citation": "R.S.O. 1990, c. S.19",
+    "url": "https://www.ontario.ca/laws/docs/90s19_e.doc",
+    "format": "elaws-doc",
+    "mustContain": [
+      "STATUTE OF FRAUDS",
+      "CONSOLIDATION PERIOD"
+    ],
+    "why": "Named as missing by the research step (\"Statute of Frauds, s. 4\")."
   }
 ]
