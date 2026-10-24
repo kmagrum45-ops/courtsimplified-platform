@@ -39,10 +39,17 @@ import { createOpenAIClient } from "../openaiClient";
 import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import type { ClaimType } from "./claimTypes";
+import { kindsOfClaim, wordsInStory } from "./claimKind";
 
 export type ClaimTypeAiSuggestion = {
   claimTypeId: string;
   claimTypeName: string;
+  /**
+   * The story's own words that show this kind of claim (step 2b): what the model
+   * copied, kept only when it is found in the story as written (claimKind.ts
+   * wordsInStory). A suggestion without such words is not made.
+   */
+  quote: string;
 };
 
 const NONE_VALUE = "none";
@@ -63,18 +70,22 @@ function describeClaimType(claimType: ClaimType): string {
   );
 }
 
-function buildSystemPrompt(candidates: readonly ClaimType[]): string {
+function buildSystemPrompt(candidates: readonly ClaimType[], responding: boolean): string {
   const listing = candidates.map(describeClaimType).join("\n");
   return `You are a closed-list classifier for a legal self-help intake form covering Ontario Small Claims Court. Read the person's free-text story and decide which ONE claim type from the list below it most resembles -- or none, if nothing on the list fits.
 
 You do not give legal advice, you do not decide whether the person has a valid case, and you do not describe or characterize their situation in your own words. You only pick from the closed list given to you. If the story could plausibly fit more than one, pick the single best fit. If it fits none of them well, or you are unsure, say "none" -- do not guess.
 
-Pay attention to WHICH SIDE the person telling the story is on. Each claim type says who brings it. A customer who paid someone for work that was abandoned or done badly is not the person who did the work and is owed payment, even though both stories mention hiring, work and money. Only pick a claim type whose "brought by" matches the person telling the story.
+Pay attention to WHICH SIDE the person telling the story is on. Each claim type says who brings it. A customer who paid someone for work that was abandoned or done badly is not the person who did the work and is owed payment, even though both stories mention hiring, work and money. ${responding
+    ? `The person telling this story is the one being sued. Pick the claim type the OTHER side is bringing against them: one whose "brought by" matches the person suing them.`
+    : `Only pick a claim type whose "brought by" matches the person telling the story.`}
+
+With your pick, copy the words from the story that show it, exactly as the person wrote them: one passage of two to twenty words, unchanged. If no words in the story show it, say "none".
 
 Claim types:
 ${listing}
 
-Return a JSON object: {"claimTypeId": "<one of the ids above, exactly as written>" | "none"}. Never invent an id that is not in the list above.`;
+Return a JSON object: {"claimTypeId": "<one of the ids above, exactly as written>" | "none", "storyWords": "<the words copied from the story>"}. Never invent an id that is not in the list above.`;
 }
 
 function buildResponseSchema(candidates: readonly ClaimType[]) {
@@ -88,8 +99,9 @@ function buildResponseSchema(candidates: readonly ClaimType[]) {
         type: "object",
         properties: {
           claimTypeId: { type: "string", enum: allowedIds },
+          storyWords: { type: "string" },
         },
-        required: ["claimTypeId"],
+        required: ["claimTypeId", "storyWords"],
         additionalProperties: false,
       },
     },
@@ -112,13 +124,15 @@ export async function classifyClaimTypeWithAi(
   claimTypes: readonly ClaimType[],
   apiKey: string,
   excludeIds: readonly string[] = [],
+  /** The person is the one being sued: the kind of claim made against them is picked. */
+  responding = false,
 ): Promise<ClaimTypeAiSuggestion | null> {
   // LSO Step 7. The audit row is written by openaiClient.ts's wrapper; this
   // context is what tells it which call site the row belongs to. The body is a
   // separate function rather than an inlined arrow so the transform is a rename
   // plus four lines, reviewable at a glance, and the original body is untouched.
   return withAiCallContext({ callType: "claim-type-classifier" }, () =>
-    classifyClaimTypeWithAiInner(storyText, claimTypes, apiKey, excludeIds),
+    classifyClaimTypeWithAiInner(storyText, claimTypes, apiKey, excludeIds, responding),
   );
 }
 
@@ -127,9 +141,11 @@ async function classifyClaimTypeWithAiInner(
   claimTypes: readonly ClaimType[],
   apiKey: string,
   excludeIds: readonly string[],
+  responding: boolean,
 ): Promise<ClaimTypeAiSuggestion | null> {
   const excludeSet = new Set(excludeIds);
-  const candidates = claimTypes.filter((claimType) => !excludeSet.has(claimType.id));
+  // Kinds of claim only: a defendant-side situation is never offered as one (claimKind.ts).
+  const candidates = kindsOfClaim(claimTypes).filter((claimType) => !excludeSet.has(claimType.id));
   if (candidates.length === 0) return null;
 
   const client = createOpenAIClient(apiKey);
@@ -137,7 +153,7 @@ async function classifyClaimTypeWithAiInner(
     ...modelParams("deep", { temperature: 0 }),
     response_format: buildResponseSchema(candidates),
     messages: [
-      { role: "system", content: buildSystemPrompt(candidates) },
+      { role: "system", content: buildSystemPrompt(candidates, responding) },
       { role: "user", content: storyText },
     ],
   });
@@ -155,5 +171,7 @@ async function classifyClaimTypeWithAiInner(
   if (claimTypeId === NONE_VALUE) return null;
 
   const matched = candidates.find((claimType) => claimType.id === claimTypeId);
-  return matched ? { claimTypeId: matched.id, claimTypeName: matched.name } : null;
+  // The words must be the story's own: none, or words not in the story, and nothing is suggested.
+  const quote = typeof record.storyWords === "string" ? wordsInStory(storyText, record.storyWords) : null;
+  return matched && quote ? { claimTypeId: matched.id, claimTypeName: matched.name, quote } : null;
 }

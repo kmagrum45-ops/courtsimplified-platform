@@ -38,8 +38,8 @@ import { positionSavesSettled, savePositionQueued } from "../../builder/_compone
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
-import { suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
-import { sideOf, situationOfCase } from "@/src/lib/case-system/situation/situation";
+import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
+import { sideOf, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
 
 type EventsResponse = {
   events: Array<{
@@ -116,7 +116,12 @@ export default function CaseOverviewPage() {
     (unsettledFromAnswers ? null : position.confirmedStage) ??
     suggestionForSide(asConfirmable(events?.stage.stage) ?? asConfirmable(caseRecord.current_stage) ?? "not-sure", responding);
 
-  const confirmed = unsettledFromAnswers ? null : position.confirmedStage;
+  // The situation answers settle the stage too (served, nothing filed, or the step of a
+  // case already going): never asked again here (step 2b).
+  const situation = situationOfCase(master);
+  const fromSituation = courtPath ? stageRecordedFromAnswers(courtPath, null, "not-sure", situation) : null;
+  const confirmed = (unsettledFromAnswers ? null : position.confirmedStage) ?? fromSituation?.stage ?? null;
+  const situationStep = stepFromSituation(situation, courtPath);
 
   /*
    * A stage confirmed on the results page a moment ago may still be on its
@@ -252,7 +257,7 @@ export default function CaseOverviewPage() {
               responding={responding}
               sideFromRecord={sideOf(situationOfCase(master)) !== null}
               caseId={caseId}
-              initialStepId={position.stepId}
+              initialStepId={position.stepId ?? situationStep}
               initialDateAnswers={position.dateAnswers}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}
@@ -364,7 +369,7 @@ export default function CaseOverviewPage() {
               Change your story
             </Link>
           </div>
-          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} />
+          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} caseId={caseId} chosenClaimKind={position.claimKind ?? null} />
         </section>
       ) : null}
     </div>

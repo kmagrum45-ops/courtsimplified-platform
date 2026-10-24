@@ -365,7 +365,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       </p>
 
       {question ? (
-        <div className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
+        <div data-testid="triage-question" data-question={question.id} className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
           <p data-testid="triage-prompt" className="font-semibold text-[#10231f]">
             {question.prompt}
           </p>

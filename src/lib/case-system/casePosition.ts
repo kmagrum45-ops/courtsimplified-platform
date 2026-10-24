@@ -79,7 +79,15 @@ export type CasePosition = {
    * what every deadline is counted from.
    */
   service?: Record<string, { method: ServiceMethod; enteredOn: string }>;
+  /**
+   * The kind of claim the person chose themselves when none was shown from their story
+   * (claimKind.ts, step 2b): a kind-of-claim id ("sc-claim-..."), or "not-sure", which is
+   * remembered and not asked again.
+   */
+  claimKind?: string;
 };
+
+const CLAIM_KIND_VALUE = /^(?:sc-claim-[a-z0-9-]{1,80}|not-sure)$/;
 
 export const MOTION_ANSWERS = ["yes", "other", "not-sure"] as const;
 export const MOTION_READING_KINDS = ["asking", "responding", "if-served"] as const;
@@ -166,6 +174,7 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
     // The day they got the papers, from the situation answers (situation.ts), under any date given on the step page.
     dateAnswers: withSituationDates(dateAnswers, courtPath, situationOfCase(masterResult)),
     service: readService(raw.service, courtPath),
+    ...(typeof raw.claimKind === "string" && CLAIM_KIND_VALUE.test(raw.claimKind) ? { claimKind: raw.claimKind } : {}),
   };
 }
 
@@ -201,6 +210,8 @@ export type PositionPatch = {
   dateAnswers?: unknown;
   /** By date-question id: { method, enteredOn }, or null to remove. */
   service?: unknown;
+  /** A kind-of-claim id or "not-sure", or null to remove. */
+  claimKind?: unknown;
 };
 
 export type PositionPatchResult =
@@ -242,6 +253,12 @@ export function applyPositionPatch(
       if (!answer) return { ok: false, error: "Unknown motion-to-change answer." };
       next.motionToChange = answer;
     }
+  }
+
+  if (patch.claimKind !== undefined) {
+    if (patch.claimKind === null) delete next.claimKind;
+    else if (typeof patch.claimKind !== "string" || !CLAIM_KIND_VALUE.test(patch.claimKind)) return { ok: false, error: "Unknown kind of claim." };
+    else next.claimKind = patch.claimKind;
   }
 
   if (patch.stepId !== undefined) {

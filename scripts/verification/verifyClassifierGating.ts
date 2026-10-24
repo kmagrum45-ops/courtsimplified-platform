@@ -60,10 +60,12 @@ const ANSWERS: { questionId: string; text: string }[] = [
 const PERSONAL_LOAN = {
   claimTypeId: "sc-claim-personal-loan-between-individuals",
   claimTypeName: "Personal loan between individuals -- borrower hasn't repaid",
+  quote: "moved some money across to him",
 };
 const DEBT_SERVICES = {
   claimTypeId: "sc-claim-unpaid-debt-services",
   claimTypeName: "Unpaid debt or non-payment for services",
+  quote: "I want my money back",
 };
 
 /**

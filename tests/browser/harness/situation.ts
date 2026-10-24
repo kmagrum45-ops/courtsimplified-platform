@@ -15,6 +15,8 @@ export type SituationAnswers = {
   receivedOn?: string;
   filed?: "nothing" | "something";
   court?: "small-claims" | "civil" | "family";
+  /** For a case already going: the stage map step (its id), or "not-sure" (the default). */
+  stage?: string;
 };
 
 export const STARTING_NOTHING_FILED: SituationAnswers = { where: "starting", filed: "nothing" };
@@ -47,6 +49,7 @@ export async function answerSituation(page: Page, answers: SituationAnswers = ST
       }
     } else if (question === "filed") await option(answers.filed ?? "nothing").click();
     else if (question === "court") await option(answers.court ?? "small-claims").click();
+    else if (question === "stage") await option(answers.stage ?? "not-sure").click();
     else throw new Error(`unknown situation question: ${question}`);
     // The next question, or the page behind them.
     await expect.poll(async () => (await gate.isVisible().catch(() => false)) ? await gate.getAttribute("data-question") : "done", { timeout: 15_000 }).not.toBe(question);

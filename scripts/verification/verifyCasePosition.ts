@@ -720,7 +720,8 @@ function personsDatesWin(source: string): boolean {
   check(
     "origin: the case page, the dashboard and the step rule all ask, rather than show, a \"not sure\" left by the answers",
     /settledStage\(position\)/.test(overview) &&
-      /const confirmed = unsettledFromAnswers \? null : position\.confirmedStage/.test(overview) &&
+      // The situation answers (the person's own) may settle the stage after it (step 2b); a "not sure" left by the answers never does.
+      /const confirmed = \(?unsettledFromAnswers \? null : position\.confirmedStage\)?(?: \?\? fromSituation\?\.stage \?\? null)?;/.test(overview) &&
       /settledStage\(position\)/.test(read("app/dashboard/page.tsx")) &&
       /requireConfirmedStage && !settledStage\(position\)/.test(read("src/lib/case-system/caseStep.ts")),
   );

@@ -36,9 +36,10 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   answerSituation, FIRST_PAGES, nextSituationQuestion, SERVED_DATE_QUESTION, sideContradiction, sideOf,
-  situationAnswers, situationLine, situationOf, SITUATION_FIELD, SITUATION_SECTION, stageFromSituation, withKnownCourt, withoutSituationDates, withSituationDates,
+  situationAnswers, situationLine, situationOf, SITUATION_FIELD, SITUATION_SECTION, stageChoices, stageFromSituation, stepFromSituation, withKnownCourt, withoutSituationDates, withSituationDates,
   type Situation, type SituationCourt,
 } from "../../src/lib/case-system/situation/situation";
+import { findStage, pathwayOf } from "../../src/lib/case-system/stage-map/stageMap";
 import { sideFromParts } from "../../src/lib/case-system/caseRecord";
 import { readCasePosition } from "../../src/lib/case-system/casePosition";
 import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
@@ -57,14 +58,14 @@ type Row = { name: string; situation: Situation; side: "bringing" | "responding"
 const rowsFor = (court: SituationCourt): Row[] => [
   { name: "starting, nothing filed", situation: { where: "starting", filed: "nothing", court, courtFrom: "choice" }, side: "bringing" },
   { name: "starting, something filed", situation: { where: "starting", filed: "something", court, courtFrom: "choice" }, side: "bringing" },
-  { name: "a case going they started", situation: { where: "going", started: "me", court, courtFrom: "choice" }, side: "bringing" },
+  { name: "a case going they started", situation: { where: "going", started: "me", court, courtFrom: "choice", stage: "not-sure" }, side: "bringing" },
   ...FIRST_PAGES.filter((page) => page.court === court).map((page) => ({
     name: `served with Form ${page.number}`,
     situation: { where: "served" as const, papers: `${court}-${page.number}`, receivedOn: "2026-10-06", court, courtFrom: "papers" as const },
     side: "responding" as const,
     servedQuestion: SERVED_DATE_QUESTION[`${court}-${page.number}`],
   })),
-  { name: "responding to a case going, papers not sure", situation: { where: "going", started: "them", papers: "not-sure", receivedOn: "unknown", court, courtFrom: "choice" }, side: "responding" },
+  { name: "responding to a case going, papers not sure", situation: { where: "going", started: "them", papers: "not-sure", receivedOn: "unknown", court, courtFrom: "choice", stage: "not-sure" }, side: "responding" },
 ];
 
 let rows = 0;
@@ -142,7 +143,21 @@ for (const court of COURTS) {
   s = answerSituation(s, "papers", "small-claims-7A");
   check("then the day received", nextSituationQuestion(s, "small-claims") === "received");
   s = withKnownCourt(answerSituation(s, "received", "2026-10-06"), "small-claims");
-  check("the papers' court is the area chosen: complete", nextSituationQuestion(s, "small-claims") === null && s.court === "small-claims" && s.courtFrom === "papers", JSON.stringify(s));
+  check("the papers' court is the area chosen, then what has happened so far", nextSituationQuestion(s, "small-claims") === "stage" && s.court === "small-claims" && s.courtFrom === "papers", JSON.stringify(s));
+  const offered = stageChoices(s);
+  check("the stage options are the stage map's own Small Claims steps for the side answered", offered.length > 1 && offered.every((step) => findStage(step.id) && pathwayOf(step) === "small-claims" && (step.side === "defendant" || step.side === "both")), offered.map((step) => step.id).join(", "));
+  s = answerSituation(s, "stage", "defendant:defence-filed");
+  check("a step chosen completes the record", nextSituationQuestion(s, "small-claims") === null && s.stage === "defendant:defence-filed", JSON.stringify(s));
+  check("the step chosen is the step used", stepFromSituation(s, "small-claims") === "defendant:defence-filed" && stepFromSituation(s, "civil") === null);
+  check("the top line shows the step chosen, in the map's words", (situationLine(s) ?? "").includes(findStage("defendant:defence-filed")!.userQuestion), String(situationLine(s)));
+  check("the area's stage is settled from the step chosen, never asked", situationAnswers("small-claims", s).caseStage === "already-started");
+  check("a step on the other side is not kept", answerSituation(s, "stage", "plaintiff:defence-filed").stage === undefined);
+  check("changing who started it clears the stage, which is asked again for the new side", answerSituation(s, "started", "me").stage === undefined && nextSituationQuestion(answerSituation(s, "started", "me"), "small-claims") === "stage");
+  check("not sure is remembered as an answer", nextSituationQuestion(answerSituation(s, "stage", "not-sure"), "small-claims") === null);
+  // Finding 1: "has anything been filed" asked once; "yes" is a case already going they started.
+  const filed = withKnownCourt(answerSituation({ where: "starting" }, "filed", "something"), "civil");
+  check("something filed when starting: a case already going they started, asked its stage next, and never filed again", filed.where === "going" && filed.started === "me" && !filed.filed && nextSituationQuestion(filed, "civil") === "stage", JSON.stringify(filed));
+  check("a case already going: Nothing filed yet is ruled out and a Small Claims claim counts as filed", (situationAnswers("small-claims", filed).excludeDocuments ?? []).includes("nothing") && situationAnswers("small-claims", { ...filed, court: "small-claims" }).claimFiled === true);
   const changed = answerSituation(s, "where", "starting");
   check("changing to starting clears the papers and the day", !changed.papers && !changed.receivedOn && !changed.started);
   check("starting asks whether anything was filed, once", nextSituationQuestion(changed, "small-claims") === "filed");

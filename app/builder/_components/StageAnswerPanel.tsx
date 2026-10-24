@@ -1672,6 +1672,7 @@ export default function StageAnswerPanel({
   return (
     <section
       data-testid="stage-answer-panel"
+      data-stage-id={stageId}
       className="rounded-3xl border border-[#d8e6df] bg-white p-5 shadow-sm"
     >
       <h3 className="text-lg font-bold text-[#10231f]">What happens next at your exact step</h3>
@@ -1864,7 +1865,7 @@ export default function StageAnswerPanel({
                 );
               }
               return (
-                <div key={question.id}>
+                <div key={question.id} data-testid="stage-answer-date-question" data-question-id={question.id}>
                   {serviceCourt &&
                   isServiceDateQuestion(question.id, question.question) &&
                   serviceMethodDisplay(serviceMethod[question.id], storyMethodFor(question.id), Boolean(changingMethod[question.id])) !== "choose" ? (

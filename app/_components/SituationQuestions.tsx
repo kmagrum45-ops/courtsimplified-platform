@@ -20,6 +20,7 @@ import {
   nextSituationQuestion,
   paperId,
   situationLine,
+  stageChoices,
   withKnownCourt,
   type FirstPage,
   type Situation,
@@ -124,15 +125,18 @@ export default function SituationQuestions({ situation, onChange, chosenCourt, o
       </>}
 
       {question === "court" && <CourtQuestion situation={known} chosenCourt={chosenCourt} onPick={(value) => save("court", value)} />}
+
+      {question === "stage" && <StageQuestion situation={known} onPick={(value) => save("stage", value)} />}
     </section>
   );
 }
 
 /** After an answer while reviewing every answer (the Change link): the next one that applies, in order. */
 function nextReviewStep(after: SituationQuestion, situation: Situation, chosenCourt: SituationCourt | null): SituationQuestion | null {
-  const order: SituationQuestion[] = ["where", "started", "papers", "received", "filed", "court"];
+  const order: SituationQuestion[] = ["where", "started", "papers", "received", "filed", "court", "stage"];
   const applies = (question: SituationQuestion) =>
     question === "where" ||
+    (question === "stage" && situation.where === "going") ||
     (question === "started" && situation.where === "going") ||
     ((question === "papers" || question === "received") && (situation.where === "served" || (situation.where === "going" && situation.started === "them"))) ||
     (question === "filed" && situation.where === "starting") ||
@@ -209,4 +213,31 @@ export function SituationLine({ situation, onChange, changeHref }: { situation: 
         : changeHref ? <a data-testid="situation-change" href={changeHref} className="font-semibold text-[#2f7d67] underline">Change</a> : null}
     </p>
   );
+}
+
+/**
+ * For a case already going: what has happened so far, once. The options are the stage
+ * map's own steps for the court and side, in the words the map gives each (its question
+ * in the person's words); steps where something has gone wrong are listed after.
+ */
+function StageQuestion({ situation, onPick }: { situation: Situation; onPick: (value: string) => void }) {
+  const steps = stageChoices(situation);
+  const option = (id: string, label: string) => (
+    <button key={id} type="button" data-testid="situation-option" data-value={id} aria-pressed={situation.stage === id} onClick={() => onPick(id)}
+      className="rounded-2xl border border-[#cde7dc] bg-white px-4 py-3 text-left text-sm font-semibold text-[#16302b] aria-pressed:bg-[#2f7d67] aria-pressed:text-white">
+      {label}
+    </button>
+  );
+  const usual = steps.filter((step) => !step.wentWrong);
+  const wrong = steps.filter((step) => step.wentWrong);
+  return <>
+    <h2 className="text-lg font-bold text-[#10231f]">What has happened in the case so far?</h2>
+    <p className="mt-1 text-sm text-[#4d675f]">Pick the one closest to where you are now. We ask this once and keep your answer.</p>
+    <div className="mt-4 grid gap-2 md:grid-cols-2">{usual.map((step) => option(step.id, step.userQuestion))}</div>
+    {wrong.length > 0 && <>
+      <p className="mt-4 text-sm font-semibold text-[#4d675f]">If something has gone wrong</p>
+      <div className="mt-2 grid gap-2 md:grid-cols-2">{wrong.map((step) => option(step.id, step.userQuestion))}</div>
+    </>}
+    <div className="mt-4">{option("not-sure", "I'm not sure")}</div>
+  </>;
 }

@@ -44,6 +44,7 @@ import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import { settledClaimTypeMatch, type ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
+import { kindsOfClaim } from "./claimKind";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
@@ -427,7 +428,8 @@ export async function orchestrateIntakeTurn(
     // classifier below, whose answer the user must confirm. A whole-phrase
     // match is unchanged. (2026-10-16: this bar is now settledClaimTypeMatch,
     // shared with SmallClaimsIntake.tsx's form route -- see claimTypeMatcher.ts.)
-    const match = isOpeningStory ? settledClaimTypeMatch(newStoryText, claimTypes) : null;
+    // Kinds of claim only (claimKind.ts): a defendant-side situation is never matched as one.
+    const match = isOpeningStory ? settledClaimTypeMatch(newStoryText, kindsOfClaim(claimTypes)) : null;
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       if (!overrides.intakeOnly) {
@@ -459,7 +461,8 @@ export async function orchestrateIntakeTurn(
       // ten of the eleven turns in a typical journey.
       // A failed classification means no suggestion, never a failed turn
       // (2026-10-13): the person can still pick a claim type themselves.
-      suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey).catch(() => null)) ?? undefined;
+      // A defendant is asked about the claim made against them (step 2b).
+      suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey, [], facts.role === "defendant").catch(() => null)) ?? undefined;
     }
   }
 

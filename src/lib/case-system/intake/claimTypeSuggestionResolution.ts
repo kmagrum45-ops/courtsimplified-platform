@@ -74,7 +74,7 @@ export async function resolveClaimTypeSuggestion(
   const revised = await classifyClaimTypeWithAi(storyText, claimTypes, apiKey, [
     ...priorRejectedIds,
     claimTypeId,
-  ]);
+  ], facts.role === "defendant");
 
   return revised ? { outcome: "revised", suggestedClaimType: revised } : { outcome: "no-match" };
 }

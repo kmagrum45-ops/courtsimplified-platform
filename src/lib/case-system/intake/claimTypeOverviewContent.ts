@@ -46,7 +46,7 @@
  * marked reviewed.
  */
 
-import { matchClaimType } from "./claimTypeMatcher";
+import { isKindOfClaim, kindFromStory } from "./claimKind";
 import { collectEvidenceCategories } from "./evidenceGapDetector";
 import { CLAIM_TYPES, DEFENCE_CONCEPTS, type ClaimType } from "./claimTypes";
 
@@ -154,10 +154,11 @@ export function buildClaimTypeOverviewContent(
 ): ClaimTypeOverviewContent | null {
   let claimType: ClaimType | undefined;
   if (confirmedClaimTypeId === null) return null;
+  // Kinds of claim only, and from the story only by a phrase found whole in it (claimKind.ts, step 2b).
   if (typeof confirmedClaimTypeId === "string") {
-    claimType = claimTypes.find((candidate) => candidate.id === confirmedClaimTypeId);
+    claimType = isKindOfClaim(confirmedClaimTypeId) ? claimTypes.find((candidate) => candidate.id === confirmedClaimTypeId) : undefined;
   } else {
-    claimType = matchClaimType(storyText, claimTypes)?.claimType;
+    claimType = kindFromStory(storyText, claimTypes)?.claimType;
   }
   if (!claimType) return null;
   const sourceUrlByCategoryName = buildSourceUrlByCategoryName(claimType);

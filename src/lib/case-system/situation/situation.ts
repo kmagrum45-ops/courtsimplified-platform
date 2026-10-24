@@ -5,8 +5,11 @@
  *   (b) started:  for a case already going, did they start it or are they responding
  *   (c) papers:   if served or responding, which papers (picked by the top of the first
  *                 page), and the day they got them (the one date rule, dates.ts)
- *   (d) filed:    when starting, whether anything has been filed yet (asked once)
+ *   (d) filed:    when starting, whether anything has been filed yet (asked once); "yes"
+ *                 means the case is already going, which they started
  *   (e) court:    the court, when neither the papers nor their own choice of area says
+ *   (f) stage:    for a case already going, what has happened so far: one of the stage
+ *                 map's steps for that court and side (stageMap.ts), or "not sure"
  *
  * These are the person's own answers, kept in the checkpoint's `situation` section:
  * they are not tied to a version of the story (storyBasis.ts never tags this section),
@@ -18,6 +21,7 @@
  */
 import { formatForCourt, isRealIsoDate } from "../dates";
 import TOPS from "./firstPageTops.json";
+import { findStage, pathwayOf, stagesForPathway, type CaseStage } from "../stage-map/stageMap";
 import type { SituationCourt } from "./firstPageForms";
 
 export type { SituationCourt } from "./firstPageForms";
@@ -40,9 +44,11 @@ export type Situation = {
   court?: SituationCourt;
   /** How the court is known: from the papers, from the area they chose, or asked here. */
   courtFrom?: "papers" | "choice" | "asked";
+  /** For a case already going: the stage map step they say they are at, or "not-sure". */
+  stage?: string;
 };
 
-export type SituationQuestion = "where" | "started" | "papers" | "received" | "filed" | "court";
+export type SituationQuestion = "where" | "started" | "papers" | "received" | "filed" | "court" | "stage";
 
 export type FirstPage = { court: SituationCourt; number: string; title: string; date: string; pdf: string; image: string; retrievedOn: string };
 export const FIRST_PAGES: FirstPage[] = (TOPS as { forms: FirstPage[] }).forms;
@@ -61,6 +67,7 @@ export function situationOf(sections: Record<string, unknown> | null | undefined
   if (raw.filed === "nothing" || raw.filed === "something") out.filed = raw.filed;
   if (isCourt(raw.court)) out.court = raw.court;
   if (raw.courtFrom === "papers" || raw.courtFrom === "choice" || raw.courtFrom === "asked") out.courtFrom = raw.courtFrom;
+  if (typeof raw.stage === "string" && (raw.stage === "not-sure" || findStage(raw.stage))) out.stage = raw.stage;
   return out;
 }
 
@@ -111,8 +118,53 @@ export function nextSituationQuestion(situation: Situation, chosenCourt: Situati
   if (!situation.court) return "court";
   const papersCourt = courtOfPapers(situation);
   if (papersCourt && papersCourt !== situation.court) return "court";
+  if (situation.where === "going" && !stageFitsSituation(situation)) return "stage";
   void chosenCourt;
   return null;
+}
+
+/**
+ * The steps offered for "what has happened so far", for a case already going: the stage
+ * map's steps for the court, on the person's side or either side, past filing. Steps
+ * where something has gone wrong come after the others. Empty until side and court are known.
+ */
+export function stageChoices(situation: Situation): CaseStage[] {
+  const side = sideOf(situation);
+  if (!side || !situation.court) return [];
+  const own = side === "bringing" ? ["plaintiff", "applicant"] : ["defendant", "respondent"];
+  const steps = stagesForPathway(situation.court).filter(
+    (step) => (own.includes(step.side) || step.side === "both") && !/before-filing|drafted-not/.test(step.id),
+  );
+  return [...steps.filter((step) => !step.wentWrong), ...steps.filter((step) => step.wentWrong)];
+}
+
+/** Whether the stage answer still fits the side and court answered ("not sure" always does). */
+function stageFitsSituation(situation: Situation): boolean {
+  if (!situation.stage) return false;
+  if (situation.stage === "not-sure") return true;
+  return stageChoices(situation).some((step) => step.id === situation.stage);
+}
+
+/** The stage map step the person said a case already going is at, for this court, or null. */
+export function stepFromSituation(situation: Situation, court: string | null | undefined): string | null {
+  if (situation.where !== "going" || !situation.stage || situation.stage === "not-sure") return null;
+  const step = findStage(situation.stage);
+  return step && pathwayOf(step) === court && stageFitsSituation(situation) ? step.id : null;
+}
+
+/**
+ * The results page's broad stage for a step (StageConfirmation's list), so the step a
+ * person chose for a case already going settles that too. A plain reading of the step's
+ * id; nothing is shown from it but the person's own choice.
+ */
+export function broadStageOfStep(stepId: string): "responding" | "already-started" | "conference" | "motion" | "trial" | "enforcement" {
+  const id = stepId.replace(/^(civil|family):/, "");
+  if (/conference|pretrial|mediation|dispute-resolution/.test(id)) return "conference";
+  if (/trial/.test(id)) return "trial";
+  if (/motion|injunction|summary-judgment/.test(id)) return "motion";
+  if (/judgment|enforc|garnish|debtor|not-paid|licence-suspension|default-hearing|financial-examination|request-for-financial/.test(id)) return "enforcement";
+  if (/^(defendant|respondent):served-(defence-period|time-to-answer)/.test(id)) return "responding";
+  return "already-started";
 }
 
 /** The record once a court is known from the papers or the person's own choice of area. */
@@ -129,11 +181,12 @@ export function answerSituation(situation: Situation, question: SituationQuestio
   const next: Situation = { ...situation };
   if (question === "where") {
     next.where = value as Where;
-    if (value !== "going") delete next.started;
+    if (value !== "going") { delete next.started; delete next.stage; }
     if (value === "starting") { delete next.papers; delete next.receivedOn; }
     if (value !== "starting") delete next.filed;
   }
   if (question === "started") {
+    if (next.started !== value) delete next.stage;
     next.started = value as Started;
     if (value === "me") { delete next.papers; delete next.receivedOn; }
   }
@@ -142,8 +195,16 @@ export function answerSituation(situation: Situation, question: SituationQuestio
     if (next.courtFrom === "papers") { delete next.court; delete next.courtFrom; }
   }
   if (question === "received") next.receivedOn = value;
-  if (question === "filed") next.filed = value as "nothing" | "something";
+  // Something filed when starting is a case already going, which they started: its
+  // stage is asked next, and "has anything been filed" is never asked again (finding 1).
+  if (question === "filed") {
+    if (value === "something") { next.where = "going"; next.started = "me"; delete next.filed; delete next.stage; }
+    else next.filed = "nothing";
+  }
   if (question === "court" && isCourt(value)) { next.court = value; next.courtFrom = courtOfPapers(next) === value ? "papers" : "asked"; }
+  if (question === "stage") next.stage = value;
+  // A stage chosen for another side or court no longer applies.
+  if (next.stage && next.stage !== "not-sure" && next.court && !stageFitsSituation(next)) delete next.stage;
   return next;
 }
 
@@ -166,6 +227,8 @@ export function situationLine(situation: Situation): string | null {
   if (page) parts.push(`${page.title} (Form ${page.number})`);
   if (situation.receivedOn && situation.receivedOn !== "unknown") parts.push(`${situation.where === "served" ? "served" : "received"} ${formatForCourt(situation.receivedOn)}`);
   if (situation.where === "starting" && situation.filed === "nothing") parts.push("nothing filed yet");
+  const step = stepFromSituation(situation, situation.court);
+  if (step) parts.push(`now: “${findStage(step)!.userQuestion}”`);
   return parts.join(" · ");
 }
 
@@ -187,7 +250,7 @@ export type SituationAnswers = {
   /** "What has been filed" choices the answers rule out: "nothing", once papers exist. */
   excludeDocuments?: string[];
   /** The area's stage the answers settle (starting a case, or served and responding), or none for a case already going. */
-  caseStage?: "starting-case" | "already-started" | "responding";
+  caseStage?: "starting-case" | "already-started" | "responding" | "conference" | "motion" | "trial" | "enforcement";
   claimFiled?: boolean;
   claimServed?: boolean;
   servedOn?: string;
@@ -213,12 +276,23 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
   if (court === "small-claims") out.questionIds.push("sc-orient-role");
   if (situation.where === "starting" && situation.filed === "nothing") out.documents = ["nothing"];
   // Papers exist when something was filed, or they were served: "Nothing filed yet" is not an answer then.
-  if ((situation.where === "starting" && situation.filed === "something") || side === "responding") out.excludeDocuments = ["nothing"];
-  out.caseStage = situation.where === "starting" ? (situation.filed === "something" ? "already-started" : "starting-case") : situation.where === "served" ? "responding" : undefined;
+  // A case already going has papers filed too (finding 1).
+  if ((situation.where === "starting" && situation.filed === "something") || side === "responding" || situation.where === "going") out.excludeDocuments = ["nothing"];
+  const step = stepFromSituation(situation, court);
+  out.caseStage =
+    situation.where === "starting"
+      ? situation.filed === "something" ? "already-started" : "starting-case"
+      : situation.where === "served"
+        ? "responding"
+        : situation.where === "going" && situation.stage
+          ? step ? broadStageOfStep(step) : "already-started"
+          : undefined;
   const document = situation.papers ? DOCUMENT_OF_PAPERS[situation.papers] : undefined;
   if (document && courtOfPapers(situation) === court) out.documents = [document];
   if (court === "small-claims") {
     if (situation.where === "starting" && situation.filed) out.claimFiled = situation.filed === "something";
+    // They started a case already going: their claim is filed.
+    if (situation.where === "going" && situation.started === "me") out.claimFiled = true;
     if (side === "responding" && situation.papers === "small-claims-7A") { out.claimFiled = true; out.claimServed = true; }
     if (out.claimFiled !== undefined) out.questionIds.push("sc-claim-filed");
   }

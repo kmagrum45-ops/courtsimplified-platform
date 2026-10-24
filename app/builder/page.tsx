@@ -1,7 +1,7 @@
 "use client";
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
-import { sideOf, situationAnswers, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
+import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
 
 /** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
 function personAnswersFromSituation(situation: Situation): { side?: "plaintiff" | "defendant"; claimFiled?: boolean } {
@@ -242,7 +242,7 @@ function isAnalysisAvailable(caseData: StoredCaseData | null): boolean {
 function BuilderPageContent() {
   const router = useRouter();
   const recovery = useIntakeRecovery();
-  const [situation] = useSituation();
+  const [situation, setSituation] = useSituation();
   const reviewView = useIntakeReviewView();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
@@ -1338,6 +1338,8 @@ function BuilderPageContent() {
           // (GuidedSmallClaimsIntake.tsx's resolveSuggestion). The overview
           // panel reads this to word its label honestly either way.
           claimTypeUserConfirmed: result.matchedClaimType?.userConfirmed === true,
+          // The story's words the kind was shown with (claimKind.ts): its source on every later screen.
+          ...(result.matchedClaimType?.quote ? { claimTypeQuote: result.matchedClaimType.quote } : {}),
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
           // The side and filing answers the person gave or confirmed in the
@@ -2535,16 +2537,22 @@ function BuilderPageContent() {
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
-                initialStepId={savedPosition.stepId}
+                initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
-                onSaved={(saved) =>
+                onSaved={(saved) => {
+                  // A case already going: the step chosen here is their answer to "what has
+                  // happened so far", kept in one place, so the top line shows it too.
+                  if (saved.stepId && situation.where === "going" && saved.stepId !== situation.stage) {
+                    const next = answerSituation(situation, "stage", saved.stepId);
+                    if (next.stage === saved.stepId) setSituation(next);
+                  }
                   setPositionThisVisit((current) => ({
                     stepId: saved.stepId !== undefined ? saved.stepId : current.stepId,
                     dateAnswers: saved.dateAnswers ? { ...(current.dateAnswers ?? {}), ...saved.dateAnswers } : current.dateAnswers,
                     service: saved.service ? { ...(current.service ?? {}), ...saved.service } : current.service,
-                  }))
-                }
+                  }));
+                }}
                 storyHints={storyHintsForDates(storyWithTimeline(userStory(caseData), caseData?.timeline))}
                 storyText={[userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n")}
                 suggestedDates={guidedDates}
@@ -2578,7 +2586,7 @@ function BuilderPageContent() {
               </details>
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} caseId={savedCaseId()} chosenClaimKind={savedPosition.claimKind ?? null} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}

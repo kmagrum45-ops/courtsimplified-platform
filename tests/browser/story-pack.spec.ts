@@ -33,6 +33,8 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
+import { factsAskedTwice, recordAsks } from "./harness/askOnce";
+import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 
@@ -351,6 +353,42 @@ const SIDE_LINE: Record<Story["side"], RegExp> = {
   respondent: /You are responding \(respondent\)|You're responding to a family case/,
 };
 
+/**
+ * GATE A2: THE KIND OF CLAIM. The kinds each story's own words fit (Small Claims claim
+ * types), or "not-sure". Every screen that names a kind of claim must name one of these,
+ * or say it is not sure and ask, and show the story's words it rests on. A kitchen
+ * renovation is never a personal loan.
+ */
+const CLAIM_KIND: Record<string, string[]> = {
+  "sc-deck-owed": ["sc-claim-breach-of-contract-services", "sc-claim-unpaid-debt-services"],
+  "sc-movers-damage": ["sc-claim-property-damaged-lost-in-business-care", "sc-claim-breach-of-contract-services"],
+  "sc-roofer-single": ["sc-claim-breach-of-contract-services"],
+  "sc-deposit-back": ["sc-claim-deposit-not-returned"],
+  "sc-loan-friend": ["sc-claim-personal-loan-between-individuals"],
+  "sc-car-estimate": ["sc-claim-vehicle-accident-uninsured-driver-property-damage"],
+  "sc-invoice-unpaid": ["sc-claim-unpaid-debt-services"],
+  "sc-unclear": ["sc-claim-breach-of-contract-services"],
+  "sc-defendant-served": ["sc-claim-non-payment-goods-sold"],
+  "sc-defendant-unclear": ["sc-claim-unpaid-debt-services"],
+  "sc-rent-unclear": ["sc-claim-deposit-not-returned"],
+};
+const CLAIM_NAME = new Map((CLAIM_TYPES as { id: string; name: string }[]).map((type) => [type.id, type.name]));
+const KIND_LINE = /Kind of claim (?:this matches|you confirmed)\s*([^\n]*)/g;
+/** Every kind of claim a screen names: one the story fits, or "not sure" with a question, with the story's words beside it. */
+function checkClaimKind(run: string, where: string, text: string, story: Story) {
+  const named = [...text.matchAll(KIND_LINE)].map((match) => match[1].trim()).filter(Boolean);
+  for (const name of named) {
+    const id = [...CLAIM_NAME.entries()].find(([, label]) => name.startsWith(label))?.[0] ?? null;
+    const fits = story.court === "small-claims" && id !== null && (CLAIM_KIND[story.id] ?? []).includes(id);
+    const notSure = /not sure/i.test(name);
+    const quoted = [...text.matchAll(/“([^”]{8,})”/g)].some((match) => story.story.includes(match[1]));
+    const finding = { run, where, shown: name, expected: CLAIM_KIND[story.id] ?? ["(none: this area names no kind of claim)"], fits, notSure, quoted };
+    fs.appendFileSync("test-results/claim-kind.jsonl", JSON.stringify(finding) + "\n");
+    note(run, where, "the kind of claim shown fits the story, or says it is not sure and asks", fits || notSure, name);
+    note(run, where, "the kind of claim shown carries the story's words", quoted, name);
+  }
+}
+
 for (const story of STORIES) {
   for (const route of ["questions", "review"] as const) {
     test(`${story.id} (${route})`, async ({ page }) => {
@@ -358,6 +396,8 @@ for (const story of STORIES) {
       const run = `${story.id} (${route})`;
       await grantSiteAccess(page);
       await autoAnswerSituation(page, situationForStory(story));
+      // Gate A1: every question shown in this case, on every screen.
+      const asked = await recordAsks(page);
       const account = await fakeAccount(page);
       await serveFromThisCommit(page, story.court, account.rows as unknown as Map<string, Record<string, unknown>>);
 
@@ -380,6 +420,7 @@ for (const story of STORIES) {
       await page.waitForTimeout(1_500);
       const results = await page.locator("body").innerText();
       checkText(run, "results", results);
+      checkClaimKind(run, "results", results, story);
       if (settles(story)) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
       }
@@ -412,8 +453,22 @@ for (const story of STORIES) {
         checkText(run, "case page", casePage);
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
+        checkClaimKind(run, "case page", casePage, story);
         if (settles(story)) note(run, "case page", "a stage the answers settle is not asked again", !casePage.includes("Which of these fits your case best?"));
       } else note(run, "case page", "the case was saved", false);
+
+      // Gate A2 on the guided route's own card: "This sounds like it may be about: X -- is that right?"
+      for (const item of asked.filter((entry) => entry.kind === "ask" && entry.surface === "sc-claim-kind")) {
+        const name = /may be about: (.*?) — is that right?/.exec(item.text)?.[1] ?? item.text;
+        checkClaimKind(run, "guided card", `Kind of claim this matches ${name}
+${item.text}`, story);
+      }
+
+      // Gate A1: no fact asked twice in this case, across every screen.
+      await page.waitForTimeout(600);
+      const repeats = factsAskedTwice(asked, situationForStory(story));
+      fs.appendFileSync("test-results/ask-once.jsonl", JSON.stringify({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }) + "\n");
+      note(run, "ask-once", "no fact is asked twice in the case", repeats.length === 0, repeats.map((repeat) => `${repeat.fact} (${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")})`).join("; "));
     });
   }
 }
