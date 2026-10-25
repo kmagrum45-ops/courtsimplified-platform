@@ -769,6 +769,10 @@ function CourtAssistantChatInner({
   chatStore,
 }: CourtAssistantChatInnerProps) {
   const initialChatState = initialSnapshot.state;
+  // The case id as it is now: a question asked while the new case is still saving is sent
+  // again once it has saved (item 9: a reply never fails silently).
+  const caseIdRef = useRef(caseId);
+  caseIdRef.current = caseId;
   const [law, setLaw] = useState<Record<number, LawState>>({});
   const [messages, setMessages] = useState<ChatMessage[]>(
     initialChatState.messages,
@@ -973,12 +977,12 @@ function CourtAssistantChatInner({
     }
 
     try {
-      const response = await fetch("/api/guided-assistant", {
+      const ask = async () => fetch("/api/guided-assistant", {
         method: "POST",
         headers: await authHeaders() ?? { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmed,
-          caseId,
+          caseId: caseIdRef.current,
           mode: "builder-chat",
           courtContext: {
             courtPath: path,
@@ -991,6 +995,13 @@ function CourtAssistantChatInner({
           conversation: nextMessages,
         }),
       });
+      let response = await ask();
+      // The case not found yet (still saving, just after the next step was shown): asked
+      // once more after a short wait, never shown as a failure on the first try.
+      for (let attempt = 0; response.status === 404 && attempt < 2; attempt += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 2_000));
+        response = await ask();
+      }
 
       const data: GuidedAssistantResponse = await response.json();
 

@@ -2757,7 +2757,11 @@ function BuilderPageContent() {
                 </p>
               ) : null}
             </section>
-            {analysisAvailable && !showFollowUp && <button type="button" onClick={() => setShowFollowUp(true)} className="text-sm font-semibold text-[#2f7d67]">Ask follow-up questions</button>}
+            {/* The chat keeps its conversation under the saved case, so it opens once the case is
+                saved: opened earlier, it restarted when the case id arrived and the reply was lost
+                (story pack, case 05; item 9: never fail silently). */}
+            {analysisAvailable && !showFollowUp && (queryCaseId || masterCaseId) && <button type="button" onClick={() => setShowFollowUp(true)} className="text-sm font-semibold text-[#2f7d67]">Ask follow-up questions</button>}
+            {analysisAvailable && !showFollowUp && !(queryCaseId || masterCaseId) && recovery?.ownerId ? <p data-testid="follow-up-waiting" role="status" className="text-sm text-[#4d675f]">Saving your case… follow-up questions open in a moment.</p> : null}
             {analysisAvailable && showFollowUp && <CourtAssistantChat
               // The saved case, also when this visit created it (?intake=): without it the guided
               // assistant's gate refused every message (409, Part 3b).

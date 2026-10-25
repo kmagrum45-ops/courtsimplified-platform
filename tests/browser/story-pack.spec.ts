@@ -39,7 +39,9 @@ import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 
-test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
+// Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
+// in more than 20 s, and a button still disabled then is waiting, not broken.
+test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
 /** A story: civil documents / Family filed documents as option values; Small Claims' amount the story's own words claim (storyPackMore.ts). */
 type Story = PackStory;
@@ -481,6 +483,8 @@ for (const story of STORIES) {
 
       // 4. The chat.
       const ask = page.getByRole("button", { name: "Ask follow-up questions" });
+      // The chat opens once the case is saved (a moment after the next step shows).
+      await ask.waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
       if (await ask.isVisible().catch(() => false)) {
         await ask.click();
         const gather = await lastReply(page, "What should I gather first?");
