@@ -31,9 +31,16 @@ const NO_GRADING =
   "State the law and apply it to the facts. Never say or suggest how strong the case is, how likely it is to succeed, or what a judge will think or decide.";
 
 /** The four seats, each asked as its own question about the person's matter. */
-export function strategyQuestions(side: "plaintiff" | "defendant"): { seat: StrategySeat; title: string; question: string }[] {
-  const mine = side === "plaintiff" ? "the person bringing this case" : "the person responding to this case";
-  const theirs = side === "plaintiff" ? "the person being sued or responding" : "the person who brought the case";
+export function strategyQuestions(side: "plaintiff" | "defendant", courtPath?: RetrievalCourt): { seat: StrategySeat; title: string; question: string }[] {
+  // Family's own words (Jason, 2026-10-24): an applicant and a respondent, never a plaintiff or a defendant.
+  const family = courtPath === "family";
+  const mine = family
+    ? side === "plaintiff" ? "the applicant" : "the respondent"
+    : side === "plaintiff" ? "the person bringing this case" : "the person responding to this case";
+  const theirs = family
+    ? side === "plaintiff" ? "the respondent" : "the applicant"
+    : side === "plaintiff" ? "the person being sued or responding" : "the person who brought the case";
+  const example = family ? "The law gives a respondent ..." : "The law gives a defendant the defence of ... (section)";
   return [
     {
       seat: "prove",
@@ -45,7 +52,7 @@ export function strategyQuestions(side: "plaintiff" | "defendant"): { seat: Stra
       seat: "other-side",
       title: "What the law gives the other side, and the answer to each",
       question:
-        `For ${theirs}: which defences, objections and procedural steps does the law make available to them in this kind of matter, and for each, what law or evidence answers it? State each as what the law provides ("The law gives a defendant the defence of ... (section)"), never as a prediction of what they will do. ${NO_GRADING}`,
+        `For ${theirs}: which defences, objections and procedural steps does the law make available to them in this kind of matter, and for each, what law or evidence answers it? State each as what the law provides ("${example}"), never as a prediction of what they will do.${family ? " This is a family case: say applicant and respondent, never plaintiff or defendant." : ""} ${NO_GRADING}`,
     },
     {
       seat: "judge",
@@ -73,7 +80,7 @@ export type StrategyDeps = { answer?: (input: CheckedAnswerInput, deps: { timeou
 export async function buildStrategy(input: StrategyInput, deps: StrategyDeps = {}): Promise<{ sections: StrategySection[]; missingLaw: string[] }> {
   const answer = deps.answer ?? ((question, options) => checkedAnswer(question, options));
   const timeoutMs = deps.timeoutMs ?? ANSWER_TIME_MS;
-  const seats = strategyQuestions(input.side);
+  const seats = strategyQuestions(input.side, input.courtPath);
   const answers = await Promise.all(
     seats.map((seat) =>
       answer({ question: seat.question, story: input.story, facts: input.facts, courtPath: input.courtPath, side: input.side }, { timeoutMs }).catch(

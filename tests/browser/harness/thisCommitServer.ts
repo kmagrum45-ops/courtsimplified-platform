@@ -27,9 +27,23 @@ type Rows = Map<string, Record<string, unknown>>;
 const OWNER = "11111111-1111-4111-8111-111111111111";
 
 // The route handlers take a NextRequest; a plain Request carries everything they read.
-async function viaHandler(route: Route, handler: (request: never) => Promise<Response>) {
+/**
+ * Each test page is one person, so each gets its own visitor address: the per-visitor
+ * hourly limit on AI routes (aiRateLimit.ts) counts one person, as on the site. Run in
+ * one process, every test was the same "unknown" visitor and the limit ran out part-way
+ * through the story pack on a one-worker runner (case 05, 2026-10-25).
+ */
+const VISITOR = new WeakMap<Page, string>();
+function visitorFor(page: Page): string {
+  let address = VISITOR.get(page);
+  if (!address) { address = `test-visitor-${crypto.randomUUID()}`; VISITOR.set(page, address); }
+  return address;
+}
+
+async function viaHandler(route: Route, handler: (request: never) => Promise<Response>, page?: Page) {
   const request = route.request();
-  const response = await handler(new Request(request.url(), { method: request.method(), headers: { "content-type": "application/json" }, body: request.postData() ?? undefined }) as never);
+  const headers: Record<string, string> = { "content-type": "application/json", ...(page ? { "x-forwarded-for": visitorFor(page) } : {}) };
+  const response = await handler(new Request(request.url(), { method: request.method(), headers, body: request.postData() ?? undefined }) as never);
   return route.fulfill({ status: response.status, contentType: "application/json", body: await response.text() });
 }
 
@@ -53,7 +67,7 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
     row.updated_at = new Date().toISOString();
     return route.fulfill({ json: { position: result.position } });
   });
-  await page.route("**/api/case/stage-answer", (route) => viaHandler(route, createStageAnswerPost()));
+  await page.route("**/api/case/stage-answer", (route) => viaHandler(route, createStageAnswerPost(), page));
   await page.route("**/api/guided-assistant", (route) => {
     const caseId = route.request().postDataJSON()?.caseId;
     const row = rows.get(caseId) ?? [...rows.values()][0];
@@ -61,7 +75,7 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
       authenticate: (async () => ({ id: OWNER })) as never,
       owned: (async () => row ?? null) as never,
     });
-    return viaHandler(route, post);
+    return viaHandler(route, post, page);
   });
   await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
   await page.route("**/api/intake/guided-turn", (route) => {
@@ -81,7 +95,7 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
         proposeAnswers: async (story, questions) => questions.filter((question) => question.id === "sc-defendant-counterclaim").map((question) => ({ questionId: question.id, questionText: question.text, answer: "Yes", storyQuote: story.split(/(?<=[.!?])\s+/)[0] ?? story })),
       }, earlier)) as typeof orchestrateIntakeTurn,
     });
-    return viaHandler(route, post);
+    return viaHandler(route, post, page);
   });
   await page.route("**/api/intake/classify-claim-type", (route) => route.fulfill({ status: 503, json: { ok: false } }));
   await page.route("**/api/intake/depth-turn", (route) => route.fulfill({ status: 503, json: { ok: false } }));

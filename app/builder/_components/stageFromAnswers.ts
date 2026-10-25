@@ -31,7 +31,8 @@
  */
 
 import type { UniversalStage } from "./builderTypes";
-import { stageFromSituation, type Situation } from "@/src/lib/case-system/situation/situation";
+import { broadStageOfStep, stageFromSituation, stepFromSituation, type Situation } from "@/src/lib/case-system/situation/situation";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 
 /**
  * What the person themselves answered about their side and what has been
@@ -54,7 +55,7 @@ export type PersonAnswers = {
   filingAnswerText?: string;
 };
 
-export type StageFromAnswers = { stage: Extract<UniversalStage, "starting-case" | "responding">; because: string };
+export type StageFromAnswers = { stage: UniversalStage; because: string };
 
 const short = (text: string) => {
   const cleaned = text.replace(/\s+/g, " ").trim();
@@ -124,7 +125,12 @@ export function stageRecordedFromAnswers(
   /** The situation answers (situation.ts): the person's own, read first (step 2). */
   situation: Situation | null = null,
 ): StageFromAnswers | null {
-  const settled = (situation ? stageFromSituation(situation) : null) ?? stageFromPersonAnswers(courtPath, answers);
+  // The situation answers are the person's own and settle the stage whatever the analysis
+  // suggests (step 2b): served, starting with nothing filed, or the step of a case already
+  // going they chose ("not sure" there is remembered: the step panel offers the steps once more).
+  const fromSituation = situation ? stageFromSituation(situation) ?? stageOfCaseGoing(courtPath, situation) : null;
+  if (fromSituation) return fromSituation;
+  const settled = stageFromPersonAnswers(courtPath, answers);
   // The person's own answer settles the stage where the analysis was not sure either
   // (#469 re-test: civil and Family "Nothing filed yet" ended at "I am not sure").
   return settled && (settled.stage === suggested || suggested === "not-sure") ? settled : null;
@@ -212,4 +218,12 @@ export function yesOrNo(text: string): boolean | null {
  */
 export function suggestionForSide(stage: UniversalStage, responding: boolean): UniversalStage {
   return responding && (stage === "already-started" || stage === "not-sure") ? "responding" : stage;
+}
+
+/** A case already going: the broad stage of the step the person chose, or "already started" when they were not sure. */
+function stageOfCaseGoing(courtPath: string, situation: Situation): StageFromAnswers | null {
+  if (situation.where !== "going" || !situation.stage) return null;
+  const step = stepFromSituation(situation, courtPath);
+  if (step) return { stage: broadStageOfStep(step), because: findStage(step)!.userQuestion };
+  return situation.stage === "not-sure" ? { stage: "already-started", because: "A case is already going" } : null;
 }

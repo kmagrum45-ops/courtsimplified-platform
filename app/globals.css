@@ -171,3 +171,17 @@ select:focus {
     padding: 40px 0;
   }
 }
+/*
+ * Phone width (item 12, 2026-10-24): a long word, case number, email or form title wraps
+ * instead of pushing the page sideways, and no control is wider than the screen.
+ */
+body {
+  overflow-wrap: anywhere;
+}
+img,
+select,
+input,
+textarea,
+table {
+  max-width: 100%;
+}

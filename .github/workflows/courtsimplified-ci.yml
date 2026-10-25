@@ -244,6 +244,12 @@ jobs:
       - name: The situation answers are read the same way everywhere and never asked again
         run: npm run test:situation
 
+      - name: The case file holds every fact once, and no screen asks a held fact again
+        run: npm run test:case-file
+
+      - name: The court's own words, and none of the ruled-out wording, on every screen
+        run: npm run test:court-terms
+
       - name: The next-step analysis finishes inside the page's wait and the server's limit
         run: npm run test:analysis-time-budget
 
@@ -601,6 +607,8 @@ jobs:
           tests/browser/courthouses-phone.spec.ts
           tests/browser/retest-470.spec.ts
           tests/browser/retest-471.spec.ts
+          tests/browser/stage-rule.spec.ts
+          tests/browser/items-8-12.spec.ts
           --reporter=line --workers=1
 
       # A failure that does not reproduce locally needs the page as CI saw it.

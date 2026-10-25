@@ -172,9 +172,9 @@ function uniqueStrings(items: string[]): string[] {
 }
 
 function getPageTitle(path: CourtPath) {
-  if (path === "civil") return "Ontario Civil Court Forms";
+  if (path === "civil") return "Superior Court of Justice civil forms";
   if (path === "small-claims") return "Ontario Small Claims Court Forms";
-  return "Ontario Family Court Forms";
+  return "Ontario family court forms";
 }
 
 function getPathLabel(path: CourtPath) {

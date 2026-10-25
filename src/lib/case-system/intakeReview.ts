@@ -9,6 +9,8 @@ import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineVal
 import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
+import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
+import { LOAN_WORDS } from "./intake/claimKind";
 
 type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
@@ -23,8 +25,11 @@ const FIELD_LABELS: Record<string, string> = {
   missingEvidence: "Evidence still missing", pastLivingHistory: "Past caregiving / living history",
   propertyHomeDetails: "Property / home / financial disclosure details", safetyConcerns: "Safety or urgent concerns",
   timeline: "Timeline", yourName: "Your name", evidence: "Evidence you have",
+  uploadedEvidenceFiles: "Documents you uploaded", uploadedFiles: "Documents you uploaded", evidenceFiles: "Documents you uploaded",
+  placeOfMarriage: "Where you married", existingOrderDate: "Date of the existing order",
 };
-const label = (key: string) => key.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, c => c.toUpperCase());
+// Plain sentence case for a field with no written label ("Children info", not "Children Info").
+const label = (key: string) => key.replace(/([a-z])([A-Z])/g, (_, a: string, b: string) => `${a} ${b.toLowerCase()}`).replace(/^./, c => c.toUpperCase());
 
 /**
  * The civil or Family form field a remaining question fills, so the review panel can
@@ -173,6 +178,32 @@ export function canReview(checkpoint: Checkpoint): boolean {
 
 /** Reuse the existing initial selectors. Unknown/skipped is an answer, never an invented fact. */
 export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown = false): { id: string; label: string }[] {
+  // The case file is the one gate (caseFile.ts): a question whose fact is held anywhere is not
+  // asked again here, and never blocks Confirm. A fact the person said they did not know gets
+  // its one more offer in this review (Jason, 2026-10-24, option 1), as ONE field: its box when
+  // the review shows one, otherwise this question (listed with `includeUnknown`, never required).
+  // Those this review marked "I don't know yet" stay listed (marked) so they can be changed.
+  const unknown = new Set(Array.isArray(stored.sections.builder?.initialUnknowns) ? stored.sections.builder.initialUnknowns as string[] : []);
+  const file = caseFileOf(stored);
+  // Only the boxes the review shows: essential ones, and optional ones with something in them.
+  const boxFacts = new Set(reviewEntries(stored).filter(entry => entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))).flatMap(entry => slotsOfQuestion(entry.field)));
+  // Each unsure fact once: a fact already offered by a box, or by an earlier question here, is not offered again.
+  const offered = new Set<string>(boxFacts);
+  const listed = remainingBeforeCaseFile(stored, includeUnknown);
+  // A question this review already offered and the person marked "I don't know yet" covers its facts too.
+  for (const question of listed) if (unknown.has(question.id)) for (const fact of slotsOfQuestion(question.id)) offered.add(fact);
+  return listed.filter(question => {
+    if (!alreadyAsked(file, question.id)) return true;
+    if (!includeUnknown) return false;
+    if (unknown.has(question.id)) return true;
+    const facts = slotsOfQuestion(question.id);
+    if (!facts.length || !facts.every(fact => file[fact].state === "unsure") || facts.some(fact => offered.has(fact))) return false;
+    for (const fact of facts) offered.add(fact);
+    return true;
+  });
+}
+
+function remainingBeforeCaseFile(stored: Checkpoint, includeUnknown: boolean): { id: string; label: string }[] {
   // A question answered only for an earlier version of the story is asked again (storyBasis.ts).
   const checkpoint: Checkpoint = { ...stored, sections: freshSections(stored) };
   const unknowns = new Set(Array.isArray(checkpoint.sections.builder?.initialUnknowns) ? checkpoint.sections.builder.initialUnknowns as string[] : []);
@@ -269,7 +300,7 @@ const CATEGORY_CUES: [RegExp, string][] = [
   // A contractor's deposit is about the work, so this comes before "deposit".
   [/\b(contractor|renovat\w*|repair\w*|roof\w*|plumb\w*|electrician|landscap\w*|mechanic)\b/i, "Work or a service you paid for (e.g. a contractor)"],
   [/\bdeposit\b/i, "A deposit that wasn't returned"],
-  [/\b(loan\w*|lent|borrow\w*)\b/i, "A loan or debt"],
+  [LOAN_WORDS, "A loan or debt"],
   [/\b(bit|bite|bitten|fell|slipped|injur\w*)\b/i, "A personal injury (a fall, an animal bite, or similar)"],
   [/\b(defam\w*|lies about me|posted about me|rumou?rs?)\b/i, "Something said about you (defamation)"],
   [/\b(car|vehicle|truck|collision)\b/i, "A vehicle-related dispute"],

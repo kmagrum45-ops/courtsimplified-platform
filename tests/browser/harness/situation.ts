@@ -15,6 +15,8 @@ export type SituationAnswers = {
   receivedOn?: string;
   filed?: "nothing" | "something";
   court?: "small-claims" | "civil" | "family";
+  /** For a case already going: the stage map step (its id), or "not-sure" (the default). */
+  stage?: string;
 };
 
 export const STARTING_NOTHING_FILED: SituationAnswers = { where: "starting", filed: "nothing" };
@@ -29,10 +31,16 @@ export function situationForSide(side: "plaintiff" | "defendant" | "applicant" |
 /** Answers each situation question shown until there are none. Does nothing when none is shown. */
 export async function answerSituation(page: Page, answers: SituationAnswers = STARTING_NOTHING_FILED): Promise<void> {
   const gate = page.getByTestId("situation-questions");
-  for (let turn = 0; turn < 8; turn += 1) {
+  for (let turn = 0; turn < 12; turn += 1) {
     if (!(await gate.isVisible().catch(() => false))) return;
     const question = await gate.getAttribute("data-question");
-    const option = (value: string) => gate.locator(`[data-testid="situation-option"][data-value="${value}"], [data-testid="situation-paper"][data-value="${value}"]`).first();
+    // The page's own answerer (autoAnswerSituation's locator handler) may answer the same
+    // question first: a click whose button has moved on is not waited for; the question is read again.
+    const moved = async () => (await gate.isVisible().catch(() => false)) ? (await gate.getAttribute("data-question").catch(() => null)) !== question : true;
+    const option = (value: string) => {
+      const target = gate.locator(`[data-testid="situation-option"][data-value="${value}"], [data-testid="situation-paper"][data-value="${value}"]`).first();
+      return { click: async () => { try { await target.click({ timeout: 5_000 }); } catch (error) { if (!(await moved())) throw error; } }, isVisible: () => target.isVisible() };
+    };
     if (question === "where") await option(answers.where).click();
     else if (question === "started") await option(answers.started ?? "me").click();
     else if (question === "papers") {
@@ -47,6 +55,7 @@ export async function answerSituation(page: Page, answers: SituationAnswers = ST
       }
     } else if (question === "filed") await option(answers.filed ?? "nothing").click();
     else if (question === "court") await option(answers.court ?? "small-claims").click();
+    else if (question === "stage") await option(answers.stage ?? "not-sure").click();
     else throw new Error(`unknown situation question: ${question}`);
     // The next question, or the page behind them.
     await expect.poll(async () => (await gate.isVisible().catch(() => false)) ? await gate.getAttribute("data-question") : "done", { timeout: 15_000 }).not.toBe(question);

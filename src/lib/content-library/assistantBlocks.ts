@@ -498,6 +498,15 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
     appearsIn: "Guided assistant, when no specific question has been selected",
   },
   {
+    id: "assistant:question:fallback-dated",
+    kind: "question",
+    template: "What proof do you currently have, and what outcome are you seeking?",
+    slots: [],
+    statesLaw: false,
+    citations: [],
+    appearsIn: "Guided assistant, when no specific question has been selected and the case already holds a date (messy pack case 11)",
+  },
+  {
     id: "assistant:fallback:need-more",
     kind: "system",
     template: "More case information is needed before this can be answered reliably.",

@@ -24,6 +24,7 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { autoAnswerSituation } from "./harness/situation";
+import { expectServedNotAskedOnNextStep, expectServedOfferedOnceInReview } from "./harness/servedOnce";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
 
@@ -148,6 +149,8 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   // Served, the day not known at the start: the questions and the review ask it, with the year rule.
   await openBuilder(page, "family", { story: "Synthetic story: my former partner started a family case about parenting time for our daughter, age 5.", situation: { where: "served", papers: "family-8", receivedOn: "unknown" } });
   await guided(page, "family", "respondent", ["application"], "October 6, 2026");
+  // Offered once more in the review, as one field (Jason, 2026-10-24, option 1).
+  await expectServedOfferedOnceInReview(page);
   const served = panel(page).getByRole("textbox", { name: "Review: Day you were served" });
   await served.fill("October 6");
   await served.press("Enter");
@@ -166,6 +169,8 @@ test(`Family: the review's "Day you were served" box asks for the year, and a ty
   const results = await page.locator("body").innerText();
   expect(results, "the typed date is not labelled as the story").not.toMatch(/From your story: “[^”]*October 6, 2026/);
   if (/October 6, 2026/.test(results)) expect(results).toMatch(/From your answer: “[^”]*October 6, 2026/);
+  // Offered exactly once: the next step does not ask it again.
+  await expectServedNotAskedOnNextStep(page);
 });
 
 test("Small Claims: \"nothing filed yet\", given at the start, stays shown as the answer given", async ({ page }) => {

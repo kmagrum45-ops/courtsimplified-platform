@@ -33,22 +33,24 @@ import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
+import { factsAskedTwice, recordAsks } from "./harness/askOnce";
+import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
+import { MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 
-test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 20_000 });
+// Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
+// in more than 20 s, and a button still disabled then is waiting, not broken.
+test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
-type Story = {
-  id: string;
-  court: Court;
-  story: string;
-  side: "plaintiff" | "defendant" | "applicant" | "respondent";
-  /** civil documents / Family filed documents, as option values. */
-  filed: string[];
-  issues?: string[];
-  /** Small Claims: the amount the story's own words claim, or null when they leave it unclear. */
-  amount?: string | null;
-};
+/** A story: civil documents / Family filed documents as option values; Small Claims' amount the story's own words claim (storyPackMore.ts). */
+type Story = PackStory;
+
+/** Whether the amount offered is one the story's own words claim (or nothing, where that is right too). */
+function amountFits(story: Story, offered: string | null, strict: boolean): boolean {
+  const allowed = Array.isArray(story.amount) ? story.amount : [story.amount ?? null];
+  return allowed.includes(offered) || (!strict && offered === null);
+}
 
 /**
  * The situation answers (step 2) each story's person gives before writing it: served
@@ -59,11 +61,12 @@ type Story = {
 const ORIGINATING: Record<Court, { names: RegExp; papers: string }> = {
   "small-claims": { names: /plaintiff's claim/i, papers: "small-claims-7A" },
   civil: { names: /statement of claim/i, papers: "civil-14A" },
-  family: { names: /application/i, papers: "family-8" },
+  family: { names: /\bapplication\b/i, papers: "family-8" },
 };
 function situationForStory(story: Story): SituationAnswers {
+  if (story.situation) return story.situation;
   if (story.side === "defendant" || story.side === "respondent") {
-    const day = /served[^.]*?on ([A-Z][a-z]+ d{1,2}, d{4})/.exec(story.story)?.[1];
+    const day = /\bserved\b[^.]*?\bon ([A-Z][a-z]+ \d{1,2}, \d{4})/.exec(story.story)?.[1];
     const papers = ORIGINATING[story.court].names.test(story.story) ? ORIGINATING[story.court].papers : "not-sure";
     return { where: "served", papers, receivedOn: day ?? "unknown" };
   }
@@ -113,6 +116,9 @@ const STORIES: Story[] = [
   { id: "family-evidence-served", court: "family", side: "respondent", filed: ["application"], issues: ["child-support"], story: "My ex served me with an application for child support on October 1, 2026; my bank statements show I paid every month." },
   { id: "family-evidence-witness", court: "family", side: "applicant", filed: ["nothing"], issues: ["parenting-time"], story: "My spouse left in March 2026. Our daughter's school can confirm she lives with me. I kept a calendar of every visit." },
   { id: "family-safety", court: "family", side: "applicant", filed: ["nothing"], issues: ["safety-concerns", "parenting-time"], story: "I left my partner in September 2026 after he threatened me. I want a parenting order for our son, age 6. I have messages he sent." },
+  // The messy case pack's 20 cases, and the seven walkthrough paths (storyPackMore.ts).
+  ...MESSY_STORIES,
+  ...WALKTHROUGH_STORIES,
 ];
 
 const INTERNAL = /Court path:|Stage: Stage unclear|Main story:|Case story:|Reasoning domain|privilege \/ recipient|procedural stage is uncertain|Important limitation|Knowledge retrieval warning|\bundefined\b|\[object Object\]|\bNaN\b/;
@@ -245,7 +251,12 @@ async function smallClaims(page: Page, story: Story, viaReview: boolean): Promis
     const use = page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
     return (await use.count()) ? (/“(.*)”/.exec((await use.first().innerText()) ?? "")?.[1] ?? null) : null;
   }
-  await page.getByTestId("intake-start-review").click();
+  return answerSmallClaimsReview(page, story);
+}
+
+/** Small Claims' review panel, answered as the person would: the kind of dispute, "No" to filed, the story's amount. Returns the amount offered. */
+async function answerSmallClaimsReview(page: Page, story: Story): Promise<string | null> {
+  if ((await page.getByTestId("intake-review").getAttribute("data-phase")) !== "reviewing") await page.getByTestId("intake-start-review").click();
   await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
   const q = (id: string) => page.locator(`[data-question="${id}"]`);
   // The side was given in the situation questions (step 2): the review never asks it again.
@@ -320,6 +331,48 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
   return counterclaimOffers;
 }
 
+/** Small Claims' own form ("Fill in the form yourself"): the story saved, then the review. Returns the amount offered there. */
+async function smallClaimsForm(page: Page, story: Story): Promise<string | null> {
+  await page.goto("/?path=small-claims");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Sudbury");
+  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await expect(acknowledgement.or(page.getByRole("button", { name: "Fill in the form yourself" }))).toBeVisible({ timeout: 60_000 });
+  if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+  await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+  const box = page.getByLabel("Case story", { exact: true });
+  if ((await box.count()) && !(await box.inputValue()).trim()) await box.fill(story.story);
+  const save = page.locator('[data-testid$="story-save"]:visible').first();
+  if ((await save.count()) && (await save.isEnabled())) await save.click();
+  return answerSmallClaimsReview(page, story);
+}
+
+/** "Not sure which one?" on the home page: the guide's questions, then the path it offers that the story's court is. */
+async function notSurePath(page: Page, story: Story) {
+  const guide = story.guide!;
+  await page.goto("/");
+  await page.getByRole("button", { name: /Not sure which one\?/ }).click();
+  await page.getByLabel("Guide province or territory").selectOption("Ontario");
+  await page.getByLabel("Guide city or municipality").fill("Sudbury");
+  await page.getByLabel("Guide what happened").fill(story.story);
+  await page.getByLabel("Guide relationship").fill(guide.relationship);
+  await page.getByLabel("Guide remedy").fill(guide.remedy);
+  await page.getByLabel("Guide amount").fill(guide.amount);
+  await page.getByLabel("Guide case started").selectOption(guide.started);
+  await page.getByRole("button", { name: "Review possible court paths" }).click();
+  const choose = page.getByRole("button", { name: `Choose ${guide.choose === "small-claims" ? "Small Claims" : guide.choose === "civil" ? "Civil" : "Family"}` });
+  note(story.id, "not-sure path", `${guide.choose} is offered for this amount`, await choose.isVisible().catch(() => false));
+  await choose.click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await expect(acknowledgement.or(page.getByTestId("intake-review")).first()).toBeVisible({ timeout: 60_000 });
+  if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+  await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
+}
+
 async function confirmAndContinue(page: Page) {
   const panel = page.getByTestId("intake-review");
   const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
@@ -351,23 +404,74 @@ const SIDE_LINE: Record<Story["side"], RegExp> = {
   respondent: /You are responding \(respondent\)|You're responding to a family case/,
 };
 
+/**
+ * GATE A2: THE KIND OF CLAIM. The kinds each story's own words fit (Small Claims claim
+ * types), or "not-sure". Every screen that names a kind of claim must name one of these,
+ * or say it is not sure and ask, and show the story's words it rests on. A kitchen
+ * renovation is never a personal loan.
+ */
+const CLAIM_KIND: Record<string, string[]> = {
+  "sc-deck-owed": ["sc-claim-breach-of-contract-services", "sc-claim-unpaid-debt-services"],
+  "sc-movers-damage": ["sc-claim-property-damaged-lost-in-business-care", "sc-claim-breach-of-contract-services"],
+  "sc-roofer-single": ["sc-claim-breach-of-contract-services"],
+  "sc-deposit-back": ["sc-claim-deposit-not-returned"],
+  "sc-loan-friend": ["sc-claim-personal-loan-between-individuals"],
+  "sc-car-estimate": ["sc-claim-vehicle-accident-uninsured-driver-property-damage"],
+  "sc-invoice-unpaid": ["sc-claim-unpaid-debt-services"],
+  "sc-unclear": ["sc-claim-breach-of-contract-services"],
+  "sc-defendant-served": ["sc-claim-non-payment-goods-sold"],
+  "sc-defendant-unclear": ["sc-claim-unpaid-debt-services"],
+  "sc-rent-unclear": ["sc-claim-deposit-not-returned"],
+  ...Object.fromEntries([...MESSY_STORIES, ...WALKTHROUGH_STORIES].filter((story) => story.kinds).map((story) => [story.id, story.kinds!])),
+};
+const CLAIM_NAME = new Map((CLAIM_TYPES as { id: string; name: string }[]).map((type) => [type.id, type.name]));
+const KIND_LINE = /Kind of claim (?:this matches|you confirmed)\s*([^\n]*)/g;
+/** Every kind of claim a screen names: one the story fits, or "not sure" with a question, with the story's words beside it. */
+function checkClaimKind(run: string, where: string, text: string, story: Story) {
+  const named = [...text.matchAll(KIND_LINE)].map((match) => match[1].trim()).filter(Boolean);
+  for (const name of named) {
+    const id = [...CLAIM_NAME.entries()].find(([, label]) => name.startsWith(label))?.[0] ?? null;
+    const fits = story.court === "small-claims" && id !== null && (CLAIM_KIND[story.id] ?? []).includes(id);
+    const notSure = /not sure/i.test(name);
+    const quoted = [...text.matchAll(/“([^”]{8,})”/g)].some((match) => story.story.includes(match[1]));
+    const finding = { run, where, shown: name, expected: CLAIM_KIND[story.id] ?? ["(none: this area names no kind of claim)"], fits, notSure, quoted };
+    fs.appendFileSync("test-results/claim-kind.jsonl", JSON.stringify(finding) + "\n");
+    note(run, where, "the kind of claim shown fits the story, or says it is not sure and asks", fits || notSure, name);
+    note(run, where, "the kind of claim shown carries the story's words", quoted, name);
+  }
+}
+
 for (const story of STORIES) {
-  for (const route of ["questions", "review"] as const) {
+  for (const route of story.routes ?? (["questions", "review"] as Route[])) {
     test(`${story.id} (${route})`, async ({ page }) => {
       test.setTimeout(240_000);
       const run = `${story.id} (${route})`;
       await grantSiteAccess(page);
       await autoAnswerSituation(page, situationForStory(story));
+      // Gate A1: every question shown in this case, on every screen.
+      const asked = await recordAsks(page);
+      // A chat reply that fails says why in the run's log: its status and body, a request that
+      // never completed, and the page's own error line (case 05 failed only on the CI runner).
+      page.on("response", async (response) => {
+        if (/\/api\/(guided-assistant|assistant\/law)/.test(response.url()) && !response.ok()) console.log(`CHAT-DIAG ${run} ${response.status()} ${response.url()} ${(await response.text().catch(() => "")).slice(0, 400)}`);
+      });
+      page.on("requestfailed", (request) => { if (/\/api\/(guided-assistant|assistant\/law)/.test(request.url())) console.log(`CHAT-DIAG ${run} failed ${request.url()} ${request.failure()?.errorText}`); });
+      page.on("console", async (message) => { if (/guided assistant request failed|CourtSimplified guided assistant/i.test(message.text())) console.log(`CHAT-DIAG ${run} console ${JSON.stringify(await Promise.all(message.args().map((arg) => arg.jsonValue().catch(() => "?")))).slice(0, 400)}`); });
+      page.on("pageerror", (error) => console.log(`CHAT-DIAG ${run} pageerror ${String(error).slice(0, 300)}`));
       const account = await fakeAccount(page);
       await serveFromThisCommit(page, story.court, account.rows as unknown as Map<string, Record<string, unknown>>);
 
       // 1-2. Start the case and answer.
-      if (story.court === "small-claims") {
+      if (route === "not-sure") {
+        await notSurePath(page, story);
+        await answerSmallClaimsReview(page, story);
+      } else if (story.court === "small-claims" && route === "form") {
+        const offered = await smallClaimsForm(page, story);
+        note(run, "form", `the amount offered is one the story claims`, amountFits(story, offered, false), `offered ${offered ?? "nothing"}`);
+      } else if (story.court === "small-claims") {
         const offered = await smallClaims(page, story, route === "review");
-        // The review offers the story's amount; the form's own box reads the story only on its
-        // "Save story", so there it may be empty, but never a wrong amount.
-        const fits = route === "review" ? offered === story.amount : offered === null || offered === story.amount;
-        note(run, route === "review" ? "review" : "form", `the amount offered is ${story.amount ?? "nothing (unclear)"}`, fits, `offered ${offered ?? "nothing"}`);
+        // The review offers the story's amount; the questions' review may offer nothing, but never a wrong amount.
+        note(run, route === "review" ? "review" : "questions", `the amount offered is one the story claims`, amountFits(story, offered, route === "review"), `offered ${offered ?? "nothing"}`);
       } else {
         await openBuilder(page, story.court, { story: story.story });
         await guidedQuestions(page, story, route === "review");
@@ -380,12 +484,15 @@ for (const story of STORIES) {
       await page.waitForTimeout(1_500);
       const results = await page.locator("body").innerText();
       checkText(run, "results", results);
+      checkClaimKind(run, "results", results, story);
       if (settles(story)) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
       }
 
       // 4. The chat.
       const ask = page.getByRole("button", { name: "Ask follow-up questions" });
+      // The chat opens once the case is saved (a moment after the next step shows).
+      await ask.waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
       if (await ask.isVisible().catch(() => false)) {
         await ask.click();
         const gather = await lastReply(page, "What should I gather first?");
@@ -397,7 +504,7 @@ for (const story of STORIES) {
         checkText(run, "chat", asked);
         note(run, "chat", "no line ends on its lead-in with nothing after it", !/To keep your case record complete:\s*$/m.test(gather + "\n" + asked), asked.slice(-160));
         if (/served/i.test(story.story) && /October \d/.test(story.story)) {
-          note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(0, 200));
+          note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(Math.max(0, (gather + asked).search(/main dates/i) - 200), (gather + asked).search(/main dates/i) + 80));
         }
       } else note(run, "chat", "the follow-up chat can be opened", false);
 
@@ -412,8 +519,24 @@ for (const story of STORIES) {
         checkText(run, "case page", casePage);
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
+        checkClaimKind(run, "case page", casePage, story);
         if (settles(story)) note(run, "case page", "a stage the answers settle is not asked again", !casePage.includes("Which of these fits your case best?"));
       } else note(run, "case page", "the case was saved", false);
+
+      // Gate A2 on the guided route's own card: "This sounds like it may be about: X -- is that right?"
+      for (const item of asked.filter((entry) => entry.kind === "ask" && entry.surface === "sc-claim-kind")) {
+        const name = /may be about: (.*?) — is that right?/.exec(item.text)?.[1] ?? item.text;
+        checkClaimKind(run, "guided card", `Kind of claim this matches ${name}
+${item.text}`, story);
+      }
+
+      // Gate A1: no fact asked twice in this case, across every screen.
+      await page.waitForTimeout(600);
+      const repeats = factsAskedTwice(asked, situationForStory(story));
+      fs.appendFileSync("test-results/ask-once.jsonl", JSON.stringify({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }) + "\n");
+      note(run, "ask-once", "no fact is asked twice in the case", repeats.length === 0, repeats.map((repeat) => `${repeat.fact} (${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")})`).join("; "));
+      // Jason, 2026-10-24: any fact asked twice fails the build, whatever else this run found.
+      expect(repeats.map((repeat) => `${repeat.fact}: ${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")}`), "no fact is asked twice in the case").toEqual([]);
     });
   }
 }

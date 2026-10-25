@@ -1,6 +1,7 @@
 "use client";
 
-import { useIntakeState } from "../../_components/IntakeRecovery";
+import { useIntakeReviewView, useIntakeState } from "../../_components/IntakeRecovery";
+import { alreadyAsked, caseFileOf, slotsOfQuestion } from "../../../src/lib/case-system/caseFile/caseFile";
 import { dateAnswerCheck } from "../../../src/lib/case-system/dates";
 import { openSituationChange } from "../../_components/SituationQuestions";
 import StoryChangedNotice, { useStoryAnswersOutdated } from "../../_components/StoryChangedNotice";
@@ -180,7 +181,19 @@ export default function GuidedFormChat({
     fields.filter((field) => (field.when ? field.when(values) : true) && isAnswered(field, values[field.key])).map((field) => field.key),
   );
 
-  const pending = useMemo(() => pendingFields(fields, values, skipped), [fields, values, skipped]);
+  // The case file is the one gate (caseFile.ts): a fact the person gave anywhere else, or
+  // said "not sure" to, is not asked here; this chat's own answers and skips are in it too.
+  const reviewView = useIntakeReviewView();
+  const checkpoint = reviewView?.checkpoint ?? null;
+  const heldElsewhere = useMemo(() => {
+    if (!checkpoint) return new Set<string>();
+    const file = caseFileOf(checkpoint);
+    // A fact they said they did not know, which their story states, is offered once as the
+    // story's suggestion ("Is that right?"); without a story suggestion it is not asked again.
+    const unsureWithStory = (field: GuidedField) => slotsOfQuestion(field.key).every((fact) => file[fact].state === "unsure") && Boolean(field.fromStory?.(values));
+    return new Set(fields.filter((field) => !isAnswered(field, values[field.key]) && alreadyAsked(file, field.key) && !unsureWithStory(field)).map((field) => field.key));
+  }, [checkpoint, fields, values]);
+  const pending = useMemo(() => pendingFields(fields, values, skipped).filter((field) => !heldElsewhere.has(field.key)), [fields, values, skipped, heldElsewhere]);
   const current = changing ? fields.find((field) => field.key === changing) ?? null : pending[0] ?? null;
   // An unsent reply belongs to its question, including when the form changes which question comes next.
   const [drafts, setDrafts] = useIntakeState<Record<string, string | string[]>>("form-chat", "drafts", {});
@@ -232,7 +245,7 @@ export default function GuidedFormChat({
     for (let changed = true; changed;) {
       changed = false;
       for (const field of fields) {
-        if (group.some((item) => item.field.key === field.key) || notFromStory.has(field.key) || skipped.has(field.key) || field.confirmAlone) continue;
+        if (group.some((item) => item.field.key === field.key) || notFromStory.has(field.key) || skipped.has(field.key) || heldElsewhere.has(field.key) || field.confirmAlone) continue;
         if ((field.when && !field.when(assumed)) || isAnswered(field, assumed[field.key])) continue;
         const offer = field.fromStory?.(assumed) ?? null;
         if (!offer || offer.quote !== quote || answerNeedsMore(field, offer.value)) continue;

@@ -55,7 +55,7 @@ import {
 } from "../../../src/lib/case-system/intake/questionBank";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { CLAIM_TYPES } from "../../../src/lib/case-system/intake/claimTypes";
-import { settledClaimTypeMatch } from "../../../src/lib/case-system/intake/claimTypeMatcher";
+import { kindFromStory } from "../../../src/lib/case-system/intake/claimKind";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -966,7 +966,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
       // scattered-word candidate is left out rather than auto-applied: this
       // route has no suggestion card to ask the person about it (CLAUDE.md
       // §4, suggest never decide).
-      const matched = hasText(input.facts) ? settledClaimTypeMatch(input.facts, CLAIM_TYPES) : null;
+      // Kinds of claim only, with the story's words that show it (claimKind.ts, step 2b).
+      const matched = hasText(input.facts) ? kindFromStory(input.facts, CLAIM_TYPES) : null;
       const matchedClaimTypeId = matched?.claimType.id ?? null;
       // Answers given in the review panel count here too, where the form left them empty
       // (re-test round 7: after "start the questions again" they were the only answers).
@@ -1011,7 +1012,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           // IntelligenceOverviewPanel.tsx's claimTypeUserConfirmed read, which
           // words the "Kind of claim..." label honestly either way (see the
           // guided route's same field, app/builder/page.tsx).
-          ...(matchedClaimTypeId ? { claimTypeUserConfirmed: false } : {}),
+          ...(matchedClaimTypeId ? { claimTypeUserConfirmed: false, claimTypeQuote: matched!.quote } : {}),
           // The side and filing the situation answers settle, as the person's own (stageFromAnswers.ts).
           ...(fromStart.role === "plaintiff" || fromStart.role === "defendant"
             ? { personAnswers: { side: fromStart.role, ...(fromStart.role === "plaintiff" && fromStart.claimFiled !== undefined ? { claimFiled: fromStart.claimFiled } : {}) } }
@@ -1353,9 +1354,13 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           </div>
         </div>
 
-        <div>
+        {/* Whether anything is filed was answered at the start (the case file, caseFile.ts): the list is
+            shown for detail, never as the question again. */}
+        <div data-testid="sc-intake-documents" data-empty={input.filedDocuments.length === 0 && !(situation.where === "served" || situation.where === "going" || (situation.where === "starting" && situation.filed)) ? "true" : "false"}>
           <h3 className="font-semibold text-[#16302b]">
-            What documents already exist?
+            {situation.where === "served" || situation.where === "going" || (situation.where === "starting" && situation.filed)
+              ? "Any other documents that already exist? (optional detail)"
+              : "What documents already exist?"}
           </h3>
 
           <div className="mt-3 grid gap-3 md:grid-cols-2">

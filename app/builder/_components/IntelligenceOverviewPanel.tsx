@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AppliedLawPanel from "../../_components/AppliedLawPanel";
 import CheckedAnswerPanel from "../../_components/CheckedAnswerPanel";
 import StrategyPanel from "../../_components/StrategyPanel";
@@ -29,6 +30,11 @@ import {
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { sourceLinkLabel } from "../../../src/lib/content-library/sourceLinkLabel";
 import { userStory } from "@/src/lib/case-system/userStory";
+import { storySuggestsDanger } from "@/src/lib/case-system/intake/dangerWords";
+import { claimKindShown, kindsOfClaim, type ClaimKindShown } from "@/src/lib/case-system/intake/claimKind";
+import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
+import { savePositionQueued } from "./positionSave";
+import type { Slot } from "@/src/lib/case-system/caseFile/caseFile";
 
 type Props = {
   analysis: AnalysisResult;
@@ -39,6 +45,12 @@ type Props = {
    * one the person had confirmed).
    */
   confirmedStage?: string | null;
+  /** The saved case, so a kind of claim the person chooses here is kept with it. */
+  caseId?: string | null;
+  /** The kind of claim the person chose themselves (position.claimKind), or "not-sure". */
+  chosenClaimKind?: string | null;
+  /** The case file's kind-of-claim slot (caseFile.ts): their answer to "What kind of dispute is this?", or "not sure". */
+  heldKind?: Slot | null;
 };
 
 function listField(intake: StoredCaseData | null, field: string): string[] {
@@ -117,7 +129,8 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null }: Props) {
+  const [chosenKind, setChosenKind] = useState<string | null>(chosenClaimKind);
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
   // Only selections that record an actual filing. The Small Claims intake
@@ -163,10 +176,22 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // the person actually clicked "that's right" on the suggestion card (see
   // GuidedSmallClaimsIntake.tsx / app/builder/page.tsx's claimTypeUserConfirmed).
   const claimTypeUserConfirmed = extraRecord.claimTypeUserConfirmed === true;
-  const claimTypeContent =
-    analysis.courtPath === "small-claims" && facts
-      ? buildClaimTypeOverviewContent(facts, undefined, confirmedClaimTypeId)
+  // One rule for the kind of claim on every screen (claimKind.ts, step 2b): a kind of
+  // claim with its source (the story's words, or the person's own choice), or "not sure"
+  // and asked. Its content below follows the same kind, never a separate match.
+  const kind: ClaimKindShown | null =
+    analysis.courtPath === "small-claims"
+      ? claimKindShown({
+          story: facts,
+          claimTypes: CLAIM_TYPES,
+          chosen: chosenKind,
+          matchedId: confirmedClaimTypeId,
+          confirmed: claimTypeUserConfirmed,
+          quote: typeof extraRecord.claimTypeQuote === "string" ? extraRecord.claimTypeQuote : null,
+        })
       : null;
+  const kindId = kind?.status === "fits" ? kind.claimTypeId : null;
+  const claimTypeContent = kindId && facts ? buildClaimTypeOverviewContent(facts, undefined, kindId) : null;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
   // Files only (2026-09-30). The typed evidence answer was listed here too and
@@ -298,7 +323,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // site owner). Never narrowed by the story -- see jurisdictionRouteRelevance.ts.
   const jurisdictionRoutes =
     analysis.courtPath === "small-claims"
-      ? routesForConfirmedClaimType(JURISDICTION_ROUTES, confirmedClaimTypeId, parseRecordedAmount(amount))
+      ? routesForConfirmedClaimType(JURISDICTION_ROUTES, kindId, parseRecordedAmount(amount))
       : [];
 
 
@@ -338,12 +363,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // as entered -- nothing is corrected or restated -- and the story sits
   // under its own heading.
   const timeline = intake?.timeline?.trim() || "";
-  const confirmedClaimTypeName = claimTypeContent?.claimTypeName || "";
+  const kindLabel = kind?.status === "fits" ? (kind.source === "person" ? (chosenKind ? "Kind of claim you chose" : "Kind of claim you confirmed") : kind.confirmed ? "Kind of claim you confirmed" : "Kind of claim this matches") : "";
   const snapshotRows: Array<[string, string]> = [
-    ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family" : "Civil (Superior Court)"],
-    ...(confirmedClaimTypeName
-      ? ([[claimTypeUserConfirmed ? "Kind of claim you confirmed" : "Kind of claim this matches", confirmedClaimTypeName]] as Array<[string, string]>)
-      : []),
+    ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
     ["Current stage", displayStage(caseStage)],
@@ -358,10 +380,36 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
     <div className="mt-7 grid gap-5 lg:grid-cols-2">
       <Card title="Case snapshot">
         <dl className="grid grid-cols-[auto,1fr] gap-x-4 gap-y-1">
-          {snapshotRows.map(([label, value]) => (
+          {snapshotRows.map(([label, value], index) => (
             <div key={label} className="contents">
               <dt className="font-semibold text-[#10231f]">{label}</dt>
               <dd>{value}</dd>
+              {index === 0 && kind ? (
+                kind.status === "fits" ? (
+                  <>
+                    <dt className="font-semibold text-[#10231f]">{kindLabel}</dt>
+                    <dd data-testid="claim-kind" data-claim-type={kind.claimTypeId}>
+                      {kind.name}
+                      {kind.quote ? <span data-testid="claim-kind-quote" className="block text-xs text-[#4d675f]">From your story: &ldquo;{kind.quote}&rdquo;</span> : null}
+                    </dd>
+                  </>
+                ) : (
+                  heldKind?.state === "answered" && typeof heldKind.value === "string" && heldKind.value.trim() && !chosenKind ? (
+                    // Their own answer to "What kind of dispute is this?": shown as given, never asked again.
+                    <>
+                      <dt className="font-semibold text-[#10231f]">Kind of dispute (your answer)</dt>
+                      <dd data-testid="claim-kind" data-claim-type="your-answer">{heldKind.value}</dd>
+                    </>
+                  ) : (
+                  <>
+                    <dt className="font-semibold text-[#10231f]">Kind of claim</dt>
+                    <dd data-testid="claim-kind" data-claim-type="not-sure">
+                      <ClaimKindChooser caseId={caseId} chosen={chosenKind} onChosen={setChosenKind} saidNotSure={heldKind?.state === "unsure"} />
+                    </dd>
+                  </>
+                  )
+                )
+              ) : null}
             </div>
           ))}
         </dl>
@@ -466,7 +514,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       {jurisdictionRoutes.length > 0 && (
         <Card title="A rule that can affect where this kind of claim goes">
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">
-            Shown because of the kind of claim {claimTypeUserConfirmed ? "you confirmed" : "this matches"} or the
+            Shown because of the kind of claim {kind?.status === "fits" && kind.confirmed ? (chosenKind ? "you chose" : "you confirmed") : "this matches"} or the
             amount you recorded. It is general information about the rule, not a decision about your claim.
           </p>
           <ul className="space-y-5">
@@ -498,8 +546,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
           {/* Collapsed: still on every family case, never assessed against
               the user's facts, but no longer a full section above their next
               step when they said there are no safety concerns (page review,
-              2026-10-06). */}
-          <details>
+              2026-10-06). Open when the story mentions threats, fear or violence (item 8, 2026-10-24). */}
+          <details open={storySuggestsDanger(facts)} data-testid="family-safety-resources">
           <summary className="cursor-pointer font-semibold text-[#2f7d67]">Who to contact, and how</summary>
           <p className="mt-2 whitespace-pre-line">{topic.content}</p>
           <ul className="mt-3 list-disc space-y-1 pl-5">
@@ -518,4 +566,40 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
     </div>
     <p className="mt-7 text-sm leading-7 text-[#4d675f]">CourtSimplified organizes your information and identifies items to review; it does not decide your legal claim, outcome, or judgment.</p>
   </section>;
+}
+
+/**
+ * "Not sure" about the kind of claim, and asked (step 2b): the catalogue's kinds of claim
+ * to choose from, or "I'm not sure", which is remembered and not asked again (a Choose
+ * link stays). The person's choice is kept with the case (position.claimKind).
+ */
+function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { caseId: string | null; chosen: string | null; onChosen: (value: string) => void; saidNotSure?: boolean }) {
+  // Folded once they said "not sure" (here, or in the review, its one more offer): "Choose it" stays.
+  const [open, setOpen] = useState(chosen !== "not-sure" && !saidNotSure);
+  const [pick, setPick] = useState("");
+  const [failed, setFailed] = useState(false);
+  const kinds = kindsOfClaim(CLAIM_TYPES).slice().sort((a, b) => a.name.localeCompare(b.name));
+  const save = async (value: string) => {
+    setFailed(false);
+    if (caseId && !(await savePositionQueued(caseId, { claimKind: value }))) { setFailed(true); return; }
+    onChosen(value);
+    setOpen(false);
+  };
+  if (!open) {
+    return <span>Not sure yet. <button type="button" data-testid="claim-kind-choose" onClick={() => setOpen(true)} className="font-semibold text-[#2f7d67] underline">Choose it</button></span>;
+  }
+  return (
+    <span data-testid="claim-kind-chooser" className="block">
+      <span className="block">Not sure yet: nothing in your story shows it. Which kind of claim is this?</span>
+      <select aria-label="Kind of claim" data-testid="claim-kind-select" value={pick} onChange={(event) => setPick(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d8e6df] px-3 py-2">
+        <option value="">Choose one</option>
+        {kinds.map((claimType) => <option key={claimType.id} value={claimType.id}>{claimType.name}</option>)}
+      </select>
+      <span className="mt-2 flex flex-wrap gap-2">
+        <button type="button" data-testid="claim-kind-use" disabled={!pick} onClick={() => void save(pick)} className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">Use this</button>
+        <button type="button" data-testid="claim-kind-not-sure" onClick={() => void save("not-sure")} className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#2f7d67]">I&apos;m not sure</button>
+      </span>
+      {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
+    </span>
+  );
 }

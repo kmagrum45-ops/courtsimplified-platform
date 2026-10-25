@@ -907,13 +907,13 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
     statuteReferences: [],
     formReferences: [],
     corePrinciple:
-      "Applicable Ontario Family Court procedure must be determined by the Family Law Rules and the case's current stage.",
+      "Applicable Ontario family court procedure must be determined by the Family Law Rules and the case's current stage.",
     plainLanguageSummary:
       "Use the Family Law Rules to identify the procedure that may apply at the case's current stage, without treating this record as a conclusion about a particular step or outcome.",
     legalTestSummary:
       "This record does not determine a particular form, deadline, remedy, parenting arrangement, support amount, or outcome.",
     howCourtsUseIt: [
-      "As the binding procedural rules for Ontario Family Court matters within their applicable scope.",
+      "As the binding procedural rules for Ontario family court matters within their applicable scope.",
     ],
     practicalUse: [
       "Confirm the Ontario Family court path and current stage, then verify the applicable Family Law Rules before taking a procedural step.",
@@ -949,7 +949,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
       ],
     },
     suggestedAiQuestions: [
-      "What is the Ontario Family Court stage of the case?",
+      "What is the Ontario family court stage of the case?",
       "What procedural step are you considering?",
     ],
     suggestedEvidenceQuestions: [],
@@ -1034,7 +1034,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
         "Do not bypass court-path, stage, source, permission, or currentness checks.",
       ],
     },
-    suggestedAiQuestions: ["What procedural step or court resource are you looking for?", "What is the Ontario Family Court stage of the case?"],
+    suggestedAiQuestions: ["What procedural step or court resource are you looking for?", "What is the Ontario family court stage of the case?"],
     suggestedEvidenceQuestions: [],
     suggestedWorkflowActions: ["Consult the official guide, then verify the applicable Family Law Rules for the confirmed stage."],
     sourceReferences: [

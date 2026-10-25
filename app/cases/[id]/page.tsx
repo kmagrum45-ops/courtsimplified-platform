@@ -38,8 +38,14 @@ import { positionSavesSettled, savePositionQueued } from "../../builder/_compone
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
 import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
-import { suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
-import { sideOf, situationOfCase } from "@/src/lib/case-system/situation/situation";
+import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
+import { sideOf, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
+import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
+import { fullDayIn } from "@/src/lib/case-system/casePosition";
+import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
+import CaseFilePanel from "../_components/CaseFilePanel";
+import SafetyNotice from "@/app/_components/SafetyNotice";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 
 type EventsResponse = {
   events: Array<{
@@ -116,7 +122,12 @@ export default function CaseOverviewPage() {
     (unsettledFromAnswers ? null : position.confirmedStage) ??
     suggestionForSide(asConfirmable(events?.stage.stage) ?? asConfirmable(caseRecord.current_stage) ?? "not-sure", responding);
 
-  const confirmed = unsettledFromAnswers ? null : position.confirmedStage;
+  // The situation answers settle the stage too (served, nothing filed, or the step of a
+  // case already going): never asked again here (step 2b).
+  const situation = situationOfCase(master);
+  const fromSituation = courtPath ? stageRecordedFromAnswers(courtPath, null, "not-sure", situation) : null;
+  const confirmed = (unsettledFromAnswers ? null : position.confirmedStage) ?? fromSituation?.stage ?? null;
+  const situationStep = stepFromSituation(situation, courtPath);
 
   /*
    * A stage confirmed on the results page a moment ago may still be on its
@@ -190,6 +201,17 @@ export default function CaseOverviewPage() {
         </section>
       ) : null}
 
+      {/* Kept open while the story mentions threats, fear or violence (SafetyNotice.tsx). */}
+      <SafetyNotice story={record.story ?? ""} />
+
+      {/* The case file (caseFile.ts): everything the person has told us, each asked once. */}
+      <CaseFilePanel
+        file={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master)}
+        changeHref={builderHref(caseRecord)}
+        situationHref={`${builderHref(caseRecord)}&situation=change`}
+        stepHref="#next-heading"
+      />
+
       <section aria-labelledby="where-heading" className="space-y-3">
         <h2 id="where-heading" className="text-xl font-bold text-[#10231f]">
           Where your case is
@@ -200,6 +222,8 @@ export default function CaseOverviewPage() {
             suggestedStage={suggestedStage}
             pathway={courtPath}
             confirmedStage={confirmed}
+            // A case already going: the step the next step follows, the latest chosen.
+            stepWords={situation.where === "going" ? findStage(position.stepId ?? situationStep ?? "")?.userQuestion ?? null : null}
             onConfirm={(stage) => void confirmStage(stage)}
           />
         ) : (
@@ -252,8 +276,10 @@ export default function CaseOverviewPage() {
               responding={responding}
               sideFromRecord={sideOf(situationOfCase(master)) !== null}
               caseId={caseId}
-              initialStepId={position.stepId}
-              initialDateAnswers={position.dateAnswers}
+              initialStepId={position.stepId ?? situationStep}
+              // A day not known had its one more offer in the review: folded here (caseFile.ts).
+              laterDates={unsureDateQuestions(caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master))}
+              initialDateAnswers={withCaseFileDates(position.dateAnswers, caseFileOf(readCheckpoint(master.intakeCheckpoint, courtPath), master), fullDayIn)}
               initialService={position.service}
               motionToChange={position.motionToChange ?? null}
               // Once a date counted here is saved, the case is read again, so
@@ -364,7 +390,7 @@ export default function CaseOverviewPage() {
               Change your story
             </Link>
           </div>
-          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} />
+          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} caseId={caseId} chosenClaimKind={position.claimKind ?? null} heldKind={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master).claimKind} />
         </section>
       ) : null}
     </div>

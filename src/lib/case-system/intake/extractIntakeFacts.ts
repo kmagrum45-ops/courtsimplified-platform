@@ -23,6 +23,7 @@ import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import { KNOWN_FACT_FIELDS, type KnownFactField } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
+import { describesLoan } from "./claimKind";
 
 /*
  * 2026-09-28: disputeCategory is now a fixed list, not a free slug. The old
@@ -48,6 +49,14 @@ Do not guess at fields the story doesn't address -- omit them rather than assume
 
 function isKnownField(key: string): key is KnownFactField {
   return (KNOWN_FACT_FIELDS as readonly string[]).includes(key);
+}
+
+/** "loan-or-debt" only when the person's words describe a loan; never a fallback (step 2b). */
+function withoutLoanFallback(facts: IntakeFacts, storyText: string): IntakeFacts {
+  if (facts.disputeCategory !== "loan-or-debt" || describesLoan(storyText)) return facts;
+  const rest = { ...facts };
+  delete rest.disputeCategory;
+  return rest;
 }
 
 function sanitize(raw: unknown): IntakeFacts {
@@ -98,7 +107,7 @@ async function extractIntakeFactsInner(storyText: string, apiKey: string): Promi
   } catch {
     parsed = {};
   }
-  return sanitize(parsed);
+  return withoutLoanFallback(sanitize(parsed), storyText);
 }
 
 export type ExtractedFactsWithConfidence = {
@@ -189,7 +198,7 @@ async function extractIntakeFactsWithConfidenceInner(
   }
 
   const record = parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : {};
-  const facts = sanitize(record.facts);
+  const facts = withoutLoanFallback(sanitize(record.facts), storyText);
   const directFields = sanitizeDirectFields(record.directFields, facts);
   return { facts, directFields };
 }

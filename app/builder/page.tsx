@@ -1,7 +1,9 @@
 "use client";
 
 import { useIntakeReviewView, usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeState, useStory, useCaseLocation, useContinueHandler, useIntakeRecovery, useBeforeIntakeAI, useValidateIntakeResponse, IntakeRecoveryBoundary, useSituation } from "../_components/IntakeRecovery";
-import { sideOf, situationAnswers, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
+import { answerSituation, sideOf, situationAnswers, stepFromSituation, withSituationDates, type Situation } from "../../src/lib/case-system/situation/situation";
+import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { fullDayIn } from "../../src/lib/case-system/casePosition";
 
 /** The Small Claims side and filing answer the situation answers settle, in the stage map's terms. */
 function personAnswersFromSituation(situation: Situation): { side?: "plaintiff" | "defendant"; claimFiled?: boolean } {
@@ -242,7 +244,7 @@ function isAnalysisAvailable(caseData: StoredCaseData | null): boolean {
 function BuilderPageContent() {
   const router = useRouter();
   const recovery = useIntakeRecovery();
-  const [situation] = useSituation();
+  const [situation, setSituation] = useSituation();
   const reviewView = useIntakeReviewView();
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
@@ -456,7 +458,9 @@ function BuilderPageContent() {
   }, [queryCaseId, courtPath]);
   const [guidedAnalysisError, setGuidedAnalysisError] = useState("");
   // The guided route's analysis, shown beside "Show my next step" at the top too (L27).
-  usePublishNextStepStatus(guidedAnalyzing, guidedAnalysisError);
+  // A failed next step is never silent: the message, and Try again with the same answers (item 9).
+  const lastGuidedResult = useRef<GuidedIntakeCompletionResult | null>(null);
+  usePublishNextStepStatus(guidedAnalyzing, guidedAnalysisError, undefined, () => { if (lastGuidedResult.current) void handleGuidedComplete(lastGuidedResult.current); });
   // Dates confirmed in the guided intake, offered on the next-steps panel.
   const [guidedDates, setGuidedDates] = useState<Record<string, SuggestedDate>>({});
   /*
@@ -588,7 +592,15 @@ function BuilderPageContent() {
        * will not use is still a story we should not keep.
        */
       const temporaryGuide = sessionStorage.getItem(COURT_PATH_FINDER_KEY);
-      if (temporaryGuide) sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+      // The story and city go at once; "Has a case already started?" stays only until the
+      // situation questions take it (IntakeRecovery), which may read after this runs:
+      // deleting it here made them ask it again (finding 1, the "not sure" path).
+      if (temporaryGuide) {
+        let started: unknown;
+        try { started = (JSON.parse(temporaryGuide) as { started?: unknown }).started; } catch { started = undefined; }
+        if (typeof started === "string") sessionStorage.setItem(COURT_PATH_FINDER_KEY, JSON.stringify({ started }));
+        else sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+      }
 
       if (initialPath && temporaryGuide) {
         try {
@@ -1262,7 +1274,12 @@ function BuilderPageContent() {
    * here (guided mode only ever renders once it is).
    */
   async function handleGuidedComplete(result: GuidedIntakeCompletionResult) {
-    if (!confirmedLocation || guidedRequest.current.pending) return;
+    lastGuidedResult.current = result;
+    if (guidedRequest.current.pending) return;
+    if (!confirmedLocation) {
+      setGuidedAnalysisError("Your city is needed first. Add it at the top of this page, then press Try again.");
+      return;
+    }
     // The same rule as the Small Claims form ("Session 19"): its analysis needs the
     // AI safety check first, and that check needs an account. The review panel's
     // Continue made this reachable by a guest (2026-10-18), so it is checked here too.
@@ -1338,6 +1355,8 @@ function BuilderPageContent() {
           // (GuidedSmallClaimsIntake.tsx's resolveSuggestion). The overview
           // panel reads this to word its label honestly either way.
           claimTypeUserConfirmed: result.matchedClaimType?.userConfirmed === true,
+          // The story's words the kind was shown with (claimKind.ts): its source on every later screen.
+          ...(result.matchedClaimType?.quote ? { claimTypeQuote: result.matchedClaimType.quote } : {}),
           // Follow-up answers, kept with the case so a return visit doesn't ask them again (Step 2A).
           ...(result.sourcedAnswers?.length ? { sourcedAnswers: result.sourcedAnswers } : {}),
           // The side and filing answers the person gave or confirmed in the
@@ -1696,7 +1715,12 @@ function BuilderPageContent() {
     ...storedPosition,
     stepId: positionThisVisit.stepId !== undefined ? positionThisVisit.stepId : storedPosition.stepId,
     // The day they got the papers, from the situation answers, is their answer to that date question (step 2).
-    dateAnswers: withSituationDates({ ...storedPosition.dateAnswers, ...(positionThisVisit.dateAnswers ?? {}) }, courtPath, situation),
+    dateAnswers: withCaseFileDates(
+      withSituationDates({ ...storedPosition.dateAnswers, ...(positionThisVisit.dateAnswers ?? {}) }, courtPath, situation),
+      // A day given anywhere else (the guided questions, the review) is the answer here too (caseFile.ts).
+      caseFileOf(reviewView?.checkpoint ?? null, { ...asRecord(existingMasterResult), intakeAnswers: guidedAnswersRef.current.length ? guidedAnswersRef.current : asRecord(existingMasterResult).intakeAnswers }),
+      fullDayIn,
+    ),
   };
 
   async function saveConfirmedStage(caseId: string, stage: UniversalStage) {
@@ -2299,8 +2323,9 @@ function BuilderPageContent() {
                   <AnalyzingNote />
                 ) : null}
                 {guidedAnalysisError ? (
-                  <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-                    {guidedAnalysisError}
+                  <div role="alert" data-testid="guided-analysis-error" className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                    {guidedAnalysisError}{" "}
+                    {lastGuidedResult.current ? <button type="button" data-testid="guided-analysis-retry" onClick={() => void handleGuidedComplete(lastGuidedResult.current!)} className="font-semibold underline">Try again</button> : null}
                   </div>
                 ) : null}
               </div>
@@ -2506,6 +2531,8 @@ function BuilderPageContent() {
               suggestedStage={suggestionForSide(detectedStage, respondingSide)}
               pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
               confirmedStage={confirmedStage}
+              // A case already going: the step the next step follows, the latest chosen (the step page's, else the start's).
+              stepWords={situation.where === "going" ? findStage(savedPosition.stepId ?? stepFromSituation(situation, courtPath) ?? "")?.userQuestion ?? null : null}
               basis={
                 stageBasis && stageBasis.stage === confirmedStage
                   ? stageBasis.because
@@ -2535,16 +2562,25 @@ function BuilderPageContent() {
                 responding={respondingSide}
                 sideFromRecord={sideOf(situation) !== null}
                 caseId={savedCaseId()}
-                initialStepId={savedPosition.stepId}
+                initialStepId={savedPosition.stepId ?? stepFromSituation(situation, courtPath)}
+                // A day the person said they do not know had its one more offer in the review: folded
+                // here ("not known yet — Add it"), never asked a second time (caseFile.ts).
+                laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
-                onSaved={(saved) =>
+                onSaved={(saved) => {
+                  // A case already going: the step chosen here is their answer to "what has
+                  // happened so far", kept in one place, so the top line shows it too.
+                  if (saved.stepId && situation.where === "going" && saved.stepId !== situation.stage) {
+                    const next = answerSituation(situation, "stage", saved.stepId);
+                    if (next.stage === saved.stepId) setSituation(next);
+                  }
                   setPositionThisVisit((current) => ({
                     stepId: saved.stepId !== undefined ? saved.stepId : current.stepId,
                     dateAnswers: saved.dateAnswers ? { ...(current.dateAnswers ?? {}), ...saved.dateAnswers } : current.dateAnswers,
                     service: saved.service ? { ...(current.service ?? {}), ...saved.service } : current.service,
-                  }))
-                }
+                  }));
+                }}
                 storyHints={storyHintsForDates(storyWithTimeline(userStory(caseData), caseData?.timeline))}
                 storyText={[userStory(caseData), caseData?.goal, caseData?.urgent].filter(Boolean).join("\n")}
                 suggestedDates={guidedDates}
@@ -2578,7 +2614,7 @@ function BuilderPageContent() {
               </details>
             ) : null}
             {confirmedStage && (
-              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} />
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} confirmedStage={confirmedStage} caseId={savedCaseId()} chosenClaimKind={savedPosition.claimKind ?? null} heldKind={caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult).claimKind} />
             )}
             {confirmedStage ? <EvidenceUploadCard caseId={savedCaseId()} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={savedCaseId()} /> : null}
@@ -2721,7 +2757,11 @@ function BuilderPageContent() {
                 </p>
               ) : null}
             </section>
-            {analysisAvailable && !showFollowUp && <button type="button" onClick={() => setShowFollowUp(true)} className="text-sm font-semibold text-[#2f7d67]">Ask follow-up questions</button>}
+            {/* The chat keeps its conversation under the saved case, so it opens once the case is
+                saved: opened earlier, it restarted when the case id arrived and the reply was lost
+                (story pack, case 05; item 9: never fail silently). */}
+            {analysisAvailable && !showFollowUp && (queryCaseId || masterCaseId) && <button type="button" onClick={() => setShowFollowUp(true)} className="text-sm font-semibold text-[#2f7d67]">Ask follow-up questions</button>}
+            {analysisAvailable && !showFollowUp && !(queryCaseId || masterCaseId) && recovery?.ownerId ? <p data-testid="follow-up-waiting" role="status" className="text-sm text-[#4d675f]">Saving your case… follow-up questions open in a moment.</p> : null}
             {analysisAvailable && showFollowUp && <CourtAssistantChat
               // The saved case, also when this visit created it (?intake=): without it the guided
               // assistant's gate refused every message (409, Part 3b).

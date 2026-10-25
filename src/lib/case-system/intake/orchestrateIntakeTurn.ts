@@ -41,9 +41,10 @@
 
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
-import { settledClaimTypeMatch, type ClaimTypeMatch } from "./claimTypeMatcher";
+import type { ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
+import { settledKindMatch } from "./claimKind";
 import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
@@ -65,17 +66,8 @@ import {
 const MAX_CAPTURED_ANSWER_LENGTH = 1_000;
 
 
-/**
- * Words that suggest the person may be in danger from someone: threats,
- * violence, harassment, fear for their safety. A screen for whether to ask the
- * safety question, never a finding about anyone.
- */
-const DANGER_WORDS =
-  /\b(?:threat(?:en(?:ed|ing|s)?)?|unsafe|afraid|scared|frightened|in danger|harass(?:ed|ing|ment)?|stalk(?:ed|ing)?|hit me|hurt me|hits me|beat(?:s)? me|attack(?:ed)? me|assault(?:ed)? me|abus(?:e|ed|ive)|violen(?:t|ce)|weapon|knife|gun|kill|follow(?:s|ed|ing)? me|restraining order|peace bond)\b/i;
-
-export function storySuggestsDanger(text: string): boolean {
-  return DANGER_WORDS.test(text);
-}
+export { storySuggestsDanger } from "./dangerWords";
+import { storySuggestsDanger } from "./dangerWords";
 
 export type OrchestrateIntakeTurnResult = {
   /** Set only when newStoryText was provided this turn -- undefined otherwise. */
@@ -427,7 +419,8 @@ export async function orchestrateIntakeTurn(
     // classifier below, whose answer the user must confirm. A whole-phrase
     // match is unchanged. (2026-10-16: this bar is now settledClaimTypeMatch,
     // shared with SmallClaimsIntake.tsx's form route -- see claimTypeMatcher.ts.)
-    const match = isOpeningStory ? settledClaimTypeMatch(newStoryText, claimTypes) : null;
+    // Kinds of claim only (claimKind.ts): a defendant-side situation is never matched as one.
+    const match = isOpeningStory ? settledKindMatch(newStoryText, claimTypes) : null;
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       if (!overrides.intakeOnly) {
@@ -459,7 +452,8 @@ export async function orchestrateIntakeTurn(
       // ten of the eleven turns in a typical journey.
       // A failed classification means no suggestion, never a failed turn
       // (2026-10-13): the person can still pick a claim type themselves.
-      suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey).catch(() => null)) ?? undefined;
+      // A defendant is asked about the claim made against them (step 2b).
+      suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey, [], facts.role === "defendant").catch(() => null)) ?? undefined;
     }
   }
 

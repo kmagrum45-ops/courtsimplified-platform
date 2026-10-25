@@ -35,6 +35,9 @@ import MunicipalNoticeFirst from "./MunicipalNoticeFirst";
 import { startSignIn } from "../../_components/startSignIn";
 import ReviewNeededNotice from "../../_components/ReviewNeededNotice";
 import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeFirst";
+import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
+import { alreadyAsked, caseFileOf } from "@/src/lib/case-system/caseFile/caseFile";
+import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -80,7 +83,8 @@ type EvidenceGuidance = {
  * below), false for a silent exact-phrase match. The overview panel reads
  * it to word the label honestly instead of overstating what occurred.
  */
-type MatchedClaimType = { claimTypeId: string; claimTypeName: string; userConfirmed?: boolean };
+/** `quote`: the story's own words that show the kind (claimKind.ts); every kind shown carries them. */
+type MatchedClaimType = { claimTypeId: string; claimTypeName: string; userConfirmed?: boolean; quote?: string };
 
 type GuidanceCitation = {
   sourceName: string;
@@ -176,6 +180,8 @@ type ChatMessage = {
   text: string;
   /** Marks a message that carries a bank question, so the one-time intro fires once. */
   isQuestion?: boolean;
+  /** The question asked (bank or depth id): marked on the message, so a check can tell which fact was asked (ask-once gate). */
+  questionId?: string;
   /** The opening story: shown from the one copy (useStory), never stored here a second time. */
   isStory?: boolean;
 };
@@ -665,7 +671,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         },
         body: JSON.stringify({
           facts: nextFacts,
-          answeredIds: newAnsweredIds,
+          // The case file is the one gate (caseFile.ts): a question whose fact the person
+          // gave anywhere (the review, the form, the step page), or said "not sure" to, is
+          // sent as answered, so it is never asked here again.
+          answeredIds: [...new Set([...newAnsweredIds, ...(reviewView ? QUESTION_BANK.filter((question) => alreadyAsked(caseFileOf(reviewView.checkpoint), question.id)).map((question) => question.id) : [])])],
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,
@@ -710,8 +719,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       // until the next render, but onComplete (below) may need to fire
       // with the up-to-date value in this same pass.
       const freshMatch = result.matchedClaimTypes[0]?.claimType;
+      // The story's words for an exact match: the signal phrase found whole in it (claimKind.ts).
+      const freshQuote = freshMatch && newStoryText ? storyQuoteFor(newStoryText, CLAIM_TYPES.find((claimType) => claimType.id === freshMatch.id) ?? { signals: [] }) : null;
       const matchedClaimTypeThisTurn: MatchedClaimType | null = freshMatch
-        ? { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name, userConfirmed: false }
+        ? { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name, userConfirmed: false, ...(freshQuote ? { quote: freshQuote } : {}) }
         : matchedClaimType;
       if (freshMatch) {
         setMatchedClaimType(matchedClaimTypeThisTurn);
@@ -809,7 +820,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         ...(isFirstQuestion
           ? [{ from: "assistant" as const, text: FIRST_QUESTION_INTRO }]
           : []),
-        { from: "assistant" as const, text: displayText, isQuestion: true },
+        { from: "assistant" as const, text: displayText, isQuestion: true, questionId: result.nextQuestion?.id },
       ]);
       setCurrentQuestion(result.nextQuestion);
       });
@@ -872,7 +883,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       if (result.outcome === "confirmed") {
         // This path only runs after the person clicked "that's right" on the
         // suggestion card -- the one case where userConfirmed is actually true.
-        setMatchedClaimType({ ...result.claimType, userConfirmed: true });
+        setMatchedClaimType({ ...result.claimType, userConfirmed: true, ...(pendingSuggestion.quote ? { quote: pendingSuggestion.quote } : {}) });
         setEvidenceGuidance(result.evidenceGuidance ?? null);
         setClaimGuidance(result.claimGuidance ?? null);
         setPendingSuggestion(null);
@@ -1081,7 +1092,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             "A few more questions specific to this kind of claim. You can skip these at any point — " +
             "they help the draft, and nothing depends on answering them.",
         },
-        { from: "assistant", text: result.questions[0].text },
+        { from: "assistant", text: result.questions[0].text, questionId: result.questions[0].id },
       ]);
     } catch (err) {
       if (!mounted.current) return;
@@ -1204,7 +1215,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setMessages((current) => [
           ...current,
           ...(result.leadIn ? [{ from: "assistant" as const, text: result.leadIn }] : []),
-          { from: "assistant" as const, text: next.text },
+          { from: "assistant" as const, text: next.text, questionId: next.id },
         ]);
       } catch (err) {
         setError(err instanceof Error ? err.message : "That didn't go through. Please try again.");
@@ -1412,6 +1423,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
               className="mb-3"
               data-testid="guided-message"
               data-from={message.from}
+              data-question-id={message.questionId}
               style={{ textAlign: message.from === "user" ? "right" : "left" }}
             >
               <div
@@ -1447,7 +1459,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           </p>
           <div className="mt-3 space-y-3">
             {proposalDrafts.map((draft, index) => (sameDayAs(proposalDrafts)[index] >= 0 ? null : (
-              <div key={draft.questionId} data-testid="story-proposal-row" className="rounded-xl border border-[#d8e6df] p-3">
+              <div key={draft.questionId} data-testid="story-proposal-row" data-question-id={draft.questionId} className="rounded-xl border border-[#d8e6df] p-3">
                 <label className="flex items-start gap-2">
                   <input
                     type="checkbox"
@@ -1512,10 +1524,15 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
       {/* After the story proposals, not beside them (page review, 2026-10-07:
           "What kind of dispute is this?" and this box asked at once). */}
       {!halted && !readingOutdated && !proposalDrafts && pendingSuggestion ? (
-        <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-[#4a3b12]">
+        <div data-testid="claim-type-suggestion" className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-[#4a3b12]">
           <p className="font-semibold text-[#3a2e0e]">
             This sounds like it may be about: {pendingSuggestion.claimTypeName} — is that right?
           </p>
+          {pendingSuggestion.quote ? (
+            <p data-testid="claim-type-quote" className="mt-1 text-xs text-[#6b5a26]">
+              From your story: &ldquo;{pendingSuggestion.quote}&rdquo;
+            </p>
+          ) : null}
           <p data-testid="claim-type-why" className="mt-1 text-xs text-[#6b5a26]">
             <span className="font-semibold">Why we ask: </span>
             knowing what kind of matter this is lets us pick the follow-up questions, general

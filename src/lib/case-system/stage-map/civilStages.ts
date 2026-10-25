@@ -3282,7 +3282,7 @@ const PLAINTIFF: CaseStage[] = [
     pathway: "civil",
     side: "plaintiff",
     wentWrong: false,
-    userQuestion: "I want to drop my lawsuit — how do I stop it?",
+    userQuestion: "I want to drop my action (lawsuit) — how do I stop it?",
     title: "Plaintiff discontinuing the action",
     description:
       "The plaintiff wants to discontinue all or part of the action against one or more defendants.",
@@ -3409,7 +3409,7 @@ const DEFENDANT: CaseStage[] = [
       },
       {
         stage: "civil:defendant:served-defence-period-running",
-        by: "whether what was received is a claim for lien registered on title or a statement of claim in a lawsuit",
+        by: "whether what was received is a claim for lien registered on title or a statement of claim in an action",
       },
     ],
     rules: [
@@ -3663,7 +3663,7 @@ const DEFENDANT: CaseStage[] = [
     pathway: "civil",
     side: "defendant",
     wentWrong: false,
-    userQuestion: "A defendant in someone else's lawsuit has brought me into it — what do I do?",
+    userQuestion: "A defendant in someone else's action (lawsuit) has brought me into it — what do I do?",
     title: "Served with a third party claim",
     description:
       "A defendant has issued and served a third party claim against this person, who was not a party to the action before.",
@@ -3713,7 +3713,7 @@ const DEFENDANT: CaseStage[] = [
     pathway: "civil",
     side: "defendant",
     wentWrong: false,
-    userQuestion: "I was not part of this lawsuit, but a defendant's counterclaim now names me — what do I do?",
+    userQuestion: "I was not part of this action (lawsuit), but a defendant's counterclaim now names me — what do I do?",
     title: "Served with a counterclaim as a new party",
     description:
       "A defendant has issued a statement of defence and counterclaim that names this person, who was not already a party to the main action.",

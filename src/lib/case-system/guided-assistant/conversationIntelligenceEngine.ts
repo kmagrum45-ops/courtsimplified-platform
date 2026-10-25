@@ -2007,6 +2007,8 @@ function buildUserFacingAnswer(args: {
   frameworks: IssueFramework[];
   signals: CasePartnerLegalSignal[];
   nextQuestion: CasePartnerQuestion | null;
+  /** A date is already known (this message or the saved case): "the main dates" is not asked for (messy pack case 11). */
+  datesKnown?: boolean;
 }): string {
   const primary = args.frameworks[0];
 
@@ -2031,7 +2033,9 @@ function buildUserFacingAnswer(args: {
 
     const questionText = args.nextQuestion
       ? `\n\nMy next question is: ${args.nextQuestion.question}\n\nI'm asking because ${args.nextQuestion.reason}`
-      : "\n\nTell me the exact facts, the proof you have, the main dates, and what you want the legal process to fix.";
+      : args.datesKnown
+        ? "\n\nTell me the exact facts, the proof you have, and what you want the legal process to fix."
+        : "\n\nTell me the exact facts, the proof you have, the main dates, and what you want the legal process to fix.";
 
     return [
       `I understand. This looks like ${primary.label.toLowerCase()}.`,
@@ -2078,7 +2082,9 @@ function buildUserFacingAnswer(args: {
 
   const questionText = args.nextQuestion
     ? `\n\nMy next question is: ${args.nextQuestion.question}\n\nI'm asking because ${args.nextQuestion.reason}`
-    : "\n\nTell me the main dates, the proof you have, and what you want the legal process to fix.";
+    : args.datesKnown
+      ? "\n\nTell me the proof you have, and what you want the legal process to fix."
+      : "\n\nTell me the main dates, the proof you have, and what you want the legal process to fix.";
 
   return `${opening}${actorText}${courtText}${stageText}${questionText}`;
 }
@@ -2203,7 +2209,13 @@ export function buildConversationIntelligence(
       ? providedStage
       : inferredStage;
   const inferredActors = inferActors(combinedText);
-  const extractedFacts = extractFacts(message, inferredActors, frameworks);
+  // The dates the saved case already holds (the story and timeline) are facts too: the chat
+  // asked a person served on a stated day for "the main dates" (messy pack case 11).
+  const savedDates = extractDateSignals(savedCaseText(input.caseMemory)).filter((date) => date !== "relative date mentioned" && date !== "date mentioned");
+  const extractedFacts = [
+    ...extractFacts(message, inferredActors, frameworks),
+    ...savedDates.map((date): CasePartnerFact => ({ id: createId("fact"), text: `Date or time signal mentioned: ${date}`, source: "case-memory", confidence: "medium", category: "date" })),
+  ];
   const legalSignals = detectLegalSignals(combinedText, frameworks);
 
   const hypotheses = buildHypotheses(frameworks);
@@ -2234,7 +2246,7 @@ export function buildConversationIntelligence(
             question:
               "Are you the child's legal parent or guardian, or do you have an existing court order or legally recognized parenting role?",
             reason:
-              "The phrase describing someone else's child does not establish whether this is a Family Court parenting matter. CourtSimplified must confirm the user's legal relationship to the child before selecting an intake.",
+              "The phrase describing someone else's child does not establish whether this is a family court parenting matter. CourtSimplified must confirm the user's legal relationship to the child before selecting an intake.",
             relatedTo: "parties",
           },
           ...baseQuestions,
@@ -2271,6 +2283,7 @@ export function buildConversationIntelligence(
     frameworks,
     signals: legalSignals,
     nextQuestion: selectedNextQuestion,
+    datesKnown: extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low"),
   });
 
   return {

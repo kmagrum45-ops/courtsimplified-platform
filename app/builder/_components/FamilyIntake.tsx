@@ -65,6 +65,8 @@ export type FamilyIssue =
   | "parenting-time"
   | "child-support"
   | "spousal-support"
+  | "divorce"
+  | "sale-of-home"
   | "property-division"
   | "matrimonial-home"
   | "safety-concerns"
@@ -1011,7 +1013,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             <option value="starting-case">Starting a new case</option>
             <option value="responding">Responding to a case</option>
             <option value="already-started">Case already started</option>
-            <option value="conference">Conference / settlement step</option>
+            <option value="conference">A case, settlement or trial management conference</option>
             <option value="motion">Motion stage</option>
             <option value="trial">Trial preparation</option>
             <option value="enforcement">Enforcement</option>

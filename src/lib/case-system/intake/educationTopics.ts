@@ -194,7 +194,7 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     plainExplanation:
       "In most cases, Ontario's Limitations Act, 2002 gives someone 2 years from when they discovered " +
       "their claim (or when a reasonable person in their circumstances ought to have discovered it) to " +
-      "start a lawsuit. A person is presumed to have known of the claim on the day the act or omission " +
+      "start a claim. A person is presumed to have known of the claim on the day the act or omission " +
       "happened, unless the contrary is proved. Waiting past that window can mean losing the right to " +
       "sue at all, regardless of how strong the underlying facts are. There are exceptions and " +
       "different rules for some claim types, so this is general information, not a determination of any " +

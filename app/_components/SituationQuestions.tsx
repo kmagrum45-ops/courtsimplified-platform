@@ -12,7 +12,7 @@
  * Wording here restates the person's answers and asks; it states no law.
  */
 import { useState } from "react";
-import { dateAnswerCheck, formatForCourt, parseAnswerDate } from "../../src/lib/case-system/dates";
+import { dateAnswerCheck, formatForCourt, parseAnswerDate, todayInOntario } from "../../src/lib/case-system/dates";
 import {
   answerSituation,
   courtOfPapers,
@@ -20,6 +20,7 @@ import {
   nextSituationQuestion,
   paperId,
   situationLine,
+  stageChoices,
   withKnownCourt,
   type FirstPage,
   type Situation,
@@ -48,20 +49,25 @@ export default function SituationQuestions({ situation, onChange, chosenCourt, o
   const known = withKnownCourt(situation, chosenCourt);
   const [step, setStep] = useState<SituationQuestion | null>(reviewing ? "where" : null);
   const question = step ?? nextSituationQuestion(known, chosenCourt);
-  const [typed, setTyped] = useState("");
+  // null until the person types: on Change, the saved day is the box's real value, so
+  // "Save the date" keeps it without retyping (finding 7).
+  const [typedRaw, setTyped] = useState<string | null>(null);
+  const typed = typedRaw ?? (situation.receivedOn && situation.receivedOn !== "unknown" ? formatForCourt(situation.receivedOn) : "");
   const [note, setNote] = useState("");
   if (!question) return null;
 
   const save = (answer: SituationQuestion, value: string) => {
     const next = withKnownCourt(answerSituation(known, answer, value), chosenCourt);
     setNote("");
-    setTyped("");
+    setTyped(null);
     if (answer === "court" && chosenCourt && value !== chosenCourt && onSwitchCourt) {
       onSwitchCourt(value as SituationCourt, next);
       return;
     }
     onChange(next);
-    if (reviewing) {
+    // Case 19: a Change that leaves the answers incomplete turns review mode off part-way; the
+    // question shown must still move on, or the papers picture stayed until a refresh.
+    if (reviewing || step !== null) {
       const after = nextReviewStep(answer, next, chosenCourt);
       setStep(after);
       if (!after) onDone?.();
@@ -106,6 +112,8 @@ export default function SituationQuestions({ situation, onChange, chosenCourt, o
           // The one date rule (dates.ts): a missing year is asked, never guessed; one date, as it is counted.
           const more = dateAnswerCheck(RECEIVED_QUESTION, typed, { oneDate: true }) ?? (parseAnswerDate(typed) ? null : "Please give the day, month and year, for example October 6, 2026.");
           if (more) { setNote(more); return; }
+          // Papers already received cannot be dated after today (item 12).
+          if (parseAnswerDate(typed)! > todayInOntario()) { setNote("That day is after today. Please give the day you got the papers."); return; }
           save("received", parseAnswerDate(typed)!);
         }}>
           <input type="text" aria-label={RECEIVED_QUESTION} data-testid="situation-date-input" value={typed} onChange={(event) => setTyped(event.target.value)}
@@ -124,15 +132,18 @@ export default function SituationQuestions({ situation, onChange, chosenCourt, o
       </>}
 
       {question === "court" && <CourtQuestion situation={known} chosenCourt={chosenCourt} onPick={(value) => save("court", value)} />}
+
+      {question === "stage" && <StageQuestion situation={known} onPick={(value) => save("stage", value)} />}
     </section>
   );
 }
 
 /** After an answer while reviewing every answer (the Change link): the next one that applies, in order. */
 function nextReviewStep(after: SituationQuestion, situation: Situation, chosenCourt: SituationCourt | null): SituationQuestion | null {
-  const order: SituationQuestion[] = ["where", "started", "papers", "received", "filed", "court"];
+  const order: SituationQuestion[] = ["where", "started", "papers", "received", "filed", "court", "stage"];
   const applies = (question: SituationQuestion) =>
     question === "where" ||
+    (question === "stage" && situation.where === "going") ||
     (question === "started" && situation.where === "going") ||
     ((question === "papers" || question === "received") && (situation.where === "served" || (situation.where === "going" && situation.started === "them"))) ||
     (question === "filed" && situation.where === "starting") ||
@@ -185,6 +196,8 @@ function CourtQuestion({ situation, chosenCourt, onPick }: { situation: Situatio
         </button>
       ))}
     </div>
+    {/* Not sure (finding 6): they stay in the area they chose, and can change it at the top later. */}
+    {chosenCourt ? <button type="button" data-testid="situation-option" data-value="court-not-sure" onClick={() => onPick(papersCourt && !differs ? papersCourt : chosenCourt)} className="mt-3 rounded-2xl border px-4 py-3 text-sm">I&apos;m not sure: continue in {AREA_NAME[chosenCourt]} for now</button> : null}
   </>;
 }
 
@@ -202,11 +215,38 @@ export function SituationLine({ situation, onChange, changeHref }: { situation: 
   const line = situationLine(situation);
   if (!line) return null;
   return (
-    <p data-testid="situation-line" className="mx-auto max-w-6xl px-6 py-2 text-sm font-semibold text-[#16302b]">
+    <p data-testid="situation-line" className="sticky top-0 z-30 mx-auto max-w-6xl bg-white/95 px-6 py-2 text-sm font-semibold text-[#16302b] backdrop-blur">
       {line}{" · "}
       {onChange
         ? <button type="button" data-testid="situation-change" onClick={onChange} className="font-semibold text-[#2f7d67] underline">Change</button>
         : changeHref ? <a data-testid="situation-change" href={changeHref} className="font-semibold text-[#2f7d67] underline">Change</a> : null}
     </p>
   );
+}
+
+/**
+ * For a case already going: what has happened so far, once. The options are the stage
+ * map's own steps for the court and side, in the words the map gives each (its question
+ * in the person's words); steps where something has gone wrong are listed after.
+ */
+function StageQuestion({ situation, onPick }: { situation: Situation; onPick: (value: string) => void }) {
+  const steps = stageChoices(situation);
+  const option = (id: string, label: string) => (
+    <button key={id} type="button" data-testid="situation-option" data-value={id} aria-pressed={situation.stage === id} onClick={() => onPick(id)}
+      className="rounded-2xl border border-[#cde7dc] bg-white px-4 py-3 text-left text-sm font-semibold text-[#16302b] aria-pressed:bg-[#2f7d67] aria-pressed:text-white">
+      {label}
+    </button>
+  );
+  const usual = steps.filter((step) => !step.wentWrong);
+  const wrong = steps.filter((step) => step.wentWrong);
+  return <>
+    <h2 className="text-lg font-bold text-[#10231f]">What has happened in the case so far?</h2>
+    <p className="mt-1 text-sm text-[#4d675f]">Pick the one closest to where you are now. We ask this once and keep your answer.</p>
+    <div className="mt-4 grid gap-2 md:grid-cols-2">{usual.map((step) => option(step.id, step.userQuestion))}</div>
+    {wrong.length > 0 && <>
+      <p className="mt-4 text-sm font-semibold text-[#4d675f]">If something has gone wrong</p>
+      <div className="mt-2 grid gap-2 md:grid-cols-2">{wrong.map((step) => option(step.id, step.userQuestion))}</div>
+    </>}
+    <div className="mt-4">{option("not-sure", "I'm not sure")}</div>
+  </>;
 }

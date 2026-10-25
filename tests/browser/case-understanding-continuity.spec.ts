@@ -163,6 +163,9 @@ test("a passed Small Claims filing deadline shows the admission qualifier inside
   await expect(dates).toBeVisible({ timeout: 60_000 });
   const change = dates.getByRole("button", { name: "Change", exact: true });
   if (await change.count()) await change.first().click();
+  // A day marked "I don't know yet" in the review is folded here ("not known yet -- Add it"; option 1).
+  const addIt = dates.getByRole("button", { name: "Add it", exact: true });
+  if (await addIt.count()) await addIt.first().click();
   await dates.locator('input[type="date"]').first().fill("2023-12-31");
   await dates.getByRole("button", { name: "Count my deadline", exact: true }).click();
   const warning = page.getByTestId("next-step-passed-bar");

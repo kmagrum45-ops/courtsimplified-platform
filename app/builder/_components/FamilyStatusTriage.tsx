@@ -2,6 +2,8 @@
 import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { caseFileOf } from "../../../src/lib/case-system/caseFile/caseFile";
+import { withCaseFileAnswers } from "../../../src/lib/case-system/caseFile/triageFromCaseFile";
 
 /**
  * The family status-and-routing triage, on screen.
@@ -110,6 +112,8 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
 import { existingFamilyOrder, existingFamilyOrderQuote, respondingInFamilyStory } from "../../../src/lib/case-system/familyStoryReading";
 export { existingFamilyOrder, respondingInFamilyStory };
 
+
+
 export default function FamilyStatusTriage({ state, onChange, homeCity = "", story = "" }: Props) {
   const review = useIntakeReviewView();
   const [situation] = useSituation();
@@ -120,7 +124,10 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const [userMunicipality, setUserMunicipality] = useState(homeCity);
   const [otherMunicipality, setOtherMunicipality] = useState("");
 
-  const { record, dismissed } = state;
+  const { record: ownRecord, dismissed } = state;
+  // The case file is the one gate (caseFile.ts): whether there are children, or a marriage,
+  // given anywhere else (the form, the questions one at a time) is not asked here again.
+  const record = review ? withCaseFileAnswers(ownRecord, caseFileOf(review.checkpoint)) : ownRecord;
   const question = selectNextTriageQuestion(record);
   const outcome = buildTriageOutcome(record);
   // Someone who already has a family court order (a motion to change, support
@@ -138,7 +145,8 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
   const startingNewCase = story.trim().length > 0 && !hasOrderAlready && (answeredSide ? answeredSide === "bringing" : !respondingInFamilyStory(story));
 
   function update(next: Partial<FamilyStatusRecord>) {
-    onChange({ ...state, record: { ...record, ...next } });
+    // The person's own triage record; what the case file already held is read over it, never copied in.
+    onChange({ ...state, record: { ...ownRecord, ...next } });
     setShowWhy(false);
   }
 
@@ -365,7 +373,7 @@ export default function FamilyStatusTriage({ state, onChange, homeCity = "", sto
       </p>
 
       {question ? (
-        <div className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
+        <div data-testid="triage-question" data-question={question.id} className="mt-6 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
           <p data-testid="triage-prompt" className="font-semibold text-[#10231f]">
             {question.prompt}
           </p>
