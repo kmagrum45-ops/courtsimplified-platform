@@ -196,10 +196,11 @@ for (const court of ["family", "civil"] as const) {
     const notice = page.getByTestId("safety-check-unavailable");
     if (court === "family") {
       await expect(notice).toContainText("Our safety check could not run just now");
-      const noticeTop = (await notice.boundingBox())!.y;
       const guidance = page.getByTestId("stage-answer-panel").or(page.getByRole("heading", { name: "A few questions about your situation" })).first();
       await expect(guidance).toBeVisible({ timeout: 60_000 });
-      expect(noticeTop, "the resources come before the guidance").toBeLessThan((await guidance.boundingBox())!.y);
+      // Both measured at the same moment: the page may scroll while the results settle.
+      const [noticeTop, guidanceTop] = await Promise.all([notice.evaluate((el) => el.getBoundingClientRect().top + window.scrollY), guidance.evaluate((el) => el.getBoundingClientRect().top + window.scrollY)]);
+      expect(noticeTop, "the resources come before the guidance").toBeLessThan(guidanceTop);
     } else {
       await expect(notice).toHaveCount(0);
     }
