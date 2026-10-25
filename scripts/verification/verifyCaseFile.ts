@@ -133,6 +133,12 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
     const boxes = reviewEntries(served).filter((entry) => (entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))) && slotsOfQuestion(entry.field).includes("servedDate") && !entry.fromStart);
     check(`${court}: an unknown served day is offered once in the review, as one field`, file.servedDate.state === "unsure" && (boxes.length > 0 ? listed.length === 0 : listed.length <= 1), `questions ${listed.map((q) => q.id).join(", ")}; boxes ${boxes.map((b) => b.field).join(", ")}`);
     check(`${court}: a "not sure" fact never blocks Confirm`, !remainingEssentialQuestions(served).some((question) => slotsOfQuestion(question.id).includes("servedDate")));
+    // Marked "I don't know yet" on that one offer: no second field for the same day appears.
+    if (listed[0]) {
+      const marked = { ...served, sections: { ...served.sections, builder: { initialUnknowns: [listed[0].id] } } };
+      const after = remainingEssentialQuestions(marked, true).filter((question) => slotsOfQuestion(question.id).includes("servedDate"));
+      check(`${court}: after "I don't know yet" on the review's offer, no second field for the day appears`, after.length === 1 && after[0].id === listed[0].id, after.map((q) => q.id).join(", "));
+    }
   }
 }
 

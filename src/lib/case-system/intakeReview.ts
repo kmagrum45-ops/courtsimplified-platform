@@ -189,7 +189,10 @@ export function remainingEssentialQuestions(stored: Checkpoint, includeUnknown =
   const boxFacts = new Set(reviewEntries(stored).filter(entry => entry.essential || !(entry.value === "" || (Array.isArray(entry.value) && entry.value.length === 0))).flatMap(entry => slotsOfQuestion(entry.field)));
   // Each unsure fact once: a fact already offered by a box, or by an earlier question here, is not offered again.
   const offered = new Set<string>(boxFacts);
-  return remainingBeforeCaseFile(stored, includeUnknown).filter(question => {
+  const listed = remainingBeforeCaseFile(stored, includeUnknown);
+  // A question this review already offered and the person marked "I don't know yet" covers its facts too.
+  for (const question of listed) if (unknown.has(question.id)) for (const fact of slotsOfQuestion(question.id)) offered.add(fact);
+  return listed.filter(question => {
     if (!alreadyAsked(file, question.id)) return true;
     if (!includeUnknown) return false;
     if (unknown.has(question.id)) return true;
