@@ -573,6 +573,10 @@ export function NextStepCard({
   };
   const passed = passedBars({ deadlines: kept }, today);
   const ranOut = stageAfterTimeRanOut(stepId, main.deadlines, today);
+  // Once the time to defend has passed, the step's sentence about a notice of intent to defend
+  // (Form 18B, delivered within that time) is not shown on this card (Jason, 2026-10-24). On
+  // this screen only: the published library and the full answer keep their text.
+  const shownLead = courtWords(ranOut ? withoutSentencesNaming(firstParagraph, SENTENCES_ONLY_WHILE_TIME_RUNS) : firstParagraph, court);
   const deadlineItem = (deadline: NextStepSummary["deadlines"][number]) => {
     // limitPassedState decides "passed"; deadlineLineFor decides the words, so
     // a statutory counted day on a closed day is never called THE last day
@@ -581,7 +585,7 @@ export function NextStepCard({
     const line = deadlineLineFor(deadline, today);
     return (
       <li key={`${deadline.what}-${deadline.date}`} data-testid="next-step-deadline">
-        <span className="font-semibold">{deadline.what}.</span> {line.statement}
+        <span className="font-semibold">{deadline.what}.</span> {line.statement ? courtWords(line.statement, court) : line.statement}
         {line.statement && line.passed ? <span className="font-semibold text-[#8a1c1c]"> That date has already passed.</span> : null}
         {line.closedDay ? (
           <span data-testid="next-step-closed-day" className={`block font-semibold ${line.passed || line.closedDay.say.includes("Act ") ? "text-[#8a1c1c]" : "text-[#16302b]"}`}>
@@ -644,7 +648,7 @@ export function NextStepCard({
           </div>
           {deadline.qualifier ? (
             <div data-testid="next-step-passed-qualifier" className="mt-2">
-              <p>{deadline.qualifier}</p>
+              <p>{courtWords(deadline.qualifier, court)}</p>
               {deadline.qualifierRules?.map((rule) => (
                 <QuotedRule key={`${rule.sourceId}:${rule.pinpoint}`} rule={rule} />
               ))}
@@ -809,8 +813,8 @@ export function NextStepCard({
           </ul>
         </details>
       ) : null}
-      {firstParagraph ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{firstParagraph}</p> : null}
-      {firstParagraph ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => firstParagraph.includes(entry.sentence))} /> : null}
+      {shownLead ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{shownLead}</p> : null}
+      {shownLead ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => shownLead.includes(courtWords(entry.sentence, court)))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
       {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} /> : null}
@@ -925,7 +929,7 @@ function AnswerView({
   const cardLead = underCard ? cardLeadOf(answer) : "";
   return (
     <div className="mt-4 space-y-4" data-testid="stage-answer">
-      <h4 className="text-base font-bold text-[#10231f]">{answer.question}</h4>
+      <h4 className="text-base font-bold text-[#10231f]">{courtWords(answer.question, court)}</h4>
       {answer.status === "rules-only" ? (
         <p data-testid="stage-rules-only" className="text-xs leading-5 text-[#4d675f]">
           We have not written a step-by-step answer for this step yet. These are its deadlines and
@@ -933,14 +937,14 @@ function AnswerView({
         </p>
       ) : null}
       {answer.sections.map((section) => {
-        const text = withoutCardLead(section.heading, section.text, cardLead);
+        const text = courtWords(withoutCardLead(section.heading, section.text, cardLead), court);
         return (
           <div key={section.heading}>
             <p className="text-sm font-semibold text-[#16302b]">{section.heading}</p>
             <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
               {text || "The first step is in \"Your next step\" above."}
             </p>
-            <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => text.includes(entry.sentence))} />
+            <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => text.includes(courtWords(entry.sentence, court)))} />
             {section.heading === "Your deadline" && servedWhen.some((line) => text.includes(line.say)) ? (
               // The rule beside each "when service counts" sentence above
               // (walkthrough run 38500825561, FR: the 4 p.m. sentence had none).
@@ -1238,6 +1242,35 @@ function withoutArrivalDates(
  * not about a mortgage. Whole sentences or that one aside are dropped, never
  * reworded; the full answer below keeps every word.
  */
+/**
+ * The court's own word for a case started in it (Jason, 2026-10-24), applied where the
+ * library's text is shown, never in the published library itself: a claim in Small Claims;
+ * an action in the Superior Court, with "(lawsuit)" beside its first mention.
+ */
+export function courtWords(text: string, court: string): string {
+  if (!text || !/\blawsuits?\b/i.test(text)) return text;
+  if (court === "small-claims") return text.replace(/\blawsuit(s?)\b/g, "claim$1").replace(/\bLawsuit(s?)\b/g, "Claim$1");
+  if (court === "civil") {
+    let first = !/\baction \(lawsuit\)/i.test(text);
+    return text.replace(/(\b[Aa] )?(?<!\()\blawsuit(s?)\b(?!\))/g, (_, article: string | undefined, plural: string) => {
+      const lead = article ? (article.startsWith("A") ? "An " : "an ") : "";
+      const shown = `${lead}action${plural}${first && !plural ? " (lawsuit)" : ""}`;
+      first = false;
+      return shown;
+    });
+  }
+  return text;
+}
+
+/** The sentences naming what can be done only while the time runs (Form 18B). */
+const SENTENCES_ONLY_WHILE_TIME_RUNS = /\bForm 18B\b|\bnotice of intent to defend\b/i;
+
+/** A paragraph without its sentences that match: the rest, as written. */
+export function withoutSentencesNaming(paragraph: string, naming: RegExp): string {
+  if (!paragraph || !naming.test(paragraph)) return paragraph;
+  return splitSentences(paragraph).filter((sentence) => !naming.test(sentence)).join(" ").replace(/\s+/g, " ").trim();
+}
+
 export function forThisPerson(paragraph: string, { userWords, filingShown }: { userWords: string; filingShown: boolean }): string {
   let text = paragraph;
   if (!/\bmortgage/i.test(userWords)) {

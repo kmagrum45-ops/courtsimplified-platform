@@ -242,6 +242,7 @@ for (const [label, ago, listed] of [["still running", 2, true], ["passed", 40, f
       // Never offered once the time to defend has passed: not in the forms to use, and not its filing fee.
       await expect(card.getByTestId("next-step-forms"), "the form list does not offer Form 18B").not.toContainText("Form 18B");
       await expect(card.getByTestId("next-step-practical"), "nor its filing fee").not.toContainText("Filing a notice of intent to defend");
+      await expect(card, "nor the step's sentence about it, anywhere on the card").not.toContainText("Form 18B");
     }
   });
 }

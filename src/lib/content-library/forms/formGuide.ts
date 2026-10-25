@@ -41,7 +41,8 @@ export const FORM_COURTS: FormCourt[] = ["small-claims", "civil", "family"];
 export const FORM_COURT_LABELS: Record<FormCourt, string> = {
   "small-claims": "Small Claims Court",
   civil: "Superior Court of Justice (civil)",
-  family: "Family Court",
+  // Which family court (the Ontario Court of Justice or the Superior Court of Justice) depends on the case.
+  family: "family court",
 };
 
 export type FormRuleQuote = { rule: string; quote: string };

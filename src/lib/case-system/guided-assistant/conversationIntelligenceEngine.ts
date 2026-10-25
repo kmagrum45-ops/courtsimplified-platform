@@ -2246,7 +2246,7 @@ export function buildConversationIntelligence(
             question:
               "Are you the child's legal parent or guardian, or do you have an existing court order or legally recognized parenting role?",
             reason:
-              "The phrase describing someone else's child does not establish whether this is a Family Court parenting matter. CourtSimplified must confirm the user's legal relationship to the child before selecting an intake.",
+              "The phrase describing someone else's child does not establish whether this is a family court parenting matter. CourtSimplified must confirm the user's legal relationship to the child before selecting an intake.",
             relatedTo: "parties",
           },
           ...baseQuestions,

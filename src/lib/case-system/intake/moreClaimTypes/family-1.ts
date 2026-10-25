@@ -1560,15 +1560,15 @@ export const TYPES_FAMILY_1: ClaimType[] = [
           "In Kerr v. Baranow, 2011 SCC 10, the Supreme Court of Canada said the law of unjust " +
           "enrichment has been the primary vehicle to address claims of inequitable distribution of " +
           "assets on the breakdown of a domestic relationship (para. 30). The first two steps are " +
-          "whether the defendant has been enriched by the plaintiff and whether the plaintiff has " +
-          "suffered a corresponding deprivation (para. 36). For enrichment, the plaintiff must show " +
-          "that he or she gave something to the defendant which the defendant received and retained; " +
+          "whether the respondent has been enriched by the applicant and whether the applicant has " +
+          "suffered a corresponding deprivation (para. 36). For enrichment, the applicant must show " +
+          "that he or she gave something to the respondent which the respondent received and retained; " +
           "the benefit must be tangible, and it may be positive or negative, the latter in the sense " +
-          "that it spares the defendant an expense he or she would have had to undertake (para. 38). " +
-          "The plaintiff must also establish that the enrichment corresponds to a deprivation which " +
-          "the plaintiff has suffered (para. 39). The third element is that the benefit and " +
+          "that it spares the respondent an expense he or she would have had to undertake (para. 38). " +
+          "The applicant must also establish that the enrichment corresponds to a deprivation which " +
+          "the applicant has suffered (para. 39). The third element is that the benefit and " +
           "corresponding detriment occurred without a juristic reason, meaning there is no reason in " +
-          "law or justice for the defendant's retention of the benefit (para. 40). Juristic reasons " +
+          "law or justice for the respondent's retention of the benefit (para. 40). Juristic reasons " +
           "to deny recovery may be the intention to make a gift, a contract, or a disposition of law " +
           "(para. 41). The Court said domestic services constitute an enrichment because they are of " +
           "great value to the family and to the other spouse, and the unpaid provision of services " +
@@ -1578,7 +1578,7 @@ export const TYPES_FAMILY_1: ClaimType[] = [
         evidenceCategories: [
           {
             name: "What you contributed",
-            why: "Kerr, paras. 38 and 42: the plaintiff shows what they gave, including labour or domestic services.",
+            why: "In Kerr v. Baranow (paras. 38 and 42), the Supreme Court of Canada said the applicant shows what they gave, which can include labour or domestic services.",
             examples: [
               "Bank records of money you paid toward the property, mortgage or household",
               "Receipts for renovations or work you did on the property",
@@ -1588,7 +1588,7 @@ export const TYPES_FAMILY_1: ClaimType[] = [
           },
           {
             name: "What the other person kept",
-            why: "Kerr, para. 38: the defendant received and retained the benefit.",
+            why: "In Kerr v. Baranow (para. 38), the Supreme Court of Canada said the respondent must have received and retained the benefit.",
             examples: [
               "Title records showing who owns the property",
               "Account statements showing whose name assets are in",
@@ -1596,7 +1596,7 @@ export const TYPES_FAMILY_1: ClaimType[] = [
           },
           {
             name: "Anything about gifts or agreements",
-            why: "Kerr, para. 41: a gift, a contract or a disposition of law can be a juristic reason.",
+            why: "In Kerr v. Baranow (para. 41), the Supreme Court of Canada said a gift, a contract or a disposition of law can be a juristic reason.",
             examples: [
               "Any cohabitation agreement",
               "Messages about whether money was a gift or a loan",
@@ -1609,11 +1609,11 @@ export const TYPES_FAMILY_1: ClaimType[] = [
         name: "A money award, a share of property, or a share of wealth from a joint family venture",
         plainExplanation:
           "In Kerr v. Baranow, 2011 SCC 10, the Supreme Court of Canada said the first remedy to " +
-          "consider is always a monetary award (para. 47). Where the plaintiff can demonstrate a link " +
+          "consider is always a monetary award (para. 47). Where the applicant can demonstrate a link " +
           "or causal connection between his or her contributions and the acquisition, preservation, " +
           "maintenance or improvement of the disputed property, a share of the property proportionate " +
           "to the unjust enrichment can be impressed with a constructive trust (para. 50); a minor or " +
-          "indirect contribution will not suffice (para. 51), and the plaintiff must also establish " +
+          "indirect contribution will not suffice (para. 51), and the applicant must also establish " +
           "that a monetary award would be insufficient (para. 52). The Court also said that when the " +
           "parties have been engaged in a joint family venture, and the claimant's contributions to " +
           "it are linked to the generation of wealth, a monetary award for unjust enrichment should " +

@@ -247,6 +247,9 @@ jobs:
       - name: The case file holds every fact once, and no screen asks a held fact again
         run: npm run test:case-file
 
+      - name: The court's own words, and none of the ruled-out wording, on every screen
+        run: npm run test:court-terms
+
       - name: The next-step analysis finishes inside the page's wait and the server's limit
         run: npm run test:analysis-time-budget
 

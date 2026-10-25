@@ -195,7 +195,7 @@ export const TYPES_SC_DEFENDANT_SIDE_2: ClaimType[] = [
           "agency must notify the debtor that it intends to make the recommendation. An agency cannot ask the " +
           "debtor to pay charges incurred by the agency or the creditor (for example, commissions). This " +
           "topic is about what the agency sent you, what it charged, and when.",
-        whenThisComesUp: "When the agency contacted you before the lawsuit, kept contacting you after you disputed the debt, or added its own charges to the amount.",
+        whenThisComesUp: "When the agency contacted you before the claim, kept contacting you after you disputed the debt, or added its own charges to the amount.",
         sourceUrl: COLLECT,
         verifiedAt: V,
       },

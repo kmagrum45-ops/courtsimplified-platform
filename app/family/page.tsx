@@ -59,11 +59,11 @@ export default function FamilyPage() {
       <section className="border-b border-[#d9e6df] bg-white">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
-            Family Court
+            Family cases
           </p>
 
           <h1 className="text-4xl font-bold tracking-tight text-[#10231f] md:text-5xl">
-            Family Court
+            Family court
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-[#4f685f]">
@@ -107,7 +107,7 @@ export default function FamilyPage() {
         <div className="mx-auto max-w-7xl px-6 py-10">
           <div className="max-w-4xl rounded-3xl border border-[#9fcbb9] bg-white p-7 shadow-sm">
             <h2 className="text-2xl font-bold tracking-tight text-[#10231f]">
-              What Family Court covers
+              What the Family Court branch covers
             </h2>
             <p className="mt-3 text-base leading-7 text-[#33584d]">
               Where it has jurisdiction, the Family Court branch of the Superior Court of Justice hears matters about parenting time and
@@ -219,7 +219,7 @@ export default function FamilyPage() {
           </p>
           <ul
             className="mt-7 grid gap-3 md:grid-cols-2"
-            aria-label="Official Ontario Family Court resources"
+            aria-label="Official Ontario family court resources"
           >
             {familyResources.map(([label, href]) => (
               <li key={href}>

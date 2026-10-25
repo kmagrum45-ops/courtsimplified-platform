@@ -423,7 +423,7 @@ function buildCourtPathGuidance(
     return {
       title: "This may be the wrong court path",
       message:
-        "The facts currently appear connected to a Family Court matter rather than the selected court path.",
+        "The facts currently appear connected to a family court matter rather than the selected court path.",
       routingMode: "family",
     };
   }
@@ -448,11 +448,11 @@ function buildCourtPathGuidance(
         ? "This may be the wrong court path"
         : currentPath === "small-claims"
           ? "Confirm Small Claims Court eligibility"
-          : "Confirm Civil Court eligibility";
+          : "Confirm civil court eligibility";
 
     const message =
       currentPath === "family"
-        ? "The facts currently describe a civil dispute rather than a Family Court matter. CourtSimplified must confirm the province, amount claimed, and requested remedy before continuing in the correct intake."
+        ? "The facts currently describe a civil dispute rather than a family court matter. CourtSimplified must confirm the province, amount claimed, and requested remedy before continuing in the correct intake."
         : "CourtSimplified must confirm the province, total amount claimed, and requested remedy before opening the structured intake.";
 
     return {
@@ -1166,7 +1166,7 @@ function CourtAssistantChatInner({
           content:
             targetPath === "small-claims"
               ? "The court-path check is complete. This claim can continue in the Ontario Small Claims intake based on the information provided."
-              : "The court-path check is complete. This claim can continue in the Ontario Civil Court intake based on the information provided.",
+              : "The court-path check is complete. This claim can continue in the Superior Court of Justice civil intake based on the information provided.",
         },
       ]);
       return;
@@ -1277,7 +1277,7 @@ function CourtAssistantChatInner({
               onClick={() => transferToCourtPath("family")}
               className="mt-4 rounded-full bg-[#725514] px-5 py-2 text-sm font-semibold text-white hover:bg-[#5f4715]"
             >
-              Continue in the Family Court intake
+              Continue in the family court intake
             </button>
           ) : courtPathGuidance.routingMode === "direct-civil" ? (
             <button
@@ -1360,7 +1360,7 @@ function CourtAssistantChatInner({
                   money or return of personal property up to $
                   {ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}, excluding
                   interest and costs. Other remedies or larger claims may
-                  require Civil Court review.
+                  require civil court review.
                 </p>
               </div>
             </form>

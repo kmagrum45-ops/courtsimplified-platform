@@ -7,7 +7,7 @@
    "also": [
     "lawsuit"
    ],
-   "meaning": "A lawsuit where one side (the plaintiff) sues another (the defendant). Small Claims Court cases and most Superior Court civil cases are actions. An action is the main alternative to an application, which is a different way of starting a case.",
+   "meaning": "A court case where one side (the plaintiff) sues another (the defendant). Small Claims Court cases and most Superior Court civil cases are actions. An action is the main alternative to an application, which is a different way of starting a case.",
    "courts": {
     "small-claims": "You start an action by filing a plaintiff's claim (Form 7A) with the clerk.",
     "civil": "Most civil cases must go forward as actions, usually started by a statement of claim. Only cases that a statute or the rules allow can be started as an application instead.",
@@ -293,7 +293,7 @@
     "battery",
     "sexual assault"
    ],
-   "meaning": "In lawsuits about harm to a person, \"assault\" includes battery. Usually you have two years from when you discovered a claim to start a lawsuit. But there is no time limit for a lawsuit based on a sexual assault, or on an assault where the person was a minor at the time, was in an intimate relationship with the attacker, or depended on them.",
+   "meaning": "In court cases about harm to a person, \"assault\" includes battery. Usually you have two years from when you discovered a claim to start a court case. But there is no time limit for a court case based on a sexual assault, or on an assault where the person was a minor at the time, was in an intimate relationship with the attacker, or depended on them.",
    "sources": [
     {
      "id": "limitations-act-2002",
@@ -754,10 +754,10 @@
   {
    "term": "claim",
    "kind": "term",
-   "meaning": "What you are asking the court to give you, and the reasons. It is also the name of the document that starts a lawsuit. For time limits, a claim is a claim to fix an injury, loss or damage caused by something someone did or failed to do, and you usually have two years from when you discovered it to start a lawsuit.",
+   "meaning": "What you are asking the court to give you, and the reasons. It is also the name of the document that starts an action (lawsuit). For time limits, a claim is a claim to fix an injury, loss or damage caused by something someone did or failed to do, and you usually have two years from when you discovered it to start a lawsuit.",
    "courts": {
     "small-claims": "The plaintiff starts with a plaintiff's claim (Form 7A). A defendant can make their own claim using a defendant's claim (Form 10A).",
-    "civil": "A lawsuit usually starts with a statement of claim. A defendant's claim against the plaintiff is a counterclaim.",
+    "civil": "An action (lawsuit) usually starts with a statement of claim. A defendant's claim against the plaintiff is a counterclaim.",
     "family": "Claims are set out in the application. The respondent is the person a claim is made against."
    },
    "sources": [
@@ -2995,7 +2995,7 @@
   },
   {
    "term": "plaintiff",
-   "meaning": "The person or business that starts a lawsuit (an action) by suing someone. The person being sued is the defendant.",
+   "meaning": "The person or business that starts an action (lawsuit) by suing someone. The person being sued is the defendant.",
    "courts": {
     "small-claims": "The plaintiff starts the case by filing a Plaintiff's Claim (Form 7A).",
     "civil": "The plaintiff usually starts the case with a statement of claim.",
@@ -4550,7 +4550,7 @@
    "also": [
     "notice of action"
    ],
-   "meaning": "The document that starts a lawsuit (an \"action\") in the Superior Court of Justice. It names the parties and gives a short summary of the key facts and what you want the court to order. The court issues it, and you then serve it on each defendant. Small Claims Court uses a different form, the plaintiff's claim; family court uses an application.",
+   "meaning": "The document that starts an action (lawsuit) in the Superior Court of Justice. It names the parties and gives a short summary of the key facts and what you want the court to order. The court issues it, and you then serve it on each defendant. Small Claims Court uses a different form, the plaintiff's claim; family court uses an application.",
    "courts": {
     "civil": "Form 14A or 14B. If you need more time, a Notice of Action (Form 14C) gives you thirty more days to file the statement of claim. It must be served within six months after it is issued.",
     "small-claims": "The starting document is a Plaintiff's Claim (Form 7A), not a statement of claim.",
@@ -4862,7 +4862,7 @@
     "crossclaim",
     "defence to counterclaim"
    ],
-   "meaning": "A claim a defendant makes back against the plaintiff (and sometimes others) in the same lawsuit, for example because the defendant says the plaintiff owes them money. It works like a claim of its own, and the plaintiff can file a defence to it. The term is used in the Superior Court; Small Claims Court uses a defendant's claim, and in family court the respondent puts claims in the answer.",
+   "meaning": "A claim a defendant makes back against the plaintiff (and sometimes others) in the same case, for example because the defendant says the plaintiff owes them money. It works like a claim of its own, and the plaintiff can file a defence to it. The term is used in the Superior Court; Small Claims Court uses a defendant's claim, and in family court the respondent puts claims in the answer.",
    "courts": {
     "civil": "Counterclaim (Form 27A or 27B); the plaintiff answers with a defence to counterclaim (Form 27C). A claim against a co-defendant is a crossclaim.",
     "small-claims": "Called a defendant's claim (Form 10A).",
@@ -5014,7 +5014,7 @@
     "close of pleadings",
     "reply"
    ],
-   "meaning": "The written documents in a lawsuit where each side sets out the facts it relies on for its claim or defence, such as the statement of claim, the statement of defence and any reply. Pleadings state facts, not the evidence that will prove them. The term mostly appears in Superior Court civil cases, where steps such as the discovery plan are timed from the \"close of pleadings\".",
+   "meaning": "The written documents in an action (lawsuit) where each side sets out the facts it relies on for its claim or defence, such as the statement of claim, the statement of defence and any reply. Pleadings state facts, not the evidence that will prove them. The term mostly appears in Superior Court civil cases, where steps such as the discovery plan are timed from the \"close of pleadings\".",
    "courts": {
     "civil": "Pleadings are closed once the plaintiff has replied to every defence (or the time to reply has run out) and every defendant in default has been noted in default. A discovery plan must be agreed before the earlier of 60 days after that (or longer if the parties agree) and trying to get the discovery evidence.",
     "small-claims": "The Small Claims rules speak of the claim and the defence rather than \"pleadings\".",

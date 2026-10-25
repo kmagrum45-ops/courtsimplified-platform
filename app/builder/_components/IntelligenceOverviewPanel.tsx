@@ -365,7 +365,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const timeline = intake?.timeline?.trim() || "";
   const kindLabel = kind?.status === "fits" ? (kind.source === "person" ? (chosenKind ? "Kind of claim you chose" : "Kind of claim you confirmed") : kind.confirmed ? "Kind of claim you confirmed" : "Kind of claim this matches") : "";
   const snapshotRows: Array<[string, string]> = [
-    ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family" : "Civil (Superior Court)"],
+    ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
     ["Current stage", displayStage(caseStage)],

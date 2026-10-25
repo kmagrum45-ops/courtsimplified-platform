@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-172 documented, 26 without a header.
+173 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -52,6 +52,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:classifier-gating` | **Proves the AI claim-type classifier runs ONLY on the opening story, and**<br>replays story 4's real turn sequence to show what the retained claim type is at each turn, before and after the fix. |
 | `npm run test:corpus-retrieval` | **Meaning-based retrieval over the corpus: the passages are cut where the law**<br>is cut, carry only law in force, are found by meaning, and can only be cited through the grounding gate. |
 | `npm run test:court-locations` | **Every courthouse address and contact shown is on the court's own page.**<br>COSTS NOTHING. Reads src/lib/content-library/courts/courtLocations.json and the saved page text in docs/sources/court-locations/. |
+| `npm run test:court-terms` | **THE COURT'S OWN WORDS: THE OLD WORDING NEVER COMES BACK (Jason, 2026-10-24).**<br>Fails if any text a person can see (pages, components, content, the stage map, claim types, the chat's templates and the strategy prompt) uses a term Jason ruled out: - "Civil Court"            -> "Superior Court of Justice" once known, "civil court" before -  |
 | `npm run test:crisis-numbers` | **Every phone number in a crisis message is on the official page it came from.**<br>COSTS NOTHING. Reads crisisMessages.ts and the vendored ontario.ca pages. |
 | `npm run test:cross-forum-notes` | **Connection notes quote their sources exactly, are selected by topic alone,**<br>and a story's issues can only carry the user's own words. |
 | `npm run test:date-entry-points` | **Every entry point reads a date the same way (step 1, gate A: the same-behaviour check).**<br>What it checks: at least 40 real-world phrasings ("Oct 6", "6 Oct 2026", "2026-10-06", "last Tuesday", "10/06/2026", "Feb 30, 2026", "6 octobre 2026" ...) are fed, unchanged, through every place that reads a date the person typed or wrote: - the date boxes: th |

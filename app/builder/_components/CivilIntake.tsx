@@ -1012,7 +1012,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             <option value="starting-case">Starting a new civil case</option>
             <option value="responding">Responding to a civil case</option>
             <option value="already-started">Case already started</option>
-            <option value="conference">Conference / case management</option>
+            <option value="conference">Pre-trial conference or case management</option>
             <option value="motion">Motion stage</option>
             <option value="trial">Trial preparation</option>
             <option value="enforcement">Enforcement</option>

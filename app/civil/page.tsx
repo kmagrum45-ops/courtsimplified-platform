@@ -69,15 +69,15 @@ export default function CivilPage() {
       <section className="border-b border-[#d9e6df] bg-white">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
-            Civil Court
+            Civil cases
           </p>
 
           <h1 className="text-4xl font-bold tracking-tight text-[#10231f] md:text-5xl">
-            Civil Court
+            Superior Court of Justice
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-[#4d675f]">
-            Civil Court (the Superior Court of Justice) handles negligence,
+            The Superior Court of Justice handles negligence,
             contract, defamation, and other civil claims (and a Human Rights Code infringement only alongside another claim) that
             fall outside Small Claims Court&apos;s limit or scope.
           </p>
@@ -229,7 +229,7 @@ export default function CivilPage() {
           </p>
           <ul
             className="mt-7 grid gap-3 md:grid-cols-2"
-            aria-label="Official Ontario Civil Court resources"
+            aria-label="Official Superior Court of Justice resources"
           >
             {civilResources.map(([label, href]) => (
               <li key={href}>

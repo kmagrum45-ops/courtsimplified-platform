@@ -680,7 +680,7 @@ export const PRINCIPLES: PrincipleCard[] = [
   {
     courtPath: "Family Court",
     title: "Forms",
-    summary: "Family Court uses its own set of forms under the Family Law Rules, distinct from civil or Small Claims forms.",
+    summary: "Family cases use their own set of forms under the Family Law Rules, distinct from civil or Small Claims forms.",
     keyFacts: [
       "Forms are catalogued under the Family Law Rules, O. Reg. 114/99, including Application (Form 8), Answer (Form 10), and Financial Statement (Form 13 or 13.1).",
       "Since October 14, 2025, family documents filed online go through the Ontario Courts Public Portal for Toronto-region matters and Justice Services Online for matters outside Toronto; filing in person at the court counter remains available.",

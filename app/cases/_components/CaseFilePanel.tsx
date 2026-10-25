@@ -32,13 +32,13 @@ const LABEL: Record<SlotFact, string> = {
   defenceFiled: "Defence or answer filed",
   outcome: "Outcome you want",
   urgent: "Anything urgent",
-  courtDate: "Court date",
+  courtDate: "Next court date",
 };
 
 /** The days the step page itself asks for: their one offer at the end is there. */
 const STEP_PAGE_DATES = new Set<SlotFact>(["servedDate", "whenHappened", "conferenceDate", "courtDate"]);
 
-const COURT: Record<string, string> = { "small-claims": "Small Claims Court", civil: "Civil (Superior Court)", family: "Family" };
+const COURT: Record<string, string> = { "small-claims": "Small Claims Court", civil: "Superior Court of Justice", family: "Family court" };
 const SIDE: Record<string, string> = { bringing: "Bringing the case", responding: "Responding to the case" };
 const BROAD: Record<string, string> = { "starting-case": "Starting a case", responding: "Served and responding", "already-started": "The case has started" };
 

@@ -18,6 +18,9 @@ import {
   type PrincipleCitation,
 } from "../../src/lib/content-library/proceduralStages";
 
+/** The court names shown (Jason, 2026-10-24): the Superior Court of Justice for civil; "family court" until a case says which court. */
+const COURT_NAME_SHOWN: Record<string, string> = { "Superior Court (Civil)": "Superior Court of Justice (civil)", "Family Court": "family court" };
+
 
 function Section({
   title,
@@ -106,7 +109,7 @@ function LegalPrinciplesPageContent() {
               <p className="mt-4 max-w-4xl text-lg leading-8 text-[#4d675f]">
                 This page covers procedure, forms, monetary limits, and
                 deadlines for Ontario Small Claims Court, Superior Court civil
-                claims, and Family Court — the facts a self-represented
+                claims, and family court — the facts a self-represented
                 litigant needs to move a case forward correctly. Every
                 statement here is sourced and dated below it.
               </p>
@@ -176,7 +179,7 @@ function LegalPrinciplesPageContent() {
                   className="rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-6"
                 >
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#2f7d67]">
-                    {principle.courtPath}
+                    {COURT_NAME_SHOWN[principle.courtPath] ?? principle.courtPath}
                   </p>
 
                   <h3 className="mt-1 text-2xl font-bold">
