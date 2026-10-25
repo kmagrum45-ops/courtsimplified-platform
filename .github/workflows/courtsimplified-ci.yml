@@ -605,6 +605,7 @@ jobs:
           tests/browser/retest-470.spec.ts
           tests/browser/retest-471.spec.ts
           tests/browser/stage-rule.spec.ts
+          tests/browser/items-8-12.spec.ts
           --reporter=line --workers=1
 
       # A failure that does not reproduce locally needs the page as CI saw it.
