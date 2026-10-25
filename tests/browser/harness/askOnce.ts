@@ -159,6 +159,7 @@ export function unsureFromSituation(answers: SituationAnswers | false): string[]
   const facts: string[] = [];
   if (answers.receivedOn === "unknown" && (answers.where === "served" || (answers.where === "going" && answers.started === "them"))) facts.push("servedDate");
   if (answers.where === "going" && (answers.stage ?? "not-sure") === "not-sure") facts.push("stage");
+  if (answers.papers === "not-sure") facts.push("papers");
   return facts;
 }
 
