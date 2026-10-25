@@ -18,7 +18,8 @@ on:
 jobs:
   story-pack:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # 61 stories through their routes (the messy pack and walkthrough paths, 2026-10-24): about 45 min.
+    timeout-minutes: 90
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192

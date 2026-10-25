@@ -21,6 +21,7 @@ import {
 import type { CheckedAnswerView, ResearchFindingView } from "../../../src/lib/case-system/intelligence/intelligenceTypes";
 import { supabase } from "../../../src/lib/supabase/client";
 import CheckedAnswerPanel from "../../_components/CheckedAnswerPanel";
+import { pause } from "../../../src/lib/case-system/pause";
 import ResearchPanel from "../../_components/ResearchPanel";
 
 /**
@@ -999,7 +1000,7 @@ function CourtAssistantChatInner({
       // The case not found yet (still saving, just after the next step was shown): asked
       // once more after a short wait, never shown as a failure on the first try.
       for (let attempt = 0; response.status === 404 && attempt < 2; attempt += 1) {
-        await new Promise((resolve) => setTimeout(resolve, 2_000));
+        await pause(2_000);
         response = await ask();
       }
 
