@@ -450,6 +450,14 @@ for (const story of STORIES) {
       await autoAnswerSituation(page, situationForStory(story));
       // Gate A1: every question shown in this case, on every screen.
       const asked = await recordAsks(page);
+      // A chat reply that fails says why in the run's log: its status and body, a request that
+      // never completed, and the page's own error line (case 05 failed only on the CI runner).
+      page.on("response", async (response) => {
+        if (/\/api\/(guided-assistant|assistant\/law)/.test(response.url()) && !response.ok()) console.log(`CHAT-DIAG ${run} ${response.status()} ${response.url()} ${(await response.text().catch(() => "")).slice(0, 400)}`);
+      });
+      page.on("requestfailed", (request) => { if (/\/api\/(guided-assistant|assistant\/law)/.test(request.url())) console.log(`CHAT-DIAG ${run} failed ${request.url()} ${request.failure()?.errorText}`); });
+      page.on("console", async (message) => { if (/guided assistant request failed|CourtSimplified guided assistant/i.test(message.text())) console.log(`CHAT-DIAG ${run} console ${JSON.stringify(await Promise.all(message.args().map((arg) => arg.jsonValue().catch(() => "?")))).slice(0, 400)}`); });
+      page.on("pageerror", (error) => console.log(`CHAT-DIAG ${run} pageerror ${String(error).slice(0, 300)}`));
       const account = await fakeAccount(page);
       await serveFromThisCommit(page, story.court, account.rows as unknown as Map<string, Record<string, unknown>>);
 
