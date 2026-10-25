@@ -251,7 +251,7 @@ export function getStageLabel(stage: UniversalStage) {
     "starting-case": "Starting a new case",
     responding: "Responding to a case",
     "already-started": "Case already started",
-    conference: "Conference / settlement step",
+    conference: "Conference stage",
     motion: "Motion stage",
     trial: "Trial preparation",
     enforcement: "Enforcement",

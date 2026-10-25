@@ -21,6 +21,8 @@
 import { type SlotFact, slotsOfQuestion, alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
+import { dateAnswerCheck } from "../../src/lib/case-system/dates";
+import { FAMILY_ISSUE_OPTIONS } from "../../app/builder/_components/guidedFields";
 import { situationOf, withSituationDates } from "../../src/lib/case-system/situation/situation";
 import { withCaseFileAnswers } from "../../src/lib/case-system/caseFile/triageFromCaseFile";
 import { emptyStatusRecord } from "../../src/lib/case-system/family/statusTriage";
@@ -140,6 +142,17 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
       check(`${court}: after "I don't know yet" on the review's offer, no second field for the day appears`, after.length === 1 && after[0].id === listed[0].id, after.map((q) => q.id).join(", "));
     }
   }
+}
+
+// 8. Item 12's small fixes that need no browser (items-8-12.spec.ts proves the others).
+{
+  const rough = "Roughly when did the situation you're describing happen?";
+  check("\"last summer\" is accepted for a question asking roughly when", dateAnswerCheck(rough, "last summer") === null && dateAnswerCheck(rough, "a few months ago") === null);
+  check("a day with no year is still asked for its year", dateAnswerCheck(rough, "October 6") !== null);
+  check("a rough time is never a day to count from", dateAnswerCheck("What day did you get the papers?", "last summer", { oneDate: true }) !== null);
+  const family = reviewEntries(checkpoint("family", { family: { uploadedEvidenceFiles: ["a.pdf"], someNewField: "x" } }));
+  check("Family review labels are plain words, never Title Case of a field name", family.every((entry) => !/[a-z] [A-Z][a-z]+ [A-Z]/.test(entry.label)) && family.find((entry) => entry.field === "uploadedEvidenceFiles")?.label === "Documents you uploaded", family.map((entry) => entry.label).join(" | "));
+  check("Divorce and selling the family home are Family issues a person can pick", ["divorce", "sale-of-home"].every((value) => FAMILY_ISSUE_OPTIONS.some((option) => option.value === value)));
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }

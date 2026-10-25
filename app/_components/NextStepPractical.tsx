@@ -37,6 +37,8 @@ function Line({ line }: { line: PlainLine }) {
 }
 
 const ONLY_WHILE_TIME_RUNS = new Set(["civil-18B"]);
+/** The fee for filing that notice goes with it. */
+const FEES_ONLY_WHILE_TIME_RUNS = new Set(["civ-intent"]);
 
 export default function NextStepPractical({
   stepId,
@@ -75,7 +77,7 @@ export default function NextStepPractical({
   // Form 18B, the notice of intent to defend, is delivered "within the time for delivering a
   // statement of defence" (r. 18.02 (1), as the step's own content quotes it): once that time
   // has passed, it is not offered (item 12, case 11).
-  const view = timeRanOut ? { ...found, forms: found.forms.filter((form) => !ONLY_WHILE_TIME_RUNS.has(`${form.court}-${form.number}`)) } : found;
+  const view = timeRanOut ? { ...found, forms: found.forms.filter((form) => !ONLY_WHILE_TIME_RUNS.has(`${form.court}-${form.number}`)), fees: found.fees.filter((fee) => !FEES_ONLY_WHILE_TIME_RUNS.has(fee.id)) } : found;
   return (
     <div data-testid="next-step-practical" className="mt-3 space-y-3 text-sm leading-6 text-[#16302b]">
       {view.forms.length > 0 ? (

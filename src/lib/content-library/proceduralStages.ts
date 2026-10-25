@@ -482,7 +482,7 @@ export const PRINCIPLES: PrincipleCard[] = [
       "A mediation session must take place within 180 days after the first defence is filed, unless the court orders otherwise; for a transferred action, the court may instead set the date (r. 24.1.09(1), (2.1)). The session may be postponed to a later date if the parties consent to the date in writing and the consent is filed with the mediation co-ordinator (r. 24.1.09(3)).",
     ],
     workflowUse: [
-      "Use Settlement Conference preparation tools if the case is in a mandatory mediation region.",
+      "Use the preparation tools for the mandatory mediation session if the case is in a mandatory mediation region.",
     ],
     commonRisks: [
       "Not scheduling mediation within the 180-day window in a mandatory region.",
@@ -647,7 +647,7 @@ export const PRINCIPLES: PrincipleCard[] = [
       "The Case Conference and Settlement Conference are opportunities to narrow or resolve disputed issues before trial.",
     ],
     workflowUse: [
-      "Use Settlement Conference preparation tools ahead of each conference stage.",
+      "Use the conference preparation tools ahead of each conference (case conference, settlement conference, trial management conference).",
       "Use Dashboard to see which conference stage the case has reached.",
     ],
     commonRisks: [
