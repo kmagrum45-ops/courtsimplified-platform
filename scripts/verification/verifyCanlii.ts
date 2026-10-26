@@ -564,7 +564,7 @@ async function main() {
     );
     check("the decision's own names and ordinary words pass", namesNotInDecision("Deputy Judge Alvarez found that the tenant, J.K., paid the deposit on March 1.", decision).length === 0);
     const prompt = read("app/api/workspace/documents/decision-help/route.ts");
-    check("AI help runs only on the person's click and only behind the document-analysis (ZDR) switch", /if \(!documentAnalysisEnabled\(\)\) return NextResponse\.json\(\{ enabled: false \}\);/.test(prompt) && /export async function POST/.test(prompt) && !/export async function GET/.test(prompt));
+    check("AI help runs only on the person's click and only behind the document-analysis (ZDR) switch", /if \(!documentAnalysisEnabled\(\)\) return NextResponse\.json\(\{ enabled: false \}\);/.test(prompt) && /export (?:async function POST\b|const POST = )/.test(prompt) && !/export async function GET/.test(prompt));
     const model = read("src/lib/case-workspace/decisionHelp.ts");
     check(
       "every model answer passes checkedDecisionHelp before it is returned",
