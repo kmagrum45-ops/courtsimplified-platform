@@ -20,6 +20,7 @@
  */
 import type { Checkpoint } from "./intakeCheckpoint";
 import { guidedReadingOutdated, STORY_INPUT_KEYS, STORY_SECTION, storyOf } from "./intakeStory";
+import { sentences } from "./sentences";
 
 type Sections = Checkpoint["sections"];
 export const BASIS_SECTION = "storyBasis";
@@ -174,7 +175,7 @@ export function discardStale(checkpoint: Checkpoint): Checkpoint {
 }
 
 /** The story's sentences, each as compared (case, spacing and punctuation ignored). */
-const sentencesOf = (text: string) => text.split(/(?<=[.!?])\s+|\n+/).map(comparable).filter(Boolean);
+const sentencesOf = (text: string) => sentences(text).map(comparable).filter(Boolean);
 const comparable = (text: string) => text.toLowerCase().replace(/[^a-z0-9$]+/g, " ").trim();
 
 /**

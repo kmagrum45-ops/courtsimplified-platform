@@ -93,7 +93,8 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
           <div key={line.fact} className="contents" data-testid="case-file-story-line" data-fact={line.fact}>
             <dt className="font-semibold text-[#10231f]">{line.label}</dt>
             <dd>
-              {line.value} <span className="text-[#4f685f]">(from your story)</span>{" "}
+              {/* The value is the person's own sentence, or is shown with it. */}
+              {line.value} <span className="text-[#4f685f]">(from your story{line.quote.trim() !== line.value.trim() ? <>: &ldquo;{line.quote.trim()}&rdquo;</> : null})</span>{" "}
               <Link data-testid="case-file-change" href={changeHref} className="font-semibold text-[#2f7d67] underline">Change</Link>
             </dd>
           </div>

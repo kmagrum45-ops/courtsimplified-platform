@@ -601,7 +601,9 @@ export function civilFiledFromStory(story: string): FiledAnswer | null {
  * its year: a year would be a guess.
  */
 export function courtDateFromStory(story: string): StoryAnswer | null {
-  const match = new RegExp(String.raw`\b((?:case|settlement|trial management|pre-?trial|first|scheduling)\s+conference|conference|court date|court hearing|hearing|motion|trial|first appearance|appearance)\b[^.!?]{0,40}?\b((?:${MONTH_FULL_NAMES_PATTERN})\s+\d{1,2},?\s+\d{4})`, "i").exec(story);
+  // Within one sentence, as the shared splitter cuts them (sentences.ts).
+  const pattern = new RegExp(String.raw`\b((?:case|settlement|trial management|pre-?trial|first|scheduling)\s+conference|conference|court date|court hearing|hearing|motion|trial|first appearance|appearance)\b.{0,40}?\b((?:${MONTH_FULL_NAMES_PATTERN})\s+\d{1,2},?\s+\d{4})`, "i");
+  const match = sentences(story).map((sentence) => pattern.exec(sentence)).find(Boolean);
   if (!match) return null;
   const what = match[1].toLowerCase().replace(/^pre-?trial/, "pre-trial");
   return { value: `${what.charAt(0).toUpperCase()}${what.slice(1)} on ${match[2].replace(/,?\s+(\d{4})$/, ", $1")}`, quote: match[0] };
