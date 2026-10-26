@@ -1464,6 +1464,7 @@ export const STEP_PRACTICAL: Record<string, StepPractical> = {
   // The motion's own timing is in s. 137.2 of the Courts of Justice Act, in the step's rules.
   "civil:defendant:sued-over-public-expression": { forms: ["37A"], fees: ["civ-motion"], files: true, serve: "ordinary", also: [CIV_MOTION] },
   "civil:both:interlocutory-order-made": { forms: ["61A", "62A"], fees: ["civ-motion", "civ-appeal-interlocutory"], files: true, serve: "ordinary" },
+  "civil:both:case-management": NOTHING,
   "civil:both:pretrial-scheduled": { forms: ["50A"], fees: [], files: true, serve: "ordinary" },
   "civil:both:trial-date-set": { forms: ["53A"], fees: ["civ-summons"], files: true, serve: "summons" },
   "civil:both:missed-trial": { forms: ["37A", "61A.2", "61A.3", "61C"], fees: ["civ-motion", "civ-appeal-final"], files: true, serve: "ordinary", also: [CIV_MOTION, APPEAL_START] },

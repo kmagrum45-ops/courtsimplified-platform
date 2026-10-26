@@ -640,6 +640,14 @@ export const S_APPEAL_LIMIT: RuleCitation = {
   quote: "For the purposes of clause 31 (a) of the Act, the prescribed amount is $5,000.",
 };
 
+/** Rule 77 (civil case management): its purpose, for the step's link to the rule (conference audit, 2026-10-26). */
+export const RCP_77_01_PURPOSE: RuleCitation = {
+  sourceId: "rules-of-civil-procedure",
+  pinpoint: "r. 77.01 (1)",
+  quote:
+    "The purpose of this Rule is to establish a case management system that provides case management only of those proceedings for which a need for the court's intervention is demonstrated and only to the degree that is appropriate, as determined in reliance on the criteria set out in this Rule.",
+};
+
 export const R_61_05_CERTIFICATE: RuleCitation = {
   sourceId: "rules-of-civil-procedure",
   pinpoint: "r. 61.05 (1)",

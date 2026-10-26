@@ -227,6 +227,11 @@ export type CaseStage = {
    */
   whenTimeRunsOut?: { deadline: string; stage: string | null };
   rules: RuleCitation[];
+  /**
+   * Show the rules by name and link only, without their words: a step with no block drafted and
+   * checked yet (conference audit, 2026-10-26: civil case management, r. 77).
+   */
+  rulesLinkOnly?: boolean;
   deadlines: StageDeadline[];
   /**
    * This stage renders ONLY where the scope classifier affirmatively said
