@@ -815,7 +815,7 @@ The one copy of the story and the location.
 
 Which version of the story each answer was given for.
 
-- Reads (2): src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**
+- Reads (3): src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**, **src/lib/case-system/sentences.ts**
 - Read by (7): app/_components/IntakeRecovery.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/StoryChangedNotice.tsx, app/builder/page.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/intakeReview.ts**, **src/lib/case-system/sideChange.ts**
 - Checked by (3): scripts/verification/verifyReviewFollowUps.ts, scripts/verification/verifyStoryBasis.ts, scripts/verification/verifyStoryDataRegistry.ts
 
@@ -912,7 +912,7 @@ Reading and writing dates.
 Splitting text into sentences.
 
 - Reads (1): **src/lib/case-system/dates.ts**
-- Read by (26): app/builder/_components/StageAnswerPanel.tsx, app/builder/_components/childSupportPrefill.ts, app/builder/_components/motionToChange.ts, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/caseFile/storyLines.ts**, **src/lib/case-system/casePosition.ts**, **src/lib/case-system/claimAmount.ts**, src/lib/case-system/claimDraftEngine.ts, src/lib/case-system/family/triageStoryQuote.ts, src/lib/case-system/familyAffidavitNarrativeEngine.ts, src/lib/case-system/familyStoryReading.ts, src/lib/case-system/format/previewText.ts, src/lib/case-system/forms/applicabilitySuggestions.ts, src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts, src/lib/case-system/intake/tidyWording.ts, **src/lib/case-system/intakeReview.ts**, src/lib/case-system/intelligence/intakeNormalizationEngine.ts, src/lib/case-system/intelligence/narrativePrefill.ts, **src/lib/case-system/retrieval/checkedAnswer.ts**, src/lib/case-system/retrieval/crossReferences.ts, src/lib/case-system/statementOfClaimDraftEngine.ts, src/lib/case-system/understanding/understandCase.ts, src/lib/case-workspace/courtDecision.ts, src/lib/content-library/nextStepPractical.ts, src/lib/content-library/readability.ts
+- Read by (27): app/builder/_components/StageAnswerPanel.tsx, app/builder/_components/childSupportPrefill.ts, app/builder/_components/motionToChange.ts, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/caseFile/storyLines.ts**, **src/lib/case-system/casePosition.ts**, **src/lib/case-system/claimAmount.ts**, src/lib/case-system/claimDraftEngine.ts, src/lib/case-system/family/triageStoryQuote.ts, src/lib/case-system/familyAffidavitNarrativeEngine.ts, src/lib/case-system/familyStoryReading.ts, src/lib/case-system/format/previewText.ts, src/lib/case-system/forms/applicabilitySuggestions.ts, src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts, src/lib/case-system/intake/tidyWording.ts, **src/lib/case-system/intakeReview.ts**, src/lib/case-system/intelligence/intakeNormalizationEngine.ts, src/lib/case-system/intelligence/narrativePrefill.ts, **src/lib/case-system/retrieval/checkedAnswer.ts**, src/lib/case-system/retrieval/crossReferences.ts, src/lib/case-system/statementOfClaimDraftEngine.ts, **src/lib/case-system/storyBasis.ts**, src/lib/case-system/understanding/understandCase.ts, src/lib/case-workspace/courtDecision.ts, src/lib/content-library/nextStepPractical.ts, src/lib/content-library/readability.ts
 - Checked by (1): scripts/verification/verifyDateEntryPoints.ts
 
 ### src/lib/case-system/copy/rawKeys.ts
@@ -999,8 +999,8 @@ The content pipeline: drafting, checking and publishing library blocks.
 
 The saved case read as facts (side, step, dates, amount) for the chat.
 
-- Reads (5): src/lib/case-system/amountNotes.ts, **src/lib/case-system/casePosition.ts**, src/lib/case-system/intelligence/answeredQuestions.ts, **src/lib/case-system/situation/situation.ts**, src/lib/case-system/userStory.ts
+- Reads (6): src/lib/case-system/amountNotes.ts, **src/lib/case-system/casePosition.ts**, src/lib/case-system/intelligence/answeredQuestions.ts, src/lib/case-system/privacy/modelPayloadNames.ts, **src/lib/case-system/situation/situation.ts**, src/lib/case-system/userStory.ts
 - Read by (13): app/api/assistant/law/route.ts, app/api/cases/form-applicability/route.ts, app/api/workspace/documents/decision-help/route.ts, app/api/workspace/exhibit-book/route.ts, app/api/workspace/organisation/route.ts, app/builder/_components/respondingSide.ts, app/builder/page.tsx, app/cases/[id]/case-file/page.tsx, app/cases/[id]/layout.tsx, app/cases/[id]/timeline/page.tsx, app/cases/_components/CaseHomeContext.tsx, **src/lib/case-system/caseStep.ts**, src/lib/case-system/forms/applicabilitySuggestions.ts
-- Checked by (3): scripts/eval/freeFinishLine.ts, scripts/verification/verifyCaseRecord.ts, scripts/verification/verifySituation.ts
+- Checked by (4): scripts/eval/freeFinishLine.ts, scripts/verification/verifyCaseRecord.ts, scripts/verification/verifyNoNamesToModel.ts, scripts/verification/verifySituation.ts
 
 <!-- generated:who-reads-what:end -->
