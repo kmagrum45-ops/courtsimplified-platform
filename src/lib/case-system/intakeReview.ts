@@ -16,6 +16,8 @@ type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
 const OPTIONAL = new Set(["evidence", "missingEvidence", "uploadedEvidenceFiles", "uploadedFiles", "evidenceFiles", "evidenceText", "defenceEvidenceText"]);
 const UI = new Set(["mode", "editingStory", "personSet", "personDocuments"]);
+/** Family details that belong to one issue: asked for only when that issue is chosen. */
+const ISSUE_ONLY: Record<string, string[]> = { adoptionDetails: ["adoption"] };
 export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean };
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
@@ -73,7 +75,11 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // What the person picked at the start, in their words: the step's title and who started the case.
     const startWords = area === section && startKeys.has(key) && typeof value === "string" ? (key === "caseStage" ? fromStart.stepTitle : key === "yourRole" ? fromStart.roleWords : undefined) : undefined;
     const choices = startWords ? [{ value: value as string, label: startWords }] : definition?.options;
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
+    // A detail of one issue is asked for only when that issue is the person's ("Adoption details"
+    // showed on a divorce case, #477 re-test case 14).
+    const issueOnly = ISSUE_ONLY[key];
+    const notTheirIssue = issueOnly ? !issueOnly.some((issue) => (Array.isArray(source.issues) ? source.issues as string[] : []).includes(issue)) : false;
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });

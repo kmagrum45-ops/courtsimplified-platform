@@ -480,7 +480,7 @@ export const PERSONAS: Persona[] = [
     documents: ["Application filed (by either person)", "Answer / response already filed"],
     fields: {
       "Children / parenting details": "one daughter, 6, lives with her mom",
-      "Upcoming court date or deadline": "case conference november 20 2026",
+      "Next court date or deadline": "case conference november 20 2026",
     },
     confirmStage: "conference",
     expect: [

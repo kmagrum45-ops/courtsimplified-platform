@@ -463,7 +463,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         value: urgent,
         setter: setUrgent,
         placeholder:
-          "Upcoming court date, deadline, missed service, urgent motion need, safety issue, missed support, withheld child, eviction/home issue, or financial emergency.",
+          "Next court date, deadline, missed service, urgent motion need, safety issue, missed support, withheld child, eviction/home issue, or financial emergency.",
       },
     ],
     [childrenInfo, setChildrenInfo, currentLivingSituation, setCurrentLivingSituation, pastLivingHistory, setPastLivingHistory, timeline, setTimeline, evidence, setEvidence, missingEvidence, setMissingEvidence, safetyConcerns, setSafetyConcerns, propertyHomeDetails, setPropertyHomeDetails, goal, setGoal, urgent, setUrgent],
@@ -1288,7 +1288,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
 
         <label className="block">
           <span className="font-semibold text-[#16302b]">
-            Upcoming court date or deadline
+            Next court date or deadline
           </span>
           <input
             value={upcomingCourtDate}

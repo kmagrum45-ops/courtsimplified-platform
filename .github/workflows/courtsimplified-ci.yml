@@ -250,6 +250,9 @@ jobs:
       - name: A changed side sets aside the old side's facts, in every area
         run: npm run test:side-change
 
+      - name: No raw field name or code is shown to a person (the copy guard)
+        run: npm run test:raw-keys
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 

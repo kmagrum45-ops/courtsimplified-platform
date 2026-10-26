@@ -37,6 +37,7 @@ import { factsAskedTwice, recordAsks } from "./harness/askOnce";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
+import { rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
 import { MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
@@ -139,6 +140,9 @@ function note(run: string, where: string, what: string, ok: boolean, detail = ""
 function checkText(run: string, where: string, text: string) {
   const internal = INTERNAL.exec(text);
   note(run, where, "no internal wording", !internal, internal ? text.slice(Math.max(0, internal.index - 80), internal.index + 80) : "");
+  // The copy guard (#477 re-test, item 5): no stored code or field name, on any screen.
+  const raw = rawKeysIn(text);
+  note(run, where, "no raw field name or code", raw.length === 0, raw.join(", "));
   const double = DOUBLE_STOP.exec(text);
   note(run, where, "no doubled full stop", !double, double ? text.slice(Math.max(0, double.index - 60), double.index + 20) : "");
   const repeated = text.split("\n").map((line) => line.split(/;\s*/).map((part) => part.trim()).filter((part) => part.length >= 6)).find((parts) => new Set(parts).size !== parts.length);
@@ -940,4 +944,24 @@ test("retest-477 repeat: the amount the story claims is offered for one click --
   const box = page.getByTestId("intake-review").locator('[data-testid=intake-initial-question][data-question="amountClaimed"]');
   if (await box.count()) await expect(box.getByTestId("intake-field-from-story")).toContainText("$70,000");
   else expect(await page.getByTestId("intake-review").innerText(), "the amount is held from the story").toContain("70,000");
+});
+
+// Case 16: the review said "Case stage: conference", "Your side: I'm starting it (or I want to)"
+// and "What has been filed: Not recorded" after the person had said all three. It shows what was
+// answered: the step picked, who started the case, and the papers filed.
+test("retest-477 case 16: the review shows the step picked, who started the case, and what was filed -- family (questions)", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = messy("m16-conference-safety");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await openBuilder(page, "family", { story: story.story });
+  await guidedQuestions(page, story, false);
+  const review = await page.getByTestId("intake-review").innerText();
+  expect(review, "the step picked, in its own words").toContain("Case conference scheduled");
+  expect(review, "never the bare word").not.toMatch(/Case stage\s*\n?\s*conference\b/i);
+  expect(review, "who started the case").toContain("I started this case (applicant)");
+  expect(review, "never the starting-a-case wording for a case already going").not.toContain("I'm starting it (or I want to)");
+  expect(review.match(/What has been filed\s*\n?\s*([^\n]*)/)?.[1] ?? "", "what was filed, as answered").not.toMatch(/Not recorded/);
 });

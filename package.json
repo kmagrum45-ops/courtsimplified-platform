@@ -253,6 +253,7 @@
     "test:situation": "node --import tsx scripts/verification/verifySituation.ts",
     "test:case-file": "node --import tsx scripts/verification/verifyCaseFile.ts",
     "test:side-change": "node --import tsx scripts/verification/verifySideChange.ts",
+    "test:raw-keys": "node --import tsx scripts/verification/verifyRawKeys.ts",
     "test:court-terms": "node --import tsx scripts/verification/verifyCourtTerms.ts",
     "test:story-pack": "node scripts/browser/storyPack.mjs",
     "test:analysis-time-budget": "node --import tsx scripts/verification/verifyAnalysisTimeBudget.ts"

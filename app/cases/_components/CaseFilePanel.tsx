@@ -12,6 +12,7 @@ import { formatForCourt } from "@/src/lib/case-system/dates";
 import { SLOT_FACTS, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
+import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
 
 const LABEL: Record<SlotFact, string> = {
   side: "Your side",
@@ -47,9 +48,13 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
   if (slot.state === "answered" && typeof slot.value === "string") {
     if (fact === "court") return COURT[slot.value] ?? slot.value;
     if (fact === "side") return SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
-    if (fact === "stage") return findStage(slot.value)?.userQuestion ?? BROAD[slot.value] ?? slot.value.replace(/-/g, " ");
-    if (fact === "claimKind") return CLAIM_TYPES.find((type) => type.id === slot.value)?.name ?? (slot.value === "not-sure" ? "Not sure yet" : slot.value);
+    // The step picked, by its own title ("Case conference scheduled"), never its code.
+    if (fact === "stage") return findStage(slot.value)?.title ?? BROAD[slot.value] ?? optionWords(slot.value) ?? slot.value.replace(/-/g, " ");
+    if (fact === "claimKind") return CLAIM_TYPES.find((type) => type.id === slot.value)?.name ?? (slot.value === "not-sure" ? "Not sure yet" : optionWords(slot.value) ?? slot.value);
+    if (optionWords(slot.value)) return optionWords(slot.value)!;
   }
+  // A list of choices ("decision-making-responsibility, parenting-time" on case 14): each in its words.
+  if (slot.state === "answered" && Array.isArray(slot.value)) return inWords(slot.value.filter((item) => item !== "not-sure"));
   return slotText(slot, formatForCourt);
 }
 
