@@ -20,6 +20,7 @@
  * are.
  */
 
+import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
 import { userStory } from "./userStory";
@@ -229,7 +230,10 @@ export function caseFactsText(record: CaseRecord, describe: { stepTitle?: (stepI
     lines.push(`${describe.dateQuestion?.(id) ?? id}: ${fact.value} (${from(fact.source)})`);
   }
   if (record.amount) lines.push(`Amount: ${record.amount} (from their intake)`);
-  if (record.otherParty) lines.push(`The other party: ${record.otherParty} (from their intake)`);
+  // Names never go to the model (privacy/modelPayloadNames.ts): only that one is recorded. This
+  // text is sent to the checked answer by /api/assistant/law; it carried the other party's name
+  // until 2026-10-25 (found writing the site map).
+  if (record.otherParty) lines.push(`The other party: ${nameRecorded(record.otherParty)} (from their intake)`);
   if (record.city) lines.push(`City: ${record.city} (from their intake)`);
   if (record.documents.length) lines.push(`Documents recorded as filed or received: ${record.documents.join(", ")}`);
   return lines.join("\n");

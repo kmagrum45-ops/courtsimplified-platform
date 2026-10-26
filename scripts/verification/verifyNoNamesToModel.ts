@@ -27,6 +27,7 @@ import { analyzeSmallClaimsWithBrain, type SmallClaimsIntelligenceInput } from "
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { runFamilyIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { mapGuidedIntakeToSmallClaimsInput } from "../../app/builder/_components/guidedIntakeToSmallClaimsInput";
+import { caseFactsText, readCaseRecord } from "../../src/lib/case-system/caseRecord";
 
 // Names chosen so they cannot appear in any template or source by accident.
 const USER = "Zebediah Quartermaine";
@@ -119,6 +120,13 @@ function smallClaimsInput(story: string): SmallClaimsIntelligenceInput {
   const familyText = sentText(family);
   check("Family: user's name field is not sent", !hasName(familyText, USER));
   check("Family: other party's name field is not sent", !hasName(familyText, OTHER));
+
+  // The assistant's case facts (caseFactsText), sent to the checked answer by /api/assistant/law.
+  const record = readCaseRecord({ intakeData: { yourName: USER, otherParty: OTHER, facts: "We separated last year." } }, "family");
+  const factsText = caseFactsText(record);
+  check("Assistant case facts: the other party's name field is not sent", !hasName(factsText, OTHER), factsText);
+  check("Assistant case facts: the user's name field is not sent", !hasName(factsText, USER), factsText);
+  check("Assistant case facts: it still says a name is recorded", factsText.includes("recorded (not shared with AI)"), factsText);
 
   console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");
   if (failures) process.exitCode = 1;
