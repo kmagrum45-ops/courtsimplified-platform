@@ -20,6 +20,7 @@
  * are.
  */
 
+import { CLAIM_TYPES } from "./intake/claimTypes";
 import { nameRecorded } from "./privacy/modelPayloadNames";
 import { readCasePosition, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
@@ -230,6 +231,9 @@ export function caseFactsText(record: CaseRecord, describe: { stepTitle?: (stepI
     lines.push(`${describe.dateQuestion?.(id) ?? id}: ${fact.value} (${from(fact.source)})`);
   }
   if (record.amount) lines.push(`Amount: ${record.amount} (from their intake)`);
+  // The kind of claim the person confirmed (it was never sent: the law lookup guessed one).
+  const kind = record.claimTypeId ? CLAIM_TYPES.find((type) => type.id === record.claimTypeId)?.name : undefined;
+  if (kind) lines.push(`Kind of claim: ${kind} (confirmed by the person)`);
   // Names never go to the model (privacy/modelPayloadNames.ts): only that one is recorded. This
   // text is sent to the checked answer by /api/assistant/law; it carried the other party's name
   // until 2026-10-25 (found writing the site map).
