@@ -94,7 +94,10 @@ export function marriedWhereIn(story: string): { place: string; quote: string } 
 }
 
 /** Records one answer into the file: the first answer stands; an unsure one never covers a real one. */
-function give(file: CaseFile, fact: string, value: unknown, question: string) {
+function give(file: CaseFile, given: string, value: unknown, question: string) {
+  // A court date that names a conference ("Case conference on November 16, 2026") is the conference
+  // date (conference audit, 2026-10-26: family's "Next court date" kept it only in the typed words).
+  const fact = given === "courtDate" && typeof value === "string" && /\bconference\b/i.test(value) ? "conferenceDate" : given;
   if (!isSlot(fact) || blank(value)) return;
   const slot = file[fact];
   if (isUnsureAnswer(value)) {
@@ -359,11 +362,14 @@ const CONFERENCE_QUESTIONS: readonly { kind: string; ids: readonly string[]; wor
 export function conferenceKind(slot: Slot): string | null {
   const source = slot.source;
   if (!source) return null;
+  const words = source.kind === "answer" ? (typeof slot.value === "string" ? slot.value : "") : source.quote;
   if (source.kind === "answer") {
     const id = source.question.replace(/^[a-z-]+:/, "");
-    return CONFERENCE_QUESTIONS.find((entry) => entry.ids.includes(id))?.kind ?? null;
+    const asked = CONFERENCE_QUESTIONS.find((entry) => entry.ids.includes(id));
+    if (asked) return asked.kind;
   }
-  return CONFERENCE_QUESTIONS.find((entry) => entry.words.test(source.quote))?.kind ?? null;
+  // Otherwise the conference the words name ("Case conference on November 16, 2026").
+  return CONFERENCE_QUESTIONS.find((entry) => entry.words.test(words))?.kind ?? null;
 }
 
 /** The step page's questions a conference date answers: its own conference's, else the unnamed default. */

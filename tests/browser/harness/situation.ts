@@ -55,7 +55,8 @@ export async function answerSituation(page: Page, answers: SituationAnswers = ST
       }
     } else if (question === "filed") await option(answers.filed ?? "nothing").click();
     else if (question === "court") await option(answers.court ?? "small-claims").click();
-    else if (question === "stage") await option(answers.stage ?? "not-sure").click();
+    // Served: "Nothing else yet" unless a step is given (conference audit, 2026-10-26).
+    else if (question === "stage") await option(answers.stage ?? (answers.where === "served" ? "just-served" : "not-sure")).click();
     else throw new Error(`unknown situation question: ${question}`);
     // The next question, or the page behind them.
     await expect.poll(async () => (await gate.isVisible().catch(() => false)) ? await gate.getAttribute("data-question") : "done", { timeout: 15_000 }).not.toBe(question);

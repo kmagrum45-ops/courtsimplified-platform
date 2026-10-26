@@ -175,6 +175,8 @@ test("10. Change from starting a case to served: the papers question moves on af
   await expect(gate).toHaveAttribute("data-question", "received");
   await gate.getByTestId("situation-date-input").fill("October 20, 2026");
   await gate.getByTestId("situation-date-save").click();
+  await expect(gate).toHaveAttribute("data-question", "stage");
+  await gate.locator('[data-testid="situation-option"][data-value="just-served"]').click();
   await expect(page.getByTestId("situation-line")).toContainText(/Plaintiff.s Claim \(Form 7A\)/);
   await expect(page.getByTestId("situation-paper")).toHaveCount(0);
 });

@@ -131,6 +131,13 @@ for (const { id, kind, court } of DATES) {
   const others = DATES.filter((other) => other.kind !== kind && placed[other.id]).map((other) => other.id);
   check(`${id}: the day answers no other conference's question`, others.length === 0, others.join(", "));
 }
+// Family's "Next court date", answered with a conference (case 16's story): the conference date, by its kind.
+const withNext = (words: string) => caseFileOf({ ...checkpoint("family", {}), sections: { story: { text: "Synthetic story." }, family: { upcomingCourtDate: words } } } as Checkpoint, { courtPath: "family" });
+const nextConference = withNext("Case conference on November 16, 2026");
+check("a next court date that names a conference is the conference date, by its kind", nextConference.conferenceDate.state === "answered" && conferenceKind(nextConference.conferenceDate) === "Case conference" && nextConference.courtDate.state === "not-asked", `${nextConference.conferenceDate.state} ${conferenceKind(nextConference.conferenceDate)} / court date ${nextConference.courtDate.state}`);
+check("its day answers the case conference question", withCaseFileDates({}, nextConference, fullDayIn)["case-date-case-conference-date"] === "2026-11-16");
+const nextTrial = withNext("Trial on March 3, 2027");
+check("a next court date that is no conference stays the court date", nextTrial.courtDate.state === "answered" && nextTrial.conferenceDate.state === "not-asked");
 const panel = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseFilePanel.tsx"), "utf8");
 check("\"What we have so far\" names the conference a date is for", /fact === "conferenceDate" \? conferenceKind\(slot\)/.test(panel));
 
