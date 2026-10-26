@@ -982,7 +982,7 @@ test("conference audit case 16 as a respondent: asked what happened since servic
   await answerInReview(page, story);
   const review = await page.getByTestId("intake-review").innerText();
   expect(review, "review: the step picked, in its own words").toContain("Case conference scheduled");
-  expect(review, "review: the responding side").toMatch(/respondent/i);
+  expect(review, "review: the responding side, in the form's words").toContain("The other person started it and I was served");
   expect(review, "review: never the starting wording").not.toContain("Starting a new case");
   expect(review, "review: never the bare word").not.toMatch(/Case stage\s*\n?\s*conference\b/i);
   await confirmAndContinue(page);
@@ -993,7 +993,8 @@ test("conference audit case 16 as a respondent: asked what happened since servic
   const file = page.getByTestId("case-file");
   await expect(file).toBeVisible({ timeout: 60_000 });
   await expect(file.locator('[data-testid=case-file-line][data-fact="conferenceDate"]'), "What we have so far: the case conference and its day").toContainText(/Case conference[\s\S]*November 16, 2026/);
-  await expect(file.locator('[data-testid=case-file-line][data-fact="courtDate"]'), "not filed as a court date as well").toHaveCount(0);
+  // The conference's day is not shown a second time as a court date (the harness may answer the court date question with another day).
+  await expect(file.locator('[data-testid=case-file-line][data-fact="courtDate"]').filter({ hasText: /November 16, 2026/ }), "the conference day is not also a court date").toHaveCount(0);
 
   await page.goto(`/cases/${row.id}/case-file`);
   await expect(page.getByTestId("case-file"), "the printable case file: where the case is").toContainText("Case conference scheduled", { timeout: 60_000 });
