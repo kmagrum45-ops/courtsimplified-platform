@@ -156,7 +156,7 @@ async function main() {
 
   // ---- 10. Feedback ----
   const gate = fs.readFileSync(path.join(ROOT, "app/_components/HomeLocationGate.tsx"), "utf8");
-  check("Update with my answers never returns silently while a reading runs", !/async function updateWithAnswers[^{]*\{\s*if \(requestRef\.current\.pending/.test(gate));
+  check("Update with my answers never returns silently while a reading runs", /async function updateWithAnswers\(/.test(gate) && !/async function updateWithAnswers\([^)]*\)\s*\{\s*if \(requestRef\.current\.pending/.test(gate));
   const stepPanel = fs.readFileSync(path.join(ROOT, "app/builder/_components/StageAnswerPanel.tsx"), "utf8");
   check("dates kept from the story are counted at once", /autoKeptFor[\s\S]{0,4000}if \(stageId\) void load\(stageId, factsForStep\(stageId, municipality\), next\);\s*\/\/ eslint-disable-next-line react-hooks\/exhaustive-deps\s*\}, \[result, storyDates, stageId\]\);/.test(stepPanel));
 
