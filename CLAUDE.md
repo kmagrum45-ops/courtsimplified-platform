@@ -335,7 +335,7 @@ moves the finish line on its own.
 
 This codebase has 68 documents and 177 verification suites. The
 recurring failure is not bad work — it is work done twice, or work built on an
-assumption a suite already disproves. Two indexes exist so that stops:
+assumption a suite already disproves. Three indexes exist so that stops:
 
 - **`docs/ACCURACY_ENGINE.md`** — the map of the accuracy work: the corpus, the
   stage map, the deadline engine, the content pipeline. What each module does,
