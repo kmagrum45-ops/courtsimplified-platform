@@ -4830,11 +4830,11 @@ const BOTH: CaseStage[] = [
     distinguishedFrom: [
       {
         stage: "civil:both:pretrial-scheduled",
-        by: "whether the meeting is a case management step or the pre-trial conference after the action was set down",
+        by: "whether the case was assigned to case management, or is at the pre-trial conference",
       },
       {
         stage: "civil:both:mandatory-mediation",
-        by: "whether the meeting is with a case management judge or a mediation with a mediator",
+        by: "whether the case was assigned to case management, or is in mandatory mediation",
       },
     ],
     rules: [C.RCP_77_01_PURPOSE],

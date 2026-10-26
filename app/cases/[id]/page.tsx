@@ -225,7 +225,7 @@ export default function CaseOverviewPage() {
             pathway={courtPath}
             confirmedStage={confirmed}
             // A case already going: the step the next step follows, the latest chosen.
-            stepWords={situation.where === "going" ? findStage(position.stepId ?? situationStep ?? "")?.userQuestion ?? null : null}
+            stepWords={situation.where === "going" || situation.where === "served" ? findStage(position.stepId ?? situationStep ?? "")?.userQuestion ?? null : null}
             onConfirm={(stage) => void confirmStage(stage)}
           />
         ) : (

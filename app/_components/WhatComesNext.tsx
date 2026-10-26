@@ -1,6 +1,7 @@
 import { SOURCE_SAVED_ON, rulesForWords } from "@/src/lib/content-library/nextStepPractical";
 import { officialUrl, sourceName, type RuleCitation } from "@/src/lib/case-system/stage-map/citations";
 import { nextStepsFor, type NextStepView } from "@/src/lib/case-system/stage-map/stageSequence";
+import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 
 /**
  * "What can happen next" on the step card: the steps this one can lead to,
@@ -32,9 +33,21 @@ export function moverLabel(move: Pick<NextStepView, "by" | "when">): string | nu
   return move.when.toLowerCase().startsWith(`${move.by.toLowerCase()} `) ? null : move.by;
 }
 
-function Rules({ cites }: { cites: RuleCitation[] }) {
+/** The rules by name and link, their words folded under; `linkOnly`: name and link only (stageMap.ts rulesLinkOnly). */
+function Rules({ cites, linkOnly = false }: { cites: RuleCitation[]; linkOnly?: boolean }) {
   const first = cites[0];
   const saved = SOURCE_SAVED_ON[first.sourceId];
+  if (linkOnly) {
+    return (
+      <p className="mt-1 text-xs leading-5 text-[#4d675f]">
+        <a href={officialUrl(first)} target="_blank" rel="noreferrer" className="underline">
+          {sourceName(first)}
+        </a>
+        , {joinPinpoints(cites.map((cite) => cite.pinpoint))}
+        {saved ? ` · checked ${saved}` : ""}
+      </p>
+    );
+  }
   return (
     <details className="mt-1 text-xs leading-5 text-[#4d675f]">
       <summary className="cursor-pointer">
@@ -111,7 +124,7 @@ export default function WhatComesNext({
         <div data-testid="what-comes-next-final" className="mt-2">
           <p>{final.why}</p>
           {groupBySource(final.rules).map((cites) => (
-            <Rules key={cites[0].sourceId} cites={cites} />
+            <Rules key={cites[0].sourceId} cites={cites} linkOnly={Boolean(findStage(stepId)?.rulesLinkOnly)} />
           ))}
         </div>
       ) : null}

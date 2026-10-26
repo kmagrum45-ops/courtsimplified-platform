@@ -22,11 +22,11 @@
 
 import { CLAIM_TYPES } from "./intake/claimTypes";
 import { nameRecorded } from "./privacy/modelPayloadNames";
-import { readCasePosition, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
+import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
 import { userStory } from "./userStory";
 import { recordedAmountOf } from "./amountNotes";
-import { sideOf as situationSide, situationOfCase, stepFromSituation, type Situation } from "./situation/situation";
+import { broadStageOfStep, sideOf as situationSide, situationOfCase, stepFromSituation, type Situation } from "./situation/situation";
 
 export type CourtPath = "small-claims" | "civil" | "family";
 export type Provenance = "confirmed" | "intake" | "guided" | "situation";
@@ -151,7 +151,7 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     courtPath,
     side: sideOf(master, position),
     position,
-    startStepId: courtPath ? stepFromSituation(situationOfCase(master), courtPath) : null,
+    startStepId: startStepOf(master, courtPath, position),
     dates,
     amount: recordedAmountOf(intake),
     claimTypeId: text(extra.confirmedClaimTypeId) || null,
@@ -245,4 +245,11 @@ export function caseFactsText(record: CaseRecord, describe: { stepTitle?: (stepI
   if (record.city) lines.push(`City: ${record.city} (from their intake)`);
   if (record.documents.length) lines.push(`Documents recorded as filed or received: ${record.documents.join(", ")}`);
   return lines.join("\n");
+}
+
+/** The step picked in the start answers, while it agrees with any stage confirmed since (the same rule as caseStep.ts). */
+function startStepOf(master: Record<string, unknown>, courtPath: CourtPath | null, position: CasePosition): string | null {
+  const picked = courtPath ? stepFromSituation(situationOfCase(master), courtPath) : null;
+  const settled = settledStage(position);
+  return picked && (!settled || settled === broadStageOfStep(picked)) ? picked : null;
 }

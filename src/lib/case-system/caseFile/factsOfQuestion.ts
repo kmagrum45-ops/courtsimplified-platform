@@ -37,7 +37,8 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   childrenInfo: ["children"],
   servedDate: ["servedDate"],
   serviceDetails: ["servedDate", "serviceMethod"],
-  upcomingCourtDate: ["courtDate"],
+  // A court date, or a conference date when the answer names one (caseFile.ts give).
+  upcomingCourtDate: ["courtDate", "conferenceDate"],
   goal: ["wants"],
   legalRemedy: ["wants"],
   otherParty: ["otherParty"],

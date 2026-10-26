@@ -30,7 +30,7 @@ import { suggestedNoticeStep } from "./claim-types/noticeStep";
 import { readStoredPicture, stepFromPicture } from "./intake/caseReader";
 import { findStage, stagesForPathway, type StagePathway } from "./stage-map/stageMap";
 import { suggestedStageFor } from "./stage-map/suggestedStep";
-import { sideOf, situationOfCase, stepFromSituation } from "./situation/situation";
+import { broadStageOfStep, sideOf, situationOfCase, stepFromSituation } from "./situation/situation";
 import { getStageLabel } from "../../../app/builder/_components/builderTypes";
 
 const asRecord = (value: unknown): Record<string, unknown> =>
@@ -88,7 +88,7 @@ export function caseStepFor(
   const position = readCasePosition(asRecord(masterResult), courtPath);
   if (position.stepId) return position.stepId;
   // A step picked in the start answers is chosen too, and needs no confirmed stage.
-  const picked = stepFromSituation(situationOfCase(masterResult), courtPath);
+  const picked = startStep(masterResult, courtPath);
   if (picked) return picked;
   if (options.requireConfirmedStage && !settledStage(position)) return "";
   return suggestedStepForCase(masterResult, courtPath, responding);
@@ -103,7 +103,19 @@ export function caseStepFor(
 export function chosenStepFor(masterResult: unknown, courtPath: StagePathway | null): string | null {
   if (!courtPath) return null;
   const master = asRecord(masterResult);
-  return readCasePosition(master, courtPath).stepId ?? stepFromSituation(situationOfCase(master), courtPath);
+  return readCasePosition(master, courtPath).stepId ?? startStep(master, courtPath);
+}
+
+/**
+ * The step picked in the start answers, while it agrees with any stage confirmed since: a later
+ * confirmation ("trial" after a case conference was picked) wins (reviewer, 2026-10-26).
+ */
+function startStep(masterResult: unknown, courtPath: StagePathway): string | null {
+  const master = asRecord(masterResult);
+  const picked = stepFromSituation(situationOfCase(master), courtPath);
+  if (!picked) return null;
+  const settled = settledStage(readCasePosition(master, courtPath));
+  return !settled || settled === broadStageOfStep(picked) ? picked : null;
 }
 
 /** Where the case is, in words, for every page that says it: the picked step's own title, else the confirmed stage. */

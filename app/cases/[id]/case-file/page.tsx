@@ -165,7 +165,8 @@ export default function CaseFileSection() {
 
         <FileSection title="Where the case is">
           <p>{caseStageWords(caseRecord.master_result, caseRecord.court_path as StagePathway | null) ?? (position.confirmedStage ? getStageLabel(position.confirmedStage) : "Not confirmed yet.")}</p>
-          {step ? <p className="mt-1">Exact step: {step.userQuestion}</p> : null}
+          {/* The step is named once: above when it is the step picked, else here. */}
+          {step && caseStageWords(caseRecord.master_result, caseRecord.court_path as StagePathway | null) !== step.title ? <p className="mt-1">Exact step: {step.userQuestion}</p> : null}
         </FileSection>
 
         <FileSection title="Deadlines worked out from your dates">

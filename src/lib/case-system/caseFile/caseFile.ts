@@ -93,11 +93,19 @@ export function marriedWhereIn(story: string): { place: string; quote: string } 
   return place ? { place, quote: match[0] } : null;
 }
 
+/** An answer that starts by naming a conference ("Case conference on …", "Conference on …"). */
+const LEADS_WITH_CONFERENCE = /^\s*(?:(?:case|settlement|trial management|pre-?trial)\s+)?conference\b/i;
+
 /** Records one answer into the file: the first answer stands; an unsure one never covers a real one. */
-function give(file: CaseFile, given: string, value: unknown, question: string) {
-  // A court date that names a conference ("Case conference on November 16, 2026") is the conference
-  // date (conference audit, 2026-10-26: family's "Next court date" kept it only in the typed words).
-  const fact = given === "courtDate" && typeof value === "string" && /\bconference\b/i.test(value) ? "conferenceDate" : given;
+function give(file: CaseFile, fact: string, value: unknown, question: string) {
+  // "Next court date" answers one of two slots: the conference date when the answer leads with a
+  // conference ("Case conference on November 16, 2026"), else the court date. Conference audit,
+  // 2026-10-26: family's box kept a case conference only in the typed words; "Trial on March 3,
+  // 2027, set at the settlement conference" stays the court date (reviewer).
+  if (/(?:^|:)upcomingCourtDate$/.test(question)) {
+    const leads = typeof value === "string" && LEADS_WITH_CONFERENCE.test(value);
+    if ((fact === "conferenceDate") !== leads) return;
+  }
   if (!isSlot(fact) || blank(value)) return;
   const slot = file[fact];
   if (isUnsureAnswer(value)) {
@@ -373,9 +381,13 @@ export function conferenceKind(slot: Slot): string | null {
 }
 
 /** The step page's questions a conference date answers: its own conference's, else the unnamed default. */
-function conferenceQuestions(slot: Slot): readonly string[] {
+function conferenceQuestions(slot: Slot, court: string): readonly string[] {
   const kind = conferenceKind(slot);
-  return CONFERENCE_QUESTIONS.find((entry) => entry.kind === kind)?.ids ?? DATE_QUESTIONS_OF.conferenceDate ?? [];
+  const named = CONFERENCE_QUESTIONS.find((entry) => entry.kind === kind)?.ids;
+  // Each named conference's questions, for this court's map only (a family settlement conference
+  // never answers the Small Claims question); one of no named kind, the court's own default.
+  const ownCourt = (id: string) => (court === "small-claims" ? id.startsWith("sc-") : court ? !id.startsWith("sc-") : true);
+  return (named ?? DATE_QUESTIONS_OF.conferenceDate ?? []).filter(ownCourt);
 }
 
 /** The one full day (with its year) a slot holds, as YYYY-MM-DD, or null. */
@@ -394,7 +406,7 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
   const out = { ...answered };
   for (const [fact, ids] of Object.entries(DATE_QUESTIONS_OF) as [SlotFact, readonly string[]][]) {
     const day = slotDay(file[fact], readDay);
-    if (day) for (const id of fact === "conferenceDate" ? conferenceQuestions(file[fact]) : ids) if (!out[id]) out[id] = day;
+    if (day) for (const id of fact === "conferenceDate" ? conferenceQuestions(file[fact], typeof file.court.value === "string" ? file.court.value : "") : ids) if (!out[id]) out[id] = day;
   }
   // The day served, given anywhere but the situation questions (whose day withSituationDates
   // places by the papers picked): only the court's own first served-date question (reviewer 2).

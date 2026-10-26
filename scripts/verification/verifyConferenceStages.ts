@@ -24,7 +24,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
+import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
 import { STAGE_MOVES, FINAL_STEPS } from "../../src/lib/case-system/stage-map/stageSequence";
 import { stageRulesText } from "../../src/lib/content-library/stageRules";
 import { practicalFor } from "../../src/lib/content-library/nextStepPractical";
@@ -41,7 +41,8 @@ import {
 } from "../../src/lib/case-system/situation/situation";
 import { caseStageWords, caseStepFor } from "../../src/lib/case-system/caseStep";
 import { caseFactsText, readCaseRecord } from "../../src/lib/case-system/caseRecord";
-import { caseFileOf, conferenceKind, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { alreadyAsked, caseFileOf, conferenceKind, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
+import { stageRecordedFromAnswers } from "../../app/builder/_components/stageFromAnswers";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
@@ -97,7 +98,8 @@ const generic = CONFERENCES.filter(({ court, step }) => {
 check("no picked conference step reads as a generic \"conference\" or \"Starting a new case\"", generic.length === 0, generic.map((entry) => entry.step).join(", "));
 for (const name of ["FamilyIntake", "CivilIntake", "SmallClaimsIntake"]) {
   const text = fs.readFileSync(path.join(ROOT, "app/builder/_components", `${name}.tsx`), "utf8");
-  check(`${name}: the "Case stage" box uses the one stage wording`, text.includes("{stageWords(fromStart)}") && !/: "Starting a new case"\}/.test(text));
+  // Read from the file: the box's wording comes from the one function, never its own list of stages.
+  check(`${name}: the "Case stage" box uses the one stage wording`, /\bstageWords\(/.test(text) && !/"Starting a new case"/.test(text));
 }
 
 // 3. Case 16 as a respondent: served with a family application, a case conference set since.
@@ -138,6 +140,18 @@ check("a next court date that names a conference is the conference date, by its 
 check("its day answers the case conference question", withCaseFileDates({}, nextConference, fullDayIn)["case-date-case-conference-date"] === "2026-11-16");
 const nextTrial = withNext("Trial on March 3, 2027");
 check("a next court date that is no conference stays the court date", nextTrial.courtDate.state === "answered" && nextTrial.conferenceDate.state === "not-asked");
+const setAtConference = withNext("Trial on March 3, 2027, set at the settlement conference");
+check("a court date that only mentions a conference stays the court date", setAtConference.courtDate.state === "answered" && setAtConference.conferenceDate.state === "not-asked", `court ${setAtConference.courtDate.state} / conference ${setAtConference.conferenceDate.state}`);
+check("a next court date is asked once, whichever slot it answers", ["Case conference on November 16, 2026", "Trial on March 3, 2027"].every((words) => alreadyAsked(withNext(words), "upcomingCourtDate")));
+const unnamed = withCaseFileDates({}, withNext("Conference on November 16, 2026"), fullDayIn);
+check("a family conference of no named kind never answers the Small Claims question", !unnamed["sc-date-settlement-conference"], JSON.stringify(unnamed));
+
+// A stage confirmed after the start answers wins over the step picked there.
+const laterTrial = masterOf("family", situationFromRaw({ where: "going", started: "me", court: "family", stage: "family:both:case-conference-scheduled" }), { position: { confirmedStage: "trial" } });
+check("a stage confirmed later wins over the step picked at the start", caseStageWords(laterTrial, "family") !== "Case conference scheduled" && caseStepFor(laterTrial, "family", false) !== "family:both:case-conference-scheduled" && !caseFactsText(readCaseRecord(laterTrial, "family"), { stepTitle }).includes("Case conference scheduled"), `${caseStageWords(laterTrial, "family")} / ${caseStepFor(laterTrial, "family", false)}`);
+// A respondent's picked step is the stage the answers record (the stage card and the panel agree).
+const recorded = stageRecordedFromAnswers("family", null, "not-sure", case16);
+check("case 16 (respondent): the stage the answers record is the conference, not just \"responding\"", recorded?.stage === "conference", JSON.stringify(recorded));
 const panel = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseFilePanel.tsx"), "utf8");
 check("\"What we have so far\" names the conference a date is for", /fact === "conferenceDate" \? conferenceKind\(slot\)/.test(panel));
 
@@ -149,15 +163,23 @@ for (const id of ["family:both:case-conference-scheduled", "family:both:trial-ma
   const words = stage.deadlines.map((deadline) => `${deadline.what} ${deadline.qualifier ?? ""}`).join(" ");
   check(`${stage.title}: no documents-to-bring list`, !/\bbring\b[^.]{0,40}\bto the conference\b/i.test(words));
 }
+// A step shown by name and link only (no checked block yet) shows no rule's words, no deadline and
+// no form; once its block is drafted, checked and published, the marker comes off and these hold
+// trivially. Civil case management (r. 77) is the step the owner decided this for.
 const management = findStage("civil:both:case-management");
-const managementText = management ? stageRulesText(management) : null;
-check("civil case management: its name and a link to the rule, nothing more", Boolean(management) && management!.rulesLinkOnly === true && management!.deadlines.length === 0 && Boolean(managementText?.rules) && !managementText!.rules!.includes("“") && /r\. 77/.test(managementText!.rules!));
-check("civil case management: no form, fee or filing", practicalFor("civil:both:case-management", "civil") === null);
-check("civil case management: its gap is said, not filled", FINAL_STEPS.some((entry) => entry.stage === "civil:both:case-management" && /not covered yet/.test(entry.why)) && !STAGE_MOVES.some((move) => move.from === "civil:both:case-management"));
+check("civil case management (r. 77) is a step, with its rule", Boolean(management) && management!.rules.some((rule) => /^r\. 77\./.test(rule.pinpoint)));
+for (const stage of ALL_STAGES.filter((candidate) => candidate.rulesLinkOnly)) {
+  const shown = stageRulesText(stage).rules ?? "";
+  check(`${stage.title}: name and link only, no rule's words`, Boolean(shown) && !shown.includes("“"), shown);
+  check(`${stage.title}: no deadline and no form while link only`, stage.deadlines.length === 0 && practicalFor(stage.id, (stage.pathway ?? "small-claims") as never) === null);
+}
+const whatNext = fs.readFileSync(path.join(ROOT, "app/_components/WhatComesNext.tsx"), "utf8");
+check("\"What can happen next\" shows a link-only step's rules without their words", /linkOnly=\{Boolean\(findStage\(stepId\)\?\.rulesLinkOnly\)\}/.test(whatNext));
+check("civil case management: its next steps are on the map, or said to be not covered yet", STAGE_MOVES.some((move) => move.from === "civil:both:case-management") || FINAL_STEPS.some((entry) => entry.stage === "civil:both:case-management" && /not covered yet/.test(entry.why)));
 const brief = findStage("civil:both:pretrial-scheduled")?.deadlines.find((deadline) => deadline.id === "deadline:civil:pretrial-brief-5-days");
 check("civil pre-trial brief: no form named for it; check the notice or order", Boolean(brief) && !/brief[^.]*\(Form \d/i.test(brief!.what) && /check the notice of the pre-trial conference or the court's order/.test(brief!.qualifier ?? ""));
 const scTmc = findStage("both:trial-management-conference");
-check("Small Claims trial management conference: no deadline and no form", Boolean(scTmc) && scTmc!.deadlines.length === 0 && practicalFor("both:trial-management-conference", "small-claims") === null);
+check("Small Claims trial management conference: a step, and any deadline it gets carries its rule", Boolean(scTmc) && scTmc!.deadlines.every((deadline) => Boolean(deadline.rule?.quote)));
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;
