@@ -965,3 +965,74 @@ test("retest-477 case 16: the review shows the step picked, who started the case
   expect(review, "never the starting-a-case wording for a case already going").not.toContain("I'm starting it (or I want to)");
   expect(review.match(/What has been filed\s*\n?\s*([^\n]*)/)?.[1] ?? "", "what was filed, as answered").not.toMatch(/Not recorded/);
 });
+
+// Item 7: the safety help box is open on the results page, in every area, for any story (it was
+// folded unless the story used words of danger; the danger notice itself still shows only then).
+for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-477 item 7: the safety help box is open on the results page -- ${court}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
+    await expect(page.getByTestId("intake-safety-resources"), "folded while answering").not.toHaveAttribute("open", "");
+    await confirmAndContinue(page);
+    await expect(page.getByTestId("intake-safety-resources"), "open on the results page").toHaveAttribute("open", "");
+    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is open too").toHaveAttribute("open", "");
+  });
+}
+
+// Items 5 and 6 on the case page and review: words, not codes; the label the court uses; the
+// facts the story gives that no answer holds yet; an amount typed in words kept as a number.
+for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
+  test(`retest-477 items 5-6: the review's labels and What we have so far -- ${id}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = messy(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, "family", { story: story.story });
+    await guidedQuestions(page, story, true);
+    await answerInReview(page, story);
+    const review = await page.getByTestId("intake-review").innerText();
+    expect(review, "no adoption details on a case that is not an adoption").not.toContain("Adoption details");
+    expect(review, "the court's label").not.toMatch(/(^|\n)Court date\n/);
+    expect(rawKeysIn(review), "no raw code in the review").toEqual([]);
+    await confirmAndContinue(page);
+    const row = [...account.rows.values()][0] as Record<string, unknown>;
+    await page.goto(`/cases/${row.id}`);
+    const file = page.getByTestId("case-file");
+    await expect(file).toBeVisible({ timeout: 60_000 });
+    const text = await file.innerText();
+    expect(rawKeysIn(text), "no raw code in What we have so far").toEqual([]);
+    if (id === "m14-served-divorce") {
+      expect(text, "where they married").toContain("Lisbon, Portugal");
+      expect(text, "the kind of claim in words").toMatch(/Parenting time|Spousal support|Divorce/i);
+    } else {
+      expect(text, "the threats and the police call").toMatch(/threatened[\s\S]*police/);
+      expect(text, "the papers filed, by name").toMatch(/Yes: .*Application/i);
+    }
+  });
+}
+test("retest-477 item 5: an amount typed in words is kept and shown as $2,500.00 -- small-claims (case 20)", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = byId("sc-unclear");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await smallClaims(page, story, true);
+  const amount = page.locator('[data-question="sc-amount-claimed"]').getByRole("textbox");
+  await amount.fill("twenty five hundred");
+  await amount.press("Enter");
+  await confirmAndContinue(page);
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  await page.goto(`/cases/${row.id}`);
+  const line = page.locator('[data-testid=case-file-line][data-fact="amount"]');
+  await expect(line).toContainText("$2,500.00", { timeout: 60_000 });
+  await expect(line).not.toContainText("twenty five hundred");
+});
