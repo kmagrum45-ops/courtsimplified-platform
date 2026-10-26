@@ -18,7 +18,10 @@
  * Pure: no React, no network.
  */
 
+import { MONTH_WORDS_EN, WEEKDAY_NAMES_PATTERN } from "../dates";
+
 export type NameLabel = { name: string; label: string };
+
 
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 const text = (value: unknown): string => (typeof value === "string" ? value.trim() : "");
@@ -27,8 +30,9 @@ const text = (value: unknown): string => (typeof value === "string" ? value.trim
 const NOT_NAMES = new Set([
   "I", "We", "My", "Our", "He", "She", "They", "His", "Her", "Their", "The", "A", "An", "And", "Or", "But", "With", "Both", "One", "Two", "Three", "Four", "Five",
   "Son", "Daughter", "Child", "Children", "Kids", "Baby", "Boy", "Girl", "Age", "Aged", "Years", "Old", "Lives", "Live", "Living", "School", "Grade",
-  "Mom", "Dad", "Mother", "Father", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-  "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
+  "Mom", "Dad", "Mother", "Father",
+  // Days and months are the date reader's own words (dates.ts), never a second list here.
+  ...MONTH_WORDS_EN, ...WEEKDAY_NAMES_PATTERN.split("|").map((day) => day.charAt(0).toUpperCase() + day.slice(1)),
   "Ontario", "Canada", "Toronto", "Ottawa", "Mississauga", "Hamilton", "London", "Kingston", "Sudbury", "Not", "Sure", "Yes", "No", "Unknown",
 ]);
 
