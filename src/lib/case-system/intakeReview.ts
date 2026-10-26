@@ -36,11 +36,15 @@ const label = (key: string) => key.replace(/([a-z])([A-Z])/g, (_, a: string, b: 
  * offer a way to answer it there (#469 re-test: civil's remaining questions had only
  * an "I do not know yet" box). Small Claims questions come from the question bank.
  */
-export function reviewQuestionField(courtPath: string, id: string): { kind: "text" | "longtext" | "choice" | "multi"; question: string; options: { value: string; label: string }[]; needsMore?: (value: string) => string | null } | null {
+export function reviewQuestionField(courtPath: string, id: string, checkpoint?: Checkpoint): { kind: "text" | "longtext" | "choice" | "multi"; question: string; options: { value: string; label: string }[]; needsMore?: (value: string) => string | null; fromStory?: string } | null {
   const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
   const field = fields.find((item) => item.key === id);
+  // What the story already says for a typed answer, offered for one click as in the questions
+  // (#477 re-test, cases 14 and 16: the children and the court date asked when the story gave them).
+  const said = field && checkpoint && (field.kind === "text" || field.kind === "longtext") ? field.fromStory?.({ ...object(courtPath === "family" ? freshSections(checkpoint).family : freshSections(checkpoint)[courtPath]?.input), facts: storyOf(checkpoint.sections) }) : null;
+  const offered = said && typeof said.value === "string" && said.value.trim() ? said.value : undefined;
   // The field's own check (the served date's year) applies here as in the questions.
-  return field ? { kind: field.kind, question: field.question, options: field.options ?? [], ...(field.needsMore ? { needsMore: field.needsMore } : {}) } : null;
+  return field ? { kind: field.kind, question: field.question, options: field.options ?? [], ...(field.needsMore ? { needsMore: field.needsMore } : {}), ...(offered ? { fromStory: offered } : {}) } : null;
 }
 
 /** A projection of existing answers, not another case model or question selector. */
@@ -66,7 +70,10 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     if (UI.has(key) || (area !== STORY_SECTION && STORY_INPUT_KEYS.has(key)) || (area === "civil" && (key === "city" || key === "province")) || !(typeof value === "string" || typeof value === "number" || typeof value === "boolean" || (Array.isArray(value) && value.every(v => typeof v === "string")))) return;
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(definition?.options?.length ? { choices: definition.options } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
+    // What the person picked at the start, in their words: the step's title and who started the case.
+    const startWords = area === section && startKeys.has(key) && typeof value === "string" ? (key === "caseStage" ? fromStart.stepTitle : key === "yourRole" ? fromStart.roleWords : undefined) : undefined;
+    const choices = startWords ? [{ value: value as string, label: startWords }] : definition?.options;
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });

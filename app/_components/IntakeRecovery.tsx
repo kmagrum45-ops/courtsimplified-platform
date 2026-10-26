@@ -338,7 +338,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             let sections: Checkpoint["sections"] = { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } };
             // One record of which story each answer was based on (storyBasis.ts).
             const storyChanged = field === STORY_TEXT_FIELD;
-            if (storyChanged) sections = onStoryChange(sections);
+            if (storyChanged) sections = onStoryChange(sections, snapshot.sections);
             // A changed side: the old side's answers are emptied, to be asked again (sideChange.ts).
             const sideChange = field === `${SITUATION_SECTION}:${SITUATION_FIELD}` ? onSideChange(snapshot.sections, sections) : { sections, changed: [] as [string, string][] };
             sections = sideChange.sections;

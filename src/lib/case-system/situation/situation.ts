@@ -254,6 +254,10 @@ export type SituationAnswers = {
   claimFiled?: boolean;
   claimServed?: boolean;
   servedOn?: string;
+  /** For a case already going: the step picked, by its own title in the stage map ("Case conference scheduled"). */
+  stepTitle?: string;
+  /** For a case already going: who started it, in words for the side shown ("I started this case (applicant)"). */
+  roleWords?: string;
   questionIds: string[];
 };
 
@@ -287,6 +291,10 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
         : situation.where === "going" && situation.stage
           ? step ? broadStageOfStep(step) : "already-started"
           : undefined;
+  // A case already going: the step as picked, and the side as who started it (#477 re-test, case 16:
+  // "Case stage: conference" and "Your side: I'm starting it (or I want to)").
+  if (step) out.stepTitle = findStage(step)?.title;
+  if (situation.where === "going" && situation.started) out.roleWords = situation.started === "me" ? `I started this case (${out.role})` : `The other side started this case (${out.role})`;
   const document = situation.papers ? DOCUMENT_OF_PAPERS[situation.papers] : undefined;
   if (document && courtOfPapers(situation) === court) out.documents = [document];
   if (court === "small-claims") {

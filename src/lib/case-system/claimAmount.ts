@@ -99,6 +99,15 @@ export function moneyMentions(story: string): Mention[] {
 
 /** The amount to offer as the amount claimed, with the sentence it came from, or null when the story leaves it unclear. */
 export function claimAmountFromStory(story: string): ClaimAmount | null {
+  // What they say they want as one sum of two amounts ("a refund of $450 plus the $1,200 he
+  // paid to replace it"): the total, offered with their words (#477 re-test, case 19: no
+  // one-click amount). Only "plus", said as what they want: an "and" may list prices.
+  for (const sentence of sentences(story)) {
+    const sum = /\b(?:want(?:s|ed)?|claim(?:s|ing)?|asking for|seek(?:s|ing)?|sue (?:\w+ )?for)\b[^.]*?\$\s?(\d[\d,]*(?:\.\d{2})?)\s+plus\s+(?:the\s+|another\s+)?\$\s?(\d[\d,]*(?:\.\d{2})?)/i.exec(sentence);
+    if (!sum) continue;
+    const total = Number(sum[1].replace(/,/g, "")) + Number(sum[2].replace(/,/g, ""));
+    if (Number.isFinite(total) && total > 0) return { value: `$${total.toLocaleString("en-CA")}`, quote: sentence };
+  }
   const mentions = moneyMentions(story);
   const distinct = (list: Mention[]) => [...new Set(list.map((mention) => mention.number))];
   for (const kind of CLAIMABLE) {
