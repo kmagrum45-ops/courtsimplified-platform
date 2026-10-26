@@ -18,7 +18,7 @@ import { freshSections, staleAnswerKeys, storyAnswersOutdated } from "../../src/
 import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { canReview, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
-import NextStepStatus from "./NextStepStatus";
+import NextStepStatus, { useNextStepReading } from "./NextStepStatus";
 
 /** What an answer with no line of its own is, in words. */
 const HIDDEN_ANSWER_NAMES: Record<string, string> = {
@@ -60,6 +60,9 @@ export default function IntakeReviewPanel() {
   const [dates, setDates] = useState<Record<string, string>>({});
   // "Show my next step" with no intake on the page yet (the "Before you start" step is showing).
   const [waiting, setWaiting] = useState(false);
+  // While the next step is being worked out, the button says so and waits: pressed again, it
+  // looked as if the second press did the work (case 11, live re-test 26 Oct).
+  const working = useNextStepReading();
   // Waiting on the notice: once it is given, the next step is opened, on every route. The
   // notice holds the builder back while some routes still take a Continue, so asking them
   // first opened Small Claims' chooser with no next step and no word why (case 11).
@@ -318,7 +321,7 @@ export default function IntakeReviewPanel() {
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } setWaiting(!recovery.continueToGuidance()); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated || working} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } setWaiting(!recovery.continueToGuidance()); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">{working ? "Working out your next step…" : "Show my next step"}</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
       <NextStepStatus />
       <StoryChangedNotice where="button" /></>}
     {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}

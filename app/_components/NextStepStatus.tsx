@@ -43,20 +43,33 @@ export function usePublishNextStepStatus(reading: boolean, error: string, onStop
 
 const SLOW_AFTER_S = 45;
 
+/** Whether any screen is working out the next step now: the button that starts it waits (live re-test 26 Oct, case 11). */
+export function useNextStepReading(): boolean {
+  return useSyncExternalStore(subscribe, () => current.reading, () => false);
+}
+
 export default function NextStepStatus() {
   const status = useSyncExternalStore(subscribe, () => current, () => IDLE);
   const guest = !useIntakeRecovery()?.ownerId;
   const [now, setNow] = useState(() => Date.now());
+  const line = useRef<HTMLParagraphElement | null>(null);
   useEffect(() => {
     if (!status.reading) return;
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, [status.reading]);
+  // When the work starts, the line is brought to where the person is looking if it is out of
+  // sight: after the notice's Continue the page landed at its top, far from it (case 11, live).
+  useEffect(() => {
+    if (!status.reading || !line.current) return;
+    const box = line.current.getBoundingClientRect();
+    if (box.top < 0 || box.bottom > window.innerHeight) line.current.scrollIntoView({ behavior: "auto", block: "center" });
+  }, [status.reading, status.startedAt]);
   if (status.reading && status.startedAt) {
     const seconds = Math.max(0, Math.floor((now - status.startedAt) / 1000));
     const elapsed = seconds >= 60 ? `${Math.floor(seconds / 60)} min ${seconds % 60} s` : `${seconds} s`;
     return (
-      <p data-testid="next-step-status" role="status" aria-live="polite" className="mt-2 text-sm font-semibold text-[#4d675f]">
+      <p ref={line} data-testid="next-step-status" role="status" aria-live="polite" className="mt-2 text-sm font-semibold text-[#4d675f]">
         Working out your next step from the court rules ({elapsed}). This usually takes one to three minutes; your answers are saved.
         {seconds >= SLOW_AFTER_S && status.handlers.onStop ? <>{" "}<button type="button" onClick={status.handlers.onStop} className="underline">Stop and try again</button></> : null}
       </p>
