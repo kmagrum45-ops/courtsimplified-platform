@@ -2,12 +2,16 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../supabase/serverAuth";
 import { confirmedIntakeRevision, guidanceIsCurrent } from "../case-system/intakeReview";
+import { withNameLabelsFor } from "../case-system/privacy/modelNameContext";
+import { bodyNameLabels, mergeNameLabels, savedCaseNameLabels } from "./requestNames";
 
 type Owned = { id: string; court_path: string | null; master_result: unknown };
 type Identity = { id: string };
 type Dependencies = {
   authenticate: (request: Request) => Promise<Identity | null>;
   owned: (request: Request, user: Identity, id: string) => Promise<Owned | null>;
+  /** The saved case's intake, for the names every model call in the route labels. */
+  names: (request: Request, user: Identity, id: string) => Promise<Owned | null>;
 };
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const object = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
@@ -17,6 +21,7 @@ export function withConfirmedGuidance<T extends Request>(handler: (request: T) =
   const deps: Dependencies = {
     authenticate: getAuthenticatedUser,
     owned: (request, user, id) => getAuthenticatedOwnedCase(request, user as never, id, { masterKeys: ["workflowStatus", "guidanceInputRevision", "intakeCheckpoint"], intakeIdentityOnly: true }),
+    names: (request, user, id) => getAuthenticatedOwnedCase(request, user as never, id, { masterKeys: ["intakeData", "intakeCheckpoint"] }),
     ...overrides,
   };
   return async (request: T): Promise<Response> => {
@@ -40,7 +45,10 @@ export function withConfirmedGuidance<T extends Request>(handler: (request: T) =
     const revision = confirmedIntakeRevision(owned.master_result, owned.court_path, caseId);
     const expected = request.headers.get("x-courtsimplified-input-revision");
     if (!revision || (options.requireRevision && !expected) || (expected && expected !== revision) || (options.currentAnalysis && !guidanceIsCurrent(owned.master_result, owned.court_path, caseId))) return refusal("Answer the initial questions, review your information and confirm it before receiving case guidance.", 409);
-    const response = await handler(request);
+    // Names never go to the model: every model call this route makes labels the case's names
+    // and puts them back in its reply (privacy/modelNameContext.ts, site owner 2026-10-25).
+    const saved = await deps.names(request, user, caseId).catch(() => null);
+    const response = await withNameLabelsFor(mergeNameLabels(saved ? savedCaseNameLabels(saved.master_result) : [], bodyNameLabels(body)), () => handler(request));
     // No late model result may escape after another tab edits or reopens review.
     const latest = await deps.owned(request, user, caseId);
     if (!latest || latest.court_path !== owned.court_path || confirmedIntakeRevision(latest.master_result, latest.court_path, caseId) !== revision || options.currentAnalysis && !guidanceIsCurrent(latest.master_result, latest.court_path, caseId)) return refusal("Your initial information changed. Review and confirm it again; the older guidance was discarded.", 409);

@@ -1,3 +1,4 @@
+import { withRequestNames } from "@/src/lib/security/requestNames";
 import { NextResponse } from "next/server";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
@@ -26,7 +27,7 @@ export const runtime = "nodejs";
 
 const MAX_STORY_CHARACTERS = 4_000;
 
-export async function POST(request: Request) {
+async function postUnlabelled(request: Request) {
   // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
   const limited = await aiLimitResponse(request, "light");
   if (limited) return limited;
@@ -92,3 +93,6 @@ export async function POST(request: Request) {
     );
   }
 }
+
+// Names never go to the model: every model call here labels the names the request carries (requestNames.ts).
+export const POST = withRequestNames(postUnlabelled);

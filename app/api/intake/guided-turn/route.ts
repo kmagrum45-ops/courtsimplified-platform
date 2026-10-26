@@ -1,3 +1,4 @@
+import { withRequestNames } from "@/src/lib/security/requestNames";
 import { NextRequest, NextResponse } from "next/server";
 
 import {
@@ -365,4 +366,4 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
   };
 }
 
-export const POST = createGuidedTurnPost();
+export const POST = withRequestNames(createGuidedTurnPost());

@@ -556,7 +556,8 @@ async function findFormFromCleanView(data: GenerateFormRequest) {
   return (form as CleanCourtForm | null) || null;
 }
 
-function getCaseValues(masterResult: unknown, courtType: CourtPath): CaseValues {
+/** Exported for test:no-names-to-model: the form is filled from the case file, names included, with no model. */
+export function getCaseValues(masterResult: unknown, courtType: CourtPath): CaseValues {
   const data: IncomingData = { courtType, master_result: masterResult || {} };
   const extra =
     masterResult && typeof masterResult === "object"
@@ -776,7 +777,7 @@ function getValueByKey(key: string, values: CaseValues) {
   };
 }
 
-function pickValueForField(fieldName: string, values: CaseValues) {
+export function pickValueForField(fieldName: string, values: CaseValues) {
   const name = normalize(fieldName);
 
   const aliasMatch = getValueByKey(name, values);

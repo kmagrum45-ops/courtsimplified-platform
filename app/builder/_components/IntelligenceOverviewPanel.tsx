@@ -444,7 +444,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
       {process.env.NEXT_PUBLIC_STRATEGY !== "off" && intake?.facts ? (
         <Card title="Case strategy (beta)">
           <StrategyPanel
-            story={intake.facts}
+            story={userStory(intake)}
             courtPath={analysis.courtPath}
             side={String(intake.extra?.yourRole ?? intake.extra?.role ?? "")}
           />

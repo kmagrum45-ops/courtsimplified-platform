@@ -28,6 +28,7 @@
  *     checked by code to be the user's own text.
  */
 
+import { userStory } from "../userStory";
 import { parseRecordedAmount } from "../format/recordedAmount";
 
 export const CASE_REVIEW_RULES_SOURCE = {
@@ -242,7 +243,8 @@ export function caseFileFromMasterResult(masterResult: unknown, courtPath: strin
     courtPath: str(intake.courtPath) || courtPath || "",
     role: str(extra.yourRole),
     stage: str(intake.caseStage),
-    story: str(intake.facts),
+    // The person's own story, never the labelled record the civil and Family intakes save with names in it.
+    story: userStory(intake as never),
     yourName: str(intake.yourName),
     otherParty: str(intake.otherParty),
     otherPartyAddress: str(extra.defendantAddress),

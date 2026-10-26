@@ -1,3 +1,4 @@
+import { withRequestNames } from "@/src/lib/security/requestNames";
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * POST /api/workspace/documents/decision-help { documentId }
@@ -124,8 +125,11 @@ async function postGuidance(req: NextRequest) {
 
 const confirmedPost = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});
 
-export async function POST(req: NextRequest) {
+async function postUnlabelled(req: NextRequest) {
   // The ZDR switch refuses before the guidance gate authenticates or reads the case.
   if (!documentAnalysisEnabled()) return NextResponse.json({ enabled: false });
   return confirmedPost(req);
 }
+
+// Names never go to the model: every model call here labels the names the request carries (requestNames.ts).
+export const POST = withRequestNames(postUnlabelled);
