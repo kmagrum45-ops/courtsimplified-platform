@@ -143,7 +143,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (side) give(file, "side", side, "situation:started");
   if (situation.court) give(file, "court", situation.court, "situation:court");
   else if (court) give(file, "court", court, "situation:court");
-  if (situation.where === "served") give(file, "stage", "responding", "situation:where");
+  // Served: the step they picked since (a conference set, a motion), or responding (conference audit).
+  const servedStep = situation.where === "served" ? stepFromSituation(situation, situation.court ?? court) : null;
+  if (servedStep) give(file, "stage", servedStep, "situation:stage");
+  else if (situation.where === "served") give(file, "stage", "responding", "situation:where");
   if (situation.where === "starting" && situation.filed === "nothing") give(file, "stage", "starting-case", "situation:filed");
   if (situation.where === "going" && situation.stage === "not-sure") give(file, "stage", "not-sure", "situation:stage");
   else if (situation.where === "going" && stepFromSituation(situation, situation.court ?? court)) give(file, "stage", situation.stage, "situation:stage");

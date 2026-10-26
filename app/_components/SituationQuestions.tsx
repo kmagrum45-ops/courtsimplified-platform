@@ -21,6 +21,7 @@ import {
   paperId,
   situationLine,
   stageChoices,
+  JUST_SERVED,
   withKnownCourt,
   type FirstPage,
   type Situation,
@@ -143,7 +144,7 @@ function nextReviewStep(after: SituationQuestion, situation: Situation, chosenCo
   const order: SituationQuestion[] = ["where", "started", "papers", "received", "filed", "court", "stage"];
   const applies = (question: SituationQuestion) =>
     question === "where" ||
-    (question === "stage" && situation.where === "going") ||
+    (question === "stage" && (situation.where === "going" || situation.where === "served")) ||
     (question === "started" && situation.where === "going") ||
     ((question === "papers" || question === "received") && (situation.where === "served" || (situation.where === "going" && situation.started === "them"))) ||
     (question === "filed" && situation.where === "starting") ||
@@ -239,9 +240,12 @@ function StageQuestion({ situation, onPick }: { situation: Situation; onPick: (v
   );
   const usual = steps.filter((step) => !step.wentWrong);
   const wrong = steps.filter((step) => step.wentWrong);
+  // Served: anything since (a conference date set, a motion), or nothing else yet (conference audit, 2026-10-26).
+  const served = situation.where === "served";
   return <>
-    <h2 className="text-lg font-bold text-[#10231f]">What has happened in the case so far?</h2>
+    <h2 className="text-lg font-bold text-[#10231f]">{served ? "Has anything else happened in the case since you were served?" : "What has happened in the case so far?"}</h2>
     <p className="mt-1 text-sm text-[#4d675f]">Pick the one closest to where you are now. We ask this once and keep your answer.</p>
+    {served ? <div className="mt-4">{option(JUST_SERVED, "Nothing else yet. I was just served")}</div> : null}
     <div className="mt-4 grid gap-2 md:grid-cols-2">{usual.map((step) => option(step.id, step.userQuestion))}</div>
     {wrong.length > 0 && <>
       <p className="mt-4 text-sm font-semibold text-[#4d675f]">If something has gone wrong</p>
