@@ -55,11 +55,11 @@ const isCheck = (source: string) => source.startsWith("scripts/") || source.star
 
 /** The facts each screen shows, and the shared pieces that give each one (for the screens table). */
 const FACT_PIECES: [string, string[]][] = [
-  ["Side", ["src/lib/case-system/situation/situation.ts", "src/lib/case-system/caseFile/caseFile.ts"]],
-  ["Stage", ["src/lib/case-system/stage-map/stageMap.ts", "src/lib/case-system/caseStep.ts", "src/lib/case-system/casePosition.ts", "src/lib/case-system/stage-map/stageSequence.ts"]],
-  ["Claim kind", ["src/lib/case-system/intake/claimKind.ts"]],
-  ["Amount", ["src/lib/case-system/claimAmount.ts", "src/lib/case-system/format/recordedAmount.ts"]],
-  ["Dates", ["src/lib/case-system/dates.ts", "src/lib/case-system/casePosition.ts"]],
+  ["Side", ["src/lib/case-system/situation/situation.ts", "src/lib/case-system/caseFile/caseFile.ts", "src/lib/case-system/caseRecord.ts"]],
+  ["Stage", ["src/lib/case-system/stage-map/stageMap.ts", "src/lib/case-system/caseStep.ts", "src/lib/case-system/casePosition.ts", "src/lib/case-system/stage-map/stageSequence.ts", "app/builder/_components/builderTypes.ts"]],
+  ["Claim kind", ["src/lib/case-system/intake/claimKind.ts", "src/lib/case-system/intake/claimTypes.ts"]],
+  ["Amount", ["src/lib/case-system/claimAmount.ts", "src/lib/case-system/format/recordedAmount.ts", "src/lib/case-system/amountNotes.ts"]],
+  ["Dates", ["src/lib/case-system/dates.ts", "src/lib/case-system/casePosition.ts", "src/lib/case-system/deadlines/holidays.ts", "src/lib/case-system/caseRecord.ts"]],
   ["Words", ["src/lib/case-system/copy/rawKeys.ts", "src/lib/case-system/intakeReview.ts"]],
 ];
 const EXT = [".ts", ".tsx"];
@@ -107,6 +107,7 @@ export function generate(): string {
   // fact some other way (through props, another module, or its own copy -- see "Bypasses").
   const screens = [...graph.keys()].filter((file) => file.startsWith("app/") && file.endsWith(".tsx") && !file.includes("/api/")).filter((file) => FACT_PIECES.some(([, pieces]) => pieces.some((piece) => graph.get(file)?.includes(piece)))).sort();
   lines.push("### Screens: which shared piece each imports, per fact", "");
+  lines.push("The columns mean *imports*, not *shows*: a module can be imported for another reason, and a screen can get a fact through props or its own copy. Where each screen actually gets each fact is the written table \"Where each screen gets each fact\" above; this table is for checking it against the code.", "");
   lines.push(`| Screen file | ${FACT_PIECES.map(([fact]) => fact).join(" | ")} |`, `|---|${FACT_PIECES.map(() => "---").join("|")}|`);
   for (const screen of screens) {
     const cells = FACT_PIECES.map(([, pieces]) => pieces.filter((piece) => graph.get(screen)?.includes(piece)).map((piece) => path.basename(piece, path.extname(piece))).join(", ") || "—");
