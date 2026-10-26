@@ -8,7 +8,10 @@
  * again" empties them and resets the question-and-answer state; the Home page's
  * "What we still need to know" answers and an unsent copy of the story in the
  * question box go when the story changes; reverting the story restores its
- * answers; empty values (a form's defaults) are not answers.
+ * answers; empty values (a form's defaults) are not answers. An edit to some of the
+ * story (#477 re-test: one sentence edited lost every follow-up answer) keeps every
+ * answer whose words do not come from a sentence removed or changed, in all three areas,
+ * and the Home page's answers likewise; a rewrite (most sentences gone) sets them all aside.
  *
  * Failure it exists to catch: the PR #463 re-tests, where each flow kept its own
  * copy of answers from the old story and a fix to one flow left the others
@@ -18,7 +21,7 @@
  */
 import assert from "node:assert/strict";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
-import { BASIS_SECTION, discardStale, freshSections, onStoryChange, positionForStory, staleAnswerKeys, storyAnswersOutdated, storyVersion, tagAnswers } from "../../src/lib/case-system/storyBasis";
+import { BASIS_SECTION, discardStale, editedSentences, freshSections, onStoryChange, positionForStory, staleAnswerKeys, storyAnswersOutdated, storyVersion, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
 
 const OLD = "Synthetic old story: we disagree about parenting time for our daughter.";
@@ -105,6 +108,25 @@ assert.equal(positionForStory(position, undefined, NEW), position, "an older cas
 let early = base("family", "");
 early = store(early, "family", "caseStage", "starting-case");
 assert.deepEqual(staleAnswerKeys(withStory(early, NEW)), [], "an answer from before there was a story is not stale");
+
+// An edit to some of the story keeps what it did not touch, in every area.
+const EDIT_BEFORE = "Synthetic: I lent my friend $3,000 in January 2026. He never paid me back. I have the e-transfer record.";
+const editOf = (checkpoint: Checkpoint, text: string): Checkpoint => ({ ...checkpoint, sections: onStoryChange({ ...checkpoint.sections, story: { ...checkpoint.sections.story, text } }, checkpoint.sections) });
+for (const [court, section, key] of [["small-claims", "small-claims", "input"], ["civil", "civil", "input"], ["family", "builder", "initialAnswers"]] as const) {
+  let edited = base(court, EDIT_BEFORE);
+  edited = store(edited, section, key, { amountClaimed: "$3,000", otherParty: "My friend Sam", remedySought: "Repayment" });
+  edited = { ...edited, sections: { ...edited.sections, home: { understoodAnswers: [{ question: "Did he agree to a date?", answer: "By March" }, { question: "How much?", answer: "$3,000" }] } } };
+  const added = editOf(edited, `${EDIT_BEFORE} He also blocked my number.`);
+  assert.deepEqual(staleAnswerKeys(added), [], `${court}: a sentence added sets no answer aside`);
+  assert.equal((added.sections.home.understoodAnswers as unknown[]).length, 2, `${court}: a sentence added keeps the Home page's answers`);
+  const amountChanged = editOf(edited, EDIT_BEFORE.replace("$3,000", "$3,500"));
+  assert.deepEqual(staleAnswerKeys(amountChanged), [`${section}.${key}.amountClaimed`], `${court}: only the answer from the changed sentence is set aside`);
+  assert.deepEqual((amountChanged.sections.home.understoodAnswers as { answer: string }[]).map((item) => item.answer), ["By March"], `${court}: the Home page's answer from the changed sentence goes, the other stays`);
+  const rewritten = editOf(edited, "Synthetic: a completely different matter. Nothing is the same. Told again.");
+  assert.equal(staleAnswerKeys(rewritten).length, 3, `${court}: a rewrite sets every answer aside`);
+}
+assert.equal(editedSentences("One. Two.", "Three. Four."), null, "every sentence changed is a new story");
+assert.deepEqual(editedSentences("One. Two. Three.", "One. Two. Three. Four."), [], "a sentence added removes none");
 
 assert.notEqual(storyVersion(OLD), storyVersion(NEW));
 assert.equal(storyVersion("A  b"), storyVersion("a b"));

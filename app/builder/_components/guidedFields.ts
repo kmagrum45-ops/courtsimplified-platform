@@ -17,6 +17,7 @@ import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/ca
 import {
   amountFromStory,
   childrenFromStory,
+  courtDateFromStory,
   childrenPartialFromStory,
   civilFiledFromStory,
   civilRoleFromStory,
@@ -152,7 +153,9 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     },
     {
       key: "upcomingCourtDate",
-      label: "Court date",
+      // The court's own words (Jason, 2026-10-24): "Next court date", never "Court date".
+      label: "Next court date",
+      fromStory: (values) => courtDateFromStory(storyOf(values)),
       question: "Is there a court date coming up? If so, what is it and when?",
       why: "A date that's coming up can change what you need to do first.",
       kind: "text",

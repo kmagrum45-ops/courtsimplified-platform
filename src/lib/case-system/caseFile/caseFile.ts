@@ -48,7 +48,13 @@ export type SlotState = "not-asked" | "answered" | "unsure";
 export type SlotSource = { kind: "answer"; question: string } | { kind: "story"; quote: string };
 export type Slot = { state: SlotState; value?: string | number | boolean | string[]; source?: SlotSource; confirmed: boolean };
 /** `answers`: every answer given to a named question (its id and words), for the step page's dates. */
-export type CaseFile = Record<SlotFact, Slot> & { answers?: Record<string, string> };
+export type CaseFile = Record<SlotFact, Slot> & {
+  answers?: Record<string, string>;
+  /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
+  documents?: string[];
+  /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
+  story?: string;
+};
 
 /** Where the case file keeps what it adds: the facts answered "not sure", and those offered again at the end. */
 export const CASE_FILE_SECTION = "caseFile";
@@ -235,6 +241,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     if (typeof item.questionId === "string") for (const fact of slotsOf(item.questionId)) give(file, fact, item.answerText, item.questionId);
   }
   file.answers = answers;
+  // The papers filed, as answered in any area's list (case 16: "the filed application and answer").
+  const listed = forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value)).filter((item) => item !== "nothing" && item !== "not-sure");
+  if (listed.length) file.documents = [...new Set(listed)];
+  file.story = String(object(sections.story).text ?? "");
   return file;
 }
 
@@ -289,10 +299,13 @@ export function slotsOfQuestion(questionId: string, surface?: string): SlotFact[
 
 /** A slot's value in plain words, as the person gave it: a day as the court writes it, Yes or No, a list joined. */
 export function slotText(slot: Slot, formatDay: (iso: string) => string): string {
-  if (slot.state === "unsure") return "Not sure yet";
+  // A rough time given ("July 2026", "last summer") is shown as given: the day is what is not known yet
+  // (#477 re-test, item 6: "When it happened" showed "Not sure yet" after a date was given).
+  if (slot.state === "unsure") return typeof slot.value === "string" && slot.value.trim() && !isUnsureAnswer(slot.value) ? `${slot.value.trim()} (day not given yet)` : "Not sure yet";
   const value = slot.value;
   if (typeof value === "boolean") return value ? "Yes" : "No";
-  if (typeof value === "number") return `$${value.toLocaleString("en-CA", { maximumFractionDigits: 2 })}`;
+  // An amount as a court form writes it: "$2,500.00" (#477 re-test: "twenty five hundred").
+  if (typeof value === "number") return `$${value.toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   if (Array.isArray(value)) return value.join(", ");
   if (typeof value === "string" && isRealIsoDate(value)) return formatDay(value);
   return typeof value === "string" ? value : "";

@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMessages";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
+import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
 import { withServedDate } from "../builder/_components/guidedFields";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
 import { caseFileOf, slotsOfQuestion, slotText } from "../../src/lib/case-system/caseFile/caseFile";
@@ -34,6 +35,17 @@ const SLUG = /^[a-z]+(?:-[a-z]+)+$/;
 const words = (value: string) => SLUG.test(value) ? value.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase()) : value;
 /** A stored choice in the words the form shows ("respondent" reads as the form's own sentence). */
 const shown = (entry: ReviewEntry, value: string) => entry.choices?.find(choice => choice.value === value)?.label ?? words(value);
+/**
+ * The step "Show my next step" waits on (the "Before you start" notice), brought to where the
+ * person is looking: it sat below the button, out of sight (#477 re-test, case 11).
+ */
+function showWaitingStep(): boolean {
+  const step = document.querySelector<HTMLElement>('[data-testid="first-use-acknowledgement"]');
+  if (!step) return false;
+  step.scrollIntoView({ behavior: "auto", block: "center" });
+  step.querySelector<HTMLInputElement>('[data-testid="acknowledgement-checkbox"]')?.focus({ preventScroll: true });
+  return true;
+}
 const empty = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
 
 export default function IntakeReviewPanel() {
@@ -48,6 +60,15 @@ export default function IntakeReviewPanel() {
   const [dates, setDates] = useState<Record<string, string>>({});
   // "Show my next step" with no intake on the page yet (the "Before you start" step is showing).
   const [waiting, setWaiting] = useState(false);
+  // Waiting on the notice: once it is given, the next step is opened, on every route. The
+  // notice holds the builder back while some routes still take a Continue, so asking them
+  // first opened Small Claims' chooser with no next step and no word why (case 11).
+  useEffect(() => {
+    if (!waiting || !recovery) return;
+    const given = () => { setWaiting(false); recovery.continueToGuidance(); };
+    window.addEventListener(NOTICE_GIVEN_EVENT, given);
+    return () => window.removeEventListener(NOTICE_GIVEN_EVENT, given);
+  }, [waiting, recovery]);
   // The day of service is saved into a Timeline line, which trims it: typed key by key,
   // "October 12" lost its spaces (re-test 2026-10-18). It is kept as typed here and
   // saved, trimmed, when the person leaves the field.
@@ -217,7 +238,8 @@ export default function IntakeReviewPanel() {
   // scroll-mt-28: a scroll to the panel stops below the 77px sticky header, not under it (L46).
   return <section className="mx-auto my-4 max-w-6xl scroll-mt-28 rounded-2xl border border-[#d8e6df] bg-white p-6" data-testid="intake-review" data-phase={phase}>
     <h2 className="text-xl font-bold">{phase === "user-confirmed" ? "Initial intake confirmed" : phase === "reviewing" ? "Review your initial case information" : "Your initial case information"}</h2>
-    <details data-testid="intake-safety-resources" className="my-3"><summary>Safety information and support</summary><p className="whitespace-pre-line">{[IMMEDIATE_DANGER_MESSAGE.split("\n\n")[0], ...IMMEDIATE_DANGER_MESSAGE.split("\n\n").slice(2)].join("\n\n")}</p><p>This information is available without an AI safety check. An unavailable check does not establish that a situation is safe.</p></details>
+    {/* Open on the results page, in every area (#477 re-test, item 7); folded while the intake is being answered. */}
+    <details data-testid="intake-safety-resources" open={phase === "user-confirmed"} className="my-3"><summary>Safety information and support</summary><p className="whitespace-pre-line">{[IMMEDIATE_DANGER_MESSAGE.split("\n\n")[0], ...IMMEDIATE_DANGER_MESSAGE.split("\n\n").slice(2)].join("\n\n")}</p><p>This information is available without an AI safety check. An unavailable check does not establish that a situation is safe.</p></details>
     {checkpoint.courtPath !== "family" && municipalNoticeFirst(story, { city }) && <aside aria-label="Urgent procedural warning" className="my-4"><h3 className="font-bold">Urgent procedural warning — check this while completing intake</h3><MunicipalNoticeFirst story={story} city={city} /></aside>}
     {legacy && <p>This case was completed before explicit review was introduced. There is no recorded confirmation under the new review process.</p>}
     <p>Initial questions establish your situation, side, what has happened, relevant dates and what you want. Evidence details and additional research are optional later work.</p>
@@ -266,7 +288,7 @@ export default function IntakeReviewPanel() {
           {bank && fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}
           {/* Civil and Family: the form's own field, answerable here (#469 re-test). */}
           {!bank && (() => {
-            const field = reviewQuestionField(checkpoint.courtPath, question.id);
+            const field = reviewQuestionField(checkpoint.courtPath, question.id, checkpoint);
             if (!field) return null;
             // "Nothing filed yet" is not offered once the situation answers say papers exist (step 2).
             const ruledOut = situationAnswers(checkpoint.courtPath, situationOf(checkpoint.sections)).excludeDocuments ?? [];
@@ -277,7 +299,7 @@ export default function IntakeReviewPanel() {
               const ticked = picks[question.id] ?? (answered && Array.isArray(held) ? held as string[] : []);
               return <div className="mt-1" role="group" aria-label={question.label}>{options.map(option => <label key={option.value} className="mr-3 block"><input type="checkbox" data-testid="intake-field-pick" value={option.value} checked={ticked.includes(option.value)} disabled={busy} onChange={() => setPicks(current => ({ ...current, [question.id]: ticked.includes(option.value) ? ticked.filter(value => value !== option.value) : [...ticked, option.value] }))} /> {option.label}</label>)}<button type="button" data-testid="intake-field-save" disabled={busy || ticked.length === 0} onClick={() => answerField(question.id, ticked)} className="mt-2 rounded border px-3 py-1 disabled:opacity-50">Save these</button></div>;
             }
-            return <div className="mt-1"><div className="flex flex-wrap items-center gap-2"><input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed))} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
+            return <div className="mt-1"><div className="flex flex-wrap items-center gap-2">{field.fromStory && !answered ? <button type="button" data-testid="intake-field-from-story" disabled={busy} onClick={() => answerField(question.id, field.fromStory!)} className="rounded border px-3 py-1">Use &ldquo;{field.fromStory}&rdquo; (from your story)</button> : null}<input type="text" aria-label={`Answer: ${question.label}`} placeholder="Your answer" value={dates[question.id] ?? ""} disabled={busy} onChange={event => setDates(current => ({ ...current, [question.id]: event.target.value }))} onBlur={() => typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed))} onKeyDown={event => { if (event.key === "Enter") typedField(question.id, (typed) => field.needsMore?.(typed) ?? dateAnswerCheck(field.question, typed)); }} className="min-w-[16rem] flex-1 rounded border px-3 py-1" /></div>{fieldNotes[question.id] ? <p data-testid="intake-field-needs-more" className="mt-1 text-sm text-[#8a4b12]">{fieldNotes[question.id]}</p> : null}</div>;
           })()}
           <label className="mt-1 block"><input type="checkbox" data-testid="intake-unknown" checked={unknowns.includes(question.id)} disabled={busy} onChange={event => { const current = Array.isArray(recovery.read("builder", "initialUnknowns")) ? recovery.read("builder", "initialUnknowns") as string[] : []; recovery.put("builder", "initialUnknowns", event.target.checked ? [...current.filter(id => id !== question.id), question.id] : current.filter(id => id !== question.id), true, false, true); }} /> I do not know yet</label>
         </div>;
@@ -291,7 +313,7 @@ export default function IntakeReviewPanel() {
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated} onClick={() => setWaiting(!recovery.continueToGuidance())} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } setWaiting(!recovery.continueToGuidance()); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
       <NextStepStatus />
       <StoryChangedNotice where="button" /></>}
     {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}

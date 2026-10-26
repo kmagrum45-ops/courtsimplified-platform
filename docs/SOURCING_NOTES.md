@@ -2101,3 +2101,18 @@ against `officialFormLinks.json` and that each image exists.
 either `data`, `range`, or `url`"). Re-run the capture when `officialFormLinks.json` gains a
 new form version, or the recorded date will no longer match and the suite fails, which is
 the intended signal.
+
+### Statute of Frauds before the 1994 amendment: not on e-Laws (2026-10-26)
+
+Asked: what S.O. 1994, c. 27, s. 55 changed in s. 4 of the Statute of Frauds (R.S.O. 1990, c. S.19).
+
+- **The current consolidation is the earliest e-Laws holds.** `90s19_e.doc` (fetches, 200) reads
+  "CONSOLIDATION PERIOD: FROM DECEMBER 9, 1994 TO THE E-LAWS CURRENCY DATE"; December 9, 1994 is
+  the day s. 55 came into force. No historical version exists before it: `90s19_eV001.doc`,
+  `90s19_eV002.doc`, `elaws_statutes_90s19_ev001.doc` and `_ev002.doc` all answer 403 Access Denied.
+- **The amending Act's own text is not fetchable either.** Source law from 1994 as a `.doc`
+  (`s94027_e.doc`, also `S94027_e.doc`) answers 403 Access Denied, and
+  `ontario.ca/laws/statute/s94027` is JS-rendered (empty to a fetch).
+- So what s. 55 removed cannot be confirmed from e-Laws. Routes left: the printed 1994 Statutes of
+  Ontario, or a copy a person downloads and saves under `docs/sources/` with its README entry.
+  Until then, nothing about the pre-1994 wording of s. 4 reaches a user.

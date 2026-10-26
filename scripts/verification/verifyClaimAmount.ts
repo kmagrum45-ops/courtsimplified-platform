@@ -48,6 +48,10 @@ const CASES: [string, string, string | null][] = [
   ["'12,500 is unpaid' keeps its thousands", "The balance of 12,500 is unpaid.", "$12,500"],
   ["no commas", "they owe me 4500", "$4,500"],
   ["a year is never an amount", "i pay support from a court order in 2022", null],
+  // What they want, said as one amount plus another, is the total (#477 re-test, case 19).
+  ["a refund plus a replacement, wanted together: the total", "Marcus had his laptop repaired by Circuit Doctors Inc. in July 2026 for $450. He wants a refund of $450 plus the $1,200 he paid to replace it.", "$1,650"],
+  ["two prices joined by 'and' are not added", "I hired them for $8,000 and paid $2,000.", null],
+  ["'plus' outside what they want is not added", "The bill was $450 plus $60 in tax and I paid it.", null],
 ];
 for (const [name, story, want] of CASES) {
   const got = claimAmountFromStory(story);

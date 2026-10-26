@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-173 documented, 26 without a header.
+176 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -19,6 +19,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:amount-notes` | **The amount the user recorded is set against the court's money limits at**<br>the step where they start their claim -- correctly on each side of each limit, conditionally, and with its provisions. |
 | `npm run test:analysis-time-budget` | **The next-step analysis finishes inside the time the page and the server allow.**<br>What it checks: research's limit plus the main reasoning call's limit (plus a margin for the rest) fit inside how long the page waits (ANALYSIS_TIMEOUT_MS), and the page stops waiting before every area's analysis route reaches its maxDuration; the reasoning ca |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
+| `npm run test:answer-key-reader` | **THE ANSWER KEY'S READER (tests/answer-key/readAnswerKey.ts): reads a (case, field, expected)**<br>table as CSV, tab-separated or Markdown, the same rows from each; refuses a row with an empty cell, a header without the three columns, and a case and field given twice. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:assistant-context` | **Owned-context and canonical engine contracts, plus actual anonymous HTTP**<br>refusals. Full guidance is no longer available through anonymous fallback. Core factories isolate offline behavior; staging walkthroughs cover real auth. |
 | `npm run test:assistant-law` | **"The law on your question" in the Court Assistant**<br>(src/lib/case-system/retrieval/researchQuestion.ts, /api/assistant/law). |
@@ -121,6 +122,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:presumed-limitation` | **The general two-year limit is counted from an injury date under the**<br>Limitations Act's presumption -- and says that it is a presumption -- on the injury notice steps and the before-filing limitation steps. |
 | `npm run test:public-data` | **Public reference data must not be read through a session-carrying client.**<br>The forms page went blank with "Could not load forms — JWT issued in the future". The court form catalogue is public: a read with the anon key alone returns rows from every one of those tables, and nothing about them depends on who is asking. |
 | `npm run test:published-library` | **The published set is what it says it is, and nothing else is servable.**<br>1. IMMUTABLE. The release carries a hash over its own blocks. Editing a published block by hand — fixing a typo, softening a sentence — changes the content without it having passed a single gate, and nothing downstream would know. Recomputing the hash makes th |
+| `npm run test:raw-keys` | **NO RAW FIELD NAME OR CODE ON A SCREEN: the copy guard's own checks (copy/rawKeys.ts).**<br>Checks, as properties: - every stored option value with a hyphen, every stage id and every field or slot name kept in code is found in screen text ("decision-making-responsibility", "upcomingCourtDate", "family:both:case-conference-scheduled"); - the same thin |
 | `npm run test:reachability` | **Every module is reachable from something a user can actually load, or it is**<br>listed here as dormant WITH A REASON. |
 | `npm run test:readability` | **Is the content readable by the people it is for?**<br>Content produced by the verified-content pipeline is HELD to Grade 8. That is the standard the pipeline drafts against, so failing it is a real defect in something we control end to end. |
 | `npm run test:readiness-gate` | **Verifies the Statement of Claim readiness gate, offline.**<br>COSTS NOTHING. The gate is a pure function over data the pipeline already holds, so every condition in design section 8 is checkable without an API call. That is a property of the gate, not a limitation of this harness. |
@@ -142,6 +144,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:service-dates` | **When service counts from (serviceEffectiveDate.ts, build order Step 2D,**<br>2026-10-12). |
 | `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:shared-behaviour` | **No shared behaviour is implemented a second time (the guard for the eight steps).**<br>What it checks: for each behaviour in sharedBehaviourRegistry.ts, every .ts/.tsx file in app/ and src/ other than the behaviour's one module is scanned, with comments removed, for the patterns that mean "this re-implements it". Any hit not on the behaviour's w |
+| `npm run test:side-change` | **WHEN THE SIDE CHANGES, THE OLD SIDE'S FACTS ARE SET ASIDE (sideChange.ts, #477 re-test case 19).**<br>Checks, as properties: - changing the side in the situation answers empties every answer about one side (the amount, filed, defence filed, what they want, the kind of claim) in every place an answer is kept, in all three areas, so the case file no longer holds |
 | `npm run test:situation` | **The situation answers are read the same way everywhere, and never asked again (step 2, gate A).**<br>What it checks: each situation (starting with nothing filed, starting with something filed, served with each picked first page, a case going that they started, a case going they are responding to, papers they are not sure of), in each of Small Claims, civil an |
 | `npm run test:small-claims-limit` | **The Small Claims limit is $50,000 everywhere the site states it, and the old**<br>$35,000 limit appears nowhere the site ships. |
 | `npm run test:snapshot-provenance` | **Every human-supplied snapshot has provenance, is second-tier, and exists.**<br>WHAT THIS CATCHES: a snapshot used as though it were a fetched source. The snapshot type exists because ten pages cannot be fetched, and it is the only source type whose content nothing can re-verify against the live web. That makes it the one type where an un |

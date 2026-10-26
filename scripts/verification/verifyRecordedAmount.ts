@@ -44,7 +44,8 @@ function expectFormat(input: string, expected: string): void {
 function main(): void {
   // ---- The same number, written several ways, renders identically ----
 
-  const sameNumber = ["10000.00", "$10,000", "10,000.00", "10000", "$10,000.00"];
+  // "ten thousand": written wholly in words, the same number (#477 re-test: amounts are kept as numbers).
+  const sameNumber = ["10000.00", "$10,000", "10,000.00", "10000", "$10,000.00", "ten thousand"];
   const rendered = sameNumber.map((value) => formatRecordedAmount(value));
 
   check(
@@ -58,6 +59,16 @@ function main(): void {
   expectFormat("  $1 234.56  ", "$1,234.56");
   expectFormat("0.75", "$0.75");
   expectFormat("1000000", "$1,000,000.00");
+
+  // ---- An amount written wholly in words is a number too (#477 re-test) ----
+  expectFormat("twenty five hundred", "$2,500.00");
+  expectFormat("Twenty-five hundred dollars", "$2,500.00");
+  expectFormat("one thousand two hundred and fifty", "$1,250.00");
+  expectFormat("2500 dollars", "$2,500.00");
+  // A qualifier in words is kept, as with digits.
+  expectFormat("about three thousand", "about three thousand");
+  expectFormat("ten grand", "ten grand");
+  expectFormat("three thousand or so", "three thousand or so");
 
   // ---- A trailing period is punctuation, not a qualifier ----
   //
@@ -112,7 +123,7 @@ function main(): void {
     "$10,000 to $12,000",
     "10000 CAD plus interest",
     "at least $5,000",
-    "ten thousand",
+
     "unknown",
     "TBD",
   ];

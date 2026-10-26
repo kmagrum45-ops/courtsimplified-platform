@@ -37,6 +37,7 @@ import { factsAskedTwice, recordAsks } from "./harness/askOnce";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
+import { rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
 import { MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
@@ -139,6 +140,9 @@ function note(run: string, where: string, what: string, ok: boolean, detail = ""
 function checkText(run: string, where: string, text: string) {
   const internal = INTERNAL.exec(text);
   note(run, where, "no internal wording", !internal, internal ? text.slice(Math.max(0, internal.index - 80), internal.index + 80) : "");
+  // The copy guard (#477 re-test, item 5): no stored code or field name, on any screen.
+  const raw = rawKeysIn(text);
+  note(run, where, "no raw field name or code", raw.length === 0, raw.join(", "));
   const double = DOUBLE_STOP.exec(text);
   note(run, where, "no doubled full stop", !double, double ? text.slice(Math.max(0, double.index - 60), double.index + 20) : "");
   const repeated = text.split("\n").map((line) => line.split(/;\s*/).map((part) => part.trim()).filter((part) => part.length >= 6)).find((parts) => new Set(parts).size !== parts.length);
@@ -201,7 +205,7 @@ async function guidedQuestions(page: Page, story: Story, viaReview: boolean) {
 }
 
 /** Civil and Family: what was left for the review, answered there. */
-async function answerInReview(page: Page, story: Story) {
+async function answerInReview(page: Page, story: Story, dates = true) {
   const panel = page.getByTestId("intake-review");
   const question = (id: string) => panel.locator(`[data-testid=intake-initial-question][data-question="${id}"]`);
   const sideLabel: Record<Story["side"], RegExp> = { plaintiff: /plaintiff/i, defendant: /defendant/i, applicant: /starting it/i, respondent: /served/i };
@@ -212,7 +216,7 @@ async function answerInReview(page: Page, story: Story) {
     for (const item of items) await box.locator(`input[data-testid=intake-field-pick][value="${item}"]`).check();
     await box.getByTestId("intake-field-save").click();
   }
-  await reviewDates(page, story.id);
+  if (dates) await reviewDates(page, story.id);
 }
 
 /** Every review question asking for a date: "October 6" is asked for its year, then the full date is kept. */
@@ -602,7 +606,7 @@ async function answerAgain(page: Page, story: Story) {
 
 for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "family"], ["sc-loan-friend", "small-claims"]] as const) {
   for (const route of ["questions", "review"] as const) {
-    test(`situation: story changed in the review, every answer given again, confirm opens -- ${court} (${route})`, async ({ page }) => {
+    test(`situation: one sentence added keeps every answer; the story rewritten, every answer given again, confirm opens -- ${court} (${route})`, async ({ page }) => {
       test.setTimeout(240_000);
       const story = byId(id);
       const run = `story-change ${court} (${route})`;
@@ -618,7 +622,17 @@ for (const [id, court] of [["civil-deposit", "civil"], ["family-spousal", "famil
       }
       const panel = page.getByTestId("intake-review");
       const box = panel.getByRole("textbox", { name: "Review: Your story", exact: true });
+      // One sentence added (#477 re-test: editing one sentence lost every follow-up answer):
+      // every answer stays, none is labelled or asked again.
+      const before = await panel.locator("[data-testid=intake-initial-question]").evaluateAll((items) => items.map((item) => `${item.getAttribute("data-question")}:${item.getAttribute("data-answered")}`));
       await box.fill(`${await box.inputValue()} Synthetic: one more detail added later.`);
+      await panel.getByTestId("review-story-save").click();
+      await page.waitForTimeout(800);
+      expect(await page.getByTestId("intake-answer-stale").count(), "one sentence added: no answer is set aside").toBe(0);
+      const after = await panel.locator("[data-testid=intake-initial-question]").evaluateAll((items) => items.map((item) => `${item.getAttribute("data-question")}:${item.getAttribute("data-answered")}`));
+      expect(after.filter((item) => item.endsWith(":false") && !before.includes(item)), "one sentence added: nothing answered is asked again").toEqual([]);
+      // The story rewritten: the answers to the earlier one are labelled, not wiped.
+      await box.fill("Synthetic rewritten story: a different matter entirely, told again from the start with new facts. It has three sentences now. None is the same as before.");
       await panel.getByTestId("review-story-save").click();
       await page.waitForTimeout(800);
       note(run, "review", "answers to the earlier story are labelled, not wiped", (await page.getByTestId("intake-answer-stale").count()) > 0);
@@ -701,3 +715,324 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     note(`order ${court}`, "review", "questions keep their places while answered", true);
   });
 }
+
+/*
+ * THE #477 RE-TEST ON THE LIVE SITE (Chrome, 2026-10-25), EACH WITH THE REAL STEPS.
+ */
+
+// Case 11: the "Before you start" notice shown again after confirming (it is kept per account,
+// so signing in brings it back, L35). "Show my next step" showed it below the button, out of
+// sight; ticking it and pressing Continue crashed the page, and the case then crashed every
+// time it was opened.
+for (const court of ["civil", "family", "small-claims"] as const) {
+  test(`retest-477 case 11: the notice after confirming shows where the person is looking, Continue opens the next step, and the case opens -- ${court}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = byId(court === "civil" ? "civil-defendant-debt" : court === "family" ? "family-spousal" : "sc-defendant-served");
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(String(error).slice(0, 300)));
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    const panel = page.getByTestId("intake-review");
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+    // The notice is owed again, as after signing in on this device.
+    await page.evaluate(() => { for (const key of Object.keys(localStorage)) if (key.startsWith("courtSimplifiedNoticeAcknowledged")) localStorage.removeItem(key); });
+    await page.reload();
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await page.getByTestId("intake-continue-guidance").click();
+    const notice = page.getByTestId("acknowledgement-checkbox");
+    await expect(notice, "the notice is on screen where the person pressed the button").toBeInViewport({ timeout: 15_000 });
+    await notice.check();
+    await page.getByTestId("acknowledgement-continue").click();
+    await expect(page.getByTestId("completed-case-overview").or(page.getByTestId("sign-in-for-safety-check")).first(), "Continue opens the next step").toBeVisible({ timeout: 90_000 });
+    await expect(page.getByText("This page couldn’t load")).toHaveCount(0);
+    expect(errors, "no page error").toEqual([]);
+    // The case opens, and opens again.
+    const row = [...account.rows.values()][0] as Record<string, unknown> | undefined;
+    expect(row?.id, "the case was saved").toBeTruthy();
+    for (let visit = 0; visit < 2; visit++) {
+      await page.goto(`/cases/${row!.id}`);
+      await page.waitForLoadState("networkidle").catch(() => {});
+      await expect(page.getByText("This page couldn’t load")).toHaveCount(0);
+      await expect(page.getByTestId("case-intake-gate"), "a confirmed case is not sent back to an unfinished intake").toHaveCount(0);
+    }
+    expect(errors, "no page error").toEqual([]);
+  });
+}
+
+// Case 11, after the page stopped: the case was confirmed but no next step was made, and the
+// case page asked for the review again. It says the information is confirmed and opens the
+// next step without asking anything again.
+test("retest-477 case 11: a confirmed case with no next step yet opens it from the case page", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = byId("civil-defendant-debt");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await openBuilder(page, "civil", { story: story.story });
+  await guidedQuestions(page, story, true);
+  await answerInReview(page, story);
+  const panel = page.getByTestId("intake-review");
+  const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+  while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+  await page.waitForLoadState("networkidle").catch(() => {});
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  await page.goto(`/cases/${row.id}`);
+  await expect(page.getByTestId("case-confirmed-no-step")).toBeVisible({ timeout: 60_000 });
+  await expect(page.getByText("Review your initial information before receiving case guidance")).toHaveCount(0);
+  await page.getByTestId("case-show-next-step").click();
+  await expect(page.getByTestId("intake-review"), "the confirmation stands").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await page.getByTestId("intake-continue-guidance").click();
+  await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
+});
+
+// A bad saved record never locks a person out: the case page and the intake show a plain
+// message with a way back (or the page itself), never the bare "This page couldn't load".
+for (const [label, damage] of [
+  ["sections not a record", (master: Record<string, unknown>) => { (master.intakeCheckpoint as Record<string, unknown>).sections = "damaged"; }],
+  ["position and intake data of the wrong kind", (master: Record<string, unknown>) => { master.position = 42; master.intakeData = ["damaged"]; master.workflowStatus = "damaged"; }],
+] as const) {
+  test(`retest-477 case 11: a damaged saved case still opens with a way back -- ${label}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = byId("civil-defendant-debt");
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, "civil", { story: story.story });
+    await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
+    await expect.poll(() => account.rows.size, { timeout: 60_000 }).toBe(1);
+    const row = [...account.rows.values()][0] as Record<string, unknown>;
+    damage(row.master_result as Record<string, unknown>);
+    for (const url of [`/cases/${row.id}`, `/builder?path=civil&intake=${row.id}`]) {
+      await page.goto(url);
+      await page.waitForLoadState("networkidle").catch(() => {});
+      await page.waitForTimeout(2_000);
+      await expect(page.getByText("This page couldn’t load"), `${url}: never the bare error page`).toHaveCount(0);
+      if (await page.getByTestId("page-error").count()) await expect(page.getByTestId("page-error-cases")).toBeVisible();
+    }
+  });
+}
+
+// Case 19: Marcus started as the one suing ($1,650), then changed his answer: Circuit Doctors'
+// owner served him with a claim on October 20. "Amount claimed: $1,650 (your answer already
+// given; it is not asked again)" stayed on the claim against him. The old side's facts are
+// set aside when the side changes, and asked again.
+test("retest-477 case 19: after changing side, the old side's amount is not carried -- small-claims", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = MESSY_STORIES.find((item) => item.id === "m19-laptop-repair")!;
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await smallClaims(page, story, true);
+  const amount = page.locator('[data-question="sc-amount-claimed"]');
+  if (!(await amount.getByRole("button", { name: /from your story/ }).count())) {
+    // No amount offered: the person types the total they want back.
+    await amount.getByRole("textbox").fill("$1,650");
+    await amount.getByRole("textbox").press("Enter");
+  }
+  await expect(amount).toHaveAttribute("data-answered", "true");
+  // The side changes: served with a Plaintiff's Claim on October 20, 2026.
+  await autoAnswerSituation(page, { where: "served", papers: "small-claims-7A", receivedOn: "October 20, 2026" });
+  await page.getByTestId("situation-change").click();
+  await expect(page.getByTestId("situation-line")).toContainText(/Plaintiff.s Claim \(Form 7A\)/, { timeout: 30_000 });
+  await page.waitForTimeout(1_000);
+  const held = page.locator('[data-question="sc-amount-claimed"], [data-question="amountClaimed"]');
+  const oldAmount = async () => { for (const box of await held.getByRole("textbox").all()) if ((await box.inputValue()).includes("1,650")) return true; return (await held.count()) > 0 && (await held.first().getAttribute("data-answered")) === "true"; };
+  expect(await oldAmount(), "the review holds no amount from the old side").toBe(false);
+  await expect(page.getByTestId("intake-review")).not.toContainText("1,650");
+  // The form, too.
+  await page.reload();
+  await page.waitForLoadState("networkidle").catch(() => {});
+  const form = page.getByRole("button", { name: "Fill in the form yourself" });
+  if (await form.isVisible().catch(() => false)) await form.click();
+  await page.waitForTimeout(1_500);
+  await expect(page.locator("body"), "the form holds no amount from the old side").not.toContainText("$1,650 (your answer already given");
+  await expect(page.getByTestId("intake-review")).not.toContainText("1,650");
+  expect(await oldAmount(), "after a reload too").toBe(false);
+  for (const box of await page.getByRole("textbox").all()) expect(await box.inputValue(), "no box holds the old side's amount").not.toContain("1,650");
+});
+
+// The repeats Chrome still saw live (#477 re-test), each with the real story.
+const messy = (id: string) => MESSY_STORIES.find((item) => item.id === id)!;
+
+// Case 19: "Have you already started a court claim?" after "No, nothing yet". The story reading
+// is told what the situation answers settled, so it does not ask it (the filter: test:case-understanding).
+test("retest-477 repeat: the story reading is told that nothing is filed yet and the side -- small-claims", async ({ page }) => {
+  test.setTimeout(180_000);
+  const story = messy("m19-laptop-repair");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const sent: Record<string, unknown>[] = [];
+  await page.route("**/api/case/understand", async (route) => { sent.push(route.request().postDataJSON() as Record<string, unknown>); await route.fulfill({ json: { ok: true, skipped: "off" } }); });
+  await page.goto("/?path=small-claims");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Ottawa");
+  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByLabel("Tell us what happened in your own words").blur();
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  expect(sent.length, "the story was sent to be read").toBeGreaterThan(0);
+  expect(sent.at(-1)!.situation, "the reading knows nothing is filed yet, and the side").toEqual({ side: "starting", filed: false });
+});
+
+// Cases 14 and 16: the Family review asked "Tell us about the children..." and "Is there a court
+// date coming up?" with both in the story. Each is offered from the story for one click.
+for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
+  test(`retest-477 repeat: the family review offers the children and the court date the story gives -- ${id}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = messy(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, "family", { story: story.story });
+    await guidedQuestions(page, story, true);
+    // The dates are left open here: the helper would type one into the court date's box first.
+    await answerInReview(page, story, false);
+    const panel = page.getByTestId("intake-review");
+    const expected: Record<string, RegExp> = id === "m14-served-divorce" ? { childrenInfo: /Mia \(4\) and Noah \(2\)/ } : { childrenInfo: /daughter, age 6/, upcomingCourtDate: /Case conference on November 16, 2026/ };
+    for (const [question, words] of Object.entries(expected)) {
+      const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
+      if (!(await box.count())) continue; // answered already, from the story, in the questions
+      const offer = box.getByTestId("intake-field-from-story");
+      await expect(offer, `${question}: offered from the story`).toContainText(words);
+      await offer.click();
+      await expect(box).toHaveAttribute("data-answered", "true");
+    }
+  });
+}
+
+// The amount: Small Claims and civil offer the story's amount for one click.
+test("retest-477 repeat: the amount the story wants is offered for one click -- small-claims (case 19)", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = messy("m19-laptop-repair");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await smallClaims(page, story, true);
+  await expect(page.locator('[data-question="sc-amount-claimed"]').getByRole("button", { name: "Use “$1,650” (from your story)" })).toBeVisible();
+});
+test("retest-477 repeat: the amount the story claims is offered for one click -- civil", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = byId("civil-negligence");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await openBuilder(page, "civil", { story: story.story });
+  await guidedQuestions(page, story, true);
+  await answerInReview(page, story);
+  const box = page.getByTestId("intake-review").locator('[data-testid=intake-initial-question][data-question="amountClaimed"]');
+  if (await box.count()) await expect(box.getByTestId("intake-field-from-story")).toContainText("$70,000");
+  else expect(await page.getByTestId("intake-review").innerText(), "the amount is held from the story").toContain("70,000");
+});
+
+// Case 16: the review said "Case stage: conference", "Your side: I'm starting it (or I want to)"
+// and "What has been filed: Not recorded" after the person had said all three. It shows what was
+// answered: the step picked, who started the case, and the papers filed.
+test("retest-477 case 16: the review shows the step picked, who started the case, and what was filed -- family (questions)", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = messy("m16-conference-safety");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await openBuilder(page, "family", { story: story.story });
+  await guidedQuestions(page, story, false);
+  const review = await page.getByTestId("intake-review").innerText();
+  expect(review, "the step picked, in its own words").toContain("Case conference scheduled");
+  expect(review, "never the bare word").not.toMatch(/Case stage\s*\n?\s*conference\b/i);
+  expect(review, "who started the case").toContain("I started this case (applicant)");
+  expect(review, "never the starting-a-case wording for a case already going").not.toContain("I'm starting it (or I want to)");
+  expect(review.match(/What has been filed\s*\n?\s*([^\n]*)/)?.[1] ?? "", "what was filed, as answered").not.toMatch(/Not recorded/);
+});
+
+// Item 7: the safety help box is open on the results page, in every area, for any story (it was
+// folded unless the story used words of danger; the danger notice itself still shows only then).
+for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-477 item 7: the safety help box is open on the results page -- ${court}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
+    await expect(page.getByTestId("intake-safety-resources"), "folded while answering").not.toHaveAttribute("open", "");
+    await confirmAndContinue(page);
+    await expect(page.getByTestId("intake-safety-resources"), "open on the results page").toHaveAttribute("open", "");
+    if (court === "family") await expect(page.getByTestId("family-safety-resources"), "Family's who-to-contact box is open too").toHaveAttribute("open", "");
+  });
+}
+
+// Items 5 and 6 on the case page and review: words, not codes; the label the court uses; the
+// facts the story gives that no answer holds yet; an amount typed in words kept as a number.
+for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
+  test(`retest-477 items 5-6: the review's labels and What we have so far -- ${id}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = messy(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, "family", { story: story.story });
+    await guidedQuestions(page, story, true);
+    await answerInReview(page, story);
+    const review = await page.getByTestId("intake-review").innerText();
+    expect(review, "no adoption details on a case that is not an adoption").not.toContain("Adoption details");
+    expect(review, "the court's label").not.toMatch(/(^|\n)Court date\n/);
+    expect(rawKeysIn(review), "no raw code in the review").toEqual([]);
+    await confirmAndContinue(page);
+    const row = [...account.rows.values()][0] as Record<string, unknown>;
+    await page.goto(`/cases/${row.id}`);
+    const file = page.getByTestId("case-file");
+    await expect(file).toBeVisible({ timeout: 60_000 });
+    const text = await file.innerText();
+    expect(rawKeysIn(text), "no raw code in What we have so far").toEqual([]);
+    if (id === "m14-served-divorce") {
+      expect(text, "where they married").toContain("Lisbon, Portugal");
+      expect(text, "the kind of claim in words").toMatch(/Parenting time|Spousal support|Divorce/i);
+    } else {
+      expect(text, "the threats and the police call").toMatch(/threatened[\s\S]*police/);
+      expect(text, "the papers filed, by name").toMatch(/Yes: .*Application/i);
+    }
+  });
+}
+test("retest-477 item 5: an amount typed in words is kept and shown as $2,500.00 -- small-claims (case 20)", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = byId("sc-unclear");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await smallClaims(page, story, true);
+  const amount = page.locator('[data-question="sc-amount-claimed"]').getByRole("textbox");
+  await amount.fill("twenty five hundred");
+  await amount.press("Enter");
+  await confirmAndContinue(page);
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  await page.goto(`/cases/${row.id}`);
+  const line = page.locator('[data-testid=case-file-line][data-fact="amount"]');
+  await expect(line).toContainText("$2,500.00", { timeout: 60_000 });
+  await expect(line).not.toContainText("twenty five hundred");
+});

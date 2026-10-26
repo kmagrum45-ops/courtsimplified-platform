@@ -64,14 +64,42 @@ function stripTrailingPeriod(text: string): string {
   return text.endsWith(".") ? text.slice(0, -1).trimEnd() : text;
 }
 
+const UNITS: Record<string, number> = {
+  zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19,
+  twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90,
+};
+
+/**
+ * An amount written wholly in words ("twenty five hundred", "one thousand two hundred and
+ * fifty dollars"), as a number; null for anything else (#477 re-test: "twenty five hundred"
+ * was kept as words). Same rule as digits: the whole text must be the amount, so "about
+ * three thousand" stays as typed.
+ */
+function amountInWords(text: string): number | null {
+  const tokens = text.toLowerCase().replace(/-/g, " ").replace(/\s+dollars?$/, "").split(/\s+/).filter((token) => token && token !== "and");
+  if (!tokens.length) return null;
+  let total = 0;
+  let current = 0;
+  let any = false;
+  for (const token of tokens) {
+    if (token in UNITS) { current += UNITS[token]; any = true; }
+    else if (token === "hundred") { current = (current || 1) * 100; any = true; }
+    else if (token === "thousand") { total += (current || 1) * 1000; current = 0; any = true; }
+    else if (token === "million") { total += (current || 1) * 1_000_000; current = 0; any = true; }
+    else return null;
+  }
+  return any ? total + current : null;
+}
+
 export function parseRecordedAmount(raw: unknown): number | null {
   if (typeof raw !== "string") return null;
 
   const trimmed = stripTrailingPeriod(raw.trim());
   if (!trimmed) return null;
 
-  const match = PLAIN_AMOUNT.exec(trimmed);
-  if (!match) return null;
+  const match = PLAIN_AMOUNT.exec(trimmed.replace(/\s+dollars?$/i, ""));
+  if (!match) return amountInWords(trimmed);
 
   const whole = match[1].replace(/[, ]/g, "");
   const fraction = match[2] || "0";

@@ -593,3 +593,18 @@ export function civilFiledFromStory(story: string): FiledAnswer | null {
   return filedFromStory(story, "civil");
 }
 
+
+/**
+ * A court date the story gives, with what it is, in the person's own words ("We have a case
+ * conference on November 16, 2026"): offered for the review's "Is there a court date coming
+ * up?" (#477 re-test, cases 14 and 16: asked when the story said it). Only a day written with
+ * its year: a year would be a guess.
+ */
+export function courtDateFromStory(story: string): StoryAnswer | null {
+  // Within one sentence, as the shared splitter cuts them (sentences.ts).
+  const pattern = new RegExp(String.raw`\b((?:case|settlement|trial management|pre-?trial|first|scheduling)\s+conference|conference|court date|court hearing|hearing|motion|trial|first appearance|appearance)\b.{0,40}?\b((?:${MONTH_FULL_NAMES_PATTERN})\s+\d{1,2},?\s+\d{4})`, "i");
+  const match = sentences(story).map((sentence) => pattern.exec(sentence)).find(Boolean);
+  if (!match) return null;
+  const what = match[1].toLowerCase().replace(/^pre-?trial/, "pre-trial");
+  return { value: `${what.charAt(0).toUpperCase()}${what.slice(1)} on ${match[2].replace(/,?\s+(\d{4})$/, ", $1")}`, quote: match[0] };
+}

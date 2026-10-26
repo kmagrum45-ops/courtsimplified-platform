@@ -20,6 +20,7 @@
  */
 import type { Checkpoint } from "./intakeCheckpoint";
 import { guidedReadingOutdated, STORY_INPUT_KEYS, STORY_SECTION, storyOf } from "./intakeStory";
+import { sentences } from "./sentences";
 
 type Sections = Checkpoint["sections"];
 export const BASIS_SECTION = "storyBasis";
@@ -173,8 +174,56 @@ export function discardStale(checkpoint: Checkpoint): Checkpoint {
   return { ...checkpoint, sections };
 }
 
-/** When the story itself changes: the answers given about the old one on the Home page (and its card), and an unsent copy of it in the question box, go. */
-export function onStoryChange(sections: Sections): Sections {
+/** The story's sentences, each as compared (case, spacing and punctuation ignored). */
+const sentencesOf = (text: string) => sentences(text).map(comparable).filter(Boolean);
+const comparable = (text: string) => text.toLowerCase().replace(/[^a-z0-9$]+/g, " ").trim();
+
+/**
+ * An edit to some of the story, not a new one (#477 re-test: editing one sentence lost every
+ * follow-up answer): the sentences removed or changed, when at least half of the old story's
+ * sentences are still there; null for a new story (then every answer is set aside, as before).
+ */
+export function editedSentences(before: string, after: string): string[] | null {
+  const old = sentencesOf(before);
+  const kept = new Set(sentencesOf(after));
+  if (!old.length) return null;
+  const removed = old.filter((sentence) => !kept.has(sentence));
+  return removed.length * 2 > old.length ? null : removed;
+}
+
+/** Whether an answer's own words come from one of these sentences (an amount by its digits). */
+function fromSentences(value: unknown, sentences: string[]): boolean {
+  const words = (Array.isArray(value) ? value : [value]).filter((item): item is string | number => typeof item === "string" || typeof item === "number").map((item) => comparable(String(item)));
+  return words.some((word) => {
+    if (word.length < 3) return false;
+    const digits = word.replace(/[^0-9]/g, "");
+    return sentences.some((sentence) => sentence.includes(word) || (digits.length >= 2 && sentence.replace(/[^0-9 ]/g, " ").split(/\s+/).includes(digits)));
+  });
+}
+
+/**
+ * When the story itself changes: the answers given about the old one on the Home page (and its
+ * card), and an unsent copy of it in the question box, go. Given the story before the change,
+ * an edit to some of it keeps every answer whose words do not come from a sentence removed or
+ * changed: each stays based on the story as it is now, so nothing is asked again for it.
+ */
+export function onStoryChange(sections: Sections, before?: Sections): Sections {
+  const removed = before ? editedSentences(storyOf(before), storyOf(sections)) : null;
+  if (removed) {
+    const version = storyVersion(storyOf(sections));
+    const previous = storyVersion(storyOf(before!));
+    const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
+    for (const [answer, based] of Object.entries(basis)) if (based === previous && !fromSentences(valueAt(sections, answer), removed)) basis[answer] = version;
+    const keep = (items: unknown) => (Array.isArray(items) ? items : []).filter((item) => !fromSentences(object(item).answer, removed));
+    const drafts = object(sections["form-chat"]?.drafts);
+    return {
+      ...sections,
+      [BASIS_SECTION]: basis,
+      home: { ...sections.home, understoodAnswers: keep(sections.home?.understoodAnswers), draftAnswers: keep(sections.home?.draftAnswers) },
+      "home-card": { ...sections["home-card"], ...CONVERSATION["home-card"] },
+      ...("facts" in drafts ? { "form-chat": { ...sections["form-chat"], drafts: Object.fromEntries(Object.entries(drafts).filter(([key]) => key !== "facts")) } } : {}),
+    };
+  }
   const next: Sections = { ...sections, home: { ...sections.home, ...CONVERSATION.home }, "home-card": { ...sections["home-card"], ...CONVERSATION["home-card"] } };
   const drafts = object(sections["form-chat"]?.drafts);
   if ("facts" in drafts) next["form-chat"] = { ...sections["form-chat"], drafts: Object.fromEntries(Object.entries(drafts).filter(([key]) => key !== "facts")) };

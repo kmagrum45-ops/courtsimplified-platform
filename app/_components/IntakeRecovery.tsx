@@ -10,6 +10,7 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import { COURT_PATH_FINDER_KEY, GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { onSideChange } from "../../src/lib/case-system/sideChange";
 import { BASIS_SECTION, discardedFields, discardStale, onStoryChange, reaffirmAnswers, storyAnswersOutdated, STORY_TEXT_FIELD, tagAnswers } from "../../src/lib/case-system/storyBasis";
 import { migrateStory, storyOf, STORY_INPUT_KEYS, STORY_SECTION, type CaseLocation } from "../../src/lib/case-system/intakeStory";
 import { answerSituation, courtOfPapers, nextSituationQuestion, sideContradiction, situationFromRaw, situationSection, SITUATION_FIELD, SITUATION_SECTION, withKnownCourt, type Situation } from "../../src/lib/case-system/situation/situation";
@@ -337,7 +338,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             let sections: Checkpoint["sections"] = { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } };
             // One record of which story each answer was based on (storyBasis.ts).
             const storyChanged = field === STORY_TEXT_FIELD;
-            if (storyChanged) sections = onStoryChange(sections);
+            if (storyChanged) sections = onStoryChange(sections, snapshot.sections);
+            // A changed side: the old side's answers are emptied, to be asked again (sideChange.ts).
+            const sideChange = field === `${SITUATION_SECTION}:${SITUATION_FIELD}` ? onSideChange(snapshot.sections, sections) : { sections, changed: [] as [string, string][] };
+            sections = sideChange.sections;
             // Only what the person enters or confirms is an answer; a form registering its defaults is not.
             if (touched) sections[BASIS_SECTION] = tagAnswers(sections, section, key, snapshot.sections[section]?.[key], encoded);
             if (reaffirm !== undefined) sections[BASIS_SECTION] = reaffirmAnswers(sections, section, key, encoded, reaffirm === true ? undefined : reaffirm);
@@ -349,6 +353,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             snapshot = next;
             if (external) fieldListeners.get(field)?.forEach(listener => listener());
             if (storyChanged) for (const cleared of ["home:understoodAnswers", "home:draftAnswers", "form-chat:drafts"]) fieldListeners.get(cleared)?.forEach(listener => listener());
+            for (const [changedSection, changedKey] of sideChange.changed) fieldListeners.get(`${changedSection}:${changedKey}`)?.forEach(listener => listener());
             emit();
             if (touched) dirty = true;
             if (!cache()) failure("This tab could not retain your pending text. Copy it before leaving and retry saving.");

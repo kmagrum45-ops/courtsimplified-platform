@@ -178,7 +178,7 @@ export const HELD_BACK_PERSONAS: Persona[] = [
     fields: {
       "Children / parenting details": "one son, 11, lives with me",
       "Evidence you have": "the case conference endorsement, my emails asking his lawyer for the documents",
-      "Upcoming court date or deadline": "motion november 18 2026",
+      "Next court date or deadline": "motion november 18 2026",
     },
     confirmStage: "motion",
     expect: [

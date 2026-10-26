@@ -77,6 +77,7 @@ const REVIEWED: Reviewed[] = [
   { file: "app/_components/IntakeReviewPanel.tsx", text: "Remaining initial questions", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words" },
   { file: "app/_components/IntakeReviewPanel.tsx", text: "bank?.answerType === \"choice\"", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words" },
   { file: "app/_components/IntakeReviewPanel.tsx", text: "[\"date\", \"amount\", \"short-text\"].includes(bank.answerType)", kind: "quoted-in-text", why: "story suggestions there are buttons carrying the story's words" },
+  { file: "app/_components/IntakeReviewPanel.tsx", text: "field.fromStory && !answered", kind: "quoted-in-text", why: "the civil and Family fields' story suggestion: a button carrying the story's own words, as the question bank's buttons do (#477 re-test)" },
   { file: "app/_components/StoryChangedNotice.tsx", text: "Start the questions again from your story first", kind: "generic", why: "an instruction" },
   { file: "app/_components/StoryChangedNotice.tsx", text: "The answers given for the earlier version are set aside", kind: "generic", why: "an instruction" },
 ];

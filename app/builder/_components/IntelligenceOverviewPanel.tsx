@@ -30,7 +30,6 @@ import {
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { sourceLinkLabel } from "../../../src/lib/content-library/sourceLinkLabel";
 import { userStory } from "@/src/lib/case-system/userStory";
-import { storySuggestsDanger } from "@/src/lib/case-system/intake/dangerWords";
 import { claimKindShown, kindsOfClaim, type ClaimKindShown } from "@/src/lib/case-system/intake/claimKind";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
@@ -546,8 +545,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
           {/* Collapsed: still on every family case, never assessed against
               the user's facts, but no longer a full section above their next
               step when they said there are no safety concerns (page review,
-              2026-10-06). Open when the story mentions threats, fear or violence (item 8, 2026-10-24). */}
-          <details open={storySuggestsDanger(facts)} data-testid="family-safety-resources">
+              2026-10-06). Open on the results page in every case (#477 re-test, item 7; before, only when the story mentioned threats, fear or violence). */}
+          <details open data-testid="family-safety-resources">
           <summary className="cursor-pointer font-semibold text-[#2f7d67]">Who to contact, and how</summary>
           <p className="mt-2 whitespace-pre-line">{topic.content}</p>
           <ul className="mt-3 list-disc space-y-1 pl-5">
