@@ -30,7 +30,8 @@ export function isUnderstandingBody(value: unknown): value is Body {
   const body = value as Record<string, unknown>;
   if (Object.keys(body).some((key) => !["story", "city", "chosenCourt", "answers", "situation"].includes(key))) return false;
   const situation = body.situation as Record<string, unknown> | undefined;
-  if (situation !== undefined && (typeof situation !== "object" || situation === null || Object.keys(situation).some((key) => key !== "side" && key !== "servedOn") ||
+  if (situation !== undefined && (typeof situation !== "object" || situation === null || Object.keys(situation).some((key) => key !== "side" && key !== "servedOn" && key !== "filed") ||
+    (situation.filed !== undefined && typeof situation.filed !== "boolean") ||
     (situation.side !== undefined && situation.side !== "starting" && situation.side !== "responding") ||
     (situation.servedOn !== undefined && !(typeof situation.servedOn === "string" && isRealIsoDate(situation.servedOn))))) return false;
   return (

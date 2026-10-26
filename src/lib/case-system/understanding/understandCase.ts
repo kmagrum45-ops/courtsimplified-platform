@@ -113,7 +113,7 @@ export type UnderstandInput = {
    * side, and the day they were served. Told to the reasoning as their answers, and the
    * side read from the story never replaces them (step 2).
    */
-  situation?: { side?: "starting" | "responding"; servedOn?: string };
+  situation?: { side?: "starting" | "responding"; servedOn?: string; filed?: boolean };
 };
 
 // ------------------------------------------------------------------ limits
@@ -404,6 +404,12 @@ function within<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
     .finally(() => clearTimeout(timer));
 }
 
+/** "Have you already started a court claim about this repair?", "Has anything been filed yet?" */
+export const askedWhetherFiled = (question: string) =>
+  /\b(?:already|yet)\b[^?]*\b(?:start(?:ed)?|file[ds]?|issued?|begun|brought|commenced)\b|\b(?:start(?:ed)?|file[ds]?|issued?|begun|brought|commenced)\b[^?]*\b(?:already|yet)\b|\b(?:have|has) (?:you|anyone|anything|either of you)\b[^?]*\b(?:started|filed|issued|commenced)\b[^?]*\b(?:claim|case|lawsuit|action|application|court)\b/i.test(question);
+/** "Are you suing, or is someone suing you?" */
+export const askedSide = (question: string) => /\b(?:are you|is (?:someone|anyone|the other)[^?]*)\b[^?]*\b(?:suing|being sued|sued|the (?:plaintiff|defendant|applicant|respondent))\b/i.test(question);
+
 /**
  * The person's situation answers over the reading: their side, never the model's, and
  * no question asking when they were served once they have said (step 2).
@@ -414,7 +420,12 @@ function withSituation(understanding: CaseUnderstanding, situation: UnderstandIn
   return {
     ...understanding,
     ...(situation.side ? { side: situation.side } : {}),
-    questions: situation.servedOn ? understanding.questions.filter((item) => !askedWhenServed(item.question)) : understanding.questions,
+    questions: understanding.questions.filter((item) =>
+      !(situation.servedOn && askedWhenServed(item.question)) &&
+      // Whether a case is started, and their side, are the situation answers' own (#477 re-test,
+      // case 19: "Have you already started a court claim?" after "No, nothing yet").
+      !(situation.filed !== undefined && askedWhetherFiled(item.question)) &&
+      !(situation.side && askedSide(item.question))),
   };
 }
 

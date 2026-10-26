@@ -377,3 +377,10 @@ export function sideContradiction(situation: Situation, storySide: "bringing" | 
   const answered = sideOf(situation);
   return answered && storySide && storySide !== answered ? { answered, story: storySide } : null;
 }
+
+/** Whether a case is started, as the situation answers say: undefined when they do not say yet. */
+export function filedFromSituation(situation: Situation): boolean | undefined {
+  if (situation.where === "going" || situation.where === "served") return true;
+  if (situation.where === "starting" && situation.filed) return situation.filed === "something";
+  return undefined;
+}

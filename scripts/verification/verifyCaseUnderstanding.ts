@@ -39,6 +39,8 @@ import {
   validStep,
   withFixedRegime,
   withoutLaw,
+  askedWhetherFiled,
+  askedSide,
 } from "../../src/lib/case-system/understanding/understandCase";
 import { isMapOwnedProcedure } from "../../src/lib/case-system/procedureOwnership";
 
@@ -249,6 +251,25 @@ async function main() {
     "a different path that is NOT available in this build leaves it primary -- it is the only button left to click",
     betterDestinationKnown("civil", "small-claims", false) === false,
   );
+
+  // ---- The situation answers settle whether a case is started and the side: the reading never asks
+  // them again (#477 re-test, case 19: "Have you already started a court claim about this repair?"
+  // after "No, nothing yet"). Questions on other facts stay.
+  for (const asked of ["Have you already started a court claim about this repair?", "Has anything been filed with the court yet?", "Have you filed a claim against Circuit Doctors?", "Did you already start a case?"]) {
+    check(`the reading's "${asked}" is a question the situation answers settle`, askedWhetherFiled(asked));
+  }
+  for (const asked of ["Are you suing, or is someone suing you?", "Are you the plaintiff or the defendant?"]) check(`the reading's "${asked}" asks the side`, askedSide(asked));
+  for (const kept of ["What problems did the laptop have when you took it in for repair?", "What work did Circuit Doctors Inc. agree to do?", "When did you pay the $450?", "Has the store refunded anything?"]) {
+    check(`"${kept}" is not taken for whether a case is started, or the side`, !askedWhetherFiled(kept) && !askedSide(kept));
+  }
+  // Through the whole pipeline: the person said "No, nothing yet" at the start.
+  const withFiled = { ...reasoned, questions: [{ question: "Have you already started a court claim about this repair?", why: "This clarifies where the matter currently stands." }, { question: "What work did Circuit Doctors Inc. agree to do?", why: "This clarifies what repair service you paid for." }] };
+  const settled = await understandCase(
+    { story: SLANDER, chosenCourt: "small-claims", situation: { side: "starting", filed: false } },
+    { reason: async () => JSON.stringify(withFiled), check: { index, embed: noSearch, thorough: false, check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "x" }] }) } },
+  );
+  const settledQuestions = settled.status === "understood" ? settled.understanding.questions.map((item) => item.question) : [];
+  check("with \"nothing filed yet\" given, the reading does not ask whether a claim is started; it keeps its other questions", settled.status === "understood" && !settledQuestions.some((q) => /already started/.test(q)) && settledQuestions.some((q) => /agree to do/.test(q)), JSON.stringify(settledQuestions));
 
   console.log(failures ? `\n${failures} failed` : "\nAll passed");
   process.exitCode = failures ? 1 : 0;
