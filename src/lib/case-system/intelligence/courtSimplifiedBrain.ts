@@ -849,9 +849,9 @@ function buildProceduralPosture(args: {
         "Has anything already been filed?",
         "Has anything already been served?",
         "Are there court dates, limitation dates, or urgent deadlines?",
-        includesAny(rawText, ["crown", "police", "government", "public authority"])
-          ? "Does this claim require leave, notice, or a public-authority screening step?"
-          : "",
+        // "Does this claim require leave, notice, or a public-authority screening step?" was
+        // asked of the person here (Charter re-test 2026-10-26): it is the site's to answer,
+        // from the library (retrieval/libraryOwned.ts for the Crown's notice), never theirs.
       ]),
       filingFactsFromNarrative(rawText),
     ),

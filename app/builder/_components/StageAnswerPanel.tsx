@@ -1708,6 +1708,10 @@ export default function StageAnswerPanel({
       );
     }
     onSaved?.({ dateAnswers: next, ...(Object.keys(keptService).length ? { service: keptService } : {}) });
+    // Counted straight away, as a date that arrives saved is (above): the deadline needed a
+    // second "Count my deadline" press once the date was saved (Charter re-test 2026-10-26).
+    // autoKeptFor stops the answer this brings back from keeping the same dates again.
+    if (stageId) void load(stageId, factsForStep(stageId, municipality), next);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, storyDates, stageId]);
 

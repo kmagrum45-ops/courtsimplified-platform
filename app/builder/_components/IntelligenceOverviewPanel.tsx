@@ -1,3 +1,4 @@
+import { lawBehindThis } from "@/src/lib/case-system/retrieval/lawBehind";
 import { useState } from "react";
 import AppliedLawPanel from "../../_components/AppliedLawPanel";
 import CheckedAnswerPanel from "../../_components/CheckedAnswerPanel";
@@ -354,9 +355,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // null for (Family/Civil, or a Small Claims story matching none of the 19
   // CLAIM_TYPES entries yet), same as courtPoints.
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
-  // Law the research already showed is not quoted a second time below.
-  const researchedIds = new Set((analysis.research?.findings ?? []).flatMap((finding) => finding.provisions.map((provision) => provision.id)));
-  const lawNotAlreadyShown = (analysis.appliedLaw ?? []).filter((item) => !researchedIds.has(item.id));
+  // The rules that matter most first, named once; their words stay under "What we looked into" (lawBehind.ts).
+  const lawBehind = lawBehindThis(analysis.research?.findings ?? [], analysis.appliedLaw ?? []);
   // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
   // the whole story pasted in. Values are still the user's own words, shown
   // as entered -- nothing is corrected or restated -- and the story sits
@@ -450,9 +450,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
           />
         </Card>
       ) : null}
+      {/* 2026-10-26 (Charter re-test): the rules that matter most for the claim lead, named once with the question each answers; their words are in "What we looked into" below. Law the research did not show follows, quoted (2026-10-06: never the same passage quoted twice). */}
+      {lawBehind.lines.length + lawBehind.quoted.length > 0 && <Card title="The law behind this">
+        {lawBehind.lines.length > 0 && <ul data-testid="law-behind-lines" className="space-y-2">{lawBehind.lines.map((line) => <li key={line.id} data-testid="law-behind-line"><a className="font-semibold text-[#2f7d67] underline" href={line.sourceUrl} target="_blank" rel="noreferrer">{line.name}</a>{line.checkedOn ? <span className="text-xs text-[#6b8078]"> (checked {line.checkedOn})</span> : null}<span className="block text-sm text-[#4f685f]">For: {line.answers}</span></li>)}</ul>}
+        {lawBehind.lines.length > 0 && <p className="mt-2 text-xs text-[#6b8078]">The words of each are under &ldquo;What we looked into&rdquo;.</p>}
+        {lawBehind.quoted.length > 0 && <div className={lawBehind.lines.length ? "mt-4" : ""}><AppliedLawPanel items={lawBehind.quoted} /></div>}
+      </Card>}
       {analysis.research && analysis.research.findings.length > 0 && <Card title="What we looked into"><ResearchPanel findings={analysis.research.findings} /></Card>}
-      {/* 2026-10-06: the same passage was quoted under "What we looked into" and again here (walkthrough: rule 7.01 three times on one page). Only what the research did not already show is listed. */}
-      {lawNotAlreadyShown.length > 0 && <Card title="The law behind this"><AppliedLawPanel items={lawNotAlreadyShown} /></Card>}
       {/* The "What the rules say about starting a Small Claims action" card was
           removed on 2026-10-14 (CLAUDE.md s. 2a, one copy of procedure): the
           step panel shows the starting step, its form and deadlines from the
