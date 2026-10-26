@@ -446,6 +446,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
             story={userStory(intake)}
             courtPath={analysis.courtPath}
             side={String(intake.extra?.yourRole ?? intake.extra?.role ?? "")}
+            caseId={caseId}
           />
         </Card>
       ) : null}

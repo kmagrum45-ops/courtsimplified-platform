@@ -18,7 +18,7 @@ type Section = { seat: string; title: string; answer: CheckedAnswerView };
 export const STRATEGY_INTRO =
   "Your matter from every side of the courtroom: what has to be proven, what the law gives the other side and the answer to each, what the court must decide, and the steps and tools available. Every statement is checked against the official law. It never says how strong your case is or how it will turn out.";
 
-export default function StrategyPanel({ story, courtPath, side }: { story: string; courtPath: string; side: string }) {
+export default function StrategyPanel({ story, courtPath, side, caseId = null }: { story: string; courtPath: string; side: string; caseId?: string | null }) {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [sections, setSections] = useState<Section[]>([]);
   if (process.env.NEXT_PUBLIC_STRATEGY === "off") return null;
@@ -34,7 +34,8 @@ export default function StrategyPanel({ story, courtPath, side }: { story: strin
       const response = await fetch("/api/case/strategy", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
-        body: JSON.stringify({ story: story.slice(0, 8000), courtPath, side: role }),
+        // A saved case: the route reads its side, stage, dates, amount and kind of claim itself.
+        body: JSON.stringify({ story: story.slice(0, 8000), courtPath, side: role, ...(caseId ? { caseId } : {}) }),
       });
       const result = (await response.json()) as { sections?: Section[] };
       setSections(result.sections ?? []);

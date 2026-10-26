@@ -107,6 +107,40 @@ async function main() {
   );
 
   console.log("\n5. The rule is written down");
+  // The shared pieces (site owner, 2026-10-25): with a saved case, the side, stage, dates, amount
+  // and kind of claim come from the saved record (caseRecord.ts), never from the request or the
+  // intake form's own role field, and no name the site knows is sent.
+  {
+    const built: { side: string; facts?: string; story: string }[] = [];
+    const master = {
+      intakeData: { facts: "Synthetic family story: my former partner started a case about parenting time for our daughter.", otherParty: "Ottoline Brackenbury", yourName: "Peregrine Quill", amountClaimed: "$4,000" },
+      intakeCheckpoint: { version: 1, flowId: "00000000-0000-4000-8000-000000000478", courtPath: "family", revision: "r", sections: { situation: { record: { where: "going", started: "them", stage: "family:both:case-conference-scheduled", court: "family" } } } },
+      position: { confirmedStage: "conference", stepId: "family:both:case-conference-scheduled", dateAnswers: { "case-date-case-conference-date": "2026-11-16" } },
+    };
+    const saved = createStrategyPost({
+      enabled: () => true,
+      hasAi: () => true,
+      authenticate: (async () => ({ id: "u" })) as never,
+      build: (async (input: { side: string; facts?: string; story: string }) => { built.push(input); return { sections: [], missingLaw: [] }; }) as never,
+      fileRequests: (async () => ({ filed: [], skipped: [] })) as never,
+      loadCase: async () => {
+        const { caseFactsText, readCaseRecord } = await import("../../src/lib/case-system/caseRecord");
+        const { findStage } = await import("../../src/lib/case-system/stage-map/stageMap");
+        const record = readCaseRecord(master, "family");
+        return { story: master.intakeData.facts, side: record.side ? (record.side.value === "responding" ? "defendant" : "plaintiff") : null, facts: caseFactsText(record, { stepTitle: (id) => findStage(id)?.title }) };
+      },
+    });
+    // The request says "plaintiff"; the person's own answer says the other side started the case.
+    await saved(new NextRequest("http://localhost/api/case/strategy", { method: "POST", body: JSON.stringify({ courtPath: "family", side: "plaintiff", story: STORY, caseId: "00000000-0000-4000-8000-000000000478" }) }));
+    const input = built[0];
+    check("saved case: the side comes from the person's own answer, not the request", input?.side === "defendant", JSON.stringify(input?.side));
+    check("saved case: the story is the saved story", input?.story.startsWith("Synthetic family story"));
+    check("saved case: the exact step is sent", /Case conference scheduled/.test(input?.facts ?? ""), input?.facts);
+    check("saved case: the date given is sent", /2026-11-16/.test(input?.facts ?? ""), input?.facts);
+    check("saved case: no name the site knows is sent", !/Ottoline|Brackenbury|Peregrine|Quill/.test(JSON.stringify(input)), input?.facts);
+    check("Family: applicant and respondent, never plaintiff or defendant", strategyQuestions("defendant", "family").every((seat) => !/\bplaintiff\b|\bdefendant\b/i.test(seat.question.replace(/never plaintiff or defendant/i, ""))));
+  }
+
   const rules = readFileSync(path.join(ROOT, "CLAUDE.md"), "utf8");
   check("CLAUDE.md keeps the ban on grading absolute inside strategy", /Case strategy is the one exception/.test(rules) && /ban on grading the case stays absolute/i.test(rules));
 
