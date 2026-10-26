@@ -57,7 +57,7 @@ export const PATHWAY_DESCRIPTIONS: PathwayDescription[] = [
     pathway: "civil",
     label: "Superior Court of Justice (Civil)",
     text:
-      "The Superior Court of Justice hears civil claims above the Small Claims Court limit; a claim within that limit can be started there only with the Superior Court's leave. Its procedure is set by the Rules of Civil Procedure, R.R.O. 1990, Reg. 194.",
+      "The Superior Court of Justice hears civil claims above the Small Claims Court limit. Courts of Justice Act, s. 23 (1.1): “An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.” Its procedure is set by the Rules of Civil Procedure, R.R.O. 1990, Reg. 194.",
     sourceUrl: "https://www.ontario.ca/laws/regulation/900194",
     outOfScope: false,
   },

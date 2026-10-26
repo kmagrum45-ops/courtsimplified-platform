@@ -43,13 +43,25 @@ const SIMPLIFIED_MUST = /\b(?:must|shall|has to|have to|is required to|are requi
  * Safety and Policing Act ss. 63 (1) and 47 (1)), and what the library cannot tell them.
  */
 export function crownNoticeStatements(): Statement[] {
+  // Each sentence is the Act's own words with its section, nothing added (site owner, 2026-10-26).
   return [
-    { text: `The Crown Liability and Proceedings Act, 2019 says: “${S_CLPA_18_1_NOTICE.quote}” (s. 18 (1)).`, sources: [source(S_CLPA_18_1_NOTICE)] },
-    { text: `In that Act, “${S_CLPA_1_CROWN.quote.replace(/^"Crown"/, "Crown")}” (s. 1).`, sources: [source(S_CLPA_1_CROWN)] },
-    { text: `The Community Safety and Policing Act says: “${S_CSPA_63_1_OPP_CROWN.quote}” (s. 63 (1)). For a municipal police service it says: “${S_CSPA_47_1_BOARD_LIABLE.quote}” (s. 47 (1)).`, sources: [source(S_CSPA_63_1_OPP_CROWN), source(S_CSPA_47_1_BOARD_LIABLE)] },
+    { text: actWords(S_CLPA_18_1_NOTICE), sources: [source(S_CLPA_18_1_NOTICE)] },
+    { text: actWords(S_CLPA_1_CROWN), sources: [source(S_CLPA_1_CROWN)] },
+    { text: actWords(S_CSPA_63_1_OPP_CROWN), sources: [source(S_CSPA_63_1_OPP_CROWN)] },
+    { text: actWords(S_CSPA_47_1_BOARD_LIABLE), sources: [source(S_CSPA_47_1_BOARD_LIABLE)] },
     // Not a statement of law: what the library cannot answer, said instead of a guess.
-    { text: "Our library does not hold a rule that says whether notice is needed before suing a municipal police service board, so we cannot tell you that here.", sources: [] },
+    { text: LIBRARY_CANNOT_ANSWER_POLICE_NOTICE, sources: [] },
   ];
+}
+
+/** The library's limit on police notice, as the chat says it (not a statement of law). */
+export const LIBRARY_CANNOT_ANSWER_POLICE_NOTICE = "Our library does not hold a rule that says whether notice is needed before suing a municipal police service board, so we cannot tell you that here.";
+
+/** An Act's own words, quoted, with the Act and section: “...” (Name, s. N). */
+export function actWords(citation: RuleCitation): string {
+  // A quotation mark inside the Act's words ("Crown" means ...) becomes a single one inside ours.
+  const words = citation.quote.replace(/"([^"]+)"/g, "‘$1’");
+  return `“${words}” (${sourceName(citation)}, ${citation.pinpoint})`;
 }
 
 /** The simplified procedure, in the amount card's words (amountNotes.ts) and with its rule. */

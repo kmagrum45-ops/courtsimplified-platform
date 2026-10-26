@@ -4072,7 +4072,7 @@
    "key": "civil-claim-breach-of-contract|proceduralNote|civil-claim-breach-of-contract#note3",
    "verifiedAt": "2026-09-30",
    "outcome": "authored",
-   "fingerprint": "81b9f244964027e89334a63a40312237db3de002853c1e88cf3c3cec10fa82c4",
+   "fingerprint": "86d841390e133d2e6c558a7e61ea99823356ee91758273dc14b6fa0ed37e013b",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
@@ -4395,7 +4395,7 @@
    "key": "civil-claim-debt-or-liquidated-demand|proceduralNote|civil-claim-debt-or-liquidated-demand#note4",
    "verifiedAt": "2026-09-30",
    "outcome": "authored",
-   "fingerprint": "81b9f244964027e89334a63a40312237db3de002853c1e88cf3c3cec10fa82c4",
+   "fingerprint": "86d841390e133d2e6c558a7e61ea99823356ee91758273dc14b6fa0ed37e013b",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
@@ -8870,7 +8870,7 @@
    "key": "sc-claim-online-purchase-not-delivered|proceduralNote|sc-claim-online-purchase-not-delivered#note1",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "0895b73d7873fa29e4e9c14ba0fb2f79ea5dd546c4d36a100432dcfb97c521a1",
+   "fingerprint": "db789d97eb81664382978af7a1ed1becd61a65883fefe538ebda23ca052721aa",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
@@ -10508,7 +10508,7 @@
   {
    "id": "next:civil:starting-case",
    "verifiedAt": "2026-10-04",
-   "fingerprint": "356046d40972f1b0f5fb6e16c14227570f25b4502d1ead901b114dbc8b173933",
+   "fingerprint": "312e03ec9075e10af4322479c166ffc9095d6458aa2e6294450dc5a0523a015d",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/900194_e.doc",

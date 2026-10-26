@@ -24,6 +24,8 @@ const PUBLIC_BODY = ["government-public-authority", "charter", "police-conduct",
  * details" on a divorce case, #477 re-test case 14; "Human rights grounds", "Discrimination facts"
  * and "Accommodation requests" on a Charter claim against police, Charter re-test 2026-10-26).
  */
+/** No answer: empty text, an empty list, nothing, or "not sure". */
+const blankAnswer = (value: unknown) => value === undefined || value === null || value === "not-sure" || (typeof value === "string" && !value.trim()) || (Array.isArray(value) && value.length === 0);
 const ISSUE_ONLY: Record<string, string[]> = {
   adoptionDetails: ["adoption"],
   humanRightsGrounds: HUMAN_RIGHTS, discriminationFacts: HUMAN_RIGHTS, accommodationRequests: HUMAN_RIGHTS,
@@ -88,6 +90,8 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   const fromStart = situationAnswers(courtPath, situationOf(sections));
   const startKeys = new Set<string>();
   const stored = courtPath === "family" ? object(sections.family) : object(sections[section]?.input);
+  // The same answers before any is set aside for an earlier story (for which questions apply).
+  const asStored = courtPath === "family" ? object(checkpoint.sections.family) : object(checkpoint.sections[section]?.input);
   const source: Record<string, unknown> = { ...stored };
   if (fromStart.role) { source.yourRole = courtPath === "small-claims" ? (fromStart.role === "defendant" ? "Defendant / responding party" : "Plaintiff / claimant") : fromStart.role; startKeys.add("yourRole"); }
   if (fromStart.documents) { source[courtPath === "civil" ? "documents" : "filedDocuments"] = fromStart.documents; startKeys.add(courtPath === "civil" ? "documents" : "filedDocuments"); }
@@ -105,10 +109,14 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // A detail of one issue is asked for only when that issue is the person's ("Adoption details"
     // showed on a divorce case, #477 re-test case 14).
     const issueOnly = ISSUE_ONLY[key];
-    const notTheirIssue = issueOnly ? !issueOnly.some((issue) => (Array.isArray(source.issues) ? source.issues as string[] : []).includes(issue)) : false;
+    // Judged on the answers as given, set-aside ones included: an answer kept from an earlier
+    // story stays on its own line, marked, never moved to an unlabelled list (story-change test).
+    // Each answer as it is now, or as it was given where it has been set aside (emptied).
+    const asGiven = { ...source, ...Object.fromEntries(Object.entries(asStored).filter(([name, value]) => blankAnswer(source[name]) && !blankAnswer(value))) };
+    const notTheirIssue = issueOnly ? !issueOnly.some((issue) => [...(Array.isArray(source.issues) ? source.issues as string[] : []), ...(Array.isArray(asStored.issues) ? asStored.issues as string[] : [])].includes(issue)) : false;
     // A question asked only on one side or in one situation (its `when`: "When and how you were
     // served" is the responding side's) is not essential for anyone else.
-    const notTheirQuestion = definition?.when ? !definition.when({ ...source, facts: storyOf(sections) } as never) : false;
+    const notTheirQuestion = definition?.when ? !definition.when({ ...asGiven, facts: storyOf(sections) } as never) : false;
     entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).

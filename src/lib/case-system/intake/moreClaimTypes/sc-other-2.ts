@@ -1163,10 +1163,10 @@ export const TYPES_SC_OTHER_2: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Claims of $50,000 or less belong in Small Claims Court. Under s. 23(1.1) of the Courts of " +
-          "Justice Act, an action within the Small Claims Court's jurisdiction shall not be started in " +
-          "the Superior Court of Justice except with leave of the Superior Court of Justice as provided " +
-          "in the rules of court. Under s. 23(2), an action in the Superior Court of Justice may be " +
+          "Claims of $50,000 or less belong in Small Claims Court. Courts of Justice Act, s. 23(1.1): " +
+          "“An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), " +
+          "be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as " +
+          "provided in the rules of court.” Under s. 23(2), an action in the Superior Court of Justice may be " +
           "transferred to the Small Claims Court by the local registrar, on requisition with the " +
           "consent of all parties filed before the trial starts, if the only claim is for the payment " +
           "of money or the recovery of personal property and it is within the Small Claims Court's " +

@@ -57,7 +57,8 @@ export function amountNoteFor({
       return {
         text:
           `${lead} A claim for money of $50,000 or less is within the Small Claims Court's limit. ` +
-          "It can be started in the Superior Court only with that court's leave. " +
+          // The Act's own words with its section (site owner, 2026-10-26): never a paraphrase.
+          "Courts of Justice Act, s. 23 (1.1): “An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.” " +
           "If you start it in the Superior Court with leave, and it is only for money or property, " +
           "it goes under the simplified procedure (Rule 76), and your statement of claim must say so.",
         sources: [S_MONETARY_LIMIT, S_CJA_23_1_1_LEAVE, RCP_76_02_1_MANDATORY, RCP_76_02_4_SAY_SO],

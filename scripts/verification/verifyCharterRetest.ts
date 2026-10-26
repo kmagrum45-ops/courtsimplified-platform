@@ -32,7 +32,9 @@ import { claimAmountFromStory, moneyMentions } from "../../src/lib/case-system/c
 import { caseFileOf, emptyCaseFile } from "../../src/lib/case-system/caseFile/caseFile";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDeadlines";
-import { withLibraryOwned } from "../../src/lib/case-system/retrieval/libraryOwned";
+import { crownNoticeStatements, LIBRARY_CANNOT_ANSWER_POLICE_NOTICE, withLibraryOwned } from "../../src/lib/case-system/retrieval/libraryOwned";
+import { amountNoteFor } from "../../src/lib/case-system/amountNotes";
+import { courtWords, CJA_23_1_1_WORDS } from "../../app/builder/_components/StageAnswerPanel";
 import { isStatuteWording, withoutStatuteEchoes } from "../../src/lib/case-system/retrieval/statuteEcho";
 import { answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
 import { readChip, readNote } from "../../src/lib/case-workspace/readStatus";
@@ -98,12 +100,30 @@ async function main() {
   const owned = withLibraryOwned(modelSaid);
   const ownedText = owned.map((statement) => statement.text).join("\n");
   check("the Crown's notice is never in the model's words", !owned.some((statement) => statement.text === modelSaid[0].text));
-  check("the Crown's notice always says who the Crown is (CLPA s. 1)", /Crown means the Crown in right of Ontario/.test(ownedText), ownedText);
+  check("the Crown's notice always says who the Crown is (CLPA s. 1)", /‘Crown’ means the Crown in right of Ontario/.test(ownedText), ownedText);
+  // Site owner, 2026-10-26: every sentence is the statute's own words with its section, no paraphrase.
+  const crownSentences = crownNoticeStatements().filter((statement) => statement.text !== LIBRARY_CANNOT_ANSWER_POLICE_NOTICE);
+  check("every Crown-notice sentence is an Act's words, quoted, with its section", crownSentences.every((statement) => /^“[^”]+” \([^)]*, s\. [\d ()]+\)$/.test(statement.text)), crownSentences.map((statement) => statement.text).join("\n      "));
+  check("and those words are the checked citation's, nothing added", crownSentences.every((statement) => statement.sources.length === 1 && statement.text.startsWith(`“${statement.sources[0].quote.replace(/"([^"]+)"/g, "‘$1’")}”`)));
+  check("the one other line says what the library cannot answer, and states no law", crownNoticeStatements().filter((statement) => !crownSentences.some((kept) => kept.text === statement.text)).length === 1);
   check("and who answers for the OPP and for a municipal police service (CSPA ss. 63 (1), 47 (1))", /Ontario Provincial Police/.test(ownedText) && /A police service board is liable/.test(ownedText));
   check("and says plainly what the library cannot answer about notice to a police board", /does not hold a rule that says whether notice is needed before suing a municipal police service board/.test(ownedText));
   check("every legal sentence it adds carries its source", owned.filter((statement) => /says:|means/.test(statement.text)).every((statement) => statement.sources.length > 0));
   check("simplified procedure is said as the amount card says it", /If your claim is only for money or property, \$200,000 or less means it must go under the simplified procedure \(Rule 76\)/.test(ownedText) && !/must follow simplified procedure/.test(ownedText));
   check("anything else the model said is kept", owned.some((statement) => statement.text === modelSaid[2].text));
+
+  // ---- 4b. The leave rule: the Act's own words with s. 23 (1.1), never a paraphrase (site owner, 2026-10-26) ----
+  const ACT_23_1_1 = "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.";
+  const codeFiles: string[] = [];
+  const walkCode = (dir: string) => { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const full = path.join(dir, entry.name); if (entry.isDirectory()) walkCode(full); else if (/\.tsx?$/.test(entry.name)) codeFiles.push(full); } };
+  walkCode(path.join(ROOT, "src")); walkCode(path.join(ROOT, "app"));
+  const PARAPHRASE = /(?:can only be started|cannot be started|shall not be started|can be started there only|started in the Superior Court only)[^."]*\bleave\b/i;
+  const paraphrased = codeFiles.filter((file) => PARAPHRASE.test(fs.readFileSync(file, "utf8").replace(/const LEAVE_PARAPHRASE = [^\n]+/, ""))).map((file) => path.relative(ROOT, file));
+  check("no code says the leave rule in its own words", paraphrased.length === 0, paraphrased.join(", "));
+  const amount = amountNoteFor({ courtPath: "civil", stepId: "civil:plaintiff:claim-drafted-not-issued", recordedAmount: "$12,000" })?.text ?? "";
+  check("the amount card gives the Act's words with s. 23 (1.1)", amount.includes(`Courts of Justice Act, s. 23 (1.1): “${ACT_23_1_1}”`), amount);
+  const published = ["If your claim is within that limit, it can only be started in the Superior Court with that court's leave.", "A claim within that limit cannot be started in the Superior Court of Justice without that court's leave."];
+  check("the published library's two sentences show as the Act's words on screen", published.every((sentence) => courtWords(`Before. ${sentence} After.`, "civil") === `Before. ${CJA_23_1_1_WORDS} After.`) && CJA_23_1_1_WORDS.includes(ACT_23_1_1));
 
   // ---- 5. A decision is not the source for an Act's words ----
   const charterNine = "Everyone has the right not to be arbitrarily detained or imprisoned.";
