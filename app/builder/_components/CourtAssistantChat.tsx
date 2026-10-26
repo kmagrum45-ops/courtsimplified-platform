@@ -1480,8 +1480,8 @@ function CourtAssistantChatInner({
 
           <div className="mt-3 flex items-center justify-between gap-3">
             <p className="text-xs text-[#6b8078]">
-              CourtSimplified helps organize litigation information. Verify
-              final court requirements before filing.
+              Check anything important against the official source before you
+              file it.
             </p>
 
             <button
@@ -1490,7 +1490,7 @@ function CourtAssistantChatInner({
               disabled={loading || !input.trim()}
               className="rounded-2xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white hover:bg-[#276b58] disabled:cursor-not-allowed disabled:bg-slate-300"
             >
-              {loading ? "Reviewing..." : "Ask Case Partner"}
+              {loading ? "Working on it..." : "Ask"}
             </button>
           </div>
         </div>

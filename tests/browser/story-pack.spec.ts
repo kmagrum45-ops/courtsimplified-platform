@@ -392,7 +392,7 @@ async function lastReply(page: Page, question: string): Promise<string> {
   const transcript = page.getByTestId("case-partner-transcript");
   const before = await transcript.locator("div.mr-auto").count();
   await page.getByPlaceholder("Ask about an important date, document, or case detail.").fill(question);
-  await page.getByRole("button", { name: "Ask Case Partner" }).click();
+  await page.getByRole("button", { name: "Ask", exact: true }).click();
   await expect(transcript.locator("div.mr-auto")).toHaveCount(before + 1, { timeout: 60_000 });
   // The reply, not the "reviewing this case ..." line shown while it is on its way.
   const reply = transcript.locator("div.mr-auto").last();

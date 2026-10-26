@@ -31,6 +31,8 @@
  * showed before.
  */
 
+import { withLibraryOwned } from "./libraryOwned";
+import { withoutStatuteEchoes } from "./statuteEcho";
 import { sentences as sharedSentences } from "../sentences";
 import type { CheckedAnswerView } from "../intelligence/intelligenceTypes";
 import { historicalStatementOk, isHistoricalId } from "./historicalLaw";
@@ -603,6 +605,16 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
       notConfirmedWhy.push({ topic: item.topic, why: item.why });
     }
     statements.splice(0, statements.length, ...kept);
+
+    // A decision cited only for words an Act we hold also says is not a source for them
+    // (statuteEcho.ts: R. v. Morales beside Charter ss. 8 and 9, Charter re-test).
+    const echoes = withoutStatuteEchoes(statements);
+    for (const statement of echoes.dropped) {
+      notConfirmed.push(statement.text.slice(0, 80));
+      notConfirmedWhy.push({ topic: statement.text.slice(0, 80), why: "Its only source was a decision quoting an Act's own words, not what the court decided." });
+    }
+    // The topics the library owns are said in its own words, as on the pages (libraryOwned.ts).
+    statements.splice(0, statements.length, ...(withLibraryOwned(echoes.kept) as AnswerStatement[]));
 
     // A statement with no legal content would not need a source; one with
     // legal content always has one by now. Both are fine; nothing else is shown.

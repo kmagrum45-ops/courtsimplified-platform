@@ -58,7 +58,7 @@ async function chatOnNewCase(page: Page, court: Court, chatRoutes: () => Promise
 
 async function ask(page: Page, question: string) {
   await page.getByPlaceholder("Ask about an important date, document, or case detail.").fill(question);
-  await page.getByRole("button", { name: "Ask Case Partner" }).click();
+  await page.getByRole("button", { name: "Ask", exact: true }).click();
 }
 
 for (const court of ["small-claims", "family", "civil"] as const) {

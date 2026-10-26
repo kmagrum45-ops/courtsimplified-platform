@@ -1,3 +1,4 @@
+import { answeredInStory } from "./answeredInStory";
 import {
   buildConversationIntelligence,
   CasePartnerCourtContext,
@@ -961,6 +962,8 @@ function buildDocumentReadinessAnswer(args: {
 function buildBestQuestion(args: {
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
+  /** The saved story: a question it answers is not asked (answeredInStory.ts). */
+  knownStory?: string;
 }): string {
   const selectedQuestion =
     args.intelligence.selectedNextQuestion;
@@ -979,7 +982,7 @@ function buildBestQuestion(args: {
   }
 
   const reasoningQuestion = firstItem(
-    args.legalReasoning.reasoningSummary.firstQuestions,
+    args.legalReasoning.reasoningSummary.firstQuestions.filter((question) => !answeredInStory(question, args.knownStory ?? "")),
   );
 
   if (hasText(reasoningQuestion)) {
@@ -1018,6 +1021,13 @@ function buildCaution(
  * Evidence the person already named, in their own words: their answer to the
  * evidence question, and up to two sentences of their story that mention it.
  */
+/** The person's own saved story (never the labelled record), for what is already known. */
+function savedStoryOf(caseMemory: unknown): string {
+  const caseData = getNestedValue(caseMemory, ["caseData"]);
+  const own = getNestedValue(caseData, ["story"]);
+  return clean(typeof own === "string" && own.trim() ? own : userStory(caseData as Parameters<typeof userStory>[0]));
+}
+
 function recordedEvidenceOf(caseMemory: unknown): string[] {
   const caseData = getNestedValue(caseMemory, ["caseData"]);
   // The person's own words, never the labelled record the analysis reads ("Court path:
@@ -1046,6 +1056,7 @@ function recordedEvidenceOf(caseMemory: unknown): string[] {
 function buildDirectAnswer(args: {
   intent: ResponseIntent;
   recorded?: string[];
+  knownStory?: string;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1075,6 +1086,7 @@ function buildGeneralAnswer(args: {
   askedQuestion: boolean;
   /** Evidence the person already named, in their own words. */
   recordedEvidence?: string[];
+  knownStory?: string;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1152,6 +1164,7 @@ function buildGeneralAnswer(args: {
   const bestQuestion = buildBestQuestion({
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
+    knownStory: args.knownStory,
   });
   // Not "what proof do you already have" when the person has said what they have
   // (#470 re-test: it followed a reply quoting their own list of evidence).
@@ -1182,6 +1195,7 @@ function buildAnswer(args: {
   courtConfirmed: boolean;
   /** Evidence the person already named: quotes from their story and their own answer. */
   recordedEvidence?: string[];
+  knownStory?: string;
   conversation: CasePartnerConversationMessage[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
@@ -1197,6 +1211,7 @@ function buildAnswer(args: {
     const directAnswer = buildDirectAnswer({
       intent,
       recorded: args.recordedEvidence,
+      knownStory: args.knownStory,
       intelligence: args.intelligence,
       legalReasoning: args.legalReasoning,
       investigation: args.investigation,
@@ -1235,6 +1250,7 @@ function buildAnswer(args: {
     firstTurn,
     courtConfirmed: args.courtConfirmed,
     recordedEvidence: args.recordedEvidence,
+    knownStory: args.knownStory,
     askedQuestion: /\?\s*$/.test(args.message.trim()) || /^(what|how|when|where|who|why|which|can|could|do|does|did|should|is|are|will|would)\b/i.test(args.message.trim()),
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
@@ -1354,6 +1370,7 @@ export function runGuidedAssistantOrchestrator(
         // The caller named the case's court: the guided route passes the confirmed case's.
         courtConfirmed: Boolean(clean(input.courtContext?.courtPath)),
         recordedEvidence: recordedEvidenceOf(input.caseMemory),
+        knownStory: savedStoryOf(input.caseMemory),
         conversation,
         intelligence: conversationIntelligence,
         legalReasoning,

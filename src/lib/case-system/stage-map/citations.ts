@@ -48,6 +48,8 @@ export type CorpusSourceId =
   // 2026-10-01: the family stage map.
   | "family-law-rules"
   | "family-law-act"
+  // 2026-10-26: who answers for the police (the Crown notice in the chat, Charter re-test).
+  | "community-safety-and-policing-act"
   | "childrens-law-reform-act"
   | "divorce-act"
   | "family-responsibility-support-arrears-enforcement-act"
@@ -94,6 +96,7 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "rules-of-civil-procedure": "https://www.ontario.ca/laws/regulation/900194",
   "family-law-rules": "https://www.ontario.ca/laws/regulation/990114",
   "family-law-act": "https://www.ontario.ca/laws/statute/90f03",
+  "community-safety-and-policing-act": "https://www.ontario.ca/laws/statute/19c01",
   "childrens-law-reform-act": "https://www.ontario.ca/laws/statute/90c12",
   "divorce-act": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/",
   "family-responsibility-support-arrears-enforcement-act": "https://www.ontario.ca/laws/statute/96f31",
@@ -132,6 +135,7 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "rules-of-civil-procedure": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
   "family-law-rules": "Family Law Rules, O. Reg. 114/99",
   "family-law-act": "Family Law Act, R.S.O. 1990, c. F.3",
+  "community-safety-and-policing-act": "Community Safety and Policing Act, 2019, S.O. 2019, c. 1, Sched. 1",
   "childrens-law-reform-act": "Children's Law Reform Act, R.S.O. 1990, c. C.12",
   "divorce-act": "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.)",
   "family-responsibility-support-arrears-enforcement-act":
@@ -1062,6 +1066,35 @@ export const S_CLPA_18_4_PROPERTY: RuleCitation = {
   pinpoint: "s. 18 (4)",
   quote:
     "Despite subsection (1), no proceeding that includes a claim for damages may be brought against the Crown under clause 8 (1) (b) unless the notice required by subsection (1) is served on the Crown in accordance with section 15 no later than 10 days after the occurrence of the event out of which the claim arises.",
+};
+
+/*
+ * WHO THE CROWN NOTICE IS FOR (Charter re-test 2026-10-26). The chat raised the 60-day notice
+ * in s. 18 for a claim against a municipal police service without saying it is a notice to the
+ * Crown. These are the Acts' own words for who "the Crown" is, and who answers for which police.
+ */
+export const S_CLPA_1_CROWN: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 1",
+  quote: "\"Crown\" means the Crown in right of Ontario",
+};
+
+export const S_CSPA_47_1_BOARD_LIABLE: RuleCitation = {
+  sourceId: "community-safety-and-policing-act",
+  pinpoint: "s. 47 (1)",
+  quote: "A police service board is liable for the acts or omissions of members of its police service committed in the course of their employment.",
+};
+
+export const S_CSPA_49_1_BOARD_SUED: RuleCitation = {
+  sourceId: "community-safety-and-policing-act",
+  pinpoint: "s. 49 (1)",
+  quote: "A police service board may contract, sue and be sued in its own name.",
+};
+
+export const S_CSPA_63_1_OPP_CROWN: RuleCitation = {
+  sourceId: "community-safety-and-policing-act",
+  pinpoint: "s. 63 (1)",
+  quote: "The Crown in right of Ontario is liable for the acts or omissions of members of the Ontario Provincial Police committed in the course of their employment.",
 };
 
 export const S_LS_5_1_NOTICE: RuleCitation = {

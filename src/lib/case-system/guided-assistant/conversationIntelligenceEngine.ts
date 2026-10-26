@@ -1,3 +1,4 @@
+import { answeredInStory } from "./answeredInStory";
 import { sentences as sharedSentences } from "../sentences";
 import { findDates, findDayMonthWithoutYear, mentionsDate, mentionsRelativeDate } from "../dates";
 import {
@@ -660,7 +661,8 @@ function profileQuestionReason(profile: LegalReasoningProfile, question: string)
     return `This helps identify the parties, witnesses, and burden points that need to be proven.`;
   }
 
-  return `This follows the reasoning profile for ${profile.label} and helps move the case from a story into organized proof.`;
+  // Plain words: "reasoning profile" is the site's own machinery, not something a person needs (Charter re-test).
+  return `This helps put what happened in the order a court will look at it.`;
 }
 
 function profileQuestions(
@@ -1859,11 +1861,14 @@ function buildQuestions(args: {
   signals: CasePartnerLegalSignal[];
   actors: CasePartnerInferredActor[];
   conversationText: string;
+  /** The saved story and timeline: a question they answer is not asked (answeredInStory.ts). */
+  knownText?: string;
 }): CasePartnerQuestion[] {
   const questions: CasePartnerQuestion[] = [];
 
   function pushQuestion(question: CasePartnerQuestion) {
     if (wasQuestionAlreadyAsked(question.question, args.conversationText)) return;
+    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`)) return;
     if (questions.some((existing) => existing.question === question.question)) return;
     questions.push(question);
   }
@@ -2235,6 +2240,7 @@ export function buildConversationIntelligence(
     signals: legalSignals,
     actors: inferredActors,
     conversationText,
+    knownText: savedCaseText(input.caseMemory),
   });
 
   const questions: CasePartnerQuestion[] =
