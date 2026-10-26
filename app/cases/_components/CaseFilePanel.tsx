@@ -13,6 +13,7 @@ import { SLOT_FACTS, slotText, type CaseFile, type SlotFact } from "@/src/lib/ca
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
+import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
 
 const LABEL: Record<SlotFact, string> = {
   side: "Your side",
@@ -45,6 +46,8 @@ const BROAD: Record<string, string> = { "starting-case": "Starting a case", resp
 
 function shownValue(fact: SlotFact, file: CaseFile): string {
   const slot = file[fact];
+  // What is filed, by name, where the person said (case 16: "the filed application and answer").
+  if (fact === "filed" && slot.state === "answered" && slot.value === true && file.documents?.length) return `Yes: ${inWords(file.documents)}`;
   if (slot.state === "answered" && typeof slot.value === "string") {
     if (fact === "court") return COURT[slot.value] ?? slot.value;
     if (fact === "side") return SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
@@ -60,7 +63,8 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
 
 export default function CaseFilePanel({ file, changeHref, situationHref, stepHref }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string }) {
   const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file));
-  if (!lines.length) return null;
+  const fromStory = storyLines(file.story ?? "", file, file.side.state === "answered" && file.side.value === "responding");
+  if (!lines.length && !fromStory.length) return null;
   return (
     <section aria-labelledby="case-file-heading" data-testid="case-file" className="rounded-3xl border border-[#d8e6df] bg-white p-5">
       <h2 id="case-file-heading" className="text-xl font-bold text-[#10231f]">What we have so far</h2>
@@ -85,6 +89,15 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
             </div>
           );
         })}
+        {fromStory.map((line) => (
+          <div key={line.fact} className="contents" data-testid="case-file-story-line" data-fact={line.fact}>
+            <dt className="font-semibold text-[#10231f]">{line.label}</dt>
+            <dd>
+              {line.value} <span className="text-[#4f685f]">(from your story)</span>{" "}
+              <Link data-testid="case-file-change" href={changeHref} className="font-semibold text-[#2f7d67] underline">Change</Link>
+            </dd>
+          </div>
+        ))}
       </dl>
     </section>
   );

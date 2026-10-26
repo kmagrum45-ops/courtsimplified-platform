@@ -18,7 +18,7 @@
  * decided on its own (Jason's walkthrough findings 1-3 and the 22 repeats the ask-once
  * gate found on 2026-10-23).
  */
-import { type SlotFact, slotsOfQuestion, alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
+import { slotText, type SlotFact, slotsOfQuestion, alreadyAsked, askable, caseFileOf, nextQuestion, withCaseFileDates, withoutCaseFileDates, withUnsure, isUnsureAnswer, CASE_FILE_SECTION } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
 import { remainingEssentialQuestions, reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { dateAnswerCheck } from "../../src/lib/case-system/dates";
@@ -27,6 +27,7 @@ import { situationOf, withSituationDates } from "../../src/lib/case-system/situa
 import { withCaseFileAnswers } from "../../src/lib/case-system/caseFile/triageFromCaseFile";
 import { emptyStatusRecord } from "../../src/lib/case-system/family/statusTriage";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -153,6 +154,31 @@ const checkpoint = (courtPath: Checkpoint["courtPath"], sections: Record<string,
   const family = reviewEntries(checkpoint("family", { family: { uploadedEvidenceFiles: ["a.pdf"], someNewField: "x" } }));
   check("Family review labels are plain words, never Title Case of a field name", family.every((entry) => !/[a-z] [A-Z][a-z]+ [A-Z]/.test(entry.label)) && family.find((entry) => entry.field === "uploadedEvidenceFiles")?.label === "Documents you uploaded", family.map((entry) => entry.label).join(" | "));
   check("Divorce and selling the family home are Family issues a person can pick", ["divorce", "sale-of-home"].every((value) => FAMILY_ISSUE_OPTIONS.some((option) => option.value === value)));
+}
+
+// "What we have so far" (#477 re-test, item 6): amounts as a court form writes them, a rough time
+// shown as given, the papers filed by name, and what the story says that no answer holds yet --
+// shown, never filling a slot (so never stopping a question).
+{
+  check("an amount is shown as $2,500.00", slotText({ state: "answered", value: 2500, confirmed: true }, (iso) => iso) === "$2,500.00");
+  const words = caseFileOf(checkpoint("small-claims", { builder: { initialAnswers: { "sc-amount-claimed": "twenty five hundred" } } }));
+  check("an amount typed in words is kept as a number", words.amount.value === 2500, JSON.stringify(words.amount));
+  check("a rough time is shown as given, the day not yet", slotText({ state: "unsure", value: "July 2026", confirmed: true }, (iso) => iso) === "July 2026 (day not given yet)");
+  check("an unsure answer with nothing given reads not sure", slotText({ state: "unsure", confirmed: true }, (iso) => iso) === "Not sure yet");
+  const filed = caseFileOf(checkpoint("family", { family: { filedDocuments: ["application", "answer"] } }));
+  check("the papers filed are kept by name", JSON.stringify(filed.documents) === JSON.stringify(["application", "answer"]));
+  const m16 = "We have a case going in Ottawa about parenting. I filed an application in June 2026. He yelled and threatened me in front of her in March and I called the police once. Exchanges are tense.";
+  const m16File = caseFileOf({ ...checkpoint("family", {}), sections: { story: { text: m16 } } });
+  const m16Lines = storyLines(m16File.story ?? "", m16File, false);
+  check("the threats and the police call are shown from the story", m16Lines.some((line) => line.fact === "safety" && /threatened/.test(line.value) && /police/.test(line.value)), JSON.stringify(m16Lines));
+  const m14 = "My wife wants a divorce. We were married in Lisbon, Portugal in 2009 and moved here in 2012.";
+  const m14File = caseFileOf({ ...checkpoint("family", {}), sections: { story: { text: m14 } } });
+  check("where they married is shown from the story", storyLines(m14File.story ?? "", m14File, true).some((line) => line.fact === "marriedWhere" && line.value === "Lisbon, Portugal"));
+  const m19 = "Later, on October 20, Circuit Doctors' owner, Wei Chen, serves him with a claim for $3,200 for 'defamation' over an online review.";
+  const m19File = caseFileOf({ ...checkpoint("small-claims", {}), sections: { story: { text: m19 } } });
+  check("the claim against a responding person is shown, with who is suing", storyLines(m19File.story ?? "", m19File, true).some((line) => line.fact === "amountAgainst" && /\$3,200/.test(line.value) && /Wei Chen/.test(line.value)));
+  check("never for the person bringing the claim", !storyLines(m19File.story ?? "", m19File, false).some((line) => line.fact === "amountAgainst"));
+  check("a story line never fills a slot (the question is still asked)", m14File.marriedWhere.state === "not-asked" && m16File.otherParty.state === "not-asked");
 }
 
 if (failures) { console.log(`${failures} check(s) failed.`); process.exit(1); }
