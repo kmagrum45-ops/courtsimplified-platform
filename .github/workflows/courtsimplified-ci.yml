@@ -247,6 +247,9 @@ jobs:
       - name: The case file holds every fact once, and no screen asks a held fact again
         run: npm run test:case-file
 
+      - name: A changed side sets aside the old side's facts, in every area
+        run: npm run test:side-change
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 

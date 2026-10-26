@@ -815,3 +815,43 @@ for (const [label, damage] of [
     }
   });
 }
+
+// Case 19: Marcus started as the one suing ($1,650), then changed his answer: Circuit Doctors'
+// owner served him with a claim on October 20. "Amount claimed: $1,650 (your answer already
+// given; it is not asked again)" stayed on the claim against him. The old side's facts are
+// set aside when the side changes, and asked again.
+test("retest-477 case 19: after changing side, the old side's amount is not carried -- small-claims", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = MESSY_STORIES.find((item) => item.id === "m19-laptop-repair")!;
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await smallClaims(page, story, true);
+  const amount = page.locator('[data-question="sc-amount-claimed"]');
+  if (!(await amount.getByRole("button", { name: /from your story/ }).count())) {
+    // No amount offered: the person types the total they want back.
+    await amount.getByRole("textbox").fill("$1,650");
+    await amount.getByRole("textbox").press("Enter");
+  }
+  await expect(amount).toHaveAttribute("data-answered", "true");
+  // The side changes: served with a Plaintiff's Claim on October 20, 2026.
+  await autoAnswerSituation(page, { where: "served", papers: "small-claims-7A", receivedOn: "October 20, 2026" });
+  await page.getByTestId("situation-change").click();
+  await expect(page.getByTestId("situation-line")).toContainText(/Plaintiff.s Claim \(Form 7A\)/, { timeout: 30_000 });
+  await page.waitForTimeout(1_000);
+  const held = page.locator('[data-question="sc-amount-claimed"], [data-question="amountClaimed"]');
+  const oldAmount = async () => { for (const box of await held.getByRole("textbox").all()) if ((await box.inputValue()).includes("1,650")) return true; return (await held.count()) > 0 && (await held.first().getAttribute("data-answered")) === "true"; };
+  expect(await oldAmount(), "the review holds no amount from the old side").toBe(false);
+  await expect(page.getByTestId("intake-review")).not.toContainText("1,650");
+  // The form, too.
+  await page.reload();
+  await page.waitForLoadState("networkidle").catch(() => {});
+  const form = page.getByRole("button", { name: "Fill in the form yourself" });
+  if (await form.isVisible().catch(() => false)) await form.click();
+  await page.waitForTimeout(1_500);
+  await expect(page.locator("body"), "the form holds no amount from the old side").not.toContainText("$1,650 (your answer already given");
+  await expect(page.getByTestId("intake-review")).not.toContainText("1,650");
+  expect(await oldAmount(), "after a reload too").toBe(false);
+  for (const box of await page.getByRole("textbox").all()) expect(await box.inputValue(), "no box holds the old side's amount").not.toContain("1,650");
+});
