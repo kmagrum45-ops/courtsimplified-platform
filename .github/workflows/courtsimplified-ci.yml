@@ -253,6 +253,9 @@ jobs:
       - name: No raw field name or code is shown to a person (the copy guard)
         run: npm run test:raw-keys
 
+      - name: The answer key's reader reads a (case, field, expected) table with no holes
+        run: npm run test:answer-key-reader
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 
