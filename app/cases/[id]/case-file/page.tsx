@@ -24,7 +24,8 @@ import type { DecisionDetails } from "@/src/lib/case-workspace/courtDecision";
 
 import { getStageLabel } from "../../../builder/_components/builderTypes";
 import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
-import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
+import { findStage, type StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
+import { caseStageWords } from "@/src/lib/case-system/caseStep";
 import { COURT_LABELS, authHeaders, caseTitle, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
 import { userStory } from "@/src/lib/case-system/userStory";
 
@@ -163,7 +164,7 @@ export default function CaseFileSection() {
         </header>
 
         <FileSection title="Where the case is">
-          <p>{position.confirmedStage ? getStageLabel(position.confirmedStage) : "Not confirmed yet."}</p>
+          <p>{caseStageWords(caseRecord.master_result, caseRecord.court_path as StagePathway | null) ?? (position.confirmedStage ? getStageLabel(position.confirmedStage) : "Not confirmed yet.")}</p>
           {step ? <p className="mt-1">Exact step: {step.userQuestion}</p> : null}
         </FileSection>
 

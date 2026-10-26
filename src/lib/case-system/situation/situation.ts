@@ -280,6 +280,21 @@ const DOCUMENT_OF_PAPERS: Record<string, string> = {
   "family-8B": "application",
 };
 
+/**
+ * The case stage the start answers settle, in words: the step picked by its own title in the stage
+ * map, else the broad stage. One wording for every "Case stage" box (conference audit 2026-10-26:
+ * the intake forms said "Starting a new case" for anything but responding or already started).
+ */
+export function stageWords(answers: Pick<SituationAnswers, "caseStage" | "stepTitle">): string | null {
+  if (answers.stepTitle) return answers.stepTitle;
+  switch (answers.caseStage) {
+    case "starting-case": return "Starting a new case";
+    case "responding": return "Responding to a case";
+    case undefined: return null;
+    default: return "Case already started";
+  }
+}
+
 export function situationAnswers(court: SituationCourt, situation: Situation): SituationAnswers {
   const side = sideOf(situation);
   const out: SituationAnswers = { questionIds: [] };
