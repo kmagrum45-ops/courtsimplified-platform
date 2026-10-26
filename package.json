@@ -258,6 +258,7 @@
     "test:answer-key-reader": "node --import tsx scripts/verification/verifyAnswerKeyReader.ts",
     "test:site-map": "tsx scripts/docs/generateSiteMapGraph.ts --check",
     "test:charter-retest": "node --import tsx scripts/verification/verifyCharterRetest.ts",
+    "test:document-link": "node --import tsx scripts/verification/verifyDocumentLink.ts",
     "test:court-terms": "node --import tsx scripts/verification/verifyCourtTerms.ts",
     "test:story-pack": "node scripts/browser/storyPack.mjs",
     "test:analysis-time-budget": "node --import tsx scripts/verification/verifyAnalysisTimeBudget.ts"

@@ -265,6 +265,35 @@ export default function CaseWorkspace({
     [load],
   );
 
+  /** A one-minute signed link to the person's own file: opened in a new tab, or saved with its name. */
+  const openFile = useCallback(async (documentId: string, download: boolean): Promise<string | null> => {
+    const headers = await authHeaders();
+    if (!headers) return "Please sign in again.";
+    // Opened before the request, so the browser does not treat the new tab as an unasked-for pop-up.
+    const tab = download ? null : window.open("", "_blank");
+    const response = await fetch(`/api/workspace/documents/link?documentId=${documentId}${download ? "&download=1" : ""}`, { headers }).catch(() => null);
+    const payload = response ? await response.json().catch(() => null) : null;
+    if (!response?.ok || !payload?.url) {
+      tab?.close();
+      return payload?.error || "The file could not be opened just now. Please try again.";
+    }
+    if (tab) tab.location.href = payload.url;
+    else window.location.assign(payload.url);
+    return null;
+  }, []);
+
+  /** Deletes the person's own file; says plainly when it could not be removed. */
+  const removeFile = useCallback(async (documentId: string): Promise<string | null> => {
+    const headers = await authHeaders();
+    if (!headers) return "Please sign in again.";
+    const response = await fetch(`/api/workspace/documents?documentId=${documentId}`, { method: "DELETE", headers }).catch(() => null);
+    const payload = response ? await response.json().catch(() => null) : null;
+    if (!response?.ok) return [payload?.error, payload?.detail].filter(Boolean).join(" ") || "The file was not deleted. Please try again.";
+    setSelectedId(null);
+    await load("documents");
+    return null;
+  }, [load]);
+
   return (
     <div className="text-[#16302b]">
       {shown.length > 1 ? (
@@ -329,7 +358,7 @@ export default function CaseWorkspace({
         </div>
 
         {/* ---- detail panel ---- */}
-        {section === "documents" ? <DetailPanel document={selected} onSave={save} /> : null}
+        {section === "documents" ? <DetailPanel document={selected} onSave={save} onOpen={openFile} onRemove={removeFile} /> : null}
       </div>
     </div>
   );
@@ -595,12 +624,62 @@ function DocumentsTable({
 const SUGGESTION_BOUNDARY =
   "Suggestions describe what a document is. They never say whether it helps your case.";
 
+/**
+ * Open, save or delete the person's own file (Charter re-test 2026-10-26: there was no way to).
+ * Open and save use a one-minute signed link to the private bucket (/api/workspace/documents/link);
+ * delete uses DELETE /api/workspace/documents, which says plainly if the file could not be removed.
+ */
+function FileActions({
+  document,
+  onOpen,
+  onRemove,
+}: {
+  document: DocumentView;
+  onOpen: (id: string, download: boolean) => Promise<string | null>;
+  onRemove: (id: string) => Promise<string | null>;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const act = async (work: () => Promise<string | null>) => {
+    setBusy(true);
+    setMessage(null);
+    const problem = await work();
+    setBusy(false);
+    if (problem) setMessage(problem);
+  };
+  return (
+    <div className="mt-2">
+      <div className="flex flex-wrap gap-2 text-sm">
+        <button type="button" data-testid="document-open" disabled={busy} onClick={() => void act(() => onOpen(document.id, false))} className="rounded-full border border-[#2f7d67] px-3 py-1 font-semibold text-[#2f7d67] disabled:opacity-50">Open</button>
+        <button type="button" data-testid="document-download" disabled={busy} onClick={() => void act(() => onOpen(document.id, true))} className="rounded-full border border-[#2f7d67] px-3 py-1 font-semibold text-[#2f7d67] disabled:opacity-50">Download</button>
+        <button
+          type="button"
+          data-testid="document-delete"
+          disabled={busy}
+          onClick={() => {
+            if (!window.confirm(`Delete ${document.originalName}? This removes the file from your case and cannot be undone.`)) return;
+            void act(() => onRemove(document.id));
+          }}
+          className="rounded-full border border-[#b54747] px-3 py-1 font-semibold text-[#8a2d2d] disabled:opacity-50"
+        >
+          Delete
+        </button>
+      </div>
+      {message ? <p role="alert" data-testid="document-action-message" className="mt-2 text-xs text-[#8a2d2d]">{message}</p> : null}
+    </div>
+  );
+}
+
 function DetailPanel({
   document,
   onSave,
+  onOpen,
+  onRemove,
 }: {
   document: DocumentView | null;
   onSave: (id: string, change: Record<string, unknown>) => Promise<string | null>;
+  onOpen: (id: string, download: boolean) => Promise<string | null>;
+  onRemove: (id: string) => Promise<string | null>;
 }) {
   const [editing, setEditing] = useState(false);
   const [draftDate, setDraftDate] = useState("");
@@ -621,7 +700,7 @@ function DetailPanel({
         className="hidden w-full shrink-0 rounded-3xl lg:w-80 border border-[#d8e6df] bg-white p-5 shadow-sm lg:block"
       >
         <p className="text-sm text-[#6b8078]">
-          Choose a document to see what CourtSimplified read from it.
+          Choose a document to see its details, open it, save a copy or delete it.
         </p>
       </aside>
     );
@@ -636,6 +715,7 @@ function DetailPanel({
         <h2 className="font-semibold text-[#10231f]">
           {document.decision?.caseName?.trim() || document.label?.trim() || document.originalName}
         </h2>
+        <FileActions document={document} onOpen={onOpen} onRemove={onRemove} />
         <p className="mt-1 text-xs text-[#6b8078]">
           A court decision you saved from CanLII. Only you can see it, in this case.
         </p>
@@ -665,6 +745,7 @@ function DetailPanel({
       <h2 className="font-semibold text-[#10231f]">
         {document.label?.trim() || document.originalName}
       </h2>
+      <FileActions document={document} onOpen={onOpen} onRemove={onRemove} />
 
       <p className="mt-3 rounded-xl bg-[#f4f8f7] p-3 text-xs leading-5 text-[#4c615b]">
         {SUGGESTION_BOUNDARY}
