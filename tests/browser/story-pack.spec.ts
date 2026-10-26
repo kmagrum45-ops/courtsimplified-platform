@@ -701,3 +701,117 @@ for (const court of ["small-claims", "civil", "family"] as const) {
     note(`order ${court}`, "review", "questions keep their places while answered", true);
   });
 }
+
+/*
+ * THE #477 RE-TEST ON THE LIVE SITE (Chrome, 2026-10-25), EACH WITH THE REAL STEPS.
+ */
+
+// Case 11: the "Before you start" notice shown again after confirming (it is kept per account,
+// so signing in brings it back, L35). "Show my next step" showed it below the button, out of
+// sight; ticking it and pressing Continue crashed the page, and the case then crashed every
+// time it was opened.
+for (const court of ["civil", "family", "small-claims"] as const) {
+  test(`retest-477 case 11: the notice after confirming shows where the person is looking, Continue opens the next step, and the case opens -- ${court}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = byId(court === "civil" ? "civil-defendant-debt" : court === "family" ? "family-spousal" : "sc-defendant-served");
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(String(error).slice(0, 300)));
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    const panel = page.getByTestId("intake-review");
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+    // The notice is owed again, as after signing in on this device.
+    await page.evaluate(() => { for (const key of Object.keys(localStorage)) if (key.startsWith("courtSimplifiedNoticeAcknowledged")) localStorage.removeItem(key); });
+    await page.reload();
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await page.getByTestId("intake-continue-guidance").click();
+    const notice = page.getByTestId("acknowledgement-checkbox");
+    await expect(notice, "the notice is on screen where the person pressed the button").toBeInViewport({ timeout: 15_000 });
+    await notice.check();
+    await page.getByTestId("acknowledgement-continue").click();
+    await expect(page.getByTestId("completed-case-overview").or(page.getByTestId("sign-in-for-safety-check")).first(), "Continue opens the next step").toBeVisible({ timeout: 90_000 });
+    await expect(page.getByText("This page couldn’t load")).toHaveCount(0);
+    expect(errors, "no page error").toEqual([]);
+    // The case opens, and opens again.
+    const row = [...account.rows.values()][0] as Record<string, unknown> | undefined;
+    expect(row?.id, "the case was saved").toBeTruthy();
+    for (let visit = 0; visit < 2; visit++) {
+      await page.goto(`/cases/${row!.id}`);
+      await page.waitForLoadState("networkidle").catch(() => {});
+      await expect(page.getByText("This page couldn’t load")).toHaveCount(0);
+      await expect(page.getByTestId("case-intake-gate"), "a confirmed case is not sent back to an unfinished intake").toHaveCount(0);
+    }
+    expect(errors, "no page error").toEqual([]);
+  });
+}
+
+// Case 11, after the page stopped: the case was confirmed but no next step was made, and the
+// case page asked for the review again. It says the information is confirmed and opens the
+// next step without asking anything again.
+test("retest-477 case 11: a confirmed case with no next step yet opens it from the case page", async ({ page }) => {
+  test.setTimeout(240_000);
+  const story = byId("civil-defendant-debt");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await openBuilder(page, "civil", { story: story.story });
+  await guidedQuestions(page, story, true);
+  await answerInReview(page, story);
+  const panel = page.getByTestId("intake-review");
+  const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+  while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+  await page.waitForLoadState("networkidle").catch(() => {});
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  await page.goto(`/cases/${row.id}`);
+  await expect(page.getByTestId("case-confirmed-no-step")).toBeVisible({ timeout: 60_000 });
+  await expect(page.getByText("Review your initial information before receiving case guidance")).toHaveCount(0);
+  await page.getByTestId("case-show-next-step").click();
+  await expect(page.getByTestId("intake-review"), "the confirmation stands").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await page.getByTestId("intake-continue-guidance").click();
+  await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 90_000 });
+});
+
+// A bad saved record never locks a person out: the case page and the intake show a plain
+// message with a way back (or the page itself), never the bare "This page couldn't load".
+for (const [label, damage] of [
+  ["sections not a record", (master: Record<string, unknown>) => { (master.intakeCheckpoint as Record<string, unknown>).sections = "damaged"; }],
+  ["position and intake data of the wrong kind", (master: Record<string, unknown>) => { master.position = 42; master.intakeData = ["damaged"]; master.workflowStatus = "damaged"; }],
+] as const) {
+  test(`retest-477 case 11: a damaged saved case still opens with a way back -- ${label}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = byId("civil-defendant-debt");
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, "civil", { story: story.story });
+    await expect(page.getByTestId("intake-review")).toBeVisible({ timeout: 60_000 });
+    await expect.poll(() => account.rows.size, { timeout: 60_000 }).toBe(1);
+    const row = [...account.rows.values()][0] as Record<string, unknown>;
+    damage(row.master_result as Record<string, unknown>);
+    for (const url of [`/cases/${row.id}`, `/builder?path=civil&intake=${row.id}`]) {
+      await page.goto(url);
+      await page.waitForLoadState("networkidle").catch(() => {});
+      await page.waitForTimeout(2_000);
+      await expect(page.getByText("This page couldn’t load"), `${url}: never the bare error page`).toHaveCount(0);
+      if (await page.getByTestId("page-error").count()) await expect(page.getByTestId("page-error-cases")).toBeVisible();
+    }
+  });
+}

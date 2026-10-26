@@ -34,6 +34,9 @@ import {
  * anything, and does not say they have read the Terms. It records that the two
  * notices were put in front of them, which is what it actually does.
  */
+/** Sent when the notice is given, so a "Show my next step" waiting on it carries on. */
+export const NOTICE_GIVEN_EVENT = "courtsimplified:notice-given";
+
 export default function FirstUseAcknowledgement({
   onAcknowledged,
   onStatus,
@@ -126,6 +129,7 @@ export default function FirstUseAcknowledgement({
           setNeeded(false);
           onStatus?.(false);
           onAcknowledged?.();
+          window.dispatchEvent(new Event(NOTICE_GIVEN_EVENT));
         }}
         className="mt-5 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
       >

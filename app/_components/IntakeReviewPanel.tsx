@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import MunicipalNoticeFirst from "../builder/_components/MunicipalNoticeFirst";
 import { IMMEDIATE_DANGER_MESSAGE } from "../../src/lib/content-library/crisisMessages";
 import { municipalNoticeFirst } from "../../src/lib/content-library/municipalNoticeFirst";
 import { useIntakeRecovery } from "./IntakeRecovery";
+import { NOTICE_GIVEN_EVENT } from "./FirstUseAcknowledgement";
 import { withServedDate } from "../builder/_components/guidedFields";
 import { dateAnswerCheck, formatForCourt, isDateQuestion } from "../../src/lib/case-system/dates";
 import { caseFileOf, slotsOfQuestion, slotText } from "../../src/lib/case-system/caseFile/caseFile";
@@ -34,6 +35,17 @@ const SLUG = /^[a-z]+(?:-[a-z]+)+$/;
 const words = (value: string) => SLUG.test(value) ? value.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase()) : value;
 /** A stored choice in the words the form shows ("respondent" reads as the form's own sentence). */
 const shown = (entry: ReviewEntry, value: string) => entry.choices?.find(choice => choice.value === value)?.label ?? words(value);
+/**
+ * The step "Show my next step" waits on (the "Before you start" notice), brought to where the
+ * person is looking: it sat below the button, out of sight (#477 re-test, case 11).
+ */
+function showWaitingStep(): boolean {
+  const step = document.querySelector<HTMLElement>('[data-testid="first-use-acknowledgement"]');
+  if (!step) return false;
+  step.scrollIntoView({ behavior: "auto", block: "center" });
+  step.querySelector<HTMLInputElement>('[data-testid="acknowledgement-checkbox"]')?.focus({ preventScroll: true });
+  return true;
+}
 const empty = (value: ReviewEntry["value"]) => Array.isArray(value) ? value.length === 0 : typeof value === "string" ? !value.trim() : false;
 
 export default function IntakeReviewPanel() {
@@ -48,6 +60,15 @@ export default function IntakeReviewPanel() {
   const [dates, setDates] = useState<Record<string, string>>({});
   // "Show my next step" with no intake on the page yet (the "Before you start" step is showing).
   const [waiting, setWaiting] = useState(false);
+  // Waiting on the notice: once it is given, the next step is opened, on every route. The
+  // notice holds the builder back while some routes still take a Continue, so asking them
+  // first opened Small Claims' chooser with no next step and no word why (case 11).
+  useEffect(() => {
+    if (!waiting || !recovery) return;
+    const given = () => { setWaiting(false); recovery.continueToGuidance(); };
+    window.addEventListener(NOTICE_GIVEN_EVENT, given);
+    return () => window.removeEventListener(NOTICE_GIVEN_EVENT, given);
+  }, [waiting, recovery]);
   // The day of service is saved into a Timeline line, which trims it: typed key by key,
   // "October 12" lost its spaces (re-test 2026-10-18). It is kept as typed here and
   // saved, trimmed, when the person leaves the field.
@@ -291,7 +312,7 @@ export default function IntakeReviewPanel() {
       </> : <button data-testid="intake-close-review" type="button" className="mt-4 rounded border px-4 py-2" onClick={() => setViewing(false)}>Close</button>}
     </>}
     {phase === "collecting" && <button data-testid="intake-start-review" type="button" disabled={busy || !canReview(checkpoint)} onClick={() => void act("review")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Stop initial questions and review</button>}
-    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated} onClick={() => setWaiting(!recovery.continueToGuidance())} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
+    {phase === "user-confirmed" && !viewing && <><p>Your initial information is confirmed. Choose &quot;Show my next step&quot; to see it, with its form and deadline. Further evidence and research questions are optional. Changing initial facts requires a new review.</p><button data-testid="intake-continue-guidance" type="button" disabled={busy || questionsOutdated} onClick={() => { if (showWaitingStep()) { setWaiting(true); return; } setWaiting(!recovery.continueToGuidance()); }} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Show my next step</button>{" "}<button data-testid="intake-view-review" type="button" disabled={busy} onClick={() => setViewing(true)}>Review or correct initial information</button>
       <NextStepStatus />
       <StoryChangedNotice where="button" /></>}
     {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
