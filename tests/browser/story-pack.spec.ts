@@ -1048,6 +1048,10 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   await autoAnswerSituation(page, situationForStory(story));
   const account = await fakeAccount(page);
   await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+  // The live case reader found "June 3, 2025" in the story and offered it on the step: the date was
+  // shown and saved, and counted only after a second press. The reader is an AI call, so here it
+  // answers as it did, with the story's own words.
+  await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, picture: { side: null, events: [], dates: [{ questionId: "case-date-act-or-omission", date: "2025-06-03", month: 6, day: 3, quote: "On June 3, 2025 in Ottawa I was stopped by two officers" }], amount: null, otherParty: null, married: null, childTogether: null } } }));
   await openBuilder(page, "civil", { story: story.story });
   await guidedQuestions(page, story, true);
   const panel = page.getByTestId("intake-review");
@@ -1071,9 +1075,18 @@ test("retest Charter: the review fits the claim, the story answers in one click,
     await box.getByTestId("intake-field-from-story").click();
     await expect(box).toHaveAttribute("data-answered", "true");
   }
+  // The day it happened, as Chrome gave it in the review.
+  const open = panel.locator("[data-testid=intake-initial-question][data-answered=false]");
+  for (let i = 0; i < (await open.count()); i++) {
+    const question = open.nth(i);
+    const typed = question.getByRole("textbox");
+    if (!(await typed.count()) || !asksForDate(await question.locator("p").first().innerText())) continue;
+    await typed.fill("June 3, 2025");
+    await typed.press("Enter");
+  }
   await confirmAndContinue(page);
   // The deadline from the story's date shows without pressing "Count my deadline" again.
-  await expect(page.getByText(/June 3, 2027/).first(), "the limitation date shows once the date is kept").toBeVisible({ timeout: 60_000 });
+  await expect(page.getByText(/3 June 2027|June 3, 2027/).first(), "the limitation date shows once the date is kept").toBeVisible({ timeout: 60_000 });
   // The chat: no question the story answers, nothing of the site's machinery.
   const ask = page.getByRole("button", { name: "Ask follow-up questions" });
   await ask.waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
@@ -1090,6 +1103,6 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   await expect(file).toBeVisible({ timeout: 60_000 });
   const text = await file.innerText();
   expect(rawKeysIn(text), "no raw code").toEqual([]);
-  for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist was bruised/], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /missed 2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /June 3, 2027/]] as const) expect(text, what).toMatch(words);
+  for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist was bruised/], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /missed 2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /3 June 2027|June 3, 2027/]] as const) expect(text, what).toMatch(words);
   expect(text, "the stage as a stage, never a question").not.toMatch(/Where the case is\s*\n?\s*How do I/);
 });
