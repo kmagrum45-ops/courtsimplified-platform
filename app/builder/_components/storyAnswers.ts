@@ -199,7 +199,9 @@ export function goalFromStory(story: string): StoryAnswer | null {
       if (/^I (?:want|need|would like|just want|only want) (?:nothing|to (?:answer|respond|reply|help|defend|fight)\b|to apply\b(?! (?:to (?:the )?court|for (?:a |an )?(?:divorce|custody|(?:child |spousal )?support|order))))/i.test(value)) continue;
       // "I want to sue the city" is how, not what they want ordered; "I need
       // a lawyer" or "I need to know" is help with the case, not an outcome.
-      if (/^I (?:want|need|would like|just want) to (?:sue|take|file|start|know|understand|ask|bring|do|figure|find|go|see|talk|speak|get advice|get help|learn)\b/i.test(value)) continue;
+      // Except "I want to sue them for <what>": the what is what they want (Charter re-test 2026-10-26).
+      const suesFor = /^I (?:want|need|would like|just want) to sue\b.*?\bfor\s+\S+(?:\s+\S+){2,}/i.test(value);
+      if (!suesFor && /^I (?:want|need|would like|just want) to (?:sue|take|file|start|know|understand|ask|bring|do|figure|find|go|see|talk|speak|get advice|get help|learn)\b/i.test(value)) continue;
       if (/^I (?:want|need|would like|just want) (?:a lawyer|help|advice|some help|some advice|information|info)\b/i.test(value)) continue;
       if (value.length >= 8) return { value, quote: sentence };
     }
@@ -315,7 +317,7 @@ export function childrenPartialFromStory(story: string): PartialStoryAnswer | nu
  * the story mentions.
  */
 const PARTY_NOUN =
-  "(?:city|town|township|municipality|region|province|landlord|tenant|contractor|contracter|sub-?contractor|builder|renovator|plumber|electrician|roofer|mechanic|dealer(?:ship)?|garage|business partner|buisness partner|partner|supplier|vendor|boss|employer|manager|company|corporation|brokerage|store|shop|restaurant|bank|insurer|insurance company|seller|sellers|vendors|buyer|buyers|neighbou?r|client|customer|roommate|school|hospital|clinic|condo corporation|condo board|property manager|moving company|trucking company|airline)";
+  "(?:police service board|police service|police force|police department|police board|police|city|town|township|municipality|region|province|landlord|tenant|contractor|contracter|sub-?contractor|builder|renovator|plumber|electrician|roofer|mechanic|dealer(?:ship)?|garage|business partner|buisness partner|partner|supplier|vendor|boss|employer|manager|company|corporation|brokerage|store|shop|restaurant|bank|insurer|insurance company|seller|sellers|vendors|buyer|buyers|neighbou?r|client|customer|roommate|school|hospital|clinic|condo corporation|condo board|property manager|moving company|trucking company|airline)";
 const PARTY_PHRASE = `(?:the|my|a|an|our|his|her|their)\\s+(?:(?:old|former|ex|previous|own|new|local|next door)\\s+)?(?:[a-z]+\\s+)?${PARTY_NOUN}\\b`;
 const NAME = "[A-Z][a-zA-Z'&.-]+(?:\\s+(?:[A-Z][a-zA-Z'&.-]+|Inc\\.?|Ltd\\.?|Corp\\.?))*";
 
@@ -607,4 +609,28 @@ export function courtDateFromStory(story: string): StoryAnswer | null {
   if (!match) return null;
   const what = match[1].toLowerCase().replace(/^pre-?trial/, "pre-trial");
   return { value: `${what.charAt(0).toUpperCase()}${what.slice(1)} on ${match[2].replace(/,?\s+(\d{4})$/, ", $1")}`, quote: match[0] };
+}
+
+/**
+ * Civil: the kinds of case the story's own words name, as the form's options, for the person to
+ * confirm (Charter re-test 2026-10-26: a Charter claim against police showed the 30-item list with
+ * nothing ticked). Only what the words name -- the Charter, the police -- never a legal reading of
+ * the facts (no "assault" from "handcuffed", no "negligence" from an injury).
+ */
+export function civilIssuesFromStory(story: string): { value: string[]; quote: string } | null {
+  const named: [string, RegExp][] = [
+    ["charter", /\bcharter\b/i],
+    ["police-conduct", /\bpolice\b|\bpolice officers?\b|\bconstables?\b/i],
+    ["defamation", /\bdefam\w*|\blibel\w*|\bslander\w*/i],
+    ["human-rights", /\bdiscriminat\w*|\bhuman rights\b/i],
+  ];
+  const values: string[] = [];
+  const quotes: string[] = [];
+  for (const [value, words] of named) {
+    const sentence = sentences(story).find((candidate) => words.test(candidate) && !/\?\s*$/.test(candidate));
+    if (!sentence) continue;
+    values.push(value);
+    if (!quotes.includes(sentence)) quotes.push(sentence);
+  }
+  return values.length ? { value: values, quote: quotes.join(" ") } : null;
 }

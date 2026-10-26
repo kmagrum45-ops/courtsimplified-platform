@@ -46,6 +46,7 @@ import { readCheckpoint } from "@/src/lib/case-system/intakeCheckpoint";
 import CaseFilePanel from "../_components/CaseFilePanel";
 import SafetyNotice from "@/app/_components/SafetyNotice";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
+import { countedStepDeadlines } from "@/src/lib/case-system/caseFile/stepDeadlines";
 
 type EventsResponse = {
   events: Array<{
@@ -210,6 +211,7 @@ export default function CaseOverviewPage() {
         changeHref={builderHref(caseRecord)}
         situationHref={`${builderHref(caseRecord)}&situation=change`}
         stepHref="#next-heading"
+        deadlines={countedStepDeadlines(position.stepId, position.dateAnswers)}
       />
 
       <section aria-labelledby="where-heading" className="space-y-3">

@@ -18,6 +18,7 @@ import {
   amountFromStory,
   childrenFromStory,
   courtDateFromStory,
+  civilIssuesFromStory,
   childrenPartialFromStory,
   civilFiledFromStory,
   civilRoleFromStory,
@@ -229,6 +230,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
     {
       key: "issues",
       label: "What the case is about",
+      // The kinds the story's words name, offered for the person to confirm (Charter re-test).
+      fromStory: (values) => civilIssuesFromStory(storyOf(values)),
       question: "What kind of case is it? Pick everything that fits.",
       why: "Different kinds of cases have different rules and forms, so this keeps what you see to the ones that fit.",
       kind: "multi",

@@ -39,7 +39,8 @@ const KINDS: [Kind, RegExp][] = [
   // "is suing me for $6,000") is never the person's own amount (messy pack case 19).
   ["against", /\b(?:serve[sd]? (?:me|him|her|them|us) with (?:a|their|his|her) claim|su(?:e|es|ed|ing) (?:me|him|her|us)\b|claim(?:s|ed)? against (?:me|him|her|us)\b)/i],
   ["owed", /\b(?:invoiced?|billed|still owe[sd]?|owe[sd]?|owing|is owed|are owed|outstanding|unpaid|balance|remaining|left to pay|still due|never paid (?:me|us)|(?:didn'?t|did not|won'?t|will not|refuses? to|refused to) pay (?:me|us)(?: back)?)\b/i],
-  ["claim", /\b(?:claim(?:ing|ed)?|su(?:e|ing) (?:\w+ )?for|(?:want(?:s|ed)?|get|recover) [^.]{0,30}?\bback|money back|lost|total)\b/i],
+  // "I think about $75,000" after "I want to sue …" is the amount they put on the claim (Charter re-test).
+  ["claim", /\b(?:claim(?:ing|ed)?|su(?:e|ing) (?:\w+ )?for|(?:want(?:s|ed)?|get|recover) [^.]{0,30}?\bback|money back|lost|total|i think (?:it'?s |it is )?(?:about|around|roughly))\b/i],
   // A fee before the damage: "a $3,800 repair fee" is a fee (#470 re-test).
   ["fee", /\bfees?\b|\bcharge[sd]?\b|\binterest\b|\bfines?\b|\bpenalt(?:y|ies)\b|\bcommission\b/i],
   ["damage", /\bdamage[sd]?\b|\brepair\w*\b|\breplac\w*\b|\bestimate[sd]?\b/i],
@@ -83,6 +84,9 @@ export function moneyMentions(story: string): Mention[] {
       const digits = match[0].replace(/[^\d.k]/gi, "");
       const number = /k$/i.test(digits) ? Number(digits.slice(0, -1)) * 1000 : Number(digits);
       if (!Number.isFinite(number) || number <= 0) continue;
+      // "badges 4471 and 5520", "unit 1204", "file no. 4471": a number that names something, not money
+      // (Charter re-test 2026-10-26: the officers' badge numbers were read as $4,471 and $5,520).
+      if (/^\d+$/.test(match[0].trim()) && /\b(?:badges?|badge numbers?|numbers?|no\.?|unit|apt\.?|apartment|suite|file|room|#)\s*(?:\d+\s*(?:,|and|&)\s*)*$/i.test(sentence.slice(0, match.index ?? 0))) continue;
       // "in 2022", "since 2019": a year, not money.
       if (number >= 1900 && number <= 2100 && !/[$,]|dollars/i.test(match[0])) continue;
       const start = match.index ?? 0;

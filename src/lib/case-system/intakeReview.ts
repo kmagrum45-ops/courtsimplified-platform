@@ -17,7 +17,20 @@ const object = (value: unknown): ObjectValue => value && typeof value === "objec
 const OPTIONAL = new Set(["evidence", "missingEvidence", "uploadedEvidenceFiles", "uploadedFiles", "evidenceFiles", "evidenceText", "defenceEvidenceText"]);
 const UI = new Set(["mode", "editingStory", "personSet", "personDocuments"]);
 /** Family details that belong to one issue: asked for only when that issue is chosen. */
-const ISSUE_ONLY: Record<string, string[]> = { adoptionDetails: ["adoption"] };
+const HUMAN_RIGHTS = ["human-rights", "disability-accommodation", "employment-human-rights", "housing-human-rights", "education-human-rights"];
+const PUBLIC_BODY = ["government-public-authority", "charter", "police-conduct", "judicial-review", "tribunal-overlap"];
+/**
+ * Details that belong to one kind of matter: asked for only when the person chose it ("Adoption
+ * details" on a divorce case, #477 re-test case 14; "Human rights grounds", "Discrimination facts"
+ * and "Accommodation requests" on a Charter claim against police, Charter re-test 2026-10-26).
+ */
+const ISSUE_ONLY: Record<string, string[]> = {
+  adoptionDetails: ["adoption"],
+  humanRightsGrounds: HUMAN_RIGHTS, discriminationFacts: HUMAN_RIGHTS, accommodationRequests: HUMAN_RIGHTS,
+  governmentActor: PUBLIC_BODY, publicDecisionOrConduct: PUBLIC_BODY,
+  institutionalFacts: ["institutional-negligence"],
+  privacyRecordsFacts: ["privacy"],
+};
 export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean };
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
@@ -29,7 +42,19 @@ const FIELD_LABELS: Record<string, string> = {
   timeline: "Timeline", yourName: "Your name", evidence: "Evidence you have",
   uploadedEvidenceFiles: "Documents you uploaded", uploadedFiles: "Documents you uploaded", evidenceFiles: "Documents you uploaded",
   placeOfMarriage: "Where you married", existingOrderDate: "Date of the existing order",
+  // Civil's own detail boxes, in words (the Charter re-test showed them as "Government actor", "Institutional facts").
+  humanRightsGrounds: "The grounds of discrimination", discriminationFacts: "What happened that was discriminatory",
+  accommodationRequests: "The accommodation you asked for", governmentActor: "The public body or official involved",
+  publicDecisionOrConduct: "The decision or conduct you are challenging", institutionalFacts: "What the institution did or did not do",
+  privacyRecordsFacts: "The records or privacy issue", damagesBreakdown: "What your losses are made up of",
+  settlementEfforts: "What you have tried to settle it", limitationDeadline: "A deadline you know of",
+  courtLocation: "Court location", courtFileNumber: "Court file number", otherParty: "The other party",
 };
+/** Whether a field has words written for it (a field with none would show its code name turned into words). */
+export function hasWrittenLabel(courtPath: string, key: string): boolean {
+  const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
+  return Boolean(fields.find((field) => field.key === key)?.label ?? FIELD_LABELS[key] ?? QUESTION_BANK.find((item) => item.capturesField === key)?.text);
+}
 // Plain sentence case for a field with no written label ("Children info", not "Children Info").
 const label = (key: string) => key.replace(/([a-z])([A-Z])/g, (_, a: string, b: string) => `${a} ${b.toLowerCase()}`).replace(/^./, c => c.toUpperCase());
 
@@ -38,15 +63,17 @@ const label = (key: string) => key.replace(/([a-z])([A-Z])/g, (_, a: string, b: 
  * offer a way to answer it there (#469 re-test: civil's remaining questions had only
  * an "I do not know yet" box). Small Claims questions come from the question bank.
  */
-export function reviewQuestionField(courtPath: string, id: string, checkpoint?: Checkpoint): { kind: "text" | "longtext" | "choice" | "multi"; question: string; options: { value: string; label: string }[]; needsMore?: (value: string) => string | null; fromStory?: string } | null {
+export function reviewQuestionField(courtPath: string, id: string, checkpoint?: Checkpoint): { kind: "text" | "longtext" | "choice" | "multi"; question: string; options: { value: string; label: string }[]; needsMore?: (value: string) => string | null; fromStory?: string; suggested?: string[]; suggestedQuote?: string } | null {
   const fields = courtPath === "family" ? FAMILY_FIELDS() : courtPath === "civil" ? CIVIL_FIELDS() : [];
   const field = fields.find((item) => item.key === id);
   // What the story already says for a typed answer, offered for one click as in the questions
   // (#477 re-test, cases 14 and 16: the children and the court date asked when the story gave them).
-  const said = field && checkpoint && (field.kind === "text" || field.kind === "longtext") ? field.fromStory?.({ ...object(courtPath === "family" ? freshSections(checkpoint).family : freshSections(checkpoint)[courtPath]?.input), facts: storyOf(checkpoint.sections) }) : null;
-  const offered = said && typeof said.value === "string" && said.value.trim() ? said.value : undefined;
+  const said = field && checkpoint ? field.fromStory?.({ ...object(courtPath === "family" ? freshSections(checkpoint).family : freshSections(checkpoint)[courtPath]?.input), facts: storyOf(checkpoint.sections) }) : null;
+  const offered = said && (field?.kind === "text" || field?.kind === "longtext") && typeof said.value === "string" && said.value.trim() ? said.value : undefined;
+  // A pick-everything-that-fits field: the choices the story names, ticked for the person to confirm.
+  const suggested = said && field?.kind === "multi" && Array.isArray(said.value) && said.value.length ? said.value.filter((value) => field.options?.some((option) => option.value === value)) : undefined;
   // The field's own check (the served date's year) applies here as in the questions.
-  return field ? { kind: field.kind, question: field.question, options: field.options ?? [], ...(field.needsMore ? { needsMore: field.needsMore } : {}), ...(offered ? { fromStory: offered } : {}) } : null;
+  return field ? { kind: field.kind, question: field.question, options: field.options ?? [], ...(field.needsMore ? { needsMore: field.needsMore } : {}), ...(offered ? { fromStory: offered } : {}), ...(suggested?.length ? { suggested, suggestedQuote: said!.quote } : {}) } : null;
 }
 
 /** A projection of existing answers, not another case model or question selector. */
@@ -79,7 +106,10 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // showed on a divorce case, #477 re-test case 14).
     const issueOnly = ISSUE_ONLY[key];
     const notTheirIssue = issueOnly ? !issueOnly.some((issue) => (Array.isArray(source.issues) ? source.issues as string[] : []).includes(issue)) : false;
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
+    // A question asked only on one side or in one situation (its `when`: "When and how you were
+    // served" is the responding side's) is not essential for anyone else.
+    const notTheirQuestion = definition?.when ? !definition.when({ ...source, facts: storyOf(sections) } as never) : false;
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
