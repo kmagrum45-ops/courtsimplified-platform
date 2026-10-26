@@ -349,6 +349,16 @@ assumption a suite already disproves. Two indexes exist so that stops:
   Never edited by hand: there is one description, in the file, so the index
   cannot drift from the behaviour.
 
+- **`SITE_MAP.md`** (next to this file) — how the site works, in plain words:
+  the flow from what the person types to the next step, each shared piece and
+  what it owns, every screen and which shared piece it gets each fact from
+  (side, stage, claim kind, amounts, dates, words), and what bypasses a shared
+  piece today. Its "Who reads what" part is generated from the imports
+  (`npm run docs:site-map`); CI fails when it is stale (`npm run test:site-map`).
+  **Any PR that changes a shared piece updates the map in the same PR**: the
+  written part by hand, the generated part by the script. A fixed bypass is
+  deleted from its list; a new screen gets a row.
+
 **Every new verification suite gets a header comment** saying what it checks and
 what failure it exists to catch. A suite whose purpose is undocumented is one
 nobody can safely change or delete, so it survives forever and gets skipped.

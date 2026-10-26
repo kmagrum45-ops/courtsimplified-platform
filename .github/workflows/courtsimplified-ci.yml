@@ -256,6 +256,9 @@ jobs:
       - name: The answer key's reader reads a (case, field, expected) table with no holes
         run: npm run test:answer-key-reader
 
+      - name: SITE_MAP.md's "who reads what" part matches the code
+        run: npm run test:site-map
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 
