@@ -74,7 +74,7 @@ function asConfirmable(value: unknown): UniversalStage | null {
 }
 
 export default function CaseOverviewPage() {
-  const { caseRecord, position, courtPath, responding, reload, record } = useCaseHome();
+  const { caseRecord, position, courtPath, responding, reload, record, stepId: homeStepId } = useCaseHome();
   const caseId = caseRecord.id;
   const base = `/cases/${encodeURIComponent(caseId)}`;
   const master = asRecord(caseRecord.master_result);
@@ -211,7 +211,7 @@ export default function CaseOverviewPage() {
         changeHref={builderHref(caseRecord)}
         situationHref={`${builderHref(caseRecord)}&situation=change`}
         stepHref="#next-heading"
-        deadlines={countedStepDeadlines(position.stepId, position.dateAnswers)}
+        deadlines={countedStepDeadlines(position.stepId ?? situationStep ?? (homeStepId || null), position.dateAnswers)}
       />
 
       <section aria-labelledby="where-heading" className="space-y-3">

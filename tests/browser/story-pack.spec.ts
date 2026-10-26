@@ -38,7 +38,7 @@ import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
-import { MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
+import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
@@ -120,6 +120,7 @@ const STORIES: Story[] = [
   // The messy case pack's 20 cases, and the seven walkthrough paths (storyPackMore.ts).
   ...MESSY_STORIES,
   ...WALKTHROUGH_STORIES,
+  ...CHARTER_STORIES,
 ];
 
 const INTERNAL = /Court path:|Stage: Stage unclear|Main story:|Case story:|Reasoning domain|privilege \/ recipient|procedural stage is uncertain|Important limitation|Knowledge retrieval warning|\bundefined\b|\[object Object\]|\bNaN\b/;
@@ -1035,4 +1036,60 @@ test("retest-477 item 5: an amount typed in words is kept and shown as $2,500.00
   const line = page.locator('[data-testid=case-file-line][data-fact="amount"]');
   await expect(line).toContainText("$2,500.00", { timeout: 60_000 });
   await expect(line).not.toContainText("twenty five hundred");
+});
+
+// Chrome's Charter claim against police (2026-10-26), through the review as Chrome took it: what the
+// review asks, the one-click answers from the story, the next step's deadline without a second
+// press, "What we have so far" and the chat (verifyCharterRetest.ts holds each shared piece's checks).
+test("retest Charter: the review fits the claim, the story answers in one click, the deadline counts once, What we have so far and the chat -- civil (c1)", async ({ page }) => {
+  test.setTimeout(300_000);
+  const story = CHARTER_STORIES[0];
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await openBuilder(page, "civil", { story: story.story });
+  await guidedQuestions(page, story, true);
+  const panel = page.getByTestId("intake-review");
+  const review = await panel.innerText();
+  expect(review, "a plaintiff is not asked when and how they were served").not.toContain("When and how you were served");
+  for (const label of ["Human rights grounds", "Discrimination facts", "Accommodation requests", "Institutional facts", "Privacy records facts", "Government actor"]) expect(review, `no raw label "${label}"`).not.toContain(label);
+  expect(rawKeysIn(review), "no raw code in the review").toEqual([]);
+  // The kind of claim, suggested from the story's own words, ticked for the person to confirm.
+  const issues = panel.locator('[data-testid=intake-initial-question][data-question="issues"]');
+  if (await issues.count()) {
+    await expect(issues.locator('input[data-testid=intake-field-pick][value="charter"]')).toBeChecked();
+    await expect(issues.locator('input[data-testid=intake-field-pick][value="police-conduct"]')).toBeChecked();
+    await expect(issues.getByTestId("intake-field-pick-quote")).toContainText("Charter");
+    await issues.getByTestId("intake-field-save").click();
+  }
+  // The amount and what they want, one click each from the story.
+  for (const [question, words] of [["amountClaimed", "$75,000"], ["legalRemedy", "violating my Charter rights"]] as const) {
+    const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
+    if (!(await box.count())) continue;
+    await expect(box.getByTestId("intake-field-from-story"), `${question}: offered from the story`).toContainText(words);
+    await box.getByTestId("intake-field-from-story").click();
+    await expect(box).toHaveAttribute("data-answered", "true");
+  }
+  await confirmAndContinue(page);
+  // The deadline from the story's date shows without pressing "Count my deadline" again.
+  await expect(page.getByText(/June 3, 2027/).first(), "the limitation date shows once the date is kept").toBeVisible({ timeout: 60_000 });
+  // The chat: no question the story answers, nothing of the site's machinery.
+  const ask = page.getByRole("button", { name: "Ask follow-up questions" });
+  await ask.waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
+  if (await ask.isVisible().catch(() => false)) {
+    await ask.click();
+    const reply = await lastReply(page, "Who do I name, do I need to give notice, will I get $75,000?");
+    expect(reply).not.toMatch(/Which public actor is involved/i);
+    expect(reply).not.toMatch(/reasoning profile/i);
+  }
+  // What we have so far.
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  await page.goto(`/cases/${row.id}`);
+  const file = page.getByTestId("case-file");
+  await expect(file).toBeVisible({ timeout: 60_000 });
+  const text = await file.innerText();
+  expect(rawKeysIn(text), "no raw code").toEqual([]);
+  for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist was bruised/], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /missed 2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /June 3, 2027/]] as const) expect(text, what).toMatch(words);
+  expect(text, "the stage as a stage, never a question").not.toMatch(/Where the case is\s*\n?\s*How do I/);
 });
