@@ -9,7 +9,7 @@
  */
 import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
-import { SLOT_FACTS, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { SLOT_FACTS, conferenceKind, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
@@ -77,7 +77,7 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
           const href = question.startsWith("situation:") ? situationHref : /date|^step$/.test(question) ? stepHref : changeHref;
           return (
             <div key={fact} className="contents" data-testid="case-file-line" data-fact={fact} data-state={slot.state} data-question={fact} data-source={question}>
-              <dt className="font-semibold text-[#10231f]">{LABEL[fact]}</dt>
+              <dt className="font-semibold text-[#10231f]">{(fact === "conferenceDate" ? conferenceKind(slot) : null) ?? LABEL[fact]}</dt>
               <dd>
                 {shownValue(fact, file)}{" "}
                 {slot.state === "unsure" && STEP_PAGE_DATES.has(fact) ? (

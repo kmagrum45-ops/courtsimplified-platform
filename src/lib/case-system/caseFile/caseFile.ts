@@ -322,6 +322,7 @@ export function slotText(slot: Slot, formatDay: (iso: string) => string): string
 const DATE_QUESTIONS_OF: Partial<Record<SlotFact, readonly string[]>> = {
   whenHappened: ["case-date-act-or-omission"],
   servedDate: [],
+  // A conference date of no named kind; one whose kind is known goes to that conference's question only (conferenceQuestions).
   conferenceDate: ["sc-date-settlement-conference", "case-date-case-conference-date"],
   courtDate: ["case-date-trial-date"],
 };
@@ -342,6 +343,35 @@ export function unsureDateQuestions(file: CaseFile): string[] {
   return Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : []));
 }
 
+/**
+ * Each conference's date questions on the step page, by the conference's name as the deadline
+ * events name it (deadlineEvents.ts). Conference audit, 2026-10-26: every conference date was one
+ * "Conference date", so a trial management conference's day answered the case conference question.
+ */
+const CONFERENCE_QUESTIONS: readonly { kind: string; ids: readonly string[]; words: RegExp }[] = [
+  { kind: "Trial management conference", ids: ["case-date-trial-management-conference-date"], words: /\btrial management conference\b/i },
+  { kind: "Pre-trial conference", ids: ["case-date-pre-trial-conference-date"], words: /\bpre-?trial conference\b/i },
+  { kind: "Settlement conference", ids: ["sc-date-settlement-conference", "case-date-family-settlement-conference-date"], words: /\bsettlement conference\b/i },
+  { kind: "Case conference", ids: ["case-date-case-conference-date"], words: /\bcase conference\b/i },
+];
+
+/** Which conference a conference date is for: by the question answered, else by the words quoted. Null when not said. */
+export function conferenceKind(slot: Slot): string | null {
+  const source = slot.source;
+  if (!source) return null;
+  if (source.kind === "answer") {
+    const id = source.question.replace(/^[a-z-]+:/, "");
+    return CONFERENCE_QUESTIONS.find((entry) => entry.ids.includes(id))?.kind ?? null;
+  }
+  return CONFERENCE_QUESTIONS.find((entry) => entry.words.test(source.quote))?.kind ?? null;
+}
+
+/** The step page's questions a conference date answers: its own conference's, else the unnamed default. */
+function conferenceQuestions(slot: Slot): readonly string[] {
+  const kind = conferenceKind(slot);
+  return CONFERENCE_QUESTIONS.find((entry) => entry.kind === kind)?.ids ?? DATE_QUESTIONS_OF.conferenceDate ?? [];
+}
+
 /** The one full day (with its year) a slot holds, as YYYY-MM-DD, or null. */
 export function slotDay(slot: Slot, readDay: (text: string) => string | null): string | null {
   if (slot.state !== "answered" || typeof slot.value !== "string") return null;
@@ -358,7 +388,7 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
   const out = { ...answered };
   for (const [fact, ids] of Object.entries(DATE_QUESTIONS_OF) as [SlotFact, readonly string[]][]) {
     const day = slotDay(file[fact], readDay);
-    if (day) for (const id of ids) if (!out[id]) out[id] = day;
+    if (day) for (const id of fact === "conferenceDate" ? conferenceQuestions(file[fact]) : ids) if (!out[id]) out[id] = day;
   }
   // The day served, given anywhere but the situation questions (whose day withSituationDates
   // places by the papers picked): only the court's own first served-date question (reviewer 2).

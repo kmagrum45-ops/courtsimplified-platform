@@ -48,6 +48,10 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   remedySought: ["wants"],
   placeOfMarriage: ["marriedWhere"],
   "case-date-case-conference-date": ["conferenceDate"],
+  // Every conference's date is the conference date, kept with its kind (caseFile.ts conferenceKind).
+  "case-date-family-settlement-conference-date": ["conferenceDate"],
+  "case-date-trial-management-conference-date": ["conferenceDate"],
+  "case-date-pre-trial-conference-date": ["conferenceDate"],
   "case-date-trial-date": ["courtDate"],
   caseStage: ["stage"],
   // Small Claims guided questions and the review's.
