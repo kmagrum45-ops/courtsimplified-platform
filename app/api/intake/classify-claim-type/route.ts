@@ -1,3 +1,4 @@
+import { withRequestNames } from "@/src/lib/security/requestNames";
 import { NextRequest, NextResponse } from "next/server";
 
 import {
@@ -162,4 +163,4 @@ export function createClassifyClaimTypePost(overrides: Partial<ClassifyClaimType
   };
 }
 
-export const POST = createClassifyClaimTypePost();
+export const POST = withRequestNames(createClassifyClaimTypePost());

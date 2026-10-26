@@ -1,3 +1,4 @@
+import { withRequestNames } from "@/src/lib/security/requestNames";
 import { NextRequest, NextResponse } from "next/server";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 
@@ -103,4 +104,4 @@ export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDepende
   };
 }
 
-export const POST = createSafetyCheckPost();
+export const POST = withRequestNames(createSafetyCheckPost());

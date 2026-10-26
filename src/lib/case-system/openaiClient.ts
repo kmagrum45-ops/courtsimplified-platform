@@ -28,6 +28,8 @@
  * is worth more than an invisible 3x bill.
  */
 
+import { currentNameLabels } from "./privacy/modelNameContext";
+import { mapStrings, withNameLabels, withRealNames } from "./privacy/nameLabels";
 import { appendFileSync } from "node:fs";
 import OpenAI from "openai";
 
@@ -193,10 +195,27 @@ async function counted<T>(promise: Promise<T>): Promise<T> {
   return response;
 }
 
+/*
+ * NAMES NEVER GO TO THE MODEL (site owner, 2026-10-25). Inside a route's withCaseNames
+ * (privacy/modelNameContext.ts), every name the site knows is replaced with its label in what
+ * is sent, and put back in what comes back, on every method wrapped here. Outside one,
+ * nothing changes.
+ */
+const NOT_TEXT = new Set(["model", "response_format", "text_format", "tools", "tool_choice"]);
+function labelled(body: Record<string, unknown>): Record<string, unknown> {
+  const labels = currentNameLabels();
+  return labels.length ? mapStrings(body, (value) => withNameLabels(value, labels), NOT_TEXT) : body;
+}
+async function namesBack<T>(promise: Promise<T>, labels = currentNameLabels()): Promise<T> {
+  const response = await promise;
+  return labels.length ? mapStrings(response, (value) => withRealNames(value, labels)) : response;
+}
+
 export function forceNoStore<T>(client: T): T {
   const target = client as unknown as { chat: { completions: { create: (...args: unknown[]) => unknown } } };
   const chatCreate = target.chat.completions.create.bind(target.chat.completions);
-  target.chat.completions.create = ((body: Record<string, unknown>, options?: unknown) => {
+  target.chat.completions.create = ((original: Record<string, unknown>, options?: unknown) => {
+    const body = labelled(original);
     // A refused call is a rejected promise, like any failed call.
     const capped = spendCapRejection();
     if (capped) return capped;
@@ -205,13 +224,13 @@ export function forceNoStore<T>(client: T): T {
     // logged" has to be a property of the client, not a habit of seven callers.
     // observeAiCall is an observer: it returns and throws exactly what the call
     // returns and throws.
-    return observeAiCall(body, async () =>
+    return namesBack(observeAiCall(body, async () =>
       createWithParamFallback(
         (attempt) => counted(chatCreate({ ...attempt, store: false }, options) as Promise<unknown>),
         withoutCacheWrites(body),
         warnDroppedParam,
       ),
-    );
+    ));
   }) as never;
 
   /*
@@ -233,16 +252,17 @@ export function forceNoStore<T>(client: T): T {
     const chatParse = (chatCompletions.parse as (...args: unknown[]) => unknown).bind(
       target.chat.completions,
     );
-    chatCompletions.parse = ((body: Record<string, unknown>, options?: unknown) => {
+    chatCompletions.parse = ((original: Record<string, unknown>, options?: unknown) => {
       const capped = spendCapRejection();
       if (capped) return capped;
-      return observeAiCall(body, async () =>
+      const body = labelled(original);
+      return namesBack(observeAiCall(body, async () =>
         createWithParamFallback(
           (attempt) => counted(chatParse({ ...attempt, store: false }, options) as Promise<unknown>),
           withoutCacheWrites(body),
           warnDroppedParam,
         ),
-      );
+      ));
     }) as never;
   }
 
@@ -252,12 +272,13 @@ export function forceNoStore<T>(client: T): T {
   const responses = (client as unknown as { responses?: { create?: unknown } }).responses;
   if (responses && typeof responses.create === "function") {
     const responsesCreate = (responses.create as (...args: unknown[]) => unknown).bind(responses);
-    responses.create = ((body: Record<string, unknown>, options?: unknown) => {
+    responses.create = ((original: Record<string, unknown>, options?: unknown) => {
       const capped = spendCapRejection();
       if (capped) return capped;
-      return observeAiCall(body, async () =>
+      const body = labelled(original);
+      return namesBack(observeAiCall(body, async () =>
         counted(responsesCreate({ ...withoutCacheWrites(body), store: false }, options) as Promise<unknown>),
-      );
+      ));
     }) as never;
   }
 
@@ -271,8 +292,10 @@ export function forceNoStore<T>(client: T): T {
   const embeddings = (client as unknown as { embeddings?: { create?: unknown } }).embeddings;
   if (embeddings && typeof embeddings.create === "function") {
     const embeddingsCreate = (embeddings.create as (...args: unknown[]) => unknown).bind(embeddings);
-    embeddings.create = ((body: Record<string, unknown>, options?: unknown) =>
-      observeAiCall(body, async () => embeddingsCreate(body, options))) as never;
+    embeddings.create = ((original: Record<string, unknown>, options?: unknown) => {
+      const body = labelled(original);
+      return observeAiCall(body, async () => embeddingsCreate(body, options));
+    }) as never;
   }
 
   return client;

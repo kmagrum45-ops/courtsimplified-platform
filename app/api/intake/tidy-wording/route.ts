@@ -1,3 +1,4 @@
+import { withRequestNames } from "@/src/lib/security/requestNames";
 import { NextRequest, NextResponse } from "next/server";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
@@ -47,7 +48,7 @@ function isTidyBody(value: unknown): value is { fields: TidyField[] } {
   );
 }
 
-export async function POST(request: NextRequest) {
+async function postUnlabelled(request: NextRequest) {
   // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
   const limited = await aiLimitResponse(request, "light");
   if (limited) return limited;
@@ -88,3 +89,6 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+// Names never go to the model: every model call here labels the names the request carries (requestNames.ts).
+export const POST = withRequestNames(postUnlabelled);
