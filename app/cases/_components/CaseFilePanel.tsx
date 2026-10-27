@@ -9,7 +9,7 @@
  */
 import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
-import { SLOT_FACTS, conferenceKind, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { SLOT_FACTS, conferenceKind, courtDateIsConference, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
@@ -63,7 +63,9 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
 }
 
 export default function CaseFilePanel({ file, changeHref, situationHref, stepHref, deadlines = [] }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string; deadlines?: CountedDeadline[] }) {
-  const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file));
+  // The conference is the next court date: one day is listed once (26 Oct re-test, case 16 showed it twice).
+  const sameDay = courtDateIsConference(file);
+  const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file) && !(fact === "courtDate" && sameDay));
   const fromStory = storyLines(file.story ?? "", file, file.side.state === "answered" && file.side.value === "responding");
   if (!lines.length && !fromStory.length && !deadlines.length) return null;
   return (

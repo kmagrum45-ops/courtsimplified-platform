@@ -16,7 +16,9 @@
  *     a question or a doubt;
  *   - what a family case is about, where the story's words name it (divorce, selling the house,
  *     spousal support, parenting), offered in the chat and the review's question for one click (26 Oct
- *     re-test, case 14: nothing offered); a Charter claim's kinds likewise; never from a "no" or a question.
+ *     re-test, case 14: nothing offered); a Charter claim's kinds likewise; never from a "no" or a question;
+ *   - "No court date yet" is kept as the answer, never "No court date yet (day not given yet)" (case 14),
+ *     and a conference that is the next court date is listed once (case 16).
  *
  * Failure it exists to catch: "Witness" showing the whole list of evidence, "Lost pay" repeating the
  * injury sentence, "Children" showing a sentence about the divorce, and the other side never listed.
@@ -24,7 +26,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
-import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, courtDateIsConference, saysNoDateYet, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { childrenFromStory, civilFiledFromStory, familyFiledFromStory, familyIssuesFromStory } from "../../app/builder/_components/storyAnswers";
 import { reviewQuestionField } from "../../src/lib/case-system/intakeReview";
 import { reviewEntries } from "../../src/lib/case-system/intakeReview";
@@ -121,6 +123,19 @@ check("a threat is not offered as an issue, a city is not a move", issues("He th
 const m14Checkpoint = { version: 1, flowId: "00000000-0000-4000-8000-000000000014", courtPath: "family", revision: "00000000-0000-4000-8000-000000000014", sections: { story: { text: M14 }, family: { facts: M14 } } };
 const issuesQuestion = reviewQuestionField("family", "issues", m14Checkpoint as never);
 check("case 14 review: 'What is the case about?' suggests the story's issues, with the sentence", (issuesQuestion?.suggested ?? []).length === 4 && Boolean(issuesQuestion?.suggestedQuote), JSON.stringify(issuesQuestion?.suggested));
+for (const said of ["No court date yet", "none", "Not yet.", "No hearing scheduled yet", "Nothing scheduled", "There are no court dates yet"]) {
+  check(`"${said}" says there is no court date`, saysNoDateYet(said));
+}
+for (const said of ["November 16, 2026", "Case conference on November 16", "not sure", "I don't know", "sometime in December"]) check(`"${said}" is not "no date"`, !saysNoDateYet(said));
+const noDate = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000014", courtPath: "family", revision: "00000000-0000-4000-8000-000000000014", sections: { story: { text: "Synthetic." }, builder: { initialAnswers: { upcomingCourtDate: "No court date yet" } } } } as never);
+const noDateText = slotText(noDate.courtDate, (day) => day);
+check("case 14: 'No court date yet' reads as given, with no '(day not given yet)'", noDate.courtDate.state === "answered" && noDateText === "No court date yet", `${noDate.courtDate.state}: ${noDateText}`);
+const both = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000016", courtPath: "family", revision: "00000000-0000-4000-8000-000000000016", sections: { story: { text: "Synthetic." }, builder: { initialAnswers: { upcomingCourtDate: "Case conference on November 16, 2026" } } } } as never, { courtDate: "2026-11-16" } as never);
+const sameDayFile = { ...both, courtDate: { state: "answered", value: "2026-11-16", confirmed: true }, conferenceDate: { state: "answered", value: "Case conference on November 16, 2026", confirmed: true } } as typeof both;
+check("case 16: the conference on the same day as the next court date is one day", courtDateIsConference(sameDayFile));
+check("a different court date is its own line", !courtDateIsConference({ ...sameDayFile, courtDate: { state: "answered", value: "2027-03-03", confirmed: true } } as typeof both));
+const panel = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseFilePanel.tsx"), "utf8");
+check("'What we have so far' lists that day once", /courtDateIsConference\(file\)/.test(panel));
 for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");

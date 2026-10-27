@@ -76,6 +76,18 @@ export function emptyCaseFile(): CaseFile {
   return Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])) as unknown as CaseFile;
 }
 
+/**
+ * "No court date yet", "none", "nothing scheduled": an answer to a court-date question that says there
+ * is none, kept as the person's answer, never as a rough day (26 Oct re-test, case 14: "No court date
+ * yet (day not given yet)").
+ */
+export function saysNoDateYet(value: unknown): boolean {
+  if (typeof value !== "string") return false;
+  return /^\s*(?:no(?:pe)?|none(?: yet)?|not yet|nothing (?:scheduled|set|booked)(?: yet)?|no(?:t)? (?:any )?(?:court |next )?(?:dates?|hearings?|conferences?|appearances?)(?: (?:yet|scheduled|set|booked))*(?: yet)?|there (?:is|are) no (?:court )?(?:dates?|hearings?|conferences?)(?: (?:yet|scheduled|set))*)\s*[.!]?\s*$/i.test(value);
+}
+/** The slots a "no date yet" answer can close. */
+const COURT_DAYS = new Set<SlotFact>(["conferenceDate", "courtDate"]);
+
 /** The slots that hold a day. */
 const DATED = new Set<SlotFact>(["whenHappened", "servedDate", "conferenceDate", "courtDate"]);
 
@@ -83,6 +95,18 @@ const DATED = new Set<SlotFact>(["whenHappened", "servedDate", "conferenceDate",
 function readFullDay(text: string): string | null {
   const worded = firstWordedDate(text);
   return worded && isRealIsoDate(worded.iso) ? worded.iso : null;
+}
+
+/** The day a slot holds, as an ISO date, whatever form it was given in; null when it holds none. */
+export function dayOfSlot(slot: Slot): string | null {
+  if (typeof slot.value !== "string") return null;
+  return isRealIsoDate(slot.value) ? slot.value : readFullDay(slot.value);
+}
+
+/** The next court date is the conference: the same day in both slots (case 16), listed once. */
+export function courtDateIsConference(file: CaseFile): boolean {
+  const court = dayOfSlot(file.courtDate);
+  return court !== null && court === dayOfSlot(file.conferenceDate);
 }
 
 /** "We were married in Lisbon, Portugal in 2009": the place named, with the words it came from, or null. */
@@ -113,6 +137,11 @@ function give(file: CaseFile, fact: string, value: unknown, question: string) {
     return;
   }
   if (slot.state === "answered") return;
+  // "No court date yet" answers the question: there is none (26 Oct re-test, case 14).
+  if (COURT_DAYS.has(fact) && saysNoDateYet(value)) {
+    file[fact] = { state: "answered", value: String(value).trim(), source: { kind: "answer", question }, confirmed: true };
+    return;
+  }
   // A rough time ("last summer", "June 2026") is kept as given, but is not the day itself:
   // the fact stays unsure, so the exact day is offered once more at the end (item 12).
   if (DATED.has(fact) && typeof value === "string" && !isRealIsoDate(value) && !readFullDay(value)) {
