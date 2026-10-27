@@ -1,5 +1,6 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { sentences as sharedSentences } from "./sentences";
+import { canonicalJson } from "./canonicalJson";
 import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
 import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
@@ -188,14 +189,16 @@ function materialFacts(checkpoint: Checkpoint): Map<string, string> {
     // Unknown is not a fact: an empty field or "not sure" is the same as no answer.
     if (entry.section !== STORY_SECTION && (entry.value === "" || entry.value === "not-sure" || (Array.isArray(entry.value) && entry.value.length === 0))) continue;
     const key = JSON.stringify([entry.section, entry.nested, entry.field]);
-    if (!facts.has(key)) facts.set(key, JSON.stringify(entry.value));
+    // Each value in one canonical form (canonicalJson.ts): the saved copy comes back from jsonb with its
+    // keys reordered, and must still be the same fact (Chrome, 28 Oct: Confirm bounced on that alone).
+    if (!facts.has(key)) facts.set(key, canonicalJson(entry.value));
   }
-  facts.set("court", JSON.stringify(checkpoint.courtPath));
-  for (const [question, answer] of Object.entries(initialAnswersOf(checkpoint))) facts.set(JSON.stringify(["initialAnswers", question]), JSON.stringify(answer));
+  facts.set("court", canonicalJson(checkpoint.courtPath));
+  for (const [question, answer] of Object.entries(initialAnswersOf(checkpoint))) facts.set(JSON.stringify(["initialAnswers", question]), canonicalJson(answer));
   const answers = checkpoint.sections.home?.understoodAnswers;
-  if (Array.isArray(answers) && answers.length) facts.set("home.understoodAnswers", JSON.stringify(answers));
+  if (Array.isArray(answers) && answers.length) facts.set("home.understoodAnswers", canonicalJson(answers));
   // The situation answers (situation.ts) are facts the guidance rests on: changing one is confirmed again.
-  for (const [key, value] of Object.entries(situationOf(checkpoint.sections))) facts.set(JSON.stringify(["situation", key]), JSON.stringify(value));
+  for (const [key, value] of Object.entries(situationOf(checkpoint.sections))) facts.set(JSON.stringify(["situation", key]), canonicalJson(value));
   return facts;
 }
 

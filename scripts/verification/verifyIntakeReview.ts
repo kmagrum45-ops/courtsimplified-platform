@@ -160,3 +160,28 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
   assert.equal(reviewQuestionField("civil", "amountClaimed", civil)?.fromStory, "$62,000", "civil: the amount the story says is owed is offered");
   console.log("PASS the review offers the story's own answer for a typed question, in Family and civil");
 }
+
+// Chrome, 28 Oct: the case is saved as jsonb, which reorders every object's keys (shorter first). The
+// home reading's answers came back as {answer, question}; the saved initial facts no longer matched
+// the page's, so the first Confirm bounced and "Show my next step" dropped the confirmation.
+{
+  const jsonb = (value: unknown): unknown => Array.isArray(value) ? value.map(jsonb) : value && typeof value === "object"
+    ? Object.fromEntries(Object.keys(value as Record<string, unknown>).sort((a, b) => a.length - b.length || (a < b ? -1 : a > b ? 1 : 0)).map((key) => [key, jsonb((value as Record<string, unknown>)[key])]))
+    : value;
+  const page: Checkpoint = {
+    version: 1, flowId: "00000000-0000-4000-8000-000000000028", courtPath: "civil", revision: "00000000-0000-4000-8000-000000000028",
+    sections: {
+      story: { text: "Synthetic story about a stop by two officers." },
+      home: { understoodAnswers: [{ question: "Who exactly do you want to name?", answer: "Synthetic Police Service." }] },
+      civil: { input: { legalRemedy: "Damages", otherParty: "Synthetic Police Service", documents: ["nothing"] } },
+      situation: { record: { where: "starting", filed: "nothing", court: "civil" } },
+    },
+  } as unknown as Checkpoint;
+  const saved = jsonb(page) as Checkpoint;
+  assert.notEqual(JSON.stringify(saved.sections.home), JSON.stringify(page.sections.home), "(the stored copy's keys are in another order)");
+  assert.equal(existingFactChanged(saved, page), false, "the same facts read back from jsonb are no change");
+  assert.equal(materialInitialFacts(saved), materialInitialFacts(page), "and the same initial facts");
+  const edited = { ...page, sections: { ...page.sections, home: { understoodAnswers: [{ question: "Who exactly do you want to name?", answer: "Another service." }] } } } as Checkpoint;
+  assert.equal(existingFactChanged(saved, edited), true, "a real change to an answer still counts");
+  console.log("PASS a stored copy whose keys came back reordered is the same initial facts; a real change still counts");
+}

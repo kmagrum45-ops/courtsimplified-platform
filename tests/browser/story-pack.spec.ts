@@ -218,7 +218,7 @@ async function guidedQuestions(page: Page, story: Story, viaReview: boolean) {
   }
   checkText(story.id, "questions", await page.getByTestId("guided-form-chat").innerText().catch(() => ""));
   await page.getByTestId("guided-form-done").click();
-  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing");
+  await expect(page.getByTestId("intake-review")).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
 }
 
 /** Civil and Family: what was left for the review, answered there. */
@@ -1228,6 +1228,148 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-
     await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
     await expect(panel, "one press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
     await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+  });
+}
+
+// Chrome, 28 Oct (twice, a brand-new case, nothing edited, a 6 s wait): the first Confirm bounced
+// with "Your initial facts changed", and after the second "Show my next step" went back to the review,
+// unticked. The questions route, at the live site's speed from the first screen: the review opened
+// with "Continue to your next steps", nothing changed, one tick, one press; the next step loads and
+// stays confirmed.
+for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-28oct confirm once: nothing changed, one tick, one press, the next step loads and stays confirmed -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(600_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    for (const api of [`**/api/${court}/analyze`, "**/api/intake/sourced-questions", "**/api/case/understand", "**/api/intake/guided-turn"]) await page.route(api, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
+    const warnings: string[] = [];
+    page.on("console", (message) => { if (/Confirm refused/.test(message.text())) warnings.push(message.text()); });
+    if (court === "small-claims") await smallClaims(page, story, false);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, false);
+      const next = page.getByRole("button", { name: "Continue to your next steps" }).first();
+      if (await next.isVisible().catch(() => false)) await next.click();
+    }
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toBeVisible({ timeout: 120_000 });
+    // Anything the review still needs is answered "I don't know yet" (Chrome had nothing left).
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await page.waitForTimeout(6_000);
+    await page.getByTestId("intake-review-acknowledgement").check();
+    const confirm = page.getByTestId("intake-confirm");
+    await confirm.scrollIntoViewIfNeeded();
+    const box = await confirm.boundingBox();
+    if (!box) throw new Error("no Confirm button on screen");
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    await expect(panel, `one press confirms${warnings.length ? `: ${warnings.join(" | ")}` : ""}`).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+    await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+    await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+    await expect(page.getByTestId("completed-case-overview"), "the next step loads").toBeVisible({ timeout: 120_000 });
+    await page.waitForTimeout(3_000);
+    await expect(page.getByTestId("intake-review-acknowledgement"), "and does not go back to the review").toHaveCount(0);
+    expect(warnings, "no Confirm was refused").toEqual([]);
+  });
+}
+
+// The same, the way Chrome came in: the home page's story reading with rounds of "Update with my
+// answers" (their answers are initial facts: home.understoodAnswers), then "Continue with …". The
+// reading's reply is canned here (the harness has no AI); everything after it is this commit's code.
+const PATH_WORDS: Record<string, string> = { civil: "Civil", family: "Family", "small-claims": "Small Claims" };
+for (const [court, id] of [["civil", "c1-charter-police"], ["family", "family-spousal"], ["small-claims", "sc-deck-owed"]] as const) {
+  test(`retest-28oct confirm once, through the home reading's rounds: one press confirms and the next step stays confirmed -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(600_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    const QUESTIONS = ["Who exactly do you want to name in the claim?", "What records do you have?"];
+    let round = 0;
+    await page.route("**/api/case/understand", async (route) => {
+      const question = QUESTIONS[Math.min(round, QUESTIONS.length - 1)];
+      round += 1;
+      await route.fulfill({ json: { ok: true, understanding: { summary: "Synthetic summary of your story.", facts: [], matters: [], mainCourt: court, side: "starting", stage: "Deciding whether to start a case", step: null, questions: [{ question, why: "Synthetic." }], asksForPrediction: false, regime: null }, answer: { status: "answered", statements: [], notConfirmed: [], declinedToJudge: false } } });
+    });
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    for (const api of [`**/api/${court}/analyze`, "**/api/intake/sourced-questions", "**/api/intake/guided-turn"]) await page.route(api, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
+    const warnings: string[] = [];
+    page.on("console", (message) => { if (/Confirm refused/.test(message.text())) warnings.push(message.text()); });
+    await page.goto(`/?path=${court}`, { waitUntil: "domcontentloaded" });
+    await page.getByLabel("City or municipality").fill("Ottawa");
+    await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+    await page.getByRole("button", { name: `Continue to ${PATH_WORDS[court]} intake` }).click();
+    const card = page.getByTestId("case-understanding");
+    await expect(card).toBeVisible({ timeout: 120_000 });
+    for (const [question, answer] of [[QUESTIONS[0], "Synthetic Organization Ltd. I don't know the names."], [QUESTIONS[1], "The receipt just says investigation."]]) {
+      await page.getByLabel(question).fill(answer);
+      await page.getByTestId("case-understanding-update").click();
+      await expect(page.getByTestId("case-understanding-update")).not.toHaveText(/Updating/, { timeout: 120_000 });
+    }
+    await page.getByTestId("case-understanding-continue-suggested").click();
+    await page.waitForURL(/\/builder\?/, { timeout: 120_000 });
+    const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+    await expect(acknowledgement.or(page.getByRole("button", { name: "Fill in the form yourself" })).or(page.getByTestId("guided-form-chat"))).toBeVisible({ timeout: 120_000 });
+    if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+    if (court === "small-claims") {
+      await smallClaimsGuided(page, story);
+    } else {
+      await guidedQuestions(page, story, false);
+    }
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toBeVisible({ timeout: 120_000 });
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await page.waitForTimeout(6_000);
+    await page.getByTestId("intake-review-acknowledgement").check();
+    const confirm = page.getByTestId("intake-confirm");
+    await confirm.scrollIntoViewIfNeeded();
+    const box = await confirm.boundingBox();
+    if (!box) throw new Error("no Confirm button on screen");
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    await expect(panel, `one press confirms${warnings.length ? `: ${warnings.join(" | ")}` : ""}`).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+    await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+    await expect(page.getByTestId("completed-case-overview"), "the next step loads").toBeVisible({ timeout: 120_000 });
+    await page.waitForTimeout(3_000);
+    await expect(page.getByTestId("intake-review-acknowledgement"), "and does not go back to the review").toHaveCount(0);
+    expect(warnings, "no Confirm was refused").toEqual([]);
+  });
+}
+
+// Chrome, 28 Oct: a reopened chat showed each answer's words but not the law sections and citations
+// shown live. The law is kept with the question it answers, so a reload shows it again.
+for (const [court, id] of [["civil", "civil-deposit"], ["family", "family-spousal"], ["small-claims", "sc-deck-owed"]] as const) {
+  test(`retest-28oct a reopened chat shows the law and citations the live answer showed -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [], answer: { status: "answered", declinedToJudge: false, notConfirmed: [], statements: [{ text: "A synthetic statement of the rule.", sources: [{ passageId: "p1", citation: "Synthetic Act, 2019, s. 4 (1)", sourceUrl: "https://www.ontario.ca/laws/statute/00x00", quote: "The synthetic words.", kind: "legislation" }] }] } } }));
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    await confirmAndContinue(page);
+    const ask = page.getByRole("button", { name: "Ask follow-up questions" });
+    await ask.waitFor({ state: "visible", timeout: 60_000 });
+    await ask.click();
+    await lastReply(page, "Do I need to give notice before I start?");
+    const law = page.getByTestId("assistant-law");
+    await expect(law.last(), "the live answer shows its citation").toContainText("Synthetic Act, 2019, s. 4 (1)", { timeout: 60_000 });
+    await page.reload();
+    const again = page.getByRole("button", { name: "Ask follow-up questions" });
+    if (await again.isVisible({ timeout: 60_000 }).catch(() => false)) await again.click();
+    await expect(page.getByTestId("case-partner-transcript"), "the question is still there").toContainText("Do I need to give notice before I start?", { timeout: 60_000 });
+    await expect(page.getByTestId("assistant-law").last(), "and so is the law the answer showed, with its citation").toContainText("Synthetic Act, 2019, s. 4 (1)", { timeout: 60_000 });
   });
 }
 
