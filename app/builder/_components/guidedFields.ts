@@ -19,6 +19,7 @@ import {
   childrenFromStory,
   courtDateFromStory,
   civilIssuesFromStory,
+  familyIssuesFromStory,
   childrenPartialFromStory,
   civilFiledFromStory,
   civilRoleFromStory,
@@ -110,6 +111,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "issues",
       label: "What the case is about",
+      // The issues the story names, offered for one click (26 Oct re-test, case 14).
+      fromStory: (values) => offeredFiled(familyIssuesFromStory(storyOf(values)), options.issues),
       question: "What is the case about? Pick everything that applies.",
       why: "Each issue has its own forms and steps, so this keeps what you see to the ones that fit.",
       kind: "multi",

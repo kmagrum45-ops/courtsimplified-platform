@@ -656,6 +656,34 @@ export function courtDateFromStory(story: string): StoryAnswer | null {
  * nothing ticked). Only what the words name -- the Charter, the police -- never a legal reading of
  * the facts (no "assault" from "handcuffed", no "negligence" from an injury).
  */
+/**
+ * Family: what the case is about, as the form's options, where the story's own words name it
+ * (26 Oct re-test, case 14: a story naming a divorce, selling the house, spousal support and
+ * parenting was asked "What is the case about?" with nothing offered). Only the words themselves --
+ * never a reading of the facts (no "safety concerns" from a threat, no "relocation" from a city) --
+ * and only in a plain sentence: a question, a doubt or a "no" names nothing.
+ */
+export function familyIssuesFromStory(story: string): { value: string[]; quote: string } | null {
+  const named: [string, RegExp][] = [
+    ["divorce", /\bdivorc\w*/i],
+    ["sale-of-home", /\b(?:sell|selling|sale of|sold)\b(?:\s+\w+){0,3}?\s+(?:home|house|condo|place)\b/i],
+    ["spousal-support", /\bspousal support\b/i],
+    ["child-support", /\bchild support\b/i],
+    ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
+    ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
+    ["property-division", /\bequali[sz]ation\b|\bdivid\w* (?:the |our )?(?:property|assets)\b/i],
+  ];
+  const values: string[] = [];
+  const quotes: string[] = [];
+  for (const [value, words] of named) {
+    const sentence = firstPlain(story, words);
+    if (!sentence || /\?\s*$/.test(sentence)) continue;
+    values.push(value);
+    if (!quotes.includes(sentence)) quotes.push(sentence);
+  }
+  return values.length ? { value: values, quote: quotes.join(" ") } : null;
+}
+
 export function civilIssuesFromStory(story: string): { value: string[]; quote: string } | null {
   const named: [string, RegExp][] = [
     ["charter", /\bcharter\b/i],

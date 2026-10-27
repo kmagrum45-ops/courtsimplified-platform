@@ -13,7 +13,10 @@
  *   - a debt's last payment and whether it was acknowledged in writing (case 11);
  *   - the papers a case already going has, from the story's own filing words, offered for "Has anything
  *     been filed…?" (26 Oct re-test, case 16: asked with nothing offered), and never from a tribunal,
- *     a question or a doubt.
+ *     a question or a doubt;
+ *   - what a family case is about, where the story's words name it (divorce, selling the house,
+ *     spousal support, parenting), offered in the chat and the review's question for one click (26 Oct
+ *     re-test, case 14: nothing offered); a Charter claim's kinds likewise; never from a "no" or a question.
  *
  * Failure it exists to catch: "Witness" showing the whole list of evidence, "Lost pay" repeating the
  * injury sentence, "Children" showing a sentence about the divorce, and the other side never listed.
@@ -22,7 +25,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
-import { childrenFromStory, civilFiledFromStory, familyFiledFromStory } from "../../app/builder/_components/storyAnswers";
+import { childrenFromStory, civilFiledFromStory, familyFiledFromStory, familyIssuesFromStory } from "../../app/builder/_components/storyAnswers";
+import { reviewQuestionField } from "../../src/lib/case-system/intakeReview";
 import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 
 let failures = 0;
@@ -108,6 +112,15 @@ const FILED: Array<[typeof familyFiledFromStory, string, string]> = [
   [civilFiledFromStory, "I got served with a statement of claim.", "statement-claim"],
   [civilFiledFromStory, "Do I need to file a defence?", ""],
 ];
+const M14 = "I was served on October 12, 2026 with an Application for divorce in Ottawa. My wife wants a divorce, to sell the house, spousal support from me and she wants the children, Mia (4) and Noah (2), primarily with her. We were married in Lisbon, Portugal in 2009 and moved here in 2012. I don't agree with selling the house, I want shared parenting and I don't think I should pay spousal support since she earns more than me.";
+const issues = (story: string) => (familyIssuesFromStory(story)?.value ?? []).slice().sort().join(",");
+check("case 14: the story's own issues are offered", issues(M14) === "divorce,parenting-time,sale-of-home,spousal-support", issues(M14));
+check("a 'no' names nothing", issues("We are not getting a divorce. I don't want child support.") === "", issues("We are not getting a divorce. I don't want child support."));
+check("a question names nothing", issues("Can I ask for spousal support?") === "");
+check("a threat is not offered as an issue, a city is not a move", issues("He threatened me. We live in Ottawa.") === "");
+const m14Checkpoint = { version: 1, flowId: "00000000-0000-4000-8000-000000000014", courtPath: "family", revision: "00000000-0000-4000-8000-000000000014", sections: { story: { text: M14 }, family: { facts: M14 } } };
+const issuesQuestion = reviewQuestionField("family", "issues", m14Checkpoint as never);
+check("case 14 review: 'What is the case about?' suggests the story's issues, with the sentence", (issuesQuestion?.suggested ?? []).length === 4 && Boolean(issuesQuestion?.suggestedQuote), JSON.stringify(issuesQuestion?.suggested));
 for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
