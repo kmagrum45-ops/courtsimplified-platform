@@ -822,7 +822,7 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
           "before the trial starts, if the only claim is for money or the recovery of personal property " +
           "and it is within the Small Claims Court's jurisdiction.",
         sourceUrl: CJA,
-        verifiedAt: VERIFIED,
+        verifiedAt: "2026-10-28",
         consolidationPeriod: CJA_CONSOLIDATION,
       },
     ],

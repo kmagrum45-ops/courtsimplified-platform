@@ -621,9 +621,9 @@
     },
     {
       "key": "sc-defence-sued-in-the-wrong-place|proceduralNote|sc-defence-sued-in-the-wrong-place#note1",
-      "verifiedAt": "2026-10-07",
+      "verifiedAt": "2026-10-28",
       "outcome": "authored",
-      "fingerprint": "296dda6fe73ea86e66b7bc9abf62b540bdddada887f04260e1c60b24728b5163",
+      "fingerprint": "34ed2f4fddcad8b6e0baa5d97db43070f4d1a52b9759b1572076e745f8485f1e",
       "sources": [
         {
           "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
@@ -631,7 +631,7 @@
           "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court. ... An action in the Superior Court of Justice may be transferred to the Small Claims Court by the local registrar of the Superior Court of Justice on requisition with the consent of all parties filed before the trial commences if, (a) the only claim is for the payment of money or the recovery of possession of personal property; and (b) the claim is within the jurisdiction of the Small Claims Court."
         }
       ],
-      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07"
+      "howRead": "Vendored corpus file docs/sources/corpus/cja-courts-of-justice-act.txt; read 2026-10-07; re-read 2026-10-28: the note now quotes the leave rules word for word (CJA s. 23 (1.1); Rules of Civil Procedure r. 14.01.1 (2), (3)), each already quoted in this record (Chrome re-test 28 Oct)"
     },
     {
       "key": "sc-defence-default-judgment-against-you|plaintiffElement|what-default-means-default",

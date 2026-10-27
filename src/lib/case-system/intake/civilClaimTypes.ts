@@ -350,7 +350,7 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
           "s. 23(1.2), s. 23(1.1) does not apply to a counterclaim, crossclaim or third or subsequent " +
           "party claim where the main action was started in the Superior Court of Justice.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
-        verifiedAt: "2026-09-30",
+        verifiedAt: "2026-10-28",
         consolidationPeriod: "2025-12-11",
         alsoCites: [
           {
@@ -685,7 +685,7 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
           "s. 23(1.2), s. 23(1.1) does not apply to a counterclaim, crossclaim or third or subsequent " +
           "party claim where the main action was started in the Superior Court of Justice.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
-        verifiedAt: "2026-09-30",
+        verifiedAt: "2026-10-28",
         consolidationPeriod: "2025-12-11",
         alsoCites: [
           {
