@@ -1309,3 +1309,27 @@ test("retest-27oct root cause 3 on staging: the Charter review, a one-click answ
   }
 });
 
+// Charter re-test 27 Oct: one press of "Count my deadline" was enough, but the button only greyed
+// out without saying it was working. While the case is being saved it says so, in every area.
+for (const [court, id] of [["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-27oct: Count my deadline says it is working while it saves -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(300_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
+    await confirmAndContinue(page);
+    const box = page.locator('[data-testid="stage-answer-date-question"] input[type="text"]').first();
+    await expect(box, "the step asks a date").toBeVisible({ timeout: 90_000 });
+    await box.fill("March 3, 2026");
+    // The case is saved at the live site's speed.
+    await page.route("**/api/cases/position", async (route) => { await new Promise((done) => setTimeout(done, 3_000)); await route.fallback(); });
+    await page.getByTestId("stage-answer-dates-save").click();
+    await expect(page.getByTestId("stage-answer-dates-save"), "it says it is working").toHaveText("Counting your deadline…", { timeout: 1_000 });
+    await expect(page.getByTestId("stage-answer-dates-save"), "and goes back once done").toHaveText("Count my deadline", { timeout: 30_000 });
+  });
+}
+

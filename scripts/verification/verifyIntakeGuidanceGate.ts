@@ -84,7 +84,7 @@ async function main() {
     const response = await post(new Request(`http://localhost/api/${name}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ input: {} }) }) as never);
     assert.equal(response.status, 401, `${name}: an anonymous request with no case is refused too`);
   }
-  const independentRoutes = ["case/understand", "classify-court-path", "intake/guided-turn", "intake/classify-claim-type", "intake/safety-check", "intake/tidy-wording", "law/explain", "cases", "cases/position", "cases/drafts", "cases/event-candidates", "workspace/documents", "workspace/documents/upload-url", "workspace/documents/extract", "workspace/documents/link", "canlii/case", "site-access"];
+  const independentRoutes = ["case/understand", "classify-court-path", "intake/guided-turn", "intake/classify-claim-type", "intake/safety-check", "intake/tidy-wording", "law/explain", "cases", "cases/position", "cases/drafts", "cases/event-candidates", "workspace/documents", "workspace/documents/upload-url", "workspace/documents/extract", "workspace/documents/link", "workspace/documents/file/[id]/[name]", "canlii/case", "site-access"];
   const actualRoutes = readdirSync("app/api", { recursive: true }).map(String).filter(name => /route\.ts$/.test(name)).map(name => name.replaceAll("\\", "/").replace(/\/route\.ts$/, ""));
   assert.deepEqual(actualRoutes.sort(), [...protectedRoutes, ...independentRoutes].sort(), "new API routes require an explicit presentation/security audit");
   assert(!readFileSync("app/api/intake/safety-check/route.ts", "utf8").includes("withConfirmedGuidance"), "urgent safety information must not wait for confirmation");
