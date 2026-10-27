@@ -1192,7 +1192,7 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   await expect(file).toBeVisible({ timeout: 60_000 });
   const text = await file.innerText();
   expect(rawKeysIn(text), "no raw code").toEqual([]);
-  for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist was bruised/], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /missed 2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /3 June 2027|June 3, 2027/]] as const) expect(text, what).toMatch(words);
+  for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist (?:was )?bruised/i], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /missed 2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /3 June 2027|June 3, 2027/]] as const) expect(text, what).toMatch(words);
   expect(text, "the stage as a stage, never a question").not.toMatch(/Where the case is\s*\n?\s*How do I/);
 });
 

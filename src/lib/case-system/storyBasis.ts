@@ -21,6 +21,25 @@
 import type { Checkpoint } from "./intakeCheckpoint";
 import { guidedReadingOutdated, STORY_INPUT_KEYS, STORY_SECTION, storyOf } from "./intakeStory";
 import { sentences } from "./sentences";
+import { situationAnswers, situationOf } from "./situation/situation";
+
+/**
+ * The answers the situation answers settle, wherever a route stored a copy (the Small Claims chat's
+ * `guided.facts.role`, a form's side): never based on the story, so never stale. Full story pack,
+ * 27 Oct: after a rewrite the chat route's "Role" stayed "answered for an earlier version" with no
+ * way to answer it again, and Confirm stayed blocked.
+ */
+function settledByTheStart(checkpoint: Checkpoint): Set<string> {
+  const court = checkpoint.courtPath;
+  if (court !== "small-claims" && court !== "civil" && court !== "family") return new Set();
+  const start = situationAnswers(court, situationOf(checkpoint.sections));
+  const keys: string[] = [];
+  if (start.role) keys.push("guided.facts.role", `${court}.input.yourRole`, "family.yourRole");
+  if (start.claimFiled !== undefined) keys.push("guided.facts.claimFiled");
+  if (start.claimServed !== undefined) keys.push("guided.facts.claimServed");
+  if (start.defenceFiled !== undefined) keys.push("guided.facts.defenceFiled");
+  return new Set(keys);
+}
 
 type Sections = Checkpoint["sections"];
 export const BASIS_SECTION = "storyBasis";
@@ -119,8 +138,9 @@ export function staleAnswerKeys(checkpoint: Checkpoint): string[] {
   const version = storyVersion(storyOf(checkpoint.sections));
   // An answer stored before there was any story was not based on an earlier version of it.
   const noStory = storyVersion("");
+  const settled = settledByTheStart(checkpoint);
   return Object.entries(object(checkpoint.sections[BASIS_SECTION]))
-    .filter(([answer, based]) => based !== version && based !== noStory && !empty(valueAt(checkpoint.sections, answer)))
+    .filter(([answer, based]) => based !== version && based !== noStory && !settled.has(answer) && !empty(valueAt(checkpoint.sections, answer)))
     .map(([answer]) => answer);
 }
 
