@@ -10,7 +10,10 @@
  *   - Witness is just the witness, never the list of evidence; Lost pay is the amount and the time;
  *     the evidence is listed when the story says what they have;
  *   - the children are their names and ages, or who and how old, never the sentence they came in;
- *   - a debt's last payment and whether it was acknowledged in writing (case 11).
+ *   - a debt's last payment and whether it was acknowledged in writing (case 11);
+ *   - the papers a case already going has, from the story's own filing words, offered for "Has anything
+ *     been filed…?" (26 Oct re-test, case 16: asked with nothing offered), and never from a tribunal,
+ *     a question or a doubt.
  *
  * Failure it exists to catch: "Witness" showing the whole list of evidence, "Lost pay" repeating the
  * injury sentence, "Children" showing a sentence about the divorce, and the other side never listed.
@@ -19,7 +22,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
-import { childrenFromStory } from "../../app/builder/_components/storyAnswers";
+import { childrenFromStory, civilFiledFromStory, familyFiledFromStory } from "../../app/builder/_components/storyAnswers";
 import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 
 let failures = 0;
@@ -88,6 +91,24 @@ check("Charter review: the public body is offered from the story", /Police Servi
 check("Charter review: the losses are offered from the story", /\$2,640/.test(charterBoxes.damagesBreakdown ?? "") && /Phone/.test(charterBoxes.damagesBreakdown ?? ""), charterBoxes.damagesBreakdown);
 check("Charter review: the timeline is offered from the story", /June 3, 2025/.test(charterBoxes.timeline ?? ""), charterBoxes.timeline);
 check("a private party is not offered as the public body (case 11's debt collector)", !boxes("m11-old-credit-card").governmentActor);
+
+const filed = (read: typeof familyFiledFromStory, story: string) => (read(story)?.value ?? []).join(",");
+const FILED: Array<[typeof familyFiledFromStory, string, string]> = [
+  [familyFiledFromStory, "I filed an application in June 2026 and my ex filed an answer in July.", "application,answer"],
+  [familyFiledFromStory, "We filed our application in the spring.", "application"],
+  [familyFiledFromStory, "My ex-wife served her answer last week.", "answer"],
+  [familyFiledFromStory, "The respondent filed an Answer in September.", "answer"],
+  [familyFiledFromStory, "I filed my answer in May.", "answer"],
+  [familyFiledFromStory, "I filed an application with the Landlord and Tenant Board.", ""],
+  [familyFiledFromStory, "Should I file an application?", ""],
+  [familyFiledFromStory, "I think he filed an answer, not sure.", ""],
+  [civilFiledFromStory, "I issued a statement of claim in May and he filed a statement of defence in June.", "statement-claim,statement-defence"],
+  [civilFiledFromStory, "The company filed its defence last month.", "statement-defence"],
+  [civilFiledFromStory, "I filed my statement of defence on time.", "statement-defence"],
+  [civilFiledFromStory, "I got served with a statement of claim.", "statement-claim"],
+  [civilFiledFromStory, "Do I need to file a defence?", ""],
+];
+for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;

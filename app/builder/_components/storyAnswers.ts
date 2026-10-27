@@ -555,6 +555,20 @@ function familyApplicationQuote(story: string): string | null {
 }
 
 const FAMILY_ANSWER_FILED = /\bi (?:filed|served|did|sent in|submitted) my (?:answer|response)\b/i;
+/*
+ * A case already going, in the story's own words (26 Oct re-test, case 16: "I filed an application in
+ * June 2026 and my ex filed an answer in July" was asked "Has anything been filed…?" with nothing
+ * offered): the person's own application, and the other side's answer or defence. Only the paper's
+ * name with a filing word; never a guess from "we went to court".
+ */
+const OWN_APPLICATION_FILED = /\b(?:i|we) (?:filed|started|issued|served|brought|made) (?:a |an |my |our )?(?:court |family )?application\b|\b(?:my|our) application was (?:filed|issued|served)\b/i;
+const OTHER_ANSWER_FILED = new RegExp("\\b(?:" + FAMILY_PERSON + "|they|the (?:respondent|other (?:side|party|person))) (?:filed|served|delivered|sent in|submitted) (?:a |an |the |his |her |their )?(?:answer|response)\\b", "i");
+const OWN_CLAIM_ISSUED = /\b(?:i|we) (?:filed|issued|started|served|delivered) (?:a |the |my |our )?statement of claim\b/i;
+const DEFENCE_FILED = new RegExp("\\b(?:i|we) (?:filed|served|delivered) (?:a |the |my |our )?statement of defen[cs]e\\b|\\b(?:" + OTHER_PERSON + "|it|the defendants?) (?:filed|served|delivered) (?:a |an |the |his |her |their |its )?(?:statement of )?defen[cs]e\\b", "i");
+/** The first plain sentence with the pattern that is about the family court (not a tribunal, not a claim). */
+function firstFamilyPlain(story: string, pattern: RegExp): string | null {
+  return sentences(story).find((sentence) => !NOT_FAMILY_COURT.test(sentence) && plainMatch(sentence, pattern)) ?? null;
+}
 const CIVIL_CLAIM_RECEIVED =
   /\b(?:(?:i|we)(?:'ve|ve| have| had)?(?: just)?(?: (?:got|get|was|were|been|getting))+(?: just)?(?: served)?(?: with)? (?:a |the |his |her |their )?statement of claim|served me (?:with )?(?:a |the )?statement of claim|i (?:just )?received (?:a |the )?statement of claim)\b/i;
 /*
@@ -589,10 +603,11 @@ function filedFromStory(story: string, court: "family" | "civil"): FiledAnswer |
     if (!quotes.includes(quote)) quotes.push(quote);
   };
   if (court === "family") {
-    add("application", familyApplicationQuote(story));
-    add("answer", firstPlain(story, FAMILY_ANSWER_FILED));
+    add("application", familyApplicationQuote(story) ?? firstFamilyPlain(story, OWN_APPLICATION_FILED));
+    add("answer", firstPlain(story, FAMILY_ANSWER_FILED) ?? firstFamilyPlain(story, OTHER_ANSWER_FILED));
   } else {
-    add("statement-claim", firstPlain(story, CIVIL_CLAIM_RECEIVED));
+    add("statement-claim", firstPlain(story, CIVIL_CLAIM_RECEIVED) ?? firstPlain(story, OWN_CLAIM_ISSUED));
+    add("statement-defence", firstPlain(story, DEFENCE_FILED));
   }
   if (values.length) return { value: values, quote: quotes.join(" ") };
   const wanting = firstPlain(story, WANT_TO_START);

@@ -152,6 +152,7 @@ export default function GuidedFormChat({
   doneLabel = "Continue to your next steps",
   closing = null,
   fromStart = [],
+  startWords = {},
 }: {
   fields: readonly GuidedField[];
   values: GuidedValues;
@@ -165,6 +166,12 @@ export default function GuidedFormChat({
   closing?: { say: string; rules: RuleCitation[] } | null;
   /** Fields the situation questions answered (situation.ts): their Change opens those questions. */
   fromStart?: readonly string[];
+  /**
+   * The start answers' own words for a field set there ("I started this case (applicant)" for a case
+   * already going), shown instead of the field's option label ("I'm starting it (or I want to)",
+   * 26 Oct re-test, case 16). From situationAnswers, the one place they are worded.
+   */
+  startWords?: Readonly<Record<string, string | undefined>>;
 }) {
   const [skipped, setSkipped] = useIntakeState<Set<string>>("form-chat", "skipped", new Set());
   const [heard, setHeard] = useIntakeState<{ question: string; reply: string }[]>("form-chat", "heard", []);
@@ -295,7 +302,7 @@ export default function GuidedFormChat({
           <ul className="mt-2 space-y-1 text-sm text-[#2b4640]">
             {known.map((field) => (
               <li key={field.key}>
-                <span className="font-semibold">{field.label}:</span> {display(field, values[field.key])}{" "}
+                <span className="font-semibold">{field.label}:</span> {(fromStart.includes(field.key) && startWords[field.key]) || display(field, values[field.key])}{" "}
                 <button
                   type="button"
                   data-testid="guided-form-known-change"

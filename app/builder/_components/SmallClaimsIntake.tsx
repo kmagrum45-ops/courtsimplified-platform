@@ -1166,7 +1166,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your role</span>
 {roleFromStart ? (
-              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
             ) : (
             <select
               data-testid="sc-intake-yourRole" value={input.yourRole}

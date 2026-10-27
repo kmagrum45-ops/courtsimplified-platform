@@ -959,6 +959,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
             // "how do i get it lowered" is answered when the questions end
             // (walkthrough run 38525903567, FM; motionToChange.ts chatClosingFor).
             fromStart={[...(fromStart.role ? ["yourRole"] : []), ...(fromStart.documents ? ["filedDocuments"] : []), ...(fromStart.servedOn ? ["servedDate"] : [])]}
+            startWords={{ yourRole: fromStart.roleWords }}
             closing={chatClosingFor(
               [facts, goal].filter(Boolean).join("\n"),
               existingFamilyOrder(facts) || filedDocuments.includes("order-agreement"),
@@ -980,7 +981,7 @@ export default function FamilyIntake({ onComplete, onScopeChange, onQuestionsDon
         <label className="block">
           <span className="font-semibold text-[#16302b]">Who started the court case?</span>
           {fromStart.role ? (
-            <p data-testid="role-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.role === "respondent" ? "The other person started it and I was served (respondent)" : "I started it, or I plan to start it (applicant)"} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+            <p data-testid="role-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? (fromStart.role === "respondent" ? "The other person started it and I was served (respondent)" : "I started it, or I plan to start it (applicant)")} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
           ) : (
           <select
             aria-label="Who started the court case?"
