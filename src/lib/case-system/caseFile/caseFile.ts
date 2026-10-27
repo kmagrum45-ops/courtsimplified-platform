@@ -30,7 +30,7 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
-import { situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim } from "../intake/claimKind";
 import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
@@ -318,7 +318,11 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   }
   file.answers = answers;
   // The papers filed, as answered in any area's list (case 16: "the filed application and answer").
-  const listed = forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value)).filter((item) => item !== "nothing" && item !== "not-sure");
+  // And the papers named in the situation answers ("I was served with a Plaintiff's Claim"), so "Anything
+  // filed yet: Yes" names them in every area, not only where a form listed them (26 Oct re-test).
+  const startCourt = situation.court ?? court;
+  const fromStart = startCourt === "small-claims" || startCourt === "civil" || startCourt === "family" ? situationAnswers(startCourt, situation).documents ?? [] : [];
+  const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
   file.story = String(object(sections.story).text ?? "");
   return file;

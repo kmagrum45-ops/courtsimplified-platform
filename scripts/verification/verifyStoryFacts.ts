@@ -21,7 +21,9 @@
  *     and a conference that is the next court date is listed once (case 16);
  *   - "What kind of dispute is this?" answered in the chat is held in its own choice words, so the case
  *     page shows it (case 20: "Not sure yet: nothing in your story shows it" after "Unpaid money owed
- *     to you" was confirmed).
+ *     to you" was confirmed);
+ *   - the papers named in the situation answers are the case file's papers in every area, so "Anything
+ *     filed yet: Yes" names them (26 Oct re-test).
  *
  * Failure it exists to catch: "Witness" showing the whole list of evidence, "Lost pay" repeating the
  * injury sentence, "Children" showing a sentence about the divorce, and the other side never listed.
@@ -148,6 +150,10 @@ const codes = [...new Set([...(/"disputeCategory": exactly one of these[^\n]*/.e
 const unworded = codes.filter((code) => !DISPUTE_CATEGORY_WORDS[code]);
 check("every code the reader can give has its words", codes.length >= 10 && unworded.length === 0, `${codes.length} codes; unworded: ${unworded.join(", ")}`);
 const chatKind = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000020", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000020", sections: { story: { text: "Synthetic." }, builder: { step: "guided" }, guided: { answeredIds: ["sc-orient-dispute-category"], facts: { disputeCategory: "unpaid-money" } } } } as never);
+for (const [court, papers] of [["small-claims", "small-claims-7A"], ["civil", "civil-14A"], ["family", "family-8"]] as const) {
+  const served = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000011", courtPath: court, revision: "00000000-0000-4000-8000-000000000011", sections: { story: { text: "Synthetic." }, situation: { record: { where: "served", papers, receivedOn: "2026-10-12", court } } } } as never);
+  check(`${court}: the papers named at the start are the case file's papers, so "Anything filed" can name them`, (served.documents ?? []).length === 1, JSON.stringify(served.documents));
+}
 check("case 20: the kind of dispute answered in the chat is held in its words", chatKind.claimKind.state === "answered" && chatKind.claimKind.value === "Unpaid money owed to you", JSON.stringify(chatKind.claimKind));
 for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));
 
