@@ -322,6 +322,10 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
   if (document && courtOfPapers(situation) === court) out.documents = [document];
   if (court === "small-claims") {
     if (situation.where === "starting" && situation.filed) out.claimFiled = situation.filed === "something";
+    // Nothing filed means nothing served: a story that mentions some other claim ("serves him with a
+    // claim", the other side's) must not open "Has the other party filed a Defence?" or "what date was
+    // it served?" (26 Oct re-test, case 19 with "No, nothing yet").
+    if (situation.where === "starting" && situation.filed === "nothing") out.claimServed = false;
     // They started a case already going: their claim is filed.
     if (situation.where === "going" && situation.started === "me") out.claimFiled = true;
     if (side === "responding" && situation.papers === "small-claims-7A") { out.claimFiled = true; out.claimServed = true; }

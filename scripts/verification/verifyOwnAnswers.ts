@@ -8,7 +8,10 @@
  *   - so that fact is not asked again: not in the review's remaining questions, not by the chat;
  *   - the other party is a question of its own, asked one at a time in civil and family (it was only
  *     ever recorded by riding along with "What you want" on "Yes", and lost on "No");
- *   - a side change sets the old side's home answers aside, like every other answer about one side.
+ *   - a side change sets the old side's home answers aside, like every other answer about one side;
+ *   - "No, nothing yet" at the start settles that no claim is filed or served, over anything the story
+ *     seems to say: the Small Claims chat never asks about a Defence or the day it was served (26 Oct
+ *     re-test, case 19: the other side's claim in the story opened both).
  *
  * Failure it exists to catch: the review offering "I want to sue the police service…" for What you
  * want after the person had answered with a declaration; the other party never asked after "No,
@@ -21,6 +24,8 @@ import { answeredFactsOf, answeredInStory } from "../../src/lib/case-system/guid
 import { onSideChange } from "../../src/lib/case-system/sideChange";
 import { civilGuidedFields, familyGuidedFields, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, FAMILY_ISSUE_OPTIONS, FAMILY_FILED_OPTIONS } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { situationFacts } from "../../app/api/intake/guided-turn/route";
+import { selectQuestions } from "../../src/lib/case-system/intake/selectQuestions";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -74,6 +79,17 @@ const after = { ...before, situation: { record: { where: "served", papers: "civi
 const changed = onSideChange(before, after);
 const kept = (changed.sections.home as { understoodAnswers?: unknown[] } | undefined)?.understoodAnswers ?? [];
 check("a side change sets the old side's 'what you want' from the home page aside", kept.length === 0, JSON.stringify(kept));
+
+{
+  const fixed = situationFacts({ where: "starting", filed: "nothing", court: "small-claims", started: "me" });
+  // The story's reading may say a claim was served (the other side's); the start answer wins, as the route merges it.
+  const facts = { role: "plaintiff", claimFiled: true, claimServed: true, ...fixed.facts } as Parameters<typeof selectQuestions>[0];
+  const asked = selectQuestions(facts, fixed.questionIds);
+  const served = asked.filter((id) => ["sc-defence-filed", "sc-date-claim-served", "sc-date-claim-issued", "sc-defence-time-elapsed", "sc-defendant-noted-in-default"].includes(id));
+  check("'No, nothing yet': no Defence or served-date question, whatever the story says", served.length === 0 && fixed.facts.claimServed === false && fixed.facts.claimFiled === false, served.join(", ") || JSON.stringify(fixed.facts));
+  const filed = situationFacts({ where: "starting", filed: "something", court: "small-claims", started: "me" });
+  check("'Yes, something was filed' leaves served open, to be asked", filed.facts.claimFiled === true && filed.facts.claimServed === undefined, JSON.stringify(filed.facts));
+}
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;
