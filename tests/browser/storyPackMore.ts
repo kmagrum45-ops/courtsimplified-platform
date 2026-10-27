@@ -177,3 +177,16 @@ export const WALKTHROUGH_STORIES: PackStory[] = [
     story: "I filed an Application about parenting time in July 2026. We have a case conference on December 3, 2026. Our daughter is 8. I have the application papers.",
   },
 ];
+
+/**
+ * Chrome's Charter claim against police on the live site (2026-10-26), word for word as typed
+ * (courtsimplified-charter-test.md): every person, police service and badge is made up and marked
+ * TEST. Runs through both routes with every story check, and has its own test below the pack
+ * (story-pack.spec.ts, "retest Charter").
+ */
+export const CHARTER_STORIES: PackStory[] = [
+  {
+    id: "c1-charter-police", court: "civil", side: "plaintiff", filed: ["nothing"], issues: ["charter", "police-conduct"], amount: "$75,000",
+    story: "TEST story. On June 3, 2025 in Ottawa I was stopped by two officers of the TEST Capital Region Police Service, badges 4471 and 5520. They searched my backpack even though I clearly refused. They handcuffed me very tightly, did not tell me why, and refused to let me call a lawyer when I asked twice. They held me for about 3 hours and released me with no charges. They kept my phone for 6 weeks and it came back with a cracked screen. My left wrist was bruised and swollen, I saw a doctor on June 5 and missed 2 weeks of work ($2,640). I filed a police complaint in August 2025 and it was screened out in September with no reasons. I want to sue the police service and the two officers for violating my Charter rights (unreasonable search, arbitrary detention, not being told why and not getting a lawyer) and for the injury. I think about $75,000. I have my own timeline, the clinic note, the property receipt for my phone, a letter from my employer, my complaint letter and a witness who saw it.",
+  },
+];

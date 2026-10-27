@@ -135,6 +135,8 @@ function HomeLocationGateContent() {
   const [checking, setChecking] = useState(false);
   const [requestError, setRequestError] = useState("");
   const requestRef = useRef(new IntakeRequest());
+  // A reading replaced by the person's own "Update with my answers" (its error is not shown).
+  const supersededRef = useRef(false);
   const [storedSuggestion, setSuggestion] = useIntakeState<CourtPathSuggestion | null>("home", "suggestion", null);
   const [storedUnderstood, setUnderstood] = useIntakeState<UnderstandResponse | null>("home", "understood", null);
   /*
@@ -295,13 +297,19 @@ function HomeLocationGateContent() {
       return true;
       }) ?? true;
     } catch {
+      // The reading the person's own click replaced is not a failure to tell them about.
+      if (supersededRef.current) { supersededRef.current = false; return true; }
       setRequestError("Your update did not finish. Your answers are still here; please try again.");
       return true;
     }
   }
 
   async function updateWithAnswers(answers: { question: string; answer: string }[]) {
-    if (requestRef.current.pending || checking) return;
+    if (checking) return;
+    // A reading still running (the story's own, started as it was typed) gave the first click no
+    // feedback for half a minute (Charter re-test 2026-10-26). The new reading includes the story
+    // and the answers, so the older one is cancelled and "Updating…" shows at once.
+    if (requestRef.current.pending) { supersededRef.current = true; requestRef.current.cancel(); }
     setChecking(true);
     setRequestError("");
     // Earlier answers stay with the story; a new answer to the same question replaces the old.

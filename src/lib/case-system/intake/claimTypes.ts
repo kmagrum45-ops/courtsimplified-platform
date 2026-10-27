@@ -5210,9 +5210,10 @@ const CORE_CLAIM_TYPES: ClaimType[] = [
           "of the Consumer Protection Act, 2002, if a consumer has a right to commence an action under the " +
           "Act, the consumer may commence the action in the Superior Court of Justice. Under s. 22(1) of " +
           "the Courts of Justice Act, the Small Claims Court is continued as a branch of the Superior " +
-          "Court of Justice. But under s. 23(1.1) of the Courts of Justice Act, an action that is within " +
-          "the Small Claims Court's jurisdiction cannot be started in the Superior Court of Justice except " +
-          "with leave of the Superior Court of Justice as provided in the rules of court; an action for " +
+          "Court of Justice. But s. 23(1.1) of the Courts of Justice Act says: “An action that is within " +
+          "the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the " +
+          "Superior Court of Justice except with leave of the Superior Court of Justice as provided in the " +
+          "rules of court.” An action for " +
           "the payment of money is within that jurisdiction where the amount claimed, exclusive of " +
           "interest and costs, does not exceed the prescribed amount (s. 23(1)(a)), which is $50,000 (O. " +
           "Reg. 626/00, s. 1(1)). Under s. 100(2) of the Consumer Protection Act, 2002, if a consumer is " +

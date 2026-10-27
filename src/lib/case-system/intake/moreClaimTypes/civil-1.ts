@@ -73,9 +73,9 @@ const WHICH_COURT_NOTE =
   "Which court. Under s. 23(1) of the Courts of Justice Act, the Small Claims Court has jurisdiction " +
   "in an action for the payment of money where the amount claimed does not exceed the prescribed " +
   "amount, not counting interest and costs; under s. 1(1) of O. Reg. 626/00, that amount is $50,000. " +
-  "Under s. 23(1.1), an action that is within the Small Claims Court's jurisdiction shall not be " +
-  "started in the Superior Court of Justice except with leave of the Superior Court of Justice as " +
-  "provided in the rules of court. Under s. 23(1.2), that does not apply to a counterclaim, " +
+  "Under s. 23(1.1): “An action that is within the Small Claims Court's jurisdiction shall not, despite " +
+  "subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court " +
+  "of Justice as provided in the rules of court.” Under s. 23(1.2), that does not apply to a counterclaim, " +
   "crossclaim or third party claim where the main action was started in the Superior Court.";
 
 const MUSTAPHA_ELEMENTS =

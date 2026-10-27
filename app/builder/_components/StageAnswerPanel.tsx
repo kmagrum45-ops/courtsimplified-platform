@@ -1242,12 +1242,21 @@ function withoutArrivalDates(
  * not about a mortgage. Whole sentences or that one aside are dropped, never
  * reworded; the full answer below keeps every word.
  */
+/** The Act's own words for the leave rule, with its section. */
+export const CJA_23_1_1_WORDS = "Courts of Justice Act, s. 23 (1.1): “An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.”";
+/** The published library's own words for that rule (stageAnswers.published.json), replaced on screen. */
+const LEAVE_PARAPHRASE = /If your claim is within that limit, it can only be started in the Superior Court with that court's leave\.|A claim within that limit cannot be started in the Superior Court of Justice without that court's leave\./g;
+
 /**
  * The court's own word for a case started in it (Jason, 2026-10-24), applied where the
  * library's text is shown, never in the published library itself: a claim in Small Claims;
  * an action in the Superior Court, with "(lawsuit)" beside its first mention.
  */
-export function courtWords(text: string, court: string): string {
+export function courtWords(given: string, court: string): string {
+  // The published library says the Courts of Justice Act s. 23 (1.1) rule in its own words; on
+  // screen it is the Act's words with the section (site owner, 2026-10-26: "only if it is the Act's
+  // own wording with s. 23 (1.1) cited"). The published library itself is never edited by hand.
+  const text = given ? given.replace(LEAVE_PARAPHRASE, CJA_23_1_1_WORDS) : given;
   if (!text || !/\blawsuits?\b/i.test(text)) return text;
   if (court === "small-claims") return text.replace(/\blawsuit(s?)\b/g, "claim$1").replace(/\bLawsuit(s?)\b/g, "Claim$1");
   if (court === "civil") {
@@ -1708,6 +1717,10 @@ export default function StageAnswerPanel({
       );
     }
     onSaved?.({ dateAnswers: next, ...(Object.keys(keptService).length ? { service: keptService } : {}) });
+    // Counted straight away, as a date that arrives saved is (above): the deadline needed a
+    // second "Count my deadline" press once the date was saved (Charter re-test 2026-10-26).
+    // autoKeptFor stops the answer this brings back from keeping the same dates again.
+    if (stageId) void load(stageId, factsForStep(stageId, municipality), next);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result, storyDates, stageId]);
 

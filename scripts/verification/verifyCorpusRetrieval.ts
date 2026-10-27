@@ -598,7 +598,9 @@ async function main() {
   const itemsVar = /<AppliedLawPanel items=\{([\w.]+)\}/.exec(overview)?.[1] ?? "";
   check(
     "the overview renders the panel, from the analysis's applied law",
-    itemsVar === "analysis.appliedLaw" || new RegExp(`const ${itemsVar.replace(/\./g, "\\.")} = \\(analysis\\.appliedLaw`).test(overview),
+    itemsVar === "analysis.appliedLaw" || new RegExp(`const ${itemsVar.replace(/\./g, "\\.")} = \\(analysis\\.appliedLaw`).test(overview) ||
+      // Through lawBehindThis (Charter re-test 2026-10-26): its .quoted is the analysis's applied law, less what the research shows.
+      (/^(\w+)\.quoted$/.test(itemsVar) && new RegExp(`const ${itemsVar.split(".")[0]} = lawBehindThis\\([^;]*analysis\\.appliedLaw`).test(overview)),
     itemsVar,
   );
   check(

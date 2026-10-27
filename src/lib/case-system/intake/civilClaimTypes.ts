@@ -336,9 +336,9 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under s. 23(1.1) of the Courts of Justice Act, an action that is within the Small Claims " +
-          "Court's jurisdiction cannot be started in the Superior Court of Justice except with leave " +
-          "(permission) of the Superior Court of Justice, as provided in the rules of court. Under s. " +
+          "Courts of Justice Act, s. 23(1.1): “An action that is within the Small Claims Court's " +
+          "jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice " +
+          "except with leave of the Superior Court of Justice as provided in the rules of court.” Under s. " +
           "23(1), the Small Claims Court has jurisdiction in an action for the payment of money where " +
           "the amount claimed does not exceed the prescribed amount, not counting interest and costs, " +
           "and in an action to recover personal property where its value does not exceed the prescribed " +
@@ -670,9 +670,9 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         note:
-          "Under s. 23(1.1) of the Courts of Justice Act, an action that is within the Small Claims " +
-          "Court's jurisdiction cannot be started in the Superior Court of Justice except with leave " +
-          "(permission) of the Superior Court of Justice, as provided in the rules of court. Under s. " +
+          "Courts of Justice Act, s. 23(1.1): “An action that is within the Small Claims Court's " +
+          "jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice " +
+          "except with leave of the Superior Court of Justice as provided in the rules of court.” Under s. " +
           "23(1), the Small Claims Court has jurisdiction in an action for the payment of money where " +
           "the amount claimed does not exceed the prescribed amount, not counting interest and costs, " +
           "and in an action to recover personal property where its value does not exceed the prescribed " +

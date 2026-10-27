@@ -14,6 +14,7 @@ import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
 import { storyLines } from "@/src/lib/case-system/caseFile/storyLines";
+import type { CountedDeadline } from "@/src/lib/case-system/caseFile/stepDeadlines";
 
 const LABEL: Record<SlotFact, string> = {
   side: "Your side",
@@ -61,10 +62,10 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
   return slotText(slot, formatForCourt);
 }
 
-export default function CaseFilePanel({ file, changeHref, situationHref, stepHref }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string }) {
+export default function CaseFilePanel({ file, changeHref, situationHref, stepHref, deadlines = [] }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string; deadlines?: CountedDeadline[] }) {
   const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file));
   const fromStory = storyLines(file.story ?? "", file, file.side.state === "answered" && file.side.value === "responding");
-  if (!lines.length && !fromStory.length) return null;
+  if (!lines.length && !fromStory.length && !deadlines.length) return null;
   return (
     <section aria-labelledby="case-file-heading" data-testid="case-file" className="rounded-3xl border border-[#d8e6df] bg-white p-5">
       <h2 id="case-file-heading" className="text-xl font-bold text-[#10231f]">What we have so far</h2>
@@ -89,6 +90,13 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
             </div>
           );
         })}
+        {/* The deadlines counted for the step, the same count as the next-step card (stepDeadlines.ts). */}
+        {deadlines.map((deadline) => (
+          <div key={deadline.id} className="contents" data-testid="case-file-deadline" data-fact="deadline">
+            <dt className="font-semibold text-[#10231f]">Deadline</dt>
+            <dd>{deadline.what}: {formatForCourt(deadline.date)}{" "}<Link data-testid="case-file-change" href={stepHref} className="font-semibold text-[#2f7d67] underline">See your next step</Link></dd>
+          </div>
+        ))}
         {fromStory.map((line) => (
           <div key={line.fact} className="contents" data-testid="case-file-story-line" data-fact={line.fact}>
             <dt className="font-semibold text-[#10231f]">{line.label}</dt>

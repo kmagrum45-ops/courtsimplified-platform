@@ -39,6 +39,7 @@
  * control reachable and labelled. AODA review is Slice 4; the cheap part is done now.
  */
 
+import { readChip, readNote } from "@/src/lib/case-workspace/readStatus";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { supabase } from "../../../src/lib/supabase/client";
@@ -350,16 +351,7 @@ function StatusChip({ document }: { document: DocumentView }) {
           ? "bg-[#fbeaea] text-[#7c2d2d]"
           : "bg-[#eef2f1] text-[#4c615b]";
 
-  const label =
-    extractionStatus === "done"
-      ? "Text read"
-      : extractionStatus === "needs-details"
-        ? "Needs your details"
-        : extractionStatus === "skipped"
-          ? "No text to read"
-          : extractionStatus === "failed"
-            ? "Could not read"
-            : "Waiting";
+  const label = readChip(extractionStatus);
 
   return <span className={`rounded-full px-2 py-0.5 text-xs ${tone}`}>{label}</span>;
 }
@@ -681,10 +673,11 @@ function DetailPanel({
       {/*
         Provenance, stated plainly. No model runs on this branch: everything offered here
         was read out of the document's own text locally. Calling it an AI suggestion when
-        no AI ran would misstate how much to trust it.
+        no AI ran would misstate how much to trust it. And it says the file was read only when
+        it was (readStatus.ts): nothing reads an upload yet, so most say it is not read.
       */}
-      <p className="mt-2 text-xs text-[#6b8078]">
-        Read from the document itself on this device. No AI analysis has run on it.
+      <p data-testid="document-read-note" className="mt-2 text-xs text-[#6b8078]">
+        {readNote(document.extractionStatus)}
       </p>
 
       <dl className="mt-4 space-y-3 text-sm">

@@ -258,6 +258,8 @@ jobs:
 
       - name: SITE_MAP.md's "who reads what" part matches the code
         run: npm run test:site-map
+      - name: The Charter claim against police, re-tested (every fix in its shared piece)
+        run: npm run test:charter-retest
 
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
