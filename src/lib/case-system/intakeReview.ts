@@ -1,6 +1,6 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { sentences as sharedSentences } from "./sentences";
-import { situationAnswers, situationOf } from "./situation/situation";
+import { situationAnswers, situationOf, stageWords } from "./situation/situation";
 import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
@@ -35,6 +35,9 @@ const ISSUE_ONLY: Record<string, string[]> = {
   privacyRecordsFacts: ["privacy"],
 };
 export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string } };
+
+/** Small Claims' roles in the form's own words (one place: the review and its start answers). */
+const SMALL_CLAIMS_ROLE_WORDS: Record<string, string> = { plaintiff: "Plaintiff / claimant", defendant: "Defendant / responding party" };
 
 /** The civil review's boxes the story can fill, each by its reader (Charter re-test 27 Oct: the public body, the losses and the timeline were empty). */
 const BOX_FROM_STORY: Record<string, (story: string) => { value: string; quote: string } | null> = {
@@ -101,7 +104,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   // The same answers before any is set aside for an earlier story (for which questions apply).
   const asStored = courtPath === "family" ? object(checkpoint.sections.family) : object(checkpoint.sections[section]?.input);
   const source: Record<string, unknown> = { ...stored };
-  if (fromStart.role) { source.yourRole = courtPath === "small-claims" ? (fromStart.role === "defendant" ? "Defendant / responding party" : "Plaintiff / claimant") : fromStart.role; startKeys.add("yourRole"); }
+  if (fromStart.role) { source.yourRole = courtPath === "small-claims" ? SMALL_CLAIMS_ROLE_WORDS[fromStart.role] ?? fromStart.role : fromStart.role; startKeys.add("yourRole"); }
   if (fromStart.documents) { source[courtPath === "civil" ? "documents" : "filedDocuments"] = fromStart.documents; startKeys.add(courtPath === "civil" ? "documents" : "filedDocuments"); }
   if (fromStart.caseStage) { source.caseStage = fromStart.caseStage; startKeys.add("caseStage"); }
   else if (Array.isArray(source[courtPath === "civil" ? "documents" : "filedDocuments"]) && fromStart.excludeDocuments) source[courtPath === "civil" ? "documents" : "filedDocuments"] = (source[courtPath === "civil" ? "documents" : "filedDocuments"] as string[]).filter(item => !fromStart.excludeDocuments!.includes(item));
@@ -112,8 +115,11 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
     // What the person picked at the start, in their words: the step's title and who started the case.
-    const startWords = area === section && startKeys.has(key) && typeof value === "string" ? (key === "caseStage" ? fromStart.stepTitle : key === "yourRole" ? fromStart.roleWords : undefined) : undefined;
-    const choices = startWords ? [{ value: value as string, label: startWords }] : definition?.options;
+    // The stage in words for every start answer (the step's title, or "Responding to a case"), never its code (26 Oct re-test: "Case stage: responding").
+    const startWords = area === section && startKeys.has(key) && typeof value === "string" ? (key === "caseStage" ? stageWords(fromStart) ?? undefined : key === "yourRole" ? fromStart.roleWords : undefined) : undefined;
+    // Small Claims keeps its role as a code ("plaintiff"): shown in the form's words, not in a text box (26 Oct re-test).
+    const roleWords = !startWords && courtPath === "small-claims" && key === "yourRole" && typeof value === "string" ? SMALL_CLAIMS_ROLE_WORDS[value] : undefined;
+    const choices = startWords ? [{ value: value as string, label: startWords }] : roleWords ? Object.entries(SMALL_CLAIMS_ROLE_WORDS).map(([code, label]) => ({ value: code, label })) : definition?.options;
     // A detail of one issue is asked for only when that issue is the person's ("Adoption details"
     // showed on a divorce case, #477 re-test case 14).
     const issueOnly = ISSUE_ONLY[key];

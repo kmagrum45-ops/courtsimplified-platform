@@ -278,6 +278,9 @@ jobs:
       - name: Each fact the story gives, in plain words, on the six re-tested cases
         run: npm run test:story-facts
 
+      - name: Where the case is, who the person is in it, what is filed: words, never codes
+        run: npm run test:case-words
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 
