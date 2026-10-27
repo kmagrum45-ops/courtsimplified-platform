@@ -34,6 +34,19 @@ const ROLE = /\b(?:my|our) (ex(?:-(?:wife|husband|partner))?|wife|husband|spouse
 const NOT_A_NAME = /^(?:Ottawa|Toronto|Kingston|Brockville|Ontario|Canada|Small|Superior|Court|Statement|Application|Plaintiff|Defendant|The|This|That|He|She|They|I|We|It|My|Our|TEST)$/;
 
 /** The other side, as the story names it: a business, the person behind it, or who they are to the person. */
+/** A sentence about the claim against the person: they were served, or sued. */
+const AGAINST_THEM = /\bserv(?:e|es|ed|ing)\s+(?:me|him|her|them|us)\b|\b(?:i|he|she|we|they) (?:was|were|got|have been|has been) served\b|\bsu(?:ed|ing|es) (?:me|him|her|us|them)\b|\bclaim against (?:me|him|her|us|them)\b/i;
+
+/**
+ * The story's sentences about the claim against the person, joined; empty when there are none. What
+ * someone responding is asked or shown about "the claim" is read from these only, never from the claim
+ * they once meant to bring (26 Oct re-test, case 19 after the side change: the repair's $1,650 and
+ * "Work or a service you paid for" shown on the defamation claim against him).
+ */
+export function againstThemIn(story: string): string {
+  return sentences(story).filter((sentence) => AGAINST_THEM.test(sentence)).join(" ");
+}
+
 export function otherSideIn(story: string): StoryFact | null {
   for (const sentence of sentences(story)) {
     const org = ORG.exec(sentence)?.[1] ?? CALLED_ORG.exec(sentence)?.[1] ?? null;
@@ -135,11 +148,17 @@ export function witnessIn(story: string): StoryFact | null {
 
 /** "I have …" naming things they hold, never "I have to respond" or "We have a case going". */
 const HAVE = /\b(?:I have|I've got|I kept|I still have|we have|I took|I saved|I've kept)\b\s+(?!to\b|no\b|not\b|been\b|a (?:case|lawyer|court)\b|an? (?:hearing|appointment)\b)(.+)$/i;
+/** A kind of record a person can show. */
+const EVIDENCE_WORDS = /\b(?:photos?|pictures?|screenshots?|texts?|text messages?|messages?|emails?|e-mails?|receipts?|invoices?|contracts?|agreements?|notes?|letters?|records?|reports?|videos?|recordings?|statements?|documents?|papers?|certificates?|bills?|estimates?|quotes?|cheques?|checks?|bank statements?|transcripts?|logs?|warranty|ticket|footage|proof|copies|copy)\b/i;
+/** Children, a partner or an arrangement had, never a record: "we have two kids", "joint custody". */
+const PEOPLE_OR_ARRANGEMENT = /^\s*(?:(?:two|three|four|\d+|a|one|our|my) )?(?:kids?|children|child|sons?|daughters?|baby|custody|joint custody|shared custody|parenting)\b/i;
 /** The evidence they say they have, each item in plain words ("The clinic note; photos of the wrist"). */
 export function evidenceIn(story: string): StoryFact | null {
   for (const sentence of sentences(story)) {
     const list = HAVE.exec(sentence.replace(/\.\s*$/, ""))?.[1];
-    if (!list) continue;
+    // Only a record of some kind: "we have two kids" and "I have custody of our daughter" are not
+    // evidence (reviewer, 26 Oct: "Evidence you have: Two kids; Maya who is 7").
+    if (!list || !EVIDENCE_WORDS.test(list) || PEOPLE_OR_ARRANGEMENT.test(list)) continue;
     const items = list.split(/\s*(?:,|;|\band\b)\s*/i).map((item) => trimEnd(item)).filter((item) => item.length > 2 && !/\bwitness/i.test(item) && !/^(?:no|nothing|none)\b/i.test(item));
     if (!items.length) continue;
     return { value: items.map((item) => firstUpper(yours(item.replace(/^(?:the|a|an) /i, (word) => word)))).join("; "), quote: sentence.trim() };

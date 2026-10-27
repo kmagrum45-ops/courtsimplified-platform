@@ -241,7 +241,12 @@ export function childrenFromStory(story: string): StoryAnswer | null {
  * showed "My wife wants a divorce, to sell the house, …"). The sentence when neither is said.
  */
 function childrenWords(sentence: string): string {
-  const named = [...sentence.matchAll(/\b([A-Z][a-z]+) \((\d{1,2})\)/g)].map((match) => `${match[1]} (${match[2]})`);
+  // "Mia (4)", and the other ways a name and an age are written: "Maya who is 7", "Ava, 9", "Leo, who
+  // is 4", "Tom, 12, Ann, 9 and Bea, 3" (reviewer, 26 Oct: "Kid, age 7" for two named children).
+  const NOT_A_NAME = new RegExp(`^(?:${MONTH_NAMES_PATTERN}|He|She|They|It|We|I|My|Our|His|Her|Their|The|And|Age|Aged)$`, "i");
+  const named = [...sentence.matchAll(/\b([A-Z][a-z]+)(?: \((\d{1,2})\)|,? (?:who is |who's |is |aged |age )(\d{1,2})\b|, (\d{1,2})\b(?!,? \d{4}))/g)]
+    .filter((match) => !NOT_A_NAME.test(match[1]))
+    .map((match) => `${match[1]} (${match[2] ?? match[3] ?? match[4]})`);
   if (named.length) return named.length === 1 ? named[0] : `${named.slice(0, -1).join(", ")} and ${named[named.length - 1]}`;
   const WORD = "\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen";
   // Several, with their ages ("two kids aged 3 and 5"): every age kept.

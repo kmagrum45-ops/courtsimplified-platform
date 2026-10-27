@@ -10,12 +10,12 @@
  *
  * Pure: no React, no network. States no law.
  */
-import { FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, familyGuidedFields, civilGuidedFields } from "../../../../app/builder/_components/guidedFields";
+import { SMALL_CLAIMS_FILED_OPTIONS, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, familyGuidedFields, civilGuidedFields } from "../../../../app/builder/_components/guidedFields";
 import { SLOT_FACTS } from "../caseFile/caseFile";
 import { QUESTION_BANK } from "../intake/questionBank";
 import { LEGAL_REASONING_PROFILES } from "../knowledge/legalReasoningProfiles";
 
-const OPTIONS = [...FAMILY_FILED_OPTIONS, ...FAMILY_ISSUE_OPTIONS, ...CIVIL_ISSUE_OPTIONS, ...CIVIL_DOCUMENT_OPTIONS];
+const OPTIONS = [...FAMILY_FILED_OPTIONS, ...FAMILY_ISSUE_OPTIONS, ...CIVIL_ISSUE_OPTIONS, ...CIVIL_DOCUMENT_OPTIONS, ...SMALL_CLAIMS_FILED_OPTIONS];
 
 /** The words a stored option value shows ("parenting-time" -> the form's own label), or null. */
 export function optionWords(value: string): string | null {

@@ -11,7 +11,7 @@ import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
-import { lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
+import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
@@ -116,9 +116,12 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     const question = QUESTION_BANK.find(item => item.capturesField === key);
     // What the person picked at the start, in their words: the step's title and who started the case.
     // The stage in words for every start answer (the step's title, or "Responding to a case"), never its code (26 Oct re-test: "Case stage: responding").
-    const startWords = area === section && startKeys.has(key) && typeof value === "string" ? (key === "caseStage" ? stageWords(fromStart) ?? undefined : key === "yourRole" ? fromStart.roleWords : undefined) : undefined;
+    // The Small Claims chat keeps the side as `role` (reviewer, 26 Oct: "Role: plaintiff" in a text box).
+    const roleKey = key === "yourRole" || (area === "guided" && key === "role");
+    const fromStartHere = (area === section && startKeys.has(key)) || (area === "guided" && key === "role" && Boolean(fromStart.role));
+    const startWords = fromStartHere && typeof value === "string" ? (key === "caseStage" ? stageWords(fromStart) ?? undefined : roleKey ? fromStart.roleWords : undefined) : undefined;
     // Small Claims keeps its role as a code ("plaintiff"): shown in the form's words, not in a text box (26 Oct re-test).
-    const roleWords = !startWords && courtPath === "small-claims" && key === "yourRole" && typeof value === "string" ? SMALL_CLAIMS_ROLE_WORDS[value] : undefined;
+    const roleWords = !startWords && courtPath === "small-claims" && roleKey && typeof value === "string" ? SMALL_CLAIMS_ROLE_WORDS[value] : undefined;
     const choices = startWords ? [{ value: value as string, label: startWords }] : roleWords ? Object.entries(SMALL_CLAIMS_ROLE_WORDS).map(([code, label]) => ({ value: code, label })) : definition?.options;
     // A detail of one issue is asked for only when that issue is the person's ("Adoption details"
     // showed on a divorce case, #477 re-test case 14).
@@ -131,7 +134,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // A question asked only on one side or in one situation (its `when`: "When and how you were
     // served" is the responding side's) is not essential for anyone else.
     const notTheirQuestion = definition?.when ? !definition.when({ ...asGiven, facts: storyOf(sections) } as never) : false;
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -388,16 +391,13 @@ const CATEGORY_CUES: [RegExp, string][] = [
  * of dispute. Shown as suggestions the person confirms; never saved on their own
  * (re-test 2026-10-18: Confirm forced "I do not know yet" for what the story said).
  */
-/** A sentence about the claim against the person: they were served, or sued. */
-const AGAINST_THEM = /\bserv(?:e|es|ed|ing)\s+(?:me|him|her|them|us)\b|\b(?:i|he|she|we|they) (?:was|were|got|have been|has been) served\b|\bsu(?:ed|ing|es) (?:me|him|her|us|them)\b|\bclaim against (?:me|him|her|us|them)\b/i;
-
 export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, string> {
   if (checkpoint.courtPath !== "small-claims") return {};
   const whole = storyOf(checkpoint.sections);
   // Someone responding is asked about the claim against them: read the sentences about it, never
   // the claim they once meant to bring (26 Oct re-test, case 19 after the side change: "Work or a
   // service you paid for" was suggested for the defamation claim against him). None: nothing offered.
-  const story = sideOf(situationOf(checkpoint.sections)) === "responding" ? sharedSentences(whole).filter((sentence) => AGAINST_THEM.test(sentence)).join(" ") : whole;
+  const story = sideOf(situationOf(checkpoint.sections)) === "responding" ? againstThemIn(whole) : whole;
   if (!story.trim()) return {};
   const out: Record<string, string> = {};
   const date = whenItHappened(story);

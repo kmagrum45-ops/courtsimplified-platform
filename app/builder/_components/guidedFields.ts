@@ -309,6 +309,23 @@ export function pendingFields(fields: readonly GuidedField[], values: GuidedValu
 }
 
 /** The Family and Civil forms' choice lists: one copy, read by the forms and by the review (plain words, not stored values). */
+/**
+ * The Small Claims form's filed papers (SmallClaimsIntake.tsx), here with the other areas' lists so a
+ * screen names them in words ("Anything filed yet: Yes: plaintiffs-claim", reviewer 26 Oct).
+ */
+export const SMALL_CLAIMS_FILED_OPTIONS: GuidedChoice[] = [
+  { value: "nothing", label: "Nothing filed yet" },
+  { value: "plaintiffs-claim", label: "Plaintiff’s Claim already filed / served" },
+  { value: "defence", label: "Defence already filed / received" },
+  { value: "affidavit-service", label: "Affidavit of Service filed with the court" },
+  { value: "offer-settle", label: "Offer to Settle prepared" },
+  { value: "settlement-conference", label: "Settlement conference scheduled or completed" },
+  { value: "default-judgment", label: "Default judgment step started" },
+  { value: "witness-list", label: "Witness list prepared" },
+  { value: "enforcement-documents", label: "Enforcement documents started" },
+  { value: "not-sure", label: "Not sure" },
+];
+
 export const FAMILY_FILED_OPTIONS: GuidedChoice[] = [
   // Was "Application already filed / served", which did not say by whom, and
   // whose word "served" made the role guesser call an applicant a respondent.

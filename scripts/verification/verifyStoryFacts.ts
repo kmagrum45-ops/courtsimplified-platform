@@ -23,7 +23,11 @@
  *     page shows it (case 20: "Not sure yet: nothing in your story shows it" after "Unpaid money owed
  *     to you" was confirmed);
  *   - the papers named in the situation answers are the case file's papers in every area, so "Anything
- *     filed yet: Yes" names them (26 Oct re-test).
+ *     filed yet: Yes" names them (26 Oct re-test), Small Claims' papers by their words, never a code;
+ *   - the fresh reviewer's cases (26 Oct): someone responding sees the claim against them, never the
+ *     amount of the claim they once meant to bring; "Evidence you have" is a record, never "two kids"
+ *     or "joint custody"; children named with their ages however written; the Small Claims chat's
+ *     side in the review in words, never "plaintiff" in a text box.
  *
  * Failure it exists to catch: "Witness" showing the whole list of evidence, "Lost pay" repeating the
  * injury sentence, "Children" showing a sentence about the divorce, and the other side never listed.
@@ -33,6 +37,8 @@ import path from "node:path";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 import { caseFileOf, courtDateIsConference, DISPUTE_CATEGORY_WORDS, saysNoDateYet, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
+import { evidenceIn } from "../../src/lib/case-system/caseFile/storyFacts";
+import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 import { childrenFromStory, civilFiledFromStory, familyFiledFromStory, familyIssuesFromStory } from "../../app/builder/_components/storyAnswers";
 import { reviewQuestionField } from "../../src/lib/case-system/intakeReview";
 import { reviewEntries } from "../../src/lib/case-system/intakeReview";
@@ -153,6 +159,33 @@ const chatKind = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-00000
 for (const [court, papers] of [["small-claims", "small-claims-7A"], ["civil", "civil-14A"], ["family", "family-8"]] as const) {
   const served = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000011", courtPath: court, revision: "00000000-0000-4000-8000-000000000011", sections: { story: { text: "Synthetic." }, situation: { record: { where: "served", papers, receivedOn: "2026-10-12", court } } } } as never);
   check(`${court}: the papers named at the start are the case file's papers, so "Anything filed" can name them`, (served.documents ?? []).length === 1, JSON.stringify(served.documents));
+}
+{
+  // Reviewer finding 1: case 19 after the side change.
+  const M19 = "Marcus Bell in Ottawa had his laptop repaired by Circuit Doctors Inc. in July 2026 for $450. It came back worse. He wants a refund of $450 plus the $1,200 he paid to replace it. (Later, on October 20, Circuit Doctors' owner, Wei Chen, serves him with a claim for $3,200 for 'defamation' over an online review.)";
+  const lines = storyLines(M19, caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000019", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000019", sections: { story: { text: M19 }, situation: { record: { where: "served", papers: "small-claims-7A", receivedOn: "2026-10-20", court: "small-claims" } } } } as never), true);
+  const against = lines.find((line) => line.fact === "amountAgainst");
+  check("case 19 responding: the claim against him is never the old claim's amount", !against || /3,200/.test(against.value), JSON.stringify(against));
+  check("case 19 responding: no line carries $1,650", !lines.some((line) => /1,650/.test(line.value)), JSON.stringify(lines.map((line) => `${line.label}: ${line.value}`)));
+}
+for (const story of ["We have two kids, Maya who is 7 and Leo who is 4.", "We have joint custody right now but he stopped paying child support.", "I have custody of our daughter, age 6, and he wants more parenting time."]) {
+  check(`not evidence: "${story}"`, evidenceIn(story) === null, JSON.stringify(evidenceIn(story)));
+}
+for (const [story, want] of [["I have the clinic note and photos of my wrist.", /clinic note/i], ["I kept the receipts and the texts.", /receipts/i], ["I have the application papers and our marriage certificate.", /certificate/i]] as const) {
+  check(`evidence: "${story}"`, want.test(evidenceIn(story)?.value ?? ""), JSON.stringify(evidenceIn(story)));
+}
+for (const [story, want] of [
+  ["We have two kids, Maya who is 7 and Leo who is 4.", "Maya (7) and Leo (4)"],
+  ["We have a son, Leo, who is 4 and a daughter Ava, 9.", "Leo (4) and Ava (9)"],
+  ["We have three children: Tom, 12, Ann, 9 and Bea, 3.", "Tom (12), Ann (9) and Bea (3)"],
+  ["My daughter is 6 and lives with me.", "Daughter, age 6"],
+] as const) check(`children in plain words: "${story}"`, childrenFromStory(story)?.value === want, childrenFromStory(story)?.value);
+check("Small Claims papers read as words", !/plaintiffs-claim|affidavit-service/.test(inWords(["plaintiffs-claim", "affidavit-service"])), inWords(["plaintiffs-claim", "affidavit-service"]));
+{
+  const guidedReview = reviewEntries({ version: 1, flowId: "00000000-0000-4000-8000-000000000018", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000018", sections: { story: { text: "Synthetic." }, builder: { step: "guided" }, guided: { facts: {} }, situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } } } } as never);
+  const role = guidedReview.find((entry) => entry.field === "role");
+  const shown = role ? (role.choices?.find((choice) => choice.value === role.value)?.label ?? String(role.value)) : "";
+  check("the Small Claims chat's side in the review is words with choices, never 'plaintiff' in a text box", Boolean(role) && Boolean(role?.choices?.length) && shown !== "plaintiff", JSON.stringify(role));
 }
 check("case 20: the kind of dispute answered in the chat is held in its words", chatKind.claimKind.state === "answered" && chatKind.claimKind.value === "Unpaid money owed to you", JSON.stringify(chatKind.claimKind));
 for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));

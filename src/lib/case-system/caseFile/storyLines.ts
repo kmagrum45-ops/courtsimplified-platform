@@ -13,7 +13,7 @@
 import { sentences } from "../sentences";
 import { DANGER_WORDS } from "../intake/dangerWords";
 import { claimAmountFromStory, moneyMentions } from "../claimAmount";
-import { acknowledgedIn, complaintIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
+import { acknowledgedIn, againstThemIn, complaintIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
 import { otherPartyFromStory, otherPartyNameFromStory } from "../../../../app/builder/_components/storyAnswers";
 import { marriedWhereIn, type CaseFile } from "./caseFile";
 
@@ -59,8 +59,9 @@ export function storyLines(story: string, file: CaseFile, responding: boolean): 
     const against = moneyMentions(story).filter((mention) => mention.kind === "against");
     if (against.length && new Set(against.map((mention) => mention.number)).size === 1) lines.push({ fact: "amountAgainst", label: "The claim against you", value: against[0].quote.trim(), quote: against[0].quote });
     else {
-      // Read as the amount of the claim ("a Statement of Claim … for $11,400", case 11).
-      const amount = claimAmountFromStory(story);
+      // Read as the amount of the claim ("a Statement of Claim … for $11,400", case 11), from the
+      // sentences about the claim against them only (reviewer, 26 Oct: the old side's $1,650 came back).
+      const amount = claimAmountFromStory(againstThemIn(story));
       if (amount) lines.push({ fact: "amountAgainst", label: "The claim against you", value: amount.value, quote: amount.quote });
     }
   }
