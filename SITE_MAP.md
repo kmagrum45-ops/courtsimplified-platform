@@ -290,7 +290,7 @@ Every screen a person sees, and the shared piece each one reads a fact from. Pat
 
 **Drafts tab.** `app/cases/[id]/drafts/page.tsx`. Starting or responding document drafts, offered by `responding` and `respondingDocumentStillDue(stepId)` from the case home (`:64`, `:198-222`). Dates by `formatDate` (`:354`).
 
-**Documents tab.** `app/cases/[id]/documents/page.tsx`. Evidence upload (`EvidenceUploadCard`) and `CaseWorkspace`. Shows no side, stage or kind; each document can show its own amount (`CaseWorkspace.tsx:718`, `document.amount`).
+**Documents tab.** `app/cases/[id]/documents/page.tsx`. Evidence upload (`EvidenceUploadCard`) and `CaseWorkspace`. Shows no side, stage or kind; each document can show its own amount (`CaseWorkspace.tsx:792`, `document.amount`). Each card offers Open, Download and Delete (`FileActions`): open and download use a one-minute signed link to the person's own file in the private bucket (`app/api/workspace/documents/link/route.ts`); delete asks first and uses `DELETE /api/workspace/documents`. A card says the site has read a file only when it has (`src/lib/case-workspace/readStatus.ts`).
 
 **Family status triage.** `app/builder/_components/FamilyStatusTriage.tsx` (in the Family builder). Asks whether they were married, whether there are children, and similar; skips what the case file holds (`triageFromCaseFile.ts`). Side from `sideOf` (`:144`). Quotes the story with `storyQuoteFor` from `src/lib/case-system/family/triageStoryQuote.ts`, a different function with the same name as the one in claimKind.ts (a naming trap).
 
@@ -330,7 +330,7 @@ Every screen a person sees, and the shared piece each one reads a fact from. Pat
 | Timeline tab | — | `findStage(stepId).title`, then confirmed stage, then `getStageLabel` of events-route stage | — | — | `formatLongDate` (holidays.ts) of `record.dates` | `shortLabel` (StageAnswerPanel) |
 | Forms tab | `responding` (context) | `stepId` (context, `caseStepFor`) | — | — | — | `practicalFor` (nextStepPractical.ts); `situationLine` in FormsWorkspace |
 | Drafts tab | `responding` (context) | `stepId`, `position.confirmedStage` | — | — | own copy: `formatDate`, `toLocaleTimeString` (`:144`) | — |
-| Documents tab | — | — | — | own copy: per-document `document.amount` (`CaseWorkspace.tsx:718`) | — | — |
+| Documents tab | — | — | — | own copy: per-document `document.amount` (`CaseWorkspace.tsx:792`) | — | — |
 | Dashboard | — | `getStageLabel(settledStage(...))` (casePosition.ts) | — | — | own copy: `formatDate` | `COURT_LABELS` |
 | Family status triage | `sideOf` (`:144`) | — | — | — | — | own copy: question text; `storyQuoteFor` (triageStoryQuote.ts) |
 | Statement of Claim surface | — | — | own copy: `CLAIM_TYPES` name (`:108`, `:211`) | — | — | — |
