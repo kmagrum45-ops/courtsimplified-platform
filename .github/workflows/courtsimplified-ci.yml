@@ -269,6 +269,9 @@ jobs:
       - name: The chat speaks plainly and does not ask what it has, in every area
         run: npm run test:chat-plain-words
 
+      - name: Every citation the site shows says exactly what it cites (subsection, title with its year, no added reason)
+        run: npm run test:citations
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 

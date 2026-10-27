@@ -25,7 +25,22 @@ const scr = (pinpoint: string, quote: string): RuleCitation => ({ sourceId: "ore
 /** r. 20.10 (3): the notice of examination is served under r. 8.01 (10)-(12). */
 const R_20_10_3 = scr("r. 20.10 (3)", "The notice of examination shall be served in accordance with subrules 8.01 (10), (11) and (12).");
 
+const rcp = (pinpoint: string, quote: string): RuleCitation => ({ sourceId: "rules-of-civil-procedure", pinpoint, quote });
+
+/**
+ * The leave sentences after "a claim within the Small Claims limit needs leave": the rule that
+ * sets each, beside it (Charter re-test 27 Oct: "by motion without notice… only if it is in the
+ * interest of justice" were shown with no citation). Checked against the saved Rules of Civil
+ * Procedure, r. 14.01.1 (2) and (3).
+ */
+const RCP_14_01_1_2 = rcp("r. 14.01.1 (2)", "A motion under subsection 23 (1.1) of the Courts of Justice Act for leave to commence an action in the Superior Court of Justice that is within the Small Claims Court's jurisdiction may be made without notice, unless the court orders otherwise.");
+const RCP_14_01_1_3 = rcp("r. 14.01.1 (3)", "The court may grant leave under subsection 23 (1.1) of the Courts of Justice Act only if it is in the interest of justice.");
+
 export const SENTENCE_RULES: SentenceRules[] = [
+  { sentence: "You may ask for leave by motion without notice, unless the court orders otherwise.", rules: [RCP_14_01_1_2] },
+  { sentence: "You may ask for this leave without notice, unless the court orders otherwise.", rules: [RCP_14_01_1_2] },
+  { sentence: "The court may grant it only if it is in the interest of justice.", rules: [RCP_14_01_1_3] },
+  { sentence: "The court may give that leave only if it is in the interest of justice.", rules: [RCP_14_01_1_3] },
   {
     sentence: "For an examination, you serve the notice at least 30 days before the hearing.",
     rules: [

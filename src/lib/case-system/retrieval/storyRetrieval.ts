@@ -39,6 +39,7 @@ import type { SourceItem } from "../intelligence/groundedCognition";
 import { loadCorpusIndex, readPassage, searchIndex, sourcePassages, type LoadedIndex, type Passage } from "./corpusIndex";
 import { findProvision, parsePinpoint, referencedProvisions } from "./crossReferences";
 import { readableUrl } from "./corpusChunker";
+import { ownTitleFor } from "../../content-library/sourceDisplay";
 import { withoutWrongForStory } from "./passagesForStory";
 
 export type RetrievalCourt = "small-claims" | "civil" | "family";
@@ -98,14 +99,17 @@ export function passageItem(passage: Passage): SourceItem {
       kind: "decision",
     };
   }
+  // An Act by its own title, year included (sourceDisplay ownTitleFor): the index's title is bound
+  // into its passages' embeddings and may lack the year (Charter re-test 27 Oct).
+  const title = ownTitleFor(source.id) ?? source.title;
   const citation = passage.pinpoint
-    ? `${source.title}${source.citation ? `, ${source.citation}` : ""}, ${passage.pinpoint}`
+    ? `${title}${source.citation ? `, ${source.citation}` : ""}, ${passage.pinpoint}`
     : undefined;
   const kind = source.tier === "practical" ? "Official or public-legal-education guidance" : "Legislation";
   const referred = passage.referredBy ? ` (referred to in ${passage.referredBy})` : "";
   return {
     id: passage.id,
-    label: `${kind}: ${source.title}${where ? ` -- ${where}` : ""}${referred}`,
+    label: `${kind}: ${title}${where ? ` -- ${where}` : ""}${referred}`,
     text: passage.text,
     sourceUrl: source.readableUrl || readableUrl(source),
     ...(citation ? { citation } : {}),

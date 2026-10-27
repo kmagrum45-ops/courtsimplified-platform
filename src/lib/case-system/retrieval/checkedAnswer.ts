@@ -33,6 +33,7 @@
 
 import { withLibraryOwned } from "./libraryOwned";
 import { withoutStatuteEchoes } from "./statuteEcho";
+import { addsReason, citationForQuote } from "./citationCheck";
 import { sentences as sharedSentences } from "../sentences";
 import type { CheckedAnswerView } from "../intelligence/intelligenceTypes";
 import { historicalStatementOk, isHistoricalId } from "./historicalLaw";
@@ -424,7 +425,9 @@ function sourceOf(passage: Passage, quote: string): AnswerSource {
   const item = passageItem(passage);
   return {
     passageId: passage.id,
-    citation: item.citation || item.label,
+    // Only the subsections the quoted words are in (citationCheck.ts: "s. 49 (1)-(2)" was cited for
+    // words only s. 49 (1) says, Charter re-test 27 Oct).
+    citation: item.citation ? citationForQuote(item.citation, passage.pinpoint, passage.text, quote) : item.label,
     sourceUrl: item.sourceUrl,
     quote: quote.trim(),
     kind: item.kind === "decision" ? "decision" : item.kind === "guidance" ? "guidance" : "legislation",
@@ -613,8 +616,17 @@ export async function checkedAnswer(input: CheckedAnswerInput, deps: CheckedAnsw
       notConfirmed.push(statement.text.slice(0, 80));
       notConfirmedWhy.push({ topic: statement.text.slice(0, 80), why: "Its only source was a decision quoting an Act's own words, not what the court decided." });
     }
+    // A statement giving a reason its rules do not give is not shown (citationCheck.ts: "Ottawa is
+    // an appropriate location because the events occurred there" beside r. 13.1.01, Charter re-test 27 Oct).
+    const reasoned = echoes.kept.filter((statement) => {
+      const reason = addsReason(statement.text, statement.sources.map((source) => source.quote));
+      if (!reason) return true;
+      notConfirmed.push(statement.text.slice(0, 80));
+      notConfirmedWhy.push({ topic: statement.text.slice(0, 80), why: `It gave a reason its sources do not give: "${reason.slice(0, 80)}".` });
+      return false;
+    });
     // The topics the library owns are said in its own words, as on the pages (libraryOwned.ts).
-    statements.splice(0, statements.length, ...(withLibraryOwned(echoes.kept) as AnswerStatement[]));
+    statements.splice(0, statements.length, ...(withLibraryOwned(reasoned) as AnswerStatement[]));
 
     // A statement with no legal content would not need a source; one with
     // legal content always has one by now. Both are fine; nothing else is shown.

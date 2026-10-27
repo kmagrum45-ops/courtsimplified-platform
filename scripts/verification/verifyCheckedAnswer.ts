@@ -122,6 +122,38 @@ async function main() {
   check("what could not be confirmed is listed by topic", answer.notConfirmed.includes("time to give notice") && answer.notConfirmed.some((topic) => /90-day notice/.test(topic)), JSON.stringify(answer.notConfirmed));
   check("the answer is marked answered", answer.status === "answered");
 
+  // ---- 1b. The Charter re-test's chat citations (27 Oct): the subsection that says it, the Act by
+  // its own title, and no reason the rule does not give (citationCheck.ts).
+  const policingStatements = [
+    { text: "A police service board can be sued in its own name.", cites: ["Community Safety and Policing Act, 2019, s. 49 (1)"] },
+    { text: "Ottawa is an appropriate location because the events occurred there.", cites: ["Rules of Civil Procedure, r. 13.1.01 (2)"] },
+  ];
+  const policingPassages: Passage[] = [];
+  const policing = await checkedAnswer(
+    { question: "Can I sue the police service board, and where do I start the case?", courtPath: "civil" },
+    {
+      index,
+      draft: async () => JSON.stringify({ scope: "ontario", asksForPrediction: false, statements: policingStatements }),
+      embed: noSearch,
+      check: scriptedCheck((statements, passages) => {
+        policingPassages.push(...passages);
+        const board = passages.find((passage) => passage.sourceId === "community-safety-and-policing-act" && /^s\. 49\b/.test(passage.pinpoint));
+        const rules = passages.find((passage) => passage.sourceId === "rules-of-civil-procedure" && /^r\. 13\.1\.01\b/.test(passage.pinpoint));
+        return {
+          results: [
+            { n: 1, verdict: "supported", passage: board?.id, quote: "A police service board may contract, sue and be sued in its own name.", topic: "suing the board" },
+            { n: 2, verdict: "supported", passage: rules?.id, quote: "the proceeding shall be commenced at a court office in a county with which there is a rational connection", topic: "where to start" },
+          ],
+        };
+      }, policingStatements.map((statement) => statement.text)),
+    },
+  );
+  const boardCite = policing.statements.find((statement) => /sued in its own name/.test(statement.text))?.sources[0]?.citation ?? "";
+  check("the passage cut as s. 49 (1)-(2) is fetched", policingPassages.some((passage) => passage.sourceId === "community-safety-and-policing-act" && passage.pinpoint.replace(/\s+/g, "") === "s.49(1)-(2)"), policingPassages.map((passage) => passage.pinpoint).join(", "));
+  check("a citation names only the subsection holding the quoted words (s. 49 (1), not (1)-(2))", /s\. 49 \(1\)$/.test(boardCite), boardCite);
+  check("the Act is named by its own title, year included", boardCite.startsWith("Community Safety and Policing Act, 2019"), boardCite);
+  check("a statement giving a reason its rule does not give is not shown", !policing.statements.some((statement) => /because the events occurred there/.test(statement.text)), JSON.stringify(policing.statements.map((statement) => statement.text)));
+
   // ---- 2. A wrong statement is shown only in its corrected form, when that passes
   const corrected = await checkedAnswer(
     { question: "How long do I have to file a defence in Small Claims?", courtPath: "small-claims" },

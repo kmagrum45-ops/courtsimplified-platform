@@ -230,7 +230,7 @@ const RCP_25_04_REPLY = rcp(
 // 2026-10-06: the reply deadlines said "A reply is optional". r. 25.08 makes a
 // reply required in two cases and forbids it otherwise (review of run-17).
 const RCP_25_08_REPLY_REQUIRED = rcp(
-  "r. 25.08 (1)-(3)",
+  "r. 25.08 (1)",
   "A party who intends to prove a version of the facts different from that pleaded in the opposite party's defence shall deliver a reply setting out the different version, unless it has already been pleaded in the claim.",
 );
 const RCP_25_08_2_SURPRISE = rcp(
