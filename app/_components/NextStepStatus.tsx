@@ -14,7 +14,8 @@ import { useIntakeRecovery } from "./IntakeRecovery";
  * publishes its state here, and the panel shows it beside the button.
  */
 type Handlers = { onStop?: () => void; onRetry?: () => void };
-type Status = { reading: boolean; error: string; startedAt: number | null; at: number; handlers: Handlers };
+/** `follow`: started by the person from the review panel, so the line is kept where they are looking. `sourced`: a screen has reported the work. */
+type Status = { reading: boolean; error: string; startedAt: number | null; at: number; handlers: Handlers; follow?: boolean; sourced?: boolean };
 const IDLE: Status = { reading: false, error: "", startedAt: null, at: 0, handlers: {} };
 // One entry per screen that publishes, removed when it unmounts, so one screen's
 // old error never stands in for another's (the form's and the guided route's).
@@ -22,9 +23,31 @@ const sources = new Map<symbol, Status>();
 let current: Status = IDLE;
 const listeners = new Set<() => void>();
 const subscribe = (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; };
+/**
+ * A start the person made from the review panel (its button, or the notice's Continue), shown at
+ * once: a screen reports its work only after saving and checking the sign-in, which took seconds
+ * live, and the button stood pressable meanwhile (reviewer, case 11). It ends when that work ends,
+ * or after PRESS_WAITS_MS if no screen took it up (the screen said why, as an error, or asked for
+ * the review).
+ */
+const PRESS_WAITS_MS = 15_000;
+let pressed: { at: number; taken: boolean } | null = null;
+let pressTimer: ReturnType<typeof setTimeout> | null = null;
+export function nextStepPressed() {
+  pressed = { at: Date.now(), taken: false };
+  if (pressTimer) clearTimeout(pressTimer);
+  pressTimer = setTimeout(() => { if (pressed && !pressed.taken) { pressed = null; recompute(); } }, PRESS_WAITS_MS);
+  recompute();
+}
 function recompute() {
   const all = [...sources.values()];
-  current = all.find((status) => status.reading) ?? all.filter((status) => status.error).sort((a, b) => b.at - a.at)[0] ?? IDLE;
+  const working = all.find((status) => status.reading);
+  if (pressed && working) pressed.taken = true;
+  else if (pressed?.taken && !working) pressed = null;
+  current = working
+    ? pressed ? { ...working, startedAt: pressed.at, follow: true, sourced: true } : { ...working, sourced: true }
+    : pressed ? { ...IDLE, reading: true, startedAt: pressed.at, at: pressed.at, follow: true }
+    : all.filter((status) => status.error).sort((a, b) => b.at - a.at)[0] ?? IDLE;
   listeners.forEach((listener) => listener());
 }
 
@@ -58,13 +81,15 @@ export default function NextStepStatus() {
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, [status.reading]);
-  // When the work starts, the line is brought to where the person is looking if it is out of
-  // sight: after the notice's Continue the page landed at its top, far from it (case 11, live).
+  // Work the person started from the panel is kept where they are looking: after the notice's
+  // Continue the page landed at its top, far from this line (case 11, live). Checked again when a
+  // screen takes the work up (the page may have moved). Work started elsewhere (a form's own Try
+  // again) never moves the page (reviewer).
   useEffect(() => {
-    if (!status.reading || !line.current) return;
+    if (!status.reading || !status.follow || !line.current) return;
     const box = line.current.getBoundingClientRect();
     if (box.top < 0 || box.bottom > window.innerHeight) line.current.scrollIntoView({ behavior: "auto", block: "center" });
-  }, [status.reading, status.startedAt]);
+  }, [status.reading, status.follow, status.sourced, status.startedAt]);
   if (status.reading && status.startedAt) {
     const seconds = Math.max(0, Math.floor((now - status.startedAt) / 1000));
     const elapsed = seconds >= 60 ? `${Math.floor(seconds / 60)} min ${seconds % 60} s` : `${seconds} s`;

@@ -848,8 +848,9 @@ for (const court of ["civil", "family", "small-claims"] as const) {
     await page.route("**/api/intake/safety-check", async (route) => { await new Promise((done) => setTimeout(done, 3_000)); await route.fallback(); });
     await realClick("acknowledgement-continue");
     const status = page.getByTestId("next-step-status");
-    await expect(status, "the next step is being worked out, where the person is looking").toBeInViewport({ timeout: 5_000 });
-    await expect(page.getByTestId("intake-continue-guidance"), "it cannot be pressed again while it works").toBeDisabled();
+    // At once: the screens report their work only after saving and checking the sign-in (seconds, live).
+    await expect(status, "the next step is being worked out, where the person is looking, at once").toBeInViewport({ timeout: 1_000 });
+    await expect(page.getByTestId("intake-continue-guidance"), "it cannot be pressed again while it works").toBeDisabled({ timeout: 1_000 });
     await expect(nextStep.first(), "one press of Continue opens the next step").toBeVisible({ timeout: 90_000 });
   });
 }
