@@ -9,6 +9,7 @@ import {
   isQuestionAlreadyAnswered,
   recordedDocuments,
   withoutAnsweredQuestions,
+  withoutStageAnswered,
 } from "@/src/lib/case-system/intelligence/answeredQuestions";
 import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
 import {
@@ -229,12 +230,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // and the deadline question by the dates on the step (page review,
   // 2026-10-06: a mother who answered "Nothing filed yet" was asked "Has
   // anything already been filed?" on every page).
-  const stageKnown = caseStage === "starting-case" || caseStage === "responding";
-  const STAGE_ANSWERS =
-    /^(Has anything already been (filed|served)\?|Are there court dates, limitation dates, or urgent deadlines\?)$/;
-  const stillToConfirm = stageKnown
-    ? candidateQuestions.filter((question) => !STAGE_ANSWERS.test(question.trim()))
-    : candidateQuestions;
+  // One rule, in answeredQuestions.ts (26 Oct re-test, case 16: a case already going was asked about court dates).
+  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords);
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
     : stillToConfirm[0] || GENERIC_CONFIRM_QUESTION;

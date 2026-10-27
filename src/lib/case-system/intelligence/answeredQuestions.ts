@@ -230,6 +230,23 @@ export function isQuestionAlreadyAnswered(
   return ANSWERED_WHEN.some((rule) => rule.pattern.test(text) && rule.answered(facts));
 }
 
+/**
+ * The generic filing and court-date questions, which a known stage answers: once the person has said
+ * where the case is ("I have not filed anything yet", "I was served", or a step of a case already going
+ * such as "Case conference scheduled"), "Has anything already been filed?" is answered by it and the
+ * dates question by the dates on the step (page review 2026-10-06; 26 Oct re-test, case 16: asked
+ * "Are there court dates…?" with the November 16 conference saved).
+ */
+const STAGE_ANSWERS = /^(Has anything already been (filed|served)\?|Are there court dates, limitation dates, or urgent deadlines\?)$/;
+/** A stage that says where the case is; "not sure" and "urgent" do not. */
+export function stageAnswersFilingQuestions(caseStage: string | null | undefined, stepWords?: string | null): boolean {
+  return Boolean(stepWords) || (Boolean(caseStage) && caseStage !== "not-sure" && caseStage !== "urgent");
+}
+/** The questions still to confirm once the stage is taken into account, in order. */
+export function withoutStageAnswered(questions: string[], caseStage: string | null | undefined, stepWords?: string | null): string[] {
+  return stageAnswersFilingQuestions(caseStage, stepWords) ? questions.filter((question) => !STAGE_ANSWERS.test(question.trim())) : questions;
+}
+
 /** Drop questions the recorded facts already answer, preserving order. */
 export function withoutAnsweredQuestions(
   questions: string[],

@@ -8,7 +8,10 @@
  *     ("application", "answer");
  *   - a family case already going shows the person's own start answer ("I started this case
  *     (applicant)"), never "you started, or plan to start";
- *   - the review's "Case stage" for someone served, and Small Claims' role, show words, not codes.
+ *   - the review's "Case stage" for someone served, and Small Claims' role, show words, not codes;
+ *   - "What to confirm next" never asks "Has anything already been filed?" or about court dates once
+ *     the stage says where the case is, a case already going included (case 16's saved conference);
+ *     the overview gets that from the one rule in answeredQuestions.ts.
  *
  * Failure it exists to catch: "Current stage: responding", "Documents already recorded:
  * application, answer", "Role: plaintiff" in a text box, "Case stage: responding" in the review.
@@ -18,6 +21,9 @@ import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 import { situationAnswers, situationFromRaw } from "../../src/lib/case-system/situation/situation";
 import { FAMILY_FILED_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../app/builder/_components/guidedFields";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { withoutStageAnswered } from "../../src/lib/case-system/intelligence/answeredQuestions";
+import fs from "node:fs";
+import path from "node:path";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -47,6 +53,15 @@ check("the review's case stage for someone served is words", Boolean(stage) && s
 const scRole = reviewEntries(checkpoint("small-claims", { "small-claims": { input: { yourRole: "plaintiff", facts: "Synthetic story." } } })).find((entry) => entry.field === "yourRole");
 const roleShown = scRole ? (scRole.choices?.find((choice) => choice.value === scRole.value)?.label ?? String(scRole.value)) : "";
 check("Small Claims' role in the review is the form's words, not a code in a box", Boolean(scRole) && roleShown === "Plaintiff / claimant", roleShown || "(no entry)");
+
+const GENERIC = ["Has anything already been filed?", "Are there court dates, limitation dates, or urgent deadlines?", "Has the defendant filed a Defence?"];
+for (const [stage, step] of [["conference", "Case conference scheduled"], ["already-started", null], ["trial", null], ["motion", null], ["responding", null], ["starting-case", null], [null, "Case conference scheduled"]] as const) {
+  const left = withoutStageAnswered(GENERIC, stage, step);
+  check(`a known stage (${stage ?? "none"}${step ? `, step "${step}"` : ""}) answers the filed and court-date questions`, !left.some((question) => /^Has anything already been|^Are there court dates/.test(question)) && left.includes("Has the defendant filed a Defence?"), left.join(" | "));
+}
+for (const stage of ["not-sure", "urgent", null] as const) check(`"${stage ?? "no stage"}" does not: the questions stay`, withoutStageAnswered(GENERIC, stage).length === GENERIC.length);
+const overview = fs.readFileSync(path.join(path.resolve(import.meta.dirname, "..", ".."), "app/builder/_components/IntelligenceOverviewPanel.tsx"), "utf8");
+check("the overview uses the one rule, with the step's words", /withoutStageAnswered\(candidateQuestions, caseStage, stageWords\)/.test(overview) && !/STAGE_ANSWERS/.test(overview));
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;
