@@ -52,6 +52,12 @@ export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
+  /**
+   * Date questions answered "I don't know yet" that no slot holds (the day a claim was issued): offered
+   * once more at the end like the slots' days, never asked cold again (story pack on GitHub, 27 Oct:
+   * sc-date-claim-issued asked on the results page and again on the case page).
+   */
+  unsureDates?: string[];
   /** The side in the start answer's own words for a case already going ("I started this case (applicant)"). */
   sideWords?: string;
   /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
@@ -289,6 +295,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
   }
   for (const id of strings(builder.initialUnknowns)) for (const fact of slotsOf(id)) unsure(file, fact, `review:${id}`);
+  // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not.
+  const unsureDates = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)].filter((id) => /-date-/.test(id));
+  if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   // Skipped in the questions one at a time (civil, Family).
   for (const key of strings(object(sections["form-chat"]).skipped)) for (const fact of slotsOf(key)) unsure(file, fact, `chat:${key}`);
 
@@ -422,7 +431,7 @@ export function unsureDateQuestions(file: CaseFile): string[] {
     conferenceDate: DATE_QUESTIONS_OF.conferenceDate ?? [],
     courtDate: DATE_QUESTIONS_OF.courtDate ?? [],
   };
-  return Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : []));
+  return [...new Set([...Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : [])), ...(file.unsureDates ?? [])])];
 }
 
 /**

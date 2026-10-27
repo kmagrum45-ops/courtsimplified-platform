@@ -70,7 +70,7 @@ async function main() {
   const objects: string[] = [];
   const fileRoute = createDocumentFileGet({
     secret: () => SECRET,
-    row: async (documentId) => documentId === MINE ? { storage_path: `${OWNER}/case/${MINE}`, original_name: "clinic_note_wrist.pdf", mime: "application/pdf", deleted_at: null } : documentId === GONE ? { storage_path: "x", original_name: "old.pdf", mime: "application/pdf", deleted_at: "2026-10-26T00:00:00Z" } : null,
+    row: async (documentId, ownerId) => ownerId !== OWNER ? null : documentId === MINE ? { storage_path: `${OWNER}/case/${MINE}`, original_name: "clinic_note_wrist.pdf", mime: "application/pdf", deleted_at: null } : documentId === GONE ? { storage_path: "x", original_name: "old.pdf", mime: "application/pdf", deleted_at: "2026-10-26T00:00:00Z" } : null,
     object: async (objectPath) => { objects.push(objectPath); return new Blob(["%PDF-1.4 synthetic"], { type: "application/pdf" }); },
   });
   const serve = (url: string) => {
@@ -87,10 +87,14 @@ async function main() {
   const tampered = String(opened.url).replace(/sig=[^&]+/, "sig=AAAA");
   check("a changed signature is refused, with a plain page", (await serve(tampered)).status === 403);
   check("an open link cannot be used to download", (await serve(`${opened.url}&download=1`)).status === 403);
-  const expired = fileLinkPath({ secret: SECRET, documentId: MINE, name: "clinic_note_wrist.pdf", download: false, now: Date.now() - 120_000 });
+  // The owner is in the signed link, and the file route reads only that owner's row (test:canlii).
+  const otherOwner = "33333333-3333-4333-8333-333333333333";
+  check("a link with its owner changed is refused", (await serve(String(opened.url).replace(/u=[^&]+/, `u=${otherOwner}`))).status === 403);
+  check("a valid link signed for another person never reads this person's file", (await serve(fileLinkPath({ secret: SECRET, ownerId: otherOwner, documentId: MINE, name: "x.pdf", download: false }))).status === 404);
+  const expired = fileLinkPath({ secret: SECRET, ownerId: OWNER, documentId: MINE, name: "clinic_note_wrist.pdf", download: false, now: Date.now() - 120_000 });
   const expiredPage = await serve(expired);
   check("an expired link is refused, in the site's own words", expiredPage.status === 403 && /expired/.test(await expiredPage.text()));
-  check("a link to a file being deleted is refused", (await serve(fileLinkPath({ secret: SECRET, documentId: GONE, name: "old.pdf", download: false }))).status === 404);
+  check("a link to a file being deleted is refused", (await serve(fileLinkPath({ secret: SECRET, ownerId: OWNER, documentId: GONE, name: "old.pdf", download: false }))).status === 404);
   const broken = createDocumentFileGet({ secret: () => SECRET, row: async () => ({ storage_path: "p", original_name: "a.pdf", mime: "application/pdf", deleted_at: null }), object: async () => null });
   const brokenPage = await broken(new Request(new URL(String(opened.url), "http://localhost").toString()), { params: Promise.resolve({ id: MINE, name: "a.pdf" }) });
   check("a storage failure is a plain page, never the browser's error page", brokenPage.status === 502 && /text\/html/.test(brokenPage.headers.get("content-type") ?? ""));

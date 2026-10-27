@@ -9,8 +9,10 @@
  * error page. Now the tab's address ends with the file's own name (its title), the download never
  * navigates the page away, and an error is the site's own words.
  *
- * The signature is an HMAC over the document id, the expiry and open-or-download, with a key derived
- * from a server-only secret; it is never logged. Server only.
+ * The signature is an HMAC over the owner, the document id, the expiry and open-or-download, with a
+ * key derived from a server-only secret; it is never logged. The owner is in the link, signed, so the
+ * file route reads only that owner's row (test:canlii: every read of uploads is scoped to its owner).
+ * Server only.
  */
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
@@ -18,8 +20,8 @@ import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 export const FILE_LINK_SECONDS = 60;
 
 const keyFrom = (secret: string) => createHash("sha256").update(`courtsimplified-file-link:${secret}`).digest();
-const signature = (secret: string, documentId: string, expires: number, download: boolean) =>
-  createHmac("sha256", keyFrom(secret)).update(`${documentId}|${expires}|${download ? 1 : 0}`).digest("base64url");
+const signature = (secret: string, ownerId: string, documentId: string, expires: number, download: boolean) =>
+  createHmac("sha256", keyFrom(secret)).update(`${ownerId}|${documentId}|${expires}|${download ? 1 : 0}`).digest("base64url");
 
 /** A file's name as the last part of an address: its own name, nothing that changes the path. */
 export function fileNameForPath(name: string | null | undefined): string {
@@ -28,19 +30,19 @@ export function fileNameForPath(name: string | null | undefined): string {
 }
 
 /** The path on this site that serves the file for a minute. */
-export function fileLinkPath(args: { secret: string; documentId: string; name: string | null; download: boolean; now?: number }): string {
+export function fileLinkPath(args: { secret: string; ownerId: string; documentId: string; name: string | null; download: boolean; now?: number }): string {
   const expires = Math.floor((args.now ?? Date.now()) / 1000) + FILE_LINK_SECONDS;
-  const sig = signature(args.secret, args.documentId, expires, args.download);
-  return `/api/workspace/documents/file/${args.documentId}/${fileNameForPath(args.name)}?exp=${expires}&sig=${sig}${args.download ? "&download=1" : ""}`;
+  const sig = signature(args.secret, args.ownerId, args.documentId, expires, args.download);
+  return `/api/workspace/documents/file/${args.documentId}/${fileNameForPath(args.name)}?u=${encodeURIComponent(args.ownerId)}&exp=${expires}&sig=${sig}${args.download ? "&download=1" : ""}`;
 }
 
 /** Whether a link's signature is this document's, for this choice, and not yet expired. */
-export function fileLinkValid(args: { secret: string; documentId: string; expires: string | null; sig: string | null; download: boolean; now?: number }): boolean {
+export function fileLinkValid(args: { secret: string; ownerId: string | null; documentId: string; expires: string | null; sig: string | null; download: boolean; now?: number }): boolean {
   const expires = Number(args.expires);
-  if (!args.sig || !Number.isInteger(expires)) return false;
+  if (!args.sig || !args.ownerId || !Number.isInteger(expires)) return false;
   if (expires < Math.floor((args.now ?? Date.now()) / 1000)) return false;
   if (expires > Math.floor((args.now ?? Date.now()) / 1000) + FILE_LINK_SECONDS + 5) return false;
-  const expected = Buffer.from(signature(args.secret, args.documentId, expires, args.download));
+  const expected = Buffer.from(signature(args.secret, args.ownerId, args.documentId, expires, args.download));
   const given = Buffer.from(args.sig);
   return given.length === expected.length && timingSafeEqual(given, expected);
 }

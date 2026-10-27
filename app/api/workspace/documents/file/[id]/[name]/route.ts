@@ -18,7 +18,7 @@ export const runtime = "nodejs";
 type Row = { storage_path: string; original_name: string | null; mime: string | null; deleted_at: string | null } | null;
 type Dependencies = {
   secret: () => string | undefined;
-  row: (documentId: string) => Promise<Row>;
+  row: (documentId: string, ownerId: string) => Promise<Row>;
   object: (path: string) => Promise<Blob | null>;
 };
 
@@ -45,8 +45,9 @@ function disposition(kind: "inline" | "attachment", name: string): string {
 export function createDocumentFileGet(overrides: Partial<Dependencies> = {}) {
   const deps: Dependencies = {
     secret: () => process.env.SUPABASE_SERVICE_ROLE_KEY,
-    row: async (documentId) => {
-      const { data } = await admin().from("workspace_documents").select("storage_path,original_name,mime,deleted_at").eq("id", documentId).maybeSingle();
+    // Only the owner the signed link names (fileLink.ts): never another person's file.
+    row: async (documentId, ownerId) => {
+      const { data } = await admin().from("workspace_documents").select("storage_path,original_name,mime,deleted_at").eq("id", documentId).eq("user_id", ownerId).maybeSingle();
       return (data as Row) ?? null;
     },
     object: async (path) => {
@@ -61,10 +62,11 @@ export function createDocumentFileGet(overrides: Partial<Dependencies> = {}) {
       const params = new URL(request.url).searchParams;
       const download = params.get("download") === "1";
       const secret = deps.secret();
-      if (!isUuid(id) || !secret || !fileLinkValid({ secret, documentId: id, expires: params.get("exp"), sig: params.get("sig"), download })) {
+      const ownerId = params.get("u");
+      if (!isUuid(id) || !secret || !ownerId || !fileLinkValid({ secret, ownerId, documentId: id, expires: params.get("exp"), sig: params.get("sig"), download })) {
         return plainPage(403, "This link has expired or is not valid. Links to your files last one minute.");
       }
-      const row = await deps.row(id);
+      const row = await deps.row(id, ownerId);
       if (!row || row.deleted_at) return plainPage(404, "This file is no longer in your case.");
       const object = await deps.object(row.storage_path);
       if (!object) return plainPage(502, "The file could not be read from storage just now. Please try again in a moment.");

@@ -21,7 +21,7 @@
  * want after the person had answered with a declaration; the other party never asked after "No,
  * let me answer"; the chat asking "what outcome are you seeking?" once they had said it.
  */
-import { alreadyAsked, caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
+import { alreadyAsked, caseFileOf, unsureDateQuestions } from "../../src/lib/case-system/caseFile/caseFile";
 import { factOfAskedText } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { remainingEssentialQuestions } from "../../src/lib/case-system/intakeReview";
 import { answeredFactsOf, answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
@@ -121,6 +121,11 @@ check("a side change sets the old side's 'what you want' from the home page asid
     ["plaintiff:wants-to-discontinue", { served: false, defence: false }, "withdrawal before service is not in the rules held (r. 11.3.01, r. 13.09): asked"],
     ["defendant:admitted-and-proposed-terms", { served: true, defence: true }, "r. 9.03 (1): the proposal is made in the defence"],
   ];
+  // Story pack on GitHub, 27 Oct (w4): "I don't know yet" to the day the claim was issued, then that
+  // question asked on the results page and again on the case page. Any date question answered so is
+  // offered once more at the end, like the days the case file holds.
+  const unsureIssued = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000044", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000044", sections: { story: { text: "Synthetic." }, builder: { initialUnknowns: ["sc-date-claim-issued", "sc-remedy-sought"] } } } as never);
+  check("a date answered 'I don't know yet' with no slot of its own is offered once at the end, never asked cold", unsureDateQuestions(unsureIssued).includes("sc-date-claim-issued") && !unsureDateQuestions(unsureIssued).includes("sc-remedy-sought"), JSON.stringify(unsureDateQuestions(unsureIssued)));
   for (const [step, want, why] of STEPS) check(`${step} settles ${JSON.stringify(want)} (${why})`, JSON.stringify(settledBySmallClaimsStep(step)) === JSON.stringify(want), JSON.stringify(settledBySmallClaimsStep(step)));
 }
 

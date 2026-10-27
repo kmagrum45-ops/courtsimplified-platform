@@ -63,7 +63,7 @@ export function createDocumentLinkGet(overrides: Partial<Dependencies> = {}) {
       const secret = deps.secret();
       if (!secret) return refuse(500, "The file could not be opened just now. Please try again.");
       const download = params.get("download") === "1";
-      const url = fileLinkPath({ secret, documentId, name: row.original_name, download });
+      const url = fileLinkPath({ secret, ownerId: user.id, documentId, name: row.original_name, download });
       return NextResponse.json({ success: true, url, expiresInSeconds: LINK_SECONDS }, { headers: { "Cache-Control": "private, no-store" } });
     } catch {
       return refuse(500, "The file could not be opened just now. Please try again.");
