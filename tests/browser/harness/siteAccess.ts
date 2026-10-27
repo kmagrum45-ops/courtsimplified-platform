@@ -4,6 +4,7 @@ import path from "node:path";
 import type { Page } from "@playwright/test";
 
 import { autoAnswerSituation } from "./situation";
+import { holdRealTraffic } from "./speed";
 
 /**
  * The gate in middleware.ts compares the cs_site_access cookie to
@@ -50,4 +51,6 @@ export async function grantSiteAccess(page: Page): Promise<void> {
   // The situation questions now come before every story (step 2): answered as "starting, nothing
   // filed" unless the spec set its own (harness/situation.ts).
   await autoAnswerSituation(page, undefined, true);
+  // At real speed (BROWSER_SPEED=slow), the analysis and account calls take as long as on the live site (speed.ts).
+  await holdRealTraffic(page);
 }
