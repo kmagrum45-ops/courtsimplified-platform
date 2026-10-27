@@ -271,6 +271,29 @@ async function main() {
   const settledQuestions = settled.status === "understood" ? settled.understanding.questions.map((item) => item.question) : [];
   check("with \"nothing filed yet\" given, the reading does not ask whether a claim is started; it keeps its other questions", settled.status === "understood" && !settledQuestions.some((q) => /already started/.test(q)) && settledQuestions.some((q) => /agree to do/.test(q)), JSON.stringify(settledQuestions));
 
+  // 26 Oct re-test, cases 19 and 20, in Chrome's words: the same answer settles the reading's other
+  // ways of asking or stating it, its rows included, and the model is told the answer.
+  const otherWays = {
+    ...reasoned,
+    questions: [{ question: "Which court, if any, has issued your claim?", why: "x" }, { question: "When did you pay the $450?", why: "x" }],
+    facts: [{ label: "Existing court case", value: "You say you sued him" }, { label: "Repair claim already started", value: "Not given" }, { label: "Amount paid", value: "$450" }, { label: "What happened", value: "The case of the laptop was cracked when it came back" }],
+  };
+  let toldModel = "";
+  const read = await understandCase(
+    { story: SLANDER, chosenCourt: "small-claims", situation: { side: "starting", filed: false } },
+    { reason: async (story) => { toldModel = story; return JSON.stringify(otherWays); }, check: { index, embed: noSearch, thorough: false, check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "x" }] }) } },
+  );
+  const readQuestions = read.status === "understood" ? read.understanding.questions.map((item) => item.question) : [];
+  const readRows = read.status === "understood" ? read.understanding.facts.map((fact) => fact.label) : [];
+  check("'No, nothing yet': the reading does not ask which court issued the claim, and keeps its other questions", !readQuestions.some((q) => /which court/i.test(q)) && readQuestions.some((q) => /pay the \$450/.test(q)), JSON.stringify(readQuestions));
+  check("'No, nothing yet': no row says a court case exists or is started; the other rows stay", !readRows.some((label) => /court case|already started/i.test(label)) && readRows.includes("Amount paid") && readRows.includes("What happened"), JSON.stringify(readRows));
+  check("the model is told the person's own answer", /Nothing has been filed with a court yet\./.test(toldModel));
+  const notAnswered = await understandCase(
+    { story: SLANDER, chosenCourt: "small-claims", situation: { side: "starting" } },
+    { reason: async () => JSON.stringify(otherWays), check: { index, embed: noSearch, thorough: false, check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "x" }] }) } },
+  );
+  check("without that answer, the reading's rows and questions about it stay", notAnswered.status === "understood" && notAnswered.understanding.facts.length === otherWays.facts.length && notAnswered.understanding.questions.length === otherWays.questions.length);
+
   console.log(failures ? `\n${failures} failed` : "\nAll passed");
   process.exitCode = failures ? 1 : 0;
 }

@@ -377,6 +377,9 @@ export function storyWithAnswers(input: UnderstandInput): string {
     input.city?.trim() ? `I live in ${input.city.trim()}, Ontario.` : "",
     input.situation?.side ? (input.situation.side === "responding" ? "I am responding to this case: the other side started it." : "I am the one bringing this case.") : "",
     input.situation?.servedOn ? `I was served on ${input.situation.servedOn}.` : "",
+    // Their own answer at the start, so the reading does not guess it from the story (26 Oct re-test,
+    // cases 19 and 20: "Existing court case: You say you sued him" after "No, nothing yet").
+    input.situation?.filed === false ? "Nothing has been filed with a court yet." : input.situation?.filed === true ? "A court case has already been started." : "",
     ...answered.map((item) => `Q: ${item.question.trim()}\nA: ${item.answer.trim()}`),
   ]
     .filter(Boolean)
@@ -407,6 +410,15 @@ function within<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
 /** "Have you already started a court claim about this repair?", "Has anything been filed yet?" */
 export const askedWhetherFiled = (question: string) =>
   /\b(?:already|yet)\b[^?]*\b(?:start(?:ed)?|file[ds]?|issued?|begun|brought|commenced)\b|\b(?:start(?:ed)?|file[ds]?|issued?|begun|brought|commenced)\b[^?]*\b(?:already|yet)\b|\b(?:have|has) (?:you|anyone|anything|either of you)\b[^?]*\b(?:started|filed|issued|commenced)\b[^?]*\b(?:claim|case|lawsuit|action|application|court)\b/i.test(question);
+/**
+ * Whether a court case exists, asked or stated another way: "Which court, if any, has issued your
+ * claim?", a row "Existing court case: You say you sued him" or "Repair claim already started: Not
+ * given" (26 Oct re-test, cases 19 and 20). The situation answers own this once given.
+ */
+export const aboutWhetherFiled = (text: string) =>
+  askedWhetherFiled(text) ||
+  /\bwhich court\b[^?]*\b(?:issued|filed|started|has|have)\b|\bcourt file (?:number|no\.?)|\b(?:existing|current|ongoing|pending) (?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:claim|case|lawsuit|action|application)\b[^:?]{0,30}\b(?:already )?(?:started|filed|issued|commenced)\b|\balready (?:started|filed|issued|commenced)\b/i.test(text);
+
 /** "Are you suing, or is someone suing you?" */
 export const askedSide = (question: string) => /\b(?:are you|is (?:someone|anyone|the other)[^?]*)\b[^?]*\b(?:suing|being sued|sued|the (?:plaintiff|defendant|applicant|respondent))\b/i.test(question);
 
@@ -423,9 +435,12 @@ function withSituation(understanding: CaseUnderstanding, situation: UnderstandIn
     questions: understanding.questions.filter((item) =>
       !(situation.servedOn && askedWhenServed(item.question)) &&
       // Whether a case is started, and their side, are the situation answers' own (#477 re-test,
-      // case 19: "Have you already started a court claim?" after "No, nothing yet").
-      !(situation.filed !== undefined && askedWhetherFiled(item.question)) &&
+      // case 19: "Have you already started a court claim?" after "No, nothing yet"; 26 Oct: "Which
+      // court, if any, has issued your claim?").
+      !(situation.filed !== undefined && aboutWhetherFiled(item.question)) &&
       !(situation.side && askedSide(item.question))),
+    // And the reading's own rows about it go too: the person's answer stands, shown at the top.
+    facts: situation.filed !== undefined ? understanding.facts.filter((fact) => !aboutWhetherFiled(`${fact.label}: ${fact.value}`)) : understanding.facts,
   };
 }
 
