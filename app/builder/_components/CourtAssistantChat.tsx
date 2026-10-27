@@ -33,9 +33,21 @@ import ResearchPanel from "../../_components/ResearchPanel";
  */
 type LawState = { state: "loading" } | { state: "done"; findings: ResearchFindingView[]; answer?: CheckedAnswerView };
 
+/** The law found for a question, as the reply under it shows it. */
+type SavedLaw = { findings: ResearchFindingView[]; answer?: CheckedAnswerView };
+
 type ChatMessage = {
   role: "user" | "assistant";
   content: string;
+  /**
+   * On a question: the law found for it, kept with the conversation, so a reopened chat shows the
+   * sections and citations the live answer showed (Chrome, 28 Oct: only the words came back).
+   */
+  law?: SavedLaw;
+  /** The saved row's id (/api/cases/chat), so the law can be added once its lookup finishes. */
+  id?: string;
+  /** The law has been saved with the case. */
+  lawSaved?: boolean;
 };
 
 type CourtAssistantChatProps = {
@@ -735,7 +747,7 @@ type CourtAssistantChatInnerProps = CourtAssistantChatProps & {
  */
 const SAVED_CASE_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-async function caseChatRequest(method: "GET" | "POST" | "DELETE", caseId: string, body?: unknown): Promise<unknown> {
+async function caseChatRequest(method: "GET" | "POST" | "PATCH" | "DELETE", caseId: string, body?: unknown): Promise<unknown> {
   try {
     const {
       data: { session },
@@ -797,6 +809,20 @@ function CourtAssistantChatInner({
       active = false;
     };
   }, [savedCaseId]);
+  // A question's law, once both it and the saved row's id are known, is saved with the case once.
+  const savingLaw = useRef(new Set<string>());
+  useEffect(() => {
+    if (!savedCaseId) return;
+    messages.forEach((message, index) => {
+      if (message.role !== "user" || !message.law || !message.id || message.lawSaved || savingLaw.current.has(message.id)) return;
+      const id = message.id;
+      savingLaw.current.add(id);
+      void caseChatRequest("PATCH", savedCaseId, { caseId: savedCaseId, id, law: message.law }).then((result) => {
+        savingLaw.current.delete(id);
+        if ((result as { ok?: boolean } | null)?.ok) setMessages((current) => current.map((item, at) => (at === index && item.id === id ? { ...item, lawSaved: true } : item)));
+      });
+    });
+  }, [messages, savedCaseId]);
   const [caseMemory, setCaseMemory] = useState<unknown>(
     initialChatState.caseMemory,
   );
@@ -969,6 +995,8 @@ function CourtAssistantChatInner({
           const findings = Array.isArray(data.findings) ? data.findings : [];
           const answer = data.answer && data.answer.status !== "unavailable" ? data.answer : undefined;
           setLaw((current) => ({ ...current, [turn]: { state: "done", findings, ...(answer ? { answer } : {}) } }));
+          // Kept with the question it answers, in the conversation that is saved (Chrome, 28 Oct).
+          if (findings.length > 0 || answer) setMessages((current) => current.map((message, index) => (index === turn && message.role === "user" ? { ...message, law: { findings, ...(answer ? { answer } : {}) } } : message)));
           return findings.length > 0 || Boolean(answer);
         } catch {
           setLaw((current) => ({ ...current, [turn]: { state: "done", findings: [] } }));
@@ -1075,12 +1103,18 @@ function CourtAssistantChatInner({
         },
       ]);
       if (savedCaseId) {
+        const asked = nextMessages.length - 1;
         void caseChatRequest("POST", savedCaseId, {
           caseId: savedCaseId,
           messages: [
             { role: "user", content: trimmed },
             { role: "assistant", content: answer },
           ],
+        }).then((result) => {
+          // The saved ids, so the question's law can be added when its lookup finishes.
+          const ids = (result as { ids?: unknown } | null)?.ids;
+          if (!Array.isArray(ids) || typeof ids[0] !== "string") return;
+          setMessages((current) => current.map((message, index) => (index === asked && message.role === "user" ? { ...message, id: ids[0] as string } : index === asked + 1 && message.role === "assistant" && typeof ids[1] === "string" ? { ...message, id: ids[1] as string } : message)));
         });
       }
     } catch (error) {
@@ -1429,9 +1463,10 @@ function CourtAssistantChatInner({
                 Looking up the law on your question and checking every statement against the official text. This usually takes one to three minutes, and can take up to four and a half when the question needs a wider search.
               </p>
             ) : null}
-            {message.role === "assistant" && law[index - 1]?.state === "done"
+            {message.role === "assistant" && (law[index - 1]?.state === "done" || messages[index - 1]?.law)
               ? (() => {
-                  const entry = law[index - 1] as { state: "done"; findings: ResearchFindingView[]; answer?: CheckedAnswerView };
+                  // The page's own lookup, or the law kept with the question (a reopened chat).
+                  const entry = (law[index - 1]?.state === "done" ? law[index - 1] : { state: "done", ...messages[index - 1]?.law }) as { state: "done"; findings: ResearchFindingView[]; answer?: CheckedAnswerView };
                   // 2026-10-07: a checked answer, when there is one, is the
                   // answer: plain statements, each with its official words.
                   if (entry.answer) {

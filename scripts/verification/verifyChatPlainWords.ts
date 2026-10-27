@@ -9,7 +9,10 @@
  *   - a question the person has answered is not asked again: "what outcome are you seeking?" once
  *     they said what they want (the case file's answered facts, answeredInStory.ts), and "What
  *     exactly did they do or fail to do?" after a story saying it;
- *   - a checked-answer line with no source shows no sources toggle (CheckedAnswerPanel).
+ *   - a checked-answer line with no source shows no sources toggle (CheckedAnswerPanel);
+ *   - the law shown with an answer is kept with the conversation and saved with the case: the chat
+ *     route keeps a question's law, refuses one too large, and still saves and reads the words when
+ *     the column is not there yet (Chrome, 28 Oct: a reopened chat lost every citation).
  *
  * Failure it exists to catch: "Why this matters: This is the first investigation step for Public
  * authority / Crown / police: Identify each public actor", an empty sources toggle under the
@@ -21,6 +24,9 @@ import { internalWordingIn } from "../../src/lib/case-system/copy/rawKeys";
 import { answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
 import CheckedAnswerPanel from "../../app/_components/CheckedAnswerPanel";
 import { chatReplies, type Court } from "./chatRouteHarness";
+import { validLaw, validMessages } from "../../app/api/cases/chat/route";
+import fs from "node:fs";
+import path from "node:path";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -42,6 +48,19 @@ const checkpoint = (court: Court, story: string, sections: Record<string, unknow
 });
 
 async function main() {
+  // The law kept with the conversation (Chrome, 28 Oct).
+  const law = { findings: [], answer: { status: "answered", statements: [{ text: "A statement.", sources: [{ citation: "Synthetic Act, 2019, s. 4 (1)" }] }] } };
+  const rows = validMessages([{ role: "user", content: "Do I need to give notice?", law }, { role: "assistant", content: "Here is what applies." }]);
+  check("a question saved with the case keeps the law found for it", JSON.stringify(rows?.[0]?.law) === JSON.stringify(law) && rows?.[1]?.law === undefined);
+  check("a law too large is not kept (the words still are)", validLaw({ big: "x".repeat(250_000) }) === null && validMessages([{ role: "user", content: "Q", law: { big: "x".repeat(250_000) } }])?.[0]?.law === undefined);
+  const ROOT = path.resolve(import.meta.dirname, "..", "..");
+  const route = fs.readFileSync(path.join(ROOT, "app/api/cases/chat/route.ts"), "utf8");
+  check("the chat route reads and saves the law, and works on without the column", /read\("id, role, content, created_at, law"\)/.test(route) && /noLawColumn\(error\)/.test(route) && /export const PATCH/.test(route));
+  const chat = fs.readFileSync(path.join(ROOT, "app/builder/_components/CourtAssistantChat.tsx"), "utf8");
+  check("the chat keeps a question's law in its own copy and shows it under the reply", /law: \{ findings, \.\.\.\(answer \? \{ answer \} : \{\}\) \}/.test(chat) && /messages\[index - 1\]\?\.law/.test(chat));
+  const migration = fs.readdirSync(path.join(ROOT, "supabase/migrations")).find((file) => /case_chat_law/.test(file));
+  check("the column is a migration for the owner to apply", Boolean(migration) && /ADD COLUMN IF NOT EXISTS "law" "jsonb"/.test(fs.readFileSync(path.join(ROOT, "supabase/migrations", migration!), "utf8")));
+
   // The detector itself.
   check("the detector finds the wording Chrome saw", internalWordingIn("Why this matters: This is the first investigation step for Public authority / Crown / police: Identify each public actor.").length > 0);
   check("and passes plain words", internalWordingIn("This helps put what happened in the order a court will look at it. What proof do you currently have?").length === 0);
