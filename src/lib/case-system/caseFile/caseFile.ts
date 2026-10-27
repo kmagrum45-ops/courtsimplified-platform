@@ -157,6 +157,26 @@ function unsure(file: CaseFile, fact: string, question: string) {
   if (isSlot(fact) && file[fact].state === "not-asked") file[fact] = { state: "unsure", source: { kind: "answer", question }, confirmed: true };
 }
 
+/**
+ * "What kind of dispute is this?" keeps its answer as a code (facts.disputeCategory, the extractor's
+ * list): the question's own choice words for it, so the answer is shown as given (26 Oct re-test,
+ * case 20: "Unpaid money owed to you" confirmed in the chat, then "Kind of claim: Not sure yet:
+ * nothing in your story shows it" and no line in "What we have so far").
+ */
+export const DISPUTE_CATEGORY_WORDS: Record<string, string> = {
+  "unpaid-money": "Unpaid money owed to you",
+  "contract-dispute": "A contract or agreement dispute",
+  "property-damage": "Property damage",
+  "loan-or-debt": "A loan or debt",
+  "work-or-services": "Work or a service you paid for (e.g. a contractor)",
+  "deposit-refund": "A deposit that wasn't returned",
+  "consumer-purchase": "A consumer purchase problem",
+  "vehicle-dispute": "A vehicle-related dispute",
+  defamation: "Something said about you (defamation)",
+  "personal-injury": "A personal injury (a fall, an animal bite, or similar)",
+  other: "Something else",
+};
+
 /** Every slot an answer to this question gives (its facts that are slots). */
 const slotsOf = (questionId: string, surface?: string): SlotFact[] => factsOfQuestion(questionId, surface).filter(isSlot);
 
@@ -251,7 +271,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       // The answer's own words where the question keeps them (its captured field); a dated
       // fact with no words kept is unsure (the exact day is offered once more at the end).
       const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
-      const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : undefined;
+      const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : id === "sc-orient-dispute-category" && typeof guidedFacts.disputeCategory === "string" ? DISPUTE_CATEGORY_WORDS[guidedFacts.disputeCategory] : undefined;
       if (captured === undefined && DATED.has(fact)) unsure(file, fact, id);
       else if (captured === undefined) file[fact] = { state: "answered", source: { kind: "answer", question: id }, confirmed: true };
       else give(file, fact, captured, id);

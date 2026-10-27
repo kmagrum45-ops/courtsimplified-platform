@@ -18,7 +18,10 @@
  *     spousal support, parenting), offered in the chat and the review's question for one click (26 Oct
  *     re-test, case 14: nothing offered); a Charter claim's kinds likewise; never from a "no" or a question;
  *   - "No court date yet" is kept as the answer, never "No court date yet (day not given yet)" (case 14),
- *     and a conference that is the next court date is listed once (case 16).
+ *     and a conference that is the next court date is listed once (case 16);
+ *   - "What kind of dispute is this?" answered in the chat is held in its own choice words, so the case
+ *     page shows it (case 20: "Not sure yet: nothing in your story shows it" after "Unpaid money owed
+ *     to you" was confirmed).
  *
  * Failure it exists to catch: "Witness" showing the whole list of evidence, "Lost pay" repeating the
  * injury sentence, "Children" showing a sentence about the divorce, and the other side never listed.
@@ -26,7 +29,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
-import { caseFileOf, courtDateIsConference, saysNoDateYet, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { caseFileOf, courtDateIsConference, DISPUTE_CATEGORY_WORDS, saysNoDateYet, slotText } from "../../src/lib/case-system/caseFile/caseFile";
+import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { childrenFromStory, civilFiledFromStory, familyFiledFromStory, familyIssuesFromStory } from "../../app/builder/_components/storyAnswers";
 import { reviewQuestionField } from "../../src/lib/case-system/intakeReview";
 import { reviewEntries } from "../../src/lib/case-system/intakeReview";
@@ -136,6 +140,15 @@ check("case 16: the conference on the same day as the next court date is one day
 check("a different court date is its own line", !courtDateIsConference({ ...sameDayFile, courtDate: { state: "answered", value: "2027-03-03", confirmed: true } } as typeof both));
 const panel = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseFilePanel.tsx"), "utf8");
 check("'What we have so far' lists that day once", /courtDateIsConference\(file\)/.test(panel));
+const categoryChoices = QUESTION_BANK.find((question) => question.id === "sc-orient-dispute-category")?.choices ?? [];
+const strays = Object.values(DISPUTE_CATEGORY_WORDS).filter((words) => !categoryChoices.includes(words));
+check("every dispute code reads as one of the question's own choices", strays.length === 0, strays.join("; "));
+const extractor = fs.readFileSync(path.join(ROOT, "src/lib/case-system/intake/extractIntakeFacts.ts"), "utf8");
+const codes = [...new Set([...(/"disputeCategory": exactly one of these[^\n]*/.exec(extractor)?.[0] ?? "").matchAll(/"([a-z-]+)"(?= \(|,|\.)/g)].map((match) => match[1]).filter((code) => code !== "disputeCategory"))];
+const unworded = codes.filter((code) => !DISPUTE_CATEGORY_WORDS[code]);
+check("every code the reader can give has its words", codes.length >= 10 && unworded.length === 0, `${codes.length} codes; unworded: ${unworded.join(", ")}`);
+const chatKind = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000020", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000020", sections: { story: { text: "Synthetic." }, builder: { step: "guided" }, guided: { answeredIds: ["sc-orient-dispute-category"], facts: { disputeCategory: "unpaid-money" } } } } as never);
+check("case 20: the kind of dispute answered in the chat is held in its words", chatKind.claimKind.state === "answered" && chatKind.claimKind.value === "Unpaid money owed to you", JSON.stringify(chatKind.claimKind));
 for (const [read, story, want] of FILED) check(`papers filed, from the story: "${story}" -> ${want || "nothing offered"}`, filed(read, story) === want, filed(read, story));
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
