@@ -555,6 +555,13 @@ ${item.text}`, story);
       await page.waitForTimeout(600);
       const repeats = factsAskedTwice(asked, situationForStory(story));
       fs.appendFileSync("test-results/ask-once.jsonl", JSON.stringify({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }) + "\n");
+      // 26 Oct re-test, case 19: "No, nothing yet" was followed by "Has the other party filed a Defence?"
+      // and "what date was it served?". Nothing filed means nothing served or defended, in any story.
+      const start = situationForStory(story);
+      if (story.court === "small-claims" && start.where === "starting" && start.filed === "nothing") {
+        const served = asked.filter((item) => item.kind === "ask" && /^(sc-defence-filed|sc-date-claim-served|sc-date-claim-issued|sc-defence-time-elapsed|sc-defendant-noted-in-default)$/.test(item.id));
+        note(run, "ask-once", "'No, nothing yet': no Defence or served-date question", served.length === 0, served.map((item) => `${item.id}@${item.screen}`).join(", "));
+      }
       note(run, "ask-once", "no fact is asked twice in the case", repeats.length === 0, repeats.map((repeat) => `${repeat.fact} (${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")})`).join("; "));
       // Jason, 2026-10-24: any fact asked twice fails the build, whatever else this run found.
       expect(repeats.map((repeat) => `${repeat.fact}: ${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")}`), "no fact is asked twice in the case").toEqual([]);
@@ -934,6 +941,37 @@ for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
       await offer.click();
       await expect(box).toHaveAttribute("data-answered", "true");
     }
+  });
+}
+
+// 26 Oct re-test, case 16: a case already going showed "Your side: I'm starting it (or I want to)" in the
+// guided "What we already have", and "Has anything been filed…?" was asked with nothing offered though
+// the story names the application and the answer. Family and civil, each side.
+for (const id of ["m16-conference-safety", "w5-civil-going-defence"]) {
+  test(`retest-26oct: a case already going keeps its start answer's words, and the papers are offered from the story -- ${id}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = [...MESSY_STORIES, ...WALKTHROUGH_STORIES].find((item) => item.id === id)!;
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, story.court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, story.court, { story: story.story });
+    const known = page.getByTestId("guided-form-known");
+    await expect(known).toBeVisible({ timeout: 60_000 });
+    await expect(known, "the side in the start answer's words").toContainText(/started this case/);
+    await expect(known).not.toContainText(/starting it \(or I want to\)|plan to start/);
+    const filedKey = story.court === "family" ? "filedDocuments" : "documents";
+    const question = page.getByTestId("guided-form-question");
+    for (let i = 0; i < 12 && (await question.isVisible().catch(() => false)); i++) {
+      if ((await question.getAttribute("data-key")) === filedKey) {
+        await expect(question.getByTestId("guided-form-from-story"), "the papers the story names are offered").toBeVisible();
+        return;
+      }
+      const skip = page.getByTestId("guided-form-skip");
+      if (!(await skip.isVisible().catch(() => false))) break;
+      await skip.click();
+    }
+    // Not asked at all: the papers are already held (listed under "What we already have").
   });
 }
 
