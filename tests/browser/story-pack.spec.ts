@@ -1311,7 +1311,7 @@ test("retest-27oct root cause 3 on staging: the Charter review, a one-click answ
 
 // Charter re-test 27 Oct: one press of "Count my deadline" was enough, but the button only greyed
 // out without saying it was working. While the case is being saved it says so, in every area.
-for (const [court, id] of [["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+for (const [court, id] of [["small-claims", "sc-defendant-unclear"], ["civil", "civil-deposit"], ["family", "m16-conference-safety"]] as const) {
   test(`retest-27oct: Count my deadline says it is working while it saves -- ${court} (${id})`, async ({ page }) => {
     test.setTimeout(300_000);
     const story = byId(id);
@@ -1322,9 +1322,10 @@ for (const [court, id] of [["small-claims", "sc-deck-owed"], ["civil", "civil-de
     if (court === "small-claims") await smallClaims(page, story, true);
     else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
     await confirmAndContinue(page);
-    const box = page.locator('[data-testid="stage-answer-date-question"] input[type="text"]').first();
-    await expect(box, "the step asks a date").toBeVisible({ timeout: 90_000 });
-    await box.fill("March 3, 2026");
+    const box = page.locator('[data-testid="stage-answer-date-question"] input[type="date"]').first();
+    await expect(page.getByTestId("stage-answer-dates-save"), "the step can count a deadline").toBeVisible({ timeout: 90_000 });
+    // A date the step does not hold yet is typed; one it already holds (from the story) is counted as it is.
+    if (await box.isVisible().catch(() => false)) await box.fill("2026-03-03");
     // The case is saved at the live site's speed.
     await page.route("**/api/cases/position", async (route) => { await new Promise((done) => setTimeout(done, 3_000)); await route.fallback(); });
     await page.getByTestId("stage-answer-dates-save").click();
@@ -1337,7 +1338,7 @@ for (const [court, id] of [["small-claims", "sc-deck-owed"], ["civil", "civil-de
 // drop a question. The one-click for What you want was bundled with the other party; after "No",
 // the other party was never asked again. Every story suggestion here is answered "No": each question
 // then asks for an answer itself, and every question that rode in a suggestion is still asked.
-for (const [court, id] of [["civil", "c1-charter-police"], ["civil", "civil-deposit"], ["family", "family-spousal"], ["family", "m16-conference-safety"]] as const) {
+for (const [court, id] of [["civil", "c1-charter-police"], ["civil", "m11-old-credit-card"], ["family", "family-spousal"], ["family", "m16-conference-safety"]] as const) {
   test(`retest-27oct root cause 2: "No, let me answer" asks for the answer and drops no question -- ${court} (${id})`, async ({ page }) => {
     test.setTimeout(300_000);
     const story = byId(id);
