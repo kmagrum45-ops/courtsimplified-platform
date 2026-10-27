@@ -35,6 +35,7 @@ import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDea
 import { crownNoticeStatements, LIBRARY_CANNOT_ANSWER_POLICE_NOTICE, withLibraryOwned } from "../../src/lib/case-system/retrieval/libraryOwned";
 import { amountNoteFor } from "../../src/lib/case-system/amountNotes";
 import { courtWords, CJA_23_1_1_WORDS } from "../../app/builder/_components/StageAnswerPanel";
+import { RCP_14_01_1_2_WORDS, RCP_14_01_1_3_WORDS } from "../../src/lib/content-library/leaveRuleWords";
 import { isStatuteWording, withoutStatuteEchoes } from "../../src/lib/case-system/retrieval/statuteEcho";
 import { answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
 import { readChip, readNote } from "../../src/lib/case-workspace/readStatus";
@@ -134,12 +135,37 @@ async function main() {
   const walkCode = (dir: string) => { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const full = path.join(dir, entry.name); if (entry.isDirectory()) walkCode(full); else if (/\.tsx?$/.test(entry.name)) codeFiles.push(full); } };
   walkCode(path.join(ROOT, "src")); walkCode(path.join(ROOT, "app"));
   const PARAPHRASE = /(?:can only be started|cannot be started|shall not be started|can be started there only|started in the Superior Court only)[^."]*\bleave\b/i;
-  const paraphrased = codeFiles.filter((file) => PARAPHRASE.test(fs.readFileSync(file, "utf8").replace(/const LEAVE_PARAPHRASE = [^\n]+/, ""))).map((file) => path.relative(ROOT, file));
+  const paraphrased = codeFiles.filter((file) => PARAPHRASE.test(fs.readFileSync(file, "utf8").replace(/const LEAVE_PARAPHRASE = [^\n]+/, "").replace(/export const LEAVE_SENTENCES[\s\S]*?\n\];/, ""))).map((file) => path.relative(ROOT, file));
   check("no code says the leave rule in its own words", paraphrased.length === 0, paraphrased.join(", "));
   const amount = amountNoteFor({ courtPath: "civil", stepId: "civil:plaintiff:claim-drafted-not-issued", recordedAmount: "$12,000" })?.text ?? "";
   check("the amount card gives the Act's words with s. 23 (1.1)", amount.includes(`Courts of Justice Act, s. 23 (1.1): “${ACT_23_1_1}”`), amount);
   const published = ["If your claim is within that limit, it can only be started in the Superior Court with that court's leave.", "A claim within that limit cannot be started in the Superior Court of Justice without that court's leave."];
   check("the published library's two sentences show as the Act's words on screen", published.every((sentence) => courtWords(`Before. ${sentence} After.`, "civil") === `Before. ${CJA_23_1_1_WORDS} After.`) && CJA_23_1_1_WORDS.includes(ACT_23_1_1));
+
+  // Chrome, 28 Oct: "The law behind this" differed between two cases. It must come from the case's own
+  // analysis (its research, one line per provision with the question it answers), never from whichever
+  // chat question was asked last.
+  const overview = fs.readFileSync(path.join(ROOT, "app/builder/_components/IntelligenceOverviewPanel.tsx"), "utf8");
+  const lawRoute = fs.readFileSync(path.join(ROOT, "app/api/assistant/law/route.ts"), "utf8");
+  check("the law box is the analysis's research, and the chat's law lookup never writes the case", /lawBehindThis\(analysis\.research\?\.findings \?\? \[\], analysis\.appliedLaw \?\? \[\]\)/.test(overview) && !/\.update\(|updateMasterResult|\.upsert\(|\.insert\(/.test(lawRoute));
+
+  // Chrome, 28 Oct (owner): every leave sentence on the next-step screen is the Act's or the rule's own
+  // words with its citation, or it goes; "A claim above it needs no such leave." is ours and goes.
+  const library = JSON.parse(fs.readFileSync(path.join(ROOT, "src/lib/content-library/published/stageAnswers.published.json"), "utf8")) as { blocks: { stageId: string; whatsHappening?: string; whatToDoNext?: string; whatHappensAfter?: string }[] };
+  const rules = fs.readFileSync(path.join(ROOT, "docs/sources/corpus/rules-of-civil-procedure.txt"), "utf8").replace(/\s+/g, " ");
+  const LEAVE_WORDS = /\bleave\b[^.]*\b(?:without notice|interest of justice)\b|\b(?:without notice|interest of justice)\b[^.]*\bleave\b|needs no such leave|(?:within that limit|Small Claims Court's limits)[^.]*\bleave\b/i;
+  for (const block of library.blocks) for (const part of ["whatsHappening", "whatToDoNext", "whatHappensAfter"] as const) {
+    const shown = courtWords(block[part] ?? "", "civil");
+    const plain = shown.replace(/[A-Z][^:“”]*, (?:s\.|r\.) [\d.]+ \([\d.]+\): “[^”]*”/g, "");
+    if (!LEAVE_WORDS.test(block[part] ?? "")) continue;
+    check(`${block.stageId} (${part}): every leave sentence shown is the rule's own words with its citation`, !LEAVE_WORDS.test(plain) && !/needs no such leave/.test(shown), plain.slice(0, 300));
+  }
+  for (const words of [RCP_14_01_1_2_WORDS, RCP_14_01_1_3_WORDS]) {
+    const quote = /“([^”]+)”/.exec(words)?.[1] ?? "";
+    check(`the quote of ${words.slice(0, 40)} is the saved rule, word for word`, Boolean(quote) && rules.includes(quote.replace(/\s+/g, " ")), quote);
+  }
+  const notes = fs.readFileSync(path.join(ROOT, "src/lib/case-system/intake/civilClaimTypes.ts"), "utf8");
+  check("the civil claim-type notes quote r. 14.01.1 (2) and (3), never say them in our words", !/a motion for leave " \+\s*"under s\. 23\(1\.1\) may be made without notice/.test(notes) && (notes.match(/r\. 14\.01\.1 \(3\): “The court may grant leave under subsection/g) ?? []).length === 2);
 
   // ---- 5. A decision is not the source for an Act's words ----
   const charterNine = "Everyone has the right not to be arbitrarily detained or imprisoned.";

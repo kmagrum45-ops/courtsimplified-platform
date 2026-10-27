@@ -343,9 +343,11 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
           "the amount claimed does not exceed the prescribed amount, not counting interest and costs, " +
           "and in an action to recover personal property where its value does not exceed the prescribed " +
           "amount. O. Reg. 626/00, s. 1(1), sets the maximum amount of a claim in the Small Claims " +
-          "Court at $50,000. Under r. 14.01.1(2) of the Rules of Civil Procedure, a motion for leave " +
-          "under s. 23(1.1) may be made without notice, unless the court orders otherwise, and under r. " +
-          "14.01.1(3), the court may grant that leave only if it is in the interest of justice. Under " +
+          "Court at $50,000. Rules of Civil Procedure, r. 14.01.1 (2): “A motion under subsection 23 (1.1) " +
+          "of the Courts of Justice Act for leave to commence an action in the Superior Court of Justice that " +
+          "is within the Small Claims Court's jurisdiction may be made without notice, unless the court orders " +
+          "otherwise.” Rules of Civil Procedure, r. 14.01.1 (3): “The court may grant leave under subsection " +
+          "23 (1.1) of the Courts of Justice Act only if it is in the interest of justice.” Under " +
           "s. 23(1.2), s. 23(1.1) does not apply to a counterclaim, crossclaim or third or subsequent " +
           "party claim where the main action was started in the Superior Court of Justice.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
@@ -677,9 +679,11 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
           "the amount claimed does not exceed the prescribed amount, not counting interest and costs, " +
           "and in an action to recover personal property where its value does not exceed the prescribed " +
           "amount. O. Reg. 626/00, s. 1(1), sets the maximum amount of a claim in the Small Claims " +
-          "Court at $50,000. Under r. 14.01.1(2) of the Rules of Civil Procedure, a motion for leave " +
-          "under s. 23(1.1) may be made without notice, unless the court orders otherwise, and under r. " +
-          "14.01.1(3), the court may grant that leave only if it is in the interest of justice. Under " +
+          "Court at $50,000. Rules of Civil Procedure, r. 14.01.1 (2): “A motion under subsection 23 (1.1) " +
+          "of the Courts of Justice Act for leave to commence an action in the Superior Court of Justice that " +
+          "is within the Small Claims Court's jurisdiction may be made without notice, unless the court orders " +
+          "otherwise.” Rules of Civil Procedure, r. 14.01.1 (3): “The court may grant leave under subsection " +
+          "23 (1.1) of the Courts of Justice Act only if it is in the interest of justice.” Under " +
           "s. 23(1.2), s. 23(1.1) does not apply to a counterclaim, crossclaim or third or subsequent " +
           "party claim where the main action was started in the Superior Court of Justice.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
