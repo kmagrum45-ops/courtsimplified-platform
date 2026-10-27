@@ -92,6 +92,17 @@ That doubles as the clarifying-question mechanism: given two candidate stages,
 UNKNOWN is "here is the one question we need", not a shrug. The question text is
 never model-written.
 
+**The moves are not every way a case gets somewhere (found 2026-10-27).** `situation.ts`
+`settledBySmallClaimsStep` reads, from the moves, what a picked step already settles (a step only
+reached through "served, waiting for a Defence" settles that the claim was served), so the chat
+does not ask it again. Six Small Claims steps are reached in the moves only after service or a
+Defence, though in life they come without either: a claim withdrawn before service
+(`plaintiff:wants-to-discontinue`), an action dismissed for delay with no Defence, a default
+judgment unpaid and enforced (`plaintiff:judgment-in-my-favour-unpaid`, `plaintiff:debtor-examination`,
+`defendant:judgment-against-me`, `defendant:judgment-being-enforced`). They are listed there as
+settling nothing. Before reading anything else off the moves' reachability, check which steps
+have only one way in; adding the missing moves (law map) would let that list shrink.
+
 **UNKNOWN is a real stage, not a null.** Part 0 found `inferStage` *and*
 `getStageForPersistence` both hard-defaulting to `starting-case`. A default is a
 confident answer given without evidence, and it is how a defendant with a

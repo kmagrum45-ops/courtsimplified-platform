@@ -22,6 +22,7 @@
 import { formatForCourt, isRealIsoDate } from "../dates";
 import TOPS from "./firstPageTops.json";
 import { findStage, pathwayOf, stagesForPathway, type CaseStage } from "../stage-map/stageMap";
+import { movesFrom, STARTING_POINTS } from "../stage-map/stageSequence";
 import type { SituationCourt } from "./firstPageForms";
 
 export type { SituationCourt } from "./firstPageForms";
@@ -261,6 +262,8 @@ export type SituationAnswers = {
   caseStage?: "starting-case" | "already-started" | "responding" | "conference" | "motion" | "trial" | "enforcement";
   claimFiled?: boolean;
   claimServed?: boolean;
+  /** Small Claims: a Defence is filed, as the step picked settles it (settledBySmallClaimsStep). */
+  defenceFiled?: boolean;
   servedOn?: string;
   /** For a case already going: the step picked, by its own title in the stage map ("Case conference scheduled"). */
   stepTitle?: string;
@@ -329,6 +332,15 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
     // They started a case already going: their claim is filed.
     if (situation.where === "going" && situation.started === "me") out.claimFiled = true;
     if (side === "responding" && situation.papers === "small-claims-7A") { out.claimFiled = true; out.claimServed = true; }
+    // A step picked for a case already going settles what the map says comes before it (fresh reviewer,
+    // 26 Oct: a plaintiff at the settlement conference was asked whether the claim was served, a
+    // defendant whose Defence is filed whether they filed one).
+    const settled = step ? settledBySmallClaimsStep(step) : null;
+    if (settled?.served && side === "bringing") { out.claimFiled = true; out.claimServed = true; out.questionIds.push("sc-defendant-served"); }
+    if (settled?.defence) {
+      out.defenceFiled = true;
+      out.questionIds.push(side === "bringing" ? "sc-defence-filed" : "sc-defendant-defence-filed");
+    }
     if (out.claimFiled !== undefined) out.questionIds.push("sc-claim-filed");
   }
   if (side === "responding" && situation.receivedOn && situation.receivedOn !== "unknown") {
@@ -339,6 +351,41 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
     if (court === "small-claims" && courtOfPapers(situation) === "small-claims") out.questionIds.push("sc-defendant-claim-received");
   }
   return out;
+}
+
+/** Every step the map's moves reach from this one, itself included, never going through `through`. */
+function reachedFrom(stepId: string, through: readonly string[] = []): Set<string> {
+  const seen = new Set<string>([stepId]);
+  const queue = [stepId];
+  while (queue.length) for (const move of movesFrom(queue.shift()!)) if (!seen.has(move.to) && !through.includes(move.to)) { seen.add(move.to); queue.push(move.to); }
+  return seen;
+}
+/** The steps where a Defence is filed: the way without one is walked without passing through them. */
+const DEFENCE_STEPS = ["plaintiff:defence-filed","defendant:defence-filed"];
+let SETTLED: { served: Set<string>; defence: Set<string> } | null = null;
+/**
+ * What a Small Claims step already settles, read from the stage map's own order of moves: a step that
+ * every way from the map's starting points reaches only through "served, waiting for a Defence" settles
+ * that the claim was served; one reached only through a Defence filed settles that a Defence was filed.
+ * The steps either side can be at any time ("both:", a motion or an offer) settle nothing.
+ */
+export function settledBySmallClaimsStep(stepId: string): { served: boolean; defence: boolean } {
+  if (!SETTLED) {
+    // Steps the map reaches only after service or a Defence, though in life they can come without
+    // either (a claim withdrawn before service, an action dismissed for delay with no Defence, a
+    // default judgment unpaid and enforced): they settle nothing, so the question is asked rather
+    // than skipped. A gap in the map's moves, listed for the law map (docs/law-map/).
+    const MAP_NARROWER_THAN_LIFE = new Set(["plaintiff:wants-to-discontinue", "plaintiff:action-dismissed-for-delay", "plaintiff:judgment-in-my-favour-unpaid", "plaintiff:debtor-examination", "defendant:judgment-against-me", "defendant:judgment-being-enforced"]);
+    const minus = (from: Set<string>, ...without: Set<string>[]) => new Set([...from].filter((id) => !id.startsWith("both:") && !MAP_NARROWER_THAN_LIFE.has(id) && !without.some((set) => set.has(id))));
+    const starts = STARTING_POINTS.map((point) => point.stage).filter((stage) => findStage(stage)?.pathway === "small-claims");
+    const without = (through: readonly string[]) => new Set(starts.flatMap((start) => [...reachedFrom(start, through)]));
+    const SERVED = ["plaintiff:served-awaiting-defence"];
+    SETTLED = {
+      served: minus(reachedFrom(SERVED[0]), without(SERVED)),
+      defence: minus(new Set(DEFENCE_STEPS.flatMap((step) => [...reachedFrom(step)])), without(DEFENCE_STEPS)),
+    };
+  }
+  return { served: SETTLED.served.has(stepId), defence: SETTLED.defence.has(stepId) };
 }
 
 /**

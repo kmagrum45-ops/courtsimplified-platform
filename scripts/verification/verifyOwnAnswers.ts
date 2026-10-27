@@ -11,7 +11,11 @@
  *   - a side change sets the old side's home answers aside, like every other answer about one side;
  *   - "No, nothing yet" at the start settles that no claim is filed or served, over anything the story
  *     seems to say: the Small Claims chat never asks about a Defence or the day it was served (26 Oct
- *     re-test, case 19: the other side's claim in the story opened both).
+ *     re-test, case 19: the other side's claim in the story opened both);
+ *   - a Small Claims step picked for a case already going settles what the stage map puts before it:
+ *     no "has it been served?" at the settlement conference, no "have you filed a Defence?" once the
+ *     Defence is filed (fresh reviewer, 26 Oct); a motion or an offer, which can come at any time,
+ *     settles nothing.
  *
  * Failure it exists to catch: the review offering "I want to sue the police service…" for What you
  * want after the person had answered with a declaration; the other party never asked after "No,
@@ -26,6 +30,7 @@ import { civilGuidedFields, familyGuidedFields, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUM
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { situationFacts } from "../../app/api/intake/guided-turn/route";
 import { selectQuestions } from "../../src/lib/case-system/intake/selectQuestions";
+import { settledBySmallClaimsStep } from "../../src/lib/case-system/situation/situation";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -89,6 +94,24 @@ check("a side change sets the old side's 'what you want' from the home page asid
   check("'No, nothing yet': no Defence or served-date question, whatever the story says", served.length === 0 && fixed.facts.claimServed === false && fixed.facts.claimFiled === false, served.join(", ") || JSON.stringify(fixed.facts));
   const filed = situationFacts({ where: "starting", filed: "something", court: "small-claims", started: "me" });
   check("'Yes, something was filed' leaves served open, to be asked", filed.facts.claimFiled === true && filed.facts.claimServed === undefined, JSON.stringify(filed.facts));
+}
+
+{
+  const asked = (situation: Record<string, unknown>, role: string) => {
+    const fixed = situationFacts({ court: "small-claims", ...situation });
+    return selectQuestions({ role, ...fixed.facts } as Parameters<typeof selectQuestions>[0], fixed.questionIds);
+  };
+  const plaintiffAtConference = asked({ where: "going", started: "me", stage: "plaintiff:awaiting-settlement-conference" }, "plaintiff");
+  check("plaintiff at the settlement conference: not asked whether the claim was served, or a Defence filed", !plaintiffAtConference.some((id) => ["sc-defendant-served", "sc-defence-filed", "sc-defence-time-elapsed", "sc-defendant-noted-in-default", "sc-claim-filed"].includes(id)), plaintiffAtConference.join(", "));
+  for (const stage of ["defendant:defence-filed", "defendant:awaiting-settlement-conference"]) {
+    const ids = asked({ where: "served", papers: "small-claims-7A", receivedOn: "2026-10-01", stage }, "defendant");
+    check(`defendant at ${stage}: not asked whether they filed a Defence`, !ids.includes("sc-defendant-defence-filed"), ids.join(", "));
+  }
+  const justServed = asked({ where: "served", papers: "small-claims-7A", receivedOn: "2026-10-01" }, "defendant");
+  check("a defendant just served is still asked whether they filed a Defence", justServed.includes("sc-defendant-defence-filed"), justServed.join(", "));
+  const waiting = asked({ where: "going", started: "me", stage: "plaintiff:served-awaiting-defence" }, "plaintiff");
+  check("a plaintiff waiting for a Defence is still asked whether one was filed", waiting.includes("sc-defence-filed"), waiting.join(", "));
+  check("a motion, which can come at any time, settles nothing", JSON.stringify(settledBySmallClaimsStep("both:bringing-a-motion")) === JSON.stringify({ served: false, defence: false }));
 }
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
