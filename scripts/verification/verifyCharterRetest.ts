@@ -107,6 +107,20 @@ async function main() {
   const crownSentences = crownNoticeStatements().filter((statement) => statement.text !== LIBRARY_CANNOT_ANSWER_POLICE_NOTICE);
   check("every Crown-notice sentence is an Act's words, quoted, with its section", crownSentences.every((statement) => /^“[^”]+” \([^)]*, s\. [\d ()]+\)$/.test(statement.text)), crownSentences.map((statement) => statement.text).join("\n      "));
   check("and those words are the checked citation's, nothing added", crownSentences.every((statement) => statement.sources.length === 1 && statement.text.startsWith(`“${statement.sources[0].quote.replace(/"([^"]+)"/g, "‘$1’")}”`)));
+  // Jason, 2026-10-27, option (b): the Act's own heading for s. 18 sits right above the s. 18 (1) quote.
+  const headingAt = crownSentences.findIndex((statement) => statement.text.startsWith("“Notice of claim for damages required”"));
+  const ruleAt = crownSentences.findIndex((statement) => statement.sources[0]?.citation.endsWith(", s. 18 (1)"));
+  check("the Act's heading for s. 18 is quoted directly above the s. 18 (1) words", headingAt >= 0 && ruleAt === headingAt + 1, crownSentences.map((statement) => statement.text.slice(0, 60)).join("\n      "));
+  const actText = fs.readFileSync(path.join(ROOT, "docs/sources/corpus/crown-liability-and-proceedings-act-2019.txt"), "utf8");
+  check("and the heading is the Act's own, word for word", /^Notice of claim for damages required\s*$/m.test(actText));
+  // Jason, 2026-10-27: CanLII's metadata (its citator count) stays, under the court's own link, labelled as CanLII's.
+  for (const file of ["app/_components/AppliedLawPanel.tsx", "app/_components/ResearchPanel.tsx"]) {
+    const panel = fs.readFileSync(path.join(ROOT, file), "utf8");
+    const info = panel.indexOf("<CanliiCaseInfo"), link = panel.indexOf("\"Read the decision\"");
+    check(`${file}: CanLII's information sits below the court's own "Read the decision" link`, info > 0 && link > 0 && info > link);
+  }
+  const infoSource = fs.readFileSync(path.join(ROOT, "app/_components/CanliiCaseInfo.tsx"), "utf8");
+  check("the CanLII line is labelled as CanLII information, and its citator count is still shown", /CanLII information:/.test(infoSource) && !/On CanLII:/.test(infoSource) && /cit/i.test(infoSource));
   check("the one other line says what the library cannot answer, and states no law", crownNoticeStatements().filter((statement) => !crownSentences.some((kept) => kept.text === statement.text)).length === 1);
   check("and who answers for the OPP and for a municipal police service (CSPA ss. 63 (1), 47 (1))", /Ontario Provincial Police/.test(ownedText) && /A police service board is liable/.test(ownedText));
   check("and says plainly what the library cannot answer about notice to a police board", /does not hold a rule that says whether notice is needed before suing a municipal police service board/.test(ownedText));

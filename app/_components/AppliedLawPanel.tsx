@@ -41,7 +41,6 @@ export default function AppliedLawPanel({ items }: { items: readonly AppliedLawI
                   that may have changed it.
                 </p>
               ) : null}
-              {item.kind === "decision" && item.citation ? <CanliiCaseInfo citation={item.citation} /> : null}
               {item.text.length > 320 ? (
                 <details className="mt-1 text-sm text-[#24463d]">
                   <summary className="cursor-pointer">
@@ -58,6 +57,8 @@ export default function AppliedLawPanel({ items }: { items: readonly AppliedLawI
                   {item.kind === "decision" ? "Read the decision" : "Official text"}
                 </a>
               ) : null}
+              {/* CanLII's information (with its citator count) under the court's own link (Jason, 2026-10-27). */}
+              {item.kind === "decision" && item.citation ? <CanliiCaseInfo citation={item.citation} /> : null}
             </li>
           );
         })}

@@ -77,8 +77,6 @@ export default function ResearchPanel({ findings: all }: { findings: readonly Re
                           decisions that may have changed it.
                         </p>
                       ) : null}
-                      {/* CanLII's API confirms the case, links it and counts later decisions citing it, when the key is set (2026-10-07). */}
-                      {provision.kind === "decision" && provision.citation ? <CanliiCaseInfo citation={provision.citation} /> : null}
                       <details className="mt-1 text-xs">
                         <summary className="cursor-pointer font-semibold text-[#2f7d67]">
                           {provision.kind === "decision" ? "Read more of the decision" : "Read more of the provision"}
@@ -91,6 +89,9 @@ export default function ResearchPanel({ findings: all }: { findings: readonly Re
                           {provision.kind === "decision" ? "Read the decision" : "Official text"}
                         </a>
                       ) : null}
+                      {/* CanLII's API confirms the case, links it and counts later decisions citing it, when the key is set (2026-10-07);
+                          shown as CanLII information under the court's own link (Jason, 2026-10-27). */}
+                      {provision.kind === "decision" && provision.citation ? <CanliiCaseInfo citation={provision.citation} /> : null}
                     </li>
                   );
                 })}
