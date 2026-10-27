@@ -80,11 +80,13 @@ async function main() {
   const lines = storyLines(CHARTER_STORY, emptyCaseFile(), false);
   const line = (fact: string) => lines.find((item) => item.fact === fact)?.value ?? "";
   check("who is sued, with the badges", /police service/i.test(line("otherParty")) && /4471 and 5520/.test(line("otherParty")), line("otherParty"));
-  check("the injury, in their words", /wrist was bruised and swollen/.test(line("injury")), line("injury"));
+  // Each fact in plain words, its sentence kept as the source (Charter re-test 27 Oct, root cause 1).
+  const quote = (fact: string) => lines.find((item) => item.fact === fact)?.quote ?? "";
+  check("the injury, in plain words, its sentence kept as the source", /^Left wrist bruised and swollen/.test(line("injury")) && /wrist was bruised and swollen/.test(quote("injury")), line("injury"));
   check("the phone", /cracked screen/.test(line("property")));
   check("the screened-out complaint", /screened out/.test(line("complaint")));
-  check("the witness", /witness/.test(line("witness")));
-  check("the lost pay", /missed 2 weeks of work/.test(line("lostPay")));
+  check("the witness, just the witness (not the list of evidence)", /^A witness who saw it$/.test(line("witness")), line("witness"));
+  check("the lost pay, the amount and the time", line("lostPay") === "$2,640 (2 weeks of work)" && /missed 2 weeks of work/.test(quote("lostPay")), line("lostPay"));
   const counted = countedStepDeadlines("civil:plaintiff:claim-drafted-not-issued", { "case-date-act-or-omission": "2025-06-03" });
   check("the deadline is counted as the next-step card counts it (June 3, 2027)", counted.some((deadline) => deadline.date === "2027-06-03"), JSON.stringify(counted));
   check("no deadline is counted without a saved step or date", countedStepDeadlines(null, { "case-date-act-or-omission": "2025-06-03" }).length === 0 && countedStepDeadlines("civil:plaintiff:claim-drafted-not-issued", {}).length === 0);

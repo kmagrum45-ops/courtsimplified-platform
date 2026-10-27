@@ -232,7 +232,31 @@ export function childrenFromStory(story: string): StoryAnswer | null {
     "i",
   );
   const sentence = sentences(story).find((candidate) => pattern.test(candidate)) ?? null;
-  return sentence ? { value: sentence, quote: sentence } : null;
+  return sentence ? { value: childrenWords(sentence), quote: sentence } : null;
+}
+
+/**
+ * The children in plain words: their names and ages ("Mia (4) and Noah (2)"), or who and how old
+ * ("Daughter, age 6"), never the whole sentence they came in (Charter re-test 27 Oct: "Children"
+ * showed "My wife wants a divorce, to sell the house, …"). The sentence when neither is said.
+ */
+function childrenWords(sentence: string): string {
+  const named = [...sentence.matchAll(/\b([A-Z][a-z]+) \((\d{1,2})\)/g)].map((match) => `${match[1]} (${match[2]})`);
+  if (named.length) return named.length === 1 ? named[0] : `${named.slice(0, -1).join(", ")} and ${named[named.length - 1]}`;
+  const WORD = "\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen";
+  // Several, with their ages ("two kids aged 3 and 5"): every age kept.
+  const several = new RegExp(`\\b(?:(one|two|three|four|five|six|\\d) )?(kids|children|daughters|sons|boys|girls)\\b[^.]{0,12}?\\b(?:aged|ages|age)\\s+((?:${WORD})(?:\\s*(?:,|and)\\s*(?:${WORD}))+)`, "i").exec(sentence);
+  if (several) {
+    const plural = /^kids$/i.test(several[2]) ? "children" : several[2].toLowerCase();
+    return `${several[1] ? `${several[1].charAt(0).toUpperCase()}${several[1].slice(1).toLowerCase()} ${plural}` : `${plural.charAt(0).toUpperCase()}${plural.slice(1)}`}, ages ${several[3].replace(/\\s+/g, " ")}`;
+  }
+  const aged = new RegExp(`\\b(daughter|son|child|kid|boy|girl|baby)s?\\b[^.]{0,20}?\\b(?:is |aged |age )(${WORD})\\b`, "i").exec(sentence)
+    ?? new RegExp(`\\b(?:a |an )?(${WORD})[- ](?:year|yr)s?[- ]old (daughter|son|child|kid|boy|girl)\\b`, "i").exec(sentence);
+  if (aged) {
+    const [who, age] = /^\d|^(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)$/i.test(aged[1]) ? [aged[2], aged[1]] : [aged[1], aged[2]];
+    return `${who.charAt(0).toUpperCase()}${who.slice(1).toLowerCase()}, age ${age.toLowerCase()}`;
+  }
+  return sentence;
 }
 
 /*

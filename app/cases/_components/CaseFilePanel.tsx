@@ -101,8 +101,14 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
           <div key={line.fact} className="contents" data-testid="case-file-story-line" data-fact={line.fact}>
             <dt className="font-semibold text-[#10231f]">{line.label}</dt>
             <dd>
-              {/* The value is the person's own sentence, or is shown with it. */}
-              {line.value} <span className="text-[#4f685f]">(from your story{line.quote.trim() !== line.value.trim() ? <>: &ldquo;{line.quote.trim()}&rdquo;</> : null})</span>{" "}
+              {/* Each fact in plain words; the sentence it came from is one click away (Charter re-test 27 Oct). */}
+              {line.value}{" "}
+              {line.quote.trim() !== line.value.trim() ? (
+                <details className="inline text-[#4f685f]" data-testid="case-file-story-quote">
+                  <summary className="inline cursor-pointer">(from your story)</summary>
+                  <span className="block">&ldquo;{line.quote.trim()}&rdquo;</span>
+                </details>
+              ) : <span className="text-[#4f685f]">(from your story)</span>}{" "}
               <Link data-testid="case-file-change" href={changeHref} className="font-semibold text-[#2f7d67] underline">Change</Link>
             </dd>
           </div>

@@ -265,7 +265,8 @@
     "test:conference-stages": "node --import tsx scripts/verification/verifyConferenceStages.ts",
     "test:chat-plain-words": "node --import tsx scripts/verification/verifyChatPlainWords.ts",
     "test:citations": "node --import tsx scripts/verification/verifyCitations.ts",
-    "test:own-answers": "node --import tsx scripts/verification/verifyOwnAnswers.ts"
+    "test:own-answers": "node --import tsx scripts/verification/verifyOwnAnswers.ts",
+    "test:story-facts": "node --import tsx scripts/verification/verifyStoryFacts.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

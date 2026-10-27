@@ -275,6 +275,9 @@ jobs:
       - name: The person's own answer wins, and no question is dropped, in every area
         run: npm run test:own-answers
 
+      - name: Each fact the story gives, in plain words, on the six re-tested cases
+        run: npm run test:story-facts
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 
