@@ -75,6 +75,9 @@ const INTERNAL_WORDING = new RegExp(
   [
     ...PROFILE_WORDS.map((words) => escape(words.replace(/\.$/, ""))),
     String.raw`\breasoning profile`,
+    String.raw`\breasoning domains?\b`,
+    // The reasoning domains' codes (masterCaseSchema.ts CaseLegalDomain), the hyphenated ones.
+    ...["family-parenting", "family-support", "family-property", "family-safety", "civil-charter", "civil-human-rights", "civil-institutional-liability", "landlord-tenant"].map((code) => String.raw`\b${code}\b`),
     String.raw`\binvestigation step for\b`,
     String.raw`\bevidence priorities\b`,
   ].join("|"),

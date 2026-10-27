@@ -213,7 +213,8 @@ function buildIssues(
   const issueLabels = uniqueStrings([
     ...signals.map((signal: CasePartnerLegalSignal) => signal.label),
     ...rememberedIssues,
-    ...reasoningDomains.map((domain) => `Reasoning domain: ${domain}`),
+    // The reasoning domains are the site's codes ("civil-institutional-liability"), never listed as
+    // issues (reviewer, 26 Oct: "Reasoning domain: unknown" in the chat).
   ]);
 
   return issueLabels.map((label) => {

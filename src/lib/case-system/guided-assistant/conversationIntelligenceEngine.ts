@@ -1693,16 +1693,8 @@ function detectLegalSignals(
       needsVerification: true,
     });
 
-    if (framework.reasoningProfile) {
-      signals.push({
-        id: createId("signal"),
-        label: `${framework.reasoningProfile.label} reasoning profile`,
-        explanation:
-          "CourtSimplified loaded a shared legal reasoning profile for this issue so the conversation, evidence review, and investigation can follow a consistent case-building path.",
-        confidence: "high",
-        needsVerification: false,
-      });
-    }
+    // The reasoning profile is the site's own machinery, never a legal issue shown to the person
+    // (reviewer, 26 Oct: "Public authority / Crown / police reasoning profile" in the issues answer).
   }
 
   if (includesAny(message, ["limitation", "limitations", "two years", "deadline to sue", "out of time"])) {
@@ -1716,7 +1708,8 @@ function detectLegalSignals(
     });
   }
 
-  if (includesAny(message, ["privilege", "court", "police report", "employer", "cas", "children's aid"])) {
+  // Not on the bare word "court", which every case says (reviewer, 26 Oct: shown for a Charter claim).
+  if (includesAny(message, ["privilege", "police report", "employer", "cas", "children's aid"])) {
     signals.push({
       id: createId("signal"),
       label: "Context / privilege / recipient issue",
@@ -2025,9 +2018,8 @@ function buildUserFacingAnswer(args: {
       .map((proof) => `- ${proof}`)
       .join("\n");
 
-    const profileText = primary.reasoningProfile
-      ? `\n\nCourtSimplified is also applying the ${primary.reasoningProfile.label} reasoning profile, which means it will check investigation order, proof priorities, burden points, contradictions, credibility risks, and procedural watch points.`
-      : "";
+    // Never named to the person: the profile is the site's machinery (Charter re-test 27 Oct; reviewer 26 Oct).
+    const profileText = "";
 
     const riskText = primary.keyRisks.length
       ? `\n\nImportant caution: ${primary.keyRisks[0]}`

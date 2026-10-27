@@ -53,12 +53,14 @@ async function main() {
 
   // Through the chat's own route, in every area.
   // The first message is Chrome's own (Charter re-test): on main it drew the profile wording.
-  const messages = ["Do I need to give notice before suing the police service?", "Do I need to give notice before suing?", "What should I do next?", "What do I need to prove?"];
+  // "What legal issues are in my case?" is the fresh reviewer's (26 Oct): it listed "… reasoning profile", "Reasoning domain: …" and bare domain codes.
+  const messages = ["Do I need to give notice before suing the police service?", "Do I need to give notice before suing?", "What should I do next?", "What do I need to prove?", "What legal issues are in my case?"];
   for (const item of CASES) {
     const replies = await chatReplies(item.court, item.story, messages, item.issues ? { issues: item.issues } : {}, checkpoint(item.court, item.story, item.wants));
     const said = replies.join("\n\n");
     const machinery = internalWordingIn(said);
     check(`${item.label}: no reasoning-profile wording in any reply`, machinery.length === 0, machinery.join("; "));
+    check(`${item.label}: no bare code listed as an issue`, !/^\s*(?:[-•*]\s*)?unknown\s*$/im.test(said), said.slice(0, 300));
     check(`${item.label}: the chat does not ask for the outcome they gave`, !/outcome are you seeking|what (?:do|would) you (?:want|like) (?:to happen|the court to)/i.test(said), said.slice(0, 400));
     check(`${item.label}: the chat does not ask what they did, after the story said it`, !/what exactly did they do or fail to do/i.test(said));
     check(`${item.label}: every reply answers`, replies.every((reply) => reply.length > 0 && !reply.startsWith("ERROR")), replies.find((reply) => reply.startsWith("ERROR")) ?? "");

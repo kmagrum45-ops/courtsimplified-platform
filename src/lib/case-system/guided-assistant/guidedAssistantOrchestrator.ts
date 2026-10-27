@@ -1,3 +1,4 @@
+import { internalWordingIn } from "../copy/rawKeys";
 import { answeredFactsOf, answeredInStory } from "./answeredInStory";
 import type { SlotFact } from "../caseFile/caseFile";
 import {
@@ -918,8 +919,8 @@ function buildLegalIssuesAnswer(args: {
     ...(args.intelligence.hypotheses || []).map(
       (hypothesis) => hypothesis.label,
     ),
-    ...(args.legalReasoning.reasoningSummary.primaryDomains || []),
-  ]);
+    // The reasoning domains are codes, never listed (reviewer, 26 Oct: "civil-institutional-liability", "unknown").
+  ]).filter((label) => label !== "unknown" && internalWordingIn(String(label ?? "")).length === 0);
 
   if (issues.length === 0) {
     return assistantText("assistant:issues:none");
