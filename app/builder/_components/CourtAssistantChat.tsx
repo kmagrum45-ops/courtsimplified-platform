@@ -342,15 +342,19 @@ function normalizeMessages(input: unknown): ChatMessage[] {
           (item as { role?: string }).role === "user") &&
         typeof (item as { content?: unknown }).content === "string",
     )
-    .map(
-      (item): ChatMessage => ({
-        role:
-          (item as { role?: string }).role === "assistant"
-            ? "assistant"
-            : "user",
-        content: clean((item as { content?: unknown }).content),
-      }),
-    )
+    .map((item): ChatMessage => {
+      const stored = item as { role?: string; content?: unknown; law?: unknown; id?: unknown; lawSaved?: unknown };
+      // The law kept with a question, its saved id and whether the law was saved come back too
+      // (Chrome, 28 Oct: a reopened chat had only the words; this rebuilt each message without them).
+      const law = stored.law && typeof stored.law === "object" && Array.isArray((stored.law as { findings?: unknown }).findings) ? (stored.law as SavedLaw) : undefined;
+      return {
+        role: stored.role === "assistant" ? "assistant" : "user",
+        content: clean(stored.content),
+        ...(law ? { law } : {}),
+        ...(typeof stored.id === "string" ? { id: stored.id } : {}),
+        ...(stored.lawSaved === true ? { lawSaved: true } : {}),
+      };
+    })
     .filter((item) => item.content.length > 0);
 }
 

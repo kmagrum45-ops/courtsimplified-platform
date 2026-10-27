@@ -1365,9 +1365,15 @@ for (const [court, id] of [["civil", "civil-deposit"], ["family", "family-spousa
     await lastReply(page, "Do I need to give notice before I start?");
     const law = page.getByTestId("assistant-law");
     await expect(law.last(), "the live answer shows its citation").toContainText("Synthetic Act, 2019, s. 4 (1)", { timeout: 60_000 });
-    await page.reload();
+    // Reopened the way My cases opens a saved case.
+    const saved = [...account.rows.values()][0] as Record<string, unknown>;
+    await page.goto(`/builder?path=${court}&caseId=${saved.id}`);
+    const next = page.getByRole("button", { name: "Show my next step" });
+    await next.waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
+    if (await next.isVisible().catch(() => false)) await next.click();
     const again = page.getByRole("button", { name: "Ask follow-up questions" });
-    if (await again.isVisible({ timeout: 60_000 }).catch(() => false)) await again.click();
+    await again.waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
+    if (await again.isVisible().catch(() => false)) await again.click();
     await expect(page.getByTestId("case-partner-transcript"), "the question is still there").toContainText("Do I need to give notice before I start?", { timeout: 60_000 });
     await expect(page.getByTestId("assistant-law").last(), "and so is the law the answer showed, with its citation").toContainText("Synthetic Act, 2019, s. 4 (1)", { timeout: 60_000 });
   });

@@ -66,6 +66,8 @@ async function main() {
   check("a question comes before its answer when they were saved together", ordered.map((row) => row.role).join(",") === "user,user,assistant");
   check("a law near the database's limit is refused by the route first", validLaw({ text: "x".repeat(160_000) }) === null && validLaw({ text: "x".repeat(100_000) }) !== null);
   check("Clear chat drops lookups still running, and a law lands only on the question it answers, as not yet saved", /function clearCurrentChat\(\) \{\s*setMessages\(\[INITIAL_ASSISTANT_MESSAGE\]\);[\s\S]{0,200}setLaw\(\{\}\)/.test(chat) && /message\.content === trimmed \? \{ \.\.\.message, law: kept, lawSaved: false \}/.test(chat));
+  // The browser test caught it: the stored chat was rebuilt from role and words only, so a reopened chat lost the law.
+  check("the chat read back from the browser keeps each question's law, id and saved mark", /function normalizeMessages[\s\S]{0,1200}\.\.\.\(law \? \{ law \} : \{\}\)[\s\S]{0,200}id: stored\.id[\s\S]{0,120}lawSaved: true/.test(chat));
   const migration = fs.readdirSync(path.join(ROOT, "supabase/migrations")).find((file) => /case_chat_law/.test(file));
   check("the column is a migration for the owner to apply", Boolean(migration) && /ADD COLUMN IF NOT EXISTS "law" "jsonb"/.test(fs.readFileSync(path.join(ROOT, "supabase/migrations", migration!), "utf8")));
 
