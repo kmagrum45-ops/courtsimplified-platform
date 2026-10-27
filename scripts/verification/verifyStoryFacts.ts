@@ -20,6 +20,7 @@ import path from "node:path";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 import { caseFileOf } from "../../src/lib/case-system/caseFile/caseFile";
 import { childrenFromStory } from "../../app/builder/_components/storyAnswers";
+import { reviewEntries } from "../../src/lib/case-system/intakeReview";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -74,6 +75,19 @@ check("the children's sentence is kept as the source", /divorce/.test(childrenFr
 // Case 16: what the other side says, as reported.
 const family = storyLines(storyOf("m16-conference-safety"), caseFileOf(null), false);
 check("case 16: what the other side says is listed", /unstable/.test(family.find((line) => line.fact === "otherSideSays")?.value ?? ""));
+
+// The civil review's empty boxes: the story's words offered in one click (intakeReview.ts fromStory).
+const ID = "00000000-0000-4000-8000-000000000027";
+const boxes = (id: string) => {
+  const story = storyOf(id);
+  const stored = { version: 1, flowId: ID, courtPath: "civil", revision: ID, sections: { story: { text: story }, situation: { record: { where: "starting", filed: "nothing", court: "civil" } }, civil: { input: { governmentActor: "", damagesBreakdown: "", timeline: "", facts: story } } } };
+  return Object.fromEntries(reviewEntries(stored as never).filter((entry) => entry.fromStory).map((entry) => [entry.field, entry.fromStory!.value]));
+};
+const charterBoxes = boxes("c1-charter-police");
+check("Charter review: the public body is offered from the story", /Police Service/.test(charterBoxes.governmentActor ?? ""), JSON.stringify(charterBoxes));
+check("Charter review: the losses are offered from the story", /\$2,640/.test(charterBoxes.damagesBreakdown ?? "") && /Phone/.test(charterBoxes.damagesBreakdown ?? ""), charterBoxes.damagesBreakdown);
+check("Charter review: the timeline is offered from the story", /June 3, 2025/.test(charterBoxes.timeline ?? ""), charterBoxes.timeline);
+check("a private party is not offered as the public body (case 11's debt collector)", !boxes("m11-old-credit-card").governmentActor);
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;

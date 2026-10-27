@@ -11,7 +11,7 @@
  * Pure: no React, no network. States no law.
  */
 import { sentences } from "../sentences";
-import { MONTH_FULL_NAMES_PATTERN } from "../dates";
+import { dateMentionsIn, MONTH_FULL_NAMES_PATTERN } from "../dates";
 
 export type StoryFact = { value: string; quote: string };
 
@@ -172,4 +172,27 @@ export function otherSideSaysIn(story: string): StoryFact | null {
   if (!sentence) return null;
   const said = [...sentence.matchAll(/\b(?:he|she|they)\s+(?:says|said|claims|claimed|alleges|alleged)\s+(?:that\s+)?([^.;]+?)(?=\s+and\s+(?:he|she|they)\b|[.;]|$)/gi)].map((match) => trimEnd(match[1]));
   return said.length ? { value: said.map((item) => `“${item}”`).join("; "), quote: sentence } : null;
+}
+
+// ---- the civil review's boxes (Charter re-test 27 Oct: empty although the story had them) ----
+
+const PUBLIC = /\b(?:police|city|town|municipal\w*|ministry|crown|government|province|ontario|hospital|school board|public|agency|commission|board)\b/i;
+/** The public body or official involved, when the other side is one. */
+export function publicBodyIn(story: string): StoryFact | null {
+  const side = otherSideIn(story);
+  return side && PUBLIC.test(side.value) ? side : null;
+}
+
+/** What the losses are made up of: lost pay, damaged property and the injury, each as said. */
+export function lossesIn(story: string): StoryFact | null {
+  const parts = [["Lost pay", lostPayIn(story)], ["Property", propertyIn(story)], ["Injury", injuryIn(story)]] as const;
+  const said = parts.filter(([, fact]) => fact);
+  if (!said.length) return null;
+  return { value: said.map(([label, fact]) => `${label}: ${fact!.value}`).join("; "), quote: [...new Set(said.map(([, fact]) => fact!.quote))].join(" ") };
+}
+
+/** The story's dated sentences, in the order told: the person's own timeline. */
+export function timelineIn(story: string): StoryFact | null {
+  const dated = sentences(story).map((sentence) => sentence.trim()).filter((sentence) => dateMentionsIn(sentence).length > 0 && !/\?\s*$/.test(sentence));
+  return dated.length ? { value: dated.join("\n"), quote: dated.join(" ") } : null;
 }

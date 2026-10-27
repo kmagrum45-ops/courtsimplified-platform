@@ -150,7 +150,7 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
   const family = (text: string): Checkpoint => ({ version: 1, flowId: "11111111-1111-4111-8111-111111111116", courtPath: "family", revision: "22222222-2222-4222-8222-222222222216", sections: { story: { text } } });
   const m16 = family("We have a case going in Ottawa about parenting. We have a case conference on November 16, 2026. I want primary care of our daughter, age 6.");
   assert.equal(reviewQuestionField("family", "upcomingCourtDate", m16)?.fromStory, "Case conference on November 16, 2026", "the court date the story gives is offered");
-  assert.match(reviewQuestionField("family", "childrenInfo", m16)?.fromStory ?? "", /daughter, age 6/, "the children the story describes are offered");
+  assert.match(reviewQuestionField("family", "childrenInfo", m16)?.fromStory ?? "", /daughter, age 6/i, "the children the story describes are offered");
   const m14 = family("My wife wants the children, Mia (4) and Noah (2), primarily with her.");
   assert.match(reviewQuestionField("family", "childrenInfo", m14)?.fromStory ?? "", /Mia \(4\) and Noah \(2\)/, "children named with ages in brackets are offered");
   const none = family("We separated in March 2026. We go to court on November 16.");

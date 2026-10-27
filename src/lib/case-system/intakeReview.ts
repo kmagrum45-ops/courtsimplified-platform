@@ -11,6 +11,7 @@ import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
+import { lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
@@ -33,7 +34,14 @@ const ISSUE_ONLY: Record<string, string[]> = {
   institutionalFacts: ["institutional-negligence"],
   privacyRecordsFacts: ["privacy"],
 };
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string } };
+
+/** The civil review's boxes the story can fill, each by its reader (Charter re-test 27 Oct: the public body, the losses and the timeline were empty). */
+const BOX_FROM_STORY: Record<string, (story: string) => { value: string; quote: string } | null> = {
+  governmentActor: publicBodyIn,
+  damagesBreakdown: lossesIn,
+  timeline: timelineIn,
+};
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -148,6 +156,13 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   }
   const location = locationOf(sections);
   if (location) entries.push({ section: STORY_SECTION, nested: "location", field: "city", label: "City", value: location.city, essential: true });
+  // An empty civil box the story answers: its words offered in one click, never filled for them (s. 4).
+  const story = storyOf(sections);
+  if (story.trim()) for (const entry of entries) {
+    const read = entry.section === "civil" && (!entry.nested || entry.nested === "input") ? BOX_FROM_STORY[entry.field] : undefined;
+    const offer = read && typeof entry.value === "string" && !entry.value.trim() ? read(story) : null;
+    if (offer) entry.fromStory = offer;
+  }
   return entries;
 }
 
