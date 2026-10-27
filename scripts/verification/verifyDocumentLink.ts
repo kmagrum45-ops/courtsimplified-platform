@@ -136,6 +136,8 @@ async function main() {
     check("the case's files and the exhibit book go through the check, and say a failure", (workspace.match(/fetchFileWithRetry\(/g) ?? []).length >= 2 && /FILE_DOWNLOAD_FAILED/.test(workspace) && !/if \(!response\.ok\) return;\s*\n\s*const blob/.test(workspace));
     const forms = read("app/forms/FormsWorkspace.tsx");
     check("an official form opens only once it arrives", !/window\.open\(getPublicUrl/.test(forms) && /openAfterCheck/.test(forms));
+    check("the filled form is tried once more and saved without the page leaving or the file freed early", /const send = \(\) => fetch\("\/api\/generate-form"/.test(forms) && /saveFile\(blob,/.test(forms) && !/revokeObjectURL\(url\);\s*\n\s*setGeneratingKey/.test(forms));
+    check("an opened file gets a fresh link after the check, so it never opens an expired one", /tab\.location\.href = \(await link\(\)\) \?\? fetched\.url/.test(workspace));
     const route = read("app/api/workspace/documents/file/[id]/[name]/route.ts");
     check("the file route asks storage once more before saying it could not read the file", /attempt < 2/.test(route));
   }

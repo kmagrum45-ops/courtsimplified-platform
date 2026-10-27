@@ -38,7 +38,7 @@ import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/conten
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
-import { FILE_OPEN_FAILED, openAfterCheck } from "@/src/lib/case-workspace/fileFetch";
+import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -759,7 +759,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
         data: { session },
       } = caseId ? await supabase.auth.getSession() : { data: { session: null } };
 
-      const response = await fetch("/api/generate-form", {
+      // One more try when the server fails (fileFetch.ts; reviewer, 28 Oct: the filled form never retried).
+      const send = () => fetch("/api/generate-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -773,6 +774,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
           ...(caseId ? { caseId } : {}),
         }),
       });
+      const first = await send().catch(() => null);
+      const response = first && (first.ok || first.status < 500) ? first : (await send().catch(() => null)) ?? first;
+      if (!response) throw new Error("network");
 
       if (!response.ok) {
         let message = "Could not generate form.";
@@ -790,17 +794,8 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
       }
 
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-
-      link.href = url;
-      link.download = `${cleanSpaces(form.form_number).replace(/\s+/g, "_")}.pdf`;
-
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      window.URL.revokeObjectURL(url);
+      // Saved under the form's number, without leaving the page; the file kept until the browser has it.
+      saveFile(blob, `${cleanSpaces(form.form_number).replace(/\s+/g, "_")}.pdf`);
       setGeneratingKey(null);
     } catch (error) {
       console.error(error);

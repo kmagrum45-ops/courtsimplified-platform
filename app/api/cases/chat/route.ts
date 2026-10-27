@@ -31,7 +31,18 @@ import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 const MAX_CONTENT = 8_000;
 const MAX_APPEND = 4;
 /** The law found for one question: a checked answer and its sources, as the page shows them. */
-const MAX_LAW_BYTES = 200_000;
+// Below the database's 200 KB (which measures jsonb's text, with a space after every ":" and ","),
+// so anything the route accepts also fits there (reviewer, 28 Oct).
+const MAX_LAW_BYTES = 150_000;
+
+/**
+ * Oldest first. A question and its answer are saved in one statement, so they share created_at; within
+ * one moment the question comes first (reviewer, 28 Oct: the order was not guaranteed, and a question's
+ * law shows under the message after it).
+ */
+export function inOrder<T extends { role: string; created_at: string }>(rows: readonly T[]): T[] {
+  return [...rows].sort((a, b) => a.created_at.localeCompare(b.created_at) || (a.role === b.role ? 0 : a.role === "user" ? -1 : 1));
+}
 
 /** The law kept with a question: an object of a sane size, else nothing. */
 export function validLaw(value: unknown): Record<string, unknown> | null {
@@ -92,8 +103,8 @@ async function getGuidance(request: Request) {
   let { data, error } = await read("id, role, content, created_at, law");
   if (noLawColumn(error)) ({ data, error } = await read("id, role, content, created_at"));
   if (error) return NextResponse.json({ ok: false });
-  const rows = (data ?? []) as unknown as { id: string; role: string; content: string; law?: unknown }[];
-  return NextResponse.json({ ok: true, messages: rows.reverse().map(({ id, role, content, law }) => ({ id, role, content, ...(validLaw(law) ? { law, lawSaved: true } : {}) })) });
+  const rows = (data ?? []) as unknown as { id: string; role: string; content: string; law?: unknown; created_at: string }[];
+  return NextResponse.json({ ok: true, messages: inOrder(rows).map(({ id, role, content, law }) => ({ id, role, content, ...(validLaw(law) ? { law, lawSaved: true } : {}) })) });
 }
 
 async function postGuidance(request: Request) {

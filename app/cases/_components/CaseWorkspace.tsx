@@ -288,7 +288,8 @@ export default function CaseWorkspace({
       return refused || (download ? FILE_DOWNLOAD_FAILED : FILE_OPEN_FAILED);
     }
     // A path on this site that ends with the file's own name (fileLink.ts): the tab is titled with it.
-    if (tab) { tab.opener = null; tab.location.href = fetched.url; return null; }
+    // A fresh link, so a check that took a while never opens one that has expired (reviewer, 28 Oct).
+    if (tab) { tab.opener = null; tab.location.href = (await link()) ?? fetched.url; return null; }
     // Saved from what arrived, under its own name, without leaving the page.
     saveFile(fetched.blob, fileNameFromUrl(fetched.url, "file"));
     return null;

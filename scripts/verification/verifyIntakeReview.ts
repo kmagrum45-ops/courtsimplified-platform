@@ -5,6 +5,7 @@
  * Synthetic in-memory inputs only; no external AI or real cases.
  */
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { canReview, reviewQuestionField, existingFactChanged, panelAnswerFacts, materialInitialFacts, reconcileReview, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, transitionReview } from "../../src/lib/case-system/intakeReview";
 import type { Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { selectQuestions } from "../../src/lib/case-system/intake/selectQuestions";
@@ -184,4 +185,13 @@ assert(!selectQuestions({ role: "plaintiff" }, [], QUESTION_BANK, "small-claims"
   const edited = { ...page, sections: { ...page.sections, home: { understoodAnswers: [{ question: "Who exactly do you want to name?", answer: "Another service." }] } } } as Checkpoint;
   assert.equal(existingFactChanged(saved, edited), true, "a real change to an answer still counts");
   console.log("PASS a stored copy whose keys came back reordered is the same initial facts; a real change still counts");
+}
+
+// Fresh reviewer, 28 Oct: the family status was compared with JSON.stringify against the copy read back
+// from jsonb, so every Family visit wrote the case again. One canonical form there too.
+{
+  const page = readFileSync(new URL("../../app/builder/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /canonicalJson\(stored\.familyStatus\) === canonicalJson\(triageState\)/, "the family status is compared in one canonical form");
+  assert.doesNotMatch(page, /JSON\.stringify\(stored\.familyStatus\)/, "never by key order");
+  console.log("PASS the family status is compared in one canonical form");
 }

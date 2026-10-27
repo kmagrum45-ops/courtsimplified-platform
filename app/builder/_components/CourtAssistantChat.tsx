@@ -816,9 +816,9 @@ function CourtAssistantChatInner({
     messages.forEach((message, index) => {
       if (message.role !== "user" || !message.law || !message.id || message.lawSaved || savingLaw.current.has(message.id)) return;
       const id = message.id;
+      // Tried once per visit: a refusal (no column yet) is not sent again on every later message.
       savingLaw.current.add(id);
       void caseChatRequest("PATCH", savedCaseId, { caseId: savedCaseId, id, law: message.law }).then((result) => {
-        savingLaw.current.delete(id);
         if ((result as { ok?: boolean } | null)?.ok) setMessages((current) => current.map((item, at) => (at === index && item.id === id ? { ...item, lawSaved: true } : item)));
       });
     });
@@ -995,8 +995,11 @@ function CourtAssistantChatInner({
           const findings = Array.isArray(data.findings) ? data.findings : [];
           const answer = data.answer && data.answer.status !== "unavailable" ? data.answer : undefined;
           setLaw((current) => ({ ...current, [turn]: { state: "done", findings, ...(answer ? { answer } : {}) } }));
-          // Kept with the question it answers, in the conversation that is saved (Chrome, 28 Oct).
-          if (findings.length > 0 || answer) setMessages((current) => current.map((message, index) => (index === turn && message.role === "user" ? { ...message, law: { findings, ...(answer ? { answer } : {}) } } : message)));
+          // Kept with the question it answers, in the conversation that is saved (Chrome, 28 Oct): only
+          // that question (a chat cleared and asked again since has another at this place), as not yet
+          // saved, and only a law small enough to keep (the browser copy has a limit too).
+          const kept = { findings, ...(answer ? { answer } : {}) };
+          if ((findings.length > 0 || answer) && JSON.stringify(kept).length <= 150_000) setMessages((current) => current.map((message, index) => (index === turn && message.role === "user" && message.content === trimmed ? { ...message, law: kept, lawSaved: false } : message)));
           return findings.length > 0 || Boolean(answer);
         } catch {
           setLaw((current) => ({ ...current, [turn]: { state: "done", findings: [] } }));
@@ -1149,6 +1152,8 @@ function CourtAssistantChatInner({
 
   function clearCurrentChat() {
     setMessages([INITIAL_ASSISTANT_MESSAGE]);
+    // A lookup still running belongs to the conversation just cleared (reviewer, 28 Oct).
+    setLaw({});
     if (savedCaseId) void caseChatRequest("DELETE", savedCaseId, { caseId: savedCaseId });
     setInput("");
     setCaseMemory(null);

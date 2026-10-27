@@ -24,7 +24,7 @@ import { internalWordingIn } from "../../src/lib/case-system/copy/rawKeys";
 import { answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
 import CheckedAnswerPanel from "../../app/_components/CheckedAnswerPanel";
 import { chatReplies, type Court } from "./chatRouteHarness";
-import { validLaw, validMessages } from "../../app/api/cases/chat/route";
+import { inOrder, validLaw, validMessages } from "../../app/api/cases/chat/route";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -57,7 +57,15 @@ async function main() {
   const route = fs.readFileSync(path.join(ROOT, "app/api/cases/chat/route.ts"), "utf8");
   check("the chat route reads and saves the law, and works on without the column", /read\("id, role, content, created_at, law"\)/.test(route) && /noLawColumn\(error\)/.test(route) && /export const PATCH/.test(route));
   const chat = fs.readFileSync(path.join(ROOT, "app/builder/_components/CourtAssistantChat.tsx"), "utf8");
-  check("the chat keeps a question's law in its own copy and shows it under the reply", /law: \{ findings, \.\.\.\(answer \? \{ answer \} : \{\}\) \}/.test(chat) && /messages\[index - 1\]\?\.law/.test(chat));
+  check("the chat keeps a question's law in its own copy and shows it under the reply", /const kept = \{ findings, \.\.\.\(answer \? \{ answer \} : \{\}\) \}/.test(chat) && /law: kept/.test(chat) && /messages\[index - 1\]\?\.law/.test(chat));
+  // Fresh reviewer, 28 Oct: a question and its answer share created_at; the law shows under the message
+  // after its question, so the question must come first; a lookup from a cleared chat must not land on
+  // the next question; the route's limit sits below the database's (jsonb text adds spaces).
+  const same = "2026-10-28T10:00:00.000Z";
+  const ordered = inOrder([{ role: "assistant", created_at: same }, { role: "user", created_at: same }, { role: "user", created_at: "2026-10-28T09:00:00.000Z" }]);
+  check("a question comes before its answer when they were saved together", ordered.map((row) => row.role).join(",") === "user,user,assistant");
+  check("a law near the database's limit is refused by the route first", validLaw({ text: "x".repeat(160_000) }) === null && validLaw({ text: "x".repeat(100_000) }) !== null);
+  check("Clear chat drops lookups still running, and a law lands only on the question it answers, as not yet saved", /function clearCurrentChat\(\) \{\s*setMessages\(\[INITIAL_ASSISTANT_MESSAGE\]\);[\s\S]{0,200}setLaw\(\{\}\)/.test(chat) && /message\.content === trimmed \? \{ \.\.\.message, law: kept, lawSaved: false \}/.test(chat));
   const migration = fs.readdirSync(path.join(ROOT, "supabase/migrations")).find((file) => /case_chat_law/.test(file));
   check("the column is a migration for the owner to apply", Boolean(migration) && /ADD COLUMN IF NOT EXISTS "law" "jsonb"/.test(fs.readFileSync(path.join(ROOT, "supabase/migrations", migration!), "utf8")));
 

@@ -123,6 +123,7 @@ import LegalInformationNotice from "../_components/LegalInformationNotice";
 import { supabase } from "../../src/lib/supabase/client";
 import { BUILDER_LAST_CASE_KEY, COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { userStory } from "@/src/lib/case-system/userStory";
+import { canonicalJson } from "@/src/lib/case-system/canonicalJson";
 
 /** The UniversalStage codes, for validating a resolved stage before use. */
 const STAGE_CODES = [
@@ -1254,7 +1255,8 @@ function BuilderPageContent() {
             supabase,
             { caseId: id },
             (stored) =>
-              JSON.stringify(stored.familyStatus) === JSON.stringify(triageState) ? { reject: "unchanged" } : { ...stored, familyStatus: triageState },
+              // In one canonical form: the stored copy comes back from jsonb with its keys reordered (canonicalJson.ts).
+              canonicalJson(stored.familyStatus) === canonicalJson(triageState) ? { reject: "unchanged" } : { ...stored, familyStatus: triageState },
             4,
             { requestTimeoutMs: CASE_REQUEST_TIMEOUT_MS },
           ),
