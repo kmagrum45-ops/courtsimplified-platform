@@ -75,7 +75,7 @@ The sections below follow the same order.
 - Read by: `app/_components/IntakeRecovery.tsx`, `app/builder/_components/GuidedFormChat.tsx`.
 
 **`src/lib/case-system/situation/situation.ts`** — the situation record (side, where, papers, served date, filed, court, stage).
-- Owns: the record type, its cleaner `situationOf`, `sideOf`, `nextSituationQuestion`, `answerSituation` (clears answers that no longer apply), `situationLine`, `situationAnswers` (what each area's own questions would ask, so they are skipped), `stageFromSituation`, `stepFromSituation`, `broadStageOfStep`, `SERVED_DATE_QUESTION`, `sideContradiction`.
+- Owns: the record type, its cleaner `situationOf`, `sideOf`, `nextSituationQuestion`, `answerSituation` (clears answers that no longer apply), `situationLine`, `situationAnswers` (what each area's own questions would ask, so they are skipped), `stageFromSituation`, `stepFromSituation`, `broadStageOfStep`, `SERVED_DATE_QUESTION`, `sideContradiction`, `settledBySmallClaimsStep` (what a Small Claims step picked for a case already going settles, served or a Defence filed, read from the stage map's moves; six steps the moves reach more narrowly than life settle nothing). `situationAnswers` also gives `roleWords`, the side in the start answer's words, and "No, nothing yet" settles that nothing was served.
 
 **`src/lib/case-system/intakeStory.ts`** — the one copy of the story and location.
 - Owns: `sections.story` (`storyOf`, `locationOf`, `storyOfMaster`), `migrateStory` (moves five legacy copies into one, on load), `guidedReadingOutdated`, `STORY_INPUT_KEYS`.
@@ -127,7 +127,7 @@ The sections below follow the same order.
 - **`src/lib/case-system/intake/claimKind.ts`** — the one rule for which "kind of claim" may be shown (`isKindOfClaim`, `claimKindShown`, `kindFromStory`, `LOAN_WORDS`): only `sc-claim-*` kinds, only with a source.
 - **`src/lib/case-system/copy/rawKeys.ts`** — words for stored option codes (`optionWords`, `inWords`) and a detector for raw codes, field names and stage ids reaching the screen (`rawKeysIn`, used by `test:raw-keys`), and one for the reasoning profiles' internal wording (`internalWordingIn`, less the words a person is offered as answers).
 - **`src/lib/case-system/copy/caseWords.ts`** — the stage (`stageInWords`), the side (`roleInWords`, the start answer's own words for a case already going) and a filed paper (`documentInWords`) as a screen shows them. The overview and the review read it; the guided box and the form routes take the start answer's words from `situationAnswers().roleWords`.
-- **`src/lib/case-system/caseFile/storyFacts.ts`** — each fact the story gives, in plain words, with the sentence kept as its source: the other side, lost pay, injury, property, complaint, witness, evidence, last payment, written acknowledgment, what the other side says, the public body, losses, timeline. Read by `storyLines.ts` ("What we have so far") and the civil review's boxes (`BOX_FROM_STORY`).
+- **`src/lib/case-system/caseFile/storyFacts.ts`** — each fact the story gives, in plain words, with the sentence kept as its source: the other side, lost pay, injury, property, complaint, witness, evidence, last payment, written acknowledgment, what the other side says, the public body, losses, timeline; and `againstThemIn`, the sentences about the claim against someone responding, which is all their suggestions and "The claim against you" are read from. Read by `storyLines.ts` ("What we have so far") and the civil review's boxes (`BOX_FROM_STORY`).
 - **`src/lib/case-system/intelligence/answeredQuestions.ts`** — which generic questions are answered already: by the papers recorded (`withoutAnsweredQuestions`), and by a known stage, a case already going included (`withoutStageAnswered`). The overview's "What to confirm next" reads both.
 - **`src/lib/case-system/guided-assistant/answeredInStory.ts`** — whether the chat's question is answered by the story or by the case's own facts (`answeredFactsOf`).
 
@@ -813,9 +813,9 @@ The columns mean *imports*, not *shows*: a module can be imported for another re
 
 The situation record: side, where the case is, papers, day served, stage picked.
 
-- Reads (4): **src/lib/case-system/dates.ts**, src/lib/case-system/situation/firstPageForms.ts, src/lib/case-system/situation/firstPageTops.json, **src/lib/case-system/stage-map/stageMap.ts**
+- Reads (5): **src/lib/case-system/dates.ts**, src/lib/case-system/situation/firstPageForms.ts, src/lib/case-system/situation/firstPageTops.json, **src/lib/case-system/stage-map/stageMap.ts**, **src/lib/case-system/stage-map/stageSequence.ts**
 - Read by (26): app/_components/HomeLocationGate.tsx, app/_components/IntakeRecovery.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/SituationQuestions.tsx, app/api/cases/form-applicability/route.ts, app/api/cases/position/route.ts, app/api/intake/guided-turn/route.ts, app/builder/_components/CivilIntake.tsx, app/builder/_components/CourtAssistantChat.tsx, app/builder/_components/FamilyIntake.tsx, app/builder/_components/FamilyStatusTriage.tsx, app/builder/_components/SmallClaimsIntake.tsx, app/builder/_components/positionSave.ts, app/builder/_components/respondingSide.ts, app/builder/_components/stageFromAnswers.ts, app/builder/page.tsx, app/cases/[id]/layout.tsx, app/cases/[id]/page.tsx, app/cases/[id]/timeline/page.tsx, app/forms/FormsWorkspace.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/casePosition.ts**, **src/lib/case-system/caseRecord.ts**, **src/lib/case-system/caseStep.ts**, **src/lib/case-system/intakeReview.ts**, **src/lib/case-system/sideChange.ts**
-- Checked by (7): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyConferenceStages.ts, scripts/verification/verifySideChange.ts, scripts/verification/verifySituation.ts, tests/browser/situation.spec.ts
+- Checked by (8): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyConferenceStages.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifySideChange.ts, scripts/verification/verifySituation.ts, tests/browser/situation.spec.ts
 
 ### src/lib/case-system/intakeStory.ts
 
@@ -871,7 +871,7 @@ Each fact the story gives, in plain words with its sentence: the other side, los
 
 - Reads (2): **src/lib/case-system/dates.ts**, **src/lib/case-system/sentences.ts**
 - Read by (2): **src/lib/case-system/caseFile/storyLines.ts**, **src/lib/case-system/intakeReview.ts**
-- Checked by (0): no suite imports it directly
+- Checked by (1): scripts/verification/verifyStoryFacts.ts
 
 ### src/lib/case-system/copy/caseWords.ts
 
@@ -934,7 +934,7 @@ The story readers: side, filed papers, children, dates, goal, other party.
 The civil and Family questions and their choices.
 
 - Reads (3): app/builder/_components/GuidedFormChat.tsx, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/casePosition.ts**
-- Read by (6): app/_components/IntakeReviewPanel.tsx, app/builder/_components/CivilIntake.tsx, app/builder/_components/FamilyIntake.tsx, app/builder/_components/GuidedFormChat.tsx, **src/lib/case-system/copy/rawKeys.ts**, **src/lib/case-system/intakeReview.ts**
+- Read by (7): app/_components/IntakeReviewPanel.tsx, app/builder/_components/CivilIntake.tsx, app/builder/_components/FamilyIntake.tsx, app/builder/_components/GuidedFormChat.tsx, app/builder/_components/SmallClaimsIntake.tsx, **src/lib/case-system/copy/rawKeys.ts**, **src/lib/case-system/intakeReview.ts**
 - Checked by (7): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyGuidedFormChat.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyRawKeys.ts, scripts/verification/verifyStoryAnswers.ts
 
 ### src/lib/case-system/claimAmount.ts
@@ -982,8 +982,8 @@ Splitting text into sentences.
 Words for stored codes, and the copy guard.
 
 - Reads (4): **app/builder/_components/guidedFields.ts**, **src/lib/case-system/caseFile/caseFile.ts**, src/lib/case-system/intake/questionBank.ts, src/lib/case-system/knowledge/legalReasoningProfiles.ts
-- Read by (2): app/cases/_components/CaseFilePanel.tsx, **src/lib/case-system/copy/caseWords.ts**
-- Checked by (3): scripts/verification/verifyChatPlainWords.ts, scripts/verification/verifyRawKeys.ts, tests/browser/story-pack.spec.ts
+- Read by (3): app/cases/_components/CaseFilePanel.tsx, **src/lib/case-system/copy/caseWords.ts**, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts
+- Checked by (4): scripts/verification/verifyChatPlainWords.ts, scripts/verification/verifyRawKeys.ts, scripts/verification/verifyStoryFacts.ts, tests/browser/story-pack.spec.ts
 
 ### src/lib/case-system/stage-map/stageMap.ts
 
@@ -998,7 +998,7 @@ The stage map: every step of each court's process.
 What comes after each step.
 
 - Reads (3): src/lib/case-system/stage-map/citations.ts, src/lib/case-system/stage-map/civilStages.ts, **src/lib/case-system/stage-map/stageMap.ts**
-- Read by (1): app/_components/WhatComesNext.tsx
+- Read by (2): app/_components/WhatComesNext.tsx, **src/lib/case-system/situation/situation.ts**
 - Checked by (5): scripts/eval/statementCheck.ts, scripts/verification/verifyCitations.ts, scripts/verification/verifyConferenceStages.ts, scripts/verification/verifyNextStepCard.ts, scripts/verification/verifyStageSequence.ts
 
 ### src/lib/case-system/content-library/nextStepPractical.ts
