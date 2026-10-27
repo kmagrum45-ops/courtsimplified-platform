@@ -1996,6 +1996,12 @@ counted to the anniversary with no holiday extension, s. 89 (7)) added to
 only those two blocks' `yourDeadline` changed. Two sessions promoting at
 once will both call their run "next": check `candidates/` and the published
 `release.runId` before merging, and renumber if someone got there first.
+run-28 (2026-10-27): the conference audit added the owner-approved sentence "For the form to use
+for the brief, check the notice of the pre-trial conference or the court's order." to the
+`civil:both:pretrial-scheduled` qualifier; only that block's `yourDeadline` was re-rendered (no
+model). **It caught the conference PR (#497) too**: its typecheck-and-build failed on this gate
+while its browser jobs passed, so a stage-map wording change needs `test:published-library` run
+locally before the PR is called ready.
 
 ## The research step: the analysis researches before it writes (2026-10-05)
 
