@@ -37,7 +37,7 @@ import path from "node:path";
 import { storyLines } from "../../src/lib/case-system/caseFile/storyLines";
 import { caseFileOf, courtDateIsConference, DISPUTE_CATEGORY_WORDS, saysNoDateYet, slotText } from "../../src/lib/case-system/caseFile/caseFile";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
-import { evidenceIn } from "../../src/lib/case-system/caseFile/storyFacts";
+import { evidenceIn, otherSideIn } from "../../src/lib/case-system/caseFile/storyFacts";
 import { inWords } from "../../src/lib/case-system/copy/rawKeys";
 import { childrenFromStory, civilFiledFromStory, familyFiledFromStory, familyIssuesFromStory } from "../../app/builder/_components/storyAnswers";
 import { reviewQuestionField } from "../../src/lib/case-system/intakeReview";
@@ -180,6 +180,21 @@ for (const [story, want] of [
   ["We have three children: Tom, 12, Ann, 9 and Bea, 3.", "Tom (12), Ann (9) and Bea (3)"],
   ["My daughter is 6 and lives with me.", "Daughter, age 6"],
 ] as const) check(`children in plain words: "${story}"`, childrenFromStory(story)?.value === want, childrenFromStory(story)?.value);
+for (const [story, want] of [
+  ["My landlord, Peter Jones, kept my deposit.", "Your landlord (Peter Jones)"],
+  ["John Smith, my ex-husband, stopped paying support.", "Your ex-husband (John Smith)"],
+  ["My landlord kept my deposit.", "Your landlord"],
+] as const) check(`the other side named where the story names them: "${story}"`, otherSideIn(story)?.value === want, otherSideIn(story)?.value);
+{
+  const going = caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000016", courtPath: "family", revision: "00000000-0000-4000-8000-000000000016", sections: { story: { text: "Synthetic." }, situation: { record: { where: "going", started: "me", court: "family", stage: "family:both:case-conference-scheduled" } } } } as never);
+  check("a case already going: the side in the start answer's words, as on the other screens", going.sideWords === "I started this case (applicant)", String(going.sideWords));
+  const panel = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseFilePanel.tsx"), "utf8");
+  check("'What we have so far' shows those words for the side", /file\.sideWords \?\? SIDE\[/.test(panel));
+}
+{
+  const served = reviewEntries({ version: 1, flowId: "00000000-0000-4000-8000-000000000011", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000011", sections: { story: { text: "Synthetic." }, situation: { record: { where: "served", papers: "small-claims-7A", receivedOn: "2026-10-01", court: "small-claims" } } } } as never).find((entry) => entry.field === "filedDocuments");
+  check("Small Claims review: the papers from the start carry the form's choices", Boolean(served?.choices?.some((choice) => choice.value === "plaintiffs-claim" && /Plaintiff’s Claim/.test(choice.label))), JSON.stringify(served));
+}
 check("Small Claims papers read as words", !/plaintiffs-claim|affidavit-service/.test(inWords(["plaintiffs-claim", "affidavit-service"])), inWords(["plaintiffs-claim", "affidavit-service"]));
 {
   const guidedReview = reviewEntries({ version: 1, flowId: "00000000-0000-4000-8000-000000000018", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000018", sections: { story: { text: "Synthetic." }, builder: { step: "guided" }, guided: { facts: {} }, situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } } } } as never);

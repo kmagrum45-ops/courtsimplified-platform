@@ -5,7 +5,7 @@ import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWit
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
-import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../../app/builder/_components/guidedFields";
+import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
@@ -122,7 +122,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     const startWords = fromStartHere && typeof value === "string" ? (key === "caseStage" ? stageWords(fromStart) ?? undefined : roleKey ? fromStart.roleWords : undefined) : undefined;
     // Small Claims keeps its role as a code ("plaintiff"): shown in the form's words, not in a text box (26 Oct re-test).
     const roleWords = !startWords && courtPath === "small-claims" && roleKey && typeof value === "string" ? SMALL_CLAIMS_ROLE_WORDS[value] : undefined;
-    const choices = startWords ? [{ value: value as string, label: startWords }] : roleWords ? Object.entries(SMALL_CLAIMS_ROLE_WORDS).map(([code, label]) => ({ value: code, label })) : definition?.options;
+    const choices = startWords ? [{ value: value as string, label: startWords }] : roleWords ? Object.entries(SMALL_CLAIMS_ROLE_WORDS).map(([code, label]) => ({ value: code, label })) : definition?.options ?? (courtPath === "small-claims" && key === "filedDocuments" ? SMALL_CLAIMS_FILED_OPTIONS : undefined);
     // A detail of one issue is asked for only when that issue is the person's ("Adoption details"
     // showed on a divorce case, #477 re-test case 14).
     const issueOnly = ISSUE_ONLY[key];

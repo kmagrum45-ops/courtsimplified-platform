@@ -40,6 +40,7 @@ import {
   withFixedRegime,
   withoutLaw,
   askedWhetherFiled,
+  aboutWhetherFiled,
   askedSide,
 } from "../../src/lib/case-system/understanding/understandCase";
 import { isMapOwnedProcedure } from "../../src/lib/case-system/procedureOwnership";
@@ -288,6 +289,13 @@ async function main() {
   check("'No, nothing yet': the reading does not ask which court issued the claim, and keeps its other questions", !readQuestions.some((q) => /which court/i.test(q)) && readQuestions.some((q) => /pay the \$450/.test(q)), JSON.stringify(readQuestions));
   check("'No, nothing yet': no row says a court case exists or is started; the other rows stay", !readRows.some((label) => /court case|already started/i.test(label)) && readRows.includes("Amount paid") && readRows.includes("What happened"), JSON.stringify(readRows));
   check("the model is told the person's own answer", /Nothing has been filed with a court yet\./.test(toldModel));
+  // The fresh reviewer's other phrasings (26 Oct), and questions that must stay.
+  for (const said of ["Has your ex filed an application with the court?", "Did the landlord file anything with the court?", "Has the other side started a court case?", "Is there a court case open about this?", "Have you been served with any court papers?", "Lawsuit status: Not given"]) {
+    check(`"${said}" is about whether a case exists`, aboutWhetherFiled(said));
+  }
+  for (const kept of ["What did the repair shop say when you complained?", "When did you pay the $450?", "What happened at the hearing?", "Who started the argument?", "What outcome do you want from the court?", "Amount paid: $450"]) {
+    check(`"${kept}" is not`, !aboutWhetherFiled(kept));
+  }
   const notAnswered = await understandCase(
     { story: SLANDER, chosenCourt: "small-claims", situation: { side: "starting" } },
     { reason: async () => JSON.stringify(otherWays), check: { index, embed: noSearch, thorough: false, check: async () => JSON.stringify({ results: [{ n: 1, verdict: "unsupported", passage: "", quote: "", topic: "x" }] }) } },

@@ -51,7 +51,7 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
   if (fact === "filed" && slot.state === "answered" && slot.value === true && file.documents?.length) return `Yes: ${inWords(file.documents)}`;
   if (slot.state === "answered" && typeof slot.value === "string") {
     if (fact === "court") return COURT[slot.value] ?? slot.value;
-    if (fact === "side") return SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
+    if (fact === "side") return file.sideWords ?? SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
     // The step picked, by its own title ("Case conference scheduled"), never its code.
     if (fact === "stage") return findStage(slot.value)?.title ?? BROAD[slot.value] ?? optionWords(slot.value) ?? slot.value.replace(/-/g, " ");
     if (fact === "claimKind") return CLAIM_TYPES.find((type) => type.id === slot.value)?.name ?? (slot.value === "not-sure" ? "Not sure yet" : optionWords(slot.value) ?? slot.value);

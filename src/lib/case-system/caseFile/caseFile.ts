@@ -52,6 +52,8 @@ export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
+  /** The side in the start answer's own words for a case already going ("I started this case (applicant)"). */
+  sideWords?: string;
   /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
   story?: string;
 };
@@ -321,7 +323,10 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // And the papers named in the situation answers ("I was served with a Plaintiff's Claim"), so "Anything
   // filed yet: Yes" names them in every area, not only where a form listed them (26 Oct re-test).
   const startCourt = situation.court ?? court;
-  const fromStart = startCourt === "small-claims" || startCourt === "civil" || startCourt === "family" ? situationAnswers(startCourt, situation).documents ?? [] : [];
+  const startAnswers = startCourt === "small-claims" || startCourt === "civil" || startCourt === "family" ? situationAnswers(startCourt, situation) : null;
+  const fromStart = startAnswers?.documents ?? [];
+  // The side as the overview and the review word it (reviewer, 26 Oct: "Bringing the case" here).
+  if (startAnswers?.roleWords) file.sideWords = startAnswers.roleWords;
   const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
   file.story = String(object(sections.story).text ?? "");

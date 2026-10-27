@@ -61,7 +61,15 @@ export function otherSideIn(story: string): StoryFact | null {
     return { value: extra.length ? `${clean} (${extra.join("; ")})` : clean, quote: sentence.trim() };
   }
   const role = sentences(story).map((sentence) => ({ sentence, match: ROLE.exec(sentence) })).find((item) => item.match);
-  if (role?.match) return { value: firstUpper(`your ${role.match[1].toLowerCase()}`), quote: role.sentence.trim() };
+  if (role?.match) {
+    // Their name, where the story gives it beside the role ("my landlord, Peter Jones", "John Smith,
+    // my ex-husband"; reviewer, 26 Oct: only "Your ex-husband" was shown).
+    const after = /^,?\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)/.exec(role.sentence.slice((role.match.index ?? 0) + role.match[0].length))?.[1];
+    const before = /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+),?\s+$/.exec(role.sentence.slice(0, role.match.index ?? 0))?.[1];
+    const name = [after, before].find((candidate) => candidate && !candidate.split(/\s+/).some((word) => NOT_A_NAME.test(word)));
+    const who = firstUpper(`your ${role.match[1].toLowerCase()}`);
+    return { value: name ? `${who} (${name})` : who, quote: role.sentence.trim() };
+  }
   return null;
 }
 

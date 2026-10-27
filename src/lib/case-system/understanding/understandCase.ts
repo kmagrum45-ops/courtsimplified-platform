@@ -417,6 +417,10 @@ export const askedWhetherFiled = (question: string) =>
  */
 export const aboutWhetherFiled = (text: string) =>
   askedWhetherFiled(text) ||
+  // Reviewer, 26 Oct: "Has your ex filed an application with the court?", "Did the landlord file
+  // anything with the court?", "Has the other side started a court case?", "Is there a court case open
+  // about this?", "Have you been served with any court papers?", a row "Lawsuit status: Not given".
+  /\b(?:filed?|started|start|issued|brought|opened)\b[^?]{0,60}\b(?:with|in|at) (?:the )?court\b|\b(?:started|opened|brought|filed)\b[^?]{0,20}\b(?:a |an |any )?(?:court )?(?:case|claim|lawsuit|action|application|proceeding)\b|\bis there (?:a|an|any) (?:open |current |existing )?(?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:been|were|was) served\b[^?]{0,30}\b(?:papers|claim|application|documents)\b|\b(?:lawsuit|case|claim|court|filing|action)\s+status\b/i.test(text) ||
   /\bwhich court\b[^?]*\b(?:issued|filed|started|has|have)\b|\bcourt file (?:number|no\.?)|\b(?:existing|current|ongoing|pending) (?:court )?(?:case|claim|lawsuit|action|proceeding)\b|\b(?:claim|case|lawsuit|action|application)\b[^:?]{0,30}\b(?:already )?(?:started|filed|issued|commenced)\b|\balready (?:started|filed|issued|commenced)\b/i.test(text);
 
 /** "Are you suing, or is someone suing you?" */
