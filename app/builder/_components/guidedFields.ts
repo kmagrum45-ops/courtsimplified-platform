@@ -187,7 +187,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       kind: "longtext",
     },
   ];
-  const initial = new Set(["facts", "yourRole", "issues", "childrenInfo", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "urgent"]);
+  // The other party is asked on its own (site owner, 27 Oct: it was only ever recorded by riding along with another answer).
+  const initial = new Set(["facts", "yourRole", "issues", "childrenInfo", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "otherParty", "urgent"]);
   return fields.map(field => ({ ...field, initial: initial.has(field.key) }));
 }
 
@@ -286,7 +287,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       kind: "longtext",
     },
   ];
-  const initial = new Set(["facts", "yourRole", "issues", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "urgent"]);
+  // The other party is asked on its own (site owner, 27 Oct).
+  const initial = new Set(["facts", "yourRole", "issues", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "otherParty", "urgent"]);
   return fields.map(field => ({ ...field, initial: initial.has(field.key) }));
 }
 

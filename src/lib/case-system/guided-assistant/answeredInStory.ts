@@ -17,6 +17,7 @@
  */
 import { dateMentionsIn } from "../dates";
 import { caseFileOf, SLOT_FACTS, type SlotFact } from "../caseFile/caseFile";
+import { factOfAskedText } from "../caseFile/factsOfQuestion";
 import { readCheckpoint } from "../intakeCheckpoint";
 
 const ANSWERED_BY: [RegExp, (known: string) => boolean][] = [
@@ -31,15 +32,6 @@ const ANSWERED_BY: [RegExp, (known: string) => boolean][] = [
     (known) => dateMentionsIn(known).length > 0],
 ];
 
-/** The case-file fact each chat question asks for. */
-const ASKS_FOR: [RegExp, SlotFact][] = [
-  [/\bwhat (?:outcome|result|remedy)\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like) (?:to happen|the court to)\b|\bwhat are you (?:asking|seeking)\b/i, "wants"],
-  [/\bhow much\b|\bwhat (?:is the )?amount\b/i, "amount"],
-  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b/i, "servedDate"],
-  [/\b(?:have you|has anyone|has anything been) (?:already )?(?:started|filed)\b|\bstarted a court case\b/i, "filed"],
-  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b|\bwho (?:are you|do you want to) su(?:e|ing)\b/i, "otherParty"],
-  [/\bwhen did (?:this|it|the [a-z]+) happen\b/i, "whenHappened"],
-];
 
 /** What happened: the story itself says it, once it is more than a line. */
 const ASKS_WHAT_HAPPENED = /\bwhat exactly did (?:they|he|she|it|the [a-z ]+?) do\b|\bwhat exactly happened\b|\bwhat did (?:they|he|she) do or fail to do\b/i;
@@ -56,7 +48,9 @@ export function answeredFactsOf(caseMemory: unknown): ReadonlySet<SlotFact> {
 
 /** Whether the story, the conversation or the case file already answers this question. */
 export function answeredInStory(question: string, known: string, facts: ReadonlySet<SlotFact> = new Set()): boolean {
-  if (ASKS_FOR.some(([asks, fact]) => asks.test(question) && facts.has(fact))) return true;
+  // The one reader of which fact a question asks for (caseFile/factsOfQuestion.ts).
+  const fact = factOfAskedText(question);
+  if (fact && facts.has(fact as SlotFact)) return true;
   if (ASKS_WHAT_HAPPENED.test(question) && known.trim().length >= 80) return true;
   if (!known.trim()) return false;
   return ANSWERED_BY.some(([asks, answered]) => asks.test(question) && answered(known));

@@ -245,6 +245,9 @@ export default function GuidedFormChat({
     for (let changed = true; changed;) {
       changed = false;
       for (const field of fields) {
+        // Only questions this chat asks: a field outside them rode along with "Yes" and was lost with
+        // "No" (Charter re-test 27 Oct: the other party, bundled with "What you want", never asked again).
+        if (field.initial === false) continue;
         if (group.some((item) => item.field.key === field.key) || notFromStory.has(field.key) || skipped.has(field.key) || heldElsewhere.has(field.key) || field.confirmAlone) continue;
         if ((field.when && !field.when(assumed)) || isAnswered(field, assumed[field.key])) continue;
         const offer = field.fromStory?.(assumed) ?? null;

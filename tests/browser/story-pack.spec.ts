@@ -1333,3 +1333,47 @@ for (const [court, id] of [["small-claims", "sc-deck-owed"], ["civil", "civil-de
   });
 }
 
+// Root cause 2 (Charter re-test 27 Oct): "No, let me answer" must ask for a typed answer and never
+// drop a question. The one-click for What you want was bundled with the other party; after "No",
+// the other party was never asked again. Every story suggestion here is answered "No": each question
+// then asks for an answer itself, and every question that rode in a suggestion is still asked.
+for (const [court, id] of [["civil", "c1-charter-police"], ["civil", "civil-deposit"], ["family", "family-spousal"], ["family", "m16-conference-safety"]] as const) {
+  test(`retest-27oct root cause 2: "No, let me answer" asks for the answer and drops no question -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(300_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, court, { story: story.story });
+    const grouped = new Set<string>();
+    const asked = new Set<string>();
+    let nos = 0;
+    for (let turn = 0; turn < 40; turn++) {
+      const question = page.getByTestId("guided-form-question");
+      if (!(await question.isVisible().catch(() => false))) break;
+      const key = (await question.getAttribute("data-key")) ?? "";
+      const suggested = question.getByTestId("guided-form-from-story");
+      if (await suggested.isVisible().catch(() => false)) {
+        for (const other of ((await suggested.getAttribute("data-group")) ?? "").split(" ").filter(Boolean)) if (other !== key) grouped.add(other);
+        await question.getByTestId("guided-form-from-story-no").click();
+        nos += 1;
+        await expect(question, "after No, the same question is still asked").toHaveAttribute("data-key", key);
+        await expect(question.getByTestId("guided-form-from-story"), "and is not offered from the story again").toHaveCount(0);
+        await expect(question.getByRole("textbox").or(question.locator('input[type="checkbox"], input[type="radio"], [data-testid^="guided-option-"]')).first(), "it asks for the answer itself").toBeVisible();
+      }
+      asked.add(key);
+      if (key === "yourRole") { await question.getByTestId(`guided-option-${story.side}`).click(); continue; }
+      const box = question.getByRole("textbox");
+      if (await box.count()) {
+        await box.first().fill(asksForDate(await question.innerText()) ? "October 6, 2026" : /amount|money|much/i.test(await question.innerText()) ? "$6,000" : "My own answer for the test.");
+        await question.getByTestId("guided-form-next").click();
+      } else await question.getByTestId("guided-form-skip").click();
+      await expect(question.or(page.getByTestId("guided-form-done")).first()).toBeVisible();
+    }
+    expect(nos, "the story offered at least one suggestion").toBeGreaterThan(0);
+    const dropped = [...grouped].filter((key) => !asked.has(key));
+    expect(dropped, "every question that rode in a suggestion was still asked").toEqual([]);
+  });
+}
+

@@ -18,7 +18,7 @@
  * Pure: no React, no network. States no law.
  */
 import type { Checkpoint } from "./intakeCheckpoint";
-import { factsOfQuestion } from "./caseFile/factsOfQuestion";
+import { factOfAskedText, factsOfQuestion } from "./caseFile/factsOfQuestion";
 import { situationOf, sideOf } from "./situation/situation";
 import { BASIS_SECTION } from "./storyBasis";
 
@@ -101,6 +101,13 @@ export function onSideChange(before: Sections, after: Sections): { sections: Sec
   const chat = object(sections["form-chat"]);
   const skipped = Array.isArray(chat.skipped) ? (chat.skipped as unknown[]).filter((id) => typeof id === "string") as string[] : [];
   if (skipped.some(aboutOneSide)) { sections["form-chat"] = { ...chat, skipped: skipped.filter((id) => !aboutOneSide(id)) }; changed.push(["form-chat", "skipped"]); }
+
+  // The home page's answers to the story reading's questions, by the fact each asks for: the case
+  // file reads them (caseFile.ts), so the old side's are set aside too (Charter re-test 27 Oct).
+  const home = object(sections.home);
+  const homeAnswers = Array.isArray(home.understoodAnswers) ? home.understoodAnswers as unknown[] : [];
+  const keptHome = homeAnswers.filter((item) => { const fact = factOfAskedText(String(object(item).question ?? "")); return !(fact && SIDE_FACTS.has(fact)); });
+  if (keptHome.length !== homeAnswers.length) { sections.home = { ...home, understoodAnswers: keptHome }; changed.push(["home", "understoodAnswers"]); untag("home.understoodAnswers"); }
 
   // The case file's own "not sure" record.
   const file = object(sections.caseFile);

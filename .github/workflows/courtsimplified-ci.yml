@@ -272,6 +272,9 @@ jobs:
       - name: Every citation the site shows says exactly what it cites (subsection, title with its year, no added reason)
         run: npm run test:citations
 
+      - name: The person's own answer wins, and no question is dropped, in every area
+        run: npm run test:own-answers
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 

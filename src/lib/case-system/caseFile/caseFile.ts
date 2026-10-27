@@ -32,7 +32,7 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim } from "../intake/claimKind";
-import { factsOfQuestion } from "./factsOfQuestion";
+import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
@@ -169,6 +169,19 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (situation.receivedOn) give(file, "servedDate", situation.receivedOn === "unknown" ? "unknown" : situation.receivedOn, "situation:received");
 
   // 2. Each area's own form (civil, Family, the Small Claims form).
+  // The answers given to the story reading's questions on the home page (HomeLocationGate,
+  // home:understoodAnswers): the person's own, so the fact each question asks for is held, by the
+  // question's own words (factsOfQuestion.ts factOfAskedText). Before, nothing else knew of them
+  // (Charter re-test 27 Oct: "What you want" was offered from a story sentence after the person
+  // had answered it, declaration included).
+  const homeAnswers = object(sections.home).understoodAnswers;
+  for (const item of Array.isArray(homeAnswers) ? homeAnswers : []) {
+    const { question, answer } = object(item);
+    if (typeof question !== "string" || typeof answer !== "string" || !answer.trim()) continue;
+    const fact = factOfAskedText(question);
+    if (fact) give(file, fact, answer.trim(), `home:${fact}`);
+  }
+
   const forms: [Record<string, unknown>, string][] = [
     [object(sections.civil?.input), "civil"],
     [object(sections.family), "family"],
