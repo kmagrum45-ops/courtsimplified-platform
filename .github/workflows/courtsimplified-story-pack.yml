@@ -16,12 +16,33 @@ on:
   workflow_dispatch:
 
 jobs:
+  # At two speeds (site owner, 2026-10-26): instant, as the stubs answer, and the live site's real
+  # speed (BROWSER_SPEED=slow: each analysis held 20 s, each account and database call 1.5 s;
+  # tests/browser/harness/speed.ts). Real speed takes about 4.3 times as long (#488's first run on
+  # GitHub, 27 Oct: 0.32 min a test instant, 1.4 min slow), so it runs in six parts side by side.
+  # The parts are split by TEST, not by file (--fully-parallel; workers stay 1, so nothing runs at
+  # once): the story pack is one file, and split by file the first part got all 152 tests and was
+  # cancelled at 90 min while the other three finished in two.
   story-pack:
+    name: story-pack (${{ matrix.label }})
     runs-on: ubuntu-latest
-    # 61 stories through their routes (the messy pack and walkthrough paths, 2026-10-24): about 45 min.
-    timeout-minutes: 90
+    # 177 tests (28 Oct): about 60 min instant, so its limit is 120; each real-speed part, about 30
+    # tests, about 45 min, so its limit of 90 is twice that.
+    timeout-minutes: ${{ matrix.speed == 'slow' && 90 || 120 }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { speed: instant, part: "1/1", label: instant }
+          - { speed: slow, part: "1/6", label: slow-1 }
+          - { speed: slow, part: "2/6", label: slow-2 }
+          - { speed: slow, part: "3/6", label: slow-3 }
+          - { speed: slow, part: "4/6", label: slow-4 }
+          - { speed: slow, part: "5/6", label: slow-5 }
+          - { speed: slow, part: "6/6", label: slow-6 }
 
     env:
+      BROWSER_SPEED: ${{ matrix.speed }}
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -71,15 +92,16 @@ jobs:
           PLAYWRIGHT_BASE_URL: http://localhost:3100
           # This run's records folder (tests/browser/harness/packRecords.ts), kept as its own artifact below.
           STORY_PACK_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
-        run: npm run test:story-pack
+        run: npm run test:story-pack -- --shard=${{ matrix.part }} --fully-parallel
 
       - name: Keep the findings
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          # One artifact per run and attempt: the ask-once records (repeats), the claim-kind table and
-          # the findings, never replaced by a later run (site owner, 2026-10-27).
-          name: story-pack-records-${{ github.run_id }}-${{ github.run_attempt }}
+          # One artifact per run, attempt and part: the ask-once records (repeats), the claim-kind table
+          # and the findings, never replaced by a later run (site owner, 2026-10-27). The instant
+          # part holds the whole pack's repeat count; each slow part holds its own share.
+          name: story-pack-records-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.label }}
           path: |
             story-pack-records/**
             test-results/**/error-context.md

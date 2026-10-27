@@ -7,7 +7,8 @@
  *   - the story pack writes its ask-once, claim-kind and findings records only through that folder
  *     (no fixed file under test-results/);
  *   - every Playwright invocation gets a run id of its own (playwright.config.ts), and CI names it
- *     after the GitHub run and attempt and uploads the folder as an artifact by that name.
+ *     after the GitHub run and attempt and uploads the folder as an artifact by that name;
+ *   - run in parts (instant and real speed, #488), each part uploads under a name of its own.
  *
  * Failure it exists to catch: a full local run's repeat records replaced by a re-run of four tests,
  * so the final count of repeats was lost (27 Oct).
@@ -50,6 +51,10 @@ async function main() {
   const workflow = read(".github/workflows/courtsimplified-story-pack.yml");
   check("CI names the run after the GitHub run and attempt", /STORY_PACK_RUN_ID: \$\{\{ github\.run_id \}\}-\$\{\{ github\.run_attempt \}\}/.test(workflow));
   check("and keeps the folder as an artifact by that name", /name: story-pack-records-\$\{\{ github\.run_id \}\}-\$\{\{ github\.run_attempt \}\}/.test(workflow) && /story-pack-records\/\*\*/.test(workflow));
+  // Run in parts (a matrix): each part's artifact needs a name of its own, or the second upload of the
+  // same name fails and that part's records are lost.
+  const artifactName = workflow.match(/name: (story-pack-records-[^\r\n]*)/)?.[1] ?? "";
+  check("each part of a run keeps its records under its own name", !/\bmatrix:/.test(workflow) || /\$\{\{ matrix\.\w+ \}\}/.test(artifactName), artifactName);
 
   console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
   process.exitCode = failures ? 1 : 0;
