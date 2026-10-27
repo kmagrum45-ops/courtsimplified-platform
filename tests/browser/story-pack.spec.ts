@@ -159,7 +159,9 @@ async function checkToggles(run: string, where: string, page: Page) {
   const empty = await page.evaluate(() => [...document.querySelectorAll("details")].filter((toggle) => {
     const label = toggle.querySelector(":scope > summary");
     const inside = [...toggle.childNodes].filter((node) => node !== label).map((node) => node.textContent ?? "").join("").trim();
-    return !(label?.textContent ?? "").trim() || !inside;
+    // A box to fill in, a button or a link is something inside too (the Small Claims form's optional details).
+    const controls = [...toggle.querySelectorAll("input, textarea, select, button, a[href]")].some((control) => !label?.contains(control));
+    return !(label?.textContent ?? "").trim() || (!inside && !controls);
   }).map((toggle) => (toggle.querySelector(":scope > summary")?.textContent ?? "").trim().slice(0, 60) || "(no label)"));
   note(run, where, "no empty toggle", empty.length === 0, empty.join("; "));
 }
@@ -923,7 +925,7 @@ for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
     // The dates are left open here: the helper would type one into the court date's box first.
     await answerInReview(page, story, false);
     const panel = page.getByTestId("intake-review");
-    const expected: Record<string, RegExp> = id === "m14-served-divorce" ? { childrenInfo: /Mia \(4\) and Noah \(2\)/ } : { childrenInfo: /daughter, age 6/, upcomingCourtDate: /Case conference on November 16, 2026/ };
+    const expected: Record<string, RegExp> = id === "m14-served-divorce" ? { childrenInfo: /Mia \(4\) and Noah \(2\)/ } : { childrenInfo: /daughter, age 6/i, upcomingCourtDate: /Case conference on November 16, 2026/ };
     for (const [question, words] of Object.entries(expected)) {
       const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
       if (!(await box.count())) continue; // answered already, from the story, in the questions

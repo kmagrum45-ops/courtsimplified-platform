@@ -62,7 +62,15 @@ export function rawKeysIn(text: string): string[] {
  * investigation step for Public authority / Crown / police: Identify each public actor"). One list,
  * read from the profiles themselves, so a new profile is covered without editing this.
  */
-const PROFILE_WORDS = [...new Set(LEGAL_REASONING_PROFILES.flatMap((profile) => [profile.label, ...profile.investigationOrder]))];
+// Less the words the person is offered as answers ("Property damage" is also a choice for "What kind
+// of dispute is this?"): those are the person's words on screen, not the profiles'.
+const OFFERED_WORDS = new Set(
+  [
+    ...QUESTION_BANK.flatMap((question) => question.choices ?? []),
+    ...[FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS].flat().map((option) => option.label),
+  ].map((words) => words.trim().toLowerCase()),
+);
+const PROFILE_WORDS = [...new Set(LEGAL_REASONING_PROFILES.flatMap((profile) => [profile.label, ...profile.investigationOrder]))].filter((words) => !OFFERED_WORDS.has(words.replace(/\.$/, "").trim().toLowerCase()));
 const INTERNAL_WORDING = new RegExp(
   [
     ...PROFILE_WORDS.map((words) => escape(words.replace(/\.$/, ""))),

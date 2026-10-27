@@ -1,6 +1,6 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { sentences as sharedSentences } from "./sentences";
-import { situationAnswers, situationOf, stageWords } from "./situation/situation";
+import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
 import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
@@ -388,9 +388,17 @@ const CATEGORY_CUES: [RegExp, string][] = [
  * of dispute. Shown as suggestions the person confirms; never saved on their own
  * (re-test 2026-10-18: Confirm forced "I do not know yet" for what the story said).
  */
+/** A sentence about the claim against the person: they were served, or sued. */
+const AGAINST_THEM = /\bserv(?:e|es|ed|ing)\s+(?:me|him|her|them|us)\b|\b(?:i|he|she|we|they) (?:was|were|got|have been|has been) served\b|\bsu(?:ed|ing|es) (?:me|him|her|us|them)\b|\bclaim against (?:me|him|her|us|them)\b/i;
+
 export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, string> {
   if (checkpoint.courtPath !== "small-claims") return {};
-  const story = storyOf(checkpoint.sections);
+  const whole = storyOf(checkpoint.sections);
+  // Someone responding is asked about the claim against them: read the sentences about it, never
+  // the claim they once meant to bring (26 Oct re-test, case 19 after the side change: "Work or a
+  // service you paid for" was suggested for the defamation claim against him). None: nothing offered.
+  const story = sideOf(situationOf(checkpoint.sections)) === "responding" ? sharedSentences(whole).filter((sentence) => AGAINST_THEM.test(sentence)).join(" ") : whole;
+  if (!story.trim()) return {};
   const out: Record<string, string> = {};
   const date = whenItHappened(story);
   if (date) out["sc-orient-when-happened"] = date;
