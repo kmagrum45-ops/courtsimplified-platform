@@ -16,6 +16,9 @@ import { defineConfig } from "@playwright/test";
  * managed server entirely.
  */
 const managedPort = 3100;
+// One records folder per run of the story pack (tests/browser/harness/packRecords.ts): set once here,
+// in the runner, so every worker of this run shares it and the next run gets its own.
+process.env.STORY_PACK_RUN_ID ||= `local-${new Date().toISOString().replace(/[:.]/g, "-")}`;
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || `http://localhost:${managedPort}`;
 
 export default defineConfig({

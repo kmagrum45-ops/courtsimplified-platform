@@ -21,7 +21,7 @@
  *     evidence, never ends a line on "To keep your case record complete:", and
  *     does not ask for "main dates" once a served date is recorded.
  * Findings are collected (expect.soft) so one run reports all of them; the list is
- * written to test-results/story-pack-findings.json.
+ * written to story-pack-records/<run id>/findings.jsonl (harness/packRecords.ts), one folder per run.
  *
  * Run before any PR is marked ready: npm run test:story-pack (against a production
  * build on port 3100, like CI), or point PLAYWRIGHT_BASE_URL at a preview with that
@@ -40,6 +40,7 @@ import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
 import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
+import { appendRecord } from "./harness/packRecords";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
@@ -128,12 +129,11 @@ const INTERNAL = /Court path:|Stage: Stage unclear|Main story:|Case story:|Reaso
 const EVIDENCE = /\b(?:text messages?|messages|emails?|receipts?|invoices?|contracts?|photos?|screenshots?|records?|letters?|pay stubs|tax returns|survey|lease|estimate|agreement|offer letter|job offer|certificate|bank statements|calendar|can confirm)\b/i;
 const DOUBLE_STOP = /[A-Za-z0-9)][.]{2}(?![.])/;
 // Appended as found: a failed test restarts its worker, which would lose an in-memory list.
-const FINDINGS = "test-results/story-pack-findings.jsonl";
+// Each run's records in its own folder (harness/packRecords.ts): a later run never replaces them.
 
 function note(run: string, where: string, what: string, ok: boolean, detail = "") {
   if (!ok) {
-    fs.mkdirSync("test-results", { recursive: true });
-    fs.appendFileSync(FINDINGS, JSON.stringify({ run, where, what, detail: detail.replace(/\s+/g, " ").slice(0, 300) }) + "\n");
+    appendRecord("findings.jsonl", { run, where, what, detail: detail.replace(/\s+/g, " ").slice(0, 300) });
   }
   expect.soft(ok, `${where}: ${what}${detail ? ` -- ${detail.replace(/\s+/g, " ").slice(0, 200)}` : ""}`).toBe(true);
 }
@@ -456,7 +456,7 @@ function checkClaimKind(run: string, where: string, text: string, story: Story) 
     const notSure = /not sure/i.test(name);
     const quoted = [...text.matchAll(/“([^”]{8,})”/g)].some((match) => story.story.includes(match[1]));
     const finding = { run, where, shown: name, expected: CLAIM_KIND[story.id] ?? ["(none: this area names no kind of claim)"], fits, notSure, quoted };
-    fs.appendFileSync("test-results/claim-kind.jsonl", JSON.stringify(finding) + "\n");
+    appendRecord("claim-kind.jsonl", finding);
     note(run, where, "the kind of claim shown fits the story, or says it is not sure and asks", fits || notSure, name);
     note(run, where, "the kind of claim shown carries the story's words", quoted, name);
   }
@@ -554,7 +554,7 @@ ${item.text}`, story);
       // Gate A1: no fact asked twice in this case, across every screen.
       await page.waitForTimeout(600);
       const repeats = factsAskedTwice(asked, situationForStory(story));
-      fs.appendFileSync("test-results/ask-once.jsonl", JSON.stringify({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }) + "\n");
+      appendRecord("ask-once.jsonl", ({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }));
       // 26 Oct re-test, case 19: "No, nothing yet" was followed by "Has the other party filed a Defence?"
       // and "what date was it served?". Nothing filed means nothing served or defended, in any story.
       const start = situationForStory(story);

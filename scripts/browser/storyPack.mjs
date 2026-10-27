@@ -10,8 +10,9 @@
 import fs from "node:fs";
 import { spawnSync } from "node:child_process";
 
-const FINDINGS = "test-results/story-pack-findings.jsonl";
-fs.rmSync(FINDINGS, { force: true });
+// This run's own folder (tests/browser/harness/packRecords.ts): named here, so its workers share it.
+process.env.STORY_PACK_RUN_ID ||= `local-${new Date().toISOString().replace(/[:.]/g, "-")}`;
+const FINDINGS = `story-pack-records/${process.env.STORY_PACK_RUN_ID.replace(/[^\w.-]/g, "-")}/findings.jsonl`;
 process.env.PLAYWRIGHT_BASE_URL ||= "http://localhost:3100";
 const run = spawnSync("npx", ["playwright", "test", "tests/browser/story-pack.spec.ts", "--reporter=line", ...process.argv.slice(2)], { stdio: "inherit", shell: true });
 
@@ -23,7 +24,7 @@ for (const finding of findings) {
   const key = `${finding.where}: ${finding.what}`;
   grouped.set(key, [...(grouped.get(key) ?? []), finding]);
 }
-console.log(`\nSTORY PACK: ${findings.length} finding(s) in ${new Set(findings.map((finding) => finding.run)).size} run(s)`);
+console.log(`\nSTORY PACK (records in ${FINDINGS.replace(/\/findings\.jsonl$/, "")}): ${findings.length} finding(s) in ${new Set(findings.map((finding) => finding.run)).size} run(s)`);
 for (const [key, list] of grouped) {
   console.log(`\n  ${key} -- ${list.length}`);
   for (const finding of list.slice(0, 14)) console.log(`    ${finding.run}${finding.detail ? `: ${finding.detail.slice(0, 170)}` : ""}`);
