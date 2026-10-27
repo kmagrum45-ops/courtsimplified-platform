@@ -112,6 +112,16 @@ check("a side change sets the old side's 'what you want' from the home page asid
   const waiting = asked({ where: "going", started: "me", stage: "plaintiff:served-awaiting-defence" }, "plaintiff");
   check("a plaintiff waiting for a Defence is still asked whether one was filed", waiting.includes("sc-defence-filed"), waiting.join(", "));
   check("a motion, which can come at any time, settles nothing", JSON.stringify(settledBySmallClaimsStep("both:bringing-a-motion")) === JSON.stringify({ served: false, defence: false }));
+  // Site owner, 2026-10-27: each way in backed by the rules we hold; where it is not, the question is asked.
+  const STEPS: [string, { served: boolean; defence: boolean }, string][] = [
+    ["plaintiff:action-dismissed-for-delay", { served: false, defence: false }, "r. 11.1.01: dismissed for delay before service too"],
+    ["plaintiff:judgment-in-my-favour-unpaid", { served: true, defence: false }, "r. 20.03 after a default judgment (r. 11.02), which needs service, with no Defence"],
+    ["plaintiff:debtor-examination", { served: true, defence: false }, "r. 20.10 after a judgment, default included"],
+    ["defendant:judgment-being-enforced", { served: true, defence: false }, "r. 20.08 after a default judgment against them"],
+    ["plaintiff:wants-to-discontinue", { served: false, defence: false }, "withdrawal before service is not in the rules held (r. 11.3.01, r. 13.09): asked"],
+    ["defendant:admitted-and-proposed-terms", { served: true, defence: true }, "r. 9.03 (1): the proposal is made in the defence"],
+  ];
+  for (const [step, want, why] of STEPS) check(`${step} settles ${JSON.stringify(want)} (${why})`, JSON.stringify(settledBySmallClaimsStep(step)) === JSON.stringify(want), JSON.stringify(settledBySmallClaimsStep(step)));
 }
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");

@@ -360,8 +360,21 @@ function reachedFrom(stepId: string, through: readonly string[] = []): Set<strin
   while (queue.length) for (const move of movesFrom(queue.shift()!)) if (!seen.has(move.to) && !through.includes(move.to)) { seen.add(move.to); queue.push(move.to); }
   return seen;
 }
-/** The steps where a Defence is filed: the way without one is walked without passing through them. */
-const DEFENCE_STEPS = ["plaintiff:defence-filed","defendant:defence-filed"];
+/**
+ * The steps where a Defence is filed: the way without one is walked without passing through them. A
+ * defence that admits the claim and proposes terms of payment is one too (r. 9.03 (1): "may in the
+ * defence admit liability and propose terms of payment").
+ */
+const DEFENCE_STEPS = ["plaintiff:defence-filed", "defendant:defence-filed", "defendant:admitted-and-proposed-terms", "plaintiff:defendant-proposed-terms"];
+/** Where the claim has already been served: the plaintiff waiting for a Defence, or the defendant's own start. */
+const SERVED_STEPS = ["plaintiff:served-awaiting-defence", "defendant:served-defence-period-running"];
+/**
+ * Steps whose way in the rules we hold do not cover in full: they settle nothing, so the questions
+ * are still asked there (site owner, 2026-10-27: "anything not sourced stays out and the question is
+ * still asked there"). A claim withdrawn before it is served: r. 11.3.01 covers only a defendant who
+ * did not file a defence in time, and r. 13.09 the settlement conference.
+ */
+const NOT_COVERED_BY_THE_RULES_HELD = new Set(["plaintiff:wants-to-discontinue"]);
 let SETTLED: { served: Set<string>; defence: Set<string> } | null = null;
 /**
  * What a Small Claims step already settles, read from the stage map's own order of moves: a step that
@@ -371,17 +384,13 @@ let SETTLED: { served: Set<string>; defence: Set<string> } | null = null;
  */
 export function settledBySmallClaimsStep(stepId: string): { served: boolean; defence: boolean } {
   if (!SETTLED) {
-    // Steps the map reaches only after service or a Defence, though in life they can come without
-    // either (a claim withdrawn before service, an action dismissed for delay with no Defence, a
-    // default judgment unpaid and enforced): they settle nothing, so the question is asked rather
-    // than skipped. A gap in the map's moves, listed for the law map (docs/law-map/).
-    const MAP_NARROWER_THAN_LIFE = new Set(["plaintiff:wants-to-discontinue", "plaintiff:action-dismissed-for-delay", "plaintiff:judgment-in-my-favour-unpaid", "plaintiff:debtor-examination", "defendant:judgment-against-me", "defendant:judgment-being-enforced"]);
-    const minus = (from: Set<string>, ...without: Set<string>[]) => new Set([...from].filter((id) => !id.startsWith("both:") && !MAP_NARROWER_THAN_LIFE.has(id) && !without.some((set) => set.has(id))));
-    const starts = STARTING_POINTS.map((point) => point.stage).filter((stage) => findStage(stage)?.pathway === "small-claims");
-    const without = (through: readonly string[]) => new Set(starts.flatMap((start) => [...reachedFrom(start, through)]));
-    const SERVED = ["plaintiff:served-awaiting-defence"];
+    const minus = (from: Set<string>, ...without: Set<string>[]) => new Set([...from].filter((id) => !id.startsWith("both:") && !NOT_COVERED_BY_THE_RULES_HELD.has(id) && !without.some((set) => set.has(id))));
+    // Small Claims steps carry no pathway field: pathwayOf reads it (a filter on the field found none).
+    const starts = STARTING_POINTS.map((point) => point.stage).filter((stage) => { const found = findStage(stage); return Boolean(found) && pathwayOf(found!) === "small-claims"; });
+    // Every way from the starts that does not pass through the given steps (a start that is one of them begins there).
+    const without = (through: readonly string[]) => new Set(starts.filter((start) => !through.includes(start)).flatMap((start) => [...reachedFrom(start, through)]));
     SETTLED = {
-      served: minus(reachedFrom(SERVED[0]), without(SERVED)),
+      served: minus(new Set(SERVED_STEPS.flatMap((step) => [...reachedFrom(step)])), without(SERVED_STEPS)),
       defence: minus(new Set(DEFENCE_STEPS.flatMap((step) => [...reachedFrom(step)])), without(DEFENCE_STEPS)),
     };
   }
