@@ -38,6 +38,7 @@ import { OFFICIAL_FORMS_FETCHED_AT, officialFormFor } from "../../src/lib/conten
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
+import { FILE_OPEN_FAILED, openAfterCheck } from "@/src/lib/case-workspace/fileFetch";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -181,6 +182,11 @@ function getPathLabel(path: CourtPath) {
   if (path === "civil") return "Civil";
   if (path === "small-claims") return "Small Claims";
   return "Family";
+}
+
+/** An official form opened in a new tab only once it arrives; a failure is said (fileFetch.ts, Chrome 28 Oct). */
+async function openOfficialFile(url: string) {
+  if (!(await openAfterCheck(url))) alert(FILE_OPEN_FAILED);
 }
 
 function getPublicUrl(filePath: string) {
@@ -1016,7 +1022,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         {recommendedForm?.pdf_path ? (
                           <button
                             type="button"
-                            onClick={() => window.open(getPublicUrl(recommendedForm.pdf_path!), "_blank")}
+                            onClick={() => void openOfficialFile(getPublicUrl(recommendedForm.pdf_path!))}
                             className="rounded-full bg-[#163d35] px-4 py-2 font-bold text-white"
                           >
                             Open PDF
@@ -1354,7 +1360,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     {form.pdf_path ? (
                       <button
                         type="button"
-                        onClick={() => window.open(getPublicUrl(form.pdf_path!), "_blank")}
+                        onClick={() => void openOfficialFile(getPublicUrl(form.pdf_path!))}
                         className="rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white"
                       >
                         Open PDF
@@ -1387,7 +1393,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     {form.word_path ? (
                       <button
                         type="button"
-                        onClick={() => window.open(getPublicUrl(form.word_path!), "_blank")}
+                        onClick={() => void openOfficialFile(getPublicUrl(form.word_path!))}
                         className="rounded-full border border-[#2f7d67] bg-white px-5 py-3 text-sm font-bold text-[#2f7d67]"
                       >
                         Download Word Form

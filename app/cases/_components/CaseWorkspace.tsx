@@ -48,6 +48,7 @@ import { DOCUMENT_TYPES } from "../../../src/lib/case-workspace/documentTypes";
 import { COURT_DECISION_TYPE, type DecisionDetails } from "../../../src/lib/case-workspace/courtDecision";
 import type { TimelineStanding } from "../../../src/lib/case-workspace/timeline";
 import CourtDecisionPanel, { DecisionAttribution } from "./CourtDecisionPanel";
+import { FILE_DOWNLOAD_FAILED, FILE_OPEN_FAILED, fetchFileWithRetry, fileNameFromUrl, saveFile } from "@/src/lib/case-workspace/fileFetch";
 
 // ---------------------------------------------------------------------------
 // The left nav. Order follows the work: gather, order, produce.
@@ -271,23 +272,25 @@ export default function CaseWorkspace({
     if (!headers) return "Please sign in again.";
     // Opened before the request, so the browser does not treat the new tab as an unasked-for pop-up.
     const tab = download ? null : window.open("", "_blank");
-    const response = await fetch(`/api/workspace/documents/link?documentId=${documentId}${download ? "&download=1" : ""}`, { headers }).catch(() => null);
-    const payload = response ? await response.json().catch(() => null) : null;
-    if (!response?.ok || !payload?.url) {
+    let refused: string | null = null;
+    // A fresh one-minute link for each try (fileFetch.ts: one more try when the first fails).
+    const link = async () => {
+      const response = await fetch(`/api/workspace/documents/link?documentId=${documentId}${download ? "&download=1" : ""}`, { headers }).catch(() => null);
+      const payload = response ? await response.json().catch(() => null) : null;
+      if (!response?.ok || !payload?.url) { refused = payload?.error ?? null; return null; }
+      return String(payload.url);
+    };
+    // The file is fetched before the browser gets it (Chrome, 28 Oct: a 503 on the file's link
+    // showed only in the network log, and the page said nothing).
+    const fetched = await fetchFileWithRetry(link);
+    if (!fetched.ok) {
       tab?.close();
-      return payload?.error || "The file could not be opened just now. Please try again.";
+      return refused || (download ? FILE_DOWNLOAD_FAILED : FILE_OPEN_FAILED);
     }
     // A path on this site that ends with the file's own name (fileLink.ts): the tab is titled with it.
-    if (tab) { tab.opener = null; tab.location.href = payload.url; return null; }
-    // A download is a link pressed, never this page sent away (a failed one left the browser's
-    // error page in its place, Charter re-test 27 Oct).
-    const link = document.createElement("a");
-    link.href = payload.url;
-    link.rel = "noopener";
-    link.download = "";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    if (tab) { tab.opener = null; tab.location.href = fetched.url; return null; }
+    // Saved from what arrived, under its own name, without leaving the page.
+    saveFile(fetched.blob, fileNameFromUrl(fetched.url, "file"));
     return null;
   }, []);
 
@@ -1065,21 +1068,18 @@ function CommunicationsView({ entries }: { entries: CommunicationEntry[] }) {
 
 function ExhibitBookView({ caseId, index }: { caseId: string; index: ExhibitIndexEntry[] }) {
   const [building, setBuilding] = useState(false);
+  const [failed, setFailed] = useState("");
 
   const download = useCallback(async () => {
     setBuilding(true);
+    setFailed("");
     try {
       const headers = await authHeaders();
-      if (!headers) return;
-      const response = await fetch(`/api/workspace/exhibit-book?caseId=${caseId}`, { headers });
-      if (!response.ok) return;
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const link = window.document.createElement("a");
-      link.href = url;
-      link.download = "exhibit-book.pdf";
-      link.click();
-      URL.revokeObjectURL(url);
+      if (!headers) { setFailed("Please sign in again."); return; }
+      // Fetched before it is saved, tried once more, and a failure said here (fileFetch.ts; it was silent).
+      const fetched = await fetchFileWithRetry(async () => `/api/workspace/exhibit-book?caseId=${caseId}`, { headers });
+      if (!fetched.ok) { setFailed(FILE_DOWNLOAD_FAILED); return; }
+      saveFile(fetched.blob, "exhibit-book.pdf");
     } finally {
       setBuilding(false);
     }
@@ -1099,6 +1099,7 @@ function ExhibitBookView({ caseId, index }: { caseId: string; index: ExhibitInde
             {building ? "Building…" : "Build the book"}
           </button>
         </div>
+        {failed ? <p role="alert" data-testid="exhibit-book-failed" className="mt-2 text-sm font-semibold text-[#8a4b12]">{failed}</p> : null}
 
         <p className="mt-1 text-sm text-[#6b8078]">
           Cover page and index. Page numbers are filled in when the book is built, from the

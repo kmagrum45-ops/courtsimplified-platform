@@ -51,8 +51,12 @@ export function createDocumentFileGet(overrides: Partial<Dependencies> = {}) {
       return (data as Row) ?? null;
     },
     object: async (path) => {
-      const { data } = await admin().storage.from(DOCUMENT_BUCKET).download(path);
-      return data ?? null;
+      // Storage answered 503 once and the same file a moment later (Chrome, 28 Oct): one more try.
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const { data } = await admin().storage.from(DOCUMENT_BUCKET).download(path);
+        if (data) return data;
+      }
+      return null;
     },
     ...overrides,
   };
