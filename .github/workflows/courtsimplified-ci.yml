@@ -264,6 +264,9 @@ jobs:
       - name: A person can open, save and delete their own uploaded files, and only their own
         run: npm run test:document-link
 
+      - name: Every conference stage is carried exactly, in every area (case 16 as a respondent)
+        run: npm run test:conference-stages
+
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms
 

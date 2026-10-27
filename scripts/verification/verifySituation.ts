@@ -61,7 +61,7 @@ const rowsFor = (court: SituationCourt): Row[] => [
   { name: "a case going they started", situation: { where: "going", started: "me", court, courtFrom: "choice", stage: "not-sure" }, side: "bringing" },
   ...FIRST_PAGES.filter((page) => page.court === court).map((page) => ({
     name: `served with Form ${page.number}`,
-    situation: { where: "served" as const, papers: `${court}-${page.number}`, receivedOn: "2026-10-06", court, courtFrom: "papers" as const },
+    situation: { where: "served" as const, papers: `${court}-${page.number}`, receivedOn: "2026-10-06", court, courtFrom: "papers" as const, stage: "just-served" },
     side: "responding" as const,
     servedQuestion: SERVED_DATE_QUESTION[`${court}-${page.number}`],
   })),
@@ -76,6 +76,8 @@ for (const court of COURTS) {
     const situation = situationOf(sectionsWith(row.situation));
     check(`${at}: the record reads back as given`, JSON.stringify(situation) === JSON.stringify(row.situation), JSON.stringify(situation));
     check(`${at}: the record is complete`, nextSituationQuestion(situation, court) === null, String(nextSituationQuestion(situation, court)));
+    // Served: what has happened since is asked once (conference audit, 2026-10-26: a respondent was never asked).
+    if (row.situation.where === "served") { const { stage: _asked, ...unasked } = row.situation; void _asked; check(`${at}: what has happened since is asked`, nextSituationQuestion(unasked, court) === "stage"); }
     check(`${at}: its side`, sideOf(situation) === row.side);
 
     // The one side rule: the situation answer wins over the stored intake, the guided facts and a confirmed stage.

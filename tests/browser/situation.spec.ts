@@ -51,6 +51,11 @@ for (const court of COURTS) {
     await gate.getByTestId("situation-date-input").fill("October 6, 2026");
     await gate.getByTestId("situation-date-save").click();
 
+    // Served: what has happened since is asked too (conference audit, 2026-10-26).
+    await expect(gate).toHaveAttribute("data-question", "stage");
+    await expect(gate.getByRole("heading", { name: "Has anything else happened in the case since you were served?" })).toBeVisible();
+    await gate.locator('[data-testid="situation-option"][data-value="just-served"]').click();
+
     await expect(gate).toHaveCount(0);
     await expect(page.getByTestId("situation-line")).toContainText(FIRST[court].line);
     await expect(page.getByLabel("Tell us what happened in your own words")).toBeVisible();

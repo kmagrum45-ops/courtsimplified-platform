@@ -44,7 +44,11 @@ export type Situation = {
   court?: SituationCourt;
   /** How the court is known: from the papers, from the area they chose, or asked here. */
   courtFrom?: "papers" | "choice" | "asked";
-  /** For a case already going: the stage map step they say they are at, or "not-sure". */
+  /**
+   * For a case already going, or one they were served in: the stage map step they say they are
+   * at, "not-sure", or (served) "just-served" when nothing else has happened yet. A respondent was
+   * never asked (conference audit, 2026-10-26: a case conference set after service was lost).
+   */
   stage?: string;
 };
 
@@ -67,7 +71,7 @@ export function situationOf(sections: Record<string, unknown> | null | undefined
   if (raw.filed === "nothing" || raw.filed === "something") out.filed = raw.filed;
   if (isCourt(raw.court)) out.court = raw.court;
   if (raw.courtFrom === "papers" || raw.courtFrom === "choice" || raw.courtFrom === "asked") out.courtFrom = raw.courtFrom;
-  if (typeof raw.stage === "string" && (raw.stage === "not-sure" || findStage(raw.stage))) out.stage = raw.stage;
+  if (typeof raw.stage === "string" && (raw.stage === "not-sure" || (raw.stage === JUST_SERVED && raw.where === "served") || findStage(raw.stage))) out.stage = raw.stage;
   return out;
 }
 
@@ -118,7 +122,7 @@ export function nextSituationQuestion(situation: Situation, chosenCourt: Situati
   if (!situation.court) return "court";
   const papersCourt = courtOfPapers(situation);
   if (papersCourt && papersCourt !== situation.court) return "court";
-  if (situation.where === "going" && !stageFitsSituation(situation)) return "stage";
+  if ((situation.where === "going" || situation.where === "served") && !stageFitsSituation(situation)) return "stage";
   void chosenCourt;
   return null;
 }
@@ -142,12 +146,16 @@ export function stageChoices(situation: Situation): CaseStage[] {
 function stageFitsSituation(situation: Situation): boolean {
   if (!situation.stage) return false;
   if (situation.stage === "not-sure") return true;
+  if (situation.stage === JUST_SERVED) return situation.where === "served";
   return stageChoices(situation).some((step) => step.id === situation.stage);
 }
 
-/** The stage map step the person said a case already going is at, for this court, or null. */
+/** Served, and nothing else has happened yet: the step is the one service starts (no step of its own). */
+export const JUST_SERVED = "just-served";
+
+/** The stage map step the person said their case is at (a case already going, or one they were served in), for this court, or null. */
 export function stepFromSituation(situation: Situation, court: string | null | undefined): string | null {
-  if (situation.where !== "going" || !situation.stage || situation.stage === "not-sure") return null;
+  if ((situation.where !== "going" && situation.where !== "served") || !situation.stage || situation.stage === "not-sure" || situation.stage === JUST_SERVED) return null;
   const step = findStage(situation.stage);
   return step && pathwayOf(step) === court && stageFitsSituation(situation) ? step.id : null;
 }
@@ -272,6 +280,21 @@ const DOCUMENT_OF_PAPERS: Record<string, string> = {
   "family-8B": "application",
 };
 
+/**
+ * The case stage the start answers settle, in words: the step picked by its own title in the stage
+ * map, else the broad stage. One wording for every "Case stage" box (conference audit 2026-10-26:
+ * the intake forms said "Starting a new case" for anything but responding or already started).
+ */
+export function stageWords(answers: Pick<SituationAnswers, "caseStage" | "stepTitle">): string | null {
+  if (answers.stepTitle) return answers.stepTitle;
+  switch (answers.caseStage) {
+    case "starting-case": return "Starting a new case";
+    case "responding": return "Responding to a case";
+    case undefined: return null;
+    default: return "Case already started";
+  }
+}
+
 export function situationAnswers(court: SituationCourt, situation: Situation): SituationAnswers {
   const side = sideOf(situation);
   const out: SituationAnswers = { questionIds: [] };
@@ -287,7 +310,7 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
     situation.where === "starting"
       ? situation.filed === "something" ? "already-started" : "starting-case"
       : situation.where === "served"
-        ? "responding"
+        ? step ? broadStageOfStep(step) : "responding"
         : situation.where === "going" && situation.stage
           ? step ? broadStageOfStep(step) : "already-started"
           : undefined;

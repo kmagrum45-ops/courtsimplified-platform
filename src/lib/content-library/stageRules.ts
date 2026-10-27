@@ -35,7 +35,8 @@ export type StageRulesText = {
 
 export function stageRulesText(stage: CaseStage): StageRulesText {
   const rules = stage.rules
-    .map((rule) => `${SOURCE_NAMES[rule.sourceId]}, ${rule.pinpoint}: “${rule.quote}”`)
+    // A step with no checked block yet names its rule and links it, without its words (stageMap.ts rulesLinkOnly).
+    .map((rule) => (stage.rulesLinkOnly ? `${SOURCE_NAMES[rule.sourceId]}, ${rule.pinpoint}` : `${SOURCE_NAMES[rule.sourceId]}, ${rule.pinpoint}: “${rule.quote}”`))
     .join("\n\n");
   return {
     title: stage.title,

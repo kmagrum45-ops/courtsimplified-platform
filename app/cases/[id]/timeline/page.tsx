@@ -11,6 +11,7 @@ import { formatLongDate } from "@/src/lib/case-system/deadlines/holidays";
 import { serviceRulesFor } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { shortLabel } from "../../../builder/_components/StageAnswerPanel";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
+import { situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
 import { recordedDateAnswers } from "@/src/lib/case-system/caseRecord";
 import { builderHref, useCaseHome } from "../../_components/CaseHomeContext";
 
@@ -71,6 +72,8 @@ function KeyDates({ record, courtPath }: { record: FactRecord; courtPath: string
 
 export default function CaseTimelineSection() {
   const { caseRecord, courtPath, record, stepId } = useCaseHome();
+  // A step picked in the start answers counts as chosen (conference audit, 2026-10-26).
+  const situationStep = stepFromSituation(situationOfCase(caseRecord.master_result), courtPath);
   // Steps can be recorded only for Small Claims (see CaseTimeline's canRecord).
   const canRecord = courtPath === "small-claims";
   const [refresh, setRefresh] = useState(0);
@@ -85,8 +88,8 @@ export default function CaseTimelineSection() {
           // The step they confirmed: a sentence naming its event is offered as
           // that kind of step, not asked cold (walkthrough 2026-10-13, R6).
           confirmedStep={
-            record.position.confirmedStage && stepId && findStage(stepId)
-              ? { id: stepId, title: findStage(stepId)!.title, chosen: Boolean(record.position.stepId) }
+            (record.position.confirmedStage || situationStep) && stepId && findStage(stepId)
+              ? { id: stepId, title: findStage(stepId)!.title, chosen: Boolean(record.position.stepId || situationStep === stepId) }
               : null
           }
         />

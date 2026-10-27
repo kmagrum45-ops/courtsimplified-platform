@@ -967,6 +967,41 @@ test("retest-477 case 16: the review shows the step picked, who started the case
   expect(review.match(/What has been filed\s*\n?\s*([^\n]*)/)?.[1] ?? "", "what was filed, as answered").not.toMatch(/Not recorded/);
 });
 
+// Conference audit (2026-10-26): case 16 as a respondent. A person served was never asked what had
+// happened since, and every screen then said "Responding to a case" or a bare "conference". Each
+// screen that says where the case is now says the case conference, and the case file keeps the date.
+test("conference audit case 16 as a respondent: asked what happened since service; the case conference and November 16 on every screen -- family", async ({ page }) => {
+  test.setTimeout(300_000);
+  const story = messy("m16r-conference-respondent");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "family", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await openBuilder(page, "family", { story: story.story });
+  await guidedQuestions(page, story, true);
+  await answerInReview(page, story);
+  const review = await page.getByTestId("intake-review").innerText();
+  expect(review, "review: the step picked, in its own words").toContain("Case conference scheduled");
+  expect(review, "review: the responding side, in the form's words").toContain("The other person started it and I was served");
+  expect(review, "review: never the starting wording").not.toContain("Starting a new case");
+  expect(review, "review: never the bare word").not.toMatch(/Case stage\s*\n?\s*conference\b/i);
+  await confirmAndContinue(page);
+  await expect(page.getByText("Current stage", { exact: true }).locator("..")).toContainText("Case conference scheduled", { timeout: 60_000 });
+
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  await page.goto(`/cases/${row.id}`);
+  const file = page.getByTestId("case-file");
+  await expect(file).toBeVisible({ timeout: 60_000 });
+  await expect(file.locator('[data-testid=case-file-line][data-fact="conferenceDate"]'), "What we have so far: the case conference and its day").toContainText(/Case conference[\s\S]*November 16, 2026/);
+  // The conference's day is not shown a second time as a court date (the harness may answer the court date question with another day).
+  await expect(file.locator('[data-testid=case-file-line][data-fact="courtDate"]').filter({ hasText: /November 16, 2026/ }), "the conference day is not also a court date").toHaveCount(0);
+
+  await page.goto(`/cases/${row.id}/case-file`);
+  await expect(page.getByTestId("case-file"), "the printable case file: where the case is").toContainText("Case conference scheduled", { timeout: 60_000 });
+  await page.goto(`/cases/${row.id}/timeline`);
+  await expect(page.getByText("Your step", { exact: true }).locator(".."), "the timeline: the step").toContainText("Case conference scheduled", { timeout: 60_000 });
+});
+
 // Item 7: the safety help box is open on the results page, in every area, for any story (it was
 // folded unless the story used words of danger; the danger notice itself still shows only then).
 for (const [court, id] of [["small-claims", "sc-loan-friend"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {

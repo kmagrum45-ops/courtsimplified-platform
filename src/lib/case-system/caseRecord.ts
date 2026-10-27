@@ -22,11 +22,11 @@
 
 import { CLAIM_TYPES } from "./intake/claimTypes";
 import { nameRecorded } from "./privacy/modelPayloadNames";
-import { readCasePosition, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
+import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
 import { userStory } from "./userStory";
 import { recordedAmountOf } from "./amountNotes";
-import { sideOf as situationSide, situationOfCase, type Situation } from "./situation/situation";
+import { broadStageOfStep, sideOf as situationSide, situationOfCase, stepFromSituation, type Situation } from "./situation/situation";
 
 export type CourtPath = "small-claims" | "civil" | "family";
 export type Provenance = "confirmed" | "intake" | "guided" | "situation";
@@ -39,6 +39,8 @@ export type CaseRecord = {
   courtPath: CourtPath | null;
   side: RecordedFact<Side> | null;
   position: CasePosition;
+  /** The step picked in the start answers (a case going, or served and something since), or null (conference audit, 2026-10-26). */
+  startStepId: string | null;
   /** Dates by date-question id ("sc-date-claim-served"); confirmed ones win. */
   dates: Record<string, RecordedFact<string>>;
   amount: string;
@@ -149,6 +151,7 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     courtPath,
     side: sideOf(master, position),
     position,
+    startStepId: startStepOf(master, courtPath, position),
     dates,
     amount: recordedAmountOf(intake),
     claimTypeId: text(extra.confirmedClaimTypeId) || null,
@@ -226,7 +229,8 @@ export function caseFactsText(record: CaseRecord, describe: { stepTitle?: (stepI
   const from = (source: Provenance) => (source === "confirmed" ? "confirmed by the person" : "from their intake");
   if (record.side) lines.push(`Side: ${record.side.value === "responding" ? "responding to a case someone else started" : "bringing the case"} (${from(record.side.source)})`);
   if (record.position.confirmedStage) lines.push(`Where the case is: ${record.position.confirmedStage} (confirmed by the person)`);
-  if (record.position.stepId) lines.push(`Their exact step: ${describe.stepTitle?.(record.position.stepId) ?? record.position.stepId} (chosen by the person)`);
+  const stepId = record.position.stepId ?? record.startStepId;
+  if (stepId) lines.push(`Their exact step: ${describe.stepTitle?.(stepId) ?? stepId} (chosen by the person)`);
   for (const [id, fact] of Object.entries(record.dates)) {
     lines.push(`${describe.dateQuestion?.(id) ?? id}: ${fact.value} (${from(fact.source)})`);
   }
@@ -241,4 +245,11 @@ export function caseFactsText(record: CaseRecord, describe: { stepTitle?: (stepI
   if (record.city) lines.push(`City: ${record.city} (from their intake)`);
   if (record.documents.length) lines.push(`Documents recorded as filed or received: ${record.documents.join(", ")}`);
   return lines.join("\n");
+}
+
+/** The step picked in the start answers, while it agrees with any stage confirmed since (the same rule as caseStep.ts). */
+function startStepOf(master: Record<string, unknown>, courtPath: CourtPath | null, position: CasePosition): string | null {
+  const picked = courtPath ? stepFromSituation(situationOfCase(master), courtPath) : null;
+  const settled = settledStage(position);
+  return picked && (!settled || settled === broadStageOfStep(picked)) ? picked : null;
 }

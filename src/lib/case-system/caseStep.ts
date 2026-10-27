@@ -28,9 +28,10 @@ import { readCasePosition, settledStage } from "./casePosition";
 import { readCaseRecord } from "./caseRecord";
 import { suggestedNoticeStep } from "./claim-types/noticeStep";
 import { readStoredPicture, stepFromPicture } from "./intake/caseReader";
-import { stagesForPathway, type StagePathway } from "./stage-map/stageMap";
+import { findStage, stagesForPathway, type StagePathway } from "./stage-map/stageMap";
 import { suggestedStageFor } from "./stage-map/suggestedStep";
-import { sideOf, situationOfCase } from "./situation/situation";
+import { broadStageOfStep, sideOf, situationOfCase, stepFromSituation } from "./situation/situation";
+import { getStageLabel } from "../../../app/builder/_components/builderTypes";
 
 const asRecord = (value: unknown): Record<string, unknown> =>
   value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
@@ -86,6 +87,42 @@ export function caseStepFor(
   if (!courtPath) return "";
   const position = readCasePosition(asRecord(masterResult), courtPath);
   if (position.stepId) return position.stepId;
+  // A step picked in the start answers is chosen too, and needs no confirmed stage.
+  const picked = startStep(masterResult, courtPath);
+  if (picked) return picked;
   if (options.requireConfirmedStage && !settledStage(position)) return "";
   return suggestedStepForCase(masterResult, courtPath, responding);
+}
+
+/**
+ * The step the person picked themselves: on the step page, else in their start answers (a case
+ * already going, or served and something has happened since). Conference audit, 2026-10-26:
+ * case 16 picked "Case conference scheduled" at the start and the case pages showed only
+ * "Conference stage", or "Starting a new case".
+ */
+export function chosenStepFor(masterResult: unknown, courtPath: StagePathway | null): string | null {
+  if (!courtPath) return null;
+  const master = asRecord(masterResult);
+  return readCasePosition(master, courtPath).stepId ?? startStep(master, courtPath);
+}
+
+/**
+ * The step picked in the start answers, while it agrees with any stage confirmed since: a later
+ * confirmation ("trial" after a case conference was picked) wins (reviewer, 2026-10-26).
+ */
+function startStep(masterResult: unknown, courtPath: StagePathway): string | null {
+  const master = asRecord(masterResult);
+  const picked = stepFromSituation(situationOfCase(master), courtPath);
+  if (!picked) return null;
+  const settled = settledStage(readCasePosition(master, courtPath));
+  return !settled || settled === broadStageOfStep(picked) ? picked : null;
+}
+
+/** Where the case is, in words, for every page that says it: the picked step's own title, else the confirmed stage. */
+export function caseStageWords(masterResult: unknown, courtPath: StagePathway | null): string | null {
+  const step = chosenStepFor(masterResult, courtPath);
+  const title = step ? findStage(step)?.title : undefined;
+  if (title) return title;
+  const stage = courtPath ? settledStage(readCasePosition(asRecord(masterResult), courtPath)) : null;
+  return stage ? getStageLabel(stage) : null;
 }

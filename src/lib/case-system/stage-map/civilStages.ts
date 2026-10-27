@@ -4811,6 +4811,38 @@ const BOTH: CaseStage[] = [
     requiresAffirmativeScope: true,
   },
   {
+    // Conference audit, 2026-10-26 (site owner: "show less rather than invent"): until a block is
+    // drafted from r. 77 and published, the step shows its name and a link to the rule only.
+    id: "civil:both:case-management",
+    pathway: "civil",
+    side: "both",
+    wentWrong: false,
+    userQuestion: "My case was assigned to case management. What happens now?",
+    title: "Case management (Rule 77)",
+    description: "The case has been assigned to case management by a court order.",
+    cues: [
+      "case management",
+      "case managed",
+      "case management judge",
+      "case management conference",
+      "assigned to case management",
+    ],
+    distinguishedFrom: [
+      {
+        stage: "civil:both:pretrial-scheduled",
+        by: "whether the case was assigned to case management, or is at the pre-trial conference",
+      },
+      {
+        stage: "civil:both:mandatory-mediation",
+        by: "whether the case was assigned to case management, or is in mandatory mediation",
+      },
+    ],
+    rules: [C.RCP_77_01_PURPOSE],
+    rulesLinkOnly: true,
+    deadlines: [],
+    requiresAffirmativeScope: true,
+  },
+  {
     id: "civil:both:pretrial-scheduled",
     pathway: "civil",
     side: "both",
@@ -4939,7 +4971,7 @@ const BOTH: CaseStage[] = [
         computation: C.RCP_3_01_SHORT,
         consequence: "changes-what-happens-next",
         qualifier:
-          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. In a simplified procedure action, each party files other things instead. These are the proposed trial management plan, the party's affidavit of documents and the documents it relies on, any expert affidavit, and any other material needed. Each party also delivers a statement of no more than three pages on the issues and its position, and a trial management checklist (Form 76D).",
+          "This is the latest it can be done; earlier is fine. Because the period is seven days or less, Saturdays, Sundays and holidays are not counted. In a simplified procedure action, each party files other things instead. These are the proposed trial management plan, the party's affidavit of documents and the documents it relies on, any expert affidavit, and any other material needed. Each party also delivers a statement of no more than three pages on the issues and its position, and a trial management checklist (Form 76D). For the form to use for the brief, check the notice of the pre-trial conference or the court's order.",
         exceptions: [RCP_76_10_DOCUMENTS, C.RCP_1_03_HOLIDAY],
       },
     ],

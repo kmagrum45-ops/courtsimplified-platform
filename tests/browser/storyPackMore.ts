@@ -119,6 +119,13 @@ export const MESSY_STORIES: PackStory[] = [
     story: "We have a case going in Ottawa about parenting. I filed an application in June 2026 and my ex filed an answer in July. We have a case conference on November 16, 2026. I want primary care of our daughter, age 6. There have been incidents. He yelled and threatened me in front of her in March and I called the police once. He says I'm the one who is unstable and he claims I withhold her. Exchanges are tense and I'm scared to meet him alone. I don't have a lawyer.",
   },
   {
+    // Case 16 from the other side (conference audit, 2026-10-26): a respondent was never asked what
+    // had happened since service, so the case conference was lost. Synthetic; no names.
+    id: "m16r-conference-respondent", court: "family", side: "respondent", filed: ["application", "answer"], issues: ["parenting-time"],
+    situation: { where: "served", papers: "family-8", receivedOn: "June 20, 2026", court: "family", stage: "family:both:case-conference-scheduled" },
+    story: "My ex started a family case in Ottawa about parenting time with our son, age 7. I was served with the application on June 20, 2026 and I filed my answer in July. We have a case conference on November 16, 2026. I want to keep seeing my son every weekend. I don't have a lawyer.",
+  },
+  {
     id: "m17-common-law-house", court: "family", side: "applicant", filed: ["nothing"], issues: ["spousal-support", "other"],
     story: "My partner Jean-Marc and I lived together for 4 years (2022 to September 2026) in Ottawa in a house in his name only. We were never married. I put $40,000 from my savings into renovations and paid a share of the mortgage some months. He told me to move out. I want my money back or a share of the house, and I earn less than him so I want spousal support. No children. Nothing filed.",
   },

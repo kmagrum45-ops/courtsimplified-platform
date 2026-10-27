@@ -98,6 +98,7 @@ import {
   R_12_02_OWN_INITIATIVE,
   R_12_02_SUBMISSION,
   type RuleCitation,
+  RCP_77_01_PURPOSE,
 } from "./citations";
 
 /** Who or what moves the case: the person at the step, the other side, either party, the court or clerk, or time running out. */
@@ -408,7 +409,7 @@ const FAMILY_MOVES: StageMove[] = [
   move("family:both:served-with-automatic-order", "family:both:case-conference-scheduled", "court", "The case goes on: where an answer is filed, a judge holds at least one conference.", F("respondent:answer-filed", "r. 17 (1)")),
 
   // Conferences
-  move("family:both:case-conference-scheduled", "family:both:settlement-conference-scheduled", "court", "After the case conference comes a settlement conference; a case is scheduled for trial only after one, or on a judge's order.", F("both:settlement-conference-scheduled", "r. 17 (5)"), FAMILY_BEFORE_TRIAL()),
+  move("family:both:case-conference-scheduled", "family:both:settlement-conference-scheduled", "court", "A settlement conference may come later; a case is scheduled for trial only after one, or on a judge's order.", F("both:settlement-conference-scheduled", "r. 17 (5)"), FAMILY_BEFORE_TRIAL()),
   move("family:both:case-conference-scheduled", "family:both:missed-or-unconfirmed-conference", "either", "A conference is not held if it was not confirmed to the clerk, unless the court orders otherwise, and the parties must come to it.", F("both:missed-or-unconfirmed-conference", "r. 17 (14.1)"), F("both:missed-or-unconfirmed-conference", "r. 17 (15)")),
   move("family:both:case-conference-scheduled", "family:both:bringing-a-motion", "you", "Once a conference on the substantive issues has been completed, a motion for a temporary order can be served (sooner only in the cases the rules allow, such as urgency).", F("both:bringing-a-motion", "r. 14 (4)"), F("both:bringing-a-motion", "r. 14 (1)")),
   move("family:both:case-conference-scheduled", "family:both:responding-to-a-motion", "other-side", "The other party brings a motion; a response is due not later than four days before the motion date.", F("both:responding-to-a-motion", "r. 14 (11.3)")),
@@ -515,6 +516,8 @@ export const FINAL_STEPS: FinalStep[] = [
   { stage: "family:both:served-with-notice-of-default-hearing", why: "At the default hearing the court may decide and enforce the amount owing.", rules: [stepRule("family:both:served-with-notice-of-default-hearing", "r. 30 (7)")] },
   { stage: "family:both:served-with-contempt-motion", why: "The motion is decided by the court; the rule lists the orders it may make if it finds contempt.", rules: [stepRule("family:both:served-with-contempt-motion", "r. 31 (5)")] },
   { stage: "family:both:withdrawing-a-claim", why: "The withdrawn part ends; the party who withdraws pays the other parties' costs of it to that date, unless the court orders or the parties agree otherwise.", rules: [stepRule("family:both:withdrawing-a-claim", "r. 12 (3)")] },
+  // Conference audit, 2026-10-26: name and rule link only until a block is drafted from r. 77 and published.
+  { stage: "civil:both:case-management", why: "The steps under case management are not covered yet.", rules: [RCP_77_01_PURPOSE] },
   { stage: "family:both:notice-case-may-be-stayed-or-dismissed", why: "The court decides after the written submissions the rule allows, filed within 15 days of the notice.", rules: [stepRule("family:both:notice-case-may-be-stayed-or-dismissed", "r. 1.4 (7)")] },
 ];
 
@@ -530,6 +533,7 @@ export const STARTING_POINTS: { stage: string; why: string }[] = [
   { stage: "civil:defendant:served-defence-period-running", why: "Where a person sued in the Superior Court starts: the statement of claim was served on them." },
   { stage: "civil:defendant:served-with-third-party-claim", why: "A person brought into an action by a third party claim starts here." },
   { stage: "civil:defendant:served-with-counterclaim-as-new-party", why: "A person not yet a party, brought in by a counterclaim, starts here." },
+  { stage: "civil:both:case-management", why: "A case is assigned to case management by a court order; no step leads there on purpose." },
   { stage: "civil:both:lawyer-removed-from-record", why: "Can happen at any point in an action; no step leads there on purpose." },
   { stage: "civil:defendant:lien-registered-on-title", why: "An owner starts here when a claim for lien is registered on the title of their property." },
   { stage: "civil:plaintiff:lien-claimant", why: "A contractor or supplier who has not been paid for work on a property starts here." },

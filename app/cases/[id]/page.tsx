@@ -37,7 +37,7 @@ import { readCaseDrafts } from "@/src/lib/case-system/drafts/caseDrafts";
 import { positionSavesSettled, savePositionQueued } from "../../builder/_components/positionSave";
 import { userWordsOf } from "@/src/lib/content-library/forms/formsInText";
 import { authHeaders, builderHref, formatDate, useCaseHome } from "../_components/CaseHomeContext";
-import { noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
+import { caseStageWords, noticeStepForCase, stepStoryText } from "@/src/lib/case-system/caseStep";
 import { stageRecordedFromAnswers, suggestionForSide } from "@/app/builder/_components/stageFromAnswers";
 import { sideOf, situationOfCase, stepFromSituation } from "@/src/lib/case-system/situation/situation";
 import { caseFileOf, unsureDateQuestions, withCaseFileDates } from "@/src/lib/case-system/caseFile/caseFile";
@@ -225,7 +225,7 @@ export default function CaseOverviewPage() {
             pathway={courtPath}
             confirmedStage={confirmed}
             // A case already going: the step the next step follows, the latest chosen.
-            stepWords={situation.where === "going" ? findStage(position.stepId ?? situationStep ?? "")?.userQuestion ?? null : null}
+            stepWords={situation.where === "going" || situation.where === "served" ? findStage(position.stepId ?? situationStep ?? "")?.userQuestion ?? null : null}
             onConfirm={(stage) => void confirmStage(stage)}
           />
         ) : (
@@ -392,7 +392,7 @@ export default function CaseOverviewPage() {
               Change your story
             </Link>
           </div>
-          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} caseId={caseId} chosenClaimKind={position.claimKind ?? null} heldKind={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master).claimKind} />
+          <IntelligenceOverviewPanel analysis={analysis} intake={intake ?? null} confirmedStage={confirmed} stageWords={caseStageWords(master, courtPath)} caseId={caseId} chosenClaimKind={position.claimKind ?? null} heldKind={caseFileOf(courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null, master).claimKind} />
         </section>
       ) : null}
     </div>

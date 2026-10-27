@@ -27,6 +27,8 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
 import { readCasePosition, settledStage } from "../../src/lib/case-system/casePosition";
 import { readCaseDrafts } from "../../src/lib/case-system/drafts/caseDrafts";
 import { getStageLabel } from "../builder/_components/builderTypes";
+import { caseStageWords } from "@/src/lib/case-system/caseStep";
+import type { StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import { COURT_LABELS, caseTitle, formatDate, type CaseRecord } from "../cases/_components/CaseHomeContext";
 import { nextCountedDate, ontarioToday, reminderLine, type CountedDateReminder } from "../../src/lib/case-workspace/upcomingDeadline";
 import type { TimelineItem } from "../../src/lib/case-workspace/timeline";
@@ -82,6 +84,9 @@ const START_OPTIONS = [
 ] as const;
 
 function stageLine(record: CaseRecord): string {
+  // The step picked, by its own title, else the confirmed stage (conference audit, 2026-10-26).
+  const words = caseStageWords(record.master_result, record.court_path as StagePathway | null);
+  if (words) return `Court stage: ${words}`;
   const position = readCasePosition(record.master_result, record.court_path);
   const stage = settledStage(position);
   if (stage) {

@@ -128,7 +128,8 @@ export function stageRecordedFromAnswers(
   // The situation answers are the person's own and settle the stage whatever the analysis
   // suggests (step 2b): served, starting with nothing filed, or the step of a case already
   // going they chose ("not sure" there is remembered: the step panel offers the steps once more).
-  const fromSituation = situation ? stageFromSituation(situation) ?? stageOfCaseGoing(courtPath, situation) : null;
+  // A step picked at the start wins over the bare "served".
+  const fromSituation = situation ? stageOfCaseGoing(courtPath, situation) ?? stageFromSituation(situation) : null;
   if (fromSituation) return fromSituation;
   const settled = stageFromPersonAnswers(courtPath, answers);
   // The person's own answer settles the stage where the analysis was not sure either
@@ -222,8 +223,9 @@ export function suggestionForSide(stage: UniversalStage, responding: boolean): U
 
 /** A case already going: the broad stage of the step the person chose, or "already started" when they were not sure. */
 function stageOfCaseGoing(courtPath: string, situation: Situation): StageFromAnswers | null {
-  if (situation.where !== "going" || !situation.stage) return null;
+  // Served with something since counts too (conference audit, 2026-10-26: a respondent's case conference).
+  if ((situation.where !== "going" && situation.where !== "served") || !situation.stage) return null;
   const step = stepFromSituation(situation, courtPath);
   if (step) return { stage: broadStageOfStep(step), because: findStage(step)!.userQuestion };
-  return situation.stage === "not-sure" ? { stage: "already-started", because: "A case is already going" } : null;
+  return situation.where === "going" && situation.stage === "not-sure" ? { stage: "already-started", because: "A case is already going" } : null;
 }

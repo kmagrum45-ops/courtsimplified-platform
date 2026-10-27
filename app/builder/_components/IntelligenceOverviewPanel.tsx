@@ -51,6 +51,8 @@ type Props = {
   chosenClaimKind?: string | null;
   /** The case file's kind-of-claim slot (caseFile.ts): their answer to "What kind of dispute is this?", or "not sure". */
   heldKind?: Slot | null;
+  /** Where the case is, in words: the step the person picked, by its own title (caseStep.ts caseStageWords). */
+  stageWords?: string | null;
 };
 
 function listField(intake: StoredCaseData | null, field: string): string[] {
@@ -129,7 +131,7 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null, stageWords = null }: Props) {
   const [chosenKind, setChosenKind] = useState<string | null>(chosenClaimKind);
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
@@ -367,7 +369,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
     ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
-    ["Current stage", displayStage(caseStage)],
+    ["Current stage", stageWords ?? displayStage(caseStage)],
     ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
     ...(amount ? ([["Amount", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
     ...(outcome ? ([["What you want (your words)", outcome]] as Array<[string, string]>) : []),
