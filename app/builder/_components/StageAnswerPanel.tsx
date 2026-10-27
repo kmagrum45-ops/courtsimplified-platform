@@ -152,7 +152,7 @@ function groupOf(stage: { id: string; side: string }): string {
 // (Phase 1: the Deadlines view counted nothing until a step was picked).
 export { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
 import { suggestedStageFor } from "@/src/lib/case-system/stage-map/suggestedStep";
-import { withLeaveRulesQuoted } from "@/src/lib/content-library/leaveRuleWords";
+import { isLeaveSentence, withLeaveRulesQuoted } from "@/src/lib/content-library/leaveRuleWords";
 
 export function orderGroupsForReader<T extends { side: string; label: string }>(
   groups: readonly T[],
@@ -815,7 +815,7 @@ export function NextStepCard({
         </details>
       ) : null}
       {shownLead ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{shownLead}</p> : null}
-      {shownLead ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => shownLead.includes(courtWords(entry.sentence, court)))} /> : null}
+      {shownLead ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => !isLeaveSentence(entry.sentence) && shownLead.includes(courtWords(entry.sentence, court)))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
       {practical ? <NextStepPractical stepId={stepId} court={court} city={city} responding={responding} story={userWords} noticeStepId={noticeStepId} deadline={filingDeadline.filing} serveBy={filingDeadline.serving} divisionalOnly={filingDeadline.divisionalOnly} today={today} timeRanOut={Boolean(ranOut)} /> : null}
@@ -945,7 +945,7 @@ function AnswerView({
             <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
               {text || "The first step is in \"Your next step\" above."}
             </p>
-            <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => text.includes(courtWords(entry.sentence, court)))} />
+            <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => !isLeaveSentence(entry.sentence) && text.includes(courtWords(entry.sentence, court)))} />
             {section.heading === "Your deadline" && servedWhen.some((line) => text.includes(line.say)) ? (
               // The rule beside each "when service counts" sentence above
               // (walkthrough run 38500825561, FR: the 4 p.m. sentence had none).

@@ -44,6 +44,7 @@
 import { validateCaseStrengthLanguage } from "../intelligence/caseStrengthLanguageValidator";
 import type { AiEffort } from "../aiModels";
 import { loadCorpusIndex, passageHash, readPassage, type LoadedIndex, type Passage } from "./corpusIndex";
+import { ownTitleFor } from "../../content-library/sourceDisplay";
 
 /**
  * The ceiling code enforces. The prompt asks for 700; the gap is so a good
@@ -238,9 +239,11 @@ export function parseExplanation(raw: string): string | null {
 export function provisionOf(passage: Passage): ProvisionForExplaining {
   const { source } = passage;
   const decision = source.tier === "case-law";
+  // An Act by its own title, year included, as everywhere else (sourceDisplay ownTitleFor; reviewer,
+  // 28 Oct: "Community Safety and Policing Act, S.O. 2019" without ", 2019" in the sourced questions).
   const citation = decision
     ? `${source.title}, ${source.citation}${passage.pinpoint ? `, ${passage.pinpoint}` : ""}`
-    : [source.title, source.citation, passage.pinpoint].filter(Boolean).join(", ");
+    : [ownTitleFor(source.id) ?? source.title, source.citation, passage.pinpoint].filter(Boolean).join(", ");
   return { citation, text: passage.text, decision };
 }
 

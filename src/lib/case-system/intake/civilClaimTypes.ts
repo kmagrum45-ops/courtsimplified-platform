@@ -30,8 +30,7 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
     name: "Breach of contract (Superior Court)",
     broughtBy:
       "A person or business that made a contract and says the other side did not do what the " +
-      "contract required, and that this caused them a loss. Not someone with no contract at all, " +
-      "and not, without leave, a claim of $50,000 or less (that belongs in Small Claims Court).",
+      "contract required, and that this caused them a loss. Not someone with no contract at all.",
     courtArea: "civil",
     plaintiffElements: [
       {
@@ -481,8 +480,7 @@ const CORE_CIVIL_CLAIM_TYPES: ClaimType[] = [
     broughtBy:
       "A person or business owed a fixed, calculable sum of money -- for example under a loan, an " +
       "account or a contract price -- that has not been paid. Not a claim for an amount a court has " +
-      "to assess (such as general damages), and not, without leave, a claim of $50,000 or less " +
-      "(that belongs in Small Claims Court).",
+      "to assess (such as general damages).",
     courtArea: "civil",
     plaintiffElements: [
       {

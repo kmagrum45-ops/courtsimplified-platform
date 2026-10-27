@@ -815,9 +815,9 @@ export const TYPES_SC_DEFENDANT_SIDE_1: ClaimType[] = [
       },
       {
         note:
-          "Under s. 23(1.1) of the Courts of Justice Act, an action within the Small Claims Court's " +
-          "jurisdiction cannot be commenced in the Superior Court of Justice except with leave of the " +
-          "Superior Court of Justice as provided in the rules of court. Under s. 23(2), an action in the " +
+          "Courts of Justice Act, s. 23 (1.1): “An action that is within the Small Claims Court's " +
+          "jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice " +
+          "except with leave of the Superior Court of Justice as provided in the rules of court.” Under s. 23(2), an action in the " +
           "Superior Court may be transferred to the Small Claims Court with the consent of all parties " +
           "before the trial starts, if the only claim is for money or the recovery of personal property " +
           "and it is within the Small Claims Court's jurisdiction.",

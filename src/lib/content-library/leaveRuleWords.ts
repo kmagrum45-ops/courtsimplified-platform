@@ -18,6 +18,7 @@ const quoted = (where: string, words: string) => `${where}: “${words}”`;
 
 export const CJA_23_1_1_WORDS = quoted("Courts of Justice Act, s. 23 (1.1)", S_CJA_23_1_1_LEAVE.quote);
 export const RCP_14_01_1_2_WORDS = quoted("Rules of Civil Procedure, r. 14.01.1 (2)", "A motion under subsection 23 (1.1) of the Courts of Justice Act for leave to commence an action in the Superior Court of Justice that is within the Small Claims Court's jurisdiction may be made without notice, unless the court orders otherwise.");
+export const CJA_23_1_2_WORDS = quoted("Courts of Justice Act, s. 23 (1.2)", "Subsection (1.1) does not apply with respect to a counterclaim, crossclaim or third or subsequent party claim, where the main action was commenced in the Superior Court of Justice.");
 export const RCP_14_01_1_3_WORDS = quoted("Rules of Civil Procedure, r. 14.01.1 (3)", "The court may grant leave under subsection 23 (1.1) of the Courts of Justice Act only if it is in the interest of justice.");
 
 /** Each of the library's wordings of the leave rules, and what is shown in its place ("" = removed). */
@@ -27,7 +28,14 @@ export const LEAVE_SENTENCES: [RegExp, string][] = [
   [/ ?A claim above it needs no such leave\./g, ""],
   [/You may ask for leave by motion without notice, unless the court orders otherwise\.|You may ask for this leave without notice, unless the court orders otherwise\./g, RCP_14_01_1_2_WORDS],
   [/The court may grant it only if it is in the interest of justice\.|The court may give that leave only if it is in the interest of justice\./g, RCP_14_01_1_3_WORDS],
+  // Reviewer, 28 Oct: shown in our words with no citation.
+  [/Leave is not needed for a counterclaim, a crossclaim, or a third or later party claim, if the main case was started in the Superior Court\./g, CJA_23_1_2_WORDS],
 ];
+
+/** Whether the screen shows this sentence in the rule's own words instead (so nothing else repeats it). */
+export function isLeaveSentence(sentence: string): boolean {
+  return LEAVE_SENTENCES.some(([pattern]) => { pattern.lastIndex = 0; const hit = pattern.test(sentence); pattern.lastIndex = 0; return hit; });
+}
 
 /** The text with the leave rules in their own words, each with its citation. */
 export function withLeaveRulesQuoted(text: string): string {
