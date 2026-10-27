@@ -38,7 +38,7 @@ import { factsAskedTwice, recordAsks } from "./harness/askOnce";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
-import { rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
+import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
@@ -143,12 +143,25 @@ function checkText(run: string, where: string, text: string) {
   const internal = INTERNAL.exec(text);
   note(run, where, "no internal wording", !internal, internal ? text.slice(Math.max(0, internal.index - 80), internal.index + 80) : "");
   // The copy guard (#477 re-test, item 5): no stored code or field name, on any screen.
+  // The site's reasoning machinery (profile names and investigation steps), on any screen (Charter re-test 27 Oct).
+  const machinery = internalWordingIn(text);
+  note(run, where, "no internal reasoning-profile wording", machinery.length === 0, machinery.join("; "));
   const raw = rawKeysIn(text);
   note(run, where, "no raw field name or code", raw.length === 0, raw.join(", "));
   const double = DOUBLE_STOP.exec(text);
   note(run, where, "no doubled full stop", !double, double ? text.slice(Math.max(0, double.index - 60), double.index + 20) : "");
   const repeated = text.split("\n").map((line) => line.split(/;\s*/).map((part) => part.trim()).filter((part) => part.length >= 6)).find((parts) => new Set(parts).size !== parts.length);
   note(run, where, "no citation or phrase repeated within a line", !repeated, repeated?.join(" ; ") ?? "");
+}
+
+/** No toggle on the page without a label or without anything in it (an empty sources toggle under a chat line, Charter re-test 27 Oct). */
+async function checkToggles(run: string, where: string, page: Page) {
+  const empty = await page.evaluate(() => [...document.querySelectorAll("details")].filter((toggle) => {
+    const label = toggle.querySelector(":scope > summary");
+    const inside = [...toggle.childNodes].filter((node) => node !== label).map((node) => node.textContent ?? "").join("").trim();
+    return !(label?.textContent ?? "").trim() || !inside;
+  }).map((toggle) => (toggle.querySelector(":scope > summary")?.textContent ?? "").trim().slice(0, 60) || "(no label)"));
+  note(run, where, "no empty toggle", empty.length === 0, empty.join("; "));
 }
 
 const STARTING = new Set(["plaintiff", "applicant"]);
@@ -483,13 +496,13 @@ for (const story of STORIES) {
         await guidedQuestions(page, story, route === "review");
         if (route === "review") await answerInReview(page, story);
       }
-      checkText(run, "review", await page.getByTestId("intake-review").innerText());
+      checkText(run, "review", await page.getByTestId("intake-review").innerText()); await checkToggles(run, "review", page);
 
       // 3. Confirm, and the next step.
       await confirmAndContinue(page);
       await page.waitForTimeout(1_500);
       const results = await page.locator("body").innerText();
-      checkText(run, "results", results);
+      checkText(run, "results", results); await checkToggles(run, "results", page);
       checkClaimKind(run, "results", results, story);
       if (settles(story)) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
@@ -507,7 +520,7 @@ for (const story of STORIES) {
         // Only when the story names some evidence: then there are the person's own words to quote.
         if (EVIDENCE.test(story.story)) note(run, "chat", "the evidence reply quotes the person's own words", quotes.some((quote) => story.story.includes(quote)), gather.slice(0, 200));
         const asked = await lastReply(page, "How long do I have to respond?");
-        checkText(run, "chat", asked);
+        checkText(run, "chat", asked); await checkToggles(run, "chat", page);
         note(run, "chat", "no line ends on its lead-in with nothing after it", !/To keep your case record complete:\s*$/m.test(gather + "\n" + asked), asked.slice(-160));
         if (/served/i.test(story.story) && /October \d/.test(story.story)) {
           note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(Math.max(0, (gather + asked).search(/main dates/i) - 200), (gather + asked).search(/main dates/i) + 80));
@@ -522,7 +535,7 @@ for (const story of STORIES) {
         await page.waitForLoadState("networkidle").catch(() => {});
         await page.waitForTimeout(4_000);
         const casePage = await page.locator("body").innerText();
-        checkText(run, "case page", casePage);
+        checkText(run, "case page", casePage); await checkToggles(run, "case page", page);
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
         checkClaimKind(run, "case page", casePage, story);

@@ -569,13 +569,7 @@ function buildStrengths(
     ...(legalReasoning
       ? ["The investigation is now supported by a coordinated legal reasoning package."]
       : []),
-    ...(legalReasoning?.profiles.length
-      ? [
-          `Matched reasoning profile(s): ${legalReasoning.profiles
-            .map((profile) => profile.label)
-            .join(", ")}.`,
-        ]
-      : []),
+    // The matched reasoning profiles are the site's machinery, never listed (Charter re-test 27 Oct).
   ]);
 }
 

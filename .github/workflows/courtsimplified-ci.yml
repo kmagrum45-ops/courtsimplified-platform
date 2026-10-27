@@ -266,6 +266,8 @@ jobs:
 
       - name: Every conference stage is carried exactly, in every area (case 16 as a respondent)
         run: npm run test:conference-stages
+      - name: The chat speaks plainly and does not ask what it has, in every area
+        run: npm run test:chat-plain-words
 
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms

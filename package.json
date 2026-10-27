@@ -262,7 +262,8 @@
     "test:court-terms": "node --import tsx scripts/verification/verifyCourtTerms.ts",
     "test:story-pack": "node scripts/browser/storyPack.mjs",
     "test:analysis-time-budget": "node --import tsx scripts/verification/verifyAnalysisTimeBudget.ts",
-    "test:conference-stages": "node --import tsx scripts/verification/verifyConferenceStages.ts"
+    "test:conference-stages": "node --import tsx scripts/verification/verifyConferenceStages.ts",
+    "test:chat-plain-words": "node --import tsx scripts/verification/verifyChatPlainWords.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

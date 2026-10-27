@@ -13,6 +13,7 @@
 import { FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, familyGuidedFields, civilGuidedFields } from "../../../../app/builder/_components/guidedFields";
 import { SLOT_FACTS } from "../caseFile/caseFile";
 import { QUESTION_BANK } from "../intake/questionBank";
+import { LEGAL_REASONING_PROFILES } from "../knowledge/legalReasoningProfiles";
 
 const OPTIONS = [...FAMILY_FILED_OPTIONS, ...FAMILY_ISSUE_OPTIONS, ...CIVIL_ISSUE_OPTIONS, ...CIVIL_DOCUMENT_OPTIONS];
 
@@ -52,4 +53,27 @@ const RAW = new RegExp(
 /** Every raw code or field name in a screen's text. */
 export function rawKeysIn(text: string): string[] {
   return [...new Set([...text.matchAll(RAW)].map((match) => match[0]))];
+}
+
+/**
+ * The site's own reasoning machinery, never shown: the legal reasoning profiles' names and their
+ * investigation steps ("Public authority / Crown / police", "Identify each public actor."), and the
+ * words that introduced them (Charter re-test 27 Oct: "Why this matters: This is the first
+ * investigation step for Public authority / Crown / police: Identify each public actor"). One list,
+ * read from the profiles themselves, so a new profile is covered without editing this.
+ */
+const PROFILE_WORDS = [...new Set(LEGAL_REASONING_PROFILES.flatMap((profile) => [profile.label, ...profile.investigationOrder]))];
+const INTERNAL_WORDING = new RegExp(
+  [
+    ...PROFILE_WORDS.map((words) => escape(words.replace(/\.$/, ""))),
+    String.raw`\breasoning profile`,
+    String.raw`\binvestigation step for\b`,
+    String.raw`\bevidence priorities\b`,
+  ].join("|"),
+  "gi",
+);
+
+/** Each piece of the site's internal reasoning wording in a text (none should ever reach a screen). */
+export function internalWordingIn(text: string): string[] {
+  return [...new Set([...text.matchAll(INTERNAL_WORDING)].map((match) => match[0]))];
 }

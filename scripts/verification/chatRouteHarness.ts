@@ -30,7 +30,8 @@ const RECORD: Record<Court, (story: string) => { facts: string; extra: Record<st
   "small-claims": (story) => ({ facts: ["Small Claims Ontario intake", "Stage selected: Stage unclear", "Selected issue hints: None selected", `Facts: ${story}`].join("\n\n"), extra: { story } }),
 };
 
-export function savedCase(court: Court, story: string, extra: Record<string, unknown> = {}) {
+/** `master`: more of the saved case (its intake checkpoint, its position), for a chat that reads the case file. */
+export function savedCase(court: Court, story: string, extra: Record<string, unknown> = {}, master: Record<string, unknown> = {}) {
   const record = RECORD[court](story);
   return {
     id: CASE_ID,
@@ -40,13 +41,14 @@ export function savedCase(court: Court, story: string, extra: Record<string, unk
       intakeFacts: { role: court === "family" ? "applicant" : "plaintiff" },
       position: { confirmedStage: "starting-case", stepId: null, dateAnswers: {} },
       workflowStatus: { intakeCompleted: true },
+      ...master,
     },
   };
 }
 
 /** Sends `messages` one by one, as the chat does, and returns the reply shown for each. */
-export async function chatReplies(court: Court, story: string, messages: string[], extra: Record<string, unknown> = {}): Promise<string[]> {
-  const owned = savedCase(court, story, extra);
+export async function chatReplies(court: Court, story: string, messages: string[], extra: Record<string, unknown> = {}, master: Record<string, unknown> = {}): Promise<string[]> {
+  const owned = savedCase(court, story, extra, master);
   const post = createGuidedAssistantPost({
     authenticate: (async () => ({ id: "11111111-1111-4111-8111-111111111111" })) as never,
     owned: (async () => owned) as never,
