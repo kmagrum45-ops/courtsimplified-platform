@@ -31,10 +31,22 @@
  * which is correct but strands anybody who has not yet repointed it.
  */
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-const ROOT = path.resolve(import.meta.dirname, "..", "..");
+/**
+ * The repository root: the nearest folder above the working directory holding
+ * supabase/environments.json. Not import.meta: Playwright loads this file (through
+ * tests/browser/harness/realTestSession.ts) as CommonJS, where import.meta is a syntax error,
+ * so every spec using a real session failed to load (found 2026-10-27). Not found: it throws,
+ * so the guard fails closed.
+ */
+const ROOT = (() => {
+  for (let dir = process.cwd(); ; dir = path.dirname(dir)) {
+    if (existsSync(path.join(dir, "supabase", "environments.json"))) return dir;
+    if (path.dirname(dir) === dir) throw new Error("assertNotProduction: supabase/environments.json not found above the working directory; refusing to guess which project is production.");
+  }
+})();
 
 type EnvironmentsFile = {
   environments: Record<string, { ref: string; currentName: string; region: string }>;

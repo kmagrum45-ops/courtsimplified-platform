@@ -31,6 +31,7 @@ import fs from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
+import { deleteHarnessUser, signInHarnessUser } from "./harness/smallClaimsDriver";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { factsAskedTwice, recordAsks } from "./harness/askOnce";
@@ -1141,3 +1142,157 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist was bruised/], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /missed 2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /3 June 2027|June 3, 2027/]] as const) expect(text, what).toMatch(words);
   expect(text, "the stage as a stage, never a question").not.toMatch(/Where the case is\s*\n?\s*How do I/);
 });
+
+// Root cause 3 (Charter re-test after #486/#487): the first "Confirm my initial information"
+// bounced with "Your initial facts changed", and only a second press confirmed. At the live site's
+// speed (account and database calls 1.5 s, the analysis 20 s), one real click must confirm, in
+// every area.
+for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-27oct root cause 3: one real click confirms the initial information at real speed -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    // From here at the live site's speed: the saves still running meet the Confirm press.
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    await page.route(`**/api/${court}/analyze`, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
+    const panel = page.getByTestId("intake-review");
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    const confirm = page.getByTestId("intake-confirm");
+    await confirm.scrollIntoViewIfNeeded();
+    const box = await confirm.boundingBox();
+    if (!box) throw new Error("no Confirm button on screen");
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    await expect(panel, "one press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+  });
+}
+
+// Root cause 3, as a person does it: the last thing typed in the review is still in its box (it
+// saves when the box is left), and the next press is Confirm. That press both saves the answer and
+// confirms: it must confirm what is now on screen, at once, in every area.
+for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-27oct root cause 3: an answer typed after the tick clears it and says so beside the button; one more tick confirms -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    const panel = page.getByTestId("intake-review");
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    // From here at the live site's speed.
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    // An answer typed to a question still open in the review, the box not left (it saves when left).
+    const boxes = panel.locator('input[aria-label^="Answer: "]');
+    expect(await boxes.count(), "the review has a question still open to type in").toBeGreaterThan(0);
+    const box = boxes.first();
+    const label = (await box.getAttribute("aria-label")) ?? "";
+    const answer = /when|date|day/i.test(label) ? "March 2026" : /amount|money|much/i.test(label) ? "$6,000" : "Payment of what is owed";
+    await box.fill(answer);
+    // Pressed straight from the box: the press leaves the box, which saves the typed answer.
+    await page.getByTestId("intake-confirm").click({ force: true });
+    // The press saved the typed answer (it saves when its box is left): the tick covered the answers
+    // as they were, so it is cleared, and the reason is said beside the button.
+    await expect(page.getByTestId("intake-review-acknowledgement")).not.toBeChecked({ timeout: 20_000 });
+    await expect(page.getByTestId("intake-tick-again"), "the reason, beside the button").toHaveText("You changed an answer. Please tick to confirm again.");
+    await expect(panel, "the typed answer was kept").toContainText(answer);
+    await expect(panel).toHaveAttribute("data-phase", "reviewing");
+    await page.getByTestId("intake-review-acknowledgement").click();
+    await expect(page.getByTestId("intake-tick-again"), "gone once ticked again").toHaveCount(0);
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel, "one more press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+ });
+}
+
+// Root cause 3, Chrome's own steps (Charter re-test): a one-click answer from the story ("Yes,
+// that's right" for the amount), then the tick, then Confirm, each at once, with the account and
+// database at the live site's speed. The first Confirm bounced with "Your initial facts changed"
+// and the tick had to be given again. One press must confirm, in every area.
+for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-27oct root cause 3: a one-click answer, the tick and Confirm at once, one press confirms -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    // The AI readings answer late on the live site (the case reader and the story reading, seconds
+    // after the page shows): held here 8 s, the case reader with the answer it gave live for the Charter story.
+    const picture = id === "c1-charter-police" ? { side: null, events: [], dates: [{ questionId: "case-date-act-or-omission", date: "2025-06-03", month: 6, day: 3, quote: "On June 3, 2025 in Ottawa I was stopped by two officers" }], amount: null, otherParty: null, married: null, childTogether: null } : null;
+    await page.route("**/api/case/read", async (route) => { await new Promise((done) => setTimeout(done, 8_000)); await route.fulfill({ json: picture ? { ok: true, picture } : { ok: true, skipped: "off" } }); });
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); }
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+    // Everything else answered or left as not known, except one question the story answers in one click.
+    const oneClick = panel.locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]');
+    // The review's first answer from the story, where it offers one (not every story gives one).
+    const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
+    const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    // From here at the live site's speed, and each press at once, with the mouse.
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    // A real mouse press where the element is (Playwright's own click: it waits until nothing covers it, as a person would).
+    const press = (target: ReturnType<typeof page.locator>) => target.click();
+    if (keep) await press(panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first());
+    await press(page.getByTestId("intake-review-acknowledgement"));
+    // The late reading lands between the tick and the press, as it can for a person.
+    await page.waitForTimeout(10_000);
+    await press(page.getByTestId("intake-confirm"));
+    await expect(panel, "one press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+  });
+}
+
+// Root cause 3 against the real (staging) database, as Chrome did it on the live site: a real
+// account and real saves; every AI route is answered by this commit's own code (nothing spends).
+// Run by hand: STAGING_RC3=1 against a build made with the staging environment.
+test("retest-27oct root cause 3 on staging: the Charter review, a one-click answer, the tick and Confirm at once", async ({ page }) => {
+  test.skip(!process.env.STAGING_RC3, "staging only, by hand");
+  test.setTimeout(600_000);
+  const story = byId("c1-charter-police");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const userId = await signInHarnessUser(page);
+  try {
+    await page.route("**/api/**", (route) => route.fulfill({ status: 503, json: { ok: false, error: "not in this test" } }));
+    await serveFromThisCommit(page, "civil", new Map());
+    await openBuilder(page, "civil", { story: story.story });
+    await guidedQuestions(page, story, true);
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+    const oneClick = panel.locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]');
+    const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
+    const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 30_000 }); }
+    if (keep) await panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first().click();
+    await page.getByTestId("intake-review-acknowledgement").click();
+    await page.getByTestId("intake-confirm").click();
+    const bounced = page.getByText(/Your initial facts changed|Initial information changed while saving/);
+    await expect(panel.or(bounced).first()).toBeVisible();
+    await expect.poll(async () => (await bounced.count()) ? "bounced" : await panel.getAttribute("data-phase"), { timeout: 90_000, message: "one press confirms" }).toBe("user-confirmed");
+  } finally {
+    await deleteHarnessUser(userId).catch(() => {});
+  }
+});
+
