@@ -20,13 +20,20 @@ const managedPort = 3100;
 // in the runner, so every worker of this run shares it and the next run gets its own.
 process.env.STORY_PACK_RUN_ID ||= `local-${new Date().toISOString().replace(/[:.]/g, "-")}`;
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || `http://localhost:${managedPort}`;
+/**
+ * At real speed (BROWSER_SPEED=slow, tests/browser/harness/speed.ts) the account and database
+ * calls take 1.5 s each, so the defaults for a step the test sets no limit for are four times
+ * longer. A limit a test sets itself is kept: it is the property being checked ("within 1 s").
+ */
+const slow = process.env.BROWSER_SPEED === "slow";
 
 export default defineConfig({
   testDir: "tests/browser",
   reporter: "line",
   timeout: 10_000,
   workers: 1,
-  use: { baseURL, actionTimeout: 8_000, navigationTimeout: 8_000, trace: "retain-on-failure", screenshot: "only-on-failure" },
+  expect: { timeout: slow ? 20_000 : 5_000 },
+  use: { baseURL, actionTimeout: slow ? 32_000 : 8_000, navigationTimeout: slow ? 32_000 : 8_000, trace: "retain-on-failure", screenshot: "only-on-failure" },
   /*
    * The cold Next compile happens during this health probe, BEFORE any spec
    * navigates, so the existing specs keep their 8s navigationTimeout without

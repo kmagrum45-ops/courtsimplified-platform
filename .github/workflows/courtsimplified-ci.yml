@@ -574,14 +574,22 @@ jobs:
   # (BROWSER_SPEED=slow: each analysis held 20 s, each account and database call 1.5 s, as on
   # the live site; tests/browser/harness/speed.ts). Case 11 passed every instant test and failed
   # live, because the wait it hid could not be seen when answers came at once.
+  # Real speed in four parts, split by TEST (--fully-parallel; workers stay 1): in one job it reached
+  # test 92 of 182 at its 75-minute limit (#488, 27 Oct: about 0.75 min a test), so each part of
+  # about 46 tests takes about 35 min, under half its limit.
   browser-regression:
-    name: browser-regression (${{ matrix.speed }})
+    name: browser-regression (${{ matrix.label }})
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ matrix.speed == 'slow' && 45 || 15 }}
+    timeout-minutes: ${{ matrix.speed == 'slow' && 75 || 15 }}
     strategy:
       fail-fast: false
       matrix:
-        speed: [instant, slow]
+        include:
+          - { speed: instant, part: "1/1", label: instant }
+          - { speed: slow, part: "1/4", label: slow-1 }
+          - { speed: slow, part: "2/4", label: slow-2 }
+          - { speed: slow, part: "3/4", label: slow-3 }
+          - { speed: slow, part: "4/4", label: slow-4 }
 
     env:
       BROWSER_SPEED: ${{ matrix.speed }}
@@ -661,6 +669,7 @@ jobs:
           tests/browser/stage-rule.spec.ts
           tests/browser/items-8-12.spec.ts
           --reporter=line --workers=1
+          --shard=${{ matrix.part }} --fully-parallel
 
       # A failure that does not reproduce locally needs the page as CI saw it.
       # These specs use synthetic accounts only and keep traces off, so this
@@ -669,7 +678,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: browser-regression-failures-${{ matrix.speed }}
+          name: browser-regression-failures-${{ matrix.label }}
           path: test-results/**/error-context.md
           retention-days: 7
           if-no-files-found: ignore
