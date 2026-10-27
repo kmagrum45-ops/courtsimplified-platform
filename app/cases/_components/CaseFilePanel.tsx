@@ -65,8 +65,10 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
 export default function CaseFilePanel({ file, changeHref, situationHref, stepHref, deadlines = [] }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string; deadlines?: CountedDeadline[] }) {
   // The conference is the next court date: one day is listed once (26 Oct re-test, case 16 showed it twice).
   const sameDay = courtDateIsConference(file);
-  const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file) && !(fact === "courtDate" && sameDay));
   const fromStory = storyLines(file.story ?? "", file, file.side.state === "answered" && file.side.value === "responding");
+  // A fact answered "not sure" that the story gives is listed once, in the story's words (from your story).
+  const toldInStory = new Set<string>(fromStory.map((line) => (line.fact === "amountAgainst" ? "amount" : line.fact)));
+  const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file) && !(fact === "courtDate" && sameDay) && !(file[fact].state === "unsure" && toldInStory.has(fact)));
   if (!lines.length && !fromStory.length && !deadlines.length) return null;
   return (
     <section aria-labelledby="case-file-heading" data-testid="case-file" className="rounded-3xl border border-[#d8e6df] bg-white p-5">

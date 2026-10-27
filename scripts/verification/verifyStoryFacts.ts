@@ -195,6 +195,15 @@ for (const [story, want] of [
   const served = reviewEntries({ version: 1, flowId: "00000000-0000-4000-8000-000000000011", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000011", sections: { story: { text: "Synthetic." }, situation: { record: { where: "served", papers: "small-claims-7A", receivedOn: "2026-10-01", court: "small-claims" } } } } as never).find((entry) => entry.field === "filedDocuments");
   check("Small Claims review: the papers from the start carry the form's choices", Boolean(served?.choices?.some((choice) => choice.value === "plaintiffs-claim" && /Plaintiff’s Claim/.test(choice.label))), JSON.stringify(served));
 }
+{
+  // The full story pack (27 Oct): "The other party: Not sure yet" on a Charter case whose story names
+  // the police service and the badges. An answer of "not sure" leaves the story's words shown.
+  const unsureFile = { ...caseFileOf({ version: 1, flowId: "00000000-0000-4000-8000-000000000027", courtPath: "civil", revision: "00000000-0000-4000-8000-000000000027", sections: { story: { text: "Synthetic." } } } as never), otherParty: { state: "unsure", confirmed: true } } as ReturnType<typeof caseFileOf>;
+  const said = storyLines("On June 3, 2025 I was stopped by two officers of the TEST Capital Region Police Service, badges 4471 and 5520.", unsureFile, false).find((line) => line.fact === "otherParty");
+  check("'not sure' to the other party: the story's words are still shown", /4471 and 5520/.test(said?.value ?? ""), JSON.stringify(said));
+  const panel = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseFilePanel.tsx"), "utf8");
+  check("and the fact is listed once, not also as 'Not sure yet'", /state === "unsure" && toldInStory\.has\(fact\)/.test(panel));
+}
 check("Small Claims papers read as words", !/plaintiffs-claim|affidavit-service/.test(inWords(["plaintiffs-claim", "affidavit-service"])), inWords(["plaintiffs-claim", "affidavit-service"]));
 {
   const guidedReview = reviewEntries({ version: 1, flowId: "00000000-0000-4000-8000-000000000018", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000018", sections: { story: { text: "Synthetic." }, builder: { step: "guided" }, guided: { facts: {} }, situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } } } } as never);

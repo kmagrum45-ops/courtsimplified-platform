@@ -39,14 +39,16 @@ const FACT_LINES: [StoryLine["fact"], string, (story: string) => StoryFact | nul
 export function storyLines(story: string, file: CaseFile, responding: boolean): StoryLine[] {
   const lines: StoryLine[] = [];
   if (!story.trim()) return lines;
-  if (file.otherParty.state === "not-asked") {
+  // Not answered, or answered "not sure" while the story says it (Charter case: "Not sure yet" beside a
+  // story naming the police service and the badges): the story's words, marked as from the story.
+  if (file.otherParty.state !== "answered") {
     // A business and the person behind it, or who they are to the person (storyFacts.ts), else the
     // older readers' name or role (Charter re-test 27 Oct: the other side was never listed).
     const named = otherSideIn(story) ?? otherPartyNameFromStory(story) ?? otherPartyFromStory(story);
     if (named) lines.push({ fact: "otherParty", label: "The other party", value: named.value, quote: named.quote });
   }
   // The amount the story gives, when no answer holds one: every case lists its loss (root cause 1).
-  if (!responding && file.amount.state === "not-asked") {
+  if (!responding && file.amount.state !== "answered") {
     const amount = claimAmountFromStory(story);
     if (amount) lines.push({ fact: "amount", label: "Amount", value: amount.value, quote: amount.quote });
   }
@@ -55,7 +57,7 @@ export function storyLines(story: string, file: CaseFile, responding: boolean): 
     if (said) lines.push({ fact: "marriedWhere", label: "Where you married", value: said.place, quote: said.quote });
   }
   // The claim against them: the amount and who is suing, in their words (case 19).
-  if (responding && file.amount.state === "not-asked") {
+  if (responding && file.amount.state !== "answered") {
     const against = moneyMentions(story).filter((mention) => mention.kind === "against");
     if (against.length && new Set(against.map((mention) => mention.number)).size === 1) lines.push({ fact: "amountAgainst", label: "The claim against you", value: against[0].quote.trim(), quote: against[0].quote });
     else {
