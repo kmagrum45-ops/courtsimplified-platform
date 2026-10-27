@@ -566,11 +566,22 @@ jobs:
   # comments, not by a local pass here. Once it has run clean on a few real
   # PRs, promoting it to a required check alongside typecheck-and-build is a
   # one-line change to the repo's ruleset.
+  #
+  # Run at two speeds (site owner, 2026-10-26): instant, as the stubs answer, and real speed
+  # (BROWSER_SPEED=slow: each analysis held 20 s, each account and database call 1.5 s, as on
+  # the live site; tests/browser/harness/speed.ts). Case 11 passed every instant test and failed
+  # live, because the wait it hid could not be seen when answers came at once.
   browser-regression:
+    name: browser-regression (${{ matrix.speed }})
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: ${{ matrix.speed == 'slow' && 45 || 15 }}
+    strategy:
+      fail-fast: false
+      matrix:
+        speed: [instant, slow]
 
     env:
+      BROWSER_SPEED: ${{ matrix.speed }}
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1
       # Staging only -- same reasoning as courtsimplified-walkthrough.yml. The
@@ -655,7 +666,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: browser-regression-failures
+          name: browser-regression-failures-${{ matrix.speed }}
           path: test-results/**/error-context.md
           retention-days: 7
           if-no-files-found: ignore
