@@ -30,6 +30,12 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
     test: "C: a question typed as a Small Claims guided answer is not silently saved as the answer",
   },
   {
+    id: "C-mixed-answer-not-split",
+    reason:
+      "An answer that is part statement, part question (\"$1,500, can I ask for more?\") is kept whole as the amount: the statement is not saved on its own and the question is never kept open for an answer (orchestrateIntakeTurn.ts, the capturesField copy).",
+    test: "C: a mixed answer (\"$1,500, can I ask for more?\") saves the statement and keeps the question open",
+  },
+  {
     id: "C-guided-form-question-saved",
     reason:
       "A question typed into a civil or Family one-at-a-time answer box (\"Is there a deadline?\") passes the only check before keeping (GuidedFormChat.tsx answerNeedsMore) and is saved as the answer.",

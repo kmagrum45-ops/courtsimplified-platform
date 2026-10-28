@@ -2170,3 +2170,25 @@ Things that cost time and are worth knowing:
   needs leave" say; they are shown beside them (sentenceRules.ts). r. 13.1.01 does not say a place
   is appropriate "because the events occurred there"; (2) asks for a county with a rational
   connection, on the factors in 13.1.02 (2) (b).
+
+### What the Small Claims Court can order (2026-10-29, owner's item H1)
+
+Retrieved 2026-10-29 from `https://www.ontario.ca/laws/docs/90c43_e.doc` (Courts of Justice Act,
+consolidation from December 11, 2025; last amendment 2025, c. 24, Sched. 7), read as text:
+
+- s. 23 (1): "The Small Claims Court, (a) has jurisdiction in any action for the payment of money
+  where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;
+  and (b) has jurisdiction in any action for the recovery of possession of personal property where
+  the value of the property does not exceed the prescribed amount."
+- s. 25: "The Small Claims Court shall hear and determine in a summary way all questions of law and
+  fact and may make such order as is considered just and agreeable to good conscience."
+- s. 96 (3): "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small
+  Claims Court, may grant equitable relief, unless otherwise provided."
+- s. 97: "The Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims
+  Court, may make binding declarations of right, whether or not any consequential relief is or
+  could be claimed."
+
+So the Act gives the Small Claims Court actions for money and for the return of personal property
+(s. 23 (1)); equitable relief and declarations are expressly excluded (ss. 96 (3), 97). An order
+to apologise is neither money nor property. s. 25's "such order as is considered just" sits within
+the s. 23 jurisdiction; no decision was read for this note, so nothing here rests on case law.

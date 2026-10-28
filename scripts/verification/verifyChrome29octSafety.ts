@@ -75,6 +75,8 @@ export const MUST_FLAG = [
   "I don't feel safe at home.",
   "I'm not safe with him.",
   "He follows me to work.",
+  // Owner, 29 Oct: a threat with a denial in the same sentence is still a threat. When unsure, flagged.
+  "he threatens me but no violence yet",
 ];
 export const MUST_NOT_FLAG = [
   "No violence. He's a good dad just unreliable.",

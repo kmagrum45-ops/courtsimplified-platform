@@ -60,6 +60,31 @@ const checks: Check[] = [
     },
   },
   {
+    // Owner, 29 Oct: a mixed answer is split. The statement is saved; the question stays open for
+    // the checked answer. Typed in the amount question: "$1,500" is the amount, "can I ask for more?"
+    // is the person's question.
+    name: "C: a mixed answer (\"$1,500, can I ask for more?\") saves the statement and keeps the question open",
+    run: async () => {
+      const typed = "$1,500, can I ask for more?";
+      const amount = QUESTION_BANK.find((q) => q.id === "sc-amount-claimed");
+      if (!amount?.capturesField) return ["the Small Claims amount question (sc-amount-claimed) was not found"];
+      const result = await orchestrateIntakeTurn({}, [], typed, "stub-key", QUESTION_BANK, CLAIM_TYPES, "small-claims", amount.id, {
+        runSafety: async () => ({ classification: "clear" as const, reason: "stub", requestsLegalAdvice: false }),
+        extractFacts: async () => ({ facts: {}, directFields: [] }),
+        classifyClaimType: async () => null,
+        composeVoice: async () => ({ leadIn: null, questionText: "", fellBackToPlainText: true }),
+        proposeAnswers: async () => [],
+      } as never);
+      const saved = String((result.facts as Record<string, unknown>)[amount.capturesField] ?? "");
+      const problems: string[] = [];
+      if (!/1,?500/.test(saved)) problems.push(`the statement part is not saved as the amount (saved "${saved}")`);
+      if (/can i ask/i.test(saved)) problems.push(`the question part is saved inside the answer ("${saved}")`);
+      const elsewhere = JSON.stringify({ ...result, facts: undefined });
+      if (!/can I ask for more\?/i.test(elsewhere)) problems.push("the question part is not kept open anywhere in the turn's result");
+      return problems;
+    },
+  },
+  {
     name: "C: a question typed into a civil or Family answer box is not kept as the answer without a note",
     run: () => {
       const problems: string[] = [];
