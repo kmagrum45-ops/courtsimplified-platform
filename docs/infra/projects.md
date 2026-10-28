@@ -237,6 +237,11 @@ runs the same cleanup at its start. Run on 2026-10-28: 538 deleted, 0 failed, 4 
 remained, 115 of them on one `gmail.com` account). The database keeps freed space for itself: the usage figure
 drops only after `VACUUM FULL` on the large tables, run in staging's SQL editor.
 
+That account is the site owner's own test account (checked 2026-10-28). On the owner's instruction its cases
+made 18-23 Oct were deleted with `-- --account-cases --email <address> --from 2026-10-18 --to 2026-10-23
+--keep-newest 5 --confirm` (`scripts/db/accountCases.ts`; days are Toronto days, the newest cases are always
+kept): 110 cases and 13 uploaded files deleted, 0 failed; the account and its 5 newest cases kept.
+
 ## Verifying this file yourself
 
 ```
