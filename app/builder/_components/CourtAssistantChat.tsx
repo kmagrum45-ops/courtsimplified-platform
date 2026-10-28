@@ -1,4 +1,5 @@
 "use client";
+import { limitMessageOf } from "../../../src/lib/security/limitWords";
 import { authHeaders } from "../../cases/_components/CaseHomeContext";
 import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
@@ -1012,6 +1013,8 @@ function CourtAssistantChatInner({
       })();
     }
 
+    // A limit reached is said as it is, with when to come back (limitWords.ts), not "try again in a moment".
+    let limited: string | null = null;
     try {
       const ask = async () => fetch("/api/guided-assistant", {
         method: "POST",
@@ -1040,6 +1043,7 @@ function CourtAssistantChatInner({
       }
 
       const data: GuidedAssistantResponse = await response.json();
+      limited = limitMessageOf(response.status, data);
 
       if (!response.ok || !data.ok) {
         throw new Error(
@@ -1137,7 +1141,7 @@ function CourtAssistantChatInner({
       setMessages((current) => [...current, { role: "assistant", content: "" }]);
       if (!(await lawLookup)) {
         setMessages((current) => current.map((message, index) => index === reply
-          ? { ...message, content: "CourtSimplified could not respond right now. Please try again in a moment." }
+          ? { ...message, content: limited ?? "CourtSimplified could not respond right now. Please try again in a moment." }
           : message));
       }
     } finally {

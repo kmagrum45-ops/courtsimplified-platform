@@ -1,4 +1,5 @@
 "use client";
+import { limitMessageOf } from "../../src/lib/security/limitWords";
 import { authHeaders } from "../cases/_components/CaseHomeContext";
 
 import { useState } from "react";
@@ -16,7 +17,8 @@ type State =
   | { status: "idle" }
   | { status: "loading" }
   | { status: "done"; explanation: string }
-  | { status: "unavailable" };
+  | { status: "unavailable" }
+  | { status: "limited"; message: string };
 
 export default function ExplainProvision({ id }: { id: string }) {
   const [state, setState] = useState<State>({ status: "idle" });
@@ -30,7 +32,9 @@ export default function ExplainProvision({ id }: { id: string }) {
         body: JSON.stringify({ id }),
       });
       const body = (await response.json()) as { ok?: boolean; explanation?: string };
-      setState(body.ok && body.explanation ? { status: "done", explanation: body.explanation } : { status: "unavailable" });
+      // A limit reached is said as it is, not as a failed check (limitWords.ts).
+      const limited = limitMessageOf(response.status, body);
+      setState(limited ? { status: "limited", message: limited } : body.ok && body.explanation ? { status: "done", explanation: body.explanation } : { status: "unavailable" });
     } catch {
       setState({ status: "unavailable" });
     }
@@ -50,6 +54,9 @@ export default function ExplainProvision({ id }: { id: string }) {
   }
   if (state.status === "loading") {
     return <p className="mt-2 text-xs text-[#4d675f]">Writing and checking an explanation…</p>;
+  }
+  if (state.status === "limited") {
+    return <p className="mt-2 text-xs text-[#4d675f]" data-testid="ai-limit-reached">{state.message} The provision&apos;s own words are above.</p>;
   }
   if (state.status === "unavailable") {
     return (

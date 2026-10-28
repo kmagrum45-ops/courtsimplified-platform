@@ -28,6 +28,7 @@
  */
 
 import { createHash } from "node:crypto";
+import { dailyLimitWords, visitorLimitWords } from "./limitWords";
 
 export type AiRouteGroup = "understand" | "light" | "safety";
 
@@ -171,10 +172,8 @@ export async function takeAiAllowance(request: Request, group: AiRouteGroup, dep
 export function refusedResponseBody(result: Extract<AllowanceResult, { allowed: false }>) {
   return {
     ok: false,
-    error:
-      result.reason === "visitor"
-        ? "You have reached the limit for this for now. Please try again in an hour."
-        : "The site has reached its limit for today. Please try again tomorrow.",
+    // One copy of the words (limitWords.ts), which every screen reads back.
+    error: result.reason === "visitor" ? visitorLimitWords() : dailyLimitWords(),
     limited: result.reason,
   };
 }

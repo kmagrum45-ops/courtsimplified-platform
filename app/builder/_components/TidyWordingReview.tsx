@@ -1,4 +1,5 @@
 "use client";
+import { limitMessageOf } from "../../../src/lib/security/limitWords";
 import { authHeaders } from "../../cases/_components/CaseHomeContext";
 
 import { useState } from "react";
@@ -66,6 +67,9 @@ export default function TidyWordingReview({ fields }: { fields: TidyableField[] 
           body: JSON.stringify({ fields: fieldsInBatch }),
         });
         const body = (await response.json()) as { ok?: boolean; suggestions?: Suggestion[]; error?: string };
+        // A limit reached is said as it is, with when to come back (limitWords.ts).
+        const limited = limitMessageOf(response.status, body);
+        if (limited) { setMessage(`${limited} Your own words are unchanged.`); return; }
         if (!response.ok || !body.ok) throw new Error(body.error || "unavailable");
         all.push(...(body.suggestions || []));
       }

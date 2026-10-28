@@ -10,7 +10,8 @@
  * site is busy; a raw address kept as the visitor's id; a test harness that sends one
  * fixed visitor address, so every CI run in flight shares one hourly limit; a CI job that
  * counts its test calls in a shared database (AI_RATE_LIMITS=local must be set there, and the
- * local limit must still hold in that mode).
+ * local limit must still hold in that mode); a refusal not in plain words or without when to
+ * come back, and a screen that shows its own guess instead of the limit's words (limitWords.ts).
  *
  * COSTS NOTHING: no model, no network (the database is a fake).
  */
@@ -21,10 +22,12 @@ import path from "node:path";
 import {
   VISITOR_LIMITS,
   clientAddress,
+  refusedResponseBody,
   resetLocalLimits,
   takeAiAllowance,
   visitorId,
 } from "../../src/lib/security/aiRateLimit";
+import { dailyLimitWords, limitMessageOf } from "../../src/lib/security/limitWords";
 
 let failures = 0;
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -152,6 +155,49 @@ async function main() {
   // The hourly visitor count is shared across every run in flight (the database layer), so a
   // harness that names one fixed address makes all CI runs one visitor, and the limit runs out
   // part-way through a suite (case 05, 25 Oct, browser harness; #488, 28 Oct, chat harness).
+  // What a person is told (owner, 28 Oct): plain words, with when to come back, read back on every screen.
+  await check("a refusal says plainly which limit and when to come back", () => {
+    const visitor = refusedResponseBody({ allowed: false, reason: "visitor" });
+    const daily = refusedResponseBody({ allowed: false, reason: "daily" });
+    assert.match(visitor.error, /in an hour\./);
+    assert.match(daily.error, /starts again at \d{1,2}( |:\d\d )[ap]\.m\. Toronto time\./);
+    assert.equal(dailyLimitWords(Date.UTC(2026, 9, 28, 15)), dailyLimitWords(Date.UTC(2026, 9, 28, 23)), "one reset time all day");
+    assert.match(dailyLimitWords(Date.UTC(2026, 9, 28, 15)), /8 p\.m\./, "midnight UTC is 8 p.m. in Toronto in October");
+    assert.equal(limitMessageOf(429, visitor), visitor.error);
+    assert.equal(limitMessageOf(429, daily), daily.error);
+    assert.equal(limitMessageOf(500, visitor), null, "only a 429 is a limit");
+    assert.equal(limitMessageOf(429, { error: "Something else" }), null, "only a limit refusal is read as one");
+  });
+
+  await check("every screen that calls a limited route shows the limit's own words", () => {
+    const api = path.join(process.cwd(), "app", "api");
+    const limitedRoutes: string[] = [];
+    const walkApi = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (statSync(full).isDirectory()) walkApi(full);
+        else if (name === "route.ts" && /aiLimitResponse\(/.test(readFileSync(full, "utf8"))) limitedRoutes.push("/api/" + path.relative(api, path.dirname(full)).split(path.sep).join("/"));
+      }
+    };
+    walkApi(api);
+    const screens: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (name === "api" || name === "node_modules") continue;
+        if (statSync(full).isDirectory()) walk(full);
+        else if (/\.tsx?$/.test(name)) screens.push(full);
+      }
+    };
+    walk(path.join(process.cwd(), "app"));
+    const silent = screens.filter((file) => {
+      const source = readFileSync(file, "utf8");
+      return limitedRoutes.some((route) => source.includes(`"${route}"`) || source.includes(`\`${route}`)) && !/limitMessageOf\(/.test(source);
+    });
+    assert.ok(limitedRoutes.length >= 5, `found ${limitedRoutes.length} limited routes`);
+    assert.deepEqual(silent.map((f) => path.relative(process.cwd(), f)), []);
+  });
+
   await check("test harnesses never send a fixed visitor address", () => {
     const files: string[] = [];
     const walk = (dir: string) => {
