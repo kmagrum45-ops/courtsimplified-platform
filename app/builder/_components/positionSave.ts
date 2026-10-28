@@ -494,6 +494,8 @@ const replayed = new Set<string>();
 export function resetPageForChecks() {
   replayed.clear();
   replayedPatches.clear();
+  formsReplayed.clear();
+  formsWatched.clear();
   watched.clear();
   chains.clear();
   inFlight.clear();
@@ -550,25 +552,36 @@ function watchPageClose(caseId: string) {
       accessToken = data.session?.access_token ?? accessToken;
     })
     .catch(() => {});
-  if (pageCloseListening) return;
+  listenForPageClose();
+}
+
+function listenForPageClose() {
+  if (pageCloseListening || typeof window === "undefined") return;
   pageCloseListening = true;
   window.addEventListener("pagehide", () => sendPendingAsPageCloses());
 }
 
+type CloseSend = { caseId: string; url: string; method: "POST" | "PATCH"; body: Record<string, unknown> };
+
 /** What the page sends as it closes: each watched case's unsaved parts, merged in order. Exported for checks. */
-export function pendingSendsAsPageCloses(): { caseId: string; body: Record<string, unknown> }[] {
-  return casesWithPendingPositionSaves(watched)
+export function pendingSendsAsPageCloses(): CloseSend[] {
+  const positions = casesWithPendingPositionSaves(watched)
     .map((caseId) => ({ caseId, patch: mergePositionPatches(readPendingPositionSaves(caseId).map((entry) => entry.patch)) }))
     .filter((send): send is { caseId: string; patch: Record<string, unknown> } => Boolean(send.patch))
-    .map(({ caseId, patch }) => ({ caseId, body: { caseId, ...patch } }));
+    .map(({ caseId, patch }): CloseSend => ({ caseId, url: "/api/cases/position", method: "POST", body: { caseId, ...patch } }));
+  const choices = casesWithPendingPositionSaves(formsWatched, "formApplicability")
+    .map((caseId) => ({ caseId, patch: mergePositionPatches(readPendingPositionSaves(caseId, Date.now(), "formApplicability").map((entry) => entry.patch), "formApplicability") }))
+    .filter((send): send is { caseId: string; patch: Record<string, unknown> } => Boolean(send.patch))
+    .map(({ caseId, patch }): CloseSend => ({ caseId, url: "/api/cases/form-applicability", method: "PATCH", body: { caseId, formApplicability: patch } }));
+  return [...positions, ...choices];
 }
 
 function sendPendingAsPageCloses() {
   if (!accessToken) return;
-  for (const { body } of pendingSendsAsPageCloses()) {
+  for (const { url, method, body } of pendingSendsAsPageCloses()) {
     try {
-      void fetch("/api/cases/position", {
-        method: "POST",
+      void fetch(url, {
+        method,
         keepalive: true,
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
         body: JSON.stringify(body),
@@ -577,6 +590,54 @@ function sendPendingAsPageCloses() {
       // Nothing more can be done as the page goes; the next page in this tab sends it again.
     }
   }
+}
+
+/*
+ * THE FORMS PAGE'S "DOES THIS FORM APPLY" CHOICES, THE SAME WAY (owner, 28 Oct). They go through
+ * the case's queue to /api/cases/form-applicability, so a reload while one waited lost it as a date
+ * was lost. Written down first (kind "formApplicability"), crossed off once the route saved it or
+ * refused it; the next Forms page in this tab sends what is left before it reads the choices.
+ */
+const formsReplayed = new Set<string>();
+const formsWatched = new Set<string>();
+/** Set only by checks: what the forms route answers instead of the network. */
+let formsRouteForChecks: ((body: Record<string, unknown>) => Promise<Response | null>) | null = null;
+export function setFormsRouteForChecks(route: typeof formsRouteForChecks) {
+  formsRouteForChecks = route;
+}
+
+/** Whether a route's answer settles a save: saved, or refused for good (a 4xx that is not about sign-in or timing). */
+function settles(response: Response | null): boolean {
+  if (!response) return false;
+  return response.ok || (response.status >= 400 && response.status < 500 && ![401, 408, 409, 429].includes(response.status));
+}
+
+/** Saves the Forms page's choices through the case's queue, written down first. Returns the route's answer (null: none). */
+export async function saveFormApplicabilityQueued(caseId: string, formApplicability: Record<string, unknown>, token: string): Promise<Response | null> {
+  await replayPendingFormApplicability(caseId, token);
+  const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: Date.now(), patch: formApplicability };
+  addPendingPositionSave(caseId, pending, "formApplicability");
+  formsWatched.add(caseId);
+  accessToken = token;
+  listenForPageClose();
+  const body = { caseId, formApplicability };
+  const response = formsRouteForChecks
+    ? await formsRouteForChecks(body)
+    : await caseRouteWrite(caseId, "/api/cases/form-applicability", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(body),
+      });
+  if (settles(response)) settlePendingPositionSave(caseId, pending.id, "formApplicability");
+  return response;
+}
+
+/** Sends, once per page, the Forms choices an earlier page in this tab left unsaved; resolves once sent. */
+export async function replayPendingFormApplicability(caseId: string, token: string): Promise<void> {
+  if (formsReplayed.has(caseId)) return;
+  formsReplayed.add(caseId);
+  const left = takePendingPositionSaves(caseId, "formApplicability");
+  if (left) await saveFormApplicabilityQueued(caseId, left, token);
 }
 
 /** Saves the person's own choice to the case, after any write to it already on its way. */

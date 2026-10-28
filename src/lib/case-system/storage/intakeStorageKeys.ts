@@ -138,6 +138,19 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
       "and replayed through the same save, which drops dates from an earlier story. Dropped after 30 minutes.",
   },
   {
+    key: "courtSimplifiedPendingFormApplicability:",
+    area: "session",
+    scope: "guest",
+    matches: "prefix",
+    holdsCaseContent: true,
+    storyData: "analysis-gate",
+    note:
+      "A save of the Forms page's \"does this form apply\" choices still on its way, written down before it is sent and " +
+      "crossed off once the case holds it; sent by the next Forms page in this tab before it reads the choices, or as " +
+      "the tab closes (pendingPositionSaves.ts, 28 Oct). Suffixed by case id. The same choices as master_result.formApplicability. " +
+      "Dropped after 30 minutes.",
+  },
+  {
     key: "courtsimplified-ai-case-partner-chat:narrative-prefill",
     area: "session",
     scope: "guest",
@@ -412,6 +425,7 @@ export const WORKSPACE_DOCUMENT_KEY = "courtSimplifiedWorkspaceDocument";
 export const PARSED_MESSAGES_KEY = "courtsimplified_parsed_messages";
 export const BUILDER_LAST_CASE_KEY = "courtSimplifiedBuilderLastCase";
 export const PENDING_POSITION_SAVE_KEY = "courtSimplifiedPendingPositionSave:";
+export const PENDING_FORM_APPLICABILITY_KEY = "courtSimplifiedPendingFormApplicability:";
 
 /** Every individually-named constant, for the registry-coverage check. */
 export const NAMED_STORAGE_KEYS = [
@@ -426,4 +440,5 @@ export const NAMED_STORAGE_KEYS = [
   PARSED_MESSAGES_KEY,
   BUILDER_LAST_CASE_KEY,
   PENDING_POSITION_SAVE_KEY,
+  PENDING_FORM_APPLICABILITY_KEY,
 ] as const;

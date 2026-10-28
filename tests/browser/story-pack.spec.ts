@@ -1686,3 +1686,62 @@ for (const [court, id, questionId] of [["civil", "w5-civil-going-defence", "case
     });
   }
 }
+
+// Owner, 28 Oct (#501): the Forms page's "does this form apply" choices go through the same write
+// queue as the dates, and were lost the same way on a reload while a save waited. Here a confirmed
+// case's Forms page saves one choice with the save held as a slow connection holds it, the page
+// reloads before it lands, and the choice must still reach the case and show as given, in every area.
+// A held save still waiting when its page goes never reaches the stub, as a request cut off with its
+// page never reaches the server.
+for (const [court, id, question, pick, value] of [
+  ["small-claims", "sc-deck-owed", "Have you confirmed this is an eligible Ontario Small Claims Court matter?", "Yes", true],
+  ["civil", "civil-deposit", "Which civil response document are you preparing?", "Notice of Intent to Defend", "notice-of-intent-to-defend"],
+  ["family", "family-spousal", "Is this a general Family Application?", "Yes", true],
+] as const) {
+  test(`28oct lost save: a form choice saved just before a reload is kept -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
+    await confirmAndContinue(page);
+    const caseId = String(([...account.rows.values()][0] as Record<string, unknown>).id ?? "");
+    expect(caseId, "the case is saved").not.toBe("");
+    const group = court === "small-claims" ? "smallClaims" : court;
+    const field = court === "small-claims" ? "eligibilityConfirmed" : court === "civil" ? "responseDocument" : "isGeneralApplication";
+    const choices = typeof value === "boolean" ? [{ value: true, label: "Yes" }, { value: false, label: "No" }, { value: "not-sure", label: "Not sure" }] : [{ value: "statement-of-defence", label: "Statement of Defence" }, { value: "notice-of-intent-to-defend", label: "Notice of Intent to Defend" }, { value: "not-sure", label: "Not sure" }];
+    const asked = { field_path: `formApplicability.${group}.${field}`, question, value_type: typeof value === "boolean" ? "boolean" : "string", choices };
+    const stored: Record<string, Record<string, unknown>> = {};
+    let pageGeneration = 0;
+    // A full page load (a reload), not an address rewrite within the page.
+    page.on("load", () => { pageGeneration += 1; });
+    const held = { on: false };
+    await page.route(/\/api\/cases\/form-applicability(?:\?caseId=)?/, async (route) => {
+      if (route.request().method() === "PATCH") {
+        const startedOn = pageGeneration;
+        if (held.on) await new Promise((done) => setTimeout(done, 8_000));
+        if (pageGeneration !== startedOn) return route.abort().catch(() => {});
+        const body = route.request().postDataJSON() as { formApplicability?: Record<string, Record<string, unknown>> };
+        for (const [part, answers] of Object.entries(body.formApplicability ?? {})) stored[part] = { ...stored[part], ...answers };
+      }
+      await route.fulfill({ status: 200, json: { courtPath: court, formApplicability: stored, applicabilityQuestions: [asked], recommendations: [] } }).catch(() => {});
+    });
+    await page.goto(`/forms?caseId=${caseId}`, { waitUntil: "domcontentloaded" });
+    const select = page.getByLabel(question);
+    await expect(select, "the choice is asked").toBeVisible({ timeout: 90_000 });
+    await select.selectOption({ label: pick });
+    // The choice shows as chosen (it never did before 28 Oct: the page read it from the wrong place).
+    await expect(select, "the choice shows as chosen").toHaveValue(JSON.stringify(value));
+    held.on = true;
+    await page.getByRole("button", { name: "Save confirmations" }).click();
+    // Reloaded while the save is still on its way; the next page's saves go at normal speed.
+    await page.waitForTimeout(500);
+    held.on = false;
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect.poll(() => stored[group]?.[field], { timeout: 60_000, message: "the choice reached the case" }).toEqual(value);
+    await expect(page.getByLabel(question), "and is shown as given").toHaveValue(new RegExp(String(value)), { timeout: 60_000 });
+  });
+}

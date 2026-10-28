@@ -11,13 +11,15 @@
  *     landed is sent by the next page, before it reads the case, and lands -- in every area;
  *   - a page that read the case before that send lands shows it at once (withReplayedPosition);
  *   - as the tab closes, each case's unsaved parts are what is sent;
- *   - the storage key is in the registry, session-only, cleared by the reset.
+ *   - the Forms page's "does this form apply" choices, the same way: written down, crossed off when
+ *     saved or refused for good, kept on no answer or a server error, sent by the next page, newer wins;
+ *   - the storage keys are in the registry, session-only, cleared by the reset.
  *
  * Failure it exists to catch: the Charter story's day it happened, counted on the next-step page,
  * lost when the page was left during its save, so the case page never showed the deadline; w5's
  * date asked again on the case page (GitHub story pack at real speed, 27-28 Oct).
  */
-import { INTAKE_STORAGE_KEYS, PENDING_POSITION_SAVE_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { INTAKE_STORAGE_KEYS, PENDING_FORM_APPLICABILITY_KEY, PENDING_POSITION_SAVE_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import {
   PENDING_MAX_AGE_MS,
   addPendingPositionSave,
@@ -31,7 +33,10 @@ import { readCasePosition } from "../../src/lib/case-system/casePosition";
 import {
   pendingSendsAsPageCloses,
   positionSavesSettled,
+  replayPendingFormApplicability,
   resetPageForChecks,
+  saveFormApplicabilityQueued,
+  setFormsRouteForChecks,
   savePositionQueuedOutcome,
   setPositionClientForChecks,
   setPositionSaveTimeoutForChecks,
@@ -143,9 +148,54 @@ async function main() {
   const failed = await savePositionQueuedOutcome("f", { stepId: "s" });
   check("a save that failed stays written down for the next page", failed === "failed" && readPendingPositionSaves("f").length === 1);
 
+  // --- The Forms page's "does this form apply" choices (owner, 28 Oct) ---------------------------------
+  tab.clear();
+  resetPageForChecks();
+  const sent: Record<string, unknown>[] = [];
+  const answer = (status: number | null) => async (body: Record<string, unknown>) => {
+    sent.push(body);
+    return status === null ? null : new Response("{}", { status });
+  };
+  // Page 1: no answer comes (the page is left while it waits).
+  setFormsRouteForChecks(answer(null));
+  await saveFormApplicabilityQueued("forms-case", { smallClaims: { claimingMoney: true } }, "token");
+  check("forms: a choice with no answer stays written down", readPendingPositionSaves("forms-case", Date.now(), "formApplicability").length === 1);
+  const close = pendingSendsAsPageCloses().find((send) => send.caseId === "forms-case" && send.url === "/api/cases/form-applicability");
+  check("forms: as the tab closes, the choice is what is sent, to the forms route", close?.method === "PATCH" && JSON.stringify(close.body).includes("claimingMoney"));
+  // Page 2: the next Forms page sends it before it reads the choices.
+  resetPageForChecks();
+  sent.length = 0;
+  setFormsRouteForChecks(answer(200));
+  await replayPendingFormApplicability("forms-case", "token");
+  check("forms: the next page sends it before reading, and once saved it is crossed off", JSON.stringify(sent[0] ?? {}).includes("claimingMoney") && readPendingPositionSaves("forms-case", Date.now(), "formApplicability").length === 0);
+  // A newer answer to the same question wins over the older one still written down.
+  tab.clear();
+  resetPageForChecks();
+  setFormsRouteForChecks(answer(null));
+  await saveFormApplicabilityQueued("forms-b", { smallClaims: { claimingMoney: true, other: "x" } }, "token");
+  setFormsRouteForChecks(answer(200));
+  await saveFormApplicabilityQueued("forms-b", { smallClaims: { claimingMoney: false } }, "token");
+  const leftOver = readPendingPositionSaves("forms-b", Date.now(), "formApplicability");
+  check(
+    "forms: a newer answer that landed takes the older answer to the same question out (the rest stays)",
+    leftOver.length === 1 && JSON.stringify(leftOver[0].patch) === JSON.stringify({ smallClaims: { other: "x" } }),
+    JSON.stringify(leftOver),
+  );
+  // Refused for good (400): crossed off, never sent again; a server error (500): kept.
+  tab.clear();
+  resetPageForChecks();
+  setFormsRouteForChecks(answer(400));
+  await saveFormApplicabilityQueued("forms-c", { civil: { x: true } }, "token");
+  setFormsRouteForChecks(answer(500));
+  await saveFormApplicabilityQueued("forms-d", { civil: { x: true } }, "token");
+  check("forms: refused for good is crossed off; a server error is kept", readPendingPositionSaves("forms-c", Date.now(), "formApplicability").length === 0 && readPendingPositionSaves("forms-d", Date.now(), "formApplicability").length === 1);
+  setFormsRouteForChecks(null);
+
   // --- The registry -------------------------------------------------------------------------------
   const entry = INTAKE_STORAGE_KEYS.find((item) => item.key === PENDING_POSITION_SAVE_KEY);
   check("the key is in the storage registry, session only, cleared by prefix", Boolean(entry) && entry!.area === "session" && entry!.matches === "prefix" && entry!.holdsCaseContent);
+  const formsEntry = INTAKE_STORAGE_KEYS.find((item) => item.key === PENDING_FORM_APPLICABILITY_KEY);
+  check("the forms key is in the storage registry, session only, cleared by prefix", Boolean(formsEntry) && formsEntry!.area === "session" && formsEntry!.matches === "prefix" && formsEntry!.holdsCaseContent);
 
   setPositionClientForChecks(null);
   setPositionSaveTimeoutForChecks(null);
