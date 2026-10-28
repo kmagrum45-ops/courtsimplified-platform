@@ -1690,14 +1690,15 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
 
       {depthActive ? (
         <div className="mt-3 flex items-center gap-3">
-          <WorkingButton
+          {/* Held while a turn runs; the Send button beside it says what is working (fresh review, 28 Oct). */}
+          <button
+            type="button"
             onClick={handleSkipDepth}
-            working={loading}
-            workingLabel="Working on it…"
+            disabled={loading}
             className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#4d675f] disabled:opacity-50"
           >
             Skip these questions
-          </WorkingButton>
+          </button>
           <span className="text-xs text-[#6b8078]">
             Question {depthIndex + 1} of {depthQuestions.length}. Answering is optional — if you
             don&apos;t know, say so and we&apos;ll record that.

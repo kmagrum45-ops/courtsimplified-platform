@@ -22,7 +22,10 @@ const check = (name: string, ok: boolean, detail = "") => {
 };
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
-const WORK_STATE = /\b(loading|saving|busy|sending|submitting|working|resolving\w*|generating\w*|uploading|confirming|counting|leaving|savingMaster|applicabilitySaving|helpState|dateStatus|busyId|busyAction)\b/;
+// A state named for work in progress, by its usual forms: "saving", "isSaving", "savingLegacy", "applicabilitySaving"
+// (fresh review, 28 Oct: a fixed list missed isAnalyzing, updating, building, checking).
+const WORK_WORDS = "loading|saving|busy|sending|submitting|working|resolving|generating|uploading|confirming|counting|leaving|analy[sz]ing|updating|building|checking|opening|deleting|refreshing|fetching|reading|creating|pending";
+const WORK_STATE = new RegExp(`\\b((?:is)?(?:${WORK_WORDS})\\w*|\\w+(?:${WORK_WORDS.split("|").map((word) => word[0].toUpperCase() + word.slice(1)).join("|")})\\w*|helpState|dateStatus|busyId|busyAction)\\b`);
 
 function files(dir: string, out: string[] = []): string[] {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -55,6 +58,24 @@ export function buttonsIn(source: string): { at: number; tag: string; body: stri
   return out;
 }
 
+/** Names of the functions in a file that await something (a request, a save): the slow work a click can start. */
+export function asyncFunctionsIn(source: string): Set<string> {
+  const names = new Set<string>();
+  for (const match of source.matchAll(/(?:async function (\w+)\s*\(|(?:const|let) (\w+) = async\b)/g)) {
+    const name = match[1] ?? match[2];
+    const body = source.slice(match.index ?? 0, (match.index ?? 0) + 4000);
+    if (/\bawait\b/.test(body)) names.add(name);
+  }
+  return names;
+}
+
+/** Whether a button's click starts awaited work: an inline async handler, or a call to one of those functions. */
+export function startsAwaitedWork(tag: string, awaiting: Set<string>): boolean {
+  const click = tag.match(/onClick=\{([\s\S]*)\}/)?.[1] ?? "";
+  if (/\basync\b[\s\S]*\bawait\b/.test(click)) return true;
+  return [...awaiting].some((name) => new RegExp(`\\b${name}\\s*\\(`).test(click) || new RegExp(`onClick=\\{\\s*${name}\\s*\\}`).test(tag));
+}
+
 /** The work state a disabled={…} expression waits on, if any. */
 export function heldBy(tag: string): string | null {
   const disabled = tag.match(/disabled=\{([^}]*)\}/)?.[1] ?? "";
@@ -75,6 +96,7 @@ export function spoken(source: string, state: string): boolean {
 function main() {
   const all = files(path.join(ROOT, "app"));
   const unspoken: string[] = [];
+  const unheld: string[] = [];
   const dots: string[] = [];
   const badLabels: string[] = [];
   let held = 0;
@@ -83,7 +105,10 @@ function main() {
     const rel = path.relative(ROOT, file).replace(/\\/g, "/");
     // The shared component itself: its own button is what the others use.
     if (rel === "app/_components/Working.tsx") continue;
+    const awaiting = asyncFunctionsIn(source);
     for (const button of buttonsIn(source)) {
+      // Held, or replaced on screen by its own work (marked, with the reason, for a reviewer to check).
+      if (startsAwaitedWork(button.tag, awaiting) && !/\bdisabled=|data-replaced-while-working="[^"]{12,}"/.test(button.tag)) unheld.push(`${rel}:${source.slice(0, button.at).split("\n").length}`);
       const state = heldBy(button.tag);
       if (!state) continue;
       held += 1;
@@ -96,6 +121,7 @@ function main() {
     for (const m of source.matchAll(/workingLabel="([^"]*)"/g)) if (!/[A-Za-z]{3,}/.test(m[1]) || !m[1].endsWith("…")) badLabels.push(`${rel}: "${m[1]}"`);
   }
   check(`every button held by a work state says, in its card, what that work is doing (${held} found)`, unspoken.length === 0, unspoken.join("; "));
+  check("every button that starts awaited work is held while it runs (a second press starts nothing)", unheld.length === 0, unheld.join("; "));
   check("no working label is bare dots", dots.length === 0, dots.join("; "));
   check("every working label has words and ends with \"…\"", badLabels.length === 0, badLabels.join("; "));
 
@@ -105,6 +131,9 @@ function main() {
   check("(self-check) a WorkingNote for that state answers it", spoken(`${bare}<WorkingNote working={saving}>Saving your answer…</WorkingNote>`, "saving"));
   check("(self-check) a label in words answers it", spoken(`<button disabled={saving}>{saving ? "Saving your answer…" : "Save"}</button>`, "saving"));
   check("(self-check) a label of bare dots does not", !spoken(`<button disabled={saving}>{saving ? "..." : "Save"}</button>`, "saving"));
+  const work = asyncFunctionsIn(`async function save() { await fetch("/x"); }`);
+  check("(self-check) a button that starts awaited work with no hold is caught", startsAwaitedWork(buttonsIn(`<button onClick={() => void save()}>Save</button>`)[0].tag, work));
+  check("(self-check) a state named isAnalyzing is seen as a work state", heldBy(`<button disabled={isAnalyzing}>`) === "isAnalyzing");
 
   console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
   process.exit(failures ? 1 : 0);

@@ -9,6 +9,7 @@ import type { CaseUnderstanding, UnderstoodCourt } from "@/src/lib/case-system/u
 import { betterDestinationKnown } from "@/src/lib/case-system/understanding/betterDestination";
 import { isPathwayAvailable } from "@/src/lib/content-library/phaseScope";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
+import { WorkingButton } from "./Working";
 
 /** Initial intake: factual reading, category clarification and questions only. */
 
@@ -38,6 +39,7 @@ export default function CaseUnderstandingCard({
   onAnswer,
   onDraftChange,
   onContinue,
+  openingPath = null,
 }: {
   result: UnderstandResponse;
   /** The person's own words, for the step panel's dates and service. */
@@ -48,6 +50,8 @@ export default function CaseUnderstandingCard({
   onAnswer: (answers: { question: string; answer: string }[]) => void;
   onDraftChange?: (answers: { question: string; answer: string }[]) => void;
   onContinue: (path: CourtPath, answers: { question: string; answer: string }[]) => void;
+  /** The court whose intake is opening after a Continue (HomeLocationGate): that button says so, both wait. */
+  openingPath?: CourtPath | null;
 }) {
   const { understanding } = result;
   const [replies, setReplies] = useIntakeState<Record<number, string>>("home-card", "replies", {});
@@ -179,20 +183,22 @@ export default function CaseUnderstandingCard({
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
           {suggested && isPathwayAvailable(suggested) && (
-            <button
-              type="button"
-              disabled={updating}
+            <WorkingButton
+              disabled={updating || openingPath !== null}
+              working={openingPath === suggested}
+              workingLabel="Opening your intake…"
               data-testid="case-understanding-continue-suggested"
               onClick={() => onContinue(suggested, answered)}
               className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
             >
               Continue with {PATH_LABEL[suggested]}
-            </button>
+            </WorkingButton>
           )}
           {suggested !== chosenPath && (
-            <button
-              type="button"
-              disabled={updating}
+            <WorkingButton
+              disabled={updating || openingPath !== null}
+              working={openingPath === chosenPath}
+              workingLabel="Opening your intake…"
               data-testid="case-understanding-continue-chosen"
               onClick={() => onContinue(chosenPath, answered)}
               className={
@@ -202,7 +208,7 @@ export default function CaseUnderstandingCard({
               }
             >
               Continue with {PATH_LABEL[chosenPath]}
-            </button>
+            </WorkingButton>
           )}
         </div>
       </section>

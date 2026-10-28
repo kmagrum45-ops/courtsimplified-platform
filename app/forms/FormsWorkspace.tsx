@@ -190,6 +190,28 @@ async function openOfficialFile(url: string) {
   if (!(await openAfterCheck(url))) alert(FILE_OPEN_FAILED);
 }
 
+/** Opens an official form after checking it is there: says so meanwhile, and is not pressed twice (fresh review, 28 Oct). */
+function OpenOfficialFileButton({ url, className, children }: { url: string; className: string; children: string }) {
+  const [opening, setOpening] = useState(false);
+  return (
+    <WorkingButton
+      working={opening}
+      workingLabel="Opening…"
+      onClick={async () => {
+        setOpening(true);
+        try {
+          await openOfficialFile(url);
+        } finally {
+          setOpening(false);
+        }
+      }}
+      className={className}
+    >
+      {children}
+    </WorkingButton>
+  );
+}
+
 function getPublicUrl(filePath: string) {
   const { data } = supabase.storage.from("court-forms").getPublicUrl(filePath);
   return data.publicUrl;
@@ -1016,13 +1038,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
                       <div className="mt-3 flex flex-wrap gap-3">
                         {recommendedForm?.pdf_path ? (
-                          <button
-                            type="button"
-                            onClick={() => void openOfficialFile(getPublicUrl(recommendedForm.pdf_path!))}
-                            className="rounded-full bg-[#163d35] px-4 py-2 font-bold text-white"
-                          >
+                          <OpenOfficialFileButton url={getPublicUrl(recommendedForm.pdf_path!)} className="rounded-full bg-[#163d35] px-4 py-2 font-bold text-white disabled:opacity-70">
                             Open PDF
-                          </button>
+                          </OpenOfficialFileButton>
                         ) : null}
 
                         {recommendedForm && recommendedFormOverlayReady ? (
@@ -1354,13 +1372,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     {form.pdf_path ? (
-                      <button
-                        type="button"
-                        onClick={() => void openOfficialFile(getPublicUrl(form.pdf_path!))}
-                        className="rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white"
-                      >
+                      <OpenOfficialFileButton url={getPublicUrl(form.pdf_path!)} className="rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white disabled:opacity-70">
                         Open PDF
-                      </button>
+                      </OpenOfficialFileButton>
                     ) : null}
 
                     {form.pdf_path && overlayReady ? (
@@ -1387,13 +1401,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     ) : null}
 
                     {form.word_path ? (
-                      <button
-                        type="button"
-                        onClick={() => void openOfficialFile(getPublicUrl(form.word_path!))}
-                        className="rounded-full border border-[#2f7d67] bg-white px-5 py-3 text-sm font-bold text-[#2f7d67]"
-                      >
+                      <OpenOfficialFileButton url={getPublicUrl(form.word_path!)} className="rounded-full border border-[#2f7d67] bg-white px-5 py-3 text-sm font-bold text-[#2f7d67] disabled:opacity-70">
                         Download Word Form
-                      </button>
+                      </OpenOfficialFileButton>
                     ) : null}
 
                     {/* No per-card "write a draft" link: it appeared on clerk-issued forms and on the

@@ -56,6 +56,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
+  // The sign-in link's own work, so pressing Login does not make the link say it is sending (fresh review, 28 Oct).
+  const [sendingLink, setSendingLink] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -151,6 +153,7 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
+      setSendingLink(true);
       setError("");
       setSuccess("");
       await supabase.auth.signInWithOtp({
@@ -165,6 +168,7 @@ export default function LoginPage() {
       setSuccess("If that email can sign in, we sent a sign-in link. Check your email.");
     } finally {
       setLoading(false);
+      setSendingLink(false);
     }
   }
 
@@ -210,8 +214,9 @@ export default function LoginPage() {
             </Link>
             <WorkingButton
               onClick={handleMagicLink}
-              working={loading}
-              workingLabel="Please wait…"
+              disabled={loading}
+              working={sendingLink}
+              workingLabel="Sending the link…"
               className="text-cyan-300 hover:text-cyan-200 disabled:opacity-50"
             >
               Email me a sign-in link

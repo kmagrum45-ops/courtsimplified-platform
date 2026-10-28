@@ -1896,6 +1896,8 @@ export default function StageAnswerPanel({
                         <button
                           type="button"
                           data-testid={`stage-answer-date-suggestion-${question.id}`}
+                          // Held while a deadline is counted ("Counting your deadline…" says so): pressed twice it counted twice (fresh review, 28 Oct).
+                          disabled={dateStatus === "saving"}
                           onClick={() => {
                             const draft = { ...dateDraft, [question.id]: fromStory.value };
                             setDateDraft(draft);
@@ -1909,6 +1911,7 @@ export default function StageAnswerPanel({
                       <button
                         type="button"
                         data-testid={`stage-answer-date-change-${question.id}`}
+                        data-replaced-while-working="the date opens for editing at once; the step's answer reloads behind it"
                         onClick={() => {
                           setEditing({ ...editing, [question.id]: true });
                           // Edit the day they typed, not the day service is effective.
@@ -2047,6 +2050,7 @@ export default function StageAnswerPanel({
                             key={choice}
                             type="button"
                             data-testid={`stage-answer-year-${question.id}-${choice.slice(0, 4)}`}
+                            disabled={dateStatus === "saving"}
                             onClick={() => {
                               const draft = { ...dateDraft, [question.id]: choice };
                               setDateDraft(draft);

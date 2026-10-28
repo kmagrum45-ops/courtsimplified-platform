@@ -29,6 +29,7 @@ import {
   type CrossForumNote,
   type IssueKind,
 } from "../../src/lib/content-library/crossForumNotes";
+import { WorkingButton } from "./Working";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -133,6 +134,9 @@ function HomeLocationGateContent() {
   const [userId, setUserId] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
+  // Which "go to the intake" button was pressed: it says so while the story is saved and the page moves on,
+  // and none is pressed twice (fresh review, 28 Oct: they were not held at all).
+  const [opening, setOpening] = useState<string | null>(null);
   const [requestError, setRequestError] = useState("");
   const requestRef = useRef(new IntakeRequest());
   // A reading replaced by the person's own "Update with my answers" (its error is not shown).
@@ -220,6 +224,12 @@ function HomeLocationGateContent() {
   const isOntarioReady = province === "Ontario" && city.trim().length > 0 && facts.trim().length > 0;
 
   /** Commits to a path and leaves the gate. Only ever called from a user action. */
+  function openIntake(key: string, chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
+    if (opening) return;
+    setOpening(key);
+    void goToIntake(chosenPath, answers).finally(() => setOpening(null));
+  }
+
   async function goToIntake(chosenPath: BuilderDraftCourtPath, answers: { question: string; answer: string }[] = []) {
     requestRef.current.cancel();
     // Answers given to the front door's questions travel with the story, so
@@ -469,9 +479,9 @@ function HomeLocationGateContent() {
 
           {requestError && <p role="alert" className="mt-4 text-sm text-red-700">{requestError}</p>}
           {requestError && !understood && (
-            <button type="button" onClick={() => goToIntake(path, understoodAnswers)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">
+            <WorkingButton disabled={opening !== null} working={opening === "continue-description"} workingLabel="Opening your intake…" onClick={() => openIntake("continue-description", path, understoodAnswers)} className="mt-3 text-sm font-semibold text-[#2f7d67] underline">
               Continue with my description
-            </button>
+            </WorkingButton>
           )}
           {readingOutdated && <p data-testid="reading-outdated" className="mt-5 rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4 text-sm text-[#5c4a14]">Your story has changed since it was last read, so the earlier reading is not shown. Continue to have the corrected story read.</p>}
           {understood && (
@@ -484,7 +494,8 @@ function HomeLocationGateContent() {
                 updating={checking}
                 onAnswer={(answers) => void updateWithAnswers(answers)}
                 onDraftChange={(answers) => { draftAnswersRef.current = answers; recovery?.put("home", "draftAnswers", answers); }}
-                onContinue={(chosen, answers) => goToIntake(chosen, [...understoodAnswers.filter((old) => !answers.some((item) => item.question === old.question)), ...answers])}
+                onContinue={(chosen, answers) => openIntake(`understanding:${chosen}`, chosen, [...understoodAnswers.filter((old) => !answers.some((item) => item.question === old.question)), ...answers])}
+                openingPath={opening?.startsWith("understanding:") ? (opening.slice("understanding:".length) as BuilderDraftCourtPath) : null}
               />
             </div>
           )}
@@ -548,23 +559,27 @@ function HomeLocationGateContent() {
 
               <div className="mt-4 flex flex-wrap gap-3">
                 {isPathwayAvailable(suggestion.suggestedPath) && (
-                  <button
-                    type="button"
+                  <WorkingButton
                     data-testid="court-path-suggestion-accept"
-                    onClick={() => goToIntake(suggestion.suggestedPath)}
+                    disabled={opening !== null}
+                    working={opening === "court-path-suggestion-accept"}
+                    workingLabel="Opening your intake…"
+                    onClick={() => openIntake("court-path-suggestion-accept", suggestion.suggestedPath)}
                     className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
                   >
                     Switch to {pathLabels[suggestion.suggestedPath]}
-                  </button>
+                  </WorkingButton>
                 )}
-                <button
-                  type="button"
+                <WorkingButton
                   data-testid="court-path-suggestion-keep"
-                  onClick={() => goToIntake(path)}
+                  disabled={opening !== null}
+                  working={opening === "court-path-suggestion-keep"}
+                  workingLabel="Opening your intake…"
+                  onClick={() => openIntake("court-path-suggestion-keep", path)}
                   className="rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
                 >
                   Keep {pathLabels[path]}
-                </button>
+                </WorkingButton>
               </div>
             </div>
           )}
@@ -640,19 +655,23 @@ function HomeLocationGateContent() {
               )}
               <div className="mt-4 flex flex-wrap gap-3">
                 {suggestion.suggestedPath && isPathwayAvailable(suggestion.suggestedPath) && (
-                  <button
-                    type="button"
+                  <WorkingButton
                     data-testid="several-matters-switch"
-                    onClick={() => goToIntake(suggestion.suggestedPath!)}
+                    disabled={opening !== null}
+                    working={opening === "several-matters-switch"}
+                    workingLabel="Opening your intake…"
+                    onClick={() => openIntake("several-matters-switch", suggestion.suggestedPath!)}
                     className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
                   >
                     Start with {pathLabels[suggestion.suggestedPath]}
-                  </button>
+                  </WorkingButton>
                 )}
-                <button
-                  type="button"
+                <WorkingButton
                   data-testid="several-matters-continue"
-                  onClick={() => goToIntake(path)}
+                  disabled={opening !== null}
+                  working={opening === "several-matters-continue"}
+                  workingLabel="Opening your intake…"
+                  onClick={() => openIntake("several-matters-continue", path)}
                   className={
                     suggestion.suggestedPath
                       ? "rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
@@ -660,7 +679,7 @@ function HomeLocationGateContent() {
                   }
                 >
                   Continue with {pathLabels[path]}
-                </button>
+                </WorkingButton>
               </div>
             </div>
           )}
@@ -695,14 +714,16 @@ function HomeLocationGateContent() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3">
-                <button
-                  type="button"
+                <WorkingButton
                   data-testid="court-path-out-of-scope-continue"
-                  onClick={() => goToIntake(path)}
+                  disabled={opening !== null}
+                  working={opening === "court-path-out-of-scope-continue"}
+                  workingLabel="Opening your intake…"
+                  onClick={() => openIntake("court-path-out-of-scope-continue", path)}
                   className="rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]"
                 >
                   Continue with {pathLabels[path]} anyway
-                </button>
+                </WorkingButton>
               </div>
             </div>
           )}

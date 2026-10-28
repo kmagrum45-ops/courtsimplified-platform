@@ -203,7 +203,8 @@ export default function DashboardPage() {
     // also clears on SIGNED_OUT; clearing first means nothing survives even if
     // the sign-out request fails.
     resetIntakeInBrowser();
-    await supabase.auth.signOut();
+    // Navigates whatever the sign-out answers, so the button never stays on "Logging out…" (fresh review, 28 Oct).
+    await supabase.auth.signOut().catch(() => {});
     router.push("/login");
   }
 
