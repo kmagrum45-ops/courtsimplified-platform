@@ -634,7 +634,11 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   const mappingStage = applicableStage(masterResult);
 
   function savedAnswerFor(question: ApplicabilityQuestion): unknown {
-    return question.field_path.split(".").reduce<unknown>((value, part) => asRecord(value)?.[part], formApplicability);
+    // The choices are held as { group: { field } }, without the path's leading "formApplicability", as the
+    // route stores and returns them and as updateApplicability writes them. Read from the root, every
+    // choice was "not answered": the select never showed one and the save sent none (28 Oct; since #98).
+    const [, group, field] = question.field_path.split(".");
+    return asRecord(asRecord(formApplicability)?.[group])?.[field];
   }
 
   function suggestionFor(question: ApplicabilityQuestion) {
