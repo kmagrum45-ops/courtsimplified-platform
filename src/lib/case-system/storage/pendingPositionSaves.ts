@@ -10,12 +10,14 @@
  * page until the page found it in the story once more (w5). The Forms page's "does this form apply"
  * choices go through the same queue (/api/cases/form-applicability) and could be lost the same way.
  *
- * So each save is written down in this tab before it is sent and crossed off once the case holds
- * it (or refused it). The next page in this tab that saves to or reads that case sends what is
- * still written down first (positionSave.ts), and a closed tab sends it as it closes. Session
- * storage: it dies with the tab, and sign-out clears it (the registry entries,
- * PENDING_POSITION_SAVE_KEY and PENDING_FORM_APPLICABILITY_KEY). Older than 30 minutes, it is
- * dropped rather than sent.
+ * So each save is written down in this tab before it is sent, and crossed off as soon as it
+ * finishes -- saved, refused or failed (a failed save already says "not saved" on the page, and
+ * sending it again later could put it over a newer choice made elsewhere; fresh review, 28 Oct).
+ * What is left is only a save cut off by the page going. The next page in this tab that saves to
+ * or reads that case sends it first (positionSave.ts), and a closed tab sends it as it closes.
+ * Session storage: it dies with the tab, and sign-out clears it (the registry entries,
+ * PENDING_POSITION_SAVE_KEY and PENDING_FORM_APPLICABILITY_KEY). Older than 5 minutes, it is
+ * dropped rather than sent: a cut-off save is sent again within seconds, by the next page.
  */
 import { PENDING_FORM_APPLICABILITY_KEY, PENDING_POSITION_SAVE_KEY } from "./intakeStorageKeys";
 
@@ -25,7 +27,14 @@ export type PendingPositionSave = { id: string; at: number; patch: Record<string
 export type PendingKind = "position" | "formApplicability";
 
 /** A save written down longer ago than this is dropped, not sent. */
-export const PENDING_MAX_AGE_MS = 30 * 60_000;
+export const PENDING_MAX_AGE_MS = 5 * 60_000;
+
+/**
+ * Marks a request as a cut-off save sent again (as the page closed). The routes try it once: if the
+ * case changed after it was read, someone saved since, and this older save gives way instead of
+ * being re-applied over that newer one (fresh review, 28 Oct).
+ */
+export const RESEND_HEADER = "x-courtsimplified-resend";
 
 type Area = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 let areaForChecks: Area | null = null;
