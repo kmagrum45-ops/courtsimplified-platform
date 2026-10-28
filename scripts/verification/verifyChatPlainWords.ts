@@ -9,7 +9,10 @@
  *   - a question the person has answered is not asked again: "what outcome are you seeking?" once
  *     they said what they want (the case file's answered facts, answeredInStory.ts), and "What
  *     exactly did they do or fail to do?" after a story saying it;
- *   - a checked-answer line with no source shows no sources toggle (CheckedAnswerPanel).
+ *   - a checked-answer line with no source shows no sources toggle (CheckedAnswerPanel);
+ *   - the law shown with an answer is kept with the conversation and saved with the case: the chat
+ *     route keeps a question's law, refuses one too large, and still saves and reads the words when
+ *     the column is not there yet (Chrome, 28 Oct: a reopened chat lost every citation).
  *
  * Failure it exists to catch: "Why this matters: This is the first investigation step for Public
  * authority / Crown / police: Identify each public actor", an empty sources toggle under the
@@ -21,6 +24,9 @@ import { internalWordingIn } from "../../src/lib/case-system/copy/rawKeys";
 import { answeredInStory } from "../../src/lib/case-system/guided-assistant/answeredInStory";
 import CheckedAnswerPanel from "../../app/_components/CheckedAnswerPanel";
 import { chatReplies, type Court } from "./chatRouteHarness";
+import { inOrder, validLaw, validMessages } from "../../app/api/cases/chat/route";
+import fs from "node:fs";
+import path from "node:path";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -42,6 +48,29 @@ const checkpoint = (court: Court, story: string, sections: Record<string, unknow
 });
 
 async function main() {
+  // The law kept with the conversation (Chrome, 28 Oct).
+  const law = { findings: [], answer: { status: "answered", statements: [{ text: "A statement.", sources: [{ citation: "Synthetic Act, 2019, s. 4 (1)" }] }] } };
+  const rows = validMessages([{ role: "user", content: "Do I need to give notice?", law }, { role: "assistant", content: "Here is what applies." }]);
+  check("a question saved with the case keeps the law found for it", JSON.stringify(rows?.[0]?.law) === JSON.stringify(law) && rows?.[1]?.law === undefined);
+  check("a law too large is not kept (the words still are)", validLaw({ big: "x".repeat(250_000) }) === null && validMessages([{ role: "user", content: "Q", law: { big: "x".repeat(250_000) } }])?.[0]?.law === undefined);
+  const ROOT = path.resolve(import.meta.dirname, "..", "..");
+  const route = fs.readFileSync(path.join(ROOT, "app/api/cases/chat/route.ts"), "utf8");
+  check("the chat route reads and saves the law, and works on without the column", /read\("id, role, content, created_at, law"\)/.test(route) && /noLawColumn\(error\)/.test(route) && /export const PATCH/.test(route));
+  const chat = fs.readFileSync(path.join(ROOT, "app/builder/_components/CourtAssistantChat.tsx"), "utf8");
+  check("the chat keeps a question's law in its own copy and shows it under the reply", /const kept = \{ findings, \.\.\.\(answer \? \{ answer \} : \{\}\) \}/.test(chat) && /law: kept/.test(chat) && /messages\[index - 1\]\?\.law/.test(chat));
+  // Fresh reviewer, 28 Oct: a question and its answer share created_at; the law shows under the message
+  // after its question, so the question must come first; a lookup from a cleared chat must not land on
+  // the next question; the route's limit sits below the database's (jsonb text adds spaces).
+  const same = "2026-10-28T10:00:00.000Z";
+  const ordered = inOrder([{ role: "assistant", created_at: same }, { role: "user", created_at: same }, { role: "user", created_at: "2026-10-28T09:00:00.000Z" }]);
+  check("a question comes before its answer when they were saved together", ordered.map((row) => row.role).join(",") === "user,user,assistant");
+  check("a law near the database's limit is refused by the route first", validLaw({ text: "x".repeat(160_000) }) === null && validLaw({ text: "x".repeat(100_000) }) !== null);
+  check("Clear chat drops lookups still running, and a law lands only on the question it answers, as not yet saved", /function clearCurrentChat\(\) \{\s*setMessages\(\[INITIAL_ASSISTANT_MESSAGE\]\);[\s\S]{0,200}setLaw\(\{\}\)/.test(chat) && /message\.content === trimmed \? \{ \.\.\.message, law: kept, lawSaved: false \}/.test(chat));
+  // The browser test caught it: the stored chat was rebuilt from role and words only, so a reopened chat lost the law.
+  check("the chat read back from the browser keeps each question's law, id and saved mark", /function normalizeMessages[\s\S]{0,1200}\.\.\.\(law \? \{ law \} : \{\}\)[\s\S]{0,200}id: stored\.id[\s\S]{0,120}lawSaved: true/.test(chat));
+  const migration = fs.readdirSync(path.join(ROOT, "supabase/migrations")).find((file) => /case_chat_law/.test(file));
+  check("the column is a migration for the owner to apply", Boolean(migration) && /ADD COLUMN IF NOT EXISTS "law" "jsonb"/.test(fs.readFileSync(path.join(ROOT, "supabase/migrations", migration!), "utf8")));
+
   // The detector itself.
   check("the detector finds the wording Chrome saw", internalWordingIn("Why this matters: This is the first investigation step for Public authority / Crown / police: Identify each public actor.").length > 0);
   check("and passes plain words", internalWordingIn("This helps put what happened in the order a court will look at it. What proof do you currently have?").length === 0);

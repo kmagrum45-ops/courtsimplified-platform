@@ -19,6 +19,7 @@ import { NextRequest } from "next/server";
 import { createDocumentLinkGet, LINK_SECONDS } from "../../app/api/workspace/documents/link/route";
 import { createDocumentFileGet } from "../../app/api/workspace/documents/file/[id]/[name]/route";
 import { fileLinkPath } from "../../src/lib/case-workspace/fileLink";
+import { fetchFileWithRetry, fileNameFromUrl } from "../../src/lib/case-workspace/fileFetch";
 
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
@@ -102,7 +103,7 @@ async function main() {
   const card = fs.readFileSync(path.join(ROOT, "app/cases/_components/CaseWorkspace.tsx"), "utf8");
   check("every documents card offers Open, Download and Delete", ["document-open", "document-download", "document-delete"].every((id) => card.includes(`data-testid="${id}"`)) && (card.match(/<FileActions /g) ?? []).length >= 2);
   check("open and save go through the signed-link route", /\/api\/workspace\/documents\/link\?documentId=/.test(card));
-  check("a download never sends the page away (a link is pressed)", !/window\.location\.assign\(payload\.url\)/.test(card) && /link\.download = ""/.test(card));
+  check("a download never sends the page away (a link is pressed)", !/window\.location\.assign\(/.test(card) && /saveFile\(fetched\.blob/.test(card));
   check("delete uses the existing DELETE route, after asking", /method: "DELETE"/.test(card) && /window\.confirm\(/.test(card));
   check("a failed delete is said, never hidden", /The file was not deleted/.test(card) && /role="alert"/.test(card));
 
@@ -117,6 +118,29 @@ async function main() {
   check("nothing makes a public link to a person's stored file (only the public court-forms bucket has them)", publicLinks.length === 0, publicLinks.join(", "));
   const migrations = fs.readdirSync(path.join(ROOT, "supabase/migrations")).map((name) => fs.readFileSync(path.join(ROOT, "supabase/migrations", name), "utf8")).join("\n");
   check("the case-evidence bucket is private", /case-evidence[\s\S]{0,200}public\s*=\s*false|public\s*=\s*false[\s\S]{0,200}case-evidence/i.test(migrations));
+
+  // Chrome, 28 Oct: a file's link answered 503 in the network log and the page said nothing. Every
+  // download or open is fetched first, tried once more with a fresh link, and a failure said.
+  {
+    let links = 0;
+    const replies = [new Response("busy", { status: 503 }), new Response("the file", { status: 200 })];
+    const flaky = async () => replies.shift() ?? new Response("gone", { status: 503 });
+    const once = await fetchFileWithRetry(async () => `/api/workspace/documents/file/x/${++links}.pdf`, {}, flaky);
+    check("a 503 then the file: the file arrives, from a fresh link", once.ok && links === 2 && (await once.blob.text()) === "the file");
+    const down = async () => new Response("busy", { status: 503 });
+    const never = await fetchFileWithRetry(async () => "/api/x", {}, down);
+    check("two failures: no file, for the page to say so", !never.ok);
+    check("the file is saved under its own name", fileNameFromUrl("/api/workspace/documents/file/abc/clinic_note_wrist.pdf?exp=1&sig=x", "file") === "clinic_note_wrist.pdf");
+    const read = (file: string) => fs.readFileSync(path.join(path.resolve(import.meta.dirname, "..", ".."), file), "utf8");
+    const workspace = read("app/cases/_components/CaseWorkspace.tsx");
+    check("the case's files and the exhibit book go through the check, and say a failure", (workspace.match(/fetchFileWithRetry\(/g) ?? []).length >= 2 && /FILE_DOWNLOAD_FAILED/.test(workspace) && !/if \(!response\.ok\) return;\s*\n\s*const blob/.test(workspace));
+    const forms = read("app/forms/FormsWorkspace.tsx");
+    check("an official form opens only once it arrives", !/window\.open\(getPublicUrl/.test(forms) && /openAfterCheck/.test(forms));
+    check("the filled form is tried once more and saved without the page leaving or the file freed early", /const send = \(\) => fetch\("\/api\/generate-form"/.test(forms) && /saveFile\(blob,/.test(forms) && !/revokeObjectURL\(url\);\s*\n\s*setGeneratingKey/.test(forms));
+    check("an opened file gets a fresh link after the check, so it never opens an expired one", /tab\.location\.href = \(await link\(\)\) \?\? fetched\.url/.test(workspace));
+    const route = read("app/api/workspace/documents/file/[id]/[name]/route.ts");
+    check("the file route asks storage once more before saying it could not read the file", /attempt < 2/.test(route));
+  }
 
   console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
   process.exitCode = failures ? 1 : 0;

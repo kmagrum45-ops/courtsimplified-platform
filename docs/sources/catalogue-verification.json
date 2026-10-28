@@ -4070,9 +4070,9 @@
   },
   {
    "key": "civil-claim-breach-of-contract|proceduralNote|civil-claim-breach-of-contract#note3",
-   "verifiedAt": "2026-09-30",
+   "verifiedAt": "2026-10-28",
    "outcome": "authored",
-   "fingerprint": "86d841390e133d2e6c558a7e61ea99823356ee91758273dc14b6fa0ed37e013b",
+   "fingerprint": "9d238a16daca0f43daf3e62461ad00824215847b68b99278043182715e36e95a",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
@@ -4105,7 +4105,7 @@
      "quote": "The court may grant leave under subsection 23 (1.1) of the Courts of Justice Act only if it is in the interest of justice."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/900194_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/900194_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json); re-read 2026-10-28: the note now quotes the leave rules word for word (CJA s. 23 (1.1); Rules of Civil Procedure r. 14.01.1 (2), (3)), each already quoted in this record (Chrome re-test 28 Oct)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
    ]
@@ -4393,9 +4393,9 @@
   },
   {
    "key": "civil-claim-debt-or-liquidated-demand|proceduralNote|civil-claim-debt-or-liquidated-demand#note4",
-   "verifiedAt": "2026-09-30",
+   "verifiedAt": "2026-10-28",
    "outcome": "authored",
-   "fingerprint": "86d841390e133d2e6c558a7e61ea99823356ee91758273dc14b6fa0ed37e013b",
+   "fingerprint": "9d238a16daca0f43daf3e62461ad00824215847b68b99278043182715e36e95a",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
@@ -4428,7 +4428,7 @@
      "quote": "The court may grant leave under subsection 23 (1.1) of the Courts of Justice Act only if it is in the interest of justice."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/900194_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/900194_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json); re-read 2026-10-28: the note now quotes the leave rules word for word (CJA s. 23 (1.1); Rules of Civil Procedure r. 14.01.1 (2), (3)), each already quoted in this record (Chrome re-test 28 Oct)",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
    ]

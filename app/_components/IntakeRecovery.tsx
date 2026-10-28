@@ -19,6 +19,7 @@ import SituationQuestions, { SITUATION_CHANGE_EVENT, SituationLine } from "./Sit
 import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
+import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -355,7 +356,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             const json = JSON.stringify(value instanceof Set ? [...value] : value);
             if (json === undefined) return;
             const encoded: unknown = JSON.parse(json);
-            const unchanged = JSON.stringify(snapshot.sections[section]?.[key]) === JSON.stringify(encoded);
+            // The same value in another key order (as read back from jsonb) is no change (canonicalJson.ts).
+            const unchanged = canonicalJson(snapshot.sections[section]?.[key]) === canonicalJson(encoded);
             if (unchanged && reaffirm === undefined) { invalid.delete(field); return; }
             let sections: Checkpoint["sections"] = { ...snapshot.sections, [section]: { ...snapshot.sections[section], [key]: encoded } };
             // One record of which story each answer was based on (storyBasis.ts).

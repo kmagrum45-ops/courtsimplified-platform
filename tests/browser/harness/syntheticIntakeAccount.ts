@@ -13,6 +13,19 @@ export async function fakeAccount(page: Page) {
   }, { owner: OWNER });
   await page.route("**/auth/v1/**", route => route.fulfill({ json: { id: OWNER, aud: "authenticated", role: "authenticated", email: "synthetic@example.invalid", app_metadata: {}, user_metadata: {}, created_at: "2026-01-01T00:00:00Z" } }));
   const rows = new Map<string, Record<string, unknown>>();
+  /*
+   * Stored the way Postgres stores jsonb: every object's keys reordered, shorter keys first, then by
+   * their bytes. A case read back is never in the order the page wrote it, as on the real database
+   * (Chrome, 28 Oct: the home reading's answers came back as {answer, question}, the saved facts no
+   * longer matched the page's, and Confirm bounced; plain objects here hid that from every test).
+   */
+  const asJsonb = (value: unknown): unknown => {
+    if (Array.isArray(value)) return value.map(asJsonb);
+    if (!value || typeof value !== "object") return value;
+    const bytes = (key: string) => new TextEncoder().encode(key);
+    const order = (a: string, b: string) => { const x = bytes(a), y = bytes(b); if (x.length !== y.length) return x.length - y.length; for (let i = 0; i < x.length; i++) if (x[i] !== y[i]) return x[i] - y[i]; return 0; };
+    return Object.fromEntries(Object.keys(value as Record<string, unknown>).sort(order).map((key) => [key, asJsonb((value as Record<string, unknown>)[key])]));
+  };
   let fail = false;
   let writes = 0;
   let failureStatus = 503;
@@ -22,9 +35,9 @@ export async function fakeAccount(page: Page) {
     if (!url.pathname.endsWith("/cases")) return route.fulfill({ json: [] });
     if (req.method() === "POST") {
       if (fail) return route.fulfill({ status: failureStatus, json: { message: "Synthetic save failure" } });
-      const row = req.postDataJSON();
+      const row = asJsonb(req.postDataJSON()) as Record<string, unknown>;
       row.updated_at = new Date(++writes + Date.now()).toISOString();
-      rows.set(row.id, row);
+      rows.set(row.id as string, row);
       return route.fulfill({ json: { id: row.id } });
     }
     const id = url.searchParams.get("id")?.replace(/^eq\./, "");
@@ -35,7 +48,7 @@ export async function fakeAccount(page: Page) {
       // row-level security (the position save sends only id and updated_at).
       const ownerFilter = url.searchParams.get("user_id");
       if (!row || row.user_id !== OWNER || (ownerFilter !== null && ownerFilter !== `eq.${OWNER}`) || url.searchParams.get("updated_at") !== `eq.${row.updated_at}`) return route.fulfill({ json: [] });
-      Object.assign(row, req.postDataJSON());
+      Object.assign(row, asJsonb(req.postDataJSON()));
       writes++;
       return route.fulfill({ json: [{ id }] });
     }

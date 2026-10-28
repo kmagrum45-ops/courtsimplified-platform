@@ -45,6 +45,7 @@ import { loadCorpusIndex, readPassage, type LoadedIndex, type Passage } from "./
 import { numberNotInSource, outcomeTermNotInProvision, provisionOf } from "./explainProvision";
 import { researchStory, type ResearchDeps, type ResearchResult } from "./researchStory";
 import { passageItem, type RetrievalInput } from "./storyRetrieval";
+import { addsReason, citationForQuote } from "./citationCheck";
 import { MAX_ADDED_MUNICIPAL, fitPassagesToStory, isMunicipalAct44, isTorontoAct, withoutWrongForStory, wrongForStory } from "./passagesForStory";
 import { municipalPlaceOf } from "../../content-library/nextStepPractical";
 
@@ -346,6 +347,13 @@ export async function questionsFromPassages(
         refusals.push(`check: ${verdict?.problem ?? "no verdict"} -- ${item.question.slice(0, 120)}`);
         continue;
       }
+      // "Why this matters" may not give a reason its quote does not give, as for any checked
+      // statement (citationCheck.ts addsReason; reviewer, 28 Oct). Shown less rather than invented.
+      if (addsReason(item.why, [item.quote])) {
+        counts.refusedByChecker += 1;
+        refusals.push(`adds a reason: ${item.question.slice(0, 120)}`);
+        continue;
+      }
       const source = passageItem(item.passage);
       questions.push({
         id: `sq-${questions.length + 1}`,
@@ -353,7 +361,8 @@ export async function questionsFromPassages(
         why: item.why.trim(),
         passageId: item.passageId,
         quote: item.quote,
-        citation: provisionOf(item.passage).citation,
+        // Only the subsection the quoted words are in (citationCheck.ts).
+        citation: citationForQuote(provisionOf(item.passage).citation, item.passage.pinpoint, item.passage.text, item.quote),
         ...(source.sourceUrl ? { sourceUrl: source.sourceUrl } : {}),
       });
     }

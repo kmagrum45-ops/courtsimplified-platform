@@ -21,6 +21,7 @@
 import type { Checkpoint } from "./intakeCheckpoint";
 import { guidedReadingOutdated, STORY_INPUT_KEYS, STORY_SECTION, storyOf } from "./intakeStory";
 import { sentences } from "./sentences";
+import { canonicalJson } from "./canonicalJson";
 import { situationAnswers, situationOf } from "./situation/situation";
 
 /**
@@ -106,11 +107,12 @@ function answersIn(section: string, key: string, value: unknown): [string, unkno
  */
 export function tagAnswers(sections: Sections, section: string, key: string, before: unknown, after: unknown): Record<string, string> {
   const basis = { ...(object(sections[BASIS_SECTION]) as Record<string, string>) };
-  const previous = new Map(answersIn(section, key, before).map(([answer, item]) => [answer, JSON.stringify(item)]));
+  // In one canonical form: a stored answer comes back from jsonb with its keys reordered (canonicalJson.ts).
+  const previous = new Map(answersIn(section, key, before).map(([answer, item]) => [answer, canonicalJson(item)]));
   const version = storyVersion(storyOf(sections));
   for (const [answer, item] of answersIn(section, key, after)) {
     if (empty(item)) delete basis[answer];
-    else if (previous.get(answer) !== JSON.stringify(item)) basis[answer] = version;
+    else if (previous.get(answer) !== canonicalJson(item)) basis[answer] = version;
   }
   for (const answer of previous.keys()) if (!answersIn(section, key, after).some(([next]) => next === answer)) delete basis[answer];
   return basis;

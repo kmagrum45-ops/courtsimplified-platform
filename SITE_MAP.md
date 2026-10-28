@@ -126,6 +126,9 @@ The sections below follow the same order.
 - **`src/lib/case-system/format/recordedAmount.ts`** — strict parse/format of a typed amount (`parseRecordedAmount`, `formatRecordedAmount`); anything not a plain number is shown as typed.
 - **`src/lib/case-system/intake/claimKind.ts`** — the one rule for which "kind of claim" may be shown (`isKindOfClaim`, `claimKindShown`, `kindFromStory`, `LOAN_WORDS`): only `sc-claim-*` kinds, only with a source.
 - **`src/lib/case-system/copy/rawKeys.ts`** — words for stored option codes (`optionWords`, `inWords`) and a detector for raw codes, field names and stage ids reaching the screen (`rawKeysIn`, used by `test:raw-keys`), and one for the reasoning profiles' internal wording (`internalWordingIn`, less the words a person is offered as answers).
+- **`src/lib/case-system/canonicalJson.ts`** — one JSON text for one value: object keys sorted. Every comparison of a value read back from the database (jsonb reorders keys) with the page's copy uses it: initial facts (`intakeReview.ts`), story tags (`storyBasis.ts`), the store's "unchanged" check (`IntakeRecovery.tsx`), the family status (`app/builder/page.tsx`). Without it the first Confirm bounced (Chrome, 28 Oct).
+- **`src/lib/content-library/leaveRuleWords.ts`** — the Small Claims leave rule (CJA s. 23 (1.1), (1.2); r. 14.01.1 (2), (3)) in its own words with its citation, in place of the published library's wording on screen (`StageAnswerPanel` `courtWords`); "A claim above it needs no such leave" removed.
+- **`src/lib/case-workspace/fileFetch.ts`** — every download or open of a file: fetched by the page first, tried once more with a fresh link, a failure said on the page (the case's files, the exhibit book, the forms page).
 - **`src/lib/case-system/copy/caseWords.ts`** — the stage (`stageInWords`), the side (`roleInWords`, the start answer's own words for a case already going) and a filed paper (`documentInWords`) as a screen shows them. The overview and the review read it; the guided box and the form routes take the start answer's words from `situationAnswers().roleWords`.
 - **`src/lib/case-system/caseFile/storyFacts.ts`** — each fact the story gives, in plain words, with the sentence kept as its source: the other side, lost pay, injury, property, complaint, witness, evidence, last payment, written acknowledgment, what the other side says, the public body, losses, timeline; and `againstThemIn`, the sentences about the claim against someone responding, which is all their suggestions and "The claim against you" are read from. Read by `storyLines.ts` ("What we have so far") and the civil review's boxes (`BOX_FROM_STORY`).
 - **`src/lib/case-system/intelligence/answeredQuestions.ts`** — which generic questions are answered already: by the papers recorded (`withoutAnsweredQuestions`), and by a known stage, a case already going included (`withoutStageAnswered`). The overview's "What to confirm next" reads both.
@@ -829,7 +832,7 @@ The one copy of the story and the location.
 
 Which version of the story each answer was given for.
 
-- Reads (4): src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**, **src/lib/case-system/sentences.ts**, **src/lib/case-system/situation/situation.ts**
+- Reads (5): **src/lib/case-system/canonicalJson.ts**, src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**, **src/lib/case-system/sentences.ts**, **src/lib/case-system/situation/situation.ts**
 - Read by (7): app/_components/IntakeRecovery.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/StoryChangedNotice.tsx, app/builder/page.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/intakeReview.ts**, **src/lib/case-system/sideChange.ts**
 - Checked by (3): scripts/verification/verifyReviewFollowUps.ts, scripts/verification/verifyStoryBasis.ts, scripts/verification/verifyStoryDataRegistry.ts
 
@@ -902,7 +905,7 @@ Whether the chat's question is answered by the story or the case's facts.
 Each citation names exactly what its quote comes from (subsection, title, year).
 
 - Reads (0): nothing in the repo
-- Read by (1): **src/lib/case-system/retrieval/checkedAnswer.ts**
+- Read by (2): **src/lib/case-system/retrieval/checkedAnswer.ts**, src/lib/case-system/retrieval/sourcedQuestions.ts
 - Checked by (2): scripts/content/buildSourceDisplay.ts, scripts/verification/verifyCitations.ts
 
 ### src/lib/case-workspace/fileLink.ts
@@ -913,11 +916,35 @@ Short-lived signed links that open an uploaded file under its own name.
 - Read by (2): app/api/workspace/documents/file/[id]/[name]/route.ts, app/api/workspace/documents/link/route.ts
 - Checked by (1): scripts/verification/verifyDocumentLink.ts
 
+### src/lib/case-workspace/fileFetch.ts
+
+Every file downloaded or opened: fetched first, tried once more, a failure said on the page.
+
+- Reads (0): nothing in the repo
+- Read by (2): app/cases/_components/CaseWorkspace.tsx, app/forms/FormsWorkspace.tsx
+- Checked by (1): scripts/verification/verifyDocumentLink.ts
+
+### src/lib/case-system/canonicalJson.ts
+
+One JSON text per value, whatever order jsonb returns its keys in.
+
+- Reads (0): nothing in the repo
+- Read by (4): app/_components/IntakeRecovery.tsx, app/builder/page.tsx, **src/lib/case-system/intakeReview.ts**, **src/lib/case-system/storyBasis.ts**
+- Checked by (0): no suite imports it directly
+
+### src/lib/content-library/leaveRuleWords.ts
+
+The Small Claims leave rule in the Act's and the rules' own words, with citations.
+
+- Reads (1): src/lib/case-system/stage-map/citations.ts
+- Read by (1): app/builder/_components/StageAnswerPanel.tsx
+- Checked by (1): scripts/verification/verifyCharterRetest.ts
+
 ### src/lib/case-system/intakeReview.ts
 
 The review: entries, remaining questions, confirmation.
 
-- Reads (13): **app/builder/_components/guidedFields.ts**, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/storyFacts.ts**, **src/lib/case-system/dates.ts**, **src/lib/case-system/intake/claimKind.ts**, src/lib/case-system/intake/questionBank.ts, src/lib/case-system/intake/selectQuestions.ts, src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**, **src/lib/case-system/sentences.ts**, **src/lib/case-system/situation/situation.ts**, **src/lib/case-system/storyBasis.ts**
+- Reads (14): **app/builder/_components/guidedFields.ts**, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/canonicalJson.ts**, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/storyFacts.ts**, **src/lib/case-system/dates.ts**, **src/lib/case-system/intake/claimKind.ts**, src/lib/case-system/intake/questionBank.ts, src/lib/case-system/intake/selectQuestions.ts, src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**, **src/lib/case-system/sentences.ts**, **src/lib/case-system/situation/situation.ts**, **src/lib/case-system/storyBasis.ts**
 - Read by (16): app/_components/IntakeRecovery.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/ReviewNeededNotice.tsx, app/api/case/read/route.ts, app/api/cases/route.ts, app/builder/_components/CourtAssistantChat.tsx, app/builder/_components/FamilyStatusTriage.tsx, app/builder/_components/GuidedSmallClaimsIntake.tsx, app/builder/_components/SmallClaimsIntake.tsx, app/builder/_components/SourcedQuestions.tsx, app/builder/page.tsx, app/cases/[id]/layout.tsx, app/dashboard/page.tsx, app/forms/FormsWorkspace.tsx, src/lib/case-system/intakeCheckpoint.ts, src/lib/security/intakeGuidanceGate.ts
 - Checked by (17): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyIntakeGuidanceGate.ts, scripts/verification/verifyIntakeRecovery.ts, scripts/verification/verifyIntakeReview.ts, scripts/verification/verifyNoNamesToModel.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyReviewFollowUps.ts, scripts/verification/verifySideChange.ts, scripts/verification/verifySituation.ts, scripts/verification/verifyStoryBasis.ts, scripts/verification/verifyStoryFacts.ts, tests/browser/case-understanding-continuity.spec.ts, tests/browser/intake-guidance-gate.spec.ts, tests/browser/story-change-every-flow.spec.ts
 
@@ -1031,7 +1058,7 @@ The law library: the saved official texts, searched by passage.
 
 - Reads (3): docs/sources/corpus/superseded.json, src/lib/case-system/retrieval/corpusChunker.ts, src/lib/case-system/retrieval/decisionChunker.ts
 - Read by (9): app/api/intake/sourced-questions/route.ts, **src/lib/case-system/retrieval/checkedAnswer.ts**, src/lib/case-system/retrieval/explainProvision.ts, src/lib/case-system/retrieval/namedProvisions.ts, src/lib/case-system/retrieval/passagesForStory.ts, src/lib/case-system/retrieval/researchStory.ts, src/lib/case-system/retrieval/sourcedQuestions.ts, src/lib/case-system/retrieval/statuteEcho.ts, src/lib/case-system/retrieval/storyRetrieval.ts
-- Checked by (16): scripts/eval/coverageProbe.ts, scripts/eval/explainProbe.ts, scripts/eval/researchProbe.ts, scripts/eval/runLawExam.ts, scripts/eval/runRetrievalRecall.ts, scripts/retrieval/buildCorpusIndex.ts, scripts/retrieval/historicalSources.ts, scripts/verification/verifyAssistantLaw.ts, scripts/verification/verifyCaseUnderstanding.ts, scripts/verification/verifyCheckedAnswer.ts, scripts/verification/verifyCorpusRetrieval.ts, scripts/verification/verifyMunicipalNoticeFirst.ts, scripts/verification/verifyPlainExplanations.ts, scripts/verification/verifyResearchStep.ts, scripts/verification/verifySourcedQuestions.ts, scripts/verification/verifyStrategy.ts
+- Checked by (17): scripts/eval/coverageProbe.ts, scripts/eval/explainProbe.ts, scripts/eval/researchProbe.ts, scripts/eval/runLawExam.ts, scripts/eval/runRetrievalRecall.ts, scripts/retrieval/buildCorpusIndex.ts, scripts/retrieval/historicalSources.ts, scripts/verification/verifyAssistantLaw.ts, scripts/verification/verifyCaseUnderstanding.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyCheckedAnswer.ts, scripts/verification/verifyCorpusRetrieval.ts, scripts/verification/verifyMunicipalNoticeFirst.ts, scripts/verification/verifyPlainExplanations.ts, scripts/verification/verifyResearchStep.ts, scripts/verification/verifySourcedQuestions.ts, scripts/verification/verifyStrategy.ts
 
 ### src/lib/case-system/retrieval/checkedAnswer.ts
 
