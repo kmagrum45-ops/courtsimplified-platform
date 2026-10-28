@@ -1741,5 +1741,9 @@ for (const count of ["several", "one"] as const) {
     await page.waitForLoadState("networkidle").catch(() => {});
     await expect(page.getByTestId("stage-answer-defendants"), "the case page does not ask the number again").toHaveCount(0);
     await expect(page.locator('[data-testid="stage-answer-date-question"][data-question-id="sc-date-defence-filed"], [data-testid="stage-answer-date-question"][data-question-id="case-date-own-defence-delivered"]'), "nor either defence date").toHaveCount(0);
+    // A mistaken "One" can be changed where it matters (fresh review, 28 Oct): then the first defence is asked.
+    await page.getByTestId("stage-answer-defendants-change").click();
+    await page.getByTestId("stage-answer-defendants").getByTestId("stage-answer-defendants-several").click();
+    await expect(page.locator('[data-testid="stage-answer-date-question"][data-question-id="sc-date-defence-filed"]'), "after the change, the first defence is asked: the copy of their own date is not kept as its answer").toBeVisible({ timeout: 60_000 });
   });
 }

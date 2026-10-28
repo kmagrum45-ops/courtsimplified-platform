@@ -393,25 +393,37 @@ export const OWN_DEFENCE_QUESTIONS = ["case-date-own-defence-filed", "case-date-
 export const DEFENCE_DATE_QUESTIONS = [FIRST_DEFENCE_QUESTION, ...OWN_DEFENCE_QUESTIONS];
 
 /** The step's date questions as the number of defendants decides them, and whether to ask that number. */
-export function dateQuestionsFor(stepId: string | null | undefined, defendants: DefendantCount | null | undefined): { questions: DateQuestion[]; askDefendants: boolean } {
+/**
+ * The step's date questions as the number of defendants decides them; whether to ask that number;
+ * and whether it matters at this step at all (it asks both dates), so a saved number can be changed here.
+ */
+export function dateQuestionsFor(stepId: string | null | undefined, defendants: DefendantCount | null | undefined): { questions: DateQuestion[]; askDefendants: boolean; defendantsMatter: boolean } {
   const questions = dateQuestionsForStep(stepId);
   const own = questions.find((question) => OWN_DEFENCE_QUESTIONS.includes(question.id));
   const first = questions.find((question) => question.id === FIRST_DEFENCE_QUESTION);
-  if (!own || !first) return { questions, askDefendants: false };
+  if (!own || !first) return { questions, askDefendants: false, defendantsMatter: false };
   if (defendants === "one") {
     const both: DateQuestion = { ...own, sets: [...own.sets, ...first.sets.filter((set) => !own.sets.includes(set))], rules: [...(own.rules ?? []), ...(first.rules ?? [])] };
-    return { questions: questions.filter((question) => question !== first).map((question) => (question === own ? both : question)), askDefendants: false };
+    return { questions: questions.filter((question) => question !== first).map((question) => (question === own ? both : question)), askDefendants: false, defendantsMatter: true };
   }
-  return { questions, askDefendants: !defendants };
+  return { questions, askDefendants: !defendants, defendantsMatter: true };
 }
 
-/** With one defendant, a day given to either defence question is the other's too (the person's own answer). */
-export function withDefenceTwins(dates: Record<string, string>, defendants: DefendantCount | null | undefined): Record<string, string> {
-  if (defendants !== "one") return dates;
-  const day = DEFENCE_DATE_QUESTIONS.map((id) => dates[id]).find(Boolean);
+/** The defence-date questions each court's own map asks: a twin is only ever stored under these (fresh review, 28 Oct). */
+export function defenceQuestionsOf(courtPath: string | null | undefined): string[] {
+  if (courtPath === "small-claims") return [FIRST_DEFENCE_QUESTION, "case-date-own-defence-filed"];
+  if (courtPath === "civil") return [FIRST_DEFENCE_QUESTION, "case-date-own-defence-delivered"];
+  return [];
+}
+
+/** With one defendant, a day given to either of the court's defence questions is the other's too (the person's own answer). */
+export function withDefenceTwins(dates: Record<string, string>, defendants: DefendantCount | null | undefined, courtPath: string | null | undefined): Record<string, string> {
+  const pair = defenceQuestionsOf(courtPath);
+  if (defendants !== "one" || pair.length === 0) return dates;
+  const day = pair.map((id) => dates[id]).find(Boolean);
   if (!day) return dates;
   const out = { ...dates };
-  for (const id of DEFENCE_DATE_QUESTIONS) if (!out[id]) out[id] = day;
+  for (const id of pair) if (!out[id]) out[id] = day;
   return out;
 }
 

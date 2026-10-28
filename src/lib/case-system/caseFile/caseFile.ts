@@ -504,7 +504,7 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
   // A defendant's own defence and the first defence by any defendant are one day only when there is
   // one defendant (owner, 28 Oct); otherwise each is its own answer (casePosition.withDefenceTwins).
   const defendants = file.defendants.state === "answered" && isDefendantCount(file.defendants.value) ? file.defendants.value : null;
-  return withDefenceTwins(out, defendants);
+  return withDefenceTwins(out, defendants, court);
 }
 
 /** The date answers to keep on a saved position: none that only repeats a day the case file holds elsewhere. */

@@ -87,8 +87,8 @@ async function postGuidance(request: Request) {
   }
   // One defendant: a day given to either defence question is the other's too (owner, 28 Oct).
   const defendants = isDefendantCount(body.defendants) ? body.defendants : null;
-  const dates = caseDatesFrom(withDefenceTwins(answers, defendants));
-  const { questions: dateQuestions, askDefendants } = dateQuestionsFor(stageId, defendants);
+  const dates = caseDatesFrom(withDefenceTwins(answers, defendants, courtPath));
+  const { questions: dateQuestions, askDefendants, defendantsMatter } = dateQuestionsFor(stageId, defendants);
 
   const outcome = renderStageAnswerOrRefuse(stageId, facts, dates, scope);
 
@@ -98,6 +98,7 @@ async function postGuidance(request: Request) {
       answer: outcome.answer,
       dateQuestions,
       askDefendants,
+      defendantsMatter,
       nextStep: nextStepSummary(stageId, dates),
     });
   }
@@ -126,6 +127,7 @@ async function postGuidance(request: Request) {
         answer: rulesOnly,
         dateQuestions,
         askDefendants,
+        defendantsMatter,
         nextStep: nextStepSummary(stageId, dates),
       });
     }

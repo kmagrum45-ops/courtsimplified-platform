@@ -11,6 +11,7 @@
  *       several         -> each asked once, and the number is not asked;
  *     and a step that asks only one of them never asks the number;
  *   - with one defendant, one answer fills both dates, so both deadlines are counted; with several, not;
+ *     and only under the defence questions that court's own map asks;
  *   - the case file pairs the two dates only with one defendant;
  *   - a defence question's "why it matters" is the rule of a deadline at that same step, word for word.
  *
@@ -59,17 +60,23 @@ for (const stage of bothSteps) {
   const allRules = new Set([...defenceIds(several.questions.map((q) => q.id))].flatMap((id) => several.questions.find((q) => q.id === id)?.rules ?? []).map((rule) => rule.citation));
   check(`${stage.id}: one defendant -> one defence question, carrying both dates' rules`, !one.askDefendants && oneDefence.length === 1 && [...allRules].every((citation) => (oneDefence[0].rules ?? []).some((rule) => rule.citation === citation)));
   const severalIds = defenceIds(several.questions.map((q) => q.id));
+  check(`${stage.id}: the number matters here, whatever it is (so a saved number can be changed here)`, [unknown, one, several].every((result) => result.defendantsMatter));
   check(`${stage.id}: several -> each asked once, the number not asked`, !several.askDefendants && severalIds.length === 2 && new Set(severalIds).size === 2);
 }
 const oneOnly = stages.filter((stage) => !bothSteps.includes(stage) && defenceIds(dateQuestionsFor(stage.id, null).questions.map((q) => q.id)).length > 0);
-check(`a step that asks only one defence date never asks the number (${oneOnly.length} steps)`, oneOnly.every((stage) => !dateQuestionsFor(stage.id, null).askDefendants), oneOnly.filter((stage) => dateQuestionsFor(stage.id, null).askDefendants).map((s) => s.id).join(", "));
+check(`a step that asks only one defence date never asks the number (${oneOnly.length} steps)`, oneOnly.every((stage) => !dateQuestionsFor(stage.id, null).askDefendants && !dateQuestionsFor(stage.id, "one").defendantsMatter), oneOnly.filter((stage) => dateQuestionsFor(stage.id, null).askDefendants).map((s) => s.id).join(", "));
 
 // --- one answer, both deadlines -------------------------------------------------------------------
 const answered = { [OWN_DEFENCE_QUESTIONS[0]]: "2026-09-01" };
-const oneDates = caseDatesFrom(withDefenceTwins(answered, "one")) as Record<string, unknown>;
-const severalDates = caseDatesFrom(withDefenceTwins(answered, "several")) as Record<string, unknown>;
+const oneDates = caseDatesFrom(withDefenceTwins(answered, "one", "small-claims")) as Record<string, unknown>;
+const severalDates = caseDatesFrom(withDefenceTwins(answered, "several", "small-claims")) as Record<string, unknown>;
 check("one defendant: one answer gives both the own and the first defence", Boolean(oneDates["own-defence-filed"]) && Boolean(oneDates["first-defence-filed"]), JSON.stringify(oneDates));
 check("several: the answer to one is never the other's", Boolean(severalDates["own-defence-filed"]) && !severalDates["first-defence-filed"], JSON.stringify(severalDates));
+
+// A twin is stored only under the questions that court's own map asks (fresh review, 28 Oct).
+const scTwins = withDefenceTwins({ [FIRST_DEFENCE_QUESTION]: "2026-09-01" }, "one", "small-claims");
+const civilTwins = withDefenceTwins({ [FIRST_DEFENCE_QUESTION]: "2026-09-01" }, "one", "civil");
+check("a twin is stored only under the court's own defence questions", Boolean(scTwins["case-date-own-defence-filed"]) && !scTwins["case-date-own-defence-delivered"] && Boolean(civilTwins["case-date-own-defence-delivered"]) && !civilTwins["case-date-own-defence-filed"] && Object.keys(withDefenceTwins({ [FIRST_DEFENCE_QUESTION]: "2026-09-01" }, "one", "family")).length === 1);
 
 // --- the case file --------------------------------------------------------------------------------
 const checkpoint = (court: string) => ({ version: 1 as const, flowId: "f", courtPath: court as "small-claims", revision: "r", sections: {} });
@@ -78,7 +85,7 @@ const withOne = withCaseFileDates({ [FIRST_DEFENCE_QUESTION]: "2026-09-01" }, fi
 const withSeveral = withCaseFileDates({ [FIRST_DEFENCE_QUESTION]: "2026-09-01" }, fileWith("several"), fullDayIn);
 const withUnknown = withCaseFileDates({ [FIRST_DEFENCE_QUESTION]: "2026-09-01" }, fileWith(undefined), fullDayIn);
 check("the case file holds the number of defendants as a fact", fileWith("one").defendants.state === "answered" && fileWith("one").defendants.value === "one");
-check("the case file pairs the two dates with one defendant", OWN_DEFENCE_QUESTIONS.every((id) => withOne[id] === "2026-09-01"));
+check("the case file pairs the two dates with one defendant (the Small Claims own defence)", withOne["case-date-own-defence-filed"] === "2026-09-01" && !withOne["case-date-own-defence-delivered"]);
 check("and not with several, or with the number unknown", OWN_DEFENCE_QUESTIONS.every((id) => !withSeveral[id] && !withUnknown[id]));
 
 // --- why it matters: the step's own rules, word for word --------------------------------------------

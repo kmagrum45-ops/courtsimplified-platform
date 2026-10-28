@@ -80,6 +80,7 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-date-defence-filed": ["defenceFiledDate"],
   "case-date-defence-served": ["defenceFiledDate"],
   "case-date-own-defence-delivered": ["defenceFiledDate"],
+  "case-date-own-defence-filed": ["defenceFiledDate"],
   "case-date-act-or-omission": ["whenHappened"],
   // The Family triage.
   "married-to-other-party": ["married"],

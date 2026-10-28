@@ -81,7 +81,7 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
         {lines.map((fact) => {
           const slot = file[fact];
           const question = slot.source?.kind === "answer" ? slot.source.question : "";
-          const href = question.startsWith("situation:") ? situationHref : /date|^step$/.test(question) ? stepHref : changeHref;
+          const href = question.startsWith("situation:") ? situationHref : /date|^step$|^defendants$/.test(question) ? stepHref : changeHref;
           return (
             <div key={fact} className="contents" data-testid="case-file-line" data-fact={fact} data-state={slot.state} data-question={fact} data-source={question}>
               <dt className="font-semibold text-[#10231f]">{(fact === "conferenceDate" ? conferenceKind(slot) : null) ?? LABEL[fact]}</dt>
