@@ -7,7 +7,10 @@
  * (anyone past the site password could run up the OpenAI bill); a limiter that
  * lets everything through when the database is missing or failing; a refused
  * hit from the database being ignored; the safety pass refused because the
- * site is busy; a raw address kept as the visitor's id.
+ * site is busy; a raw address kept as the visitor's id; a test harness that sends one
+ * fixed visitor address, so every CI run in flight shares one hourly limit; a CI job that
+ * counts its test calls in a shared database (AI_RATE_LIMITS=local must be set there, and the
+ * local limit must still hold in that mode).
  *
  * COSTS NOTHING: no model, no network (the database is a fake).
  */
@@ -49,6 +52,33 @@ async function main() {
     const over = await takeAiAllowance(req("203.0.113.7"), "understand", { rpc: null, env, now });
     assert.deepEqual(over, { allowed: false, reason: "visitor" });
     assert.equal((await takeAiAllowance(req("203.0.113.8"), "understand", { rpc: null, env, now })).allowed, true, "another visitor is unaffected");
+  });
+
+  // AI_RATE_LIMITS=local (CI): the database is never asked, and the local limit still holds.
+  await check("in local mode the database is never asked, and the local limit still refuses", async () => {
+    resetLocalLimits();
+    const now = Date.UTC(2026, 9, 16, 12, 0, 0);
+    let asked = 0;
+    const rpc = async () => { asked += 1; return { data: true, error: null }; };
+    const localEnv = { ...env, AI_RATE_LIMITS: "local" };
+    for (let i = 0; i < VISITOR_LIMITS.understand; i += 1) {
+      assert.equal((await takeAiAllowance(req("203.0.113.9"), "understand", { rpc, env: localEnv, now })).allowed, true);
+    }
+    assert.deepEqual(await takeAiAllowance(req("203.0.113.9"), "understand", { rpc, env: localEnv, now }), { allowed: false, reason: "visitor" });
+    assert.equal(asked, 0, "the shared layer was called in local mode");
+  });
+
+  await check("only the CI workflows choose local mode; every job that serves the site does", () => {
+    const workflows = path.join(process.cwd(), ".github", "workflows");
+    for (const name of ["courtsimplified-ci.yml", "courtsimplified-story-pack.yml"]) {
+      const source = readFileSync(path.join(workflows, name), "utf8");
+      const jobs = source.split(/\r?\n(?=  [a-z][a-z0-9-]*:\r?\n)/).slice(1);
+      for (const job of jobs) if (/\bnpm run (start|test:)|playwright test/.test(job)) assert.match(job, /AI_RATE_LIMITS: local/, `${name}: a job runs the site's code without AI_RATE_LIMITS: local`);
+    }
+    // Never in the site's own settings (the live site keeps the shared layer).
+    for (const file of ["vercel.json", "next.config.ts", "next.config.js", "next.config.mjs"]) {
+      try { assert.doesNotMatch(readFileSync(path.join(process.cwd(), file), "utf8"), /AI_RATE_LIMITS/, file); } catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+    }
   });
 
   await check("the next hour gives the allowance back", async () => {
@@ -117,6 +147,25 @@ async function main() {
       return !/aiLimitResponse\(/.test(source);
     });
     assert.deepEqual(unguarded.map((f) => path.relative(process.cwd(), f)), []);
+  });
+
+  // The hourly visitor count is shared across every run in flight (the database layer), so a
+  // harness that names one fixed address makes all CI runs one visitor, and the limit runs out
+  // part-way through a suite (case 05, 25 Oct, browser harness; #488, 28 Oct, chat harness).
+  await check("test harnesses never send a fixed visitor address", () => {
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (name === "node_modules") continue;
+        if (statSync(full).isDirectory()) walk(full);
+        else if (/\.(ts|mjs|js)$/.test(name)) files.push(full);
+      }
+    };
+    walk(path.join(process.cwd(), "scripts"));
+    walk(path.join(process.cwd(), "tests"));
+    const fixed = files.filter((file) => !file.endsWith("verifyAiRateLimit.ts") && /["']x-forwarded-for["']\s*:\s*["'`][^"'`$]*["'`]/.test(readFileSync(file, "utf8")));
+    assert.deepEqual(fixed.map((f) => path.relative(process.cwd(), f)), []);
   });
 
   console.log(failures ? `\n${failures} check(s) failed.` : "\nAll AI-limit checks passed.");

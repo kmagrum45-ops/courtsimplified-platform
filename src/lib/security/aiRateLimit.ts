@@ -15,6 +15,11 @@
  *     the site is protected before the migration is applied and if the
  *     database is unreachable. Weaker (each instance counts alone), never off.
  *
+ * AI_RATE_LIMITS=local (CI only, 2026-10-28): the local layer alone. Every CI run in flight
+ * shared the database's counts (a fixed test visitor, one daily ceiling), so the limits ran out
+ * part-way through the runs; and CI's typecheck job reaches the production database, so its test
+ * calls were counted there. A test run's server is one instance, so its own memory is its count.
+ *
  * Privacy: the visitor is identified by a salted SHA-256 of their address
  * (and the site cookie when there is one). No address is stored or logged.
  *
@@ -148,7 +153,7 @@ export async function takeAiAllowance(request: Request, group: AiRouteGroup, dep
     if (!takeLocal(visitor, HOUR, VISITOR_LIMITS[group], 1, deps.now)) return { allowed: false, reason: "visitor" };
     if (cost > 0 && !takeLocal(global, DAY, ceiling, cost, deps.now)) return { allowed: false, reason: "daily" };
 
-    const rpc = deps.rpc !== undefined ? deps.rpc : await defaultRpc();
+    const rpc = env.AI_RATE_LIMITS === "local" ? null : deps.rpc !== undefined ? deps.rpc : await defaultRpc();
     const visitorShared = await takeShared(rpc, visitor, HOUR, VISITOR_LIMITS[group], 1);
     if (visitorShared === false) return { allowed: false, reason: "visitor" };
     const globalShared = cost > 0 ? await takeShared(rpc, global, DAY, ceiling, cost) : true;

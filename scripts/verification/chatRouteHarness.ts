@@ -53,6 +53,11 @@ export async function chatReplies(court: Court, story: string, messages: string[
     authenticate: (async () => ({ id: "11111111-1111-4111-8111-111111111111" })) as never,
     owned: (async () => owned) as never,
   });
+  // One person per conversation, as on the site: the hourly per-visitor limit (aiRateLimit.ts) is
+  // counted in the shared database, so a fixed address made every CI run in flight one visitor, and
+  // the limit ran out part-way through (#488, 28 Oct: 429 on chat-first-line). Same as the browser
+  // harness (thisCommitServer.ts visitorFor, case 05).
+  const visitor = `test-visitor-${crypto.randomUUID()}`;
   const conversation: { role: "user" | "assistant"; content: string }[] = [{ ...INITIAL_ASSISTANT_MESSAGE }];
   const replies: string[] = [];
   for (const message of messages) {
@@ -66,7 +71,7 @@ export async function chatReplies(court: Court, story: string, messages: string[
     };
     const response = await post(new Request("http://localhost/api/guided-assistant", {
       method: "POST",
-      headers: { "content-type": "application/json", "x-forwarded-for": "127.0.0.1" },
+      headers: { "content-type": "application/json", "x-forwarded-for": visitor },
       body: JSON.stringify(body),
     }) as never);
     const data = (await response.json()) as { answer?: string; userFacingAnswer?: string; error?: string };
