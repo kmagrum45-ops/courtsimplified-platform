@@ -51,11 +51,18 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       await autoAnswerSituation(page, false);
       const account = await fakeAccount(page);
       await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+      // When the page has its new case: the answer to the request that creates it has reached the page.
+      let caseCreatedForPage = false;
+      page.on("response", (response) => { if (response.request().method() === "POST" && /\/rest\/v1\/cases(\?|$)/.test(response.url())) caseCreatedForPage = true; });
       await page.goto(`/builder?path=${court}`);
       const notice = page.getByTestId("acknowledgement-checkbox");
       const gate = page.getByTestId("situation-questions");
       await expect(notice.or(gate).first()).toBeVisible({ timeout: 60_000 });
       if (await notice.isVisible()) { await notice.check(); await page.getByTestId("acknowledgement-continue").click(); }
+      // Owner, 28 Oct: at real speed the first answers can be given while the new case is still being
+      // created. Recorded here: whether the page had its new case yet, and what it said meanwhile.
+      const caseExistedAtFirstAnswer = caseCreatedForPage;
+      const shownWhileCreating = (await page.locator("body").innerText()).match(/Saving intake…|Answers will be saved to your account as you type.|Opening your intake…|Intake saved to your account./)?.[0] ?? "(no saving notice)";
       await gate.locator('[data-testid="situation-option"][data-value="going"]').click();
       await gate.locator(`[data-testid="situation-option"][data-value="${started}"]`).click();
       // A responding person names the papers and the day first, if asked.
@@ -77,6 +84,16 @@ for (const court of ["small-claims", "civil", "family"] as const) {
       const chosenStep = (await chosen.getAttribute("data-value")) ?? "";
       const chosenWords = findStage(chosenStep)!.userQuestion;
       await chosen.click();
+      // Answers given before the page has its new case: the page says it is saving, never nothing.
+      if (!caseExistedAtFirstAnswer) expect(shownWhileCreating, "the page says it is saving while the new case is created").not.toBe("(no saving notice)");
+      if (process.env.BROWSER_SPEED === "slow") console.log(`REAL-SPEED ${court}/${started}: the page had its new case at the first answer: ${caseExistedAtFirstAnswer}; the page said: "${shownWhileCreating}"`);
+      // The answers reach the saved case (they were given before or while it was created).
+      const savedStage = () => {
+        const row = [...account.rows.values()][0] as Record<string, unknown> | undefined;
+        const sections = ((row?.master_result as Record<string, unknown> | undefined)?.intakeCheckpoint as Record<string, unknown> | undefined)?.sections as Record<string, Record<string, unknown>> | undefined;
+        return (sections?.situation?.record as Record<string, unknown> | undefined)?.stage ?? null;
+      };
+      await expect.poll(savedStage, { timeout: 90_000, message: "the chosen stage is in the saved case" }).toBe(chosenStep);
 
       // 2. Kept and shown in the top line.
       await expect(gate).toHaveCount(0);
@@ -103,6 +120,11 @@ for (const court of ["small-claims", "civil", "family"] as const) {
 /** After the situation questions on the builder: the location and the story, as a person gives them. */
 async function openBuilderAfterSituation(page: Page, court: Court) {
   const province = page.getByLabel("Province or territory");
+  // The location is asked when the case has none; otherwise the first screen after it shows. Waited
+  // for, not glanced at: at real speed the location form appears seconds later, and a glance went on
+  // without the city, to a question that is only asked once the city is given (#488, 28 Oct).
+  const after = court === "small-claims" ? page.getByRole("button", { name: "Fill in the form yourself" }) : page.getByTestId("guided-form-question");
+  await expect(province.or(after).first()).toBeVisible({ timeout: 60_000 });
   if (await province.isVisible().catch(() => false)) {
     await province.selectOption("Ontario");
     await page.getByLabel("City or municipality").fill("Sudbury");
