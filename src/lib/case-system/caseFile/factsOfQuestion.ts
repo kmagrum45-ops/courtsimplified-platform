@@ -15,7 +15,7 @@ export type CaseFact =
   | "situation" | "side" | "court" | "stage" | "filed" | "defenceFiled" | "claimServed" | "papers"
   | "servedDate" | "serviceMethod" | "amount" | "otherParty" | "children" | "married" | "claimKind"
   | "wants" | "whenHappened" | "evidence" | "story" | "urgent" | "courtFileNumber" | "courtDate"
-  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "marriedWhere" | "outcome" | "filedDocuments";
+  | "conferenceDate" | "claimIssuedDate" | "defenceFiledDate" | "ownDefenceDate" | "marriedWhere" | "outcome" | "filedDocuments";
 
 const FACTS: Record<string, readonly CaseFact[]> = {
   // The situation questions (situation.ts).
@@ -79,8 +79,10 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   "sc-date-claim-issued": ["claimIssuedDate"],
   "sc-date-defence-filed": ["defenceFiledDate"],
   "case-date-defence-served": ["defenceFiledDate"],
-  "case-date-own-defence-delivered": ["defenceFiledDate"],
-  "case-date-own-defence-filed": ["defenceFiledDate"],
+  // The person's own defence is its own moment when there are several defendants, or the number is
+  // not known yet (owner, 28 Oct, b); with one defendant the site fills both from one answer.
+  "case-date-own-defence-delivered": ["ownDefenceDate"],
+  "case-date-own-defence-filed": ["ownDefenceDate"],
   "case-date-act-or-omission": ["whenHappened"],
   // The Family triage.
   "married-to-other-party": ["married"],

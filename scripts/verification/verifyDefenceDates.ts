@@ -21,7 +21,8 @@
 import { ALL_STAGES, findStage } from "../../src/lib/case-system/stage-map/stageMap";
 import { sourceName } from "../../src/lib/case-system/stage-map/citations";
 import { DEADLINE_EVENTS } from "../../src/lib/case-system/deadlines/deadlineEvents";
-import { DEFENCE_DATE_QUESTIONS, FIRST_DEFENCE_QUESTION, OWN_DEFENCE_QUESTIONS, dateQuestionsFor, withDefenceTwins } from "../../src/lib/case-system/casePosition";
+import { DEFENCE_DATE_QUESTIONS, FIRST_DEFENCE_QUESTION, OWN_DEFENCE_QUESTIONS, dateQuestionsFor, defenceQuestionsOf, withDefenceTwins } from "../../src/lib/case-system/casePosition";
+import { factsOfQuestion } from "../../src/lib/case-system/caseFile/factsOfQuestion";
 import { caseDatesFrom } from "../../src/lib/case-system/deadlines/deadlineEvents";
 import { caseFileOf, withCaseFileDates } from "../../src/lib/case-system/caseFile/caseFile";
 import { fullDayIn } from "../../src/lib/case-system/casePosition";
@@ -100,6 +101,19 @@ for (const stage of stages) {
 }
 check("every defence question's rule is a rule of a deadline at that same step, word for word", bad.length === 0, bad.slice(0, 10).join("; "));
 check("(the steps used are real)", Boolean(findStage("defendant:defence-filed")) && Boolean(findStage("defendant:considering-defendants-claim")));
+
+// Asked once (story pack w5, 28 Oct): the first defence by any defendant and the person's own are
+// two facts, so answering one never counts as the other being asked again; and they are each one
+// fact everywhere they are asked, so the same moment asked on two screens is caught as a repeat.
+const firstFacts = new Set([FIRST_DEFENCE_QUESTION, "case-date-defence-served"].flatMap((id) => factsOfQuestion(id, "date")));
+const ownFacts = new Set(OWN_DEFENCE_QUESTIONS.flatMap((id) => factsOfQuestion(id, "date")));
+check("the first defence and the person's own defence are different facts", firstFacts.size === 1 && ownFacts.size === 1 && ![...ownFacts].some((fact) => firstFacts.has(fact)), JSON.stringify({ first: [...firstFacts], own: [...ownFacts] }));
+// With one defendant, one answer settles both: neither is left to ask on the next screen.
+for (const court of ["small-claims", "civil"] as const) {
+  const own = OWN_DEFENCE_QUESTIONS.find((id) => defenceQuestionsOf(court).includes(id))!;
+  const settled = withDefenceTwins({ [own]: "2026-09-20" }, "one", court);
+  check(`${court}, one defendant: the own defence date answered leaves the first-defence question answered too`, settled[FIRST_DEFENCE_QUESTION] === "2026-09-20", JSON.stringify(settled));
+}
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exit(failures ? 1 : 0);
