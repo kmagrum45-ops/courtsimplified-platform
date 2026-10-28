@@ -328,7 +328,10 @@ export function setPositionClientForChecks(db: PositionWriteClient | null, route
   routeForChecks = route;
 }
 
-async function post(caseId: string, patch: Record<string, unknown>, hold: (pending: Promise<unknown>) => void): Promise<DirectSaveOutcome> {
+/** Whether anything answered a save: the database (saved, refused, an error or its time limit) or the route (any reply). */
+type Heard = { answered: boolean };
+
+async function post(caseId: string, patch: Record<string, unknown>, hold: (pending: Promise<unknown>) => void, heard: Heard = { answered: false }): Promise<DirectSaveOutcome> {
   try {
     // Imported on use: pure helpers in modules that import this one are read
     // by checks that must not construct the Supabase client.
@@ -337,6 +340,7 @@ async function post(caseId: string, patch: Record<string, unknown>, hold: (pendi
     // A request given up on still holds the queue until it has finished.
     hold(direct.finished);
     const { outcome, databaseBusy } = await direct.result;
+    if (outcome !== "failed" || databaseBusy) heard.answered = true;
     if (outcome !== "failed") return outcome;
     // The route writes the same row in the same database. When the database
     // itself answered with an error or ran past the time, it would only add
@@ -347,18 +351,28 @@ async function post(caseId: string, patch: Record<string, unknown>, hold: (pendi
     if (routeForChecks) {
       const routed = routeForChecks(patch);
       hold(routed);
-      return (await routed) ? "saved" : "failed";
+      const ok = await routed;
+      // A check's route that says true or false has answered; one that never settles has not.
+      heard.answered = true;
+      return ok ? "saved" : "failed";
     }
     if (!supabase) return "failed";
     const {
       data: { session },
     } = await supabase.auth.getSession();
     if (!session?.access_token) return "failed";
-    const routed = postWithTimeout("/api/cases/position", {
+    const routed = fetch("/api/cases/position", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
       body: JSON.stringify({ caseId, ...patch }),
-    });
+      signal: AbortSignal.timeout(POSITION_SAVE_TIMEOUT_MS),
+    }).then(
+      (response) => {
+        heard.answered = true;
+        return response.ok;
+      },
+      () => false,
+    );
     hold(routed);
     return (await routed) ? "saved" : "failed";
   } catch {
@@ -465,20 +479,24 @@ export function savePositionQueuedOutcome(caseId: string, wanted: Record<string,
   addPendingPositionSave(caseId, pending);
   watchPageClose(caseId);
   listenForPageClose();
+  const heard: Heard = { answered: false };
   return runCaseWrite(caseId, async (hold) => {
     const patch = options.onlyUnsaved ? unsavedPositionPatch(caseId, wanted) : wanted;
-    if (!patch) return "saved";
-    const outcome = await post(caseId, patch, hold);
+    if (!patch) {
+      heard.answered = true;
+      return "saved";
+    }
+    const outcome = await post(caseId, patch, hold, heard);
     if (outcome === "saved") rememberSaved(caseId, patch);
     return outcome;
   })
     .catch((): DirectSaveOutcome => "failed")
     .then((outcome) => {
-      // Finished -- saved, refused or failed -- it is crossed off: a failed save already says "not
-      // saved" here, and sending it later could put it over a newer choice (fresh review, 28 Oct).
-      // Only a save cut off by the page going stays written down: one that "fails" because the page
-      // is leaving (the browser cancels its request) is exactly that one, so it is kept.
-      if (!pageLeaving) settlePendingPositionSave(caseId, pending.id);
+      // Answered -- saved, refused, or failed with the database's own answer -- it is crossed off: a
+      // failed save already says "not saved" here, and sending it later could put it over a newer
+      // choice (fresh review, 28 Oct). Kept only when nothing answered at all, or the page has gone:
+      // a request the browser cancels as the page goes gets no answer, whichever event comes first.
+      if (heard.answered && !pageLeaving) settlePendingPositionSave(caseId, pending.id);
       return outcome;
     });
 }
@@ -652,9 +670,9 @@ export async function saveFormApplicabilityQueued(caseId: string, formApplicabil
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(body),
       });
-  // Finished, whatever the answer: crossed off (the page says when it did not save). Only a save
-  // cut off by the page going stays written down -- including one whose request was cancelled as it went.
-  if (!pageLeaving) settlePendingPositionSave(caseId, pending.id, "formApplicability");
+  // Answered, whatever the answer: crossed off (the page says when it did not save). Kept when no
+  // answer came (null: no reply at all, as when the browser cancels it as the page goes), or the page has gone.
+  if (response && !pageLeaving) settlePendingPositionSave(caseId, pending.id, "formApplicability");
   return response;
 }
 
