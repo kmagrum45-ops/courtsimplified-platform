@@ -283,6 +283,9 @@ jobs:
       - name: Each story-pack run keeps its own records
         run: npm run test:story-pack-records
 
+      - name: The story pack's parts run exactly the whole pack, each test once
+        run: npm run test:story-pack-shards
+
       - name: "Where the case is, who the person is in it, what is filed: words, never codes"
         run: npm run test:case-words
 

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-186 documented, 26 without a header.
+187 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -174,6 +174,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:story-facts` | **EACH FACT THE STORY GIVES, IN PLAIN WORDS (Charter re-test, 27 Oct, root cause 1).**<br>Checks, as properties, on the six cases Chrome re-tested (messy pack cases 11, 14, 16, 19 and 20, and the Charter claim), through the readers "What we have so far" and the questions use (caseFile/storyFacts.ts, storyLines.ts, storyAnswers.ts childrenFromStory) |
 | `npm run test:story-pack` | **Runs the story pack (tests/browser/story-pack.spec.ts) and prints its findings,**<br>grouped by what failed. Exits non-zero when there are any, so it can gate a PR. |
 | `npm run test:story-pack-records` | **EACH STORY-PACK RUN KEEPS ITS OWN RECORDS (site owner, 2026-10-27).**<br>Checks, as properties: - two runs with different run ids write to different folders, and neither touches the other; - the folder is outside test-results/, which Playwright empties at the start of every run; - the story pack writes its ask-once, claim-kind and  |
+| `npm run test:story-pack-shards` | **THE STORY PACK'S PARTS RUN EXACTLY THE WHOLE PACK, EACH TEST ONCE (site owner, 2026-10-29).**<br>CI shares the story pack across machines (courtsimplified-story-pack.yml: a matrix of parts, each `--fully-parallel --shard=<part>/<parts>`). Checks, as properties: - the parts the workflow lists are 1..N, and every part runs `--shard=<part>/N` with that N; -  |
 | `npm run test:strategy` | **Case strategy stays switched off, sourced, and never grades a case.**<br>WHAT IT CATCHES (retrieval/strategy.ts, /api/case/strategy, 2026-10-08): - strategy answering on the live site: on unless STRATEGY=off (site owner, 2026-10-12), and the page hides it only with NEXT_PUBLIC_STRATEGY=off; - the route answering someone not signed  |
 | `npm run test:three-area` | **Canonical three-area engines and core payload validators, entirely offline.**<br>HTTP confirmation/ownership enforcement is exercised separately by verifyIntakeGuidanceGate. Keeps source integration, specialized outputs and malformed-input coverage intact. |
 | `npm run test:tidy-wording` | **The spelling check can only fix spelling — never change what the user said.**<br>COSTS NOTHING. Pure validator runs, no model call. |
