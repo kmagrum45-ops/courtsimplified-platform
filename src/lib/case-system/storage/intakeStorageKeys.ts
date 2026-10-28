@@ -125,6 +125,19 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     note: "Case-partner chat hand-off between routes.",
   },
   {
+    key: "courtSimplifiedPendingPositionSave:",
+    area: "session",
+    scope: "guest",
+    matches: "prefix",
+    holdsCaseContent: true,
+    storyData: "analysis-gate",
+    note:
+      "A save of the step, stage or dates still on its way, written down before it is sent and crossed off once " +
+      "the case holds it; sent by the next page in this tab, or as the tab closes, so a reload in the middle " +
+      "does not lose it (pendingPositionSaves.ts, 28 Oct). Suffixed by case id. The same parts as master_result.position, " +
+      "and replayed through the same save, which drops dates from an earlier story. Dropped after 30 minutes.",
+  },
+  {
     key: "courtsimplified-ai-case-partner-chat:narrative-prefill",
     area: "session",
     scope: "guest",
@@ -398,6 +411,7 @@ export const EVIDENCE_PACKAGE_LEGACY_KEY = "courtSimplifiedEvidencePackage";
 export const WORKSPACE_DOCUMENT_KEY = "courtSimplifiedWorkspaceDocument";
 export const PARSED_MESSAGES_KEY = "courtsimplified_parsed_messages";
 export const BUILDER_LAST_CASE_KEY = "courtSimplifiedBuilderLastCase";
+export const PENDING_POSITION_SAVE_KEY = "courtSimplifiedPendingPositionSave:";
 
 /** Every individually-named constant, for the registry-coverage check. */
 export const NAMED_STORAGE_KEYS = [
@@ -411,4 +425,5 @@ export const NAMED_STORAGE_KEYS = [
   WORKSPACE_DOCUMENT_KEY,
   PARSED_MESSAGES_KEY,
   BUILDER_LAST_CASE_KEY,
+  PENDING_POSITION_SAVE_KEY,
 ] as const;
