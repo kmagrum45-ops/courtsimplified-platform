@@ -2570,6 +2570,7 @@ function BuilderPageContent() {
                 laterDates={unsureDateQuestions(caseFileOf(reviewView?.checkpoint ?? null, existingMasterResult))}
                 initialDateAnswers={savedPosition.dateAnswers}
                 initialService={savedPosition.service}
+                initialDefendants={savedPosition.defendants ?? null}
                 onSaved={(saved) => {
                   // A case already going: the step chosen here is their answer to "what has
                   // happened so far", kept in one place, so the top line shows it too.

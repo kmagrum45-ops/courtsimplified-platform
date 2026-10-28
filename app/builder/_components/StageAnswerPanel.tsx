@@ -5,7 +5,7 @@ import { sentences as splitSentences } from "../../../src/lib/case-system/senten
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/src/lib/supabase/client";
 
-import { dateQuestionsForStep, isServiceDateQuestion } from "@/src/lib/case-system/casePosition";
+import { DEFENCE_DATE_QUESTIONS, dateQuestionsForStep, isServiceDateQuestion, type DefendantCount } from "@/src/lib/case-system/casePosition";
 import {
   effectiveServiceDate,
   serviceMethodFromStory,
@@ -117,7 +117,7 @@ type NextStepSummary = {
 };
 
 type Response =
-  | { outcome: "rendered"; answer: RenderedAnswer; dateQuestions?: DateQuestion[]; nextStep?: NextStepSummary | null }
+  | { outcome: "rendered"; answer: RenderedAnswer; dateQuestions?: DateQuestion[]; askDefendants?: boolean; nextStep?: NextStepSummary | null }
   | { outcome: "needs-a-fact"; question: string; answer: RenderedAnswer | null }
   | { outcome: "unavailable"; message: string };
 
@@ -1326,6 +1326,7 @@ export default function StageAnswerPanel({
   initialStepId = null,
   initialDateAnswers = {},
   initialService = {},
+  initialDefendants = null,
   suggestedDates = {},
   storyHints = {},
   noticeStepId = null,
@@ -1355,6 +1356,8 @@ export default function StageAnswerPanel({
   initialDateAnswers?: Record<string, string>;
   /** How service dates were served, as saved (position.service; Step 2D). */
   initialService?: Record<string, { method: ServiceMethod; enteredOn: string }>;
+  /** How many defendants, as saved (position.defendants; owner, 28 Oct). */
+  initialDefendants?: DefendantCount | null;
   /** Exact dates the user recorded elsewhere, offered — never applied — as answers. */
   suggestedDates?: Record<string, SuggestedDate>;
   /** Sentences from the user's story about each moment, quoted beside its question. */
@@ -1427,6 +1430,8 @@ export default function StageAnswerPanel({
   const [municipality, setMunicipality] = useState("");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
+  // How many defendants: decides which defence dates this step asks (casePosition.dateQuestionsFor).
+  const [defendants, setDefendants] = useState<DefendantCount | null>(initialDefendants);
   const initialServiceCourt: ServiceCourt | null = courtPath === "small-claims" || courtPath === "civil" || courtPath === "family" ? courtPath : null;
   const initialCountable = () =>
     withoutArrivalDates(
@@ -1587,6 +1592,7 @@ export default function StageAnswerPanel({
     facts: Record<string, string> = {},
     answers: Record<string, string> = dateAnswers,
     dropped: Record<string, boolean> = rejected,
+    count: DefendantCount | null = defendants,
   ) {
     setLoading(true);
     setFailed(false);
@@ -1595,7 +1601,7 @@ export default function StageAnswerPanel({
       const response = await fetch("/api/case/stage-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}) },
-        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped) }),
+        body: JSON.stringify({ caseId, stageId: id, courtPath, confirmedFacts: facts, dateAnswers: withStoryDates(answers, dropped), defendants: count }),
       });
       if (!response.ok) throw new Error(String(response.status));
       setResult((await response.json()) as Response);
@@ -1634,6 +1640,12 @@ export default function StageAnswerPanel({
       }
       return out;
     });
+    // One defendant: the one defence question shown is both defence dates, so its answer -- or its
+    // removal -- is saved for both (owner, 28 Oct). The person's own answer; nothing is guessed.
+    if (defendants === "one") {
+      const shown = DEFENCE_DATE_QUESTIONS.find((id) => id in asked);
+      if (shown) for (const id of DEFENCE_DATE_QUESTIONS) if (!(id in asked)) asked[id] = asked[shown];
+    }
     const next = { ...dateAnswers };
     for (const [key, value] of Object.entries(asked)) {
       if (value) next[key] = value;
@@ -1840,6 +1852,31 @@ export default function StageAnswerPanel({
             Give the date and we will count the deadline for you, with the working shown below.
             Leave it empty if you do not know. You will still see the time period.
           </p>
+          {result.askDefendants ? (
+            // Asked once, here, only where a step asks both defence dates and the number is not known
+            // (owner, 28 Oct). Kept with the case and reused (case file: "Number of defendants").
+            <div data-testid="stage-answer-defendants" className="mt-3 rounded-xl border border-[#d8e6df] bg-white p-3">
+              <p className="text-sm font-semibold text-[#16302b]">How many defendants are there in this case?</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {([["one", "One"], ["several", "More than one"], ["not-sure", "Not sure"]] as const).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    data-testid={`stage-answer-defendants-${value}`}
+                    disabled={loading}
+                    onClick={() => {
+                      setDefendants(value);
+                      if (caseId) void savePositionQueued(caseId, { defendants: value });
+                      void load(stageId, factsForStep(stageId, municipality), dateAnswers, rejected, value);
+                    }}
+                    className="rounded-xl border border-[#2f7d67] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67] disabled:opacity-50"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
           <div className="mt-3 space-y-4">
             {result.dateQuestions!.map((question) => {
               if (laterDates.includes(question.id) && !dateAnswers[question.id] && !openedLater[question.id]) {
@@ -1888,8 +1925,7 @@ export default function StageAnswerPanel({
                           ? `${keptFromStory[question.id].replace(/^from your/, "From your")}. Saved to your case.`
                           : "Saved to your case."
                         : `${fromStory!.basis.replace(/^from your/, "From your")}`}{" "}
-                      Used for:{" "}
-                      {question.sets.join("; ")}
+                      {question.rules?.length ? <WhyItMatters question={question} /> : <>Used for:{" "}{question.sets.join("; ")}</>}
                     </p>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {fromStory ? (
@@ -1986,7 +2022,7 @@ export default function StageAnswerPanel({
                         ? `Enter ${waysFor(question.id).find((rule) => rule.method === (serviceMethod[question.id] ?? storyMethodFor(question.id)))?.dateToEnter ?? "the date"}`
                         : dateQuestionTextFor(question, serving(question.id))}
                     </span>
-                    <span className="block text-xs text-[#4d675f]">Used for: {question.sets.join("; ")}</span>
+                    <span className="block text-xs text-[#4d675f]">{question.rules?.length ? <WhyItMatters question={question} /> : <>Used for: {question.sets.join("; ")}</>}</span>
                     <input
                       type="date"
                       data-testid={`stage-answer-date-${question.id}`}
@@ -2167,5 +2203,23 @@ export default function StageAnswerPanel({
         </p>
       )}
     </section>
+  );
+}
+
+/**
+ * Why a defence date matters: the rule of each deadline at this step that counts from it, in its own
+ * words with its citation (owner, 28 Oct: never our own wording). Quotes are the stage map's, held
+ * verbatim in citations.ts.
+ */
+function WhyItMatters({ question }: { question: DateQuestion }) {
+  return (
+    <span data-testid={`stage-answer-why-${question.id}`}>
+      Why this matters:{" "}
+      {(question.rules ?? []).map((rule) => (
+        <span key={rule.citation} className="block">
+          &ldquo;{rule.quote}&rdquo; ({rule.citation})
+        </span>
+      ))}
+    </span>
   );
 }

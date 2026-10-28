@@ -1686,3 +1686,53 @@ for (const [court, id, questionId] of [["civil", "w5-civil-going-defence", "case
     });
   }
 }
+
+// Owner, 28 Oct: a defendant's own defence and the first defence by any defendant are one day only
+// with one defendant. On the civil defendant's "defence delivered" step (it counts from both), the
+// number of defendants is asked once; with "More than one" the first-defence question is asked once;
+// with "One" only one defence question is left, its answer fills both, and the case page asks neither.
+for (const count of ["several", "one"] as const) {
+  test(`28oct defence dates: ${count === "one" ? "one defendant -- one answer fills both, neither screen asks again" : "more than one defendant -- the first defence is asked once"} -- civil (civil-defendant)`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId("civil-defendant");
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, "civil", account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, "civil", { story: story.story });
+    await guidedQuestions(page, story, true);
+    await answerInReview(page, story);
+    await confirmAndContinue(page);
+    const panel = page.getByTestId("stage-answer-panel");
+    await expect(panel, "the step is the defendant's defence delivered").toHaveAttribute("data-stage-id", "civil:defendant:defence-delivered", { timeout: 90_000 });
+    const ask = page.getByTestId("stage-answer-defendants");
+    await expect(ask, "the number of defendants is asked, once").toHaveCount(1, { timeout: 60_000 });
+    await ask.getByTestId(`stage-answer-defendants-${count}`).click();
+    await expect(ask, "and not asked again").toHaveCount(0, { timeout: 60_000 });
+    const first = page.locator('[data-testid="stage-answer-date-question"][data-question-id="sc-date-defence-filed"]');
+    const own = page.locator('[data-testid="stage-answer-date-question"][data-question-id="case-date-own-defence-delivered"], [data-testid="stage-answer-known-case-date-own-defence-delivered"]');
+    if (count === "several") {
+      await expect(first, "the first defence by any defendant is asked, once").toHaveCount(1, { timeout: 60_000 });
+      await expect(page.getByTestId("stage-answer-why-sc-date-defence-filed").first(), "with its rule's own words").toContainText("r. 76.09 (1)");
+      return;
+    }
+    await expect(first, "one defendant: the first-defence question is not asked as well").toHaveCount(0, { timeout: 60_000 });
+    await expect(own.first(), "the one defence question is there").toBeVisible();
+    const box = page.locator('[data-testid="stage-answer-date-question"][data-question-id="case-date-own-defence-delivered"] input[type="date"]');
+    if (await box.count()) {
+      await box.fill("2026-09-01");
+      await page.getByTestId("stage-answer-dates-save").click();
+      await expect(page.getByTestId("stage-answer-dates-save")).toHaveText("Count my deadline", { timeout: 30_000 });
+    }
+    const caseId = String(([...account.rows.values()][0] as Record<string, unknown>).id ?? "");
+    await expect.poll(() => {
+      const position = ((([...account.rows.values()][0] as Record<string, unknown>).master_result as Record<string, unknown> | undefined)?.position ?? {}) as { defendants?: string; dateAnswers?: Record<string, string> };
+      return position.defendants === "one" && Boolean(position.dateAnswers?.["case-date-own-defence-delivered"]) && position.dateAnswers?.["sc-date-defence-filed"] === position.dateAnswers?.["case-date-own-defence-delivered"];
+    }, { timeout: 60_000, message: "the case holds one defendant and the one day for both dates" }).toBe(true);
+    await page.goto(`/cases/${caseId}`);
+    await expect(page.getByTestId("stage-answer-panel")).toBeVisible({ timeout: 90_000 });
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await expect(page.getByTestId("stage-answer-defendants"), "the case page does not ask the number again").toHaveCount(0);
+    await expect(page.locator('[data-testid="stage-answer-date-question"][data-question-id="sc-date-defence-filed"], [data-testid="stage-answer-date-question"][data-question-id="case-date-own-defence-delivered"]'), "nor either defence date").toHaveCount(0);
+  });
+}

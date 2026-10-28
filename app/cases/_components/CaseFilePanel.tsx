@@ -33,6 +33,7 @@ const LABEL: Record<SlotFact, string> = {
   whenHappened: "When it happened",
   conferenceDate: "Conference date",
   defenceFiled: "Defence or answer filed",
+  defendants: "Number of defendants",
   outcome: "Outcome you want",
   urgent: "Anything urgent",
   courtDate: "Next court date",
@@ -43,6 +44,7 @@ const STEP_PAGE_DATES = new Set<SlotFact>(["servedDate", "whenHappened", "confer
 
 const COURT: Record<string, string> = { "small-claims": "Small Claims Court", civil: "Superior Court of Justice", family: "Family court" };
 const SIDE: Record<string, string> = { bringing: "Bringing the case", responding: "Responding to the case" };
+const DEFENDANTS: Record<string, string> = { one: "One", several: "More than one", "not-sure": "Not sure" };
 const BROAD: Record<string, string> = { "starting-case": "Starting a case", responding: "Served and responding", "already-started": "The case has started" };
 
 function shownValue(fact: SlotFact, file: CaseFile): string {
@@ -54,6 +56,7 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
     if (fact === "side") return file.sideWords ?? SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
     // The step picked, by its own title ("Case conference scheduled"), never its code.
     if (fact === "stage") return findStage(slot.value)?.title ?? BROAD[slot.value] ?? optionWords(slot.value) ?? slot.value.replace(/-/g, " ");
+    if (fact === "defendants") return DEFENDANTS[slot.value] ?? slot.value;
     if (fact === "claimKind") return CLAIM_TYPES.find((type) => type.id === slot.value)?.name ?? (slot.value === "not-sure" ? "Not sure yet" : optionWords(slot.value) ?? slot.value);
     if (optionWords(slot.value)) return optionWords(slot.value)!;
   }

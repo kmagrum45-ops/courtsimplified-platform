@@ -106,6 +106,8 @@ before it is served (r. 11.3.01 covers only a defendant who did not file a defen
 the settlement conference): `plaintiff:wants-to-discontinue` settles nothing, and the questions are
 still asked there.
 
+**Which defence a deadline counts from (2026-10-28; this caught me).** Small Claims r. 10.01 (2) counts a defendant's claim from "the day on which the defence is filed": that defendant's own. The map counted it from `first-defence-filed`, the first defence by ANY defendant, the event r. 13.01 (3) and r. 76.09 (1) count from. The deadline's own `countFrom` words were right; only its `countFromEvent` was not, so reading the words did not show it. It now counts from `own-defence-filed`. The two are one day only with one defendant: `casePosition.dateQuestionsFor` asks one question or two by the number of defendants (asked once, kept as the case file's `defendants`), and the case file pairs the two dates only then. `npm run test:defence-dates`.
+
 **UNKNOWN is a real stage, not a null.** Part 0 found `inferStage` *and*
 `getStageForPersistence` both hard-defaulting to `starting-case`. A default is a
 confident answer given without evidence, and it is how a defendant with a

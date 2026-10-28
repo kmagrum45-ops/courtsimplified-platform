@@ -32,6 +32,7 @@ import {
   type DeadlineEventKey,
 } from "./deadlines/deadlineEvents";
 import { findStage, isSpecialStage, pathwayOf, type StagePathway } from "./stage-map/stageMap";
+import { sourceName } from "./stage-map/citations";
 import { isInScope } from "./policy/a2iScope";
 import { situationOfCase, withSituationDates } from "./situation/situation";
 
@@ -85,7 +86,18 @@ export type CasePosition = {
    * remembered and not asked again.
    */
   claimKind?: string;
+  /**
+   * How many defendants the case has, as the person answered on the step page (owner, 28 Oct):
+   * with one, a defendant's own defence and the first defence by any defendant are the same day,
+   * so one answer fills both; otherwise each is asked where a deadline at the step counts from it.
+   */
+  defendants?: DefendantCount;
 };
+
+/** How many defendants: one, more than one, or not sure (asked once, on the step page). */
+export const DEFENDANT_COUNTS = ["one", "several", "not-sure"] as const;
+export type DefendantCount = (typeof DEFENDANT_COUNTS)[number];
+export const isDefendantCount = (value: unknown): value is DefendantCount => typeof value === "string" && (DEFENDANT_COUNTS as readonly string[]).includes(value);
 
 const CLAIM_KIND_VALUE = /^(?:sc-claim-[a-z0-9-]{1,80}|not-sure)$/;
 
@@ -175,6 +187,7 @@ export function readCasePosition(masterResult: unknown, courtPath?: string | nul
     dateAnswers: withSituationDates(dateAnswers, courtPath, situationOfCase(masterResult)),
     service: readService(raw.service, courtPath),
     ...(typeof raw.claimKind === "string" && CLAIM_KIND_VALUE.test(raw.claimKind) ? { claimKind: raw.claimKind } : {}),
+    ...(isDefendantCount(raw.defendants) ? { defendants: raw.defendants } : {}),
   };
 }
 
@@ -212,6 +225,8 @@ export type PositionPatch = {
   service?: unknown;
   /** A kind-of-claim id or "not-sure", or null to remove. */
   claimKind?: unknown;
+  /** "one", "several" or "not-sure", or null to remove. */
+  defendants?: unknown;
 };
 
 export type PositionPatchResult =
@@ -253,6 +268,12 @@ export function applyPositionPatch(
       if (!answer) return { ok: false, error: "Unknown motion-to-change answer." };
       next.motionToChange = answer;
     }
+  }
+
+  if (patch.defendants !== undefined) {
+    if (patch.defendants === null) delete next.defendants;
+    else if (!isDefendantCount(patch.defendants)) return { ok: false, error: "Unknown number of defendants." };
+    else next.defendants = patch.defendants;
   }
 
   if (patch.claimKind !== undefined) {
@@ -317,6 +338,11 @@ export type DateQuestion = {
   question: string;
   /** The deadlines at this step that this date sets, in plain words. */
   sets: string[];
+  /**
+   * For a defence date: the rule of each deadline at THIS step that counts from it, in its own words
+   * with its citation (owner, 28 Oct: "the rule's own words for why it matters, not our own wording").
+   */
+  rules?: { citation: string; quote: string }[];
 };
 
 /** The date questions that set a deadline at this step. Empty where none is asked. */
@@ -342,11 +368,51 @@ export function dateQuestionsForStep(stepId: string | null | undefined): DateQue
       | { questionId?: string; question: string | null }
       | undefined;
     if (!event?.questionId || !event.question) continue;
-    const entry = byId.get(event.questionId) ?? { id: event.questionId, question: event.question, sets: [] };
+    const entry: DateQuestion = byId.get(event.questionId) ?? { id: event.questionId, question: event.question, sets: [] };
     if (!entry.sets.includes(deadline.what)) entry.sets.push(deadline.what);
+    if (DEFENCE_DATE_QUESTIONS.includes(event.questionId)) {
+      const rule = { citation: `${sourceName(deadline.rule)}, ${deadline.rule.pinpoint}`, quote: deadline.rule.quote };
+      entry.rules = [...(entry.rules ?? []).filter((held) => held.citation !== rule.citation), rule];
+    }
     byId.set(event.questionId, entry);
   }
   return [...byId.values()];
+}
+
+/*
+ * THE TWO DEFENCE DATES (owner, 28 Oct). A defendant's own defence (r. 10.01 (2) in Small Claims,
+ * r. 29.02 for a civil third party claim) and the first defence filed by any defendant (r. 13.01 (3),
+ * r. 76.09 (1)) are the same day only when there is one defendant. So where a step asks both:
+ *   - one defendant: one question, and its answer fills both;
+ *   - more than one, or not sure: each is asked, once;
+ *   - not known yet: the number of defendants is asked first, once, here (and kept with the case).
+ * A step that asks only one of them asks it as it is, and never asks the number.
+ */
+export const FIRST_DEFENCE_QUESTION = "sc-date-defence-filed";
+export const OWN_DEFENCE_QUESTIONS = ["case-date-own-defence-filed", "case-date-own-defence-delivered"];
+export const DEFENCE_DATE_QUESTIONS = [FIRST_DEFENCE_QUESTION, ...OWN_DEFENCE_QUESTIONS];
+
+/** The step's date questions as the number of defendants decides them, and whether to ask that number. */
+export function dateQuestionsFor(stepId: string | null | undefined, defendants: DefendantCount | null | undefined): { questions: DateQuestion[]; askDefendants: boolean } {
+  const questions = dateQuestionsForStep(stepId);
+  const own = questions.find((question) => OWN_DEFENCE_QUESTIONS.includes(question.id));
+  const first = questions.find((question) => question.id === FIRST_DEFENCE_QUESTION);
+  if (!own || !first) return { questions, askDefendants: false };
+  if (defendants === "one") {
+    const both: DateQuestion = { ...own, sets: [...own.sets, ...first.sets.filter((set) => !own.sets.includes(set))], rules: [...(own.rules ?? []), ...(first.rules ?? [])] };
+    return { questions: questions.filter((question) => question !== first).map((question) => (question === own ? both : question)), askDefendants: false };
+  }
+  return { questions, askDefendants: !defendants };
+}
+
+/** With one defendant, a day given to either defence question is the other's too (the person's own answer). */
+export function withDefenceTwins(dates: Record<string, string>, defendants: DefendantCount | null | undefined): Record<string, string> {
+  if (defendants !== "one") return dates;
+  const day = DEFENCE_DATE_QUESTIONS.map((id) => dates[id]).find(Boolean);
+  if (!day) return dates;
+  const out = { ...dates };
+  for (const id of DEFENCE_DATE_QUESTIONS) if (!out[id]) out[id] = day;
+  return out;
 }
 
 /**

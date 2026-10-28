@@ -78,6 +78,8 @@ export type DeadlineEventKey =
   | "defence-served"
   | "defence-time-expired"
   | "own-defence-delivered"
+  // 2026-10-28: Small Claims r. 10.01 (2) counts a defendant's claim from that defendant's own defence.
+  | "own-defence-filed"
   | "order-came-to-attention"
   | "mediation-session-date"
   | "set-down-for-trial"
@@ -218,6 +220,7 @@ const CASE_PAGE_QUESTIONS: Partial<Record<DeadlineEventKey, string>> = {
   "financial-examination-date": "If a financial examination has been scheduled, what date is it?",
   "defence-served": "If a statement of defence was served, what date was it served?",
   "own-defence-delivered": "If you delivered your statement of defence, what date did you deliver it?",
+  "own-defence-filed": "If you filed your defence, what date did you file it?",
   "mediation-session-date": "If a mediation session has been scheduled, what date is it?",
   "set-down-for-trial": "If the action was set down for trial, what date was it set down?",
   "struck-off-trial-list": "If the action was struck off the trial list, what date was that?",
@@ -283,7 +286,8 @@ export const DEADLINE_EVENTS = {
   "first-defence-filed": {
     key: "first-defence-filed",
     label: "the day the first defence was filed",
-    question: "If a defence has been filed, what date was it filed?",
+    // The first defence by ANY defendant (r. 13.01 (3), r. 76.09 (1)); a defendant's own is asked apart (owner, 28 Oct).
+    question: "If a defence has been filed, what date was the first defence filed, by any defendant?",
     questionId: "sc-date-defence-filed",
   },
   "defendants-claim-served": {
@@ -446,6 +450,7 @@ export const DEADLINE_EVENTS = {
         ["defence-served", "the day the statement of defence was served"],
         ["defence-time-expired", "the day the time to deliver a defence ran out"],
         ["own-defence-delivered", "the day this defendant delivered their statement of defence"],
+        ["own-defence-filed", "the day this defendant filed their defence"],
         ["order-came-to-attention", "the day the order came to the person's attention"],
         ["mediation-session-date", "the date of the mediation session"],
         ["set-down-for-trial", "the day the action was set down for trial"],
