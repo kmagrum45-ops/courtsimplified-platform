@@ -36,6 +36,7 @@ import {
 import { readCasePosition } from "../../src/lib/case-system/casePosition";
 import {
   pendingSendsAsPageCloses,
+  pageGoing,
   positionSavesSettled,
   replayPendingFormApplicability,
   replayPendingPositionSaves,
@@ -156,6 +157,11 @@ async function main() {
   setPositionClientForChecks({ from: () => ({ select: () => { const chain = { eq: () => chain, maybeSingle: async () => ({ data: null, error: { code: "57014", message: "timeout" } }) }; return chain; } }) } as never);
   const failed = await savePositionQueuedOutcome("f", { stepId: "s" });
   check("a save that finished as failed is crossed off, never sent again later", failed === "failed" && readPendingPositionSaves("f").length === 0);
+  // The same failure once the page is going (its request cancelled as it goes) is a cut-off save: kept.
+  pageGoing();
+  const cut = await savePositionQueuedOutcome("f2", { stepId: "s" });
+  check("a save that fails once the page is going is kept, for the next page to send", cut === "failed" && readPendingPositionSaves("f2").length === 1);
+  resetPageForChecks();
 
   // --- Resent values stop covering the case once they have landed (fresh review, 28 Oct) ---------------
   tab.clear();

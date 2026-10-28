@@ -566,21 +566,24 @@ function watchPageClose(caseId: string) {
 }
 
 /**
- * Set once the page starts to go (a reload, a typed address, a closed tab): from then on a save
- * whose request the browser cancels is not crossed off, because it was cut off, not finished.
+ * Set once the page is going (a reload, a typed address, a closed tab): from then on a save whose
+ * request the browser cancels is not crossed off, because it was cut off, not finished. Set on
+ * pagehide only, which cannot be cancelled and comes before the page's requests are cancelled --
+ * not on beforeunload, where "Leave site?" can be answered Stay and the page goes on (second fresh
+ * review, 28 Oct: then nothing on that page was ever crossed off).
  */
 let pageLeaving = false;
+
+/** What the page does as it goes. Exported for checks. */
+export function pageGoing() {
+  pageLeaving = true;
+  sendPendingAsPageCloses();
+}
 
 function listenForPageClose() {
   if (pageCloseListening || typeof window === "undefined") return;
   pageCloseListening = true;
-  window.addEventListener("beforeunload", () => {
-    pageLeaving = true;
-  });
-  window.addEventListener("pagehide", () => {
-    pageLeaving = true;
-    sendPendingAsPageCloses();
-  });
+  window.addEventListener("pagehide", () => pageGoing());
   // Back from the browser's page cache: the page is here again, and its saves finish normally.
   window.addEventListener("pageshow", (event) => {
     if ((event as PageTransitionEvent).persisted) pageLeaving = false;

@@ -30,9 +30,10 @@ export type PendingKind = "position" | "formApplicability";
 export const PENDING_MAX_AGE_MS = 5 * 60_000;
 
 /**
- * Marks a request as a cut-off save sent again (as the page closed). The routes try it once: if the
- * case changed after it was read, someone saved since, and this older save gives way instead of
- * being re-applied over that newer one (fresh review, 28 Oct).
+ * Marks a request as a cut-off save sent again (as the page closed). The routes try it once: when
+ * another save lands between the route's own read and its write, this older save gives way instead
+ * of being re-applied over it (fresh review, 28 Oct). It does not stop a resend that arrives after a
+ * newer save has fully landed; the resend is sent as the page closes, before the next page saves.
  */
 export const RESEND_HEADER = "x-courtsimplified-resend";
 
