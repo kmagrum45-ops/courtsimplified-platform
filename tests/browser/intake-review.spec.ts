@@ -72,6 +72,10 @@ for (const court of ["small-claims", "family", "civil"] as const) {
     master().evidence = { reference: "synthetic-owned-evidence" };
     master().documents = { reference: "synthetic-owned-document" };
     (master().workflowStatus as Record<string, unknown>).formsReviewed = true;
+    // Another writer's change, as the database records one: it moves updated_at, so a page write that read
+    // the row before it is refused and re-applied over it. Without this, at real speed a write sent just
+    // before landed after and passed the check, wiping formsReviewed (#488 group C, traced 28 Oct).
+    row.updated_at = new Date(Date.now() + 1).toISOString();
     await page.getByTestId("intake-start-review").click();
     await expect(panel).toHaveAttribute("data-phase", "reviewing");
     await expect(page.getByTestId("intake-confirm")).toBeDisabled();
