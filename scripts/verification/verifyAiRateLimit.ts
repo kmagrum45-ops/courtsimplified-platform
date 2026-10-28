@@ -7,7 +7,8 @@
  * (anyone past the site password could run up the OpenAI bill); a limiter that
  * lets everything through when the database is missing or failing; a refused
  * hit from the database being ignored; the safety pass refused because the
- * site is busy; a raw address kept as the visitor's id.
+ * site is busy; a raw address kept as the visitor's id; a test harness that sends one
+ * fixed visitor address, so every CI run in flight shares one hourly limit.
  *
  * COSTS NOTHING: no model, no network (the database is a fake).
  */
@@ -117,6 +118,25 @@ async function main() {
       return !/aiLimitResponse\(/.test(source);
     });
     assert.deepEqual(unguarded.map((f) => path.relative(process.cwd(), f)), []);
+  });
+
+  // The hourly visitor count is shared across every run in flight (the database layer), so a
+  // harness that names one fixed address makes all CI runs one visitor, and the limit runs out
+  // part-way through a suite (case 05, 25 Oct, browser harness; #488, 28 Oct, chat harness).
+  await check("test harnesses never send a fixed visitor address", () => {
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (name === "node_modules") continue;
+        if (statSync(full).isDirectory()) walk(full);
+        else if (/\.(ts|mjs|js)$/.test(name)) files.push(full);
+      }
+    };
+    walk(path.join(process.cwd(), "scripts"));
+    walk(path.join(process.cwd(), "tests"));
+    const fixed = files.filter((file) => !file.endsWith("verifyAiRateLimit.ts") && /["']x-forwarded-for["']\s*:\s*["'`][^"'`$]*["'`]/.test(readFileSync(file, "utf8")));
+    assert.deepEqual(fixed.map((f) => path.relative(process.cwd(), f)), []);
   });
 
   console.log(failures ? `\n${failures} check(s) failed.` : "\nAll AI-limit checks passed.");
