@@ -55,6 +55,7 @@ import {
   trackPositionWork,
   type PositionGenerations,
 } from "./_components/positionSave";
+import { WorkingNote } from "../_components/Working";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
@@ -2736,6 +2737,8 @@ function BuilderPageContent() {
                 <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
                 <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
               </div>
+              {/* The case is still being saved: the three buttons wait for it, and say why (owner, 28 Oct). */}
+              <WorkingNote working={savingMaster}>Saving your case… these open once it is saved.</WorkingNote>
               {confirmedStage && COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && offerRespondingDraft && savedCaseId() && respondingDocumentTitle(courtPath) ? (
                 /* Page walkthrough, 2026-10-06: the draft button sat far below
                    the deadline, so a served person could start drafting without

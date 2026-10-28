@@ -8,6 +8,7 @@ import { supabase } from "../../src/lib/supabase/client";
 import { readIntakeSession, writeIntakeSession } from "../../src/lib/case-system/intakeCheckpoint";
 import { carryGuestIntake } from "../../src/lib/case-system/guestCarry";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
+import { WorkingButton } from "../_components/Working";
 
 /**
  * Supabase Auth returns a specific error code for most signup failures, but
@@ -207,14 +208,14 @@ export default function LoginPage() {
             <Link href="/forgot-password" className="text-cyan-300 hover:text-cyan-200">
               Forgot password?
             </Link>
-            <button
-              type="button"
+            <WorkingButton
               onClick={handleMagicLink}
-              disabled={loading}
+              working={loading}
+              workingLabel="Please wait…"
               className="text-cyan-300 hover:text-cyan-200 disabled:opacity-50"
             >
               Email me a sign-in link
-            </button>
+            </WorkingButton>
           </div>
         ) : null}
 

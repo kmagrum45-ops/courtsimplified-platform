@@ -49,6 +49,7 @@ import { COURT_DECISION_TYPE, type DecisionDetails } from "../../../src/lib/case
 import type { TimelineStanding } from "../../../src/lib/case-workspace/timeline";
 import CourtDecisionPanel, { DecisionAttribution } from "./CourtDecisionPanel";
 import { FILE_DOWNLOAD_FAILED, FILE_OPEN_FAILED, fetchFileWithRetry, fileNameFromUrl, saveFile } from "@/src/lib/case-workspace/fileFetch";
+import { WorkingButton } from "@/app/_components/Working";
 
 // ---------------------------------------------------------------------------
 // The left nav. Order follows the work: gather, order, produce.
@@ -651,32 +652,34 @@ function FileActions({
   onOpen: (id: string, download: boolean) => Promise<string | null>;
   onRemove: (id: string) => Promise<string | null>;
 }) {
-  const [busy, setBusy] = useState(false);
+  // Which action is running: that button says so, the others wait (owner, 28 Oct).
+  const [busy, setBusy] = useState<"open" | "download" | "delete" | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const act = async (work: () => Promise<string | null>) => {
-    setBusy(true);
+  const act = async (which: "open" | "download" | "delete", work: () => Promise<string | null>) => {
+    setBusy(which);
     setMessage(null);
     const problem = await work();
-    setBusy(false);
+    setBusy(null);
     if (problem) setMessage(problem);
   };
   return (
     <div className="mt-2">
       <div className="flex flex-wrap gap-2 text-sm">
-        <button type="button" data-testid="document-open" disabled={busy} onClick={() => void act(() => onOpen(document.id, false))} className="rounded-full border border-[#2f7d67] px-3 py-1 font-semibold text-[#2f7d67] disabled:opacity-50">Open</button>
-        <button type="button" data-testid="document-download" disabled={busy} onClick={() => void act(() => onOpen(document.id, true))} className="rounded-full border border-[#2f7d67] px-3 py-1 font-semibold text-[#2f7d67] disabled:opacity-50">Download</button>
-        <button
-          type="button"
+        <WorkingButton data-testid="document-open" disabled={busy !== null} working={busy === "open"} workingLabel="Opening…" onClick={() => void act("open", () => onOpen(document.id, false))} className="rounded-full border border-[#2f7d67] px-3 py-1 font-semibold text-[#2f7d67] disabled:opacity-50">Open</WorkingButton>
+        <WorkingButton data-testid="document-download" disabled={busy !== null} working={busy === "download"} workingLabel="Preparing the download…" onClick={() => void act("download", () => onOpen(document.id, true))} className="rounded-full border border-[#2f7d67] px-3 py-1 font-semibold text-[#2f7d67] disabled:opacity-50">Download</WorkingButton>
+        <WorkingButton
           data-testid="document-delete"
-          disabled={busy}
+          disabled={busy !== null}
+          working={busy === "delete"}
+          workingLabel="Deleting…"
           onClick={() => {
             if (!window.confirm(`Delete ${document.originalName}? This removes the file from your case and cannot be undone.`)) return;
-            void act(() => onRemove(document.id));
+            void act("delete", () => onRemove(document.id));
           }}
           className="rounded-full border border-[#b54747] px-3 py-1 font-semibold text-[#8a2d2d] disabled:opacity-50"
         >
           Delete
-        </button>
+        </WorkingButton>
       </div>
       {message ? <p role="alert" data-testid="document-action-message" className="mt-2 text-xs text-[#8a2d2d]">{message}</p> : null}
     </div>

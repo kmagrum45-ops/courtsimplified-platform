@@ -39,6 +39,7 @@ import { assertApprovedUserContent } from "../../src/lib/content-library/outputG
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
+import { WorkingButton } from "../_components/Working";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -956,15 +957,15 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         <p className="mt-1 text-[#16302b]">{pendingChoice.label}</p>
                         <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
                         <div className="mt-2 flex flex-wrap gap-2">
-                          <button
-                            type="button"
+                          <WorkingButton
                             data-testid="forms-suggested-save"
-                            disabled={applicabilitySaving}
+                            working={applicabilitySaving}
+                            workingLabel="Saving…"
                             onClick={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
                             className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
                           >
                             Save this answer
-                          </button>
+                          </WorkingButton>
                           <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
                             Change
                           </button>

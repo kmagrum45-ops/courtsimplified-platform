@@ -34,6 +34,7 @@ import {
   CASE_EVENT_TYPES,
   type CaseEventType,
 } from "../../../src/lib/case-system/events/caseEventTypes";
+import { WorkingButton } from "@/app/_components/Working";
 
 type CandidateState = "confirmed" | "dismissed" | "unanswered";
 
@@ -131,6 +132,8 @@ export default function EventCandidateSurface({
   const [loading, setLoading] = useState(true);
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
   const [busyId, setBusyId] = useState<string | null>(null);
+  // Which action is running on that candidate, so its own button says so (owner, 28 Oct).
+  const [busyAction, setBusyAction] = useState<"confirm" | "dismiss" | "restore" | null>(null);
   const [error, setError] = useState("");
 
   /**
@@ -191,6 +194,7 @@ export default function EventCandidateSurface({
     }
 
     setBusyId(candidate.fingerprint);
+    setBusyAction("confirm");
     setError("");
 
     try {
@@ -259,6 +263,7 @@ export default function EventCandidateSurface({
 
   async function dismiss(candidate: ResolvedCandidate) {
     setBusyId(candidate.fingerprint);
+    setBusyAction("dismiss");
     setError("");
 
     try {
@@ -285,6 +290,7 @@ export default function EventCandidateSurface({
   async function restore(candidate: ResolvedCandidate) {
     if (!candidate.dismissalId) return;
     setBusyId(candidate.fingerprint);
+    setBusyAction("restore");
 
     try {
       const headers = await authHeaders();
@@ -432,24 +438,26 @@ export default function EventCandidateSurface({
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3">
-                <button
-                  type="button"
+                <WorkingButton
                   disabled={busy}
+                  working={busy && busyAction === "confirm"}
+                  workingLabel="Recording…"
                   data-testid="event-candidate-confirm"
                   onClick={() => void confirm(candidate)}
                   className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-70"
                 >
-                  {busy ? "Recording…" : "Record this"}
-                </button>
-                <button
-                  type="button"
+                  Record this
+                </WorkingButton>
+                <WorkingButton
                   disabled={busy}
+                  working={busy && busyAction === "dismiss"}
+                  workingLabel="Saving…"
                   data-testid="event-candidate-dismiss"
                   onClick={() => void dismiss(candidate)}
                   className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d] disabled:opacity-70"
                 >
                   Not a court step
-                </button>
+                </WorkingButton>
               </div>
             </li>
           );
@@ -473,13 +481,15 @@ export default function EventCandidateSurface({
                   {candidate.narrativeBasis.length > 90 ? "…" : ""}&rdquo;
                 </span>
                 {candidate.state === "dismissed" ? (
-                  <button
-                    type="button"
+                  <WorkingButton
+                    disabled={busyId === candidate.fingerprint}
+                    working={busyId === candidate.fingerprint && busyAction === "restore"}
+                    workingLabel="Bringing it back…"
                     onClick={() => void restore(candidate)}
                     className="text-xs font-semibold text-[#2f7d67] underline"
                   >
                     Bring it back
-                  </button>
+                  </WorkingButton>
                 ) : null}
               </li>
             ))}

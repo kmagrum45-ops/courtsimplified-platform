@@ -321,7 +321,10 @@ async function smallClaimsGuided(page: Page, story: Story): Promise<number> {
           if (await tick.count()) await tick.uncheck();
         }
       }
-      await proposals.getByRole("button").last().click();
+      // Pressed once, then waited for: while the next turn runs the card says it is working and its
+      // button is held (owner, 28 Oct); pressing again then waited on a held button (#488 at real speed).
+      await proposals.getByTestId("story-proposals-continue").click();
+      await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 120_000 });
       continue;
     }
     const text = (await question.innerText()).replace(/\s+/g, " ");
@@ -1674,3 +1677,48 @@ for (const [court, id, questionId] of [["civil", "w5-civil-going-defence", "case
     });
   }
 }
+
+// Owner, 28 Oct: a card that does slow work says so, and a second press does nothing. The story's
+// next turn is held 6 s, as at the live site's speed: after "Looks right, continue" the card says it
+// is working within a second, the button says so too, a second press sends no second request, and
+// the card moves on once the turn is back.
+test("28oct working states: the story-suggestions card says it is working, and a second press sends nothing -- small-claims (m02-landscaper)", async ({ page }) => {
+  test.setTimeout(300_000);
+  const story = byId("m02-landscaper");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await page.goto("/?path=small-claims");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Sudbury");
+  await page.getByLabel("Tell us what happened in your own words").fill(story.story);
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await expect(acknowledgement.or(page.getByRole("button", { name: /Answer questions one at a time/ }))).toBeVisible({ timeout: 60_000 });
+  if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+  await page.getByRole("button", { name: /Answer questions one at a time/ }).click();
+  const send = page.getByTestId("guided-send-saved-story");
+  if (await send.isVisible({ timeout: 5_000 }).catch(() => false)) await send.click();
+  const proposals = page.getByTestId("story-proposals");
+  await expect(proposals, "the story's suggestions are offered").toBeVisible({ timeout: 60_000 });
+  let turns = 0;
+  await page.route("**/api/intake/guided-turn", async (route) => {
+    turns += 1;
+    await new Promise((done) => setTimeout(done, 6_000));
+    await route.fallback();
+  });
+  // Found by its place (the card's last button), so on a build without the fix the test fails on what it checks.
+  const button = proposals.getByRole("button").last();
+  await button.click();
+  await expect(proposals.getByTestId("working-note"), "the card says it is working").toBeVisible({ timeout: 1_000 });
+  await expect(proposals.getByTestId("working-note")).toContainText(/[A-Za-z]{4,}.*…/);
+  await expect(button, "and so does its button").toHaveText("Working on it…");
+  await button.click({ force: true }).catch(() => {});
+  await expect(proposals, "the card moves on once the turn is back").toHaveCount(0, { timeout: 60_000 }).catch(async () => {
+    // Or it shows the next suggestions, no longer working.
+    await expect(proposals.getByTestId("working-note")).toHaveCount(0, { timeout: 60_000 });
+  });
+  expect(turns, "a second press sent no second request").toBe(1);
+});
