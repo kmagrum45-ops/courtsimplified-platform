@@ -30,7 +30,7 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
-import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation, SERVED_DATE_QUESTION } from "../situation/situation";
 import { isKindOfClaim } from "../intake/claimKind";
 import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
@@ -59,6 +59,8 @@ export type CaseFile = Record<SlotFact, Slot> & {
    * sc-date-claim-issued asked on the results page and again on the case page).
    */
   unsureDates?: string[];
+  /** The date question the day served answers, from the papers named in the situation answers (SERVED_DATE_QUESTION). */
+  servedQuestion?: string;
   /** The side in the start answer's own words for a case already going ("I started this case (applicant)"). */
   sideWords?: string;
   /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
@@ -224,6 +226,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (situation.where === "starting" && situation.filed) give(file, "filed", situation.filed === "something", "situation:filed");
   if (situation.where === "going" || situation.where === "served") give(file, "filed", true, "situation:where");
   if (situation.papers) give(file, "papers", situation.papers === "not-sure" ? "not-sure" : firstPageOf(situation.papers)?.title ?? situation.papers, "situation:papers");
+  if (situation.papers && SERVED_DATE_QUESTION[situation.papers]) file.servedQuestion = SERVED_DATE_QUESTION[situation.papers];
   if (situation.receivedOn) give(file, "servedDate", situation.receivedOn === "unknown" ? "unknown" : situation.receivedOn, "situation:received");
 
   // 2. Each area's own form (civil, Family, the Small Claims form).
@@ -486,7 +489,7 @@ export function slotDay(slot: Slot, readDay: (text: string) => string | null): s
  * person's own answers there (`answered`), which win. `readDay` reads one full day from an
  * answer's words (a day with no year gives none: it is asked, never guessed).
  */
-export function withCaseFileDates(answered: Record<string, string>, file: CaseFile, readDay: (text: string) => string | null): Record<string, string> {
+export function withCaseFileDates(answered: Record<string, string>, file: CaseFile, readDay: (text: string) => string | null, options: { twins?: boolean } = {}): Record<string, string> {
   const out = { ...answered };
   for (const [fact, ids] of Object.entries(DATE_QUESTIONS_OF) as [SlotFact, readonly string[]][]) {
     const day = slotDay(file[fact], readDay);
@@ -497,7 +500,8 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
   const served = file.servedDate;
   const servedDay = served.source?.kind === "answer" && !served.source.question.startsWith("situation:") ? slotDay(served, readDay) : null;
   const court = typeof file.court.value === "string" ? file.court.value : "";
-  const servedId = court === "family" ? "case-date-served-with-application" : court === "small-claims" || court === "civil" ? "sc-date-claim-served" : null;
+  // The question for the papers the person named (a motion to change is not an application, review of #507).
+  const servedId = file.servedQuestion ?? (court === "family" ? "case-date-served-with-application" : court === "small-claims" || court === "civil" ? "sc-date-claim-served" : null);
   if (servedDay && servedId && !out[servedId]) out[servedId] = servedDay;
   // A date question answered in the questions or the review is answered on the step page too,
   // and so is its twin there (the same moment asked under another id, w4/w5 in the story pack).
@@ -506,7 +510,8 @@ export function withCaseFileDates(answered: Record<string, string>, file: CaseFi
     const day = isRealIsoDate(words) ? words : readDay(words);
     if (day) out[id] = day;
   }
-  for (const group of SAME_MOMENT) {
+  // A list of the case's dates (the case record) leaves twins out: one moment, listed once (review of #507).
+  if (options.twins !== false) for (const group of SAME_MOMENT) {
     const day = group.map((id) => out[id]).find(Boolean);
     if (day) for (const id of group) if (!out[id]) out[id] = day;
   }

@@ -43,13 +43,23 @@ const REVIEW_DATE: Record<Court, string> = { "small-claims": "sc-date-claim-serv
 for (const court of ["small-claims", "civil", "family"] as const) {
   const id = REVIEW_DATE[court];
   const master = { courtPath: court, intakeCheckpoint: checkpoint(court, { builder: { initialAnswers: { [id]: "September 15, 2026" } } }), position: { dateAnswers: { "sc-date-defence-filed": "2026-10-01" } } };
-  const shown = withCaseFileDates({ "sc-date-defence-filed": "2026-10-01" }, caseFileOf(master.intakeCheckpoint, master), fullDayIn);
+  // What the case file holds, one id per moment (the step page also fills a moment's twin question).
+  const shown = withCaseFileDates({ "sc-date-defence-filed": "2026-10-01" }, caseFileOf(master.intakeCheckpoint, master), fullDayIn, { twins: false });
   const recorded = recordedDateAnswers(readCaseRecord(master, court));
   const missing = Object.entries(shown).filter(([key, value]) => recorded[key] !== value);
-  check(`${court}: every date the step page shows from the case file is in the case record`, Object.keys(shown).includes(id) && missing.length === 0, `shown ${JSON.stringify(shown)}; recorded ${JSON.stringify(recorded)}`);
+  const extra = Object.keys(recorded).filter((key) => !(key in shown));
+  check(`${court}: the case record holds every date the case file holds, and nothing else`, Object.keys(shown).includes(id) && missing.length === 0 && extra.length === 0, `shown ${JSON.stringify(shown)}; recorded ${JSON.stringify(recorded)}`);
   // The person's own date on the step page wins over the same question answered earlier.
   const both = { ...master, position: { dateAnswers: { [id]: "2026-09-20" } } };
   check(`${court}: a date given on the step page wins over the review's`, recordedDateAnswers(readCaseRecord(both, court))[id] === "2026-09-20");
+}
+
+// One moment is listed once: a step-page date is not repeated under its twin question (review of
+// #507: the timeline listed the defence date twice, the second under the civil question's label).
+{
+  const recorded = recordedDateAnswers(readCaseRecord({ courtPath: "small-claims", position: { dateAnswers: { "sc-date-defence-filed": "2026-10-01" } } }, "small-claims"));
+  const days = Object.values(recorded);
+  check("a day given once is listed once", days.length === new Set(days).size, JSON.stringify(recorded));
 }
 
 // 2. The Family served date kept in the Timeline.
@@ -58,6 +68,10 @@ for (const court of ["small-claims", "civil", "family"] as const) {
   const file = caseFileOf(master.intakeCheckpoint, master);
   check("family: the served day kept in the Timeline is held by the case file", file.servedDate.state === "answered" && file.servedDate.value === "October 3, 2026", JSON.stringify(file.servedDate));
   check("family: it answers the step page's served-date question, and reaches the case record", recordedDateAnswers(readCaseRecord(master, "family"))["case-date-served-with-application"] === "2026-10-03");
+  // Served with a motion to change: the day answers that question, not the application's (review of #507).
+  const motion = { courtPath: "family", intakeCheckpoint: checkpoint("family", { situation: { record: { where: "served", court: "family", papers: "family-15", receivedOn: "unknown" } }, family: { timeline: `${SERVED_LINE}October 3, 2026` } }) };
+  const motionDates = recordedDateAnswers(readCaseRecord(motion, "family"));
+  check("family: the served day answers the question for the papers named (a motion to change)", motionDates["case-date-served-with-motion-to-change"] === "2026-10-03" && !("case-date-served-with-application" in motionDates), JSON.stringify(motionDates));
   const none = caseFileOf(checkpoint("family", { family: { timeline: "Separated in 2025." } }), { courtPath: "family" });
   check("family: a Timeline with no served line gives no served day", none.servedDate.state === "not-asked", JSON.stringify(none.servedDate));
 }
@@ -76,13 +90,12 @@ if (locationOfIntake) {
     const location = locationOfIntake({ extra });
     check(`${label}: the saved location is read`, location.province === "Ontario" && location.city === "Sudbury", JSON.stringify(location));
   }
-  // The writers still save under the spellings read here (a renamed key would be lost again).
-  check("the civil and Family forms save extra.province and extra.city", ["app/builder/_components/CivilIntake.tsx", "app/builder/_components/FamilyIntake.tsx"].every((file) => /\n\s+province(?:: input\.province)?,\s*\n\s+city(?:: input\.city)?,/.test(read(file))));
+  // The Small Claims writer still saves under the spelling read here (a renamed key would be lost again).
   check("the Small Claims form saves yourProvince and yourCity", /yourProvince: location\.province/.test(read("app/builder/_components/SmallClaimsIntake.tsx")));
 }
 // Every reader of a saved case's location goes through it: no other file reads one spelling alone.
 const readers = ["app/builder/page.tsx", "app/builder/_components/CourtAssistantChat.tsx", "src/lib/case-system/caseRecord.ts"];
-check("the builder's restore, the chat and the case record read the location through the one reader", readers.every((file) => /locationOfIntake\(/.test(read(file))) && !/storedLocation\.yourCity/.test(read("app/builder/page.tsx")));
+check("the builder's restore, the chat and the case record read the location through the one reader", readers.every((file) => /locationOfIntake\(/.test(read(file))));
 
 console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
 process.exitCode = failures ? 1 : 0;

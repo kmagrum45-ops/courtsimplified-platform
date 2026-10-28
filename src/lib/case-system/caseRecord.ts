@@ -151,7 +151,7 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
   // The same call the step page makes (app/cases/[id]/page.tsx), so the two cannot differ.
   const checkpoint = courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null;
   // A guided answer above keeps its own source; the person's step-page date wins over both.
-  for (const [id, value] of Object.entries(withCaseFileDates(position.dateAnswers, caseFileOf(checkpoint, master), fullDayIn))) {
+  for (const [id, value] of Object.entries(withCaseFileDates(position.dateAnswers, caseFileOf(checkpoint, master), fullDayIn, { twins: false }))) {
     if (id in position.dateAnswers) dates[id] = { value, source: "confirmed" };
     else dates[id] ??= { value, source: "intake" };
   }
