@@ -132,6 +132,14 @@ async function takeShared(rpc: Rpc | null, bucket: string, windowSeconds: number
   }
 }
 
+/**
+ * The test-only mode (AI_RATE_LIMITS=local). Never on a production deploy, whatever is set there:
+ * Vercel sets VERCEL_ENV=production on the live site, and there the shared count always holds.
+ */
+export function localOnly(env: Record<string, string | undefined>): boolean {
+  return env.AI_RATE_LIMITS === "local" && env.VERCEL_ENV !== "production";
+}
+
 export type AllowanceResult = { allowed: true } | { allowed: false; reason: "visitor" | "daily" };
 
 export type AllowanceDeps = { rpc?: Rpc | null; env?: Record<string, string | undefined>; now?: number };
@@ -143,7 +151,8 @@ export type AllowanceDeps = { rpc?: Rpc | null; env?: Record<string, string | un
 export async function takeAiAllowance(request: Request, group: AiRouteGroup, deps: AllowanceDeps = {}): Promise<AllowanceResult> {
   try {
     const env = deps.env ?? process.env;
-    if (env.AI_RATE_LIMITS === "off") return { allowed: true };
+    // "off" (local development only) is never honoured on a production deploy either.
+    if (env.AI_RATE_LIMITS === "off" && env.VERCEL_ENV !== "production") return { allowed: true };
     const visitor = `v:${group}:${visitorId(request.headers, env.AI_LIMIT_SALT || undefined)}`;
     const day = new Date(deps.now ?? Date.now()).toISOString().slice(0, 10);
     const global = `g:${day}`;
@@ -154,7 +163,7 @@ export async function takeAiAllowance(request: Request, group: AiRouteGroup, dep
     if (!takeLocal(visitor, HOUR, VISITOR_LIMITS[group], 1, deps.now)) return { allowed: false, reason: "visitor" };
     if (cost > 0 && !takeLocal(global, DAY, ceiling, cost, deps.now)) return { allowed: false, reason: "daily" };
 
-    const rpc = env.AI_RATE_LIMITS === "local" ? null : deps.rpc !== undefined ? deps.rpc : await defaultRpc();
+    const rpc = localOnly(env) ? null : deps.rpc !== undefined ? deps.rpc : await defaultRpc();
     const visitorShared = await takeShared(rpc, visitor, HOUR, VISITOR_LIMITS[group], 1);
     if (visitorShared === false) return { allowed: false, reason: "visitor" };
     const globalShared = cost > 0 ? await takeShared(rpc, global, DAY, ceiling, cost) : true;
