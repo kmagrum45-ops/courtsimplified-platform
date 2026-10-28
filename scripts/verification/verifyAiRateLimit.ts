@@ -73,10 +73,10 @@ async function main() {
 
   await check("only the CI workflows choose local mode; every job that serves the site does", () => {
     const workflows = path.join(process.cwd(), ".github", "workflows");
-    for (const name of ["courtsimplified-ci.yml", "courtsimplified-story-pack.yml"]) {
+    for (const name of ["courtsimplified-ci.yml", "courtsimplified-story-pack.yml", "courtsimplified-walkthrough.yml"]) {
       const source = readFileSync(path.join(workflows, name), "utf8");
       const jobs = source.split(/\r?\n(?=  [a-z][a-z0-9-]*:\r?\n)/).slice(1);
-      for (const job of jobs) if (/\bnpm run (start|test:)|playwright test/.test(job)) assert.match(job, /AI_RATE_LIMITS: local/, `${name}: a job runs the site's code without AI_RATE_LIMITS: local`);
+      for (const job of jobs) if (/\bnpm run (start|test:)|playwright test/.test(job)) assert.match(job, /^\s+AI_RATE_LIMITS: local\s*$/m, `${name}: a job runs the site's code without AI_RATE_LIMITS: local`);
     }
     // Never in the site's own settings (the live site keeps the shared layer).
     for (const file of ["vercel.json", "next.config.ts", "next.config.js", "next.config.mjs"]) {
@@ -160,7 +160,8 @@ async function main() {
     const visitor = refusedResponseBody({ allowed: false, reason: "visitor" });
     const daily = refusedResponseBody({ allowed: false, reason: "daily" });
     assert.match(visitor.error, /in an hour\./);
-    assert.match(daily.error, /starts again at \d{1,2}( |:\d\d )[ap]\.m\. Toronto time\./);
+    assert.match(daily.error, /starts again at \d{1,2}(:\d\d)? [ap]\.m\. (today|tomorrow), Toronto time\./);
+    assert.match(dailyLimitWords(Date.UTC(2026, 9, 29, 1)), /8 p\.m\. tomorrow/, "after 8 p.m. in Toronto the next start is tomorrow's");
     assert.equal(dailyLimitWords(Date.UTC(2026, 9, 28, 15)), dailyLimitWords(Date.UTC(2026, 9, 28, 23)), "one reset time all day");
     assert.match(dailyLimitWords(Date.UTC(2026, 9, 28, 15)), /8 p\.m\./, "midnight UTC is 8 p.m. in Toronto in October");
     assert.equal(limitMessageOf(429, visitor), visitor.error);
@@ -190,7 +191,14 @@ async function main() {
       }
     };
     walk(path.join(process.cwd(), "app"));
+    walk(path.join(process.cwd(), "src"));
+    // Callers that show the person nothing on any failure, declared with the reason (reviewer of #509).
+    const SILENT_BY_DESIGN = new Map<string, string>([
+      ["src/lib/case-system/intake/clientSafetyCheck.ts", "the safety pass: any failure is 'not checked' and the person carries on; its daily cost is 0"],
+      ["src/lib/audit/aiCallLog.ts", "names the routes for the call log; calls none"],
+    ]);
     const silent = screens.filter((file) => {
+      if (SILENT_BY_DESIGN.has(path.relative(process.cwd(), file).split(path.sep).join("/"))) return false;
       const source = readFileSync(file, "utf8");
       return limitedRoutes.some((route) => source.includes(`"${route}"`) || source.includes(`\`${route}`)) && !/limitMessageOf\(/.test(source);
     });

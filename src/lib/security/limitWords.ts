@@ -11,8 +11,10 @@
 export function dailyResetWords(now: number = Date.now()): string {
   const next = new Date(now);
   next.setUTCHours(24, 0, 0, 0);
-  const time = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", hour: "numeric", minute: "2-digit", hour12: true }).format(next);
-  return time.replace(":00", "");
+  const time = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", hour: "numeric", minute: "2-digit", hour12: true }).format(next).replace(":00", "");
+  // After that hour in Toronto the next start is tomorrow's (reviewer of #509: "8 p.m." alone misleads at 9 p.m.).
+  const day = (moment: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto" }).format(moment);
+  return `${time} ${day(next) === day(new Date(now)) ? "today" : "tomorrow"}`;
 }
 
 export function visitorLimitWords(): string {
@@ -20,7 +22,7 @@ export function visitorLimitWords(): string {
 }
 
 export function dailyLimitWords(now: number = Date.now()): string {
-  return `The site has reached its limit for this kind of help for today. It starts again at ${dailyResetWords(now)} Toronto time.`;
+  return `The site has reached its limit for this kind of help for today. It starts again at ${dailyResetWords(now)}, Toronto time.`;
 }
 
 /** The words to show when a response is a limit refusal (status 429 with `limited`), else null. */
