@@ -30,6 +30,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 import { authenticateRealTestUser } from "./harness/intakeDriver";
 import { deleteHarnessUser } from "./harness/realTestSession";
+import { cleanLeftoverHarnessAccounts, refusalFor } from "../../scripts/db/harnessAccounts";
 import { confirmInitialInformation } from "./harness/intakeReview";
 import { GUEST_INTAKE_SESSION_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { HELD_BACK_PERSONAS } from "./walkthrough/heldBackPersonas";
@@ -542,6 +543,22 @@ function shardOf(all: Persona[]): Persona[] {
 
 test.describe("page walkthrough", () => {
   test.use({ navigationTimeout: 120_000, actionTimeout: 60_000 });
+
+  // Leftover harness accounts are deleted at the start, not only at each test's end (owner, 28 Oct):
+  // the end-of-test delete is best-effort, and 538 piled up on staging, near the free plan's limit.
+  // The same rules as `npm run db:clean-staging` (scripts/db/harnessAccounts.ts): only @example.test,
+  // flagged courtSimplifiedHarness, over a day old -- so no run in progress loses its account -- and
+  // only on staging. A failure here never stops the walkthrough; it says so and carries on.
+  test.beforeAll(async () => {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    if (refusalFor(url)) return console.log("Harness cleanup skipped: the target is not staging.");
+    try {
+      const report = await cleanLeftoverHarnessAccounts({ url, serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY, confirm: true });
+      console.log(`Harness cleanup: ${report.deleted} leftover account(s) deleted, ${report.failed} failed.`);
+    } catch {
+      console.log("Harness cleanup could not run; the walkthrough carries on.");
+    }
+  });
 
   // WALKTHROUGH_SET=held-back plays the ten held-back finish-line cases
   // (walkthrough/heldBackPersonas.ts) instead of the twenty tuning cases.

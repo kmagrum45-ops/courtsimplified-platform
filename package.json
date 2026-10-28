@@ -269,7 +269,9 @@
     "test:story-facts": "node --import tsx scripts/verification/verifyStoryFacts.ts",
     "test:story-pack-records": "node --import tsx scripts/verification/verifyStoryPackRecords.ts",
     "test:story-pack-shards": "node --import tsx scripts/verification/verifyStoryPackShards.ts",
-    "test:case-words": "node --import tsx scripts/verification/verifyCaseWords.ts"
+    "test:case-words": "node --import tsx scripts/verification/verifyCaseWords.ts",
+    "db:clean-staging": "node --import tsx --env-file=.env.local scripts/db/cleanStaging.ts",
+    "test:clean-staging": "node --import tsx scripts/verification/verifyCleanStaging.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
