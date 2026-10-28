@@ -35,7 +35,7 @@ import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
 import WhatComesNext from "../../_components/WhatComesNext";
 import GetHelp from "../../_components/GetHelp";
-import { savePositionQueued } from "./positionSave";
+import { replayPendingPositionSaves, unsavedFromEarlierPage, savePositionQueued } from "./positionSave";
 import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
 import {
   PASSED_CHECK_CLOSED,
@@ -1324,8 +1324,8 @@ export default function StageAnswerPanel({
   sideFromRecord = false,
   caseId = null,
   initialStepId = null,
-  initialDateAnswers = {},
-  initialService = {},
+  initialDateAnswers: givenDateAnswers = {},
+  initialService: givenService = {},
   suggestedDates = {},
   storyHints = {},
   noticeStepId = null,
@@ -1417,6 +1417,27 @@ export default function StageAnswerPanel({
     : readStep || stepFromPicture(courtPath, picture, responding, sideFromRecord) || suggestedStageFor(courtPath, confirmedStage, responding, storyText);
   // Dates the case reader found in their words, under what the guided intake recorded.
   const offeredDates = { ...datesFromPicture(picture), ...suggestedDates };
+  /*
+   * A save of these dates an earlier page in this tab left on its way (a reload, a typed address)
+   * is sent by this page and counted here at once: the page that holds this panel may have read the
+   * case before it landed (28 Oct, family reload; positionSave.ts, pendingPositionSaves.ts).
+   */
+  const replayedHere = caseId ? unsavedFromEarlierPage(caseId) : null;
+  useEffect(() => {
+    if (caseId) replayPendingPositionSaves(caseId);
+  }, [caseId]);
+  const replayedDates = JSON.stringify(replayedHere?.dateAnswers ?? {});
+  const replayedService = JSON.stringify(replayedHere?.service ?? {});
+  const givenDatesKey = JSON.stringify(givenDateAnswers);
+  const givenServiceKey = JSON.stringify(givenService);
+  const initialDateAnswers = useMemo<Record<string, string>>(
+    () => ({ ...JSON.parse(givenDatesKey), ...Object.fromEntries(Object.entries(JSON.parse(replayedDates) as Record<string, unknown>).filter((entry): entry is [string, string] => typeof entry[1] === "string" && entry[1] !== "")) }),
+    [givenDatesKey, replayedDates],
+  );
+  const initialService = useMemo<Record<string, { method: ServiceMethod; enteredOn: string }>>(
+    () => ({ ...JSON.parse(givenServiceKey), ...Object.fromEntries(Object.entries(JSON.parse(replayedService) as Record<string, unknown>).filter(([, entry]) => Boolean(entry) && typeof entry === "object")) }),
+    [givenServiceKey, replayedService],
+  );
   const savedStep = initialStepId && options.some((option) => option.id === initialStepId) ? initialStepId : "";
   const startingStep = savedStep || suggested;
   const [stageId, setStageId] = useState(startingStep);

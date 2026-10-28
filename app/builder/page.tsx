@@ -53,6 +53,7 @@ import {
   stageGenerations,
   startCatchUp,
   trackPositionWork,
+  withReplayedPosition,
   type PositionGenerations,
 } from "./_components/positionSave";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
@@ -732,7 +733,8 @@ function BuilderPageContent() {
         return;
       }
 
-      const loadedMasterResult = asRecord(data.master_result);
+      // A save of the step or dates an earlier page in this tab left on its way is sent now, and shown at once (positionSave.ts).
+      const loadedMasterResult = withReplayedPosition(asRecord(data.master_result), data.id, typeof data.court_path === "string" ? data.court_path : null);
 
       setMasterCaseId(data.id);
       setExistingMasterResult(loadedMasterResult);
