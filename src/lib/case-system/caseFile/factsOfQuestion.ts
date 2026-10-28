@@ -105,6 +105,26 @@ const FACTS: Record<string, readonly CaseFact[]> = {
 };
 
 /** The facts a question asks for: its listed facts, or a fact of its own (its id). */
+/**
+ * Which fact a question asks for, from its own words, for questions that have no id of their own:
+ * the story reading's questions on the home page and the chat's (Charter re-test 27 Oct: the
+ * person answered "what would you like the court to order?" on the home page, including a
+ * declaration; nothing else knew, so the review offered a story sentence instead and the chat asked
+ * "what outcome are you seeking?" again). Null when the words name none of these.
+ */
+const ASKS_FOR: [RegExp, CaseFact][] = [
+  [/\bwhat (?:outcome|result|remedy|remedies)\b|\boutcome (?:are|do) you (?:seeking|want)\b|\bwhat (?:do|would) you (?:want|like)(?: (?:to happen|the court to (?:order|do)))?\b|\bwhat are you (?:asking|seeking)\b|\bwhat (?:would you like|do you want) the court\b/i, "wants"],
+  [/\bhow much\b|\bwhat (?:is the )?amount\b/i, "amount"],
+  [/\bwhen were you served\b|\bwhat (?:date|day) were you served\b|\bhow were (?:the papers|you) served\b/i, "servedDate"],
+  [/\b(?:have you|has anyone|has anything been) (?:already )?(?:started|filed)\b|\bstarted a court case\b/i, "filed"],
+  [/\bwho (?:is|are) the (?:other party|other side|defendants?|respondents?)\b|\bwho (?:exactly )?(?:are you|do you want to|will you|would you like to) su(?:e|ing)\b|\bwho (?:exactly )?(?:do|would) you (?:name|sue)\b/i, "otherParty"],
+  [/\bwhen did (?:this|it|the [a-z]+) happen\b|\bwhat (?:date|day) did (?:this|it) happen\b/i, "whenHappened"],
+];
+
+export function factOfAskedText(question: string): CaseFact | null {
+  return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? null;
+}
+
 export function factsOfQuestion(id: string, surface?: string): string[] {
   const keyed = surface === "situation" ? FACTS[`situation:${id}`] : undefined;
   return [...(keyed ?? FACTS[id] ?? [id])];

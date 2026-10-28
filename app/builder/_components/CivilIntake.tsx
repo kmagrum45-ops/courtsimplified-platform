@@ -981,6 +981,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             fields={guidedFields}
             values={guidedValues}
             fromStart={[...(fromStart.role ? ["yourRole"] : []), ...(fromStart.documents ? ["documents"] : [])]}
+            startWords={{ yourRole: fromStart.roleWords }}
             onAnswer={answerGuided}
             onDone={handleAnalyze}
             onShowForm={() => setMode("form")}
@@ -1046,7 +1047,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         <label className="block">
           <span className="font-semibold text-[#16302b]">Your role</span>
           {fromStart.role ? (
-            <p data-testid="role-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.role === "defendant" ? "Defendant" : "Plaintiff"} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+            <p data-testid="role-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? (fromStart.role === "defendant" ? "Defendant" : "Plaintiff")} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
           ) : (
           <select
             value={input.yourRole}

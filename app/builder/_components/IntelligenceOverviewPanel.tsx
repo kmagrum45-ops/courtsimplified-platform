@@ -9,6 +9,7 @@ import {
   isQuestionAlreadyAnswered,
   recordedDocuments,
   withoutAnsweredQuestions,
+  withoutStageAnswered,
 } from "@/src/lib/case-system/intelligence/answeredQuestions";
 import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
 import {
@@ -17,6 +18,7 @@ import {
 } from "@/src/lib/case-system/intake/claimTypeOverviewContent";
 
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
+import { documentInWords, roleInWords, stageInWords } from "@/src/lib/case-system/copy/caseWords";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { FAMILY_RESOURCE_TOPICS } from "../../../src/lib/case-system/intake/familySafetyResources";
 import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
@@ -53,6 +55,8 @@ type Props = {
   heldKind?: Slot | null;
   /** Where the case is, in words: the step the person picked, by its own title (caseStep.ts caseStageWords). */
   stageWords?: string | null;
+  /** The side in the person's own start answers ("I started this case (applicant)"), for a case already going. */
+  roleWords?: string | null;
 };
 
 function listField(intake: StoredCaseData | null, field: string): string[] {
@@ -65,34 +69,9 @@ function textField(intake: StoredCaseData | null, field: string): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function displayStage(stage: string): string { return stage.replace(/-/g, " "); }
-
-/**
- * The side as the user would say it. Family stores the raw answer to "Who
- * started the court case?" ("respondent"), which read as a code on the
- * overview. "not-sure" says nothing, so the row is left out.
- */
-function displayRole(role: string): string {
-  const known: Record<string, string> = {
-    applicant: "Applicant — you started, or plan to start, the case",
-    respondent: "Respondent — the other person started the case",
-    plaintiff: "Plaintiff — you are bringing the claim",
-    defendant: "Defendant — you are responding to a claim",
-    "not-sure": "",
-  };
-  return role in known ? known[role] : role;
-}
-
-function documentLabel(document: string): string {
-  return ({
-    "plaintiffs-claim": "Plaintiff’s Claim filed and served",
-    "affidavit-service": "Affidavit of Service filed with the court",
-    "statement-claim": "Statement of Claim filed or served",
-    "statement-defence": "Statement of Defence filed or received",
-    "notice-application": "Notice of Application filed or received",
-    "notice-motion": "Notice of Motion filed or received",
-  } as Record<string, string>)[document] || document.replace(/-/g, " ");
-}
+// Stage, side and documents in words, never codes: one place (copy/caseWords.ts, 26 Oct re-test).
+const displayStage = stageInWords;
+const documentLabel = documentInWords;
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return <section className="rounded-2xl border border-[#d8e6df] bg-white p-5"><h2 className="text-lg font-bold text-[#16302b]">{title}</h2><div className="mt-3 text-sm leading-7 text-[#24463d]">{children}</div></section>;
@@ -131,7 +110,7 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
 
 const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
 
-export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null, stageWords = null }: Props) {
+export default function IntelligenceOverviewPanel({ analysis, intake, confirmedStage = null, caseId = null, chosenClaimKind = null, heldKind = null, stageWords = null, roleWords = null }: Props) {
   const [chosenKind, setChosenKind] = useState<string | null>(chosenClaimKind);
   const caseStage = (confirmedStage || analysis.caseStage) as typeof analysis.caseStage;
   const role = textField(intake, "yourRole");
@@ -251,12 +230,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   // and the deadline question by the dates on the step (page review,
   // 2026-10-06: a mother who answered "Nothing filed yet" was asked "Has
   // anything already been filed?" on every page).
-  const stageKnown = caseStage === "starting-case" || caseStage === "responding";
-  const STAGE_ANSWERS =
-    /^(Has anything already been (filed|served)\?|Are there court dates, limitation dates, or urgent deadlines\?)$/;
-  const stillToConfirm = stageKnown
-    ? candidateQuestions.filter((question) => !STAGE_ANSWERS.test(question.trim()))
-    : candidateQuestions;
+  // One rule, in answeredQuestions.ts (26 Oct re-test, case 16: a case already going was asked about court dates).
+  const stillToConfirm = withoutStageAnswered(candidateQuestions, caseStage, stageWords);
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
     : stillToConfirm[0] || GENERIC_CONFIRM_QUESTION;
@@ -368,7 +343,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake, confirmedS
   const snapshotRows: Array<[string, string]> = [
     ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family court" : "Superior Court of Justice"],
     ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
-    ...(displayRole(role) ? ([["Your role", displayRole(role)]] as Array<[string, string]>) : []),
+    ...(roleInWords(role, roleWords) ? ([["Your role", roleInWords(role, roleWords)]] as Array<[string, string]>) : []),
     ["Current stage", stageWords ?? displayStage(caseStage)],
     ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
     ...(amount ? ([["Amount", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),

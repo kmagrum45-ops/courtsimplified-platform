@@ -271,6 +271,7 @@ export function situationFacts(raw: Record<string, unknown> | undefined): { fact
   if (fromStart.role) facts.role = fromStart.role;
   if (fromStart.claimFiled !== undefined) facts.claimFiled = fromStart.claimFiled;
   if (fromStart.claimServed !== undefined) facts.claimServed = fromStart.claimServed;
+  if (fromStart.defenceFiled !== undefined) facts.defenceFiled = fromStart.defenceFiled;
   // The day served and "when did you receive the claim" are answered too (step 2 reviewer: both were asked again).
   return { facts: facts as IntakeFacts, questionIds: fromStart.questionIds };
 }

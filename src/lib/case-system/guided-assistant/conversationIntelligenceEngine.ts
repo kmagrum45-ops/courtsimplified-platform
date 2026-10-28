@@ -1,4 +1,5 @@
-import { answeredInStory } from "./answeredInStory";
+import { answeredFactsOf, answeredInStory } from "./answeredInStory";
+import type { SlotFact } from "../caseFile/caseFile";
 import { sentences as sharedSentences } from "../sentences";
 import { findDates, findDayMonthWithoutYear, mentionsDate, mentionsRelativeDate } from "../dates";
 import {
@@ -647,14 +648,16 @@ function getFirstProfile(domain: Parameters<typeof getReasoningProfilesForDomain
 function profileQuestionReason(profile: LegalReasoningProfile, question: string): string {
   const lower = question.toLowerCase();
 
+  // Plain words only: the profile's own label and lists are the site's machinery, never shown
+  // (Charter re-test 27 Oct: "This is the first investigation step for Public authority / Crown /
+  // police: Identify each public actor").
+  void profile;
   if (lower.includes("exactly") || lower.includes("word")) {
-    return `This is the first investigation step for ${profile.label}: ${profile.investigationOrder[0]}`;
+    return `This helps put what happened in the order a court will look at it.`;
   }
 
   if (lower.includes("proof") || lower.includes("evidence")) {
-    return `This matters because the highest evidence priorities include ${profile.evidencePriorities
-      .slice(0, 3)
-      .join(", ")}.`;
+    return `This helps you gather the records that show what happened.`;
   }
 
   if (lower.includes("who")) {
@@ -1690,16 +1693,8 @@ function detectLegalSignals(
       needsVerification: true,
     });
 
-    if (framework.reasoningProfile) {
-      signals.push({
-        id: createId("signal"),
-        label: `${framework.reasoningProfile.label} reasoning profile`,
-        explanation:
-          "CourtSimplified loaded a shared legal reasoning profile for this issue so the conversation, evidence review, and investigation can follow a consistent case-building path.",
-        confidence: "high",
-        needsVerification: false,
-      });
-    }
+    // The reasoning profile is the site's own machinery, never a legal issue shown to the person
+    // (reviewer, 26 Oct: "Public authority / Crown / police reasoning profile" in the issues answer).
   }
 
   if (includesAny(message, ["limitation", "limitations", "two years", "deadline to sue", "out of time"])) {
@@ -1713,7 +1708,8 @@ function detectLegalSignals(
     });
   }
 
-  if (includesAny(message, ["privilege", "court", "police report", "employer", "cas", "children's aid"])) {
+  // Not on the bare word "court", which every case says (reviewer, 26 Oct: shown for a Charter claim).
+  if (includesAny(message, ["privilege", "police report", "employer", "cas", "children's aid"])) {
     signals.push({
       id: createId("signal"),
       label: "Context / privilege / recipient issue",
@@ -1729,11 +1725,8 @@ function detectLegalSignals(
 
 function buildHypotheses(frameworks: IssueFramework[]): CasePartnerHypothesis[] {
   return frameworks.map((framework) => {
-    const profileText = framework.reasoningProfile
-      ? ` The reasoning profile will prioritize: ${framework.reasoningProfile.investigationOrder
-          .slice(0, 3)
-          .join("; ")}.`
-      : "";
+    // The reasoning profile's own steps are the site's machinery, never shown (Charter re-test 27 Oct).
+    const profileText = "";
 
     return {
       id: createId("hypothesis"),
@@ -1843,13 +1836,8 @@ function buildMissingInformation(args: {
       }
     }
 
-    if (framework.reasoningProfile) {
-      for (const point of framework.reasoningProfile.investigationOrder.slice(0, 3)) {
-        if (!includesAny(args.message, point.toLowerCase().split(" ").filter((word) => word.length > 5))) {
-          missing.push(`reasoning profile check: ${point}`);
-        }
-      }
-    }
+    // The profile's investigation steps ("Identify each public actor") are instructions to the site,
+    // not something missing from the person's case: none is listed (Charter re-test 27 Oct).
   }
 
   return unique(missing).slice(0, 12);
@@ -1863,12 +1851,14 @@ function buildQuestions(args: {
   conversationText: string;
   /** The saved story and timeline: a question they answer is not asked (answeredInStory.ts). */
   knownText?: string;
+  /** The facts the saved case file holds: a question asking for one is not asked (answeredInStory.ts). */
+  knownFacts?: ReadonlySet<SlotFact>;
 }): CasePartnerQuestion[] {
   const questions: CasePartnerQuestion[] = [];
 
   function pushQuestion(question: CasePartnerQuestion) {
     if (wasQuestionAlreadyAsked(question.question, args.conversationText)) return;
-    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`)) return;
+    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`, args.knownFacts)) return;
     if (questions.some((existing) => existing.question === question.question)) return;
     questions.push(question);
   }
@@ -1990,7 +1980,7 @@ function buildPrimaryGoal(args: {
   if (args.frameworks.length > 0) {
     const profile = args.frameworks[0].reasoningProfile;
     return profile
-      ? `Investigate using reasoning profile: ${profile.label}`
+      ? `Investigate: ${args.frameworks[0].label}`
       : `Investigate: ${args.frameworks[0].label}`;
   }
 
@@ -2028,9 +2018,8 @@ function buildUserFacingAnswer(args: {
       .map((proof) => `- ${proof}`)
       .join("\n");
 
-    const profileText = primary.reasoningProfile
-      ? `\n\nCourtSimplified is also applying the ${primary.reasoningProfile.label} reasoning profile, which means it will check investigation order, proof priorities, burden points, contradictions, credibility risks, and procedural watch points.`
-      : "";
+    // Never named to the person: the profile is the site's machinery (Charter re-test 27 Oct; reviewer 26 Oct).
+    const profileText = "";
 
     const riskText = primary.keyRisks.length
       ? `\n\nImportant caution: ${primary.keyRisks[0]}`
@@ -2241,6 +2230,7 @@ export function buildConversationIntelligence(
     actors: inferredActors,
     conversationText,
     knownText: savedCaseText(input.caseMemory),
+    knownFacts: answeredFactsOf(input.caseMemory),
   });
 
   const questions: CasePartnerQuestion[] =

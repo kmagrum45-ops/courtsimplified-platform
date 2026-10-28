@@ -232,7 +232,36 @@ export function childrenFromStory(story: string): StoryAnswer | null {
     "i",
   );
   const sentence = sentences(story).find((candidate) => pattern.test(candidate)) ?? null;
-  return sentence ? { value: sentence, quote: sentence } : null;
+  return sentence ? { value: childrenWords(sentence), quote: sentence } : null;
+}
+
+/**
+ * The children in plain words: their names and ages ("Mia (4) and Noah (2)"), or who and how old
+ * ("Daughter, age 6"), never the whole sentence they came in (Charter re-test 27 Oct: "Children"
+ * showed "My wife wants a divorce, to sell the house, …"). The sentence when neither is said.
+ */
+function childrenWords(sentence: string): string {
+  // "Mia (4)", and the other ways a name and an age are written: "Maya who is 7", "Ava, 9", "Leo, who
+  // is 4", "Tom, 12, Ann, 9 and Bea, 3" (reviewer, 26 Oct: "Kid, age 7" for two named children).
+  const NOT_A_NAME = new RegExp(`^(?:${MONTH_NAMES_PATTERN}|He|She|They|It|We|I|My|Our|His|Her|Their|The|And|Age|Aged)$`, "i");
+  const named = [...sentence.matchAll(/\b([A-Z][a-z]+)(?: \((\d{1,2})\)|,? (?:who is |who's |is |aged |age )(\d{1,2})\b|, (\d{1,2})\b(?!,? \d{4}))/g)]
+    .filter((match) => !NOT_A_NAME.test(match[1]))
+    .map((match) => `${match[1]} (${match[2] ?? match[3] ?? match[4]})`);
+  if (named.length) return named.length === 1 ? named[0] : `${named.slice(0, -1).join(", ")} and ${named[named.length - 1]}`;
+  const WORD = "\\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen";
+  // Several, with their ages ("two kids aged 3 and 5"): every age kept.
+  const several = new RegExp(`\\b(?:(one|two|three|four|five|six|\\d) )?(kids|children|daughters|sons|boys|girls)\\b[^.]{0,12}?\\b(?:aged|ages|age)\\s+((?:${WORD})(?:\\s*(?:,|and)\\s*(?:${WORD}))+)`, "i").exec(sentence);
+  if (several) {
+    const plural = /^kids$/i.test(several[2]) ? "children" : several[2].toLowerCase();
+    return `${several[1] ? `${several[1].charAt(0).toUpperCase()}${several[1].slice(1).toLowerCase()} ${plural}` : `${plural.charAt(0).toUpperCase()}${plural.slice(1)}`}, ages ${several[3].replace(/\\s+/g, " ")}`;
+  }
+  const aged = new RegExp(`\\b(daughter|son|child|kid|boy|girl|baby)s?\\b[^.]{0,20}?\\b(?:is |aged |age )(${WORD})\\b`, "i").exec(sentence)
+    ?? new RegExp(`\\b(?:a |an )?(${WORD})[- ](?:year|yr)s?[- ]old (daughter|son|child|kid|boy|girl)\\b`, "i").exec(sentence);
+  if (aged) {
+    const [who, age] = /^\d|^(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)$/i.test(aged[1]) ? [aged[2], aged[1]] : [aged[1], aged[2]];
+    return `${who.charAt(0).toUpperCase()}${who.slice(1).toLowerCase()}, age ${age.toLowerCase()}`;
+  }
+  return sentence;
 }
 
 /*
@@ -531,6 +560,20 @@ function familyApplicationQuote(story: string): string | null {
 }
 
 const FAMILY_ANSWER_FILED = /\bi (?:filed|served|did|sent in|submitted) my (?:answer|response)\b/i;
+/*
+ * A case already going, in the story's own words (26 Oct re-test, case 16: "I filed an application in
+ * June 2026 and my ex filed an answer in July" was asked "Has anything been filed…?" with nothing
+ * offered): the person's own application, and the other side's answer or defence. Only the paper's
+ * name with a filing word; never a guess from "we went to court".
+ */
+const OWN_APPLICATION_FILED = /\b(?:i|we) (?:filed|started|issued|served|brought|made) (?:a |an |my |our )?(?:court |family )?application\b|\b(?:my|our) application was (?:filed|issued|served)\b/i;
+const OTHER_ANSWER_FILED = new RegExp("\\b(?:" + FAMILY_PERSON + "|they|the (?:respondent|other (?:side|party|person))) (?:filed|served|delivered|sent in|submitted) (?:a |an |the |his |her |their )?(?:answer|response)\\b", "i");
+const OWN_CLAIM_ISSUED = /\b(?:i|we) (?:filed|issued|started|served|delivered) (?:a |the |my |our )?statement of claim\b/i;
+const DEFENCE_FILED = new RegExp("\\b(?:i|we) (?:filed|served|delivered) (?:a |the |my |our )?statement of defen[cs]e\\b|\\b(?:" + OTHER_PERSON + "|it|the defendants?) (?:filed|served|delivered) (?:a |an |the |his |her |their |its )?(?:statement of )?defen[cs]e\\b", "i");
+/** The first plain sentence with the pattern that is about the family court (not a tribunal, not a claim). */
+function firstFamilyPlain(story: string, pattern: RegExp): string | null {
+  return sentences(story).find((sentence) => !NOT_FAMILY_COURT.test(sentence) && plainMatch(sentence, pattern)) ?? null;
+}
 const CIVIL_CLAIM_RECEIVED =
   /\b(?:(?:i|we)(?:'ve|ve| have| had)?(?: just)?(?: (?:got|get|was|were|been|getting))+(?: just)?(?: served)?(?: with)? (?:a |the |his |her |their )?statement of claim|served me (?:with )?(?:a |the )?statement of claim|i (?:just )?received (?:a |the )?statement of claim)\b/i;
 /*
@@ -565,10 +608,11 @@ function filedFromStory(story: string, court: "family" | "civil"): FiledAnswer |
     if (!quotes.includes(quote)) quotes.push(quote);
   };
   if (court === "family") {
-    add("application", familyApplicationQuote(story));
-    add("answer", firstPlain(story, FAMILY_ANSWER_FILED));
+    add("application", familyApplicationQuote(story) ?? firstFamilyPlain(story, OWN_APPLICATION_FILED));
+    add("answer", firstPlain(story, FAMILY_ANSWER_FILED) ?? firstFamilyPlain(story, OTHER_ANSWER_FILED));
   } else {
-    add("statement-claim", firstPlain(story, CIVIL_CLAIM_RECEIVED));
+    add("statement-claim", firstPlain(story, CIVIL_CLAIM_RECEIVED) ?? firstPlain(story, OWN_CLAIM_ISSUED));
+    add("statement-defence", firstPlain(story, DEFENCE_FILED));
   }
   if (values.length) return { value: values, quote: quotes.join(" ") };
   const wanting = firstPlain(story, WANT_TO_START);
@@ -617,6 +661,34 @@ export function courtDateFromStory(story: string): StoryAnswer | null {
  * nothing ticked). Only what the words name -- the Charter, the police -- never a legal reading of
  * the facts (no "assault" from "handcuffed", no "negligence" from an injury).
  */
+/**
+ * Family: what the case is about, as the form's options, where the story's own words name it
+ * (26 Oct re-test, case 14: a story naming a divorce, selling the house, spousal support and
+ * parenting was asked "What is the case about?" with nothing offered). Only the words themselves --
+ * never a reading of the facts (no "safety concerns" from a threat, no "relocation" from a city) --
+ * and only in a plain sentence: a question, a doubt or a "no" names nothing.
+ */
+export function familyIssuesFromStory(story: string): { value: string[]; quote: string } | null {
+  const named: [string, RegExp][] = [
+    ["divorce", /\bdivorc\w*/i],
+    ["sale-of-home", /\b(?:sell|selling|sale of|sold)\b(?:\s+\w+){0,3}?\s+(?:home|house|condo|place)\b/i],
+    ["spousal-support", /\bspousal support\b/i],
+    ["child-support", /\bchild support\b/i],
+    ["parenting-time", /\bparenting\b|\baccess to (?:my|our|the) (?:son|daughter|child|children|kids?)\b/i],
+    ["decision-making-responsibility", /\bdecision[- ]making\b|\bcustody\b/i],
+    ["property-division", /\bequali[sz]ation\b|\bdivid\w* (?:the |our )?(?:property|assets)\b/i],
+  ];
+  const values: string[] = [];
+  const quotes: string[] = [];
+  for (const [value, words] of named) {
+    const sentence = firstPlain(story, words);
+    if (!sentence || /\?\s*$/.test(sentence)) continue;
+    values.push(value);
+    if (!quotes.includes(sentence)) quotes.push(sentence);
+  }
+  return values.length ? { value: values, quote: quotes.join(" ") } : null;
+}
+
 export function civilIssuesFromStory(story: string): { value: string[]; quote: string } | null {
   const named: [string, RegExp][] = [
     ["charter", /\bcharter\b/i],

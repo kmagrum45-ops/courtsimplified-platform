@@ -8,30 +8,65 @@
  *
  * An answer to a question about one side of the case (the amount, whether a claim or a
  * defence is filed, what they want, the kind of claim, the outcome they ask for) is an
- * answer about that side. When the side given in the situation answers changes, every
- * such answer is emptied, in every area at once (each area's form, the Small Claims
- * guided answers, the review's answers and its "I don't know yet", the questions skipped
- * one at a time, the case file's own "not sure" record), so each is asked again for the
- * side the person is on now. Everything else they told us (the story, the other party,
- * dates, location) stays.
+ * answer about that side, and so is when the claim's events happened. When the side given
+ * in the situation answers changes, every such answer is emptied, in every area at once
+ * (each area's form, the Small Claims guided answers and the chat lines that showed them,
+ * the review's answers and its "I don't know yet", the questions skipped one at a time,
+ * the case file's own "not sure" record), so each is asked again for the side the person
+ * is on now. Everything else they told us (the story, the other party, the days of service
+ * and hearings, location) stays.
  *
  * Pure: no React, no network. States no law.
  */
 import type { Checkpoint } from "./intakeCheckpoint";
-import { factsOfQuestion } from "./caseFile/factsOfQuestion";
+import { factOfAskedText, factsOfQuestion } from "./caseFile/factsOfQuestion";
 import { situationOf, sideOf } from "./situation/situation";
 import { BASIS_SECTION } from "./storyBasis";
+import { QUESTION_BANK } from "./intake/questionBank";
+import { cardLabel } from "../../../app/builder/_components/proposalCard";
 
 type Sections = Checkpoint["sections"];
 
 /** The facts that belong to one side of the case. */
-export const SIDE_FACTS = new Set(["amount", "filed", "defenceFiled", "wants", "claimKind", "outcome", "claimServed"]);
+// When it happened is the old claim's day too (26 Oct re-test, case 19: the repair's "July 2026" was
+// carried over to the defamation claim against him).
+export const SIDE_FACTS = new Set(["amount", "filed", "defenceFiled", "wants", "claimKind", "outcome", "claimServed", "whenHappened"]);
 
 const object = (value: unknown): Record<string, unknown> => (value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {});
 /** Whether an answer to this question (or field) is about one side. */
 export const aboutOneSide = (id: string) => factsOfQuestion(id).some((fact) => SIDE_FACTS.has(fact));
 /** The same kind of value, empty: a form field keeps its type, so the form still draws. */
 const emptied = (value: unknown) => (Array.isArray(value) ? [] : typeof value === "string" ? "" : typeof value === "boolean" ? false : typeof value === "number" ? null : value && typeof value === "object" ? {} : null);
+
+/**
+ * The saved conversation without the old side's lines (26 Oct re-test, case 19: "Confirmed from my
+ * story … The amount: $1,650" stayed in the chat after the side changed, and after a reload): each
+ * "Confirmed from" bullet for an answer set aside, and each question about one side with the reply
+ * typed to it. Every other line stays, as said.
+ */
+function withoutOneSideLines(messages: unknown[], droppedIds: readonly string[]): unknown[] {
+  const labels = droppedIds.flatMap((id) => {
+    const text = QUESTION_BANK.find((question) => question.id === id)?.text ?? id;
+    return [cardLabel(id, text, { responding: true }), cardLabel(id, text, { responding: false })];
+  });
+  const out: unknown[] = [];
+  let skipReply = false;
+  for (const message of messages) {
+    const item = object(message);
+    const text = typeof item.text === "string" ? item.text : "";
+    if (skipReply && item.from === "user") { skipReply = false; continue; }
+    skipReply = false;
+    if (item.from === "assistant" && typeof item.questionId === "string" && aboutOneSide(item.questionId)) { skipReply = true; continue; }
+    if (item.from === "assistant" && /^Confirmed from /.test(text)) {
+      const lines = text.split("\n");
+      const kept = lines.filter((line, index) => index === 0 || !labels.some((label) => line.startsWith(`• ${label}:`)));
+      if (kept.length > 1) out.push(kept.length === lines.length ? message : { ...item, text: kept.join("\n") });
+      continue;
+    }
+    out.push(message);
+  }
+  return out;
+}
 
 /** The side the situation answers give, in these sections. */
 export const sideIn = (sections: Sections) => sideOf(situationOf(sections));
@@ -69,6 +104,9 @@ export function onSideChange(before: Sections, after: Sections): { sections: Sec
     const answered = Array.isArray(guided.answeredIds) ? (guided.answeredIds as unknown[]).filter((id) => typeof id === "string") as string[] : [];
     const earlier = Array.isArray(guided.earlierAnswers) ? guided.earlierAnswers as unknown[] : [];
     const keptEarlier = earlier.filter((item) => !aboutOneSide(String(object(item).questionId ?? "")));
+    const droppedIds = earlier.map((item) => String(object(item).questionId ?? "")).filter(aboutOneSide);
+    const messages = Array.isArray(guided.messages) ? guided.messages as unknown[] : null;
+    const keptMessages = messages ? withoutOneSideLines(messages, droppedIds) : null;
     const matched = object(guided.matchedClaimType);
     const next: Record<string, unknown> = {
       ...guided,
@@ -76,10 +114,11 @@ export function onSideChange(before: Sections, after: Sections): { sections: Sec
       answeredIds: answered.filter((id) => !aboutOneSide(id)),
       earlierAnswers: keptEarlier,
       ...(Object.keys(matched).length ? { matchedClaimType: null } : {}),
+      ...(keptMessages && JSON.stringify(keptMessages) !== JSON.stringify(messages) ? { messages: keptMessages } : {}),
     };
     if (JSON.stringify(next) !== JSON.stringify(guided)) {
       sections.guided = next;
-      for (const key of ["facts", "answeredIds", "earlierAnswers", "matchedClaimType"]) changed.push(["guided", key]);
+      for (const key of ["facts", "answeredIds", "earlierAnswers", "matchedClaimType", "messages"]) changed.push(["guided", key]);
       for (const key of factKeys) untag(`guided.facts.${key}`);
       for (const key of ["guided.answeredIds", "guided.earlierAnswers", "guided.matchedClaimType"]) untag(key);
     }
@@ -101,6 +140,13 @@ export function onSideChange(before: Sections, after: Sections): { sections: Sec
   const chat = object(sections["form-chat"]);
   const skipped = Array.isArray(chat.skipped) ? (chat.skipped as unknown[]).filter((id) => typeof id === "string") as string[] : [];
   if (skipped.some(aboutOneSide)) { sections["form-chat"] = { ...chat, skipped: skipped.filter((id) => !aboutOneSide(id)) }; changed.push(["form-chat", "skipped"]); }
+
+  // The home page's answers to the story reading's questions, by the fact each asks for: the case
+  // file reads them (caseFile.ts), so the old side's are set aside too (Charter re-test 27 Oct).
+  const home = object(sections.home);
+  const homeAnswers = Array.isArray(home.understoodAnswers) ? home.understoodAnswers as unknown[] : [];
+  const keptHome = homeAnswers.filter((item) => { const fact = factOfAskedText(String(object(item).question ?? "")); return !(fact && SIDE_FACTS.has(fact)); });
+  if (keptHome.length !== homeAnswers.length) { sections.home = { ...home, understoodAnswers: keptHome }; changed.push(["home", "understoodAnswers"]); untag("home.understoodAnswers"); }
 
   // The case file's own "not sure" record.
   const file = object(sections.caseFile);

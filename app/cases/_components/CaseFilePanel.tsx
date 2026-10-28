@@ -9,7 +9,7 @@
  */
 import Link from "next/link";
 import { formatForCourt } from "@/src/lib/case-system/dates";
-import { SLOT_FACTS, conferenceKind, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
+import { SLOT_FACTS, conferenceKind, courtDateIsConference, slotText, type CaseFile, type SlotFact } from "@/src/lib/case-system/caseFile/caseFile";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { inWords, optionWords } from "@/src/lib/case-system/copy/rawKeys";
@@ -51,7 +51,7 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
   if (fact === "filed" && slot.state === "answered" && slot.value === true && file.documents?.length) return `Yes: ${inWords(file.documents)}`;
   if (slot.state === "answered" && typeof slot.value === "string") {
     if (fact === "court") return COURT[slot.value] ?? slot.value;
-    if (fact === "side") return SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
+    if (fact === "side") return file.sideWords ?? SIDE[slot.value] ?? slot.value.replace(/-/g, " ");
     // The step picked, by its own title ("Case conference scheduled"), never its code.
     if (fact === "stage") return findStage(slot.value)?.title ?? BROAD[slot.value] ?? optionWords(slot.value) ?? slot.value.replace(/-/g, " ");
     if (fact === "claimKind") return CLAIM_TYPES.find((type) => type.id === slot.value)?.name ?? (slot.value === "not-sure" ? "Not sure yet" : optionWords(slot.value) ?? slot.value);
@@ -63,8 +63,12 @@ function shownValue(fact: SlotFact, file: CaseFile): string {
 }
 
 export default function CaseFilePanel({ file, changeHref, situationHref, stepHref, deadlines = [] }: { file: CaseFile; changeHref: string; situationHref: string; stepHref: string; deadlines?: CountedDeadline[] }) {
-  const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file));
+  // The conference is the next court date: one day is listed once (26 Oct re-test, case 16 showed it twice).
+  const sameDay = courtDateIsConference(file);
   const fromStory = storyLines(file.story ?? "", file, file.side.state === "answered" && file.side.value === "responding");
+  // A fact answered "not sure" that the story gives is listed once, in the story's words (from your story).
+  const toldInStory = new Set<string>(fromStory.map((line) => (line.fact === "amountAgainst" ? "amount" : line.fact)));
+  const lines = SLOT_FACTS.filter((fact) => file[fact].state !== "not-asked" && shownValue(fact, file) && !(fact === "courtDate" && sameDay) && !(file[fact].state === "unsure" && toldInStory.has(fact)));
   if (!lines.length && !fromStory.length && !deadlines.length) return null;
   return (
     <section aria-labelledby="case-file-heading" data-testid="case-file" className="rounded-3xl border border-[#d8e6df] bg-white p-5">
@@ -101,8 +105,14 @@ export default function CaseFilePanel({ file, changeHref, situationHref, stepHre
           <div key={line.fact} className="contents" data-testid="case-file-story-line" data-fact={line.fact}>
             <dt className="font-semibold text-[#10231f]">{line.label}</dt>
             <dd>
-              {/* The value is the person's own sentence, or is shown with it. */}
-              {line.value} <span className="text-[#4f685f]">(from your story{line.quote.trim() !== line.value.trim() ? <>: &ldquo;{line.quote.trim()}&rdquo;</> : null})</span>{" "}
+              {/* Each fact in plain words; the sentence it came from is one click away (Charter re-test 27 Oct). */}
+              {line.value}{" "}
+              {line.quote.trim() !== line.value.trim() ? (
+                <details className="inline text-[#4f685f]" data-testid="case-file-story-quote">
+                  <summary className="inline cursor-pointer">(from your story)</summary>
+                  <span className="block">&ldquo;{line.quote.trim()}&rdquo;</span>
+                </details>
+              ) : <span className="text-[#4f685f]">(from your story)</span>}{" "}
               <Link data-testid="case-file-change" href={changeHref} className="font-semibold text-[#2f7d67] underline">Change</Link>
             </dd>
           </div>

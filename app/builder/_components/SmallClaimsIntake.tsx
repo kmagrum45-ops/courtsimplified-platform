@@ -1,6 +1,7 @@
 "use client";
 
 import { dateAnswerCheck, dateSpans } from "../../../src/lib/case-system/dates";
+import { SMALL_CLAIMS_FILED_OPTIONS } from "./guidedFields";
 import { usePrepareCaseGuidance, intakeGuidanceHeaders, useIntakeRecovery, useIntakeState, useInputWithStory, useContinueHandler, useBeforeIntakeAI, useValidateIntakeResponse, useSituation } from "../../_components/IntakeRecovery";
 import { situationAnswers, stageWords } from "../../../src/lib/case-system/situation/situation";
 import { panelAnswerFacts } from "../../../src/lib/case-system/intakeReview";
@@ -74,18 +75,8 @@ export type SmallClaimsAnalysisResponse = {
   error?: string;
 };
 
-const filedOptions: { value: SmallClaimsFiledDocument; label: string }[] = [
-  { value: "nothing", label: "Nothing filed yet" },
-  { value: "plaintiffs-claim", label: "Plaintiff’s Claim already filed / served" },
-  { value: "defence", label: "Defence already filed / received" },
-  { value: "affidavit-service", label: "Affidavit of Service filed with the court" },
-  { value: "offer-settle", label: "Offer to Settle prepared" },
-  { value: "settlement-conference", label: "Settlement conference scheduled or completed" },
-  { value: "default-judgment", label: "Default judgment step started" },
-  { value: "witness-list", label: "Witness list prepared" },
-  { value: "enforcement-documents", label: "Enforcement documents started" },
-  { value: "not-sure", label: "Not sure" },
-];
+// One list, beside the civil and family ones, so every screen words a Small Claims paper the same way.
+const filedOptions = SMALL_CLAIMS_FILED_OPTIONS as { value: SmallClaimsFiledDocument; label: string }[];
 
 const evidenceCategoryOptions = [
   "Screenshots / messages",
@@ -1166,7 +1157,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory, 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your role</span>
 {roleFromStart ? (
-              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
+              <p data-testid="sc-intake-yourRole-from-start" className="mt-2 rounded-2xl border border-[#d8e6df] bg-[#f3f8f5] px-4 py-3">{fromStart.roleWords ?? roleFromStart} <span className="text-sm text-[#4d675f]">(from your answers at the start; change them at the top of the page)</span></p>
             ) : (
             <select
               data-testid="sc-intake-yourRole" value={input.yourRole}

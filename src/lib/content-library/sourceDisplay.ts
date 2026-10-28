@@ -30,6 +30,11 @@ export function sourceDisplayFor(sourceId: string): SourceDisplay | null {
   return row && row.name && row.url && isRealIsoDate(row.checkedOn) ? row : null;
 }
 
+/** An Act's own title, year included (from its saved text's heading), or null when it has none recorded. */
+export function ownTitleFor(sourceId: string): string | null {
+  return (SOURCES[sourceId] as SourceDisplay & { title?: string } | undefined)?.title ?? null;
+}
+
 /**
  * The date a passage's source was checked, as the passage carries it
  * (findingsView sets it when the research runs; a passage is used only if its

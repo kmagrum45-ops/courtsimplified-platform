@@ -487,24 +487,34 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
     citations: [],
     appearsIn: "Guided assistant, the next question when no reason is recorded",
   },
+  // The general question, in parts: only the parts the case does not already hold are asked
+  // (Charter re-test 27 Oct: "what outcome are you seeking?" after the person had said it).
   {
-    id: "assistant:question:fallback",
+    id: "assistant:question:part-dates",
     kind: "question",
-    template:
-      "What are the main dates, what proof do you currently have, and what outcome are you seeking?",
+    template: "What are the main dates?",
     slots: [],
     statesLaw: false,
     citations: [],
-    appearsIn: "Guided assistant, when no specific question has been selected",
+    appearsIn: "Guided assistant, the general question, when the case holds no date yet",
   },
   {
-    id: "assistant:question:fallback-dated",
+    id: "assistant:question:part-proof",
     kind: "question",
-    template: "What proof do you currently have, and what outcome are you seeking?",
+    template: "What proof do you currently have?",
     slots: [],
     statesLaw: false,
     citations: [],
-    appearsIn: "Guided assistant, when no specific question has been selected and the case already holds a date (messy pack case 11)",
+    appearsIn: "Guided assistant, the general question, when the person has named no evidence yet",
+  },
+  {
+    id: "assistant:question:part-outcome",
+    kind: "question",
+    template: "What outcome are you seeking?",
+    slots: [],
+    statesLaw: false,
+    citations: [],
+    appearsIn: "Guided assistant, the general question, when the person has not said what they want",
   },
   {
     id: "assistant:fallback:need-more",

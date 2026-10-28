@@ -92,6 +92,20 @@ That doubles as the clarifying-question mechanism: given two candidate stages,
 UNKNOWN is "here is the one question we need", not a shrug. The question text is
 never model-written.
 
+**Reading what a step settles off the moves (2026-10-27; this caught me).** `situation.ts`
+`settledBySmallClaimsStep` reads, from the moves, what a picked step already settles: a step that
+every way from the map's starting points reaches only through service settles that the claim was
+served, and only through a Defence (r. 9.03 (1): a proposal of terms is made in the defence) that a
+Defence was filed. So the chat does not ask it again. **Small Claims steps carry no `pathway` field:
+filter them with `pathwayOf()`, never `stage.pathway`.** A filter on the field found no starting
+points, the "every way" walk did nothing, and six steps looked as if the map reached them only
+after service or a Defence. That was reported to the owner as a gap in the map; it was not. The
+moves for dismissal for delay (r. 11.1.01), an unpaid default judgment (r. 20.03) and enforcement
+(r. 20.08 (1)) were already there. The one way in the rules we hold do not cover is a claim withdrawn
+before it is served (r. 11.3.01 covers only a defendant who did not file a defence in time, r. 13.09
+the settlement conference): `plaintiff:wants-to-discontinue` settles nothing, and the questions are
+still asked there.
+
 **UNKNOWN is a real stage, not a null.** Part 0 found `inferStage` *and*
 `getStageForPersistence` both hard-defaulting to `starting-case`. A default is a
 confident answer given without evidence, and it is how a defendant with a

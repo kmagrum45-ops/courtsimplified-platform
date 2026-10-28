@@ -14,6 +14,7 @@
 import {
   RCP_76_02_1_MANDATORY,
   S_CLPA_18_1_NOTICE,
+  S_CLPA_18_HEADING,
   S_CLPA_1_CROWN,
   S_CSPA_47_1_BOARD_LIABLE,
   S_CSPA_63_1_OPP_CROWN,
@@ -45,6 +46,9 @@ const SIMPLIFIED_MUST = /\b(?:must|shall|has to|have to|is required to|are requi
 export function crownNoticeStatements(): Statement[] {
   // Each sentence is the Act's own words with its section, nothing added (site owner, 2026-10-26).
   return [
+    // The Act's own heading above the rule, so the line reads plainly as a rule about claims
+    // against the Crown, with no words of ours (Jason, 2026-10-27, option (b)).
+    { text: actWords(S_CLPA_18_HEADING), sources: [source(S_CLPA_18_HEADING)] },
     { text: actWords(S_CLPA_18_1_NOTICE), sources: [source(S_CLPA_18_1_NOTICE)] },
     { text: actWords(S_CLPA_1_CROWN), sources: [source(S_CLPA_1_CROWN)] },
     { text: actWords(S_CSPA_63_1_OPP_CROWN), sources: [source(S_CSPA_63_1_OPP_CROWN)] },

@@ -2066,6 +2066,7 @@ export default function StageAnswerPanel({
                     <button
                       type="button"
                       data-testid={`stage-answer-date-suggestion-${question.id}`}
+                      disabled={dateStatus === "saving"}
                       onClick={() => {
                         const draft = { ...dateDraft, [question.id]: suggestion.value };
                         setDateDraft(draft);
@@ -2086,11 +2087,14 @@ export default function StageAnswerPanel({
               type="button"
               data-testid="stage-answer-dates-save"
               disabled={dateStatus === "saving"}
+              aria-busy={dateStatus === "saving"}
               onClick={() => void countDeadline(dateDraft)}
               className="rounded-xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
-              Count my deadline
+              {/* It says it is working, not only greys out (Charter re-test 27 Oct). */}
+              {dateStatus === "saving" ? "Counting your deadline…" : "Count my deadline"}
             </button>
+            {dateStatus === "saving" ? <span role="status" data-testid="stage-answer-dates-working" className="sr-only">Counting your deadline</span> : null}
             {dateStatus === "saved" ? <span className="text-sm text-[#2f7d67]">Saved to your case.</span> : null}
             {dateStatus === "not-saved" ? (
               <span className="text-sm text-[#7a4b12]">Shown here, but it could not be saved to your case.</span>

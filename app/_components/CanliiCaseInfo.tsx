@@ -69,7 +69,8 @@ export default function CanliiCaseInfo({
   return (
     <div data-testid="canlii-case-info" className="mt-2 text-xs leading-5 text-[#4d675f]">
       <p>
-        On CanLII:{" "}
+        {/* Labelled as CanLII's information, under the court's own link (Jason, 2026-10-27). */}
+        CanLII information:{" "}
         <a href={found.url} target="_blank" rel="noreferrer" className="font-semibold text-[#2f7d67] underline">
           {found.title}, {found.citation}
         </a>

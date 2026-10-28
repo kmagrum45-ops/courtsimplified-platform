@@ -19,6 +19,7 @@ import {
   childrenFromStory,
   courtDateFromStory,
   civilIssuesFromStory,
+  familyIssuesFromStory,
   childrenPartialFromStory,
   civilFiledFromStory,
   civilRoleFromStory,
@@ -110,6 +111,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
     {
       key: "issues",
       label: "What the case is about",
+      // The issues the story names, offered for one click (26 Oct re-test, case 14).
+      fromStory: (values) => offeredFiled(familyIssuesFromStory(storyOf(values)), options.issues),
       question: "What is the case about? Pick everything that applies.",
       why: "Each issue has its own forms and steps, so this keeps what you see to the ones that fit.",
       kind: "multi",
@@ -187,7 +190,8 @@ export function familyGuidedFields(options: { issues: GuidedChoice[]; filed: Gui
       kind: "longtext",
     },
   ];
-  const initial = new Set(["facts", "yourRole", "issues", "childrenInfo", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "urgent"]);
+  // The other party is asked on its own (site owner, 27 Oct: it was only ever recorded by riding along with another answer).
+  const initial = new Set(["facts", "yourRole", "issues", "childrenInfo", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "otherParty", "urgent"]);
   return fields.map(field => ({ ...field, initial: initial.has(field.key) }));
 }
 
@@ -286,7 +290,8 @@ export function civilGuidedFields(options: { issues: GuidedChoice[]; documents: 
       kind: "longtext",
     },
   ];
-  const initial = new Set(["facts", "yourRole", "issues", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "urgent"]);
+  // The other party is asked on its own (site owner, 27 Oct).
+  const initial = new Set(["facts", "yourRole", "issues", "filedDocuments", "documents", "servedDate", "serviceDetails", "upcomingCourtDate", "amountClaimed", "goal", "legalRemedy", "otherParty", "urgent"]);
   return fields.map(field => ({ ...field, initial: initial.has(field.key) }));
 }
 
@@ -304,6 +309,23 @@ export function pendingFields(fields: readonly GuidedField[], values: GuidedValu
 }
 
 /** The Family and Civil forms' choice lists: one copy, read by the forms and by the review (plain words, not stored values). */
+/**
+ * The Small Claims form's filed papers (SmallClaimsIntake.tsx), here with the other areas' lists so a
+ * screen names them in words ("Anything filed yet: Yes: plaintiffs-claim", reviewer 26 Oct).
+ */
+export const SMALL_CLAIMS_FILED_OPTIONS: GuidedChoice[] = [
+  { value: "nothing", label: "Nothing filed yet" },
+  { value: "plaintiffs-claim", label: "Plaintiff’s Claim already filed / served" },
+  { value: "defence", label: "Defence already filed / received" },
+  { value: "affidavit-service", label: "Affidavit of Service filed with the court" },
+  { value: "offer-settle", label: "Offer to Settle prepared" },
+  { value: "settlement-conference", label: "Settlement conference scheduled or completed" },
+  { value: "default-judgment", label: "Default judgment step started" },
+  { value: "witness-list", label: "Witness list prepared" },
+  { value: "enforcement-documents", label: "Enforcement documents started" },
+  { value: "not-sure", label: "Not sure" },
+];
+
 export const FAMILY_FILED_OPTIONS: GuidedChoice[] = [
   // Was "Application already filed / served", which did not say by whom, and
   // whose word "served" made the role guesser call an applicant a respondent.

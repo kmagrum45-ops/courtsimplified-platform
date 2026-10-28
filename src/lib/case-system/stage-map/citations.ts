@@ -1055,6 +1055,13 @@ export const S_OLA_6_1_6_EXCUSE: RuleCitation = {
  *                       Same section, opposite shape.
  * ------------------------------------------------------------------------- */
 
+/** The Act's own heading for s. 18, shown above its words (Jason, 2026-10-27: option (b), nothing of ours). */
+export const S_CLPA_18_HEADING: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 18",
+  quote: "Notice of claim for damages required",
+};
+
 export const S_CLPA_18_1_NOTICE: RuleCitation = {
   sourceId: "crown-liability-and-proceedings-act-2019",
   pinpoint: "s. 18 (1)",

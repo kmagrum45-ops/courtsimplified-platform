@@ -250,6 +250,7 @@ export default function IntakeReviewPanel() {
         {entries.map(entry => { const held = empty(entry.value) && !entry.fromStart ? heldSlot(entry.field) : null; return <div key={`${entry.section}:${entry.nested ?? ""}:${entry.field}`} data-testid="intake-entry" data-field={entry.field} data-empty={empty(entry.value) && !entry.fromStart && !held ? "true" : "false"} className="block text-sm">
           {entry.label}{!entry.essential && " (optional later detail)"}
           {entry.hint && empty(entry.value) && <span className="block text-[#4d675f]">{entry.hint}</span>}
+          {entry.fromStory && empty(entry.value) ? <button type="button" data-testid="intake-entry-from-story" disabled={busy} onClick={() => edit(entry, entry.fromStory!.value)} className="mt-1 block rounded border px-3 py-1 text-left text-sm">Use &ldquo;{entry.fromStory.value.length > 160 ? `${entry.fromStory.value.slice(0, 157)}…` : entry.fromStory.value}&rdquo; (from your story)</button> : null}
           {staleKeys.has(`${entry.section}.${entry.nested ? `${entry.nested}.` : ""}${entry.field}`) && <span data-testid="intake-answer-stale" className="block text-[#7a4b12]">Answered for an earlier version of your story. Answer it again, or start the questions again.</span>}
           {/* The story: a draft saved with "Save story", as in the form (#470 re-test: typing here
               changed the story at once and set every answer aside). */}
@@ -306,6 +307,9 @@ export default function IntakeReviewPanel() {
         </div>;
       })}</fieldset>}
       {phase === "reviewing" ? <>
+        {/* A late edit clears the tick (it covered the answers as they were); say so beside the
+            button rather than leave it greyed out with no word why (site owner, 27 Oct). */}
+        {acceptedRevision !== null && acceptedRevision !== revision ? <p data-testid="intake-tick-again" role="status" className="mt-4 text-sm font-semibold text-[#8a4b12]">You changed an answer. Please tick to confirm again.</p> : null}
         <label className="mt-5 block"><input data-testid="intake-review-acknowledgement" type="checkbox" checked={acceptedRevision === revision} disabled={busy} onChange={event => setAcceptedRevision(event.target.checked ? revision : null)} /> I have reviewed this information, including anything that is missing or uncertain.</label>
         <button data-testid="intake-confirm" type="button" disabled={busy || needs.length > 0} onClick={() => void act("confirm")} className="mt-4 rounded bg-[#2f7d67] px-4 py-2 text-white disabled:opacity-50">Confirm my initial information</button>{" "}
         <button type="button" disabled={busy} onClick={() => void act("collect")}>Return to intake controls</button>

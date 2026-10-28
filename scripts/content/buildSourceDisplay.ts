@@ -23,19 +23,32 @@
  *      npx tsx scripts/content/buildSourceDisplay.ts --check    (fails if stale)
  */
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { OFFICIAL_URLS, SOURCE_NAMES } from "../../src/lib/case-system/stage-map/citations";
 import { readableUrl } from "../../src/lib/case-system/retrieval/corpusChunker";
+import { shortTitleIn } from "../../src/lib/case-system/retrieval/citationCheck";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 export const SOURCE_DISPLAY_FILE = path.join(ROOT, "src/lib/content-library/published/sourceDisplay.generated.json");
 
 type ManifestEntry = { id: string; title: string; citation?: string; url: string; retrievedAt: string };
 type IndexSource = { id: string; title: string; citation?: string; url: string; readableUrl?: string; tier: string; file?: string; path?: string };
-export type SourceDisplayRow = { name: string; url: string; checkedOn: string };
+/** `title`: an Act's own title, from the heading of its saved text ("Community Safety and Policing Act, 2019"). */
+export type SourceDisplayRow = { name: string; url: string; checkedOn: string; title?: string };
+
+/**
+ * An Act's own title, year included, from the heading of its saved text (citationCheck.ts). The
+ * corpus manifest's title is bound into every passage's embedding (corpusIndex.ts passageHash), so
+ * it is not corrected there without re-embedding the index; what a person reads is corrected here
+ * (Charter re-test 27 Oct: "Community Safety and Policing Act" without ", 2019").
+ */
+function ownTitle(entry: ManifestEntry): string | null {
+  const file = path.join(ROOT, "docs/sources/corpus", `${entry.id}.txt`);
+  return existsSync(file) ? shortTitleIn(readFileSync(file, "utf8")) : null;
+}
 export type SourceDisplayFile = { note: string; sources: Record<string, SourceDisplayRow> };
 
 const isLegislationUrl = (url: string) => /ontario\.ca\/laws\/docs\//.test(url) || /laws-lois\.justice\.gc\.ca/.test(url);
@@ -44,8 +57,9 @@ const isLegislationUrl = (url: string) => /ontario\.ca\/laws\/docs\//.test(url) 
 function nameFor(entry: ManifestEntry): string {
   if (entry.id in SOURCE_NAMES) return SOURCE_NAMES[entry.id as keyof typeof SOURCE_NAMES];
   const citation = (entry.citation ?? "").trim();
-  if (!citation) return entry.title;
-  if (isLegislationUrl(entry.url)) return `${entry.title}, ${citation}`;
+  const title = ownTitle(entry) ?? entry.title;
+  if (!citation) return title;
+  if (isLegislationUrl(entry.url)) return `${title}, ${citation}`;
   // "ontario.ca — Guide to Procedures in Small Claims Court" + "...: After judgment".
   const publisher = citation.split(" — ")[0].trim();
   return `${publisher}, ${entry.title}`;
@@ -83,7 +97,8 @@ export function buildSourceDisplay(): SourceDisplayFile {
   const sources: Record<string, SourceDisplayRow> = {};
   for (const entry of [...manifest.entries].sort((a, b) => a.id.localeCompare(b.id))) {
     const url = entry.id in OFFICIAL_URLS ? OFFICIAL_URLS[entry.id as keyof typeof OFFICIAL_URLS] : (index.sources[entry.id]?.readableUrl || readableUrl(entry));
-    sources[entry.id] = { name: nameFor(entry), url, checkedOn: entry.retrievedAt.slice(0, 10) };
+    const title = ownTitle(entry);
+    sources[entry.id] = { name: nameFor(entry), url, checkedOn: entry.retrievedAt.slice(0, 10), ...(title ? { title } : {}) };
   }
   // Court decisions and past versions of a law (docs/sources/decisions/, historical/): not in the manifest.
   for (const source of Object.values(index.sources).sort((a, b) => a.id.localeCompare(b.id))) {

@@ -277,8 +277,17 @@ export default function CaseWorkspace({
       tab?.close();
       return payload?.error || "The file could not be opened just now. Please try again.";
     }
-    if (tab) tab.location.href = payload.url;
-    else window.location.assign(payload.url);
+    // A path on this site that ends with the file's own name (fileLink.ts): the tab is titled with it.
+    if (tab) { tab.opener = null; tab.location.href = payload.url; return null; }
+    // A download is a link pressed, never this page sent away (a failed one left the browser's
+    // error page in its place, Charter re-test 27 Oct).
+    const link = document.createElement("a");
+    link.href = payload.url;
+    link.rel = "noopener";
+    link.download = "";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
     return null;
   }, []);
 

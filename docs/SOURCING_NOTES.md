@@ -2116,3 +2116,33 @@ Asked: what S.O. 1994, c. 27, s. 55 changed in s. 4 of the Statute of Frauds (R.
 - So what s. 55 removed cannot be confirmed from e-Laws. Routes left: the printed 1994 Statutes of
   Ontario, or a copy a person downloads and saves under `docs/sources/` with its README entry.
   Until then, nothing about the pre-1994 wording of s. 4 reaches a user.
+
+## Citations: subsection, title with its year, no added reason (2026-10-27, Charter re-test)
+
+What the check is: `npm run test:citations` (scripts/verification/verifyCitations.ts), using
+`src/lib/case-system/retrieval/citationCheck.ts`. It runs over every quoted citation (960 at the
+time of writing; 755 compared subsection by subsection) and every source name.
+
+Things that cost time and are worth knowing:
+
+- **The chunker cuts passages as ranges of subsections** ("s. 49 (1)-(2)"). A citation built from a
+  passage named the whole range even when the quote was in one subsection. `pinpointForQuote`
+  narrows it; checkedAnswer.ts uses it for every chat source.
+- **Reading subsection markers needs care.** A marker after "subrule", "subsection", "clause" or
+  "paragraph" (with or without a number: "subrule 6 (4)") is a cross-reference, as is one after
+  "rule"/"section" plus a number, a comma, "and", "or" or "to". A marker after a heading word
+  ("Application of other rules (2)", "Failure to follow rules (8.1)") is a real start. A passage can
+  open partway through a subsection: the text before its first marker belongs to the first
+  subsection of its range.
+- **e-Laws' consolidated text omits the short-title section** ("Omitted (enacts short title of this
+  Act)"). An Act's own title, year included, is the heading line above its chapter line
+  ("S.O. 2019, chapter 1"). A regulation's heading names its parent Act, so only statutes are read.
+- **Do not correct a title in the corpus manifest or the index without re-embedding.** The title is
+  part of `embeddingInput`, so it is inside every passage's hash (`passageHash`): editing it made
+  every passage of that Act unreadable (`readPassage` returned nothing), silently. The displayed
+  title is corrected in `sourceDisplay.generated.json` (`title`, from the heading), which
+  `passageItem` uses.
+- r. 14.01.1 (2) and (3) say what the leave sentences after "a claim within the Small Claims limit
+  needs leave" say; they are shown beside them (sentenceRules.ts). r. 13.1.01 does not say a place
+  is appropriate "because the events occurred there"; (2) asks for a county with a rational
+  connection, on the factors in 13.1.02 (2) (b).

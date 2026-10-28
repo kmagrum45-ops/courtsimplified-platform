@@ -266,6 +266,23 @@ jobs:
 
       - name: Every conference stage is carried exactly, in every area (case 16 as a respondent)
         run: npm run test:conference-stages
+      - name: The chat speaks plainly and does not ask what it has, in every area
+        run: npm run test:chat-plain-words
+
+      - name: Every citation the site shows says exactly what it cites (subsection, title with its year, no added reason)
+        run: npm run test:citations
+
+      - name: The person's own answer wins, and no question is dropped, in every area
+        run: npm run test:own-answers
+
+      - name: Each fact the story gives, in plain words, on the six re-tested cases
+        run: npm run test:story-facts
+
+      - name: Each story-pack run keeps its own records
+        run: npm run test:story-pack-records
+
+      - name: "Where the case is, who the person is in it, what is filed: words, never codes"
+        run: npm run test:case-words
 
       - name: The court's own words, and none of the ruled-out wording, on every screen
         run: npm run test:court-terms

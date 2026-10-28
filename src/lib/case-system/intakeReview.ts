@@ -1,16 +1,17 @@
 /** Review provenance on workflowStatus; intakeCompleted remains the completion flag. */
 import { sentences as sharedSentences } from "./sentences";
-import { situationAnswers, situationOf } from "./situation/situation";
+import { sideOf, situationAnswers, situationOf, stageWords } from "./situation/situation";
 import { countable, dayWrittenBefore, findDates, formatForCourt, findDayMonthWithoutYear, MONTH_WORDS_EN } from "./dates";
 import { readCheckpoint, type Checkpoint } from "./intakeCheckpoint";
 import { freshSections } from "./storyBasis";
 import { locationOf, storyOf, STORY_INPUT_KEYS, STORY_SECTION, confirmedLocationOf } from "./intakeStory";
-import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS } from "../../../app/builder/_components/guidedFields";
+import { familyGuidedFields, civilGuidedFields, pendingFields, familyTimelineValues, servedDateOf, FAMILY_FILED_OPTIONS, FAMILY_ISSUE_OPTIONS, CIVIL_ISSUE_OPTIONS, CIVIL_DOCUMENT_OPTIONS, SMALL_CLAIMS_FILED_OPTIONS } from "../../../app/builder/_components/guidedFields";
 import { amountFromStory, goalFromStory } from "../../../app/builder/_components/storyAnswers";
 import { QUESTION_BANK } from "./intake/questionBank";
 import { selectQuestions, type IntakeFacts } from "./intake/selectQuestions";
 import { alreadyAsked, caseFileOf, slotsOfQuestion } from "./caseFile/caseFile";
 import { LOAN_WORDS } from "./intake/claimKind";
+import { againstThemIn, lossesIn, publicBodyIn, timelineIn } from "./caseFile/storyFacts";
 
 type ObjectValue = Record<string, unknown>;
 const object = (value: unknown): ObjectValue => value && typeof value === "object" && !Array.isArray(value) ? value as ObjectValue : {};
@@ -33,7 +34,17 @@ const ISSUE_ONLY: Record<string, string[]> = {
   institutionalFacts: ["institutional-negligence"],
   privacyRecordsFacts: ["privacy"],
 };
-export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean };
+export type ReviewEntry = { section: string; field: string; nested?: string; label: string; value: string | string[] | number | boolean; essential: boolean; /** A choice field: stored values with the words the form shows. */ choices?: { value: string; label: string }[]; /** What the story says about an empty answer, to help fill it in. */ hint?: string; /** The question the field answers, where one is written: a date question's box asks for the year (dates.ts). */ question?: string; /** Answered in the situation questions before the story (situation.ts): shown, changed only there. */ fromStart?: boolean; /** What the story says for an empty box, offered in one click (storyFacts.ts). */ fromStory?: { value: string; quote: string } };
+
+/** Small Claims' roles in the form's own words (one place: the review and its start answers). */
+const SMALL_CLAIMS_ROLE_WORDS: Record<string, string> = { plaintiff: "Plaintiff / claimant", defendant: "Defendant / responding party" };
+
+/** The civil review's boxes the story can fill, each by its reader (Charter re-test 27 Oct: the public body, the losses and the timeline were empty). */
+const BOX_FROM_STORY: Record<string, (story: string) => { value: string; quote: string } | null> = {
+  governmentActor: publicBodyIn,
+  damagesBreakdown: lossesIn,
+  timeline: timelineIn,
+};
 const FAMILY_FIELDS = () => familyGuidedFields({ issues: FAMILY_ISSUE_OPTIONS, filed: FAMILY_FILED_OPTIONS });
 const CIVIL_FIELDS = () => civilGuidedFields({ issues: CIVIL_ISSUE_OPTIONS, documents: CIVIL_DOCUMENT_OPTIONS });
 /** The form's own wording for fields no question defines (Family: ten boxes were labelled from their code names, re-test 2026-10-18). */
@@ -93,7 +104,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   // The same answers before any is set aside for an earlier story (for which questions apply).
   const asStored = courtPath === "family" ? object(checkpoint.sections.family) : object(checkpoint.sections[section]?.input);
   const source: Record<string, unknown> = { ...stored };
-  if (fromStart.role) { source.yourRole = courtPath === "small-claims" ? (fromStart.role === "defendant" ? "Defendant / responding party" : "Plaintiff / claimant") : fromStart.role; startKeys.add("yourRole"); }
+  if (fromStart.role) { source.yourRole = courtPath === "small-claims" ? SMALL_CLAIMS_ROLE_WORDS[fromStart.role] ?? fromStart.role : fromStart.role; startKeys.add("yourRole"); }
   if (fromStart.documents) { source[courtPath === "civil" ? "documents" : "filedDocuments"] = fromStart.documents; startKeys.add(courtPath === "civil" ? "documents" : "filedDocuments"); }
   if (fromStart.caseStage) { source.caseStage = fromStart.caseStage; startKeys.add("caseStage"); }
   else if (Array.isArray(source[courtPath === "civil" ? "documents" : "filedDocuments"]) && fromStart.excludeDocuments) source[courtPath === "civil" ? "documents" : "filedDocuments"] = (source[courtPath === "civil" ? "documents" : "filedDocuments"] as string[]).filter(item => !fromStart.excludeDocuments!.includes(item));
@@ -104,8 +115,14 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     const definition = fields.find(field => field.key === key);
     const question = QUESTION_BANK.find(item => item.capturesField === key);
     // What the person picked at the start, in their words: the step's title and who started the case.
-    const startWords = area === section && startKeys.has(key) && typeof value === "string" ? (key === "caseStage" ? fromStart.stepTitle : key === "yourRole" ? fromStart.roleWords : undefined) : undefined;
-    const choices = startWords ? [{ value: value as string, label: startWords }] : definition?.options;
+    // The stage in words for every start answer (the step's title, or "Responding to a case"), never its code (26 Oct re-test: "Case stage: responding").
+    // The Small Claims chat keeps the side as `role` (reviewer, 26 Oct: "Role: plaintiff" in a text box).
+    const roleKey = key === "yourRole" || (area === "guided" && key === "role");
+    const fromStartHere = (area === section && startKeys.has(key)) || (area === "guided" && key === "role" && Boolean(fromStart.role));
+    const startWords = fromStartHere && typeof value === "string" ? (key === "caseStage" ? stageWords(fromStart) ?? undefined : roleKey ? fromStart.roleWords : undefined) : undefined;
+    // Small Claims keeps its role as a code ("plaintiff"): shown in the form's words, not in a text box (26 Oct re-test).
+    const roleWords = !startWords && courtPath === "small-claims" && roleKey && typeof value === "string" ? SMALL_CLAIMS_ROLE_WORDS[value] : undefined;
+    const choices = startWords ? [{ value: value as string, label: startWords }] : roleWords ? Object.entries(SMALL_CLAIMS_ROLE_WORDS).map(([code, label]) => ({ value: code, label })) : definition?.options ?? (courtPath === "small-claims" && key === "filedDocuments" ? SMALL_CLAIMS_FILED_OPTIONS : undefined);
     // A detail of one issue is asked for only when that issue is the person's ("Adoption details"
     // showed on a divorce case, #477 re-test case 14).
     const issueOnly = ISSUE_ONLY[key];
@@ -117,7 +134,7 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
     // A question asked only on one side or in one situation (its `when`: "When and how you were
     // served" is the responding side's) is not essential for anyone else.
     const notTheirQuestion = definition?.when ? !definition.when({ ...asGiven, facts: storyOf(sections) } as never) : false;
-    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(area === section && startKeys.has(key) ? { fromStart: true } : {}) });
+    entries.push({ section: area, field: key, nested, label: definition?.label ?? FIELD_LABELS[key] ?? question?.text ?? label(key), value: value as ReviewEntry["value"], essential: notTheirIssue || notTheirQuestion ? false : definition?.initial ?? !OPTIONAL.has(key), ...(choices?.length ? { choices } : {}), ...(definition?.question ?? question?.text ? { question: definition?.question ?? question?.text } : {}), ...(fromStartHere ? { fromStart: true } : {}) });
   };
   // The one copy of the story and location comes first, whatever the route (intakeStory.ts).
   entries.push({ section: STORY_SECTION, field: "text", label: "Your story", value: storyOf(sections), essential: true });
@@ -148,6 +165,13 @@ export function reviewEntries(checkpoint: Checkpoint): ReviewEntry[] {
   }
   const location = locationOf(sections);
   if (location) entries.push({ section: STORY_SECTION, nested: "location", field: "city", label: "City", value: location.city, essential: true });
+  // An empty civil box the story answers: its words offered in one click, never filled for them (s. 4).
+  const story = storyOf(sections);
+  if (story.trim()) for (const entry of entries) {
+    const read = entry.section === "civil" && (!entry.nested || entry.nested === "input") ? BOX_FROM_STORY[entry.field] : undefined;
+    const offer = read && typeof entry.value === "string" && !entry.value.trim() ? read(story) : null;
+    if (offer) entry.fromStory = offer;
+  }
   return entries;
 }
 
@@ -369,7 +393,12 @@ const CATEGORY_CUES: [RegExp, string][] = [
  */
 export function suggestInitialAnswers(checkpoint: Checkpoint): Record<string, string> {
   if (checkpoint.courtPath !== "small-claims") return {};
-  const story = storyOf(checkpoint.sections);
+  const whole = storyOf(checkpoint.sections);
+  // Someone responding is asked about the claim against them: read the sentences about it, never
+  // the claim they once meant to bring (26 Oct re-test, case 19 after the side change: "Work or a
+  // service you paid for" was suggested for the defamation claim against him). None: nothing offered.
+  const story = sideOf(situationOf(checkpoint.sections)) === "responding" ? againstThemIn(whole) : whole;
+  if (!story.trim()) return {};
   const out: Record<string, string> = {};
   const date = whenItHappened(story);
   if (date) out["sc-orient-when-happened"] = date;

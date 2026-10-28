@@ -22,6 +22,7 @@
 import { formatForCourt, isRealIsoDate } from "../dates";
 import TOPS from "./firstPageTops.json";
 import { findStage, pathwayOf, stagesForPathway, type CaseStage } from "../stage-map/stageMap";
+import { movesFrom, STARTING_POINTS } from "../stage-map/stageSequence";
 import type { SituationCourt } from "./firstPageForms";
 
 export type { SituationCourt } from "./firstPageForms";
@@ -261,6 +262,8 @@ export type SituationAnswers = {
   caseStage?: "starting-case" | "already-started" | "responding" | "conference" | "motion" | "trial" | "enforcement";
   claimFiled?: boolean;
   claimServed?: boolean;
+  /** Small Claims: a Defence is filed, as the step picked settles it (settledBySmallClaimsStep). */
+  defenceFiled?: boolean;
   servedOn?: string;
   /** For a case already going: the step picked, by its own title in the stage map ("Case conference scheduled"). */
   stepTitle?: string;
@@ -322,9 +325,22 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
   if (document && courtOfPapers(situation) === court) out.documents = [document];
   if (court === "small-claims") {
     if (situation.where === "starting" && situation.filed) out.claimFiled = situation.filed === "something";
+    // Nothing filed means nothing served: a story that mentions some other claim ("serves him with a
+    // claim", the other side's) must not open "Has the other party filed a Defence?" or "what date was
+    // it served?" (26 Oct re-test, case 19 with "No, nothing yet").
+    if (situation.where === "starting" && situation.filed === "nothing") out.claimServed = false;
     // They started a case already going: their claim is filed.
     if (situation.where === "going" && situation.started === "me") out.claimFiled = true;
     if (side === "responding" && situation.papers === "small-claims-7A") { out.claimFiled = true; out.claimServed = true; }
+    // A step picked for a case already going settles what the map says comes before it (fresh reviewer,
+    // 26 Oct: a plaintiff at the settlement conference was asked whether the claim was served, a
+    // defendant whose Defence is filed whether they filed one).
+    const settled = step ? settledBySmallClaimsStep(step) : null;
+    if (settled?.served && side === "bringing") { out.claimFiled = true; out.claimServed = true; out.questionIds.push("sc-defendant-served"); }
+    if (settled?.defence) {
+      out.defenceFiled = true;
+      out.questionIds.push(side === "bringing" ? "sc-defence-filed" : "sc-defendant-defence-filed");
+    }
     if (out.claimFiled !== undefined) out.questionIds.push("sc-claim-filed");
   }
   if (side === "responding" && situation.receivedOn && situation.receivedOn !== "unknown") {
@@ -335,6 +351,50 @@ export function situationAnswers(court: SituationCourt, situation: Situation): S
     if (court === "small-claims" && courtOfPapers(situation) === "small-claims") out.questionIds.push("sc-defendant-claim-received");
   }
   return out;
+}
+
+/** Every step the map's moves reach from this one, itself included, never going through `through`. */
+function reachedFrom(stepId: string, through: readonly string[] = []): Set<string> {
+  const seen = new Set<string>([stepId]);
+  const queue = [stepId];
+  while (queue.length) for (const move of movesFrom(queue.shift()!)) if (!seen.has(move.to) && !through.includes(move.to)) { seen.add(move.to); queue.push(move.to); }
+  return seen;
+}
+/**
+ * The steps where a Defence is filed: the way without one is walked without passing through them. A
+ * defence that admits the claim and proposes terms of payment is one too (r. 9.03 (1): "may in the
+ * defence admit liability and propose terms of payment").
+ */
+const DEFENCE_STEPS = ["plaintiff:defence-filed", "defendant:defence-filed", "defendant:admitted-and-proposed-terms", "plaintiff:defendant-proposed-terms"];
+/** Where the claim has already been served: the plaintiff waiting for a Defence, or the defendant's own start. */
+const SERVED_STEPS = ["plaintiff:served-awaiting-defence", "defendant:served-defence-period-running"];
+/**
+ * Steps whose way in the rules we hold do not cover in full: they settle nothing, so the questions
+ * are still asked there (site owner, 2026-10-27: "anything not sourced stays out and the question is
+ * still asked there"). A claim withdrawn before it is served: r. 11.3.01 covers only a defendant who
+ * did not file a defence in time, and r. 13.09 the settlement conference.
+ */
+const NOT_COVERED_BY_THE_RULES_HELD = new Set(["plaintiff:wants-to-discontinue"]);
+let SETTLED: { served: Set<string>; defence: Set<string> } | null = null;
+/**
+ * What a Small Claims step already settles, read from the stage map's own order of moves: a step that
+ * every way from the map's starting points reaches only through "served, waiting for a Defence" settles
+ * that the claim was served; one reached only through a Defence filed settles that a Defence was filed.
+ * The steps either side can be at any time ("both:", a motion or an offer) settle nothing.
+ */
+export function settledBySmallClaimsStep(stepId: string): { served: boolean; defence: boolean } {
+  if (!SETTLED) {
+    const minus = (from: Set<string>, ...without: Set<string>[]) => new Set([...from].filter((id) => !id.startsWith("both:") && !NOT_COVERED_BY_THE_RULES_HELD.has(id) && !without.some((set) => set.has(id))));
+    // Small Claims steps carry no pathway field: pathwayOf reads it (a filter on the field found none).
+    const starts = STARTING_POINTS.map((point) => point.stage).filter((stage) => { const found = findStage(stage); return Boolean(found) && pathwayOf(found!) === "small-claims"; });
+    // Every way from the starts that does not pass through the given steps (a start that is one of them begins there).
+    const without = (through: readonly string[]) => new Set(starts.filter((start) => !through.includes(start)).flatMap((start) => [...reachedFrom(start, through)]));
+    SETTLED = {
+      served: minus(new Set(SERVED_STEPS.flatMap((step) => [...reachedFrom(step)])), without(SERVED_STEPS)),
+      defence: minus(new Set(DEFENCE_STEPS.flatMap((step) => [...reachedFrom(step)])), without(DEFENCE_STEPS)),
+    };
+  }
+  return { served: SETTLED.served.has(stepId), defence: SETTLED.defence.has(stepId) };
 }
 
 /**

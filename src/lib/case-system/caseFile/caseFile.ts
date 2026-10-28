@@ -30,9 +30,9 @@
  */
 import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
-import { situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
+import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim } from "../intake/claimKind";
-import { factsOfQuestion } from "./factsOfQuestion";
+import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
@@ -52,6 +52,14 @@ export type CaseFile = Record<SlotFact, Slot> & {
   answers?: Record<string, string>;
   /** The papers the person said are filed, as stored (shown in words with "Anything filed yet"). */
   documents?: string[];
+  /**
+   * Date questions answered "I don't know yet" that no slot holds (the day a claim was issued): offered
+   * once more at the end like the slots' days, never asked cold again (story pack on GitHub, 27 Oct:
+   * sc-date-claim-issued asked on the results page and again on the case page).
+   */
+  unsureDates?: string[];
+  /** The side in the start answer's own words for a case already going ("I started this case (applicant)"). */
+  sideWords?: string;
   /** The story as it is now, for the lines "What we have so far" quotes from it (storyLines.ts). */
   story?: string;
 };
@@ -76,6 +84,18 @@ export function emptyCaseFile(): CaseFile {
   return Object.fromEntries(SLOT_FACTS.map((fact) => [fact, { state: "not-asked", confirmed: false }])) as unknown as CaseFile;
 }
 
+/**
+ * "No court date yet", "none", "nothing scheduled": an answer to a court-date question that says there
+ * is none, kept as the person's answer, never as a rough day (26 Oct re-test, case 14: "No court date
+ * yet (day not given yet)").
+ */
+export function saysNoDateYet(value: unknown): boolean {
+  if (typeof value !== "string") return false;
+  return /^\s*(?:no(?:pe)?|none(?: yet)?|not yet|nothing (?:scheduled|set|booked)(?: yet)?|no(?:t)? (?:any )?(?:court |next )?(?:dates?|hearings?|conferences?|appearances?)(?: (?:yet|scheduled|set|booked))*(?: yet)?|there (?:is|are) no (?:court )?(?:dates?|hearings?|conferences?)(?: (?:yet|scheduled|set))*)\s*[.!]?\s*$/i.test(value);
+}
+/** The slots a "no date yet" answer can close. */
+const COURT_DAYS = new Set<SlotFact>(["conferenceDate", "courtDate"]);
+
 /** The slots that hold a day. */
 const DATED = new Set<SlotFact>(["whenHappened", "servedDate", "conferenceDate", "courtDate"]);
 
@@ -83,6 +103,18 @@ const DATED = new Set<SlotFact>(["whenHappened", "servedDate", "conferenceDate",
 function readFullDay(text: string): string | null {
   const worded = firstWordedDate(text);
   return worded && isRealIsoDate(worded.iso) ? worded.iso : null;
+}
+
+/** The day a slot holds, as an ISO date, whatever form it was given in; null when it holds none. */
+export function dayOfSlot(slot: Slot): string | null {
+  if (typeof slot.value !== "string") return null;
+  return isRealIsoDate(slot.value) ? slot.value : readFullDay(slot.value);
+}
+
+/** The next court date is the conference: the same day in both slots (case 16), listed once. */
+export function courtDateIsConference(file: CaseFile): boolean {
+  const court = dayOfSlot(file.courtDate);
+  return court !== null && court === dayOfSlot(file.conferenceDate);
 }
 
 /** "We were married in Lisbon, Portugal in 2009": the place named, with the words it came from, or null. */
@@ -113,6 +145,11 @@ function give(file: CaseFile, fact: string, value: unknown, question: string) {
     return;
   }
   if (slot.state === "answered") return;
+  // "No court date yet" answers the question: there is none (26 Oct re-test, case 14).
+  if (COURT_DAYS.has(fact) && saysNoDateYet(value)) {
+    file[fact] = { state: "answered", value: String(value).trim(), source: { kind: "answer", question }, confirmed: true };
+    return;
+  }
   // A rough time ("last summer", "June 2026") is kept as given, but is not the day itself:
   // the fact stays unsure, so the exact day is offered once more at the end (item 12).
   if (DATED.has(fact) && typeof value === "string" && !isRealIsoDate(value) && !readFullDay(value)) {
@@ -127,6 +164,26 @@ function give(file: CaseFile, fact: string, value: unknown, question: string) {
 function unsure(file: CaseFile, fact: string, question: string) {
   if (isSlot(fact) && file[fact].state === "not-asked") file[fact] = { state: "unsure", source: { kind: "answer", question }, confirmed: true };
 }
+
+/**
+ * "What kind of dispute is this?" keeps its answer as a code (facts.disputeCategory, the extractor's
+ * list): the question's own choice words for it, so the answer is shown as given (26 Oct re-test,
+ * case 20: "Unpaid money owed to you" confirmed in the chat, then "Kind of claim: Not sure yet:
+ * nothing in your story shows it" and no line in "What we have so far").
+ */
+export const DISPUTE_CATEGORY_WORDS: Record<string, string> = {
+  "unpaid-money": "Unpaid money owed to you",
+  "contract-dispute": "A contract or agreement dispute",
+  "property-damage": "Property damage",
+  "loan-or-debt": "A loan or debt",
+  "work-or-services": "Work or a service you paid for (e.g. a contractor)",
+  "deposit-refund": "A deposit that wasn't returned",
+  "consumer-purchase": "A consumer purchase problem",
+  "vehicle-dispute": "A vehicle-related dispute",
+  defamation: "Something said about you (defamation)",
+  "personal-injury": "A personal injury (a fall, an animal bite, or similar)",
+  other: "Something else",
+};
 
 /** Every slot an answer to this question gives (its facts that are slots). */
 const slotsOf = (questionId: string, surface?: string): SlotFact[] => factsOfQuestion(questionId, surface).filter(isSlot);
@@ -169,6 +226,19 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   if (situation.receivedOn) give(file, "servedDate", situation.receivedOn === "unknown" ? "unknown" : situation.receivedOn, "situation:received");
 
   // 2. Each area's own form (civil, Family, the Small Claims form).
+  // The answers given to the story reading's questions on the home page (HomeLocationGate,
+  // home:understoodAnswers): the person's own, so the fact each question asks for is held, by the
+  // question's own words (factsOfQuestion.ts factOfAskedText). Before, nothing else knew of them
+  // (Charter re-test 27 Oct: "What you want" was offered from a story sentence after the person
+  // had answered it, declaration included).
+  const homeAnswers = object(sections.home).understoodAnswers;
+  for (const item of Array.isArray(homeAnswers) ? homeAnswers : []) {
+    const { question, answer } = object(item);
+    if (typeof question !== "string" || typeof answer !== "string" || !answer.trim()) continue;
+    const fact = factOfAskedText(question);
+    if (fact) give(file, fact, answer.trim(), `home:${fact}`);
+  }
+
   const forms: [Record<string, unknown>, string][] = [
     [object(sections.civil?.input), "civil"],
     [object(sections.family), "family"],
@@ -209,7 +279,7 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
       // The answer's own words where the question keeps them (its captured field); a dated
       // fact with no words kept is unsure (the exact day is offered once more at the end).
       const field = QUESTION_BANK.find((question) => question.id === id)?.capturesField;
-      const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : undefined;
+      const captured = field ? guidedFacts[field] : id === "sc-orient-role" ? guidedFacts.role : id === "sc-orient-dispute-category" && typeof guidedFacts.disputeCategory === "string" ? DISPUTE_CATEGORY_WORDS[guidedFacts.disputeCategory] : undefined;
       if (captured === undefined && DATED.has(fact)) unsure(file, fact, id);
       else if (captured === undefined) file[fact] = { state: "answered", source: { kind: "answer", question: id }, confirmed: true };
       else give(file, fact, captured, id);
@@ -225,6 +295,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
     for (const fact of slotsOf(id)) give(file, fact, answer, `review:${id}`);
   }
   for (const id of strings(builder.initialUnknowns)) for (const fact of slotsOf(id)) unsure(file, fact, `review:${id}`);
+  // A date question answered "I don't know yet", in the review or in words, whatever slot it has or not.
+  const unsureDates = [...strings(builder.initialUnknowns), ...Object.entries(answers).filter(([, words]) => isUnsureAnswer(words)).map(([id]) => id)].filter((id) => /-date-/.test(id));
+  if (unsureDates.length) file.unsureDates = [...new Set(unsureDates)];
   // Skipped in the questions one at a time (civil, Family).
   for (const key of strings(object(sections["form-chat"]).skipped)) for (const fact of slotsOf(key)) unsure(file, fact, `chat:${key}`);
 
@@ -256,7 +329,14 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   }
   file.answers = answers;
   // The papers filed, as answered in any area's list (case 16: "the filed application and answer").
-  const listed = forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value)).filter((item) => item !== "nothing" && item !== "not-sure");
+  // And the papers named in the situation answers ("I was served with a Plaintiff's Claim"), so "Anything
+  // filed yet: Yes" names them in every area, not only where a form listed them (26 Oct re-test).
+  const startCourt = situation.court ?? court;
+  const startAnswers = startCourt === "small-claims" || startCourt === "civil" || startCourt === "family" ? situationAnswers(startCourt, situation) : null;
+  const fromStart = startAnswers?.documents ?? [];
+  // The side as the overview and the review word it (reviewer, 26 Oct: "Bringing the case" here).
+  if (startAnswers?.roleWords) file.sideWords = startAnswers.roleWords;
+  const listed = [...fromStart, ...forms.flatMap(([values]) => [values.documents, values.filedDocuments]).flatMap((value) => strings(value))].filter((item) => item !== "nothing" && item !== "not-sure");
   if (listed.length) file.documents = [...new Set(listed)];
   file.story = String(object(sections.story).text ?? "");
   return file;
@@ -351,7 +431,7 @@ export function unsureDateQuestions(file: CaseFile): string[] {
     conferenceDate: DATE_QUESTIONS_OF.conferenceDate ?? [],
     courtDate: DATE_QUESTIONS_OF.courtDate ?? [],
   };
-  return Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : []));
+  return [...new Set([...Object.entries(ids).flatMap(([fact, list]) => (file[fact as SlotFact].state === "unsure" ? [...list] : [])), ...(file.unsureDates ?? [])])];
 }
 
 /**

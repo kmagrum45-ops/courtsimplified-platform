@@ -1,4 +1,6 @@
-import { answeredInStory } from "./answeredInStory";
+import { internalWordingIn } from "../copy/rawKeys";
+import { answeredFactsOf, answeredInStory } from "./answeredInStory";
+import type { SlotFact } from "../caseFile/caseFile";
 import {
   buildConversationIntelligence,
   CasePartnerCourtContext,
@@ -917,8 +919,8 @@ function buildLegalIssuesAnswer(args: {
     ...(args.intelligence.hypotheses || []).map(
       (hypothesis) => hypothesis.label,
     ),
-    ...(args.legalReasoning.reasoningSummary.primaryDomains || []),
-  ]);
+    // The reasoning domains are codes, never listed (reviewer, 26 Oct: "civil-institutional-liability", "unknown").
+  ]).filter((label) => label !== "unknown" && internalWordingIn(String(label ?? "")).length === 0);
 
   if (issues.length === 0) {
     return assistantText("assistant:issues:none");
@@ -964,6 +966,7 @@ function buildBestQuestion(args: {
   legalReasoning: CoordinatedReasoningPackage;
   /** The saved story: a question it answers is not asked (answeredInStory.ts). */
   knownStory?: string;
+  knownFacts?: ReadonlySet<SlotFact>;
 }): string {
   const selectedQuestion =
     args.intelligence.selectedNextQuestion;
@@ -982,16 +985,21 @@ function buildBestQuestion(args: {
   }
 
   const reasoningQuestion = firstItem(
-    args.legalReasoning.reasoningSummary.firstQuestions.filter((question) => !answeredInStory(question, args.knownStory ?? "")),
+    args.legalReasoning.reasoningSummary.firstQuestions.filter((question) => !answeredInStory(question, args.knownStory ?? "", args.knownFacts)),
   );
 
   if (hasText(reasoningQuestion)) {
     return assistantText("assistant:question:plain", { question: reasoningQuestion });
   }
 
-  // The case already holds a date (the message or the saved story): "the main dates" is not asked for.
-  const datesKnown = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low");
-  return datesKnown ? assistantText("assistant:question:fallback-dated") : assistantText("assistant:question:fallback");
+  // Only the parts the case does not already hold: the dates (the message, the saved story or the
+  // case file), the proof (dropped by the caller once evidence is named), what they want.
+  const datesKnown = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low") || Boolean(args.knownFacts?.has("whenHappened"));
+  return [
+    datesKnown ? null : assistantText("assistant:question:part-dates"),
+    assistantText("assistant:question:part-proof"),
+    args.knownFacts?.has("wants") ? null : assistantText("assistant:question:part-outcome"),
+  ].filter(Boolean).join(" ");
 }
 
 function buildCaution(
@@ -1057,6 +1065,7 @@ function buildDirectAnswer(args: {
   intent: ResponseIntent;
   recorded?: string[];
   knownStory?: string;
+  knownFacts?: ReadonlySet<SlotFact>;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1087,6 +1096,7 @@ function buildGeneralAnswer(args: {
   /** Evidence the person already named, in their own words. */
   recordedEvidence?: string[];
   knownStory?: string;
+  knownFacts?: ReadonlySet<SlotFact>;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1165,6 +1175,7 @@ function buildGeneralAnswer(args: {
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
     knownStory: args.knownStory,
+    knownFacts: args.knownFacts,
   });
   // Not "what proof do you already have" when the person has said what they have
   // (#470 re-test: it followed a reply quoting their own list of evidence).
@@ -1196,6 +1207,7 @@ function buildAnswer(args: {
   /** Evidence the person already named: quotes from their story and their own answer. */
   recordedEvidence?: string[];
   knownStory?: string;
+  knownFacts?: ReadonlySet<SlotFact>;
   conversation: CasePartnerConversationMessage[];
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
@@ -1212,6 +1224,7 @@ function buildAnswer(args: {
       intent,
       recorded: args.recordedEvidence,
       knownStory: args.knownStory,
+      knownFacts: args.knownFacts,
       intelligence: args.intelligence,
       legalReasoning: args.legalReasoning,
       investigation: args.investigation,
@@ -1251,6 +1264,7 @@ function buildAnswer(args: {
     courtConfirmed: args.courtConfirmed,
     recordedEvidence: args.recordedEvidence,
     knownStory: args.knownStory,
+    knownFacts: args.knownFacts,
     askedQuestion: /\?\s*$/.test(args.message.trim()) || /^(what|how|when|where|who|why|which|can|could|do|does|did|should|is|are|will|would)\b/i.test(args.message.trim()),
     intelligence: args.intelligence,
     legalReasoning: args.legalReasoning,
@@ -1371,6 +1385,7 @@ export function runGuidedAssistantOrchestrator(
         courtConfirmed: Boolean(clean(input.courtContext?.courtPath)),
         recordedEvidence: recordedEvidenceOf(input.caseMemory),
         knownStory: savedStoryOf(input.caseMemory),
+        knownFacts: answeredFactsOf(input.caseMemory),
         conversation,
         intelligence: conversationIntelligence,
         legalReasoning,

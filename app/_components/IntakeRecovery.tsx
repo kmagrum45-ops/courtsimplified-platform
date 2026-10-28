@@ -234,7 +234,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
                 workflowStatus = record(outcome.master.workflowStatus);
                 const committed = readCheckpoint(outcome.master.intakeCheckpoint, court, caseId);
                 if (committed) savedInput = inputRevision(committed);
-                if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) snapshot = { ...snapshot, inputRevision: inputRevision(committed) };
+                if (committed && inputRevision(snapshot) === inputRevision(sent) && inputRevision(committed) !== inputRevision(sent)) { snapshot = { ...snapshot, inputRevision: inputRevision(committed) }; remember(snapshot); }
               }
             }
             if (!current()) return;
@@ -254,6 +254,24 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
         };
         const continueHandlers = new Map<ContinueKey, () => void>();
         let pendingContinue: ContinueKey | null = null;
+        /**
+         * The facts as they stood at each recent input revision, so a refused Confirm can say which
+         * answers changed after the tick, by name only (Charter re-test 27 Oct: the first Confirm
+         * bounced with "Your initial facts changed" and no test reproduced it).
+         */
+        const factsAt = new Map<string, string>();
+        const remember = (checkpoint: Checkpoint) => {
+          factsAt.set(inputRevision(checkpoint), materialInitialFacts(checkpoint));
+          while (factsAt.size > 12) factsAt.delete(factsAt.keys().next().value as string);
+        };
+        const changedSince = (expected: string): string[] => {
+          const before = factsAt.get(expected);
+          if (!before) return ["(the earlier answers are no longer held)"];
+          const was = new Map(JSON.parse(before) as [string, string][]);
+          const now = new Map(JSON.parse(materialInitialFacts(snapshot)) as [string, string][]);
+          return [...new Set([...was.keys(), ...now.keys()])].filter((key) => was.get(key) !== now.get(key));
+        };
+        remember(snapshot);
         /** True when a route took it now; false when it waits for that route to appear. */
         const runContinue = (key: ContinueKey): boolean => {
           const handler = continueHandlers.get(key);
@@ -308,7 +326,11 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           getReview: () => view,
           transition: async (action, expectedInput) => {
             await flush();
-            if (!current() || inputRevision(snapshot) !== expectedInput) throw new Error("Your initial facts changed. Review them again before confirming.");
+            if (!current() || inputRevision(snapshot) !== expectedInput) {
+              // Names only, never values: what changed between the tick and the press.
+              if (current()) console.warn("[intake] Confirm refused: these answers changed after the tick:", changedSince(expectedInput).join(", ") || "(none: the revision was renewed when saving)");
+              throw new Error("Your initial facts changed. Review them again before confirming.");
+            }
             if (ownerId && caseId) {
               const result = await saveReviewTransition(supabase, ownerId, caseId, snapshot, action, expectedInput, current);
               if (!result.ok) { failure("Your review could not be saved. Your answers remain here; retry before continuing."); throw new Error("Review was not saved. Please retry."); }
@@ -351,6 +373,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (!readCheckpoint(next, court)) { invalid.add(field); dirty = true; emit(); failure("This intake is too large to save together. Nothing has been removed; copy your text before leaving."); return; }
             invalid.delete(field);
             snapshot = next;
+            remember(snapshot);
             if (external) fieldListeners.get(field)?.forEach(listener => listener());
             if (storyChanged) for (const cleared of ["home:understoodAnswers", "home:draftAnswers", "form-chat:drafts"]) fieldListeners.get(cleared)?.forEach(listener => listener());
             for (const [changedSection, changedKey] of sideChange.changed) fieldListeners.get(`${changedSection}:${changedKey}`)?.forEach(listener => listener());

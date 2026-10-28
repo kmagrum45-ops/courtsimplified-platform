@@ -9,7 +9,8 @@
     "arthur-wishart-act-franchise": {
       "name": "Arthur Wishart Act (Franchise Disclosure), 2000, S.O. 2000, c. 3",
       "url": "https://www.ontario.ca/laws/statute/00a03",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Arthur Wishart Act (Franchise Disclosure), 2000"
     },
     "bankruptcy-and-insolvency-act": {
       "name": "Bankruptcy and Insolvency Act, R.S.C. 1985, c. B-3",
@@ -24,7 +25,8 @@
     "business-corporations-act": {
       "name": "Business Corporations Act, R.S.O. 1990, c. B.16",
       "url": "https://www.ontario.ca/laws/statute/90b16",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Business Corporations Act"
     },
     "camvap": {
       "name": "camvap.ca, Canadian Motor Vehicle Arbitration Plan",
@@ -64,42 +66,50 @@
     "charities-accounting-act": {
       "name": "Charities Accounting Act, R.S.O. 1990, c. C.10",
       "url": "https://www.ontario.ca/laws/statute/90c10",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Charities Accounting Act"
     },
     "child-care-and-early-years-act-2014": {
       "name": "Child Care and Early Years Act, 2014, S.O. 2014, c. 11, Sched. 1",
       "url": "https://www.ontario.ca/laws/statute/14c11",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Child Care and Early Years Act, 2014"
     },
     "child-youth-and-family-services-act-2017": {
       "name": "Child, Youth and Family Services Act, 2017, S.O. 2017, c. 14, Sched. 1",
       "url": "https://www.ontario.ca/laws/statute/17c14",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Child, Youth and Family Services Act, 2017"
     },
     "childrens-law-reform-act": {
       "name": "Children's Law Reform Act, R.S.O. 1990, c. C.12",
       "url": "https://www.ontario.ca/laws/statute/90c12",
-      "checkedOn": "2026-09-30"
+      "checkedOn": "2026-09-30",
+      "title": "Children’s Law Reform Act"
     },
     "city-of-toronto-act-2006": {
       "name": "City of Toronto Act, 2006, S.O. 2006, c. 11, Sched. A",
       "url": "https://www.ontario.ca/laws/statute/06c11",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "City of Toronto Act, 2006"
     },
     "civil-remedies-act-2001": {
       "name": "Civil Remedies Act, 2001, S.O. 2001, c. 28",
       "url": "https://www.ontario.ca/laws/statute/01r28",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Civil Remedies Act, 2001"
     },
     "cja-courts-of-justice-act": {
       "name": "Courts of Justice Act, R.S.O. 1990, c. C.43",
       "url": "https://www.ontario.ca/laws/statute/90c43",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Courts of Justice Act"
     },
     "class-proceedings-act": {
-      "name": "Class Proceedings Act, S.O. 1992, c. 6",
+      "name": "Class Proceedings Act, 1992, S.O. 1992, c. 6",
       "url": "https://www.ontario.ca/laws/statute/92c06",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Class Proceedings Act, 1992"
     },
     "cleo-debt-and-consumer-rights-are-there-options-other-bankruptcy-if-im-debt": {
       "name": "CLEO, Steps to Justice, Are there options other than bankruptcy if I'm in debt?",
@@ -619,27 +629,32 @@
     "collection-and-debt-settlement-services-act": {
       "name": "Collection and Debt Settlement Services Act, R.S.O. 1990, c. C.14",
       "url": "https://www.ontario.ca/laws/statute/90c14",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Collection and Debt Settlement Services Act"
     },
     "commercial-tenancies-act": {
       "name": "Commercial Tenancies Act, R.S.O. 1990, c. L.7",
       "url": "https://www.ontario.ca/laws/statute/90l07",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Commercial Tenancies Act"
     },
     "community-safety-and-policing-act": {
       "name": "Community Safety and Policing Act, 2019, S.O. 2019, c. 1, Sched. 1",
       "url": "https://www.ontario.ca/laws/statute/19c01",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Community Safety and Policing Act, 2019"
     },
     "compulsory-automobile-insurance-act": {
       "name": "Compulsory Automobile Insurance Act, R.S.O. 1990, c. C.25",
       "url": "https://www.ontario.ca/laws/statute/90c25",
-      "checkedOn": "2026-10-05"
+      "checkedOn": "2026-10-05",
+      "title": "Compulsory Automobile Insurance Act"
     },
     "condominium-act-1998": {
       "name": "Condominium Act, 1998, S.O. 1998, c. 19",
       "url": "https://www.ontario.ca/laws/statute/98c19",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Condominium Act, 1998"
     },
     "condominium-authority-tribunal": {
       "name": "Condominium Authority Tribunal, O. Reg. 179/17",
@@ -649,22 +664,26 @@
     "construction-act": {
       "name": "Construction Act, R.S.O. 1990, c. C.30",
       "url": "https://www.ontario.ca/laws/statute/90c30",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Construction Act"
     },
     "consumer-protection-act-2002": {
       "name": "Consumer Protection Act, 2002, S.O. 2002, c. 30, Sched. A",
       "url": "https://www.ontario.ca/laws/statute/02c30",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Consumer Protection Act, 2002"
     },
     "consumer-reporting-act": {
       "name": "Consumer Reporting Act, R.S.O. 1990, c. C.33",
       "url": "https://www.ontario.ca/laws/statute/90c33",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Consumer Reporting Act"
     },
     "conveyancing-and-law-of-property-act": {
       "name": "Conveyancing and Law of Property Act, R.S.O. 1990, c. C.34",
       "url": "https://www.ontario.ca/laws/statute/90c34",
-      "checkedOn": "2026-10-16"
+      "checkedOn": "2026-10-16",
+      "title": "Conveyancing and Law of Property Act"
     },
     "copyright-act": {
       "name": "Copyright Act, R.S.C. 1985, c. C-42",
@@ -759,12 +778,14 @@
     "crown-attorneys-act": {
       "name": "Crown Attorneys Act, R.S.O. 1990, c. C.49",
       "url": "https://www.ontario.ca/laws/statute/90c49",
-      "checkedOn": "2026-10-09"
+      "checkedOn": "2026-10-09",
+      "title": "Crown Attorneys Act"
     },
     "crown-liability-and-proceedings-act-2019": {
       "name": "Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17",
       "url": "https://www.ontario.ca/laws/statute/19c07",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Crown Liability and Proceedings Act, 2019"
     },
     "crown-liability-and-proceedings-act-canada": {
       "name": "Crown Liability and Proceedings Act (Canada), R.S.C. 1985, c. C-50",
@@ -777,9 +798,10 @@
       "checkedOn": "2026-10-13"
     },
     "digital-platform-workers-rights-act": {
-      "name": "Digital Platform Workers' Rights Act, 2022, S.O. 2022, c. 7, Sched. 1",
+      "name": "Digital Platform Workers’ Rights Act, 2022, S.O. 2022, c. 7, Sched. 1",
       "url": "https://www.ontario.ca/laws/statute/22d07",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Digital Platform Workers’ Rights Act, 2022"
     },
     "divorce-act": {
       "name": "Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.)",
@@ -789,12 +811,14 @@
     "dog-owners-liability-act": {
       "name": "Dog Owners' Liability Act, R.S.O. 1990, c. D.16",
       "url": "https://www.ontario.ca/laws/statute/90d16",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Dog Owners' Liability Act"
     },
     "electronic-commerce-act-2000": {
       "name": "Electronic Commerce Act, 2000, S.O. 2000, c. 17",
       "url": "https://www.ontario.ca/laws/statute/00e17",
-      "checkedOn": "2026-10-17"
+      "checkedOn": "2026-10-17",
+      "title": "Electronic Commerce Act, 2000"
     },
     "employment-insurance-act": {
       "name": "Employment Insurance Act, S.C. 1996, c. 23",
@@ -809,17 +833,20 @@
     "energy-consumer-protection-act-2010": {
       "name": "Energy Consumer Protection Act, 2010, S.O. 2010, c. 8",
       "url": "https://www.ontario.ca/laws/statute/10e08",
-      "checkedOn": "2026-10-08"
+      "checkedOn": "2026-10-08",
+      "title": "Energy Consumer Protection Act, 2010"
     },
     "environmental-protection-act": {
       "name": "Environmental Protection Act, R.S.O. 1990, c. E.19",
       "url": "https://www.ontario.ca/laws/statute/90e19",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Environmental Protection Act"
     },
     "esa-2000-ontario": {
       "name": "Employment Standards Act, 2000, S.O. 2000, c. 41",
       "url": "https://www.ontario.ca/laws/statute/00e41",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Employment Standards Act, 2000"
     },
     "esa-guide-overtime-pay": {
       "name": "ontario.ca, Your guide to the Employment Standards Act: Overtime pay",
@@ -839,22 +866,26 @@
     "estates-act": {
       "name": "Estates Act, R.S.O. 1990, c. E.21",
       "url": "https://www.ontario.ca/laws/statute/90e21",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Estates Act"
     },
     "evidence-act": {
       "name": "Evidence Act, R.S.O. 1990, c. E.23",
       "url": "https://www.ontario.ca/laws/statute/90e23",
-      "checkedOn": "2026-09-30"
+      "checkedOn": "2026-09-30",
+      "title": "Evidence Act"
     },
     "execution-act": {
       "name": "Execution Act, R.S.O. 1990, c. E.24",
       "url": "https://www.ontario.ca/laws/statute/90e24",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Execution Act"
     },
     "family-law-act": {
       "name": "Family Law Act, R.S.O. 1990, c. F.3",
       "url": "https://www.ontario.ca/laws/statute/90f03",
-      "checkedOn": "2026-09-30"
+      "checkedOn": "2026-09-30",
+      "title": "Family Law Act"
     },
     "family-law-rules": {
       "name": "Family Law Rules, O. Reg. 114/99",
@@ -869,7 +900,8 @@
     "family-responsibility-support-arrears-enforcement-act": {
       "name": "Family Responsibility and Support Arrears Enforcement Act, 1996, S.O. 1996, c. 31",
       "url": "https://www.ontario.ca/laws/statute/96f31",
-      "checkedOn": "2026-09-30"
+      "checkedOn": "2026-09-30",
+      "title": "Family Responsibility and Support Arrears Enforcement Act, 1996"
     },
     "fault-determination-rules": {
       "name": "Fault Determination Rules, R.R.O. 1990, Reg. 668",
@@ -894,27 +926,32 @@
     "fippa": {
       "name": "Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. F.31",
       "url": "https://www.ontario.ca/laws/statute/90f31",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Freedom of Information and Protection of Privacy Act"
     },
     "forestry-act": {
       "name": "Forestry Act, R.S.O. 1990, c. F.26",
       "url": "https://www.ontario.ca/laws/statute/90f26",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Forestry Act"
     },
     "fraudulent-conveyances-act": {
       "name": "Fraudulent Conveyances Act, R.S.O. 1990, c. F.29",
       "url": "https://www.ontario.ca/laws/statute/90f29",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Fraudulent Conveyances Act"
     },
     "frustrated-contracts-act": {
       "name": "Frustrated Contracts Act, R.S.O. 1990, c. F.34",
       "url": "https://www.ontario.ca/laws/statute/90f34",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Frustrated Contracts Act"
     },
     "funeral-burial-cremation-services-act": {
       "name": "Funeral, Burial and Cremation Services Act, 2002, S.O. 2002, c. 33",
       "url": "https://www.ontario.ca/laws/statute/02f33",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Funeral, Burial and Cremation Services Act, 2002"
     },
     "guide-after-judgment": {
       "name": "ontario.ca, Guide to Procedures in Small Claims Court: After judgment",
@@ -949,7 +986,8 @@
     "highway-traffic-act": {
       "name": "Highway Traffic Act, R.S.O. 1990, c. H.8",
       "url": "https://www.ontario.ca/laws/statute/90h08",
-      "checkedOn": "2026-10-05"
+      "checkedOn": "2026-10-05",
+      "title": "Highway Traffic Act"
     },
     "holidays-act-canada": {
       "name": "Holidays Act (Canada), R.S.C. 1985, c. H-5",
@@ -964,37 +1002,44 @@
     "human-rights-code": {
       "name": "Human Rights Code, R.S.O. 1990, c. H.19",
       "url": "https://www.ontario.ca/laws/statute/90h19",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Human Rights Code"
     },
     "insurance-act": {
       "name": "Insurance Act, R.S.O. 1990, c. I.8",
       "url": "https://www.ontario.ca/laws/statute/90i08",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Insurance Act"
     },
     "interjurisdictional-support-orders-act-2002": {
       "name": "Interjurisdictional Support Orders Act, 2002, S.O. 2002, c. 13",
       "url": "https://www.ontario.ca/laws/statute/02i13",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Interjurisdictional Support Orders Act, 2002"
     },
     "judicial-review-procedure-act": {
       "name": "Judicial Review Procedure Act, R.S.O. 1990, c. J.1",
       "url": "https://www.ontario.ca/laws/statute/90j01",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Judicial Review Procedure Act"
     },
     "labour-relations-act-1995": {
       "name": "Labour Relations Act, 1995, S.O. 1995, c. 1, Sched. A",
       "url": "https://www.ontario.ca/laws/statute/95l01",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Labour Relations Act, 1995"
     },
     "land-titles-act": {
       "name": "Land Titles Act, R.S.O. 1990, c. L.5",
       "url": "https://www.ontario.ca/laws/statute/90l05",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Land Titles Act"
     },
     "law-society-act": {
       "name": "Law Society Act, R.S.O. 1990, c. L.8",
       "url": "https://www.ontario.ca/laws/statute/90l08",
-      "checkedOn": "2026-10-08"
+      "checkedOn": "2026-10-08",
+      "title": "Law Society Act"
     },
     "leca-law-enforcement-complaints": {
       "name": "leca.ca, Law Enforcement Complaints Agency",
@@ -1004,22 +1049,26 @@
     "legislation-act-2006": {
       "name": "Legislation Act, 2006, S.O. 2006, c. 21, Sched. F",
       "url": "https://www.ontario.ca/laws/statute/06l21",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Legislation Act, 2006"
     },
     "libel-and-slander-act": {
       "name": "Libel and Slander Act, R.S.O. 1990, c. L.12",
       "url": "https://www.ontario.ca/laws/statute/90l12",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Libel and Slander Act"
     },
     "limitations-act-2002": {
       "name": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
       "url": "https://www.ontario.ca/laws/statute/02l24",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Limitations Act, 2002"
     },
     "line-fences-act": {
       "name": "Line Fences Act, R.S.O. 1990, c. L.17",
       "url": "https://www.ontario.ca/laws/statute/90l17",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Line Fences Act"
     },
     "ltb-landlord-and-tenant-board": {
       "name": "tribunalsontario.ca, Landlord and Tenant Board",
@@ -1029,7 +1078,8 @@
     "marriage-act": {
       "name": "Marriage Act, R.S.O. 1990, c. M.3",
       "url": "https://www.ontario.ca/laws/statute/90m03",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Marriage Act"
     },
     "mb-courts-definitions": {
       "name": "manitobacourts.mb.ca, Definitions: Understanding Legal Words (Manitoba Courts)",
@@ -1039,32 +1089,38 @@
     "mfippa": {
       "name": "Municipal Freedom of Information and Protection of Privacy Act, R.S.O. 1990, c. M.56",
       "url": "https://www.ontario.ca/laws/statute/90m56",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Municipal Freedom of Information and Protection of Privacy Act"
     },
     "ministry-of-the-attorney-general-act": {
       "name": "Ministry of the Attorney General Act, R.S.O. 1990, c. M.17",
       "url": "https://www.ontario.ca/laws/statute/90m17",
-      "checkedOn": "2026-10-09"
+      "checkedOn": "2026-10-09",
+      "title": "Ministry of the Attorney General Act"
     },
     "mortgage-brokerages-act-2006": {
       "name": "Mortgage Brokerages, Lenders and Administrators Act, 2006, S.O. 2006, c. 29",
       "url": "https://www.ontario.ca/laws/statute/06m29",
-      "checkedOn": "2026-10-08"
+      "checkedOn": "2026-10-08",
+      "title": "Mortgage Brokerages, Lenders and Administrators Act, 2006"
     },
     "mortgages-act": {
       "name": "Mortgages Act, R.S.O. 1990, c. M.40",
       "url": "https://www.ontario.ca/laws/statute/90m40",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Mortgages Act"
     },
     "motor-vehicle-dealers-act-2002": {
       "name": "Motor Vehicle Dealers Act, 2002, S.O. 2002, c. 30, Sched. B",
       "url": "https://www.ontario.ca/laws/statute/02m30",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Motor Vehicle Dealers Act, 2002"
     },
     "municipal-act-2001": {
       "name": "Municipal Act, 2001, S.O. 2001, c. 25",
       "url": "https://www.ontario.ca/laws/statute/01m25",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Municipal Act, 2001"
     },
     "nb-courts-glossary": {
       "name": "courtsnb-coursnb.ca, Glossary of Legal Terms (Courts of New Brunswick)",
@@ -1074,17 +1130,20 @@
     "negligence-act": {
       "name": "Negligence Act, R.S.O. 1990, c. N.1",
       "url": "https://www.ontario.ca/laws/statute/90n01",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Negligence Act"
     },
     "occupational-health-and-safety-act": {
       "name": "Occupational Health and Safety Act, R.S.O. 1990, c. O.1",
       "url": "https://www.ontario.ca/laws/statute/90o01",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Occupational Health and Safety Act"
     },
     "occupiers-liability-act": {
       "name": "Occupiers' Liability Act, R.S.O. 1990, c. O.2",
       "url": "https://www.ontario.ca/laws/statute/90o02",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Occupiers' Liability Act"
     },
     "ocj-public-access-court-recordings": {
       "name": "ontariocourts.ca, Public Access to Court Recordings — Ontario Court of Justice",
@@ -1094,7 +1153,8 @@
     "odsp-act-1997": {
       "name": "Ontario Disability Support Program Act, 1997, S.O. 1997, c. 25, Sched. B",
       "url": "https://www.ontario.ca/laws/statute/97o25",
-      "checkedOn": "2026-10-08"
+      "checkedOn": "2026-10-08",
+      "title": "Ontario Disability Support Program Act, 1997"
     },
     "oeb-consumer-protection": {
       "name": "oeb.ca, Ontario Energy Board — consumer information and protection",
@@ -1104,7 +1164,8 @@
     "ombudsman-act": {
       "name": "Ombudsman Act, R.S.O. 1990, c. O.6",
       "url": "https://www.ontario.ca/laws/statute/90o06",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Ombudsman Act"
     },
     "omvic": {
       "name": "omvic.ca, Ontario Motor Vehicle Industry Council",
@@ -1114,7 +1175,8 @@
     "ontario-career-colleges-act-2005": {
       "name": "Ontario Career Colleges Act, 2005, S.O. 2005, c. 28, Sched. L",
       "url": "https://www.ontario.ca/laws/statute/05p28",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Ontario Career Colleges Act, 2005"
     },
     "ontario-child-support-guidelines-full": {
       "name": "Child Support Guidelines (Ontario), O. Reg. 391/97",
@@ -1169,7 +1231,8 @@
     "ontario-new-home-warranties-plan-act": {
       "name": "Ontario New Home Warranties Plan Act, R.S.O. 1990, c. O.31",
       "url": "https://www.ontario.ca/laws/statute/90o31",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Ontario New Home Warranties Plan Act"
     },
     "ontario-renting-commercial-property": {
       "name": "ontario.ca, Renting commercial property in Ontario",
@@ -1194,7 +1257,8 @@
     "ontario-works-act-1997": {
       "name": "Ontario Works Act, 1997, S.O. 1997, c. 25, Sched. A",
       "url": "https://www.ontario.ca/laws/statute/97o25",
-      "checkedOn": "2026-10-08"
+      "checkedOn": "2026-10-08",
+      "title": "Ontario Works Act, 1997"
     },
     "oreg-17-05-consumer-protection-general": {
       "name": "General regulation under the Consumer Protection Act, 2002, O. Reg. 17/05",
@@ -1284,42 +1348,50 @@
     "parental-responsibility-act-2000": {
       "name": "Parental Responsibility Act, 2000, S.O. 2000, c. 4",
       "url": "https://www.ontario.ca/laws/statute/00p04",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Parental Responsibility Act, 2000"
     },
     "partition-act": {
       "name": "Partition Act, R.S.O. 1990, c. P.4",
       "url": "https://www.ontario.ca/laws/statute/90p04",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Partition Act"
     },
     "partnerships-act": {
       "name": "Partnerships Act, R.S.O. 1990, c. P.5",
       "url": "https://www.ontario.ca/laws/statute/90p05",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Partnerships Act"
     },
     "personal-health-information-protection-act": {
-      "name": "Personal Health Information Protection Act, S.O. 2004, c. 3, Sched. A",
+      "name": "Personal Health Information Protection Act, 2004, S.O. 2004, c. 3, Sched. A",
       "url": "https://www.ontario.ca/laws/statute/04p03",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Personal Health Information Protection Act, 2004"
     },
     "pounds-act": {
       "name": "Pounds Act, R.S.O. 1990, c. P.17",
       "url": "https://www.ontario.ca/laws/statute/90p17",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Pounds Act"
     },
     "provincial-offences-act": {
       "name": "Provincial Offences Act, R.S.O. 1990, c. P.33",
       "url": "https://www.ontario.ca/laws/statute/90p33",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Provincial Offences Act"
     },
     "real-property-limitations-act": {
       "name": "Real Property Limitations Act, R.S.O. 1990, c. L.15",
       "url": "https://www.ontario.ca/laws/statute/90l15",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Real Property Limitations Act"
     },
     "reciprocal-enforcement-of-judgments-act": {
       "name": "Reciprocal Enforcement of Judgments Act, R.S.O. 1990, c. R.5",
       "url": "https://www.ontario.ca/laws/statute/90r05",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Reciprocal Enforcement of Judgments Act"
     },
     "reco-complaints": {
       "name": "reco.on.ca, Complaints against RECO",
@@ -1329,12 +1401,14 @@
     "repair-and-storage-liens-act": {
       "name": "Repair and Storage Liens Act, R.S.O. 1990, c. R.25",
       "url": "https://www.ontario.ca/laws/statute/90r25",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Repair and Storage Liens Act"
     },
     "residential-tenancies-act-2006": {
       "name": "Residential Tenancies Act, 2006, S.O. 2006, c. 17",
       "url": "https://www.ontario.ca/laws/statute/06r17",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Residential Tenancies Act, 2006"
     },
     "rules-of-civil-procedure": {
       "name": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
@@ -1344,7 +1418,8 @@
     "sale-of-goods-act": {
       "name": "Sale of Goods Act, R.S.O. 1990, c. S.1",
       "url": "https://www.ontario.ca/laws/statute/90s01",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Sale of Goods Act"
     },
     "sbt-social-benefits-tribunal": {
       "name": "tribunalsontario.ca, Social Benefits Tribunal",
@@ -1384,7 +1459,8 @@
     "securities-act": {
       "name": "Securities Act, R.S.O. 1990, c. S.5",
       "url": "https://www.ontario.ca/laws/statute/90s05",
-      "checkedOn": "2026-10-08"
+      "checkedOn": "2026-10-08",
+      "title": "Securities Act"
     },
     "small-claims-forms-table": {
       "name": "ontariocourtforms.on.ca, Rules of the Small Claims Court Forms",
@@ -1394,17 +1470,20 @@
     "solicitors-act": {
       "name": "Solicitors Act, R.S.O. 1990, c. S.15",
       "url": "https://www.ontario.ca/laws/statute/90s15",
-      "checkedOn": "2026-10-08"
+      "checkedOn": "2026-10-08",
+      "title": "Solicitors Act"
     },
     "special-investigations-unit-act-2019": {
       "name": "Special Investigations Unit Act, 2019, S.O. 2019, c. 1, Sched. 5",
       "url": "https://www.ontario.ca/laws/statute/19s01",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Special Investigations Unit Act, 2019"
     },
     "statute-of-frauds": {
       "name": "Statute of Frauds, R.S.O. 1990, c. S.19",
       "url": "https://www.ontario.ca/laws/statute/90s19",
-      "checkedOn": "2026-10-24"
+      "checkedOn": "2026-10-24",
+      "title": "Statute of Frauds"
     },
     "statutory-accident-benefits-schedule": {
       "name": "Statutory Accident Benefits Schedule, O. Reg. 34/10",
@@ -1419,17 +1498,20 @@
     "statutory-powers-procedure-act": {
       "name": "Statutory Powers Procedure Act, R.S.O. 1990, c. S.22",
       "url": "https://www.ontario.ca/laws/statute/90s22",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Statutory Powers Procedure Act"
     },
     "substitute-decisions-act": {
-      "name": "Substitute Decisions Act, S.O. 1992, c. 30",
+      "name": "Substitute Decisions Act, 1992, S.O. 1992, c. 30",
       "url": "https://www.ontario.ca/laws/statute/92s30",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Substitute Decisions Act, 1992"
     },
     "succession-law-reform-act": {
       "name": "Succession Law Reform Act, R.S.O. 1990, c. S.26",
       "url": "https://www.ontario.ca/laws/statute/90s26",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Succession Law Reform Act"
     },
     "tarion": {
       "name": "tarion.com, Tarion — homeowners",
@@ -1444,7 +1526,8 @@
     "ticket-sales-act-2017": {
       "name": "Ticket Sales Act, 2017, S.O. 2017, c. 33, Sched. 3",
       "url": "https://www.ontario.ca/laws/statute/17t33",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Ticket Sales Act, 2017"
     },
     "toronto-how-to-file-a-claim": {
       "name": "toronto.ca, How to File a Claim",
@@ -1454,47 +1537,56 @@
     "towing-and-storage-safety-and-enforcement-act-2021": {
       "name": "Towing and Storage Safety and Enforcement Act, 2021, S.O. 2021, c. 26, Sched. 3",
       "url": "https://www.ontario.ca/laws/statute/21t26",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Towing and Storage Safety and Enforcement Act, 2021"
     },
     "travel-industry-act-2002": {
       "name": "Travel Industry Act, 2002, S.O. 2002, c. 30, Sched. D",
       "url": "https://www.ontario.ca/laws/statute/02t30",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Travel Industry Act, 2002"
     },
     "trespass-to-property-act": {
       "name": "Trespass to Property Act, R.S.O. 1990, c. T.21",
       "url": "https://www.ontario.ca/laws/statute/90t21",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Trespass to Property Act"
     },
     "trust-in-real-estate-services-act": {
       "name": "Trust in Real Estate Services Act, 2002, S.O. 2002, c. 30, Sched. C",
       "url": "https://www.ontario.ca/laws/statute/02r30",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Trust in Real Estate Services Act, 2002"
     },
     "trustee-act": {
       "name": "Trustee Act, R.S.O. 1990, c. T.23",
       "url": "https://www.ontario.ca/laws/statute/90t23",
-      "checkedOn": "2026-09-27"
+      "checkedOn": "2026-09-27",
+      "title": "Trustee Act"
     },
     "veterinarians-act": {
       "name": "Veterinarians Act, R.S.O. 1990, c. V.3",
       "url": "https://www.ontario.ca/laws/statute/90v03",
-      "checkedOn": "2026-10-06"
+      "checkedOn": "2026-10-06",
+      "title": "Veterinarians Act"
     },
     "victims-bill-of-rights-1995": {
-      "name": "Victims' Bill of Rights, 1995, S.O. 1995, c. 6",
+      "name": "Victims’ Bill of Rights, 1995, S.O. 1995, c. 6",
       "url": "https://www.ontario.ca/laws/statute/95v06",
-      "checkedOn": "2026-10-09"
+      "checkedOn": "2026-10-09",
+      "title": "Victims’ Bill of Rights, 1995"
     },
     "wages-act": {
       "name": "Wages Act, R.S.O. 1990, c. W.1",
       "url": "https://www.ontario.ca/laws/statute/90w01",
-      "checkedOn": "2026-10-07"
+      "checkedOn": "2026-10-07",
+      "title": "Wages Act"
     },
     "workplace-safety-and-insurance-act-1997": {
       "name": "Workplace Safety and Insurance Act, 1997, S.O. 1997, c. 16, Sched. A",
       "url": "https://www.ontario.ca/laws/statute/97w16",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-13",
+      "title": "Workplace Safety and Insurance Act, 1997"
     },
     "wsib-injured-or-ill-people": {
       "name": "wsib.ca, WSIB — injured or ill people",

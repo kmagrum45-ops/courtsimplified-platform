@@ -12,47 +12,64 @@
  */
 import { sentences } from "../sentences";
 import { DANGER_WORDS } from "../intake/dangerWords";
-import { moneyMentions } from "../claimAmount";
+import { claimAmountFromStory, moneyMentions } from "../claimAmount";
+import { acknowledgedIn, againstThemIn, complaintIn, evidenceIn, injuryIn, lastPaymentIn, lostPayIn, otherSideIn, otherSideSaysIn, propertyIn, witnessIn, type StoryFact } from "./storyFacts";
 import { otherPartyFromStory, otherPartyNameFromStory } from "../../../../app/builder/_components/storyAnswers";
 import { marriedWhereIn, type CaseFile } from "./caseFile";
 
-export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" | "safety" | "injury" | "property" | "complaint" | "witness" | "lostPay"; label: string; value: string; quote: string };
+export type StoryLine = { fact: "otherParty" | "marriedWhere" | "amountAgainst" | "amount" | "safety" | "injury" | "property" | "complaint" | "witness" | "lostPay" | "evidence" | "lastPayment" | "acknowledged" | "otherSideSays"; label: string; value: string; quote: string };
 
 /**
- * The person's own sentence for each of these, when the story has one (Charter re-test 2026-10-26:
- * the injury, the phone, the screened-out complaint, the witness and the lost pay were in the story
- * but not in "What we have so far"). The sentence itself is the value: nothing is read into it.
+ * Each fact the story gives, in plain words, with the sentence it came from as its quote
+ * (storyFacts.ts; Charter re-test 27 Oct, root cause 1: whole sentences were shown, "Witness" was
+ * the list of evidence and "Lost pay" repeated the injury sentence).
  */
-const SENTENCE_LINES: [StoryLine["fact"], string, RegExp][] = [
-  ["injury", "Injury", /\b(?:injur\w*|hurt|bruis\w*|swollen|swelling|fractur\w*|sprain\w*|concussion|numb\w*|broken (?:arm|wrist|leg|bone|nose|rib)s?)\b/i],
-  ["property", "Property", /\b(?:phone|laptop|car|vehicle|bike|bicycle|property|belongings)\b[^.]*\b(?:damag\w*|cracked|broken|kept|seized|taken|lost|stolen)\b|\b(?:damag\w*|cracked|broke|seized|took|kept)\b[^.]*\b(?:phone|laptop|car|vehicle|bike|bicycle|property|belongings)\b/i],
-  ["complaint", "Complaint", /\bcomplaint\b/i],
-  ["witness", "Witness", /\bwitness\w*\b|\bsaw (?:it|what happened|the whole thing)\b/i],
-  ["lostPay", "Lost pay", /\b(?:missed|lost|losing)\b[^.]*\b(?:work|pay|wages|income|shifts?)\b/i],
+const FACT_LINES: [StoryLine["fact"], string, (story: string) => StoryFact | null][] = [
+  ["lostPay", "Lost pay", lostPayIn],
+  ["injury", "Injury", injuryIn],
+  ["property", "Property", propertyIn],
+  ["complaint", "Complaint", complaintIn],
+  ["witness", "Witness", witnessIn],
+  ["evidence", "Evidence you have", evidenceIn],
+  ["lastPayment", "Last payment", lastPaymentIn],
+  ["acknowledged", "Debt acknowledged in writing since", acknowledgedIn],
+  ["otherSideSays", "What the other side says", otherSideSaysIn],
 ];
 
 export function storyLines(story: string, file: CaseFile, responding: boolean): StoryLine[] {
   const lines: StoryLine[] = [];
   if (!story.trim()) return lines;
-  if (file.otherParty.state === "not-asked") {
-    const named = otherPartyNameFromStory(story) ?? otherPartyFromStory(story);
-    // Badge numbers the story gives go with them ("badges 4471 and 5520").
-    const badges = /\bbadges?(?: numbers?)?\s+((?:#?\d+)(?:\s*(?:,|and|&)\s*#?\d+)*)/i.exec(story)?.[1];
-    if (named) lines.push({ fact: "otherParty", label: "The other party", value: badges ? `${named.value} (badges ${badges})` : named.value, quote: named.quote });
+  // Not answered, or answered "not sure" while the story says it (Charter case: "Not sure yet" beside a
+  // story naming the police service and the badges): the story's words, marked as from the story.
+  if (file.otherParty.state !== "answered") {
+    // A business and the person behind it, or who they are to the person (storyFacts.ts), else the
+    // older readers' name or role (Charter re-test 27 Oct: the other side was never listed).
+    const named = otherSideIn(story) ?? otherPartyNameFromStory(story) ?? otherPartyFromStory(story);
+    if (named) lines.push({ fact: "otherParty", label: "The other party", value: named.value, quote: named.quote });
+  }
+  // The amount the story gives, when no answer holds one: every case lists its loss (root cause 1).
+  if (!responding && file.amount.state !== "answered") {
+    const amount = claimAmountFromStory(story);
+    if (amount) lines.push({ fact: "amount", label: "Amount", value: amount.value, quote: amount.quote });
   }
   if (file.marriedWhere.state === "not-asked") {
     const said = marriedWhereIn(story);
     if (said) lines.push({ fact: "marriedWhere", label: "Where you married", value: said.place, quote: said.quote });
   }
   // The claim against them: the amount and who is suing, in their words (case 19).
-  if (responding && file.amount.state === "not-asked") {
+  if (responding && file.amount.state !== "answered") {
     const against = moneyMentions(story).filter((mention) => mention.kind === "against");
     if (against.length && new Set(against.map((mention) => mention.number)).size === 1) lines.push({ fact: "amountAgainst", label: "The claim against you", value: against[0].quote.trim(), quote: against[0].quote });
+    else {
+      // Read as the amount of the claim ("a Statement of Claim … for $11,400", case 11), from the
+      // sentences about the claim against them only (reviewer, 26 Oct: the old side's $1,650 came back).
+      const amount = claimAmountFromStory(againstThemIn(story));
+      if (amount) lines.push({ fact: "amountAgainst", label: "The claim against you", value: amount.value, quote: amount.quote });
+    }
   }
-  for (const [fact, label, words] of SENTENCE_LINES) {
-    // The first sentence that says it (later ones repeat it, or list it as evidence).
-    const found = sentences(story).find((sentence) => words.test(sentence) && !/\?\s*$/.test(sentence))?.trim();
-    if (found) lines.push({ fact, label, value: found, quote: found });
+  for (const [fact, label, read] of FACT_LINES) {
+    const found = read(story);
+    if (found) lines.push({ fact, label, value: found.value, quote: found.quote });
   }
   // Threats, fear for safety and a call to the police (case 16), each sentence as written.
   const safety = sentences(story).filter((sentence) => DANGER_WORDS.test(sentence) || /\b(?:called|phoned) (?:the )?police\b|\bpolice (?:came|were called)\b/i.test(sentence)).map((sentence) => sentence.trim());

@@ -11,7 +11,8 @@
  * answers; empty values (a form's defaults) are not answers. An edit to some of the
  * story (#477 re-test: one sentence edited lost every follow-up answer) keeps every
  * answer whose words do not come from a sentence removed or changed, in all three areas,
- * and the Home page's answers likewise; a rewrite (most sentences gone) sets them all aside.
+ * and the Home page's answers likewise; a rewrite (most sentences gone) sets them all aside, except
+ * what the situation answers settle (the side, "nothing filed"), which no route can tie to the story.
  *
  * Failure it exists to catch: the PR #463 re-tests, where each flow kept its own
  * copy of answers from the old story and a fix to one flow left the others
@@ -127,6 +128,24 @@ for (const [court, section, key] of [["small-claims", "small-claims", "input"], 
 }
 assert.equal(editedSentences("One. Two.", "Three. Four."), null, "every sentence changed is a new story");
 assert.deepEqual(editedSentences("One. Two. Three.", "One. Two. Three. Four."), [], "a sentence added removes none");
+
+// An answer the situation answers settle is never based on the story, whatever route stored it (full
+// story pack, 27 Oct: the Small Claims chat's side stayed "answered for an earlier version" after a
+// rewrite, with no way to answer it again, and blocked Confirm).
+{
+  const settled = {
+    version: 1, flowId: "00000000-0000-4000-8000-000000000031", courtPath: "small-claims", revision: "00000000-0000-4000-8000-000000000031",
+    sections: {
+      story: { text: NEW },
+      situation: { record: { where: "starting", filed: "nothing", court: "small-claims" } },
+      guided: { facts: { role: "plaintiff", claimFiled: false, amountClaimedText: "$500" } },
+      [BASIS_SECTION]: { "guided.facts.role": storyVersion(OLD), "guided.facts.claimFiled": storyVersion(OLD), "guided.facts.amountClaimedText": storyVersion(OLD) },
+    },
+  } as unknown as Checkpoint;
+  const stale = staleAnswerKeys(settled);
+  assert.ok(!stale.includes("guided.facts.role") && !stale.includes("guided.facts.claimFiled"), `the side and "nothing filed" from the start are never stale: ${stale.join(", ")}`);
+  assert.ok(stale.includes("guided.facts.amountClaimedText"), "an answer from the story still is");
+}
 
 assert.notEqual(storyVersion(OLD), storyVersion(NEW));
 assert.equal(storyVersion("A  b"), storyVersion("a b"));

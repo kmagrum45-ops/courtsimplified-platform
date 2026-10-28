@@ -213,7 +213,8 @@ function buildIssues(
   const issueLabels = uniqueStrings([
     ...signals.map((signal: CasePartnerLegalSignal) => signal.label),
     ...rememberedIssues,
-    ...reasoningDomains.map((domain) => `Reasoning domain: ${domain}`),
+    // The reasoning domains are the site's codes ("civil-institutional-liability"), never listed as
+    // issues (reviewer, 26 Oct: "Reasoning domain: unknown" in the chat).
   ]);
 
   return issueLabels.map((label) => {
@@ -569,13 +570,7 @@ function buildStrengths(
     ...(legalReasoning
       ? ["The investigation is now supported by a coordinated legal reasoning package."]
       : []),
-    ...(legalReasoning?.profiles.length
-      ? [
-          `Matched reasoning profile(s): ${legalReasoning.profiles
-            .map((profile) => profile.label)
-            .join(", ")}.`,
-        ]
-      : []),
+    // The matched reasoning profiles are the site's machinery, never listed (Charter re-test 27 Oct).
   ]);
 }
 

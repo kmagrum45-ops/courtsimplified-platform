@@ -26,6 +26,7 @@ import type {
 
 import { supabase } from "../../../src/lib/supabase/client";
 import { KNOWN_FACT_FIELDS, QUESTION_BANK } from "@/src/lib/case-system/intake/questionBank";
+import { factsOfQuestion } from "@/src/lib/case-system/caseFile/factsOfQuestion";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 import { cardLabel, confirmedDrafts, sameDayAs, respondingFromAnswers } from "./proposalCard";
@@ -160,6 +161,9 @@ type ProposalDraft = StoryAnswerProposal & { keep: boolean; original: string };
  * answer, so a wrong one could not be spotted afterwards).
  */
 /** The drafts as confirmed: a date shown with another takes that row's tick and edit. */
+/** The questions a confirmed kind of claim answers (the claimKind fact, factsOfQuestion.ts). */
+const KIND_QUESTION_IDS = new Set(QUESTION_BANK.map((question) => question.id).filter((id) => factsOfQuestion(id).includes("claimKind")));
+
 function resolvedDrafts(drafts: readonly ProposalDraft[]): ProposalDraft[] {
   return confirmedDrafts(drafts, sameDayAs(drafts), drafts.map((draft) => draft.original));
 }
@@ -888,6 +892,12 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         setClaimGuidance(result.claimGuidance ?? null);
         setPendingSuggestion(null);
         setRejectedSuggestionIds([]);
+        // The kind answers "What it's about" (both are the claimKind fact, factsOfQuestion.ts): the
+        // story card does not ask it again (26 Oct re-test, case 19).
+        setProposalDrafts((current) => {
+          const left = current?.filter((draft) => !KIND_QUESTION_IDS.has(draft.questionId)) ?? null;
+          return left && left.length ? left : null;
+        });
       } else if (result.outcome === "revised") {
         setRejectedSuggestionIds((current) => [...current, pendingSuggestion.claimTypeId]);
         setPendingSuggestion(result.suggestedClaimType);
@@ -1385,7 +1395,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
   // that right?", with one answer box between them. While the suggestion
   // waits, the question it arrived with is held back (its message, its help
   // and the answer box) and shown the moment the suggestion is answered.
-  const suggestionFirst = !halted && !proposalDrafts && Boolean(pendingSuggestion);
+  const suggestionFirst = !halted && Boolean(pendingSuggestion);
   const heldFrom = suggestionFirst ? unansweredQuestionStart(shownMessages, FIRST_QUESTION_INTRO) : shownMessages.length;
 
   return (
@@ -1443,7 +1453,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         )}
       </div>
 
-      {!halted && !readingOutdated && proposalDrafts ? (
+      {!halted && !readingOutdated && proposalDrafts && !pendingSuggestion ? (
         <div
           data-testid="story-proposals"
           className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#16302b]"
@@ -1521,9 +1531,10 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         <QuestionHelp key={currentQuestion.id} question={currentQuestion} />
       ) : null}
 
-      {/* After the story proposals, not beside them (page review, 2026-10-07:
-          "What kind of dispute is this?" and this box asked at once). */}
-      {!halted && !readingOutdated && !proposalDrafts && pendingSuggestion ? (
+      {/* One at a time (page review, 2026-10-07: "What kind of dispute is this?" and this box asked at
+          once), and the kind first: it is the finer question, and once confirmed the story card does not
+          ask "What it's about" again (26 Oct re-test, case 19). Turned down, the card asks it as before. */}
+      {!halted && !readingOutdated && pendingSuggestion ? (
         <div data-testid="claim-type-suggestion" className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-[#4a3b12]">
           <p className="font-semibold text-[#3a2e0e]">
             This sounds like it may be about: {pendingSuggestion.claimTypeName} — is that right?

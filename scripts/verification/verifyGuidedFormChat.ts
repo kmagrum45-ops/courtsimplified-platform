@@ -71,7 +71,11 @@ console.log("\n2. Questions that depend on the answers");
   const children = pendingFields(family, { facts: "x", yourRole: "applicant", issues: ["child-support"] }, new Set());
   check("the children question follows a child issue", children.some((field) => field.key === "childrenInfo"));
   for (const [court, fields] of [["family", family], ["civil", civil]] as const) {
-    check(`${court}: later detail stays available without extending initial questioning`, fields.some(field => field.initial === false) && pendingFields(fields, {}, new Set()).every(field => field.initial === true));
+    // A property, not today's list (CLAUDE.md s. 5): moving a field into the first questions (Charter
+    // re-test root cause 2 did, for "who is the other party") must not fail this. A synthetic later
+    // field proves the gate holds whatever the real lists hold.
+    const later = { ...fields[fields.length - 1], key: "synthetic-later-detail", initial: false, when: undefined };
+    check(`${court}: later detail stays available without extending initial questioning`, pendingFields([...fields, later], {}, new Set()).every(field => field.initial === true) && !pendingFields([...fields, later], {}, new Set()).some(field => field.key === later.key));
     check(`${court}: skipping the finite initial list reaches a stopping point`, pendingFields(fields, {}, new Set(fields.filter(field => field.initial).map(field => field.key))).length === 0);
   }
   const plaintiff = pendingFields(civil, { facts: "x", yourRole: "plaintiff" }, new Set());
@@ -123,7 +127,10 @@ console.log("\n6. What the story already says is offered for one click, not aske
   check("'what i need to bring' is not a goal", goalFromStory("i dont know what i need to bring or file before it") === null);
   check("'i want to sue' is not what they want ordered", goalFromStory("i want to sue the city") === null);
   check("'2 years ago' is not a child's age", childrenFromStory("me and my sons father split up 2 years ago") === null);
-  check("'my daughter is 5' is the children", childrenFromStory("my daughter is 5 and lives with me")?.value === "my daughter is 5 and lives with me");
+  // The children in plain words, the sentence kept as the source (Charter re-test root cause 1: "Children"
+  // showed the whole sentence).
+  const daughter = childrenFromStory("my daughter is 5 and lives with me");
+  check("'my daughter is 5' is the children", daughter?.value === "Daughter, age 5" && daughter?.quote === "my daughter is 5 and lives with me", JSON.stringify(daughter));
   const fam = familyGuidedFields({ issues: opt("child-support"), filed: opt("nothing") });
   const civ = civilGuidedFields({ issues: opt("contract"), documents: opt("nothing") });
   for (const [court, fields, keys] of [["family", fam, ["yourRole", "childrenInfo", "goal"]], ["civil", civ, ["yourRole", "amountClaimed", "legalRemedy"]]] as const) {

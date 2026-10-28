@@ -68,6 +68,9 @@ export default function CheckedAnswerPanel({ answer }: { answer: CheckedAnswerVi
                     <sup className="ml-0.5 text-[10px] font-semibold text-[#2f7d67]">{references.numbersFor[index].join(",")}</sup>
                   ) : null}
                 </p>
+                {/* A statement with no source (the library's own line saying what it cannot answer) has no
+                    sources toggle: an empty one was shown (Charter re-test 27 Oct). */}
+                {statement.sources.length > 0 ? (
                 <details className="mt-1 text-xs">
                   <summary className="cursor-pointer font-semibold text-[#2f7d67]">
                     {/* Each citation once: two quotes from one section listed it twice (#470 re-test). */}
@@ -92,6 +95,7 @@ export default function CheckedAnswerPanel({ answer }: { answer: CheckedAnswerVi
                     );
                   })}
                 </details>
+                ) : null}
               </li>
             ))}
           </ol>

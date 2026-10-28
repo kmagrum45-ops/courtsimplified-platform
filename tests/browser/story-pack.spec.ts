@@ -21,7 +21,7 @@
  *     evidence, never ends a line on "To keep your case record complete:", and
  *     does not ask for "main dates" once a served date is recorded.
  * Findings are collected (expect.soft) so one run reports all of them; the list is
- * written to test-results/story-pack-findings.json.
+ * written to story-pack-records/<run id>/findings.jsonl (harness/packRecords.ts), one folder per run.
  *
  * Run before any PR is marked ready: npm run test:story-pack (against a production
  * build on port 3100, like CI), or point PLAYWRIGHT_BASE_URL at a preview with that
@@ -31,14 +31,16 @@ import fs from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { openBuilder } from "./harness/builderGate";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
+import { deleteHarnessUser, signInHarnessUser } from "./harness/smallClaimsDriver";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
 import { factsAskedTwice, recordAsks } from "./harness/askOnce";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
-import { rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
+import { internalWordingIn, rawKeysIn } from "../../src/lib/case-system/copy/rawKeys";
 import { CHARTER_STORIES, MESSY_STORIES, WALKTHROUGH_STORIES, type PackStory, type Route } from "./storyPackMore";
+import { appendRecord } from "./harness/packRecords";
 
 // Actions wait up to 60 s: on a slow runner the story is read, and a guided turn answered,
 // in more than 20 s, and a button still disabled then is waiting, not broken.
@@ -127,12 +129,11 @@ const INTERNAL = /Court path:|Stage: Stage unclear|Main story:|Case story:|Reaso
 const EVIDENCE = /\b(?:text messages?|messages|emails?|receipts?|invoices?|contracts?|photos?|screenshots?|records?|letters?|pay stubs|tax returns|survey|lease|estimate|agreement|offer letter|job offer|certificate|bank statements|calendar|can confirm)\b/i;
 const DOUBLE_STOP = /[A-Za-z0-9)][.]{2}(?![.])/;
 // Appended as found: a failed test restarts its worker, which would lose an in-memory list.
-const FINDINGS = "test-results/story-pack-findings.jsonl";
+// Each run's records in its own folder (harness/packRecords.ts): a later run never replaces them.
 
 function note(run: string, where: string, what: string, ok: boolean, detail = "") {
   if (!ok) {
-    fs.mkdirSync("test-results", { recursive: true });
-    fs.appendFileSync(FINDINGS, JSON.stringify({ run, where, what, detail: detail.replace(/\s+/g, " ").slice(0, 300) }) + "\n");
+    appendRecord("findings.jsonl", { run, where, what, detail: detail.replace(/\s+/g, " ").slice(0, 300) });
   }
   expect.soft(ok, `${where}: ${what}${detail ? ` -- ${detail.replace(/\s+/g, " ").slice(0, 200)}` : ""}`).toBe(true);
 }
@@ -142,12 +143,27 @@ function checkText(run: string, where: string, text: string) {
   const internal = INTERNAL.exec(text);
   note(run, where, "no internal wording", !internal, internal ? text.slice(Math.max(0, internal.index - 80), internal.index + 80) : "");
   // The copy guard (#477 re-test, item 5): no stored code or field name, on any screen.
+  // The site's reasoning machinery (profile names and investigation steps), on any screen (Charter re-test 27 Oct).
+  const machinery = internalWordingIn(text);
+  note(run, where, "no internal reasoning-profile wording", machinery.length === 0, machinery.join("; "));
   const raw = rawKeysIn(text);
   note(run, where, "no raw field name or code", raw.length === 0, raw.join(", "));
   const double = DOUBLE_STOP.exec(text);
   note(run, where, "no doubled full stop", !double, double ? text.slice(Math.max(0, double.index - 60), double.index + 20) : "");
   const repeated = text.split("\n").map((line) => line.split(/;\s*/).map((part) => part.trim()).filter((part) => part.length >= 6)).find((parts) => new Set(parts).size !== parts.length);
   note(run, where, "no citation or phrase repeated within a line", !repeated, repeated?.join(" ; ") ?? "");
+}
+
+/** No toggle on the page without a label or without anything in it (an empty sources toggle under a chat line, Charter re-test 27 Oct). */
+async function checkToggles(run: string, where: string, page: Page) {
+  const empty = await page.evaluate(() => [...document.querySelectorAll("details")].filter((toggle) => {
+    const label = toggle.querySelector(":scope > summary");
+    const inside = [...toggle.childNodes].filter((node) => node !== label).map((node) => node.textContent ?? "").join("").trim();
+    // A box to fill in, a button or a link is something inside too (the Small Claims form's optional details).
+    const controls = [...toggle.querySelectorAll("input, textarea, select, button, a[href]")].some((control) => !label?.contains(control));
+    return !(label?.textContent ?? "").trim() || (!inside && !controls);
+  }).map((toggle) => (toggle.querySelector(":scope > summary")?.textContent ?? "").trim().slice(0, 60) || "(no label)"));
+  note(run, where, "no empty toggle", empty.length === 0, empty.join("; "));
 }
 
 const STARTING = new Set(["plaintiff", "applicant"]);
@@ -440,7 +456,7 @@ function checkClaimKind(run: string, where: string, text: string, story: Story) 
     const notSure = /not sure/i.test(name);
     const quoted = [...text.matchAll(/“([^”]{8,})”/g)].some((match) => story.story.includes(match[1]));
     const finding = { run, where, shown: name, expected: CLAIM_KIND[story.id] ?? ["(none: this area names no kind of claim)"], fits, notSure, quoted };
-    fs.appendFileSync("test-results/claim-kind.jsonl", JSON.stringify(finding) + "\n");
+    appendRecord("claim-kind.jsonl", finding);
     note(run, where, "the kind of claim shown fits the story, or says it is not sure and asks", fits || notSure, name);
     note(run, where, "the kind of claim shown carries the story's words", quoted, name);
   }
@@ -482,13 +498,13 @@ for (const story of STORIES) {
         await guidedQuestions(page, story, route === "review");
         if (route === "review") await answerInReview(page, story);
       }
-      checkText(run, "review", await page.getByTestId("intake-review").innerText());
+      checkText(run, "review", await page.getByTestId("intake-review").innerText()); await checkToggles(run, "review", page);
 
       // 3. Confirm, and the next step.
       await confirmAndContinue(page);
       await page.waitForTimeout(1_500);
       const results = await page.locator("body").innerText();
-      checkText(run, "results", results);
+      checkText(run, "results", results); await checkToggles(run, "results", page);
       checkClaimKind(run, "results", results, story);
       if (settles(story)) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
@@ -506,7 +522,7 @@ for (const story of STORIES) {
         // Only when the story names some evidence: then there are the person's own words to quote.
         if (EVIDENCE.test(story.story)) note(run, "chat", "the evidence reply quotes the person's own words", quotes.some((quote) => story.story.includes(quote)), gather.slice(0, 200));
         const asked = await lastReply(page, "How long do I have to respond?");
-        checkText(run, "chat", asked);
+        checkText(run, "chat", asked); await checkToggles(run, "chat", page);
         note(run, "chat", "no line ends on its lead-in with nothing after it", !/To keep your case record complete:\s*$/m.test(gather + "\n" + asked), asked.slice(-160));
         if (/served/i.test(story.story) && /October \d/.test(story.story)) {
           note(run, "chat", "does not ask for the main dates once a served date is recorded", !/main dates/i.test(gather + asked), (gather + asked).slice(Math.max(0, (gather + asked).search(/main dates/i) - 200), (gather + asked).search(/main dates/i) + 80));
@@ -521,7 +537,7 @@ for (const story of STORIES) {
         await page.waitForLoadState("networkidle").catch(() => {});
         await page.waitForTimeout(4_000);
         const casePage = await page.locator("body").innerText();
-        checkText(run, "case page", casePage);
+        checkText(run, "case page", casePage); await checkToggles(run, "case page", page);
         // The header's own side line, for either side (only the responding side had one).
         note(run, "case page", "names the person's side", SIDE_LINE[story.side].test(casePage));
         checkClaimKind(run, "case page", casePage, story);
@@ -538,7 +554,14 @@ ${item.text}`, story);
       // Gate A1: no fact asked twice in this case, across every screen.
       await page.waitForTimeout(600);
       const repeats = factsAskedTwice(asked, situationForStory(story));
-      fs.appendFileSync("test-results/ask-once.jsonl", JSON.stringify({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }) + "\n");
+      appendRecord("ask-once.jsonl", ({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }));
+      // 26 Oct re-test, case 19: "No, nothing yet" was followed by "Has the other party filed a Defence?"
+      // and "what date was it served?". Nothing filed means nothing served or defended, in any story.
+      const start = situationForStory(story);
+      if (story.court === "small-claims" && start.where === "starting" && start.filed === "nothing") {
+        const served = asked.filter((item) => item.kind === "ask" && /^(sc-defence-filed|sc-date-claim-served|sc-date-claim-issued|sc-defence-time-elapsed|sc-defendant-noted-in-default)$/.test(item.id));
+        note(run, "ask-once", "'No, nothing yet': no Defence or served-date question", served.length === 0, served.map((item) => `${item.id}@${item.screen}`).join(", "));
+      }
       note(run, "ask-once", "no fact is asked twice in the case", repeats.length === 0, repeats.map((repeat) => `${repeat.fact} (${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")})`).join("; "));
       // Jason, 2026-10-24: any fact asked twice fails the build, whatever else this run found.
       expect(repeats.map((repeat) => `${repeat.fact}: ${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")}`), "no fact is asked twice in the case").toEqual([]);
@@ -909,7 +932,7 @@ for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
     // The dates are left open here: the helper would type one into the court date's box first.
     await answerInReview(page, story, false);
     const panel = page.getByTestId("intake-review");
-    const expected: Record<string, RegExp> = id === "m14-served-divorce" ? { childrenInfo: /Mia \(4\) and Noah \(2\)/ } : { childrenInfo: /daughter, age 6/, upcomingCourtDate: /Case conference on November 16, 2026/ };
+    const expected: Record<string, RegExp> = id === "m14-served-divorce" ? { childrenInfo: /Mia \(4\) and Noah \(2\)/ } : { childrenInfo: /daughter, age 6/i, upcomingCourtDate: /Case conference on November 16, 2026/ };
     for (const [question, words] of Object.entries(expected)) {
       const box = panel.locator(`[data-testid=intake-initial-question][data-question="${question}"]`);
       if (!(await box.count())) continue; // answered already, from the story, in the questions
@@ -918,6 +941,37 @@ for (const id of ["m14-served-divorce", "m16-conference-safety"]) {
       await offer.click();
       await expect(box).toHaveAttribute("data-answered", "true");
     }
+  });
+}
+
+// 26 Oct re-test, case 16: a case already going showed "Your side: I'm starting it (or I want to)" in the
+// guided "What we already have", and "Has anything been filed…?" was asked with nothing offered though
+// the story names the application and the answer. Family and civil, each side.
+for (const id of ["m16-conference-safety", "w5-civil-going-defence"]) {
+  test(`retest-26oct: a case already going keeps its start answer's words, and the papers are offered from the story -- ${id}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = [...MESSY_STORIES, ...WALKTHROUGH_STORIES].find((item) => item.id === id)!;
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, story.court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, story.court, { story: story.story });
+    const known = page.getByTestId("guided-form-known");
+    await expect(known).toBeVisible({ timeout: 60_000 });
+    await expect(known, "the side in the start answer's words").toContainText(/started this case/);
+    await expect(known).not.toContainText(/starting it \(or I want to\)|plan to start/);
+    const filedKey = story.court === "family" ? "filedDocuments" : "documents";
+    const question = page.getByTestId("guided-form-question");
+    for (let i = 0; i < 12 && (await question.isVisible().catch(() => false)); i++) {
+      if ((await question.getAttribute("data-key")) === filedKey) {
+        await expect(question.getByTestId("guided-form-from-story"), "the papers the story names are offered").toBeVisible();
+        return;
+      }
+      const skip = page.getByTestId("guided-form-skip");
+      if (!(await skip.isVisible().catch(() => false))) break;
+      await skip.click();
+    }
+    // Not asked at all: the papers are already held (listed under "What we already have").
   });
 }
 
@@ -1138,6 +1192,229 @@ test("retest Charter: the review fits the claim, the story answers in one click,
   await expect(file).toBeVisible({ timeout: 60_000 });
   const text = await file.innerText();
   expect(rawKeysIn(text), "no raw code").toEqual([]);
-  for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist was bruised/], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /missed 2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /3 June 2027|June 3, 2027/]] as const) expect(text, what).toMatch(words);
+  for (const [what, words] of [["who is sued, with the badges", /4471 and 5520/], ["the injury", /wrist (?:was )?bruised/i], ["the phone", /cracked screen/], ["the screened-out complaint", /screened out/], ["the witness", /witness/], ["the lost pay", /2 weeks of work/], ["the kind of claim in words", /Charter \/ constitutional issue/], ["the deadline", /3 June 2027|June 3, 2027/]] as const) expect(text, what).toMatch(words);
   expect(text, "the stage as a stage, never a question").not.toMatch(/Where the case is\s*\n?\s*How do I/);
 });
+
+// Root cause 3 (Charter re-test after #486/#487): the first "Confirm my initial information"
+// bounced with "Your initial facts changed", and only a second press confirmed. At the live site's
+// speed (account and database calls 1.5 s, the analysis 20 s), one real click must confirm, in
+// every area.
+for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-27oct root cause 3: one real click confirms the initial information at real speed -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    // From here at the live site's speed: the saves still running meet the Confirm press.
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    await page.route(`**/api/${court}/analyze`, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
+    const panel = page.getByTestId("intake-review");
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    const confirm = page.getByTestId("intake-confirm");
+    await confirm.scrollIntoViewIfNeeded();
+    const box = await confirm.boundingBox();
+    if (!box) throw new Error("no Confirm button on screen");
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    await expect(panel, "one press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+  });
+}
+
+// Root cause 3, as a person does it: the last thing typed in the review is still in its box (it
+// saves when the box is left), and the next press is Confirm. That press both saves the answer and
+// confirms: it must confirm what is now on screen, at once, in every area.
+for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-27oct root cause 3: an answer typed after the tick clears it and says so beside the button; one more tick confirms -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    const panel = page.getByTestId("intake-review");
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    // From here at the live site's speed.
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    // An answer typed to a question still open in the review, the box not left (it saves when left).
+    const boxes = panel.locator('input[aria-label^="Answer: "]');
+    expect(await boxes.count(), "the review has a question still open to type in").toBeGreaterThan(0);
+    const box = boxes.first();
+    const label = (await box.getAttribute("aria-label")) ?? "";
+    const answer = /when|date|day/i.test(label) ? "March 2026" : /amount|money|much/i.test(label) ? "$6,000" : "Payment of what is owed";
+    await box.fill(answer);
+    // Pressed straight from the box: the press leaves the box, which saves the typed answer.
+    await page.getByTestId("intake-confirm").click({ force: true });
+    // The press saved the typed answer (it saves when its box is left): the tick covered the answers
+    // as they were, so it is cleared, and the reason is said beside the button.
+    await expect(page.getByTestId("intake-review-acknowledgement")).not.toBeChecked({ timeout: 20_000 });
+    await expect(page.getByTestId("intake-tick-again"), "the reason, beside the button").toHaveText("You changed an answer. Please tick to confirm again.");
+    await expect(panel, "the typed answer was kept").toContainText(answer);
+    await expect(panel).toHaveAttribute("data-phase", "reviewing");
+    await page.getByTestId("intake-review-acknowledgement").click();
+    await expect(page.getByTestId("intake-tick-again"), "gone once ticked again").toHaveCount(0);
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel, "one more press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+ });
+}
+
+// Root cause 3, Chrome's own steps (Charter re-test): a one-click answer from the story ("Yes,
+// that's right" for the amount), then the tick, then Confirm, each at once, with the account and
+// database at the live site's speed. The first Confirm bounced with "Your initial facts changed"
+// and the tick had to be given again. One press must confirm, in every area.
+for (const [court, id] of [["civil", "c1-charter-police"], ["small-claims", "sc-deck-owed"], ["civil", "civil-deposit"], ["family", "family-spousal"]] as const) {
+  test(`retest-27oct root cause 3: a one-click answer, the tick and Confirm at once, one press confirms -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(480_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    // The AI readings answer late on the live site (the case reader and the story reading, seconds
+    // after the page shows): held here 8 s, the case reader with the answer it gave live for the Charter story.
+    const picture = id === "c1-charter-police" ? { side: null, events: [], dates: [{ questionId: "case-date-act-or-omission", date: "2025-06-03", month: 6, day: 3, quote: "On June 3, 2025 in Ottawa I was stopped by two officers" }], amount: null, otherParty: null, married: null, childTogether: null } : null;
+    await page.route("**/api/case/read", async (route) => { await new Promise((done) => setTimeout(done, 8_000)); await route.fulfill({ json: picture ? { ok: true, picture } : { ok: true, skipped: "off" } }); });
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); }
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+    // Everything else answered or left as not known, except one question the story answers in one click.
+    const oneClick = panel.locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]');
+    // The review's first answer from the story, where it offers one (not every story gives one).
+    const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
+    const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
+    // From here at the live site's speed, and each press at once, with the mouse.
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    // A real mouse press where the element is (Playwright's own click: it waits until nothing covers it, as a person would).
+    const press = (target: ReturnType<typeof page.locator>) => target.click();
+    if (keep) await press(panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first());
+    await press(page.getByTestId("intake-review-acknowledgement"));
+    // The late reading lands between the tick and the press, as it can for a person.
+    await page.waitForTimeout(10_000);
+    await press(page.getByTestId("intake-confirm"));
+    await expect(panel, "one press confirms").toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    await expect(page.getByText(/Your initial facts changed|Initial information changed while saving/), "never bounced back").toHaveCount(0);
+  });
+}
+
+// Root cause 3 against the real (staging) database, as Chrome did it on the live site: a real
+// account and real saves; every AI route is answered by this commit's own code (nothing spends).
+// Run by hand: STAGING_RC3=1 against a build made with the staging environment.
+test("retest-27oct root cause 3 on staging: the Charter review, a one-click answer, the tick and Confirm at once", async ({ page }) => {
+  test.skip(!process.env.STAGING_RC3, "staging only, by hand");
+  test.setTimeout(600_000);
+  const story = byId("c1-charter-police");
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, situationForStory(story));
+  const userId = await signInHarnessUser(page);
+  try {
+    await page.route("**/api/**", (route) => route.fulfill({ status: 503, json: { ok: false, error: "not in this test" } }));
+    await serveFromThisCommit(page, "civil", new Map());
+    await openBuilder(page, "civil", { story: story.story });
+    await guidedQuestions(page, story, true);
+    const panel = page.getByTestId("intake-review");
+    await expect(panel).toHaveAttribute("data-phase", "reviewing", { timeout: 60_000 });
+    const oneClick = panel.locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]');
+    const keep = (await oneClick.count()) ? await oneClick.first().locator("xpath=ancestor::*[@data-testid='intake-initial-question'][1]").getAttribute("data-question") : null;
+    const unknowns = panel.locator(`[data-testid=intake-initial-question]${keep ? `:not([data-question="${keep}"])` : ""} input[data-testid="intake-unknown"]:not(:checked)`);
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 30_000 }); }
+    if (keep) await panel.locator(`[data-testid=intake-initial-question][data-question="${keep}"]`).locator('[data-testid="intake-field-from-story"], [data-testid="intake-use-suggestion"]').first().click();
+    await page.getByTestId("intake-review-acknowledgement").click();
+    await page.getByTestId("intake-confirm").click();
+    const bounced = page.getByText(/Your initial facts changed|Initial information changed while saving/);
+    await expect(panel.or(bounced).first()).toBeVisible();
+    await expect.poll(async () => (await bounced.count()) ? "bounced" : await panel.getAttribute("data-phase"), { timeout: 90_000, message: "one press confirms" }).toBe("user-confirmed");
+  } finally {
+    await deleteHarnessUser(userId).catch(() => {});
+  }
+});
+
+// Charter re-test 27 Oct: one press of "Count my deadline" was enough, but the button only greyed
+// out without saying it was working. While the case is being saved it says so, in every area.
+for (const [court, id] of [["small-claims", "sc-defendant-unclear"], ["civil", "civil-deposit"], ["family", "m16-conference-safety"]] as const) {
+  test(`retest-27oct: Count my deadline says it is working while it saves -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(300_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
+    await confirmAndContinue(page);
+    const box = page.locator('[data-testid="stage-answer-date-question"] input[type="date"]').first();
+    await expect(page.getByTestId("stage-answer-dates-save"), "the step can count a deadline").toBeVisible({ timeout: 90_000 });
+    // A date the step does not hold yet is typed; one it already holds (from the story) is counted as it is.
+    if (await box.isVisible().catch(() => false)) await box.fill("2026-03-03");
+    // The case is saved at the live site's speed.
+    await page.route("**/api/cases/position", async (route) => { await new Promise((done) => setTimeout(done, 3_000)); await route.fallback(); });
+    await page.getByTestId("stage-answer-dates-save").click();
+    await expect(page.getByTestId("stage-answer-dates-save"), "it says it is working").toHaveText("Counting your deadline…", { timeout: 1_000 });
+    await expect(page.getByTestId("stage-answer-dates-save"), "and goes back once done").toHaveText("Count my deadline", { timeout: 30_000 });
+  });
+}
+
+// Root cause 2 (Charter re-test 27 Oct): "No, let me answer" must ask for a typed answer and never
+// drop a question. The one-click for What you want was bundled with the other party; after "No",
+// the other party was never asked again. Every story suggestion here is answered "No": each question
+// then asks for an answer itself, and every question that rode in a suggestion is still asked.
+for (const [court, id] of [["civil", "c1-charter-police"], ["civil", "m11-old-credit-card"], ["family", "family-spousal"], ["family", "m16-conference-safety"]] as const) {
+  test(`retest-27oct root cause 2: "No, let me answer" asks for the answer and drops no question -- ${court} (${id})`, async ({ page }) => {
+    test.setTimeout(300_000);
+    const story = byId(id);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    await openBuilder(page, court, { story: story.story });
+    const grouped = new Set<string>();
+    const asked = new Set<string>();
+    let nos = 0;
+    for (let turn = 0; turn < 40; turn++) {
+      const question = page.getByTestId("guided-form-question");
+      if (!(await question.isVisible().catch(() => false))) break;
+      const key = (await question.getAttribute("data-key")) ?? "";
+      const suggested = question.getByTestId("guided-form-from-story");
+      if (await suggested.isVisible().catch(() => false)) {
+        for (const other of ((await suggested.getAttribute("data-group")) ?? "").split(" ").filter(Boolean)) if (other !== key) grouped.add(other);
+        await question.getByTestId("guided-form-from-story-no").click();
+        nos += 1;
+        await expect(question, "after No, the same question is still asked").toHaveAttribute("data-key", key);
+        await expect(question.getByTestId("guided-form-from-story"), "and is not offered from the story again").toHaveCount(0);
+        await expect(question.getByRole("textbox").or(question.locator('input[type="checkbox"], input[type="radio"], [data-testid^="guided-option-"]')).first(), "it asks for the answer itself").toBeVisible();
+      }
+      asked.add(key);
+      if (key === "yourRole") { await question.getByTestId(`guided-option-${story.side}`).click(); continue; }
+      const box = question.getByRole("textbox");
+      if (await box.count()) {
+        await box.first().fill(asksForDate(await question.innerText()) ? "October 6, 2026" : /amount|money|much/i.test(await question.innerText()) ? "$6,000" : "My own answer for the test.");
+        await question.getByTestId("guided-form-next").click();
+      } else await question.getByTestId("guided-form-skip").click();
+      await expect(question.or(page.getByTestId("guided-form-done")).first()).toBeVisible();
+    }
+    expect(nos, "the story offered at least one suggestion").toBeGreaterThan(0);
+    const dropped = [...grouped].filter((key) => !asked.has(key));
+    expect(dropped, "every question that rode in a suggestion was still asked").toEqual([]);
+  });
+}
+
