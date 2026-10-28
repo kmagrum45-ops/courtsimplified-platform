@@ -83,7 +83,7 @@ async function postGuidance(req: NextRequest) {
   if (countError) return NextResponse.json({ error: "Not available right now. Please try again later." }, { status: 503 });
   if ((count ?? 0) >= MAX_PER_DAY) {
     // The shared words (limitWords.ts): a rolling 24 hours, so never "tomorrow".
-    return NextResponse.json({ error: personLimitWords("help with court decisions", MAX_PER_DAY), limited: "person" }, { status: 429 });
+    return NextResponse.json({ error: personLimitWords(`used help with court decisions ${MAX_PER_DAY} times`), limited: "person" }, { status: 429 });
   }
 
   let text = "";

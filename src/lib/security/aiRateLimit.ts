@@ -132,12 +132,17 @@ async function takeShared(rpc: Rpc | null, bucket: string, windowSeconds: number
   }
 }
 
+/** A Vercel production deploy (either name Vercel gives it; a2iScope.ts reads both the same way). */
+export function onProduction(env: Record<string, string | undefined>): boolean {
+  return env.VERCEL_ENV === "production" || env.NEXT_PUBLIC_VERCEL_ENV === "production";
+}
+
 /**
  * The test-only mode (AI_RATE_LIMITS=local). Never on a production deploy, whatever is set there:
  * Vercel sets VERCEL_ENV=production on the live site, and there the shared count always holds.
  */
 export function localOnly(env: Record<string, string | undefined>): boolean {
-  return env.AI_RATE_LIMITS === "local" && env.VERCEL_ENV !== "production";
+  return env.AI_RATE_LIMITS === "local" && !onProduction(env);
 }
 
 export type AllowanceResult = { allowed: true } | { allowed: false; reason: "visitor" | "daily" };
@@ -152,7 +157,7 @@ export async function takeAiAllowance(request: Request, group: AiRouteGroup, dep
   try {
     const env = deps.env ?? process.env;
     // "off" (local development only) is never honoured on a production deploy either.
-    if (env.AI_RATE_LIMITS === "off" && env.VERCEL_ENV !== "production") return { allowed: true };
+    if (env.AI_RATE_LIMITS === "off" && !onProduction(env)) return { allowed: true };
     const visitor = `v:${group}:${visitorId(request.headers, env.AI_LIMIT_SALT || undefined)}`;
     const day = new Date(deps.now ?? Date.now()).toISOString().slice(0, 10);
     const global = `g:${day}`;

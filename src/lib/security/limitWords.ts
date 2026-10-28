@@ -29,8 +29,8 @@ export function dailyLimitWords(now: number = Date.now()): string {
  * A signed-in person's own allowance over a rolling 24 hours (help with a court decision, document
  * analysis). Rolling, so "tomorrow" would be wrong: it comes back as each use passes 24 hours.
  */
-export function personLimitWords(what: string, max: number): string {
-  return `You have used ${what} ${max} times in the past 24 hours, which is the limit. It becomes available again as each of those uses passes 24 hours.`;
+export function personLimitWords(used: string): string {
+  return `You have ${used} in the past 24 hours, which is the limit. It becomes available again as each of those passes 24 hours.`;
 }
 
 /** The kinds of limit a refusal names (`limited` in its body). */
@@ -42,5 +42,5 @@ export function limitMessageOf(status: number, body: unknown): string | null {
   const record = body && typeof body === "object" ? (body as Record<string, unknown>) : {};
   if (record.limited !== "visitor" && record.limited !== "daily" && record.limited !== "person") return null;
   if (typeof record.error === "string" && record.error.trim()) return record.error.trim();
-  return record.limited === "visitor" ? visitorLimitWords() : record.limited === "daily" ? dailyLimitWords() : "You have reached the limit for this for the past 24 hours.";
+  return record.limited === "visitor" ? visitorLimitWords() : record.limited === "daily" ? dailyLimitWords() : "You have reached the limit for this kind of help for the past 24 hours.";
 }

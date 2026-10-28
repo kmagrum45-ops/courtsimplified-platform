@@ -67,6 +67,7 @@ async function main() {
     let asked = 0;
     const rpc = async () => { asked += 1; return { data: true, error: null }; };
     assert.equal(localOnly({ AI_RATE_LIMITS: "local", VERCEL_ENV: "production" }), false);
+    assert.equal(localOnly({ AI_RATE_LIMITS: "local", NEXT_PUBLIC_VERCEL_ENV: "production" }), false);
     await takeAiAllowance(req("203.0.113.20"), "light", { rpc, env: { ...env, AI_RATE_LIMITS: "local", VERCEL_ENV: "production" }, now });
     assert.ok(asked > 0, "production with AI_RATE_LIMITS=local still counts in the database");
     const offEnv = { ...env, AI_RATE_LIMITS: "off", VERCEL_ENV: "production" };
@@ -183,8 +184,8 @@ async function main() {
     assert.match(dailyLimitWords(Date.UTC(2026, 9, 31, 15)), /8 p\.m\. today/, "31 Oct (daylight time): midnight UTC is 8 p.m. in Toronto");
     assert.match(dailyLimitWords(Date.UTC(2026, 10, 2, 15)), /7 p\.m\. today/, "2 Nov (standard time): midnight UTC is 7 p.m. in Toronto");
     // A person's own rolling allowance: never "tomorrow" (it comes back as each use passes 24 hours).
-    const person = personLimitWords("help with court decisions", 10);
-    assert.match(person, /10 times in the past 24 hours/);
+    const person = personLimitWords("used help with court decisions 10 times");
+    assert.match(person, /10 times in the past 24 hours, which is the limit/);
     assert.doesNotMatch(person, /tomorrow/);
     assert.equal(limitMessageOf(429, { error: person, limited: "person" }), person);
     assert.equal(limitMessageOf(429, visitor), visitor.error);
@@ -233,8 +234,13 @@ async function main() {
         const full = path.join(dir, name);
         if (statSync(full).isDirectory()) walkRoutes(full);
         else if (name === "route.ts") {
-          const source = readFileSync(full, "utf8");
-          if (/status: 429|\b429,/.test(source) && !/aiLimitResponse\(|personLimitWords\(/.test(source)) ownWords.push(path.relative(process.cwd(), full));
+          // Each 429 on its own (reviewer of #509: one shared refusal must not excuse another in the same file).
+          const lines = readFileSync(full, "utf8").split(/\r?\n/);
+          lines.forEach((line, index) => {
+            if (!/status:\s*429\b|\(\s*429\s*,|\b429\s*,/.test(line)) return;
+            const around = lines.slice(Math.max(0, index - 3), index + 2).join("\n");
+            if (!/personLimitWords\(|refusedResponseBody\(/.test(around)) ownWords.push(`${path.relative(process.cwd(), full)}:${index + 1}`);
+          });
         }
       }
     };

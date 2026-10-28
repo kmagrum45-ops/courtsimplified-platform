@@ -112,7 +112,7 @@ async function postGuidance(req: NextRequest) {
 
     if ((count ?? 0) >= MAX_ANALYSES_PER_CASE_PER_DAY) {
       // The shared words (limitWords.ts): a rolling 24 hours per case.
-      return NextResponse.json({ success: false, error: personLimitWords("document analysis on this case", MAX_ANALYSES_PER_CASE_PER_DAY), limited: "person" }, { status: 429 });
+      return NextResponse.json({ success: false, error: personLimitWords(`had ${MAX_ANALYSES_PER_CASE_PER_DAY} documents analysed on this case`), limited: "person" }, { status: 429 });
     }
 
     const documentId = documentIds[0];
