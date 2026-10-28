@@ -18,6 +18,8 @@ jobs:
     env:
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1
+      # Test runs count AI calls in their own server's memory, never in a database (aiRateLimit.ts).
+      AI_RATE_LIMITS: local
 
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
 
@@ -573,6 +575,8 @@ jobs:
     env:
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1
+      # Test runs count AI calls in their own server's memory, never in a database (aiRateLimit.ts).
+      AI_RATE_LIMITS: local
       # Staging only -- same reasoning as courtsimplified-walkthrough.yml. The
       # repository's NEXT_PUBLIC_SUPABASE_* secrets point at PRODUCTION, so the
       # STAGING_* secrets are read first and the guard step below refuses

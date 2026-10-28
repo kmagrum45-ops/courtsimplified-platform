@@ -91,6 +91,8 @@ jobs:
     env:
       NODE_OPTIONS: --max-old-space-size=8192
       NEXT_TELEMETRY_DISABLED: 1
+      # Test runs count AI calls in their own server's memory, never in a database (aiRateLimit.ts).
+      AI_RATE_LIMITS: local
       # Staging only. The repository's NEXT_PUBLIC_SUPABASE_* secrets point at
       # PRODUCTION (found 2026-10-04 by the guard below), so the STAGING_*
       # secrets are read first and the guard refuses production by ref.

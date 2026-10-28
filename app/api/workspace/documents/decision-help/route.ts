@@ -1,3 +1,4 @@
+import { personLimitWords } from "@/src/lib/security/limitWords";
 import { withRequestNames } from "@/src/lib/security/requestNames";
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
@@ -81,7 +82,8 @@ async function postGuidance(req: NextRequest) {
   // Fails closed: if today's use cannot be counted, no model call is made.
   if (countError) return NextResponse.json({ error: "Not available right now. Please try again later." }, { status: 503 });
   if ((count ?? 0) >= MAX_PER_DAY) {
-    return NextResponse.json({ error: `Help with decisions is limited to ${MAX_PER_DAY} a day. Please try again tomorrow.` }, { status: 429 });
+    // The shared words (limitWords.ts): a rolling 24 hours, so never "tomorrow".
+    return NextResponse.json({ error: personLimitWords(`used help with court decisions ${MAX_PER_DAY} times`), limited: "person" }, { status: 429 });
   }
 
   let text = "";

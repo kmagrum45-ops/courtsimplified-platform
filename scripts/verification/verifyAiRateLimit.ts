@@ -7,7 +7,11 @@
  * (anyone past the site password could run up the OpenAI bill); a limiter that
  * lets everything through when the database is missing or failing; a refused
  * hit from the database being ignored; the safety pass refused because the
- * site is busy; a raw address kept as the visitor's id.
+ * site is busy; a raw address kept as the visitor's id; a test harness that sends one
+ * fixed visitor address, so every CI run in flight shares one hourly limit; a CI job that
+ * counts its test calls in a shared database (AI_RATE_LIMITS=local must be set there, and the
+ * local limit must still hold in that mode); a refusal not in plain words or without when to
+ * come back, and a screen that shows its own guess instead of the limit's words (limitWords.ts).
  *
  * COSTS NOTHING: no model, no network (the database is a fake).
  */
@@ -18,10 +22,13 @@ import path from "node:path";
 import {
   VISITOR_LIMITS,
   clientAddress,
+  localOnly,
+  refusedResponseBody,
   resetLocalLimits,
   takeAiAllowance,
   visitorId,
 } from "../../src/lib/security/aiRateLimit";
+import { dailyLimitWords, limitMessageOf, personLimitWords } from "../../src/lib/security/limitWords";
 
 let failures = 0;
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -49,6 +56,49 @@ async function main() {
     const over = await takeAiAllowance(req("203.0.113.7"), "understand", { rpc: null, env, now });
     assert.deepEqual(over, { allowed: false, reason: "visitor" });
     assert.equal((await takeAiAllowance(req("203.0.113.8"), "understand", { rpc: null, env, now })).allowed, true, "another visitor is unaffected");
+  });
+
+  // AI_RATE_LIMITS=local (CI): the database is never asked, and the local limit still holds.
+  // The test-only settings can never take effect on the live site (owner, 28 Oct, item c): Vercel
+  // sets VERCEL_ENV=production there, and both "local" and "off" are ignored under it.
+  await check("on a production deploy, neither test setting changes the limits", async () => {
+    resetLocalLimits();
+    const now = Date.UTC(2026, 9, 17, 12, 0, 0);
+    let asked = 0;
+    const rpc = async () => { asked += 1; return { data: true, error: null }; };
+    assert.equal(localOnly({ AI_RATE_LIMITS: "local", VERCEL_ENV: "production" }), false);
+    assert.equal(localOnly({ AI_RATE_LIMITS: "local", NEXT_PUBLIC_VERCEL_ENV: "production" }), false);
+    await takeAiAllowance(req("203.0.113.20"), "light", { rpc, env: { ...env, AI_RATE_LIMITS: "local", VERCEL_ENV: "production" }, now });
+    assert.ok(asked > 0, "production with AI_RATE_LIMITS=local still counts in the database");
+    const offEnv = { ...env, AI_RATE_LIMITS: "off", VERCEL_ENV: "production" };
+    for (let i = 0; i < VISITOR_LIMITS.understand; i += 1) await takeAiAllowance(req("203.0.113.21"), "understand", { rpc: null, env: offEnv, now });
+    assert.deepEqual(await takeAiAllowance(req("203.0.113.21"), "understand", { rpc: null, env: offEnv, now }), { allowed: false, reason: "visitor" }, "production with AI_RATE_LIMITS=off is still limited");
+  });
+
+  await check("in local mode the database is never asked, and the local limit still refuses", async () => {
+    resetLocalLimits();
+    const now = Date.UTC(2026, 9, 16, 12, 0, 0);
+    let asked = 0;
+    const rpc = async () => { asked += 1; return { data: true, error: null }; };
+    const localEnv = { ...env, AI_RATE_LIMITS: "local" };
+    for (let i = 0; i < VISITOR_LIMITS.understand; i += 1) {
+      assert.equal((await takeAiAllowance(req("203.0.113.9"), "understand", { rpc, env: localEnv, now })).allowed, true);
+    }
+    assert.deepEqual(await takeAiAllowance(req("203.0.113.9"), "understand", { rpc, env: localEnv, now }), { allowed: false, reason: "visitor" });
+    assert.equal(asked, 0, "the shared layer was called in local mode");
+  });
+
+  await check("only the CI workflows choose local mode; every job that serves the site does", () => {
+    const workflows = path.join(process.cwd(), ".github", "workflows");
+    for (const name of ["courtsimplified-ci.yml", "courtsimplified-story-pack.yml", "courtsimplified-walkthrough.yml"]) {
+      const source = readFileSync(path.join(workflows, name), "utf8");
+      const jobs = source.split(/\r?\n(?=  [a-z][a-z0-9-]*:\r?\n)/).slice(1);
+      for (const job of jobs) if (/\bnpm run (start|test:)|playwright test/.test(job)) assert.match(job, /^\s+AI_RATE_LIMITS: local\s*$/m, `${name}: a job runs the site's code without AI_RATE_LIMITS: local`);
+    }
+    // Never in the site's own settings (the live site keeps the shared layer).
+    for (const file of ["vercel.json", "next.config.ts", "next.config.js", "next.config.mjs"]) {
+      try { assert.doesNotMatch(readFileSync(path.join(process.cwd(), file), "utf8"), /AI_RATE_LIMITS/, file); } catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+    }
   });
 
   await check("the next hour gives the allowance back", async () => {
@@ -117,6 +167,102 @@ async function main() {
       return !/aiLimitResponse\(/.test(source);
     });
     assert.deepEqual(unguarded.map((f) => path.relative(process.cwd(), f)), []);
+  });
+
+  // The hourly visitor count is shared across every run in flight (the database layer), so a
+  // harness that names one fixed address makes all CI runs one visitor, and the limit runs out
+  // part-way through a suite (case 05, 25 Oct, browser harness; #488, 28 Oct, chat harness).
+  // What a person is told (owner, 28 Oct): plain words, with when to come back, read back on every screen.
+  await check("a refusal says plainly which limit and when to come back", () => {
+    const visitor = refusedResponseBody({ allowed: false, reason: "visitor" });
+    const daily = refusedResponseBody({ allowed: false, reason: "daily" });
+    assert.match(visitor.error, /in an hour\./);
+    assert.match(daily.error, /starts again at \d{1,2}(:\d\d)? [ap]\.m\. (today|tomorrow), Toronto time\./);
+    assert.match(dailyLimitWords(Date.UTC(2026, 9, 29, 1)), /8 p\.m\. tomorrow/, "after 8 p.m. in Toronto the next start is tomorrow's");
+    assert.equal(dailyLimitWords(Date.UTC(2026, 9, 28, 15)), dailyLimitWords(Date.UTC(2026, 9, 28, 23)), "one reset time all day");
+    // From a Toronto formatter, never a fixed hour: before and after the clocks change on 1 Nov 2026.
+    assert.match(dailyLimitWords(Date.UTC(2026, 9, 31, 15)), /8 p\.m\. today/, "31 Oct (daylight time): midnight UTC is 8 p.m. in Toronto");
+    assert.match(dailyLimitWords(Date.UTC(2026, 10, 2, 15)), /7 p\.m\. today/, "2 Nov (standard time): midnight UTC is 7 p.m. in Toronto");
+    // A person's own rolling allowance: never "tomorrow" (it comes back as each use passes 24 hours).
+    const person = personLimitWords("used help with court decisions 10 times");
+    assert.match(person, /10 times in the past 24 hours, which is the limit/);
+    assert.doesNotMatch(person, /tomorrow/);
+    assert.equal(limitMessageOf(429, { error: person, limited: "person" }), person);
+    assert.equal(limitMessageOf(429, visitor), visitor.error);
+    assert.equal(limitMessageOf(429, daily), daily.error);
+    assert.equal(limitMessageOf(500, visitor), null, "only a 429 is a limit");
+    assert.equal(limitMessageOf(429, { error: "Something else" }), null, "only a limit refusal is read as one");
+  });
+
+  await check("every screen that calls a limited route shows the limit's own words", () => {
+    const api = path.join(process.cwd(), "app", "api");
+    const limitedRoutes: string[] = [];
+    const walkApi = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (statSync(full).isDirectory()) walkApi(full);
+        else if (name === "route.ts" && /aiLimitResponse\(|limited: "person"/.test(readFileSync(full, "utf8"))) limitedRoutes.push("/api/" + path.relative(api, path.dirname(full)).split(path.sep).join("/"));
+      }
+    };
+    walkApi(api);
+    const screens: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (name === "api" || name === "node_modules") continue;
+        if (statSync(full).isDirectory()) walk(full);
+        else if (/\.tsx?$/.test(name)) screens.push(full);
+      }
+    };
+    walk(path.join(process.cwd(), "app"));
+    walk(path.join(process.cwd(), "src"));
+    // Callers that show the person nothing on any failure, declared with the reason (reviewer of #509).
+    const SILENT_BY_DESIGN = new Map<string, string>([
+      ["src/lib/case-system/intake/clientSafetyCheck.ts", "the safety pass: any failure is 'not checked' and the person carries on; its daily cost is 0"],
+      ["src/lib/audit/aiCallLog.ts", "names the routes for the call log; calls none"],
+    ]);
+    const silent = screens.filter((file) => {
+      if (SILENT_BY_DESIGN.has(path.relative(process.cwd(), file).split(path.sep).join("/"))) return false;
+      const source = readFileSync(file, "utf8");
+      return limitedRoutes.some((route) => source.includes(`"${route}"`) || source.includes(`\`${route}`)) && !/limitMessageOf\(/.test(source);
+    });
+    assert.ok(limitedRoutes.length >= 5, `found ${limitedRoutes.length} limited routes`);
+    // Every limit refusal in any route is one of the shared kinds, with the shared words.
+    const ownWords: string[] = [];
+    const walkRoutes = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (statSync(full).isDirectory()) walkRoutes(full);
+        else if (name === "route.ts") {
+          // Each 429 on its own (reviewer of #509: one shared refusal must not excuse another in the same file).
+          const lines = readFileSync(full, "utf8").split(/\r?\n/);
+          lines.forEach((line, index) => {
+            if (!/status:\s*429\b|\(\s*429\s*,|\b429\s*,/.test(line)) return;
+            const around = lines.slice(Math.max(0, index - 3), index + 2).join("\n");
+            if (!/personLimitWords\(|refusedResponseBody\(/.test(around)) ownWords.push(`${path.relative(process.cwd(), full)}:${index + 1}`);
+          });
+        }
+      }
+    };
+    walkRoutes(api);
+    assert.deepEqual(ownWords, [], "a route refuses with 429 in its own words");
+    assert.deepEqual(silent.map((f) => path.relative(process.cwd(), f)), []);
+  });
+
+  await check("test harnesses never send a fixed visitor address", () => {
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (name === "node_modules") continue;
+        if (statSync(full).isDirectory()) walk(full);
+        else if (/\.(ts|mjs|js)$/.test(name)) files.push(full);
+      }
+    };
+    walk(path.join(process.cwd(), "scripts"));
+    walk(path.join(process.cwd(), "tests"));
+    const fixed = files.filter((file) => !file.endsWith("verifyAiRateLimit.ts") && /["']x-forwarded-for["']\s*:\s*["'`][^"'`$]*["'`]/.test(readFileSync(file, "utf8")));
+    assert.deepEqual(fixed.map((f) => path.relative(process.cwd(), f)), []);
   });
 
   console.log(failures ? `\n${failures} check(s) failed.` : "\nAll AI-limit checks passed.");

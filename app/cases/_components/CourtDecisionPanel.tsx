@@ -9,6 +9,7 @@
  * uploaded text. The rules are in src/lib/case-workspace/courtDecision.ts.
  */
 
+import { limitMessageOf } from "@/src/lib/security/limitWords";
 import { useEffect, useState } from "react";
 
 import CanliiCaseInfo, { type CanliiCase } from "@/app/_components/CanliiCaseInfo";
@@ -92,7 +93,8 @@ export default function CourtDecisionPanel({
       return;
     }
     if (!body?.help) {
-      setHelpMessage(body?.error || body?.message || "We could not explain this decision just now.");
+      // A limit reached is said in the shared words (limitWords.ts).
+      setHelpMessage(limitMessageOf(response?.status ?? 0, body) ?? body?.error ?? body?.message ?? "We could not explain this decision just now.");
       setHelpState("failed");
       return;
     }

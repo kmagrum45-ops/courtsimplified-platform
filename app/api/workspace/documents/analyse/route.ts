@@ -1,3 +1,4 @@
+import { personLimitWords } from "@/src/lib/security/limitWords";
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * Suggests what a document is, by sending its extracted text to a model.
@@ -110,11 +111,8 @@ async function postGuidance(req: NextRequest) {
       .gte("analysed_at", since);
 
     if ((count ?? 0) >= MAX_ANALYSES_PER_CASE_PER_DAY) {
-      return refuse(
-        429,
-        "This case has been analysed enough for today.",
-        `The limit is ${MAX_ANALYSES_PER_CASE_PER_DAY} documents a day.`,
-      );
+      // The shared words (limitWords.ts): a rolling 24 hours per case.
+      return NextResponse.json({ success: false, error: personLimitWords(`had ${MAX_ANALYSES_PER_CASE_PER_DAY} documents analysed on this case`), limited: "person" }, { status: 429 });
     }
 
     const documentId = documentIds[0];

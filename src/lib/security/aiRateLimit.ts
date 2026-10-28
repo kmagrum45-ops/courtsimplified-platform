@@ -15,6 +15,11 @@
  *     the site is protected before the migration is applied and if the
  *     database is unreachable. Weaker (each instance counts alone), never off.
  *
+ * AI_RATE_LIMITS=local (CI only, 2026-10-28): the local layer alone. Every CI run in flight
+ * shared the database's counts (a fixed test visitor, one daily ceiling), so the limits ran out
+ * part-way through the runs; and CI's typecheck job reaches the production database, so its test
+ * calls were counted there. A test run's server is one instance, so its own memory is its count.
+ *
  * Privacy: the visitor is identified by a salted SHA-256 of their address
  * (and the site cookie when there is one). No address is stored or logged.
  *
@@ -23,6 +28,7 @@
  */
 
 import { createHash } from "node:crypto";
+import { dailyLimitWords, visitorLimitWords } from "./limitWords";
 
 export type AiRouteGroup = "understand" | "light" | "safety";
 
@@ -126,6 +132,19 @@ async function takeShared(rpc: Rpc | null, bucket: string, windowSeconds: number
   }
 }
 
+/** A Vercel production deploy (either name Vercel gives it; a2iScope.ts reads both the same way). */
+export function onProduction(env: Record<string, string | undefined>): boolean {
+  return env.VERCEL_ENV === "production" || env.NEXT_PUBLIC_VERCEL_ENV === "production";
+}
+
+/**
+ * The test-only mode (AI_RATE_LIMITS=local). Never on a production deploy, whatever is set there:
+ * Vercel sets VERCEL_ENV=production on the live site, and there the shared count always holds.
+ */
+export function localOnly(env: Record<string, string | undefined>): boolean {
+  return env.AI_RATE_LIMITS === "local" && !onProduction(env);
+}
+
 export type AllowanceResult = { allowed: true } | { allowed: false; reason: "visitor" | "daily" };
 
 export type AllowanceDeps = { rpc?: Rpc | null; env?: Record<string, string | undefined>; now?: number };
@@ -137,7 +156,8 @@ export type AllowanceDeps = { rpc?: Rpc | null; env?: Record<string, string | un
 export async function takeAiAllowance(request: Request, group: AiRouteGroup, deps: AllowanceDeps = {}): Promise<AllowanceResult> {
   try {
     const env = deps.env ?? process.env;
-    if (env.AI_RATE_LIMITS === "off") return { allowed: true };
+    // "off" (local development only) is never honoured on a production deploy either.
+    if (env.AI_RATE_LIMITS === "off" && !onProduction(env)) return { allowed: true };
     const visitor = `v:${group}:${visitorId(request.headers, env.AI_LIMIT_SALT || undefined)}`;
     const day = new Date(deps.now ?? Date.now()).toISOString().slice(0, 10);
     const global = `g:${day}`;
@@ -148,7 +168,7 @@ export async function takeAiAllowance(request: Request, group: AiRouteGroup, dep
     if (!takeLocal(visitor, HOUR, VISITOR_LIMITS[group], 1, deps.now)) return { allowed: false, reason: "visitor" };
     if (cost > 0 && !takeLocal(global, DAY, ceiling, cost, deps.now)) return { allowed: false, reason: "daily" };
 
-    const rpc = deps.rpc !== undefined ? deps.rpc : await defaultRpc();
+    const rpc = localOnly(env) ? null : deps.rpc !== undefined ? deps.rpc : await defaultRpc();
     const visitorShared = await takeShared(rpc, visitor, HOUR, VISITOR_LIMITS[group], 1);
     if (visitorShared === false) return { allowed: false, reason: "visitor" };
     const globalShared = cost > 0 ? await takeShared(rpc, global, DAY, ceiling, cost) : true;
@@ -166,10 +186,8 @@ export async function takeAiAllowance(request: Request, group: AiRouteGroup, dep
 export function refusedResponseBody(result: Extract<AllowanceResult, { allowed: false }>) {
   return {
     ok: false,
-    error:
-      result.reason === "visitor"
-        ? "You have reached the limit for this for now. Please try again in an hour."
-        : "The site has reached its limit for today. Please try again tomorrow.",
+    // One copy of the words (limitWords.ts), which every screen reads back.
+    error: result.reason === "visitor" ? visitorLimitWords() : dailyLimitWords(),
     limited: result.reason,
   };
 }

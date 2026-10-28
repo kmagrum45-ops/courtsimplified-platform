@@ -22,6 +22,7 @@ import AiUseNotice from "./AiUseNotice";
 import CaseUnderstandingCard, { type UnderstandResponse } from "./CaseUnderstandingCard";
 import PathwayUnavailable from "./PathwayUnavailable";
 import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
+import { limitMessageOf } from "../../src/lib/security/limitWords";
 import {
   CROSS_FORUM_NOTES,
   ISSUE_KIND_LABELS,
@@ -289,6 +290,9 @@ function HomeLocationGateContent() {
       // court-path check below runs instead. Only "off" did, so a guest's first click
       // showed "Your update did not finish" on a 200 (PR #463 re-test, 2026-10-18).
       if (response.ok && typeof result.skipped === "string") return false;
+      // A limit reached is said as it is, with when to come back (limitWords.ts).
+      const limited = limitMessageOf(response.status, result);
+      if (limited) { setRequestError(`${limited} Your answers are still here.`); return true; }
       if (!response.ok || !result.understanding || !result.answer) throw new Error("Your update could not be processed. Your answers are still here; please try again.");
       setUnderstood({ understanding: result.understanding, answer: result.answer });
       setReadFrom(facts.trim());
@@ -409,7 +413,11 @@ function HomeLocationGateContent() {
           setChecking(false);
           return;
         }
-      } else { throw new Error("The court check did not finish."); }
+      } else {
+        const limited = limitMessageOf(response.status, await response.json().catch(() => ({})));
+        if (limited) { setRequestError(`${limited} Your story is still here.`); setChecking(false); return; }
+        throw new Error("The court check did not finish.");
+      }
       signal.throwIfAborted();
       goToIntake(path);
       });
