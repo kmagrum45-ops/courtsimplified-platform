@@ -42,10 +42,22 @@ import { KNOWN_PROBLEMS_29OCT_SAFETY } from "../../tests/browser/harness/knownPr
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const failures: string[] = [];
-const check = (id: string, ok: boolean, detail: string) => {
-  if (!ok) failures.push(`${id}: ${detail}`);
-  console.log(`${ok ? "PASS" : "FAIL"}  ${id}  ${detail}`);
+/*
+ * Green while every failure is a listed known problem; red on a failure that is
+ * not listed, and on a listed check that now passes (delete its entry), and on a
+ * listed check name that no longer runs (the list must not go stale).
+ */
+const known = new Map(KNOWN_PROBLEMS_29OCT_SAFETY.flatMap((entry) => entry.checks.map((name) => [name, entry] as const)));
+const ran = new Set<string>();
+let failures = 0;
+const check = (name: string, ok: boolean, detail: string) => {
+  ran.add(name);
+  const entry = known.get(name);
+  if (ok && !entry) return console.log(`  pass   ${name}`);
+  if (!ok && entry) return console.log(`  known  ${entry.id}  ${name}\n         ${detail}`);
+  failures++;
+  if (ok) console.log(`  FAIL   ${name}\n         fixed: delete it from ${entry!.id} in knownProblems29oct-safety.ts`);
+  else console.log(`  FAIL   ${name}\n         ${detail} (not a known problem)`);
 };
 
 // ---- E1. The danger screen and negation ------------------------------------
@@ -74,8 +86,8 @@ export const MUST_NOT_FLAG = [
   "There is no abuse in our relationship.",
   "The bakery invoice for the wedding cake is still unpaid.",
 ];
-for (const text of MUST_FLAG) check("E1-flag", storySuggestsDanger(text), JSON.stringify(text));
-for (const text of MUST_NOT_FLAG) check("E1-no-flag", !storySuggestsDanger(text), JSON.stringify(text));
+for (const text of MUST_FLAG) check(`E1-flag ${text}`, storySuggestsDanger(text), "flags danger");
+for (const text of MUST_NOT_FLAG) check(`E1-no-flag ${text}`, !storySuggestsDanger(text), "does not flag a denial");
 // The same screen writes the case file's "Safety" line (storyLines.ts).
 const family1 = "We have a son together. No violence. He's a good dad just unreliable.";
 const safetyLine = storyLines(family1, emptyCaseFile(), false).find((line) => line.fact === "safety");
@@ -95,7 +107,7 @@ check("E2-helplines-guarded", guarded, "IntakeReviewPanel's helplines (IMMEDIATE
 // ---- F1. "Christmas 2025" ---------------------------------------------------
 for (const text of ["Christmas 2025", "on Christmas Day 2025", "Boxing Day 2025", "New Year's Day 2026"]) {
   const read = readAnswerDate(text, { oneDate: true });
-  check("F1-named-day", Boolean(read.iso) || Boolean(read.ask), `${JSON.stringify(text)} is counted or asked about (got ${JSON.stringify(read)})`);
+  check(`F1-named-day ${text}`, Boolean(read.iso) || Boolean(read.ask), `${JSON.stringify(text)} is counted or asked about (got ${JSON.stringify(read)})`);
 }
 check("F1-story", firstFullDate("It happened on Christmas 2025 at her house.") !== null || readAnswerDate("Christmas 2025", { oneDate: true }).ask !== null,
   "a story date written as Christmas 2025 is read as a day or asked for");
@@ -118,11 +130,11 @@ check("G2-form-8A", !(step?.forms ?? []).some((form) => form.number === "8A"), "
 const triage = buildTriageOutcome({ ...emptyStatusRecord(), marriedToOtherParty: "no" } as Parameters<typeof buildTriageOutcome>[0]);
 check("G2-triage", !triage.courtInformation.some((statement) => /divorce/i.test(statement.text)), "the triage's which-court statements carry no divorce statement after 'not married'");
 
-// Every failing id is registered as a known problem.
-const registered = new Set(KNOWN_PROBLEMS_29OCT_SAFETY.flatMap((problem) => problem.checks));
-for (const failure of failures) {
-  const id = failure.split(":")[0];
-  if (!registered.has(id)) console.log(`UNREGISTERED failure ${id}: add it to knownProblems29oct-safety.ts`);
+for (const [name, entry] of known) {
+  if (!ran.has(name)) {
+    failures++;
+    console.log(`  FAIL   ${name}\n         listed in ${entry.id} but no check of that name ran: correct or delete it`);
+  }
 }
-console.log(`\n${failures.length} failing check(s).`);
-if (failures.length) process.exit(1);
+console.log(failures ? `\n${failures} failure(s)` : "\nAll checks pass or are known problems.");
+process.exit(failures ? 1 : 0);
