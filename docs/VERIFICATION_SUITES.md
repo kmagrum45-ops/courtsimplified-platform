@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-186 documented, 26 without a header.
+187 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -47,6 +47,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |
 | `npm run test:child-support-table-card` | **The table card explains the table and never works an example.**<br>COSTS NOTHING. Reads the component source and the vendored sources. No render, no network. |
+| `npm run test:chrome-29oct-safety` | **The site owner's Chrome re-test of 29 October, items E, F and G: safety,**<br>deadlines and the Family "which court" step. Known problems, written as FAILING checks before any fix (tests/browser/harness/knownProblems29oct-safety.ts lists each one, in plain words). |
 | `npm run test:citations` | **EVERY CITATION THE SITE SHOWS SAYS EXACTLY WHAT IT CITES (Charter re-test, 27 Oct, root cause 5).**<br>Runs over the whole library: every quoted citation in the stage map (its steps, deadlines, moves and final steps), the rules shown beside published sentences, the practical lines (forms, fees, filing, service), and every source's name. For each it asserts, as  |
 | `npm run test:cited-provisions` | **Every cited provision is vendored, and no not-in-force replacement is**<br>undeclared or stale. |
 | `npm run test:claim-amount` | **The amount offered as "the amount claimed" is the one owed, claimed or the**<br>damage -- never an amount already paid, a fee or a price -- and nothing is offered when the story leaves it unclear (claimAmount.ts). |
