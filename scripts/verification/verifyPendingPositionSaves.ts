@@ -222,15 +222,24 @@ async function main() {
     leftOver.length === 1 && JSON.stringify(leftOver[0].patch) === JSON.stringify({ smallClaims: { other: "x" } }),
     JSON.stringify(leftOver),
   );
-  // Any answer from the route finishes the save: refused (400), a server error (500), or none at all.
+  // Any reply from the route finishes the save (refused 400, server error 500); no reply at all --
+  // as when the browser cancels the request as the page goes -- keeps it.
   tab.clear();
   resetPageForChecks();
   for (const [caseId, status] of [["forms-c", 400], ["forms-d", 500], ["forms-e", null]] as const) {
     setFormsRouteForChecks(answer(status));
     await saveFormApplicabilityQueued(caseId, { civil: { x: true } }, "token");
   }
-  check("forms: a save that finished, however it finished, is crossed off", ["forms-c", "forms-d", "forms-e"].every((caseId) => readPendingPositionSaves(caseId, Date.now(), "formApplicability").length === 0));
+  check("forms: a save the route answered, whatever it answered, is crossed off", ["forms-c", "forms-d"].every((caseId) => readPendingPositionSaves(caseId, Date.now(), "formApplicability").length === 0));
+  check("forms: a save with no reply at all is kept, for the next page to send", readPendingPositionSaves("forms-e", Date.now(), "formApplicability").length === 1);
   setFormsRouteForChecks(null);
+
+  // The same for the step and the dates: no answer from the database or the route (the network) keeps it.
+  tab.clear();
+  resetPageForChecks();
+  setPositionClientForChecks({ from: () => ({ select: () => { const chain = { eq: () => chain, maybeSingle: async () => ({ data: null, error: { message: "TypeError: Failed to fetch" } }) }; return chain; } }) } as never);
+  const unanswered = await savePositionQueuedOutcome("n", { stepId: "s" });
+  check("a save that got no answer at all is kept, for the next page to send", unanswered === "failed" && readPendingPositionSaves("n").length === 1);
 
   // --- A resend as the page closes is tried once by each route (fresh review, 28 Oct) ------------------
   for (const route of ["app/api/cases/position/route.ts", "app/api/cases/form-applicability/route.ts"]) {
