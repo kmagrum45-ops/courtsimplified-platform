@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-186 documented, 26 without a header.
+187 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -79,6 +79,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
 | `npm run test:form-completion-paused` | **While official-form completion is paused, every door to it stays shut.**<br>FORM_COMPLETION_PAUSED (src/lib/content-library/phaseScope.ts) was set on 2026-09-27 for the LSO A2I application, which tells the Law Society that filling official court forms and drafting claim particulars are out of scope until it gives guidance. That statem |
 | `npm run test:form-explanations` | **Every official form is in the guide, explained from the rules that name it,**<br>and the rule quotes are still the regulation's own words. |
+| `npm run test:forms-from-case-file` | **What reaches a draft form is the person's own case-file facts, under the**<br>right labels, and every fact they gave reaches it (site owner's Chrome re-test, 29 Oct 2026, items A and B). |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
 | `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the law's own definitions verbatim. |
 | `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |
