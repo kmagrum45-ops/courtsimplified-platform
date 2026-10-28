@@ -1,7 +1,12 @@
 /** Browser-only synthetic account and case transport. Never sends real AI or case writes. */
 import type { Page } from "@playwright/test";
+import { holdRealTraffic } from "./speed";
 const OWNER = "11111111-1111-4111-8111-111111111111";
 export async function fakeAccount(page: Page) {
+  // Real speed is installed before any stub this test registers, so each stub sees its request when the page
+  // sends it and only its answer is held (speed.ts). Installed later (in grantSiteAccess), its own hold ran
+  // before an earlier stub and a stub counting requests saw none for 20 s (#488 group A, 28 Oct).
+  await holdRealTraffic(page);
   await page.addInitScript(({ owner }) => {
     const get = Storage.prototype.getItem;
     const user = { id: owner, aud: "authenticated", role: "authenticated", email: "synthetic@example.invalid", app_metadata: {}, user_metadata: {}, created_at: "2026-01-01T00:00:00Z" };

@@ -12,8 +12,12 @@
  * Where the hold goes: holdRealTraffic (called by grantSiteAccess, which every spec reaches
  * directly or through its driver) holds each analysis and account call once, whoever answers it:
  * a stub registered before it (its own hold runs first, then falls back to the stub), a stub
- * registered after it (page.route is wrapped for this page, so the stub's handler holds first),
- * or the real server. A test at real speed gets three times its time limit; a wait the test
+ * registered after it (page.route is wrapped for this page), or the real server.
+ *
+ * The ANSWER is held, not the request: a stub registered after this sees the request the moment the
+ * page sends it, and its fulfil, fallback or continue waits. A test that counts requests in its stub
+ * ("exactly one analysis was sent") counts when the page sends it, as the server would; held before
+ * the stub, the count moved only after the 20 s hold, and a 20 s wait for it read 0 (#488, 28 Oct). A test at real speed gets three times its time limit; a wait the test
  * itself asserts keeps its own limit, so a screen that is only right when answers come at once
  * fails here, as it would for a person.
  *
@@ -48,15 +52,33 @@ async function holdOnce(request: object & { url(): string }): Promise<void> {
 }
 const wrapped = new WeakSet<Page>();
 
+type AnyRoute = Parameters<Parameters<Page["route"]>[1]>[0];
+/** The route as a stub sees it: everything as it is, except that its answer (fulfil, fallback, continue) waits for the hold. */
+function answerHeld(incoming: AnyRoute, request: object & { url(): string }): AnyRoute {
+  return new Proxy(incoming, {
+    get(target, property) {
+      const value = Reflect.get(target, property, target) as unknown;
+      if (typeof value !== "function") return value;
+      if (property === "fulfill" || property === "fallback" || property === "continue") {
+        return async (...args: unknown[]) => {
+          await holdOnce(request);
+          return (value as (...inner: unknown[]) => unknown).apply(target, args);
+        };
+      }
+      return (value as (...inner: unknown[]) => unknown).bind(target);
+    },
+  });
+}
+
 /** At real speed: every analysis and account call this page makes is held once, and the test gets three times its time limit. */
 export async function holdRealTraffic(page: Page): Promise<void> {
   if (SPEED !== "slow" || wrapped.has(page)) return;
   wrapped.add(page);
   for (const pattern of [...ANALYSIS_ROUTES, ...ACCOUNT_ROUTES]) await page.route(pattern, async (route) => { await holdOnce(route.request()); await route.fallback(); });
-  // Every route this page registers from now on holds first (the stub that answers is the last one registered).
+  // Every route this page registers from now on sees the request at once; its answer is held (the stub that answers is the last one registered).
   const route = page.route.bind(page);
   page.route = ((url: Parameters<Page["route"]>[0], handler: Parameters<Page["route"]>[1], options?: Parameters<Page["route"]>[2]) =>
-    route(url, async (incoming, request) => { await holdOnce(request); return handler(incoming, request); }, options)) as Page["route"];
+    route(url, (incoming, request) => handler(answerHeld(incoming, request), request), options)) as Page["route"];
   const info = test.info();
   if (info.timeout > 0) info.setTimeout(info.timeout * 3);
 }

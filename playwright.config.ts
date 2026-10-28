@@ -32,7 +32,9 @@ export default defineConfig({
   reporter: "line",
   timeout: 10_000,
   workers: 1,
-  expect: { timeout: slow ? 20_000 : 5_000 },
+  // Longer than one analysis held at real speed (20 s, speed.ts) plus its account calls: a step the test does not
+  // time itself must outlast the wait it is shown after (#488 group A, 28 Oct: 20 s ran out as the answer arrived).
+  expect: { timeout: slow ? 45_000 : 5_000 },
   use: { baseURL, actionTimeout: slow ? 32_000 : 8_000, navigationTimeout: slow ? 32_000 : 8_000, trace: "retain-on-failure", screenshot: "only-on-failure" },
   /*
    * The cold Next compile happens during this health probe, BEFORE any spec
