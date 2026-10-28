@@ -20,6 +20,7 @@ import {
   casesWithPendingPositionSaves,
   mergePositionPatches,
   readPendingPositionSaves,
+  RESEND_HEADER,
   settlePendingPositionSave,
   takePendingPositionSaves,
 } from "../../../src/lib/case-system/storage/pendingPositionSaves";
@@ -463,6 +464,7 @@ export function savePositionQueuedOutcome(caseId: string, wanted: Record<string,
   const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: Date.now(), patch: wanted };
   addPendingPositionSave(caseId, pending);
   watchPageClose(caseId);
+  listenForPageClose();
   return runCaseWrite(caseId, async (hold) => {
     const patch = options.onlyUnsaved ? unsavedPositionPatch(caseId, wanted) : wanted;
     if (!patch) return "saved";
@@ -472,8 +474,11 @@ export function savePositionQueuedOutcome(caseId: string, wanted: Record<string,
   })
     .catch((): DirectSaveOutcome => "failed")
     .then((outcome) => {
-      // Saved, or refused (it never will be): crossed off. Failed: kept, for the next page to send.
-      if (outcome !== "failed") settlePendingPositionSave(caseId, pending.id);
+      // Finished -- saved, refused or failed -- it is crossed off: a failed save already says "not
+      // saved" here, and sending it later could put it over a newer choice (fresh review, 28 Oct).
+      // Only a save cut off by the page going stays written down: one that "fails" because the page
+      // is leaving (the browser cancels its request) is exactly that one, so it is kept.
+      if (!pageLeaving) settlePendingPositionSave(caseId, pending.id);
       return outcome;
     });
 }
@@ -496,6 +501,7 @@ export function resetPageForChecks() {
   replayedPatches.clear();
   formsReplayed.clear();
   formsWatched.clear();
+  pageLeaving = false;
   watched.clear();
   chains.clear();
   inFlight.clear();
@@ -512,7 +518,11 @@ export function replayPendingPositionSaves(caseId: string): void {
   const left = takePendingPositionSaves(caseId);
   if (!left) return;
   replayedPatches.set(caseId, left);
-  void savePositionQueuedOutcome(caseId, left);
+  // Shown over what the page read only until it has landed: then the case holds it, and a newer
+  // choice made on this page is never covered by it (fresh review, 28 Oct).
+  void savePositionQueuedOutcome(caseId, left).then(() => {
+    replayedPatches.delete(caseId);
+  });
 }
 
 /** What an earlier page in this tab left unsaved for this case: being sent by this page, or still written down. Reads only. */
@@ -555,10 +565,26 @@ function watchPageClose(caseId: string) {
   listenForPageClose();
 }
 
+/**
+ * Set once the page starts to go (a reload, a typed address, a closed tab): from then on a save
+ * whose request the browser cancels is not crossed off, because it was cut off, not finished.
+ */
+let pageLeaving = false;
+
 function listenForPageClose() {
   if (pageCloseListening || typeof window === "undefined") return;
   pageCloseListening = true;
-  window.addEventListener("pagehide", () => sendPendingAsPageCloses());
+  window.addEventListener("beforeunload", () => {
+    pageLeaving = true;
+  });
+  window.addEventListener("pagehide", () => {
+    pageLeaving = true;
+    sendPendingAsPageCloses();
+  });
+  // Back from the browser's page cache: the page is here again, and its saves finish normally.
+  window.addEventListener("pageshow", (event) => {
+    if ((event as PageTransitionEvent).persisted) pageLeaving = false;
+  });
 }
 
 type CloseSend = { caseId: string; url: string; method: "POST" | "PATCH"; body: Record<string, unknown> };
@@ -583,7 +609,8 @@ function sendPendingAsPageCloses() {
       void fetch(url, {
         method,
         keepalive: true,
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
+        // Tried once by the route: a case changed since is not written over (RESEND_HEADER).
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}`, [RESEND_HEADER]: "1" },
         body: JSON.stringify(body),
       }).catch(() => {});
     } catch {
@@ -595,8 +622,8 @@ function sendPendingAsPageCloses() {
 /*
  * THE FORMS PAGE'S "DOES THIS FORM APPLY" CHOICES, THE SAME WAY (owner, 28 Oct). They go through
  * the case's queue to /api/cases/form-applicability, so a reload while one waited lost it as a date
- * was lost. Written down first (kind "formApplicability"), crossed off once the route saved it or
- * refused it; the next Forms page in this tab sends what is left before it reads the choices.
+ * was lost. Written down first (kind "formApplicability"), crossed off once the route has answered;
+ * the next Forms page in this tab sends what is left before it reads the choices.
  */
 const formsReplayed = new Set<string>();
 const formsWatched = new Set<string>();
@@ -604,12 +631,6 @@ const formsWatched = new Set<string>();
 let formsRouteForChecks: ((body: Record<string, unknown>) => Promise<Response | null>) | null = null;
 export function setFormsRouteForChecks(route: typeof formsRouteForChecks) {
   formsRouteForChecks = route;
-}
-
-/** Whether a route's answer settles a save: saved, or refused for good (a 4xx that is not about sign-in or timing). */
-function settles(response: Response | null): boolean {
-  if (!response) return false;
-  return response.ok || (response.status >= 400 && response.status < 500 && ![401, 408, 409, 429].includes(response.status));
 }
 
 /** Saves the Forms page's choices through the case's queue, written down first. Returns the route's answer (null: none). */
@@ -628,7 +649,9 @@ export async function saveFormApplicabilityQueued(caseId: string, formApplicabil
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(body),
       });
-  if (settles(response)) settlePendingPositionSave(caseId, pending.id, "formApplicability");
+  // Finished, whatever the answer: crossed off (the page says when it did not save). Only a save
+  // cut off by the page going stays written down -- including one whose request was cancelled as it went.
+  if (!pageLeaving) settlePendingPositionSave(caseId, pending.id, "formApplicability");
   return response;
 }
 

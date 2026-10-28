@@ -3,7 +3,9 @@
  *
  * Checks, as properties (pendingPositionSaves.ts, positionSave.ts):
  *   - a save is written down before it is sent, and crossed off once the case holds it;
- *   - one that failed stays written down, for the next page to send;
+ *   - one that finished, even as failed or refused, is crossed off; only one cut off by the page going stays;
+ *   - resent values stop covering what the case holds once they have landed;
+ *   - a resend as the page closes is tried once by each route;
  *   - a newer save that landed takes its parts out of every older one still written down, so an
  *     older choice is never sent over a newer one (a date by its question, a stage with its source);
  *   - what is written down is merged oldest to newest, and anything past the age limit is dropped;
@@ -19,6 +21,8 @@
  * lost when the page was left during its save, so the case page never showed the deadline; w5's
  * date asked again on the case page (GitHub story pack at real speed, 27-28 Oct).
  */
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { INTAKE_STORAGE_KEYS, PENDING_FORM_APPLICABILITY_KEY, PENDING_POSITION_SAVE_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import {
   PENDING_MAX_AGE_MS,
@@ -34,15 +38,18 @@ import {
   pendingSendsAsPageCloses,
   positionSavesSettled,
   replayPendingFormApplicability,
+  replayPendingPositionSaves,
   resetPageForChecks,
   saveFormApplicabilityQueued,
   setFormsRouteForChecks,
   savePositionQueuedOutcome,
   setPositionClientForChecks,
   setPositionSaveTimeoutForChecks,
+  unsavedFromEarlierPage,
   withReplayedPosition,
 } from "../../app/builder/_components/positionSave";
 
+const ROOT = path.resolve(import.meta.dirname, "..", "..");
 let failures = 0;
 const check = (name: string, ok: boolean, detail = "") => {
   console.log(`${ok ? "pass" : "FAIL"}  ${name}${ok || !detail ? "" : `\n      ${detail}`}`);
@@ -141,12 +148,31 @@ async function main() {
     check(`${court}: once it has landed it is crossed off`, readPendingPositionSaves(caseId).length === 0);
   }
 
-  // --- A failed save stays for the next page ------------------------------------------------------
+  // --- A save that finished is crossed off, even when it failed (fresh review, 28 Oct) -----------------
+  // The page already says "not saved"; sent again later it could land over a newer choice made
+  // in another tab. Only a save cut off by the page going stays written down (above).
   tab.clear();
   resetPageForChecks();
   setPositionClientForChecks({ from: () => ({ select: () => { const chain = { eq: () => chain, maybeSingle: async () => ({ data: null, error: { code: "57014", message: "timeout" } }) }; return chain; } }) } as never);
   const failed = await savePositionQueuedOutcome("f", { stepId: "s" });
-  check("a save that failed stays written down for the next page", failed === "failed" && readPendingPositionSaves("f").length === 1);
+  check("a save that finished as failed is crossed off, never sent again later", failed === "failed" && readPendingPositionSaves("f").length === 0);
+
+  // --- Resent values stop covering the case once they have landed (fresh review, 28 Oct) ---------------
+  tab.clear();
+  resetPageForChecks();
+  {
+    const row: Row = { court_path: "civil", master_result: { intakeData: { courtPath: "civil" } }, updated_at: "2026-10-28T00:00:00Z" };
+    setPositionClientForChecks(fakeCases(row, { writes: "hang" }) as never);
+    void savePositionQueuedOutcome("r", { dateAnswers: { "case-date-third-party-claim-issued": "2026-01-01" } });
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    resetPageForChecks();
+    setPositionClientForChecks(fakeCases(row, { writes: "land" }) as never);
+    replayPendingPositionSaves("r");
+    check("while the resend is on its way, the page shows it", JSON.stringify(unsavedFromEarlierPage("r") ?? {}).includes("2026-01-01"));
+    await positionSavesSettled("r", 5_000);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    check("once it has landed, it no longer covers what the case holds (a newer choice there wins)", unsavedFromEarlierPage("r") === null);
+  }
 
   // --- The Forms page's "does this form apply" choices (owner, 28 Oct) ---------------------------------
   tab.clear();
@@ -156,10 +182,16 @@ async function main() {
     sent.push(body);
     return status === null ? null : new Response("{}", { status });
   };
-  // Page 1: no answer comes (the page is left while it waits).
-  setFormsRouteForChecks(answer(null));
-  await saveFormApplicabilityQueued("forms-case", { smallClaims: { claimingMoney: true } }, "token");
-  check("forms: a choice with no answer stays written down", readPendingPositionSaves("forms-case", Date.now(), "formApplicability").length === 1);
+  // Cut off: no answer ever comes, because the page goes while it waits.
+  const cutOff = async (body: Record<string, unknown>) => {
+    sent.push(body);
+    return new Promise<Response | null>(() => {});
+  };
+  // Page 1: the save is cut off.
+  setFormsRouteForChecks(cutOff);
+  void saveFormApplicabilityQueued("forms-case", { smallClaims: { claimingMoney: true } }, "token");
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  check("forms: a choice cut off by the page going stays written down", readPendingPositionSaves("forms-case", Date.now(), "formApplicability").length === 1);
   const close = pendingSendsAsPageCloses().find((send) => send.caseId === "forms-case" && send.url === "/api/cases/form-applicability");
   check("forms: as the tab closes, the choice is what is sent, to the forms route", close?.method === "PATCH" && JSON.stringify(close.body).includes("claimingMoney"));
   // Page 2: the next Forms page sends it before it reads the choices.
@@ -171,25 +203,35 @@ async function main() {
   // A newer answer to the same question wins over the older one still written down.
   tab.clear();
   resetPageForChecks();
-  setFormsRouteForChecks(answer(null));
-  await saveFormApplicabilityQueued("forms-b", { smallClaims: { claimingMoney: true, other: "x" } }, "token");
+  setFormsRouteForChecks(cutOff);
+  void saveFormApplicabilityQueued("forms-b", { smallClaims: { claimingMoney: true, other: "x" } }, "token");
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  // The newer save goes straight to the route (the queue would wait behind the cut-off one).
   setFormsRouteForChecks(answer(200));
-  await saveFormApplicabilityQueued("forms-b", { smallClaims: { claimingMoney: false } }, "token");
+  addPendingPositionSave("forms-b", { id: "newer", at: Date.now(), patch: { smallClaims: { claimingMoney: false } } }, "formApplicability");
+  settlePendingPositionSave("forms-b", "newer", "formApplicability");
   const leftOver = readPendingPositionSaves("forms-b", Date.now(), "formApplicability");
   check(
-    "forms: a newer answer that landed takes the older answer to the same question out (the rest stays)",
+    "forms: a newer answer takes the older answer to the same question out of what is left (the rest stays)",
     leftOver.length === 1 && JSON.stringify(leftOver[0].patch) === JSON.stringify({ smallClaims: { other: "x" } }),
     JSON.stringify(leftOver),
   );
-  // Refused for good (400): crossed off, never sent again; a server error (500): kept.
+  // Any answer from the route finishes the save: refused (400), a server error (500), or none at all.
   tab.clear();
   resetPageForChecks();
-  setFormsRouteForChecks(answer(400));
-  await saveFormApplicabilityQueued("forms-c", { civil: { x: true } }, "token");
-  setFormsRouteForChecks(answer(500));
-  await saveFormApplicabilityQueued("forms-d", { civil: { x: true } }, "token");
-  check("forms: refused for good is crossed off; a server error is kept", readPendingPositionSaves("forms-c", Date.now(), "formApplicability").length === 0 && readPendingPositionSaves("forms-d", Date.now(), "formApplicability").length === 1);
+  for (const [caseId, status] of [["forms-c", 400], ["forms-d", 500], ["forms-e", null]] as const) {
+    setFormsRouteForChecks(answer(status));
+    await saveFormApplicabilityQueued(caseId, { civil: { x: true } }, "token");
+  }
+  check("forms: a save that finished, however it finished, is crossed off", ["forms-c", "forms-d", "forms-e"].every((caseId) => readPendingPositionSaves(caseId, Date.now(), "formApplicability").length === 0));
   setFormsRouteForChecks(null);
+
+  // --- A resend as the page closes is tried once by each route (fresh review, 28 Oct) ------------------
+  for (const route of ["app/api/cases/position/route.ts", "app/api/cases/form-applicability/route.ts"]) {
+    const source = readFileSync(path.join(ROOT, route), "utf8");
+    check(`${route}: a resend is tried once, so a case changed since is not written over`, /request\.headers\.get\(RESEND_HEADER\) \? 1 :/.test(source));
+  }
+  check("the send as the page closes is marked as a resend", /\[RESEND_HEADER\]: "1"/.test(readFileSync(path.join(ROOT, "app/builder/_components/positionSave.ts"), "utf8")));
 
   // --- The registry -------------------------------------------------------------------------------
   const entry = INTAKE_STORAGE_KEYS.find((item) => item.key === PENDING_POSITION_SAVE_KEY);

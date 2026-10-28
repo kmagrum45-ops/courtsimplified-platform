@@ -25,6 +25,7 @@ import { updateMasterResult, type CaseRecordClient } from "../../../../src/lib/c
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
 import { situationOfCase, withoutSituationDates } from "../../../../src/lib/case-system/situation/situation";
+import { RESEND_HEADER } from "../../../../src/lib/case-system/storage/pendingPositionSaves";
 
 const MAX_REQUEST_BYTES = 4_000;
 
@@ -91,7 +92,8 @@ export async function POST(request: Request) {
       const file = caseFileOf(court ? readCheckpoint((master as Record<string, unknown>).intakeCheckpoint, court) : null, { ...(master as Record<string, unknown>), position: undefined });
       return result.ok ? { ...master, position: { ...result.position, dateAnswers: withoutCaseFileDates(withoutSituationDates(result.position.dateAnswers, ownedCase.court_path, situationOfCase(master)), before, file, fullDayIn) } } : { reject: result.error };
     },
-    3,
+    // A cut-off save sent again as its page closed is tried once: a case changed since is not written over.
+    request.headers.get(RESEND_HEADER) ? 1 : 3,
   );
   if (!saved.ok) {
     if (saved.reason === "rejected") return NextResponse.json({ error: saved.error }, { status: 400 });

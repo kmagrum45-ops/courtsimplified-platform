@@ -14,6 +14,7 @@ import {
 import { getCanonicalFormLookup, type FormsCourtPath } from "../../../../src/lib/case-system/formsSelectedCase";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
 import { situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
+import { RESEND_HEADER } from "@/src/lib/case-system/storage/pendingPositionSaves";
 
 type FormApplicability = Record<string, unknown>;
 type ScalarAnswer = boolean | string;
@@ -232,7 +233,8 @@ async function patchGuidance(request: Request) {
   if (!supabase) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
   // Merged into the record as stored now, not the copy read above (which also
   // carries derived fields), and only over what was read (updateCaseRecord.ts).
-  const saved = await updateMasterResult(supabase, { caseId }, (stored) => mergeFormApplicability(stored, patch));
+  // A cut-off save sent again as its page closed is tried once: a case changed since is not written over.
+  const saved = await updateMasterResult(supabase, { caseId }, (stored) => mergeFormApplicability(stored, patch), request.headers.get(RESEND_HEADER) ? 1 : undefined);
   if (!saved.ok && saved.reason === "not-found") return NextResponse.json({ error: "The selected case could not be updated." }, { status: 404 });
   if (!saved.ok) return NextResponse.json({ error: "Could not save form applicability answers." }, { status: saved.reason === "conflict" ? 409 : 500 });
   const updated = await readinessForOwnedCase(request, caseId);
