@@ -129,6 +129,24 @@ responding, mid-case and enforcement, including 3 or 4 real stories:
 Excluded on purpose: licensed lawyer review (owner's choice, later); polish
 that does not change what the person does next (after-beta list).
 
+## Before real users (go-live checklist)
+
+Each item must be done before the site is opened to real people, whatever the finish line says. Added
+by the owner through the decision log; an item leaves only when it is done or the owner removes it there.
+
+- **Production has automatic backups.** The free plan has none (no daily backups, no point-in-time
+  recovery; `docs/infra/projects.md`). Upgrade the organisation to **Supabase Pro, $25/month**, which
+  brings daily backups kept for 7 days. Point-in-time recovery is a further add-on on top of Pro,
+  **$100/month for 7 days** (`docs/infra/setup-report.md`; both prices as Supabase quoted them on
+  2026-09-26, so check the current price before upgrading); the owner decides whether to add it at launch.
+  Until Pro, the only copies are the manual ones (`npm run db:backup -- --env production`, below).
+- **`OWNER_LIVE_TESTING` back to false, and each advice switch reviewed** (decision log, 2026-10-12).
+
+**Manual backups until then.** `npm run db:backup -- --env production`, with Docker Desktop running, writes
+the schema, the data and the auth rows to `../courtsimplified-backups/production-<ref>-<date-time>/` and
+refuses to call it a backup unless every file has content. Taken before every change to production (CLAUDE.md
+s. 6) and at least once a week while anyone is using the site, with a copy kept off this computer.
+
 ## Hard cases
 
 Signals in the record (a passed limitation or notice date, several or
@@ -175,3 +193,4 @@ through the decision log.
 | 2026-10-13 | Owner direction: a second, practical lane. Beside the legal lane (rules, deadlines, forms, courts: checked against the official text, CLAUDE.md s. 2), the site may write practical guidance in its own words about the person's own case: what evidence to gather and how (photos, independent expert reports, several quotes), how to get records (title searches, access-to-information requests, an institution's own policies and logs), who to ask and what to ask for. It may not state law: every sentence is screened, and a legal statement inside practical guidance goes through the checked-answer engine or is removed. Facts about a named institution come from its own official page, fetched and linked. Behind its own switch (`PRACTICAL_GUIDANCE`); the A2I description must call it general practical guidance, separate from the reviewed legal content. Built with Phase 4. Design: `docs/PRACTICAL_GUIDANCE_DESIGN.md`. | A walkthrough of a homeowner with a construction lien (2026-10-13) found the right law but nothing on what a lawyer would tell him next: get an independent expert, get quotes, photograph the slopes, pull title. The chat can only select pre-checked blocks, so anything outside rules and forms reads as robotic or is missing. |
 | 2026-10-14 | Owner direction, fixed: **one way, not re-argued.** Smart AI reads and reasons; the code's map decides procedure. (1) The strongest model reads the whole story, reasons about it like a top lawyer, asks what is missing, explains in plain words and writes the practical lane. (2) Which court or process: code rules for the regimes that are fixed by law (construction liens, the LTB, the Small Claims money limit and the other exclusive tribunals) run first; the AI decides only within them, as a suggestion the person confirms. (3) The next step, its form, deadline, where and how to file, fee, service and what comes after come only from the stage map (`stage-map/stageMap.ts`, `stageSequence.ts`, `content-library/nextStepPractical.ts`, the deadline engine). The AI picks the stage and explains it; it never states a step, form or deadline of its own, on any page. (4) A step the map does not have is shown as "not covered yet" and goes into the law map to be verified and added. (5) Any other legal statement goes through the checked answer, and passes only if its rule belongs to the person's court and regime. (6) No other copy of procedure (database rows, older 9-stage blocks) is shown to anyone. CLAUDE.md s. 2a. | The owner has asked for this many times and sessions kept proposing different ways. The lien test (2026-10-13) showed the cause: the AI found the right law, then stated the ordinary 20-day civil Defence deadline from the wrong rulebook. An audit (2026-10-14) found the map is sound, but the case analysis, the front door's unchecked lines and strategy could still state procedure around it, and lien routing was one sentence in a prompt. |
 | 2026-10-14 | Owner direction after an independent audit: **feature freeze** until Small Claims passes the finish line (no new feature directions; fixes, foundations and the before-beta list only); build order item 6 added. The walkthrough's 20 cases are the gate for each court, run every round. | The audit found the design sound but the order slipping: features went live before the finish line passed (latest walkthrough: 0 of 5 cases passed every check), the old and new engines run side by side (the cause of facts asked again), no rate limits, backups or error monitoring, no reminders, and tests that mostly check wiring. |
+| 2026-10-28 | Owner direction: production must have automatic backups before real users. Added a "Before real users" checklist to this plan: Supabase Pro ($25/month, daily backups for 7 days) before go-live, point-in-time recovery ($100/month for 7 days) for the owner to decide at launch, and the manual backup routine until then. The existing "before real users" note from 2026-10-12 (OWNER_LIVE_TESTING) is listed there too. | The free plan provides no backups at all; the only copies of production are the manual dumps. |
