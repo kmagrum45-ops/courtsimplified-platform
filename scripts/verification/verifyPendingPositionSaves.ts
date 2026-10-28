@@ -36,6 +36,7 @@ import {
 import { readCasePosition } from "../../src/lib/case-system/casePosition";
 import {
   pendingSendsAsPageCloses,
+  databaseAnswered,
   pageGoing,
   positionSavesSettled,
   replayPendingFormApplicability,
@@ -240,6 +241,21 @@ async function main() {
   setPositionClientForChecks({ from: () => ({ select: () => { const chain = { eq: () => chain, maybeSingle: async () => ({ data: null, error: { message: "TypeError: Failed to fetch" } }) }; return chain; } }) } as never);
   const unanswered = await savePositionQueuedOutcome("n", { stepId: "s" });
   check("a save that got no answer at all is kept, for the next page to send", unanswered === "failed" && readPendingPositionSaves("n").length === 1);
+
+  // How a failure is read (third fresh review, 28 Oct): our own time limit is the database's answer;
+  // a plain abort -- Firefox's "AbortError" for a request cut off as its page goes -- is not.
+  check("a time limit reached counts as answered", databaseAnswered({ name: "TimeoutError", message: "signal timed out" }) && databaseAnswered({ code: "57014", message: "canceling statement due to statement timeout" }));
+  check("a request cut off as the page goes is not an answer, in any browser", !databaseAnswered({ code: "", message: "AbortError: The operation was aborted." }) && !databaseAnswered({ message: "TypeError: Failed to fetch" }));
+
+  // A save sent again keeps the time it was first written down, so it cannot be carried past the limit.
+  tab.clear();
+  resetPageForChecks();
+  addPendingPositionSave("old-again", { id: "o", at: Date.now() - PENDING_MAX_AGE_MS + 1_000, patch: { stepId: "s" } });
+  setPositionClientForChecks({ from: () => ({ select: () => { const chain = { eq: () => chain, maybeSingle: async () => ({ data: null, error: { message: "TypeError: Failed to fetch" } }) }; return chain; } }) } as never);
+  replayPendingPositionSaves("old-again");
+  await positionSavesSettled("old-again", 2_000);
+  const carried = readPendingPositionSaves("old-again");
+  check("a save sent again keeps its first time (the age limit holds across pages)", carried.length === 1 && Date.now() - carried[0].at > PENDING_MAX_AGE_MS - 5_000, JSON.stringify(carried.map((entry) => Date.now() - entry.at)));
 
   // --- A resend as the page closes is tried once by each route (fresh review, 28 Oct) ------------------
   for (const route of ["app/api/cases/position/route.ts", "app/api/cases/form-applicability/route.ts"]) {

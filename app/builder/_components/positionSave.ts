@@ -210,7 +210,10 @@ type DirectSaveDetail = {
 export function databaseAnswered(error: unknown): boolean {
   const record = (error && typeof error === "object" ? error : {}) as { code?: unknown; message?: unknown; name?: unknown };
   if (typeof record.code === "string" && record.code.trim()) return true;
-  return /abort|timed? ?out/i.test(`${String(record.name ?? "")} ${String(record.message ?? "")}`);
+  // Our own time limit (AbortSignal.timeout gives a TimeoutError) means the database was too slow to
+  // answer. A plain abort is not an answer: it is what a request cut off as its page goes reports in
+  // some browsers ("AbortError" in Firefox), and that save must be kept (third fresh review, 28 Oct).
+  return /timeout|timed? ?out/i.test(`${String(record.name ?? "")} ${String(record.message ?? "")}`);
 }
 
 async function directSave(
@@ -471,11 +474,12 @@ function track<T>(caseId: string, work: Promise<T>): Promise<T> {
  * saved is left out when its turn comes (so a save queued just before it
  * counts), and nothing is sent when all of it has been.
  */
-export function savePositionQueuedOutcome(caseId: string, wanted: Record<string, unknown>, options: { onlyUnsaved?: boolean } = {}): Promise<DirectSaveOutcome> {
+export function savePositionQueuedOutcome(caseId: string, wanted: Record<string, unknown>, options: { onlyUnsaved?: boolean; writtenAt?: number } = {}): Promise<DirectSaveOutcome> {
   // A save an earlier page in this tab left unfinished goes first, so this newer one lands over it.
   replayPendingPositionSaves(caseId);
   // Written down before it is sent, crossed off once the case holds it (pendingPositionSaves.ts).
-  const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: Date.now(), patch: wanted };
+  // A save sent again keeps the time it was first written down, so the age limit holds across pages.
+  const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: options.writtenAt ?? Date.now(), patch: wanted };
   addPendingPositionSave(caseId, pending);
   watchPageClose(caseId);
   listenForPageClose();
@@ -533,12 +537,13 @@ const replayedPatches = new Map<string, Record<string, unknown>>();
 export function replayPendingPositionSaves(caseId: string): void {
   if (replayed.has(caseId)) return;
   replayed.add(caseId);
+  const writtenAt = readPendingPositionSaves(caseId)[0]?.at;
   const left = takePendingPositionSaves(caseId);
   if (!left) return;
   replayedPatches.set(caseId, left);
   // Shown over what the page read only until it has landed: then the case holds it, and a newer
   // choice made on this page is never covered by it (fresh review, 28 Oct).
-  void savePositionQueuedOutcome(caseId, left).then(() => {
+  void savePositionQueuedOutcome(caseId, left, { writtenAt }).then(() => {
     replayedPatches.delete(caseId);
   });
 }
@@ -655,9 +660,9 @@ export function setFormsRouteForChecks(route: typeof formsRouteForChecks) {
 }
 
 /** Saves the Forms page's choices through the case's queue, written down first. Returns the route's answer (null: none). */
-export async function saveFormApplicabilityQueued(caseId: string, formApplicability: Record<string, unknown>, token: string): Promise<Response | null> {
+export async function saveFormApplicabilityQueued(caseId: string, formApplicability: Record<string, unknown>, token: string, writtenAt?: number): Promise<Response | null> {
   await replayPendingFormApplicability(caseId, token);
-  const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: Date.now(), patch: formApplicability };
+  const pending = { id: `${Date.now().toString(36)}-${(pendingCounter += 1)}`, at: writtenAt ?? Date.now(), patch: formApplicability };
   addPendingPositionSave(caseId, pending, "formApplicability");
   formsWatched.add(caseId);
   accessToken = token;
@@ -680,8 +685,9 @@ export async function saveFormApplicabilityQueued(caseId: string, formApplicabil
 export async function replayPendingFormApplicability(caseId: string, token: string): Promise<void> {
   if (formsReplayed.has(caseId)) return;
   formsReplayed.add(caseId);
+  const writtenAt = readPendingPositionSaves(caseId, Date.now(), "formApplicability")[0]?.at;
   const left = takePendingPositionSaves(caseId, "formApplicability");
-  if (left) await saveFormApplicabilityQueued(caseId, left, token);
+  if (left) await saveFormApplicabilityQueued(caseId, left, token, writtenAt);
 }
 
 /** Saves the person's own choice to the case, after any write to it already on its way. */
