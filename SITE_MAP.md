@@ -313,6 +313,8 @@ Every screen a person sees, and the shared piece each one reads a fact from. Pat
 
 **Error screens.** `app/error.tsx`, `app/builder/error.tsx`, `app/cases/error.tsx`, all rendering `app/_components/PageError.tsx` ("Something went wrong showing this page", error message and digest). No case facts.
 
+**Working states (28 Oct).** `app/_components/Working.tsx` is the one way a control says it is doing slow work: `WorkingButton` shows its working label in plain words while its work runs and ignores a second press; `WorkingNote` is one status line inside a card whose controls are all held meanwhile. Used by the Small Claims guided intake (story, suggestions card, Send, Skip), the review panel ("Saving your review…"), the builder's results buttons while the case saves, the case page's file Open/Download/Delete, the event-candidate card, the Forms page, the evidence card, sign-in and Log out. `npm run test:working-states` fails when a button held by a work state sits in a card that says nothing about that work.
+
 ### Where each screen gets each fact
 
 | Screen | Side | Stage | Claim kind | Amount | Dates | Labels/words |
