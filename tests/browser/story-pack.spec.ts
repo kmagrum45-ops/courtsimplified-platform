@@ -1566,3 +1566,52 @@ for (const [court, id] of [["civil", "c1-charter-police"], ["civil", "m11-old-cr
   });
 }
 
+
+// Site owner, 28 Oct: w5's optional third-party claim date showed on both the next-step page and the
+// case page. The pack never answered it, so whether an answer on one screen stops the other asking was
+// not known. Here a date each area shows on both screens is answered on one, then the other is opened:
+// it shows the answer and does not ask again. Both ways round, in every area.
+for (const [court, id, questionId] of [["civil", "w5-civil-going-defence", "case-date-third-party-claim-issued"], ["small-claims", "w4-sc-going-defence", "sc-date-defence-filed"], ["family", "m15-motion-to-change", "case-date-served-with-motion-to-change"]] as const) {
+  for (const first of ["next step", "case page"] as const) {
+    test(`retest-28oct: a date answered on the ${first} is not asked again on the other screen -- ${court} (${id}, ${questionId})`, async ({ page }) => {
+      test.setTimeout(480_000);
+      const story = byId(id);
+      await grantSiteAccess(page);
+      await autoAnswerSituation(page, situationForStory(story));
+      const account = await fakeAccount(page);
+      await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+      if (court === "small-claims") await smallClaims(page, story, true);
+      else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
+      await confirmAndContinue(page);
+      const question = page.locator(`[data-testid="stage-answer-date-question"][data-question-id="${questionId}"]`);
+      const known = page.getByTestId(`stage-answer-known-${questionId}`);
+      const caseId = () => String(([...account.rows.values()][0] as Record<string, unknown> | undefined)?.id ?? "");
+      const answer = async () => {
+        await expect(question, "the date is asked here").toBeVisible({ timeout: 90_000 });
+        await question.locator('input[type="date"]').fill("2026-03-03");
+        await page.getByTestId("stage-answer-dates-save").click();
+        await expect(known, "once answered, it shows as known").toBeVisible({ timeout: 60_000 });
+        await expect(page.getByTestId("stage-answer-dates-save"), "and the save is done").toHaveText("Count my deadline", { timeout: 30_000 });
+      };
+      const openCasePage = async () => {
+        await expect.poll(caseId, { timeout: 60_000, message: "the case is saved" }).not.toBe("");
+        await page.goto(`/cases/${caseId()}`);
+        await page.waitForLoadState("networkidle").catch(() => {});
+      };
+      if (first === "next step") {
+        await answer();
+        await openCasePage();
+      } else {
+        await openCasePage();
+        await answer();
+        // Reopened the way My cases opens a saved case.
+        await page.goto(`/builder?path=${court}&caseId=${caseId()}`);
+        const next = page.getByRole("button", { name: "Show my next step" });
+        await next.waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
+        if (await next.isVisible().catch(() => false)) await next.click();
+      }
+      await expect(known, "the other screen shows the answer").toBeVisible({ timeout: 90_000 });
+      await expect(question, "and does not ask for it again").toHaveCount(0);
+    });
+  }
+}
