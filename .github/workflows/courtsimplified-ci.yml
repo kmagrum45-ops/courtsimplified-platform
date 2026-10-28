@@ -249,6 +249,9 @@ jobs:
       - name: The case file holds every fact once, and no screen asks a held fact again
         run: npm run test:case-file
 
+      - name: A saved answer is read where it was saved (dates from the review, the Family served line, every court's location)
+        run: npm run test:read-where-saved
+
       - name: A changed side sets aside the old side's facts, in every area
         run: npm run test:side-change
 

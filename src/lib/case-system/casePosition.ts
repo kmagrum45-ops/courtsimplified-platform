@@ -714,6 +714,12 @@ function datedMention(sentences: string[], cue: Cue, moment: keyof typeof MOMENT
  */
 export const SERVED_LINE = "I was served with the court papers on: ";
 
+/** The service date kept in a Family Timeline (its SERVED_LINE), or "" when none is. */
+export function servedDateOf(timeline: string): string {
+  const line = timeline.split("\n").find((entry) => entry.trim().startsWith(SERVED_LINE.trim()));
+  return line ? line.trim().slice(SERVED_LINE.trim().length).trim() : "";
+}
+
 /**
  * What the step page reads for dates: the person's story and their Timeline,
  * where the family chat keeps the day they were served (SERVED_LINE).

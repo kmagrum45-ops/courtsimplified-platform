@@ -28,6 +28,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { locationOfIntake } from "../../src/lib/case-system/caseRecord";
 
 const BUILDER = path.resolve(process.cwd(), "app", "builder", "page.tsx");
 const ENGINE = path.resolve(
@@ -106,11 +107,17 @@ function main(): void {
       "location gate again and everything behind it is unreachable",
   );
 
+  // The restore reads through the one location reader (caseRecord.ts locationOfIntake, item 5,
+  // 28 Oct), which also knows civil's and Family's spelling. The property is unchanged: what the
+  // write side stores under extra is what the restore gets back.
+  const written = { extra: { yourProvince: "Ontario", yourCity: "Sudbury" } };
+  const readBack = locationOfIntake(written);
   check(
     "it reads the two keys the write side produces",
-    /intakeData\)\.extra/.test(builder) &&
-      /yourCity/.test(builder) &&
-      /yourProvince/.test(builder),
+    /locationOfIntake\(loadedMasterResult\.intakeData\)/.test(builder) &&
+      readBack.province === "Ontario" &&
+      readBack.city === "Sudbury",
+    `the restore must read master_result.intakeData through locationOfIntake, and that reader must return extra.yourProvince / yourCity (got ${JSON.stringify(readBack)})`,
   );
 
   check(

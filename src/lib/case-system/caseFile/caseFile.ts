@@ -35,6 +35,7 @@ import { isKindOfClaim } from "../intake/claimKind";
 import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
+import { servedDateOf } from "../casePosition";
 import { QUESTION_BANK } from "../intake/questionBank";
 
 /** The case file's slots, in the order "What we have so far" shows them. */
@@ -263,6 +264,9 @@ export function caseFileOf(checkpoint: Checkpoint | null, master?: unknown): Cas
   // Family keeps the day served in its own field or the timeline; the children in one line.
   const family = object(sections.family);
   if (typeof family.servedDate === "string") give(file, "servedDate", family.servedDate, "family:servedDate");
+  // The family chat and the review keep that day as a line of the Timeline (guidedFields.ts,
+  // IntakeReviewPanel): read where it is saved, or the case file never held it (item 5, 28 Oct).
+  else if (typeof family.timeline === "string" && servedDateOf(family.timeline)) give(file, "servedDate", servedDateOf(family.timeline), "family:timeline");
 
   // 3. Small Claims guided answers (typed, or confirmed from the story's proposals).
   const guided = object(sections.guided);

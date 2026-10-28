@@ -13,7 +13,7 @@
  */
 
 import type { GuidedChoice, GuidedField, GuidedValues } from "./GuidedFormChat";
-import { SERVED_LINE, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
+import { SERVED_LINE, servedDateOf, storyHintsForDates } from "../../../src/lib/case-system/casePosition";
 import {
   amountFromStory,
   childrenFromStory,
@@ -62,11 +62,8 @@ const has = (values: GuidedValues, key: string, ...wanted: string[]) => {
 export { SERVED_LINE };
 
 
-/** The service date kept in the timeline, or "" when none is. */
-export function servedDateOf(timeline: string): string {
-  const line = timeline.split("\n").find((entry) => entry.trim().startsWith(SERVED_LINE.trim()));
-  return line ? line.trim().slice(SERVED_LINE.trim().length).trim() : "";
-}
+/** The service date kept in the timeline, or "" when none is (one reader, shared with the case file). */
+export { servedDateOf };
 
 /** The timeline with its service-date line set to this date (replaced, never doubled). */
 export function withServedDate(timeline: string, date: string): string {
