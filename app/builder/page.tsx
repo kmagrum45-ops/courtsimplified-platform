@@ -2330,7 +2330,7 @@ function BuilderPageContent() {
                 {guidedAnalysisError ? (
                   <div role="alert" data-testid="guided-analysis-error" className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                     {guidedAnalysisError}{" "}
-                    {lastGuidedResult.current ? <button type="button" data-testid="guided-analysis-retry" onClick={() => void handleGuidedComplete(lastGuidedResult.current!)} className="font-semibold underline">Try again</button> : null}
+                    {lastGuidedResult.current ? <button type="button" data-testid="guided-analysis-retry" data-replaced-while-working="the retry clears the error and shows the analysing note" onClick={() => void handleGuidedComplete(lastGuidedResult.current!)} className="font-semibold underline">Try again</button> : null}
                   </div>
                 ) : null}
               </div>

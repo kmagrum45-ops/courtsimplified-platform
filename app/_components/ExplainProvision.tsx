@@ -44,6 +44,7 @@ export default function ExplainProvision({ id }: { id: string }) {
     return (
       <button
         type="button"
+        data-replaced-while-working="shown only while idle; a working line replaces it"
         onClick={explain}
         className="mt-2 mr-3 text-xs font-semibold text-[#2f7d67] underline"
         data-testid="explain-provision"
