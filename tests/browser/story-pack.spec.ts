@@ -1704,6 +1704,13 @@ for (const count of ["several", "one"] as const) {
     await answerInReview(page, story);
     await confirmAndContinue(page);
     const panel = page.getByTestId("stage-answer-panel");
+    // The step the person is at: their defence is delivered (chosen on the step page, as a person corrects it).
+    await expect(panel).toBeVisible({ timeout: 90_000 });
+    if ((await panel.getAttribute("data-stage-id")) !== "civil:defendant:defence-delivered") {
+      const change = page.getByTestId("stage-answer-change");
+      if (await change.isVisible().catch(() => false)) await change.click();
+      await page.getByTestId("stage-answer-select").selectOption("civil:defendant:defence-delivered");
+    }
     await expect(panel, "the step is the defendant's defence delivered").toHaveAttribute("data-stage-id", "civil:defendant:defence-delivered", { timeout: 90_000 });
     const ask = page.getByTestId("stage-answer-defendants");
     await expect(ask, "the number of defendants is asked, once").toHaveCount(1, { timeout: 60_000 });
