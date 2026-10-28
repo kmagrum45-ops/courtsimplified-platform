@@ -796,6 +796,65 @@ for (const court of ["civil", "family", "small-claims"] as const) {
   });
 }
 
+// Case 11, live re-test 26 Oct: after the notice, Continue closed it and nothing else happened; the
+// person had to press "Show my next step" again. One press of Continue, with the mouse where a
+// person's would be, must open the next step. The overview must not already be showing, so the
+// check cannot pass on a page that was there before Continue.
+for (const court of ["civil", "family", "small-claims"] as const) {
+  test(`retest-26oct case 11: one real click on the notice's Continue opens the next step -- ${court}`, async ({ page }) => {
+    test.setTimeout(240_000);
+    const story = byId(court === "civil" ? "civil-defendant-debt" : court === "family" ? "family-spousal" : "sc-defendant-served");
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, situationForStory(story));
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+    if (court === "small-claims") await smallClaims(page, story, true);
+    else {
+      await openBuilder(page, court, { story: story.story });
+      await guidedQuestions(page, story, true);
+      await answerInReview(page, story);
+    }
+    const panel = page.getByTestId("intake-review");
+    const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
+    while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1); }
+    await page.getByTestId("intake-review-acknowledgement").check();
+    await page.getByTestId("intake-confirm").click();
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed");
+    // The notice is owed again, as after signing in on this device.
+    await page.evaluate(() => { for (const key of Object.keys(localStorage)) if (key.startsWith("courtSimplifiedNoticeAcknowledged")) localStorage.removeItem(key); });
+    // The live site's own wait: the account and the saved case take a moment to come back.
+    for (const host of ["**/auth/v1/**", "**/rest/v1/**"]) await page.route(host, async (route) => { await new Promise((done) => setTimeout(done, 1_500)); await route.fallback(); });
+    await page.reload();
+    await page.waitForLoadState("networkidle").catch(() => {});
+    await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+    const nextStep = page.getByTestId("completed-case-overview").or(page.getByTestId("sign-in-for-safety-check"));
+    const realClick = async (testId: string) => {
+      const target = page.getByTestId(testId);
+      await target.scrollIntoViewIfNeeded();
+      const box = await target.boundingBox();
+      if (!box) throw new Error(`${testId} has no box on screen`);
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    };
+    await realClick("intake-continue-guidance");
+    const notice = page.getByTestId("acknowledgement-checkbox");
+    await expect(notice).toBeInViewport({ timeout: 15_000 });
+    await expect(nextStep, "the next step is not open before Continue").toHaveCount(0);
+    await realClick("acknowledgement-checkbox");
+    await expect(notice).toBeChecked();
+    // The live analysis takes a minute or more; it is held here so the wait can be seen. Live, the
+    // page landed at its top with the progress line out of sight and "Show my next step" still
+    // pressable, so it looked as if nothing happened and the person pressed again.
+    await page.route(`**/api/${court}/analyze`, async (route) => { await new Promise((done) => setTimeout(done, 20_000)); await route.fallback(); });
+    await page.route("**/api/intake/safety-check", async (route) => { await new Promise((done) => setTimeout(done, 3_000)); await route.fallback(); });
+    await realClick("acknowledgement-continue");
+    const status = page.getByTestId("next-step-status");
+    // At once: the screens report their work only after saving and checking the sign-in (seconds, live).
+    await expect(status, "the next step is being worked out, where the person is looking, at once").toBeInViewport({ timeout: 1_000 });
+    await expect(page.getByTestId("intake-continue-guidance"), "it cannot be pressed again while it works").toBeDisabled({ timeout: 1_000 });
+    await expect(nextStep.first(), "one press of Continue opens the next step").toBeVisible({ timeout: 90_000 });
+  });
+}
+
 // Case 11, after the page stopped: the case was confirmed but no next step was made, and the
 // case page asked for the review again. It says the information is confirmed and opens the
 // next step without asking anything again.
