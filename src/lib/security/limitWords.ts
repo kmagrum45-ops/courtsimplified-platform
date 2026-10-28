@@ -7,14 +7,15 @@
  * words" said its check had failed. Safe in the browser: no server-only imports.
  */
 
+import { timeOfDayInOntario, todayInOntario } from "../case-system/dates";
+
 /** When the site's daily count starts again: the next midnight UTC (the counter's day), in Toronto time. */
 export function dailyResetWords(now: number = Date.now()): string {
   const next = new Date(now);
   next.setUTCHours(24, 0, 0, 0);
-  const time = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", hour: "numeric", minute: "2-digit", hour12: true }).format(next).replace(":00", "");
-  // After that hour in Toronto the next start is tomorrow's (reviewer of #509: "8 p.m." alone misleads at 9 p.m.).
-  const day = (moment: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto" }).format(moment);
-  return `${time} ${day(next) === day(new Date(now)) ? "today" : "tomorrow"}`;
+  // The shared Ontario readers (dates.ts). After that hour in Toronto the next start is tomorrow's
+  // (reviewer of #509: "8 p.m." alone misleads at 9 p.m.).
+  return `${timeOfDayInOntario(next)} ${todayInOntario(next) === todayInOntario(new Date(now)) ? "today" : "tomorrow"}`;
 }
 
 export function visitorLimitWords(): string {

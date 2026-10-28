@@ -148,7 +148,12 @@ export function todayInOntario(now: Date = new Date()): string {
   return iso(now.getFullYear(), now.getMonth() + 1, now.getDate());
 }
 
-const iso = (year: number, month: number, day: number): string =>
+/** The time of day of a moment in Ontario, in plain words ("8 p.m.", "7:30 a.m."): daylight or standard time as it falls. */
+export function timeOfDayInOntario(moment: Date): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", hour: "numeric", minute: "2-digit", hour12: true }).format(moment).replace(":00", "");
+}
+
+const iso =(year: number, month: number, day: number): string =>
   `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
 /**
