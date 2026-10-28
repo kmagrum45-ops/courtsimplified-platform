@@ -9,11 +9,15 @@
  *   - the dry run deletes nothing and removes no file;
  *   - with --confirm, exactly the leftover accounts are deleted, each one's files first, and no
  *     other account's files are touched;
- *   - the report holds counts only (no email or id in its words).
+ *   - the report holds counts only (no email or id in its words);
+ *   - --account-cases (accountCases.ts): the same refusals before anything is read; only the named
+ *     account's cases made on the given Toronto days, both ends included, are deleted, never its
+ *     newest ones; their files go with them; the dry run deletes nothing; counts only.
  *
  * Failure it exists to catch: a cleanup that deletes a real person's account, runs against
  * production, or deletes an account a run in progress is still using.
  */
+import { cleanAccountCases, describeAccountCases, selectCases, type CaseFacts, type CasesClient } from "../db/accountCases";
 import { MIN_AGE_MS, PRODUCTION_REF, STAGING_REF, cleanLeftoverHarnessAccounts, describe, keptBecause, refusalFor, type AccountFacts, type AdminClient } from "../db/harnessAccounts";
 
 let failures = 0;
@@ -86,6 +90,53 @@ async function main() {
   check("each one's files are removed, and no other account's", JSON.stringify(real.removed.sort()) === JSON.stringify(["a1/c1/f1", "a1/c1/f2"]) && report.filesRemoved === 2);
   const words = describe(report).join("\n");
   check("the report holds counts only: no account's email or id", ACCOUNTS.every((account) => !words.toLowerCase().includes((account.email ?? "").toLowerCase()) && !new RegExp(String.raw`\b${account.id}\b`).test(words)), words);
+
+  // ---- One account's cases on given days (--account-cases, accountCases.ts) ----
+  // Toronto days: 23 Oct 23:30 Toronto is 24 Oct in UTC, and still in the window; 17 Oct 23:30 is not.
+  const CASES: CaseFacts[] = [
+    { id: "before", created_at: "2026-10-18T03:30:00Z" }, // 17 Oct, 23:30 Toronto
+    { id: "first", created_at: "2026-10-18T04:30:00Z" }, // 18 Oct, 00:30 Toronto
+    { id: "mid", created_at: "2026-10-20T15:00:00Z" },
+    { id: "last", created_at: "2026-10-24T03:30:00Z" }, // 23 Oct, 23:30 Toronto
+    { id: "after", created_at: "2026-10-24T04:30:00Z" }, // 24 Oct, 00:30 Toronto
+    { id: "undated", created_at: null },
+    ...Array.from({ length: 6 }, (_, i) => ({ id: `new${i}`, created_at: `2026-10-27T1${i}:00:00Z` })),
+  ];
+  const window = { from: "2026-10-18", to: "2026-10-23", keepNewest: 5 };
+  const chosen = selectCases(CASES, window);
+  check("only cases made on the Toronto days given are deleted, both ends included", JSON.stringify(chosen.toDelete.sort()) === JSON.stringify(["first", "last", "mid"]), JSON.stringify(chosen));
+  // The newest are kept even inside the window.
+  const recent = selectCases(CASES.slice(0, 5), window);
+  check("the newest cases are kept even when made on those days", !recent.toDelete.includes("after") && recent.toDelete.length === 0 && recent.keptNewestInRange === 3, JSON.stringify(recent));
+  const owned = new Map<string, CaseFacts[]>([["owner-id", CASES], ["other-id", [{ id: "theirs", created_at: "2026-10-20T15:00:00Z" }]]]);
+  const caseDouble = () => {
+    const deleted: string[] = []; const removed: string[] = []; let reads = 0;
+    const client: CasesClient = {
+      auth: { admin: { listUsers: async () => { reads += 1; return { data: { users: [{ id: "owner-id", email: "Owner@Example.com" }, { id: "other-id", email: "other@example.com" }] }, error: null }; } } },
+      from: () => ({
+        select: () => ({ eq: async (_column: string, userId: string) => ({ data: owned.get(userId) ?? [], error: null }) }),
+        delete: () => ({ eq: (_c: string, caseId: string) => ({ eq: async (_c2: string, userId: string) => { if ((owned.get(userId) ?? []).some((item) => item.id === caseId)) deleted.push(caseId); return { error: null }; } }) }),
+      }),
+      storage: { from: () => ({ list: async (folder: string) => ({ data: folder === "owner-id/mid" ? [{ name: "f1" }] : [], error: null }), remove: async (paths: string[]) => { removed.push(...paths); return { error: null }; } }) },
+    };
+    return { client, deleted, removed, reads: () => reads };
+  };
+  for (const url of [`https://${PRODUCTION_REF}.supabase.co`, "https://elsewhere.supabase.co"]) {
+    const double = caseDouble();
+    const refused = await cleanAccountCases({ url, email: "owner@example.com", ...window, confirm: true, client: double.client }).then(() => false, () => true);
+    check(`--account-cases refuses ${url.includes(PRODUCTION_REF) ? "production" : "a non-staging address"} before reading anything`, refused && double.reads() === 0 && double.deleted.length === 0);
+  }
+  const caseDry = caseDouble();
+  const caseDryReport = await cleanAccountCases({ url: stagingUrl, email: "owner@example.com", ...window, confirm: false, client: caseDry.client });
+  check("--account-cases dry run counts and deletes nothing", caseDryReport.toDelete === 3 && caseDry.deleted.length === 0 && caseDry.removed.length === 0, JSON.stringify(caseDryReport));
+  const run = caseDouble();
+  const runReport = await cleanAccountCases({ url: stagingUrl, email: "owner@example.com", ...window, confirm: true, client: run.client });
+  check("--account-cases with --confirm deletes only that account's chosen cases, and their files", JSON.stringify(run.deleted.sort()) === JSON.stringify(["first", "last", "mid"]) && JSON.stringify(run.removed) === JSON.stringify(["owner-id/mid/f1"]) && runReport.deleted === 3, JSON.stringify({ deleted: run.deleted, removed: run.removed }));
+  const missing = caseDouble();
+  const none = await cleanAccountCases({ url: stagingUrl, email: "nobody@example.com", ...window, confirm: true, client: missing.client });
+  check("an address no account has deletes nothing", !none.found && missing.deleted.length === 0);
+  const caseWords = describeAccountCases(runReport).join("\n");
+  check("its report holds counts only: no email or id", !/owner@example\.com|owner-id|\bmid\b|\bfirst\b/i.test(caseWords), caseWords);
 
   console.log(failures ? `\n${failures} failure(s)` : "\nall passed");
   process.exit(failures ? 1 : 0);
