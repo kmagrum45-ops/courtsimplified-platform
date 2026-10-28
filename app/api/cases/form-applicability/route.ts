@@ -233,7 +233,7 @@ async function patchGuidance(request: Request) {
   if (!supabase) return NextResponse.json({ error: "Authentication is required." }, { status: 401 });
   // Merged into the record as stored now, not the copy read above (which also
   // carries derived fields), and only over what was read (updateCaseRecord.ts).
-  // A cut-off save sent again as its page closed is tried once: a case changed since is not written over.
+  // A cut-off save sent again as its page closed is tried once: a save landing between this read and write wins.
   const saved = await updateMasterResult(supabase, { caseId }, (stored) => mergeFormApplicability(stored, patch), request.headers.get(RESEND_HEADER) ? 1 : undefined);
   if (!saved.ok && saved.reason === "not-found") return NextResponse.json({ error: "The selected case could not be updated." }, { status: 404 });
   if (!saved.ok) return NextResponse.json({ error: "Could not save form applicability answers." }, { status: saved.reason === "conflict" ? 409 : 500 });
