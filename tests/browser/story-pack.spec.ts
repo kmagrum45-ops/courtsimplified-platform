@@ -1687,6 +1687,65 @@ for (const [court, id, questionId] of [["civil", "w5-civil-going-defence", "case
   }
 }
 
+// 28 Oct (#488 at real speed): a save still on its way when the page was left by a full load was
+// lost with the page -- the Charter story's day it happened, counted on the next-step page, never
+// reached the case, so the case page showed no deadline; w5's date was asked again on the case page.
+// Here the database write is held as a slow connection holds it, a date is answered on the next-step
+// page, and the page is left before the write lands: by opening the case page by its address, and by
+// reloading. The date must still be on the case: shown as known, not asked again. Every area.
+for (const [court, id, questionId] of [["civil", "w5-civil-going-defence", "case-date-third-party-claim-issued"], ["small-claims", "w4-sc-going-defence", "sc-date-defence-filed"], ["family", "m15-motion-to-change", "case-date-served-with-motion-to-change"]] as const) {
+  for (const leave of ["the case page by its address", "a reload"] as const) {
+    test(`28oct lost save: a date answered just before ${leave} is kept -- ${court} (${id}, ${questionId})`, async ({ page }) => {
+      test.setTimeout(480_000);
+      const story = byId(id);
+      await grantSiteAccess(page);
+      await autoAnswerSituation(page, situationForStory(story));
+      const account = await fakeAccount(page);
+      await serveFromThisCommit(page, court, account.rows as unknown as Map<string, Record<string, unknown>>);
+      if (court === "small-claims") await smallClaims(page, story, true);
+      else { await openBuilder(page, court, { story: story.story }); await guidedQuestions(page, story, true); await answerInReview(page, story); }
+      await confirmAndContinue(page);
+      const question = page.locator(`[data-testid="stage-answer-date-question"][data-question-id="${questionId}"]`);
+      const known = page.getByTestId(`stage-answer-known-${questionId}`);
+      await expect(question, "the date is asked on the next-step page").toBeVisible({ timeout: 90_000 });
+      const caseId = String(([...account.rows.values()][0] as Record<string, unknown>).id ?? "");
+      expect(caseId, "the case is saved").not.toBe("");
+      // Let every save already on its way land first, so only the date's own save is caught.
+      await page.waitForLoadState("networkidle").catch(() => {});
+      // A slow connection: each write to the case waits 8 s. Reads go through. A held write whose page
+      // has gone by then never reaches the case, as a request cut off with its page never reaches the
+      // server (fresh review, 28 Oct: released after the reload, it could land and pass the test).
+      let holding = true;
+      let pageLoads = 0;
+      page.on("load", () => { pageLoads += 1; });
+      await page.route(/\/rest\/v1\/cases|\/api\/cases\/position/, async (route) => {
+        const write = route.request().method() !== "GET" && route.request().method() !== "HEAD";
+        const sentOn = pageLoads;
+        if (holding && write) await new Promise((done) => setTimeout(done, 8_000));
+        if (write && pageLoads !== sentOn) return route.abort().catch(() => {});
+        await route.fallback().catch(() => {});
+      });
+      await question.locator('input[type="date"]').fill("2026-03-03");
+      await page.getByTestId("stage-answer-dates-save").click();
+      await expect(known, "the next-step page shows it as given").toBeVisible({ timeout: 30_000 });
+      // Left before the write lands; the next page's writes go at normal speed.
+      holding = false;
+      if (leave === "a reload") await page.reload();
+      else await page.goto(`/cases/${caseId}`);
+      await page.waitForLoadState("networkidle").catch(() => {});
+      if (leave === "a reload") {
+        const next = page.getByRole("button", { name: "Show my next step" });
+        await next.waitFor({ state: "visible", timeout: 30_000 }).catch(() => {});
+        if (await next.isVisible().catch(() => false)) await next.click();
+      }
+      await expect(known, "the date is still on the case").toBeVisible({ timeout: 90_000 });
+      await expect(question, "and is not asked again").toHaveCount(0);
+      // And it is on the saved case itself, not only on the screen.
+      await expect.poll(() => JSON.stringify((([...account.rows.values()][0] as Record<string, unknown>).master_result as Record<string, unknown> | undefined)?.position ?? {}), { timeout: 30_000, message: "the saved case holds the date" }).toContain("2026-03-03");
+    });
+  }
+}
+
 // Owner, 28 Oct (#501): the Forms page's "does this form apply" choices go through the same write
 // queue as the dates, and were lost the same way on a reload while a save waited. Here a confirmed
 // case's Forms page saves one choice with the save held as a slow connection holds it, the page
