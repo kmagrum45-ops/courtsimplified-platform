@@ -186,7 +186,7 @@ const MAX_ELISION = 200;
  * passage and call it support. Same source, in order, close together is what
  * makes it one passage rather than two lucky substrings.
  */
-function findElidedQuote(needle: string): { sourceId: string } | null {
+export function findElidedQuote(needle: string): { sourceId: string } | null {
   const fragments = needle
     .split(/\s*(?:\.\.\.|…)\s*/)
     .map((fragment) => fragment.trim())
@@ -196,24 +196,48 @@ function findElidedQuote(needle: string): { sourceId: string } | null {
   // A fragment this short matches by accident even inside one source.
   if (fragments.some((fragment) => fragment.length < 16)) return null;
 
+  const lowered = fragments.map((fragment) => fragment.toLowerCase());
   for (const [sourceId, text] of corpus()) {
-    const haystack = text.toLowerCase();
-    let cursor = 0;
-    let chained = true;
-
-    for (const [index, fragment] of fragments.entries()) {
-      const at = haystack.indexOf(fragment.toLowerCase(), cursor);
-      if (at < 0 || (index > 0 && at - cursor > MAX_ELISION)) {
-        chained = false;
-        break;
-      }
-      cursor = at + fragment.length;
-    }
-
-    if (chained) return { sourceId };
+    if (fragmentsChain(text.toLowerCase(), lowered)) return { sourceId };
   }
 
   return null;
+}
+
+/**
+ * Do these fragments occur in `haystack` in order, each starting within
+ * MAX_ELISION characters of the end of the one before? Both arguments are
+ * compared as given (findElidedQuote lower-cases them first).
+ *
+ * *** WHY EVERY OCCURRENCE IS TRIED, NOT ONLY THE FIRST ***
+ *
+ * The first version anchored the chain at the FIRST place each fragment
+ * appeared and never looked again. The Small Claims online-filing guide
+ * (`ontario-file-small-claims-online`) says "if you need to meet a deadline
+ * established by legislation ... 3 business days or less away" twice: in the
+ * Toronto section, followed by "submit your documents through this portal",
+ * and ~5,600 characters later under "Documents you cannot file online",
+ * followed directly by "If you cannot submit your documents online, you may
+ * file them". A true quote of the second passage was refused: the chain
+ * started at the first, found its second fragment too far away, and gave up.
+ * Three Small Claims next-step cards failed on it (2026-10-29). So each
+ * occurrence of each fragment is tried, with backtracking; the conditions
+ * (same source, in order, each gap at most MAX_ELISION) are unchanged.
+ */
+export function fragmentsChain(haystack: string, fragments: readonly string[]): boolean {
+  const from = (index: number, cursor: number): boolean => {
+    if (index === fragments.length) return true;
+    const fragment = fragments[index]!;
+    let at = haystack.indexOf(fragment, cursor);
+    while (at >= 0) {
+      // Occurrences come in order, so once one is past the gap, all are.
+      if (index > 0 && at - cursor > MAX_ELISION) return false;
+      if (from(index + 1, at + fragment.length)) return true;
+      at = haystack.indexOf(fragment, at + 1);
+    }
+    return false;
+  };
+  return from(0, 0);
 }
 
 /**

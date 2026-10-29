@@ -185,6 +185,7 @@
     "test:readability": "tsx scripts/verification/verifyReadability.ts",
     "test:verifier": "tsx scripts/verification/verifyVerifierRejects.ts",
     "content:draft": "tsx scripts/content/draftStageAnswers.ts",
+    "test:elided-quote": "tsx scripts/verification/verifyElidedQuote.ts",
     "test:stage-answers": "tsx scripts/verification/verifyStageAnswers.ts",
     "test:public-data": "tsx scripts/verification/verifyPublicDataNoSession.ts",
     "docs:suites": "tsx scripts/docs/generateSuiteIndex.ts",

@@ -98,6 +98,9 @@ jobs:
       - name: The next step's form, fee, filing and service are sourced (master plan Phase 2)
         run: npm run test:next-step-practical
 
+      - name: A quote that skips material with "..." is found wherever it really is, and only there
+        run: npm run test:elided-quote
+
       - name: Where the site cannot help, it points to a person who can
         run: npm run test:help-at-limits
 
