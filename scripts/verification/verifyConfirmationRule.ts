@@ -26,20 +26,35 @@
  *      true, the analysis gate refuses with "Update them", never "confirm again");
  *      a change that is not a fact (later evidence) leaves them current; the case page
  *      and Forms show the update control; the builder compares the facts revision.
+ *   6. A date given on the next-step page ("Add it", "Work out your dates":
+ *      StageAnswerPanel.tsx countDeadline) needs no remaking of the next steps (D1,
+ *      29 Oct). Saved through the browser's own save (positionSave.ts
+ *      savePositionDirect), it writes only master_result.position: the intake
+ *      checkpoint and its facts revision are unchanged, guidanceIsCurrent stays true,
+ *      no "Update my next steps" shows, and the server's position route writes only
+ *      `position` too. The deadline is counted from the saved date each time the page
+ *      is shown, on the case page (stepDeadlines.ts countedStepDeadlines) and on the
+ *      step card (the stage-answer route, through its real confirmation gate), so a
+ *      changed date changes the deadline with nothing remade.
  *
  * What failure this catches: the browser and server drifting apart again, so a
  * confirmation the server keeps is dropped in the tab (or the reverse), a changed
- * answer after Confirm no longer cancelling it, or next steps built without the
- * person's latest answer shown as if they included it.
+ * answer after Confirm no longer cancelling it, next steps built without the
+ * person's latest answer shown as if they included it, or a date added on the step
+ * page outdating the next steps (or leaving a deadline counted from the old date).
  *
  * Run: npm run test:confirmation-rule
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { applyFactRevisions, existingFactChanged, guidanceIsCurrent, guidanceNeedsUpdate, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { applyFactRevisions, existingFactChanged, factsRevision, guidanceIsCurrent, guidanceNeedsUpdate, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { withConfirmedGuidance } from "../../src/lib/security/intakeGuidanceGate";
 import { saveCheckpoint, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
+import { readCasePosition } from "../../src/lib/case-system/casePosition";
+import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDeadlines";
+import { savePositionDirect, type PositionWriteClient } from "../../app/builder/_components/positionSave";
+import { createStageAnswerPost } from "../../app/api/case/stage-answer/route";
 
 const OWNER = "11111111-1111-4111-8111-111111111111";
 const FLOW = "22222222-2222-4222-8222-222222222222";
@@ -161,6 +176,46 @@ async function main() {
       }
     });
   }
+
+  await check("a date added on the next-step page needs no remaking: next steps stay current and its deadline is counted from the saved date", async () => {
+    // A Small Claims defendant whose next steps were made from the confirmed facts, at the
+    // step that counts the Defence from the day the claim was served (a date question).
+    const STEP = "defendant:served-defence-period-running";
+    const QUESTION = "sc-date-claim-served";
+    const base = checkpoint("small-claims", ROUTES[0].answers({ goal: "Synthetic: payment of the $6,000 owed." }));
+    const { done } = confirmed(base);
+    const start = { intakeCheckpoint: structuredClone(base), workflowStatus: done, guidanceInputRevision: REVISION, guidanceFactsRevision: REVISION, position: { stepId: STEP } };
+    assert.equal(guidanceIsCurrent(start, "small-claims", FLOW), true, "the synthetic next steps are current before the date");
+    const { db, master } = fakeDb("small-claims", start);
+    // What the step card sends (StageAnswerPanel.tsx countDeadline), shown as the case page shows it.
+    const card = withConfirmedGuidance(createStageAnswerPost(), { currentAnalysis: true }, { authenticate: async () => ({ id: OWNER }), owned: async () => ({ id: FLOW, court_path: "small-claims", master_result: master() }), names: async () => null } as never);
+    const shown: string[] = [];
+    for (const day of ["2026-10-01", "2026-10-08"]) {
+      assert.equal(await savePositionDirect(db as unknown as PositionWriteClient, FLOW, { dateAnswers: { [QUESTION]: day }, stepId: STEP }), "saved", "the date was not saved");
+      const saved = master();
+      // (a) Not an intake answer: the facts and the confirmation are untouched, the next steps current.
+      assert.deepEqual(saved.intakeCheckpoint, base, "saving a step-page date changed the intake checkpoint");
+      assert.equal(factsRevision(saved.intakeCheckpoint as Checkpoint), factsRevision(base), "saving a step-page date renewed the facts revision");
+      assert.equal(guidanceIsCurrent(saved, "small-claims", FLOW), true, "a date added on the step page outdated the next steps");
+      assert.equal(guidanceNeedsUpdate(saved, "small-claims", FLOW), false, "a date added on the step page shows \"Update my next steps\"");
+      for (const key of Object.keys(start)) if (key !== "position") assert.deepEqual(saved[key], start[key as keyof typeof start], `saving a step-page date changed master_result.${key}`);
+      // (b) Counted when shown, from the saved date: the case page and the step card agree.
+      const position = readCasePosition(saved, "small-claims");
+      assert.equal(position.dateAnswers[QUESTION], day, "the saved date is not on the case");
+      const casePage = countedStepDeadlines(position.stepId, position.dateAnswers);
+      assert(casePage.length > 0 && casePage.every((entry) => entry.date > day), "the case page counts no deadline after the saved date");
+      const response = await card(new Request("http://localhost/api/case/stage-answer", { method: "POST", headers: { "content-type": "application/json", "x-courtsimplified-case-id": FLOW, "x-courtsimplified-input-revision": REVISION }, body: JSON.stringify({ caseId: FLOW, stageId: STEP, courtPath: "small-claims", dateAnswers: position.dateAnswers }) }) as never);
+      assert.equal(response.status, 200, "the step card was refused after a step-page date (the next steps were treated as outdated)");
+      const body = (await response.json()) as { nextStep?: { deadlines: { id?: string; date: string }[] } };
+      for (const entry of casePage) assert.equal(body.nextStep?.deadlines.find((item) => item.id === entry.id)?.date, entry.date, "the step card and the case page count different days from the saved date");
+      shown.push(casePage.map((entry) => entry.date).join());
+    }
+    assert.notEqual(shown[0], shown[1], "a changed date left the deadline as it was: it is not counted from the saved date");
+    // The server's own route writes the position and nothing else in master_result.
+    const route = readFileSync("app/api/cases/position/route.ts", "utf8");
+    assert.match(route, /return result\.ok \? \{ \.\.\.master, position: \{/, "the position route no longer writes only master_result.position");
+    assert.doesNotMatch(route, /\b(intakeCheckpoint|workflowStatus|guidanceFactsRevision|guidanceInputRevision)\s*:/, "the position route writes the intake or the next steps' revision");
+  });
 
   await check("the browser store sets revisions only through the one rule, and leases AI answers on the facts", () => {
     const source = readFileSync("app/_components/IntakeRecovery.tsx", "utf8");

@@ -44,6 +44,8 @@ import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { isKnownProblem } from "./harness/knownProblems29oct-flow";
 import { openBuilder } from "./harness/builderGate";
 import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
+import { countedStepDeadlines } from "../../src/lib/case-system/caseFile/stepDeadlines";
+import { formatForCourt } from "../../src/lib/case-system/dates";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
@@ -329,4 +331,38 @@ test(NAME_7, async ({ page }) => {
     return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
   });
   expect(lines, "\"Ask\" is on one line").toBe(1);
+});
+
+/*
+ * D1 follow-up: a date given on the next-step page ("Add it", "Work out your dates") is not an
+ * intake answer. It is saved to the case's position only, so the next steps stay current (no
+ * "Your next steps were made before your latest answer"), and the case page counts its deadline
+ * from the saved date when shown (stepDeadlines.ts countedStepDeadlines), with nothing remade.
+ * The same property is asserted for free by verifyConfirmationRule.ts (check 6).
+ */
+test("retest-29oct D1: a date added on the next-step page keeps the next steps current and its deadline is counted -- small-claims", async ({ page }) => {
+  test.setTimeout(480_000);
+  const account = await reachNextStep(page);
+  const row = [...account.rows.values()][0] as Record<string, unknown>;
+  const facts = JSON.stringify((row.master_result as Record<string, unknown>).intakeCheckpoint);
+  await page.goto(`/cases/${row.id}`);
+  const dates = page.getByTestId("stage-answer-dates");
+  await expect(dates, "the step asks for a date that counts its deadline").toBeVisible({ timeout: 90_000 });
+  const later = dates.getByTestId("stage-answer-date-later").first();
+  if (await later.count()) await later.getByRole("button", { name: "Add it" }).click();
+  const question = dates.getByTestId("stage-answer-date-question").first();
+  const id = String(await question.getAttribute("data-question-id"));
+  await question.locator('input[type="date"]').fill("2026-09-01");
+  await page.getByTestId("stage-answer-dates-save").click();
+  const position = () => ((row.master_result as Record<string, unknown>).position ?? {}) as { stepId?: string; dateAnswers?: Record<string, string> };
+  await expect.poll(() => position().dateAnswers?.[id], { timeout: 30_000 }).toBe("2026-09-01");
+  expect(JSON.stringify((row.master_result as Record<string, unknown>).intakeCheckpoint), "the step-page date changed the intake facts").toBe(facts);
+
+  await page.reload();
+  await expect(page.getByTestId("case-file").or(page.getByTestId("case-guidance-outdated")).first()).toBeVisible({ timeout: 90_000 });
+  await expect(page.getByTestId("case-guidance-outdated"), "a step-page date outdated the next steps").toHaveCount(0);
+  await expect(page.getByTestId("case-update-next-steps")).toHaveCount(0);
+  const counted = countedStepDeadlines(position().stepId, position().dateAnswers);
+  expect(counted.length, "a deadline is counted from the saved date").toBeGreaterThan(0);
+  for (const deadline of counted) await expect(page.getByTestId("case-file-deadline").filter({ hasText: formatForCourt(deadline.date) }), `the case page shows ${deadline.what} counted from the saved date`).toHaveCount(1);
 });
