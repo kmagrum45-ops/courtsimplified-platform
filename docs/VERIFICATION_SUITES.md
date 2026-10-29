@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-187 documented, 26 without a header.
+188 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -55,6 +55,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:claim-type-matcher` | **The claim-type matcher works on prose a person would actually write.**<br>COSTS NOTHING. Pure string matching, no AI, no network. |
 | `npm run test:claim-types` | **The claim-type catalogue is internally honest: ids are unique and stable,**<br>authored profiles carry their sources, declared profiles carry nothing, and the synthetic scenarios can never reach a user. |
 | `npm run test:classifier-gating` | **Proves the AI claim-type classifier runs ONLY on the opening story, and**<br>replays story 4's real turn sequence to show what the retained claim type is at each turn, before and after the fix. |
+| `npm run test:clean-staging` | **THE STAGING CLEANUP DELETES ONLY LEFTOVER HARNESS ACCOUNTS, AND ONLY ON STAGING (2026-10-28).**<br>Checks, as properties (scripts/db/harnessAccounts.ts), against a fake admin client: - the production address is refused, whatever else is true, before anything is read; - any address that is not staging's is refused; - an account is deleted only when it is @ex |
 | `npm run test:conference-stages` | **EVERY CONFERENCE STAGE, CARRIED EXACTLY (conference audit, 2026-10-26).**<br>Checks, as properties, for every conference step in all three areas (family case, settlement and trial management conference; civil mediation, case management and pre-trial; Small Claims settlement and trial management conference): - picked at the start, the s |
 | `npm run test:corpus-retrieval` | **Meaning-based retrieval over the corpus: the passages are cut where the law**<br>is cut, carry only law in force, are found by meaning, and can only be cited through the grounding gate. |
 | `npm run test:court-locations` | **Every courthouse address and contact shown is on the court's own page.**<br>COSTS NOTHING. Reads src/lib/content-library/courts/courtLocations.json and the saved page text in docs/sources/court-locations/. |

@@ -216,6 +216,32 @@ Pointing the CI workflow at staging the same way is outstanding.
 
 ---
 
+## Staging filled up with test accounts (found 2026-10-28)
+
+The free plan allows 500 MB per project. On 2026-10-28 the usage page showed 430 MB, and staging's backup
+data file was about 1 GB of text against production's 75 MB. Counted on staging that day (counts only):
+
+- 542 accounts, 538 of them browser-harness accounts (`@example.test`, flagged `courtSimplifiedHarness: true`),
+  made 4-18 Oct by the walkthrough and the real-session browser tests, whose delete at the end of each test is
+  best-effort and mostly had not happened;
+- about 567 cases at about 1.7 MB each (up to 2.9 MB), because each case record holds the same analysis
+  several times over (`intakeData.masterResultPatch`, `dashboardPatch` with its `caseSystemAssembly`, and the
+  top-level copies). Production cases are built the same way; see the case-size plan.
+
+The story pack and the CI browser regression use in-memory accounts and add nothing to staging.
+
+**Cleanup:** `npm run db:clean-staging` (dry run) and `-- --confirm` (`scripts/db/harnessAccounts.ts`) delete
+only accounts that are `@example.test` AND flagged AND over a day old, with their uploaded files; every case
+table cascades on the account. It refuses any address but staging's, and production's outright. The walkthrough
+runs the same cleanup at its start. Run on 2026-10-28: 538 deleted, 0 failed, 4 other accounts kept (116 cases
+remained, 115 of them on one `gmail.com` account). The database keeps freed space for itself: the usage figure
+drops only after `VACUUM FULL` on the large tables, run in staging's SQL editor.
+
+That account is the site owner's own test account (checked 2026-10-28). On the owner's instruction its cases
+made 18-23 Oct were deleted with `-- --account-cases --email <address> --from 2026-10-18 --to 2026-10-23
+--keep-newest 5 --confirm` (`scripts/db/accountCases.ts`; days are Toronto days, the newest cases are always
+kept): 110 cases and 13 uploaded files deleted, 0 failed; the account and its 5 newest cases kept.
+
 ## Verifying this file yourself
 
 ```
