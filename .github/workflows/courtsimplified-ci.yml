@@ -376,6 +376,9 @@ jobs:
       - name: Unapproved capabilities are on only as flagged testing, behind the site password
         run: npm run test:a2i-scope
 
+      - name: The 13 A2I statements, each a check; every failure is a listed known problem
+        run: npm run test:a2i-guard
+
       - name: Connection notes quote their sources exactly
         run: npm run test:cross-forum-notes
 
