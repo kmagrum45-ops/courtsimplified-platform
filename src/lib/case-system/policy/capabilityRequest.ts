@@ -23,7 +23,7 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 
 import { getAuthenticatedUser } from "../../supabase/serverAuth";
-import { isProductionDeployment, registerRequestUserResolver } from "./capabilityAccess";
+import { onProductionDeployment, registerRequestUserResolver } from "./capabilityAccess";
 
 const STORE = Symbol.for("courtsimplified.capabilityRequestStore");
 const holder = globalThis as unknown as { [STORE]?: AsyncLocalStorage<{ userId: string | null }> };
@@ -44,7 +44,7 @@ export async function withCapabilityUser<T>(
   authenticate: Authenticate = getAuthenticatedUser,
   env: Record<string, string | undefined> = process.env,
 ): Promise<T> {
-  const userId = isProductionDeployment(env) ? ((await authenticate(request).catch(() => null))?.id ?? null) : null;
+  const userId = onProductionDeployment(env) ? ((await authenticate(request).catch(() => null))?.id ?? null) : null;
   return withCapabilityUserId(userId, work);
 }
 

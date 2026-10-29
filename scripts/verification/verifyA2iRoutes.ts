@@ -23,7 +23,14 @@
  *     criteria for an unlisted user;
  *   - a route that reaches a capability check without putting its user in
  *     scope (no confirmed-guidance gate, withRequestNames, capabilityRoute or
- *     withCapabilityUser), unless declared below with the reason it needs none.
+ *     withCapabilityUser), unless declared below with the reason it needs none;
+ *   - a handler exported in a form the scan cannot read (`export { handler as
+ *     POST }`, a re-export, `export let`) slipping past that check unseen: the
+ *     scan reads each known form and fails on any other (a self-test on
+ *     synthetic sources proves it);
+ *   - /api/cases/drafts saving a court-document draft for someone the
+ *     formCompletion capability is off for (the browser hides drafting; the
+ *     server must refuse it too).
  *
  * Run: npm run test:a2i-routes
  */
@@ -65,6 +72,7 @@ const DECLARED_UNWRAPPED: Record<string, string> = {
   "app/api/cases/route.ts POST": "creates a case row; computes no AI-advice feature",
   "app/api/cases/route.ts DELETE": "deletes a case and its files",
   "app/api/cases/chat/route.ts DELETE": "deletes a chat",
+  "app/api/cases/drafts/route.ts DELETE": "removes a saved draft; computes no AI-advice feature (POST is wrapped and refuses without formCompletion)",
   "app/api/capabilities/route.ts GET": "decides with the verified user passed explicitly (capabilitySetFor({ userId }))",
   "app/api/workspace/organisation/route.ts GET": "the timeline view goes through the confirmed-guidance gate; the document view computes nothing gated",
 };
@@ -92,7 +100,99 @@ function reachesCapability(entry: string): boolean {
   return false;
 }
 
+type Scan = { handlers: { method: string; wrapped: boolean }[]; unrecognised: string[] };
+
+const METHODS = "GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS";
+const WRAPPER = /^(withConfirmedGuidance|withRequestNames|capabilityRoute)\(/;
+
+/**
+ * Every HTTP handler a route source exports, and whether it puts its verified
+ * user in scope. Read: `export [async] function POST(`, `export const POST = …`,
+ * and `export { local as POST }` / `export { POST }` naming a function or const
+ * in the same file. Any other line exporting a method name (a re-export from
+ * another module, `export let`, a form not listed here) comes back as
+ * unrecognised, so the check fails rather than skipping a handler unseen
+ * (review of PR #513: `export { handler as POST }` and a non-async
+ * `export function POST(` were invisible before).
+ */
+function routeHandlers(raw: string): Scan {
+  const source = raw.replace(/\r\n/g, "\n");
+  const handlers: Scan["handlers"] = [];
+  const unrecognised: string[] = [];
+  const bodyWrapped = (start: number) => {
+    const end = source.indexOf("\n}\n", start);
+    return /withCapabilityUser\(/.test(source.slice(start, end < 0 ? undefined : end));
+  };
+  const localWrapped = (name: string): boolean | null => {
+    const fn = new RegExp(`^(?:export )?(?:async )?function ${name}\\s*[<(]`, "m").exec(source);
+    if (fn) return bodyWrapped(fn.index);
+    const constant = new RegExp(`^(?:export )?const ${name}\\s*(?::[^=]+)?=\\s*(.*)`, "m").exec(source);
+    return constant ? WRAPPER.test(constant[1]) : null;
+  };
+  let readLines = 0;
+  for (const match of source.matchAll(new RegExp(`^export (?:async )?function (${METHODS})\\s*\\(`, "gm"))) {
+    handlers.push({ method: match[1], wrapped: bodyWrapped(match.index ?? 0) });
+    readLines += 1;
+  }
+  for (const match of source.matchAll(new RegExp(`^export const (${METHODS})\\s*(?::[^=]+)?=\\s*(.*)`, "gm"))) {
+    handlers.push({ method: match[1], wrapped: WRAPPER.test(match[2]) });
+    readLines += 1;
+  }
+  for (const match of source.matchAll(/^export\s*\{([^}]*)\}\s*(from\b)?/gm)) {
+    let named = false;
+    for (const entry of match[1].split(",").map((part) => part.trim()).filter(Boolean)) {
+      const [local, exported = local] = entry.split(/\s+as\s+/).map((part) => part.trim());
+      if (!new RegExp(`^(${METHODS})$`).test(exported)) continue;
+      named = true;
+      const wrapped = match[2] ? null : localWrapped(local);
+      if (wrapped === null) unrecognised.push(`export { ${entry} }${match[2] ? " from another module" : " (no function or const of that name)"}`);
+      else handlers.push({ method: exported, wrapped });
+    }
+    if (named && !match[2]) readLines += 1;
+  }
+  const exportLines = [...source.matchAll(new RegExp(`^export\\b[^\\n]*\\b(${METHODS})\\b`, "gm"))].length;
+  if (exportLines > readLines && unrecognised.length === 0) {
+    unrecognised.push(`${exportLines - readLines} line(s) export an HTTP method in a form this scan does not read`);
+  }
+  return { handlers, unrecognised };
+}
+
+/**
+ * The scan must not be fooled by the way a handler is exported: each source
+ * below exports an UNWRAPPED POST, and the scan must either report it unwrapped
+ * or refuse the form as unrecognised. And a wrapped handler must read as wrapped.
+ */
+function scannerSelfTest(): void {
+  const unwrappedForms = [
+    "async function handler(request: Request) {\n  return new Response();\n}\nexport { handler as POST };\n",
+    "export function POST(request: Request) {\n  return new Response();\n}\n",
+    "const handler = async (request: Request) => new Response();\nexport { handler as POST };\n",
+    'export { POST } from "./elsewhere";\n',
+    "export let POST = async () => new Response();\n",
+  ];
+  const missed = unwrappedForms.filter((source) => {
+    const scan = routeHandlers(source);
+    return scan.unrecognised.length === 0 && !scan.handlers.some((handler) => handler.method === "POST" && !handler.wrapped);
+  });
+  check(
+    "the route scan sees every way of exporting a handler (or fails on a form it cannot read)",
+    missed.length === 0,
+    missed.map((source) => source.split("\n").find((line) => line.startsWith("export"))).join(" | "),
+  );
+  const wrappedForms = [
+    "export const POST = capabilityRoute(async (request: Request) => new Response());\n",
+    "const handler = capabilityRoute(async (request: Request) => new Response());\nexport { handler as POST };\n",
+    "export async function POST(request: Request) {\n  return withCapabilityUser(request, async () => new Response());\n}\n",
+  ];
+  const falseAlarms = wrappedForms.filter((source) => {
+    const scan = routeHandlers(source);
+    return scan.unrecognised.length > 0 || scan.handlers.length !== 1 || !scan.handlers[0].wrapped;
+  });
+  check("the route scan reads a wrapped handler as wrapped, in each form", falseAlarms.length === 0, falseAlarms.map((source) => source.split("\n")[0]).join(" | "));
+}
+
 function structural(): void {
+  scannerSelfTest();
   const routes: string[] = [];
   const walk = (dir: string) => {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -104,25 +204,19 @@ function structural(): void {
   walk(path.join(ROOT, "app", "api"));
   const unwrapped: string[] = [];
   const reached: string[] = [];
+  const unrecognised: string[] = [];
   for (const file of routes) {
     if (!reachesCapability(file)) continue;
     const relative = path.relative(ROOT, file).split(path.sep).join("/");
-    const source = readFileSync(file, "utf8").replace(/\r\n/g, "\n");
-    for (const match of source.matchAll(/^export (?:async function (GET|POST|PUT|PATCH|DELETE)\(|const (GET|POST|PUT|PATCH|DELETE) = (.*))/gm)) {
-      const method = match[1] ?? match[2];
+    const scan = routeHandlers(readFileSync(file, "utf8"));
+    for (const problem of scan.unrecognised) unrecognised.push(`${relative}: ${problem}`);
+    for (const { method, wrapped } of scan.handlers) {
       const id = `${relative} ${method}`;
       reached.push(id);
-      let wrapped: boolean;
-      if (match[1]) {
-        const start = match.index ?? 0;
-        const end = source.indexOf("\n}\n", start);
-        wrapped = /withCapabilityUser\(/.test(source.slice(start, end < 0 ? undefined : end));
-      } else {
-        wrapped = /^(withConfirmedGuidance|withRequestNames|capabilityRoute)\(/.test(match[3]);
-      }
       if (!wrapped && !DECLARED_UNWRAPPED[id]) unwrapped.push(id);
     }
   }
+  check("every route handler export that reaches a capability check is in a form the scan reads", unrecognised.length === 0, unrecognised.join(", "));
   check("every route handler that reaches a capability check puts its verified user in scope (or is declared)", unwrapped.length === 0, unwrapped.join(", "));
   const stale = Object.keys(DECLARED_UNWRAPPED).filter((id) => !reached.includes(id));
   check("every declared unwrapped handler still exists and still reaches a capability check (else delete its line)", stale.length === 0, stale.join(", "));
@@ -285,6 +379,18 @@ async function behavioural(): Promise<void> {
       body: () => ({ caseId: CASE_ID }),
       off: (s, j) => s === 503 && j.paused === true,
       testerReachesModel: false, // form filling is code, not a model
+    },
+    {
+      // Saving a court-document draft is form completion: the browser hides it,
+      // and the server must refuse it too (review of PR #513).
+      name: "cases/drafts",
+      route: async () => (await import("../../app/api/cases/drafts/route")).POST as Route,
+      body: () => ({
+        caseId: CASE_ID,
+        draft: { id: "draft-a2i-routes", kind: "blank", title: "Draft", sections: [{ id: "p1", heading: "Part", text: "Some words." }] },
+      }),
+      off: (s, j) => s === 403 && j.off === true,
+      testerReachesModel: false, // drafts are saved, not written by a model
     },
     {
       name: "workspace/documents/analyse",

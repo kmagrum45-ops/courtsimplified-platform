@@ -46,14 +46,13 @@ import {
   isInScope,
   listScope,
   scopeIsPreviewOnly,
-  scopePreviewActive,
   type ScopeKey,
 } from "../../src/lib/case-system/policy/a2iScope";
 import { OPEN_TO_EVERYONE_ON_PRODUCTION, TESTER_ENV_VAR, setClientCapabilities, testerIds } from "../../src/lib/case-system/policy/capabilityAccess";
 import { CAPABILITY_KEYS, capabilityOn, capabilitySetFor, type CapabilityKey } from "../../src/lib/case-system/policy/capabilities";
 import { withCapabilityUserId } from "../../src/lib/case-system/policy/capabilityRequest";
 import * as phaseScope from "../../src/lib/content-library/phaseScope";
-import { SWITCH_BASE, type SwitchKey } from "../../src/lib/content-library/phaseScope";
+import { SWITCH_BASE } from "../../src/lib/content-library/phaseScope";
 import { documentAnalysisEnabled } from "../../src/lib/case-workspace/aiAnalysis";
 
 let failures = 0;
@@ -80,16 +79,6 @@ function openToEveryone(key: CapabilityKey): boolean {
     return approvedForRealUsers(capability) && !capability.productionTestersOnly;
   }
   return false;
-}
-
-/** What a key's own switch says in `env`, before who is asking (today's behaviour off production). */
-function baseAnswer(key: CapabilityKey, env: Env): boolean {
-  if (key in A2I_SCOPE) {
-    const capability = A2I_SCOPE[key as ScopeKey] as Parameters<typeof approvedForRealUsers>[0];
-    return approvedForRealUsers(capability) || (capability.tier === "needs-a2i-approval" && scopePreviewActive(env));
-  }
-  if (key === "documentAnalysis") return documentAnalysisEnabled(env, OWNER_LIVE_TESTING.enabled);
-  return SWITCH_BASE[key as SwitchKey](env);
 }
 
 const listOf = (keys: CapabilityKey[]) => keys.join(", ");
@@ -171,15 +160,23 @@ function main(): void {
   const testerOn = keys.filter((key) => capabilityOn(key, { env: { ...PROD, ...LISTED }, userId: TESTER }));
   check("production, listed tester: the testing switches really are on for them (not merely equal)", OWNER_LIVE_TESTING.enabled ? (Object.keys(A2I_SCOPE) as ScopeKey[]).every((key) => testerOn.includes(key)) : true, `on: ${listOf(testerOn)}`);
 
-  // ---- previews, staging, local: as before, whoever asks ----
-  for (const [label, env] of [
-    ["a preview", { VERCEL_ENV: "preview" }],
-    ["development", { VERCEL_ENV: "development" }],
-    ["local (no Vercel variable)", {}],
-    ["a preview with a tester list", { VERCEL_ENV: "preview", ...LISTED }],
-  ] as const) {
-    const wrong = keys.filter((key) => [TESTER, OTHER, null].some((userId) => capabilityOn(key, { env, userId }) !== baseAnswer(key, env)));
-    check(`${label}: every capability is what its own switch says, for anyone`, wrong.length === 0, listOf(wrong));
+  // ---- previews, staging, local: everything on while the owner tests, whoever asks ----
+  // A property, not the code under test: with OWNER_LIVE_TESTING on and no switch
+  // variable set, off production every capability is on, for anyone (formFilling
+  // only while the recorded code-level pause is off). The "off" variables are
+  // checked below.
+  if (OWNER_LIVE_TESTING.enabled) {
+    for (const [label, env] of [
+      ["a preview", { VERCEL_ENV: "preview" }],
+      ["development", { VERCEL_ENV: "development" }],
+      ["local (no Vercel variable)", {}],
+      ["a preview with a tester list", { VERCEL_ENV: "preview", ...LISTED }],
+    ] as const) {
+      const wrong = keys.filter((key) =>
+        [TESTER, OTHER, null].some((userId) => capabilityOn(key, { env, userId }) !== (key === "formFilling" ? !phaseScope.FORM_COMPLETION_PAUSED : true)),
+      );
+      check(`${label}, owner live testing on, no switch variables: every capability is on, for anyone`, wrong.length === 0, listOf(wrong));
+    }
   }
 
   // ---- each switch's "off" still turns it off, testers included ----
@@ -246,11 +243,27 @@ function main(): void {
     });
     const asOther = await withCapabilityUserId(OTHER, async () => keys.filter((key) => !openToEveryone(key) && capabilityOn(key)));
     const deepCalls = await withCapabilityUserId(TESTER, async () => [isInScope("caseSpecificDeadlines"), phaseScope.checkedAnswersEnabled(), documentAnalysisEnabled()]);
+    // A caller handing in a partial env (no VERCEL_ENV in it) while the deployment
+    // itself is production must still get production's answer, not the preview's.
+    const partialEnvs: Env[] = [{}, { APPLIED_LAW: "on" }, { VERCEL_ENV: "preview" }];
+    const partialLeaks = partialEnvs.flatMap((env) =>
+      [OTHER, null].flatMap((userId) => [
+        ...keys.filter((key) => !openToEveryone(key) && capabilityOn(key, { env, userId })).map((key) => `capabilityOn ${key}`),
+        ...Object.entries(named).filter(([key, fn]) => !openToEveryone(key as CapabilityKey) && fn(env, userId)).map(([key]) => `named ${key}`),
+        ...(Object.keys(A2I_SCOPE) as ScopeKey[]).filter((key) => !openToEveryone(key) && isInScope(key, { env, userId })).map((key) => `isInScope ${key}`),
+      ]),
+    );
+    const partialTester = keys.filter((key) => capabilityOn(key, { env: {}, userId: TESTER }) !== capabilityOn(key, { env: { ...PROD, ...LISTED }, userId: TESTER }));
+    // The owner-testing override of documentAnalysisEnabled is a check's lever, never production's.
+    const overrideOnProd = [documentAnalysisEnabled({}, true, OTHER), documentAnalysisEnabled({}, true, null), documentAnalysisEnabled({ ...PROD }, true, null)];
     delete process.env.VERCEL_ENV;
     delete process.env[TESTER_ENV_VAR];
     check("production: a check made outside any request is off (no user, fails closed)", outside.length === 0, listOf(outside));
     check("production: inside a listed tester's request, every check at any depth sees them (after an await too)", testerOn.every((key) => asTester.includes(key)) && asTester.length === testerOn.length, `${listOf(asTester)} vs ${listOf(testerOn)}`);
     check("production: inside an unlisted user's request, everything gated is off", asOther.length === 0, listOf(asOther));
+    check("production deployment, a caller passes a partial env (or a preview's): still off for anyone not listed", partialLeaks.length === 0, partialLeaks.slice(0, 8).join(", "));
+    check("production deployment, a caller passes a partial env: a listed tester still gets the tester's answer", partialTester.length === 0, listOf(partialTester));
+    check("production: documentAnalysisEnabled's owner-testing override is refused for anyone not listed", overrideOnProd.every((value) => !value));
     check("production: library code with no parameter (deadlines, checked answers, documents) reads the request's user", deepCalls.every((value, index) => value === [isInScope("caseSpecificDeadlines", { env: { ...PROD, ...LISTED }, userId: TESTER }), phaseScope.checkedAnswersEnabled({ ...PROD, ...LISTED }, { userId: TESTER }), documentAnalysisEnabled({ ...PROD, ...LISTED }, undefined, TESTER)][index]));
 
     // ---- the browser never decides ----

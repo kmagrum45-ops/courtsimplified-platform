@@ -68,7 +68,13 @@ capability (`src/lib/case-system/policy/a2iScope.ts`) and every AI-advice switch
 - **Screens** never decide. `CapabilityProvider` (`app/_components/CapabilityProvider.tsx`, in
   the root layout) starts with the anonymous answer rendered by the server and asks
   `/api/capabilities` for the signed-in person; components read `useCapabilities()`, and any
-  switch read in the browser returns that answer (none yet: off).
+  switch read in the browser returns that answer (none yet: off). On production, with a
+  session, the page is held (the server-rendered page stays on screen but is not brought to
+  life; after signing in, a "Loading" note) until that answer arrives, then mounts once, so
+  mount effects never run twice; nobody signed in, and every non-production deployment,
+  never waits (`tests/browser/capability-hold.spec.ts`, against a production build).
+- **Server routes that write what a gated screen makes** check the capability too:
+  `/api/cases/drafts` POST refuses without `formCompletion` (`npm run test:a2i-routes`).
 - One list and one dispatcher: `CAPABILITY_KEYS` and `capabilityOn` in
   `src/lib/case-system/policy/capabilities.ts`. Checked by `npm run test:a2i-scope` (every key,
   every environment) and `npm run test:a2i-routes` (the real AI routes, offline).

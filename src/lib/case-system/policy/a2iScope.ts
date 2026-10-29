@@ -26,7 +26,7 @@
  * the same commit, and verifyA2iScope.ts refuses an enabled switch without one.
  */
 
-import { capabilityAllowed, isProductionDeployment, type CapabilityContext, type CapabilityEnv } from "./capabilityAccess";
+import { capabilityAllowed, onProductionDeployment, type CapabilityContext, type CapabilityEnv } from "./capabilityAccess";
 
 export type ScopeTier ="information" | "needs-a2i-approval";
 
@@ -201,7 +201,7 @@ export const OWNER_LIVE_TESTING = {
 export function scopePreviewActive(env: CapabilityEnv = typeof process !== "undefined" ? process.env : {}): boolean {
   if (OWNER_LIVE_TESTING.enabled) return true;
   if (env.NEXT_PUBLIC_CS_SCOPE_PREVIEW !== "on") return false;
-  return !isProductionDeployment(env);
+  return !onProductionDeployment(env);
 }
 
 export function approvedForRealUsers(capability: ScopeCapability): boolean {

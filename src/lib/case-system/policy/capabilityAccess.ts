@@ -69,6 +69,28 @@ export function isProductionDeployment(env: CapabilityEnv): boolean {
   return env.VERCEL_ENV === "production" || env.NEXT_PUBLIC_VERCEL_ENV === "production";
 }
 
+/**
+ * Whether to treat this as production, for every decision that turns something
+ * on. The deployment's own environment always counts, whatever env a caller
+ * passed: a caller handing in a partial record (one switch variable, say) must
+ * never get the preview answer on the live site. The passed env counts too, so
+ * a check can simulate production. (Review of PR #513, 2026-10-29.)
+ */
+export function onProductionDeployment(env: CapabilityEnv = {}): boolean {
+  const own = typeof process !== "undefined" && process.env ? isProductionDeployment(process.env) : false;
+  return own || isProductionDeployment(env);
+}
+
+/**
+ * The tester list in force: the passed env's when it names one, else the
+ * deployment's own. So a partial env neither hides the listed testers nor
+ * invents any.
+ */
+function testerEnv(env: CapabilityEnv): CapabilityEnv {
+  if (env[TESTER_ENV_VAR] !== undefined) return env;
+  return typeof process !== "undefined" && process.env ? process.env : env;
+}
+
 const USER_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /**
@@ -137,9 +159,9 @@ export function capabilityAllowed(key: string, baseOn: boolean, context: Capabil
   if (isBrowser()) return clientCapabilities()?.[key] === true;
   if (!baseOn) return false;
   const env = context.env ?? (typeof process !== "undefined" ? process.env : {});
-  if (!isProductionDeployment(env)) return true;
+  if (!onProductionDeployment(env)) return true;
   if (OPEN_TO_EVERYONE_ON_PRODUCTION.includes(key)) return true;
   const userId = context.userId !== undefined ? context.userId : requestUserId();
-  return isListedTester(env, userId);
+  return isListedTester(testerEnv(env), userId);
 }
 

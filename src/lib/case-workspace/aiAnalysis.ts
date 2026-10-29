@@ -58,7 +58,7 @@
  * function precisely so that can be tested without a flag and without a network.
  */
 import { OWNER_LIVE_TESTING } from "../case-system/policy/a2iScope";
-import { capabilityAllowed, clientCapabilities, isBrowser } from "../case-system/policy/capabilityAccess";
+import { capabilityAllowed, clientCapabilities, isBrowser, onProductionDeployment } from "../case-system/policy/capabilityAccess";
 import { isRealIsoDate } from "../case-system/dates";
 
 /**
@@ -110,17 +110,21 @@ export function documentAnalysisEnabled(
    * applies off production, and on production only to a signed-in user listed in
    * A2I_TESTER_USER_IDS (policy/capabilityAccess.ts). Everyone else on production gets
    * the two-key gate below, which stays OFF until ZDR is confirmed in writing.
-   * A check passes it explicitly.
+   * A check passes it explicitly. On production (the deployment's own environment
+   * or `env`) passing `true` is refused: only the allowlist turns it on there; `false`
+   * still turns it off. In the browser it is ignored: the server's answer decides.
    */
   ownerTesting?: boolean,
   /** The verified user asking; defaults to the user the enclosing request named. */
   userId?: string | null,
 ): boolean {
   // The browser never decides (it cannot see the allowlist): the server's answer.
-  if (ownerTesting === undefined && isBrowser()) return clientCapabilities()?.documentAnalysis === true;
+  if (isBrowser()) return clientCapabilities()?.documentAnalysis === true;
   if (env.AI_DOCUMENT_ANALYSIS_ENABLED === "false") return false;
-  const testing =
-    ownerTesting ?? capabilityAllowed("documentAnalysis", OWNER_LIVE_TESTING.enabled, { env, userId });
+  const allowed = () => capabilityAllowed("documentAnalysis", OWNER_LIVE_TESTING.enabled, { env, userId });
+  // On production the override can only turn testing OFF: turning it on is the
+  // allowlist's decision alone (review of PR #513, 2026-10-29).
+  const testing = onProductionDeployment(env) ? ownerTesting !== false && allowed() : (ownerTesting ?? allowed());
   if (testing) return true;
   if (ZDR_CONFIRMED_AT === null) return false;
   return env.AI_DOCUMENT_ANALYSIS_ENABLED === "true";

@@ -249,6 +249,23 @@ Opening one to everyone on production is a recorded decision: an A2I approval in
 `a2iScope.ts`, or the key added to `OPEN_TO_EVERYONE_ON_PRODUCTION` in
 `capabilityAccess.ts`. Checked by `npm run test:a2i-scope` and `npm run test:a2i-routes`.
 
+**Routes that still call the model for everyone on production, by design.** These are
+the intake's reading of the story and the court/stage choice. None of them is an A2I
+capability on its own: the model reads and chooses; what reaches the person is fixed,
+sourced or code-written content, and every choice is a suggestion they confirm (s. 4).
+Each one's AI-advice parts follow the switches above, so for anyone not listed they are
+off. (Listed after review of PR #513, 2026-10-29.)
+
+| Route | What the model does | What reaches the person on production (unlisted / no one signed in) |
+|---|---|---|
+| `/api/intake/guided-turn` | safety pass, reads facts out of the story, proposes answers to the next question, may suggest a claim type | the reviewed question-bank questions; facts and proposed answers taken from their own words, shown for them to confirm; a claim-type suggestion they confirm or reject |
+| `/api/intake/depth-turn` | proposes answers to the depth questions from the story | the authored depth questions; proposed answers from their own words, to confirm |
+| `/api/intake/safety-check` | classifies the story for urgent risk | the fixed safety resources; with `answerLegalQuestions` off, the pass runs without the answer-legal-questions criteria (`test:a2i-routes`) |
+| `/api/classify-court-path` | suggests a court path | a court label from a fixed list, after the code rules for regimes fixed by law (s. 2a), as a suggestion they confirm; fixed cross-forum notes |
+| `/api/intake/classify-claim-type` | resolves a pending claim-type suggestion once they confirm or reject it | a claim type from the fixed catalogue, or none |
+| `/api/case/resolve-stage` | chooses the case's stage | a stage id from the fixed list and that stage's published block from the stage map, as a suggestion; no model prose leaves the route |
+| `/api/civil/analyze`, `/api/family/analyze`, `/api/small-claims/analyze` | reads the story and makes structured choices (issues, stage, what is missing) | code-written analysis text (`aiAnalysisText` off: `buildCodeWrittenCognition`, `test:no-model-text-to-users`); fast depth, so no research step, applied law or checked answers; procedure only from the stage map |
+
 ---
 
 ## GitHub Actions secrets point at PRODUCTION (found 2026-10-04)
