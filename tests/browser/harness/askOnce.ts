@@ -120,6 +120,11 @@ const SCAN = `(() => {
     const id = target ? target.getAttribute("data-testid") : "";
     if (id === "guided-form-skip" && chatKey) skipped.add("chat|" + chatKey);
     if (id === "triage-answer-not-yet" && triageKey) skipped.add("triage|" + triageKey);
+    // The proposal card: read the ticks at the click itself. The scan runs every 200 ms, and an
+    // untick followed at once by "continue" could otherwise leave the card's last-scanned ticks,
+    // recording an unticked row as confirmed (m04-tenant, CI 29 Oct: a false "asked twice").
+    const card = event.target instanceof Element ? event.target.closest("[data-testid=story-proposals]") : null;
+    if (card) window.__askOnceRows = [...card.querySelectorAll("[data-testid=story-proposal-row]")].filter((row) => { const tick = row.querySelector("input[type=checkbox]"); return !tick || tick.checked; }).map((row) => row.getAttribute("data-question-id"));
   }, true);
   // A service method chosen is its answer.
   document.addEventListener("change", (event) => {
