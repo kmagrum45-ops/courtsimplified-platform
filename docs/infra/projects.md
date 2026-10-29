@@ -197,6 +197,77 @@ Authentication settings (staging holds no user data).
 
 ---
 
+## A2I-gated features on production: off, except for listed testers (2026-10-29)
+
+**Owner's decision: "production defaults off, owner allowlist".** Until this date the
+owner's live-testing switch (`OWNER_LIVE_TESTING`) and the code defaults of the AI-advice
+switches turned every one of them on for everyone on production, and Vercel Production
+sets none of their variables (checked 2026-10-29). Now, on Vercel **Production**
+(`VERCEL_ENV` or `NEXT_PUBLIC_VERCEL_ENV` = `production`) each is **off**, except for a
+signed-in account listed in **`A2I_TESTER_USER_IDS`**. Previews, staging, local and the
+suites are unchanged. One decision, `capabilityAllowed` in
+`src/lib/case-system/policy/capabilityAccess.ts`; see SITE_MAP.md, "Who gets the
+A2I-gated features".
+
+**`A2I_TESTER_USER_IDS`** — server-side only (never a `NEXT_PUBLIC_` variable).
+Comma-separated **Supabase user ids** (UUIDs from Authentication → Users of
+`fddlpnibovkkkgboabqb`), never emails. Spaces and capitals are fine. If any entry is not
+a user id the whole list is ignored (fails closed). Unset = nobody. The code never logs
+it and `/api/capabilities` answers booleans only.
+
+**Owner action (not done by any session):** in Vercel → Settings → Environment
+Variables, add `A2I_TESTER_USER_IDS` to **Production** with your own account's user id
+(and any other tester's), then redeploy. Until then production shows none of these
+features to anyone, the owner included. Do not set it on Preview: previews already have
+everything on.
+
+| Capability or switch | Where | Production before | Production after (unlisted / no one signed in) | Listed tester on production | Why gated |
+|---|---|---|---|---|---|
+| `caseReviewGaps` (AI part of case review) | `a2iScope.ts`, `runCaseReview.ts` | on | off (the code-written checks still show) | on | model writes about the case; A2I statement (c) says case review is not offered |
+| `claimElementMapping` | `a2iScope.ts` | on (nothing reads it) | off | on | needs A2I approval: applies law to facts |
+| `wordingHelp` | `a2iScope.ts` | on (nothing reads it) | off | on | needs A2I approval: drafting |
+| `formCompletion` (court-document drafting buttons, Statement of Claim surface) | `a2iScope.ts` (builder, drafts page, Statement of Claim surface) | on | off | on | needs A2I approval; statement (b) |
+| `amountItemization` | `a2iScope.ts` | on (nothing reads it) | off | on | needs A2I approval |
+| `caseSpecificDeadlines` | `a2iScope.ts`; deadline engine, `casePosition.ts`, `amountNotes.ts` | on | off | on | needs A2I approval: deadlines for the person's own case |
+| `answerLegalQuestions` | `a2iScope.ts`; safety pass, `LegalAdviceDeflection` | on | off (legal questions get the fixed deflection) | on | needs A2I approval |
+| `formFilling` (`FORM_COMPLETION_PAUSED`; `/api/generate-form`, `/forms`) | `phaseScope.ts` | on | off (paused notice) | on | completes official court forms; statement (b) |
+| `documentAnalysis` (`AI_DOCUMENT_ANALYSIS_ENABLED`; analyse, decision help) | `aiAnalysis.ts` | on | off (two-key gate: ZDR not confirmed) | on | uploaded documents to the model; statement (j) |
+| `aiAnalysisText` (`AI_ANALYSIS_TEXT_TO_USERS`; also wording tidy-up) | `phaseScope.ts` | on | off (code-written analysis text) | on | model-written text about the case; statement (a) |
+| `appliedLaw` (`APPLIED_LAW`) | `phaseScope.ts` | on | off | on | applies provisions to the person's story |
+| `plainExplanations` (`PLAIN_EXPLANATIONS`) | `phaseScope.ts` | on | off | on | AI-written explanation of the law |
+| `deepAnalysis` (`ANALYSIS_DEPTH`) | `phaseScope.ts` | full | fast | full | runs the research step and checked answer inside the analysis |
+| `researchStep` (`RESEARCH_STEP`) | `phaseScope.ts` | on | off | on | the model chooses the legal questions for the story |
+| `sourcedQuestions` (`SOURCED_QUESTIONS`) | `phaseScope.ts` | on | off | on | model-written questions; statement (e) |
+| `assistantLaw` (`ASSISTANT_LAW`) | `phaseScope.ts` | on | off | on | answers the person's legal questions |
+| `checkedAnswers` (`CHECKED_ANSWERS`) | `phaseScope.ts` | on | off | on | AI-drafted legal statements; statement (a) |
+| `strategy` (`STRATEGY`) | `phaseScope.ts` | on | off | on | CLAUDE.md s. 3: off on the live site until A2I |
+| `caseUnderstanding` (`CASE_UNDERSTANDING`) | `phaseScope.ts` | on | off (fixed court-path labels) | on | AI summary and questions at the front door |
+| `caseReader` (`CASE_READER`) | `phaseScope.ts` | on | off | on | follows `aiAnalysisText` (model reads the account) |
+
+Each switch's own "off" variable still turns it off everywhere, testers included.
+Opening one to everyone on production is a recorded decision: an A2I approval in
+`a2iScope.ts`, or the key added to `OPEN_TO_EVERYONE_ON_PRODUCTION` in
+`capabilityAccess.ts`. Checked by `npm run test:a2i-scope` and `npm run test:a2i-routes`.
+
+**Routes that still call the model for everyone on production, by design.** These are
+the intake's reading of the story and the court/stage choice. None of them is an A2I
+capability on its own: the model reads and chooses; what reaches the person is fixed,
+sourced or code-written content, and every choice is a suggestion they confirm (s. 4).
+Each one's AI-advice parts follow the switches above, so for anyone not listed they are
+off. (Listed after review of PR #513, 2026-10-29.)
+
+| Route | What the model does | What reaches the person on production (unlisted / no one signed in) |
+|---|---|---|
+| `/api/intake/guided-turn` | safety pass, reads facts out of the story, proposes answers to the next question, may suggest a claim type | the reviewed question-bank questions; facts and proposed answers taken from their own words, shown for them to confirm; a claim-type suggestion they confirm or reject |
+| `/api/intake/depth-turn` | proposes answers to the depth questions from the story | the authored depth questions; proposed answers from their own words, to confirm |
+| `/api/intake/safety-check` | classifies the story for urgent risk | the fixed safety resources; with `answerLegalQuestions` off, the pass runs without the answer-legal-questions criteria (`test:a2i-routes`) |
+| `/api/classify-court-path` | suggests a court path | a court label from a fixed list, after the code rules for regimes fixed by law (s. 2a), as a suggestion they confirm; fixed cross-forum notes |
+| `/api/intake/classify-claim-type` | resolves a pending claim-type suggestion once they confirm or reject it | a claim type from the fixed catalogue, or none |
+| `/api/case/resolve-stage` | chooses the case's stage | a stage id from the fixed list and that stage's published block from the stage map, as a suggestion; no model prose leaves the route |
+| `/api/civil/analyze`, `/api/family/analyze`, `/api/small-claims/analyze` | reads the story and makes structured choices (issues, stage, what is missing) | code-written analysis text (`aiAnalysisText` off: `buildCodeWrittenCognition`, `test:no-model-text-to-users`); fast depth, so no research step, applied law or checked answers; procedure only from the stage map |
+
+---
+
 ## GitHub Actions secrets point at PRODUCTION (found 2026-10-04)
 
 The repository secrets `NEXT_PUBLIC_SUPABASE_URL`,

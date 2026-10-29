@@ -48,6 +48,37 @@ August 2026 and older than the situation record and the case file.
 
 The sections below follow the same order.
 
+## Who gets the A2I-gated features
+
+Site owner, 2026-10-29: "production defaults off, owner allowlist". Every approval-tier
+capability (`src/lib/case-system/policy/a2iScope.ts`) and every AI-advice switch
+(`src/lib/content-library/phaseScope.ts`, plus document analysis in
+`src/lib/case-workspace/aiAnalysis.ts`) goes through one decision,
+`capabilityAllowed` (`src/lib/case-system/policy/capabilityAccess.ts`):
+
+- **Off production** (previews, staging, local, the suites) each feature is what its own
+  switch says, as before.
+- **On production** (`VERCEL_ENV` or `NEXT_PUBLIC_VERCEL_ENV` is `production`) each is OFF,
+  except for a signed-in user whose Supabase id is in the server-side variable
+  `A2I_TESTER_USER_IDS`, who gets what a preview gets. No list, a bad list, or nobody signed
+  in: off.
+- **The user** is the route's verified user (bearer token), put in scope for the whole request
+  by `src/lib/case-system/policy/capabilityRequest.ts`: the confirmed-guidance gate,
+  `withRequestNames` and `capabilityRoute` do it, so library code at any depth reads it.
+- **Screens** never decide. `CapabilityProvider` (`app/_components/CapabilityProvider.tsx`, in
+  the root layout) starts with the anonymous answer rendered by the server and asks
+  `/api/capabilities` for the signed-in person; components read `useCapabilities()`, and any
+  switch read in the browser returns that answer (none yet: off). On production, with a
+  session, the page is held (the server-rendered page stays on screen but is not brought to
+  life; after signing in, a "Loading" note) until that answer arrives, then mounts once, so
+  mount effects never run twice; nobody signed in, and every non-production deployment,
+  never waits (`tests/browser/capability-hold.spec.ts`, against a production build).
+- **Server routes that write what a gated screen makes** check the capability too:
+  `/api/cases/drafts` POST refuses without `formCompletion` (`npm run test:a2i-routes`).
+- One list and one dispatcher: `CAPABILITY_KEYS` and `capabilityOn` in
+  `src/lib/case-system/policy/capabilities.ts`. Checked by `npm run test:a2i-scope` (every key,
+  every environment) and `npm run test:a2i-routes` (the real AI routes, offline).
+
 ## Situation and case file
 
 ### The flow
@@ -681,7 +712,7 @@ checked-answer engine or the published pipeline blocks.
 10. **Switches** (`src/lib/content-library/phaseScope.ts`):
     - `ASSISTANT_LAW=off` turns off the law lookup (`assistantLawEnabled`, `:267`). It also needs `APPLIED_LAW` and the research step.
     - `CHECKED_ANSWERS=off` (`:282`) turns off checked answers. They also need `AI_ANALYSIS_TEXT_TO_USERS` and `APPLIED_LAW`.
-    - `STRATEGY=off` plus `NEXT_PUBLIC_STRATEGY=off` (`:298-301`; `app/_components/StrategyPanel.tsx:23`) hide strategy. The default is ON.
+    - `STRATEGY=off` plus `NEXT_PUBLIC_STRATEGY=off` (`strategyEnabled`; `app/_components/StrategyPanel.tsx`) hide strategy. The default is ON off production; on production it is on only for a listed tester ("Who gets the A2I-gated features" above), as is every switch here.
     - `AI_DOCUMENT_ANALYSIS_ENABLED` controls document analysis (`src/lib/case-workspace/aiAnalysis.ts:104-112`).
     - `PRACTICAL_GUIDANCE`: I found no reference to it anywhere in `src/` or `app/` (unsure whether it exists yet).
     - With no AI key, the law route answers `skipped: "off"`.
@@ -946,7 +977,7 @@ The review: entries, remaining questions, confirmation.
 
 - Reads (14): **app/builder/_components/guidedFields.ts**, **app/builder/_components/storyAnswers.ts**, **src/lib/case-system/canonicalJson.ts**, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/storyFacts.ts**, **src/lib/case-system/dates.ts**, **src/lib/case-system/intake/claimKind.ts**, src/lib/case-system/intake/questionBank.ts, src/lib/case-system/intake/selectQuestions.ts, src/lib/case-system/intakeCheckpoint.ts, **src/lib/case-system/intakeStory.ts**, **src/lib/case-system/sentences.ts**, **src/lib/case-system/situation/situation.ts**, **src/lib/case-system/storyBasis.ts**
 - Read by (16): app/_components/IntakeRecovery.tsx, app/_components/IntakeReviewPanel.tsx, app/_components/ReviewNeededNotice.tsx, app/api/case/read/route.ts, app/api/cases/route.ts, app/builder/_components/CourtAssistantChat.tsx, app/builder/_components/FamilyStatusTriage.tsx, app/builder/_components/GuidedSmallClaimsIntake.tsx, app/builder/_components/SmallClaimsIntake.tsx, app/builder/_components/SourcedQuestions.tsx, app/builder/page.tsx, app/cases/[id]/layout.tsx, app/dashboard/page.tsx, app/forms/FormsWorkspace.tsx, src/lib/case-system/intakeCheckpoint.ts, src/lib/security/intakeGuidanceGate.ts
-- Checked by (17): scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyIntakeGuidanceGate.ts, scripts/verification/verifyIntakeRecovery.ts, scripts/verification/verifyIntakeReview.ts, scripts/verification/verifyNoNamesToModel.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyReviewFollowUps.ts, scripts/verification/verifySideChange.ts, scripts/verification/verifySituation.ts, scripts/verification/verifyStoryBasis.ts, scripts/verification/verifyStoryFacts.ts, tests/browser/case-understanding-continuity.spec.ts, tests/browser/intake-guidance-gate.spec.ts, tests/browser/story-change-every-flow.spec.ts
+- Checked by (18): scripts/verification/verifyA2iRoutes.ts, scripts/verification/verifyCaseFile.ts, scripts/verification/verifyCaseWords.ts, scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyDateEntryPoints.ts, scripts/verification/verifyIntakeGuidanceGate.ts, scripts/verification/verifyIntakeRecovery.ts, scripts/verification/verifyIntakeReview.ts, scripts/verification/verifyNoNamesToModel.ts, scripts/verification/verifyOwnAnswers.ts, scripts/verification/verifyReviewFollowUps.ts, scripts/verification/verifySideChange.ts, scripts/verification/verifySituation.ts, scripts/verification/verifyStoryBasis.ts, scripts/verification/verifyStoryFacts.ts, tests/browser/case-understanding-continuity.spec.ts, tests/browser/intake-guidance-gate.spec.ts, tests/browser/story-change-every-flow.spec.ts
 
 ### app/builder/_components/storyAnswers.ts
 

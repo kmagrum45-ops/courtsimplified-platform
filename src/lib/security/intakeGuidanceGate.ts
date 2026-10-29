@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../supabase/serverAuth";
 import { confirmedIntakeRevision, guidanceIsCurrent } from "../case-system/intakeReview";
 import { withNameLabelsFor } from "../case-system/privacy/modelNameContext";
+import { withCapabilityUserId } from "../case-system/policy/capabilityRequest";
 import { bodyNameLabels, mergeNameLabels, savedCaseNameLabels } from "./requestNames";
 
 type Owned = { id: string; court_path: string | null; master_result: unknown };
@@ -48,7 +49,9 @@ export function withConfirmedGuidance<T extends Request>(handler: (request: T) =
     // Names never go to the model: every model call this route makes labels the case's names
     // and puts them back in its reply (privacy/modelNameContext.ts, site owner 2026-10-25).
     const saved = await deps.names(request, user, caseId).catch(() => null);
-    const response = await withNameLabelsFor(mergeNameLabels(saved ? savedCaseNameLabels(saved.master_result) : [], bodyNameLabels(body)), () => handler(request));
+    // The verified user, for every capability check the route makes (policy/capabilityRequest.ts):
+    // on production the A2I-gated features are on only for a listed tester (site owner, 2026-10-29).
+    const response = await withCapabilityUserId(user.id, () => withNameLabelsFor(mergeNameLabels(saved ? savedCaseNameLabels(saved.master_result) : [], bodyNameLabels(body)), () => handler(request)));
     // No late model result may escape after another tab edits or reopens review.
     const latest = await deps.owned(request, user, caseId);
     if (!latest || latest.court_path !== owned.court_path || confirmedIntakeRevision(latest.master_result, latest.court_path, caseId) !== revision || options.currentAnalysis && !guidanceIsCurrent(latest.master_result, latest.court_path, caseId)) return refusal("Your initial information changed. Review and confirm it again; the older guidance was discarded.", 409);

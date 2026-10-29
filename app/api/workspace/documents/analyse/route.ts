@@ -3,13 +3,13 @@ import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 /**
  * Suggests what a document is, by sending its extracted text to a model.
  *
- * ############################################################################
- * ##  THIS ROUTE REFUSES TODAY AND WILL KEEP REFUSING.                      ##
- * ##  `documentAnalysisEnabled()` is false because `ZDR_CONFIRMED_AT` is    ##
- * ##  null: OpenAI has not confirmed that zero data retention and modified  ##
- * ##  abuse monitoring cover uploaded documents, and as of 2026-09-27 the   ##
- * ##  request has not been sent.                                           ##
- * ############################################################################
+ * WHEN IT RUNS (corrected 2026-10-29; this said "refuses today" while it ran for
+ * everyone under the owner's live testing): `documentAnalysisEnabled()` decides. On
+ * production it is on only for a signed-in user listed in A2I_TESTER_USER_IDS
+ * (policy/capabilityAccess.ts); off production it follows the owner's live testing.
+ * Without either, the two-key gate holds it off: `ZDR_CONFIRMED_AT` is null, because
+ * OpenAI has not confirmed that zero data retention and modified abuse monitoring cover
+ * uploaded documents.
  *
  * *** WHY THE CODE EXISTS AT ALL IF IT CANNOT RUN ***
  *
@@ -21,8 +21,9 @@ import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
  *
  * *** THE ORDER OF THE GUARDS IS DELIBERATE ***
  *
- * The flag is checked FIRST, before authentication, before the case lookup, before
- * anything reads a document. A refusal that happens after a database read is a refusal
+ * The flag is checked FIRST, before the case lookup and before anything reads a
+ * document. Only the bearer token is verified before it, on production only, because
+ * the flag depends on who is asking (2026-10-29). A refusal that happens after a database read is a refusal
  * that already touched the data, and this route's whole purpose is not to touch it.
  *
  * *** WHAT A CALLER GETS ***
@@ -49,6 +50,7 @@ import {
   type AnalysisSuggestion,
 } from "@/src/lib/case-workspace/aiAnalysis";
 import { withAiCallContext, recordAiValidation } from "@/src/lib/audit/aiCallLog";
+import { withCapabilityUser } from "@/src/lib/case-system/policy/capabilityRequest";
 
 export const runtime = "nodejs";
 
@@ -212,6 +214,17 @@ async function postGuidance(req: NextRequest) {
 const confirmedPost = withConfirmedGuidance(postGuidance, {"currentAnalysis":true});
 
 export async function POST(req: NextRequest) {
+  /*
+   * WHO IS ASKING comes first, and only that (site owner, 2026-10-29: "production defaults
+   * off, owner allowlist"): on production analysis is on only for a signed-in user listed in
+   * A2I_TESTER_USER_IDS, so the flag below cannot be answered without the user. On production
+   * this verifies the bearer token and nothing else (policy/capabilityRequest.ts); off
+   * production it reads nothing. No case and no document is read before the flag.
+   */
+  return withCapabilityUser(req, () => analyseIfEnabled(req));
+}
+
+async function analyseIfEnabled(req: NextRequest): Promise<Response> {
   /*
    * *** FIRST, BEFORE ANYTHING ELSE ***
    *

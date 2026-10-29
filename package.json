@@ -128,6 +128,7 @@
     "test:overview-relevance": "node --import tsx scripts/verification/verifyOverviewRelevance.ts",
     "test:a2i-scope": "node --import tsx scripts/verification/verifyA2iScope.ts",
     "test:a2i-guard": "node --import tsx scripts/verification/verifyA2iGuard.ts",
+    "test:a2i-routes": "node --import tsx scripts/verification/verifyA2iRoutes.ts",
     "test:case-review": "node --import tsx scripts/verification/verifyCaseReview.ts",
     "test:select-questions": "node --import tsx scripts/verification/verifySelectQuestions.ts",
     "test:status-triage": "node --import tsx scripts/verification/verifyStatusTriage.ts",

@@ -26,7 +26,9 @@
  * the same commit, and verifyA2iScope.ts refuses an enabled switch without one.
  */
 
-export type ScopeTier = "information" | "needs-a2i-approval";
+import { capabilityAllowed, onProductionDeployment, type CapabilityContext, type CapabilityEnv } from "./capabilityAccess";
+
+export type ScopeTier ="information" | "needs-a2i-approval";
 
 export type ScopeApproval = {
   /** ISO date of A2I's written approval. */
@@ -46,6 +48,11 @@ export type ScopeCapability = {
   approval?: ScopeApproval;
   /** What it does, in plain words. */
   description: string;
+  /**
+   * Why an enabled capability is still for listed testers only on production
+   * (capabilityAccess.ts), although it needs no A2I approval of its own.
+   */
+  productionTestersOnly?: string;
 };
 
 export const A2I_SCOPE = {
@@ -55,6 +62,10 @@ export const A2I_SCOPE = {
     title: "Case review: gaps and things to check",
     tier: "information",
     enabled: true,
+    productionTestersOnly:
+      "The model reads the person's case and writes about it, and the A2I answers say case review is not " +
+      "offered yet (site owner, 2026-10-29: production defaults off, owner allowlist). The code-written " +
+      "checks still run for everyone; only the AI part is gated.",
     description:
       "Reads the user's confirmed case and points out what is missing, unclear or inconsistent in " +
       "their own record -- a document they mention but have not added, a date given only roughly, two " +
@@ -81,7 +92,19 @@ export const A2I_SCOPE = {
       "Application step 2. Drafts concise text for the reasons section of the user's court form from " +
       "their confirmed facts; the user reviews, edits and files it. Drafting a document for a proceeding.",
   },
-  /** Complete court forms from confirmed facts. */
+  /**
+   * Complete court forms from confirmed facts, and assemble drafts of court documents
+   * (Plaintiff's Claim Form 7A, Statement of Claim Form 14A, Family Application Form 8,
+   * the responding documents): the builder's draft buttons, the Statement of Claim
+   * surface and the case's drafts page all follow this switch (useCapabilities().formCompletion).
+   *
+   * Off for real users as of 2026-09-28. The site owner's standing decision is that users
+   * fill in court forms themselves, and docs/REGULATORY_POSITION.md section 6.4 is the
+   * reason: Law Society Act s. 1(6)2.vii names "selects, drafts, completes or revises, on
+   * behalf of a person" a document for use in a proceeding, and a deterministic template
+   * does not obviously take the platform outside it. (This note lived in
+   * courtDocumentDrafting.ts, removed 2026-10-29 when its constant became per-person.)
+   */
   formCompletion: {
     id: "form-completion",
     title: "Completing court forms",
@@ -89,7 +112,7 @@ export const A2I_SCOPE = {
     enabled: false,
     description:
       "Application step 3. Completes the court form from the user's confirmed facts. Built and switched " +
-      "off; see COURT_DOCUMENT_DRAFTING_ENABLED.",
+      "off; the drafting surfaces follow it too.",
   },
   /** Itemise the amount claimed from the user's documents. */
   amountItemization: {
@@ -139,58 +162,49 @@ export type ScopeKey = keyof typeof A2I_SCOPE;
  * The site owner wants to build and test every step on his wish list now, and
  * switch each one on for real users only when A2I approves it. So an
  * unapproved capability can be turned on for TESTING ONLY, never in
- * production:
- *
- *   - NEXT_PUBLIC_CS_SCOPE_PREVIEW must be exactly "on", AND
- *   - the deployment must not be Vercel production (neither VERCEL_ENV nor
- *     NEXT_PUBLIC_VERCEL_ENV is "production").
- *
- * Set the variable on Vercel's Preview and Development environments and in
- * .env.local -- never on Production. Even if it were set on Production, the
- * second condition keeps everything off there. Staging holds no user data
- * (CLAUDE.md section 6), so nothing previewed reaches a real user. Screens
- * showing a previewed capability must say so (scopeIsPreviewOnly()).
- *
- * The references are written out literally so Next.js inlines the public
- * variables into client code; a dynamic lookup would read undefined there.
+ * production: NEXT_PUBLIC_CS_SCOPE_PREVIEW must be exactly "on", and the
+ * deployment must not be Vercel production. Moot while OWNER_LIVE_TESTING is
+ * on, which turns them all on off production anyway.
  */
 /**
- * OWNER LIVE TESTING (2026-09-30, the site owner's decision).
+ * OWNER LIVE TESTING (2026-09-30, the site owner's decision; narrowed 2026-10-29).
  *
  * "Put everything on live. My goal is to build as intended through everything
- * so it can go through live testing. If I want something switched off later
- * for any reason, I will do it then." -- site owner, 2026-09-30.
+ * so it can go through live testing." -- site owner, 2026-09-30.
  *
- * While this is enabled, every approval-tier capability is on EVERYWHERE,
- * production included, exactly as the testing preview turns them on in
- * staging -- and still reported as preview-only, so every screen that shows
- * one carries the testing notice (ScopePreviewNotice). It is NOT an A2I
- * approval and must never be recorded as one: `approval` stays empty until the
- * Law Society approves a capability in writing.
+ * 2026-10-29, the owner's decision "production defaults off, owner allowlist":
+ * while this is enabled, every approval-tier capability is on
+ *   - everywhere OFF production (previews, staging, local, the suites), and
+ *   - ON production only for the signed-in testers listed in
+ *     A2I_TESTER_USER_IDS (capabilityAccess.ts). Everyone else on production
+ *     gets none of them.
+ * Until 2026-10-29 it turned them on for everyone on production too.
  *
- * It is safe only while the whole site sits behind the password gate
- * (middleware.ts, which fails closed), so nobody but invited testers reaches
- * it. verifyA2iScope fails if the gate is removed while this is on. Before
- * real users are admitted, set `enabled: false` -- one line.
+ * Every screen that shows one carries the testing notice (ScopePreviewNotice).
+ * It is NOT an A2I approval and must never be recorded as one: `approval`
+ * stays empty until the Law Society approves a capability in writing. Set
+ * `enabled: false` to turn them off for the testers and off production too.
  */
 export const OWNER_LIVE_TESTING = {
   enabled: true,
   decidedOn: "2026-09-30",
   decidedBy: "site owner",
   reason:
-    "Live testing of the full intended product behind the site password, before any real users; " +
-    "the owner will switch features off individually as needed.",
+    "Live testing of the full intended product before any real users: on off production, and on " +
+    "production only for the listed testers (owner's decision 2026-10-29, production defaults off).",
 } as const;
 
-export function scopePreviewActive(): boolean {
+/**
+ * Whether unapproved capabilities are switched on for testing at all, before
+ * WHO is asking is considered (capabilityAccess.capabilityAllowed does that).
+ */
+export function scopePreviewActive(env: CapabilityEnv = typeof process !== "undefined" ? process.env : {}): boolean {
   if (OWNER_LIVE_TESTING.enabled) return true;
-  if (process.env.NEXT_PUBLIC_CS_SCOPE_PREVIEW !== "on") return false;
-  if (process.env.VERCEL_ENV === "production") return false;
-  if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") return false;
-  return true;
+  if (env.NEXT_PUBLIC_CS_SCOPE_PREVIEW !== "on") return false;
+  return !onProductionDeployment(env);
 }
 
-function approvedForRealUsers(capability: ScopeCapability): boolean {
+export function approvedForRealUsers(capability: ScopeCapability): boolean {
   if (!capability.enabled) return false;
   // Belt and braces: an approval-tier switch with no recorded approval is off,
   // whatever `enabled` says. The suite fails loudly on this too.
@@ -198,16 +212,24 @@ function approvedForRealUsers(capability: ScopeCapability): boolean {
   return true;
 }
 
-/** The one question every feature asks. */
-export function isInScope(key: ScopeKey): boolean {
+/**
+ * The one question every feature asks. On production an unapproved capability
+ * (and an approved one marked productionTestersOnly) is on only for a listed
+ * tester (capabilityAccess.ts). `context` names the env and the user; it
+ * defaults to process.env and the user the enclosing request named.
+ */
+export function isInScope(key: ScopeKey, context: CapabilityContext = {}): boolean {
   const capability: ScopeCapability = A2I_SCOPE[key];
-  if (approvedForRealUsers(capability)) return true;
-  return capability.tier === "needs-a2i-approval" && scopePreviewActive();
+  const approved = approvedForRealUsers(capability);
+  if (approved && !capability.productionTestersOnly) return true;
+  const env = context.env ?? (typeof process !== "undefined" ? process.env : {});
+  const baseOn = approved || (capability.tier === "needs-a2i-approval" && scopePreviewActive(env));
+  return capabilityAllowed(key, baseOn, context);
 }
 
-/** True when a capability is on only because of the testing preview. */
-export function scopeIsPreviewOnly(key: ScopeKey): boolean {
-  return isInScope(key) && !approvedForRealUsers(A2I_SCOPE[key]);
+/** True when a capability is on only for testing (no A2I approval). */
+export function scopeIsPreviewOnly(key: ScopeKey, context: CapabilityContext = {}): boolean {
+  return isInScope(key, context) && !approvedForRealUsers(A2I_SCOPE[key]);
 }
 
 export function listScope(): ScopeCapability[] {

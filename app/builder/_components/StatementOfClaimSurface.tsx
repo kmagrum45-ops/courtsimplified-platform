@@ -19,7 +19,7 @@ import {
 } from "@/src/lib/case-system/statementOfClaimDraftEngine";
 import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
-import { COURT_DOCUMENT_DRAFTING_ENABLED as CLAIM_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
+import { useCapabilities } from "../../_components/CapabilityProvider";
 import ScopePreviewNotice from "./ScopePreviewNotice";
 import {
   PLAINTIFFS_CLAIM_CONTENTS,
@@ -93,6 +93,9 @@ export default function StatementOfClaimSurface({
   mappedInput,
   onStateMapChange,
 }: StatementOfClaimSurfaceProps) {
+  // Drafting follows the formCompletion capability, as the server decided it for this
+  // person (on production: a listed tester only; site owner, 2026-10-29).
+  const CLAIM_DRAFTING_ENABLED = useCapabilities().formCompletion;
   const [stateMap, setStateMap] = useState<ElementStateMap>(initialElementStateMap);
   const [confirmedRemedyId, setConfirmedRemedyId] = useState<string | null>(null);
   const [answerDrafts, setAnswerDrafts] = useState<Record<string, string>>({});
@@ -142,7 +145,7 @@ export default function StatementOfClaimSurface({
       // cannot-provide elements travel INTO the document, not just this screen.
       gate.cannotProvide.map((item) => ({ elementId: item.elementId, name: item.name })),
     );
-  }, [gate, claimType, mappedInput, party]);
+  }, [CLAIM_DRAFTING_ENABLED, gate, claimType, mappedInput, party]);
 
   function applyStateMap(next: ElementStateMap) {
     setStateMap(next);

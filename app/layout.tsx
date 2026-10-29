@@ -5,6 +5,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthNavAction from "./_components/AuthNavAction";
 import AuthStorageGuard from "./_components/AuthStorageGuard";
+import CapabilityProvider from "./_components/CapabilityProvider";
+import { capabilitySetFor } from "@/src/lib/case-system/policy/capabilities";
+import { onProductionDeployment } from "@/src/lib/case-system/policy/capabilityAccess";
 import MobileNav from "./_components/MobileNav";
 import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
 
@@ -50,12 +53,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // The anonymous answer (nobody signed in): on production every A2I-gated feature off.
+  // CapabilityProvider asks the server again once it knows who is signed in (2026-10-29).
+  const initialCapabilities = capabilitySetFor({ userId: null });
+  // On production a signed-in page waits for its own answer before mounting (CapabilityProvider).
+  const production = onProductionDeployment();
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-screen bg-[#F7FAFA] text-[#1F2937]">
+        <CapabilityProvider initial={initialCapabilities} production={production}>
         <AuthStorageGuard />
         {/* useSearchParams() bails out of static prerendering unless it sits
             inside a Suspense boundary, which would fail the build for every
@@ -182,6 +191,7 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
+        </CapabilityProvider>
       </body>
     </html>
   );

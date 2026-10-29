@@ -25,6 +25,7 @@ import { updateMasterResult, type CaseRecordClient } from "../../../../src/lib/c
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
 import { situationOfCase, withoutSituationDates } from "../../../../src/lib/case-system/situation/situation";
+import { capabilityRoute } from "../../../../src/lib/case-system/policy/capabilityRequest";
 
 const MAX_REQUEST_BYTES = 4_000;
 
@@ -40,7 +41,7 @@ function authenticatedClient(request: Request) {
     : null;
 }
 
-export async function POST(request: Request) {
+async function positionPost(request: Request) {
   const raw = await request.text();
   if (raw.length > MAX_REQUEST_BYTES) {
     return NextResponse.json({ error: "Request too large." }, { status: 413 });
@@ -103,3 +104,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ position });
 }
+
+// The verified user in scope for every capability check (policy/capabilityRequest.ts; on
+// production the A2I-gated features are on only for a listed tester, site owner 2026-10-29).
+export const POST = capabilityRoute(positionPost);

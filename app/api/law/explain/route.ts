@@ -5,6 +5,7 @@ import { aiLimitResponse } from "@/src/lib/security/aiRouteGuard";
 import { explainPassage } from "@/src/lib/case-system/retrieval/explainProvision";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 import { plainExplanationsEnabled } from "@/src/lib/content-library/phaseScope";
+import { capabilityRoute } from "@/src/lib/case-system/policy/capabilityRequest";
 
 /**
  * A checked plain-language explanation of one provision from the corpus.
@@ -26,7 +27,7 @@ export const maxDuration = 60;
 
 const ID = /^corpus:[A-Za-z0-9._-]{1,120}:\d{1,6}$/;
 
-export async function POST(request: NextRequest) {
+async function explainPost(request: NextRequest) {
   // Per-visitor and daily AI limits (2026-10-14 audit, aiRateLimit.ts).
   const limited = await aiLimitResponse(request, "light");
   if (limited) return limited;
@@ -53,3 +54,7 @@ export async function POST(request: NextRequest) {
   }
   return NextResponse.json({ ok: false, reason: result.reason }, { status: 200 });
 }
+
+// The verified user in scope for every capability check (policy/capabilityRequest.ts; on
+// production the A2I-gated features are on only for a listed tester, site owner 2026-10-29).
+export const POST = capabilityRoute(explainPost);

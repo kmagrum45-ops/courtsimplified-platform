@@ -9,11 +9,21 @@
  * bearer-authenticated owner can write, through their own token, so row-level
  * security applies as well. Like /api/cases/position, it changes one key of
  * master_result and writes the rest back as it found it.
+ *
+ * Saving a draft is court-document drafting, so POST needs the formCompletion
+ * capability for the person asking (policy/capabilities.ts): on production that
+ * is a listed tester only (site owner, 2026-10-29: "production defaults off,
+ * owner allowlist"). The browser hides drafting already; this is the server
+ * refusing it too, so a hand-made request cannot get past it. DELETE stays
+ * open: a person may always remove what they saved.
  */
 
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+
+import { capabilityOn } from "@/src/lib/case-system/policy/capabilities";
+import { capabilityRoute } from "@/src/lib/case-system/policy/capabilityRequest";
 
 import { readCaseDrafts, upsertDraft, validateDraft } from "../../../../src/lib/case-system/drafts/caseDrafts";
 import { UUID_PATTERN } from "../../../../src/lib/case-system/events/caseEventRequest";
@@ -59,11 +69,17 @@ async function ownedCaseFor(request: Request, body: Record<string, unknown>) {
   return { caseId, user, ownedCase, supabase };
 }
 
-export async function POST(request: Request) {
+export const POST = capabilityRoute(async (request: Request) => {
   const body = await readBody(request);
   if (body instanceof NextResponse) return body;
   const owned = await ownedCaseFor(request, body);
-  if ("error" in owned) return owned.error;
+  if (owned.error) return owned.error;
+  if (!capabilityOn("formCompletion")) {
+    return NextResponse.json(
+      { off: true, error: "Saving drafts of court documents is not available on this site yet." },
+      { status: 403 },
+    );
+  }
 
   const checked = validateDraft(body.draft, new Date());
   if (!checked.ok) return NextResponse.json({ error: checked.error }, { status: 400 });
@@ -80,7 +96,7 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ draft: checked.draft });
-}
+});
 
 export async function DELETE(request: Request) {
   const body = await readBody(request);

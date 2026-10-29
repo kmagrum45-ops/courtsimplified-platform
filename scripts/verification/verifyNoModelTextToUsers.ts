@@ -125,7 +125,17 @@ async function run(switchOn: boolean) {
 
 (async () => {
   // --- The switch
-  check("switch: on by default, including production", aiAnalysisTextToUsers({}) === true && aiAnalysisTextToUsers({ VERCEL_ENV: "production" }) === true);
+  // Site owner, 2026-10-29 ("production defaults off, owner allowlist"): on by default off
+  // production; on production only for a signed-in user listed in A2I_TESTER_USER_IDS
+  // (every key and environment: test:a2i-scope).
+  const tester = "0d8f5a52-3c1e-4c7b-9a51-2f6e1b0c7a11";
+  check("switch: on by default off production", aiAnalysisTextToUsers({}) === true && aiAnalysisTextToUsers({ VERCEL_ENV: "preview" }) === true);
+  check(
+    "switch: on production, off for anyone not on the tester list, on for a listed tester",
+    aiAnalysisTextToUsers({ VERCEL_ENV: "production" }, { userId: tester }) === false &&
+      aiAnalysisTextToUsers({ VERCEL_ENV: "production", A2I_TESTER_USER_IDS: tester }, { userId: null }) === false &&
+      aiAnalysisTextToUsers({ VERCEL_ENV: "production", A2I_TESTER_USER_IDS: tester }, { userId: tester }) === true,
+  );
   check("switch: AI_ANALYSIS_TEXT_TO_USERS=off turns it off", aiAnalysisTextToUsers({ AI_ANALYSIS_TEXT_TO_USERS: "off" }) === false);
 
   // --- Off: no model sentence anywhere in what comes back

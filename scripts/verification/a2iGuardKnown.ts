@@ -22,19 +22,10 @@ export type A2iGuardKnown = {
 
 export const A2I_GUARD_KNOWN: A2iGuardKnown[] = [
   // (a) AI never writes legal content that reaches a user.
-  { check: "A2I-a-analysis-text-off", reason: "Model-written analysis sentences are shown to users unless AI_ANALYSIS_TEXT_TO_USERS=off, and production sets no switch.", cause: "src/lib/content-library/phaseScope.ts:89" },
-  { check: "A2I-a-checked-answers-off", reason: "The checked answer has the model draft legal statements; those matched to the library are shown.", cause: "src/lib/content-library/phaseScope.ts:285" },
-  { check: "A2I-a-plain-explanations-off", reason: "Provision explanations are written by the AI (\"Written by AI and checked\").", cause: "src/lib/content-library/phaseScope.ts:210" },
-  { check: "A2I-a-case-understanding-off", reason: "The front-door card shows an AI summary, facts and 'where it stands'.", cause: "src/lib/content-library/phaseScope.ts:317" },
-  { check: "A2I-a-strategy-off", reason: "The strategy panel shows checked answers drafted by the model.", cause: "src/lib/content-library/phaseScope.ts:301" },
-  { check: "A2I-a-decision-help-off", reason: "Decision help writes a free explanation of an uploaded decision; it runs because owner live testing turns document analysis on.", cause: "src/lib/case-workspace/aiAnalysis.ts:110; src/lib/case-system/policy/a2iScope.ts:177" },
 
   // (b) Court-form drafting is switched off.
-  { check: "A2I-b-form-filling-paused", reason: "Official-form filling was unpaused for live testing.", cause: "src/lib/content-library/phaseScope.ts:61" },
-  { check: "A2I-b-drafting-scope-off", reason: "Owner live testing turns the formCompletion capability on (no A2I approval recorded).", cause: "src/lib/case-system/policy/a2iScope.ts:177" },
 
   // (c) Case review is not offered today.
-  { check: "A2I-c-ai-review-off", reason: "caseReviewGaps is an enabled 'information' capability, so the case is sent to the model for review.", cause: "src/lib/case-system/policy/a2iScope.ts:57; src/lib/case-system/caseReview/runCaseReview.ts:26" },
   { check: "A2I-c-panel-gated", reason: "CaseReviewPanel is rendered on the builder and the case page with no case-review switch around it.", cause: "app/builder/page.tsx:2622; app/cases/[id]/page.tsx:344" },
 
   // (d) Production stores no user data.
@@ -42,8 +33,6 @@ export const A2I_GUARD_KNOWN: A2iGuardKnown[] = [
   { check: "A2I-d-production-contents", reason: "Not checkable from code: what the production database holds needs a count(*) on the live project.", cause: "docs/infra/projects.md (last recorded 26 Sep: 2 accounts, 4 cases)" },
 
   // (e) Remaining questions come only from a fixed, reviewed set.
-  { check: "A2I-e-sourced-questions-off", reason: "Sourced questions are written by the model from the law it read, up to five a run.", cause: "src/lib/content-library/phaseScope.ts:257" },
-  { check: "A2I-e-front-door-questions-fixed", reason: "The front-door reading shows questions the model wrote itself; only a citation in one is screened.", cause: "src/lib/case-system/understanding/understandCase.ts:259-272" },
   { check: "A2I-e-bank-reviewed", reason: "Not checkable from code: no review sign-off is recorded, and the site's notice says the content has not been reviewed by a licensed lawyer or paralegal.", cause: "app/_components/AiUseNotice.tsx" },
 
   // (f) Names are never sent to the AI.
@@ -72,7 +61,6 @@ export const A2I_GUARD_KNOWN: A2iGuardKnown[] = [
 
   // (j) Privileged/sealed scan before AI; document analysis off.
   { check: "A2I-j-marker-scan", reason: "The only document scan looks for SINs, cards and similar numbers, not privileged or sealed markers.", cause: "src/lib/case-workspace/personalDataScan.ts:240" },
-  { check: "A2I-j-document-analysis-off", reason: "documentAnalysisEnabled returns true while owner live testing is on, although ZDR is not confirmed.", cause: "src/lib/case-workspace/aiAnalysis.ts:110; src/lib/case-system/policy/a2iScope.ts:177" },
 
   // (k) Models pinned, storage off, Canadian residency.
   { check: "A2I-k-model-pinned", reason: "Both tiers use the alias gpt-6.1-sol, not a dated snapshot.", cause: "src/lib/case-system/aiModels.ts:64-65" },

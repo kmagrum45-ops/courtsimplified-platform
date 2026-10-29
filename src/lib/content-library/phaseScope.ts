@@ -39,6 +39,8 @@
  * different things in two places is two gates.
  */
 
+import { capabilityAllowed, type CapabilityContext } from "../case-system/policy/capabilityAccess";
+
 /*
  * *** OFFICIAL-FORM COMPLETION AND CLAIM DRAFTING ARE PAUSED ***
  *
@@ -57,6 +59,10 @@
  * UNPAUSED 2026-09-30 by the site owner for live testing ("Put everything on
  * live"). Set back to true to pause again; verifyFormCompletionPaused asserts
  * the paused behaviour whenever it is true.
+ *
+ * Since 2026-10-29 ("production defaults off, owner allowlist") every caller
+ * asks formFillingEnabled() instead of reading this constant: on PRODUCTION form
+ * completion is paused for everyone but a listed tester (A2I_TESTER_USER_IDS).
  */
 export const FORM_COMPLETION_PAUSED = false;
 
@@ -69,9 +75,11 @@ export const OFFICIAL_COURT_FORMS_URL = "https://ontariocourtforms.on.ca/en/";
 /**
  * Whether sentences the AI wrote about a user's case are shown to them.
  *
- * ON, everywhere including production (site owner, 2026-09-29): the site has
- * no users yet and is being built the way it will run -- the full AI analysis
- * (risks, next actions, follow-up questions, element explanations) is live.
+ * ON off production (site owner, 2026-09-29: the site has no users yet and is
+ * being built the way it will run). On PRODUCTION, since 2026-10-29 ("production
+ * defaults off, owner allowlist"), OFF for everyone but a signed-in user listed
+ * in A2I_TESTER_USER_IDS -- so the public gets the code-written text below. Every
+ * switch in this file works the same way (switchOn, at the end of the file).
  *
  * The code-written alternative is kept, not deleted: set
  * AI_ANALYSIS_TEXT_TO_USERS=off (in Vercel or .env.local) and every sentence
@@ -85,8 +93,9 @@ export const OFFICIAL_COURT_FORMS_URL = "https://ontariocourtforms.on.ca/en/";
  */
 export function aiAnalysisTextToUsers(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.AI_ANALYSIS_TEXT_TO_USERS !== "off";
+  return switchOn("aiAnalysisText", env, context);
 }
 
 /**
@@ -101,8 +110,9 @@ export function aiAnalysisTextToUsers(
  */
 export function appliedLawEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.APPLIED_LAW !== "off";
+  return switchOn("appliedLaw", env, context);
 }
 
 /** Pathways a user can actually complete today. */
@@ -206,8 +216,9 @@ export function allPathwayUnavailableMessages(): string[] {
  */
 export function plainExplanationsEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.PLAIN_EXPLANATIONS !== "off" && aiAnalysisTextToUsers(env);
+  return switchOn("plainExplanations", env, context);
 }
 
 /**
@@ -225,8 +236,9 @@ export function plainExplanationsEnabled(
  */
 export function deepIntakeAnalysis(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.ANALYSIS_DEPTH !== "fast";
+  return switchOn("deepAnalysis", env, context);
 }
 
 /**
@@ -239,8 +251,9 @@ export function deepIntakeAnalysis(
  */
 export function researchStepEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.RESEARCH_STEP !== "off";
+  return switchOn("researchStep", env, context);
 }
 
 /**
@@ -253,8 +266,9 @@ export function researchStepEnabled(
  */
 export function sourcedQuestionsEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.SOURCED_QUESTIONS !== "off" && aiAnalysisTextToUsers(env) && researchStepEnabled(env);
+  return switchOn("sourcedQuestions", env, context);
 }
 
 /**
@@ -266,8 +280,9 @@ export function sourcedQuestionsEnabled(
  */
 export function assistantLawEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.ASSISTANT_LAW !== "off" && appliedLawEnabled(env) && researchStepEnabled(env);
+  return switchOn("assistantLaw", env, context);
 }
 
 /**
@@ -281,8 +296,9 @@ export function assistantLawEnabled(
  */
 export function checkedAnswersEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.CHECKED_ANSWERS !== "off" && aiAnalysisTextToUsers(env) && appliedLawEnabled(env);
+  return switchOn("checkedAnswers", env, context);
 }
 
 /**
@@ -290,15 +306,16 @@ export function checkedAnswersEnabled(
  * -- what must be proven, what the law gives the other side and the answer to
  * each, what the court must decide, and the procedural tools and timing.
  * ON unless STRATEGY=off (site owner, 2026-10-12: "turn anything off, to
- * on"; earlier it was off until the Law Society's A2I approval covers it --
- * set STRATEGY=off and NEXT_PUBLIC_STRATEGY=off to hide it from real users).
+ * on"); on PRODUCTION off for everyone but a listed tester since 2026-10-29
+ * (switchOn), which is what CLAUDE.md s. 3 asks of the live site.
  * Needs checked answers, since every statement in it is one. It never
  * grades the case.
  */
 export function strategyEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.STRATEGY !== "off" && checkedAnswersEnabled(env);
+  return switchOn("strategy", env, context);
 }
 
 
@@ -313,8 +330,9 @@ export function strategyEnabled(
  */
 export function caseUnderstandingEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.CASE_UNDERSTANDING !== "off" && checkedAnswersEnabled(env);
+  return switchOn("caseUnderstanding", env, context);
 }
 
 /**
@@ -326,6 +344,69 @@ export function caseUnderstandingEnabled(
  */
 export function caseReaderEnabled(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
 ): boolean {
-  return env.CASE_READER !== "off" && aiAnalysisTextToUsers(env);
+  return switchOn("caseReader", env, context);
+}
+
+/**
+ * WHAT EACH SWITCH SAYS ON ITS OWN, and who may have it on production
+ * (site owner, 2026-10-29: "production defaults off, owner allowlist").
+ *
+ * `SWITCH_BASE` is each switch exactly as it was before that decision: on
+ * unless its variable is "off" (ANALYSIS_DEPTH: unless "fast"), with the same
+ * dependencies between switches. `switchOn` adds the one decision of
+ * capabilityAccess.capabilityAllowed: off production the base answer stands;
+ * on production every one of these is OFF unless the signed-in user is listed
+ * in A2I_TESTER_USER_IDS. The variables' "off" still turns a switch off
+ * everywhere, testers included.
+ */
+export type SwitchKey =
+  | "aiAnalysisText"
+  | "appliedLaw"
+  | "plainExplanations"
+  | "deepAnalysis"
+  | "researchStep"
+  | "sourcedQuestions"
+  | "assistantLaw"
+  | "checkedAnswers"
+  | "strategy"
+  | "caseUnderstanding"
+  | "caseReader"
+  | "formFilling";
+
+type SwitchEnv = Record<string, string | undefined>;
+
+export const SWITCH_BASE: Record<SwitchKey, (env: SwitchEnv) => boolean> = {
+  aiAnalysisText: (env) => env.AI_ANALYSIS_TEXT_TO_USERS !== "off",
+  appliedLaw: (env) => env.APPLIED_LAW !== "off",
+  plainExplanations: (env) => env.PLAIN_EXPLANATIONS !== "off" && SWITCH_BASE.aiAnalysisText(env),
+  deepAnalysis: (env) => env.ANALYSIS_DEPTH !== "fast",
+  researchStep: (env) => env.RESEARCH_STEP !== "off",
+  sourcedQuestions: (env) =>
+    env.SOURCED_QUESTIONS !== "off" && SWITCH_BASE.aiAnalysisText(env) && SWITCH_BASE.researchStep(env),
+  assistantLaw: (env) => env.ASSISTANT_LAW !== "off" && SWITCH_BASE.appliedLaw(env) && SWITCH_BASE.researchStep(env),
+  checkedAnswers: (env) =>
+    env.CHECKED_ANSWERS !== "off" && SWITCH_BASE.aiAnalysisText(env) && SWITCH_BASE.appliedLaw(env),
+  strategy: (env) => env.STRATEGY !== "off" && SWITCH_BASE.checkedAnswers(env),
+  caseUnderstanding: (env) => env.CASE_UNDERSTANDING !== "off" && SWITCH_BASE.checkedAnswers(env),
+  caseReader: (env) => env.CASE_READER !== "off" && SWITCH_BASE.aiAnalysisText(env),
+  // The code-level pause above; it has no variable.
+  formFilling: () => !FORM_COMPLETION_PAUSED,
+};
+
+function switchOn(key: SwitchKey, env: SwitchEnv, context: CapabilityContext): boolean {
+  return capabilityAllowed(key, SWITCH_BASE[key](env), { ...context, env });
+}
+
+/**
+ * Filling official court PDFs (/api/generate-form) and the builder's and
+ * /forms' form-completion surfaces. Off when FORM_COMPLETION_PAUSED is true,
+ * and on production off unless the user is a listed tester.
+ */
+export function formFillingEnabled(
+  env: SwitchEnv = typeof process !== "undefined" ? process.env : {},
+  context: CapabilityContext = {},
+): boolean {
+  return switchOn("formFilling", env, context);
 }

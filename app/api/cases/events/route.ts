@@ -73,6 +73,7 @@ import {
   getAuthenticatedOwnedCase,
   getAuthenticatedUser,
 } from "../../../../src/lib/supabase/serverAuth";
+import { capabilityRoute } from "../../../../src/lib/case-system/policy/capabilityRequest";
 
 const MAX_REQUEST_BYTES = 8_000;
 
@@ -172,7 +173,7 @@ function collisionResponse(
   );
 }
 
-export async function POST(request: Request) {
+async function eventsPost(request: Request) {
   const contentLength = Number(request.headers.get("content-length") || 0);
   if (contentLength > MAX_REQUEST_BYTES) {
     return NextResponse.json({ error: "The request is too large." }, { status: 413 });
@@ -317,6 +318,10 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ status: "ok", event: inserted }, { status: 201 });
 }
+
+// The verified user in scope for every capability check (policy/capabilityRequest.ts; on
+// production the A2I-gated features are on only for a listed tester, site owner 2026-10-29).
+export const POST = capabilityRoute(eventsPost);
 
 /** GET /api/cases/events?caseId=… — the case's live events, newest first. */
 async function getGuidance(request: Request) {

@@ -1,8 +1,10 @@
 /**
  * Document analysis by a model: built, wired, tested. ON while the owner's live-testing
- * switch (policy/a2iScope.ts OWNER_LIVE_TESTING) is on -- site owner, 2026-10-12, no real
- * users and no saved cases. Turning that switch off before real users restores the
- * two-key gate below, which stays OFF until ZDR is confirmed in writing.
+ * switch (policy/a2iScope.ts OWNER_LIVE_TESTING) is on -- site owner, 2026-10-12 -- but
+ * since 2026-10-29 ("production defaults off, owner allowlist") on PRODUCTION only for the
+ * signed-in testers listed in A2I_TESTER_USER_IDS (policy/capabilityAccess.ts). For
+ * everyone else on production, and everywhere once that switch is off, the two-key gate
+ * below decides, and it stays OFF until ZDR is confirmed in writing.
  *
  * ############################################################################
  * ##  THE FLAG IS FALSE EVERYWHERE, INCLUDING STAGING, AND STAYS FALSE      ##
@@ -56,6 +58,7 @@
  * function precisely so that can be tested without a flag and without a network.
  */
 import { OWNER_LIVE_TESTING } from "../case-system/policy/a2iScope";
+import { capabilityAllowed, clientCapabilities, isBrowser, onProductionDeployment } from "../case-system/policy/capabilityAccess";
 import { isRealIsoDate } from "../case-system/dates";
 
 /**
@@ -97,17 +100,32 @@ export function documentAnalysisEnabled(
    */
   env: Record<string, string | undefined> = process.env,
   /*
-   * The owner's live-testing switch (policy/a2iScope.ts). Site owner, 2026-10-12:
-   * "i want everything on, there are no saved cases and we are just testing plus
-   * nobody knows about or is useing the site". While it is on, analysis runs for
-   * testing even though ZDR_CONFIRMED_AT is still null (that stays an honest record:
-   * no confirmation yet). AI_DOCUMENT_ANALYSIS_ENABLED=false still turns it off.
-   * Turning OWNER_LIVE_TESTING off before real users restores the two-key gate.
+   * Whether the owner's live testing (policy/a2iScope.ts OWNER_LIVE_TESTING) applies to
+   * this request. Site owner, 2026-10-12: "i want everything on ... we are just testing".
+   * While it applies, analysis runs for testing even though ZDR_CONFIRMED_AT is still null
+   * (that stays an honest record: no confirmation yet). AI_DOCUMENT_ANALYSIS_ENABLED=false
+   * still turns it off.
+   *
+   * Site owner, 2026-10-29 ("production defaults off, owner allowlist"): by default it
+   * applies off production, and on production only to a signed-in user listed in
+   * A2I_TESTER_USER_IDS (policy/capabilityAccess.ts). Everyone else on production gets
+   * the two-key gate below, which stays OFF until ZDR is confirmed in writing.
+   * A check passes it explicitly. On production (the deployment's own environment
+   * or `env`) passing `true` is refused: only the allowlist turns it on there; `false`
+   * still turns it off. In the browser it is ignored: the server's answer decides.
    */
-  ownerTesting: boolean = OWNER_LIVE_TESTING.enabled,
+  ownerTesting?: boolean,
+  /** The verified user asking; defaults to the user the enclosing request named. */
+  userId?: string | null,
 ): boolean {
+  // The browser never decides (it cannot see the allowlist): the server's answer.
+  if (isBrowser()) return clientCapabilities()?.documentAnalysis === true;
   if (env.AI_DOCUMENT_ANALYSIS_ENABLED === "false") return false;
-  if (ownerTesting) return true;
+  const allowed = () => capabilityAllowed("documentAnalysis", OWNER_LIVE_TESTING.enabled, { env, userId });
+  // On production the override can only turn testing OFF: turning it on is the
+  // allowlist's decision alone (review of PR #513, 2026-10-29).
+  const testing = onProductionDeployment(env) ? ownerTesting !== false && allowed() : (ownerTesting ?? allowed());
+  if (testing) return true;
   if (ZDR_CONFIRMED_AT === null) return false;
   return env.AI_DOCUMENT_ANALYSIS_ENABLED === "true";
 }

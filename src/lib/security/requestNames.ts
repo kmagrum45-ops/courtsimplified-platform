@@ -11,6 +11,7 @@
 import { knownNameLabels, type NameLabel } from "../case-system/privacy/nameLabels";
 import { otherPartyFromStory, otherPartyNameFromStory } from "../../../app/builder/_components/storyAnswers";
 import { withNameLabelsFor } from "../case-system/privacy/modelNameContext";
+import { withCapabilityUser } from "../case-system/policy/capabilityRequest";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../supabase/serverAuth";
 
 /** A name the story readers pick out as the other party ("my ex, Sarah Jones,"), or none. */
@@ -55,6 +56,8 @@ export function withRequestNames<T extends Request>(handler: (request: T) => Pro
       const owned = user ? await getAuthenticatedOwnedCase(request, user as never, caseId, { masterKeys: ["intakeData", "intakeCheckpoint"] }).catch(() => null) : null;
       if (owned) saved = savedCaseNameLabels(owned.master_result);
     }
-    return withNameLabelsFor(mergeNameLabels(saved, bodyNameLabels(body)), () => handler(request));
+    // The verified user (production only), for every capability check the route makes
+    // (policy/capabilityRequest.ts; site owner, 2026-10-29: production defaults off, owner allowlist).
+    return withCapabilityUser(request, () => withNameLabelsFor(mergeNameLabels(saved, bodyNameLabels(body)), () => handler(request)));
   };
 }

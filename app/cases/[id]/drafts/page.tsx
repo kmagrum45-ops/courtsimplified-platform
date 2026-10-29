@@ -36,8 +36,7 @@ import {
 } from "@/src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft, startingDocumentTitle, type StartingDocumentIntake } from "@/src/lib/case-system/drafts/startingDocumentDraft";
 import { respondingDocumentDraft, respondingDocumentTitle, type RespondingDocumentIntake } from "@/src/lib/case-system/drafts/respondingDocumentDraft";
-import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
-import { FORM_COMPLETION_PAUSED } from "@/src/lib/content-library/phaseScope";
+import { useCapabilities } from "../../../_components/CapabilityProvider";
 import { originatingDocumentRecorded, respondingDocumentStillDue } from "../../../builder/_components/respondingSide";
 import type { StoredCaseData } from "../../../builder/_components/builderTypes";
 import { caseRouteWrite } from "../../../builder/_components/positionSave";
@@ -61,6 +60,11 @@ function download(filename: string, content: string, type: string) {
 const fileName = (title: string) => (title.trim() || "draft").replace(/[^\w\- ]+/g, "").replace(/\s+/g, "-").slice(0, 80) || "draft";
 
 export default function CaseDraftsSection() {
+  // As the server decided it for this person (on production: a listed tester only; site
+  // owner, 2026-10-29). Drafting follows formCompletion; completion is paused unless formFilling.
+  const capabilities = useCapabilities();
+  const COURT_DOCUMENT_DRAFTING_ENABLED = capabilities.formCompletion;
+  const FORM_COMPLETION_PAUSED = !capabilities.formFilling;
   const { caseRecord, reload, responding, courtPath, position, stepId } = useCaseHome();
   const caseId = caseRecord.id;
   const master = (caseRecord.master_result ?? {}) as Record<string, unknown>;
