@@ -12,8 +12,10 @@
  * 1. What the AI actually does here -- organise and route, not advise. Stated
  *    concretely, because "we use AI" tells a user nothing about their risk.
  * 2. Where the legal information comes from: a library prepared in advance,
- *    with AI help, and checked against the rules and legislation it cites --
- *    never written by the AI on the spot for this user.
+ *    with AI help, and checked against the rules and legislation it cites.
+ *    (29 Oct 2026, site owner: the claim that the AI never writes text for the
+ *    person on the spot was removed -- several features do, behind their switches
+ *    -- until a library-only mode is actually switched on for users.)
  *
  *    Corrected 2026-09-27. This used to say the wording was "written by
  *    people ... not composed by" the AI. The published answer library was
@@ -54,8 +56,7 @@ export default function AiUseNotice({ activity, className }: AiUseNoticeProps) {
           ? `On this page, AI helps ${activity}.`
           : "AI helps organize what you write and point you to the right part of the site."}{" "}
         The legal and procedural information you read comes from a library we prepare in
-        advance with AI help and check against the court rules and laws it cites. The AI does
-        not write it for you on the spot. That information has <strong>not yet been reviewed by
+        advance with AI help and check against the court rules and laws it cites. That information has <strong>not yet been reviewed by
         a licensed Ontario lawyer or paralegal</strong>. Please check anything here against the official
         source before relying on it. CourtSimplified guides you through the process; it is not a
         law firm and is not your lawyer.
