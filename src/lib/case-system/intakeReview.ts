@@ -233,8 +233,35 @@ export function existingFactChanged(previous: Checkpoint, next: Checkpoint): boo
  * asked for again ("You changed an answer. Please tick to confirm again.").
  */
 export function renewsInputRevision(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): boolean {
-  if (reviewPhase(workflow, previous) === "user-confirmed") return existingFactChanged(previous, next);
+  if (reviewPhase(workflow, previous) === "user-confirmed") return confirmedAnswerChanged(workflow, previous, next);
   return materialInitialFacts(next) !== materialInitialFacts(previous);
+}
+
+/** A short, stable mark of one fact's value: enough to tell that it changed, without keeping a copy. */
+function fingerprint(value: string): string {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index++) { hash ^= value.charCodeAt(index); hash = Math.imul(hash, 0x01000193) >>> 0; }
+  return `${hash.toString(16)}:${value.length}`;
+}
+
+/** Each material fact's mark, as confirmed: recorded with the confirmation (transitionReview). */
+export function confirmedFactMarks(checkpoint: Checkpoint): Record<string, string> {
+  return Object.fromEntries([...materialFacts(checkpoint)].map(([key, value]) => [key, fingerprint(value)]));
+}
+
+/**
+ * After Confirm: was an answer the person CONFIRMED changed or removed? Compared with the facts
+ * as they stood at the click (intakeReview.confirmedFacts), never with the last key press: a box
+ * empty at Confirm, typed into one key at a time, is one added answer, not a string of changed
+ * ones (Chrome check of #514's preview, 29 Oct: typing into "Important dates / timeline" after
+ * Confirm cancelled it, because "Ma" counted as changing "M"). A confirmation recorded before the
+ * marks existed falls back to the previous state (existingFactChanged).
+ */
+export function confirmedAnswerChanged(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): boolean {
+  const marks = object(object(workflow.intakeReview).confirmedFacts);
+  if (!Object.keys(marks).length) return existingFactChanged(previous, next);
+  const now = confirmedFactMarks(next);
+  return Object.entries(marks).some(([key, mark]) => now[key] !== mark);
 }
 
 /**
@@ -505,7 +532,7 @@ export function transitionReview(workflow: ObjectValue, checkpoint: Checkpoint, 
   if (action === "confirm" && reviewPhase(workflow, checkpoint) === "user-confirmed") return workflow;
   if (action === "confirm" && reviewPhase(workflow, checkpoint) !== "reviewing") throw new Error("Review the current information before confirming it.");
   if (action === "confirm" && remainingEssentialQuestions(checkpoint).length) throw new Error("Answer the remaining initial questions, or explicitly mark what you do not know, before confirming.");
-  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now } : {}) } };
+  return { ...workflow, intakeCompleted: action === "confirm", intakeReview: { version: 1, reviewedRevision: expectedInputRevision, ...(action === "confirm" ? { confirmedRevision: expectedInputRevision, confirmedAt: now, confirmedFacts: confirmedFactMarks(checkpoint) } : {}) } };
 }
 
 /**

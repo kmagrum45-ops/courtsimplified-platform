@@ -40,7 +40,10 @@ import { expect, test, type Page } from "@playwright/test";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
-import { serveFromThisCommit } from "./harness/thisCommitServer";
+import { serveFromThisCommit, serveModelStandIns } from "./harness/thisCommitServer";
+import { authenticateRealTestUser } from "./harness/intakeDriver";
+import { deleteHarnessUser } from "./harness/realTestSession";
+import { createClient } from "@supabase/supabase-js";
 import { isKnownProblem } from "./harness/knownProblems29oct-flow";
 import { openBuilder } from "./harness/builderGate";
 import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
@@ -365,4 +368,86 @@ test("retest-29oct D1: a date added on the next-step page keeps the next steps c
   const counted = countedStepDeadlines(position().stepId, position().dateAnswers);
   expect(counted.length, "a deadline is counted from the saved date").toBeGreaterThan(0);
   for (const deadline of counted) await expect(page.getByTestId("case-file-deadline").filter({ hasText: formatForCourt(deadline.date) }), `the case page shows ${deadline.what} counted from the saved date`).toHaveCount(1);
+});
+
+/*
+ * The owner's Chrome check of #514's preview (29 Oct, third round). Questions one at a time,
+ * "Stop initial questions and review", the review answered (with "Use “$6,000” (from your
+ * story)"), Confirm, "Show my next step"; then, on the form, TYPING into "Important dates /
+ * timeline". Each key press is its own write: the first adds a fact, the second used to count
+ * as changing that fact (existingFactChanged against the previous key press, in the browser
+ * store and in saveCheckpoint's safety net), so the confirmation was cancelled and the case
+ * page sent the person back to the review. Wanted: the confirmation stands, the case page says
+ * the next steps were made before the latest answer and offers "Update my next steps".
+ * (Playwright's fill() writes the whole value at once, which is why the earlier test passed.)
+ *
+ * THE REAL SAVE PATH (site owner, 29 Oct): a real staging user and session (realTestSession.ts,
+ * refuses production), the case saved to and read from the real staging database by the page's
+ * own code, every /api route served by the site under test (analysis included: with no model key
+ * it is the site's own deterministic engine). Stand-ins, the only ones: the routes that would call
+ * a model (serveModelStandIns: guided-turn with each model step replaced, classify-court-path,
+ * case/understand, case/read, assistant/law, classify-claim-type, depth-turn), and the situation
+ * answers pre-set in the tab (autoAnswerSituation), as every intake test does.
+ */
+test("retest-29oct D1: typing into the form's timeline after Confirm keeps the confirmation; the case page offers to update the next steps -- small-claims (intake= address)", async ({ page }) => {
+  test.setTimeout(480_000);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const userId = await authenticateRealTestUser(page, { realCases: true });
+  try {
+  await serveModelStandIns(page, "small-claims", userId);
+  await page.goto("/?path=small-claims");
+  await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
+  await page.getByLabel("City or municipality").fill("Kingston");
+  await page.getByLabel("Tell us what happened in your own words").fill(STORY);
+  await page.getByRole("button", { name: "Continue to Small Claims intake" }).click();
+  await page.waitForURL(/\/builder\?.*intake=/, { timeout: 60_000 });
+  const intake = new URL(page.url()).searchParams.get("intake");
+  const acknowledgement = page.getByTestId("acknowledgement-checkbox");
+  await expect(acknowledgement.or(page.getByRole("button", { name: "Fill in the form yourself" }))).toBeVisible({ timeout: 60_000 });
+  if (await acknowledgement.isVisible()) { await acknowledgement.check(); await page.getByTestId("acknowledgement-continue").click(); }
+  await page.getByRole("button", { name: /Answer questions one at a time/ }).click();
+  const send = page.getByTestId("guided-send-saved-story");
+  if (await send.isVisible({ timeout: 5_000 }).catch(() => false)) await send.click();
+  const question = page.locator("[data-testid=guided-message][data-from=assistant]").last();
+  const proposals = page.getByTestId("story-proposals");
+  await expect(proposals.or(question).first()).toBeVisible({ timeout: 60_000 });
+  if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
+  await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
+  await page.getByRole("button", { name: "Stop initial questions and review" }).click();
+  const panel = page.getByTestId("intake-review");
+  await expect(panel).toHaveAttribute("data-phase", "reviewing");
+  const q = (id: string) => page.locator(`[data-question="${id}"]`);
+  const kind = q("sc-orient-dispute-category").getByRole("button").first();
+  if (await kind.count()) await kind.click();
+  if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
+  const use = panel.getByRole("button", { name: /^Use “\$6,000” \(from your story\)$/ });
+  if (await use.count()) await use.first().click();
+  await recordInitialUnknowns(page);
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+  await page.getByRole("button", { name: "Show my next step", exact: true }).first().click();
+  await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 120_000 });
+  // The saved case, read from the real staging database (service key from the environment, never printed).
+  const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.SUPABASE_SERVICE_ROLE_KEY as string, { auth: { persistSession: false } });
+  const saved = async () => (await admin.from("cases").select("id,master_result").eq("id", intake as string).eq("user_id", userId).maybeSingle()).data as { id: string; master_result: Record<string, unknown> } | null;
+  await expect.poll(async () => Boolean((await saved())?.master_result?.guidanceInputRevision), { timeout: 60_000, message: "the next steps were saved to the case" }).toBe(true);
+
+  // The form, by the intake address; typed key by key, as a person types.
+  await page.goto(`/builder?path=small-claims&intake=${intake}&step=form`);
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  const timeline = page.getByLabel("Important dates / timeline");
+  await expect(timeline).toHaveValue("");
+  await timeline.pressSequentially("March 2026 hired them", { delay: 60 });
+  await timeline.blur();
+  await expect.poll(async () => JSON.stringify((await saved())?.master_result?.intakeCheckpoint ?? null), { timeout: 30_000 }).toContain("March 2026 hired them");
+  await expect(panel, "typing a new answer kept the confirmation").toHaveAttribute("data-phase", "user-confirmed");
+
+  await page.goto(`/cases/${intake}`);
+  await expect(page.getByTestId("case-guidance-outdated"), "the case page says the next steps were made before the latest answer").toBeVisible({ timeout: 60_000 });
+  await expect(page.getByTestId("case-update-next-steps")).toHaveText("Update my next steps");
+  await expect(page.getByText("Review your initial information before receiving case guidance"), "never sent back to the review").toHaveCount(0);
+  } finally {
+    await deleteHarnessUser(userId);
+  }
 });

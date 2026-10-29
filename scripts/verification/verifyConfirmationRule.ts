@@ -36,6 +36,12 @@
  *      is shown, on the case page (stepDeadlines.ts countedStepDeadlines) and on the
  *      step card (the stage-answer route, through its real confirmation gate), so a
  *      changed date changes the deadline with nothing remade.
+ *   7. TYPED one key at a time (Chrome check of #514's preview, 29 Oct): after Confirm,
+ *      an empty box typed into key by key -- each key press its own write, each saved
+ *      through saveCheckpoint -- keeps the confirmation on every route, and the next
+ *      steps are outdated; an answer that WAS confirmed, typed over key by key, still
+ *      cancels it. Compared with the facts as confirmed (confirmedAnswerChanged, the
+ *      marks recorded by transitionReview), never with the last key press.
  *
  * What failure this catches: the browser and server drifting apart again, so a
  * confirmation the server keeps is dropped in the tab (or the reverse), a changed
@@ -48,7 +54,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { applyFactRevisions, existingFactChanged, factsRevision, guidanceIsCurrent, guidanceNeedsUpdate, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { inputRevision, applyFactRevisions, existingFactChanged, factsRevision, guidanceIsCurrent, guidanceNeedsUpdate, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { withConfirmedGuidance } from "../../src/lib/security/intakeGuidanceGate";
 import { saveCheckpoint, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 import { readCasePosition } from "../../src/lib/case-system/casePosition";
@@ -216,6 +222,38 @@ async function main() {
     assert.match(route, /return result\.ok \? \{ \.\.\.master, position: \{/, "the position route no longer writes only master_result.position");
     assert.doesNotMatch(route, /\b(intakeCheckpoint|workflowStatus|guidanceFactsRevision|guidanceInputRevision)\s*:/, "the position route writes the intake or the next steps' revision");
   });
+
+  for (const route of ROUTES) {
+    await check(`${route.name}: typed key by key after Confirm, a new answer keeps the confirmation and outdates the next steps; a confirmed answer typed over still cancels it`, async () => {
+      const base = checkpoint(route.court, route.answers({ goal: "Synthetic: payment of the $6,000 owed." }));
+      const { done } = confirmed(base);
+      const guidance = { guidanceInputRevision: REVISION, guidanceFactsRevision: REVISION };
+      const typeInto = async (field: string, text: string, start: Record<string, unknown>) => {
+        const { db, master } = fakeDb(route.court, { intakeCheckpoint: base, workflowStatus: done, ...guidance });
+        let previous = base;
+        let workflow: Record<string, unknown> = done;
+        let serverRevision = REVISION;
+        for (let length = 1; length <= text.length; length++) {
+          const revision = `55555555-5555-4555-8555-${String(length).padStart(12, "0")}`;
+          const next: Checkpoint = { ...previous, revision, sections: { ...previous.sections, ...route.answers({ ...start, [field]: text.slice(0, length) }), builder: previous.sections.builder } };
+          // The browser store's own step for each key press, then the save, as the page does.
+          applyFactRevisions(workflow, previous, next);
+          const outcome = await saveCheckpoint(db, OWNER, FLOW, next, serverRevision, () => true, inputRevision(next) !== inputRevision(previous), false);
+          assert(outcome.ok, "each key press saved");
+          serverRevision = revision;
+          workflow = master().workflowStatus as Record<string, unknown>;
+          previous = master().intakeCheckpoint as Checkpoint;
+        }
+        return master();
+      };
+      const added = await typeInto("timeline", "March 2026 hired them", { goal: "Synthetic: payment of the $6,000 owed." });
+      assert.equal(reviewPhase(added.workflowStatus as Record<string, unknown>, added.intakeCheckpoint as Checkpoint), "user-confirmed", "typing a new answer key by key cancelled the confirmation");
+      assert.equal(guidanceIsCurrent(added, route.court, FLOW), false, "next steps made before the typed answer are still shown as current");
+      assert.equal(guidanceNeedsUpdate(added, route.court, FLOW), true, "the next steps are not offered for updating");
+      const changed = await typeInto("goal", "Synthetic: payment of the $6,000 owed, and costs", {});
+      assert.notEqual(reviewPhase(changed.workflowStatus as Record<string, unknown>, changed.intakeCheckpoint as Checkpoint), "user-confirmed", "a confirmed answer typed over kept the confirmation");
+    });
+  }
 
   await check("the browser store sets revisions only through the one rule, and leases AI answers on the facts", () => {
     const source = readFileSync("app/_components/IntakeRecovery.tsx", "utf8");

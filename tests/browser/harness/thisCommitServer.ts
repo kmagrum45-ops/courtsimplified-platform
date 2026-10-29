@@ -54,9 +54,7 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
     const result = court === "family" ? await runFamilyIntakeCanonicalIntegration(input, { allowExternalCognition: false }) : court === "civil" ? await runCivilIntakeCanonicalIntegration(input, { allowExternalCognition: false }) : await analyzeSmallClaimsWithBrain(input, { allowExternalCognition: false });
     return route.fulfill({ json: { ok: true, result, authenticated: true, reasoningMode: "deterministic-fallback", analysisAvailable: true } });
   });
-  await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
-  await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
-  await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: court, confidence: 0.95 } }));
+  await serveModelStandIns(page, court);
   await page.route("**/api/cases/position", async (route) => {
     const body = route.request().postDataJSON();
     const row = rows.get(body.caseId);
@@ -78,12 +76,34 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
     });
     return viaHandler(route, post, page);
   });
+  await page.route("**/api/cases/chat**", (route) => route.fulfill({ json: { ok: true, messages: [] } }));
+  // "Things that may have happened in your case": the route's own reading of the saved case (no
+  // events confirmed, nothing dismissed in a fresh case). Chrome 29 Oct, finding 1: its date boxes
+  // are where "When, in your words" and "The exact date" are asked; unanswered, they were never shown.
+  await page.route("**/api/cases/event-candidates**", (route) => {
+    if (route.request().method() !== "GET") return route.fulfill({ json: { ok: true } });
+    const row = rows.get(new URL(route.request().url()).searchParams.get("caseId") ?? "");
+    return route.fulfill({ json: { candidates: row ? resolveCandidates(candidatesFromMasterResult(row.master_result), [], []) : [] } });
+  });
+}
+
+/**
+ * ONLY the routes that would call a model, each answered by this commit's own code with every
+ * model step replaced (as above). Everything else -- the account, the case rows, every /api
+ * route and every save -- is left to the real site. For a test that must use the real save path
+ * (site owner, 29 Oct: a green test must mean the live path works): list these as its stand-ins.
+ * `ownerId`: the signed-in user the guided-turn route is told it serves.
+ */
+export async function serveModelStandIns(page: Page, court: Court, ownerId: string = OWNER) {
+  await page.route("**/api/case/read", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
+  await page.route("**/api/case/understand", (route) => route.fulfill({ json: { ok: true, skipped: "off" } }));
+  await page.route("**/api/classify-court-path", (route) => route.fulfill({ json: { primaryPath: court, confidence: 0.95 } }));
   await page.route("**/api/assistant/law", (route) => route.fulfill({ json: { findings: [] } }));
   await page.route("**/api/intake/guided-turn", (route) => {
     // The route requires a key to be configured; no model is called (every step is replaced).
     process.env.OPENAI_API_KEY ||= "no-model-in-tests";
     const post = createGuidedTurnPost({
-      authenticate: (async () => ({ id: OWNER })) as never,
+      authenticate: (async () => ({ id: ownerId })) as never,
       hasExternalAiKey: () => true,
       orchestrate: ((facts, answeredIds, text, _key, bank, types, area, questionId, options, earlier) => orchestrateIntakeTurn(facts, answeredIds, text, "no-model", bank, types, area, questionId, {
         ...options,
@@ -100,13 +120,4 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
   });
   await page.route("**/api/intake/classify-claim-type", (route) => route.fulfill({ status: 503, json: { ok: false } }));
   await page.route("**/api/intake/depth-turn", (route) => route.fulfill({ status: 503, json: { ok: false } }));
-  await page.route("**/api/cases/chat**", (route) => route.fulfill({ json: { ok: true, messages: [] } }));
-  // "Things that may have happened in your case": the route's own reading of the saved case (no
-  // events confirmed, nothing dismissed in a fresh case). Chrome 29 Oct, finding 1: its date boxes
-  // are where "When, in your words" and "The exact date" are asked; unanswered, they were never shown.
-  await page.route("**/api/cases/event-candidates**", (route) => {
-    if (route.request().method() !== "GET") return route.fulfill({ json: { ok: true } });
-    const row = rows.get(new URL(route.request().url()).searchParams.get("caseId") ?? "");
-    return route.fulfill({ json: { candidates: row ? resolveCandidates(candidatesFromMasterResult(row.master_result), [], []) : [] } });
-  });
 }
