@@ -12,6 +12,11 @@
  *   H1 - no Small Claims box suggests an outcome the court cannot order (an apology);
  *   H2 - the kind of dispute can take more than one answer;
  *   H3 - the court-office line names the city with its own capitalisation.
+ * And the owner's Chrome test of #501's preview (OWNER-1..4): a month and year in an
+ * event's own sentence fills its "When" box; the overview's "When" row reads the
+ * recorded day; a not-confirmed topic is never cut mid-word; the chat can be closed
+ * and reopened from the case page. (2-4 read the source, like E2 in
+ * verifyChrome29octSafety.ts: replace with a rendered check when the code allows.)
  *
  * WHAT FAILURE THIS CATCHES: any of the above coming back after it is fixed, or a NEW
  * failure. A check listed in tests/browser/harness/knownProblems29oct-flow.ts is
@@ -30,6 +35,7 @@ import { explanationFor, GENERIC_FALLBACK } from "../../src/lib/content-library/
 import { civilCourtOfficesFor, familyCourtOfficesFor } from "../../src/lib/content-library/nextStepPractical";
 import { civilGuidedFields, familyGuidedFields } from "../../app/builder/_components/guidedFields";
 import { answerNeedsMore } from "../../app/builder/_components/GuidedFormChat";
+import { dateInSentence } from "../../src/lib/case-system/casePosition";
 import { KNOWN_PROBLEMS_29OCT_FLOW } from "../../tests/browser/harness/knownProblems29oct-flow";
 
 type Check = { name: string; run: () => Promise<string[]> | string[] };
@@ -152,7 +158,64 @@ const checks: Check[] = [
       return problems;
     },
   },
+  // ---- The owner's Chrome test of #501's preview (29 Oct, second round) ----
+  {
+    // Finding 1: the story's own sentence gives the month and year; the event's "When, in your words" is empty.
+    name: "OWNER-1: a month and year in an event's own sentence fills \"When, in your words\"",
+    run: () => {
+      const problems: string[] = [];
+      for (const sentence of ["I hired Test Decks Ltd. in March 2026 to build a deck for $8,000.", "My landlord kept my deposit when I moved out in June 2026.", "We separated in Sept. 2025 after ten years."]) {
+        const read = dateInSentence(sentence);
+        const said = /\b(?:March|June|Sept\.?) \d{4}\b/.exec(sentence)![0];
+        if (!read || !read.raw.includes(said.replace(/\.$/, ""))) problems.push(`${JSON.stringify(sentence)}: words box gets ${JSON.stringify(read?.raw ?? "")}, not "${said}"`);
+        // A month and year is not a day: the picker stays empty, never a guessed day.
+        if (read?.iso) problems.push(`${JSON.stringify(sentence)}: a day was guessed (${read.iso})`);
+      }
+      return problems;
+    },
+  },
+  {
+    // Finding 2: the overview's "When (your words)" keeps the story's "March 2026" after the exact day was recorded.
+    // The case file (caseFileOf) takes the step page's day; the overview reads only intake.timeline.
+    name: "OWNER-2: the case overview's \"When\" row reads the recorded day, not only the story's words",
+    run: () => {
+      const panel = read("app/builder/_components/IntelligenceOverviewPanel.tsx");
+      const row = panel.split(/\r?\n/).filter((line) => /When \(your words\)|const timeline =/.test(line)).join("\n");
+      return /whenHappened|dateAnswers|case-date-act-or-omission|caseFile/.test(row) ? [] : [`IntelligenceOverviewPanel's When row: ${row.trim().replace(/\s+/g, " ").slice(0, 200)}`];
+    },
+  },
+  {
+    // Finding 3: "...Ottawa Small Claims Co." -- a statement cut at 80 characters, listed as not confirmed, then a full stop.
+    name: "OWNER-3: a topic listed as not confirmed is never cut mid-word",
+    run: () => {
+      const source = read("src/lib/case-system/retrieval/checkedAnswer.ts");
+      return source.split(/\r?\n/).map((line, i) => [i + 1, line] as const)
+        .filter(([, line]) => /(?:notConfirmed(?:Why)?\.push\(|fallbackTopic =)[^\n]*\.slice\(0, *\d+\)/.test(line))
+        .map(([n, line]) => `checkedAnswer.ts:${n}: ${line.trim().slice(0, 140)}`);
+    },
+  },
+  {
+    // Finding 4: the follow-up chat has no close, and nothing on the case page opens it again.
+    name: "OWNER-4: the follow-up chat can be closed, and the case page opens it again",
+    run: () => {
+      const problems: string[] = [];
+      const page = read("app/builder/page.tsx");
+      const chat = read("app/builder/_components/CourtAssistantChat.tsx");
+      if (!/setShowFollowUp\(false\)/.test(page) && !/\bonClose\b/.test(chat)) problems.push("no close: showFollowUp is never set back to false (app/builder/page.tsx) and the chat takes no onClose");
+      const casePages = listFiles("app/cases").map(read);
+      if (!casePages.some((text) => /Ask follow-up questions|CourtAssistantChat|followUp=|chat=open/.test(text))) problems.push("no file under app/cases opens the follow-up chat");
+      return problems;
+    },
+  },
 ];
+
+function read(file: string): string {
+  return fs.readFileSync(path.join(process.cwd(), file), "utf8");
+}
+function listFiles(dir: string): string[] {
+  return fs.readdirSync(path.join(process.cwd(), dir), { withFileTypes: true }).flatMap((entry) =>
+    entry.isDirectory() ? listFiles(path.join(dir, entry.name)) : /\.tsx?$/.test(entry.name) ? [path.join(dir, entry.name)] : []);
+}
 
 async function main() {
   const known = new Map(KNOWN_PROBLEMS_29OCT_FLOW.map((problem) => [problem.test, problem]));

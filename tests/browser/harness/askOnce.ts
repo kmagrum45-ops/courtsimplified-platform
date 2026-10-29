@@ -21,6 +21,8 @@
  *   the step page's dates    [data-testid=stage-answer-date-question][data-question-id]
  *   the review's own boxes    [data-testid=intake-entry][data-empty=true] (an empty box asks for its fact)
  *   the Small Claims form    [data-testid=sc-intake-documents][data-empty=true] ("What documents already exist?", nothing ticked)
+ *   the story's events       [data-testid=event-candidate]: a date box left empty while its own quoted
+ *                            sentence gives that date (fact dateInOwnSentence, given by the story)
  * And, never ask twice (site owner, 28 Oct), the places that ask in words, found by what the
  * page already renders (no site change); their fact is read from their words by the test's own
  * table (chatQuestionFacts.ts), never by the site's wording map:
@@ -91,7 +93,9 @@ const SCAN = `(() => {
     ["situation", "[data-testid=situation-questions]", (el) => [el.getAttribute("data-question")]],
     ["chat", "[data-testid=guided-form-question]", (el) => [el.getAttribute("data-key")]],
     ["chat-story", "[data-testid=guided-form-from-story]", (el) => (el.getAttribute("data-group") || "").split(" ")],
-    ["sc-chat", "[data-testid=guided-message][data-question-id]", (el) => [el.getAttribute("data-question-id")]],
+    // A question already followed by the person's reply when first seen is the saved conversation
+    // shown again after a reload ("Update your story"), not a new ask.
+    ["sc-chat", "[data-testid=guided-message][data-question-id]", (el) => { const all = [...document.querySelectorAll("[data-testid=guided-message]")]; return all.slice(all.indexOf(el) + 1).some((m) => m.getAttribute("data-from") === "user") ? [] : [el.getAttribute("data-question-id")]; }],
     ["sc-proposal", "[data-testid=story-proposal-row]", (el) => [el.getAttribute("data-question-id")]],
     ["review", "[data-testid=intake-initial-question][data-answered=false]", (el) => [el.getAttribute("data-question")]],
     ["triage", "[data-testid=triage-question]", (el) => [el.getAttribute("data-question")]],
@@ -104,6 +108,25 @@ const SCAN = `(() => {
     ["end", "[data-testid=case-file-line][data-state=unsure] [data-testid=case-file-answer-now]", (el) => [el.closest("[data-testid=case-file-line]").getAttribute("data-question")]],
     ["claim-kind", "[data-testid=claim-kind-chooser]", () => ["claim-kind-suggestion"]],
     ["sc-form", "[data-testid=sc-intake-documents][data-empty=true]", () => ["filedDocuments"]],
+    // "Things that may have happened in your case" (EventCandidateSurface): each candidate quotes the
+    // person's own sentence. A date box left empty while that very sentence gives the date asks for
+    // it again (Chrome 29 Oct, finding 1: "March 2026" in the story, "When, in your words" asked).
+    // "when": the words box empty while the sentence names a month and year (or a full day);
+    // "exact-date": the picker empty while the sentence names a full day with its year. A month and
+    // year alone does not give the day, so the picker beside it is not counted here.
+    ["event-candidate", "[data-testid=event-candidate]", (el) => {
+      const fp = el.getAttribute("data-fingerprint") || "";
+      const sentence = words(el.querySelector("[data-testid=event-candidate-sentence]"));
+      const fullDay = /\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.? \\d{1,2}(?:st|nd|rd|th)?,? \\d{4}\\b|\\b\\d{1,2} (?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.? \\d{4}\\b/.test(sentence);
+      const monthYear = fullDay || /\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.?,? \\d{4}\\b/.test(sentence);
+      const box = [...el.querySelectorAll("label")].find((label) => words(label.querySelector("span")) === "When, in your words");
+      const text = box ? box.querySelector("input") : null;
+      const date = el.querySelector("input[type=date]");
+      const out = [];
+      if (text && steadyEmpty("ev-when:" + fp, monthYear && !text.value.trim())) out.push("when");
+      if (date && steadyEmpty("ev-date:" + fp, fullDay && !date.value)) out.push("exact-date");
+      return out;
+    }],
     // Never ask twice (28 Oct): the places that ask in words. The id is the question's own words.
     ["home-reading", "[data-testid=case-understanding-questions] li", (el) => [words(el.querySelector("label > span"))]],
     ["law", "[data-testid=sourced-question-current]", (el) => [words(el.querySelector("label"))]],
@@ -228,6 +251,8 @@ const WORDED = new Set(["chat-reply", "home-reading", "law", "confirm-next", "fo
 
 /** The facts a recorded question asks for, on any surface. A question whose words name no fact asks for a fact of its own. */
 export function factsOfAsk(item: Pick<Asked, "surface" | "id" | "text">): string[] {
+  // A date box beside the person's own sentence that already gives that date (SCAN's event-candidate).
+  if (item.surface === "event-candidate") return ["dateInOwnSentence"];
   if (WORDED.has(item.surface)) { const facts = factsOfWords(item.id); return facts.length ? facts : [`${item.surface}:${item.id}`]; }
   if (item.surface === "service-method") return ["serviceMethod"];
   if (item.surface === "form-field") {
@@ -339,6 +364,9 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
   const situationGiven: Asked = { kind: "answer", surface: "situation", id: "answers", screen: "/", text: "the situation questions", at: 0 };
   for (const fact of factsFromSituation(situation)) given.set(fact, situationGiven);
   for (const fact of unsureFromSituation(situation)) given.set(fact, { ...situationGiven, text: "unsure" });
+  // The story gives the dates its own sentences hold: an event candidate is recorded as asking only
+  // when the sentence it quotes names the date its box leaves empty (SCAN's event-candidate surface).
+  given.set("dateInOwnSentence", { kind: "answer", surface: "story", id: "story", screen: "/", text: "the person's own sentence", at: 0 });
   const firstAsk = (surface: string, id: string) => asks.find((item) => item.surface === surface && item.id === id);
   // Answers, in order, give their question's facts.
   for (const item of events.filter((event) => event.kind === "answer").sort((a, b) => a.at - b.at)) {

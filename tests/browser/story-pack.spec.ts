@@ -517,6 +517,8 @@ for (const story of STORIES) {
         note(run, "results", "a stage the answers settle is not asked again", !results.includes("Which of these fits your case best?"));
       }
 
+      const questionsPage = page.url();
+
       // 4. The chat.
       const ask = page.getByRole("button", { name: "Ask follow-up questions" });
       // The chat opens once the case is saved (a moment after the next step shows).
@@ -550,6 +552,19 @@ for (const story of STORIES) {
         checkClaimKind(run, "case page", casePage, story);
         if (settles(story)) note(run, "case page", "a stage the answers settle is not asked again", !casePage.includes("Which of these fits your case best?"));
       } else note(run, "case page", "the case was saved", false);
+
+      // 6. Back to the questions (Chrome 29 Oct, findings 1 and 5): "Update your story" on the case
+      // page opens the saved case's questions again. Small Claims shows "Things that may have happened
+      // in your case" there, each sentence of the story with its date boxes; the recorder (askOnce.ts,
+      // event-candidate) counts a box left empty while its own sentence gives the date.
+      if (story.court === "small-claims" && row?.id) {
+        const update = page.getByRole("link", { name: "Update your story" });
+        if (await update.isVisible().catch(() => false)) {
+          await update.click();
+          await page.getByTestId("event-candidate-surface").waitFor({ state: "visible", timeout: 60_000 }).catch(() => {});
+          await page.waitForTimeout(1_500);
+        }
+      }
 
       // Gate A2 on the guided route's own card: "This sounds like it may be about: X -- is that right?"
       for (const item of asked.filter((entry) => entry.kind === "ask" && entry.surface === "sc-claim-kind")) {

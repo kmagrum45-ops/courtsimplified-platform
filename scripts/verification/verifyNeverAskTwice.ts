@@ -92,7 +92,11 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   check("an unknown violation is not excused", split.known.length === 1 && split.unknown.length === 1 && split.unknown[0] === stranger);
   const blank: KnownRepeat[] = [{ surface: "review-entry", reason: "an entry naming neither a fact nor a question excuses nothing", auditRow: 7 }];
   check("an entry naming neither a fact nor a question excuses nothing", knownRepeatFor(stranger, "any", blank) === null);
-  check("repeats become one violation per question asked again", repeatViolations([{ fact: "amount", given: ask("chat", "x"), asks: [ask("review", "a"), ask("date", "b")] }]).length === 2);
+  // Chrome 29 Oct, finding 1: a date box beside the person's own sentence that gives the date is asked
+  // again, given by the story itself (the recorder emits it only when that sentence names the date).
+  const eventWhen = factsAskedTwice([ask("event-candidate", "when")], false);
+  check("an event's empty date box beside its own dated sentence is a repeat, given by the story", factsOfAsk({ surface: "event-candidate", id: "when", text: "" }).join() === "dateInOwnSentence" && eventWhen.some((repeat) => repeat.fact === "dateInOwnSentence" && repeat.given.surface === "story"));
+  check("repeats become one violation per question asked again",repeatViolations([{ fact: "amount", given: ask("chat", "x"), asks: [ask("review", "a"), ask("date", "b")] }]).length === 2);
 }
 
 // 5. The test's own wording table: the chat's row-1 questions, from the site's own strings.

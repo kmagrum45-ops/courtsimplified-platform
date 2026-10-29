@@ -21,6 +21,7 @@ import { createGuidedAssistantPost } from "../../../app/api/guided-assistant/rou
 import { createGuidedTurnPost } from "../../../app/api/intake/guided-turn/route";
 import { orchestrateIntakeTurn } from "../../../src/lib/case-system/intake/orchestrateIntakeTurn";
 import { sideInAnswer } from "../../../app/builder/_components/stageFromAnswers";
+import { candidatesFromMasterResult, resolveCandidates } from "../../../src/lib/case-system/events/caseEventCandidates";
 
 export type Court = "small-claims" | "civil" | "family";
 type Rows = Map<string, Record<string, unknown>>;
@@ -100,4 +101,12 @@ export async function serveFromThisCommit(page: Page, court: Court, rows: Rows) 
   await page.route("**/api/intake/classify-claim-type", (route) => route.fulfill({ status: 503, json: { ok: false } }));
   await page.route("**/api/intake/depth-turn", (route) => route.fulfill({ status: 503, json: { ok: false } }));
   await page.route("**/api/cases/chat**", (route) => route.fulfill({ json: { ok: true, messages: [] } }));
+  // "Things that may have happened in your case": the route's own reading of the saved case (no
+  // events confirmed, nothing dismissed in a fresh case). Chrome 29 Oct, finding 1: its date boxes
+  // are where "When, in your words" and "The exact date" are asked; unanswered, they were never shown.
+  await page.route("**/api/cases/event-candidates**", (route) => {
+    if (route.request().method() !== "GET") return route.fulfill({ json: { ok: true } });
+    const row = rows.get(new URL(route.request().url()).searchParams.get("caseId") ?? "");
+    return route.fulfill({ json: { candidates: row ? resolveCandidates(candidatesFromMasterResult(row.master_result), [], []) : [] } });
+  });
 }
