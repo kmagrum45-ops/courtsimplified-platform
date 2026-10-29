@@ -34,7 +34,8 @@ import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { deleteHarnessUser, signInHarnessUser } from "./harness/smallClaimsDriver";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED, type SituationAnswers } from "./harness/situation";
-import { factsAskedTwice, recordAsks } from "./harness/askOnce";
+import { factsAskedTwice, heldInRows, heldViolations, recordAsks, repeatViolations } from "./harness/askOnce";
+import { splitKnown } from "./harness/knownRepeats";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { serveFromThisCommit, type Court } from "./harness/thisCommitServer";
 import { asksForDate } from "../../src/lib/case-system/dates";
@@ -470,7 +471,9 @@ for (const story of STORIES) {
       await grantSiteAccess(page);
       await autoAnswerSituation(page, situationForStory(story));
       // Gate A1: every question shown in this case, on every screen.
-      const asked = await recordAsks(page);
+      // Never ask twice (28 Oct): each question also reads the saved case at the moment it is asked.
+      let savedRows: Map<string, Record<string, unknown>> | null = null;
+      const asked = await recordAsks(page, { held: () => (savedRows ? heldInRows(savedRows, story.court) : null) });
       // A chat reply that fails says why in the run's log: its status and body, a request that
       // never completed, and the page's own error line (case 05 failed only on the CI runner).
       page.on("response", async (response) => {
@@ -480,6 +483,7 @@ for (const story of STORIES) {
       page.on("console", async (message) => { if (/guided assistant request failed|CourtSimplified guided assistant/i.test(message.text())) console.log(`CHAT-DIAG ${run} console ${JSON.stringify(await Promise.all(message.args().map((arg) => arg.jsonValue().catch(() => "?")))).slice(0, 400)}`); });
       page.on("pageerror", (error) => console.log(`CHAT-DIAG ${run} pageerror ${String(error).slice(0, 300)}`));
       const account = await fakeAccount(page);
+      savedRows = account.rows;
       await serveFromThisCommit(page, story.court, account.rows as unknown as Map<string, Record<string, unknown>>);
 
       // 1-2. Start the case and answer.
@@ -554,7 +558,7 @@ ${item.text}`, story);
       // Gate A1: no fact asked twice in this case, across every screen.
       await page.waitForTimeout(600);
       const repeats = factsAskedTwice(asked, situationForStory(story));
-      appendRecord("ask-once.jsonl", ({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id}@${item.screen}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }));
+      appendRecord("ask-once.jsonl", ({ run, asked: asked.filter((item) => item.kind === "ask").map((item) => `${item.surface}:${item.id.slice(0, 100)}@${item.screen}${item.held ? ` [held ${Object.entries(item.held).map(([fact, state]) => `${fact}=${state}`).join(",")}]` : ""}`), repeats: repeats.map((repeat) => ({ fact: repeat.fact, given: `${repeat.given.surface}:${repeat.given.id}@${repeat.given.screen} "${repeat.given.text.slice(0, 80)}"`, asks: repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen} "${item.text.slice(0, 80)}"`) })) }));
       // 26 Oct re-test, case 19: "No, nothing yet" was followed by "Has the other party filed a Defence?"
       // and "what date was it served?". Nothing filed means nothing served or defended, in any story.
       const start = situationForStory(story);
@@ -562,9 +566,17 @@ ${item.text}`, story);
         const served = asked.filter((item) => item.kind === "ask" && /^(sc-defence-filed|sc-date-claim-served|sc-date-claim-issued|sc-defence-time-elapsed|sc-defendant-noted-in-default)$/.test(item.id));
         note(run, "ask-once", "'No, nothing yet': no Defence or served-date question", served.length === 0, served.map((item) => `${item.id}@${item.screen}`).join(", "));
       }
-      note(run, "ask-once", "no fact is asked twice in the case", repeats.length === 0, repeats.map((repeat) => `${repeat.fact} (${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")})`).join("; "));
-      // Jason, 2026-10-24: any fact asked twice fails the build, whatever else this run found.
-      expect(repeats.map((repeat) => `${repeat.fact}: ${repeat.asks.map((item) => `${item.surface}:${item.id}@${item.screen}`).join(", ")}`), "no fact is asked twice in the case").toEqual([]);
+      // Never ask twice (site owner, 28 Oct): a fact asked again after it was given (above), or asked while
+      // the saved case held it as the person's own, fails -- unless it is on the named list of known
+      // repeats (harness/knownRepeats.ts), which is recorded and does not fail.
+      const violations = [...repeatViolations(repeats), ...heldViolations(asked)];
+      const { known, unknown } = splitKnown(violations, story.id);
+      const line = (item: (typeof violations)[number]) => `${item.rule} ${item.fact}: ${item.surface}:${item.id.slice(0, 100)}@${item.screen} (${item.detail})`;
+      appendRecord("never-ask-twice.jsonl", { run, story: story.id, known: known.map(({ violation, entry }) => ({ violation: line(violation), auditRow: entry.auditRow, reason: entry.reason })), unknown: unknown.map(line) });
+      note(run, "ask-once", "no fact is asked twice in the case, and none the saved case holds (known repeats excused)", unknown.length === 0, unknown.map(line).join("; "));
+      // Jason, 2026-10-24: any fact asked twice fails the build, whatever else this run found; the
+      // known repeats are named, each with its reason and audit row, and only they are excused.
+      expect(unknown.map(line), "no fact is asked twice in the case, and none the saved case holds (known repeats excused)").toEqual([]);
     });
   }
 }

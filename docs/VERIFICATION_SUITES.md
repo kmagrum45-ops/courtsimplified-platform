@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-188 documented, 26 without a header.
+192 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -47,6 +47,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |
 | `npm run test:child-support-table-card` | **The table card explains the table and never works an example.**<br>COSTS NOTHING. Reads the component source and the vendored sources. No render, no network. |
+| `npm run test:chrome-29oct-flow` | **The site owner's Chrome re-test of 29 Oct, flow items C, D3 and H, checked through**<br>the real code with no browser, no model and no database. |
+| `npm run test:chrome-29oct-safety` | **The site owner's Chrome re-test of 29 October, items E, F and G: safety,**<br>deadlines and the Family "which court" step. Known problems, written as FAILING checks before any fix (tests/browser/harness/knownProblems29oct-safety.ts lists each one, in plain words). |
 | `npm run test:citations` | **EVERY CITATION THE SITE SHOWS SAYS EXACTLY WHAT IT CITES (Charter re-test, 27 Oct, root cause 5).**<br>Runs over the whole library: every quoted citation in the stage map (its steps, deadlines, moves and final steps), the rules shown beside published sentences, the practical lines (forms, fees, filing, service), and every source's name. For each it asserts, as  |
 | `npm run test:cited-provisions` | **Every cited provision is vendored, and no not-in-force replacement is**<br>undeclared or stale. |
 | `npm run test:claim-amount` | **The amount offered as "the amount claimed" is the one owed, claimed or the**<br>damage -- never an amount already paid, a fee or a price -- and nothing is offered when the story leaves it unclear (claimAmount.ts). |
@@ -80,6 +82,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
 | `npm run test:form-completion-paused` | **While official-form completion is paused, every door to it stays shut.**<br>FORM_COMPLETION_PAUSED (src/lib/content-library/phaseScope.ts) was set on 2026-09-27 for the LSO A2I application, which tells the Law Society that filling official court forms and drafting claim particulars are out of scope until it gives guidance. That statem |
 | `npm run test:form-explanations` | **Every official form is in the guide, explained from the rules that name it,**<br>and the rule quotes are still the regulation's own words. |
+| `npm run test:forms-from-case-file` | **What reaches a draft form is the person's own case-file facts, under the**<br>right labels, and every fact they gave reaches it (site owner's Chrome re-test, 29 Oct 2026, items A and B). |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
 | `npm run test:glossary` | **Every glossary entry says what a word means wherever it is used, rests on**<br>sources whose quoted words are really in the saved copy, and keeps the law's own definitions verbatim. |
 | `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |
@@ -108,6 +111,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:municipal-notice-first` | **The right municipality's law for an injury on a municipal way, and the**<br>10-day notice shown first in the intake (round 4 senior-lawyer review, 2026-10-14, persona civil-plaintiff-municipal-slip). |
 | `npm run test:mutations` | **Every family §3 / §2 check is proven able to fail.**<br>COSTS NOTHING. Local file edits plus suite runs. Slower than the suites themselves (it runs each one once per mutation), so it is not wired into the per-change loop — run it when a check is added or changed. |
 | `npm run test:narrative-prefill` | **What the narrative extractor reads from a story, and that nothing hands it to a form.**<br>What it checks: extractNarrativePrefill keeps the story exactly, reads only literal facts (names, amount, remedy, dates, evidence, contact, role and who served whom), and turns unclear or contradictory ones into questions; and the follow-up chat no longer pre- |
+| `npm run test:never-ask-twice` | **NEVER ASK TWICE: THE STORY PACK'S GATE, CHECKED WITHOUT A BROWSER (site owner, 28 Oct).**<br>The story pack (tests/browser/story-pack.spec.ts) records every question the site shows (tests/browser/harness/askOnce.ts), and fails a question whose fact the person already gave (factsAskedTwice) or whose fact the saved case holds as the person's own when it |
 | `npm run test:next-step` | **"Your next step" comes first: the step, its deadline counted from the**<br>person's dates (or the period and what it runs from), what to do and the forms, with the full answer folded underneath. Master plan Phase 2 (docs/MASTER_PLAN.md). |
 | `npm run test:next-step-practical` | **The next-step card's form, fee, filing and service lines are the law's own**<br>words, for every step (content-library/nextStepPractical.ts, master plan Phase 2, 2026-10-08). |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |

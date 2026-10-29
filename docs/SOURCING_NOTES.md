@@ -969,6 +969,30 @@ So the same ten days from the same event ends on a Saturday under the Act and on
 the Monday under the rules. Assuming the friendlier rule on a 10-day notice
 period loses the claim.
 
+### Legislation Act ss. 87-89 re-read from e-Laws (2026-10-28), and Christmas on a Saturday
+
+`https://www.ontario.ca/laws/docs/06l21_e.doc` (the ordinary `.doc` route,
+291,840 bytes, `antiword -w 0`; consolidation period "FROM DECEMBER 11, 2025 TO
+THE E-LAWS CURRENCY DATE"). The definition is in **s. 87** ("\"holiday\" means
+a holiday as described in section 88"); the list is **s. 88 (2)**, which also
+has a 12th item the code's quote of it leaves off: "12. Any day fixed as a
+holiday by proclamation of the Governor General or Lieutenant Governor." (not
+calendar-computable). **s. 88 (5)**: "When Christmas Day falls on a Saturday,
+the following Monday is also a holiday, and when it falls on a Sunday, the
+following Tuesday is also a holiday." There is **no Boxing Day substitution**
+in the Act (r. 1.02 has one). **s. 89 (1)**: "Time limits that would otherwise
+expire on a holiday are extended to include the next day that is not a
+holiday."
+
+Worked case (Chrome re-test, 29 Oct): two years from Thursday 25 December 2025
+is Saturday 25 December 2027 (Christmas Day) -> Sunday 26 (Sunday, Boxing Day)
+-> Monday 27 (s. 88 (5)) -> **Tuesday 28 December 2027**, not a holiday under
+the Act. Under r. 1.02's list the 28th is Boxing Day observed and the answer
+would be the 29th: another instance of the two-definition trap above. The
+Limitations Act s. 4 text was re-read the same way (`02l24_e.doc`,
+consolidation from December 4, 2024): "after the second anniversary of the day
+on which the claim was discovered".
+
 ### laws-lois.justice.gc.ca serves plain fetchable HTML (2026-09-23)
 
 `https://laws-lois.justice.gc.ca/eng/acts/<chapter>/FullText.html` returns
@@ -2146,3 +2170,25 @@ Things that cost time and are worth knowing:
   needs leave" say; they are shown beside them (sentenceRules.ts). r. 13.1.01 does not say a place
   is appropriate "because the events occurred there"; (2) asks for a county with a rational
   connection, on the factors in 13.1.02 (2) (b).
+
+### What the Small Claims Court can order (2026-10-29, owner's item H1)
+
+Retrieved 2026-10-29 from `https://www.ontario.ca/laws/docs/90c43_e.doc` (Courts of Justice Act,
+consolidation from December 11, 2025; last amendment 2025, c. 24, Sched. 7), read as text:
+
+- s. 23 (1): "The Small Claims Court, (a) has jurisdiction in any action for the payment of money
+  where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;
+  and (b) has jurisdiction in any action for the recovery of possession of personal property where
+  the value of the property does not exceed the prescribed amount."
+- s. 25: "The Small Claims Court shall hear and determine in a summary way all questions of law and
+  fact and may make such order as is considered just and agreeable to good conscience."
+- s. 96 (3): "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small
+  Claims Court, may grant equitable relief, unless otherwise provided."
+- s. 97: "The Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims
+  Court, may make binding declarations of right, whether or not any consequential relief is or
+  could be claimed."
+
+So the Act gives the Small Claims Court actions for money and for the return of personal property
+(s. 23 (1)); equitable relief and declarations are expressly excluded (ss. 96 (3), 97). An order
+to apologise is neither money nor property. s. 25's "such order as is considered just" sits within
+the s. 23 jurisdiction; no decision was read for this note, so nothing here rests on case law.
