@@ -23,6 +23,7 @@ import CaseUnderstandingCard, { type UnderstandResponse } from "./CaseUnderstand
 import PathwayUnavailable from "./PathwayUnavailable";
 import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
 import { limitMessageOf } from "../../src/lib/security/limitWords";
+import { useCapabilities } from "./CapabilityProvider";
 import {
   CROSS_FORUM_NOTES,
   ISSUE_KIND_LABELS,
@@ -110,6 +111,8 @@ export default function HomeLocationGate() {
 
 function HomeLocationGateContent() {
   const recovery = useIntakeRecovery();
+  // As the server decided it for this person (on production: a listed tester only; 2026-10-29).
+  const understandingOn = useCapabilities().caseUnderstanding;
   const beforeIntakeAI = useBeforeIntakeAI();
   const validateIntakeResponse = useValidateIntakeResponse();
   const router = useRouter();
@@ -263,7 +266,7 @@ function HomeLocationGateContent() {
    * court-path check below runs instead.
    */
   async function understandStory(answers: { question: string; answer: string }[]): Promise<boolean> {
-    if (!CASE_UNDERSTANDING_ON || !path) return false;
+    if (!CASE_UNDERSTANDING_ON || !understandingOn || !path) return false;
     const inputError = understandingInputError(facts.trim(), city.trim(), answers);
     if (inputError) { setRequestError(inputError); return true; }
     try {

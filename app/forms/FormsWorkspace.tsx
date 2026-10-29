@@ -14,8 +14,8 @@ import Link from "next/link";
 import { guidanceIsCurrent } from "@/src/lib/case-system/intakeReview";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useCapabilities } from "../_components/CapabilityProvider";
 import {
-  FORM_COMPLETION_PAUSED,
   FORM_COMPLETION_PAUSED_MESSAGE,
   OFFICIAL_COURT_FORMS_URL,
 } from "../../src/lib/content-library/phaseScope";
@@ -1432,7 +1432,9 @@ function FormsPausedNotice() {
 }
 
 export default function FormsWorkspace(props: FormsWorkspaceProps = {}) {
-  // Paused: see FORM_COMPLETION_PAUSED in phaseScope.ts.
+  // Paused: see FORM_COMPLETION_PAUSED in phaseScope.ts; on production also off unless the
+  // server says this person is a listed tester (formFilling, site owner 2026-10-29).
+  const FORM_COMPLETION_PAUSED = !useCapabilities().formFilling;
   if (FORM_COMPLETION_PAUSED) return <FormsPausedNotice />;
 
   return (

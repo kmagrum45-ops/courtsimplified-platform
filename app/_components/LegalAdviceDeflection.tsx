@@ -7,7 +7,7 @@ import {
   CASE_JUDGMENT_HEADING,
   CASE_JUDGMENT_MESSAGE,
 } from "@/src/lib/content-library/referralResources";
-import { isInScope } from "@/src/lib/case-system/policy/a2iScope";
+import { useCapabilities } from "./CapabilityProvider";
 
 /**
  * What a user sees when we cannot help them.
@@ -37,7 +37,9 @@ export default function LegalAdviceDeflection({
 }) {
   // While answerLegalQuestions is on, the safety pass flags only a request
   // to judge the case, so the words say that and point the user onward.
-  const judgingOnly = reason === "legal-advice" && isInScope("answerLegalQuestions");
+  // As the server decided it for this person (on production: a listed tester only; 2026-10-29).
+  const answersLegalQuestions = useCapabilities().answerLegalQuestions;
+  const judgingOnly = reason === "legal-advice" && answersLegalQuestions;
   const heading =
     reason === "out-of-scope"
       ? "This isn't something we cover"

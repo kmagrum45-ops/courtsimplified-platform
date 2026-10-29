@@ -58,7 +58,8 @@ if (!FORM_COMPLETION_PAUSED) {
   const exp = page.slice(page.indexOf("export default function FormsWorkspace("));
   check(
     "page: /forms renders the paused notice while paused",
-    /^[^]*?\{\s*(\/\/[^\n]*\n\s*)*if \(FORM_COMPLETION_PAUSED\) return <FormsPausedNotice \/>/.test(exp.slice(0, 300)),
+    // Since 2026-10-29 the pause is read per person (useCapabilities().formFilling) on the line before.
+    /^[^]*?\{\s*(\/\/[^\n]*\n\s*)*(const FORM_COMPLETION_PAUSED = [^\n]*\n\s*)?if \(FORM_COMPLETION_PAUSED\) return <FormsPausedNotice \/>/.test(exp.slice(0, 600)),
   );
   check("page: the notice links to the official Ontario Court Forms site", page.includes("href={OFFICIAL_COURT_FORMS_URL}"));
 

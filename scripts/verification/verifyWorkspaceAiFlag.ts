@@ -174,6 +174,9 @@ console.log("");
       if (relative === allowed) continue;
       // This suite names the variable in its own assertions.
       if (relative === path.join("scripts", "verification", "verifyWorkspaceAiFlag.ts")) continue;
+      // test:a2i-scope hands the variable to documentAnalysisEnabled() as an input, to prove
+      // "false" still turns analysis off for a production tester (2026-10-29); it reads nothing.
+      if (relative === path.join("scripts", "verification", "verifyA2iScope.ts")) continue;
 
       const code = stripComments(readFileSync(file, "utf8"));
       if (/AI_DOCUMENT_ANALYSIS_ENABLED/.test(code)) {

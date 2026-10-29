@@ -373,11 +373,14 @@ jobs:
       - name: Open pathways have real content; closed ones say so
         run: npm run test:phase-scope
 
-      - name: Unapproved capabilities are on only as flagged testing, behind the site password
+      - name: Unapproved capabilities are off on production except for listed testers, and flagged as testing
         run: npm run test:a2i-scope
 
       - name: The 13 A2I statements, each a check; every failure is a listed known problem
         run: npm run test:a2i-guard
+
+      - name: On production, every AI-advice route refuses an unlisted user and serves a listed tester (offline)
+        run: npm run test:a2i-routes
 
       - name: Connection notes quote their sources exactly
         run: npm run test:cross-forum-notes

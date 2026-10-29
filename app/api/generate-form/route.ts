@@ -1,6 +1,6 @@
 import { withConfirmedGuidance } from "@/src/lib/security/intakeGuidanceGate";
 import { NextResponse } from "next/server";
-import { FORM_COMPLETION_PAUSED, FORM_COMPLETION_PAUSED_MESSAGE } from "../../../src/lib/content-library/phaseScope";
+import { FORM_COMPLETION_PAUSED_MESSAGE, formFillingEnabled } from "../../../src/lib/content-library/phaseScope";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { createClient } from "@supabase/supabase-js";
 
@@ -1192,9 +1192,10 @@ function buildFailureMessage(
 }
 
 async function postGuidance(req: Request) {
-  // Paused: see FORM_COMPLETION_PAUSED in phaseScope.ts. Refuses before the
-  // request is read, so no case data is touched.
-  if (FORM_COMPLETION_PAUSED) {
+  // Paused: see FORM_COMPLETION_PAUSED in phaseScope.ts; on production also off unless the
+  // user is a listed tester (formFillingEnabled, 2026-10-29). Refuses before the request
+  // body is read, so no case data is touched.
+  if (!formFillingEnabled()) {
     return NextResponse.json({ error: FORM_COMPLETION_PAUSED_MESSAGE, paused: true }, { status: 503 });
   }
 

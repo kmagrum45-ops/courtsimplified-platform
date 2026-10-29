@@ -59,7 +59,8 @@ import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
 import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
-import { COURT_DOCUMENT_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
+import { useCapabilities } from "../_components/CapabilityProvider";
+import { clientCapabilities } from "@/src/lib/case-system/policy/capabilityAccess";
 import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import CivilIntake from "./_components/CivilIntake";
@@ -116,7 +117,7 @@ import { type CaseDraft } from "../../src/lib/case-system/drafts/caseDrafts";
 import { startingDocumentDraft } from "../../src/lib/case-system/drafts/startingDocumentDraft";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
-import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
+import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
 import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
@@ -244,6 +245,15 @@ function isAnalysisAvailable(caseData: StoredCaseData | null): boolean {
 
 function BuilderPageContent() {
   const router = useRouter();
+  /*
+   * Which A2I-gated features this person has, as the SERVER decided it (site owner,
+   * 2026-10-29: production defaults off, owner allowlist; CapabilityProvider). The two
+   * names are the ones every check below has always read: drafting follows the
+   * formCompletion capability, and form completion is paused unless formFilling is on.
+   */
+  const capabilities = useCapabilities();
+  const COURT_DOCUMENT_DRAFTING_ENABLED = capabilities.formCompletion;
+  const FORM_COMPLETION_PAUSED = !capabilities.formFilling;
   const recovery = useIntakeRecovery();
   const [situation, setSituation] = useSituation();
   const reviewView = useIntakeReviewView();
@@ -1176,7 +1186,8 @@ function BuilderPageContent() {
       // With the case saved, the case reader reads everything the person
       // wrote on it (master plan Phase 3). Off unless switched on; when it is
       // off or fails, nothing changes.
-      if (process.env.NEXT_PUBLIC_CASE_READER !== "off" && user && activeId) {
+      // caseReader: the server's answer for this person (CapabilityProvider), read when the save runs.
+      if (process.env.NEXT_PUBLIC_CASE_READER !== "off" && clientCapabilities()?.caseReader === true && user && activeId) {
         // Awaited, so the reading's write is done before any next case save.
         /*
          * THE PICTURE IS WRITTEN HERE, IN THE CASE'S QUEUE (2026-10-14). The
