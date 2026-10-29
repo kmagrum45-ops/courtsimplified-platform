@@ -32,7 +32,7 @@ import type { Checkpoint } from "../intakeCheckpoint";
 import { freshSections } from "../storyBasis";
 import { situationAnswers, situationOf, sideOf, firstPageOf, stepFromSituation } from "../situation/situation";
 import { isKindOfClaim } from "../intake/claimKind";
-import { factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
+import { chatQuestionOf, factOfAskedText, factsOfQuestion } from "./factsOfQuestion";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { firstWordedDate, isRealIsoDate } from "../dates";
 import { QUESTION_BANK } from "../intake/questionBank";
@@ -376,6 +376,18 @@ export function askable(file: CaseFile, candidates: readonly string[], surface?:
  */
 export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
   return !file || nextQuestion(file, [questionId]) === questionId;
+}
+
+/**
+ * What a chat asks for one of its question sentences: the sentence, when the gate lets its fact be
+ * asked; its open part (what the case file does not hold) when the fact is held; null when nothing
+ * is left (factsOfQuestion.ts CHAT_QUESTIONS; row 1 review, 29 Oct: a compound question was dropped
+ * whole once its fact was held, so when they first found out was never asked).
+ */
+export function chatQuestionToAsk(file: CaseFile | null | undefined, words: string): string | null {
+  const question = chatQuestionOf(words);
+  if (chatMayAsk(file, question.asks)) return words;
+  return question.open ?? null;
 }
 
 /** The case file section after the person answers "not sure" to a question: each of its facts kept as unsure. */

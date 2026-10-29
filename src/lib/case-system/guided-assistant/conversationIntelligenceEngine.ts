@@ -1,5 +1,5 @@
 import { answeredInStory, caseFileOfChat } from "./answeredInStory";
-import type { CaseFile } from "../caseFile/caseFile";
+import { chatQuestionToAsk, type CaseFile } from "../caseFile/caseFile";
 import { sentences as sharedSentences } from "../sentences";
 import { findDates, findDayMonthWithoutYear, mentionsDate, mentionsRelativeDate } from "../dates";
 import {
@@ -79,11 +79,6 @@ export type CasePartnerQuestion = {
   id: string;
   priority: CasePartnerQuestionPriority;
   question: string;
-  /**
-   * The chat question id it asks by (factsOfQuestion.ts, "chat:..."): the one gate (caseFile.ts
-   * chatMayAsk) skips it when the saved case file holds that fact. Read from its words when absent.
-   */
-  asks?: string;
   reason: string;
   relatedTo:
     | "jurisdiction"
@@ -231,12 +226,9 @@ type IssueFramework = {
   commonDefences: string[];
   keyRisks: string[];
   firstQuestion: string;
-  /** The chat question id the first question asks by (CasePartnerQuestion.asks). */
-  firstQuestionAsks?: string;
   firstQuestionReason: string;
   nextQuestions: Array<{
     question: string;
-    asks?: string;
     reason: string;
     relatedTo: CasePartnerQuestion["relatedTo"];
     priority: CasePartnerQuestionPriority;
@@ -722,8 +714,6 @@ function enrichFrameworkWithProfile(
       ...profile.userMistakesToPrevent,
     ]).slice(0, 14),
     firstQuestion,
-    // A profile's own first question asks by its words (factsOfQuestion.ts chatQuestionId).
-    firstQuestionAsks: firstQuestion === framework.firstQuestion ? framework.firstQuestionAsks : undefined,
     firstQuestionReason:
       firstQuestion === framework.firstQuestion
         ? framework.firstQuestionReason
@@ -1339,7 +1329,6 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
             "Urgency must be supported by evidence.",
           ],
           firstQuestion: "What order or arrangement exists right now, and what are you trying to change?",
-          firstQuestionAsks: "chat:outcome",
           firstQuestionReason:
             "Family cases depend heavily on the current order/status quo and the specific child-focused outcome requested.",
           nextQuestions: [
@@ -1347,7 +1336,6 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
               priority: "high",
               relatedTo: "procedure",
               question: "Is there already a court order, agreement, upcoming conference, motion, or court date?",
-              asks: "chat:order-or-court-date",
               reason:
                 "The next step depends on the current family court stage.",
             },
@@ -1413,7 +1401,6 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
             "Rules, leave, notice, and limitation periods must be verified.",
           ],
           firstQuestion: "Which public actor is involved, and what exactly did they do or fail to do?",
-          firstQuestionAsks: "chat:other-party",
           firstQuestionReason:
             "Public-authority cases require separating operational conduct from protected decision-making and identifying each actor's role.",
           nextQuestions: [
@@ -1421,7 +1408,6 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
               priority: "critical",
               relatedTo: "procedure",
               question: "Has anything already been filed, ordered, appealed, reviewed, or decided by a court or tribunal?",
-              asks: "chat:anything-filed",
               reason:
                 "Public-authority and court-process issues can involve jurisdiction, appeal, review, collateral attack, and limitation risks.",
             },
@@ -1870,9 +1856,14 @@ function buildQuestions(args: {
 }): CasePartnerQuestion[] {
   const questions: CasePartnerQuestion[] = [];
 
-  function pushQuestion(question: CasePartnerQuestion) {
+  function pushQuestion(asked: CasePartnerQuestion) {
+    // By fact, through the one gate: the question, its open part once its fact is held, or nothing
+    // (caseFile.ts chatQuestionToAsk; factsOfQuestion.ts CHAT_QUESTIONS).
+    const words = chatQuestionToAsk(args.caseFile, asked.question);
+    if (!words) return;
+    const question = words === asked.question ? asked : { ...asked, question: words };
     if (wasQuestionAlreadyAsked(question.question, args.conversationText)) return;
-    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`, args.caseFile ?? null, question.asks)) return;
+    if (answeredInStory(question.question, `${args.knownText ?? ""} ${args.conversationText}`)) return;
     if (questions.some((existing) => existing.question === question.question)) return;
     questions.push(question);
   }
@@ -1884,7 +1875,6 @@ function buildQuestions(args: {
       id: createId("question"),
       priority: primary.priority,
       question: primary.firstQuestion,
-      asks: primary.firstQuestionAsks,
       reason: primary.firstQuestionReason,
       relatedTo:
         primary.key === "defamation"
@@ -1899,7 +1889,6 @@ function buildQuestions(args: {
         id: createId("question"),
         priority: item.priority,
         question: item.question,
-        asks: item.asks,
         reason: item.reason,
         relatedTo: item.relatedTo,
       });
@@ -1924,7 +1913,6 @@ function buildQuestions(args: {
       id: createId("question"),
       priority: "medium",
       question: `From what you described, it sounds like this may involve ${labels}. Is that right, or is the main concern with someone else?`,
-      asks: "chat:other-party",
       reason:
         "CourtSimplified should confirm the people or institutions involved before building the case structure.",
       relatedTo: "parties",
@@ -1936,7 +1924,6 @@ function buildQuestions(args: {
       id: createId("question"),
       priority: "high",
       question: "What are the main dates, including when the problem happened and when you first found out about it?",
-      asks: "chat:main-dates",
       reason:
         "Dates are needed for the timeline, limitation review, credibility, and procedural next steps.",
       relatedTo: "timeline",
@@ -1948,7 +1935,6 @@ function buildQuestions(args: {
       id: createId("question"),
       priority: "high",
       question: "What proof do you already have, such as messages, emails, screenshots, witnesses, court papers, recordings, receipts, or transcripts?",
-      asks: "chat:proof",
       reason:
         "CourtSimplified needs to connect each important fact to proof instead of treating the story as unsupported allegations.",
       relatedTo: "evidence",
@@ -1960,7 +1946,6 @@ function buildQuestions(args: {
       id: createId("question"),
       priority: "medium",
       question: "Has anything already been filed, served, ordered, scheduled, or decided by a court or tribunal?",
-      asks: "chat:anything-filed",
       reason:
         "The next step depends on the current stage. The system should not suggest forms, deadlines, or workflow steps until that is clear.",
       relatedTo: "procedure",
@@ -1972,7 +1957,6 @@ function buildQuestions(args: {
       id: createId("question"),
       priority: "medium",
       question: "What are you trying to get or fix through the legal process?",
-      asks: "chat:outcome",
       reason:
         "The outcome helps identify the correct remedy, documents, evidence, and next workflow step.",
       relatedTo: "remedy",

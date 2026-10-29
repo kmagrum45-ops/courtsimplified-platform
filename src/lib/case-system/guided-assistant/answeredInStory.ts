@@ -18,8 +18,7 @@
  * Pure. States no law.
  */
 import { dateMentionsIn } from "../dates";
-import { caseFileOf, chatMayAsk, type CaseFile } from "../caseFile/caseFile";
-import { chatQuestionId } from "../caseFile/factsOfQuestion";
+import { caseFileOf, chatQuestionToAsk, type CaseFile } from "../caseFile/caseFile";
 import { readCheckpoint } from "../intakeCheckpoint";
 
 const ANSWERED_BY: [RegExp, (known: string) => boolean][] = [
@@ -50,11 +49,12 @@ export function caseFileOfChat(caseMemory: unknown): CaseFile | null {
 }
 
 /**
- * Whether the story, the conversation or the case file already answers this question. `asks`: the
- * chat question id it asks by (factsOfQuestion.ts); read from its words when it has none.
+ * Whether the story, the conversation or the case file already answers this question as it stands
+ * (a compound question whose fact is held is not asked as it stands: its open part may be, through
+ * caseFile.ts chatQuestionToAsk).
  */
-export function answeredInStory(question: string, known: string, file: CaseFile | null = null, asks?: string): boolean {
-  if (!chatMayAsk(file, asks ?? chatQuestionId(question))) return true;
+export function answeredInStory(question: string, known: string, file: CaseFile | null = null): boolean {
+  if (chatQuestionToAsk(file, question) !== question) return true;
   if (ASKS_WHAT_HAPPENED.test(question) && known.trim().length >= 80) return true;
   if (!known.trim()) return false;
   return ANSWERED_BY.some(([asks, answered]) => asks.test(question) && answered(known));

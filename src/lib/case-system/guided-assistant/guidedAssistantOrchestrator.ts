@@ -1,6 +1,6 @@
 import { internalWordingIn } from "../copy/rawKeys";
 import { answeredInStory, caseFileOfChat } from "./answeredInStory";
-import { chatMayAsk, type CaseFile } from "../caseFile/caseFile";
+import { chatQuestionToAsk, type CaseFile } from "../caseFile/caseFile";
 import {
   buildConversationIntelligence,
   CasePartnerCourtContext,
@@ -986,7 +986,10 @@ function buildBestQuestion(args: {
   }
 
   const reasoningQuestion = firstItem(
-    args.legalReasoning.reasoningSummary.firstQuestions.filter((question) => !answeredInStory(question, args.knownStory ?? "", args.caseFile ?? null)),
+    // By fact (caseFile.ts chatQuestionToAsk): the question, its open part once its fact is held, or none.
+    args.legalReasoning.reasoningSummary.firstQuestions
+      .map((question) => chatQuestionToAsk(args.caseFile, question))
+      .filter((question): question is string => Boolean(question) && !answeredInStory(question as string, args.knownStory ?? "")),
   );
 
   if (hasText(reasoningQuestion)) {
@@ -995,11 +998,12 @@ function buildBestQuestion(args: {
 
   // Only the parts the case does not already hold: the dates (the message, the saved story or the
   // case file), the proof (dropped by the caller once evidence is named), what they want.
-  const datesKnown = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low") || !chatMayAsk(args.caseFile, "chat:main-dates");
+  // Dates the case file holds leave only the other dates open (chatQuestionToAsk), never the whole question.
+  const datesInStory = args.intelligence.extractedFacts.some((fact) => fact.category === "date" && fact.confidence !== "low");
   return [
-    datesKnown ? null : assistantText("assistant:question:part-dates"),
+    datesInStory ? null : chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-dates")),
     assistantText("assistant:question:part-proof"),
-    chatMayAsk(args.caseFile, "chat:outcome") ? assistantText("assistant:question:part-outcome") : null,
+    chatQuestionToAsk(args.caseFile, assistantText("assistant:question:part-outcome")),
   ].filter(Boolean).join(" ");
 }
 

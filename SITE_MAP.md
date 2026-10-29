@@ -97,7 +97,7 @@ The sections below follow the same order.
 - Owns: `SIDE_FACTS` (amount, filed, defenceFiled, wants, claimKind, outcome, claimServed), `onSideChange` (empties those answers in every area's form, guided answers, review answers, skips, the case file's unsure list, and untags them).
 
 **`src/lib/case-system/caseFile/caseFile.ts`** — the case file: one slot per fact, and the one ask-once gate.
-- Owns: `SLOT_FACTS` (19 facts, in display order), `conferenceKind` (which conference a conference date is for, from the question answered or the words; `:370`), slot states (not-asked / answered / unsure), `caseFileOf` (reads, in order: the saved position's step and claim kind, the situation record, each area's form, Small Claims guided answers, the review's answers and "I don't know yet", skips, the Family triage, the case file's own unsure list, the saved case's dates and answers; first answer wins), `alreadyAsked`, `nextQuestion`, `askable`, `chatMayAsk` (the gate every chat asks through: a fact held answered or unsure is not asked by a chat), `offeredOnceMore` (an unsure fact has had its one more offer: the review's "I don't know yet", or offered at the end), `withUnsure`, `withOfferedAtEnd`, `slotText`, `withCaseFileDates`.
+- Owns: `SLOT_FACTS` (19 facts, in display order), `conferenceKind` (which conference a conference date is for, from the question answered or the words; `:370`), slot states (not-asked / answered / unsure), `caseFileOf` (reads, in order: the saved position's step and claim kind, the situation record, each area's form, Small Claims guided answers, the review's answers and "I don't know yet", skips, the Family triage, the case file's own unsure list, the saved case's dates and answers; first answer wins), `alreadyAsked`, `nextQuestion`, `askable`, `chatMayAsk` (the gate every chat asks through: a fact held answered or unsure is not asked by a chat), `chatQuestionToAsk` (a chat sentence as it is asked: whole, its open part once its fact is held, or nothing), `offeredOnceMore` (an unsure fact has had its one more offer: the review's "I don't know yet", or offered at the end), `withUnsure`, `withOfferedAtEnd`, `slotText`, `withCaseFileDates`.
 
 **`src/lib/case-system/caseFile/factsOfQuestion.ts`** — which fact each question asks for.
 - Owns: the `FACTS` map from question id (situation, civil/Family fields, Small Claims guided ids, step-page date ids, triage ids) to facts. An unlisted question is its own fact.
@@ -132,7 +132,7 @@ The sections below follow the same order.
 - **`src/lib/case-system/copy/caseWords.ts`** — the stage (`stageInWords`), the side (`roleInWords`, the start answer's own words for a case already going) and a filed paper (`documentInWords`) as a screen shows them. The overview and the review read it; the guided box and the form routes take the start answer's words from `situationAnswers().roleWords`.
 - **`src/lib/case-system/caseFile/storyFacts.ts`** — each fact the story gives, in plain words, with the sentence kept as its source: the other side, lost pay, injury, property, complaint, witness, evidence, last payment, written acknowledgment, what the other side says, the public body, losses, timeline; and `againstThemIn`, the sentences about the claim against someone responding, which is all their suggestions and "The claim against you" are read from. Read by `storyLines.ts` ("What we have so far") and the civil review's boxes (`BOX_FROM_STORY`).
 - **`src/lib/case-system/intelligence/answeredQuestions.ts`** — which generic questions are answered already: by the papers recorded (`withoutAnsweredQuestions`), and by a known stage, a case already going included (`withoutStageAnswered`). The overview's "What to confirm next" reads both.
-- **`src/lib/case-system/guided-assistant/answeredInStory.ts`** — whether the follow-up chat's question is answered by the story or held by the saved case file (`caseFileOfChat`, then `chatMayAsk` by the question's fact id: each chat question carries a `chat:...` id from `factsOfQuestion.ts`, or is read to one by `chatQuestionId`). Row 1 of the 28 Oct never-ask-twice audit, fixed 29 Oct; `test:chat-asks-by-fact`.
+- **`src/lib/case-system/guided-assistant/answeredInStory.ts`** — whether the follow-up chat's question is answered by the story or held by the saved case file (`caseFileOfChat`, then `chatQuestionToAsk`: each chat sentence is listed in `factsOfQuestion.ts` `CHAT_QUESTIONS` with a `chat:...` id for the facts it asks entirely and, if it asks more, the open part asked once that fact is held; other words are read by `chatQuestionOf`). Row 1 of the 28 Oct never-ask-twice audit, fixed 29 Oct; `test:chat-asks-by-fact`.
 
 ### Bypasses
 
@@ -859,7 +859,7 @@ The case file: one slot per fact, and nextQuestion, the one rule for asking.
 Which fact each question asks for.
 
 - Reads (0): nothing in the repo
-- Read by (4): app/builder/_components/GuidedSmallClaimsIntake.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/guided-assistant/answeredInStory.ts**, **src/lib/case-system/sideChange.ts**
+- Read by (3): app/builder/_components/GuidedSmallClaimsIntake.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/sideChange.ts**
 - Checked by (4): scripts/verification/verifyChatAsksByFact.ts, scripts/verification/verifyOwnAnswers.ts, tests/browser/harness/askOnce.ts, tests/browser/harness/chatQuestionFacts.ts
 
 ### src/lib/case-system/caseFile/storyLines.ts
@@ -898,7 +898,7 @@ Which generic questions the recorded papers and the stage already answer.
 
 Whether the chat's question is answered by the story or the case's facts.
 
-- Reads (4): **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/caseFile/factsOfQuestion.ts**, **src/lib/case-system/dates.ts**, src/lib/case-system/intakeCheckpoint.ts
+- Reads (3): **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/dates.ts**, src/lib/case-system/intakeCheckpoint.ts
 - Read by (2): src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts, src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts
 - Checked by (3): scripts/verification/verifyCharterRetest.ts, scripts/verification/verifyChatPlainWords.ts, scripts/verification/verifyOwnAnswers.ts
 

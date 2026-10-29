@@ -21,7 +21,9 @@ export const QUESTION_WORDS: readonly (readonly [RegExp, readonly string[]])[] =
   // What the person wants (chat: conversationIntelligenceEngine.ts "What are you trying to get or fix...").
   [/\bwhat are you trying to (?:get|fix|change|achieve)\b|\bwhat (?:outcome|result|remedy|order) (?:are|do) you (?:seeking|want|asking)\b|\bwhat (?:do|would) you (?:want|like) the court to\b/i, ["wants"]],
   // Whether anything is filed (chat "Has anything already been filed, served, ordered, ..."; the overview's "Has anything already been filed?").
-  [/\bhas anything (?:already )?been (?:filed|served|started)\b|\bhave you (?:already )?(?:filed|started)\b|\bis there already a court (?:order|case)\b/i, ["filed"]],
+  // Not "Is there already a court order or agreement?": an order or agreement in place is a fact of its own, not
+  // "anything filed" (row 1 review, 29 Oct: a new case and a motion to change are different steps).
+  [/\bhas anything (?:already )?been (?:filed|served|started)\b|\bhave you (?:already )?(?:filed|started)\b|\bis there already a court case\b/i, ["filed"]],
   // Court dates (chat "Is there already ... upcoming conference, motion, or court date?"; the overview's "Are there court dates, ...").
   [/\bare there (?:any )?court dates\b|\bupcoming conference, motion, or court date\b|\bwhen is (?:the|your) (?:next )?(?:court date|hearing|conference)\b/i, ["courtDate"]],
   // When it happened (chat "What are the main dates, including when the problem happened..."; "When did the event happen?"; "What are the key dates in order?").
