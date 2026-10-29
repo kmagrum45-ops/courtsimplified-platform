@@ -96,7 +96,21 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
   // again, given by the story itself (the recorder emits it only when that sentence names the date).
   const eventWhen = factsAskedTwice([ask("event-candidate", "when")], false);
   check("an event's empty date box beside its own dated sentence is a repeat, given by the story", factsOfAsk({ surface: "event-candidate", id: "when", text: "" }).join() === "dateInOwnSentence" && eventWhen.some((repeat) => repeat.fact === "dateInOwnSentence" && repeat.given.surface === "story"));
-  check("repeats become one violation per question asked again",repeatViolations([{ fact: "amount", given: ask("chat", "x"), asks: [ask("review", "a"), ask("date", "b")] }]).length === 2);
+  // The saved Small Claims conversation shown again after a reload (site owner, 29 Oct): a question is
+  // excused ONLY when the reply shown under it is the reply already recorded for it in this case.
+  {
+    const asked: Asked = { ...ask("sc-chat", "sc-amount-claimed"), reply: undefined };
+    const answered: Asked = { kind: "answer", surface: "sc-chat", id: "sc-amount-claimed", screen: "/builder", text: "", at: ++at, reply: "$6,000" };
+    const shownAgain = (reply: string | undefined): Asked => ({ ...ask("sc-chat", "sc-amount-claimed"), ...(reply === undefined ? {} : { reply }), held: { amount: "answered" } });
+    const verdict = (again: Asked) => ({ twice: factsAskedTwice([asked, answered, again], false).length, held: heldViolations([asked, answered, again]).length });
+    const same = verdict(shownAgain("$6,000"));
+    check("restored question with the same reply -> not a repeat", same.twice === 0 && same.held === 0, JSON.stringify(same));
+    const none = verdict(shownAgain(undefined));
+    check("same question shown again with no reply -> repeat", none.twice > 0 && none.held > 0, JSON.stringify(none));
+    const other = verdict(shownAgain("$5,000"));
+    check("same question shown again with a different reply -> repeat", other.twice > 0 && other.held > 0, JSON.stringify(other));
+  }
+  check("repeats become one violation per question asked again", repeatViolations([{ fact: "amount", given: ask("chat", "x"), asks: [ask("review", "a"), ask("date", "b")] }]).length === 2);
 }
 
 // 5. The test's own wording table: the chat's row-1 questions, from the site's own strings.

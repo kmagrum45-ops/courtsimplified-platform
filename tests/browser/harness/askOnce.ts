@@ -48,6 +48,11 @@
  * yet -- Add it"), which is not a question; a date question there, or any second offer, fails.
  * The screen is the page's path, and the builder's step.
  *
+ * THE SAVED CONVERSATION SHOWN AGAIN (site owner, 29 Oct). After a reload the Small Claims guided
+ * chat shows its earlier questions and replies. Each ask carries the reply shown under it; it is
+ * excused (restoredAsk) only when that reply is the one already recorded for the question in this
+ * case. Shown with no reply, or with another reply, it is asked again and counts.
+ *
  * HELD CHECK (never ask twice, 28 Oct). When a question is recorded, the saved case is read at
  * that moment through the site's own case file (caseFileOf), and the facts it holds as the
  * person's own (confirmed) are kept on the question. A question whose fact is held answered
@@ -63,7 +68,9 @@ import type { Violation } from "./knownRepeats";
 import type { SituationAnswers } from "./situation";
 
 export type HeldState = "answered" | "unsure";
-export type Asked = { kind: "ask" | "answer"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState> };
+export type Asked = { kind: "ask" | "answer"; surface: string; id: string; screen: string; text: string; at: number; held?: Record<string, HeldState>;
+  /** Small Claims guided only: the person's reply shown under the question (an ask) or given to it (an answer). */
+  reply?: string };
 
 const SCAN = `(() => {
   if (window.__askOnceInstalled) return;
@@ -78,8 +85,10 @@ const SCAN = `(() => {
     return url.pathname.replace(/\\/cases\\/[^/]+/, "/cases/:id") + (step ? "?step=" + step : "");
   };
   const now = () => Date.now() * 1000 + (order++ % 1000);
-  const emit = (kind, surface, id, text) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now() });
-  const answer = (surface, id) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : ""); };
+  const emit = (kind, surface, id, text, reply) => window.__recordAsk({ kind, surface, id, screen: screen(), text: (text || "").replace(/\\s+/g, " ").slice(0, 160), at: now(), ...(typeof reply === "string" ? { reply: reply.replace(/\\s+/g, " ").trim().slice(0, 500) } : {}) });
+  const answer = (surface, id, reply) => { const key = surface + "|" + id; if (answered.has(key)) return; answered.add(key); emit("answer", surface, id, skipped.has(key) ? "unsure" : "", reply); };
+  // Small Claims guided: the person's reply shown right under a question (a user message before the next question), if any.
+  const replyAfter = (el) => { const all = [...document.querySelectorAll("[data-testid=guided-message]")]; for (const m of all.slice(all.indexOf(el) + 1)) { if (m.getAttribute("data-from") === "user") return words(m); if (m.hasAttribute("data-question-id")) return undefined; } return undefined; };
   const words = (el) => (el ? el.innerText || el.textContent || "" : "").replace(/\\s+/g, " ").trim();
   const headed = (selector, heading) => [...document.querySelectorAll(selector)].filter((h) => words(h) === heading).map((h) => h.parentElement).filter(Boolean);
   // The Forms page's questions: the section that says "Answer these and we will show the official forms".
@@ -93,9 +102,9 @@ const SCAN = `(() => {
     ["situation", "[data-testid=situation-questions]", (el) => [el.getAttribute("data-question")]],
     ["chat", "[data-testid=guided-form-question]", (el) => [el.getAttribute("data-key")]],
     ["chat-story", "[data-testid=guided-form-from-story]", (el) => (el.getAttribute("data-group") || "").split(" ")],
-    // A question already followed by the person's reply when first seen is the saved conversation
-    // shown again after a reload ("Update your story"), not a new ask.
-    ["sc-chat", "[data-testid=guided-message][data-question-id]", (el) => { const all = [...document.querySelectorAll("[data-testid=guided-message]")]; return all.slice(all.indexOf(el) + 1).some((m) => m.getAttribute("data-from") === "user") ? [] : [el.getAttribute("data-question-id")]; }],
+    // Each ask carries the reply shown under it, if any (replyAfter): restoredAsk() tells the saved
+    // conversation shown again after a reload from a question asked again.
+    ["sc-chat", "[data-testid=guided-message][data-question-id]", (el) => [el.getAttribute("data-question-id")]],
     ["sc-proposal", "[data-testid=story-proposal-row]", (el) => [el.getAttribute("data-question-id")]],
     ["review", "[data-testid=intake-initial-question][data-answered=false]", (el) => [el.getAttribute("data-question")]],
     ["triage", "[data-testid=triage-question]", (el) => [el.getAttribute("data-question")]],
@@ -167,7 +176,7 @@ const SCAN = `(() => {
           const key = surface + "|" + id + "|" + screen();
           if (seen.has(key)) continue;
           seen.add(key);
-          emit("ask", surface, id, el.innerText);
+          emit("ask", surface, id, el.innerText, surface === "sc-chat" ? replyAfter(el) : undefined);
         }
       }
     }
@@ -195,7 +204,7 @@ const SCAN = `(() => {
     const questions = [...document.querySelectorAll("[data-testid=guided-message][data-question-id]")];
     const users = document.querySelectorAll("[data-testid=guided-message][data-from=user]").length;
     const lastQuestion = questions.length ? questions[questions.length - 1].getAttribute("data-question-id") : null;
-    if (scQuestion && users > scUsers) answer("sc-chat", scQuestion);
+    if (scQuestion && users > scUsers) { const replies = document.querySelectorAll("[data-testid=guided-message][data-from=user]"); answer("sc-chat", scQuestion, words(replies[replies.length - 1])); }
     if (lastQuestion !== scQuestion) scUsers = users;
     scQuestion = lastQuestion;
     // Proposals: the rows confirmed when the card goes.
@@ -359,7 +368,7 @@ export type Repeat = { fact: string; given: Asked; asks: Asked[] };
  * The situation answers give every fact they settle, first.
  */
 export function factsAskedTwice(events: readonly Asked[], situation: SituationAnswers | false): Repeat[] {
-  const asks = events.filter((item) => item.kind === "ask");
+  const asks = events.filter((item) => item.kind === "ask" && !restoredAsk(item, events));
   const given = new Map<string, Asked>();
   const situationGiven: Asked = { kind: "answer", surface: "situation", id: "answers", screen: "/", text: "the situation questions", at: 0 };
   for (const fact of factsFromSituation(situation)) given.set(fact, situationGiven);
@@ -380,7 +389,9 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
     for (const fact of factsOfAsk(ask)) {
       const gave = given.get(fact);
       if (!gave || ask.at <= gave.at) continue;
-      if (gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
+      // The same question on the same screen is not asked again -- except a Small Claims guided question,
+      // which restoredAsk() alone excuses (shown again with the same reply); with none or another, it counts.
+      if (ask.surface !== "sc-chat" && gave.surface === ask.surface && gave.id === ask.id && gave.screen === ask.screen) continue;
       // An unsure fact, offered once more at the end: allowed once.
       if (gave.text === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
       const repeat = repeats.get(fact) ?? { fact, given: gave, asks: [] };
@@ -392,6 +403,17 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
 }
 
 /**
+ * THE SAVED CONVERSATION SHOWN AGAIN (site owner, 29 Oct). After a reload ("Update your story") the
+ * Small Claims guided chat shows its earlier questions with their replies. Such a question is not
+ * asked again ONLY when the reply shown under it is the very reply already recorded for that question
+ * in this case. Shown with no reply, or with another reply, it is a new ask and counts like any other.
+ */
+export function restoredAsk(item: Asked, events: readonly Asked[]): boolean {
+  if (item.kind !== "ask" || item.surface !== "sc-chat" || !item.reply) return false;
+  return events.some((event) => event.kind === "answer" && event.surface === "sc-chat" && event.id === item.id && event.at < item.at && event.reply === item.reply);
+}
+
+/**
  * THE HELD CHECK. Every question asked while the saved case held its fact as the person's own:
  * held answered, it fails; held unsure, it may be offered once more at the end (END_SURFACES),
  * once per fact, and any other offer fails. The situation questions are the start, not a repeat.
@@ -399,7 +421,7 @@ export function factsAskedTwice(events: readonly Asked[], situation: SituationAn
 export function heldViolations(events: readonly Asked[]): Violation[] {
   const violations: Violation[] = [];
   const offeredAgain = new Set<string>();
-  for (const ask of [...events].filter((item) => item.kind === "ask").sort((a, b) => a.at - b.at)) {
+  for (const ask of [...events].filter((item) => item.kind === "ask" && !restoredAsk(item, events)).sort((a, b) => a.at - b.at)) {
     if (ask.surface === "situation" || !ask.held) continue;
     for (const [fact, state] of Object.entries(ask.held)) {
       if (state === "unsure" && END_SURFACES.has(ask.surface) && !offeredAgain.has(fact)) { offeredAgain.add(fact); continue; }
