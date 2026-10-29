@@ -5,40 +5,72 @@
  *
  * WHAT FAILURE THIS CATCHES: a confirmation silently cancelled by an answer that adds a
  * fact and changes none. The person stopped the questions early ("Stop initial
- * questions and review"), confirmed, then answered one more question in the chat. The
- * server's rule (intakeCheckpoint.ts, existingFactChanged) does not count a first
- * value as a change; the browser's (IntakeRecovery.tsx put) counts any difference, so
- * the tick disappears and the next Continue bounces.
+ * questions and review"), confirmed, then answered one more question. The server's
+ * rule (intakeReview.ts existingFactChanged, used by intakeCheckpoint.ts) does not
+ * count a first value as a change; the browser (IntakeRecovery.tsx put) counted any
+ * difference, so the tick disappeared and the next Continue bounced.
+ *
+ * Run on each of the four routes whose Continue leads to the next step after Confirm
+ * (IntakeRecovery.tsx ContinueKey; "choose" only opens the form, so it is the form's):
+ * the Small Claims questions one at a time ("guided", app/builder/page.tsx), the Small
+ * Claims form ("form", SmallClaimsIntake.tsx), civil ("civil", CivilIntake.tsx) and
+ * Family ("family", FamilyIntake.tsx).
  *
  * Wanted property: an answer that only ADDS a fact keeps the confirmation, and the
- * next step loads. Listed in harness/knownProblems29oct-flow.ts until fixed
- * (test.fail), so a pass then says "delete the entry".
+ * next step loads. The other half of the rule (a CHANGED answer still cancels the
+ * confirmation) is asserted for free by scripts/verification/verifyConfirmationRule.ts,
+ * and in the browser by the last test here.
+ *
+ * Fixed by the one rule (intakeReview.ts renewsInputRevision), which the browser store
+ * now uses; the four routes were listed in harness/knownProblems29oct-flow.ts, failing,
+ * until then, and must now pass.
  *
  * Served by this commit's own code (harness/thisCommitServer.ts): no AI, no database.
  * Run: npx playwright test tests/browser/retest-29oct-flow.spec.ts (against a build
  * served on PLAYWRIGHT_BASE_URL, with SITE_ACCESS_PASSWORD in the environment).
  */
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { fakeAccount } from "./harness/syntheticIntakeAccount";
 import { grantSiteAccess } from "./harness/siteAccess";
 import { autoAnswerSituation, STARTING_NOTHING_FILED } from "./harness/situation";
 import { serveFromThisCommit } from "./harness/thisCommitServer";
 import { isKnownProblem } from "./harness/knownProblems29oct-flow";
+import { openBuilder } from "./harness/builderGate";
+import { recordInitialUnknowns, saveCaseStory } from "./harness/intakeReview";
 
 test.use({ trace: "off", screenshot: "off", navigationTimeout: 120_000, actionTimeout: 60_000 });
 
 const STORY = "I hired Test Decks Ltd. in March 2026 to build a deck for $8,000. I paid $2,000 and $6,000 is still owed. I have the contract, text messages and a bank receipt.";
+const CIVIL_STORY = "Synthetic: I hired Test Builder Ltd. in March 2026 to build an addition for $180,000. They took $90,000 and abandoned the job in June 2026.";
+const FAMILY_STORY = "Synthetic: my former partner and I separated in March 2026 and we disagree about parenting time for our daughter.";
 
-const NAME = "retest-29oct D1: confirmed early, one more answer, Continue goes to the next step -- small-claims (sc-deck-owed)";
-test(NAME, async ({ page }) => {
-  // SHOW_KNOWN=1 runs it as a plain test, to see the failing line.
-  test.fail(isKnownProblem(NAME) && !process.env.SHOW_KNOWN,"known problem D1 (harness/knownProblems29oct-flow.ts)");
-  test.setTimeout(480_000);
-  await grantSiteAccess(page);
-  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
-  const account = await fakeAccount(page);
-  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+/** Each route's name, as listed in harness/knownProblems29oct-flow.ts while it fails. */
+const NAMES = {
+  guided: "retest-29oct D1: confirmed early, one more answer, Continue goes to the next step -- small-claims (sc-deck-owed)",
+  form: "retest-29oct D1: confirmed, one more answer on the form, Continue goes to the next step -- small-claims form (sc-deck-owed)",
+  civil: "retest-29oct D1: confirmed early, one more answer, Continue goes to the next step -- civil (civil-addition)",
+  family: "retest-29oct D1: confirmed early, one more answer, Continue goes to the next step -- family (family-parenting)",
+} as const;
+type Route = keyof typeof NAMES;
 
+async function confirmHere(page: Page) {
+  const panel = page.getByTestId("intake-review");
+  if (await panel.getAttribute("data-phase") === "collecting") await page.getByTestId("intake-start-review").click();
+  await expect(panel).toHaveAttribute("data-phase", "reviewing");
+  const q = (id: string) => page.locator(`[data-question="${id}"]`);
+  const kind = q("sc-orient-dispute-category").getByRole("button").first();
+  if (await kind.count()) await kind.click();
+  if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
+  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
+  if (await use.count()) await use.first().click();
+  await recordInitialUnknowns(page);
+  await page.getByTestId("intake-review-acknowledgement").check();
+  await page.getByTestId("intake-confirm").click();
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+}
+
+/** The Small Claims questions one at a time: stop early, confirm, answer one more in the chat. */
+async function smallClaimsGuided(page: Page) {
   await page.goto("/?path=small-claims");
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible({ timeout: 60_000 });
   await page.getByLabel("City or municipality").fill("Kingston");
@@ -59,37 +91,111 @@ test(NAME, async ({ page }) => {
   if (await proposals.isVisible().catch(() => false)) await proposals.getByRole("button").last().click();
   await expect(page.locator("textarea").last()).toBeVisible({ timeout: 60_000 });
 
-  // Stop early, answer what the review needs, confirm.
-  await page.getByTestId("intake-start-review").click();
-  const panel = page.getByTestId("intake-review");
-  await expect(panel).toHaveAttribute("data-phase", "reviewing");
-  const q = (id: string) => page.locator(`[data-question="${id}"]`);
-  const kind = q("sc-orient-dispute-category").getByRole("button").first();
-  if (await kind.count()) await kind.click();
-  if (await q("sc-claim-filed").count()) await q("sc-claim-filed").getByRole("button", { name: "No", exact: true }).click();
-  const use = q("sc-amount-claimed").getByRole("button", { name: /^Use “.*” \(from your story\)$/ });
-  if (await use.count()) await use.first().click();
-  const unknowns = panel.locator('input[data-testid="intake-unknown"]:not(:checked)');
-  while (await unknowns.count()) { const count = await unknowns.count(); await unknowns.first().check(); await expect(unknowns).toHaveCount(count - 1, { timeout: 20_000 }); }
-  await page.getByTestId("intake-review-acknowledgement").check();
-  await page.getByTestId("intake-confirm").click();
-  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 90_000 });
+  await confirmHere(page);
 
   // One more answer in the chat: a fact added, nothing changed.
   const before = await page.locator("[data-testid=guided-message]").count();
   const box = page.locator("textarea").last();
-  if (await box.isVisible().catch(() => false)) {
-    await box.fill("I have the signed contract and the bank receipt.");
-    await page.getByRole("button", { name: "Send", exact: true }).click();
-    await expect.poll(() => page.locator("[data-testid=guided-message]").count(), { timeout: 60_000 }).toBeGreaterThan(before + 1);
-  }
-  await page.waitForTimeout(3_000);
+  await expect(box, "the chat is still open for one more answer").toBeVisible();
+  await box.fill("I have the signed contract and the bank receipt.");
+  await page.getByRole("button", { name: "Send", exact: true }).click();
+  await expect.poll(() => page.locator("[data-testid=guided-message]").count(), { timeout: 60_000 }).toBeGreaterThan(before + 1);
+}
 
-  // The wanted property: still confirmed, and the next step loads with no "needs confirming" line.
-  await expect(panel, "an added answer keeps the confirmation").toHaveAttribute("data-phase", "user-confirmed", { timeout: 10_000 });
-  await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
-  await expect(page.getByText(/needs confirming before your next steps|is not confirmed yet/), "no red line sending the person back").toHaveCount(0);
-  await expect(page.getByTestId("completed-case-overview"), "the next step loads").toBeVisible({ timeout: 120_000 });
+/** The Small Claims form, with the amount answered, confirmed. */
+async function confirmedForm(page: Page) {
+  await openBuilder(page, "small-claims", { city: "Kingston" });
+  await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+  await page.getByLabel("Case story", { exact: true }).fill(STORY);
+  await saveCaseStory(page);
+  await page.getByTestId("sc-intake-amountClaimed").fill("$6,000");
+  await page.getByTestId("sc-intake-amountClaimed").blur();
+  await confirmHere(page);
+}
+
+/** The Small Claims form: confirm, then fill a box that was empty (a first value). */
+async function smallClaimsForm(page: Page) {
+  await confirmedForm(page);
+  const box = page.getByTestId("sc-intake-timeline");
+  await expect(box, "the box answered after Confirm was empty: this adds a fact, it changes none").toHaveValue("");
+  await box.fill("March 2026: hired them. April 2026: paid $2,000. May 2026: deck finished, $6,000 not paid.");
+  await box.blur();
+}
+
+/** Civil or Family questions one at a time: stop early, confirm, answer the next question. */
+async function guidedForm(page: Page, court: "civil" | "family") {
+  await openBuilder(page, court, { city: "Kingston", story: court === "civil" ? CIVIL_STORY : FAMILY_STORY });
+  const question = page.getByTestId("guided-form-question");
+  await expect(question).toBeVisible({ timeout: 60_000 });
+  await confirmHere(page);
+
+  // One more answer to the question on screen: whatever it asks, a first answer to it.
+  await expect(question, "a question is still open to answer after Confirm").toBeVisible({ timeout: 30_000 });
+  const key = await question.getAttribute("data-key");
+  const textbox = question.getByRole("textbox");
+  // The question may offer what the story says ("Is that right?"): "Yes, that's right" is the answer.
+  const fromStory = page.getByTestId("guided-form-from-story-yes");
+  if (await fromStory.isVisible().catch(() => false)) await fromStory.click();
+  else {
+    if (await textbox.count()) {
+      await expect(textbox.first(), `the "${key}" answer was empty: this adds a fact`).toHaveValue("");
+      await textbox.first().fill(court === "civil" ? "Synthetic: Test Builder Ltd., a contractor in Kingston." : "Synthetic: one daughter, age 6.");
+    } else await question.locator("[data-testid^=guided-option-], [data-testid^=guided-check-]").first().click();
+    const next = question.getByTestId("guided-form-next");
+    if (await next.count()) await next.click();
+  }
+  await expect(page.getByTestId("guided-form-question").and(page.locator(`[data-key="${key}"]`)), "the answer was taken").toHaveCount(0, { timeout: 30_000 });
+}
+
+const ROUTES: Record<Route, { court: "small-claims" | "civil" | "family"; run: (page: Page) => Promise<void> }> = {
+  guided: { court: "small-claims", run: smallClaimsGuided },
+  form: { court: "small-claims", run: smallClaimsForm },
+  civil: { court: "civil", run: (page) => guidedForm(page, "civil") },
+  family: { court: "family", run: (page) => guidedForm(page, "family") },
+};
+
+for (const route of Object.keys(NAMES) as Route[]) {
+  const name = NAMES[route];
+  test(name, async ({ page }) => {
+    // SHOW_KNOWN=1 runs it as a plain test, to see the failing line.
+    test.fail(isKnownProblem(name) && !process.env.SHOW_KNOWN, "known problem D1 (harness/knownProblems29oct-flow.ts)");
+    test.setTimeout(480_000);
+    await grantSiteAccess(page);
+    await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+    const account = await fakeAccount(page);
+    await serveFromThisCommit(page, ROUTES[route].court, account.rows as unknown as Map<string, Record<string, unknown>>);
+
+    await ROUTES[route].run(page);
+    await page.waitForTimeout(3_000);
+
+    // The wanted property: still confirmed, and the next step loads with no "needs confirming" line.
+    const panel = page.getByTestId("intake-review");
+    await expect(panel, "an added answer keeps the confirmation").toHaveAttribute("data-phase", "user-confirmed", { timeout: 10_000 });
+    await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+    await expect(page.getByText(/needs confirming before your next steps|is not confirmed yet/), "no red line sending the person back").toHaveCount(0);
+    await expect(page.getByTestId("completed-case-overview"), "the next step loads").toBeVisible({ timeout: 120_000 });
+  });
+}
+
+/*
+ * The other half of the one rule, in the browser: an answer the person already had,
+ * CHANGED after Confirm, still cancels the confirmation (the Small Claims form's
+ * amount, given before Confirm and changed after it).
+ */
+test("retest-29oct D1: a changed answer after Confirm still cancels the confirmation -- small-claims form", async ({ page }) => {
+  test.setTimeout(300_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await confirmedForm(page);
+  const panel = page.getByTestId("intake-review");
+  // The amount given before Confirm, changed after it.
+  const box = page.getByTestId("sc-intake-amountClaimed");
+  await expect(box).toHaveValue("$6,000");
+  await box.fill("$7,500");
+  await box.blur();
+  await expect(panel, "a changed answer cancels the confirmation").not.toHaveAttribute("data-phase", "user-confirmed", { timeout: 20_000 });
 });
 
 /*

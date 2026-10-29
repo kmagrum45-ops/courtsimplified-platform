@@ -218,6 +218,25 @@ export function existingFactChanged(previous: Checkpoint, next: Checkpoint): boo
   return false;
 }
 
+/**
+ * THE ONE RULE for whether a person's change starts a new input revision, used by the
+ * browser store (IntakeRecovery.tsx put and "Start the questions again"); the server's
+ * safety net (intakeCheckpoint.ts saveCheckpoint) applies the same existingFactChanged.
+ *
+ * Once the intake is confirmed, only an answer the person already had being changed or
+ * removed cancels the confirmation; an answer that only ADDS a fact keeps it. The browser
+ * used to renew on any difference, so one more answer after Confirm took the tick away
+ * and "Continue to your next steps" sent the person back to the review, on every route
+ * (Chrome re-test 29 Oct, D1), while the server would have kept it.
+ *
+ * Before Confirm any material change renews, so a tick given before a late answer is
+ * asked for again ("You changed an answer. Please tick to confirm again.").
+ */
+export function renewsInputRevision(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): boolean {
+  if (reviewPhase(workflow, previous) === "user-confirmed") return existingFactChanged(previous, next);
+  return materialInitialFacts(next) !== materialInitialFacts(previous);
+}
+
 export const inputRevision = (checkpoint: Checkpoint) => checkpoint.inputRevision ?? checkpoint.revision;
 /** Shared UI/API policy. Legacy booleans never establish explicit confirmation. */
 export function confirmedIntakeRevision(master: unknown, court?: string | null, caseId?: string): string | null {

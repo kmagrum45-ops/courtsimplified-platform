@@ -261,6 +261,9 @@ jobs:
       - name: Chrome 29 Oct -- flow items C, D3, H (known problems listed)
         run: npm run test:chrome-29oct-flow
 
+      - name: Chrome 29 Oct D1 -- one rule for what cancels a confirmation, browser and server
+        run: npm run test:confirmation-rule
+
       - name: Chrome 29 Oct -- safety, deadlines, family court (known problems listed)
         run: npm run test:chrome-29oct-safety
 

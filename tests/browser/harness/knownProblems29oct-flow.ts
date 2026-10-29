@@ -71,12 +71,7 @@ export const KNOWN_PROBLEMS_29OCT_FLOW: readonly KnownProblem[] = [
       "The court-office line repeats the city as typed (\"If your case is in kingston\") instead of the place's own name (nextStepPractical.ts city.trim()).",
     test: "H3: the court-office line names the city with its own capitalisation",
   },
-  {
-    id: "D1-new-answer-drops-confirmation",
-    reason:
-      "After \"Stop initial questions and review\" and Confirm, answering one more chat question cancels the confirmation in the browser (IntakeRecovery.tsx put: any material change renews the revision, unlike the server's existingFactChanged), so \"Continue to your next steps\" shows the red \"needs confirming\" line and sends the person back to the review.",
-    test: "retest-29oct D1: confirmed early, one more answer, Continue goes to the next step -- small-claims (sc-deck-owed)",
-  },
+
   // The owner's Chrome test of #501's preview (29 Oct, second round). Each was also there before #501.
   {
     id: "OWNER-1-month-year-asked",
