@@ -858,7 +858,7 @@ Which fact each question asks for.
 
 - Reads (0): nothing in the repo
 - Read by (4): app/builder/_components/GuidedSmallClaimsIntake.tsx, **src/lib/case-system/caseFile/caseFile.ts**, **src/lib/case-system/guided-assistant/answeredInStory.ts**, **src/lib/case-system/sideChange.ts**
-- Checked by (2): scripts/verification/verifyOwnAnswers.ts, tests/browser/harness/askOnce.ts
+- Checked by (3): scripts/verification/verifyDefenceDates.ts, scripts/verification/verifyOwnAnswers.ts, tests/browser/harness/askOnce.ts
 
 ### src/lib/case-system/caseFile/storyLines.ts
 
