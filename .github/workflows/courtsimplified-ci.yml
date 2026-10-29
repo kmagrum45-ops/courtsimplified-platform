@@ -558,6 +558,9 @@ jobs:
       - name: Every provision a published answer was proved from is in its source list
         run: npm run test:verdict-sources
 
+      - name: Every checked sentence shows its exact words and citation, one click away; Sources lists every provision they sit in
+        run: npm run test:exact-words
+
       - name: Service counts from the day the rules say, by how papers were served
         run: npm run test:service-dates
 

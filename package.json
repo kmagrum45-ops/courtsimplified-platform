@@ -95,6 +95,7 @@
     "test:guided-form-chat": "node --import tsx scripts/verification/verifyGuidedFormChat.ts",
     "test:story-answers": "node --import tsx scripts/verification/verifyStoryAnswers.ts",
     "test:verdict-sources": "node --import tsx scripts/verification/verifyVerdictSources.ts",
+    "test:exact-words": "node --import tsx scripts/verification/verifyExactWords.ts",
     "test:service-dates": "node --import tsx scripts/verification/verifyServiceDates.ts",
     "eval:free-finish-line": "node --import tsx scripts/eval/freeFinishLine.ts",
     "eval:statement-check": "node --import tsx scripts/eval/statementCheck.ts",

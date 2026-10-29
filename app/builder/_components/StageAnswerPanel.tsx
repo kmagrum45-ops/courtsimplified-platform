@@ -35,6 +35,7 @@ import FormsNamedHere from "../../_components/FormsNamedHere";
 import NextStepPractical from "../../_components/NextStepPractical";
 import WhatComesNext from "../../_components/WhatComesNext";
 import GetHelp from "../../_components/GetHelp";
+import { TextWithExactWords, type ExactWordsEntry } from "./ExactWords";
 import { replayPendingPositionSaves, unsavedFromEarlierPage, savePositionQueued } from "./positionSave";
 import { officialFormsNamedIn } from "@/src/lib/content-library/forms/formsInText";
 import {
@@ -88,6 +89,8 @@ type RenderedAnswer = {
   sources: { name: string; pinpoint: string; url: string; checkedOn?: string }[];
   /** The rule itself beside a sentence proved from a guide (sentenceRules.ts). */
   sentenceRules?: { sentence: string; rules: (RuleCitation & { checkedOn?: string })[] }[];
+  /** Each shown sentence's checked quote and citation, one click away (ExactWords.tsx; site owner, 2026-10-29). */
+  exactWords?: ExactWordsEntry[];
   status: string;
   release: { runId: string; promotedAt: string };
 };
@@ -814,7 +817,11 @@ export function NextStepCard({
           </ul>
         </details>
       ) : null}
-      {shownLead ? <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">{shownLead}</p> : null}
+      {shownLead ? (
+        <p data-testid="next-step-lead" className="mt-3 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
+          <TextWithExactWords text={shownLead} entries={answer.exactWords} shownAs={shownOnScreen(court)} />
+        </p>
+      ) : null}
       {shownLead ? <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => !isLeaveSentence(entry.sentence) && shownLead.includes(courtWords(entry.sentence, court)))} /> : null}
       {/* The form, fee, filing and service for this step (Phase 2); the forms
           the answer's text names are the fallback for a step with none recorded. */}
@@ -912,7 +919,7 @@ export function withoutCardLead(heading: string, text: string, cardLead: string)
   return paragraphs.slice(1).join("\n\n").trim();
 }
 
-function AnswerView({
+export function AnswerView({
   answer,
   court,
   userWords = "",
@@ -943,7 +950,7 @@ function AnswerView({
           <div key={section.heading}>
             <p className="text-sm font-semibold text-[#16302b]">{section.heading}</p>
             <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[#2b4640]">
-              {text || "The first step is in \"Your next step\" above."}
+              {text ? <TextWithExactWords text={text} entries={answer.exactWords} shownAs={shownOnScreen(court)} /> : "The first step is in \"Your next step\" above."}
             </p>
             <SentenceRulesBox entries={(answer.sentenceRules ?? []).filter((entry) => !isLeaveSentence(entry.sentence) && text.includes(courtWords(entry.sentence, court)))} />
             {section.heading === "Your deadline" && servedWhen.some((line) => text.includes(line.say)) ? (
@@ -1269,6 +1276,18 @@ export function courtWords(given: string, court: string): string {
     });
   }
   return text;
+}
+
+/**
+ * The ways a published sentence can read on screen, for finding it to put its
+ * exact words beside it: in the court's own words; in a later mention, where
+ * "(lawsuit)" is not repeated; and as published.
+ */
+export function shownOnScreen(court: string): (sentence: string) => string[] {
+  return (sentence) => {
+    const shown = courtWords(sentence, court);
+    return [shown, shown.replace(/ \(lawsuit\)/, ""), sentence];
+  };
 }
 
 /** The sentences naming what can be done only while the time runs (Form 18B). */

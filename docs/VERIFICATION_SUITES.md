@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-196 documented, 26 without a header.
+197 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -73,6 +73,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:document-link` | **OPEN, SAVE AND DELETE AN UPLOADED FILE (Charter re-test 2026-10-26).**<br>Checks, as properties, through the route itself (app/api/workspace/documents/link) with the database and storage stood in: - a link is made only for the signed-in owner's own file that is not being deleted: no sign-in, a bad id, someone else's file and a file  |
 | `npm run test:elided-quote` | **Does a quote that skips material with "..." get found wherever it really is,**<br>and only there? |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
+| `npm run test:exact-words` | **Every published sentence that was checked against a quote shows that quote,**<br>one click away, with its citation; and the answer's source list names every section and rule those quotes sit in (site owner, 2026-10-29, "exact words" step 1). |
 | `npm run test:fact-sources` | **No fact about the person's case is shown without its source.**<br>What it checks: 1. Every place in app/ that states something about the person's case ("you told us", "from what you told us", "from your story", "you said", "you wrote", "we understood") renders the source beside it -- the person's words quoted, or their confi |
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
 | `npm run test:family-no-scores` | **The family engines grade nothing.**<br>COSTS NOTHING. A source scan plus one pure engine run. |
