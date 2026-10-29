@@ -18,8 +18,15 @@ on:
 jobs:
   story-pack:
     runs-on: ubuntu-latest
-    # 61 stories through their routes (the messy pack and walkthrough paths, 2026-10-24): about 45 min.
-    timeout-minutes: 90
+    # The same tests, shared across six machines (site owner, 2026-10-29): each part runs every
+    # sixth test (--shard, split by test with --fully-parallel; workers stay 1 per part). Nothing a
+    # test asserts changes. In one job the pack took about 1.2 h (#501, 28 Oct); see the PR for a
+    # part's time. test:story-pack-shards proves the six parts list exactly the full pack, once each.
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [1, 2, 3, 4, 5, 6]
 
     env:
       NODE_OPTIONS: --max-old-space-size=8192
@@ -72,8 +79,8 @@ jobs:
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3100
           # This run's records folder (tests/browser/harness/packRecords.ts), kept as its own artifact below.
-          STORY_PACK_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
-        run: npm run test:story-pack
+          STORY_PACK_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}-part${{ matrix.part }}
+        run: npm run test:story-pack -- --fully-parallel --shard=${{ matrix.part }}/6
 
       - name: Keep the findings
         if: always()
@@ -81,7 +88,7 @@ jobs:
         with:
           # One artifact per run and attempt: the ask-once records (repeats), the claim-kind table and
           # the findings, never replaced by a later run (site owner, 2026-10-27).
-          name: story-pack-records-${{ github.run_id }}-${{ github.run_attempt }}
+          name: story-pack-records-${{ github.run_id }}-${{ github.run_attempt }}-part${{ matrix.part }}
           path: |
             story-pack-records/**
             test-results/**/error-context.md
