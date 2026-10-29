@@ -170,7 +170,7 @@ export default function DashboardPage() {
     const { data, error: loadError } = await supabase
       .from("cases")
       .select(
-        "id,title,court_path,status,current_stage,created_at,updated_at,position:master_result->position,drafts:master_result->drafts,otherParty:master_result->intakeData->otherParty,lifecycleStage:master_result->>lifecycleStage,workflowStatus:master_result->workflowStatus,guidanceInputRevision:master_result->>guidanceInputRevision,flowId:master_result->intakeCheckpoint->>flowId,cpCourt:master_result->intakeCheckpoint->>courtPath,cpVersion:master_result->intakeCheckpoint->>version,revision:master_result->intakeCheckpoint->>revision,inputRevision:master_result->intakeCheckpoint->>inputRevision",
+        "id,title,court_path,status,current_stage,created_at,updated_at,position:master_result->position,drafts:master_result->drafts,otherParty:master_result->intakeData->otherParty,lifecycleStage:master_result->>lifecycleStage,workflowStatus:master_result->workflowStatus,guidanceInputRevision:master_result->>guidanceInputRevision,guidanceFactsRevision:master_result->>guidanceFactsRevision,flowId:master_result->intakeCheckpoint->>flowId,cpCourt:master_result->intakeCheckpoint->>courtPath,cpVersion:master_result->intakeCheckpoint->>version,revision:master_result->intakeCheckpoint->>revision,inputRevision:master_result->intakeCheckpoint->>inputRevision,factsRevision:master_result->intakeCheckpoint->>factsRevision",
       )
       .eq("user_id", user.id)
       .order("updated_at", { ascending: false });
@@ -179,11 +179,11 @@ export default function DashboardPage() {
       setError("Your cases could not be loaded. Please refresh the page.");
       setCases([]);
     } else {
-      type Row = Omit<CaseRecord, "master_result"> & { position?: unknown; drafts?: unknown; otherParty?: unknown; lifecycleStage?: unknown; workflowStatus?: unknown; guidanceInputRevision?: unknown; flowId?: unknown; cpCourt?: unknown; cpVersion?: unknown; revision?: unknown; inputRevision?: unknown };
-      const records = ((data || []) as unknown as Row[]).map(({ position, drafts, otherParty, lifecycleStage, workflowStatus, guidanceInputRevision, flowId, cpCourt, cpVersion, revision, inputRevision, ...row }) => ({
+      type Row = Omit<CaseRecord, "master_result"> & { position?: unknown; drafts?: unknown; otherParty?: unknown; lifecycleStage?: unknown; workflowStatus?: unknown; guidanceInputRevision?: unknown; guidanceFactsRevision?: unknown; factsRevision?: unknown; flowId?: unknown; cpCourt?: unknown; cpVersion?: unknown; revision?: unknown; inputRevision?: unknown };
+      const records = ((data || []) as unknown as Row[]).map(({ position, drafts, otherParty, lifecycleStage, workflowStatus, guidanceInputRevision, guidanceFactsRevision, factsRevision, flowId, cpCourt, cpVersion, revision, inputRevision, ...row }) => ({
         ...row,
         master_result: {
-          workflowStatus, guidanceInputRevision, intakeCheckpoint: { version: Number(cpVersion), flowId, courtPath: cpCourt, revision, inputRevision, sections: {} },
+          workflowStatus, guidanceInputRevision, ...(guidanceFactsRevision ? { guidanceFactsRevision } : {}), intakeCheckpoint: { version: Number(cpVersion), flowId, courtPath: cpCourt, revision, inputRevision, ...(factsRevision ? { factsRevision } : {}), sections: {} },
           ...(typeof lifecycleStage === "string" ? { lifecycleStage } : {}),
           ...(position !== null && position !== undefined ? { position } : {}),
           ...(drafts !== null && drafts !== undefined ? { drafts } : {}),

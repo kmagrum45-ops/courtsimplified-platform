@@ -16,7 +16,7 @@ import { confirmedLocationOf, storyOf } from "../../src/lib/case-system/intakeSt
 import { positionForStory, storyAnswersOutdated } from "../../src/lib/case-system/storyBasis";
 import { panelAnswerFacts } from "../../src/lib/case-system/intakeReview";
 
-import { reviewPhase } from "../../src/lib/case-system/intakeReview";
+import { factsRevision, guidanceFactsRevision, reviewPhase } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "../_components/intakeRequest";
 
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
@@ -252,6 +252,8 @@ function BuilderPageContent() {
   const prepareCaseGuidance = usePrepareCaseGuidance();
   const intakeConfirmed = Boolean(reviewView && reviewPhase(reviewView.workflowStatus, reviewView.checkpoint) === "user-confirmed");
   const analysisInputRevision = useRef<string | null>(null);
+  /** The facts version the shown analysis was made from: an answer added after Confirm outdates it (D1 review). */
+  const analysisFactsRevision = useRef<string | null>(null);
   const beforeIntakeAI = useBeforeIntakeAI();
   const validateIntakeResponse = useValidateIntakeResponse();
   const searchParams = useSearchParams();
@@ -952,6 +954,7 @@ function BuilderPageContent() {
         },
 
         guidanceInputRevision: analysisInputRevision.current,
+        guidanceFactsRevision: analysisFactsRevision.current,
         workflowStatus: {
           // Completion is written only by the explicit review action.
           intakeCompleted: false,
@@ -1086,7 +1089,7 @@ function BuilderPageContent() {
             .filter((key) => storedMaster[key] !== undefined && storedMaster[key] !== null)
             .map((key) => [key, storedMaster[key]]),
         );
-        if (storedMaster.guidanceInputRevision !== analysisInputRevision.current) {
+        if (storedMaster.guidanceInputRevision !== analysisInputRevision.current || guidanceFactsRevision(storedMaster) !== analysisFactsRevision.current) {
           // Old procedural choices/readings cannot be relabelled as guidance
           // for corrected facts. Preserve the person's recorded dates/service.
           if (storedMaster.position) userOwned.position = { ...asRecord(storedMaster.position), confirmedStage: null, confirmedStageAt: null, confirmedStageFrom: null, stepId: null, stepChosenAt: null };
@@ -1208,7 +1211,7 @@ function BuilderPageContent() {
               body: JSON.stringify({ caseId: activeId, saveOnServer: false }),
             });
             const result = (await response.json()) as { picture?: unknown; storedPicture?: unknown };
-            if (analysisInputRevision.current !== readerRevision || recovery?.getReview().checkpoint.inputRevision !== readerRevision) return;
+            if (analysisInputRevision.current !== readerRevision || recovery?.getReview().checkpoint.inputRevision !== readerRevision || (recovery && analysisFactsRevision.current !== factsRevision(recovery.getReview().checkpoint))) return;
             const picture = readStoredPicture(result.picture);
             if (picture) setCasePicture(picture);
             const stored = result.storedPicture;
@@ -1390,8 +1393,12 @@ function BuilderPageContent() {
     payload: StoredCaseData,
   ) {
     const previousRevision = analysisInputRevision.current;
+    const previousFacts = analysisFactsRevision.current;
     analysisInputRevision.current = recovery?.getReview().checkpoint.inputRevision ?? null;
-    const sameInitialInformation = previousRevision === analysisInputRevision.current || asRecord(existingMasterResult).guidanceInputRevision === analysisInputRevision.current;
+    analysisFactsRevision.current = recovery ? factsRevision(recovery.getReview().checkpoint) : null;
+    // The same information is the same facts, not only the same confirmation: an answer added
+    // after Confirm keeps it, but the stage and reading made without that answer are not kept (D1 review).
+    const sameInitialInformation = (previousRevision === analysisInputRevision.current && previousFacts === analysisFactsRevision.current) || (asRecord(existingMasterResult).guidanceInputRevision === analysisInputRevision.current && guidanceFactsRevision(existingMasterResult) === analysisFactsRevision.current);
     if (recovery) {
       const view = recovery.getReview();
       if (reviewPhase(view.workflowStatus, view.checkpoint) === "collecting") void recovery.transition("review", view.checkpoint.inputRevision ?? view.checkpoint.revision).catch(() => {});
@@ -1451,7 +1458,7 @@ function BuilderPageContent() {
    * The results show only on the results step, so Back from them returns to
    * the intake as it was, and Forward brings them back.
    */
-  const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && stepParam === "results";
+  const resultsVisible = intakeConfirmed && Boolean(analysis) && analysisInputRevision.current === reviewView?.checkpoint.inputRevision && Boolean(reviewView && analysisFactsRevision.current === factsRevision(reviewView.checkpoint)) && stepParam === "results";
 
   // The case this tab last saved, so a reload of the results step reopens it.
   useEffect(() => {

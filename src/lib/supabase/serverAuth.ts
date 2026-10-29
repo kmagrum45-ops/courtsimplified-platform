@@ -109,7 +109,7 @@ export async function getAuthenticatedOwnedCase(
     const { data, error } = await supabase
       .from("cases")
       .select(options.intakeIdentityOnly
-        ? "id,court_path,mr_workflowStatus:master_result->workflowStatus,mr_guidanceInputRevision:master_result->guidanceInputRevision,intakeFlow:master_result->intakeCheckpoint->>flowId,intakeCourt:master_result->intakeCheckpoint->>courtPath,intakeVersion:master_result->intakeCheckpoint->>version,intakeRevision:master_result->intakeCheckpoint->>revision,inputRevision:master_result->intakeCheckpoint->>inputRevision"
+        ? "id,court_path,mr_workflowStatus:master_result->workflowStatus,mr_guidanceInputRevision:master_result->guidanceInputRevision,mr_guidanceFactsRevision:master_result->guidanceFactsRevision,intakeFlow:master_result->intakeCheckpoint->>flowId,intakeCourt:master_result->intakeCheckpoint->>courtPath,intakeVersion:master_result->intakeCheckpoint->>version,intakeRevision:master_result->intakeCheckpoint->>revision,inputRevision:master_result->intakeCheckpoint->>inputRevision,factsRevision:master_result->intakeCheckpoint->>factsRevision"
         : ownedCaseColumns(options.masterKeys))
       .eq("id", caseId)
       .eq("user_id", user.id)
@@ -120,7 +120,7 @@ export async function getAuthenticatedOwnedCase(
           id: row.id as string,
           court_path: (row.court_path as string | null) || null,
           master_result: options.intakeIdentityOnly
-            ? { ...masterFromPaths(row, ["workflowStatus", "guidanceInputRevision"]), intakeCheckpoint: { version: Number(row.intakeVersion), flowId: row.intakeFlow, courtPath: row.intakeCourt, revision: row.intakeRevision, ...(row.inputRevision ? { inputRevision: row.inputRevision } : {}), sections: {} } }
+            ? { ...masterFromPaths(row, ["workflowStatus", "guidanceInputRevision", "guidanceFactsRevision"]), intakeCheckpoint: { version: Number(row.intakeVersion), flowId: row.intakeFlow, courtPath: row.intakeCourt, revision: row.intakeRevision, ...(row.inputRevision ? { inputRevision: row.inputRevision } : {}), ...(row.factsRevision ? { factsRevision: row.factsRevision } : {}), sections: {} } }
             : options.masterKeys ? masterFromPaths(row, options.masterKeys) : row.master_result || {},
         }
       : null;

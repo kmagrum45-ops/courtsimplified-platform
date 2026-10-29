@@ -17,19 +17,28 @@
  *      before a late answer is asked for again.
  *   3. The server (intakeCheckpoint.ts saveCheckpoint), sent what the browser now
  *      sends, keeps the confirmation for a new fact and cancels it for a changed one.
- *   4. The browser store decides every input-revision renewal through that one rule:
- *      IntakeRecovery.tsx imports it, and no line there renews a revision any other way.
+ *   4. The browser store decides every revision renewal through that one rule
+ *      (applyFactRevisions): IntakeRecovery.tsx imports it, and no line there sets a
+ *      revision any other way; its AI lease compares the facts revision.
+ *   5. Guidance (the next steps) is a separate matter from the confirmation (D1
+ *      review, 29 Oct): an answer added after Confirm keeps the confirmation but
+ *      outdates next steps made without it (guidanceIsCurrent false, guidanceNeedsUpdate
+ *      true, the analysis gate refuses with "Update them", never "confirm again");
+ *      a change that is not a fact (later evidence) leaves them current; the case page
+ *      and Forms show the update control; the builder compares the facts revision.
  *
  * What failure this catches: the browser and server drifting apart again, so a
- * confirmation the server keeps is dropped in the tab (or the reverse), or a changed
- * answer after Confirm no longer cancelling it.
+ * confirmation the server keeps is dropped in the tab (or the reverse), a changed
+ * answer after Confirm no longer cancelling it, or next steps built without the
+ * person's latest answer shown as if they included it.
  *
  * Run: npm run test:confirmation-rule
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { existingFactChanged, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { applyFactRevisions, existingFactChanged, guidanceIsCurrent, guidanceNeedsUpdate, remainingEssentialQuestions, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { withConfirmedGuidance } from "../../src/lib/security/intakeGuidanceGate";
 import { saveCheckpoint, type Checkpoint } from "../../src/lib/case-system/intakeCheckpoint";
 
 const OWNER = "11111111-1111-4111-8111-111111111111";
@@ -90,6 +99,33 @@ function fakeDb(court: Checkpoint["courtPath"], master: Record<string, unknown>)
 
 async function main() {
   for (const route of ROUTES) {
+    await check(`${route.name}: next steps made before an answer added after Confirm are outdated; the confirmation stands`, async () => {
+      const base = checkpoint(route.court, route.answers({ goal: "Synthetic: payment of the $6,000 owed." }));
+      const { done } = confirmed(base);
+      const guidance = { guidanceInputRevision: REVISION, guidanceFactsRevision: REVISION };
+      assert.equal(guidanceIsCurrent({ intakeCheckpoint: base, workflowStatus: done, ...guidance }, route.court, FLOW), true, "next steps made from the confirmed facts are current");
+      // Not a fact: later evidence. Nothing is outdated.
+      const evidence = edited(base, route.answers({ goal: "Synthetic: payment of the $6,000 owed.", evidence: ["Synthetic receipt"] }));
+      assert.equal(applyFactRevisions(done, base, evidence), false);
+      assert.equal(guidanceIsCurrent({ intakeCheckpoint: evidence, workflowStatus: done, ...guidance }, route.court, FLOW), true, "a change that is not a fact outdated the next steps");
+      // A fact added: saved through the server as the browser sends it.
+      const added = edited(base, route.answers({ goal: "Synthetic: payment of the $6,000 owed.", otherParty: "Test Decks Ltd." }));
+      applyFactRevisions(done, base, added);
+      const { db, master } = fakeDb(route.court, { intakeCheckpoint: base, workflowStatus: done, ...guidance });
+      assert((await saveCheckpoint(db, OWNER, FLOW, added, REVISION, () => true, added.inputRevision !== base.inputRevision, false)).ok);
+      const saved = master();
+      assert.equal(reviewPhase(saved.workflowStatus as Record<string, unknown>, saved.intakeCheckpoint as Checkpoint), "user-confirmed", "the confirmation was cancelled");
+      assert.equal(guidanceIsCurrent(saved, route.court, FLOW), false, "next steps made without the added answer are still shown as current");
+      assert.equal(guidanceNeedsUpdate(saved, route.court, FLOW), true, "the next steps are not offered for updating");
+      // Made again from the current facts: current.
+      assert.equal(guidanceIsCurrent({ ...saved, guidanceFactsRevision: (saved.intakeCheckpoint as Checkpoint).factsRevision }, route.court, FLOW), true, "next steps made again are not current");
+      // The analysis gate: "Update them", never "confirm again"; the handler is not reached.
+      let reached = false;
+      const gate = withConfirmedGuidance(async () => { reached = true; return new Response("{}"); }, { currentAnalysis: true }, { authenticate: async () => ({ id: OWNER }), owned: async () => ({ id: FLOW, court_path: route.court, master_result: saved }), names: async () => null } as never);
+      const response = await gate(new Request("http://localhost/api/x", { method: "POST", headers: { "content-type": "application/json", "x-courtsimplified-case-id": FLOW, "x-courtsimplified-input-revision": REVISION }, body: JSON.stringify({ caseId: FLOW }) }) as never);
+      assert.equal(reached, false, "guidance was served from next steps made before the latest answer");
+      assert.match(String(((await response.json()) as { error?: unknown }).error), /made before your latest answer/, "the refusal does not say the next steps need updating");
+    });
     const base = checkpoint(route.court, route.answers({ goal: "Synthetic: payment of the $6,000 owed." }));
     const { review, done } = confirmed(base);
     assert.equal(reviewPhase(done, base), "user-confirmed", `${route.name}: the synthetic intake is confirmed`);
@@ -115,8 +151,9 @@ async function main() {
     await check(`${route.name}: the server keeps the confirmation for a new fact and cancels it for a changed one`, async () => {
       for (const [next, keeps] of [[added, true], [changed, false]] as const) {
         const { db, master } = fakeDb(route.court, { intakeCheckpoint: base, workflowStatus: done });
-        // What the browser sends: the input revision renewed only when the one rule says so.
-        const sent: Checkpoint = renewsInputRevision(done, base, next) ? { ...next, inputRevision: next.revision } : next;
+        // What the browser sends: the revisions set by the store's own step.
+        const sent: Checkpoint = structuredClone(next);
+        applyFactRevisions(done, base, sent);
         const outcome = await saveCheckpoint(db, OWNER, FLOW, sent, REVISION, () => true, sent.inputRevision !== base.inputRevision, false);
         assert(outcome.ok, "the save was accepted");
         const saved = master().intakeCheckpoint as Checkpoint;
@@ -125,13 +162,26 @@ async function main() {
     });
   }
 
-  await check("the browser store renews the input revision only through the one rule", () => {
+  await check("the browser store sets revisions only through the one rule, and leases AI answers on the facts", () => {
     const source = readFileSync("app/_components/IntakeRecovery.tsx", "utf8");
-    assert.match(source, /import \{[^}]*\brenewsInputRevision\b[^}]*\} from "..\/..\/src\/lib\/case-system\/intakeReview"/, "IntakeRecovery.tsx does not import renewsInputRevision");
-    const renewals = source.split(/\r?\n/).filter((line) => /\.inputRevision\s*=\s*\w+\.revision/.test(line));
-    assert(renewals.length > 0, "no input-revision renewal found in IntakeRecovery.tsx: this check no longer reads the store");
-    for (const line of renewals) assert.match(line, /renewsInputRevision\(/, `a renewal not decided by the one rule: ${line.trim().slice(0, 140)}`);
+    assert.match(source, /import \{[^}]*\bapplyFactRevisions\b[^}]*\} from "..\/..\/src\/lib\/case-system\/intakeReview"/, "IntakeRecovery.tsx does not import applyFactRevisions");
+    assert((source.match(/applyFactRevisions\(workflowStatus, snapshot, next\)/g) ?? []).length >= 2, "put and \"Start the questions again\" do not both go through applyFactRevisions");
+    assert.doesNotMatch(source, /\.(inputRevision|factsRevision)\s*=\s*\w+\.revision/, "a revision is set in the store other than through applyFactRevisions");
     assert.doesNotMatch(source, /materialInitialFacts\(next\)\s*!==\s*materialInitialFacts\(/, "a second copy of the rule (any material difference) is back in the store");
+    assert.match(source, /leases\.set\(signal, factsRevision\(snapshot\)\)/, "an AI answer's lease is not taken on the facts revision");
+    assert.match(source, /leases\.get\(signal\) !== factsRevision\(snapshot\)/, "an AI answer started on older facts is not discarded");
+  });
+
+  await check("the case page, Forms and the builder treat next steps made before the latest answer as outdated", () => {
+    const layout = readFileSync("app/cases/[id]/layout.tsx", "utf8");
+    assert.match(layout, /guidanceNeedsUpdate\(caseRecord\.master_result/, "the case page does not show the update control");
+    assert.match(layout, /data-testid="case-update-next-steps"/);
+    const forms = readFileSync("app/forms/FormsWorkspace.tsx", "utf8");
+    assert.match(forms, /guidanceNeedsUpdate\(masterResult, path, caseId\)/, "Forms does not show the update control");
+    const builder = readFileSync("app/builder/page.tsx", "utf8");
+    assert.match(builder, /guidanceFactsRevision: analysisFactsRevision\.current/, "the builder does not record which facts its guidance was made from");
+    assert.match(builder, /resultsVisible = [^;]*analysisFactsRevision\.current === factsRevision\(/, "the builder shows results made from older facts");
+    assert.match(builder, /sameInitialInformation = [^;]*guidanceFactsRevision\(existingMasterResult\) === analysisFactsRevision\.current/, "the builder keeps the stage and reading made without the latest answer");
   });
 
   if (failures) { console.error(`\n${failures} check(s) failed.`); process.exit(1); }

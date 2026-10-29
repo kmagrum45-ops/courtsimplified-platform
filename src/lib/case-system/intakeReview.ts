@@ -237,7 +237,28 @@ export function renewsInputRevision(workflow: ObjectValue, previous: Checkpoint,
   return materialInitialFacts(next) !== materialInitialFacts(previous);
 }
 
+/**
+ * The browser store's one step for a change of the person's answers (IntakeRecovery.tsx put and
+ * "Start the questions again"): any change of the facts renews `factsRevision`, so next steps
+ * made before it are outdated; `inputRevision` is renewed only when renewsInputRevision says
+ * so. Sets them on `next`; true when the input revision was renewed (the review is reconciled).
+ */
+export function applyFactRevisions(workflow: ObjectValue, previous: Checkpoint, next: Checkpoint): boolean {
+  if (materialInitialFacts(next) !== materialInitialFacts(previous)) next.factsRevision = next.revision;
+  if (!renewsInputRevision(workflow, previous, next)) return false;
+  next.inputRevision = next.revision;
+  return true;
+}
+
 export const inputRevision = (checkpoint: Checkpoint) => checkpoint.inputRevision ?? checkpoint.revision;
+/**
+ * Which version of the facts the guidance must have been built from. An answer added after
+ * Confirm keeps the confirmation (renewsInputRevision) but not the guidance: the next steps
+ * were made without it, so they are outdated until made again (D1 review, 29 Oct).
+ */
+export const factsRevision = (checkpoint: Checkpoint) => checkpoint.factsRevision ?? inputRevision(checkpoint);
+/** The facts version the stored guidance was built from (older guidance: its input revision). */
+export const guidanceFactsRevision = (master: unknown): unknown => object(master).guidanceFactsRevision ?? object(master).guidanceInputRevision;
 /** Shared UI/API policy. Legacy booleans never establish explicit confirmation. */
 export function confirmedIntakeRevision(master: unknown, court?: string | null, caseId?: string): string | null {
   const record = object(master);
@@ -251,7 +272,21 @@ export function confirmedIntakeRevision(master: unknown, court?: string | null, 
 /** A confirmed revision cannot reveal analysis produced for earlier facts. */
 export function guidanceIsCurrent(master: unknown, court?: string | null, caseId?: string): boolean {
   const revision = confirmedIntakeRevision(master, court, caseId);
-  return Boolean(revision && object(master).guidanceInputRevision === revision);
+  if (!revision || object(master).guidanceInputRevision !== revision) return false;
+  // confirmedIntakeRevision read this checkpoint already, so it is valid for this court.
+  const checkpoint = object(object(master).intakeCheckpoint) as unknown as Checkpoint;
+  // An answer added after Confirm keeps the confirmation, never next steps made without it (D1 review).
+  return guidanceFactsRevision(master) === factsRevision(checkpoint);
+}
+
+/**
+ * Confirmed, with next steps made for the confirmed information, but an answer has been added
+ * since: the confirmation stands and only the next steps need making again ("Update them"),
+ * never "review again".
+ */
+export function guidanceNeedsUpdate(master: unknown, court?: string | null, caseId?: string): boolean {
+  const revision = confirmedIntakeRevision(master, court, caseId);
+  return Boolean(revision && object(master).guidanceInputRevision === revision && !guidanceIsCurrent(master, court, caseId));
 }
 
 /** An unfinished case API returns intake/user records, never cached procedural output. */

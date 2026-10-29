@@ -11,7 +11,7 @@
  */
 
 import Link from "next/link";
-import { guidanceIsCurrent } from "@/src/lib/case-system/intakeReview";
+import { guidanceIsCurrent, guidanceNeedsUpdate } from "@/src/lib/case-system/intakeReview";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -831,6 +831,7 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
   }
 
   const Frame = embedded ? "div" : "main";
+  if (caseId && guidanceNeedsUpdate(masterResult, path, caseId)) return <Frame data-testid="forms-guidance-outdated" className="p-6"><h2>Your next steps were made before your latest answer</h2><p>Update them so the forms guidance includes it; nothing needs to be confirmed again. Your existing documents remain saved.</p><Link href={`/builder?path=${path}&caseId=${encodeURIComponent(caseId)}`}>Update my next steps</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></Frame>;
   if (caseId && !guidanceIsCurrent(masterResult, path, caseId)) return <Frame data-testid="forms-intake-gate" className="p-6"><h2>Confirm your initial information before receiving case-specific forms guidance</h2><p>Your existing documents remain saved.</p><Link href={`/builder?path=${path}&caseId=${encodeURIComponent(caseId)}`}>Continue intake and review</Link>{" · "}<Link href="/forms">General official forms catalogue</Link></Frame>;
 
   return (

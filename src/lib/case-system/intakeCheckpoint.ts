@@ -12,6 +12,12 @@ export type Checkpoint = {
   courtPath: IntakeCourt;
   revision: string;
   inputRevision?: string;
+  /**
+   * Renewed on every change of the material facts, including an answer added after Confirm,
+   * which keeps `inputRevision` (D1). Guidance built from earlier facts is outdated
+   * (intakeReview.ts guidanceIsCurrent); absent, it is `inputRevision` (factsRevision()).
+   */
+  factsRevision?: string;
   sections: Record<string, Record<string, unknown>>;
 };
 export type IntakeSession = {
@@ -47,7 +53,7 @@ export function readCheckpoint(value: unknown, court: IntakeCourt, flowId?: stri
   const item = record(value);
   try {
     if (item.version !== 1 || item.courtPath !== court || !intakeId(item.flowId) || !intakeId(item.revision) ||
-      (flowId && item.flowId !== flowId) || (item.inputRevision !== undefined && !intakeId(item.inputRevision)) || !item.sections || Array.isArray(item.sections) || typeof item.sections !== "object" ||
+      (flowId && item.flowId !== flowId) || (item.inputRevision !== undefined && !intakeId(item.inputRevision)) || (item.factsRevision !== undefined && !intakeId(item.factsRevision)) || !item.sections || Array.isArray(item.sections) || typeof item.sections !== "object" ||
       !safeJson(item.sections) || new TextEncoder().encode(JSON.stringify(item)).length > MAX_CHECKPOINT_BYTES) return null;
     if (Object.values(item.sections).some((section) => !section || typeof section !== "object" || Array.isArray(section))) return null;
     return item as Checkpoint;

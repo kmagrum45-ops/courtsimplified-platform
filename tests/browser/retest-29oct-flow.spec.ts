@@ -19,11 +19,18 @@
  * Wanted property: an answer that only ADDS a fact keeps the confirmation, and the
  * next step loads. The other half of the rule (a CHANGED answer still cancels the
  * confirmation) is asserted for free by scripts/verification/verifyConfirmationRule.ts,
- * and in the browser by the last test here.
+ * and in the browser by the changed-answer test here.
  *
- * Fixed by the one rule (intakeReview.ts renewsInputRevision), which the browser store
- * now uses; the four routes were listed in harness/knownProblems29oct-flow.ts, failing,
- * until then, and must now pass.
+ * Fixed by the one rule (intakeReview.ts renewsInputRevision, applied by the browser
+ * store through applyFactRevisions). What was actually shown, 29 Oct: this spec run
+ * against a build of origin/main 95f1b7ba (before the fix) failed all four routes on
+ * "an added answer keeps the confirmation" (the changed-answer test passed there, as
+ * main cancels on any change); against the fixed build all pass. The four routes are
+ * no longer listed in harness/knownProblems29oct-flow.ts, so they must pass.
+ *
+ * The last test (next steps made before an added answer are offered for updating) is
+ * the D1 review's guidance property: run against the D1 commit without it (6a25ae37)
+ * it failed, and it passes with intakeReview.ts factsRevision / guidanceNeedsUpdate.
  *
  * Served by this commit's own code (harness/thisCommitServer.ts): no AI, no database.
  * Run: npx playwright test tests/browser/retest-29oct-flow.spec.ts (against a build
@@ -196,6 +203,48 @@ test("retest-29oct D1: a changed answer after Confirm still cancels the confirma
   await box.fill("$7,500");
   await box.blur();
   await expect(panel, "a changed answer cancels the confirmation").not.toHaveAttribute("data-phase", "user-confirmed", { timeout: 20_000 });
+});
+
+/*
+ * D1 review (29 Oct): the confirmation stands after an added answer, but next steps made
+ * before it do not. Next steps made, then one more answer on the form: the case page says
+ * the next steps were made before the latest answer and offers to update them (never
+ * "review again"); Continue makes them again, and the case page shows them.
+ */
+test("retest-29oct D1: next steps made before an added answer are offered for updating, not shown as current -- small-claims form", async ({ page }) => {
+  test.setTimeout(480_000);
+  await grantSiteAccess(page);
+  await autoAnswerSituation(page, STARTING_NOTHING_FILED);
+  const account = await fakeAccount(page);
+  await serveFromThisCommit(page, "small-claims", account.rows as unknown as Map<string, Record<string, unknown>>);
+  await confirmedForm(page);
+  const next = page.getByRole("button", { name: "Continue to your next steps", exact: true }).first();
+  await next.click();
+  await expect(page.getByTestId("completed-case-overview")).toBeVisible({ timeout: 120_000 });
+  const row = [...account.rows.values()][0];
+  const caseId = String(row.id);
+
+  // One more answer, on the form: a fact added.
+  await page.goto(`/builder?path=small-claims&caseId=${caseId}&step=form`);
+  const panel = page.getByTestId("intake-review");
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  const box = page.getByTestId("sc-intake-timeline");
+  await expect(box).toHaveValue("");
+  await box.fill("March 2026: hired them. May 2026: deck finished, $6,000 not paid.");
+  await box.blur();
+  await expect.poll(() => JSON.stringify((row.master_result as Record<string, unknown>).intakeCheckpoint), { timeout: 30_000 }).toContain("deck finished");
+
+  // The case page: the confirmation stands; the next steps are offered for updating.
+  await page.goto(`/cases/${caseId}`);
+  await expect(page.getByTestId("case-guidance-outdated"), "next steps made before the latest answer are not shown as current").toBeVisible({ timeout: 60_000 });
+  await expect(page.getByText("Review your initial information before receiving case guidance"), "never sent back to the review").toHaveCount(0);
+  await page.getByTestId("case-update-next-steps").click();
+  await page.waitForURL(/\/builder\?/, { timeout: 60_000 });
+  await expect(panel).toHaveAttribute("data-phase", "user-confirmed", { timeout: 60_000 });
+  await page.getByRole("button", { name: /^(Continue to your next steps|Show my next step)$/ }).first().click();
+  await expect(page.getByTestId("completed-case-overview"), "the next steps are made again").toBeVisible({ timeout: 120_000 });
+  await page.goto(`/cases/${caseId}`);
+  await expect(page.getByTestId("case-guidance-outdated")).toHaveCount(0, { timeout: 60_000 });
 });
 
 /*

@@ -3,7 +3,7 @@
 import IntakeReviewPanel from "./IntakeReviewPanel";
 import { startSignIn } from "./startSignIn";
 import { markReviewNeeded } from "./reviewNeeded";
-import { guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, renewsInputRevision, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
+import { applyFactRevisions, factsRevision, guidanceIsCurrent, inputRevision, reconcileReview, materialInitialFacts, reviewPhase, transitionReview } from "../../src/lib/case-system/intakeReview";
 import { IntakeRequest } from "./intakeRequest";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
@@ -288,7 +288,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (!current()) return;
             const fields = discardedFields(snapshot);
             const next = { ...discardStale(snapshot), revision: crypto.randomUUID() };
-            if (renewsInputRevision(workflowStatus, snapshot, next)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next); }
+            if (applyFactRevisions(workflowStatus, snapshot, next)) workflowStatus = reconcileReview(workflowStatus, snapshot, next);
             snapshot = next;
             for (const [section, key] of fields) fieldListeners.get(`${section}:${key}`)?.forEach(listener => listener());
             emit();
@@ -319,7 +319,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             const step = new URL(window.location.href).searchParams.get("step");
             return runContinue(step === "guided" ? "guided" : step === "form" ? "form" : "choose");
           },
-          begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, inputRevision(snapshot)); },
+          begin: async signal => { await flush(signal); signal?.throwIfAborted(); if (signal) leases.set(signal, factsRevision(snapshot)); },
           subscribeField: (section, field, listener) => {
             const key = `${section}:${field}`;
             const group = fieldListeners.get(key) ?? new Set<() => void>();
@@ -374,9 +374,10 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
             if (reaffirm !== undefined) sections[BASIS_SECTION] = reaffirmAnswers(sections, section, key, encoded, reaffirm === true ? undefined : reaffirm);
             if (unchanged && JSON.stringify(sections[BASIS_SECTION]) === JSON.stringify(snapshot.sections[BASIS_SECTION])) { invalid.delete(field); return; }
             const next = { ...snapshot, revision: crypto.randomUUID(), sections };
-            // The one rule, shared with the server (intakeReview.ts renewsInputRevision): after Confirm
-            // an answer that only adds a fact keeps the confirmation (Chrome re-test 29 Oct, D1).
-            if (touched && renewsInputRevision(workflowStatus, snapshot, next)) { next.inputRevision = next.revision; workflowStatus = reconcileReview(workflowStatus, snapshot, next, fromReview); }
+            // The one rule, shared with the server (intakeReview.ts applyFactRevisions): after Confirm an
+            // answer that only adds a fact keeps the confirmation (Chrome re-test 29 Oct, D1), but next
+            // steps made before it are outdated (factsRevision; D1 review).
+            if (touched && applyFactRevisions(workflowStatus, snapshot, next)) workflowStatus = reconcileReview(workflowStatus, snapshot, next, fromReview);
             if (!readCheckpoint(next, court)) { invalid.add(field); dirty = true; emit(); failure("This intake is too large to save together. Nothing has been removed; copy your text before leaving."); return; }
             invalid.delete(field);
             snapshot = next;
@@ -396,7 +397,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
           flush,
           validate: async (signal) => {
             signal?.throwIfAborted();
-            if (signal && leases.has(signal) && leases.get(signal) !== inputRevision(snapshot)) throw new Error("Initial information changed. The outdated AI response was discarded.");
+            // An AI response started on older facts is discarded, an added answer included (D1 review).
+            if (signal && leases.has(signal) && leases.get(signal) !== factsRevision(snapshot)) throw new Error("Initial information changed. The outdated AI response was discarded.");
             if (!current()) throw new Error("The intake account or case changed. Please retry.");
             if (flight) await flight;
             if (ownerId && caseId) {
