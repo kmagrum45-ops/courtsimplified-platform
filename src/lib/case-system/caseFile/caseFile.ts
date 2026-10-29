@@ -368,6 +368,16 @@ export function askable(file: CaseFile, candidates: readonly string[], surface?:
   return candidates.filter((id) => nextQuestion(file, [id], { surface }) === id);
 }
 
+/**
+ * THE GATE FOR EVERY CHAT (never ask twice, row 1, 29 Oct). A chat question is asked only when the
+ * one gate lets it: a fact the file holds, answered or "not sure", is not asked by a chat. A chat is
+ * never where an unsure fact is offered once more (that is the review, or the story's own
+ * suggestion), and the next step shows it folded ("not known yet -- Add it"). No file: nothing held.
+ */
+export function chatMayAsk(file: CaseFile | null | undefined, questionId: string): boolean {
+  return !file || nextQuestion(file, [questionId]) === questionId;
+}
+
 /** The case file section after the person answers "not sure" to a question: each of its facts kept as unsure. */
 export function withUnsure(section: Record<string, unknown> | undefined, questionId: string, surface?: string): Record<string, unknown> {
   const current = object(section);
@@ -384,6 +394,16 @@ export function withOfferedAtEnd(section: Record<string, unknown> | undefined, f
 
 export function offeredAtEnd(sections: Record<string, unknown> | undefined): SlotFact[] {
   return strings(object(object(sections)[CASE_FILE_SECTION]).offeredAtEnd).filter(isSlot);
+}
+
+/**
+ * Whether an unsure fact has had its one more offer: the review recorded "I don't know yet" for it
+ * (the review is that offer), or it was offered again at the end. After that it is never offered
+ * again, not even as the story's suggestion; the next step shows it folded (CI 29 Oct, family-safety).
+ */
+export function offeredOnceMore(file: CaseFile, fact: SlotFact, sections: Record<string, unknown> | undefined): boolean {
+  const source = file[fact].source;
+  return offeredAtEnd(sections).includes(fact) || (source?.kind === "answer" && source.question.startsWith("review:"));
 }
 
 /** The slots a review box or question holds (its facts that are slots). */

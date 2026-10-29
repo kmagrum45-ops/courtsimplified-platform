@@ -13,6 +13,7 @@
  *   - a fact held unsure may be offered once more at the end, and a second offer fails, as does
  *     an offer anywhere else;
  *   - a violation on the known list is excused, in its stories only, and any other is not;
+ *   - no known repeat excuses a chat question (row 1 fixed 29 Oct; test:chat-asks-by-fact);
  *   - the test's own wording table maps the chat's row-1 questions (what they want, whether
  *     anything is filed, the main dates) by its own rows, not by the site's wording map, and the
  *     depth question "How much is still owing" to the amount.
@@ -44,8 +45,10 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
 {
   const bad = KNOWN_REPEATS.filter((entry) => !(entry.reason.trim().split(/\s+/).length >= 8) || !Number.isInteger(entry.auditRow) || entry.auditRow < 1 || entry.auditRow > 12 || (entry.fact === undefined && entry.questionId === undefined) || !entry.surface);
   check("every known repeat has a reason in words, an audit row 1-12, a surface, and a fact or question", bad.length === 0, JSON.stringify(bad));
-  check("the list holds the site owner's entry: children asked twice in the w6-family-children chat", KNOWN_REPEATS.some((entry) => entry.surface === "chat-reply" && entry.fact === "children" && entry.stories?.includes("w6-family-children")));
-  check("the list holds the audit's row 1 chat questions (wants, filed, main dates)", ["wants", "filed", "whenHappened"].every((fact) => KNOWN_REPEATS.some((entry) => entry.auditRow === 1 && entry.surface === "chat-reply" && entry.fact === fact)));
+  // Row 1 is fixed (29 Oct): every chat asks by fact through the one gate (caseFile.ts chatMayAsk),
+  // checked through the route by test:chat-asks-by-fact. No entry may excuse a chat question again.
+  const chatExcuses = KNOWN_REPEATS.filter((entry) => entry.surface === "chat-reply" || entry.surface === "chat" || entry.surface === "chat-story");
+  check("no known repeat excuses a chat question (row 1 fixed: the chats read the case file)", chatExcuses.length === 0, JSON.stringify(chatExcuses));
 }
 
 // 2. The held check: a question whose fact the saved case holds fails; one it does not hold passes.
@@ -84,11 +87,13 @@ const ask = (surface: string, id: string, text = id): Asked => ({ kind: "ask", s
 
 // 4. The known list excuses its own entries, in its stories, and nothing else.
 {
+  // A list of its own (the real list changes as the site is fixed: row 1 was deleted on 29 Oct).
+  const list: KnownRepeat[] = [{ surface: "chat-reply", fact: "children", stories: ["w6-family-children"], reason: "a test entry", auditRow: 1 }];
   const children: Violation = { rule: "held", fact: "children", surface: "chat-reply", id: "Are there any children involved?", screen: "/builder", text: "", detail: "held answered" };
-  check("a known repeat is excused in its story", knownRepeatFor(children, "w6-family-children") !== null);
-  check("the same repeat in another story is not excused", knownRepeatFor(children, "m17-common-law-house") === null);
+  check("a known repeat is excused in its story", knownRepeatFor(children, "w6-family-children", list) !== null);
+  check("the same repeat in another story is not excused", knownRepeatFor(children, "m17-common-law-house", list) === null);
   const stranger: Violation = { ...children, surface: "review-entry", fact: "amount" };
-  const split = splitKnown([children, stranger], "w6-family-children");
+  const split = splitKnown([children, stranger], "w6-family-children", list);
   check("an unknown violation is not excused", split.known.length === 1 && split.unknown.length === 1 && split.unknown[0] === stranger);
   const blank: KnownRepeat[] = [{ surface: "review-entry", reason: "an entry naming neither a fact nor a question excuses nothing", auditRow: 7 }];
   check("an entry naming neither a fact nor a question excuses nothing", knownRepeatFor(stranger, "any", blank) === null);

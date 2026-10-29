@@ -102,6 +102,20 @@ const FACTS: Record<string, readonly CaseFact[]> = {
   serviceDetailsText: ["claimServed"],
   evidenceText: ["evidence"],
   disputeCategory: ["claimKind"],
+  // The follow-up chat's own questions, by the fact each asks for (never ask twice, row 1, 29 Oct):
+  // the chat asks by fact, through the one gate, never by comparing its own wording. Each question
+  // the chat writes carries one of these ids (conversationIntelligenceEngine.ts, its issue frameworks,
+  // the general question's parts in guidedAssistantOrchestrator.ts); a question that comes only as
+  // words (a reasoning profile's first questions) is read to one by chatQuestionId below.
+  "chat:main-dates": ["whenHappened"],
+  "chat:anything-filed": ["filed"],
+  "chat:outcome": ["wants"],
+  "chat:other-party": ["otherParty"],
+  "chat:order-or-court-date": ["filed", "courtDate"],
+  "chat:amount": ["amount"],
+  "chat:served-date": ["servedDate"],
+  "chat:children": ["children"],
+  "chat:proof": ["evidence"],
 };
 
 /** The facts a question asks for: its listed facts, or a fact of its own (its id). */
@@ -123,6 +137,33 @@ const ASKS_FOR: [RegExp, CaseFact][] = [
 
 export function factOfAskedText(question: string): CaseFact | null {
   return ASKS_FOR.find(([asks]) => asks.test(question))?.[1] ?? null;
+}
+
+/**
+ * The chat's questions that reach it only as words (the reasoning profiles' first questions, an
+ * issue framework's), read to the chat question id they ask by: these rows first (the chat's own
+ * sentences: "What are you asking the court to change?", "Is there already a court order or
+ * agreement?"), then the one word reader above. Chat only: a home-page answer is never read by these.
+ */
+const CHAT_ASKS: [RegExp, string][] = [
+  [/\bis there already a court order\b[^?]*\b(?:conference|court date|hearing)\b/i, "chat:order-or-court-date"],
+  [/\bis there already a court (?:order|case)\b|\bhas anything (?:already )?been (?:filed|started)\b/i, "chat:anything-filed"],
+  [/\bwhat are the (?:main|key) dates\b/i, "chat:main-dates"],
+  [/\bwhat are you (?:trying to (?:get|fix|change|achieve)|asking the court)\b/i, "chat:outcome"],
+  [/\bwhich (?:public|government) (?:actor|authority|body)\b|\bis the main concern with someone else\b/i, "chat:other-party"],
+  [/\b(?:are there|do you have) (?:any )?(?:children|kids)\b|\bdoes (?:this|the case) involve (?:any )?child/i, "chat:children"],
+];
+const CHAT_ID_OF_FACT: Partial<Record<CaseFact, string>> = {
+  wants: "chat:outcome", amount: "chat:amount", servedDate: "chat:served-date", filed: "chat:anything-filed",
+  otherParty: "chat:other-party", whenHappened: "chat:main-dates",
+};
+
+/** The chat question id a chat sentence asks by; the words themselves (a fact of their own) when they name no fact. */
+export function chatQuestionId(words: string): string {
+  const own = CHAT_ASKS.find(([asks]) => asks.test(words))?.[1];
+  if (own) return own;
+  const fact = factOfAskedText(words);
+  return (fact && CHAT_ID_OF_FACT[fact]) || words;
 }
 
 export function factsOfQuestion(id: string, surface?: string): string[] {

@@ -255,6 +255,9 @@ jobs:
       - name: Never ask twice -- the story pack's held check, known repeats and chat wording table
         run: npm run test:never-ask-twice
 
+      - name: Every chat asks by fact -- a fact the saved case holds is never asked by a chat (row 1)
+        run: npm run test:chat-asks-by-fact
+
       - name: Chrome 29 Oct -- forms built from the case file (known problems listed)
         run: npm run test:forms-from-case-file
 

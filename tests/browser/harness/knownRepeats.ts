@@ -31,22 +31,8 @@ export type KnownRepeat = {
 };
 
 export const KNOWN_REPEATS: readonly KnownRepeat[] = [
-  {
-    surface: "chat-reply", fact: "wants", auditRow: 1,
-    reason: "The follow-up chat's closing questions are fixed sentences (conversationIntelligenceEngine.ts) that do not read the case file, so it asks what the person wants to get or fix after they said so.",
-  },
-  {
-    surface: "chat-reply", fact: "filed", auditRow: 1,
-    reason: "The follow-up chat asks whether anything has been filed, served or ordered even when the start answers or the forms already said so; its fixed question does not read the case file.",
-  },
-  {
-    surface: "chat-reply", fact: "whenHappened", auditRow: 1,
-    reason: "The follow-up chat asks for the main dates, including when the problem happened, after the person gave when it happened; its fixed question does not read the case file.",
-  },
-  {
-    surface: "chat-reply", fact: "children", stories: ["w6-family-children"], auditRow: 1,
-    reason: "Site owner, 28 Oct: the follow-up chat asks about the children after the Family questions recorded them; the chat's question does not read the case file. On the list until the chat reads it.",
-  },
+  // Row 1 (the chats asking by wording) fixed 29 Oct: every chat asks by fact through the one gate
+  // (caseFile.ts chatMayAsk), checked by test:chat-asks-by-fact; its four entries are deleted.
   // Row 3, seen in never-ask-twice-reading.spec.ts (a fixed reading in place of the model's).
   {
     surface: "form-field", fact: "wants", stories: ["home-reading-sc-form"], auditRow: 3,
