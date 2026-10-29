@@ -20,6 +20,7 @@ import SafetyNotice from "./SafetyNotice";
 import FirstUseAcknowledgement from "./FirstUseAcknowledgement";
 import { adoptStored, checkpointMatches, createCheckpointCase, intakeId, loadCheckpointCase, readCheckpoint, readIntakeSession, record, saveCheckpoint, saveReviewTransition, writeIntakeSession, type Checkpoint, type CheckpointRow, type IntakeCourt } from "../../src/lib/case-system/intakeCheckpoint";
 import { canonicalJson } from "../../src/lib/case-system/canonicalJson";
+import { WorkingButton } from "./Working";
 
 async function readAuthSession() {
   const request = new IntakeRequest();
@@ -111,6 +112,8 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   const [failed, setFailed] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  // "Retry saving intake" while its save runs: it says so, and is not pressed twice (fresh review, 28 Oct).
+  const [retrying, setRetrying] = useState(false);
   // An unsaved intake in this tab that a new one would overwrite (re-test 2026-10-18).
   const [unsaved, setUnsaved] = useState<{ court: IntakeCourt; flowId: string; signedIn: boolean } | null>(null);
   const discardAllowed = useRef(false);
@@ -467,7 +470,7 @@ function RecoveryProvider({ court, selectedId, requestedFlow, children }: { cour
   return <Context.Provider value={recovery}>
     <div className="mx-auto max-w-6xl px-6 py-3 text-sm" role={failed ? "alert" : "status"} data-testid="intake-save-status">
       {notice}{" "}
-      {failed && <button type="button" className="underline" onClick={() => recovery ? void recovery.flush().catch(() => {}) : setAttempt((value) => value + 1)}>Retry saving intake</button>}{" "}
+      {failed && <WorkingButton className="underline" working={retrying} workingLabel="Saving intake…" onClick={async () => { if (!recovery) { setAttempt((value) => value + 1); return; } setRetrying(true); try { await recovery.flush(); } catch { /* the notice says what failed */ } finally { setRetrying(false); } }}>Retry saving intake</WorkingButton>}{" "}
       {(recovery || failed) && (!recovery?.ownerId || failed) && <a className="underline" href={`/login?next=${encodeURIComponent(here)}`} onClick={(event) => { event.preventDefault(); startSignIn(); }}>{recovery && !recovery.ownerId ? "Sign in or create a free account (what you entered comes with you)" : "Sign in for account recovery"}</a>}
       {conflict && recovery?.getCaseId() && <a className="underline" href={`/builder?path=${court}&caseId=${recovery.getCaseId()}`} target="_blank" rel="noopener noreferrer">Open the saved intake separately</a>}
       {!recovery && failed && <> · <a className="underline" href={`/builder?path=${court}`}>Start a new intake</a></>}

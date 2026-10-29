@@ -121,10 +121,10 @@ assert.doesNotMatch(
 );
 
 const formsSource = readFileSync("app/forms/FormsWorkspace.tsx", "utf8");
-const generateRequestSource = formsSource.slice(
-  formsSource.indexOf("async function generateFilledForm"),
-  formsSource.indexOf("return ("),
-);
+// From generateFilledForm to the next "return (" AFTER it: the first in the file was another component's once
+// one was added above (28 Oct), and the slice came out empty.
+const generateStart = formsSource.indexOf("async function generateFilledForm");
+const generateRequestSource = formsSource.slice(generateStart, formsSource.indexOf("return (", generateStart));
 assert.match(
   generateRequestSource,
   /supabase\.auth\.getSession\(\)[\s\S]*Authorization: `Bearer \$\{session\.access_token\}`/,

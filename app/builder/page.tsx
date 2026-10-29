@@ -56,6 +56,7 @@ import {
   withReplayedPosition,
   type PositionGenerations,
 } from "./_components/positionSave";
+import { WorkingNote } from "../_components/Working";
 import { updateMasterResult } from "@/src/lib/case-system/updateCaseRecord";
 import type { ServiceMethod } from "@/src/lib/case-system/deadlines/serviceEffectiveDate";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
@@ -2329,7 +2330,7 @@ function BuilderPageContent() {
                 {guidedAnalysisError ? (
                   <div role="alert" data-testid="guided-analysis-error" className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                     {guidedAnalysisError}{" "}
-                    {lastGuidedResult.current ? <button type="button" data-testid="guided-analysis-retry" onClick={() => void handleGuidedComplete(lastGuidedResult.current!)} className="font-semibold underline">Try again</button> : null}
+                    {lastGuidedResult.current ? <button type="button" data-testid="guided-analysis-retry" data-replaced-while-working="the retry clears the error and shows the analysing note" onClick={() => void handleGuidedComplete(lastGuidedResult.current!)} className="font-semibold underline">Try again</button> : null}
                   </div>
                 ) : null}
               </div>
@@ -2738,6 +2739,8 @@ function BuilderPageContent() {
                 <button type="button" onClick={() => goToCaseSection("documents")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Add documents and evidence</button>
                 <button type="button" onClick={() => goToCaseSection("forms")} disabled={savingMaster || !savedCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Check official forms</button>
               </div>
+              {/* The case is still being saved: the three buttons wait for it, and say why (owner, 28 Oct). */}
+              <WorkingNote working={savingMaster}>Saving your case… these open once it is saved.</WorkingNote>
               {confirmedStage && COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && offerRespondingDraft && savedCaseId() && respondingDocumentTitle(courtPath) ? (
                 /* Page walkthrough, 2026-10-06: the draft button sat far below
                    the deadline, so a served person could start drafting without

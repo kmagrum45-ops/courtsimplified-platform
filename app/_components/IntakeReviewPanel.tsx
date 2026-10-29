@@ -19,6 +19,7 @@ import StoryChangedNotice from "./StoryChangedNotice";
 import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
 import { canReview, initialAnswersOf, reviewQuestionField, inputRevision, remainingEssentialQuestions, reviewEntries, reviewPhase, suggestInitialAnswers, type ReviewEntry } from "../../src/lib/case-system/intakeReview";
 import NextStepStatus, { nextStepPressed, useNextStepReading } from "./NextStepStatus";
+import { WorkingNote } from "./Working";
 
 /** What an answer with no line of its own is, in words. */
 const HIDDEN_ANSWER_NAMES: Record<string, string> = {
@@ -326,6 +327,6 @@ export default function IntakeReviewPanel() {
       <StoryChangedNotice where="button" /></>}
     {waiting && phase === "user-confirmed" && <p data-testid="intake-continue-waiting" role="status" className="mt-2 text-sm">Finish the step shown below first; your next step will then appear.</p>}
     {error && <p role="alert">{error}</p>}
-    {busy && <p role="status">Saving your review...</p>}
+    <WorkingNote working={busy}>Saving your review…</WorkingNote>
   </section>;
 }

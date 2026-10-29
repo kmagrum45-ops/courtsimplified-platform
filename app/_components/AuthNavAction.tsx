@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../src/lib/supabase/client";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { startSignIn } from "./startSignIn";
+import { WorkingButton } from "./Working";
 
 /**
  * Single nav slot that reads as "Sign in" or "My Workspace" depending on
@@ -20,6 +21,7 @@ import { startSignIn } from "./startSignIn";
 export default function AuthNavAction({ className, account = false, emailClassName = "" }: { className?: string; account?: boolean; emailClassName?: string }) {
   const [email, setEmail] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(false);
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -42,6 +44,7 @@ export default function AuthNavAction({ className, account = false, emailClassNa
   }, []);
 
   async function logOut() {
+    setLeaving(true);
     // As the dashboard's Log out: clear first, so nothing survives even if the request fails.
     resetIntakeInBrowser();
     await supabase.auth.signOut().catch(() => {});
@@ -71,9 +74,9 @@ export default function AuthNavAction({ className, account = false, emailClassNa
         </span>
       ) : null}
       {workspace}
-      <button type="button" data-testid="header-log-out" onClick={() => void logOut()} className="text-sm font-semibold text-[#2f7d67] underline">
+      <WorkingButton data-testid="header-log-out" working={leaving} workingLabel="Logging out…" onClick={() => void logOut()} className="text-sm font-semibold text-[#2f7d67] underline">
         Log out
-      </button>
+      </WorkingButton>
     </>
   );
 }

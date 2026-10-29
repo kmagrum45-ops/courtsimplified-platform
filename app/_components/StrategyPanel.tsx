@@ -49,7 +49,7 @@ export default function StrategyPanel({ story, courtPath, side, caseId = null }:
     <div data-testid="strategy-panel" className="text-sm leading-6 text-[#24463d]">
       <p className="mb-3 text-xs text-[#4d675f]">{STRATEGY_INTRO}</p>
       {state === "idle" ? (
-        <button type="button" onClick={build} className="rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white hover:bg-[#256553]">
+        <button type="button" data-replaced-while-working="the panel shows the working line instead (state leaves idle)" onClick={build} className="rounded-full bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white hover:bg-[#256553]">
           Build my case strategy
         </button>
       ) : null}

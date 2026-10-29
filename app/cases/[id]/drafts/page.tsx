@@ -42,6 +42,7 @@ import { originatingDocumentRecorded, respondingDocumentStillDue } from "../../.
 import type { StoredCaseData } from "../../../builder/_components/builderTypes";
 import { caseRouteWrite } from "../../../builder/_components/positionSave";
 import { authHeaders, formatDate, useCaseHome } from "../../_components/CaseHomeContext";
+import { WorkingButton } from "@/app/_components/Working";
 
 type SaveState = "idle" | "saving" | "saved" | "failed";
 
@@ -69,6 +70,7 @@ export default function CaseDraftsSection() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [savedAt, setSavedAt] = useState<string>("");
+  const [savingLegacy, setSavingLegacy] = useState(false);
   const [message, setMessage] = useState("");
   const [timeline, setTimeline] = useState<TimelineEntry[] | null>(null);
   const [legacy, setLegacy] = useState<CaseDraft | null>(null);
@@ -253,10 +255,17 @@ export default function CaseDraftsSection() {
             &ldquo;{legacy.title}&rdquo; was kept only on this device. Save it to your case so you can open it anywhere.
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
-            <button
-              type="button"
+            <WorkingButton
+              working={savingLegacy}
+              workingLabel="Saving it to your case…"
               onClick={async () => {
-                await create(legacy);
+                // Once: a second press while it saves would save it twice (fresh review, 28 Oct).
+                setSavingLegacy(true);
+                try {
+                  await create(legacy);
+                } finally {
+                  setSavingLegacy(false);
+                }
                 try {
                   localStorage.removeItem(legacyKey(caseId));
                 } catch {
@@ -264,10 +273,10 @@ export default function CaseDraftsSection() {
                 }
                 setLegacy(null);
               }}
-              className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white"
+              className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
             >
               Save it to this case
-            </button>
+            </WorkingButton>
             <button type="button" onClick={() => setLegacy(null)} className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#24463d]">
               Not now
             </button>

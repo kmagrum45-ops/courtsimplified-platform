@@ -39,6 +39,7 @@ import { municipalNoticeFirst } from "@/src/lib/content-library/municipalNoticeF
 import { storyQuoteFor } from "@/src/lib/case-system/intake/claimKind";
 import { alreadyAsked, caseFileOf } from "@/src/lib/case-system/caseFile/caseFile";
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
+import { WorkingButton, WorkingNote } from "@/app/_components/Working";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -1417,7 +1418,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
             <p className="font-semibold text-[#16302b]">Your story</p>
             <p className="mt-1 whitespace-pre-wrap text-[#2b4640]">{story}</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              <button type="button" data-testid="guided-send-saved-story" disabled={loading} onClick={handleStorySubmit} className="rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white disabled:opacity-50">Send my story</button>
+              <WorkingButton data-testid="guided-send-saved-story" working={loading} workingLabel="Reading your story…" onClick={handleStorySubmit} className="rounded-xl bg-[#2f7d67] px-4 py-2 font-semibold text-white disabled:opacity-50">Send my story</WorkingButton>
               <button type="button" onClick={() => setShowSavedStory(false)} className="rounded-xl border border-[#d8e6df] px-4 py-2 font-semibold text-[#2f7d67]">Edit my story</button>
             </div>
           </div>
@@ -1516,14 +1517,16 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
               </div>
             )))}
           </div>
-          <button
-            type="button"
-            disabled={loading}
+          <WorkingNote working={loading}>Saving what you confirmed and finding the next question…</WorkingNote>
+          <WorkingButton
+            data-testid="story-proposals-continue"
+            working={loading}
+            workingLabel="Working on it…"
             onClick={handleConfirmProposals}
             className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
           >
-            {loading ? "..." : "Looks right, continue"}
-          </button>
+            Looks right, continue
+          </WorkingButton>
         </div>
       ) : null}
 
@@ -1552,6 +1555,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
           <p className="mt-1 text-xs text-[#6b5a26]">
             AI suggestion only, not a determination of your case -- nothing is applied until you confirm it.
           </p>
+          <WorkingNote working={resolvingSuggestion}>Saving your answer about the kind of claim…</WorkingNote>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
@@ -1567,7 +1571,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
               onClick={() => void resolveSuggestion("reject")}
               className="rounded-full border border-[#c9b26a] bg-white px-4 py-2 text-xs font-bold text-[#4a3b12] disabled:opacity-60"
             >
-              {resolvingSuggestion ? "..." : "No, not that one"}
+              No, not that one
             </button>
             {/* Now that the next question waits on this one, there has to be a
                 way past it that applies nothing (suggest, never decide). */}
@@ -1614,7 +1618,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
         intakeComplete true and depthActive still false -- exactly what this
         guard was keying on. `loading` is the one flag already true for that
         whole window (set at the top of startDepthPhase, before its await),
-        so adding it here keeps the input area (and its "..." Send button)
+        so adding it here keeps the input area (and its Send button)
         showing through the gap instead of a premature "complete" label.
       */}
       {readingOutdated || (!started && showSavedStory && story.trim()) ? null : !halted && (proposalDrafts || suggestionFirst) ? null : !halted && (!intakeComplete || depthActive || loading) ? (
@@ -1645,14 +1649,15 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
               }
             }}
           />
-          <button
-            type="button"
-            disabled={loading || !inputText.trim()}
+          <WorkingButton
+            disabled={!inputText.trim()}
+            working={loading}
+            workingLabel="Sending…"
             onClick={handleSend}
             className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading ? "..." : "Send"}
-          </button>
+            Send
+          </WorkingButton>
         </div>
       ) : (
         <div className="mt-4">
@@ -1685,6 +1690,7 @@ export default function GuidedSmallClaimsIntake({ location, initialStory, onComp
 
       {depthActive ? (
         <div className="mt-3 flex items-center gap-3">
+          {/* Held while a turn runs; the Send button beside it says what is working (fresh review, 28 Oct). */}
           <button
             type="button"
             onClick={handleSkipDepth}

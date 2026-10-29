@@ -39,6 +39,7 @@ import { assertApprovedUserContent } from "../../src/lib/content-library/outputG
 import { formKey, formsStageNote, leadFormsFirst } from "../../src/lib/content-library/forms/caseFormOrder";
 import { situationLine, situationOfCase, stageFromSituation } from "@/src/lib/case-system/situation/situation";
 import { FILE_OPEN_FAILED, openAfterCheck, saveFile } from "@/src/lib/case-workspace/fileFetch";
+import { WorkingButton } from "../_components/Working";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -187,6 +188,28 @@ function getPathLabel(path: CourtPath) {
 /** An official form opened in a new tab only once it arrives; a failure is said (fileFetch.ts, Chrome 28 Oct). */
 async function openOfficialFile(url: string) {
   if (!(await openAfterCheck(url))) alert(FILE_OPEN_FAILED);
+}
+
+/** Opens an official form after checking it is there: says so meanwhile, and is not pressed twice (fresh review, 28 Oct). */
+function OpenOfficialFileButton({ url, className, children }: { url: string; className: string; children: string }) {
+  const [opening, setOpening] = useState(false);
+  return (
+    <WorkingButton
+      working={opening}
+      workingLabel="Opening…"
+      onClick={async () => {
+        setOpening(true);
+        try {
+          await openOfficialFile(url);
+        } finally {
+          setOpening(false);
+        }
+      }}
+      className={className}
+    >
+      {children}
+    </WorkingButton>
+  );
 }
 
 function getPublicUrl(filePath: string) {
@@ -959,15 +982,15 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                         <p className="mt-1 text-[#16302b]">{pendingChoice.label}</p>
                         <p className="mt-1 font-normal text-[#2f7d67]">From your case: {pending.reason} Not saved yet.</p>
                         <div className="mt-2 flex flex-wrap gap-2">
-                          <button
-                            type="button"
+                          <WorkingButton
                             data-testid="forms-suggested-save"
-                            disabled={applicabilitySaving}
+                            working={applicabilitySaving}
+                            workingLabel="Saving…"
                             onClick={() => void saveApplicability({ [group]: { [field]: pending.value } }, { [question.field_path]: pending.reason })}
                             className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
                           >
                             Save this answer
-                          </button>
+                          </WorkingButton>
                           <button type="button" onClick={() => setChangingKept((current) => ({ ...current, [question.field_path]: true }))} className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#2f7d67]">
                             Change
                           </button>
@@ -1018,13 +1041,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
                       <div className="mt-3 flex flex-wrap gap-3">
                         {recommendedForm?.pdf_path ? (
-                          <button
-                            type="button"
-                            onClick={() => void openOfficialFile(getPublicUrl(recommendedForm.pdf_path!))}
-                            className="rounded-full bg-[#163d35] px-4 py-2 font-bold text-white"
-                          >
+                          <OpenOfficialFileButton url={getPublicUrl(recommendedForm.pdf_path!)} className="rounded-full bg-[#163d35] px-4 py-2 font-bold text-white disabled:opacity-70">
                             Open PDF
-                          </button>
+                          </OpenOfficialFileButton>
                         ) : null}
 
                         {recommendedForm && recommendedFormOverlayReady ? (
@@ -1356,13 +1375,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     {form.pdf_path ? (
-                      <button
-                        type="button"
-                        onClick={() => void openOfficialFile(getPublicUrl(form.pdf_path!))}
-                        className="rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white"
-                      >
+                      <OpenOfficialFileButton url={getPublicUrl(form.pdf_path!)} className="rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white disabled:opacity-70">
                         Open PDF
-                      </button>
+                      </OpenOfficialFileButton>
                     ) : null}
 
                     {form.pdf_path && overlayReady ? (
@@ -1389,13 +1404,9 @@ function FormsPageContent({ caseId: caseIdProp, courtPath: courtPathProp, embedd
                     ) : null}
 
                     {form.word_path ? (
-                      <button
-                        type="button"
-                        onClick={() => void openOfficialFile(getPublicUrl(form.word_path!))}
-                        className="rounded-full border border-[#2f7d67] bg-white px-5 py-3 text-sm font-bold text-[#2f7d67]"
-                      >
+                      <OpenOfficialFileButton url={getPublicUrl(form.word_path!)} className="rounded-full border border-[#2f7d67] bg-white px-5 py-3 text-sm font-bold text-[#2f7d67] disabled:opacity-70">
                         Download Word Form
-                      </button>
+                      </OpenOfficialFileButton>
                     ) : null}
 
                     {/* No per-card "write a draft" link: it appeared on clerk-issued forms and on the

@@ -32,6 +32,7 @@ import type { StagePathway } from "@/src/lib/case-system/stage-map/stageMap";
 import { COURT_LABELS, caseTitle, formatDate, type CaseRecord } from "../cases/_components/CaseHomeContext";
 import { nextCountedDate, ontarioToday, reminderLine, type CountedDateReminder } from "../../src/lib/case-workspace/upcomingDeadline";
 import type { TimelineItem } from "../../src/lib/case-workspace/timeline";
+import { WorkingButton } from "../_components/Working";
 
 /** The most cases whose counted dates are fetched for the cards; the rest show none. */
 const REMINDER_CASES = 10;
@@ -139,6 +140,7 @@ export default function DashboardPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [leaving, setLeaving] = useState(false);
   const [reminders, setReminders] = useState<Record<string, CountedDateReminder>>({});
   const ownerRef = useRef<string | null>(null);
   const loadVersion = useRef(0);
@@ -196,11 +198,13 @@ export default function DashboardPage() {
   }
 
   async function logout() {
+    setLeaving(true);
     // Everything, not a hand-kept list: the registry drives it. AuthStorageGuard
     // also clears on SIGNED_OUT; clearing first means nothing survives even if
     // the sign-out request fails.
     resetIntakeInBrowser();
-    await supabase.auth.signOut();
+    // Navigates whatever the sign-out answers, so the button never stays on "Logging out…" (fresh review, 28 Oct).
+    await supabase.auth.signOut().catch(() => {});
     router.push("/login");
   }
 
@@ -235,13 +239,14 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold text-[#10231f]">My cases</h1>
           {email ? <p className="mt-1 text-sm text-[#4f685f]">Signed in as {email}</p> : null}
         </div>
-        <button
-          type="button"
+        <WorkingButton
+          working={leaving}
+          workingLabel="Logging out…"
           onClick={() => void logout()}
           className="rounded-full border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#24463d]"
         >
           Log out
-        </button>
+        </WorkingButton>
       </header>
 
       {error ? (

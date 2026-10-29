@@ -37,6 +37,7 @@ import { claimKindShown, kindsOfClaim, type ClaimKindShown } from "@/src/lib/cas
 import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { savePositionQueued } from "./positionSave";
 import type { Slot } from "@/src/lib/case-system/caseFile/caseFile";
+import { WorkingButton } from "@/app/_components/Working";
 
 type Props = {
   analysis: AnalysisResult;
@@ -559,10 +560,16 @@ function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { c
   const [open, setOpen] = useState(chosen !== "not-sure" && !saidNotSure);
   const [pick, setPick] = useState("");
   const [failed, setFailed] = useState(false);
+  // Which answer is being saved: that button says so, and neither is pressed twice (fresh review, 28 Oct).
+  const [saving, setSaving] = useState<"pick" | "not-sure" | null>(null);
   const kinds = kindsOfClaim(CLAIM_TYPES).slice().sort((a, b) => a.name.localeCompare(b.name));
   const save = async (value: string) => {
+    if (saving) return;
     setFailed(false);
-    if (caseId && !(await savePositionQueued(caseId, { claimKind: value }))) { setFailed(true); return; }
+    setSaving(value === "not-sure" ? "not-sure" : "pick");
+    const saved = !caseId || (await savePositionQueued(caseId, { claimKind: value }));
+    setSaving(null);
+    if (!saved) { setFailed(true); return; }
     onChosen(value);
     setOpen(false);
   };
@@ -577,8 +584,8 @@ function ClaimKindChooser({ caseId, chosen, onChosen, saidNotSure = false }: { c
         {kinds.map((claimType) => <option key={claimType.id} value={claimType.id}>{claimType.name}</option>)}
       </select>
       <span className="mt-2 flex flex-wrap gap-2">
-        <button type="button" data-testid="claim-kind-use" disabled={!pick} onClick={() => void save(pick)} className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">Use this</button>
-        <button type="button" data-testid="claim-kind-not-sure" onClick={() => void save("not-sure")} className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#2f7d67]">I&apos;m not sure</button>
+        <WorkingButton data-testid="claim-kind-use" disabled={!pick || saving !== null} working={saving === "pick"} workingLabel="Saving…" onClick={() => void save(pick)} className="rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">Use this</WorkingButton>
+        <WorkingButton data-testid="claim-kind-not-sure" disabled={saving !== null} working={saving === "not-sure"} workingLabel="Saving…" onClick={() => void save("not-sure")} className="rounded-xl border border-[#d8e6df] px-4 py-2 text-sm font-semibold text-[#2f7d67]">I&apos;m not sure</WorkingButton>
       </span>
       {failed ? <span className="mt-1 block text-sm text-[#8a4b12]">That could not be saved just now. Please try again.</span> : null}
     </span>

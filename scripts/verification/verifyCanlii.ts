@@ -329,6 +329,8 @@ async function main() {
       // No network at all: `fetch(` appears only in a stubbed globalThis.fetch and in synthetic sources its scanner is tested on.
       ["scripts/verification/verifyCaseWriteQueue.ts", "nothing (a stubbed fetch)"],
       ["scripts/verification/verifyGuidedAssistantContext.mjs", "the local site"],
+      // No network at all: `fetch(` appears only in a synthetic source its scanner is tested on.
+      ["scripts/verification/verifyWorkingStates.ts", "nothing (a synthetic source)"],
       ["scripts/verification/verifyWorkspaceRls.ts", "Supabase"],
     ]);
     const SCRIPT_NETWORK = /\bfetch\(|\bcurl\b|\bwget\b|requests\.get|urlopen|page\.goto|https?\.get\(/;

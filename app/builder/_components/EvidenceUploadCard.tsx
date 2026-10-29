@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 
 import { supabase } from "../../../src/lib/supabase/client";
 import { COURT_DECISION_TYPE, DECISION_CAUTION, DECISION_SEARCH_HELP } from "../../../src/lib/case-workspace/courtDecision";
+import { WorkingButton } from "@/app/_components/Working";
 
 /**
  * "Add your documents and photos" on the case summary.
@@ -252,14 +253,14 @@ export default function EvidenceUploadCard({
               className="hidden"
               onChange={(event) => void handleDecision(event.target.files)}
             />
-            <button
-              type="button"
-              disabled={busy}
+            <WorkingButton
+              working={busy}
+              workingLabel="Uploading…"
               onClick={() => decisionInput.current?.click()}
               className="mt-3 rounded-xl border border-[#2f7d67] px-4 py-2 text-sm font-semibold text-[#2f7d67] disabled:opacity-50"
             >
               Choose a court decision
-            </button>
+            </WorkingButton>
           </div>
           {showDocumentsLink ? (
             <a

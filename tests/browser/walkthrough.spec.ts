@@ -315,9 +315,10 @@ async function answerAsPersona(persona: Persona, transcript: string[], question:
 }
 
 async function waitUntilIdle(page: Page) {
-  // While a turn is in flight the intake's buttons read "...".
+  // While a turn is in flight its controls say so (app/_components/Working.tsx, 28 Oct): a button
+  // marked working, or a working note in its card. Idle once none is on the page.
   await expect
-    .poll(async () => page.getByRole("button", { name: "...", exact: true }).count(), { timeout: 180_000 })
+    .poll(async () => page.locator('[data-working="true"], [data-testid="working-note"]').count(), { timeout: 180_000 })
     .toBe(0);
 }
 
