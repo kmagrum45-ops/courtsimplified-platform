@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-194 documented, 26 without a header.
+195 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -129,6 +129,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
 | `npm run test:overview-relevance` | **The overview shows what fits the claim the user confirmed, and nothing is**<br>silently dropped or reworded. |
 | `npm run test:own-answers` | **THE PERSON'S OWN ANSWER WINS, AND NO QUESTION IS DROPPED (Charter re-test, 27 Oct, root cause 2).**<br>Checks, as properties, in all three areas: - an answer given to the story reading's questions on the home page fills the fact its question asks for (caseFile.ts, factsOfQuestion.ts factOfAskedText), declaration and all: "What you want" is the person's own answ |
+| `npm run test:pending-position-saves` | **A SAVE OF THE STEP OR DATES STILL ON ITS WAY SURVIVES A FULL PAGE LOAD (28 Oct, #488 at real speed).**<br>Checks, as properties (pendingPositionSaves.ts, positionSave.ts): - a save is written down before it is sent, and crossed off once the case holds it; - one that finished, even as failed or refused, is crossed off; only one cut off by the page going stays; - re |
 | `npm run test:phase-scope` | **No user reaches an empty screen: a pathway is open only when it has real**<br>content, and a closed one says so at every door. |
 | `npm run test:plain-explanations` | **Plain-language explanations of provisions are shown only when an**<br>independent second model call and code have both found nothing wrong with them (src/lib/case-system/retrieval/explainProvision.ts). |
 | `npm run test:presentation-help` | **Presentation help stays at Level 1: organise, never rewrite, never advise.**<br>COSTS NOTHING. No model call. Reads the vendored corpus off disk and calls pure functions. |
