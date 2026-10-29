@@ -4,6 +4,7 @@ import { authHeaders } from "../../cases/_components/CaseHomeContext";
 import { useIntakeReviewView, useSituation } from "../../_components/IntakeRecovery";
 import { sideOf } from "../../../src/lib/case-system/situation/situation";
 import { reviewPhase } from "../../../src/lib/case-system/intakeReview";
+import { locationOfIntake } from "../../../src/lib/case-system/caseRecord";
 
 // Imported from utils rather than smallClaimsEngine: utils is a leaf module,
 // so a client component gets the constant without pulling an engine into the
@@ -74,16 +75,8 @@ function knownLocation(value: unknown): { province: string; city: string } {
   const intake = record.intake && typeof record.intake === "object"
     ? record.intake as Record<string, unknown>
     : record;
-  const extra = intake.extra && typeof intake.extra === "object"
-    ? intake.extra as Record<string, unknown>
-    : {};
-  const civilInput = extra.civilInput && typeof extra.civilInput === "object"
-    ? extra.civilInput as Record<string, unknown>
-    : {};
-  return {
-    province: clean(extra.province || civilInput.province || extra.yourProvince),
-    city: clean(extra.city || civilInput.city || extra.yourCity),
-  };
+  // Every court's spelling, from the one reader (caseRecord.ts locationOfIntake).
+  return locationOfIntake(intake);
 }
 
 type ValidationState = {

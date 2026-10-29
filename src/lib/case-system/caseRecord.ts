@@ -22,10 +22,12 @@
 
 import { CLAIM_TYPES } from "./intake/claimTypes";
 import { nameRecorded } from "./privacy/modelPayloadNames";
-import { readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
+import { fullDayIn, readCasePosition, settledStage, suggestedDatesFromAnswers, type CasePosition } from "./casePosition";
 import { filingFactsFromDocuments, recordedDocuments } from "./intelligence/answeredQuestions";
 import { userStory } from "./userStory";
 import { recordedAmountOf } from "./amountNotes";
+import { readCheckpoint } from "./intakeCheckpoint";
+import { caseFileOf, withCaseFileDates } from "./caseFile/caseFile";
 import { broadStageOfStep, sideOf as situationSide, situationOfCase, stepFromSituation, type Situation } from "./situation/situation";
 
 export type CourtPath = "small-claims" | "civil" | "family";
@@ -142,8 +144,16 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     if (suggestion.yearAssumed) continue;
     dates[id] = { value: suggestion.value, source: "guided" };
   }
-  for (const [id, value] of Object.entries(position.dateAnswers)) {
-    dates[id] = { value, source: "confirmed" };
+  // The dates the person gave in the questions or the review, which the case file holds and the
+  // step page shows (withCaseFileDates). The position route drops those from dateAnswers as
+  // repeats, so a reader of dateAnswers alone lost them: the timeline, the printable case file
+  // and the deadlines never showed a date answered in the review (item 5, 28 Oct).
+  // The same call the step page makes (app/cases/[id]/page.tsx), so the two cannot differ.
+  const checkpoint = courtPath ? readCheckpoint(master.intakeCheckpoint, courtPath) : null;
+  // A guided answer above keeps its own source; the person's step-page date wins over both.
+  for (const [id, value] of Object.entries(withCaseFileDates(position.dateAnswers, caseFileOf(checkpoint, master), fullDayIn, { twins: false }))) {
+    if (id in position.dateAnswers) dates[id] = { value, source: "confirmed" };
+    else dates[id] ??= { value, source: "intake" };
   }
 
   const documents = recordedDocuments(documentsOf(intake));
@@ -159,10 +169,25 @@ export function readCaseRecord(masterResult: unknown, courtPathColumn?: string |
     otherParty: text(intake.otherParty) || text(extra.otherParty) || text(civil.otherParty),
     // Small Claims saves its court file number as extra.claimNumber (SmallClaimsIntake).
     courtFileNumber: text(civil.courtFileNumber) || text(extra.courtFileNumber) || text(intake.courtFileNumber) || text(extra.claimNumber),
-    city: text(extra.yourCity) || text(extra.city) || text(civil.city),
+    city: locationOfIntake(intake).city,
     story: userStory(intake),
     documents,
     filings: filingFactsFromDocuments(documentsOf(intake)),
+  };
+}
+
+/**
+ * The location a saved case recorded, wherever its court's form keeps it: Small Claims saves
+ * extra.yourProvince / yourCity, civil and Family extra.province / city (civil also civilInput).
+ * The one reader, so no screen reads one spelling and misses the other (item 5, 28 Oct: the
+ * builder's restore read only Small Claims' and asked a civil or Family case for its city again).
+ */
+export function locationOfIntake(intakeData: unknown): { province: string; city: string } {
+  const extra = asRecord(asRecord(intakeData).extra);
+  const civil = asRecord(extra.civilInput);
+  return {
+    province: text(extra.yourProvince) || text(extra.province) || text(civil.province),
+    city: text(extra.yourCity) || text(extra.city) || text(civil.city),
   };
 }
 

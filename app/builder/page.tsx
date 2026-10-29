@@ -21,7 +21,7 @@ import { IntakeRequest } from "../_components/intakeRequest";
 
 import { recordedAmountOf } from "@/src/lib/case-system/amountNotes";
 import { findStage } from "@/src/lib/case-system/stage-map/stageMap";
-import { documentsOf, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
+import { documentsOf, locationOfIntake, storedIntakeValues } from "@/src/lib/case-system/caseRecord";
 import Link from "next/link";
 import { startSignIn } from "../_components/startSignIn";
 import { usePublishNextStepStatus } from "../_components/NextStepStatus";
@@ -771,13 +771,9 @@ function BuilderPageContent() {
        * recorded location, and inventing one attaches a wrong city to a court
        * document. The failure mode is today's behaviour.
        */
-      const storedLocation = asRecord(asRecord(loadedMasterResult.intakeData).extra);
-      const storedCity =
-        typeof storedLocation.yourCity === "string" ? storedLocation.yourCity.trim() : "";
-      const storedProvince =
-        typeof storedLocation.yourProvince === "string"
-          ? storedLocation.yourProvince.trim()
-          : "";
+      // Every court's spelling (Small Claims yourCity, civil and Family city): read where each saves
+      // it, through the one reader (item 5, 28 Oct: a civil or Family case was asked its city again).
+      const { city: storedCity, province: storedProvince } = locationOfIntake(loadedMasterResult.intakeData);
 
       if (storedProvince === "Ontario" && storedCity && !confirmedLocationOf(recovery?.getReview().checkpoint.sections ?? {})) {
         setConfirmedLocation({ province: "Ontario", city: storedCity });

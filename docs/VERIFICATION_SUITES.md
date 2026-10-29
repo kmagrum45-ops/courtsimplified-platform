@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-187 documented, 26 without a header.
+188 documented, 26 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -131,6 +131,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:published-library` | **The published set is what it says it is, and nothing else is servable.**<br>1. IMMUTABLE. The release carries a hash over its own blocks. Editing a published block by hand — fixing a typo, softening a sentence — changes the content without it having passed a single gate, and nothing downstream would know. Recomputing the hash makes th |
 | `npm run test:raw-keys` | **NO RAW FIELD NAME OR CODE ON A SCREEN: the copy guard's own checks (copy/rawKeys.ts).**<br>Checks, as properties: - every stored option value with a hyphen, every stage id and every field or slot name kept in code is found in screen text ("decision-making-responsibility", "upcomingCourtDate", "family:both:case-conference-scheduled"); - the same thin |
 | `npm run test:reachability` | **Every module is reachable from something a user can actually load, or it is**<br>listed here as dormant WITH A REASON. |
+| `npm run test:read-where-saved` | **A SAVED ANSWER IS READ WHERE IT WAS SAVED (site owner, item 5, 2026-10-28).**<br>Checks, as properties, for all three courts: - every date the step page shows from the case file (withCaseFileDates over caseFileOf) is a date of the one case record (readCaseRecord), which the timeline, the printable case file and the deadlines read; and a da |
 | `npm run test:readability` | **Is the content readable by the people it is for?**<br>Content produced by the verified-content pipeline is HELD to Grade 8. That is the standard the pipeline drafts against, so failing it is a real defect in something we control end to end. |
 | `npm run test:readiness-gate` | **Verifies the Statement of Claim readiness gate, offline.**<br>COSTS NOTHING. The gate is a pure function over data the pipeline already holds, so every condition in design section 8 is checkable without an API call. That is a property of the gate, not a limitation of this harness. |
 | `npm run test:reasoning-text-gate` | **The unsourced reasoning prose does not leave the coordinator on any user-facing**<br>path, and the profiles it comes from are still unsourced. |
